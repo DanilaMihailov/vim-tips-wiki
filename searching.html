@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes">
+<meta name="generator" content="MediaWiki 1.19.24" />
+<meta name="keywords" content="Vim Tips Wiki,vim,Searching,VimTip10,Search only in unfolded text,VimTip171,VimTip188,Make search results appear in the middle of the screen,VimTip1146,VimTip1234,VimTip14,VimTip1501,VimTip1543" />
+<meta name="description" content="This tip shows how to search using Vim, including use of* (the super star) to search for the current word. Search options are described, and the see also section links to other useful searching tips. In normal mode you can search forwards by pressing/ (or &amp;lt;kDivide&amp;gt;) then typing your search..." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@getfandom" />
+<meta name="twitter:url" content="https://vim.fandom.com/wiki/Searching" />
+<meta name="twitter:title" content="Searching | Vim Tips Wiki | Fandom" />
+<meta name="twitter:description" content="This tip shows how to search using Vim, including use of* (the super star) to search for the current word. Search options are described, and the see also section links to other useful searching..." />
+<link rel="canonical" href="https://vim.fandom.com/wiki/Searching" />
+<link rel="alternate" type="application/x-wiki" title="Edit" href="/wiki/Searching?action=edit" />
+<link rel="edit" title="Edit" href="/wiki/Searching?action=edit" />
+<link rel="apple-touch-icon" href="https://vignette.wikia.nocookie.net/vim/images/b/bc/Wiki.png/revision/latest?cb=20070515145358" sizes="135x155" />
+<link rel="shortcut icon" href="https://vignette.wikia.nocookie.net/vim/images/6/64/Favicon.ico/revision/latest?cb=20070606151428" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Vim Tips Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://vim.fandom.com/api.php?action=rsd" />
+<link rel="copyright" href="https://www.fandom.com/licensing" />
+<link rel="alternate" type="application/atom+xml" title="Vim Tips Wiki Atom feed" href="/wiki/Special:RecentChanges?feed=atom" />
+<title>Searching | Vim Tips Wiki | Fandom</title>
+
+<!-- CSS injected by skin and extensions -->
+<link rel="stylesheet" href="https://slot1-images.wikia.nocookie.net/__am/1591798434636/sasses/background-dynamic%3D1%26background-image%3D%26background-image-height%3D800%26background-image-width%3D2000%26color-body%3D%2523003816%26color-body-middle%3D%2523bacdd8%26color-buttons%3D%252325883d%26color-community-header%3D%252325883d%26color-header%3D%2523002c11%26color-links%3D%25232b54b5%26color-page%3D%2523ffffff%26oasisTypography%3D1%26page-opacity%3D100%26widthType%3D0%26wordmark-font%3Dcpmono/skins/oasis/css/oasis.scss,extensions/wikia/DesignSystem/styles/design-system.scss,extensions/wikia/CommunityHeader/styles/index.scss,extensions/wikia/PageHeader/styles/index.scss,extensions/wikia/Recirculation/styles/recirculation.scss,extensions/wikia/PortableInfobox/styles/PortableInfobox.scss,extensions/wikia/PortableInfobox/styles/PortableInfoboxEuropaTheme.scss,extensions/wikia/AdEngine3/dist/styles.scss,extensions/wikia/Qualaroo/css/Qualaroo.scss" /><link rel="stylesheet" href="/load.php?cb=1591798434636&debug=false&lang=en&modules=site&only=styles&skin=oasis&*" /><style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: vim:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */</style>
+
+
+<script>
+var Wikia={},
+wgUseSiteJs=true,
+wgWikiVertical="lifestyle",
+wgWikiCategories=["tech"],
+wgMessages={"categoryselect-button-save":"Save","categoryselect-category-add":"Add category...","categoryselect-category-edit":"Edit category","categoryselect-category-remove":"Remove category","categoryselect-error-category-name-length":"The maximum length for a category name has been reached.","categoryselect-error-duplicate-category-name":"Category \"$1\" already exists.","categoryselect-error-empty-category-name":"Please provide a category name.","categoryselect-modal-category-name":"Provide the name of the category:","categoryselect-modal-category-sortkey":"Optionally, you may alphabetize this page on the \"$1\" category page under the name:","categoryselect-tooltip-add":"Press the Enter or Return key when done."},
+wgOnSiteNotificationsApiUrl="https://services.fandom.com/on-site-notifications",
+JSSnippetsStack=[],
+ads={"context":{"bidders":[],"opts":{"adsInContent":1,"enableCheshireCat":true,"pageType":"all_ads","showAds":true},"targeting":{"enablePageCategories":true,"esrbRating":"teen","mappedVerticalName":"life","newWikiCategories":["tech"],"pageArticleId":1765,"pageIsArticle":true,"pageName":"Searching","pageType":"article","wikiCategory":"tech","wikiDbName":"vim","wikiId":"2827","wikiLanguage":"en","wikiVertical":"lifestyle"}},"runtime":{"disableBtf":false}},
+adslots2=[],
+wgGaHasAds=true,
+wgAfterContentAndJS=[],
+wgCdnRootUrl="https://slot1-images.wikia.nocookie.net",
+wgCdnApiUrl="https://api.wikia.nocookie.net/__cb1591798434636",
+Mercury=null,
+wgDBname="vim",
+wgCityId="2827",
+wgContentLanguage="en",
+wgUserName=null,
+wgArticleId=1765,
+wgVideoBridgeCountries=["US","UK","GB","CA","AU","DE","SG","MY"],
+wgCategories=["VimTip","Getting started","Searching"],
+wgPageName="Searching",
+wikiaPageType="article",
+wikiaPageIsCorporate=false,
+wgArticleType="",
+wgNamespaceNumber=0,
+skin="oasis",
+_gaq=[],
+wgIsGASpecialWiki=null,
+wgStyleVersion="1591798434636",
+wgTransactionContext={"type":"page/main/view/oasis/no_parser/average","env":"prod","php_version":"7.3.11","wiki":"vim","entry_point":"page","namespace":0,"logged_in":false,"action":"view","skin":"oasis","parser_cache_used":true,"size_category":"average"},
+wgDiscussionsApiUrl="https://services.fandom.com/discussion",
+wgCookieDomain=".fandom.com",
+wgCookiePath="/",
+wgAffiliateEnabled=true,
+disclaimerMessage="Fandom may earn an affiliate commission on sales made from links on this page.";
+</script><script>window.mw||(mw={fk:1,loader:{state:function(s){preMwLdrStA=window.preMwLdrStA||[];preMwLdrStA.push(s)}}});</script>
+<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MDPTN53');</script><!-- End Google Tag Manager --><script>var wgNow = new Date();</script>
+<script src="https://slot1-images.wikia.nocookie.net/__load/-/cb%3D1591798434636%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Doasis/wikia.ext.abt3sting"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__load/-/cb%3D1591798434636%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Doasis/amd|wikia.tracker.stub,stub|wikia.abTest,cache,cookies,document,geo,location,log,querystring,window"></script>
+<script>/*<![CDATA[*/window.mw.fk&&delete mw;/*]]>*/</script>
+<!-- Wikia Beacon Tracking -->
+<script>
+	(function () {
+		function genUID() {
+			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+				var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+				return v.toString(16);
+			});
+		}
+
+		function getCookieValue(cookieName) {
+			var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+
+			return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+		}
+
+		var expireDate = new Date(),
+			beacon = getCookieValue('wikia_beacon_id'),
+			sessionId = getCookieValue('tracking_session_id'),
+			pvNumber = getCookieValue('pv_number'),
+			pvNumberGlobal = getCookieValue('pv_number_global');
+
+		if (beacon) {
+			window.beacon_id = beacon;
+		}
+
+		window.sessionId = sessionId ? sessionId : genUID();
+		window.pvNumber = pvNumber ? parseInt(pvNumber, 10) + 1 : 1;
+		window.pvNumberGlobal = pvNumberGlobal ? parseInt(pvNumberGlobal, 10) + 1 : 1;
+		window.pvUID = genUID();
+
+		expireDate = new Date(expireDate.getTime() + 1000 * 60 * 30);
+		document.cookie = 'tracking_session_id=' + window.sessionId + '; expires=' + expireDate.toGMTString() +
+			';domain=' + window.wgCookieDomain + '; path=' + window.wgCookiePath + ';';
+		document.cookie = 'pv_number=' + window.pvNumber + '; expires=' + expireDate.toGMTString() +
+			'; path=' + window.wgCookiePath + ';';
+		document.cookie = 'pv_number_global=' + window.pvNumberGlobal + '; expires=' + expireDate.toGMTString() +
+			';domain=' + window.wgCookieDomain + '; path=' + window.wgCookiePath + ';';
+	})();
+</script>
+<script type="text/javascript" src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/groups/-/abtesting,oasis_blocking,universal_analytics_js,adengine3_top_js,tracking_opt_in_js,qualaroo_blocking_js"></script>
+<!-- Make IE recognize HTML5 tags. -->
+<!--[if IE]>
+	<script>/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)})@*/</script>
+<![endif]-->
+
+
+	<meta property="fb:app_id" content="112328095453510" prefix="fb: http://www.facebook.com/2008/fbml" />
+	<meta property="og:type" content="article" />
+	<meta property="og:site_name" content="Vim Tips Wiki" />
+	<meta property="og:title" content="Searching" />
+	<meta property="og:description" content="This tip shows how to search using Vim, including use of* (the super star) to search for the current word. Search options are described, and the see also section links to other useful searching tips. In normal mode you can search forwards by pressing/ (or &lt;kDivide&gt;) then typing your search pattern. Press Esc to cancel or press Enter to perform the search. Then press n to search forwards for the next occurrence, or N to search backwards. Type ggn to jump to the first match, or GN to jump to..." />
+	<meta property="og:url" content="https://vim.fandom.com/wiki/Searching" />
+	<meta property="og:image" content="https://images.wikia.com/vim/images/b/bc/Wiki.png" />
+<meta name="apple-itunes-app" content="app-id=422467074, app-arguments=https://vim.fandom.com/wiki/Searching">
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Searching  oasis-breakpoints skin-oasis  user-anon background-not-tiled background-dynamic wiki-vim" >
+	<div class="background-image-gradient"></div>
+
+<!-- Wikia Beacon Tracking -->
+<script>
+	require(['wikia.trackingOptIn'], function (trackingOptIn) {
+		trackingOptIn.pushToUserConsentQueue(function (optIn) {
+			function getCookieValue(cookieName) {
+				var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+
+				return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+			}
+
+			var script = document.createElement('script'),
+				utma = getCookieValue('__utma'),
+				utmb = getCookieValue('__utmb'),
+				trackUrl;
+
+			trackUrl = "https://beacon.wikia-services.com/__track/view?cb=1591798434636&c=2827&lc=en&lid=75&x=vim&y=c1&a=1765&s=oasis&&n=0" + ((typeof document.referrer != "undefined") ? "&r=" + encodeURIComponent(document.referrer) : "") +
+					"&rand=" + (new Date).valueOf() + (window.beacon_id ? "&beacon=" + window.beacon_id : "") +
+					(utma && utma[1] ? "&utma=" + utma[1] : "") + (utmb && utmb[1] ? "&utmb=" + utmb[1] : "") +
+					'&session_id=' + window.sessionId + '&pv_unique_id=' + window.pvUID + '&pv_number=' + window.pvNumber +
+					'&pv_number_global=' + window.pvNumberGlobal;
+
+			if (optIn) {
+				
+				trackUrl += '&u=' + '0';
+			} else {
+				trackUrl += '&u=-1';
+			}
+
+			script.src = trackUrl;
+			document.head.appendChild(script);
+		});
+	});
+</script>
+
+<script>
+	require(['wikia.trackingOptIn'], function (trackingOptIn) {
+		trackingOptIn.init();
+	});
+</script>
+
+
+<!-- Begin comScore Tag -->
+<script type="text/javascript">
+require(["wikia.trackingOptIn"], function (trackingOptIn) {
+	function loadComscoreScript() {
+		window._comscore = window._comscore || [];
+		window._comscore.push({ c1: "2", c2: "6177433",
+			options: {
+				url_append: "comscorekw=wikiacsid_lifestyle"
+			}
+		});
+	
+		var s = document.createElement("script");
+		s.async = true;
+		s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+		document.head.appendChild(s);
+	}
+
+	trackingOptIn.pushToUserConsentQueue(function (optIn) {
+		if (optIn) {
+			loadComscoreScript();
+		}
+	});
+});
+</script>
+<!-- End comScore Tag -->
+<!-- Start for QuantServe, page_view -->
+<script type="text/javascript">
+	window._qevents = window._qevents || [];
+
+	require(["wikia.trackingOptIn"], function (trackingOptIn) {
+		function loadQuantServeScript() {
+			var elem = document.createElement('script');
+			
+			elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+			elem.async = true;
+			elem.type = "text/javascript";
+			
+			document.head.appendChild(elem);
+		}
+
+		trackingOptIn.pushToUserConsentQueue(function (optIn) {
+			if (optIn) {
+				loadQuantServeScript();
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+	_qevents.push( { qacct:"p-8bG6eLqkH6Avk", labels:"" } );
+</script>
+<div class="WikiaSiteWrapper">
+	
+
+	<h2>FANDOM</h2>
+
+<div id="ad-skin" class="wikia-ad noprint"></div>
+
+<div class="wds-global-navigation-wrapper">
+	<div id="globalNavigation" class="wds-global-navigation wds-search-is-always-visible">
+		<div class="wds-global-navigation__content-bar-left">
+			<a
+				href="https://www.fandom.com"
+				class="wds-global-navigation__logo"
+				data-tracking-label="logo">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 35" class="wds-global-navigation__logo-image" id="wds-company-logo-fandom-white"><g fill="none" fill-rule="evenodd"><path d="M32.003 16.524c0 .288-.115.564-.32.768L18.3 30.712c-.226.224-.454.324-.738.324-.292 0-.55-.11-.77-.325l-.943-.886a.41.41 0 0 1-.01-.59l15.45-15.46c.262-.263.716-.078.716.29v2.46zm-17.167 10.12l-.766.685a.642.642 0 0 1-.872-.02L3.01 17.362c-.257-.25-.4-.593-.4-.95v-1.858c0-.67.816-1.007 1.298-.536l10.814 10.56c.188.187.505.57.505 1.033 0 .296-.068.715-.39 1.035zM5.73 7.395L9.236 3.93a.421.421 0 0 1 .592 0l11.736 11.603a3.158 3.158 0 0 1 0 4.5l-3.503 3.462a.423.423 0 0 1-.59 0L5.732 11.89a3.132 3.132 0 0 1-.937-2.25c0-.85.332-1.65.935-2.246zm13.89 1.982l3.662-3.62a3.232 3.232 0 0 1 2.737-.897c.722.098 1.378.47 1.893.978l3.708 3.667a.41.41 0 0 1 0 .585l-5.64 5.576a.419.419 0 0 1-.59 0l-5.77-5.704a.411.411 0 0 1 0-.585zm14.56-.687L26.014.475a.869.869 0 0 0-1.228-.002L18.307 6.94c-.5.5-1.316.5-1.82.004l-6.48-6.4A.87.87 0 0 0 8.793.542L.447 8.67C.16 8.95 0 9.33 0 9.727v7.7c0 .392.158.77.44 1.048l16.263 16.072a.87.87 0 0 0 1.22 0l16.25-16.073c.28-.278.438-.655.438-1.048V9.73c0-.39-.153-.763-.43-1.04z" fill="#00D6D6"/><path d="M62.852 20.51l2.58-6.716a.468.468 0 0 1 .87 0l2.58 6.717h-6.03zm5.856-12.428c-.184-.48-.65-.8-1.17-.8h-3.342c-.52 0-.986.32-1.17.8l-7.083 18.5c-.21.552.2 1.14.796 1.14h2.753c.353 0 .67-.215.796-.542l.738-1.922a.849.849 0 0 1 .795-.542h8.088a.85.85 0 0 1 .796.542l.74 1.922c.125.327.44.543.795.543h2.754a.843.843 0 0 0 .796-1.14l-7.082-18.5zm93.504-.8h-2.715a1.86 1.86 0 0 0-1.677 1.047l-5.393 11.162-5.393-11.163a1.858 1.858 0 0 0-1.677-1.047h-2.715a.889.889 0 0 0-.893.883V26.84c0 .487.4.883.892.883h2.608a.889.889 0 0 0 .893-.883v-9.686l4.945 10.072c.15.304.46.497.803.497h1.073a.893.893 0 0 0 .803-.497l4.945-10.072v9.686c0 .487.4.883.894.883h2.608a.889.889 0 0 0 .893-.883V8.166c0-.487-.4-.883-.893-.883zm-106.972 8.8h-8.63V11.49h10.918a.88.88 0 0 0 .83-.578l.888-2.464a.872.872 0 0 0-.83-1.163h-15.18c-.486 0-.88.39-.88.87v18.7c0 .48.394.87.88.87h2.492c.486 0 .88-.39.88-.87V20.29h7.743a.88.88 0 0 0 .83-.578l.89-2.464a.872.872 0 0 0-.83-1.163zm51.76 7.61h-3.615V11.315H107c3.828 0 6.41 2.517 6.41 6.188 0 3.672-2.582 6.19-6.41 6.19zm-.124-16.41h-7.128c-.486 0-.88.39-.88.872v18.698c0 .48.394.87.88.87h7.128c6.453 0 10.912-4.44 10.912-10.16v-.117c0-5.72-4.46-10.162-10.912-10.162zm-11.947.03h-2.642a.87.87 0 0 0-.876.866v12.36l-8.755-12.72a1.242 1.242 0 0 0-1.023-.535H78.32a.873.873 0 0 0-.876.867v18.706c0 .48.393.867.877.867h2.64a.872.872 0 0 0 .878-.867V14.71l8.608 12.478c.23.334.613.535 1.022.535h3.46a.872.872 0 0 0 .877-.867V8.178a.87.87 0 0 0-.876-.867zm40.71 10.3c0 3.323-2.712 6.016-6.056 6.016-3.345 0-6.056-2.693-6.056-6.015v-.22c0-3.322 2.71-6.015 6.056-6.015 3.344 0 6.055 2.693 6.055 6.015v.22zm-6.056-10.44c-5.694 0-10.31 4.576-10.31 10.22v.22c0 5.646 4.616 10.22 10.31 10.22 5.693 0 10.308-4.574 10.308-10.22v-.22c0-5.644-4.615-10.22-10.308-10.22z" fill="#FFF"/></g></svg>			</a>
+							<nav class="wds-global-navigation__links">
+						<a href="https://www.fandom.com/topics/games" class="wds-global-navigation__link"   data-tracking-label="link.games">
+	Games</a>
+								<a href="https://www.fandom.com/topics/movies" class="wds-global-navigation__link"   data-tracking-label="link.movies">
+	Movies</a>
+								<a href="https://www.fandom.com/topics/tv" class="wds-global-navigation__link"   data-tracking-label="link.tv">
+	TV</a>
+								<a href="https://www.fandom.com/video" class="wds-global-navigation__link"   data-tracking-label="link.video">
+	Video</a>
+								<div class="wds-dropdown wds-global-navigation__link-group wds-has-dark-shadow">
+	<div class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle wds-global-navigation__link">
+		<span>Wikis</span>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 12" class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron" id="wds-icons-dropdown-tiny"><defs><path id="dropdown-tiny-a" d="M6.0001895,8.80004571 C5.79538755,8.80004571 5.5905856,8.72164496 5.43458411,8.56564348 L2.23455364,5.365613 C2.00575146,5.13681083 1.93695081,4.79280755 2.06095199,4.4936047 C2.18415316,4.19440185 2.47695595,4 2.80015903,4 L9.20021997,4 C9.52342305,4 9.81542583,4.19440185 9.93942701,4.4936047 C10.0634282,4.79280755 9.99462754,5.13681083 9.76582536,5.365613 L6.56579489,8.56564348 C6.4097934,8.72164496 6.20499145,8.80004571 6.0001895,8.80004571 Z"/></defs><use fill-rule="evenodd" xlink:href="#dropdown-tiny-a"/></svg>	</div>
+	<div class="wds-dropdown__content wds-global-navigation__dropdown-content">
+		<ul class="wds-list wds-is-linked">
+							<li>
+											<a href="https://www.fandom.com/explore"   data-tracking-label="link.explore">
+	Explore Wikis</a>
+									</li>
+							<li>
+											<a href="//community.fandom.com/wiki/Community_Central"   data-tracking-label="link.community-central">
+	Community Central</a>
+									</li>
+							<li>
+											<a href="https://ucp.fandom.com/wiki/Special:CreateNewWiki"
+   class="wds-button wds-is-secondary wds-global-navigation__link-button"
+   data-tracking-label="link.start-a-wiki">
+	Start a Wiki</a>
+									</li>
+					</ul>
+	</div>
+</div>
+			</nav>
+					</div>
+		<div class="wds-global-navigation__content-bar-right">
+			<div class="wds-global-navigation__dropdown-controls">
+				<form class="wds-global-navigation__search-container" action="//vim.fandom.com/wiki/Special:Search">
+	<div class="wds-global-navigation__search">
+		<div class="wds-global-navigation__search-toggle">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" class="wds-icon wds-icon-small wds-global-navigation__search-toggle-icon" id="wds-icons-magnifying-glass-small"><path d="M11.563 11.504l-.03.029-.03.031A4.984 4.984 0 0 1 8 13c-2.757 0-5-2.243-5-5s2.243-5 5-5c2.756 0 5 2.243 5 5a4.983 4.983 0 0 1-1.437 3.504m5.144 3.789l-3.103-3.103A6.963 6.963 0 0 0 15 8c0-3.859-3.141-7-7-7-3.86 0-7 3.141-7 7s3.14 7 7 7a6.956 6.956 0 0 0 4.189-1.396l3.103 3.103a1.001 1.001 0 0 0 1.415-1.414" fill-rule="evenodd"/></svg>			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="wds-icon wds-global-navigation__search-toggle-icon" id="wds-icons-magnifying-glass"><path d="M10.5 18C6.364 18 3 14.636 3 10.5S6.364 3 10.5 3 18 6.364 18 10.5 14.636 18 10.5 18m12.207 3.293l-4.823-4.822A9.455 9.455 0 0 0 20 10.5C20 5.262 15.738 1 10.5 1S1 5.262 1 10.5 5.262 20 10.5 20c2.26 0 4.338-.793 5.97-2.115l4.823 4.822a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414"/></svg>			<span class="wds-global-navigation__search-toggle-text">
+				Search			</span>
+		</div>
+		<div class="wds-dropdown wds-global-navigation__search-dropdown wds-no-chevron wds-has-dark-shadow">
+			<div class="wds-dropdown__toggle wds-global-navigation__search-input-wrapper">
+				<input
+					type="search"
+					class="wds-global-navigation__search-input"
+					name="query"
+					placeholder="Search Vim Tips Wiki..."
+					autocomplete="off"
+											data-suggestions-url="//vim.fandom.com/wikia.php?controller=LinkSuggest&method=getLinkSuggestions&format=json"
+						data-suggestions-param-name="query"
+						data-suggestions-tracking-label="search-suggestion"
+									>
+				<button class="wds-button wds-is-text wds-global-navigation__search-close" type="button">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 12" class="wds-icon wds-icon-tiny wds-global-navigation__search-close-icon" id="wds-icons-close-tiny"><defs><path id="close-tiny" d="M7.426 6.001l4.278-4.279A1.008 1.008 0 1 0 10.278.296L6 4.574 1.723.296A1.008 1.008 0 1 0 .295 1.722l4.278 4.28-4.279 4.277a1.008 1.008 0 1 0 1.427 1.426L6 7.427l4.278 4.278a1.006 1.006 0 0 0 1.426 0 1.008 1.008 0 0 0 0-1.426L7.425 6.001z"/></defs><use fill-rule="evenodd" xlink:href="#close-tiny"/></svg>				</button>
+				<button class="wds-button wds-global-navigation__search-submit"
+					data-tracking-label="search">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 18 18" class="wds-icon wds-icon-small wds-global-navigation__search-submit-icon" id="wds-icons-arrow-small"><defs><path id="arrow-small" d="M8 17a.997.997 0 0 1-.707-.293l-7-7A.983.983 0 0 1 0 9.003v-.006a.988.988 0 0 1 .293-.704l7-7a.999.999 0 1 1 1.414 1.414L3.414 8H17a1 1 0 1 1 0 2H3.414l5.293 5.293A.999.999 0 0 1 8 17"/></defs><use xlink:href="#arrow-small"/></svg>				</button>
+			</div>
+		</div>
+	</div>
+</form>
+													<div class="wds-dropdown wds-global-navigation__user-menu wds-has-dark-shadow wds-global-navigation__user-anon">
+	<div class="wds-dropdown__toggle">
+		<div class="wds-avatar" title="">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="wds-avatar__image" id="wds-icons-avatar"><defs><path id="user-avatar-a" d="M12 11c-.965 0-1.75-.785-1.75-1.75S11.035 7.5 12 7.5s1.75.785 1.75 1.75S12.965 11 12 11m0-5.5a3.754 3.754 0 0 0-3.75 3.75A3.754 3.754 0 0 0 12 13a3.754 3.754 0 0 0 3.75-3.75A3.754 3.754 0 0 0 12 5.5m7.679 12.914c-1.987-2.104-4.727-3.289-7.679-3.289-2.953 0-5.692 1.185-7.679 3.289A9.955 9.955 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10a9.956 9.956 0 0 1-2.321 6.414M12 22a9.995 9.995 0 0 1-6.25-2.187c1.613-1.719 3.844-2.688 6.25-2.688s4.637.969 6.249 2.688A9.993 9.993 0 0 1 12 22m0-22C5.383 0 0 5.383 0 12c0 3.268 1.294 6.33 3.651 8.63l.012.013A12 12 0 0 0 12 24h.036a12.008 12.008 0 0 0 8.306-3.363C22.701 18.341 24 15.273 24 12c0-6.617-5.383-12-12-12"/></defs><use fill-rule="evenodd" xlink:href="#user-avatar-a"/></svg>	</div>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 12" class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron" id="wds-icons-dropdown-tiny"><defs><path id="dropdown-tiny-a" d="M6.0001895,8.80004571 C5.79538755,8.80004571 5.5905856,8.72164496 5.43458411,8.56564348 L2.23455364,5.365613 C2.00575146,5.13681083 1.93695081,4.79280755 2.06095199,4.4936047 C2.18415316,4.19440185 2.47695595,4 2.80015903,4 L9.20021997,4 C9.52342305,4 9.81542583,4.19440185 9.93942701,4.4936047 C10.0634282,4.79280755 9.99462754,5.13681083 9.76582536,5.365613 L6.56579489,8.56564348 C6.4097934,8.72164496 6.20499145,8.80004571 6.0001895,8.80004571 Z"/></defs><use fill-rule="evenodd" xlink:href="#dropdown-tiny-a"/></svg>	</div>
+	<div class="wds-dropdown__content wds-is-right-aligned">
+		<ul class="wds-list wds-has-lines-between">
+			<li>
+				<a class="wds-button wds-is-full-width"
+				   href="https://www.fandom.com/signin?redirect=https%3A%2F%2Fvim.fandom.com%2Fwiki%2FSearching"
+				   rel="nofollow"
+				   data-tracking-label="account.sign-in">
+					Sign In				</a>
+			</li>
+			<li>
+				<div
+					class="wds-global-navigation__user-menu-dropdown-caption">Don&#039;t have an account?</div>
+				<a class="wds-button wds-is-full-width wds-is-secondary"
+				   href="https://www.fandom.com/register?redirect=https%3A%2F%2Fvim.fandom.com%2Fwiki%2FSearching"
+				   rel="nofollow"
+				   data-tracking-label="account.register">
+					Register				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+												<div class="wds-global-navigation__start-a-wiki">
+					<a href="https://ucp.fandom.com/wiki/Special:CreateNewWiki"
+   class="wds-button wds-is-secondary wds-global-navigation__link-button"
+   data-tracking-label="start-a-wiki">
+	Start a Wiki</a>
+				</div>
+							</div>
+		</div>
+        	</div>
+</div>
+<div class="banner-notifications-placeholder">
+	</div>
+<div class="WikiaTopAds" id="WikiaTopAds">
+
+	<div class="WikiaTopAdsInner">
+
+		
+			<!-- BEGIN SLOTNAME: hivi_leaderboard -->
+	<div id="hivi_leaderboard" class="wikia-ad noprint default-height">
+					</div>
+	<!-- END SLOTNAME: hivi_leaderboard -->
+	
+		
+			<!-- BEGIN SLOTNAME: top_leaderboard -->
+	<div id="top_leaderboard" class="wikia-ad noprint default-height">
+					</div>
+	<!-- END SLOTNAME: top_leaderboard -->
+	
+	</div>
+
+	
+			<!-- BEGIN SLOTNAME: invisible_skin -->
+	<div id="invisible_skin" class="wikia-ad noprint default-height">
+					</div>
+	<!-- END SLOTNAME: invisible_skin -->
+	
+</div>
+
+<div id="floor_adhesion" class="wikia-ad noprint"></div>
+<div id="invisible_high_impact_2" class="wikia-ad noprint"></div>
+
+
+
+	<header
+		class="wds-community-header">
+			<div class="wds-community-header__wordmark" data-tracking="wordmark-image">
+			<a accesskey="z" href="//vim.fandom.com">
+				<img src="https://images.wikia.nocookie.net/__cb5/vim/images/8/89/Wiki-wordmark.png"
+					 width="125"
+					 height="60"
+					 alt="Vim Tips Wiki">
+			</a>
+		</div>
+		<div class="wds-community-header__top-container">
+		<div class="wds-community-header__sitename" data-tracking="sitename">
+			<a href="//vim.fandom.com">Vim Tips Wiki</a>
+		</div>
+		<div class="wds-community-header__counter" data-tracking="counter">
+			<span class="wds-community-header__counter-value">1,644</span>
+			<span class="wds-community-header__counter-label">Pages</span>
+		</div>
+		<div class="wds-community-header__wiki-buttons wds-button-group">
+							<a class="wds-button wds-is-secondary createpage"
+				   href="/wiki/Special:CreatePage"
+				   data-tracking="add-new-page" title="Add new page">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" class="wds-icon wds-icon-small" id="wds-icons-page-small"><path d="M10 12v2.586L12.586 12H10zm-6 4h4v-5a1 1 0 0 1 1-1h5V2H4v14zm5 2H3a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9.992c0 .043-.002.086-.007.128l-.001.003v.006a1.19 1.19 0 0 1-.023.119l-.001.002-.001.006-.001.002v.001a1 1 0 0 1-.254.444s-.002 0-.002.002h-.001l-.002.002-6 6-.003.004-.003.002-.001.001a1.003 1.003 0 0 1-.435.251h-.004a.885.885 0 0 1-.136.027h-.004c-.001.001.005.004-.004.001l-.003.001A1.088 1.088 0 0 1 9 18z"/></svg>											<span>Add new page</span>
+									</a>
+								</div>
+	</div>
+	<nav class="wds-community-header__local-navigation">
+	<ul class="wds-tabs">
+					<li class="wds-tabs__tab">
+									<div class="wds-tabs__tab-label">
+						<a href="/wiki/Vim_Tips_Wiki:Community_Portal"
+														data-tracking="custom-level-1"
+						>
+							<span>Community portal</span>
+						</a>
+					</div>
+							</li>
+					<li class="wds-tabs__tab">
+									<div class="wds-tabs__tab-label">
+						<a href="/wiki/Vim_Tips_Wiki:Todo"
+														data-tracking="custom-level-1"
+						>
+							<span>To do</span>
+						</a>
+					</div>
+							</li>
+				<li class="wds-tabs__tab">
+			<div class="wds-dropdown">
+				<div class="wds-tabs__tab-label wds-dropdown__toggle">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 12" class="wds-icon-tiny wds-icon" id="wds-icons-book-tiny"><defs><path id="book-tiny" d="M3.5 3C2.673 3 2 3.673 2 4.5v2.338c.91-.434 2.09-.434 3 0V4.5c0-.397-.159-.785-.437-1.063A1.513 1.513 0 0 0 3.5 3m5 3.5c.537 0 1.045.121 1.5.338V4.5c0-.397-.159-.785-.437-1.063A1.502 1.502 0 0 0 7 4.5v2.338A3.473 3.473 0 0 1 8.5 6.5M11 11a1 1 0 0 1-1-1c0-.827-.673-1.5-1.5-1.5S7 9.173 7 10a1 1 0 1 1-2 0c0-.827-.673-1.5-1.5-1.5S2 9.173 2 10a1 1 0 1 1-2 0V4.5a3.504 3.504 0 0 1 5.977-2.477l.026.027A3.489 3.489 0 0 1 8.5 1c.937 0 1.817.363 2.477 1.023A3.524 3.524 0 0 1 12 4.5V10a1 1 0 0 1-1 1"/></defs><use fill-rule="evenodd" xlink:href="#book-tiny"/></svg>					<span>Explore</span>
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 12" class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron" id="wds-icons-dropdown-tiny"><defs><path id="dropdown-tiny-a" d="M6.0001895,8.80004571 C5.79538755,8.80004571 5.5905856,8.72164496 5.43458411,8.56564348 L2.23455364,5.365613 C2.00575146,5.13681083 1.93695081,4.79280755 2.06095199,4.4936047 C2.18415316,4.19440185 2.47695595,4 2.80015903,4 L9.20021997,4 C9.52342305,4 9.81542583,4.19440185 9.93942701,4.4936047 C10.0634282,4.79280755 9.99462754,5.13681083 9.76582536,5.365613 L6.56579489,8.56564348 C6.4097934,8.72164496 6.20499145,8.80004571 6.0001895,8.80004571 Z"/></defs><use fill-rule="evenodd" xlink:href="#dropdown-tiny-a"/></svg>				</div>
+				<div class="wds-is-not-scrollable wds-dropdown__content">
+					<ul class="wds-list wds-is-linked wds-has-bolded-items">
+													<li>
+								<a href="//vim.fandom.com/wiki/Special:WikiActivity"
+																		data-tracking="explore-activity"
+								>Wiki Activity</a>
+							</li>
+													<li>
+								<a href="//vim.fandom.com/wiki/Special:Random"
+																		data-tracking="explore-random"
+								>Random page</a>
+							</li>
+													<li>
+								<a href="//vim.fandom.com/wiki/Special:Community"
+																		data-tracking="explore-community"
+								>Community</a>
+							</li>
+													<li>
+								<a href="//vim.fandom.com/wiki/Special:Videos"
+																		data-tracking="explore-videos"
+								>Videos</a>
+							</li>
+													<li>
+								<a href="//vim.fandom.com/wiki/Special:Images"
+																		data-tracking="explore-images"
+								>Images</a>
+							</li>
+											</ul>
+				</div>
+			</div>
+		</li>
+					</ul>
+</nav>
+</header>
+<!-- empty onclick event needs to be applied here to ensure that wds dropdowns work correctly on ios -->
+<section id="WikiaPage" class="WikiaPage V2" onclick="">
+	<div id="WikiaPageBackground" class="WikiaPageBackground"></div>
+	<div class="WikiaPageContentWrapper">
+		
+		
+		
+					<header id="PageHeader" class="page-header">
+	<div class="page-header__main">
+			<div class="page-header__categories">
+		<span class="page-header__categories-in" data-tracking="categories-top-in">in:</span>
+		<div class="page-header__categories-links">
+			<a href="/wiki/Category:VimTip" data-tracking="categories-top-0">VimTip</a>, <a href="/wiki/Category:Getting_started" data-tracking="categories-top-1">Getting started</a>, <a href="/wiki/Category:Searching" data-tracking="categories-top-2">Searching</a>					</div>
+	</div>
+		<h1 class="page-header__title">Searching</h1>
+				</div>
+	<div class="page-header__contribution">
+		<div> <!--Empty div to ensure $actionButton is always pushed to bottom of the container-->
+								</div>
+		<div class="page-header__contribution-buttons">
+			<div class="wds-button-group">
+	<a href="/wiki/Searching?veaction=edit"
+	   class="wds-button"
+	   id="ca-ve-edit"
+	   data-tracking="ca-ve-edit"
+		accesskey="e"	>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 18 18" class="wds-icon wds-icon-small" id="wds-icons-pencil-small"><defs><path id="pencil-small" d="M14 8.586L9.414 4 11 2.414 15.586 7 14 8.586zM6.586 16H2v-4.586l6-6L12.586 10l-6 6zm11.121-9.707l-6-6a.999.999 0 0 0-1.414 0l-9.999 10a.99.99 0 0 0-.217.325A.991.991 0 0 0 0 11v6a1 1 0 0 0 1 1h6c.13 0 .26-.026.382-.077a.99.99 0 0 0 .326-.217l9.999-9.999a.999.999 0 0 0 0-1.414z"/></defs><use fill-rule="evenodd" xlink:href="#pencil-small"/></svg>		<span>Edit</span>
+	</a>
+	<div class="wds-dropdown">
+		<div class="wds-button wds-dropdown__toggle">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 12 12" class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron" id="wds-icons-dropdown-tiny"><defs><path id="dropdown-tiny-a" d="M6.0001895,8.80004571 C5.79538755,8.80004571 5.5905856,8.72164496 5.43458411,8.56564348 L2.23455364,5.365613 C2.00575146,5.13681083 1.93695081,4.79280755 2.06095199,4.4936047 C2.18415316,4.19440185 2.47695595,4 2.80015903,4 L9.20021997,4 C9.52342305,4 9.81542583,4.19440185 9.93942701,4.4936047 C10.0634282,4.79280755 9.99462754,5.13681083 9.76582536,5.365613 L6.56579489,8.56564348 C6.4097934,8.72164496 6.20499145,8.80004571 6.0001895,8.80004571 Z"/></defs><use fill-rule="evenodd" xlink:href="#dropdown-tiny-a"/></svg>		</div>
+		<div class="wds-dropdown__content wds-is-not-scrollable wds-is-right-aligned">
+			<ul class="wds-list wds-is-linked">
+									<li>
+						<a id="ca-edit"
+						   href="/wiki/Searching?action=edit"
+													   data-tracking="ca-edit-dropdown"
+							accesskey="s">
+							Edit source						</a>
+					</li>
+									<li>
+						<a id="ca-history"
+						   href="/wiki/Searching?action=history"
+													   data-tracking="ca-history-dropdown"
+							>
+							History						</a>
+					</li>
+									<li>
+						<a id="ca-talk"
+						   href="/wiki/Talk:Searching?action=edit&amp;redlink=1"
+							class="new"						   data-tracking="ca-talk-dropdown"
+							>
+							Talk (0)						</a>
+					</li>
+							</ul>
+		</div>
+	</div>
+</div>
+				<a class="wds-button wds-is-secondary" href="#"
+		   id="ShareEntryPoint">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 18 18" class="wds-icon wds-icon-small" id="wds-icons-share-small"><defs><path id="share-small" d="M14.5 15a1.502 1.502 0 0 1-1.406-2.022l.022-.05.017-.045c.236-.52.76-.883 1.367-.883.827 0 1.5.673 1.5 1.5s-.673 1.5-1.5 1.5M4.906 9.522l-.022.05-.017.045c-.236.52-.76.883-1.367.883C2.673 10.5 2 9.827 2 9s.673-1.5 1.5-1.5c.607 0 1.131.363 1.367.883l.017.045.022.05a1.482 1.482 0 0 1 0 1.044M14.5 3c.827 0 1.5.673 1.5 1.5S15.327 6 14.5 6a1.503 1.503 0 0 1-1.367-.883l-.017-.045-.022-.05A1.502 1.502 0 0 1 14.5 3m0 7c-1.098 0-2.08.508-2.722 1.303L6.983 9.348a3.653 3.653 0 0 0 0-.696l4.795-1.955A3.492 3.492 0 0 0 14.5 8C16.43 8 18 6.43 18 4.5S16.43 1 14.5 1a3.504 3.504 0 0 0-3.483 3.848L6.222 6.803A3.492 3.492 0 0 0 3.5 5.5C1.57 5.5 0 7.07 0 9s1.57 3.5 3.5 3.5c1.098 0 2.08-.508 2.722-1.303l4.795 1.955A3.504 3.504 0 0 0 14.5 17c1.93 0 3.5-1.57 3.5-3.5S16.43 10 14.5 10"/></defs><use fill-rule="evenodd" xlink:href="#share-small"/></svg>						<span>Share</span>
+		</a>
+	</div>
+	</div>
+</header>
+<hr class="page-header__separator">
+		
+		<article id="WikiaMainContent" class="WikiaMainContent">
+			<div id="WikiaMainContentContainer" class="WikiaMainContentContainer">
+				
+													
+				
+				<div id="WikiaArticle" class="WikiaArticle">
+					<div class="home-top-right-ads">
+										</div>
+
+					
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr mw-content-text"><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDPTN53" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><div><b><a  class="text" href="https://vim.fandom.com/wiki/Searching">Tip 1</a></b> <a  class="text" href="https://vim.fandom.com/wiki/Searching?printable=yes">Printable</a> <a  class="text" href="https://vim.fandom.com/wiki/Searching?useskin=monobook">Monobook</a>  <a href="/wiki/VimTip2" title="VimTip2" class="mw-redirect"><small>Next</small></a>
+<p><b>created</b>&#160;2001&#32;&#183; <b>complexity</b>&#160;basic&#32;&#183; <b>version</b>&#160;6.0
+</p>
+<hr />
+</div>
+<p>This tip shows how to search using Vim, including use of <code>*</code> (the <i>super star</i>) to search for the current word. Search options are described, and the <a href="#See_also">see also</a> section links to other useful searching tips.
+</p>
+<nav id="toc" class="toc" data-loaded="false"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">[<a href="#" class="internal" id="togglelink" data-show="show" data-hide="hide">show</a>]</span></div><ol></ol></nav>
+<h2><span class="mw-headline" id="Basic_searching">Basic searching</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=1" title="Edit Basic searching section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>In normal mode you can search forwards by pressing <code>/</code> (or <code>&lt;kDivide&gt;</code>) then typing your search pattern. Press Esc to cancel or press Enter to perform the search. Then press <code>n</code> to search forwards for the next occurrence, or <code>N</code> to search backwards. Type <code>ggn</code> to jump to the first match, or <code>GN</code> to jump to the last.
+</p><p>Note: <code>ggn</code> skips first match if it is at row 1 column 1. Type <code>Gn</code> to jump to the real first match. For this, <code>'wrapscan'</code> must be on (default).
+</p><p>Search backwards by pressing <code>?</code> then typing your search pattern. Pressing <code>n</code> searches in the same direction (backwards), while <code>N</code> searches in the opposite direction (forwards).
+</p>
+<h2><span class="mw-headline" id="Searching_for_the_current_word">Searching for the current word</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=2" title="Edit Searching for the current word section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>In normal mode, move the cursor to any word. Press <code>*</code> to search forwards for the next occurrence of that word, or press <code>#</code> to search backwards.
+</p><p>Using <code>*</code> (also &lt;kMultiply&gt;, &lt;S-LeftMouse&gt;) or <code>#</code> (also &lt;S-RightMouse&gt;) searches for the exact word at the cursor (searching for <i>rain</i> would not find <i>rainbow</i>).
+</p><p>Use <code>g*</code> or <code>g#</code> if you don't want to search for the exact word.
+</p>
+<h3><span class="mw-headline" id="Using_the_mouse">Using the mouse</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=3" title="Edit Using the mouse section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h3>
+<p>With appropriate settings, you can search for an exact word using the mouse: Shift-LeftClick a word to search forwards, or Shift-RightClick to search backwards. 
+</p><p>This needs a GUI version of Vim (gvim), or a console Vim that accepts a mouse. You may need the following line in your <a href="/wiki/Vimrc" title="Vimrc" class="mw-redirect">vimrc</a> to enable mouse searches:
+</p>
+<pre>
+:set mousemodel=extend
+</pre>
+<p>In gvim, click the Edit menu, then Global Settings, then the "tear off" bar at the top. That will show a floating Global Settings menu with useful <i>Toggle Pattern Highlight</i> and <i>Toggle Ignore-case</i> commands.
+</p>
+<h2><span class="mw-headline" id="More_searching">More searching</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=4" title="Edit More searching section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>Vim maintains a <a href="/wiki/VimTip45" title="VimTip45" class="mw-redirect">search history</a>. Type <code>/</code> or <code>?</code> and use the arrow up/down keys to recall previous search patterns. You can edit a pattern, and press Enter to search for something different.
+</p><p>Suppose the cursor is on a word, and you want to search for a similar word.
+</p><p>Press <code>/</code> then Ctrl-r then Ctrl-w to copy the current word to the command line. You can now edit the search pattern and press Enter. Use Ctrl-r Ctrl-w for a &lt;cword&gt;, or Ctrl-r Ctrl-a for a &lt;cWORD&gt;.
+</p><p>After searching, press Ctrl-o to <a href="/wiki/VimTip10" title="VimTip10" class="mw-redirect">jump back</a> to your previous position (then Ctrl-i will jump forwards).
+</p><p>After searching, an empty search pattern will repeat the last search. This works with <code>/</code>, <code>:s</code> and <code>:g</code>.
+</p><p>So, after searching for a word, use <code>:%s//new/g</code> to change all occurrences to 'new', or <code>:g/</code> to list all lines containing the word. See <a href="/wiki/VimTip1501" title="VimTip1501" class="mw-redirect">substitute last search</a>.
+</p><p>You can enter a count before a search. For example <code>3/pattern</code> will search for the third occurrence of <i>pattern</i>, and <code>3*</code> will search for the third occurrence of the current word.
+</p><p>You can highlight all search matches (and quickly turn highlighting off), and you can use a mapping to highlight all occurrences of the current word without moving (see <a href="/wiki/VimTip14" title="VimTip14" class="mw-redirect">highlight matches</a>).
+</p><p>A search can include an offset to position the cursor. For example, searching with <code>/green</code> positions the cursor at the beginning of the next "green", while <code>/green/e</code> positions the cursor at the end of the next "green". <a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=search-offset">&#58;help&#160;search-offset</a>
+</p><p>A search pattern can include characters with codes specified in decimal or hex. For example, searching with <code>/\%d65</code> or with <code>/\%x41</code> both find '<code>A</code>' (character decimal 65 = hex 41), and searching with <code>/\%d8211</code> or with <code>/\%u2013</code> both find '<code>–</code>' (a Unicode en dash). <a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=%2F%5C%25d">&#58;help&#160;/\%d</a>
+</p>
+<h2><span class="mw-headline" id="Case_sensitivity">Case sensitivity</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=5" title="Edit Case sensitivity section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>By default, searching is case sensitive (searching for "the" will not find "The").
+</p><p>With the following in your vimrc (or entered via a <a href="/wiki/VimTip920" title="VimTip920" class="mw-redirect">toggle mapping</a>), searching is not case sensitive:
+</p>
+<pre>
+:set ignorecase
+</pre>
+<p>Now the command <code>/the</code> will find "the" or "The" or "THE" etc. You can use <code>\c</code> to force a pattern to be case insensitive, or <code>\C</code> to force a pattern to be case sensitive. For example, the search <code>/the\c</code> is always case insensitive, and <code>/the\C</code> is always case sensitive, regardless of the <code>'ignorecase'</code> option.
+</p><p>If <code>'ignorecase'</code> is on, you may also want:
+</p>
+<pre>
+:set smartcase
+</pre>
+<p>When <code>'ignorecase'</code> and <code>'smartcase'</code> are both on, if a pattern contains an uppercase letter, it is case sensitive, otherwise, it is not. For example, <code>/The</code> would find only "The", while <code>/the</code> would find "the" or "The" etc.
+</p><p>The <code>'smartcase'</code> option only applies to search patterns that you type; it does not apply to <code>*</code> or <code>#</code> or <code>gd</code>. If you press <code>*</code> to search for a word, you can make <code>'smartcase'</code> apply by pressing <code>/</code> then up arrow then Enter (to repeat the search from history).
+</p><p>When programming, there is generally no reason to want <code>'smartcase'</code> to apply when you press <code>*</code>. For other situations, use:
+</p>
+<pre>
+:nnoremap * /\&lt;&lt;C-R&gt;=expand('&lt;cword&gt;')&lt;CR&gt;\&gt;&lt;CR&gt;
+:nnoremap #&#160;?\&lt;&lt;C-R&gt;=expand('&lt;cword&gt;')&lt;CR&gt;\&gt;&lt;CR&gt;
+</pre>
+<p>With these mappings, if <code>'smartcase'</code> is on and you press <code>*</code> while on the word "The", you will only find "The" (case sensitive), but if you press <code>*</code> while on the word "the", the search will not be case sensitive.
+</p><p>The mapping for <code>*</code> uses <code>/</code> to start a search; the pattern begins with <code>\&lt;</code> and ends with <code>\&gt;</code> so only whole words are found; <code>&lt;C-R&gt;=</code> inserts the expression register to evaluate <code>expand('&lt;cword&gt;')</code> which inserts the current word (similar to Ctrl-R Ctrl-W but avoiding an error when used on a blank line).
+</p>
+<h2><span class="mw-headline" id="Show_the_next_match_while_entering_a_search">Show the next match while entering a search</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=6" title="Edit Show the next match while entering a search section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>To move the cursor to the matched string, while typing the search pattern, set the following option in your <a href="/wiki/Vimrc" title="Vimrc" class="mw-redirect">vimrc</a>:
+</p>
+<pre>
+:set incsearch
+</pre>
+<p>Complete the search by pressing Enter, or cancel by pressing Esc. When typing the search pattern, press Ctrl-L (<a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=c_CTRL-L">&#58;help&#160;c_CTRL-L</a>) to insert the next character from the match or press Ctrl-R Ctrl-W (<a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=c_CTRL-R_CTRL-F">&#58;help&#160;c_CTRL-R_CTRL-F</a>) to complete the current matching word.
+</p>
+<h2><span class="mw-headline" id="Other_search_options">Other search options</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=7" title="Edit Other search options section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>By default, the <code>'wrapscan'</code> option is on, which means that when "search next" reaches end of file, it wraps around to the beginning, and when "search previous" reaches the beginning, it wraps around to the end.
+</p><p>These examples show how to set <code>'wrapscan'</code> (abbreviated as <code>'ws'</code>):
+</p>
+<pre>
+:set nowrapscan        " do not wrap around
+:set wrapscan          " wrap around
+:set wrapscan!         " toggle wrap around on/off
+:set ws! ws?           " toggle and show value
+</pre>
+<p>By default, search hits may occur in lines at the top or bottom of the window. The <a href="/wiki/Make_search_results_appear_in_the_middle_of_the_screen" title="Make search results appear in the middle of the screen"><code>'scrolloff'</code> option</a> controls whether context lines will be visible above and below the line containing the search hit.
+</p><p>If your text is folded, you probably want folds to automatically open to reveal search hits. To achieve that, the <code>'foldopen'</code> option should include "search" (check by entering&#160;:set&#160;fdo?). <a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=%27foldopen%27">&#58;help&#160;'foldopen'</a> Conversely, this option can be used to <a href="/wiki/Search_only_in_unfolded_text" title="Search only in unfolded text">Search only in unfolded text</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=8" title="Edit See also section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<dl><dt>Searching
+</dt></dl>
+<ul><li><a href="/wiki/VimTip14" title="VimTip14" class="mw-redirect">Highlighting search matches</a>
+</li><li><a href="/wiki/VimTip171" title="VimTip171" class="mw-redirect">Search for visually selected text</a>
+</li><li><a href="/wiki/VimTip188" title="VimTip188" class="mw-redirect">Search patterns</a> regex tutorial with useful searches
+</li><li><a href="/wiki/VimTip798" title="VimTip798" class="mw-redirect">Search for current word in new window</a>
+</li><li><a href="/wiki/VimTip528" title="VimTip528" class="mw-redirect">Make search results appear in the middle of the screen</a>
+</li><li><a href="/wiki/VimTip31" title="VimTip31" class="mw-redirect">Search and replace</a> using <code>:s</code> to substitute text
+</li><li>Browse the <a href="/wiki/Category:Searching" title="Category:Searching">searching category</a> for more.
+</li></ul>
+<dl><dt>Searching in multiple files</dt><dd>
+</dd></dl>
+<ul><li><a href="/wiki/VimTip1543" title="VimTip1543" class="mw-redirect">Find in files within Vim</a>
+</li></ul>
+<dl><dt>Finding a file from its name</dt><dd>
+</dd></dl>
+<ul><li><a href="/wiki/VimTip1146" title="VimTip1146" class="mw-redirect">Project browsing using find</a>
+</li><li><a href="/wiki/VimTip1234" title="VimTip1234" class="mw-redirect">Find files in subdirectories</a>
+</li></ul>
+<h2><span class="mw-headline" id="References">References</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=9" title="Edit References section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=%2A">&#58;help&#160;*</a>
+</li><li><a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=%3CS-LeftMouse%3E">&#58;help&#160;&#60;S-LeftMouse&#62;</a>
+</li><li><a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=%3A%3Ccword%3E">&#58;help&#160;:&lt;cword&gt;</a>
+</li><li><a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=jump-motions">&#58;help&#160;jump-motions</a>
+</li><li><a rel="nofollow" class="external text" href="http://vimdoc.sourceforge.net/cgi-bin/help?tag=%27iskeyword%27">&#58;help&#160;'iskeyword'</a> controls which characters <code>*</code> considers make a word
+</li></ul>
+<h2><span class="mw-headline" id="Comments">Comments</span><span class="editsection"><a href="/wiki/Searching?action=edit&amp;section=10" title="Edit Comments section"><img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" class="sprite edit-pencil" />Edit</a></span></h2>
+<p>On UK keyboards, &lt;Shift-3&gt; produces ₤ but works just like <code>#</code> for searching backwards.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 308/300000
+Post‐expand include size: 2011/2097152 bytes
+Template argument size: 277/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key vim:pcache:idhash:1765-0!*!0!!en!*!* -->
+<noscript><link rel="stylesheet" href="https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/extensions/wikia/ImageLazyLoad/css/ImageLazyLoadNoScript.css" /></noscript></div><div class="printfooter">
+Retrieved from "<a href="https://vim.fandom.com/wiki/Searching?oldid=40411">https://vim.fandom.com/wiki/Searching?oldid=40411</a>"</div>
+
+				</div>
+
+															<nav class="article-categories CategorySelect articlePage userCanEdit" id="articleCategories">
+	<div class="container">
+		<div class="special-categories"><a href="/wiki/Special:Categories" title="Special:Categories" class="categoriesLink" rel="nofollow">Categories</a>:</div>
+		<ul class="categories">
+				<li class="category normal" data-name="VimTip" data-namespace="" data-outertag="" data-sortkey="" data-type="normal">
+	<span class="name"><a href="/wiki/Category:VimTip" title="Category:VimTip">VimTip</a></span>
+	<ul class="toolbar">
+		<li class="tool editCategory sprite-small edit" title=""></li>
+		<li class="tool removeCategory sprite-small delete" title=""></li>
+	</ul>
+</li>
+	<li class="category normal" data-name="Getting started" data-namespace="" data-outertag="" data-sortkey="" data-type="normal">
+	<span class="name"><a href="/wiki/Category:Getting_started" title="Category:Getting started">Getting started</a></span>
+	<ul class="toolbar">
+		<li class="tool editCategory sprite-small edit" title=""></li>
+		<li class="tool removeCategory sprite-small delete" title=""></li>
+	</ul>
+</li>
+	<li class="category normal" data-name="Searching" data-namespace="" data-outertag="" data-sortkey="" data-type="normal">
+	<span class="name"><a href="/wiki/Category:Searching" title="Category:Searching">Searching</a></span>
+	<ul class="toolbar">
+		<li class="tool editCategory sprite-small edit" title=""></li>
+		<li class="tool removeCategory sprite-small delete" title=""></li>
+	</ul>
+</li>
+							<li class="last">
+					<button class="wikia-button secondary add" id="CategorySelectAdd" type="button">Add category</button>
+					<input autocomplete="off" class="input" id="CategorySelectInput" name="CategorySelectInput" placeholder="Add category..." type="text">				</li>
+					</ul>
+	</div>
+			<div class="toolbar">
+			<button class="wikia-button secondary cancel" id="CategorySelectCancel" type="button">Cancel</button>
+			<button class="wikia-button save" id="CategorySelectSave" type="button" disabled="disabled">Save</button>
+		</div>
+	</nav>									
+													
+				<div class="license-description">
+	Community content is available under <a href="https://www.fandom.com/licensing">CC-BY-SA</a>
+ unless otherwise noted.</div>
+
+							</div>
+		</article><!-- WikiaMainContent -->
+
+					<div
+  id="WikiaRailWrapper"
+  class="WikiaRail"
+  >
+	<div id="WikiaRail" class="wikia-rail-inner">
+
+		
+				<div id="top-right-boxad-wrapper">
+		<!-- BEGIN SLOTNAME: top_boxad -->
+	<div id="top_boxad" class="wikia-ad noprint default-height">
+							<script>
+									window.adslots2.push(["top_boxad"]);
+							</script>
+			</div>
+	<!-- END SLOTNAME: top_boxad -->
+			</div>
+						<div class="loading"></div>
+		
+	</div>
+</div>
+		
+		
+		<footer id="WikiaFooter" class="WikiaFooter notoolbar">
+	<div id="bottomLeaderboardWrapper">
+		
+			<!-- BEGIN SLOTNAME: bottom_leaderboard -->
+	<div id="bottom_leaderboard" class="wikia-ad noprint default-height">
+					</div>
+	<!-- END SLOTNAME: bottom_leaderboard -->
+		</div>
+			<div id="mixed-content-footer" class="mcf-en" data-number-of-wiki-articles="9"
+     data-number-of-ns-articles="11">
+	<div class="mcf-content">
+		<h1 class="mcf-header">Fan Feed		</h1>
+		<div class="mcf-mosaic">
+			<div class="mcf-column">
+									<div class="mcf-card-ns-placeholder" data-tracking="footer-card-1"></div>
+				
+									<div class="mcf-card-ns-placeholder" data-tracking="footer-card-4"></div>
+					<div class="mcf-card-wiki-placeholder" data-tracking="footer-card-7"></div>
+								<div class="mcf-card-ns-placeholder mcf-card-tall" data-tracking="footer-card-10"></div>
+				<div class="mcf-card-wiki-placeholder" data-tracking="footer-card-13"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-16"></div>
+				<div class="mcf-card-wiki-placeholder mcf-card-tall" data-tracking="footer-card-19"></div>
+			</div>
+
+			<div class="mcf-column">
+				<div class="mcf-card-ns-placeholder mcf-card-sponsored-content" data-tracking="footer-card-2"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-5"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-8"></div>
+				<div class="mcf-card-wiki-placeholder" data-tracking="footer-card-11"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-14"></div>
+				<div class="mcf-card-wiki-placeholder" data-tracking="footer-card-17"></div>
+				<div class="mcf-card mcf-card-related-wikis">
+	<header class="mcf-card-related-wikis__header">
+		Explore Wikis
+	</header>
+	<ul class="mcf-card-related-wikis__list">
+		
+			<li class="mcf-card-related-wikis__item">
+				<a href="https://wubbzy.fandom.com/wiki/Wubbzypedia" class="mcf-card-related-wikis__item-link" data-tracking="explore-wikis-1" title="Wubbzypedia">
+					<img src="https://vignette.wikia.nocookie.net/wubbzy/images/7/7e/Me_and_My_Friends_-_128.png/revision/latest/zoom-crop/width/100/height/56?cb=20180423181936" class="mcf-card-related-wikis__item-image">
+					<div>
+						<span class="mcf-card-related-wikis__title">Wubbzypedia</span>
+					</div>
+				</a>
+			</li>
+		
+			<li class="mcf-card-related-wikis__item">
+				<a href="https://club57.fandom.com/wiki/Club_57_Wiki" class="mcf-card-related-wikis__item-link" data-tracking="explore-wikis-2" title="Club 57 Wiki">
+					<img src="https://vignette.wikia.nocookie.net/club57/images/b/b2/Rainbow-Club-57-cover.jpg/revision/latest/zoom-crop/width/100/height/56?cb=20200522172522" class="mcf-card-related-wikis__item-image">
+					<div>
+						<span class="mcf-card-related-wikis__title">Club 57 Wiki</span>
+					</div>
+				</a>
+			</li>
+		
+			<li class="mcf-card-related-wikis__item">
+				<a href="https://dynastytv.fandom.com/wiki/Dynasty_Wiki" class="mcf-card-related-wikis__item-link" data-tracking="explore-wikis-3" title="Dynasty Wiki">
+					<img src="https://vignette.wikia.nocookie.net/central/images/b/bd/Dynasty_SPI.jpg/revision/latest/zoom-crop/width/100/height/56?cb=20200527161714" class="mcf-card-related-wikis__item-image">
+					<div>
+						<span class="mcf-card-related-wikis__title">Dynasty Wiki</span>
+					</div>
+				</a>
+			</li>
+		
+	</ul>
+</div>
+			</div>
+
+			<div class="mcf-column">
+				<div class="mcf-card-wiki-placeholder" data-tracking="footer-card-3"></div>
+				<div class="mcf-card-wiki-placeholder mcf-card-tall" data-tracking="footer-card-6"></div>
+				<div class="mcf-card-wiki-placeholder" data-tracking="footer-card-9"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-12"></div>
+				<div class="mcf-card-wiki-placeholder mcf-card-tall" data-tracking="footer-card-15"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-18"></div>
+				<div class="mcf-card-ns-placeholder" data-tracking="footer-card-21"></div>
+			</div>
+		</div>
+	</div>
+</div>
+		</footer>
+	</div>
+</section><!--WikiaPage-->
+
+<footer class="wds-global-footer">
+			<h2 class="wds-global-footer__header">
+			<a href="https://www.fandom.com"
+			   data-tracking-label="logo"
+			   title="Fandom">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 35" class="wds-global-footer__header-logo" alt="Fandom" id="wds-company-logo-fandom-white"><g fill="none" fill-rule="evenodd"><path d="M32.003 16.524c0 .288-.115.564-.32.768L18.3 30.712c-.226.224-.454.324-.738.324-.292 0-.55-.11-.77-.325l-.943-.886a.41.41 0 0 1-.01-.59l15.45-15.46c.262-.263.716-.078.716.29v2.46zm-17.167 10.12l-.766.685a.642.642 0 0 1-.872-.02L3.01 17.362c-.257-.25-.4-.593-.4-.95v-1.858c0-.67.816-1.007 1.298-.536l10.814 10.56c.188.187.505.57.505 1.033 0 .296-.068.715-.39 1.035zM5.73 7.395L9.236 3.93a.421.421 0 0 1 .592 0l11.736 11.603a3.158 3.158 0 0 1 0 4.5l-3.503 3.462a.423.423 0 0 1-.59 0L5.732 11.89a3.132 3.132 0 0 1-.937-2.25c0-.85.332-1.65.935-2.246zm13.89 1.982l3.662-3.62a3.232 3.232 0 0 1 2.737-.897c.722.098 1.378.47 1.893.978l3.708 3.667a.41.41 0 0 1 0 .585l-5.64 5.576a.419.419 0 0 1-.59 0l-5.77-5.704a.411.411 0 0 1 0-.585zm14.56-.687L26.014.475a.869.869 0 0 0-1.228-.002L18.307 6.94c-.5.5-1.316.5-1.82.004l-6.48-6.4A.87.87 0 0 0 8.793.542L.447 8.67C.16 8.95 0 9.33 0 9.727v7.7c0 .392.158.77.44 1.048l16.263 16.072a.87.87 0 0 0 1.22 0l16.25-16.073c.28-.278.438-.655.438-1.048V9.73c0-.39-.153-.763-.43-1.04z" fill="#00D6D6"/><path d="M62.852 20.51l2.58-6.716a.468.468 0 0 1 .87 0l2.58 6.717h-6.03zm5.856-12.428c-.184-.48-.65-.8-1.17-.8h-3.342c-.52 0-.986.32-1.17.8l-7.083 18.5c-.21.552.2 1.14.796 1.14h2.753c.353 0 .67-.215.796-.542l.738-1.922a.849.849 0 0 1 .795-.542h8.088a.85.85 0 0 1 .796.542l.74 1.922c.125.327.44.543.795.543h2.754a.843.843 0 0 0 .796-1.14l-7.082-18.5zm93.504-.8h-2.715a1.86 1.86 0 0 0-1.677 1.047l-5.393 11.162-5.393-11.163a1.858 1.858 0 0 0-1.677-1.047h-2.715a.889.889 0 0 0-.893.883V26.84c0 .487.4.883.892.883h2.608a.889.889 0 0 0 .893-.883v-9.686l4.945 10.072c.15.304.46.497.803.497h1.073a.893.893 0 0 0 .803-.497l4.945-10.072v9.686c0 .487.4.883.894.883h2.608a.889.889 0 0 0 .893-.883V8.166c0-.487-.4-.883-.893-.883zm-106.972 8.8h-8.63V11.49h10.918a.88.88 0 0 0 .83-.578l.888-2.464a.872.872 0 0 0-.83-1.163h-15.18c-.486 0-.88.39-.88.87v18.7c0 .48.394.87.88.87h2.492c.486 0 .88-.39.88-.87V20.29h7.743a.88.88 0 0 0 .83-.578l.89-2.464a.872.872 0 0 0-.83-1.163zm51.76 7.61h-3.615V11.315H107c3.828 0 6.41 2.517 6.41 6.188 0 3.672-2.582 6.19-6.41 6.19zm-.124-16.41h-7.128c-.486 0-.88.39-.88.872v18.698c0 .48.394.87.88.87h7.128c6.453 0 10.912-4.44 10.912-10.16v-.117c0-5.72-4.46-10.162-10.912-10.162zm-11.947.03h-2.642a.87.87 0 0 0-.876.866v12.36l-8.755-12.72a1.242 1.242 0 0 0-1.023-.535H78.32a.873.873 0 0 0-.876.867v18.706c0 .48.393.867.877.867h2.64a.872.872 0 0 0 .878-.867V14.71l8.608 12.478c.23.334.613.535 1.022.535h3.46a.872.872 0 0 0 .877-.867V8.178a.87.87 0 0 0-.876-.867zm40.71 10.3c0 3.323-2.712 6.016-6.056 6.016-3.345 0-6.056-2.693-6.056-6.015v-.22c0-3.322 2.71-6.015 6.056-6.015 3.344 0 6.055 2.693 6.055 6.015v.22zm-6.056-10.44c-5.694 0-10.31 4.576-10.31 10.22v.22c0 5.646 4.616 10.22 10.31 10.22 5.693 0 10.308-4.574 10.308-10.22v-.22c0-5.644-4.615-10.22-10.308-10.22z" fill="#FFF"/></g></svg>			</a>
+		</h2>
+		<div class="wds-global-footer__main">
+		<div class="wds-global-footer__column">
+			<section class="wds-global-footer__section wds-is-fandom-overview">
+			<h3 class="wds-global-footer__section-header">Explore properties</h3>
+	
+	
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com"
+   class="wds-global-footer__link"
+   data-tracking-label="explore.fandom">
+	Fandom</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.gamepedia.com/"
+   class="wds-global-footer__link"
+   data-tracking-label="explore.gamepedia">
+	Gamepedia</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.dndbeyond.com/"
+   class="wds-global-footer__link"
+   data-tracking-label="explore.dnd-beyond">
+	D&amp;D Beyond</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.muthead.com/"
+   class="wds-global-footer__link"
+   data-tracking-label="explore.muthead">
+	Muthead</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.futhead.com/"
+   class="wds-global-footer__link"
+   data-tracking-label="explore.futhead">
+	Futhead</a>
+									</li>
+					</ul>
+	</section>
+			<section class="wds-global-footer__section wds-is-follow-us">
+			<h3 class="wds-global-footer__section-header">Follow Us</h3>
+	
+	
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.facebook.com/getfandom"
+   class="wds-global-footer__link"
+   data-tracking-label="follow-us.facebook">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="wds-global-footer__link-image wds-icon" id="wds-icons-facebook"><defs><path id="facebook-a" d="M16.762 5.432h-1.786c-1.428 0-1.666.71-1.666 1.657v2.248h3.452l-.357 3.55h-2.857V22H9.976v-9.112H7v-3.55h2.976V6.733C9.976 3.775 11.762 2 14.381 2c1.19 0 2.262.118 2.619.118v3.314h-.238z"/></defs><use fill-rule="evenodd" xlink:href="#facebook-a"/></svg></a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://twitter.com/getfandom"
+   class="wds-global-footer__link"
+   data-tracking-label="follow-us.twitter">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="wds-global-footer__link-image wds-icon" id="wds-icons-twitter"><defs><path id="twitter-a" d="M20.681 7.328v.577c0 5.915-4.486 12.695-12.735 12.695-2.605 0-4.92-.721-6.946-2.02.434 0 .724.145 1.158.145 2.026 0 4.052-.722 5.644-1.876-1.882 0-3.618-1.298-4.197-3.174.29 0 .579.145.868.145.434 0 .434 0 1.013-.145-2.17-.432-4.052-2.308-4.052-4.472 0 .433 1.592.433 2.316.577-1.158-.865-1.882-2.164-1.882-3.75 0-.866.29-1.587.724-2.309 2.17 2.741 5.644 4.472 9.261 4.761-.144-.433-.144-.721-.144-1.01C11.709 5.02 13.735 3 16.195 3c1.302 0 2.46.433 3.328 1.443 1.013-.289 1.882-.577 2.75-1.154-.434 1.154-1.158 1.875-1.881 2.452a13.73 13.73 0 0 0 2.604-.721c-.723.865-1.447 1.73-2.315 2.308z"/></defs><use fill-rule="evenodd" xlink:href="#twitter-a"/></svg></a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.youtube.com/fandomentertainment"
+   class="wds-global-footer__link"
+   data-tracking-label="follow-us.youtube">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="wds-global-footer__link-image wds-icon" id="wds-icons-youtube"><path d="M23.8 7.6s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1C17 4 12 4 12 4s-5 0-8.4.2c-.5.1-1.5.1-2.4 1-.7.7-1 2.4-1 2.4S0 9.5 0 11.5v1.8c0 1.9.2 3.9.2 3.9s.2 1.7 1 2.4c.9 1 2.1.9 2.6 1 1.9.2 8.2.2 8.2.2s5 0 8.4-.3c.5-.1 1.5-.1 2.4-1 .7-.7 1-2.4 1-2.4s.2-1.9.2-3.9v-1.8c0-1.9-.2-3.8-.2-3.8zM9.5 15.5V8.8l6.5 3.4-6.5 3.3z"/></svg></a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.instagram.com/getfandom/"
+   class="wds-global-footer__link"
+   data-tracking-label="follow-us.instagram">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="wds-global-footer__link-image wds-icon" id="wds-icons-instagram"><g fill-rule="evenodd"><path d="M12 2.162c3.204 0 3.584.012 4.849.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311 1.265-.058 1.645-.07 4.849-.07zM12 0C8.741 0 8.332.014 7.052.072c-1.95.089-3.663.567-5.038 1.942C.639 3.389.161 5.102.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.089 1.95.567 3.663 1.942 5.038 1.375 1.375 3.088 1.853 5.038 1.942C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.95-.089 3.663-.567 5.038-1.942 1.375-1.375 1.853-3.088 1.942-5.038.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.089-1.95-.567-3.663-1.942-5.038C20.611.639 18.898.161 16.948.072 15.668.014 15.259 0 12 0z"/><path d="M12 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.406" cy="5.594" r="1.44"/></g></svg></a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.linkedin.com/company/157252"
+   class="wds-global-footer__link"
+   data-tracking-label="follow-us.linkedin">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="wds-global-footer__link-image wds-icon" id="wds-icons-linkedin"><path d="M.351 24h4.982V7.93H.351zM18.035 7.509c-2.386 0-4.07 1.333-4.702 2.596h-.07V7.93H8.491V24h4.983v-7.93c0-2.105.421-4.14 3.017-4.14 2.597 0 2.597 2.386 2.597 4.28V24H24v-8.842c0-4.351-.912-7.65-5.965-7.65M2.877 0A2.845 2.845 0 0 0 0 2.877a2.845 2.845 0 0 0 2.877 2.877c1.614 0 2.877-1.333 2.877-2.877A2.845 2.845 0 0 0 2.877 0"/></svg></a>
+									</li>
+					</ul>
+	</section>
+		</div>
+		<div class="wds-global-footer__column">
+			<section class="wds-global-footer__section wds-is-site-overview">
+			<h3 class="wds-global-footer__section-header">Overview</h3>
+	
+	
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/about"
+   class="wds-global-footer__link"
+   data-tracking-label="company-overview.about">
+	About</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/careers"
+   class="wds-global-footer__link"
+   data-tracking-label="company-overview.careers">
+	Careers</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/press"
+   class="wds-global-footer__link"
+   data-tracking-label="company-overview.press">
+	Press</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/about#contact"
+   class="wds-global-footer__link"
+   data-tracking-label="company-overview.contact">
+	Contact</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/terms-of-use"
+   class="wds-global-footer__link"
+   data-tracking-label="site-overview.terms-of-use">
+	Terms of Use</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/privacy-policy"
+   class="wds-global-footer__link"
+   data-tracking-label="site-overview.privacy-policy">
+	Privacy Policy</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://community.fandom.com/Sitemap"
+   class="wds-global-footer__link"
+   data-tracking-label="site-overview.global-sitemap">
+	Global Sitemap</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="/wiki/Local_Sitemap"
+   class="wds-global-footer__link"
+   data-tracking-label="site-overview.local-sitemap">
+	Local Sitemap</a>
+									</li>
+					</ul>
+	</section>
+		</div>
+		<div class="wds-global-footer__column">
+			<section class="wds-global-footer__section wds-is-community">
+			<h3 class="wds-global-footer__section-header">Community</h3>
+	
+	
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="//community.fandom.com/wiki/Community_Central"
+   class="wds-global-footer__link"
+   data-tracking-label="community.community-central">
+	Community Central</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://fandom.zendesk.com/"
+   class="wds-global-footer__link"
+   data-tracking-label="community.support">
+	Support</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="//community.fandom.com/wiki/Help:Contents"
+   class="wds-global-footer__link"
+   data-tracking-label="community.help">
+	Help</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/do-not-sell-my-info"
+   class="wds-global-footer__link"
+   data-tracking-label="community.usp-do-not-sell">
+	Do Not Sell My Info</a>
+									</li>
+					</ul>
+	</section>
+			<section class="wds-global-footer__section wds-is-advertise">
+			<h3 class="wds-global-footer__section-header">Advertise</h3>
+	
+	
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/mediakit"
+   class="wds-global-footer__link"
+   data-tracking-label="advertise.media-kit">
+	Media Kit</a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://www.fandom.com/mediakit#contact"
+   class="wds-global-footer__link"
+   data-tracking-label="advertise.contact">
+	Contact</a>
+									</li>
+					</ul>
+	</section>
+		</div>
+		<div class="wds-global-footer__column">
+			<section class="wds-global-footer__section wds-is-fandom-apps">
+			<h3 class="wds-global-footer__section-header">Fandom Apps</h3>
+	
+			<span class="wds-global-footer__section-description">Take your favorite fandoms with you and never miss a beat.</span>
+	
+	
+	</section>
+			<section class="wds-global-footer__section wds-is-fandom-stores">
+	
+	
+			<figure class="wds-global-footer__image">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 78 78" class="wds-icon" id="wds-company-store-logo-fandom"><defs><rect id="path-1" x=".667" y="0" width="78" height="78" rx="6"/></defs><g transform="translate(-.667)" fill="none" fill-rule="evenodd"><mask id="mask-2" fill="#fff"><use xlink:href="#path-1"/></mask><use fill-opacity=".405" fill="#FFE2E2" xlink:href="#path-1"/><image mask="url(#mask-2)" x="-2" y="-1" width="83.333" height="83.889" xlink:href="data:image/png;base64,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"/></g></svg>	</figure>
+
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://itunes.apple.com/us/app/fandom-videos-news-reviews/id1230063803?ls=1&amp;mt=8"
+   class="wds-global-footer__link"
+   data-tracking-label="community-apps.app-store">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119 35" class="wds-global-footer__link-image wds-icon" id="wds-company-store-appstore"><g fill="none" fill-rule="evenodd"><path d="M114.766 35H4.17C1.87 35 0 33.138 0 30.859V4.135C0 1.855 1.87 0 4.169 0h110.597C117.063 0 119 1.855 119 4.135V30.86c0 2.279-1.937 4.141-4.234 4.141" fill="#A9AAA9"/><path d="M118.147 30.86c0 1.851-1.511 3.35-3.38 3.35H4.17c-1.87 0-3.385-1.498-3.385-3.35V4.134C.785 2.284 2.3.78 4.169.78h110.597c1.87 0 3.38 1.505 3.38 3.355V30.86" fill="#0A0B09"/><path d="M26.557 17.311c-.025-2.82 2.327-4.192 2.434-4.257-1.332-1.928-3.396-2.19-4.122-2.211-1.734-.181-3.416 1.03-4.299 1.03-.9 0-2.262-1.012-3.727-.983-1.885.03-3.65 1.113-4.619 2.797-1.997 3.432-.507 8.477 1.406 11.251.958 1.36 2.076 2.877 3.54 2.823 1.432-.06 1.967-.907 3.696-.907 1.713 0 2.216.907 3.709.873 1.537-.025 2.505-1.365 3.429-2.736 1.106-1.558 1.55-3.092 1.568-3.171-.036-.012-2.986-1.129-3.015-4.509m-2.82-8.293c.77-.957 1.296-2.258 1.15-3.578-1.115.049-2.51.765-3.312 1.7-.71.825-1.345 2.176-1.181 3.447 1.253.092 2.539-.628 3.343-1.57M43.858 22.71l-.992-3.04c-.104-.31-.301-1.042-.592-2.194h-.034a84.012 84.012 0 0 1-.557 2.195l-.974 3.04h3.15zm3.43 4.856h-2.003l-1.096-3.42h-3.811l-1.045 3.42h-1.948l3.776-11.644h2.332l3.794 11.644zm7.796-4.233c0-.817-.185-1.491-.557-2.021-.407-.553-.951-.83-1.636-.83a1.96 1.96 0 0 0-1.262.459 2.115 2.115 0 0 0-.74 1.2 2.42 2.42 0 0 0-.087.57v1.4c0 .61.19 1.126.566 1.546.378.42.868.63 1.47.63.708 0 1.26-.27 1.654-.811.394-.542.592-1.256.592-2.143zm1.914-.068c0 1.427-.388 2.556-1.166 3.385-.696.738-1.56 1.106-2.593 1.106-1.113 0-1.914-.397-2.401-1.193h-.036v4.423h-1.879v-9.052c0-.898-.024-1.82-.07-2.765h1.653l.105 1.331h.035c.626-1.002 1.578-1.503 2.854-1.503.998 0 1.83.391 2.498 1.174.667.784 1 1.815 1 3.094zm7.815.068c0-.817-.186-1.491-.557-2.021-.407-.553-.952-.83-1.636-.83-.465 0-.885.154-1.263.459a2.123 2.123 0 0 0-.738 1.2c-.058.231-.088.42-.088.57v1.4c0 .61.189 1.126.564 1.546.378.42.869.63 1.473.63.707 0 1.258-.27 1.652-.811.395-.542.593-1.256.593-2.143zm1.914-.068c0 1.427-.388 2.556-1.167 3.385-.695.738-1.56 1.106-2.592 1.106-1.114 0-1.915-.397-2.401-1.193h-.036v4.423h-1.879v-9.052c0-.898-.024-1.82-.07-2.765h1.654l.104 1.331h.035c.626-1.002 1.576-1.503 2.854-1.503.997 0 1.83.391 2.498 1.174.666.784 1 1.815 1 3.094zm10.878 1.036c0 .99-.347 1.796-1.042 2.418-.764.68-1.828 1.02-3.196 1.02-1.26 0-2.274-.242-3.04-.726l.436-1.555a5.18 5.18 0 0 0 2.716.743c.708 0 1.26-.158 1.655-.476.395-.317.59-.741.59-1.272 0-.473-.16-.87-.487-1.194-.323-.323-.864-.623-1.617-.9-2.054-.76-3.081-1.874-3.081-3.34 0-.956.36-1.741 1.08-2.353.717-.611 1.674-.917 2.871-.917 1.068 0 1.955.184 2.662.552l-.47 1.521c-.661-.357-1.409-.535-2.245-.535-.661 0-1.178.16-1.548.483a1.38 1.38 0 0 0-.47 1.055c0 .46.179.84.54 1.139.312.277.88.577 1.705.9 1.01.403 1.75.874 2.228 1.415.476.542.713 1.216.713 2.022m6.213-3.731h-2.071v4.076c0 1.037.365 1.555 1.096 1.555.336 0 .616-.029.836-.086l.051 1.417c-.37.137-.857.206-1.461.206-.743 0-1.323-.224-1.741-.672-.416-.45-.627-1.204-.627-2.264V20.57h-1.234v-1.4H79.9v-1.538l1.846-.553v2.09h2.071v1.4m7.398 2.79c0-.774-.168-1.438-.505-1.992-.394-.67-.958-1.005-1.687-1.005-.756 0-1.33.334-1.724 1.005-.337.554-.504 1.229-.504 2.027 0 .774.167 1.439.504 1.992.407.67.975 1.005 1.707 1.005.717 0 1.28-.34 1.687-1.022.347-.565.522-1.236.522-2.01zm1.95-.06c0 1.29-.371 2.35-1.114 3.178-.778.853-1.811 1.279-3.099 1.279-1.241 0-2.23-.409-2.966-1.227-.737-.817-1.106-1.849-1.106-3.092 0-1.301.38-2.367 1.14-3.196.76-.83 1.783-1.244 3.071-1.244 1.242 0 2.24.409 2.995 1.227.719.794 1.079 1.819 1.079 3.075zm6.108-2.489a3.281 3.281 0 0 0-.592-.05c-.661 0-1.172.247-1.532.742-.314.438-.47.99-.47 1.658v4.406h-1.878l.016-5.752c0-.969-.023-1.85-.07-2.645h1.638l.068 1.607h.052c.198-.552.512-.997.94-1.33.418-.3.871-.449 1.358-.449.174 0 .331.012.47.034v1.78m6.613 1.676c.013-.553-.11-1.03-.365-1.434-.325-.518-.825-.777-1.497-.777-.615 0-1.115.252-1.496.76-.314.403-.5.887-.556 1.45h3.914zm1.792.484c0 .334-.022.616-.069.846h-5.637c.022.83.294 1.463.817 1.901.475.391 1.09.587 1.844.587.834 0 1.596-.133 2.281-.398l.294 1.296c-.8.346-1.745.519-2.835.519-1.312 0-2.342-.384-3.09-1.15-.747-.766-1.123-1.794-1.123-3.084 0-1.267.347-2.32 1.046-3.16.73-.9 1.716-1.348 2.957-1.348 1.219 0 2.142.448 2.769 1.347.497.714.746 1.596.746 2.643zM42.263 8.783c0-.667-.178-1.18-.535-1.536-.357-.356-.877-.535-1.56-.535-.292 0-.54.02-.745.06v4.277c.114.018.322.026.624.026.707 0 1.253-.195 1.638-.585.385-.39.578-.96.578-1.707zm.974-.025c0 1.03-.31 1.805-.932 2.326-.577.48-1.394.72-2.454.72-.525 0-.975-.022-1.351-.067V6.11c.49-.079 1.02-.118 1.59-.118 1.01 0 1.77.218 2.284.654.574.492.863 1.196.863 2.113zm4.206.929c0-.38-.083-.706-.248-.978-.194-.33-.47-.495-.83-.495-.37 0-.652.165-.846.495-.165.272-.248.604-.248.995 0 .38.083.707.248.98.2.328.478.492.838.492.354 0 .63-.167.83-.501.17-.278.256-.607.256-.988zm.958-.03c0 .635-.182 1.155-.547 1.562-.383.42-.89.629-1.522.629-.61 0-1.096-.2-1.458-.603-.362-.402-.543-.909-.543-1.52 0-.639.186-1.162.56-1.57.373-.408.876-.61 1.508-.61.611 0 1.1.2 1.472.602.352.39.53.894.53 1.51zm6.925-2.027l-1.3 4.124h-.845l-.54-1.791a13.32 13.32 0 0 1-.334-1.333h-.016c-.08.453-.191.898-.334 1.333l-.573 1.79h-.855L49.307 7.63h.949l.47 1.96c.113.465.208.906.283 1.325h.016c.068-.345.182-.784.342-1.316l.59-1.969h.752l.565 1.927c.137.47.248.922.333 1.358h.026c.062-.425.157-.877.283-1.358l.504-1.927h.906m4.789 4.124h-.924V9.39c0-.728-.278-1.092-.837-1.092a.837.837 0 0 0-.667.301c-.171.2-.257.436-.257.707v2.447h-.924V8.809c0-.363-.011-.755-.033-1.18h.812l.043.645h.026c.107-.2.268-.367.478-.498.25-.155.53-.232.838-.232.387 0 .71.125.967.374.319.305.478.76.478 1.366v2.47m1.625-6.017h.923v6.017h-.923zm5.402 3.95c0-.38-.082-.706-.247-.978-.193-.33-.471-.495-.829-.495-.372 0-.654.165-.847.495-.165.272-.248.604-.248.995 0 .38.083.707.248.98.2.328.479.492.838.492.354 0 .629-.167.829-.501.172-.278.256-.607.256-.988zm.96-.03c0 .635-.183 1.155-.548 1.562-.382.42-.89.629-1.522.629-.611 0-1.097-.2-1.458-.603-.362-.402-.542-.909-.542-1.52 0-.639.186-1.162.559-1.57.373-.408.877-.61 1.508-.61.612 0 1.1.2 1.472.602.353.39.53.894.53 1.51zm3.511.679V9.7c-1.019-.017-1.528.26-1.528.832 0 .215.058.376.177.483.119.108.27.161.451.161a.927.927 0 0 0 .564-.19.777.777 0 0 0 .336-.65zm.96 1.418h-.83l-.07-.475h-.025c-.284.379-.689.569-1.214.569-.392 0-.709-.125-.949-.374a1.168 1.168 0 0 1-.325-.84c0-.504.212-.888.637-1.155.425-.265 1.023-.396 1.793-.39v-.077c0-.543-.288-.814-.863-.814-.41 0-.772.101-1.083.305l-.188-.603c.386-.237.862-.356 1.426-.356 1.086 0 1.63.569 1.63 1.707v1.519c0 .412.02.74.06.984zm4.291-1.74v-.687a1.043 1.043 0 0 0-.36-.844.908.908 0 0 0-.617-.226.952.952 0 0 0-.813.407c-.197.272-.296.62-.296 1.044 0 .408.094.739.284.993.2.271.47.408.807.408a.895.895 0 0 0 .73-.34c.178-.209.265-.46.265-.755zm.958 1.74h-.82l-.042-.662h-.027c-.262.503-.707.755-1.334.755-.501 0-.917-.195-1.248-.585-.33-.391-.496-.897-.496-1.52 0-.667.179-1.208.539-1.62a1.662 1.662 0 0 1 1.283-.578c.557 0 .948.187 1.17.56h.017V5.737h.925v4.906c0 .401.01.771.033 1.11zm6.943-2.067c0-.38-.083-.706-.248-.978-.194-.33-.47-.495-.83-.495-.37 0-.652.165-.847.495-.165.272-.248.604-.248.995 0 .38.083.707.248.98.2.328.479.492.839.492.353 0 .63-.167.83-.501.17-.278.256-.607.256-.988zm.957-.03c0 .635-.182 1.155-.547 1.562-.383.42-.889.629-1.522.629-.61 0-1.095-.2-1.458-.603-.362-.402-.542-.909-.542-1.52 0-.639.186-1.162.56-1.57.372-.408.875-.61 1.51-.61.608 0 1.1.2 1.469.602.353.39.53.894.53 1.51zm4.968 2.097h-.923V9.39c0-.728-.279-1.092-.839-1.092a.833.833 0 0 0-.666.301c-.17.2-.257.436-.257.707v2.447h-.924V8.809c0-.363-.01-.755-.033-1.18h.811l.043.645h.026c.108-.2.269-.367.478-.498.252-.155.531-.232.839-.232.388 0 .71.125.966.374.32.305.478.76.478 1.366v2.47m6.218-3.438h-1.019v2.004c0 .509.181.764.54.764.165 0 .302-.014.41-.043l.025.696c-.182.068-.422.102-.718.102-.365 0-.649-.11-.853-.331-.207-.221-.309-.591-.309-1.112v-2.08h-.608v-.687h.608v-.756l.905-.271v1.027h1.019v.687m4.89 3.438h-.924V9.409c0-.74-.28-1.11-.837-1.11-.429 0-.721.215-.882.644-.027.09-.042.2-.042.33v2.48h-.923V5.738h.923v2.485h.017c.29-.452.708-.678 1.248-.678.383 0 .699.125.95.374.314.31.47.772.47 1.383v2.453m4.163-2.497a1.23 1.23 0 0 0-.179-.704c-.16-.255-.404-.382-.735-.382a.88.88 0 0 0-.735.374 1.38 1.38 0 0 0-.274.712h1.923zm.882.238c0 .165-.013.303-.035.416h-2.77c.012.408.144.718.4.934.235.192.539.288.909.288.41 0 .783-.064 1.12-.195l.145.636c-.394.17-.857.256-1.395.256-.643 0-1.15-.188-1.516-.565-.368-.377-.55-.882-.55-1.515 0-.622.17-1.14.512-1.553.358-.442.842-.663 1.453-.663.598 0 1.052.221 1.358.663.246.35.369.784.369 1.298z" fill="#FFF"/></g></svg></a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://play.google.com/store/apps/details?id=com.fandom.app&amp;referrer=utm_source%3Dwikia%26utm_medium%3Dglobalfooter"
+   class="wds-global-footer__link"
+   data-tracking-label="community-apps.google-play">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119 35" class="wds-global-footer__link-image wds-icon" id="wds-company-store-googleplay"><defs><linearGradient id="store-googleplay-gradient-1" x1="91.536%" x2="-37.559%" y1="4.839%" y2="71.968%"><stop stop-color="#00A0FF" offset="0%"/><stop stop-color="#00A1FF" offset=".657%"/><stop stop-color="#00BEFF" offset="26.01%"/><stop stop-color="#00D2FF" offset="51.22%"/><stop stop-color="#00DFFF" offset="76.04%"/><stop stop-color="#00E3FF" offset="100%"/></linearGradient><linearGradient id="store-googleplay-gradient-2" x1="107.728%" x2="-130.665%" y1="49.428%" y2="49.428%"><stop stop-color="#FFE000" offset="0%"/><stop stop-color="#FFBD00" offset="40.87%"/><stop stop-color="orange" offset="77.54%"/><stop stop-color="#FF9C00" offset="100%"/></linearGradient><linearGradient id="store-googleplay-gradient-3" x1="86.389%" x2="-49.888%" y1="17.815%" y2="194.393%"><stop stop-color="#FF3A44" offset="0%"/><stop stop-color="#C31162" offset="100%"/></linearGradient><linearGradient id="store-googleplay-gradient-4" x1="-18.579%" x2="42.275%" y1="-54.527%" y2="24.69%"><stop stop-color="#32A071" offset="0%"/><stop stop-color="#2DA771" offset="6.85%"/><stop stop-color="#15CF74" offset="47.62%"/><stop stop-color="#06E775" offset="80.09%"/><stop stop-color="#00F076" offset="100%"/></linearGradient></defs><g fill="none" fill-rule="evenodd"><path fill="#000" d="M114.593 35H4.407C1.94 35 0 33.075 0 30.625V4.375C0 1.925 1.94 0 4.407 0h110.186C117.06 0 119 1.925 119 4.375v26.25c0 2.362-1.94 4.375-4.407 4.375z"/><path fill="#A6A6A6" d="M114.593.7c2.027 0 3.702 1.662 3.702 3.675v26.25c0 2.013-1.675 3.675-3.702 3.675H4.407C2.38 34.3.705 32.638.705 30.625V4.375C.705 2.362 2.38.7 4.407.7h110.186zm0-.7H4.407C1.94 0 0 1.925 0 4.375v26.25C0 33.075 1.94 35 4.407 35h110.186c2.468 0 4.407-1.925 4.407-4.375V4.375C119 2.013 117.06 0 114.593 0z"/><path fill="#FFF" stroke="#FFF" stroke-width=".2" d="M41.475 8.925c0 .7-.175 1.313-.613 1.75-.525.525-1.137.787-1.925.787-.787 0-1.4-.262-1.924-.787-.526-.525-.788-1.138-.788-1.925 0-.787.262-1.4.788-1.925.525-.525 1.137-.788 1.925-.788.35 0 .7.088 1.05.263.35.175.612.35.787.612l-.438.438c-.35-.438-.787-.612-1.4-.612-.524 0-1.05.174-1.4.612-.437.35-.612.875-.612 1.488 0 .612.175 1.137.613 1.487.437.35.875.613 1.4.613.612 0 1.05-.176 1.487-.613.263-.262.438-.612.438-1.05h-1.925v-.613h2.537v.263zM45.5 6.737h-2.362V8.4h2.187v.612h-2.187v1.663H45.5v.7h-3.062v-5.25H45.5zm2.888 4.638h-.7V6.737H46.2v-.612h3.675v.612h-1.487zm4.025 0v-5.25h.7v5.25zm3.674 0h-.7V6.737H53.9v-.612h3.587v.612H56v4.638zm8.313-.7c-.525.525-1.138.787-1.925.787-.788 0-1.4-.262-1.925-.787-.525-.525-.787-1.138-.787-1.925 0-.787.262-1.4.787-1.925.525-.525 1.138-.788 1.925-.788.788 0 1.4.263 1.925.788.525.525.787 1.138.787 1.925 0 .787-.262 1.4-.787 1.925zm-3.325-.438c.35.35.875.613 1.4.613.525 0 1.05-.175 1.4-.612.35-.35.612-.875.612-1.488s-.174-1.138-.612-1.487c-.35-.35-.875-.613-1.4-.613-.525 0-1.05.175-1.4.612-.35.35-.613.875-.613 1.488s.175 1.137.613 1.488zm5.075 1.138v-5.25h.788l2.537 4.113V6.125h.7v5.25h-.7l-2.712-4.287v4.287z"/><path fill="#FFF" d="M59.587 19.075c-2.1 0-3.762 1.575-3.762 3.762 0 2.1 1.662 3.763 3.762 3.763s3.763-1.575 3.763-3.763c0-2.274-1.663-3.762-3.763-3.762zm0 5.95c-1.137 0-2.1-.962-2.1-2.275s.963-2.275 2.1-2.275c1.138 0 2.1.875 2.1 2.275 0 1.313-.962 2.275-2.1 2.275zm-8.137-5.95c-2.1 0-3.763 1.575-3.763 3.762 0 2.1 1.663 3.763 3.763 3.763 2.1 0 3.762-1.575 3.762-3.763 0-2.274-1.662-3.762-3.762-3.762zm0 5.95c-1.138 0-2.1-.962-2.1-2.275s.962-2.275 2.1-2.275c1.137 0 2.1.875 2.1 2.275 0 1.313-.962 2.275-2.1 2.275zm-9.713-4.813v1.576H45.5c-.087.875-.438 1.575-.875 2.012-.525.525-1.4 1.137-2.888 1.137-2.362 0-4.112-1.837-4.112-4.2 0-2.362 1.837-4.2 4.112-4.2 1.225 0 2.188.526 2.888 1.138l1.138-1.137c-.963-.876-2.188-1.575-3.938-1.575-3.15 0-5.863 2.624-5.863 5.775 0 3.15 2.713 5.774 5.863 5.774 1.75 0 2.975-.524 4.025-1.662 1.05-1.05 1.4-2.538 1.4-3.675 0-.35 0-.7-.087-.963h-5.425zm39.726 1.226c-.35-.875-1.225-2.363-3.15-2.363-1.925 0-3.5 1.488-3.5 3.762 0 2.1 1.575 3.763 3.674 3.763 1.663 0 2.713-1.05 3.063-1.663l-1.225-.875c-.438.613-.963 1.05-1.838 1.05-.874 0-1.4-.35-1.837-1.137l4.987-2.1-.174-.438zm-5.075 1.225c0-1.4 1.137-2.188 1.924-2.188.613 0 1.225.35 1.4.787l-3.325 1.4zm-4.113 3.587h1.662V15.312h-1.662V26.25zm-2.625-6.387c-.438-.438-1.138-.875-2.013-.875-1.837 0-3.587 1.662-3.587 3.762s1.663 3.675 3.588 3.675c.874 0 1.575-.438 1.924-.875h.088v.525c0 1.4-.788 2.188-2.013 2.188-.962 0-1.662-.7-1.837-1.313l-1.4.613c.438.962 1.487 2.187 3.325 2.187 1.925 0 3.5-1.137 3.5-3.85v-6.65H69.65v.613zm-1.925 5.162c-1.137 0-2.1-.962-2.1-2.275s.963-2.275 2.1-2.275c1.138 0 2.013.962 2.013 2.275s-.876 2.275-2.013 2.275zm21.35-9.712h-3.938V26.25H86.8v-4.113h2.275c1.837 0 3.587-1.312 3.587-3.412 0-2.1-1.75-3.413-3.587-3.413zm.087 5.25H86.8V16.8h2.362c1.225 0 1.925 1.05 1.925 1.837-.087.963-.787 1.925-1.925 1.925zm10.063-1.575c-1.225 0-2.45.524-2.887 1.662l1.487.613c.35-.613.875-.788 1.487-.788.876 0 1.663.525 1.75 1.4v.087c-.262-.174-.962-.437-1.662-.437-1.575 0-3.15.875-3.15 2.45 0 1.487 1.313 2.45 2.713 2.45 1.137 0 1.662-.525 2.1-1.05h.087v.875h1.575v-4.2c-.175-1.925-1.662-3.063-3.5-3.063zm-.175 6.037c-.525 0-1.313-.262-1.313-.962 0-.875.963-1.138 1.75-1.138.7 0 1.05.175 1.488.35-.175 1.05-1.05 1.75-1.925 1.75zm9.188-5.775l-1.838 4.725h-.088l-1.924-4.725h-1.75l2.887 6.65-1.663 3.675h1.663l4.462-10.325h-1.75zm-14.7 7H95.2V15.312h-1.663V26.25z"/><path fill="url(#store-googleplay-gradient-1)" d="M9.1 6.563c-.262.262-.438.7-.438 1.224v19.338c0 .525.175.962.438 1.225l.088.087 10.85-10.85v-.174L9.1 6.563z"/><path fill="url(#store-googleplay-gradient-2)" d="M23.625 21.262l-3.587-3.587v-.262l3.587-3.588.087.088L28 16.363c1.225.7 1.225 1.837 0 2.537l-4.375 2.363z"/><path fill="url(#store-googleplay-gradient-3)" d="M23.712 21.175L20.038 17.5 9.1 28.438c.438.437 1.05.437 1.838.087l12.774-7.35"/><path fill="url(#store-googleplay-gradient-4)" d="M23.712 13.825L10.938 6.563c-.788-.438-1.4-.35-1.838.087L20.038 17.5l3.674-3.675z"/><path fill="#000" d="M23.625 21.087l-12.688 7.175c-.7.438-1.312.35-1.75 0l-.087.088.088.087c.437.35 1.05.438 1.75 0l12.687-7.35z" opacity=".2"/><path fill="#000" d="M9.15 28.262c-.3-.262-.4-.7-.4-1.224v.087c0 .525.2.962.5 1.225v-.088h-.1zM28 18.637l-4.375 2.45.087.088L28 18.725c.613-.35.875-.788.875-1.225 0 .438-.35.788-.875 1.137z" opacity=".12"/><path fill="#FFF" d="M10.938 6.65L28 16.363c.525.35.875.7.875 1.137 0-.438-.262-.875-.875-1.225L10.937 6.563c-1.224-.7-2.187-.088-2.187 1.312v.088c0-1.4.963-2.013 2.188-1.313z" opacity=".25"/></g></svg></a>
+									</li>
+					</ul>
+	</section>
+			<section class="wds-global-footer__section wds-is-ddb-stores">
+	
+	
+			<figure class="wds-global-footer__image">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 78 78" class="wds-icon" id="wds-company-store-logo-ddb"><defs><rect id="path-1" x=".222" y=".111" width="78" height="78" rx="6"/></defs><g transform="translate(-.222 -.111)" fill="none" fill-rule="evenodd"><mask id="mask-2" fill="#fff"><use xlink:href="#path-1"/></mask><use fill-opacity=".405" fill="#FFE2E2" xlink:href="#path-1"/><image mask="url(#mask-2)" x="-3" y="-2" width="84.444" height="85" xlink:href="data:image/png;base64,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"/></g></svg>			<figcaption class="wds-global-footer__image-caption">
+			D&amp;D Beyond		</figcaption>
+	</figure>
+
+	
+			<ul class="wds-global-footer__links-list">
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://apps.apple.com/us/app/d-d-beyond/id1263629972"
+   class="wds-global-footer__link"
+   data-tracking-label="community-apps.app-store-ddb">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119 35" class="wds-global-footer__link-image wds-icon" id="wds-company-store-appstore"><g fill="none" fill-rule="evenodd"><path d="M114.766 35H4.17C1.87 35 0 33.138 0 30.859V4.135C0 1.855 1.87 0 4.169 0h110.597C117.063 0 119 1.855 119 4.135V30.86c0 2.279-1.937 4.141-4.234 4.141" fill="#A9AAA9"/><path d="M118.147 30.86c0 1.851-1.511 3.35-3.38 3.35H4.17c-1.87 0-3.385-1.498-3.385-3.35V4.134C.785 2.284 2.3.78 4.169.78h110.597c1.87 0 3.38 1.505 3.38 3.355V30.86" fill="#0A0B09"/><path d="M26.557 17.311c-.025-2.82 2.327-4.192 2.434-4.257-1.332-1.928-3.396-2.19-4.122-2.211-1.734-.181-3.416 1.03-4.299 1.03-.9 0-2.262-1.012-3.727-.983-1.885.03-3.65 1.113-4.619 2.797-1.997 3.432-.507 8.477 1.406 11.251.958 1.36 2.076 2.877 3.54 2.823 1.432-.06 1.967-.907 3.696-.907 1.713 0 2.216.907 3.709.873 1.537-.025 2.505-1.365 3.429-2.736 1.106-1.558 1.55-3.092 1.568-3.171-.036-.012-2.986-1.129-3.015-4.509m-2.82-8.293c.77-.957 1.296-2.258 1.15-3.578-1.115.049-2.51.765-3.312 1.7-.71.825-1.345 2.176-1.181 3.447 1.253.092 2.539-.628 3.343-1.57M43.858 22.71l-.992-3.04c-.104-.31-.301-1.042-.592-2.194h-.034a84.012 84.012 0 0 1-.557 2.195l-.974 3.04h3.15zm3.43 4.856h-2.003l-1.096-3.42h-3.811l-1.045 3.42h-1.948l3.776-11.644h2.332l3.794 11.644zm7.796-4.233c0-.817-.185-1.491-.557-2.021-.407-.553-.951-.83-1.636-.83a1.96 1.96 0 0 0-1.262.459 2.115 2.115 0 0 0-.74 1.2 2.42 2.42 0 0 0-.087.57v1.4c0 .61.19 1.126.566 1.546.378.42.868.63 1.47.63.708 0 1.26-.27 1.654-.811.394-.542.592-1.256.592-2.143zm1.914-.068c0 1.427-.388 2.556-1.166 3.385-.696.738-1.56 1.106-2.593 1.106-1.113 0-1.914-.397-2.401-1.193h-.036v4.423h-1.879v-9.052c0-.898-.024-1.82-.07-2.765h1.653l.105 1.331h.035c.626-1.002 1.578-1.503 2.854-1.503.998 0 1.83.391 2.498 1.174.667.784 1 1.815 1 3.094zm7.815.068c0-.817-.186-1.491-.557-2.021-.407-.553-.952-.83-1.636-.83-.465 0-.885.154-1.263.459a2.123 2.123 0 0 0-.738 1.2c-.058.231-.088.42-.088.57v1.4c0 .61.189 1.126.564 1.546.378.42.869.63 1.473.63.707 0 1.258-.27 1.652-.811.395-.542.593-1.256.593-2.143zm1.914-.068c0 1.427-.388 2.556-1.167 3.385-.695.738-1.56 1.106-2.592 1.106-1.114 0-1.915-.397-2.401-1.193h-.036v4.423h-1.879v-9.052c0-.898-.024-1.82-.07-2.765h1.654l.104 1.331h.035c.626-1.002 1.576-1.503 2.854-1.503.997 0 1.83.391 2.498 1.174.666.784 1 1.815 1 3.094zm10.878 1.036c0 .99-.347 1.796-1.042 2.418-.764.68-1.828 1.02-3.196 1.02-1.26 0-2.274-.242-3.04-.726l.436-1.555a5.18 5.18 0 0 0 2.716.743c.708 0 1.26-.158 1.655-.476.395-.317.59-.741.59-1.272 0-.473-.16-.87-.487-1.194-.323-.323-.864-.623-1.617-.9-2.054-.76-3.081-1.874-3.081-3.34 0-.956.36-1.741 1.08-2.353.717-.611 1.674-.917 2.871-.917 1.068 0 1.955.184 2.662.552l-.47 1.521c-.661-.357-1.409-.535-2.245-.535-.661 0-1.178.16-1.548.483a1.38 1.38 0 0 0-.47 1.055c0 .46.179.84.54 1.139.312.277.88.577 1.705.9 1.01.403 1.75.874 2.228 1.415.476.542.713 1.216.713 2.022m6.213-3.731h-2.071v4.076c0 1.037.365 1.555 1.096 1.555.336 0 .616-.029.836-.086l.051 1.417c-.37.137-.857.206-1.461.206-.743 0-1.323-.224-1.741-.672-.416-.45-.627-1.204-.627-2.264V20.57h-1.234v-1.4H79.9v-1.538l1.846-.553v2.09h2.071v1.4m7.398 2.79c0-.774-.168-1.438-.505-1.992-.394-.67-.958-1.005-1.687-1.005-.756 0-1.33.334-1.724 1.005-.337.554-.504 1.229-.504 2.027 0 .774.167 1.439.504 1.992.407.67.975 1.005 1.707 1.005.717 0 1.28-.34 1.687-1.022.347-.565.522-1.236.522-2.01zm1.95-.06c0 1.29-.371 2.35-1.114 3.178-.778.853-1.811 1.279-3.099 1.279-1.241 0-2.23-.409-2.966-1.227-.737-.817-1.106-1.849-1.106-3.092 0-1.301.38-2.367 1.14-3.196.76-.83 1.783-1.244 3.071-1.244 1.242 0 2.24.409 2.995 1.227.719.794 1.079 1.819 1.079 3.075zm6.108-2.489a3.281 3.281 0 0 0-.592-.05c-.661 0-1.172.247-1.532.742-.314.438-.47.99-.47 1.658v4.406h-1.878l.016-5.752c0-.969-.023-1.85-.07-2.645h1.638l.068 1.607h.052c.198-.552.512-.997.94-1.33.418-.3.871-.449 1.358-.449.174 0 .331.012.47.034v1.78m6.613 1.676c.013-.553-.11-1.03-.365-1.434-.325-.518-.825-.777-1.497-.777-.615 0-1.115.252-1.496.76-.314.403-.5.887-.556 1.45h3.914zm1.792.484c0 .334-.022.616-.069.846h-5.637c.022.83.294 1.463.817 1.901.475.391 1.09.587 1.844.587.834 0 1.596-.133 2.281-.398l.294 1.296c-.8.346-1.745.519-2.835.519-1.312 0-2.342-.384-3.09-1.15-.747-.766-1.123-1.794-1.123-3.084 0-1.267.347-2.32 1.046-3.16.73-.9 1.716-1.348 2.957-1.348 1.219 0 2.142.448 2.769 1.347.497.714.746 1.596.746 2.643zM42.263 8.783c0-.667-.178-1.18-.535-1.536-.357-.356-.877-.535-1.56-.535-.292 0-.54.02-.745.06v4.277c.114.018.322.026.624.026.707 0 1.253-.195 1.638-.585.385-.39.578-.96.578-1.707zm.974-.025c0 1.03-.31 1.805-.932 2.326-.577.48-1.394.72-2.454.72-.525 0-.975-.022-1.351-.067V6.11c.49-.079 1.02-.118 1.59-.118 1.01 0 1.77.218 2.284.654.574.492.863 1.196.863 2.113zm4.206.929c0-.38-.083-.706-.248-.978-.194-.33-.47-.495-.83-.495-.37 0-.652.165-.846.495-.165.272-.248.604-.248.995 0 .38.083.707.248.98.2.328.478.492.838.492.354 0 .63-.167.83-.501.17-.278.256-.607.256-.988zm.958-.03c0 .635-.182 1.155-.547 1.562-.383.42-.89.629-1.522.629-.61 0-1.096-.2-1.458-.603-.362-.402-.543-.909-.543-1.52 0-.639.186-1.162.56-1.57.373-.408.876-.61 1.508-.61.611 0 1.1.2 1.472.602.352.39.53.894.53 1.51zm6.925-2.027l-1.3 4.124h-.845l-.54-1.791a13.32 13.32 0 0 1-.334-1.333h-.016c-.08.453-.191.898-.334 1.333l-.573 1.79h-.855L49.307 7.63h.949l.47 1.96c.113.465.208.906.283 1.325h.016c.068-.345.182-.784.342-1.316l.59-1.969h.752l.565 1.927c.137.47.248.922.333 1.358h.026c.062-.425.157-.877.283-1.358l.504-1.927h.906m4.789 4.124h-.924V9.39c0-.728-.278-1.092-.837-1.092a.837.837 0 0 0-.667.301c-.171.2-.257.436-.257.707v2.447h-.924V8.809c0-.363-.011-.755-.033-1.18h.812l.043.645h.026c.107-.2.268-.367.478-.498.25-.155.53-.232.838-.232.387 0 .71.125.967.374.319.305.478.76.478 1.366v2.47m1.625-6.017h.923v6.017h-.923zm5.402 3.95c0-.38-.082-.706-.247-.978-.193-.33-.471-.495-.829-.495-.372 0-.654.165-.847.495-.165.272-.248.604-.248.995 0 .38.083.707.248.98.2.328.479.492.838.492.354 0 .629-.167.829-.501.172-.278.256-.607.256-.988zm.96-.03c0 .635-.183 1.155-.548 1.562-.382.42-.89.629-1.522.629-.611 0-1.097-.2-1.458-.603-.362-.402-.542-.909-.542-1.52 0-.639.186-1.162.559-1.57.373-.408.877-.61 1.508-.61.612 0 1.1.2 1.472.602.353.39.53.894.53 1.51zm3.511.679V9.7c-1.019-.017-1.528.26-1.528.832 0 .215.058.376.177.483.119.108.27.161.451.161a.927.927 0 0 0 .564-.19.777.777 0 0 0 .336-.65zm.96 1.418h-.83l-.07-.475h-.025c-.284.379-.689.569-1.214.569-.392 0-.709-.125-.949-.374a1.168 1.168 0 0 1-.325-.84c0-.504.212-.888.637-1.155.425-.265 1.023-.396 1.793-.39v-.077c0-.543-.288-.814-.863-.814-.41 0-.772.101-1.083.305l-.188-.603c.386-.237.862-.356 1.426-.356 1.086 0 1.63.569 1.63 1.707v1.519c0 .412.02.74.06.984zm4.291-1.74v-.687a1.043 1.043 0 0 0-.36-.844.908.908 0 0 0-.617-.226.952.952 0 0 0-.813.407c-.197.272-.296.62-.296 1.044 0 .408.094.739.284.993.2.271.47.408.807.408a.895.895 0 0 0 .73-.34c.178-.209.265-.46.265-.755zm.958 1.74h-.82l-.042-.662h-.027c-.262.503-.707.755-1.334.755-.501 0-.917-.195-1.248-.585-.33-.391-.496-.897-.496-1.52 0-.667.179-1.208.539-1.62a1.662 1.662 0 0 1 1.283-.578c.557 0 .948.187 1.17.56h.017V5.737h.925v4.906c0 .401.01.771.033 1.11zm6.943-2.067c0-.38-.083-.706-.248-.978-.194-.33-.47-.495-.83-.495-.37 0-.652.165-.847.495-.165.272-.248.604-.248.995 0 .38.083.707.248.98.2.328.479.492.839.492.353 0 .63-.167.83-.501.17-.278.256-.607.256-.988zm.957-.03c0 .635-.182 1.155-.547 1.562-.383.42-.889.629-1.522.629-.61 0-1.095-.2-1.458-.603-.362-.402-.542-.909-.542-1.52 0-.639.186-1.162.56-1.57.372-.408.875-.61 1.51-.61.608 0 1.1.2 1.469.602.353.39.53.894.53 1.51zm4.968 2.097h-.923V9.39c0-.728-.279-1.092-.839-1.092a.833.833 0 0 0-.666.301c-.17.2-.257.436-.257.707v2.447h-.924V8.809c0-.363-.01-.755-.033-1.18h.811l.043.645h.026c.108-.2.269-.367.478-.498.252-.155.531-.232.839-.232.388 0 .71.125.966.374.32.305.478.76.478 1.366v2.47m6.218-3.438h-1.019v2.004c0 .509.181.764.54.764.165 0 .302-.014.41-.043l.025.696c-.182.068-.422.102-.718.102-.365 0-.649-.11-.853-.331-.207-.221-.309-.591-.309-1.112v-2.08h-.608v-.687h.608v-.756l.905-.271v1.027h1.019v.687m4.89 3.438h-.924V9.409c0-.74-.28-1.11-.837-1.11-.429 0-.721.215-.882.644-.027.09-.042.2-.042.33v2.48h-.923V5.738h.923v2.485h.017c.29-.452.708-.678 1.248-.678.383 0 .699.125.95.374.314.31.47.772.47 1.383v2.453m4.163-2.497a1.23 1.23 0 0 0-.179-.704c-.16-.255-.404-.382-.735-.382a.88.88 0 0 0-.735.374 1.38 1.38 0 0 0-.274.712h1.923zm.882.238c0 .165-.013.303-.035.416h-2.77c.012.408.144.718.4.934.235.192.539.288.909.288.41 0 .783-.064 1.12-.195l.145.636c-.394.17-.857.256-1.395.256-.643 0-1.15-.188-1.516-.565-.368-.377-.55-.882-.55-1.515 0-.622.17-1.14.512-1.553.358-.442.842-.663 1.453-.663.598 0 1.052.221 1.358.663.246.35.369.784.369 1.298z" fill="#FFF"/></g></svg></a>
+									</li>
+							<li class="wds-global-footer__links-list-item">
+											<a href="https://play.google.com/store/apps/details?id=com.curse.dndbeyond&amp;hl=en&amp;referrer=utm_source%3Dwikia%26utm_medium%3Dglobalfooter"
+   class="wds-global-footer__link"
+   data-tracking-label="community-apps.google-play-ddb">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119 35" class="wds-global-footer__link-image wds-icon" id="wds-company-store-googleplay"><defs><linearGradient id="store-googleplay-gradient-1" x1="91.536%" x2="-37.559%" y1="4.839%" y2="71.968%"><stop stop-color="#00A0FF" offset="0%"/><stop stop-color="#00A1FF" offset=".657%"/><stop stop-color="#00BEFF" offset="26.01%"/><stop stop-color="#00D2FF" offset="51.22%"/><stop stop-color="#00DFFF" offset="76.04%"/><stop stop-color="#00E3FF" offset="100%"/></linearGradient><linearGradient id="store-googleplay-gradient-2" x1="107.728%" x2="-130.665%" y1="49.428%" y2="49.428%"><stop stop-color="#FFE000" offset="0%"/><stop stop-color="#FFBD00" offset="40.87%"/><stop stop-color="orange" offset="77.54%"/><stop stop-color="#FF9C00" offset="100%"/></linearGradient><linearGradient id="store-googleplay-gradient-3" x1="86.389%" x2="-49.888%" y1="17.815%" y2="194.393%"><stop stop-color="#FF3A44" offset="0%"/><stop stop-color="#C31162" offset="100%"/></linearGradient><linearGradient id="store-googleplay-gradient-4" x1="-18.579%" x2="42.275%" y1="-54.527%" y2="24.69%"><stop stop-color="#32A071" offset="0%"/><stop stop-color="#2DA771" offset="6.85%"/><stop stop-color="#15CF74" offset="47.62%"/><stop stop-color="#06E775" offset="80.09%"/><stop stop-color="#00F076" offset="100%"/></linearGradient></defs><g fill="none" fill-rule="evenodd"><path fill="#000" d="M114.593 35H4.407C1.94 35 0 33.075 0 30.625V4.375C0 1.925 1.94 0 4.407 0h110.186C117.06 0 119 1.925 119 4.375v26.25c0 2.362-1.94 4.375-4.407 4.375z"/><path fill="#A6A6A6" d="M114.593.7c2.027 0 3.702 1.662 3.702 3.675v26.25c0 2.013-1.675 3.675-3.702 3.675H4.407C2.38 34.3.705 32.638.705 30.625V4.375C.705 2.362 2.38.7 4.407.7h110.186zm0-.7H4.407C1.94 0 0 1.925 0 4.375v26.25C0 33.075 1.94 35 4.407 35h110.186c2.468 0 4.407-1.925 4.407-4.375V4.375C119 2.013 117.06 0 114.593 0z"/><path fill="#FFF" stroke="#FFF" stroke-width=".2" d="M41.475 8.925c0 .7-.175 1.313-.613 1.75-.525.525-1.137.787-1.925.787-.787 0-1.4-.262-1.924-.787-.526-.525-.788-1.138-.788-1.925 0-.787.262-1.4.788-1.925.525-.525 1.137-.788 1.925-.788.35 0 .7.088 1.05.263.35.175.612.35.787.612l-.438.438c-.35-.438-.787-.612-1.4-.612-.524 0-1.05.174-1.4.612-.437.35-.612.875-.612 1.488 0 .612.175 1.137.613 1.487.437.35.875.613 1.4.613.612 0 1.05-.176 1.487-.613.263-.262.438-.612.438-1.05h-1.925v-.613h2.537v.263zM45.5 6.737h-2.362V8.4h2.187v.612h-2.187v1.663H45.5v.7h-3.062v-5.25H45.5zm2.888 4.638h-.7V6.737H46.2v-.612h3.675v.612h-1.487zm4.025 0v-5.25h.7v5.25zm3.674 0h-.7V6.737H53.9v-.612h3.587v.612H56v4.638zm8.313-.7c-.525.525-1.138.787-1.925.787-.788 0-1.4-.262-1.925-.787-.525-.525-.787-1.138-.787-1.925 0-.787.262-1.4.787-1.925.525-.525 1.138-.788 1.925-.788.788 0 1.4.263 1.925.788.525.525.787 1.138.787 1.925 0 .787-.262 1.4-.787 1.925zm-3.325-.438c.35.35.875.613 1.4.613.525 0 1.05-.175 1.4-.612.35-.35.612-.875.612-1.488s-.174-1.138-.612-1.487c-.35-.35-.875-.613-1.4-.613-.525 0-1.05.175-1.4.612-.35.35-.613.875-.613 1.488s.175 1.137.613 1.488zm5.075 1.138v-5.25h.788l2.537 4.113V6.125h.7v5.25h-.7l-2.712-4.287v4.287z"/><path fill="#FFF" d="M59.587 19.075c-2.1 0-3.762 1.575-3.762 3.762 0 2.1 1.662 3.763 3.762 3.763s3.763-1.575 3.763-3.763c0-2.274-1.663-3.762-3.763-3.762zm0 5.95c-1.137 0-2.1-.962-2.1-2.275s.963-2.275 2.1-2.275c1.138 0 2.1.875 2.1 2.275 0 1.313-.962 2.275-2.1 2.275zm-8.137-5.95c-2.1 0-3.763 1.575-3.763 3.762 0 2.1 1.663 3.763 3.763 3.763 2.1 0 3.762-1.575 3.762-3.763 0-2.274-1.662-3.762-3.762-3.762zm0 5.95c-1.138 0-2.1-.962-2.1-2.275s.962-2.275 2.1-2.275c1.137 0 2.1.875 2.1 2.275 0 1.313-.962 2.275-2.1 2.275zm-9.713-4.813v1.576H45.5c-.087.875-.438 1.575-.875 2.012-.525.525-1.4 1.137-2.888 1.137-2.362 0-4.112-1.837-4.112-4.2 0-2.362 1.837-4.2 4.112-4.2 1.225 0 2.188.526 2.888 1.138l1.138-1.137c-.963-.876-2.188-1.575-3.938-1.575-3.15 0-5.863 2.624-5.863 5.775 0 3.15 2.713 5.774 5.863 5.774 1.75 0 2.975-.524 4.025-1.662 1.05-1.05 1.4-2.538 1.4-3.675 0-.35 0-.7-.087-.963h-5.425zm39.726 1.226c-.35-.875-1.225-2.363-3.15-2.363-1.925 0-3.5 1.488-3.5 3.762 0 2.1 1.575 3.763 3.674 3.763 1.663 0 2.713-1.05 3.063-1.663l-1.225-.875c-.438.613-.963 1.05-1.838 1.05-.874 0-1.4-.35-1.837-1.137l4.987-2.1-.174-.438zm-5.075 1.225c0-1.4 1.137-2.188 1.924-2.188.613 0 1.225.35 1.4.787l-3.325 1.4zm-4.113 3.587h1.662V15.312h-1.662V26.25zm-2.625-6.387c-.438-.438-1.138-.875-2.013-.875-1.837 0-3.587 1.662-3.587 3.762s1.663 3.675 3.588 3.675c.874 0 1.575-.438 1.924-.875h.088v.525c0 1.4-.788 2.188-2.013 2.188-.962 0-1.662-.7-1.837-1.313l-1.4.613c.438.962 1.487 2.187 3.325 2.187 1.925 0 3.5-1.137 3.5-3.85v-6.65H69.65v.613zm-1.925 5.162c-1.137 0-2.1-.962-2.1-2.275s.963-2.275 2.1-2.275c1.138 0 2.013.962 2.013 2.275s-.876 2.275-2.013 2.275zm21.35-9.712h-3.938V26.25H86.8v-4.113h2.275c1.837 0 3.587-1.312 3.587-3.412 0-2.1-1.75-3.413-3.587-3.413zm.087 5.25H86.8V16.8h2.362c1.225 0 1.925 1.05 1.925 1.837-.087.963-.787 1.925-1.925 1.925zm10.063-1.575c-1.225 0-2.45.524-2.887 1.662l1.487.613c.35-.613.875-.788 1.487-.788.876 0 1.663.525 1.75 1.4v.087c-.262-.174-.962-.437-1.662-.437-1.575 0-3.15.875-3.15 2.45 0 1.487 1.313 2.45 2.713 2.45 1.137 0 1.662-.525 2.1-1.05h.087v.875h1.575v-4.2c-.175-1.925-1.662-3.063-3.5-3.063zm-.175 6.037c-.525 0-1.313-.262-1.313-.962 0-.875.963-1.138 1.75-1.138.7 0 1.05.175 1.488.35-.175 1.05-1.05 1.75-1.925 1.75zm9.188-5.775l-1.838 4.725h-.088l-1.924-4.725h-1.75l2.887 6.65-1.663 3.675h1.663l4.462-10.325h-1.75zm-14.7 7H95.2V15.312h-1.663V26.25z"/><path fill="url(#store-googleplay-gradient-1)" d="M9.1 6.563c-.262.262-.438.7-.438 1.224v19.338c0 .525.175.962.438 1.225l.088.087 10.85-10.85v-.174L9.1 6.563z"/><path fill="url(#store-googleplay-gradient-2)" d="M23.625 21.262l-3.587-3.587v-.262l3.587-3.588.087.088L28 16.363c1.225.7 1.225 1.837 0 2.537l-4.375 2.363z"/><path fill="url(#store-googleplay-gradient-3)" d="M23.712 21.175L20.038 17.5 9.1 28.438c.438.437 1.05.437 1.838.087l12.774-7.35"/><path fill="url(#store-googleplay-gradient-4)" d="M23.712 13.825L10.938 6.563c-.788-.438-1.4-.35-1.838.087L20.038 17.5l3.674-3.675z"/><path fill="#000" d="M23.625 21.087l-12.688 7.175c-.7.438-1.312.35-1.75 0l-.087.088.088.087c.437.35 1.05.438 1.75 0l12.687-7.35z" opacity=".2"/><path fill="#000" d="M9.15 28.262c-.3-.262-.4-.7-.4-1.224v.087c0 .525.2.962.5 1.225v-.088h-.1zM28 18.637l-4.375 2.45.087.088L28 18.725c.613-.35.875-.788.875-1.225 0 .438-.35.788-.875 1.137z" opacity=".12"/><path fill="#FFF" d="M10.938 6.65L28 16.363c.525.35.875.7.875 1.137 0-.438-.262-.875-.875-1.225L10.937 6.563c-1.224-.7-2.187-.088-2.187 1.312v.088c0-1.4.963-2.013 2.188-1.313z" opacity=".25"/></g></svg></a>
+									</li>
+					</ul>
+	</section>
+		</div>
+	</div>
+	<div class="wds-global-footer__bottom-bar">
+		<div class="wds-global-footer__bottom-bar-row wds-has-padding">Vim Tips Wiki is a FANDOM Lifestyle Community.</div>
+
+		<div class="wds-global-footer__bottom-bar-row wds-has-border-top mobile-site-link">
+	<a href class="wds-global-footer__button-link">
+		View Mobile Site	</a>
+</div>
+	</div>
+
+</footer>
+
+	<div id="WikiaBar">
+		<div id="WikiaBarWrapper" class="WikiaBarWrapper hidden">
+				<div class="wikia-bar wikia-bar-anon">
+			<a href="#" class="arrow" data-tooltip="Collapse" data-tooltipshow="Show"></a>
+			<div class="ad">
+		<div id="WIKIA_BAR_BOXAD_1" class="noprint" style="width: 300px; position: relative;"></div>
+</div>
+<div
+	class="message"
+	data-messagetooltip="Click here for more information!"
+	data-wikiabarcontent="[{&quot;text&quot;:&quot;Follow Fandom Wikis on Twitter&quot;,&quot;href&quot;:&quot;https:\/\/fandom.link\/FandomWikis&quot;},{&quot;text&quot;:&quot;Follow Fandom Wikis on Twitter&quot;,&quot;href&quot;:&quot;https:\/\/fandom.link\/FandomWikis&quot;},{&quot;text&quot;:&quot;Follow Fandom Wikis on Twitter&quot;,&quot;href&quot;:&quot;https:\/\/fandom.link\/FandomWikis&quot;},{&quot;text&quot;:&quot;Follow Fandom Wikis on Twitter&quot;,&quot;href&quot;:&quot;https:\/\/fandom.link\/FandomWikis&quot;},{&quot;text&quot;:&quot;Follow Fandom Wikis on Twitter&quot;,&quot;href&quot;:&quot;https:\/\/fandom.link\/FandomWikis&quot;}]"
+></div>
+	<a class="wikiabar-button" href="http://bit.ly/31KuElR" data-index="0">
+		<img src="https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/extensions/wikia/WikiaBar/images/wikiabarIcon.png" class="icon cup" />
+		<span>JokeyPsych</span>
+	</a>
+	<a class="wikiabar-button" href="https://bit.ly/EndgameHT" data-index="1">
+		<img src="https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/extensions/wikia/WikiaBar/images/wikiabarIcon.png" class="icon cup" />
+		<span>EndgameHonest</span>
+	</a>
+	<a class="wikiabar-button" href="https://fandom.link/NeverSurrender" data-index="2">
+		<img src="https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/extensions/wikia/WikiaBar/images/wikiabarIcon.png" class="icon cup" />
+		<span>GalaxyQuest</span>
+	</a>
+		</div>
+			</div>
+	<div class="WikiaBarCollapseWrapper">
+		<a href="#" class="wikia-bar-collapse" data-tooltip="Collapse"></a>
+	</div>
+</div>
+</div>
+	<!--[if lt IE 8]>
+		<script src="https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/resources/wikia/libraries/json2/json2.js"></script>
+	<![endif]-->
+
+	<!--[if lt IE 9]>
+		<script src="https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/resources/wikia/libraries/html5/html5.min.js"></script>
+	<![endif]-->
+
+	<!-- Combined JS files and head scripts -->
+	<script src="/load.php?cb=1591798434636&amp;debug=false&amp;lang=en&amp;modules=startup&amp;newve=1&amp;only=scripts&amp;skin=oasis&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgPageName":"Searching","wgTitle":"Searching","wgCurRevisionId":40411,"wgArticleId":1765,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["VimTip","Getting started","Searching"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Searching","wgRestrictionEdit":[],"wgRestrictionMove":[],"sassParams":{"background-dynamic":"1","background-image":"","background-image-height":"800","background-image-width":"2000","color-body":"#003816","color-body-middle":"#bacdd8","color-buttons":"#25883d","color-community-header":"#25883d","color-header":"#002c11","color-links":"#2b54b5","color-page":"#ffffff","oasisTypography":1,"page-opacity":"100","widthType":0,"wordmark-font":"cpmono"},"wgAssetsManagerQuery":"/__am/%4$d/%1$s/%3$s/%2$s","wgWeppyConfig":{"host":"https://speed.nocookie.net/__rum","sample":0.1,"aggregationInterval":1000},"WikiaEnableNewCreatepage":true,"ContentNamespacesText":[""],"wgCatId":"12","wgBlankImgUrl":"data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D","wgMainpage":"Vim Tips Wiki","wgIsContentNamespace":true,"wgExtensionsPath":"https://slot1-images.wikia.nocookie.net/__cb1591798434636/common/extensions","wgResourceBasePath":"https://slot1-images.wikia.nocookie.net/__cb1591798434636/common","wgSitename":"Vim Tips Wiki","wgMWrevId":false,"wgRevisionId":40411,"wgEnableNewAuthModal":true,"wgEnableWikiaPhotoGalleryExt":true,"wgOasisGrid":true,"wgEnableMediaGalleryExt":false,"wgWikiaMaxNameChars":50,"wgMinimalPasswordLength":1,"wgEnableLightboxExt":true,"wgEnableWikiaFollowedPages":true,"wgFollowedPagesPagerLimit":15,"wgFollowedPagesPagerLimitAjax":600,"wgWikiaChatUsers":[],"wgWikiaChatWindowFeatures":"width=600,height=600,menubar=no,status=no,location=no,toolbar=no,scrollbars=no,resizable=yes","wgTrackID":0,"wgEnableWikiaBarExt":true,"wgEnableWikiaBarAds":true,"wgWikiaBarMainLanguages":["de","en","es","fr"],"wgVisualEditor":{"isPageWatched":false,"pageLanguageCode":"en","pageLanguageDir":"ltr","svgMaxSize":2048,"namespacesWithSubpages":{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"7":true,"6":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"112":true,"113":true,"110":true,"111":true,"828":true,"829":true,"1201":true,"2001":true}},"wgMaxUploadSize":10485760,"wgEnableVisualEditorUI":false,"wgEnableWikiaInteractiveMaps":false,"VignettePathPrefix":null,"reCaptchaPublicKey":"6LdDSA4TAAAAANZDWjPdTiQcYsTuge5fMPQTd7D_","wgQualarooUrl":"//s3.amazonaws.com/ki.js/52510/gQT.js","isContributor":false,"isCurrentWikiAdmin":false,"fullVerticalName":"lifestyle","dartGnreValues":[],"wgVisualEditorPreferred":true,"wgEnablePortableInfoboxBuilderInVE":false,"egMapsDebugJS":false,"egMapsAvailableServices":["googlemaps3","openlayers","leaflet"],"wgOasisResponsive":false,"wgOasisBreakpoints":true,"verticalName":"Lifestyle","wgArticleInterlangList":[],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgContentReviewExtEnabled":true,"wgContentReviewTestModeEnabled":false,"wgReviewedScriptsTimestamp":"1441720130","wgScriptsTimestamp":"1185198131","wgCategorySelect":{"defaultNamespace":"Category","defaultNamespaces":"Category","defaultSeparator":":","defaultSortKey":"Searching"}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablefeaturedvideo":1,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editor":2,"editsection":1,"editsectiononrightclick":0,"enotifdiscussionsfollows":1,"enotifdiscussionsvotes":1,"enotifminoredits":1,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":1,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"forceeditsummary":0,"hideminor":0,"hidepatrolled":0,"highlightbroken":1,"htmlemails":1,"imagesize":1,"justify":0,"math":6,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"oasis","stubthreshold":0,"timecorrection":"System|0","thumbsize":
+2,"underline":2,"uselivepreview":0,"usenewrc":1,"watchcreations":1,"watchdefault":1,"watchdeletion":1,"watchlistdays":3,"watchlistdigest":1,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"visualeditor-enable":1,"visualeditor-betatempdisable":0,"variant":"en","language":"en","searchNs0":!0,"searchNs1":!1,"searchNs2":!1,"searchNs3":!1,"searchNs4":!1,"searchNs5":!1,"searchNs6":!1,"searchNs7":!1,"searchNs8":!1,"searchNs9":!1,"searchNs10":!1,"searchNs11":!1,"searchNs12":!1,"searchNs13":!1,"searchNs14":!0,"searchNs15":!1,"searchNs110":!1,"searchNs111":!1,"searchNs112":!1,"searchNs113":!1,"searchNs828":!1,"searchNs829":!1,"searchNs1200":!1,"searchNs1201":!1,"searchNs1202":!1,"category-page-layout":"category-page3"});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":
+"+\\","watchToken":!1});;},{},{});
+
+/* cache key: vim:resourceloader:filter:minify-js:7:5618e356104a497fd8e666fa95c1441b */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","amd.shared","ext.visualEditor.wikia.viewPageTarget.init","mediawiki.user","mediawiki.page.ready","ext.wikia.TimeAgoMessaging","ext.designSystem","ext.bannerNotifications","ext.wikia.facebookTags","ext.wikia.GoogleTagManager","ext.userLogin","ext.wikia.AffiliateService"]);
+}</script><script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/groups/-/oasis_shared_core_js,oasis_shared_js,oasis_anon_js,toc_js,recirculation_js,qualaroo_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/search_tracking_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/auth_modal_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/community_header_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/page_header_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/wikia_in_your_lang_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/portable_infobox_js"></script>
+<script src="https://slot1-images.wikia.nocookie.net/__am/1591798434636/group/-/visit_source_js"></script>
+<script src="/wikia.php?controller=JSMessages&amp;method=getMessages&amp;format=html&amp;packages=AdEngine3%2CArticleVideo%2CConfirmModal%2CImagePlaceholder%2COasis-generic%2CRecirculation&amp;uselang=en&amp;cb=1591798434636.0.0"></script>
+<script type="text/javascript">/*<![CDATA[*/ Wikia.LazyQueue.makeQueue(wgAfterContentAndJS, function(fn) {fn();}); wgAfterContentAndJS.start(); /*]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/ if (typeof AdEngine_trackPageInteractive === 'function') {wgAfterContentAndJS.push(AdEngine_trackPageInteractive);} /*]]>*/</script>
+<script src="/load.php?cb=1591798434636&amp;debug=false&amp;lang=en&amp;modules=ext.siteWideMessages.anon&amp;only=scripts&amp;skin=oasis&amp;*"></script>
+
+<script src="/load.php?cb=1591798434636&amp;debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;reviewed=1441720130&amp;skin=oasis&amp;*"></script>
+<script defer src="https://www.fastly-insights.com/static/scout.js?k=17272cd8-82ee-4eb5-b5a3-b3cd5403f7c5"></script><script>var wgSassLoadedScss = ["skins\/oasis\/css\/oasis.scss","extensions\/wikia\/DesignSystem\/styles\/design-system.scss","extensions\/wikia\/CommunityHeader\/styles\/index.scss","extensions\/wikia\/PageHeader\/styles\/index.scss","extensions\/wikia\/Recirculation\/styles\/recirculation.scss","extensions\/wikia\/PortableInfobox\/styles\/PortableInfobox.scss","extensions\/wikia\/PortableInfobox\/styles\/PortableInfoboxEuropaTheme.scss","extensions\/wikia\/AdEngine3\/dist\/styles.scss","extensions\/wikia\/Qualaroo\/css\/Qualaroo.scss"];</script>
+</body>
+
+
+
+</html>
