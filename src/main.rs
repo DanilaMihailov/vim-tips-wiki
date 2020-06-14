@@ -84,7 +84,7 @@ impl<'a> WikiEntry<'a> {
             Some("ul") => {
                 let mut res = String::new();
                 for child in node.children() {
-                    res.push_str(&format!("    {}\n", self.parse_node(child)));
+                    res.push_str(&format!("    - {}\n", self.parse_node(child)));
                 }
                 format!("\n{}", res)
             }
