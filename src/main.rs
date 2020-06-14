@@ -31,8 +31,26 @@ impl<'a> WikiEntry<'a> {
         format!("vim-wiki-tips-{}{}", &self.title.to_lowercase(), txt)
     }
 
+    fn parse_link(&self, a_node: Node) -> String {
+        let href = a_node.attr("href").unwrap();
+        if href.starts_with("#") {
+            let prepared = format!(
+                "-{}",
+                href.replace("#", "").to_lowercase().replace("_", "-")
+            );
+            format!("{} (|{}|)", a_node.text(), self.short_prefix(&prepared))
+        } else if href.starts_with("/wiki/VimTip") {
+            format!(
+                "{} (|{}|)",
+                a_node.text(),
+                href.replace("/wiki/VimTip", "vwt-")
+            )
+        } else {
+            format!("{} ({})", a_node.text(), href)
+        }
+    }
+
     fn to_vim_help(&self) -> String {
-        let fname = self.file_name();
         let mut result = String::new();
 
         // add first row
@@ -52,7 +70,13 @@ impl<'a> WikiEntry<'a> {
         for node in &self.nodes {
             match node.name() {
                 Some("p") => {
-                    let text = node.text();
+                    let mut text = String::new();
+                    for child in node.children() {
+                        match child.name() {
+                            Some("a") => text.push_str(&self.parse_link(child)),
+                            _ => text.push_str(&child.text()),
+                        }
+                    }
                     let mut new_text = String::with_capacity(text.len());
                     let mut col = 1;
 

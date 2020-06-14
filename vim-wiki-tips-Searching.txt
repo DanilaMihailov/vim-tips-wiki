@@ -6,7 +6,7 @@ version: 6.0
 
 This tip shows how to search using Vim, including use of * (the super star) 
 to search for the current word. Search options are described, and the see also 
-section links to other useful searching tips.
+(|vwt-1-see-also|) section links to other useful searching tips.
 
 BASIC SEARCHING  *vwt-1-basic-searching*
 
@@ -40,7 +40,8 @@ mouse: Shift-LeftClick a word to search forwards, or Shift-RightClick to search
 backwards.
 
 This needs a GUI version of Vim (gvim), or a console Vim that accepts a 
-mouse. You may need the following line in your vimrc to enable mouse searches:
+mouse. You may need the following line in your vimrc (/wiki/Vimrc) to enable mouse 
+searches:
 
 >
     :set mousemodel=extend
@@ -51,9 +52,9 @@ Pattern Highlight and Toggle Ignore-case commands.
 
 MORE SEARCHING  *vwt-1-more-searching*
 
-Vim maintains a search history. Type / or ? and use the arrow up/down keys 
-to recall previous search patterns. You can edit a pattern, and press Enter to 
-search for something different.
+Vim maintains a search history (|vwt-45|). Type / or ? and use the arrow 
+up/down keys to recall previous search patterns. You can edit a pattern, and press 
+Enter to search for something different.
 
 Suppose the cursor is on a word, and you want to search for a similar word.
 
@@ -61,14 +62,15 @@ Press / then Ctrl-r then Ctrl-w to copy the current word to the command
 line. You can now edit the search pattern and press Enter. Use Ctrl-r Ctrl-w for 
 a <cword>, or Ctrl-r Ctrl-a for a <cWORD>.
 
-After searching, press Ctrl-o to jump back to your previous position (then 
-Ctrl-i will jump forwards).
+After searching, press Ctrl-o to jump back (|vwt-10|) to your previous 
+position (then Ctrl-i will jump forwards).
 
 After searching, an empty search pattern will repeat the last search. This 
 works with /, :s and :g.
 
 So, after searching for a word, use :%s//new/g to change all occurrences to 
-'new', or :g/ to list all lines containing the word. See substitute last search.
+'new', or :g/ to list all lines containing the word. See substitute last search 
+(|vwt-1501|).
 
 You can enter a count before a search. For example 3/pattern will search 
 for the third occurrence of pattern, and 3* will search for the third 
@@ -76,25 +78,26 @@ occurrence of the current word.
 
 You can highlight all search matches (and quickly turn highlighting off), 
 and you can use a mapping to highlight all occurrences of the current word 
-without moving (see highlight matches).
+without moving (see highlight matches (|vwt-14|)).
 
 A search can include an offset to position the cursor. For example, 
 searching with /green positions the cursor at the beginning of the next "green", 
 while /green/e positions the cursor at the end of the next "green". :help 
-search-offset
+search-offset (http://vimdoc.sourceforge.net/cgi-bin/help?tag=search-offset)
 
 A search pattern can include characters with codes specified in decimal or 
 hex. For example, searching with /\%d65 or with /\%x41 both find 'A' (character 
 decimal 65 = hex 41), and searching with /\%d8211 or with /\%u2013 both find '–' (a 
-Unicode en dash). :help /\%d
+Unicode en dash). :help /\%d 
+(http://vimdoc.sourceforge.net/cgi-bin/help?tag=%2F%5C%25d)
 
 CASE SENSITIVITY  *vwt-1-case-sensitivity*
 
 By default, searching is case sensitive (searching for "the" will not find 
 "The").
 
-With the following in your vimrc (or entered via a toggle mapping), 
-searching is not case sensitive:
+With the following in your vimrc (or entered via a toggle mapping 
+(|vwt-920|)), searching is not case sensitive:
 
 >
     :set ignorecase
@@ -137,15 +140,16 @@ Ctrl-R Ctrl-W but avoiding an error when used on a blank line).
 SHOW THE NEXT MATCH WHILE ENTERING A SEARCH  *vwt-1-show-the-next-match-while-entering-a-search*
 
 To move the cursor to the matched string, while typing the search pattern, 
-set the following option in your vimrc:
+set the following option in your vimrc (/wiki/Vimrc):
 
 >
     :set incsearch
 <
 Complete the search by pressing Enter, or cancel by pressing Esc. When 
-typing the search pattern, press Ctrl-L (:help c_CTRL-L) to insert the next 
-character from the match or press Ctrl-R Ctrl-W (:help c_CTRL-R_CTRL-F) to complete 
-the current matching word.
+typing the search pattern, press Ctrl-L (:help c_CTRL-L 
+(http://vimdoc.sourceforge.net/cgi-bin/help?tag=c_CTRL-L)) to insert the next character from the match or press Ctrl-R Ctrl-W (:help 
+c_CTRL-R_CTRL-F (http://vimdoc.sourceforge.net/cgi-bin/help?tag=c_CTRL-R_CTRL-F)) to 
+complete the current matching word.
 
 OTHER SEARCH OPTIONS  *vwt-1-other-search-options*
 
@@ -162,13 +166,15 @@ These examples show how to set 'wrapscan' (abbreviated as 'ws'):
     :set ws! ws?           " toggle and show value
 <
 By default, search hits may occur in lines at the top or bottom of the 
-window. The 'scrolloff' option controls whether context lines will be visible above 
-and below the line containing the search hit.
+window. The 'scrolloff' option 
+(/wiki/Make_search_results_appear_in_the_middle_of_the_screen) controls whether context lines will be visible above and below the line 
+containing the search hit.
 
 If your text is folded, you probably want folds to automatically open to 
 reveal search hits. To achieve that, the 'foldopen' option should include "search" 
-(check by entering :set fdo?). :help 'foldopen' Conversely, this option can be 
-used to Search only in unfolded text.
+(check by entering :set fdo?). :help 'foldopen' 
+(http://vimdoc.sourceforge.net/cgi-bin/help?tag=%27foldopen%27) Conversely, this option can be used to Search only in unfolded text 
+(/wiki/Search_only_in_unfolded_text).
 
 SEE ALSO  *vwt-1-see-also*
 
