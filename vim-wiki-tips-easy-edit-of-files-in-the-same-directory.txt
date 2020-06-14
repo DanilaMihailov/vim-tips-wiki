@@ -1,0 +1,64 @@
+*vim-wiki-tips-easy-edit-of-files-in-the-same-directory.txt*   Easy edit of files in the same directory *vwt-2*
+
+Tip 2 [https://vim.fandom.com/wiki/Easy_edit_of_files_in_the_same_directory]   Previous |vwt-1| Next |vwt-3|
+
+created 2001 · complexity intermediate · author scott · version 6.0
+
+==============================================================================
+
+While editing a file, you may want to open another file in the same 
+directory. However, navigating to the file can be frustrating if it is not in 
+the current directory.
+
+Using one of the following snippets in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] will help open files while deep in the 
+directory tree. An alternative would be to set the working directory to the 
+current file |vwt-64|.
+
+USING A COMMAND LINE ABBREVIATION  *vwt-2-using-a-command-line-abbreviation*
+
+This method uses a command line abbreviation so %% expands to the full path 
+of the directory that contains the current file.
+
+>
+    cabbr <expr> %% expand('%:p:h')
+<
+
+For example, while editing file /some/path/myfile.txt, typing :e %%/ on the 
+command line will expand to :e /some/path/. Then you can use completion (press 
+Tab after typing the first few letters of a file name), or press Enter to 
+browse the directory listing. Of course, this abbreviation works anywhere on 
+the command line, so you can use it with :cd, :grep etc.
+
+If your Vim does not support <expr> mappings, try using the expression 
+register |"=| to extract the path instead:
+
+>
+    cabbr %% <C-R>=expand('%:p:h')<CR>
+<
+
+Note that you have to type a non-keyword character after %% in order to 
+expand the abbreviation. For example, after typing :e %%, you could expand the 
+abbreviation by typing / or by pressing Enter or Ctrl-].
+
+USING A MAPPING  *vwt-2-using-a-mapping*
+
+While editing file /some/path/myfile.txt, this method allows you to type \e 
+(assuming the default backslash leader) to enter :e /some/path/ on the command 
+line. Again, you can use completion to enter a file name, or press Enter to 
+browse the directory.
+
+>
+    nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
+<
+
+This method is less versatile than the command line abbreviation above 
+|vwt-2-using-a-command-line-abbreviation|.
+
+REFERENCES  *vwt-2-references*
+    - :help  |cmdline-special| % on command line is replaced with current file name
+    - :help  |expand()|
+    - :help  |filename-modifiers| explanation of '%:p:h'
+
+
+COMMENTS  *vwt-2-comments*

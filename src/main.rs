@@ -25,7 +25,11 @@ impl<'a> WikiEntry<'a> {
     }
 
     fn prefix(&self, txt: &str) -> String {
-        format!("vim-wiki-tips-{}{}", &self.title.to_lowercase(), txt)
+        format!(
+            "vim-wiki-tips-{}{}",
+            &self.title.to_lowercase().replace(" ", "-"),
+            txt
+        )
     }
 
     fn parse_node(&self, node: Node) -> String {
@@ -177,9 +181,9 @@ impl<'a> WikiEntry<'a> {
             .collect::<Vec<String>>();
 
         let mut entry = WikiEntry {
-            n: 1,
+            n: 2,
             nodes: vec![],
-            url: "https://vim.fandom.com/wiki/VimTip1".to_owned(),
+            url: "https://vim.fandom.com/wiki/VimTip2".to_owned(),
             title,
             categories,
         };
@@ -199,19 +203,17 @@ impl<'a> WikiEntry<'a> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // let resp = reqwest::get("https://vim.fandom.com/wiki/VimTip1").await?;
-    // println!("{:#?}", resp);
+    let resp = reqwest::get("https://vim.fandom.com/wiki/VimTip2").await?;
+    println!("{:#?}", resp);
 
-    // let text = resp.text().await?;
+    let text = resp.text().await?;
 
-    // let document = Document::from(text.as_str());
-    let document = Document::from(include_str!("../searching.html"));
+    let document = Document::from(text.as_str());
+    // let document = Document::from(include_str!("../searching.html"));
     let entry = WikiEntry::parse(&document);
     let result = entry.to_vim_help();
     let mut file = File::create(entry.file_name())?;
     file.write_all(&result.into_bytes())?;
-    // println!("{:?}", result);
-    // println!("{:?}", entry);
 
     Ok(())
 }
