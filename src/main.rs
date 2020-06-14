@@ -50,10 +50,10 @@ impl<'a> WikiEntry<'a> {
                     new_text.push(' ');
                 }
 
-                format!("{}\n\n", new_text.trim())
+                format!("\n\n{}", new_text.trim())
             }
             Some("pre") => format!(
-                ">\n    {}\n<\n",
+                "\n>\n    {}\n<",
                 node.text()
                     .trim()
                     .split('\n')
@@ -69,7 +69,7 @@ impl<'a> WikiEntry<'a> {
                 let inner = inner.trim().to_uppercase();
                 let tag =
                     self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
-                format!("{}  *{}*\n\n", inner, tag)
+                format!("\n\n{}  *{}*", inner, tag)
             }
             Some("li") | Some("div") | Some("b") | Some("i") | Some("span") => {
                 node.children().map(|n| self.parse_node(n)).collect()
@@ -85,9 +85,9 @@ impl<'a> WikiEntry<'a> {
                 for child in node.children() {
                     res.push_str(&format!("    {}\n", self.parse_node(child)));
                 }
-                format!("{}\n", res)
+                format!("\n{}", res)
             }
-            Some("dl") => format!("{}\n\n", node.text().trim()),
+            Some("dl") => format!("\n\n{}", node.text().trim()),
             None => node.text().replace("\n", "").to_owned(),
             _ => String::new(),
         }
@@ -132,7 +132,12 @@ impl<'a> WikiEntry<'a> {
         {
             String::new()
         } else {
-            format!("{} [{}]", a_node.text(), href)
+            let link = if href.starts_with("/wiki/") {
+                format!("https://vim.fandom.com{}", href)
+            } else {
+                href.to_owned()
+            };
+            format!("{} [{}]", a_node.text(), link)
         }
     }
 

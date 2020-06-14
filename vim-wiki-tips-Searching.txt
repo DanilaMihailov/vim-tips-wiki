@@ -1,6 +1,8 @@
 *vim-wiki-tips-searching.txt*   Searching *vwt-1*
 
-Tip 1 [https://vim.fandom.com/wiki/Searching]    Next |vwt-2|created 2001 · complexity basic · version 6.0
+Tip 1 [https://vim.fandom.com/wiki/Searching]    Next |vwt-2|
+
+created 2001 · complexity basic · version 6.0
 
 This tip shows how to search using Vim, including use of * (the super star) 
 to search for the current word. Search options are described, and the see also 
@@ -38,12 +40,12 @@ mouse: Shift-LeftClick a word to search forwards, or Shift-RightClick to search
 backwards.
 
 This needs a GUI version of Vim (gvim), or a console Vim that accepts a 
-mouse. You may need the following line in your vimrc [/wiki/Vimrc] to enable mouse 
-searches:
-
+mouse. You may need the following line in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] to enable mouse searches:
 >
     :set mousemodel=extend
 <
+
 In gvim, click the Edit menu, then Global Settings, then the "tear off" bar 
 at the top. That will show a floating Global Settings menu with useful Toggle 
 Pattern Highlight and Toggle Ignore-case commands.
@@ -95,20 +97,20 @@ By default, searching is case sensitive (searching for "the" will not find
 
 With the following in your vimrc (or entered via a toggle mapping 
 |vwt-920|), searching is not case sensitive:
-
 >
     :set ignorecase
 <
+
 Now the command /the will find "the" or "The" or "THE" etc. You can use \c 
 to force a pattern to be case insensitive, or \C to force a pattern to be case 
 sensitive. For example, the search /the\c is always case insensitive, and /the\C is 
 always case sensitive, regardless of the 'ignorecase' option.
 
 If 'ignorecase' is on, you may also want:
-
 >
     :set smartcase
 <
+
 When 'ignorecase' and 'smartcase' are both on, if a pattern contains an 
 uppercase letter, it is case sensitive, otherwise, it is not. For example, /The would 
 find only "The", while /the would find "the" or "The" etc.
@@ -120,11 +122,11 @@ search from history).
 
 When programming, there is generally no reason to want 'smartcase' to apply 
 when you press *. For other situations, use:
-
 >
     :nnoremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
     :nnoremap # ?\<<C-R>=expand('<cword>')<CR>\><CR>
 <
+
 With these mappings, if 'smartcase' is on and you press * while on the word 
 "The", you will only find "The" (case sensitive), but if you press * while on the 
 word "the", the search will not be case sensitive.
@@ -137,11 +139,11 @@ Ctrl-R Ctrl-W but avoiding an error when used on a blank line).
 SHOW THE NEXT MATCH WHILE ENTERING A SEARCH  *vwt-1-show-the-next-match-while-entering-a-search*
 
 To move the cursor to the matched string, while typing the search pattern, 
-set the following option in your vimrc [/wiki/Vimrc]:
-
+set the following option in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 >
     :set incsearch
 <
+
 Complete the search by pressing Enter, or cancel by pressing Esc. When 
 typing the search pattern, press Ctrl-L (:help |c_CTRL-L|) to insert the next 
 character from the match or press Ctrl-R Ctrl-W (:help |c_CTRL-R_CTRL-F|) to complete 
@@ -154,54 +156,54 @@ next" reaches end of file, it wraps around to the beginning, and when "search
 previous" reaches the beginning, it wraps around to the end.
 
 These examples show how to set 'wrapscan' (abbreviated as 'ws'):
-
 >
     :set nowrapscan        " do not wrap around
     :set wrapscan          " wrap around
     :set wrapscan!         " toggle wrap around on/off
     :set ws! ws?           " toggle and show value
 <
+
 By default, search hits may occur in lines at the top or bottom of the 
 window. The 'scrolloff' option 
-[/wiki/Make_search_results_appear_in_the_middle_of_the_screen] controls whether context lines will be visible above and below the line 
+[https://vim.fandom.com/wiki/Make_search_results_appear_in_the_middle_of_the_screen] controls whether context lines will be visible above and below the line 
 containing the search hit.
 
 If your text is folded, you probably want folds to automatically open to 
 reveal search hits. To achieve that, the 'foldopen' option should include "search" 
 (check by entering :set fdo?). :help 'foldopen' Conversely, this option can be 
-used to Search only in unfolded text [/wiki/Search_only_in_unfolded_text].
+used to Search only in unfolded text 
+[https://vim.fandom.com/wiki/Search_only_in_unfolded_text].
 
 SEE ALSO  *vwt-1-see-also*
 
 Searching
-
     Highlighting search matches |vwt-14|
     Search for visually selected text |vwt-171|
     Search patterns |vwt-188| regex tutorial with useful searches
     Search for current word in new window |vwt-798|
     Make search results appear in the middle of the screen |vwt-528|
     Search and replace |vwt-31| using :s to substitute text
-    Browse the searching category [/wiki/Category:Searching] for more.
+    Browse the searching category [https://vim.fandom.com/wiki/Category:Searching] for more.
+
 
 Searching in multiple files
-
     Find in files within Vim |vwt-1543|
 
-Finding a file from its name
 
+Finding a file from its name
     Project browsing using find |vwt-1146|
     Find files in subdirectories |vwt-1234|
 
-REFERENCES  *vwt-1-references*
 
+REFERENCES  *vwt-1-references*
     :help * |star|
     :help  |<S-LeftMouse>|
     :help  |:<cword>|
     :help  |jump-motions|
     :help 'iskeyword' controls which characters * considers make a word
 
+
 COMMENTS  *vwt-1-comments*
 
 On UK keyboards, <Shift-3> produces ₤ but works just like # for searching 
 backwards.
-
