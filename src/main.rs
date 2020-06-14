@@ -77,7 +77,7 @@ impl<'a> WikiEntry<'a> {
                 format!("{}\n", res)
             }
             Some("dl") => format!("{}\n\n", node.text().trim()),
-            None => node.text(),
+            None => node.text().trim().to_owned(),
             _ => String::new(),
         }
     }
