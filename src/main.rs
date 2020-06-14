@@ -75,6 +75,7 @@ impl<'a> WikiEntry<'a> {
                 )),
                 Some("h2") | Some("h3") => {
                     let inner = node.text().trim().to_uppercase();
+                    let inner = inner.trim_end_matches("EDIT");
                     let tag =
                         self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
                     result.push_str(&format!("{}  *{}*\n\n", inner, tag))
