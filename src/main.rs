@@ -80,6 +80,18 @@ impl<'a> WikiEntry<'a> {
                         self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
                     result.push_str(&format!("{}  *{}*\n\n", inner, tag))
                 }
+                Some("ul") => result.push_str(&format!(
+                    "    {}\n\n",
+                    node.text()
+                        .trim()
+                        .split('\n')
+                        .collect::<Vec<&str>>()
+                        .as_slice()
+                        .join("\n    ")
+                )),
+                Some("dl") => {
+                    result.push_str(&format!("{}\n\n", node.text().trim()));
+                }
                 _ => continue,
             }
         }

@@ -172,7 +172,32 @@ used to Search only in unfolded text.
 
 SEE ALSO  *vwt-1-see-also*
 
+Searching
+
+    Highlighting search matches
+    Search for visually selected text
+    Search patterns regex tutorial with useful searches
+    Search for current word in new window
+    Make search results appear in the middle of the screen
+    Search and replace using :s to substitute text
+    Browse the searching category for more.
+
+Searching in multiple files
+
+    Find in files within Vim
+
+Finding a file from its name
+
+    Project browsing using find
+    Find files in subdirectories
+
 REFERENCES  *vwt-1-references*
+
+    :help *
+    :help <S-LeftMouse>
+    :help :<cword>
+    :help jump-motions
+    :help 'iskeyword' controls which characters * considers make a word
 
 COMMENTS  *vwt-1-comments*
 
