@@ -1,5 +1,4 @@
 use select::document::Document;
-use select::document::Find;
 use select::node::Node;
 use select::predicate::{Attr, Class, Name, Predicate};
 use std::fs::File;
@@ -11,10 +10,6 @@ struct WikiEntry<'a> {
     url: String,
     title: String,
     categories: Vec<String>,
-    author: Option<String>,
-    created: u32,
-    complexity: String,
-    version: String,
     nodes: Vec<Node<'a>>,
 }
 
@@ -31,6 +26,62 @@ impl<'a> WikiEntry<'a> {
         format!("vim-wiki-tips-{}{}", &self.title.to_lowercase(), txt)
     }
 
+    fn parse_node(&self, node: Node) -> String {
+        match node.name() {
+            Some("a") => self.parse_link(node),
+            Some("p") => {
+                let mut text = String::new();
+                for child in node.children() {
+                    text.push_str(&self.parse_node(child));
+                }
+                let mut new_text = String::with_capacity(text.len());
+                let mut col = 1;
+
+                for word in text.trim().split_whitespace() {
+                    col += word.chars().count() + 1;
+                    if col > 77 {
+                        new_text.push('\n');
+                        col = 1;
+                    };
+
+                    new_text.push_str(word);
+                    new_text.push(' ');
+                }
+
+                format!("{}\n\n", new_text.trim())
+            }
+            Some("pre") => format!(
+                ">\n    {}\n<\n",
+                node.text()
+                    .trim()
+                    .split('\n')
+                    .collect::<Vec<&str>>()
+                    .as_slice()
+                    .join("\n    ")
+            ),
+            Some("h2") | Some("h3") => {
+                let inner = node.text().trim().to_uppercase();
+                let inner = inner.trim_end_matches("EDIT");
+                let tag =
+                    self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
+                format!("{}  *{}*\n\n", inner, tag)
+            }
+            Some("li") | Some("div") | Some("b") | Some("i") | Some("span") | Some("code") => {
+                node.children().map(|n| self.parse_node(n)).collect()
+            }
+            Some("ul") => {
+                let mut res = String::new();
+                for child in node.children() {
+                    res.push_str(&format!("    {}\n", self.parse_node(child)));
+                }
+                format!("{}\n", res)
+            }
+            Some("dl") => format!("{}\n\n", node.text().trim()),
+            None => node.text(),
+            _ => String::new(),
+        }
+    }
+
     fn parse_link(&self, a_node: Node) -> String {
         let href = a_node.attr("href").unwrap();
         if href.starts_with("#") {
@@ -45,6 +96,8 @@ impl<'a> WikiEntry<'a> {
                 a_node.text(),
                 href.replace("/wiki/VimTip", "vwt-")
             )
+        } else if href.contains("printable=yes") || href.contains("useskin=monobook") {
+            String::new()
         } else {
             format!("{} ({})", a_node.text(), href)
         }
@@ -60,69 +113,9 @@ impl<'a> WikiEntry<'a> {
             self.title,
             self.short_prefix("")
         ));
-        result.push_str(&format!("created: {}\n", self.created));
-        result.push_str(&format!("complexity: {}\n", self.complexity));
-        if let Some(author) = &self.author {
-            result.push_str(&format!("author: {}\n", author));
-        }
-        result.push_str(&format!("version: {}\n\n", self.version));
 
         for node in &self.nodes {
-            match node.name() {
-                Some("p") => {
-                    let mut text = String::new();
-                    for child in node.children() {
-                        match child.name() {
-                            Some("a") => text.push_str(&self.parse_link(child)),
-                            _ => text.push_str(&child.text()),
-                        }
-                    }
-                    let mut new_text = String::with_capacity(text.len());
-                    let mut col = 1;
-
-                    for word in text.trim().split_whitespace() {
-                        col += word.chars().count() + 1;
-                        if col > 77 {
-                            new_text.push('\n');
-                            col = 1;
-                        };
-
-                        new_text.push_str(word);
-                        new_text.push(' ');
-                    }
-
-                    result.push_str(&format!("{}\n\n", new_text.trim()))
-                }
-                Some("pre") => result.push_str(&format!(
-                    ">\n    {}\n<\n",
-                    node.text()
-                        .trim()
-                        .split('\n')
-                        .collect::<Vec<&str>>()
-                        .as_slice()
-                        .join("\n    ")
-                )),
-                Some("h2") | Some("h3") => {
-                    let inner = node.text().trim().to_uppercase();
-                    let inner = inner.trim_end_matches("EDIT");
-                    let tag =
-                        self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
-                    result.push_str(&format!("{}  *{}*\n\n", inner, tag))
-                }
-                Some("ul") => result.push_str(&format!(
-                    "    {}\n\n",
-                    node.text()
-                        .trim()
-                        .split('\n')
-                        .collect::<Vec<&str>>()
-                        .as_slice()
-                        .join("\n    ")
-                )),
-                Some("dl") => {
-                    result.push_str(&format!("{}\n\n", node.text().trim()));
-                }
-                _ => continue,
-            }
+            result.push_str(&self.parse_node(*node));
         }
 
         return result;
@@ -144,67 +137,23 @@ impl<'a> WikiEntry<'a> {
             .map(|node| node.text())
             .collect::<Vec<String>>();
 
-        let meta_text = document
-            .find(Attr("id", "mw-content-text").child(Name("div")))
-            .next()
-            .unwrap()
-            .find(Name("p"))
-            .next()
-            .unwrap()
-            .text();
-
-        let meta = meta_text
-            .split('·')
-            .map(|s| s.trim())
-            .map(|s| s.split('\u{a0}').collect())
-            .collect::<Vec<Vec<&str>>>();
-
-        // dbg!(meta.clone());
-
         let mut entry = WikiEntry {
             n: 1,
             nodes: vec![],
-            version: String::new(),
             url: "https://vim.fandom.com/wiki/VimTip1".to_owned(),
             title,
             categories,
-            author: None,
-            created: 0,
-            complexity: String::new(),
         };
 
-        for (i, node) in document
+        for node in document
             .find(Attr("id", "mw-content-text"))
             .next()
             .unwrap()
             .children()
-            .enumerate()
         {
             entry.nodes.push(node);
         }
 
-        for m in meta {
-            match m[0] {
-                "version" => {
-                    entry.version = m[1].to_owned();
-                    continue;
-                }
-                "created" => {
-                    entry.created = m[1].parse().unwrap_or(0);
-                    continue;
-                }
-                "complexity" => {
-                    entry.complexity = m[1].to_owned();
-                    continue;
-                }
-                "author" => {
-                    entry.author = Some(m[1].to_owned());
-                    continue;
-                }
-
-                _ => continue,
-            }
-        }
         return entry;
     }
 }
