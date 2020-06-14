@@ -7,6 +7,7 @@ use std::io::Write;
 
 #[derive(Debug)]
 struct WikiEntry<'a> {
+    n: u32,
     url: String,
     title: String,
     categories: Vec<String>,
@@ -20,6 +21,10 @@ struct WikiEntry<'a> {
 impl<'a> WikiEntry<'a> {
     fn file_name(&self) -> String {
         self.prefix(".txt")
+    }
+
+    fn short_prefix(&self, txt: &str) -> String {
+        format!("vwt-{}{}", self.n, txt)
     }
 
     fn prefix(&self, txt: &str) -> String {
@@ -41,7 +46,24 @@ impl<'a> WikiEntry<'a> {
 
         for node in &self.nodes {
             match node.name() {
-                Some("p") => result.push_str(&format!("{}\n\n", node.text().trim())),
+                Some("p") => {
+                    let text = node.text();
+                    let mut new_text = String::with_capacity(text.len());
+                    let mut col = 1;
+
+                    for word in text.trim().split_whitespace() {
+                        col += word.chars().count() + 1;
+                        if col > 77 {
+                            new_text.push('\n');
+                            col = 1;
+                        };
+
+                        new_text.push_str(word);
+                        new_text.push(' ');
+                    }
+
+                    result.push_str(&format!("{}\n\n", new_text.trim()))
+                }
                 Some("pre") => result.push_str(&format!(
                     ">\n    {}\n<\n",
                     node.text()
@@ -51,9 +73,10 @@ impl<'a> WikiEntry<'a> {
                         .as_slice()
                         .join("\n    ")
                 )),
-                Some("h2") => {
+                Some("h2") | Some("h3") => {
                     let inner = node.text().trim().to_uppercase();
-                    let tag = self.prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
+                    let tag =
+                        self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
                     result.push_str(&format!("{}  *{}*\n\n", inner, tag))
                 }
                 _ => continue,
@@ -97,6 +120,7 @@ impl<'a> WikiEntry<'a> {
         // dbg!(meta.clone());
 
         let mut entry = WikiEntry {
+            n: 1,
             nodes: vec![],
             version: String::new(),
             url: "https://vim.fandom.com/wiki/VimTip1".to_owned(),
