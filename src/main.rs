@@ -36,7 +36,12 @@ impl<'a> WikiEntry<'a> {
         let mut result = String::new();
 
         // add first row
-        result.push_str(&format!("*{}*   {}\n\n", self.file_name(), self.title));
+        result.push_str(&format!(
+            "*{}*   {} *{}*\n\n",
+            self.file_name(),
+            self.title,
+            self.short_prefix("")
+        ));
         result.push_str(&format!("created: {}\n", self.created));
         result.push_str(&format!("complexity: {}\n", self.complexity));
         if let Some(author) = &self.author {
