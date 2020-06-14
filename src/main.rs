@@ -31,6 +31,7 @@ impl<'a> WikiEntry<'a> {
     fn parse_node(&self, node: Node) -> String {
         match node.name() {
             Some("a") => self.parse_link(node),
+            Some("hr") => format!("\n\n{}", "=".repeat(78)),
             Some("p") => {
                 let mut text = String::new();
                 for child in node.children() {
