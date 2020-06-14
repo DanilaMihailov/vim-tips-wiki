@@ -53,7 +53,7 @@ impl<'a> WikiEntry<'a> {
                 format!("\n\n{}", new_text.trim())
             }
             Some("pre") => format!(
-                "\n>\n    {}\n<",
+                "\n\n>\n    {}\n<",
                 node.text()
                     .trim()
                     .split('\n')

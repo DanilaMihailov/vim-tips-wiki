@@ -42,6 +42,7 @@ backwards.
 This needs a GUI version of Vim (gvim), or a console Vim that accepts a 
 mouse. You may need the following line in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] to enable mouse searches:
+
 >
     :set mousemodel=extend
 <
@@ -97,6 +98,7 @@ By default, searching is case sensitive (searching for "the" will not find
 
 With the following in your vimrc (or entered via a toggle mapping 
 |vwt-920|), searching is not case sensitive:
+
 >
     :set ignorecase
 <
@@ -107,6 +109,7 @@ sensitive. For example, the search /the\c is always case insensitive, and /the\C
 always case sensitive, regardless of the 'ignorecase' option.
 
 If 'ignorecase' is on, you may also want:
+
 >
     :set smartcase
 <
@@ -122,6 +125,7 @@ search from history).
 
 When programming, there is generally no reason to want 'smartcase' to apply 
 when you press *. For other situations, use:
+
 >
     :nnoremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
     :nnoremap # ?\<<C-R>=expand('<cword>')<CR>\><CR>
@@ -140,6 +144,7 @@ SHOW THE NEXT MATCH WHILE ENTERING A SEARCH  *vwt-1-show-the-next-match-while-en
 
 To move the cursor to the matched string, while typing the search pattern, 
 set the following option in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
 >
     :set incsearch
 <
@@ -156,6 +161,7 @@ next" reaches end of file, it wraps around to the beginning, and when "search
 previous" reaches the beginning, it wraps around to the end.
 
 These examples show how to set 'wrapscan' (abbreviated as 'ws'):
+
 >
     :set nowrapscan        " do not wrap around
     :set wrapscan          " wrap around
