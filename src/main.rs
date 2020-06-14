@@ -75,7 +75,7 @@ impl<'a> WikiEntry<'a> {
                 node.children().map(|n| self.parse_node(n)).collect()
             }
             Some("code") => format!(
-                " {} ",
+                "{}",
                 node.children()
                     .map(|n| self.parse_node(n))
                     .collect::<String>()
@@ -88,7 +88,7 @@ impl<'a> WikiEntry<'a> {
                 format!("{}\n", res)
             }
             Some("dl") => format!("{}\n\n", node.text().trim()),
-            None => node.text().trim().to_owned(),
+            None => node.text().replace("\n", "").to_owned(),
             _ => String::new(),
         }
     }
@@ -102,11 +102,11 @@ impl<'a> WikiEntry<'a> {
                 "-{}",
                 href.replace("#", "").to_lowercase().replace("_", "-")
             );
-            format!("{} |{}| ", a_node.text(), self.short_prefix(&prepared))
+            format!("{} |{}|", a_node.text(), self.short_prefix(&prepared))
         } else if href.starts_with("/wiki/VimTip") {
             // link to other vim tip
             format!(
-                "{} |{}| ",
+                "{} |{}|",
                 a_node.text(),
                 href.replace("/wiki/VimTip", "vwt-")
             )
@@ -124,7 +124,7 @@ impl<'a> WikiEntry<'a> {
                 if tag == "*" {
                     tag = "star".to_owned();
                 }
-                format!("{} |{}| ", text, tag)
+                format!("{} |{}|", text, tag)
             }
         } else if href.contains("printable=yes") // skip irrelevant links
             || href.contains("useskin=monobook")
@@ -132,7 +132,7 @@ impl<'a> WikiEntry<'a> {
         {
             String::new()
         } else {
-            format!("{} {} ", a_node.text(), href)
+            format!("{} [{}]", a_node.text(), href)
         }
     }
 
