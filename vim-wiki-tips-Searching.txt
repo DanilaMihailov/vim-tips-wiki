@@ -81,12 +81,12 @@ without moving (see highlight matches |vwt-14|).
 A search can include an offset to position the cursor. For example, 
 searching with /green positions the cursor at the beginning of the next "green", 
 while /green/e positions the cursor at the end of the next "green". :help 
-search-offset |search-offset|
+|search-offset|
 
 A search pattern can include characters with codes specified in decimal or 
 hex. For example, searching with /\%d65 or with /\%x41 both find 'A' (character 
 decimal 65 = hex 41), and searching with /\%d8211 or with /\%u2013 both find '–' (a 
-Unicode en dash). :help /\%d |/\%d|
+Unicode en dash). :help |/\%d|
 
 CASE SENSITIVITY  *vwt-1-case-sensitivity*
 
@@ -143,9 +143,9 @@ set the following option in your vimrc [/wiki/Vimrc]:
     :set incsearch
 <
 Complete the search by pressing Enter, or cancel by pressing Esc. When 
-typing the search pattern, press Ctrl-L (:help c_CTRL-L |c_CTRL-L|) to insert the 
-next character from the match or press Ctrl-R Ctrl-W (:help c_CTRL-R_CTRL-F 
-|c_CTRL-R_CTRL-F|) to complete the current matching word.
+typing the search pattern, press Ctrl-L (:help |c_CTRL-L|) to insert the next 
+character from the match or press Ctrl-R Ctrl-W (:help |c_CTRL-R_CTRL-F|) to complete 
+the current matching word.
 
 OTHER SEARCH OPTIONS  *vwt-1-other-search-options*
 
@@ -195,9 +195,9 @@ Finding a file from its name
 REFERENCES  *vwt-1-references*
 
     :help * |star|
-    :help <S-LeftMouse> |<S-LeftMouse>|
-    :help :<cword> |:<cword>|
-    :help jump-motions |jump-motions|
+    :help  |<S-LeftMouse>|
+    :help  |:<cword>|
+    :help  |jump-motions|
     :help 'iskeyword' controls which characters * considers make a word
 
 COMMENTS  *vwt-1-comments*

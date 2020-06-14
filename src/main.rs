@@ -124,7 +124,7 @@ impl<'a> WikiEntry<'a> {
                 if tag == "*" {
                     tag = "star".to_owned();
                 }
-                format!("{} |{}|", text, tag)
+                format!("{} |{}|", text.replace(&tag, ""), tag)
             }
         } else if href.contains("printable=yes") // skip irrelevant links
             || href.contains("useskin=monobook")
