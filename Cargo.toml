@@ -10,3 +10,5 @@ edition = "2018"
 select = "0.4.3"
 reqwest = { version = "0.10" }
 tokio = { version = "0.2", features = ["full"] }
+regex = "1"
+urlencoding = "1.0.0"

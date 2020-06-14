@@ -1,8 +1,10 @@
+use regex::Regex;
 use select::document::Document;
 use select::node::Node;
-use select::predicate::{Attr, Class, Name, Predicate};
+use select::predicate::{Attr, Class};
 use std::fs::File;
 use std::io::Write;
+use urlencoding::decode;
 
 #[derive(Debug)]
 struct WikiEntry<'a> {
@@ -60,15 +62,24 @@ impl<'a> WikiEntry<'a> {
                     .join("\n    ")
             ),
             Some("h2") | Some("h3") => {
-                let inner = node.text().trim().to_uppercase();
-                let inner = inner.trim_end_matches("EDIT");
+                let mut inner = String::new();
+                for child in node.children() {
+                    inner.push_str(&self.parse_node(child));
+                }
+                let inner = inner.trim().to_uppercase();
                 let tag =
                     self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
                 format!("{}  *{}*\n\n", inner, tag)
             }
-            Some("li") | Some("div") | Some("b") | Some("i") | Some("span") | Some("code") => {
+            Some("li") | Some("div") | Some("b") | Some("i") | Some("span") => {
                 node.children().map(|n| self.parse_node(n)).collect()
             }
+            Some("code") => format!(
+                " {} ",
+                node.children()
+                    .map(|n| self.parse_node(n))
+                    .collect::<String>()
+            ),
             Some("ul") => {
                 let mut res = String::new();
                 for child in node.children() {
@@ -84,22 +95,44 @@ impl<'a> WikiEntry<'a> {
 
     fn parse_link(&self, a_node: Node) -> String {
         let href = a_node.attr("href").unwrap();
+
+        // link to current page, replace with tag vwt-1-link
         if href.starts_with("#") {
             let prepared = format!(
                 "-{}",
                 href.replace("#", "").to_lowercase().replace("_", "-")
             );
-            format!("{} (|{}|)", a_node.text(), self.short_prefix(&prepared))
+            format!("{} |{}| ", a_node.text(), self.short_prefix(&prepared))
         } else if href.starts_with("/wiki/VimTip") {
+            // link to other vim tip
             format!(
-                "{} (|{}|)",
+                "{} |{}| ",
                 a_node.text(),
                 href.replace("/wiki/VimTip", "vwt-")
             )
-        } else if href.contains("printable=yes") || href.contains("useskin=monobook") {
+        } else if href.contains("vimdoc") {
+            // link to vim docs
+            let text = a_node.text();
+            let text = text.trim();
+            let re = Regex::new(r"'*'").unwrap();
+
+            if re.is_match(text) {
+                // check if link contains text 'sometext'
+                text.to_owned()
+            } else {
+                let mut tag = decode(href.splitn(2, "tag=").last().unwrap()).unwrap();
+                if tag == "*" {
+                    tag = "star".to_owned();
+                }
+                format!("{} |{}| ", text, tag)
+            }
+        } else if href.contains("printable=yes") // skip irrelevant links
+            || href.contains("useskin=monobook")
+            || href.contains("action=")
+        {
             String::new()
         } else {
-            format!("{} ({})", a_node.text(), href)
+            format!("{} {} ", a_node.text(), href)
         }
     }
 
