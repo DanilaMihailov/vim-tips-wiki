@@ -37,13 +37,13 @@ impl<'a> WikiEntry<'a> {
                     text.push_str(&self.parse_node(child));
                 }
                 let mut new_text = String::with_capacity(text.len());
-                let mut col = 1;
+                let mut col = 0;
 
                 for word in text.trim().split_whitespace() {
                     col += word.chars().count() + 1;
-                    if col > 77 {
+                    if col > 78 {
                         new_text.push('\n');
-                        col = 1;
+                        col = word.chars().count();
                     };
 
                     new_text.push_str(word);
