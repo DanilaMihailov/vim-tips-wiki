@@ -1,26 +1,10 @@
 *vim-wiki-tips-1108.txt*   Replace selected shell command with full path when editing scripts *vwt-1108*
 
-
-
-Please review this tip:
-    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
-    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
-    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
-    - If the tip contains good advice for current Vim, remove the {{review}} line.
 Tip 1108 [https://vim.fandom.com/wiki/Replace_selected_shell_command_with_full_path_when_editing_scripts]   Previous |vwt-1107| Next |vwt-1109|
 
 created 2006 · complexity basic · author l1th10n · version 5.7
 
 ==============================================================================
-
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-What exactly does this have to do with Vim? Please give a detailed example of 
-how to use this in Vim (including before and after text)
 
 When writing bash scripts and sudoers files, it can be tedious to determine 
 the paths of the commands. Here is a procedure to use the which command to 

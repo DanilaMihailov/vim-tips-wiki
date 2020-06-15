@@ -72,6 +72,9 @@ impl<'a> WikiEntry<'a> {
                 format!("\n\n{}  *{}*", inner, tag)
             }
             Some("li") | Some("div") | Some("b") | Some("i") | Some("span") => {
+                if node.attr("id") == Some("delete") {
+                    return String::new();
+                }
                 node.children().map(|n| self.parse_node(n)).collect()
             }
             Some("code") => format!(

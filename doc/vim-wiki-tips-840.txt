@@ -1,25 +1,10 @@
 *vim-wiki-tips-840.txt*   Show tags in a separate preview window *vwt-840*
 
-
-
-Please review this tip:
-    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
-    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
-    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
-    - If the tip contains good advice for current Vim, remove the {{review}} line.
 Tip 840 [https://vim.fandom.com/wiki/Show_tags_in_a_separate_preview_window]   Previous |vwt-837| Next |vwt-842|
 
 created 2005 · complexity basic · author Alan Klietz · version 6.0
 
 ==============================================================================
-
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-command is built-in as CTRL-W_} or CTRL-W_]
 
 I love using exuberant ctags (especially ctags -R). But I dislike how the 
 show-tag-under-cursor command (Control-]) replaces the current buffer and 

@@ -7,15 +7,7 @@ This tip is deprecated for the following reasons:
 The c.vim and cpp.vim syntax files include fold information usable by setting 
 foldmethod to "syntax". The java.vim syntax file currently does not define 
 folds, but syntax folding is a much better way to do this and the user can 
-easily add it in the after/syntax directory.
-
-Please review this tip:
-    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
-    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
-    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
-    - If the tip contains good advice for current Vim, remove the {{review}} line.
-Tip 333 [https://vim.fandom.com/wiki/Syntax-based_folding]   Previous |vwt-332| Next |vwt-334|
+easily add it in the after/syntax directory.Tip 333 [https://vim.fandom.com/wiki/Syntax-based_folding]   Previous |vwt-332| Next |vwt-334|
 
 created 2002 · complexity intermediate · author Kartik Agaram · version 6.0
 

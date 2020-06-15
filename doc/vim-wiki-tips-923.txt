@@ -1,26 +1,10 @@
 *vim-wiki-tips-923.txt*   Sort lines by a specified word number *vwt-923*
 
-
-
-Please review this tip:
-    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
-    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
-    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
-    - If the tip contains good advice for current Vim, remove the {{review}} line.
 Tip 923 [https://vim.fandom.com/wiki/Sort_lines_by_a_specified_word_number]   Previous |vwt-922| Next |vwt-925|
 
 created 2005 · complexity intermediate · author Gerald Lai · version 6.0
 
 ==============================================================================
-
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-see #Comments |vwt-923-comments|, this is way too complex for something that 
-could be done by an external or built-in command
 
 Based on the script by Robert Webb found at :help |eval-examples| to sort 
 lines, I made some modifications to enable Sort() to sort lines according to 

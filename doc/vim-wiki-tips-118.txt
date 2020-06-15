@@ -10,32 +10,12 @@ This tip is very similar to the following:
 
 
 These tips need to be merged – see the merge guidelines 
-[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-
-Please review this tip:
-    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
-    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
-    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
-    - If the tip contains good advice for current Vim, remove the {{review}} line.
-Tip 118 [https://vim.fandom.com/wiki/Use_gvim_to_view_page_source_in_Internet_Explorer]   Previous |vwt-117| Next |vwt-119|
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 118 [https://vim.fandom.com/wiki/Use_gvim_to_view_page_source_in_Internet_Explorer]   Previous |vwt-117| Next |vwt-119|
 
 created September 16, 2001 · complexity basic · author Freddy Vulto · version 
 5.7
 
 ==============================================================================
-
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-It seems like the easiest solution here is to use a shortcut as suggested 
-originally in the comments instead of a script (though you still need to edit 
-your registry). Copied below, some experimentation will be needed as to 
-whether any of the scripting solutions are really needed. Also, recent 
-versions of Vim auto-detect HTML by reading the doctype so manually setting 
-filetype should not be needed.
 
 You can avoid VBScript and EXEs by using a shortcut to Vim. This is 
 especially useful on corporate computers where, for security reasons, 

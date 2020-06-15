@@ -6,14 +6,6 @@ created September 30, 2003 · complexity basic · author mosh · version 5.7
 
 ==============================================================================
 
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-local vimrc is handled in another tip and searching upward in a directory 
-tree for tags is built-in, see comments
-
 See tip 804 |vwt-804| for the correct way to do upward tag searches. There 
 are several "local vimrc" plugins available which are probably a better 
 solution for a directory-specific .vimrc file:

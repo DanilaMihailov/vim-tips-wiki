@@ -1,13 +1,5 @@
 *vim-wiki-tips-640.txt*   Add Vim to the Windows Explorer context menu *vwt-640*
 
-
-
-Please review this tip:
-    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
-    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
-    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
-    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
-    - If the tip contains good advice for current Vim, remove the {{review}} line.
 Tip 640 [https://vim.fandom.com/wiki/Add_Vim_to_the_Windows_Explorer_context_menu]   Previous |vwt-639| Next |vwt-641|
 
 created 2004 · complexity basic · author Mark Fernandes · version 5.7
@@ -18,13 +10,6 @@ This tip is deprecated for the following reasons:
 
 All Windows installers for Vim that I've seen will create the context menu 
 entry for you. Make sure to 'run as admin'
-
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-What on earth is the .vtd file for?
 
 Do you wish you had your own Vim settings for a file appear automatically 
 when you right click in Windows Explorer? If so then read on, following these 

@@ -16,14 +16,6 @@ version 6.0
 
 ==============================================================================
 
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-Comment syntax folding is included by default in the c.vim syntax file, but 
-the custom foldtext function may still be useful
-
 Do you want to make a 10-line /*C-style*/ comment disappear?
 
 You can add folding capability to C-style comments using the command:

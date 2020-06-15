@@ -6,16 +6,6 @@ created 2004 · complexity basic · author Shin Seung Woo · version 6.0
 
 ==============================================================================
 
-This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
-may not be useful for Vim 7. If you think this tip is useful, please edit it 
-to make the problem and its solution more understandable, and remove the 
-{{Dodgy}} tag.
-
-The normal way of accessing the system clipboard 
-[https://vim.fandom.com/wiki/Accessing_the_system_clipboard] should work fine 
-for most users under most situations. Perhaps not this situation, but it 
-should be made clear that this tip is a workaround for an abnormal use case.
-
 I use putty + vim + screen on web application developing. I use more than ten 
 working directories, so I couldn't find an easy way to develop in only one vim 
 session.
