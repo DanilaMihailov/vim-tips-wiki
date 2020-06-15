@@ -32,8 +32,9 @@ modem dial the number.
 <
 
 After sourcing the above script:
-    - In any file, put the cursor on a phone number and type @p to dial the number.
-    - In any file with a name starting with "phone", put the cursor on a phone number and press Enter to dial the number.
+    - In any file, put the cursor on a phone number and type @p to dial the number. 
+    - In any file with a name starting with "phone", put the cursor on a phone 
+      number and press Enter to dial the number. 
 
 
 The shell script dial (not shown) uses its argument to write modem control 

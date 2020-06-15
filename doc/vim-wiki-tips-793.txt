@@ -39,12 +39,15 @@ The following is a more advanced implementation, with more robust
 functionality than the above map.
 
 Features
-    - Press * to search forwards for selected text, or # to search backwards.
-    - As normal, press n for next search, or N for previous.
-    - Handles multiline selection and search.
-    - Whitespace in the selection matches any whitespace when searching (searching for "hello world" will also find "hello" at the end of a line, with "world" at the start of the next line).
-    - Each search is placed in the search history allowing you to easily repeat previous searches.
-    - No registers are changed.
+    - Press * to search forwards for selected text, or # to search backwards. 
+    - As normal, press n for next search, or N for previous. 
+    - Handles multiline selection and search. 
+    - Whitespace in the selection matches any whitespace when searching (searching 
+      for "hello world" will also find "hello" at the end of a line, with "world" at 
+      the start of the next line). 
+    - Each search is placed in the search history allowing you to easily repeat 
+      previous searches. 
+    - No registers are changed. 
 
 
 Place the following mappings in your vimrc 
@@ -65,9 +68,13 @@ Place the following mappings in your vimrc
 <
 
 Following is an alternative version with some extra features:
-    - A global variable (g:VeryLiteral) controls whether selected whitespace matches any whitespace (by default, VeryLiteral is off, so any whitespace is found).
-    - Type \vl to toggle VeryLiteral to turn whitespace matching off/on (assuming the default backslash leader key).
-    - When VeryLiteral is off, any selected leading or trailing whitespace will not match newlines, which is more convenient, and avoids false search hits.
+    - A global variable (g:VeryLiteral) controls whether selected whitespace 
+      matches any whitespace (by default, VeryLiteral is off, so any whitespace is 
+      found). 
+    - Type \vl to toggle VeryLiteral to turn whitespace matching off/on (assuming 
+      the default backslash leader key). 
+    - When VeryLiteral is off, any selected leading or trailing whitespace will not 
+      match newlines, which is more convenient, and avoids false search hits. 
 
 
 Create file (for example) ~/.vim/plugin/vsearch.vim (Unix) or 
@@ -236,14 +243,14 @@ Here, ygn is as before, but gi is used to go back to insert mode in the same
 place you left off, then <C-R>0 inserts the copied text.
 
 SEE ALSO  *vwt-793-see-also*
-    -  visualstar.vim [https://vim.fandom.com/wiki/Script:2944]
+    - visualstar.vim [https://vim.fandom.com/wiki/Script:2944] 
 
 
 COMMENTS  *vwt-793-comments*
 
 TO DO Tips related to visual searching (need to merge):
-    - 1011 Mappings and commands for visual mode |vwt-1011|
-    - 1151 Search visually |vwt-1151|
+    - 1011 Mappings and commands for visual mode |vwt-1011| 
+    - 1151 Search visually |vwt-1151| 
 
 
 This mapping forms a substitute command with the selected text:

@@ -20,9 +20,12 @@ You can also automate this with the following in your vimrc file:
 <
 
 To open a file in a new buffer instead of opening a new window every time:
-    - When opening files in Windows Explorer, read VimTip1003 |vwt-1003| Open files with existing Gvim window in Windows.
-    - When opening files in Cygwin, add this to your .bashrc: alias vi='gvim --remote-silent'
-    - When opening files in a command-prompt window, add this to your doskey configuration: vi=gvim --remote-silent $*
+    - When opening files in Windows Explorer, read VimTip1003 |vwt-1003| Open files 
+      with existing Gvim window in Windows. 
+    - When opening files in Cygwin, add this to your .bashrc: alias vi='gvim 
+      --remote-silent' 
+    - When opening files in a command-prompt window, add this to your doskey 
+      configuration: vi=gvim --remote-silent $* 
 
 
 When working in Vim, I recomend you use the minibuffer explorer: 

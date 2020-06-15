@@ -58,33 +58,40 @@ Example to avoid w1 typo:
 cabbrev w1 <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w!' : 'w1')<CR>
 
 SCRIPTS  *vwt-1285-scripts*
-    - cmdalias [https://www.vim.org/scripts/script.php?script_id=746] Create aliases for Vim commands.
-    - altercmd [https://www.vim.org/scripts/script.php?script_id=2675] Alter built-in Ex commands by your own ones.
-    - ambicmd [https://www.vim.org/scripts/script.php?script_id=3879] You can use ambiguous command.
-    - CommandAlias [https://www.vim.org/scripts/script.php?script_id=4250] Make aliases to vim command.
+    - cmdalias [https://www.vim.org/scripts/script.php?script_id=746] Create 
+      aliases for Vim commands. 
+    - altercmd [https://www.vim.org/scripts/script.php?script_id=2675] Alter 
+      built-in Ex commands by your own ones. 
+    - ambicmd [https://www.vim.org/scripts/script.php?script_id=3879] You can use 
+      ambiguous command. 
+    - CommandAlias [https://www.vim.org/scripts/script.php?script_id=4250] Make 
+      aliases to vim command. 
 
 
 SEE ALSO  *vwt-1285-see-also*
 
 These are all good candidates for this technique (or use it already):
-    - Find in files within Vim [https://vim.fandom.com/wiki/Find_in_files_within_Vim]
-    - Handle common command typos [https://vim.fandom.com/wiki/Handle_common_command_typos]
-    - Run a command in multiple buffers [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers]
+    - Find in files within Vim 
+      [https://vim.fandom.com/wiki/Find_in_files_within_Vim] 
+    - Handle common command typos 
+      [https://vim.fandom.com/wiki/Handle_common_command_typos] 
+    - Run a command in multiple buffers 
+      [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers] 
 
 
 This is a good reference in case this tip causes you problems:
-    - Disabling cabbrev [https://vim.fandom.com/wiki/Disabling_cabbrev]
+    - Disabling cabbrev [https://vim.fandom.com/wiki/Disabling_cabbrev] 
 
 
 This plugin does the same thing (possibly in the same way):
-    - script#746 [https://www.vim.org/scripts/script.php?script_id=746]
+    - script#746 [https://www.vim.org/scripts/script.php?script_id=746] 
 
 
 REFERENCES  *vwt-1285-references*
-    - :help  |:cabbrev|
-    - :help  |:command|
-    - :help  |getcmdpos()|
-    - :help  |getcmdtype()|
+    - :help |:cabbrev| 
+    - :help |:command| 
+    - :help |getcmdpos()| 
+    - :help |getcmdtype()| 
 
 
 COMMENTS  *vwt-1285-comments*

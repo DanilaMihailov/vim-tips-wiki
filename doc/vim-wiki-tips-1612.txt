@@ -35,12 +35,16 @@ Do not set the value too low.
 
 
 COMMENTS  *vwt-1612-comments*
-    -  The trick with K_IGNORE does not work anymore after version 7.2.025 (Oct-2008). You need to use different sequence of keys. Ref: http://groups.google.com/group/vim_use/browse_thread/thread/8c535e5cf2b35f63/e40998ff7f2d909b?lnk=gst&q=yakov#e40998ff7f2d909b [http://groups.google.com/group/vim_use/browse_thread/thread/8c535e5cf2b35f63/e40998ff7f2d909b?lnk=gst&q=yakov#e40998ff7f2d909b]
+    - The trick with K_IGNORE does not work anymore after version 7.2.025 
+      (Oct-2008). You need to use different sequence of keys. Ref: 
+      http://groups.google.com/group/vim_use/browse_thread/thread/8c535e5cf2b35f63/e40998ff7f2d909b?lnk=gst&q=yakov#e40998ff7f2d909b 
+      [http://groups.google.com/group/vim_use/browse_thread/thread/8c535e5cf2b35f63/e40998ff7f2d909b?lnk=gst&q=yakov#e40998ff7f2d909b] 
 
-    -  How about if Vim is in Insert mode for a while?
-    -  In Insert mode, you can harness  |CursorHoldI| and  |CursorMovedI| in addition to  |CursorHold| and  |CursorMoved|; but the risk of interference remains with other uses of these events, or with the original use of 'updatetime' to write the swap file.
-
-    -  vim 8 has 'real' timer support.No need to fake timer.
+    - How about if Vim is in Insert mode for a while? - In Insert mode, you can 
+      harness |CursorHoldI| and |CursorMovedI| in addition to |CursorHold| and 
+      |CursorMoved|; but the risk of interference remains with other uses of these 
+      events, or with the original use of 'updatetime' to write the swap file. 
+    - vim 8 has 'real' timer support.No need to fake timer. 
 
 
 Details are as here: 

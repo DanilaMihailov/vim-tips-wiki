@@ -92,15 +92,16 @@ $VIM/vimfiles/plugin/matchit.vim:
 <
 
 REFERENCES  *vwt-848-references*
-    - :help  |$VIM|
-    - :help  |$VIMRUNTIME|
-    - :help  |v:version|
-    - :help  |matchit-install|
-    - :help  |:helptags|
+    - :help |$VIM| 
+    - :help |$VIMRUNTIME| 
+    - :help |v:version| 
+    - :help |matchit-install| 
+    - :help |:helptags| 
 
 
 SIMILAR TIP  *vwt-848-similar-tip*
-    -  Maintain multiple versions of gvim in Windows [https://vim.fandom.com/wiki/Maintain_multiple_versions_of_gvim_in_Windows]
+    - Maintain multiple versions of gvim in Windows 
+      [https://vim.fandom.com/wiki/Maintain_multiple_versions_of_gvim_in_Windows] 
 
 
 The philosophy is different: the present tip applies to any OS: it relies on naming one version the "default" and having it in the PATH; other versions must be invoked with an explicit path. The tip named above is only for recent versions of Windows, naming an alternative to Unix's long-established soft links, and tells you how to change the default between a number of installed versions.

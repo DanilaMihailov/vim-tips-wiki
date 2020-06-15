@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip21 |vwt-21|
+    - VimTip21 |vwt-21| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -31,10 +31,10 @@ accessed using CTRL-C, CTRL-X, and CTRL-V, while * corresponds to the X11
 primary selection (XA_PRIMARY), which stores the mouse selection and is pasted 
 using the middle mouse button in most applications. We can use these registers 
 like any other register. Here are a few common commands that demonstrate this:
-    -  gg"+yG – copy the entire buffer into + (normal mode)
-    -  "*dd – cut the current line into * (normal mode)
-    -  "+p – paste from + after the cursor (works in both normal and visual modes)
-    -  :%y * – copy the entire buffer into * (this one is an ex command)
+    - gg"+yG – copy the entire buffer into + (normal mode) 
+    - "*dd – cut the current line into * (normal mode) 
+    - "+p – paste from + after the cursor (works in both normal and visual modes) 
+    - :%y * – copy the entire buffer into * (this one is an ex command) 
 
 
 One distinction to make is that using + and * is different from using 
@@ -115,7 +115,8 @@ adding this line to /etc/portage/package.use:
 <
 
 SEE ALSO  *vwt-984-see-also*
-    - Using the Windows clipboard in Cygwin Vim [https://vim.fandom.com/wiki/Using_the_Windows_clipboard_in_Cygwin_Vim]
+    - Using the Windows clipboard in Cygwin Vim 
+      [https://vim.fandom.com/wiki/Using_the_Windows_clipboard_in_Cygwin_Vim] 
 
 
 COMMENTS  *vwt-984-comments*

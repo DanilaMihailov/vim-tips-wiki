@@ -310,12 +310,12 @@ example to block comment-out lines with the new file type.
 
 The hi def link command has different types of highlighting options that we 
 need not consider. The ones used here are:
-    - Todo: used for the todo comments (ones that have "TODO: something" in them)
-    - Comment: indicates a code comment
-    - Statement: a code statement like a for loop
-    - Type: a user defined type generally
-    - PreProc: a pre-processor statement like #include <stdio.h> in C
-    - Constant: like a string or number in code
+    - Todo: used for the todo comments (ones that have "TODO: something" in them) 
+    - Comment: indicates a code comment 
+    - Statement: a code statement like a for loop 
+    - Type: a user defined type generally 
+    - PreProc: a pre-processor statement like #include <stdio.h> in C 
+    - Constant: like a string or number in code 
 
 
 These of course are guidelines. In this example, there are no statements or 
@@ -414,15 +414,20 @@ to determine whether to set the filetype with |:setfiletype|.Add filetype detect
 <
 
 SEE ALSO  *vwt-1561-see-also*
-    - Syntax folding of Vim scripts [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] for an example of adding to an existing syntax instead of creating your own as this tip demonstrates.
-    - celstarcat.vim [https://vim.fandom.com/wiki/User:Clearmoments/celstarcat] an actual stc syntax file
-    - celssc.vim [https://vim.fandom.com/wiki/User:Clearmoments/celssc] an actual ssc syntax file
+    - Syntax folding of Vim scripts 
+      [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] for an example of 
+      adding to an existing syntax instead of creating your own as this tip 
+      demonstrates. 
+    - celstarcat.vim [https://vim.fandom.com/wiki/User:Clearmoments/celstarcat] an 
+      actual stc syntax file 
+    - celssc.vim [https://vim.fandom.com/wiki/User:Clearmoments/celssc] an actual 
+      ssc syntax file 
 
 
 COMMENTS  *vwt-1561-comments*
 
 TO DO
-    - Is Ctrl-F9 something to do with Cream?
+    - Is Ctrl-F9 something to do with Cream? 
 
 
 DIRECTORIES  *vwt-1561-directories*

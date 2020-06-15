@@ -204,8 +204,12 @@ After installing the plugin, read its help on configuration and usage by
 entering :help histwin.txt.
 
 OTHERS  *vwt-1643-others*
-    - undotree [https://www.vim.org/scripts/script.php?script_id=4177] offers a tree view similar to Mundo implemented in pure vimscript. This plugin additionally offers in-text highlighting of changes, automatic updating of the tree view, and extra informational markers on some of the tree nodes.
-    - Undo Branches Explorer [https://www.vim.org/scripts/script.php?script_id=2141]
+    - undotree [https://www.vim.org/scripts/script.php?script_id=4177] offers a 
+      tree view similar to Mundo implemented in pure vimscript. This plugin 
+      additionally offers in-text highlighting of changes, automatic updating of the 
+      tree view, and extra informational markers on some of the tree nodes. 
+    - Undo Branches Explorer 
+      [https://www.vim.org/scripts/script.php?script_id=2141] 
 
 
 PERSISTENT UNDO  *vwt-1643-persistent-undo*
@@ -254,17 +258,18 @@ be able to read the undo history back when you start editing the file again
 and the undo tree information will be lost. There is no way to get it back.
 
 REFERENCES  *vwt-1643-references*
-    - :help  |usr_32.txt|
-    - :help  |undo-branches|
-    - :help  |g+|
-    - :help  |earlier|
-    - :help  |i_CTRL-G_u|
-    - :help 'ul'
+    - :help |usr_32.txt| 
+    - :help |undo-branches| 
+    - :help |g+| 
+    - :help |earlier| 
+    - :help |i_CTRL-G_u| 
+    - :help 'ul' 
 
 
 SEE ALSO  *vwt-1643-see-also*
-    - Undo and Redo [https://vim.fandom.com/wiki/Undo_and_Redo]
-    - Recover from accidental Ctrl-U [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U]
+    - Undo and Redo [https://vim.fandom.com/wiki/Undo_and_Redo] 
+    - Recover from accidental Ctrl-U 
+      [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U] 
 
 
 COMMENTS  *vwt-1643-comments*

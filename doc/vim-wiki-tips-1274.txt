@@ -11,10 +11,10 @@ various whitespace usage issues.
 
 The following script can identify any combination of four types of whitespace 
 issues:
-    - Trailing whitespace (space or tab) at end of line.
-    - Spaces used for indenting (if project should use only tabs for indenting).
-    - Spaces before a tab (probably should be removed or converted to tabs).
-    - Tabs not at the start of the line (that is, not used for indents).
+    - Trailing whitespace (space or tab) at end of line. 
+    - Spaces used for indenting (if project should use only tabs for indenting). 
+    - Spaces before a tab (probably should be removed or converted to tabs). 
+    - Tabs not at the start of the line (that is, not used for indents). 
 
 
 After sourcing the following script, you can type \ws (assuming the default 
@@ -76,7 +76,8 @@ variable b:ws_flags determines what is highlighted (see "default" below).
 <
 
 SEE ALSO  *vwt-1274-see-also*
-    - Highlight unwanted spaces |vwt-396| other methods to display unwanted whitespace
+    - Highlight unwanted spaces |vwt-396| other methods to display unwanted 
+      whitespace 
 
 
 COMMENTS  *vwt-1274-comments*

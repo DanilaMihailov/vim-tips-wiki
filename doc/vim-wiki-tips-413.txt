@@ -53,16 +53,15 @@ a split !!!Works at least with Win32 version-- 11:19, 2 January 2009
 ==============================================================================
 
 TO DO
-    - This is our only drag-and-drop tip, so it needs a little more information.
-    - Probably rename tip and make it more general. Perhaps "Drag and drop".
-    - Incorporate information from :help  |drag-n-drop| which includes:
-    - Can drag and drop one or more files into the Vim window.
-    - Can also drag a directory to explore the directory (or to change to the directory if Shift is held down).
-    - If the cursor is in the command line, the names of the dropped files and directories are inserted.
-    - Otherwise, the files are opened.
-    - If hold down Shift, Vim changes to the directory of the first dropped file.
-    - If hold down Ctrl, the file is opened in a new split.
-
+    - This is our only drag-and-drop tip, so it needs a little more information. 
+    - Probably rename tip and make it more general. Perhaps "Drag and drop". 
+    - Incorporate information from :help |drag-n-drop| which includes: - Can drag 
+      and drop one or more files into the Vim window. - Can also drag a directory to 
+      explore the directory (or to change to the directory if Shift is held down). - 
+      If the cursor is in the command line, the names of the dropped files and 
+      directories are inserted. - Otherwise, the files are opened. - If hold down 
+      Shift, Vim changes to the directory of the first dropped file. - If hold down 
+      Ctrl, the file is opened in a new split. 
 
 
 --JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:09, 3 January 

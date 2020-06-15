@@ -47,10 +47,10 @@ Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] (change
 <
 
 To paste from another application:
-    - Start insert mode.
-    - Press F2 (toggles the 'paste' option on).
-    - Use your terminal to paste text from the clipboard.
-    - Press F2 (toggles the 'paste' option off).
+    - Start insert mode. 
+    - Press F2 (toggles the 'paste' option on). 
+    - Use your terminal to paste text from the clipboard. 
+    - Press F2 (toggles the 'paste' option off). 
 
 
 Then the existing indentation of the pasted text will be retained.
@@ -74,8 +74,8 @@ line allows you to press F2 when in insert mode, to toggle 'paste' on and off.
 The third line enables displaying whether 'paste' is turned on in insert mode.
 
 REFERENCES  *vwt-906-references*
-    - :help 'paste'
-    - :help 'pastetoggle'
+    - :help 'paste' 
+    - :help 'pastetoggle' 
 
 
 COMMENTS  *vwt-906-comments*
@@ -85,7 +85,10 @@ vim-bracketed-paste [https://github.com/ConradIrwin/vim-bracketed-paste]
 plugin which automatically sets 'paste' option when, well, pasting.
 
 OLD COMMENTS  *vwt-906-old-comments*
-    - Thanks for your fix Spiiph, and please check what I changed. I think the following is now attended to, and all these old comments can be deleted after a few days. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:39, January 13, 2010 (UTC)
+    - Thanks for your fix Spiiph, and please check what I changed. I think the 
+      following is now attended to, and all these old comments can be deleted after 
+      a few days. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:39, 
+      January 13, 2010 (UTC) 
 
 
 ==============================================================================

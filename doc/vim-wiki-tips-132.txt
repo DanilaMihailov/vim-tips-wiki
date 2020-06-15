@@ -51,10 +51,12 @@ Vim" or "the poor man's tabs", invented by Tonymec
 >
     :set noequalalways winminheight=0 winheight=9999 helpheight=9999
 <
-    -  'noequalalways' makes sure Vim doesn't try to make all windows equal.
-    -  'winminheight' set to 0 means non-current windows may collapse to a status line and nothing else (thus sparing screen real estate)
-    -  'winheight' at 9999 swells the current window to maximum height, squashing all non-current windows
-    -  'helpheight' does the same when in a help window.
+    - 'noequalalways' makes sure Vim doesn't try to make all windows equal. 
+    - 'winminheight' set to 0 means non-current windows may collapse to a status 
+      line and nothing else (thus sparing screen real estate) 
+    - 'winheight' at 9999 swells the current window to maximum height, squashing 
+      all non-current windows 
+    - 'helpheight' does the same when in a help window. 
 
 
 The result is that the current window opens full-height, pushing all other 
@@ -69,10 +71,10 @@ paper-and-ink times of a generation ago. Of course the "Vim Rolodex pages" can
 also be turned up and down one-by-one with ^Ww and ^WW etc.
 
 See:
-    - :help 'ea'
-    - :help 'wmh'
-    - :help 'wh'
-    - :help 'hh'
+    - :help 'ea' 
+    - :help 'wmh' 
+    - :help 'wh' 
+    - :help 'hh' 
 
 
 ROLODEX VIM ON A PER TAB BASIS  *vwt-132-rolodex-vim-on-a-per-tab-basis*

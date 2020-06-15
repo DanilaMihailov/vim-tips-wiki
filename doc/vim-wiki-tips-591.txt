@@ -89,11 +89,12 @@ mapping, one for the functions...You can use prefix to classify your functions
 and use the autocompletion more efficiently.
 
 REFERENCES  *vwt-591-references*
-    -  General considerations on plugin: :help  |plugins|
-    -  How to create a user-command and how to use the parameters (-range, -nargs, -complete...): :help  |user-commands|
-    -  How to program vim: :help  |eval.txt|
-    -  All the buildin functions: :help  |functions|
-    -  How to define a function: :help  |user-functions|
+    - General considerations on plugin: :help |plugins| 
+    - How to create a user-command and how to use the parameters (-range, -nargs, 
+      -complete...): :help |user-commands| 
+    - How to program vim: :help |eval.txt| 
+    - All the buildin functions: :help |functions| 
+    - How to define a function: :help |user-functions| 
 
 
 COMMENTS  *vwt-591-comments*
@@ -102,10 +103,12 @@ I definitively agree that plugins are a must -- AFAIK, ftplugins are the
 major improvment of Vim over Vi.
 
 However, I have a few remarks:
-    -  You forget the anti-reinclusion guards,
-    -  You can propose a way to override the default mappings you propose in your plugin -- check VimTip147 |vwt-147| that is a must-read
-    -  You'd better always use ":normal!" and "*noremap" instead of ":normal" and ":*map". We are never sure of mappings defined into other plugins.
-    -  If you want the exact path of the current plugin:
+    - You forget the anti-reinclusion guards, 
+    - You can propose a way to override the default mappings you propose in your 
+      plugin -- check VimTip147 |vwt-147| that is a must-read 
+    - You'd better always use ":normal!" and "*noremap" instead of ":normal" and 
+      ":*map". We are never sure of mappings defined into other plugins. 
+    - If you want the exact path of the current plugin: 
 
 
 >

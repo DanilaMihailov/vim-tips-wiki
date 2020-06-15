@@ -17,9 +17,10 @@ how to download Vim if you do not want to build it yourself.
 
 Administrative privileges are not required for the steps in this tip, except 
 when installing:
-    - Python (if Python is wanted).
-    - Mercurial (if using the "needs admin rights" installer to make Mercurial available for all users).
-    - Microsoft Visual Studio.
+    - Python (if Python is wanted). 
+    - Mercurial (if using the "needs admin rights" installer to make Mercurial 
+      available for all users). 
+    - Microsoft Visual Studio. 
 
 
 PYTHON INTERFACE  *vwt-1673-python-interface*
@@ -75,15 +76,17 @@ window, you need to first adjust the PATH, for example:
 To install Visual Studio, download the setup program (see link above). Setup 
 is a small program which downloads components as required. As an 
 administrator, run setup and perform these steps:
-    - Accept or clear "send information about my setup experiences to Microsoft".
-    - Agree to license.
-    - Accept or clear option to install Microsoft Silverlight.
-    - Accept default install location.
-    - Restart computer when prompted.
-    - After restarting, log on as an administrator; setup will automatically continue running.
-    - When finished, setup prompts that Windows Update should be used.
-    - Use Windows Update to install security updates; restart when prompted.
-    - Later, you can run the "Microsoft Visual C++ 2010 Express" GUI and use the Help menu, "Register Product" to register within 30 days.
+    - Accept or clear "send information about my setup experiences to Microsoft". 
+    - Agree to license. 
+    - Accept or clear option to install Microsoft Silverlight. 
+    - Accept default install location. 
+    - Restart computer when prompted. 
+    - After restarting, log on as an administrator; setup will automatically 
+      continue running. 
+    - When finished, setup prompts that Windows Update should be used. 
+    - Use Windows Update to install security updates; restart when prompted. 
+    - Later, you can run the "Microsoft Visual C++ 2010 Express" GUI and use the 
+      Help menu, "Register Product" to register within 30 days. 
 
 
 REQUIRED DIRECTORIES AND FILES  *vwt-1673-required-directories-and-files*
@@ -207,9 +210,12 @@ programs can be built with the following.
 <
 
 These commands use:
-    - File \current\build\vim\src\msvc2010.bat supplied with Vim. This calls file vsvars32.bat (installed with Visual Studio) to configure environment variables to allow building at the command prompt.
-    - File \myname\bin\vimconfig.cmd (created in an earlier step) to configure environment variables for the options wanted while building Vim.
-    - File nmake.exe (installed with Visual Studio) to compile and link Vim.
+    - File \current\build\vim\src\msvc2010.bat supplied with Vim. This calls file 
+      vsvars32.bat (installed with Visual Studio) to configure environment variables 
+      to allow building at the command prompt. 
+    - File \myname\bin\vimconfig.cmd (created in an earlier step) to configure 
+      environment variables for the options wanted while building Vim. 
+    - File nmake.exe (installed with Visual Studio) to compile and link Vim. 
 
 
 The above builds programs gvim.exe (GUI Vim), vimrun.exe (to run external 
@@ -383,8 +389,10 @@ that line (and the MyDiff function) from vimrc.
 COMMENTS  *vwt-1673-comments*
 
 TO DO
-    - Show a HUGE or BIG build example to show how it's done.
-    - Check claims made about MyDiff and if valid, explain why it isn't wanted. Fritzophrenic has to use MyDiff to make diffs. Check when used with paths with embedded spaces.
+    - Show a HUGE or BIG build example to show how it's done. 
+    - Check claims made about MyDiff and if valid, explain why it isn't wanted. 
+      Fritzophrenic has to use MyDiff to make diffs. Check when used with paths with 
+      embedded spaces. 
 
 
  vim:tw=78:et:ft=help:norl:

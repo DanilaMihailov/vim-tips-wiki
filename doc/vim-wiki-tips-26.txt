@@ -71,8 +71,12 @@ determines which line endings will be added when the buffer is saved).
 Suppose your system has ffs=dos,unix and you open an existing file. Vim will 
 look for both dos and unix line endings, but Vim has a built-in preference for 
 the unix format.
-    - If all lines in the file end with CRLF, the dos file format will be applied, meaning that each CRLF is removed when reading the lines into a buffer, and the buffer 'ff' option will be dos.
-    - If one or more lines end with LF only, the unix file format will be applied, meaning that each LF is removed (but each CR will be present in the buffer, and will display as ^M), and the buffer 'ff' option will be unix.
+    - If all lines in the file end with CRLF, the dos file format will be applied, 
+      meaning that each CRLF is removed when reading the lines into a buffer, and 
+      the buffer 'ff' option will be dos. 
+    - If one or more lines end with LF only, the unix file format will be applied, 
+      meaning that each LF is removed (but each CR will be present in the buffer, 
+      and will display as ^M), and the buffer 'ff' option will be unix. 
 
 
 CONVERTING THE CURRENT FILE  *vwt-26-converting-the-current-file*
@@ -232,10 +236,14 @@ avoid mistakes.
 Suppose you have some files that use a mixture of CRLF and LF-only line 
 endings (all line terminators use CRLF, or all use LF-only, or there are some 
 of each). These steps are required when converting each file:
-    - Read the file as dos so any text ending with CRLF or LF-only is regarded as a line. These line endings (CRLF and LF) are removed and are not present in the buffer.
-    - If you want to force all line endings to CRLF, write as dos. The :w command is required (not :update or :wa because these only write if the buffer has not been modified, and no modification has occurred).
-    - If you want to force all line endings to LF-only, write as unix.
-    - If you want to force all line endings to CR-only, write as mac.
+    - Read the file as dos so any text ending with CRLF or LF-only is regarded as a 
+      line. These line endings (CRLF and LF) are removed and are not present in the 
+      buffer. 
+    - If you want to force all line endings to CRLF, write as dos. The :w command 
+      is required (not :update or :wa because these only write if the buffer has not 
+      been modified, and no modification has occurred). 
+    - If you want to force all line endings to LF-only, write as unix. 
+    - If you want to force all line endings to CR-only, write as mac. 
 
 
 If all lines in a file end with LF-only, the file can be converted to use 
@@ -405,8 +413,11 @@ Many other conversion tools are available. For example, flip
 dos/mac/unix formats, and versions for each platform are available.
 
 SEE ALSO  *vwt-26-see-also*
-    - Display file format in the status line |vwt-736| show an alert if a non-native file format is used
-    - Automatically reload files with mixed line-endings in DOS fileformat [https://vim.fandom.com/wiki/Automatically_reload_files_with_mixed_line-endings_in_DOS_fileformat] to load files in the correct format with no user intervention
+    - Display file format in the status line |vwt-736| show an alert if a 
+      non-native file format is used 
+    - Automatically reload files with mixed line-endings in DOS fileformat 
+      [https://vim.fandom.com/wiki/Automatically_reload_files_with_mixed_line-endings_in_DOS_fileformat] 
+      to load files in the correct format with no user intervention 
 
 
 COMMENTS  *vwt-26-comments*

@@ -256,16 +256,16 @@ You can put it in your vimrc or just use it as a reference when in doubt.
 <
 
 REFERENCES  *vwt-1384-references*
-    - :help  |:highlight|
+    - :help |:highlight| 
 
 
 SEE ALSO  *vwt-1384-see-also*
-    -  There are plugins that provide more reliable ways to use GUI color settings in a terminal [https://vim.fandom.com/wiki/Using_GUI_color_settings_in_a_terminal].
-    -  256 colors in vim [https://vim.fandom.com/wiki/256_colors_in_vim]
-    -  Other X11 colors: rgb.txt, where rgb.txt from: find /usr -name 'rgb.txt'
-    -  /etc/X11/rgb.txt
-    -  /usr/share/vim/vim72/rgb.txt
-
+    - There are plugins that provide more reliable ways to use GUI color settings 
+      in a terminal 
+      [https://vim.fandom.com/wiki/Using_GUI_color_settings_in_a_terminal]. 
+    - 256 colors in vim [https://vim.fandom.com/wiki/256_colors_in_vim] 
+    - Other X11 colors: rgb.txt, where rgb.txt from: find /usr -name 'rgb.txt' - 
+      /etc/X11/rgb.txt - /usr/share/vim/vim72/rgb.txt 
 
 
 COMMENTS  *vwt-1384-comments*

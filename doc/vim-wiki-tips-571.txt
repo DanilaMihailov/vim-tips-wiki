@@ -9,11 +9,23 @@ created September 30, 2003 · complexity basic · author mosh · version 5.7
 See tip 804 |vwt-804| for the correct way to do upward tag searches. There 
 are several "local vimrc" plugins available which are probably a better 
 solution for a directory-specific .vimrc file:
-    -  localvimrc [https://www.vim.org/scripts/script.php?script_id=441] which sources all (or configurable number of) .lvimrc files (configurable name) from the buffer's directory up to the root.
-    -  local_vimrc [https://www.vim.org/scripts/script.php?script_id=727] which sources all _vimrc_local.vim files from $HOME to current buffer's directory
-    -  local configuration [https://www.vim.org/scripts/script.php?script_id=1408] which sources a .lvimrc file in the buffer's directory. Documentation is not clear whether/how far an upward search is performed.
-    -  perdirvimrc [https://www.vim.org/scripts/script.php?script_id=2792] which sources files of several different names, starting at the root directory (or home directory, this is not made clear) and progressing to the current working directory (or the buffer's directory, this is not made clear either).
-    -  localrc [https://www.vim.org/scripts/script.php?script_id=3393] which sources files of a configurable name in the directory of any file you are editing, optionally only for files of a configurable file extension. Some recursive searching is done but the documentation does not specify exactly how this works.
+    - localvimrc [https://www.vim.org/scripts/script.php?script_id=441] which 
+      sources all (or configurable number of) .lvimrc files (configurable name) from 
+      the buffer's directory up to the root. 
+    - local_vimrc [https://www.vim.org/scripts/script.php?script_id=727] which 
+      sources all _vimrc_local.vim files from $HOME to current buffer's directory 
+    - local configuration [https://www.vim.org/scripts/script.php?script_id=1408] 
+      which sources a .lvimrc file in the buffer's directory. Documentation is not 
+      clear whether/how far an upward search is performed. 
+    - perdirvimrc [https://www.vim.org/scripts/script.php?script_id=2792] which 
+      sources files of several different names, starting at the root directory (or 
+      home directory, this is not made clear) and progressing to the current working 
+      directory (or the buffer's directory, this is not made clear either). 
+    - localrc [https://www.vim.org/scripts/script.php?script_id=3393] which sources 
+      files of a configurable name in the directory of any file you are editing, 
+      optionally only for files of a configurable file extension. Some recursive 
+      searching is done but the documentation does not specify exactly how this 
+      works. 
 
 
 That said, here is a very simple solution:
@@ -42,9 +54,9 @@ That said, here is a very simple solution:
 <
 
 REFERENCES  *vwt-571-references*
-    - :help  |file-searching|
-    - :help  |vimrc-intro|
-    - :help  |tags|
+    - :help |file-searching| 
+    - :help |vimrc-intro| 
+    - :help |tags| 
 
 
 COMMENTS  *vwt-571-comments*

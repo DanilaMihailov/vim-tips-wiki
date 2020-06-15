@@ -14,8 +14,9 @@ regardless of where the cursor is.
 
 To correct this (works for me with the Synaptics driver version 08/01/2005, 
 8.1.2.0):
-    - Backup the file tp4table.dat in C:\Programme\Synaptics\SynTP
-    - Edit the file tp4table.dat in C:\Programme\Synaptics\SynTP as below – insert at line 128 (after Java support)
+    - Backup the file tp4table.dat in C:\Programme\Synaptics\SynTP 
+    - Edit the file tp4table.dat in C:\Programme\Synaptics\SynTP as below – insert 
+      at line 128 (after Java support) 
 
 
 >

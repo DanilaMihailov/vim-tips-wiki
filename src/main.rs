@@ -6,6 +6,24 @@ use select::predicate::{Attr, Class};
 use tokio::runtime::Runtime;
 use urlencoding::decode;
 
+fn wrap_text(text: &str, max_col: usize, new_line: &str) -> String {
+    let mut col = 0;
+    let mut new_text = String::with_capacity(text.len());
+
+    for word in text.trim().split_whitespace() {
+        col += word.chars().count() + 1;
+        if col > max_col {
+            new_text.push_str(new_line);
+            col = word.chars().count();
+        };
+
+        new_text.push_str(word);
+        new_text.push(' ');
+    }
+
+    return new_text;
+}
+
 #[derive(Debug)]
 struct WikiEntry<'a> {
     n: u32,
@@ -36,19 +54,7 @@ impl<'a> WikiEntry<'a> {
                 for child in node.children() {
                     text.push_str(&self.parse_node(child));
                 }
-                let mut new_text = String::with_capacity(text.len());
-                let mut col = 0;
-
-                for word in text.trim().split_whitespace() {
-                    col += word.chars().count() + 1;
-                    if col > 78 {
-                        new_text.push('\n');
-                        col = word.chars().count();
-                    };
-
-                    new_text.push_str(word);
-                    new_text.push(' ');
-                }
+                let new_text = wrap_text(text.as_str(), 78, "\n");
 
                 format!("\n\n{}", new_text.trim())
             }
@@ -86,7 +92,10 @@ impl<'a> WikiEntry<'a> {
             Some("ul") => {
                 let mut res = String::new();
                 for child in node.children() {
-                    res.push_str(&format!("    - {}\n", self.parse_node(child)));
+                    res.push_str(&format!(
+                        "    - {}\n",
+                        wrap_text(&self.parse_node(child), 78, "\n      ")
+                    ));
                 }
                 format!("\n{}", res)
             }

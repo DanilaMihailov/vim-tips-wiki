@@ -71,9 +71,9 @@ Which version doesn't work for you? I tried using the inoremap <expr> mapping an
 ==============================================================================
 
 Here is a somewhat elaborate solution that fixes several problems:
-    -  works at the beginning of a line
-    -  terminates at the end of a line (doesn't do anything weird)
-    -  doesn't overwrite the unnamed (last used) register @"
+    - works at the beginning of a line 
+    - terminates at the end of a line (doesn't do anything weird) 
+    - doesn't overwrite the unnamed (last used) register @" 
 
 
 >

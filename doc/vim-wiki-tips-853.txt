@@ -23,19 +23,26 @@ file will be backed up.
 <
 
 SEE ALSO  *vwt-853-see-also*
-    -  
-    -  Quick save to a temporary file before more edits [https://vim.fandom.com/wiki/Quick_save_to_a_temporary_file_before_more_edits] (VimTip694) -- for simpler solution.
-    -  Keep incremental backups of edited files [https://vim.fandom.com/wiki/Keep_incremental_backups_of_edited_files] (VimTip892) (Automatic incremental backup ...)
+    - 
+    - Quick save to a temporary file before more edits 
+      [https://vim.fandom.com/wiki/Quick_save_to_a_temporary_file_before_more_edits] 
+      (VimTip694) -- for simpler solution. 
+    - Keep incremental backups of edited files 
+      [https://vim.fandom.com/wiki/Keep_incremental_backups_of_edited_files] 
+      (VimTip892) (Automatic incremental backup ...) 
 
 
 RELATED PLUGINS  *vwt-853-related-plugins*
-    -  WriteBackup [https://www.vim.org/scripts/script.php?script_id=1828] writes up to 26 backups (format ) with a custom  command.
+    - WriteBackup [https://www.vim.org/scripts/script.php?script_id=1828] writes up 
+      to 26 backups (format ) with a custom command. 
 
 
 COMMENTS  *vwt-853-comments*
-    -  Is it not better to escape filenames?
-    -  Also, I think it is better if this backup operation doesn't modify the buffers' modified flag and
-    -  Finally, in order to not break "openability", I prefer keeping the original extension and inserting my backup extension before that.
+    - Is it not better to escape filenames? 
+    - Also, I think it is better if this backup operation doesn't modify the 
+      buffers' modified flag and 
+    - Finally, in order to not break "openability", I prefer keeping the original 
+      extension and inserting my backup extension before that. 
 
 
 Which gives:

@@ -50,34 +50,41 @@ Now, when your quoted email is displayed in Vim, there are a few ways to fix
 the quoted text, all relying on the |gq| operator:
 
 FORMAT VISUAL SELECTION  *vwt-273-format-visual-selection*
-    - Move cursor to first line of broken paragraph.
-    - Press 'V' and move to the last line of the paragraph you want to fix.
-    - Press 'g' and then 'q'. The marked text will wrap around to your specified textwidth (76 in our case) and the quotations will be preserved across the lines.
+    - Move cursor to first line of broken paragraph. 
+    - Press 'V' and move to the last line of the paragraph you want to fix. 
+    - Press 'g' and then 'q'. The marked text will wrap around to your specified 
+      textwidth (76 in our case) and the quotations will be preserved across the 
+      lines. 
 
 
 MOVEMENT-BASED FORMAT  *vwt-273-movement-based-format*
-    - Move cursor to the first line (possibly by pressing { to jump to the top of the paragraph).
-    - Type gq} to format from the cursor to the end of the paragraph, gqq to format just the current line, gq4j to format 4 lines, etc.
+    - Move cursor to the first line (possibly by pressing { to jump to the top of 
+      the paragraph). 
+    - Type gq} to format from the cursor to the end of the paragraph, gqq to format 
+      just the current line, gq4j to format 4 lines, etc. 
 
 
 FORMAT A TEXT OBJECT  *vwt-273-format-a-text-object*
-    - From anywhere in the paragraph, type gqip or gqap
+    - From anywhere in the paragraph, type gqip or gqap 
 
 
 QUOTE THE TEXT  *vwt-273-quote-the-text*
-    -  From visual mode simply press \q (assuming your default Leader key is '\' see :help  |<LocalLeader>|) and the visually selected text will be preceeded by a '> ' using the Mapping provided in the default filetype plugin.
+    - From visual mode simply press \q (assuming your default Leader key is '\' see 
+      :help |<LocalLeader>|) and the visually selected text will be preceeded by a 
+      '> ' using the Mapping provided in the default filetype plugin. 
 
 
 REFERENCES  *vwt-273-references*
-    - :help  |gq|
-    - :help  |object-motions|
-    - :help  |text-objects|
-    - :help  |ap|
-    - :help  |ip|
+    - :help |gq| 
+    - :help |object-motions| 
+    - :help |text-objects| 
+    - :help |ap| 
+    - :help |ip| 
 
 
 RELATED PLUGINS  *vwt-273-related-plugins*
-    - Brian Medley's email ftplugin [https://www.vim.org/scripts/script.php?script_id=99]
+    - Brian Medley's email ftplugin 
+      [https://www.vim.org/scripts/script.php?script_id=99] 
 
 
 COMMENTS  *vwt-273-comments*

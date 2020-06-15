@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip542 |vwt-542|
+    - VimTip542 |vwt-542| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -56,8 +56,8 @@ How can we store the password? It prompts for password each time we save!
 I just got this working on Win2k w/ PuTTY's command line scp program 
 http://www.chiark.greenend.org.uk/~sgtatham/putty/ 
 [http://www.chiark.greenend.org.uk/~sgtatham/putty/]
-    - copy pscp.exe into your path somewhere as scp.exe
-    - put "let g:netrw_cygwin= 0" in your $VIM/_vimrc
+    - copy pscp.exe into your path somewhere as scp.exe 
+    - put "let g:netrw_cygwin= 0" in your $VIM/_vimrc 
 
 
 ==============================================================================

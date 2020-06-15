@@ -67,8 +67,10 @@ so we bracket this whole snippet in this if statement to avoid unnecessary
 errors.
 
 SET CSCOPETAG CSCOPEVERBOSE  *vwt-1638-set-cscopetag-cscopeverbose*
-    -  'cscopetag' on means Vim will include the cscope database whenever we search for a tag (e.g. by hitting < |CTRL-]|> in a C program).
-    -  'cscopeverbose' on (optional) gives us a success/failure message when trying to add a cscope database (including the one near the end of this snippet).
+    - 'cscopetag' on means Vim will include the cscope database whenever we search 
+      for a tag (e.g. by hitting < |CTRL-]|> in a C program). 
+    - 'cscopeverbose' on (optional) gives us a success/failure message when trying 
+      to add a cscope database (including the one near the end of this snippet). 
 
 
 'CSCOPEQUICKFIX'  *vwt-1638-'cscopequickfix'*

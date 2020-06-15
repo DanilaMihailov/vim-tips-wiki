@@ -61,10 +61,16 @@ For Vim code, you could do it this way:
 <
 
 The breakdown:
-    - :<C-U> – start an ex command from visual mode, which defaults to inserting '<,'> so we need to use CTRL-U to remove it
-    - '<+1,'> – act on all but the first line of the visual selection (we don't want to remove the comment leader from the current line!)
-    - s/^\s*"\s*/<Space>/e<CR> – replace all comment leaders that occur at the BEGINNING of a line, and all surrounding whitespace, with a single space. Use the e flag to suppress errors if the pattern is not found (so joins of non-comment lines continue to work). The <CR> runs the ex command.
-    - gvJ – select the last visual selection range and perform a normal J command on it. Since we've removed the comment leaders, this will now work as desired.
+    - :<C-U> – start an ex command from visual mode, which defaults to inserting 
+      '<,'> so we need to use CTRL-U to remove it 
+    - '<+1,'> – act on all but the first line of the visual selection (we don't 
+      want to remove the comment leader from the current line!) 
+    - s/^\s*"\s*/<Space>/e<CR> – replace all comment leaders that occur at the 
+      BEGINNING of a line, and all surrounding whitespace, with a single space. Use 
+      the e flag to suppress errors if the pattern is not found (so joins of 
+      non-comment lines continue to work). The <CR> runs the ex command. 
+    - gvJ – select the last visual selection range and perform a normal J command 
+      on it. Since we've removed the comment leaders, this will now work as desired. 
 
 
 This has the unfortunate side effect of clobbering your last search register, 
@@ -224,11 +230,11 @@ The problem will still occur when the comment leader occurs in non-comment
 text, but it should be far less common.
 
 REFERENCES  *vwt-1553-references*
-    - :help  |/\%#|
-    - :help  |v:count|
-    - :help  |v:errmsg|
-    - :help  |:map-<buffer>|
-    - :help  |:map-<silent>|
+    - :help |/\%#| 
+    - :help |v:count| 
+    - :help |v:errmsg| 
+    - :help |:map-<buffer>| 
+    - :help |:map-<silent>| 
 
 
 COMMENTS  *vwt-1553-comments*

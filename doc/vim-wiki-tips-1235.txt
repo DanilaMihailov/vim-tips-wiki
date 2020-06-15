@@ -48,8 +48,10 @@ Here is an example from complex math:
 <
 
 REFERENCES  *vwt-1235-references*
-    - http://docs.python.org/lib/module-cmath.html [http://docs.python.org/lib/module-cmath.html]
-    - http://mathworld.wolfram.com/EulerFormula.html [http://mathworld.wolfram.com/EulerFormula.html]
+    - http://docs.python.org/lib/module-cmath.html 
+      [http://docs.python.org/lib/module-cmath.html] 
+    - http://mathworld.wolfram.com/EulerFormula.html 
+      [http://mathworld.wolfram.com/EulerFormula.html] 
 
 
 DLL  *vwt-1235-dll*
@@ -66,15 +68,19 @@ COMMENTS  *vwt-1235-comments*
 
 If your Vim (7.2 or later) is compiled with |+float|, you can do scientific 
 calculations in Vim even without Python.
-    -  Use the numeric operators (except %) and floating point functions defined by Vim, see
-    -  :help  |expr5|
-    -  :help  |expr6|
-    -  :help  |expr7|
-    -  :help  |function-list| and scroll down to Floating point computation
-
-    -  Exponentiation is pow( |pow()|base,exponent), not **
-    -   |:echo| gives you 6-digit precision by default, use  |printf()| for user-specified precision, up to about 15 significant digits on an Intel PC (I don't know how many on a Mac PPC or an an IBM System-z).
-    -  If you can lay hands on (or compile) a Vim patched with Bill McCarthy's additional floating-point functions [http://groups.google.com/group/vim_dev/web/vim-patches] (#7 in the list), you won't need to know trigonometric formulas for "missing" functions such as tan(), asin(), atan2() etc., and you'll be able to use acos(-1) rather than 4*atan(1) for π, exp(1) rather than a literal value for e.
+    - Use the numeric operators (except %) and floating point functions defined by 
+      Vim, see - :help |expr5| - :help |expr6| - :help |expr7| - :help 
+      |function-list| and scroll down to Floating point computation 
+    - Exponentiation is pow( |pow()|base,exponent), not ** 
+    - |:echo| gives you 6-digit precision by default, use |printf()| for 
+      user-specified precision, up to about 15 significant digits on an Intel PC (I 
+      don't know how many on a Mac PPC or an an IBM System-z). 
+    - If you can lay hands on (or compile) a Vim patched with Bill McCarthy's 
+      additional floating-point functions 
+      [http://groups.google.com/group/vim_dev/web/vim-patches] (#7 in the list), you 
+      won't need to know trigonometric formulas for "missing" functions such as 
+      tan(), asin(), atan2() etc., and you'll be able to use acos(-1) rather than 
+      4*atan(1) for π, exp(1) rather than a literal value for e. 
 
 
 — Tonymec 03:27, May 5, 2010 (UTC)

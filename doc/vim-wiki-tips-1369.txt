@@ -91,7 +91,12 @@ transparent to the user.
 <
 
 RELATED SCRIPTS  *vwt-1369-related-scripts*
-    -  The PreserveNoEOL plugin [https://www.vim.org/scripts/script.php?script_id=4550] uses the above pure Vimscript implementation to automatically preserve no EOL on all or certain opened files, but it also comes with alternative strategies that use postprocessing in Python or Perl to remove the trailing EOL character after the save, which is probably more robust.
+    - The PreserveNoEOL plugin 
+      [https://www.vim.org/scripts/script.php?script_id=4550] uses the above pure 
+      Vimscript implementation to automatically preserve no EOL on all or certain 
+      opened files, but it also comes with alternative strategies that use 
+      postprocessing in Python or Perl to remove the trailing EOL character after 
+      the save, which is probably more robust. 
 
 
 COMMENTS  *vwt-1369-comments*

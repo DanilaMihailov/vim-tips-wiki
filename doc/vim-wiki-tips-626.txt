@@ -172,8 +172,12 @@ command to edit that file.
 COMMENTS  *vwt-626-comments*
 
 TO DO
-    - What else is needed to explain what vimrc is, and how to use it, for a beginner?
-    - Do something with the following text from the original tip (if keep it, need to fix text because it assumes you have used some standard setup for installation, and assumes $VIM and $HOME are some default, and of course is for Windows):
+    - What else is needed to explain what vimrc is, and how to use it, for a 
+      beginner? 
+    - Do something with the following text from the original tip (if keep it, need 
+      to fix text because it assumes you have used some standard setup for 
+      installation, and assumes $VIM and $HOME are some default, and of course is 
+      for Windows): 
 
 
 On Windows, when you start Vim normally, it *either* runs the file 
@@ -183,13 +187,19 @@ usually doesn't, for most users), it runs the file "C:\Program
 Files\vim\_vimrc". Note that if you have more than one disk your home may be 
 different; do an ":echo $HOME" to know where is your home. You should also see 
 the _viminfo file in that directory.
-    - Include information for Windows:
-    - When $HOME is not defined, it is created by combining $HOMEDRIVE and $HOMEPATH (if defined).
-    - The recommended method to define $HOMEDRIVE and $HOMEPATH is to set the "Home folder ... Local path" on the Profile tab of the User properties in Local Users and Groups (run lusrmgr.msc).
-    - I'd say that this (the item above) is the recommended method to set your home folder in Windows. The recommendes method to specify where your _vimrc is located (if it differs from your home folder) is to set the $HOME environment variable. (Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 00:16, 29 July 2009 (UTC))
+    - Include information for Windows: - When $HOME is not defined, it is created 
+      by combining $HOMEDRIVE and $HOMEPATH (if defined). - The recommended method 
+      to define $HOMEDRIVE and $HOMEPATH is to set the "Home folder ... Local path" 
+      on the Profile tab of the User properties in Local Users and Groups (run 
+      lusrmgr.msc). - I'd say that this (the item above) is the recommended method 
+      to set your home folder in Windows. The recommendes method to specify where 
+      your _vimrc is located (if it differs from your home folder) is to set the 
+      $HOME environment variable. (Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 
+      00:16, 29 July 2009 (UTC)) 
 
-
-    - Link to the #vim [https://vim.fandom.com/wiki/Vim_on_Freenode]-approved .vimrc? ;) (Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 00:18, 29 July 2009 (UTC))
+    - Link to the #vim [https://vim.fandom.com/wiki/Vim_on_Freenode]-approved 
+      .vimrc? ;) (Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 00:18, 29 July 
+      2009 (UTC)) 
 
 
 ==============================================================================

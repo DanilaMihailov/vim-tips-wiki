@@ -20,15 +20,15 @@ http://cream.sourceforge.net [http://cream.sourceforge.net].
 The problem with running NWAs from cygwin comes from the fact that paths in 
 cygwin can be expressed in ways that NWAs can't understand. Indeed from 
 cygwin, we can also:
-    - Express paths as *nix-like paths ; e.g. /etc/profile
-    - Use paths that, as a matter of fact, are symbolic links.
-    - Use absolute paths expressed in the Windows form
+    - Express paths as *nix-like paths ; e.g. /etc/profile 
+    - Use paths that, as a matter of fact, are symbolic links. 
+    - Use absolute paths expressed in the Windows form 
 
 
 >
     > gvim c:/bar/foo.txt
 <
-    - Use multiple-level of indirections through symbolic links
+    - Use multiple-level of indirections through symbolic links 
 
 
 >
@@ -37,7 +37,7 @@ cygwin, we can also:
     > ...
     > gvim foon
 <
-    - Use symbolic links pointing to absolute paths expressed in the Windows form
+    - Use symbolic links pointing to absolute paths expressed in the Windows form 
 
 
 >
@@ -59,8 +59,10 @@ define into your .profile something like:
 <
 
 Notes:
-    - under MsWindows 9x, I had to write the path to gvim.exe in the Windows short form
-    - the '-c' is here to tell cyg-wrapper.sh that: when calling Vim, the parameter following '-c' is not a path.
+    - under MsWindows 9x, I had to write the path to gvim.exe in the Windows short 
+      form 
+    - the '-c' is here to tell cyg-wrapper.sh that: when calling Vim, the parameter 
+      following '-c' is not a path. 
 
 
 This enables us to write:
@@ -106,7 +108,7 @@ Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte], December 5, 2002
 
 > Last point, the win32 version of Vim can not expand paths expressed in the 
 *nix way ;> e.g. ':sp /etc/pr<tab>' won't expand.
-    - :help 'shellslash'
+    - :help 'shellslash' 
 
 
 'shellslash' has almost nothing to do with that problem.

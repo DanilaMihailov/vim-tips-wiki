@@ -38,17 +38,17 @@ gD
 Go to definition of global variable (first occurrence of keyword in current file).
 
 SEE ALSO  *vwt-9-see-also*
-    - List lines with keyword and prompt for jump |vwt-563|
-    - List lines with current search pattern highlighted |vwt-1141|
-    - Search visually |vwt-1151|
+    - List lines with keyword and prompt for jump |vwt-563| 
+    - List lines with current search pattern highlighted |vwt-1141| 
+    - Search visually |vwt-1151| 
 
 
 REFERENCES  *vwt-9-references*
-    - :help  |[i|
-    - :help  |[d|
-    - :help  |[I|
-    - :help  |[_CTRL-I|
-    - :help  |gd|
+    - :help |[i| 
+    - :help |[d| 
+    - :help |[I| 
+    - :help |[_CTRL-I| 
+    - :help |gd| 
 
 
 SEARCH IN FILES  *vwt-9-search-in-files*
@@ -69,9 +69,11 @@ for jumping to the found locations.
 COMMENTS  *vwt-9-comments*
 
 TO DO
-    - Have merged information from other tips to here. See if any more cleaning up is required.
-    - Confirm that descriptions (drastically simplified wrt help) are accurate.
-    - Possibly make the "Search in files" section just a line under "See also". Is the 'nnoremap <F9>' stuff useful?
+    - Have merged information from other tips to here. See if any more cleaning up 
+      is required. 
+    - Confirm that descriptions (drastically simplified wrt help) are accurate. 
+    - Possibly make the "Search in files" section just a line under "See also". Is 
+      the 'nnoremap <F9>' stuff useful? 
 
 
  vim:tw=78:et:ft=help:norl:

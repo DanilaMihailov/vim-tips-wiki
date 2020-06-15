@@ -11,9 +11,12 @@ During editing, there are many situations where one would like to do a
 command based on the word under cursor. Idea is to yank into a register and 
 then use this register automatically. Basis of this functionality are two 
 commands
-    - Yanking into a register, for example: "zyiw - will yank the word into z reg, "byy - yanks the line into b reg
-    - Concatenating the register to a command and executing it. :exe "/".@z.""<CR> - searches for string in z reg
-    -  Alternately you can replace @z by <C-r>z which will directly replace z by its content. 
+    - Yanking into a register, for example: "zyiw - will yank the word into z reg, 
+      "byy - yanks the line into b reg 
+    - Concatenating the register to a command and executing it. :exe "/".@z.""<CR> 
+      - searches for string in z reg 
+    - Alternately you can replace @z by <C-r>z which will directly replace z by its 
+      content. 
 
 
 Some more examples:
@@ -62,9 +65,9 @@ Alternatively:
 <
 
 Anyway, there are alternatives to some of the examples given:
-    - "*": searches the word under cursor
-    - "gf": opens the file under the cursor
-    - "<C-W>f": same, horizontal split
+    - "*": searches the word under cursor 
+    - "gf": opens the file under the cursor 
+    - "<C-W>f": same, horizontal split 
 
 
 ==============================================================================

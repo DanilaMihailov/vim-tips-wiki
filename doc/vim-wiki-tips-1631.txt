@@ -36,16 +36,18 @@ mapping for files of the Clojure filetype, or by adding it to
 ~/.vim/after/ftplugin/clojure.vim.
 
 REFERENCES  *vwt-1631-references*
-    - :help  |filetype|
-    - :help  |after-directory|
+    - :help |filetype| 
+    - :help |after-directory| 
 
 
 COMMENTS  *vwt-1631-comments*
 
 TO DO
-    - May need some information similar to VimTip1565 |vwt-1565| for making Clojure a known filetype.
-    - The tip used '\;' but the backslash is redundant (I removed it).
-    - The tip had if getline('.') =~ '\;' but s/^;//. The former matches ; anywhere in the line, while the latter only matches at the left margin. I changed it.
+    - May need some information similar to VimTip1565 |vwt-1565| for making Clojure 
+      a known filetype. 
+    - The tip used '\;' but the backslash is redundant (I removed it). 
+    - The tip had if getline('.') =~ '\;' but s/^;//. The former matches ; anywhere 
+      in the line, while the latter only matches at the left margin. I changed it. 
 
 
 Please fix it if my changes broke anything. JohnBeckett 

@@ -41,7 +41,7 @@ links [http://links.browser.org/] is a text browser for Unix. Of course you
 can use lynx instead.
 
 REFERENCES  *vwt-598-references*
-    - :help 'keywordprg'
+    - :help 'keywordprg' 
 
 
 COMMENTS  *vwt-598-comments*
@@ -89,7 +89,7 @@ php3.de works fast enough for me, change it to the closest mirror to you!
 ==============================================================================
 
 You can use the offline version of the php documentation too:
-    - Put "set keywordprg=~/.vim/php_doc.sh" in ~/.vim/ftplugin/php.vim
+    - Put "set keywordprg=~/.vim/php_doc.sh" in ~/.vim/ftplugin/php.vim 
 
 
 php_doc.sh:

@@ -55,10 +55,10 @@ even while in normal mode since the additional ESC that is sent does no harm.
 
 The advantage of using this scheme is that you can use the alt/meta+key 
 combination with any normal mode key, e.g.
-    - Alt+o opens a new line below the one you are currently editing,
-    - Alt+A appends to the end of the current line,
-    - Alt+p pastes at the current insert location.
-    - Alt+k moves up
+    - Alt+o opens a new line below the one you are currently editing, 
+    - Alt+A appends to the end of the current line, 
+    - Alt+p pastes at the current insert location. 
+    - Alt+k moves up 
 
 
 Thus using vim via a terminal gives you these short cut powers on any stock 
@@ -195,8 +195,9 @@ Due to the way that Vim read keys, Ctrl-i is the same as Tab. Therefore, you
 cannot map Tab to generate Escape, and map Ctrl-i to do something different.
 
 When adjusting indents, you can avoid tabs altogether:
-    - In normal mode: Type << to shift the line left one 'shiftwidth', or >> to shift right (and press . to repeat).
-    - In insert mode: Press Ctrl-d to shift left, or Ctrl-t to shift right.
+    - In normal mode: Type << to shift the line left one 'shiftwidth', or >> to 
+      shift right (and press . to repeat). 
+    - In insert mode: Press Ctrl-d to shift left, or Ctrl-t to shift right. 
 
 
 If you are using MacVim under Mac OS X, there is a good method to use the Tab 
@@ -267,9 +268,11 @@ Another, more elaborate, alternative is:
 <
 
 Features
-    - Initially, pressing Enter returns to normal mode.
-    - In insert mode, pressing Shift-Enter enters "multiline" mode, meaning that pressing Enter will insert a newline.
-    - In insert mode, after pressing Shift-Enter to enter "multiline" mode, pressing Shift-Enter again exits (returns to normal mode).
+    - Initially, pressing Enter returns to normal mode. 
+    - In insert mode, pressing Shift-Enter enters "multiline" mode, meaning that 
+      pressing Enter will insert a newline. 
+    - In insert mode, after pressing Shift-Enter to enter "multiline" mode, 
+      pressing Shift-Enter again exits (returns to normal mode). 
 
 
 Explanation
@@ -322,8 +325,8 @@ you must /i (or /a) to exit (not Esc).
 <
 
 References
-    - :help 'insertmode'
-    - :help  |:startinsert|
+    - :help 'insertmode' 
+    - :help |:startinsert| 
 
 
 Comment
@@ -430,14 +433,14 @@ of interest (for example, press Ctrl-K then Shift-Space). :help |i_CTRL-K|
 RELATED TIPS  *vwt-1324-related-tips*
 
 The following advises using <C-o> instead of <Esc> in insert mode mappings.
-    - 459 Use Ctrl-O instead of Esc in insert mode mappings |vwt-459|
+    - 459 Use Ctrl-O instead of Esc in insert mode mappings |vwt-459| 
 
 
 The following are not related to the Esc key. They try to avoid CapsLock 
 applying in normal mode (so you can insert text in uppercase when needed, but 
 not type in uppercase after exiting insert mode).
-    - 1183 Insert-mode only Caps Lock |vwt-1183|
-    - 1519 Making CapsLock work in Vim |vwt-1519|
+    - 1183 Insert-mode only Caps Lock |vwt-1183| 
+    - 1519 Making CapsLock work in Vim |vwt-1519| 
 
 
 COMMENTS  *vwt-1324-comments*

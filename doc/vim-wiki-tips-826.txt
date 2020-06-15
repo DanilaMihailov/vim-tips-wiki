@@ -46,11 +46,14 @@ Download: http://www.interpotential.com/downloads/vim/vim-php-manual.tar.gz
 ==============================================================================
 
 To generate your own set of files:
-    - wget http://pastebin.com/pastebin.php?dl=f64c725dd [http://pastebin.com/pastebin.php?dl=f64c725dd] -O parser2.php
-    - svn co http://svn.php.net/repository/phpdoc/modules/doc-en [http://svn.php.net/repository/phpdoc/modules/doc-en] phpdoc (or whatever documentation you want, for example doc-jp)
-    - sudo apt-get install pear (on debian based distros)
-    - mkdir out
-    - php parser2.php
+    - wget http://pastebin.com/pastebin.php?dl=f64c725dd 
+      [http://pastebin.com/pastebin.php?dl=f64c725dd] -O parser2.php 
+    - svn co http://svn.php.net/repository/phpdoc/modules/doc-en 
+      [http://svn.php.net/repository/phpdoc/modules/doc-en] phpdoc (or whatever 
+      documentation you want, for example doc-jp) 
+    - sudo apt-get install pear (on debian based distros) 
+    - mkdir out 
+    - php parser2.php 
 
 
 That's all, you'll get your documentation on the "out" folder

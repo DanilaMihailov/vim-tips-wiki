@@ -13,10 +13,12 @@ triggered manually with the |=| operator, so that you can easily Fix
 indentation [https://vim.fandom.com/wiki/Fix_indentation] in your buffer.
 
 For related information, see:
-    - Shifting blocks visually |vwt-224| commands to change indents
-    - How to stop auto indenting |vwt-330| how to stop your indents from being changed
-    - Restoring indent after typing hash |vwt-644| problems when typing #
-    - Toggle auto-indenting for code paste |vwt-906| to avoid broken indents when pasting in a terminal
+    - Shifting blocks visually |vwt-224| commands to change indents 
+    - How to stop auto indenting |vwt-330| how to stop your indents from being 
+      changed 
+    - Restoring indent after typing hash |vwt-644| problems when typing # 
+    - Toggle auto-indenting for code paste |vwt-906| to avoid broken indents when 
+      pasting in a terminal 
 
 
 SETUP  *vwt-83-setup*
@@ -71,11 +73,26 @@ confusion for new users. There are plenty of example vimrcs
 [https://vim.fandom.com/wiki/Vimrc] out there that will tell you how theirs is 
 the proper setup. More often than not, they are misguided. Let :help be your 
 reference, and this page be your guide to Vim's indentation options.
-    - 'tabstop' changes the width of the TAB character, plain and simple.
-    - 'softtabstop' affects what happens when you press the <TAB> or <BS> keys. Its default value is the same as the value of 'tabstop', but when using indentation without hard tabs or mixed indentation, you want to set it to the same value as 'shiftwidth'. If 'expandtab' is unset, and 'tabstop' is different from 'softtabstop', the <TAB> key will minimize the amount of spaces inserted by using multiples of TAB characters. For instance, if 'tabstop' is 8, and the amount of consecutive space inserted is 20, two TAB characters and four spaces will be used.
-    - 'shiftwidth' affects what happens when you press >>, << or ==. It also affects how automatic indentation works. (See below.)
-    - 'expandtab' affects what happens when you press the <TAB> key. If 'expandtab' is set, pressing the <TAB> key will always insert 'softtabstop' amount of space characters. Otherwise, the amount of spaces inserted is minimized by using TAB characters.
-    - 'smarttab' affects how <TAB> key presses are interpreted depending on where the cursor is. If 'smarttab' is on, a <TAB> key inserts indentation according to 'shiftwidth' at the beginning of the line, whereas 'tabstop' and 'softtabstop' are used elsewhere. There is seldom any need to set this option, unless it is necessary to use hard TAB characters in body text or code.
+    - 'tabstop' changes the width of the TAB character, plain and simple. 
+    - 'softtabstop' affects what happens when you press the <TAB> or <BS> keys. Its 
+      default value is the same as the value of 'tabstop', but when using 
+      indentation without hard tabs or mixed indentation, you want to set it to the 
+      same value as 'shiftwidth'. If 'expandtab' is unset, and 'tabstop' is 
+      different from 'softtabstop', the <TAB> key will minimize the amount of spaces 
+      inserted by using multiples of TAB characters. For instance, if 'tabstop' is 
+      8, and the amount of consecutive space inserted is 20, two TAB characters and 
+      four spaces will be used. 
+    - 'shiftwidth' affects what happens when you press >>, << or ==. It also 
+      affects how automatic indentation works. (See below.) 
+    - 'expandtab' affects what happens when you press the <TAB> key. If 'expandtab' 
+      is set, pressing the <TAB> key will always insert 'softtabstop' amount of 
+      space characters. Otherwise, the amount of spaces inserted is minimized by 
+      using TAB characters. 
+    - 'smarttab' affects how <TAB> key presses are interpreted depending on where 
+      the cursor is. If 'smarttab' is on, a <TAB> key inserts indentation according 
+      to 'shiftwidth' at the beginning of the line, whereas 'tabstop' and 
+      'softtabstop' are used elsewhere. There is seldom any need to set this option, 
+      unless it is necessary to use hard TAB characters in body text or code. 
 
 
 CONSIDERATIONS  *vwt-83-considerations*
@@ -179,8 +196,8 @@ and file python.vim with contents:
 
 The html.vim and python.vim files should be in this directory (which you may 
 need to create):
-    - ~/.vim/after/ftplugin on Unix-based systems; or
-    - $HOME/vimfiles/after/ftplugin on Windows systems
+    - ~/.vim/after/ftplugin on Unix-based systems; or 
+    - $HOME/vimfiles/after/ftplugin on Windows systems 
 
 
 The standard plugins probably do not change settings such as shiftwidth, and 
@@ -198,56 +215,71 @@ put commands such as the following in your vimrc
 <
 
 REFERENCES  *vwt-83-references*
-    - :help  |shift-left-right|
-    - :help  |=|
-    - :help  |i_CTRL-T|
-    - :help  |i_CTRL-D|
-    - :help  |i_CTRL-F|
-    - :help  |movement|
-    - :help  |text-objects|
-    - :help  |visual-mode|
-    - :help  |cmdline-ranges|
+    - :help |shift-left-right| 
+    - :help |=| 
+    - :help |i_CTRL-T| 
+    - :help |i_CTRL-D| 
+    - :help |i_CTRL-F| 
+    - :help |movement| 
+    - :help |text-objects| 
+    - :help |visual-mode| 
+    - :help |cmdline-ranges| 
 
 
 SEE ALSO  *vwt-83-see-also*
-    - 1231 Set indent parameters for Python files |vwt-1231| adjust Vim's indent settings to match each file edited (more than Python)
+    - 1231 Set indent parameters for Python files |vwt-1231| adjust Vim's indent 
+      settings to match each file edited (more than Python) 
 
 
 TO DO
-    - Merge some of following tips.
+    - Merge some of following tips. 
 
-    - 221 Indenting Java throw statements |vwt-221|
-    - 247 Preexisting code indentation |vwt-247|
-    - 700 Indenting for Java |vwt-700|
-    - 909 Easy indenting in insert and normal mode with no cursor displacement |vwt-909|
-    - 1213 Better indent support for php with html |vwt-1213|
+    - 221 Indenting Java throw statements |vwt-221| 
+    - 247 Preexisting code indentation |vwt-247| 
+    - 700 Indenting for Java |vwt-700| 
+    - 909 Easy indenting in insert and normal mode with no cursor displacement 
+      |vwt-909| 
+    - 1213 Better indent support for php with html |vwt-1213| 
 
-    - 522 Fix an autoindent error |vwt-522|
-    - 551 Automatically indent an XML file using XSLT |vwt-551|
+    - 522 Fix an autoindent error |vwt-522| 
+    - 551 Automatically indent an XML file using XSLT |vwt-551| 
 
-    - 1014 Visual selection of indent block |vwt-1014|
-    - 1269 Indent text object |vwt-1269|
+    - 1014 Visual selection of indent block |vwt-1014| 
+    - 1269 Indent text object |vwt-1269| 
 
-    - 103 Move to next/previous line with same indentation |vwt-103|
-    - 112 Back and forth between indented lines again |vwt-112|
-    - 477 Put the indentation level on the status line |vwt-477|
-    - 1168 Folding for plain text files based on indentation |vwt-1168|
+    - 103 Move to next/previous line with same indentation |vwt-103| 
+    - 112 Back and forth between indented lines again |vwt-112| 
+    - 477 Put the indentation level on the status line |vwt-477| 
+    - 1168 Folding for plain text files based on indentation |vwt-1168| 
 
 
 RELATED PLUGINS  *vwt-83-related-plugins*
-    - Indent Finder [https://www.vim.org/scripts/script.php?script_id=513] always set the correct indentation for the file you are editing. It requires a Python enabled Vim.
-    - YAIFA [https://www.vim.org/scripts/script.php?script_id=3096] is a VimL port of Indent Finder [https://www.vim.org/scripts/script.php?script_id=513], so it doesn't need Python to work.
-    - DetectIndent [https://www.vim.org/scripts/script.php?script_id=1171] automatically detects indent settings.
-    - IndentConsistencyCop [https://www.vim.org/scripts/script.php?script_id=1690] checks the whole buffer or a given range of it for indentation consistency.
-    - Coding_style [https://www.vim.org/scripts/script.php?script_id=2633] allows setting indent styles per project.
-    - vim-pasta [https://github.com/sickill/vim-pasta] allows for pasting with automatic adjusting of indentation to destination context.
-    - sleuth [https://www.vim.org/scripts/script.php?script_id=4375] detects indent from existing files, or from other files of the same type in the same directory for new files.
+    - Indent Finder [https://www.vim.org/scripts/script.php?script_id=513] always 
+      set the correct indentation for the file you are editing. It requires a Python 
+      enabled Vim. 
+    - YAIFA [https://www.vim.org/scripts/script.php?script_id=3096] is a VimL port 
+      of Indent Finder [https://www.vim.org/scripts/script.php?script_id=513], so it 
+      doesn't need Python to work. 
+    - DetectIndent [https://www.vim.org/scripts/script.php?script_id=1171] 
+      automatically detects indent settings. 
+    - IndentConsistencyCop [https://www.vim.org/scripts/script.php?script_id=1690] 
+      checks the whole buffer or a given range of it for indentation consistency. 
+    - Coding_style [https://www.vim.org/scripts/script.php?script_id=2633] allows 
+      setting indent styles per project. 
+    - vim-pasta [https://github.com/sickill/vim-pasta] allows for pasting with 
+      automatic adjusting of indentation to destination context. 
+    - sleuth [https://www.vim.org/scripts/script.php?script_id=4375] detects indent 
+      from existing files, or from other files of the same type in the same 
+      directory for new files. 
 
 
 COMMENTS  *vwt-83-comments*
 
 The following should be merged to 224 (or maybe this tip), or deleted:
-    - 522 Fix an autoindent error |vwt-522| Nice piece of code, but is the content worth keeping? I do not know what scenario it describes or what it achieves. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 10:06, 12 August 2009 (UTC)
+    - 522 Fix an autoindent error |vwt-522| Nice piece of code, but is the content 
+      worth keeping? I do not know what scenario it describes or what it achieves. 
+      JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 10:06, 12 August 
+      2009 (UTC) 
 
 
 The coding_style [https://www.vim.org/scripts/script.php?script_id=2633] 

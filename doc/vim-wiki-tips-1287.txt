@@ -49,23 +49,29 @@ each mode. For example:
 <
 
 REFERENCES  *vwt-1287-references*
-    - :help  |InsertEnter|
-    - :help  |InsertChange|
-    - :help  |InsertLeave|
-    - :help  |v:insertmode|
-    - :help  |:hi|
-    - :help  |hl-StatusLine|
+    - :help |InsertEnter| 
+    - :help |InsertChange| 
+    - :help |InsertLeave| 
+    - :help |v:insertmode| 
+    - :help |:hi| 
+    - :help |hl-StatusLine| 
 
 
 SEE ALSO  *vwt-1287-see-also*
-    - :help 'showmode' for another way to indicate mode
-    - :help  |hl-ModeMsg| if you want to change the color of the above
+    - :help 'showmode' for another way to indicate mode 
+    - :help |hl-ModeMsg| if you want to change the color of the above 
 
 
 RELATED PLUGINS  *vwt-1287-related-plugins*
-    -  There is the SmartusLine [https://github.com/molok/vim-smartusline] plugin that kind-of does what is explained in this page.
-    -  The StatusLineHighlight [https://www.vim.org/scripts/script.php?script_id=3383] plugin does not indicate the mode, but the buffer state (modified, readonly, unmodifiable, special non-file "scratch") / window (is preview window) by changing the highlighting of the window's status line.
-    -  Powerline [https://github.com/Lokaltog/vim-powerline] provides a display of the current mode along with much more information in the statusline area.
+    - There is the SmartusLine [https://github.com/molok/vim-smartusline] plugin 
+      that kind-of does what is explained in this page. 
+    - The StatusLineHighlight 
+      [https://www.vim.org/scripts/script.php?script_id=3383] plugin does not 
+      indicate the mode, but the buffer state (modified, readonly, unmodifiable, 
+      special non-file "scratch") / window (is preview window) by changing the 
+      highlighting of the window's status line. 
+    - Powerline [https://github.com/Lokaltog/vim-powerline] provides a display of 
+      the current mode along with much more information in the statusline area. 
 
 
 COMMENTS  *vwt-1287-comments*

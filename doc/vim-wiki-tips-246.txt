@@ -8,9 +8,9 @@ created 2002 · complexity basic · author Tony Mechelynck
 ==============================================================================
 
 WHAT TO DO  *vwt-246-what-to-do*
-    - One thing you should always do first is check the help |vwt-246-references|.
+    - One thing you should always do first is check the help |vwt-246-references|. 
 
-    - The following is an example. Modify it to suit your work environment.
+    - The following is an example. Modify it to suit your work environment. 
 
 
 >
@@ -28,21 +28,28 @@ WHAT TO DO  *vwt-246-what-to-do*
 <
 
 WHAT THE ABOVE DOES  *vwt-246-what-the-above-does*
-    - has("multi_byte") checks if you have the right options compiled-in. If you haven't got what it takes, it's no use trying to use Unicode.
+    - has("multi_byte") checks if you have the right options compiled-in. If you 
+      haven't got what it takes, it's no use trying to use Unicode. 
 
-    - 'termencoding' defines how your keyboard encodes what you type. Here we save the value corresponding to your locale before changing 'encoding' (see below).
+    - 'termencoding' defines how your keyboard encodes what you type. Here we save 
+      the value corresponding to your locale before changing 'encoding' (see below). 
 
-    - 'encoding' sets how vim shall represent characters internally. Utf-8 is necessary for most flavors of Unicode.
+    - 'encoding' sets how vim shall represent characters internally. Utf-8 is 
+      necessary for most flavors of Unicode. 
 
-    - 'fileencoding' sets the encoding for a particular file (local to buffer); :setglobal sets the default value. An empty value can also be used: it defaults to same as 'encoding'. Or you may want to set one of the ucs encodings, It might make the same disk file bigger or smaller depending on your particular mix of characters. Also, IIUC, utf-8 is always big-endian (high bit first) while ucs can be big-endian or little-endian, so if you use it, you will probably need to set 'bomb" (see below).
+    - 'fileencoding' sets the encoding for a particular file (local to buffer); 
+      :setglobal sets the default value. An empty value can also be used: it 
+      defaults to same as 'encoding'. Or you may want to set one of the ucs 
+      encodings, It might make the same disk file bigger or smaller depending on 
+      your particular mix of characters. Also, IIUC, utf-8 is always big-endian 
+      (high bit first) while ucs can be big-endian or little-endian, so if you use 
+      it, you will probably need to set 'bomb" (see below). 
 
-    - 'bomb' (boolean): if set, vim will put a "byte order mark" (or BOM for short) at the start of Unicode files. This option is irrelevant for non-Unicode files (iso-8859, etc.). This BOM is the codepoint U+FEFF, which is represented on disk as follows:
-    - UTF-8: EF BB BF
-    - UTF-16be: FE FF
-    - UTF-16le: FF FE
-    - UTF-32be: 00 00 FE FF
-    - UTF-32le: FF FE 00 00
-
+    - 'bomb' (boolean): if set, vim will put a "byte order mark" (or BOM for short) 
+      at the start of Unicode files. This option is irrelevant for non-Unicode files 
+      (iso-8859, etc.). This BOM is the codepoint U+FEFF, which is represented on 
+      disk as follows: - UTF-8: EF BB BF - UTF-16be: FE FF - UTF-16le: FF FE - 
+      UTF-32be: 00 00 FE FF - UTF-32le: FF FE 00 00 
 
 
 That is, the BOM allows an easy determination of which Unicode encoding and which endianness are being used (assuming that a file in UTF-16le won't start with a NULL).
@@ -53,56 +60,77 @@ In the above example, 'set bomb' is commented out because it can cause problems 
 The advantage of setting BOM is that Vim can very easily determine that the file is encoded in UTF-8, but is often not understood, misrepresented, or even considered invalid in other programs, such as compilers, web browsers, or text editors not as nice as Vim.
 
 The nice thing about 'bomb' is that when Vim reads a file, and the file has a BOM already included, Vim will automatically set 'bomb' local to the buffer so that it is written out again. So as a general rule, it is probably best to set 'bomb' local to the buffer, only on the files where it is considered useful.
-    - 'fileencodings' defines the heuristic to set 'fileencoding' (local to buffer) when reading an existing file. The first one that matches will be used. Ucs-bom is "ucs with byte-order-mark"; it must not come after utf-8 if you want it to be used.
+    - 'fileencodings' defines the heuristic to set 'fileencoding' (local to buffer) 
+      when reading an existing file. The first one that matches will be used. 
+      Ucs-bom is "ucs with byte-order-mark"; it must not come after utf-8 if you 
+      want it to be used. 
 
 
 ADDITIONAL REMARKS  *vwt-246-additional-remarks*
-    - In "replace" mode, one utf character (one or more data bytes) replaces one utf character (which need not use the same number of bytes).
+    - In "replace" mode, one utf character (one or more data bytes) replaces one 
+      utf character (which need not use the same number of bytes). 
 
-    - In "normal" mode, ga shows the character under the cursor as text, decimal, octal and hex; g8 shows which byte or bytes are used to represent it.
-    - This mapping inserts the codepoint of the character under the cursor on the next line in the form U+XXXX (further information [https://www.reddit.com/r/vim_magic/comments/4uanzz/insert_the_codepoint_of_the_character_under_the/]):
+    - In "normal" mode, ga shows the character under the cursor as text, decimal, 
+      octal and hex; g8 shows which byte or bytes are used to represent it. - This 
+      mapping inserts the codepoint of the character under the cursor on the next 
+      line in the form U+XXXX (further information 
+      [https://www.reddit.com/r/vim_magic/comments/4uanzz/insert_the_codepoint_of_the_character_under_the/]): 
+      :nnoremap <Leader>u mz"zylo<C-r>=printf('U+%04X', char2nr(@z))<CR><ESC>`z 
 
+    - In "insert" or "replace" mode, - any character defined on your keyboard can 
+      be entered the usual way (even with dead keys if you have them, e.g. French 
+      circumflex, German umlaut, etc.); - any character which has a "digraph" (there 
+      are a huge lot of them, see :dig after setting enc=utf-8) can be entered with 
+      a Ctrl-K prefix; - any utf character at all can be entered with a Ctrl-V 
+      prefix, either <Ctrl-V> u aaaa or <Ctrl-V> U bbbbbbbb, with 0 <= aaaa <= FFFF, 
+      or 0 <= bbbbbbbb <= 7FFFFFFF. - If you have sourced mswin.vim (which I don't 
+      recommend) then <Ctrl-V> has been remapped to the "paste" operation; in this 
+      case you need to use <Ctrl-Q> instead. - details in our tip on Entering 
+      special characters [https://vim.fandom.com/wiki/Entering_special_characters] 
 
-:nnoremap <Leader>u mz"zylo<C-r>=printf('U+%04X', char2nr(@z))<CR><ESC>`z
+    - Gvim will display it properly if you have the fonts for it, provided that you 
+      set 'guifont' to some fixed-width font which has the glyphs you want to use 
+      (Courier New is OK for French, German, Greek, Russian and more, but I'm not 
+      sure about Hebrew or Arabic; its glyphs are of a more "fixed" width than those 
+      of, e.g. Lucida Console: the latter can be awkward if you need bold Cyrillic 
+      writing). 
 
-    - In "insert" or "replace" mode,
-    - any character defined on your keyboard can be entered the usual way (even with dead keys if you have them, e.g. French circumflex, German umlaut, etc.);
-    - any character which has a "digraph" (there are a huge lot of them, see :dig after setting enc=utf-8) can be entered with a Ctrl-K prefix;
-    - any utf character at all can be entered with a Ctrl-V prefix, either <Ctrl-V> u aaaa or <Ctrl-V> U bbbbbbbb, with 0 <= aaaa <= FFFF, or 0 <= bbbbbbbb <= 7FFFFFFF.
-    - If you have sourced mswin.vim (which I don't recommend) then <Ctrl-V> has been remapped to the "paste" operation; in this case you need to use <Ctrl-Q> instead.
-    - details in our tip on Entering special characters [https://vim.fandom.com/wiki/Entering_special_characters]
+    - Until recently, gvim displayed any Unicode codepoint above U+FFFF as a 
+      question mark (double-width for CJK). This was fixed by patch 7.1.116 dated 
+      2007 Sep 17 20:39. If you still have an older version, it is strongly 
+      recommended that you upgrade to the current release (and a recent patchlevel). 
 
-
-    - Gvim will display it properly if you have the fonts for it, provided that you set 'guifont' to some fixed-width font which has the glyphs you want to use (Courier New is OK for French, German, Greek, Russian and more, but I'm not sure about Hebrew or Arabic; its glyphs are of a more "fixed" width than those of, e.g. Lucida Console: the latter can be awkward if you need bold Cyrillic writing).
-
-    - Until recently, gvim displayed any Unicode codepoint above U+FFFF as a question mark (double-width for CJK). This was fixed by patch 7.1.116 dated 2007 Sep 17 20:39. If you still have an older version, it is strongly recommended that you upgrade to the current release (and a recent patchlevel).
-
-    - If you regularly work with multiple encodings, it can be very helpful to have Vim show the current file's encoding in the statusline [https://vim.fandom.com/wiki/Show_fileencoding_and_bomb_in_the_status_line]
+    - If you regularly work with multiple encodings, it can be very helpful to have 
+      Vim show the current file's encoding in the statusline 
+      [https://vim.fandom.com/wiki/Show_fileencoding_and_bomb_in_the_status_line] 
 
 
 REFERENCES  *vwt-246-references*
-    - :help  |utf8|
-    - :help  |encoding-values|
-    - :help 'encoding'
-    - :help 'fileencoding'
-    - :help 'fileencodings'
-    - :help 'termencoding'
-    - :help 'bomb'
-    - :help 'guifont'
-    - :help  |ga|
-    - :help  |g8|
-    - :help  |digraphs|
-    - :help  |i_CTRL-V_digit|
+    - :help |utf8| 
+    - :help |encoding-values| 
+    - :help 'encoding' 
+    - :help 'fileencoding' 
+    - :help 'fileencodings' 
+    - :help 'termencoding' 
+    - :help 'bomb' 
+    - :help 'guifont' 
+    - :help |ga| 
+    - :help |g8| 
+    - :help |digraphs| 
+    - :help |i_CTRL-V_digit| 
 
 
 RELATED PLUGINS  *vwt-246-related-plugins*
-    - Switching to Unicode in an orderly manner [https://www.vim.org/scripts/script.php?script_id=789]
-    - Unicode Completion Plugin [https://www.vim.org/scripts/script.php?script_id=2822]
+    - Switching to Unicode in an orderly manner 
+      [https://www.vim.org/scripts/script.php?script_id=789] 
+    - Unicode Completion Plugin 
+      [https://www.vim.org/scripts/script.php?script_id=2822] 
 
 
 SEE ALSO  *vwt-246-see-also*
-    - Forcing file encoding at load time |vwt-690|
-    - Entering special characters [https://vim.fandom.com/wiki/Entering_special_characters]
+    - Forcing file encoding at load time |vwt-690| 
+    - Entering special characters 
+      [https://vim.fandom.com/wiki/Entering_special_characters] 
 
 
 COMMENTS  *vwt-246-comments*
@@ -146,16 +174,16 @@ legacy versions of Vim.
 
 In insert mode, type Ctrl-k + letter + accent; for instance with RFC 1345 
 [//tools.ietf.org/html/rfc1345] digraphs:
-    - Ctrl-K a ' results in á
-    - Ctrl-K e ! results in è
-    - Ctrl-K o ? results in õ (o with tilde, as in Portuguese)
-    - Ctrl-K u : results in ü
-    - Ctrl-K i > results in î
-    - Ctrl-K c , results in ç
-    - Ctrl-K a ; results in ą
-    - Ctrl-K o " results in ő (o with double acute, as in Hungarian)
-    - Ctrl-K A 0 results in Å
-    - etc...
+    - Ctrl-K a ' results in á 
+    - Ctrl-K e ! results in è 
+    - Ctrl-K o ? results in õ (o with tilde, as in Portuguese) 
+    - Ctrl-K u : results in ü 
+    - Ctrl-K i > results in î 
+    - Ctrl-K c , results in ç 
+    - Ctrl-K a ; results in ą 
+    - Ctrl-K o " results in ő (o with double acute, as in Hungarian) 
+    - Ctrl-K A 0 results in Å 
+    - etc... 
 
 
 If you type Ctrl-K followed by a digraph which is not defined, Vim will look 
@@ -170,8 +198,13 @@ It's also possible to use Ctrl-v with unicode values, see :help
 
 Even in UTF-8 encoding, setting 'bomb' on or off is purely a personal 
 preference:
-    - Advantage: In the filetypes where a BOM is allowed (HTML, CSS, …) or treated as a zero-width no-break space (plaintext, …), it specifies unambiguously that the file is in UTF-8
-    - Disadvantage: In some filetypes where the file could be in ASCII or in UTF-8 but not in other Unicode encodings, and in particular in any script starting with #! in its first line, the BOM won't be recognised and may cause a syntax error.
+    - Advantage: In the filetypes where a BOM is allowed (HTML, CSS, …) or treated 
+      as a zero-width no-break space (plaintext, …), it specifies unambiguously that 
+      the file is in UTF-8 
+    - Disadvantage: In some filetypes where the file could be in ASCII or in UTF-8 
+      but not in other Unicode encodings, and in particular in any script starting 
+      with #! in its first line, the BOM won't be recognised and may cause a syntax 
+      error. 
 
 
 — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 12:25, March 31, 2011 

@@ -233,34 +233,34 @@ to complain about offset differences.
 Note Should try to make the expression more compact, but don't know how without having the possibility of modifying unwanted lines.
 
 SEE ALSO: USING SUBSTITUTE  *vwt-31-see-also:-using-substitute*
-    - 63 Applying substitutes to a visual block |vwt-63|
-    - 81 Substitute characters and lines easily |vwt-81|
-    - 159 Keystroke Saving Substituting and Searching |vwt-159|
-    - 406 Alternate delimiters for the replace command |vwt-406|
-    - 438 Search and replace in a visual selection |vwt-438|
-    - 464 Search and replace the word under the cursor |vwt-464|
-    - 479 Replace with no typing |vwt-479|
-    - 573 Repeating a substitute from current cursor position |vwt-573|
-    - 605 Replace a word with the yanked text |vwt-605|
-    - 654 Special characters in the substitute command |vwt-654|
-    - 755 Using an expression in substitute command |vwt-755|
-    - 808 Replace a visual-block of text with another such block |vwt-808|
-    - 915 Using g instead of substitute |vwt-915|
-    - 971 Substitute with incrementing numbers |vwt-971|
-    - 1114 Step increment and replace |vwt-1114|
-    - 1501 Substitute last search |vwt-1501|
+    - 63 Applying substitutes to a visual block |vwt-63| 
+    - 81 Substitute characters and lines easily |vwt-81| 
+    - 159 Keystroke Saving Substituting and Searching |vwt-159| 
+    - 406 Alternate delimiters for the replace command |vwt-406| 
+    - 438 Search and replace in a visual selection |vwt-438| 
+    - 464 Search and replace the word under the cursor |vwt-464| 
+    - 479 Replace with no typing |vwt-479| 
+    - 573 Repeating a substitute from current cursor position |vwt-573| 
+    - 605 Replace a word with the yanked text |vwt-605| 
+    - 654 Special characters in the substitute command |vwt-654| 
+    - 755 Using an expression in substitute command |vwt-755| 
+    - 808 Replace a visual-block of text with another such block |vwt-808| 
+    - 915 Using g instead of substitute |vwt-915| 
+    - 971 Substitute with incrementing numbers |vwt-971| 
+    - 1114 Step increment and replace |vwt-1114| 
+    - 1501 Substitute last search |vwt-1501| 
 
 
 SEE ALSO: SUBSTITUTE IN BUFFERS/FILES  *vwt-31-see-also:-substitute-in-buffers/files*
-    - 382 Search and replace in multiple buffers |vwt-382|
+    - 382 Search and replace in multiple buffers |vwt-382| 
 
 
 REFERENCES  *vwt-31-references*
-    - :help  |:substitute|
-    - :help  |cmdline-ranges|
-    - :help  |pattern|
-    - :help 'gdefault'
-    - :help  |registers|
+    - :help |:substitute| 
+    - :help |cmdline-ranges| 
+    - :help |pattern| 
+    - :help 'gdefault' 
+    - :help |registers| 
 
 
 COMMENTS  *vwt-31-comments*

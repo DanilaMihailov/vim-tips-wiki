@@ -17,12 +17,16 @@ A vim script that does this can be found here: script#5545
 CurtineIncSw.vim.
 
 Pros
-    -  Ease of use.
-    -  Zero configuration, just put the file in your ~/.vim/plugins directory
-    -  Available on github, feel free to contribute https://github.com/ericcurtin/CurtineIncSw.vim [https://github.com/ericcurtin/CurtineIncSw.vim]
-    -  Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp .H .HPP) all at the same time - a switch will work from any source to any header extension and vice-versa.
-    -  Simple implementation
-    -  Caches file, so you can switch back quickly
+    - Ease of use. 
+    - Zero configuration, just put the file in your ~/.vim/plugins directory 
+    - Available on github, feel free to contribute 
+      https://github.com/ericcurtin/CurtineIncSw.vim 
+      [https://github.com/ericcurtin/CurtineIncSw.vim] 
+    - Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp 
+      .H .HPP) all at the same time - a switch will work from any source to any 
+      header extension and vice-versa. 
+    - Simple implementation 
+    - Caches file, so you can switch back quickly 
 
 
 SCRIPT A.VIM  *vwt-384-script-a.vim*
@@ -31,19 +35,23 @@ A vim script that does this can be found here: script#31
 [https://www.vim.org/scripts/script.php?script_id=31], and is called a.vim.
 
 Pros
-    -  Ease of use.
-    -  Handles multiple filetypes (not just C and C++), can be easily configured for more.
-    -  Code is very well commented.
-    -  Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp .H .HPP) all at the same time - a switch will work from any source to any header extension and vice-versa.
-    -  The path where the associated file must be searched can be configured.
+    - Ease of use. 
+    - Handles multiple filetypes (not just C and C++), can be easily configured for 
+      more. 
+    - Code is very well commented. 
+    - Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp 
+      .H .HPP) all at the same time - a switch will work from any source to any 
+      header extension and vice-versa. 
+    - The path where the associated file must be searched can be configured. 
 
 
 Cons
-    -  Quite large (~ 350 lines of code, not counting comments).
+    - Quite large (~ 350 lines of code, not counting comments). 
 
 
 Remarks
-    -  It was hard to add new filetypes in older versions of the script, but that is no longer the case.
+    - It was hard to add new filetypes in older versions of the script, but that is 
+      no longer the case. 
 
 
 SCRIPT FSWITCH.VIM  *vwt-384-script-fswitch.vim*
@@ -53,11 +61,13 @@ Another vim script that does this can be found here: script#2590
 FSwitch.vim.
 
 Pros
-    -  Essentially same as a.vim
-    -  More flexible path definitions for searches
-    -  File creation as part of switching is handled well (a sore point with a.vim, apparently)
-    -  Smaller code size than a.vim (I'm not sure a.vim's code size was ever relevant though)
-    -  Heavily documented
+    - Essentially same as a.vim 
+    - More flexible path definitions for searches 
+    - File creation as part of switching is handled well (a sore point with a.vim, 
+      apparently) 
+    - Smaller code size than a.vim (I'm not sure a.vim's code size was ever 
+      relevant though) 
+    - Heavily documented 
 
 
 SCRIPT ALTERNATE-LITE  *vwt-384-script-alternate-lite*
@@ -69,21 +79,25 @@ alternate-lite.The plugin also exposes an API that can be used from other
 plugins.
 
 Pros
-    -  Ease of use.
-    -  Works out of the box with multiple filetypes (not just C and C++), can be easily configured for more.
-    -  Code is commented.
-    -  Plugin is documented.
-    -  Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp .H .HPP) all at the same time - a switch will work from any source to any header extension and vice-versa.
-    -  The path where the associated file must be searched can be configured.
-    -  Support for project/buffer specific settings.
-    -  Lazy definition of functions through autoload plugin.
-    -  Exposes an API that can be used to automatically create function definitions in the right file.
+    - Ease of use. 
+    - Works out of the box with multiple filetypes (not just C and C++), can be 
+      easily configured for more. 
+    - Code is commented. 
+    - Plugin is documented. 
+    - Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp 
+      .H .HPP) all at the same time - a switch will work from any source to any 
+      header extension and vice-versa. 
+    - The path where the associated file must be searched can be configured. 
+    - Support for project/buffer specific settings. 
+    - Lazy definition of functions through autoload plugin. 
+    - Exposes an API that can be used to automatically create function definitions 
+      in the right file. 
 
 
 Cons
-    -  Somehow large (200+ lines of non boilerplate code)
-    -  Depends on a library plugin (lh-vim-lib)
-    -  A few features from original a.vim have been removed (:IH & co)
+    - Somehow large (200+ lines of non boilerplate code) 
+    - Depends on a library plugin (lh-vim-lib) 
+    - A few features from original a.vim have been removed (:IH & co) 
 
 
 USING CTAGS  *vwt-384-using-ctags*
@@ -94,11 +108,11 @@ with autocompletion, with :tag myfile.cppOr you may adapt a script like a.vim
 or FSwitch.vim to call :tag with the correct filename.
 
 Pros
-    -  Very quick
+    - Very quick 
 
 
 Cons
-    -  ctags files need to be generated
+    - ctags files need to be generated 
 
 
 BY MODIFYING FTPLUGINS  *vwt-384-by-modifying-ftplugins*
@@ -106,14 +120,15 @@ BY MODIFYING FTPLUGINS  *vwt-384-by-modifying-ftplugins*
 This was the original suggestion for this article.
 
 Pros
-    -  Easy to add new filetypes
-    -  highly configurable.
+    - Easy to add new filetypes 
+    - highly configurable. 
 
 
 Cons
-    -  You have to modify filetype plugins (not that bad).
-    -  :find can be slow, especially when the file you are switching to does not exist.
-    -  Error when file does not exist.
+    - You have to modify filetype plugins (not that bad). 
+    - :find can be slow, especially when the file you are switching to does not 
+      exist. 
+    - Error when file does not exist. 
 
 
 To switch between header and source files very quickly, all you need to do is 
@@ -162,10 +177,10 @@ for switching:
 <
 
 See these help pages for a full description of these built-in features:
-    - :help  |expand()| for a description of the %, :t, :r, :e expansion
-    - :help  |:find| for a description of the 'find' and 'sf' features
-    - :help  |ftplugin| for a description of how filetype plugins work
-    - :help 'path' for a description of how the path setting works
+    - :help |expand()| for a description of the %, :t, :r, :e expansion 
+    - :help |:find| for a description of the 'find' and 'sf' features 
+    - :help |ftplugin| for a description of how filetype plugins work 
+    - :help 'path' for a description of how the path setting works 
 
 
 This method is also highly configurable. All you have to do is change the 
@@ -180,12 +195,12 @@ when you edit them.
 SINGLE LINE SOLUTION  *vwt-384-single-line-solution*
 
 Pros
-    -  Only takes one line in .vimrc, and so is very quick to set up
+    - Only takes one line in .vimrc, and so is very quick to set up 
 
 
 Cons
-    -  Only works if the header and source are in the same directory
-    -  Does not handle multiple extension styles simultaneously
+    - Only works if the header and source are in the same directory 
+    - Does not handle multiple extension styles simultaneously 
 
 
 For programmers that want to switch from foo.cpp to foo.h (or vice versa) on 
@@ -207,12 +222,12 @@ For more explanation on how this function operates, see :help
 A SHORT FUNCTION  *vwt-384-a-short-function*
 
 Pros
-    -  Still short enough to put into vimrc.
+    - Still short enough to put into vimrc. 
 
 
 Cons
-    -  :find can be slow.
-    -  overwrites path
+    - :find can be slow. 
+    - overwrites path 
 
 
 Put these lines in ~/.vimrc and F2 will flip between .c and .h, .hxx and 

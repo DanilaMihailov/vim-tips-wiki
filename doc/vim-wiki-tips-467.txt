@@ -76,9 +76,10 @@ Using system() is the most flexible method as it allows a script to process
 the result before any output. For example, the function below appends the 
 output of the command (if successfully executed) to the end of the current 
 line. The script demonstrates these important concepts:
-    - Use  |system()| to capture the output of an external command in a script.
-    - Use  |shellescape()| to escape any arguments to an external command to avoid passing possibly dangerous commands to the shell.
-    - Use  |setline()| to change text without moving the cursor.
+    - Use |system()| to capture the output of an external command in a script. 
+    - Use |shellescape()| to escape any arguments to an external command to avoid 
+      passing possibly dangerous commands to the shell. 
+    - Use |setline()| to change text without moving the cursor. 
 
 
 After sourcing the following script, press F8 to append the result from 
@@ -131,10 +132,12 @@ For example, the following text may appear in a file that is being edited:
 
 The following procedure uses the cut utility (available on many Unix-based 
 systems) to replace each line with fields 2 to 3 inclusive:
-    - On the first line, press V to start a visual selection.
-    - Press j to move the cursor down until all wanted lines are selected.
-    - Press ! (the command line will show :'<,'>! indicating that the selected range will be filtered).
-    - Enter a command to be executed by the shell, such as cut -f2-3 -d, (select fields 2-3 using comma as a delimiter between fields).
+    - On the first line, press V to start a visual selection. 
+    - Press j to move the cursor down until all wanted lines are selected. 
+    - Press ! (the command line will show :'<,'>! indicating that the selected 
+      range will be filtered). 
+    - Enter a command to be executed by the shell, such as cut -f2-3 -d, (select 
+      fields 2-3 using comma as a delimiter between fields). 
 
 
 Vim saves the selected lines to a temporary file, then runs the external 
@@ -205,8 +208,11 @@ you can use:
 <
 
 SEE ALSO  *vwt-467-see-also*
-    - Display output of shell commands in new window |vwt-1599|
-    - script#4224 [https://www.vim.org/scripts/script.php?script_id=4224] offers a way to execute a command cmd using ":echo system(cmd)", but tipping ":! cmd" (note the space). As a benefit you get completion for commands like for ":!", and you don't leave vim.
+    - Display output of shell commands in new window |vwt-1599| 
+    - script#4224 [https://www.vim.org/scripts/script.php?script_id=4224] offers a 
+      way to execute a command cmd using ":echo system(cmd)", but tipping ":! cmd" 
+      (note the space). As a benefit you get completion for commands like for ":!", 
+      and you don't leave vim. 
 
 
 COMMENTS  *vwt-467-comments*
@@ -218,14 +224,14 @@ Comment from old tip which should be mentioned somewhere:
 <
 
 Following are relevant:
-    - 2 Easy edit of files in the same directory |vwt-2|
-    - 193 Insert current filename |vwt-193|
-    - 311 Open the folder containing the currently open file |vwt-311|
-    - 432 Putting the current file on the Windows clipboard |vwt-432|
-    - 530 Get the name of the current file |vwt-530|
-    - 600 Copy filename to clipboard |vwt-600|
-    - 891 Copy parts of filename to clipboard |vwt-891|
-    - 1055 Faster directory browsing from command line |vwt-1055|
+    - 2 Easy edit of files in the same directory |vwt-2| 
+    - 193 Insert current filename |vwt-193| 
+    - 311 Open the folder containing the currently open file |vwt-311| 
+    - 432 Putting the current file on the Windows clipboard |vwt-432| 
+    - 530 Get the name of the current file |vwt-530| 
+    - 600 Copy filename to clipboard |vwt-600| 
+    - 891 Copy parts of filename to clipboard |vwt-891| 
+    - 1055 Faster directory browsing from command line |vwt-1055| 
 
 
 JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:28, April 18, 

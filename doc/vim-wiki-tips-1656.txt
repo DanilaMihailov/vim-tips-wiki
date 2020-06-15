@@ -15,12 +15,12 @@ vimrc script, you can do just that!
 THE BAD OLD WAY  *vwt-1656-the-bad-old-way*
 
 You are probably all too familiar with this annoying mini-workflow:
-    - Edit your HTML/CSS file.
-    - Hit save in Vim.
-    - CMD/CNTRL/ALT + TAB over to Firefox.
-    - Press Ctrl-R in Firefox to refresh.
-    - CMD/CNTRL/ALT + TAB back to Vim.
-    - Do it again and again, wincing a little bit each time.
+    - Edit your HTML/CSS file. 
+    - Hit save in Vim. 
+    - CMD/CNTRL/ALT + TAB over to Firefox. 
+    - Press Ctrl-R in Firefox to refresh. 
+    - CMD/CNTRL/ALT + TAB back to Vim. 
+    - Do it again and again, wincing a little bit each time. 
 
 
 THE JOYFUL NEW VIM + MOZREPL WAY  *vwt-1656-the-joyful-new-vim-+-mozrepl-way*
@@ -28,8 +28,9 @@ THE JOYFUL NEW VIM + MOZREPL WAY  *vwt-1656-the-joyful-new-vim-+-mozrepl-way*
 With the little vimrc [https://vim.fandom.com/wiki/Vimrc] + MozRepl 
 [http://wiki.github.com/bard/mozrepl/] hack shown below, all you need to do 
 is:
-    - Edit your HTML/css file.
-    - Hit save in Vim – Firefox will refresh automatically, preserving its scroll offsets!
+    - Edit your HTML/css file. 
+    - Hit save in Vim – Firefox will refresh automatically, preserving its scroll 
+      offsets! 
 
 
 This integration is no where near as fancy as the Emacs MozRepl binding, but 
@@ -54,8 +55,10 @@ that might be. After saving the buffer and reloading the browser, scroll to
 the X,Y offset.
 
 See also:
-    - http://wiki.github.com/bard/mozrepl/tutorial [http://wiki.github.com/bard/mozrepl/tutorial]
-    - http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html [http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html]
+    - http://wiki.github.com/bard/mozrepl/tutorial 
+      [http://wiki.github.com/bard/mozrepl/tutorial] 
+    - http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html 
+      [http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html] 
 
 
 CODE FOR VIMRC  *vwt-1656-code-for-vimrc*
@@ -134,7 +137,8 @@ Here are commands for next and previous tab in Firefox.
 <
 
 SEE ALSO  *vwt-1656-see-also*
-    - original Vim+MozRepl posting [http://groups.google.com/group/mozlab/browse_thread/thread/749ad1250bf8ef81]
+    - original Vim+MozRepl posting 
+      [http://groups.google.com/group/mozlab/browse_thread/thread/749ad1250bf8ef81] 
 
 
 COMMENTS  *vwt-1656-comments*

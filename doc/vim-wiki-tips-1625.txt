@@ -82,9 +82,9 @@ position of the cursor and the length of the text in the unnamed register.
 Special characters (\.*$^~[) are escaped, and so can be used in the pattern. 
 In the above example, the text is "1*01". The search pattern created is 
 \%11c\(1\*01\)\@! which consists of:
-    - \%11c match at byte 11
-    - \(1\*01\) grouped and escaped pattern
-    - \@! match if the preceding does not match
+    - \%11c match at byte 11 
+    - \(1\*01\) grouped and escaped pattern 
+    - \@! match if the preceding does not match 
 
 
 COMMENTS  *vwt-1625-comments*

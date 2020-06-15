@@ -27,11 +27,27 @@ will need to carefully choose commands which you do not use or provide
 alternate methods to reach the functionality you are replacing.
 
 CAVEATS  *vwt-1437-caveats*
-    - This potentially interferes with any normal-mode mappings you may have in your vimrc [https://vim.fandom.com/wiki/Vimrc].
-    - This won't change multi-key shortcuts like <c-v>, even in normal mode.
-    - Many Dvorak users have no problem learning the normal Vim commands with a Dvorak layout. The movement keys may not look it at first but are in fact pretty intuitive -- J and K are on the middle and index fingers of the left hand, right next to each other in the same order as on the qwerty layout, while H and L are the index and pinky fingers of the right hand, so the one for left is on the left -- again perfectly accessible. The only real caveat here, therefore, is that both hands are needed to navigate. Most other keys are simple mnemonics or just as easy to access in Dvorak anyway. Don't let Dvorak be a barrier to learning Vim nor let Vim be a barrier to learn Dvorak just because you don't want to remap everything to get started. Just give it a chance first!
-    - You may also want to try the ":e $VIMRUNTIME/macros/dvorak" command, that guides you to the vim stock dvorak description. It is also broken some times, so the langmap is preferable, though less portable.
-    - Remapping the keyboard so that Dvorak is only used in insert mode will make some commands like "w" for "move forward a word", "f" for "find a character", etc. much harder to remember if your brain works in Dvorak mode (press "u" to find a character and "," to move forward a word, etc.).
+    - This potentially interferes with any normal-mode mappings you may have in 
+      your vimrc [https://vim.fandom.com/wiki/Vimrc]. 
+    - This won't change multi-key shortcuts like <c-v>, even in normal mode. 
+    - Many Dvorak users have no problem learning the normal Vim commands with a 
+      Dvorak layout. The movement keys may not look it at first but are in fact 
+      pretty intuitive -- J and K are on the middle and index fingers of the left 
+      hand, right next to each other in the same order as on the qwerty layout, 
+      while H and L are the index and pinky fingers of the right hand, so the one 
+      for left is on the left -- again perfectly accessible. The only real caveat 
+      here, therefore, is that both hands are needed to navigate. Most other keys 
+      are simple mnemonics or just as easy to access in Dvorak anyway. Don't let 
+      Dvorak be a barrier to learning Vim nor let Vim be a barrier to learn Dvorak 
+      just because you don't want to remap everything to get started. Just give it a 
+      chance first! 
+    - You may also want to try the ":e $VIMRUNTIME/macros/dvorak" command, that 
+      guides you to the vim stock dvorak description. It is also broken some times, 
+      so the langmap is preferable, though less portable. 
+    - Remapping the keyboard so that Dvorak is only used in insert mode will make 
+      some commands like "w" for "move forward a word", "f" for "find a character", 
+      etc. much harder to remember if your brain works in Dvorak mode (press "u" to 
+      find a character and "," to move forward a word, etc.). 
 
 
 DVORAK TO QWERTY  *vwt-1437-dvorak-to-qwerty*

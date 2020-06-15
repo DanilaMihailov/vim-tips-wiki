@@ -32,9 +32,9 @@ schemes display with greater accuracy by using the command :set t_Co=256 .
 SWITCHING COLORS  *vwt-358-switching-colors*
 
 The script shown below defines these key mappings:
-    - Press F8 to use the next color scheme.
-    - Press Shift-F8 to use the previous color scheme.
-    - Press Alt-F8 to use a random color scheme.
+    - Press F8 to use the next color scheme. 
+    - Press Shift-F8 to use the previous color scheme. 
+    - Press Alt-F8 to use a random color scheme. 
 
 
 The next/previous/random color scheme selection uses a list of scheme names 
@@ -64,9 +64,12 @@ for example:
 <
 
 SCRIPT  *vwt-358-script*
-    - Create and save file setcolors.vim containing the script below.
-    - In Vim, use the command :source setcolors.vim to execute the script so you can experiment with its features.
-    - Alternatively, if you save the script in file ~/.vim/plugin/setcolors.vim (Unix) or $HOME/vimfiles/plugin/setcolors.vim (Windows), it will be available whenever you start Vim.
+    - Create and save file setcolors.vim containing the script below. 
+    - In Vim, use the command :source setcolors.vim to execute the script so you 
+      can experiment with its features. 
+    - Alternatively, if you save the script in file ~/.vim/plugin/setcolors.vim 
+      (Unix) or $HOME/vimfiles/plugin/setcolors.vim (Windows), it will be available 
+      whenever you start Vim. 
 
 
 >
@@ -213,8 +216,8 @@ following command (press Ctrl-C to finish).
 <
 
 REFERENCES  *vwt-358-references*
-    - :help  |:colorscheme|
-    - :help  |g:colors_name|
+    - :help |:colorscheme| 
+    - :help |g:colors_name| 
 
 
 COMMENTS  *vwt-358-comments*

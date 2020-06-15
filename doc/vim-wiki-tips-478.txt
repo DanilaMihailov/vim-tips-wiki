@@ -345,15 +345,21 @@ function. In addition, it does not involve changes to the current buffer.
 <
 
 SEE ALSO  *vwt-478-see-also*
-    - Redirect g search output |vwt-1063| to redirect g// output to a new window or a file
-    - Filter buffer on a search result |vwt-1557| to create a scratch buffer with matching lines
-    - Find in files within Vim |vwt-1543| for a clickable list of search hits
-    - Folding with Regular Expression |vwt-282| to fold away non-matching lines
+    - Redirect g search output |vwt-1063| to redirect g// output to a new window or 
+      a file 
+    - Filter buffer on a search result |vwt-1557| to create a scratch buffer with 
+      matching lines 
+    - Find in files within Vim |vwt-1543| for a clickable list of search hits 
+    - Folding with Regular Expression |vwt-282| to fold away non-matching lines 
 
 
 RELATED PLUGINS  *vwt-478-related-plugins*
-    -  ExtractMatches [https://www.vim.org/scripts/script.php?script_id=4795] provides a toolbox of commands to copy all (or only unique first) search matches / matches of a passed pattern / entire lines matching, to a register, or directly :put them into the buffer.
-    -  yankitute [https://www.vim.org/scripts/script.php?script_id=4719] provides a :[range]Yankitute[register]/{pattern}/[string]/[flags]/[join] command.
+    - ExtractMatches [https://www.vim.org/scripts/script.php?script_id=4795] 
+      provides a toolbox of commands to copy all (or only unique first) search 
+      matches / matches of a passed pattern / entire lines matching, to a register, 
+      or directly :put them into the buffer. 
+    - yankitute [https://www.vim.org/scripts/script.php?script_id=4719] provides a 
+      :[range]Yankitute[register]/{pattern}/[string]/[flags]/[join] command. 
 
 
 COMMENTS  *vwt-478-comments*

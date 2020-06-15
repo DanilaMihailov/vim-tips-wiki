@@ -31,14 +31,16 @@ instance)
 <
 
 NOTES  *vwt-680-notes*
-    - The idea of the "if" statement is to avoid interfering with a -V argument which might be set in the command-line for debugging.
-    - The command-line is widened to at least two lines to avoid Hit-Enter prompts on ":set option?" ":edit existing/filename" etc.
+    - The idea of the "if" statement is to avoid interfering with a -V argument 
+      which might be set in the command-line for debugging. 
+    - The command-line is widened to at least two lines to avoid Hit-Enter prompts 
+      on ":set option?" ":edit existing/filename" etc. 
 
 
 REFERENCES  *vwt-680-references*
-    - :help 'verbose'
-    - :help  |:set|
-    - :help  |:set-verbose|
+    - :help 'verbose' 
+    - :help |:set| 
+    - :help |:set-verbose| 
 
 
 COMMENTS  *vwt-680-comments*
@@ -58,8 +60,10 @@ and the lot. I suggest the following:
 
 Then, instead of 'set <optionName>', just use 'Set <optionName>' -- it would 
 be better to change this function to do two things:
-    -  Save and restore the actual value of verbose instead of just assuming 0.
-    -  Extend it to take over the entire behaviour of the 'set' command (as it is, it always just echoes the value of the option and the file where the option was set).
+    - Save and restore the actual value of verbose instead of just assuming 0. 
+    - Extend it to take over the entire behaviour of the 'set' command (as it is, 
+      it always just echoes the value of the option and the file where the option 
+      was set). 
 
 
 However, those are left to the reader as an exercise (note that the first is 

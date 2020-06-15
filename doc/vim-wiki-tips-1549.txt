@@ -137,11 +137,16 @@ characters, including quotes:
 
 See the discussions on vim_dev about proper settings of :help 'shellxquote' 
 for details:
-    - discussion of 7.3.443, surrounding external commands in quotes [http://groups.google.com/group/vim_dev/browse_thread/thread/bd53b29c5e5f2a50]
-    - discussion of 7.3.445, surrounding external commands in parentheses [http://groups.google.com/group/vim_dev/browse_thread/thread/512daf5f5f62ddf4]
-    - discussion of 7.3.446, escaping special characters with ^ when surrounding with parentheses [http://groups.google.com/group/vim_dev/browse_thread/thread/df985880d127a556]
+    - discussion of 7.3.443, surrounding external commands in quotes 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/bd53b29c5e5f2a50] 
+    - discussion of 7.3.445, surrounding external commands in parentheses 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/512daf5f5f62ddf4] 
+    - discussion of 7.3.446, escaping special characters with ^ when surrounding 
+      with parentheses 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/df985880d127a556] 
 
-    - discussion of 7.4.447, unescaping special characters when using :!start [http://groups.google.com/group/vim_dev/browse_thread/thread/2b5a9657fd242a6a]
+    - discussion of 7.4.447, unescaping special characters when using :!start 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/2b5a9657fd242a6a] 
 
 
 !START VS. WINDOWS START COMMAND  *vwt-1549-!start-vs.-windows-start-command*
@@ -298,18 +303,27 @@ this.
 <
 
 SEE ALSO  *vwt-1549-see-also*
-    - Avoiding the "Hit ENTER to continue" prompts |vwt-16|
-    - asyncrun.vim [http://www.vim.org/scripts/script.php?script_id=5431] is a pure VimScript implementation for vim 8.0 to run background shell commands and output to quickfix window.
-    - Marc Weber's python-based background-cmd plugin [http://github.com/MarcWeber/vim-addon-background-cmd] on github to accomplish this on any system
-    - AsyncCommand [https://www.vim.org/scripts/script.php?script_id=3431] is a pure-vimscript implementation based on this tip that works on Windows and Unix/Linux.
-    - shellasync [https://www.vim.org/scripts/script.php?script_id=4182] is another python-based implementation for Unix
-    - Shougo's vimproc [https://github.com/Shougo/vimproc.vim] requires an external library, but supports all major operating systems
+    - Avoiding the "Hit ENTER to continue" prompts |vwt-16| 
+    - asyncrun.vim [http://www.vim.org/scripts/script.php?script_id=5431] is a pure 
+      VimScript implementation for vim 8.0 to run background shell commands and 
+      output to quickfix window. 
+    - Marc Weber's python-based background-cmd plugin 
+      [http://github.com/MarcWeber/vim-addon-background-cmd] on github to accomplish 
+      this on any system 
+    - AsyncCommand [https://www.vim.org/scripts/script.php?script_id=3431] is a 
+      pure-vimscript implementation based on this tip that works on Windows and 
+      Unix/Linux. 
+    - shellasync [https://www.vim.org/scripts/script.php?script_id=4182] is another 
+      python-based implementation for Unix 
+    - Shougo's vimproc [https://github.com/Shougo/vimproc.vim] requires an external 
+      library, but supports all major operating systems 
 
 
 COMMENTS  *vwt-1549-comments*
 
 TO DO
-    - Ask on vim_use for some async execution techniques for Unix-based systems because :help  |:!start| indicates that :!start is for Windows only.
+    - Ask on vim_use for some async execution techniques for Unix-based systems 
+      because :help |:!start| indicates that :!start is for Windows only. 
 
 
 Generally, you can just add '&' to the end of a command on Unix. It won't pop open a terminal like Windows, so it's even more important to redirect the output to a file. --Pydave 23:01, August 8, 2011 (UTC)
@@ -324,10 +338,17 @@ I replaced the first of the following commands with the second:
 <
 
 Explanation:
-    - I removed the <buffer> since you would need to apply the mapping to every appropriate buffer which is too hard, particularly for someone trying a simple tip.
-    - The "%<.exe" does not work as hoped: the ".exe" does nothing (and "%<" is deprecated). Also, it does not include the path (editing /my/prog/sample.c would execute sample).
-    - While it's not really necessary to append ".exe", the weird ':s,$,.exe,' expression does it correctly without requiring an <expr> mapping.
-    - Using '&&', the cmd shell executes 'pause' only if the first program returns "success" (errorlevel 0). Using '&', 'pause' is always executed (documented as after the first program).
+    - I removed the <buffer> since you would need to apply the mapping to every 
+      appropriate buffer which is too hard, particularly for someone trying a simple 
+      tip. 
+    - The "%<.exe" does not work as hoped: the ".exe" does nothing (and "%<" is 
+      deprecated). Also, it does not include the path (editing /my/prog/sample.c 
+      would execute sample). 
+    - While it's not really necessary to append ".exe", the weird ':s,$,.exe,' 
+      expression does it correctly without requiring an <expr> mapping. 
+    - Using '&&', the cmd shell executes 'pause' only if the first program returns 
+      "success" (errorlevel 0). Using '&', 'pause' is always executed (documented as 
+      after the first program). 
 
 
 I actually didn't know the distinction. This is pretty much what every script in this tip was intended to do, so I have made the change there, too and will update my own config. Thanks! --Fritzophrenic 15:57, January 31, 2010 (UTC)

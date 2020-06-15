@@ -28,14 +28,16 @@ file containing an outdated "COPYRIGHT yyyy" notice (case-insensitive). It
 only does this if the file has been modified.
 
 An explanation of the command string follows:
-    - g# - search and replace only on a line matching copyright notice patten. '#' is used rather than the customary '/' to avoid confusion with all the '\' characters.
+    - g# - search and replace only on a line matching copyright notice patten. '#' 
+      is used rather than the customary '/' to avoid confusion with all the '\' 
+      characters. 
 
 
 \\cCOPYRIGHT  - match on text COPYRIGHT followed by a space (case-insensitive)
 \\(".strftime("%Y")."\\)\\@! - only match when the entire match does not consist of the current year (i.e. don't update a notice containing only the current year, like "Copyright 2007").
 [0-9]\\{4\\} - matches a 4-digit number for the first year in the notice
 \\(-".strftime("%Y")."\\)\\@! - don't match on up-to-date notices
-    - #s# - search and replace the outdated year
+    - #s# - search and replace the outdated year 
 
 
 \\([0-9]\\{4\\}\\) - match a 4-digit year and give it a backreference
@@ -47,12 +49,12 @@ this is not desired, you can put in a command before the g#s# to create a mark
 and a command after it to jump back to the mark.
 
 REFERENCES  *vwt-1521-references*
-    - :help  |:g|
-    - :help  |:s|
-    - :help  |strftime()|
-    - :help  |/\@!|
-    - :help  |m|
-    - :help  |`|
+    - :help |:g| 
+    - :help |:s| 
+    - :help |strftime()| 
+    - :help |/\@!| 
+    - :help |m| 
+    - :help |`| 
 
 
 MORE COMPLEX NOTICES  *vwt-1521-more-complex-notices*
@@ -92,24 +94,38 @@ FIRST PASS (NEEDS A COMMA)  *vwt-1521-first-pass-(needs-a-comma)*
 
 Summary: Replace all lines with a copyright notice, that do NOT end in the 
 previous or current year, with a comma and the current year.
-    - %s: - start a "replace in all lines" search, using ':' rather than the customary '/' for clarity.
-    - \cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s* - find lines containing the copyright flag (copyright {optional symbol}) as in the simple method.
-    - \%({below}\)* - match any number of year ranges followed by commas, but DO NOT use them for backreferences.
+    - %s: - start a "replace in all lines" search, using ':' rather than the 
+      customary '/' for clarity. 
+    - \cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s* - find lines containing the copyright 
+      flag (copyright {optional symbol}) as in the simple method. 
+    - \%({below}\)* - match any number of year ranges followed by commas, but DO 
+      NOT use them for backreferences. 
 
 
 [0-9]\{4}\(-[0-9]\{4\}\)\?,\s* - match a year or year range, followed by a comma and whitespace.
-    - \zs - Place the "start of match" at this point. This means that any matched text previous to this point (i.e. the copyright flag, and any year-ranges followed by commas) will NOT be replaced with the replacement text.
-    - \({below}\&{below}\) - The parentheses group two "concats" separated by the \&. All concats must match at the same place for the pattern to match. When it matches, it matches the final concat.
+    - \zs - Place the "start of match" at this point. This means that any matched 
+      text previous to this point (i.e. the copyright flag, and any year-ranges 
+      followed by commas) will NOT be replaced with the replacement text. 
+    - \({below}\&{below}\) - The parentheses group two "concats" separated by the 
+      \&. All concats must match at the same place for the pattern to match. When it 
+      matches, it matches the final concat. 
 
 
 \%('.strftime("%Y").'\)\@![0-9]\{4\} - match any year that is not the current year.
 \%(-'.strftime("%Y").'\)\@!\%(-[0-9]\{4\}\)\? - optionally match any year range ending ("-{year}") to complete the first concat
 \%([0-9]\{4\}-\)\? - optionally match a year range beginning ("-{year}")
 \%('.(strftime("%Y")-1).'\)\@!\%([0-9]\)\{4\} - match any year except for the previous year (note, current year already known NOT to match) to complete the final concat
-    - \ze - place the end of the match at this point, so that any text following this point is NOT affected by the replacement.
-    - \%(\%([0-9]\{4\}\)\@!.\)*$ - match any text that does not contain a year, until the end of the line. This ensures that we captured only the very last year in the line with our final concat, above.
-    - :&, '.strftime("%Y") - replace with the entire match (i.e. the last concat above) followed by a comma and the current year. Recall that the match start and end were defined carefully so that only the desired text is replaced.
-    - :e - suppress error when no match is found so you don't see error messages when your copyright is up-to-date, and to allow the mapping to continue on to the second pass...
+    - \ze - place the end of the match at this point, so that any text following 
+      this point is NOT affected by the replacement. 
+    - \%(\%([0-9]\{4\}\)\@!.\)*$ - match any text that does not contain a year, 
+      until the end of the line. This ensures that we captured only the very last 
+      year in the line with our final concat, above. 
+    - :&, '.strftime("%Y") - replace with the entire match (i.e. the last concat 
+      above) followed by a comma and the current year. Recall that the match start 
+      and end were defined carefully so that only the desired text is replaced. 
+    - :e - suppress error when no match is found so you don't see error messages 
+      when your copyright is up-to-date, and to allow the mapping to continue on to 
+      the second pass... 
 
 
 SECOND PASS (CAN USE A HYPHEN)  *vwt-1521-second-pass-(can-use-a-hyphen)*
@@ -117,47 +133,79 @@ SECOND PASS (CAN USE A HYPHEN)  *vwt-1521-second-pass-(can-use-a-hyphen)*
 Summary: Replace all remaining lines with a copyright notice, that do NOT end 
 in the current year (i.e. they end in the previous year), with a hyphen and 
 the current year.
-    - %s: - start a "replace in all lines" search, using ':' rather than the customary '/' for clarity.
-    - \cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s* - find lines containing the copyright flag (copyright {optional symbol}) as in the simple method.
-    - \%({below}\)* - match any number of year ranges followed by commas, but DO NOT use them for backreferences.
+    - %s: - start a "replace in all lines" search, using ':' rather than the 
+      customary '/' for clarity. 
+    - \cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s* - find lines containing the copyright 
+      flag (copyright {optional symbol}) as in the simple method. 
+    - \%({below}\)* - match any number of year ranges followed by commas, but DO 
+      NOT use them for backreferences. 
 
 
 [0-9]\{4}\(-[0-9]\{4\}\)\?,\s* - match a year or year range, followed by a comma and whitespace.
-    - \zs - Place the "start of match" at this point. This means that any matched text previous to this point (i.e. the copyright flag, and any year-ranges followed by commas) will NOT be replaced with the replacement text.
-    - \%('.strftime("%Y").'\)\@!\([0-9]\{4\}\) - match any year except for the current year, and place it in the first backreference (note the use of \%(\) in every previous grouping)
-    - \%(-'.strftime("%Y").'\)\@!\%(-[0-9]\{4\}\)\? - optionally match a year range ending that does NOT include the current year.
-    - \ze - place the end of the match at this point, so that any text following this point is NOT affected by the replacement.
-    - \%(\%([0-9]\{4\}\)\@!.\)*$ - match any text that does not contain a year, until the end of the line. This ensures that we captured only the very last year in the line.
-    - \1-'.strftime("%Y") - replace with the first backreference (i.e. the first year in the final year range of the line), followed by a hyphen and the current year.
-    - :e - suppress error when no match is found so you don't see error messages whenever your copyright notice is up-to-date.
+    - \zs - Place the "start of match" at this point. This means that any matched 
+      text previous to this point (i.e. the copyright flag, and any year-ranges 
+      followed by commas) will NOT be replaced with the replacement text. 
+    - \%('.strftime("%Y").'\)\@!\([0-9]\{4\}\) - match any year except for the 
+      current year, and place it in the first backreference (note the use of \%(\) 
+      in every previous grouping) 
+    - \%(-'.strftime("%Y").'\)\@!\%(-[0-9]\{4\}\)\? - optionally match a year range 
+      ending that does NOT include the current year. 
+    - \ze - place the end of the match at this point, so that any text following 
+      this point is NOT affected by the replacement. 
+    - \%(\%([0-9]\{4\}\)\@!.\)*$ - match any text that does not contain a year, 
+      until the end of the line. This ensures that we captured only the very last 
+      year in the line. 
+    - \1-'.strftime("%Y") - replace with the first backreference (i.e. the first 
+      year in the final year range of the line), followed by a hyphen and the 
+      current year. 
+    - :e - suppress error when no match is found so you don't see error messages 
+      whenever your copyright notice is up-to-date. 
 
 
 REFERENCES  *vwt-1521-references*
-    - :help  |/branch|
-    - :help  |/\zs|
-    - :help  |/\ze|
-    - :help  |/\%(\)|
-    - :help  |/\@!|
+    - :help |/branch| 
+    - :help |/\zs| 
+    - :help |/\ze| 
+    - :help |/\%(\)| 
+    - :help |/\@!| 
 
 
 TAKE-AWAY LESSONS  *vwt-1521-take-away-lessons*
-    - Use the 'g' command or \zs and \ze atoms to carefully limit your 's' commands to certain lines, and to simplify your replacement text for 's' commands.
-    - Use \%(\) for grouping whenever you don't need the group for a back-reference to simplify things and provide some speedup.
-    - Zero-width matches such as \@! are very powerful - familiarize yourself with them.
-    - Complicated regular expressions can be made far less complex by splitting them into sections and working on each section independently.
-    - Familiarize yourself with the definition of a pattern (:help  |/pattern|) and its constituent components (like branches - :help  |/branch|). Using these components fully can simplify your patterns or even make possible things that are not possible otherwise.
+    - Use the 'g' command or \zs and \ze atoms to carefully limit your 's' commands 
+      to certain lines, and to simplify your replacement text for 's' commands. 
+    - Use \%(\) for grouping whenever you don't need the group for a back-reference 
+      to simplify things and provide some speedup. 
+    - Zero-width matches such as \@! are very powerful - familiarize yourself with 
+      them. 
+    - Complicated regular expressions can be made far less complex by splitting 
+      them into sections and working on each section independently. 
+    - Familiarize yourself with the definition of a pattern (:help |/pattern|) and 
+      its constituent components (like branches - :help |/branch|). Using these 
+      components fully can simplify your patterns or even make possible things that 
+      are not possible otherwise. 
 
 
 SEE ALSO  *vwt-1521-see-also*
-    - Tip 97 Insert current date or time |vwt-97|
+    - Tip 97 Insert current date or time |vwt-97| 
 
 
 RELATED PLUGINS  *vwt-1521-related-plugins*
-    -  ferallastchange.vim [https://www.vim.org/scripts/script.php?script_id=680] is an old plugin that searches for a prefix and then updates the timestamp in a certain format.
-    -  timstamp.vim [https://www.vim.org/scripts/script.php?script_id=371] takes pattern and replacement parts like this plugin (the replacement part also supports some custom tokens e.g. for hostname), and is functionally very close.
-    -  timestamp.vim [https://www.vim.org/scripts/script.php?script_id=923] is based on timstamp.vim. It allows only one pattern and feeds the replacement part to strftime(), making it less general.
-    -  lastmod.vim [https://www.vim.org/scripts/script.php?script_id=3578] is a short and simple plugin for replacing one pattern with a timestamp in the first N lines.
-    -  AutoAdapt [https://www.vim.org/scripts/script.php?script_id=4654] automatically adapts information like "last modified" timestamps and copyright notices, or applies any other substitution before each file save.
+    - ferallastchange.vim [https://www.vim.org/scripts/script.php?script_id=680] is 
+      an old plugin that searches for a prefix and then updates the timestamp in a 
+      certain format. 
+    - timstamp.vim [https://www.vim.org/scripts/script.php?script_id=371] takes 
+      pattern and replacement parts like this plugin (the replacement part also 
+      supports some custom tokens e.g. for hostname), and is functionally very 
+      close. 
+    - timestamp.vim [https://www.vim.org/scripts/script.php?script_id=923] is based 
+      on timstamp.vim. It allows only one pattern and feeds the replacement part to 
+      strftime(), making it less general. 
+    - lastmod.vim [https://www.vim.org/scripts/script.php?script_id=3578] is a 
+      short and simple plugin for replacing one pattern with a timestamp in the 
+      first N lines. 
+    - AutoAdapt [https://www.vim.org/scripts/script.php?script_id=4654] 
+      automatically adapts information like "last modified" timestamps and copyright 
+      notices, or applies any other substitution before each file save. 
 
 
 COMMENTS  *vwt-1521-comments*

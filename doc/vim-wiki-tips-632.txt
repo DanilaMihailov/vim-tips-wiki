@@ -42,9 +42,21 @@ your vimrc if you find out that you like it, then press Enter to accept the
 new result.
 
 HOW TO PROCEED  *vwt-632-how-to-proceed*
-    -  The default value for 'guifont' is the null string. However, a default or system vimrc may already have set some value. If what you see is "almost" what you want, use method 3 above. If the current value is empty, you will have to proceed in some other way. In that case, press <Esc> to leave command-line mode.
-    -  If the current value is empty, or if the current font has neither the shape nor the size that you want, try method 2 above. If it doesn't work, copy the code snippet found at the end of this section into your vimrc and start from there, changing one thing at a time until you're satisfied.
-    -  If your version of Vim allows selecting fonts via a menu, I recommend (for "other-X11") keeping only what is required to have a working font and replacing the rest (including, most especially, the last parameter, which is the encoding) by dash-separated asterisks; or (for other systems) keeping the font name and size and removing the rest (or, for non-X11, setting the encoding to cDEFAULT). See the examples below.
+    - The default value for 'guifont' is the null string. However, a default or 
+      system vimrc may already have set some value. If what you see is "almost" what 
+      you want, use method 3 above. If the current value is empty, you will have to 
+      proceed in some other way. In that case, press <Esc> to leave command-line 
+      mode. 
+    - If the current value is empty, or if the current font has neither the shape 
+      nor the size that you want, try method 2 above. If it doesn't work, copy the 
+      code snippet found at the end of this section into your vimrc and start from 
+      there, changing one thing at a time until you're satisfied. 
+    - If your version of Vim allows selecting fonts via a menu, I recommend (for 
+      "other-X11") keeping only what is required to have a working font and 
+      replacing the rest (including, most especially, the last parameter, which is 
+      the encoding) by dash-separated asterisks; or (for other systems) keeping the 
+      font name and size and removing the rest (or, for non-X11, setting the 
+      encoding to cDEFAULT). See the examples below. 
 
 
 Here is a snippet of code that should work on all versions of gvim. Start 

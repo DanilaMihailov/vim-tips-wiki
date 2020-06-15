@@ -193,8 +193,8 @@ COLOR NUMBERS FOR XTERM AND GVIM  *vwt-634-color-numbers-for-xterm-and-gvim*
 Copy the following script into Vim, save the file, then enter :so % to source 
 the script. Enter one of the following commands to create a color test script, 
 and to execute that script:
-    - For a console or terminal Vim, enter the command :VimColorTest
-    - For gvim, enter the command :GvimColorTest
+    - For a console or terminal Vim, enter the command :VimColorTest 
+    - For gvim, enter the command :GvimColorTest 
 
 
 >
@@ -243,7 +243,7 @@ and to execute that script:
 COMMENTS  *vwt-634-comments*
 
 TO DO
-    - Any suggestions for a better title for this tip?
+    - Any suggestions for a better title for this tip? 
 
 
 Current is "View all colors available to gvim" but it's more than gvim.

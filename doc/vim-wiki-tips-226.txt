@@ -59,9 +59,9 @@ number:
 
 When such file-name/line number pairs are the result of compiling code, the 
 following commands are also useful:
-    - :help  |:cn|
-    - :help  |:cl|
-    - :help  |:cfile|
+    - :help |:cn| 
+    - :help |:cl| 
+    - :help |:cfile| 
 
 
 The file:line plugin [https://www.vim.org/scripts/script.php?script_id=2184] 
@@ -170,27 +170,29 @@ Works with suffixesadd options as gf to open file without extension like in
 Javascript import.
 
 SEE ALSO  *vwt-226-see-also*
-    - 384 Easily switch between source and header file |vwt-384|
-    - 1546 Automatically add Python paths to Vim path |vwt-1546|
-    - Jump to tab if the destination is already open in another tab [https://stackoverflow.com/q/54338556]
+    - 384 Easily switch between source and header file |vwt-384| 
+    - 1546 Automatically add Python paths to Vim path |vwt-1546| 
+    - Jump to tab if the destination is already open in another tab 
+      [https://stackoverflow.com/q/54338556] 
 
 
 REFERENCES  *vwt-226-references*
-    - :help  |gf|
-    - :help  |v_gf|
-    - :help  |CTRL-W_F|
-    - :help  |CTRL-W_gf|
-    - :help  |CTRL-^|
-    - :help  |CTRL-O|
-    - :help 'path' directory names used to look for the file
-    - :help 'isfname' characters considered part of path/file name
+    - :help |gf| 
+    - :help |v_gf| 
+    - :help |CTRL-W_F| 
+    - :help |CTRL-W_gf| 
+    - :help |CTRL-^| 
+    - :help |CTRL-O| 
+    - :help 'path' directory names used to look for the file 
+    - :help 'isfname' characters considered part of path/file name 
 
 
 COMMENTS  *vwt-226-comments*
 
 TO DO
-    - Need brief explanation 'isfname'.
-    - Need brief explanation of 'path': meanings of . and ,,; how to include space in path.
+    - Need brief explanation 'isfname'. 
+    - Need brief explanation of 'path': meanings of . and ,,; how to include space 
+      in path. 
 
 
 ==============================================================================
@@ -215,7 +217,7 @@ to just stop at the first file found.
 I've made my opinion known regarding the "related tips" that John has linked 
 to by being bold and just marking them for merge or moving them to "see also", 
 but I don't know what to do with this one:
-    - 691 Use gf to open a file via its URL |vwt-691|
+    - 691 Use gf to open a file via its URL |vwt-691| 
 
 
 First, it needs a little work to handle escaped characters like %20 for 

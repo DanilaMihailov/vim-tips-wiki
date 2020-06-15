@@ -48,16 +48,16 @@ To make settings permanent, without the need to type this every time you use
 Vim, just add the commands to your vimrc [https://vim.fandom.com/wiki/Vimrc].
 
 REFERENCES  *vwt-989-references*
-    - :help 'wrap'
-    - :help 'linebreak'
-    - :help  |ins-textwidth|
-    - :help 'showbreak' to show the difference between soft and hard wrapped lines
+    - :help 'wrap' 
+    - :help 'linebreak' 
+    - :help |ins-textwidth| 
+    - :help 'showbreak' to show the difference between soft and hard wrapped lines 
 
 
 SEE ALSO  *vwt-989-see-also*
-    - Move cursor by display lines when wrapping |vwt-38|
-    - Move through wrapped lines |vwt-308|
-    - Automatic word wrapping |vwt-850|
+    - Move cursor by display lines when wrapping |vwt-38| 
+    - Move through wrapped lines |vwt-308| 
+    - Automatic word wrapping |vwt-850| 
 
 
 COMMENTS  *vwt-989-comments*

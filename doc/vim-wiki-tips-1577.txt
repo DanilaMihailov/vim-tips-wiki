@@ -67,10 +67,12 @@ example, suppose you have a list of file names (perhaps you obtained it with
 :r !ls *.c), and you want to verify that every one of these file names occurs 
 in another buffer (a makefile, for instance). You could do this quickly and 
 easily as follows:
-    - Format the file list to one file name per line, with each file name starting at beginning of the line
-    - Split a new window with the file you wish to contain all the file names (for a total of two windows)
-    - Position the cursor on the first line of the file list
-    - Record a recursive macro as follows:
+    - Format the file list to one file name per line, with each file name starting 
+      at beginning of the line 
+    - Split a new window with the file you wish to contain all the file names (for 
+      a total of two windows) 
+    - Position the cursor on the first line of the file list 
+    - Record a recursive macro as follows: 
 
 
 >
@@ -124,7 +126,8 @@ and thus whatever is currently stored there will be executed, instead of doing
 nothing until you actually run the macro, as intended.
 
 SEE ALSO  *vwt-1577-see-also*
-    - This can also be done with a mapping [https://vim.fandom.com/wiki/Recursive_mappings]
+    - This can also be done with a mapping 
+      [https://vim.fandom.com/wiki/Recursive_mappings] 
 
 
 COMMENTS  *vwt-1577-comments*

@@ -30,7 +30,7 @@ I was wondering how to do this in Vim. Turns out it is simple.
 <
 
 REFERENCES  *vwt-460-references*
-    - :help 'listchars'
+    - :help 'listchars' 
 
 
 COMMENTS  *vwt-460-comments*
@@ -105,8 +105,8 @@ setting not shiftwidth - so in the SeeTab() function, replace &sw by &ts
 ==============================================================================
 
 There are now two scripts for this:
-    - script#627 [https://www.vim.org/scripts/script.php?script_id=627]
-    - script#628 [https://www.vim.org/scripts/script.php?script_id=628]
+    - script#627 [https://www.vim.org/scripts/script.php?script_id=627] 
+    - script#628 [https://www.vim.org/scripts/script.php?script_id=628] 
 
 
 ==============================================================================

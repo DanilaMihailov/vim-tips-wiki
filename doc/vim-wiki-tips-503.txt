@@ -30,11 +30,11 @@ behave as a standard number pad (when NumLock is on, send the characters
 [0-9/*-+.]; otherwise, send the codes for the cursor movement keys).
 
 For use in Vim, you want to disable application keypad mode:
-    - Run PuTTY Configuration.
-    - In the left pane, select Terminal, Features.
-    - Put a check mark next to "Disable application keypad mode".
-    - In the left pane, select Session.
-    - Save the settings.
+    - Run PuTTY Configuration. 
+    - In the left pane, select Terminal, Features. 
+    - Put a check mark next to "Disable application keypad mode". 
+    - In the left pane, select Session. 
+    - Save the settings. 
 
 
 Now the NumLock key and the numbers on the numpad should work in Vim, as 
@@ -47,8 +47,10 @@ following characters will cause many confusing things to occur in your Vim
 session.
 
 SEE ALSO  *vwt-503-see-also*
-    - Invert the number row keys for faster typing [https://vim.fandom.com/wiki/Invert_the_number_row_keys_for_faster_typing]
-    - VimLock mode to enter numbers [https://vim.fandom.com/wiki/VimLock_mode_to_enter_numbers]
+    - Invert the number row keys for faster typing 
+      [https://vim.fandom.com/wiki/Invert_the_number_row_keys_for_faster_typing] 
+    - VimLock mode to enter numbers 
+      [https://vim.fandom.com/wiki/VimLock_mode_to_enter_numbers] 
 
 
 COMMENTS  *vwt-503-comments*

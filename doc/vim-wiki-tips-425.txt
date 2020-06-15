@@ -103,8 +103,8 @@ handling, runs:
 On Win2k, the current all-in-one installer puts the default filtype.vim in 
 $VIM/vim62. My augmentation of filetype.vim (with the same name) is under 
 $VIM/vimfiles. Check out
-    - :help  |runtime|
-    - :help 'runtimepath'
+    - :help |runtime| 
+    - :help 'runtimepath' 
 
 
 to understand the search order. I have a number of syntax highlighting files 

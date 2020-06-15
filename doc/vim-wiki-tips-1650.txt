@@ -25,9 +25,14 @@ find this tip useful if you want to compile your own Vim on Windows if, for
 example, you need Vim for a different version of Python.
 
 PREREQUISITES  *vwt-1650-prerequisites*
-    -  Vim version 7.3.x or 7.4.x is already installed. We only want to replace files gvim.exe and vim.exe.
-    -  Python 2.x and Python 3.x are installed. Let's assume Python 2.7 is installed in C:/Python27 and Python 3.3 is installed in C:/Python33. The official Python installers from http://www.python.org [http://www.python.org] place the DLL files (python27.dll and python33.dll) in the system path, usually C:\Windows\system32 or C:\Windows\SysWOW64.
-    -  These instructions are for compiling 32-bit Vim. Python must be 32-bit.
+    - Vim version 7.3.x or 7.4.x is already installed. We only want to replace 
+      files gvim.exe and vim.exe. 
+    - Python 2.x and Python 3.x are installed. Let's assume Python 2.7 is installed 
+      in C:/Python27 and Python 3.3 is installed in C:/Python33. The official Python 
+      installers from http://www.python.org [http://www.python.org] place the DLL 
+      files (python27.dll and python33.dll) in the system path, usually 
+      C:\Windows\system32 or C:\Windows\SysWOW64. 
+    - These instructions are for compiling 32-bit Vim. Python must be 32-bit. 
 
 
 STEP 1: INSTALL MINGW TOOLS [HTTP://WWW.MINGW.ORG/]  *vwt-1650-step-1:-install-mingw-tools-[http://www.mingw.org/]*
@@ -45,12 +50,19 @@ TDM-GCC project: http://tdm-gcc.tdragon.net/ [http://tdm-gcc.tdragon.net/]
 Let's assume MingW is installed in E:\MinGW.
 
 STEP 2: DOWNLOAD VIM SOURCE FILES  *vwt-1650-step-2:-download-vim-source-files*
-    -  Get Vim source files from one of the links below. The source version should match your currently installed Vim version.
-    -  https://github.com/b4winckler/vim [https://github.com/b4winckler/vim] This is a git clone of Vim's official Mercurial repository [http://code.google.com/p/vim/]. This may be the easiest way to get the most recent Vim source with all patches included, because you can download snapshots with a web browser without installing any other software. Google Code holds the official Vim repository but does not offer this feature.
-    -  Getting the Vim source with Mercurial [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial]
-    -  ftp://ftp.vim.org/pub/vim/unix/ [ftp://ftp.vim.org/pub/vim/unix/]
-
-    -  Extract or check out all in one directory, for example E:\devel\vim_sources\vim-7-4-050.
+    - Get Vim source files from one of the links below. The source version should 
+      match your currently installed Vim version. - 
+      https://github.com/b4winckler/vim [https://github.com/b4winckler/vim] This is 
+      a git clone of Vim's official Mercurial repository 
+      [http://code.google.com/p/vim/]. This may be the easiest way to get the most 
+      recent Vim source with all patches included, because you can download 
+      snapshots with a web browser without installing any other software. Google 
+      Code holds the official Vim repository but does not offer this feature. - 
+      Getting the Vim source with Mercurial 
+      [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial] - 
+      ftp://ftp.vim.org/pub/vim/unix/ [ftp://ftp.vim.org/pub/vim/unix/] 
+    - Extract or check out all in one directory, for example 
+      E:\devel\vim_sources\vim-7-4-050. 
 
 
 STEP 3 (OPTIONAL): APPLY PATCHES  *vwt-1650-step-3-(optional):-apply-patches*
@@ -157,11 +169,23 @@ copies). Start Vim and see if it works:
 COMMENTS  *vwt-1650-comments*
 
 This is a very ambitious tip! Following are some initial thoughts:
-    - Our starting point for a "building Vim" tip is Build Vim with your name included [https://vim.fandom.com/wiki/Build_Vim_with_your_name_included] (no useful content at the moment).
-    - Is the following correct: "The official Python installer ... puts python25.dll in %windir%/system32"? Perhaps that is an install option? I have installed Python several times and do not recall it dumping stuff in system32.
-    - There should be a "clean" option in the makefile that can be used, rather than the advice to delete certain directories (and pathdef.c is in the deleted directory so need to mention it).
-    - It is not really useful to build Vim without getting the current patches. The correct (and very easy) procedure now is to use the Mercurial repository [http://code.google.com/p/vim/] set up by Bram to hold all the patched source and runtime files. We need documentation on how to do this.
-    - Using a suitable build from Vim-without-Cream is definitely the best approach for 99% of Windows users. Some hunting around would probably find a version with an old version of Python if required (it would have an older Vim, although one that would be newer than 7.2 with no patches).
+    - Our starting point for a "building Vim" tip is Build Vim with your name 
+      included [https://vim.fandom.com/wiki/Build_Vim_with_your_name_included] (no 
+      useful content at the moment). 
+    - Is the following correct: "The official Python installer ... puts 
+      python25.dll in %windir%/system32"? Perhaps that is an install option? I have 
+      installed Python several times and do not recall it dumping stuff in system32. 
+    - There should be a "clean" option in the makefile that can be used, rather 
+      than the advice to delete certain directories (and pathdef.c is in the deleted 
+      directory so need to mention it). 
+    - It is not really useful to build Vim without getting the current patches. The 
+      correct (and very easy) procedure now is to use the Mercurial repository 
+      [http://code.google.com/p/vim/] set up by Bram to hold all the patched source 
+      and runtime files. We need documentation on how to do this. 
+    - Using a suitable build from Vim-without-Cream is definitely the best approach 
+      for 99% of Windows users. Some hunting around would probably find a version 
+      with an old version of Python if required (it would have an older Vim, 
+      although one that would be newer than 7.2 with no patches). 
 
 
 JohnBot [https://vim.fandom.com/wiki/User:JohnBot] 06:14, March 30, 2010 

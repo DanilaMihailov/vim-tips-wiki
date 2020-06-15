@@ -5,11 +5,11 @@
 
 
 This tip is very similar to the following:
-    - VimTip981 |vwt-981|
-    - VimTip369 |vwt-369|
-    - VimTip388 |vwt-388|
-    - VimTip271 |vwt-271|
-    - VimTip660 |vwt-660|
+    - VimTip981 |vwt-981| 
+    - VimTip369 |vwt-369| 
+    - VimTip388 |vwt-388| 
+    - VimTip271 |vwt-271| 
+    - VimTip660 |vwt-660| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -352,9 +352,9 @@ will uncomment it if it is commented already. Really handy :)
 
 See script#955 [https://www.vim.org/scripts/script.php?script_id=955]I 
 "improved" the original tip a little:
-    - no "remove comment" key, but the comment-status of a line is toogled
-    - no hlsearch-problem
-    - commenting uses the original indentation, not the first column
+    - no "remove comment" key, but the comment-status of a line is toogled 
+    - no hlsearch-problem 
+    - commenting uses the original indentation, not the first column 
 
 
 ==============================================================================

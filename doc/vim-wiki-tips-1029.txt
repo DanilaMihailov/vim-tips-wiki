@@ -30,8 +30,8 @@ lines where I invoke it, and I didn't have to retype my inserted text in full.
 COMMENTS  *vwt-1029-comments*
 
 Is this the same as
-    - do edit in wrong place
-    - undo, go to beginning of line, repeat with u0.
+    - do edit in wrong place 
+    - undo, go to beginning of line, repeat with u0. 
 
 
 ==============================================================================
@@ -46,10 +46,10 @@ See also :help |gI|.
 ==============================================================================
 
 I finally sussed this useful tip.
-    - do edit in wrong place
-    - u to undo
-    - I to insert at beginning of line
-    - <C-R>. to insert undone text
+    - do edit in wrong place 
+    - u to undo 
+    - I to insert at beginning of line 
+    - <C-R>. to insert undone text 
 
 
 Now dot works fine.

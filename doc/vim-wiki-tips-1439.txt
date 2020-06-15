@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip1119 |vwt-1119|
+    - VimTip1119 |vwt-1119| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -20,21 +20,22 @@ them are really useful, and I want to sum up them in this tip, and then add
 some of my experiences.
 
 Here are some useful tips to read:
-    - Use Vim like an IDE [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE]
-    - VimTip64 |vwt-64| Always set your working directory to the file you're editing Vim
-    - C++ code completion |vwt-1608| omni completion for C++
+    - Use Vim like an IDE [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE] 
+    - VimTip64 |vwt-64| Always set your working directory to the file you're 
+      editing Vim 
+    - C++ code completion |vwt-1608| omni completion for C++ 
 
 
 Here are some programs you may need to download:
 
 http://gnuwin32.sourceforge.net/ [http://gnuwin32.sourceforge.net/]
-    - diffutils-2.8.7-1.exe
-    - gawk-3.1.3-2.exe
-    - id-utils-4.0-2.exe
+    - diffutils-2.8.7-1.exe 
+    - gawk-3.1.3-2.exe 
+    - id-utils-4.0-2.exe 
 
 
 http://ctags.sourceforge.net/ [http://ctags.sourceforge.net/]
-    - ctags.exe
+    - ctags.exe 
 
 
 Here are some scripts for your vimrc:

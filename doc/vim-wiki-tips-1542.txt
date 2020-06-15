@@ -11,11 +11,12 @@ created
 Running Vim on Vista is no problem if you install Vim 7.2 or later.
 
 To get an "Edit with Vim" context menu for 32-bit Vista:
-    - Download the latest version of Vim without Cream [https://vim.fandom.com/wiki/Download].
-    - Run the installer and accept the license agreement.
-    - On the Choose Components window, expand "Icons, menus and shortcuts".
-    - Check the box for "Add Contextual Menu".
-    - Finish the install.
+    - Download the latest version of Vim without Cream 
+      [https://vim.fandom.com/wiki/Download]. 
+    - Run the installer and accept the license agreement. 
+    - On the Choose Components window, expand "Icons, menus and shortcuts". 
+    - Check the box for "Add Contextual Menu". 
+    - Finish the install. 
 
 
 ==============================================================================
@@ -92,23 +93,29 @@ DOWNLOAD AND INSTALL  *vwt-1542-download-and-install*
 
 Download and Install gVim 7.1(I used the one from [4] 
 [https://sourceforge.net/project/showfiles.php?group_id=43866&package_id=39721])
-    -  changed the install dir to C:\vim to get around some odd things with UAC.
-    -  I prefer to have my vimfiles in my home directory, so I choose that option from the installer.
-    -  I also recommend setting the hidden attribute on the vimfiles folder so it does not visually clutter up the my home directory (Right click -> properties -> General Tab -> Check Hidden).
-
+    - changed the install dir to C:\vim to get around some odd things with UAC. 
+    - I prefer to have my vimfiles in my home directory, so I choose that option 
+      from the installer. - I also recommend setting the hidden attribute on the 
+      vimfiles folder so it does not visually clutter up the my home directory 
+      (Right click -> properties -> General Tab -> Check Hidden). 
 
 
 Copy the following files into C:\vim\vim71\
-    -  iconv.dll (from here [http://sourceforge.net/projects/gettext] You can find the dll file in the bin directory of the "libiconv-win32" archive.)
-    -  libintl.dll (from here [http://sourceforge.net/projects/gettext] Get "intl.dll" from the bin directory in the gettext-win32 archive and store it as "libintl.dll" in the same directory as gvim.exe, overwriting the file that may already be there.)
-    -  gvimext.dll (from script#1720 [https://www.vim.org/scripts/script.php?script_id=1720])
+    - iconv.dll (from here [http://sourceforge.net/projects/gettext] You can find 
+      the dll file in the bin directory of the "libiconv-win32" archive.) 
+    - libintl.dll (from here [http://sourceforge.net/projects/gettext] Get 
+      "intl.dll" from the bin directory in the gettext-win32 archive and store it as 
+      "libintl.dll" in the same directory as gvim.exe, overwriting the file that may 
+      already be there.) 
+    - gvimext.dll (from script#1720 
+      [https://www.vim.org/scripts/script.php?script_id=1720]) 
 
 
 CONFIGURE AROUND VISTA  *vwt-1542-configure-around-vista*
 
 If you want the "Edit with vim" Shell Extension in Windows Explorer:
-    -  Run C:\vim\vim71\install.exe
-    -  Choose no when asked if you want to uninstall, then enter "d 14"
+    - Run C:\vim\vim71\install.exe 
+    - Choose no when asked if you want to uninstall, then enter "d 14" 
 
 
 TROUBLESHOOTING  *vwt-1542-troubleshooting*
@@ -180,8 +187,9 @@ From the new tips discussion
 
 I didn't realize that everything was working that well on other machines. I 
 do think there is value in keeping two of the sections:
-    -  The information on how to fix the shell extension if Vista thinks Vim needs to be run as administrator.
-    -  The file association fix.
+    - The information on how to fix the shell extension if Vista thinks Vim needs 
+      to be run as administrator. 
+    - The file association fix. 
 
 
 Where would you recommend putting these? Or are they too edge case for the 
@@ -206,13 +214,22 @@ Home Premium 64 as Administrator.
 ==============================================================================
 
 TO DO
-    - We really need to delete the dodgy stuff from this page. Please add any comments below.
-    - Is there any useful information below the "AND IGNORE THE STUFF BELOW" line?
-    - The tip about fixing the ability to make vim the default application for file associations after upgrading was useful to me, and I think Snigdinna thought it useful as well, so I have expanded it a bit and moved it above the IGNORE line. It wasn't covered by what was already there. Lessthanideal [https://vim.fandom.com/wiki/User:Lessthanideal] 14:44, June 30, 2011 (UTC)
-
-    - Edit on 2008-11-24 [https://vim.fandom.com/index.php?title=Vim_On_Vista&diff=21352&oldid=17966] added the "IGNORE" line, and the material at the top of the tip.
-    - Edit on 2008-12-30 [https://vim.fandom.com/index.php?title=Vim_On_Vista&diff=21618&oldid=21546] added the "Vista 64" section, also above the "IGNORE" line.
-    - See discussion on Snigdinna's talk page [https://vim.fandom.com/wiki/User_talk:Snigdinna].
+    - We really need to delete the dodgy stuff from this page. Please add any 
+      comments below. 
+    - Is there any useful information below the "AND IGNORE THE STUFF BELOW" line? 
+      - The tip about fixing the ability to make vim the default application for 
+      file associations after upgrading was useful to me, and I think Snigdinna 
+      thought it useful as well, so I have expanded it a bit and moved it above the 
+      IGNORE line. It wasn't covered by what was already there. Lessthanideal 
+      [https://vim.fandom.com/wiki/User:Lessthanideal] 14:44, June 30, 2011 (UTC) 
+    - Edit on 2008-11-24 
+      [https://vim.fandom.com/index.php?title=Vim_On_Vista&diff=21352&oldid=17966] 
+      added the "IGNORE" line, and the material at the top of the tip. 
+    - Edit on 2008-12-30 
+      [https://vim.fandom.com/index.php?title=Vim_On_Vista&diff=21618&oldid=21546] 
+      added the "Vista 64" section, also above the "IGNORE" line. 
+    - See discussion on Snigdinna's talk page 
+      [https://vim.fandom.com/wiki/User_talk:Snigdinna]. 
 
 
 --JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:38, 3 January 

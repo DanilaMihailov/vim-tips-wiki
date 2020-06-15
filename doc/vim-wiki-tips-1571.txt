@@ -49,9 +49,14 @@ Plugins like LessMode are available, but they may be more complex than you
 require.
 
 If you prefer modeless solutions, check out
-    - 105 Combining move and scroll |vwt-105| (which maps c-j> and <c-k> to scroll one line up and down keeping the cursor in the same position on screen)
-    - 400 Fast scroll mappings |vwt-400| (does the same as VimTip105 |vwt-105| but maps the keys to <Alt-h/j/k/l/>, also mappings for insert and visual mode. Mappings might clash with GUI Shortcuts, e.g. <A-h> opens help menu)
-    - 239 Scroll using arrow keys like in a web browser |vwt-239| (map <Shift-up> and <Shift-Down> to <c-e> and <c-y>. This might not work on all terminals, though it does in xterm, konsole and rxvt-unicode on Linux)
+    - 105 Combining move and scroll |vwt-105| (which maps c-j> and <c-k> to scroll 
+      one line up and down keeping the cursor in the same position on screen) 
+    - 400 Fast scroll mappings |vwt-400| (does the same as VimTip105 |vwt-105| but 
+      maps the keys to <Alt-h/j/k/l/>, also mappings for insert and visual mode. 
+      Mappings might clash with GUI Shortcuts, e.g. <A-h> opens help menu) 
+    - 239 Scroll using arrow keys like in a web browser |vwt-239| (map <Shift-up> 
+      and <Shift-Down> to <c-e> and <c-y>. This might not work on all terminals, 
+      though it does in xterm, konsole and rxvt-unicode on Linux) 
 
 
 There's also a tip (320 Page up/down and keep cursor position |vwt-320|) to 

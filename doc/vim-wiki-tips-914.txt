@@ -14,8 +14,9 @@ what suits you best. Just do a search for "<Windows/Ubuntu/etc> change console
 font".
 
 TO DO
-    - Should probably have separate tips for Linux and Windows font recommendations, or at least make it clearer what works where.
-    - Every font should have a screenshot and note if it is free or commercial.
+    - Should probably have separate tips for Linux and Windows font 
+      recommendations, or at least make it clearer what works where. 
+    - Every font should have a screenshot and note if it is free or commercial. 
 
 
 PROGGY  *vwt-914-proggy*
@@ -52,8 +53,8 @@ jmk-x11-fonts package from http://nikolas.us.to/jmkfonts/
 
 It differentiates between a zero and the letter "O" and looks really nice. I 
 use it for programming on a 1600x1200 screen.
-    - On Debian/Ubuntu: apt-get install xfonts-jmk
-    - On Gentoo: emerge x11fonts-jmk
+    - On Debian/Ubuntu: apt-get install xfonts-jmk 
+    - On Gentoo: emerge x11fonts-jmk 
 
 
 Once you have installed the font you should put a line like this in your 
@@ -79,10 +80,10 @@ for hires screens. X11 (Linux) and Windows variants are available
 athttp://zevv.nl/play/code/zevv-neep/ [http://zevv.nl/play/code/zevv-neep/]
 
 Design considerations
-    - Clean, avoid clutter.
-    - Very clear distinction between similar characters like 0 O o and i I l 1 |.
-    - Suitable for light text on a dark background.
-    - Not too densely packed to allow a good separation between characters.
+    - Clean, avoid clutter. 
+    - Very clear distinction between similar characters like 0 O o and i I l 1 |. 
+    - Suitable for light text on a dark background. 
+    - Not too densely packed to allow a good separation between characters. 
 
 
 [https://vignette.wikia.nocookie.net/vim/images/6/67/Neepfont.png/revision/latest?cb=20071119192812]
@@ -181,28 +182,53 @@ Arch, and Mageia, and for download at http://opendyslexic.org/
 [http://opendyslexic.org/]
 
 OTHER  *vwt-914-other*
-    - Envy Code R from http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released [http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released]
-    - Terminus from http://terminus-font.sourceforge.net/ [http://terminus-font.sourceforge.net/]
-    - Terminus TTF from https://files.ax86.net/terminus-ttf/ [https://files.ax86.net/terminus-ttf/]
-    - ProFont from http://tobiasjung.name/profont/ [http://tobiasjung.name/profont/]
-    - Triskweline from http://www.netalive.org/tinkering/triskweline/ [http://www.netalive.org/tinkering/triskweline/] – a superb programming font, however it has no slashed zero.Modified version of Triskweline with slashed zero and a bold variant:http://wiki.blender.org/index.php/User:Ideasman42/ProgrammingFonts#triskweline [http://wiki.blender.org/index.php/User:Ideasman42/ProgrammingFonts#triskweline]
-    - Bitstream Vera family of fonts from http://www.bitstream.com/font_rendering/products/dev_fonts/vera.html [http://www.bitstream.com/font_rendering/products/dev_fonts/vera.html]
-
-set guifont=Bitstream\ Vera\ Sans\ Mono\ 13.
-    - Deja Vu family, based off Bitstream Vera with greater range of supported characters: http://dejavu-fonts.org/wiki/index.php?title=Main_Page [http://dejavu-fonts.org/wiki/index.php?title=Main_Page]
-    - Dina from http://www.donationcoder.com/Software/Jibz/Dina/ [http://www.donationcoder.com/Software/Jibz/Dina/]
-    - Droid Sans Mono is pretty nice. Bold and italic text are the same size as normal text which is nice for some colorschemes. Your Linux distro may provide this font or you can get it from google [http://www.google.com/webfonts/download?kit=KjxjDVJe2m-hw2C84Q5UBw7MkqSwgC_ZUOWi4ZBNajc]. Modified versions with dotted zero and slashed zero can be found at http://www.cosmix.org/software [http://www.cosmix.org/software].
-    - Microsoft Consolas is an epic programming font. Obviously looks best with ClearType but can be made to look decent under Xorg. To use Consolas on gvim for Windows set: set guifont=Consolas:h11 where h11 is the font size 11. http://en.wikipedia.org/wiki/Consolas [http://en.wikipedia.org/wiki/Consolas], http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252 [http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252]
+    - Envy Code R from 
+      http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released 
+      [http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released] 
+    - Terminus from http://terminus-font.sourceforge.net/ 
+      [http://terminus-font.sourceforge.net/] 
+    - Terminus TTF from https://files.ax86.net/terminus-ttf/ 
+      [https://files.ax86.net/terminus-ttf/] 
+    - ProFont from http://tobiasjung.name/profont/ 
+      [http://tobiasjung.name/profont/] 
+    - Triskweline from http://www.netalive.org/tinkering/triskweline/ 
+      [http://www.netalive.org/tinkering/triskweline/] – a superb programming font, 
+      however it has no slashed zero.Modified version of Triskweline with slashed 
+      zero and a bold 
+      variant:http://wiki.blender.org/index.php/User:Ideasman42/ProgrammingFonts#triskweline 
+      [http://wiki.blender.org/index.php/User:Ideasman42/ProgrammingFonts#triskweline] 
+    - Bitstream Vera family of fonts from 
+      http://www.bitstream.com/font_rendering/products/dev_fonts/vera.html 
+      [http://www.bitstream.com/font_rendering/products/dev_fonts/vera.html] set 
+      guifont=Bitstream\ Vera\ Sans\ Mono\ 13. 
+    - Deja Vu family, based off Bitstream Vera with greater range of supported 
+      characters: http://dejavu-fonts.org/wiki/index.php?title=Main_Page 
+      [http://dejavu-fonts.org/wiki/index.php?title=Main_Page] 
+    - Dina from http://www.donationcoder.com/Software/Jibz/Dina/ 
+      [http://www.donationcoder.com/Software/Jibz/Dina/] 
+    - Droid Sans Mono is pretty nice. Bold and italic text are the same size as 
+      normal text which is nice for some colorschemes. Your Linux distro may provide 
+      this font or you can get it from google 
+      [http://www.google.com/webfonts/download?kit=KjxjDVJe2m-hw2C84Q5UBw7MkqSwgC_ZUOWi4ZBNajc]. 
+      Modified versions with dotted zero and slashed zero can be found at 
+      http://www.cosmix.org/software [http://www.cosmix.org/software]. 
+    - Microsoft Consolas is an epic programming font. Obviously looks best with 
+      ClearType but can be made to look decent under Xorg. To use Consolas on gvim 
+      for Windows set: set guifont=Consolas:h11 where h11 is the font size 11. 
+      http://en.wikipedia.org/wiki/Consolas [http://en.wikipedia.org/wiki/Consolas], 
+      http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252 
+      [http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252] 
 
 
 SEE ALSO  *vwt-914-see-also*
-    - 158 Using Computer Modern TT as a gvim font under Windows |vwt-158|
-    - 414 Change guifont to see more of your file |vwt-414|
-    - 484 Console-like fonts for Windows GVim |vwt-484|
-    - 632 Setting the font in the GUI |vwt-632|
-    - 774 Gtk gvim and fontconfig |vwt-774|
-    - 889 Nicer looking fonts on MacOSX |vwt-889|
-    - What are the best programming fonts? (with screenshots) [http://www.slant.co/topics/67/~what-are-the-best-programming-fonts%7C]
+    - 158 Using Computer Modern TT as a gvim font under Windows |vwt-158| 
+    - 414 Change guifont to see more of your file |vwt-414| 
+    - 484 Console-like fonts for Windows GVim |vwt-484| 
+    - 632 Setting the font in the GUI |vwt-632| 
+    - 774 Gtk gvim and fontconfig |vwt-774| 
+    - 889 Nicer looking fonts on MacOSX |vwt-889| 
+    - What are the best programming fonts? (with screenshots) 
+      [http://www.slant.co/topics/67/~what-are-the-best-programming-fonts%7C] 
 
 
 COMMENTS  *vwt-914-comments*

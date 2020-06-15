@@ -52,17 +52,22 @@ It is also possible to enter any character (which can be displayed in your
 current 'encoding'), even a character for which no digraph is defined, if you 
 know the character value, as follows (where ^V means "hit Ctrl-V, except if 
 you use Ctrl-V to paste, in which case you should hit Ctrl-Q instead):
-    - By decimal value: ^Vnnn (with 000 <= nnn <= 255)
-    - By octal value: ^VOnnn or ^Vonnn (with 000 <= nnn <= 377)
-    - By hex value: ^VXnn or ^Vxnn (with 00 <= nn <= FF)
-    - By hex value for BMP Unicode codepoints: ^Vunnnn (with 0000 <= nnnn <= FFFF)
-    - By hex value for any Unicode codepoint: ^VUnnnnnnnn (with 00000000 <= nnnnnnnn <= 7FFFFFFF)
+    - By decimal value: ^Vnnn (with 000 <= nnn <= 255) 
+    - By octal value: ^VOnnn or ^Vonnn (with 000 <= nnn <= 377) 
+    - By hex value: ^VXnn or ^Vxnn (with 00 <= nn <= FF) 
+    - By hex value for BMP Unicode codepoints: ^Vunnnn (with 0000 <= nnnn <= FFFF) 
+    - By hex value for any Unicode codepoint: ^VUnnnnnnnn (with 00000000 <= 
+      nnnnnnnn <= 7FFFFFFF) 
 
 
 :
-    -  In all cases, initial zeros may be omitted if the next character typed is not a digit in the given base (except, of course, that the value zero must be entered as at least one zero).
-    -  Hex digits A-F, when used, can be typed in upper or lower case, or even in any mixture of them.
-    -  Your encoding will need to be set to "utf-8" to take full advantage of the Unicode characters.
+    - In all cases, initial zeros may be omitted if the next character typed is not 
+      a digit in the given base (except, of course, that the value zero must be 
+      entered as at least one zero). 
+    - Hex digits A-F, when used, can be typed in upper or lower case, or even in 
+      any mixture of them. 
+    - Your encoding will need to be set to "utf-8" to take full advantage of the 
+      Unicode characters. 
 
 
 COMBINING CHARACTERS  *vwt-51-combining-characters*
@@ -88,13 +93,15 @@ Note that both the |ga| and |g8| commands will show you the combining
 characters used for a given character.
 
 SEE ALSO  *vwt-51-see-also*
-    - :help  |digraph-table|
-    - :help  |digraph.txt|
-    - :help  |digraphs-changed| Vim 6.0 and later use the RFC1345 [http://www.ietf.org/rfc/rfc1345.txt] mnemonics.
-    - :help  |i_CTRL-V_digit|
-    - cream-ascii [https://www.vim.org/scripts/script.php?script_id=247]
-    - Working with Unicode [https://vim.fandom.com/wiki/Working_with_Unicode]
-    - Unicode Completion Plugin [https://www.vim.org/scripts/script.php?script_id=2822]
+    - :help |digraph-table| 
+    - :help |digraph.txt| 
+    - :help |digraphs-changed| Vim 6.0 and later use the RFC1345 
+      [http://www.ietf.org/rfc/rfc1345.txt] mnemonics. 
+    - :help |i_CTRL-V_digit| 
+    - cream-ascii [https://www.vim.org/scripts/script.php?script_id=247] 
+    - Working with Unicode [https://vim.fandom.com/wiki/Working_with_Unicode] 
+    - Unicode Completion Plugin 
+      [https://www.vim.org/scripts/script.php?script_id=2822] 
 
 
 COMMENTS  *vwt-51-comments*

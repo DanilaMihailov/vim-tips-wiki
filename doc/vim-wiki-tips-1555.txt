@@ -69,12 +69,16 @@ appropriate visual mapping, and if possible, use it to simplify the operator
 mapping.
 
 SEE ALSO  *vwt-1555-see-also*
-    - Mapping keys in Vim tutorial |vwt-1516|
+    - Mapping keys in Vim tutorial |vwt-1516| 
 
 
 RELATED SCRIPTS  *vwt-1555-related-scripts*
-    - textobj-user [https://www.vim.org/scripts/script.php?script_id=2100] is a library that assists in writing text objects. With a patch to the Vim source, it can even handle things such as :help  |o_v|.
-    - CountJump [https://www.vim.org/scripts/script.php?script_id=3130] allows to create custom motions and text objects via repeated jumps; one only needs to specify the begin and end patterns.
+    - textobj-user [https://www.vim.org/scripts/script.php?script_id=2100] is a 
+      library that assists in writing text objects. With a patch to the Vim source, 
+      it can even handle things such as :help |o_v|. 
+    - CountJump [https://www.vim.org/scripts/script.php?script_id=3130] allows to 
+      create custom motions and text objects via repeated jumps; one only needs to 
+      specify the begin and end patterns. 
 
 
 COMMENTS  *vwt-1555-comments*
@@ -82,9 +86,11 @@ COMMENTS  *vwt-1555-comments*
 TO DO
 
 Bugs:
-    - Will select containing fold for nested folds if cursor is on first line of fold.
-    - Cannot handle characterwise selection with o_v :help  |o_v|
-    - Subsequent repetitions of the text-object do nothing. Should probably select next fold level for consistency with other text objects like aB.
+    - Will select containing fold for nested folds if cursor is on first line of 
+      fold. 
+    - Cannot handle characterwise selection with o_v :help |o_v| 
+    - Subsequent repetitions of the text-object do nothing. Should probably select 
+      next fold level for consistency with other text objects like aB. 
 
 
  vim:tw=78:et:ft=help:norl:

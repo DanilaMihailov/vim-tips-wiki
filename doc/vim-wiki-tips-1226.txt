@@ -23,8 +23,9 @@ and hit the Tab key, you will get the files under the same directory as that
 of the file in the currently focused window.
 
 Explanation:
-    - See :help 'autochdir' for the purpose of the first entry.
-    - The second entry maps the Tab key to the window switch key, and sets the current file path by ":cd %:p:h", and clears the ":cd %:p:h" at : prompt.
+    - See :help 'autochdir' for the purpose of the first entry. 
+    - The second entry maps the Tab key to the window switch key, and sets the 
+      current file path by ":cd %:p:h", and clears the ":cd %:p:h" at : prompt. 
 
 
 COMMENTS  *vwt-1226-comments*

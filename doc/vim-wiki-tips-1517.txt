@@ -50,13 +50,15 @@ hand". That way you can do it on any system, and you can use each of the
 little steps to aid your daily vimming.
 
 If you want to know more about the commands used, use :help, for example:
-    - :help  |CTRL-W_l|
-    - :help  |:diffthis|
+    - :help |CTRL-W_l| 
+    - :help |:diffthis| 
 
 
 SEE ALSO  *vwt-1517-see-also*
-    - :help  |:DiffOrig|,
-    - Christian Brabandt's recovery [https://www.vim.org/scripts/script.php?script_id=3068] plugin has a very good solution for recovering and diffing swapfile.
+    - :help |:DiffOrig|, 
+    - Christian Brabandt's recovery 
+      [https://www.vim.org/scripts/script.php?script_id=3068] plugin has a very good 
+      solution for recovering and diffing swapfile. 
 
 
 COMMENTS  *vwt-1517-comments*

@@ -63,9 +63,11 @@ help page. With the ;vimhelpgrep function it opens an additional quickfix
 window and goes to the first hit.
 
 TO DO
-    - The two commands above include "au! VimEnter *" which removes all VimEnter autocommands.
-    - That is probably to remove the effect of something in the author's vimrc, but is not required in general.
-    - Think about whether to remove it, or perhaps replace with something like:
+    - The two commands above include "au! VimEnter *" which removes all VimEnter 
+      autocommands. 
+    - That is probably to remove the effect of something in the author's vimrc, but 
+      is not required in general. 
+    - Think about whether to remove it, or perhaps replace with something like: 
 
 
 view -u '$VIMRUNTIME/vimrc_example.vim' -c "help $1" -c only
@@ -73,17 +75,17 @@ view -u '$VIMRUNTIME/vimrc_example.vim' -c "help $1" -c only
 SEE ALSO  *vwt-265-see-also*
 
 These tips attempt to deal with making your own help text:
-    - 482 Keep a to-do memo file with links as in Vim help |vwt-482|
-    - 823 Add your note files to Vim help |vwt-823|
+    - 482 Keep a to-do memo file with links as in Vim help |vwt-482| 
+    - 823 Add your note files to Vim help |vwt-823| 
 
 
 These tips relate to using vim -c:
-    - 36 Using Gnu-info help in vim |vwt-36|
-    - 167 Using vim as a man-page viewer under Unix |vwt-167|
-    - 265 Fast help in full window |vwt-265|
-    - 745 Find VIMRUNTIME in a bash script |vwt-745|
-    - 816 JAVH - Just another Vim Hacker |vwt-816|
-    - 1338 See man pages by gview |vwt-1338|
+    - 36 Using Gnu-info help in vim |vwt-36| 
+    - 167 Using vim as a man-page viewer under Unix |vwt-167| 
+    - 265 Fast help in full window |vwt-265| 
+    - 745 Find VIMRUNTIME in a bash script |vwt-745| 
+    - 816 JAVH - Just another Vim Hacker |vwt-816| 
+    - 1338 See man pages by gview |vwt-1338| 
 
 
 COMMENTS  *vwt-265-comments*

@@ -108,16 +108,15 @@ vimrc or as a global |plugin|:
     		\ | endif
     endif
 <
-    -  Advantages:
-    -  Don't invoke the  |:colorscheme| command if the desired colorscheme is already set
-    -  When switching between buffers, both of which have b:colors_name set, don't load (even temporarily) the colorscheme which was set before we entered the one we're now leaving
-    -  Handles the case when no "default colorscheme" is set by the vimrc
-    -  "Degrades gracefully" when run on feature-poor versions of Vim
-
-    -  Caveats and known bugs:
-    -  The use of continuation lines |line-continuation| assumes 'nocompatible', which isn't checked.
-    -  The case where you try to set a nonexistent colorscheme as default isn't caught.
-
+    - Advantages: - Don't invoke the |:colorscheme| command if the desired 
+      colorscheme is already set - When switching between buffers, both of which 
+      have b:colors_name set, don't load (even temporarily) the colorscheme which 
+      was set before we entered the one we're now leaving - Handles the case when no 
+      "default colorscheme" is set by the vimrc - "Degrades gracefully" when run on 
+      feature-poor versions of Vim 
+    - Caveats and known bugs: - The use of continuation lines |line-continuation| 
+      assumes 'nocompatible', which isn't checked. - The case where you try to set a 
+      nonexistent colorscheme as default isn't caught. 
 
 
 --Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 03:22, September 23, 

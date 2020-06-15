@@ -10,10 +10,10 @@ In addition to any word completion |vwt-4| you can use Ctrl-X completion mode
 to complete whole lines, filenames, keywords, and more. While entering text in 
 insert mode, press Ctrl-X (written as <C-X> below), then another key to 
 indicate the type of completion.
-    - <C-X><C-L> complete whole lines
-    - <C-X><C-P> complete words (<C-P> has the same effect; <C-X> is not needed)
-    - <C-X><C-F> complete file names
-    - <C-X>s spelling suggestions (after :setl spell to enable spell checking)
+    - <C-X><C-L> complete whole lines 
+    - <C-X><C-P> complete words (<C-P> has the same effect; <C-X> is not needed) 
+    - <C-X><C-F> complete file names 
+    - <C-X>s spelling suggestions (after :setl spell to enable spell checking) 
 
 
 While completion is active, type <C-P> or <C-N> to select the previous or 

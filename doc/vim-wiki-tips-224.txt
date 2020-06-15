@@ -30,20 +30,21 @@ right or left.
 BASIC EXAMPLES  *vwt-224-basic-examples*
 
 To adjust the indent on three lines:
-    - Put the cursor anywhere in the first line.
-    - Press V then jj to visually select the three lines.
-    - Press > to indent (shift text one 'shiftwidth' to the right), or press < to shift left.
-    - Press . to repeat the indent, or u to undo if you have shifted too far.
-    - Type gv if you want to reselect the lines (not needed).
+    - Put the cursor anywhere in the first line. 
+    - Press V then jj to visually select the three lines. 
+    - Press > to indent (shift text one 'shiftwidth' to the right), or press < to 
+      shift left. 
+    - Press . to repeat the indent, or u to undo if you have shifted too far. 
+    - Type gv if you want to reselect the lines (not needed). 
 
 
 Alternatively, if you know that you want to adjust three lines, you can 
 simply:
-    - Type 3>> to shift right or 3<< to shift left.
+    - Type 3>> to shift right or 3<< to shift left. 
 
 
 Or:
-    - Type >2j to shift right or <2j to shift left.
+    - Type >2j to shift right or <2j to shift left. 
 
 
 As mentioned above, the > and < commands combine with arbitrary Vim movements 
@@ -87,18 +88,19 @@ MORE EXAMPLES  *vwt-224-more-examples*
 
 To set the indent on three lines to 12 spaces (or an equivalent mixture of 
 tabs/spaces, depending on 'expandtab'):
-    - Put the cursor anywhere in the first line.
-    - Press V then jj to visually select the three lines.
-    - Type :le 12 then press Enter (abbreviation for :left 12).
+    - Put the cursor anywhere in the first line. 
+    - Press V then jj to visually select the three lines. 
+    - Type :le 12 then press Enter (abbreviation for :left 12). 
 
 
 To remove all indents in a selected region, type :le then press Enter.
 
 To apply automatic indentation (this requires suitable indent rules for your 
 file type):
-    - Type == to indent the current line.
-    - Type a number then == to indent that many lines, starting from the cursor.
-    - Press V then move the cursor to select a range of lines, then press = to indent the selection.
+    - Type == to indent the current line. 
+    - Type a number then == to indent that many lines, starting from the cursor. 
+    - Press V then move the cursor to select a range of lines, then press = to 
+      indent the selection. 
 
 
 MAPPINGS  *vwt-224-mappings*
@@ -149,14 +151,14 @@ Tab or Shift-Tab:
 <
 
 SEE ALSO  *vwt-224-see-also*
-    - 597 Indent a code block |vwt-597| indenting a code block ({...})
+    - 597 Indent a code block |vwt-597| indenting a code block ({...}) 
 
 
 REFERENCES  *vwt-224-references*
-    - :help  |gv|
-    - :help  |blockwise-visual|
-    - :help  |v_b_I|
-    - :help  |=|
+    - :help |gv| 
+    - :help |blockwise-visual| 
+    - :help |v_b_I| 
+    - :help |=| 
 
 
 COMMENTS  *vwt-224-comments*

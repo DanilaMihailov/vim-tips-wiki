@@ -54,8 +54,8 @@ from sourceforge or from the netbeans plugin portal.
 Instead of mapping F6 to a direct ant call, I would suggest setting ant as 
 your makeprg and set the errorformat so that you can utilize the quickfix 
 window to easily jump to compilation errors.
-    - :help  |makeprg|
-    - :help  |errorformat|
+    - :help |makeprg| 
+    - :help |errorformat| 
 
 
 ==============================================================================

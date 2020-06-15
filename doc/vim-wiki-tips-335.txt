@@ -93,9 +93,11 @@ The tip seems to work in most cases (single line Member functions all(?) seem
 to work, anything else well, doesn't).
 
 Several things can still be improved:
-    - There is no need for using registers.
-    - We can easily find the class name (if any) -- easy because I'd already done this for my set of C++ ftplugins.
-    - We can accept prototypes written on several lines (this first version only supports parameters written on several lines).
+    - There is no need for using registers. 
+    - We can easily find the class name (if any) -- easy because I'd already done 
+      this for my set of C++ ftplugins. 
+    - We can accept prototypes written on several lines (this first version only 
+      supports parameters written on several lines). 
 
 
 There are still some other things that can be done to improve this ftplugin, 

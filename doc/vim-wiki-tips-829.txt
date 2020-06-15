@@ -20,8 +20,8 @@ yanking by line is worse than clipboard.
 
 Last night I made this script saving current register to file supporting 
 visual selection too.
-    -  ,y saves current unnamed buffer to ~/reg.txt file.
-    -  ,p / ,P read from ~/reg.txt and paste using p/P.
+    - ,y saves current unnamed buffer to ~/reg.txt file. 
+    - ,p / ,P read from ~/reg.txt and paste using p/P. 
 
 
 In visual mode, ,y is yank and save.

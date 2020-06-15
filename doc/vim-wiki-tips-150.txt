@@ -30,8 +30,10 @@ Example: Put cursor on topmost zero, select column with Ctrl-v, then enter :I
 <
 
 SEE ALSO  *vwt-150-see-also*
-    - Increasing or decreasing numbers [https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers]
-    - Making a list of numbers [https://vim.fandom.com/wiki/Making_a_list_of_numbers]
+    - Increasing or decreasing numbers 
+      [https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers] 
+    - Making a list of numbers 
+      [https://vim.fandom.com/wiki/Making_a_list_of_numbers] 
 
 
 COMMENTS  *vwt-150-comments*
@@ -55,10 +57,10 @@ visincr.vim supports:
 
 An additional script, calutil.vim, adds some calendrical date to/from Julian 
 day conversion functions. With those, visincr.vim now has new commands:
-    - IMDY [incr] : make a column of month/day/year dates
-    - IYMD [incr] : make a column of year/month/day dates
-    - IDMY [incr] : make a column of day/month/year dates
-    - ID [incr] : make a column of day names
+    - IMDY [incr] : make a column of month/day/year dates 
+    - IYMD [incr] : make a column of year/month/day dates 
+    - IDMY [incr] : make a column of day/month/year dates 
+    - ID [incr] : make a column of day names 
 
 
 The optional incr (default value is 1) can be positive or negative. Both 

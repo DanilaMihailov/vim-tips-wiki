@@ -63,9 +63,14 @@ be:
 <
 
 Explanation
-    - The optional expandtab setting expands any tab characters that you insert to an equivalent number of spaces.
-    - For security, it is highly desirable to switch modelines off to avoid applying settings or executing code that someone may have inserted in a modeline on the wiki.
-    - The optional foldlevel=20 setting means that all folds will initially be open so you can see everything (you can close folds if wanted). If you prefer all folds to be closed initially, omit this line. :help  |folding|
+    - The optional expandtab setting expands any tab characters that you insert to 
+      an equivalent number of spaces. 
+    - For security, it is highly desirable to switch modelines off to avoid 
+      applying settings or executing code that someone may have inserted in a 
+      modeline on the wiki. 
+    - The optional foldlevel=20 setting means that all folds will initially be open 
+      so you can see everything (you can close folds if wanted). If you prefer all 
+      folds to be closed initially, omit this line. :help |folding| 
 
 
 Note: if you use non-ASCII characters in your file, you'll need to be sure to 

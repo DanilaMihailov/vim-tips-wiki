@@ -108,10 +108,15 @@ SCRIPT  *vwt-1592-script*
 
 A more elaborate solution is to use the following script which provides these 
 features:
-    - The commands allow an argument to specify the column width; if none is given, the 'tabstop' setting is used.
-    - Redundant spaces in an indent are removed (in the above mapping, converting tabs to spaces will not change lines where there is a space before a tab in the indent).
-    - The search history is not changed (pressing n will do the same search it would have done before the conversion was performed).
-    - The cursor position is restored, although the column will be slightly wrong owing to the different number of characters in the indent.
+    - The commands allow an argument to specify the column width; if none is given, 
+      the 'tabstop' setting is used. 
+    - Redundant spaces in an indent are removed (in the above mapping, converting 
+      tabs to spaces will not change lines where there is a space before a tab in 
+      the indent). 
+    - The search history is not changed (pressing n will do the same search it 
+      would have done before the conversion was performed). 
+    - The cursor position is restored, although the column will be slightly wrong 
+      owing to the different number of characters in the indent. 
 
 
 These commands are provided:
@@ -151,10 +156,13 @@ column. By default, the 'tabstop' setting is used.
 <
 
 SEE ALSO  *vwt-1592-see-also*
-    - Converting tabs to spaces [https://vim.fandom.com/wiki/Converting_tabs_to_spaces]
-    - Highlight unwanted spaces [https://vim.fandom.com/wiki/Highlight_unwanted_spaces]
-    - Indent with tabs, align with spaces [https://vim.fandom.com/wiki/Indent_with_tabs,_align_with_spaces]
-    - Indenting source code [https://vim.fandom.com/wiki/Indenting_source_code]
+    - Converting tabs to spaces 
+      [https://vim.fandom.com/wiki/Converting_tabs_to_spaces] 
+    - Highlight unwanted spaces 
+      [https://vim.fandom.com/wiki/Highlight_unwanted_spaces] 
+    - Indent with tabs, align with spaces 
+      [https://vim.fandom.com/wiki/Indent_with_tabs,_align_with_spaces] 
+    - Indenting source code [https://vim.fandom.com/wiki/Indenting_source_code] 
 
 
 COMMENTS  *vwt-1592-comments*

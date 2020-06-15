@@ -38,13 +38,15 @@ page.
 
 After sourcing the above, and assuming the default backslash Leader key, you 
 can:
-    - Edit an html file, then type \H to save and preview the file.
-    - Visually select the full path of a local html file or a URL, then type \h to preview the file or web page.
-    - Copy the full path of a local html file or a URL in another application, then type \h to preview the file or web page in Vim.
+    - Edit an html file, then type \H to save and preview the file. 
+    - Visually select the full path of a local html file or a URL, then type \h to 
+      preview the file or web page. 
+    - Copy the full path of a local html file or a URL in another application, then 
+      type \h to preview the file or web page in Vim. 
 
 
 FROM 256 OPENING CURRENT VIM FILE IN YOUR WINDOWS BROWSER [HTTPS://VIM.FANDOM.COM/WIKI/OPENING_CURRENT_VIM_FILE_IN_YOUR_WINDOWS_BROWSER]  *vwt-256-from-256-opening-current-vim-file-in-your-windows-browser-[https://vim.fandom.com/wiki/opening_current_vim_file_in_your_windows_browser]*
-    - TODO: Finish cleaning following notes.
+    - TODO: Finish cleaning following notes. 
 
 
 On Windows, using <cWORD> to open the link at the cursor in a browser does 
@@ -142,7 +144,7 @@ A Linux version of the above mapping would use a program like xdg-open:
 <
 
 FROM 684 PREVIEW CURRENT HTML IN BROWSER ON MAC OS X [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_MAC_OS_X]  *vwt-256-from-684-preview-current-html-in-browser-on-mac-os-x-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_mac_os_x]*
-    - TODO: Clean following.
+    - TODO: Clean following. 
 
 
 There are a few tips on previewing current HTML documents in a Windows 
@@ -236,45 +238,47 @@ TODO: Put a link somewhere in this tip to the result of merging all the stuff on
 SEE ALSO  *vwt-256-see-also*
 
 Open web browser to display URL under cursor
-    - 306 Open a web-browser with the URL in the current line |vwt-306|
-    - 555 Vim as bookmark manager |vwt-555|
-    - 732 Quick launch html and other Windows documents |vwt-732|
-    - 1549 Execute external programs asynchronously under Windows |vwt-1549| launch browser or document in associated app
-    - 1656 Automatically refresh display of html on saving file |vwt-1656| uses MozRepl addon for Firefox
+    - 306 Open a web-browser with the URL in the current line |vwt-306| 
+    - 555 Vim as bookmark manager |vwt-555| 
+    - 732 Quick launch html and other Windows documents |vwt-732| 
+    - 1549 Execute external programs asynchronously under Windows |vwt-1549| launch 
+      browser or document in associated app 
+    - 1656 Automatically refresh display of html on saving file |vwt-1656| uses 
+      MozRepl addon for Firefox 
 
 
 Display information for word under cursor in a web browser
-    - 394 Internet search for the current word |vwt-394|
-    - 598 PHP online help |vwt-598|
-    - 896 Lookup the city and state of a given US Zip code using TCL |vwt-896|
-    - 922 Launch lynx to get info for the current word |vwt-922|
-    - 926 QT Help from Vim |vwt-926|
-    - 933 Search the web for text selected in Vim |vwt-933|
-    - 1200 View PHP documentation for current word |vwt-1200|
-    - 1354 Online documentation for word under cursor |vwt-1354|
-    - 1377 Context sensitive access to MSDN help |vwt-1377|
+    - 394 Internet search for the current word |vwt-394| 
+    - 598 PHP online help |vwt-598| 
+    - 896 Lookup the city and state of a given US Zip code using TCL |vwt-896| 
+    - 922 Launch lynx to get info for the current word |vwt-922| 
+    - 926 QT Help from Vim |vwt-926| 
+    - 933 Search the web for text selected in Vim |vwt-933| 
+    - 1200 View PHP documentation for current word |vwt-1200| 
+    - 1354 Online documentation for word under cursor |vwt-1354| 
+    - 1377 Context sensitive access to MSDN help |vwt-1377| 
 
 
 Configure so "view source" opens in Vim
-    - 118 Use gvim to view page source in Internet Explorer |vwt-118|
-    - 134 View Source in IE6 using VIM |vwt-134|
-    - 581 Using vim to view source and edit textarea in mozilla/firebird |vwt-581|
-    - 805 Use gvim as an external editor for Windows apps |vwt-805|
-    - 1156 View Source from Internet Explorer in gvim |vwt-1156|
+    - 118 Use gvim to view page source in Internet Explorer |vwt-118| 
+    - 134 View Source in IE6 using VIM |vwt-134| 
+    - 581 Using vim to view source and edit textarea in mozilla/firebird |vwt-581| 
+    - 805 Use gvim as an external editor for Windows apps |vwt-805| 
+    - 1156 View Source from Internet Explorer in gvim |vwt-1156| 
 
 
 Other
-    - 317 Vim key bindings for Firefox |vwt-317|
-    - 691 Use gf to open a file via its URL |vwt-691|
-    - 305 Best Vim Tips |vwt-305| has a launching section
-    - 1440 Launch files in new tabs under Windows |vwt-1440|
-    - 1552 Launch files in new tabs under Unix |vwt-1552|
-    - 1652 Launch remote batch jobs and view results in Vim |vwt-1652|
-    - 299 Open file under cursor |vwt-299|
-    - 485 Open a window with the man page for the word under the cursor |vwt-485|
-    - 506 Open Windows Help files on a specific topic |vwt-506|
-    - 557 Opening several files in vim via ListFile |vwt-557|
-    - 1356 Open PDF files |vwt-1356|
+    - 317 Vim key bindings for Firefox |vwt-317| 
+    - 691 Use gf to open a file via its URL |vwt-691| 
+    - 305 Best Vim Tips |vwt-305| has a launching section 
+    - 1440 Launch files in new tabs under Windows |vwt-1440| 
+    - 1552 Launch files in new tabs under Unix |vwt-1552| 
+    - 1652 Launch remote batch jobs and view results in Vim |vwt-1652| 
+    - 299 Open file under cursor |vwt-299| 
+    - 485 Open a window with the man page for the word under the cursor |vwt-485| 
+    - 506 Open Windows Help files on a specific topic |vwt-506| 
+    - 557 Opening several files in vim via ListFile |vwt-557| 
+    - 1356 Open PDF files |vwt-1356| 
 
 
 COMMENTS  *vwt-256-comments*

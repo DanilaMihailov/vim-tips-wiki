@@ -128,8 +128,9 @@ arguments are provided:
 
 I didn't like that a session is created every time you leave Vim. I've 
 changed it in two ways:
-    - Vim never creates the session.vim, it only updates it.
-    - The user must manually create the first session.vim, after that Vim will update and load as necessary.
+    - Vim never creates the session.vim, it only updates it. 
+    - The user must manually create the first session.vim, after that Vim will 
+      update and load as necessary. 
 
 
 The idea is that I didn't want session files for every file I casually edit.

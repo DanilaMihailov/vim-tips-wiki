@@ -24,16 +24,22 @@ Run the following command from your terminal and see if the problem persists
 
 You will need to manually enable anything like filetype detection, syntax 
 highlighting, etc. that are needed to troubleshoot the problem.
-    - If the problem persists, that means the problem could be in the Vim executable or official runtime files. Go and verify the enabled features |vwt-1676-verify-required-features|.
-    - If the problem went away, it is time to test your vimrc |vwt-1676-check-vim-with-just-your-.vimrc|.
+    - If the problem persists, that means the problem could be in the Vim 
+      executable or official runtime files. Go and verify the enabled features 
+      |vwt-1676-verify-required-features|. 
+    - If the problem went away, it is time to test your vimrc 
+      |vwt-1676-check-vim-with-just-your-.vimrc|. 
 
 
 VERIFY REQUIRED FEATURES  *vwt-1676-verify-required-features*
 
 Check the feature you need was enabled when Vim was built. Use the :version 
 command to see if that feature is enabled.
-    - Some/any needed features are disabled. Build Vim with desired feature enabled or use your package manager to install a Vim version that has them enabled.
-    - All needed features are enabled. Consider 3rd party libraries. For example, the command-T plugin requires that your system ruby be the same as that which was linked with Vim.
+    - Some/any needed features are disabled. Build Vim with desired feature enabled 
+      or use your package manager to install a Vim version that has them enabled. 
+    - All needed features are enabled. Consider 3rd party libraries. For example, 
+      the command-T plugin requires that your system ruby be the same as that which 
+      was linked with Vim. 
 
 
 CHECK VIM WITH JUST YOUR .VIMRC  *vwt-1676-check-vim-with-just-your-.vimrc*
@@ -43,8 +49,10 @@ Run Vim with following arguments and see if the problem disappears:
 >
     vim -N --noplugin -i NONE
 <
-    - If the problem persists, the reason of your pain is inside your vimrc |vwt-1676-vimrc|.
-    - If the problem went away, the next step is to rule out the plugins |vwt-1676-check-vim-with-just-your-plugins|.
+    - If the problem persists, the reason of your pain is inside your vimrc 
+      |vwt-1676-vimrc|. 
+    - If the problem went away, the next step is to rule out the plugins 
+      |vwt-1676-check-vim-with-just-your-plugins|. 
 
 
 CHECK VIM WITH JUST YOUR PLUGINS  *vwt-1676-check-vim-with-just-your-plugins*
@@ -54,8 +62,11 @@ Back to your terminal and run Vim like this:
 >
     vim -N -u NORC -i NONE
 <
-    - If the problem persists, the issue is related to one or more plugins, find out which |vwt-1676-plugins|.
-    - If the problem went away, maybe the problem is that Vim is running in compatible mode, verify that with :verbose set cp? to also see where it is being set.
+    - If the problem persists, the issue is related to one or more plugins, find 
+      out which |vwt-1676-plugins|. 
+    - If the problem went away, maybe the problem is that Vim is running in 
+      compatible mode, verify that with :verbose set cp? to also see where it is 
+      being set. 
 
 
 SPECIFIC TROUBLESHOOTING  *vwt-1676-specific-troubleshooting*
@@ -69,8 +80,9 @@ VIMRC  *vwt-1676-vimrc*
 
 The VimLint [https://github.com/dahu/VimLint] plugin was designed to help 
 identify erroneous vimrc settings.
-    - Ensure you have a personal vimrc file (file ~/.vimrc on Linux, or $HOME/_vimrc on Windows).
-    - Ensure your vimrc contains at least:
+    - Ensure you have a personal vimrc file (file ~/.vimrc on Linux, or 
+      $HOME/_vimrc on Windows). 
+    - Ensure your vimrc contains at least: 
 
 
 >
@@ -79,7 +91,7 @@ identify erroneous vimrc settings.
     filetype plugin indent on
     set hidden
 <
-    - Ensure your vimrc does not have:
+    - Ensure your vimrc does not have: 
 
 
 >
@@ -95,9 +107,12 @@ identify erroneous vimrc settings.
     set nomagic
     set nomodeline      or    set noml
 <
-    - If Vim finds the command finish anywhere in your vimrc it will stop sourcing the rest of the file. So you can use it to do a binary search as described in Plugins |vwt-1676-plugins| to identify the problematic line.
-    - Ensure :echo $SHELL is correct. You will need to use a POSIX shell for full Vim compatibility. The fish shell is known to not be compatible.
-    - Ensure :echo $TERM is correct. Check TermSettings for your terminal type.
+    - If Vim finds the command finish anywhere in your vimrc it will stop sourcing 
+      the rest of the file. So you can use it to do a binary search as described in 
+      Plugins |vwt-1676-plugins| to identify the problematic line. 
+    - Ensure :echo $SHELL is correct. You will need to use a POSIX shell for full 
+      Vim compatibility. The fish shell is known to not be compatible. 
+    - Ensure :echo $TERM is correct. Check TermSettings for your terminal type. 
 
 
 MAPPINGS  *vwt-1676-mappings*

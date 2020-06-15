@@ -35,17 +35,26 @@ path for it, do a
 and it will open the file that you want.
 
 Caveats
-    -  If you have multiple files with the same name, then you are in trouble. Find will not list them out |vwt-1234| (like cscope/ctags) before it opens the file. You may end up making edits in the wrong file. However, enabling wildmenu [https://vim.fandom.com/wiki/Great_wildmode/wildmenu_and_console_mouse] solves this by displaying the possible matches and allows you to choose which file you want to edit.
-    -  The find does not take any wildcards. So you cannot afford to make spelling mistakes in the file names (esp. java names)
+    - If you have multiple files with the same name, then you are in trouble. Find 
+      will not list them out |vwt-1234| (like cscope/ctags) before it opens the 
+      file. You may end up making edits in the wrong file. However, enabling 
+      wildmenu 
+      [https://vim.fandom.com/wiki/Great_wildmode/wildmenu_and_console_mouse] solves 
+      this by displaying the possible matches and allows you to choose which file 
+      you want to edit. 
+    - The find does not take any wildcards. So you cannot afford to make spelling 
+      mistakes in the file names (esp. java names) 
 
 
 In spite of the caveats, finding in this manner is far faster than navigating 
 through directories to look for files (esp. if you are a touch typist.)
 
 Variations
-    -  You can change your path variable anytime to change the find path.
-    -  You can use :sfind instead of :find to open it in a split window, and :tabf to open it in a new tab.
-    -  Coupled with cscope (see :help cscope) you editing code across files becomes very convenient.
+    - You can change your path variable anytime to change the find path. 
+    - You can use :sfind instead of :find to open it in a split window, and :tabf 
+      to open it in a new tab. 
+    - Coupled with cscope (see :help cscope) you editing code across files becomes 
+      very convenient. 
 
 
 COMMENTS  *vwt-1146-comments*

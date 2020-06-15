@@ -246,13 +246,13 @@ language from within Vim using:
 <
 
 SUMMARY  *vwt-546-summary*
-    - Download and unpack the vim sources in a temporary directory.
-    - Use GNU 'gettext' to get your template (untranslated) file.
-    - Translate all entries in the template in your language.
-    - Convert the translated PO file into a MO file using 'msgfmt'.
-    - Place MO file in /vim##/lang/your_language/LC_MESSAGES folder.
-    - Set the 'language', 'messages', 'menu' options in Vim.
-    - Test Vim and use it with your newly installed language.
+    - Download and unpack the vim sources in a temporary directory. 
+    - Use GNU 'gettext' to get your template (untranslated) file. 
+    - Translate all entries in the template in your language. 
+    - Convert the translated PO file into a MO file using 'msgfmt'. 
+    - Place MO file in /vim##/lang/your_language/LC_MESSAGES folder. 
+    - Set the 'language', 'messages', 'menu' options in Vim. 
+    - Test Vim and use it with your newly installed language. 
 
 
 MENU TRANSLATION  *vwt-546-menu-translation*
@@ -269,9 +269,9 @@ Latin-based languages, at least one encoding must be defined as the default
 encoding for a given system; Latin1 is used on all OS'. If your candidate 
 language is non-Latin but Latin-based, --as a rough rule--do menu translations 
 in at least one of the following encodings:
-    - utf-8
-    - iso-####-#
-    - an MS-DOS/wINDOWS code page
+    - utf-8 
+    - iso-####-# 
+    - an MS-DOS/wINDOWS code page 
 
 
 Consult old MS-DOS (v.5 or 6.2) online help for codepage and/or country 

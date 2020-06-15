@@ -56,11 +56,11 @@ To match all words except 'foo', use:
 >
     /\<\(foo\>\)\@!\k\+\>
 <
-    - \< Start-of-word
-    - \(Foo\>\) The atom 'Foo' followed by end-of-word
-    - \@! Match (with zero length) when the previous atom doesn't match.
-    - \k\+ Match one or more Keywords
-    - \> Match end-of-word.
+    - \< Start-of-word 
+    - \(Foo\>\) The atom 'Foo' followed by end-of-word 
+    - \@! Match (with zero length) when the previous atom doesn't match. 
+    - \k\+ Match one or more Keywords 
+    - \> Match end-of-word. 
 
 
 The use of \@! can be very tricky. According to the Vim help files, it is 
@@ -176,16 +176,16 @@ It finds the word 'VIM' where there is no word 'VIM' after it until the end
 of the file!
 
 REFERENCES  *vwt-220-references*
-    - :help  |/\@=|
-    - :help  |/\@!|
-    - :help  |/\@<=|
-    - :help  |/\@<!|
-    - :help  |/\@>|
-    - :help  |/\zs|
-    - :help  |/\ze|
-    - :help  |/\%^|
-    - :help  |/\%$|
-    - :help  |:g|
+    - :help |/\@=| 
+    - :help |/\@!| 
+    - :help |/\@<=| 
+    - :help |/\@<!| 
+    - :help |/\@>| 
+    - :help |/\zs| 
+    - :help |/\ze| 
+    - :help |/\%^| 
+    - :help |/\%$| 
+    - :help |:g| 
 
 
 COMMENTS  *vwt-220-comments*

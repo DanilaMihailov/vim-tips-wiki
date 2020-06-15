@@ -39,8 +39,8 @@ work after visually selecting an area and leaving visual mode without taking
 any actions.
 
 SEE ALSO  *vwt-386-see-also*
-    -  Visual selection [https://vim.fandom.com/wiki/Visual_selection]
-    -  Copy, cut and paste [https://vim.fandom.com/wiki/Copy,_cut_and_paste]
+    - Visual selection [https://vim.fandom.com/wiki/Visual_selection] 
+    - Copy, cut and paste [https://vim.fandom.com/wiki/Copy,_cut_and_paste] 
 
 
 COMMENTS  *vwt-386-comments*
@@ -64,11 +64,19 @@ inserted)
 
 This is a really useful thing in Vim. I feel lost without it in any other 
 editor. I have some more points I'd like to add to this tip:
-    - While in (any of the three) Visual mode(s), pressing 'o' will move the cursor to the opposite end of the selection. In Visual Block mode, you can also press 'O', allowing you to position the cursor in any of the four corners.
-    - If you have some yanked text, pressing 'p' or 'P' while in Visual mode will replace the selected text with the already yanked text. (After this, the previously selected text will be yanked.)
-    - Press 'gv' in Normal mode to restore your previous selection.
-    - It's really worth it to check out the register functionality in Vim: ':help registers'.
-    - If you're still eager to use the mouse-juggling middle-mouse trick of common unix copy-n-paste, or are into bending space and time with i_CTRL-R<reg>, consider checking out ':set paste' and ':set pastetoggle'. (Or in the latter case, try with i_CTRL-R_CTRL-O..)
+    - While in (any of the three) Visual mode(s), pressing 'o' will move the cursor 
+      to the opposite end of the selection. In Visual Block mode, you can also press 
+      'O', allowing you to position the cursor in any of the four corners. 
+    - If you have some yanked text, pressing 'p' or 'P' while in Visual mode will 
+      replace the selected text with the already yanked text. (After this, the 
+      previously selected text will be yanked.) 
+    - Press 'gv' in Normal mode to restore your previous selection. 
+    - It's really worth it to check out the register functionality in Vim: ':help 
+      registers'. 
+    - If you're still eager to use the mouse-juggling middle-mouse trick of common 
+      unix copy-n-paste, or are into bending space and time with i_CTRL-R<reg>, 
+      consider checking out ':set paste' and ':set pastetoggle'. (Or in the latter 
+      case, try with i_CTRL-R_CTRL-O..) 
 
 
 ==============================================================================

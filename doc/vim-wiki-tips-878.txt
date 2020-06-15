@@ -137,15 +137,24 @@ certain file types only.
 <
 
 SEE ALSO  *vwt-878-see-also*
-    - :help  |:autocmd| - Additional information on autocmd
+    - :help |:autocmd| - Additional information on autocmd 
 
 
 RELATED SCRIPTS  *vwt-878-related-scripts*
-    -  The DeleteTrailingWhitespace [https://www.vim.org/scripts/script.php?script_id=3967] plugin offers a eponymous command, and can remove trailing whitespace automatically when the buffer is written.
-    -  The trailing-whitespace [https://www.vim.org/scripts/script.php?script_id=3201] plugin defines :FixWhitespace.
-    -  The bad-whitespace [https://www.vim.org/scripts/script.php?script_id=3735] plugin defines :EraseBadWhitespace.
-    -  The Trailer Trash [https://www.vim.org/scripts/script.php?script_id=3938] plugin defines :Trim.
-    -  The vim-strip-trailing-whitespace [https://github.com/axelf4/vim-strip-trailing-whitespace] plugin touches only modified lines on save.
+    - The DeleteTrailingWhitespace 
+      [https://www.vim.org/scripts/script.php?script_id=3967] plugin offers a 
+      eponymous command, and can remove trailing whitespace automatically when the 
+      buffer is written. 
+    - The trailing-whitespace 
+      [https://www.vim.org/scripts/script.php?script_id=3201] plugin defines 
+      :FixWhitespace. 
+    - The bad-whitespace [https://www.vim.org/scripts/script.php?script_id=3735] 
+      plugin defines :EraseBadWhitespace. 
+    - The Trailer Trash [https://www.vim.org/scripts/script.php?script_id=3938] 
+      plugin defines :Trim. 
+    - The vim-strip-trailing-whitespace 
+      [https://github.com/axelf4/vim-strip-trailing-whitespace] plugin touches only 
+      modified lines on save. 
 
 
 COMMENTS  *vwt-878-comments*

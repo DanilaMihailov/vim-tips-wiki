@@ -16,9 +16,12 @@ shortcut to Vim in this directory will add Vim to the "Send To" context menu.
 
 You can specify any options you like with this shortcut by editing the 
 "target" field under the shortcut properties. For example:
-    - You can add a "diff in Vim" shortcut with "C:\Program Files\Vim\vim71\gvim.exe" -d
-    - You can make Vim launch the selected files in tabs [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows]
-    - You can make a "read only Vim" shortcut with "C:\Program Files\Vim\vim71\gvim.exe" -R
+    - You can add a "diff in Vim" shortcut with "C:\Program 
+      Files\Vim\vim71\gvim.exe" -d 
+    - You can make Vim launch the selected files in tabs 
+      [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows] 
+    - You can make a "read only Vim" shortcut with "C:\Program 
+      Files\Vim\vim71\gvim.exe" -R 
 
 
 If you do not like using the "Send To" context menu, you can automatically 

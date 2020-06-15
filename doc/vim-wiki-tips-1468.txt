@@ -34,8 +34,12 @@ To enable backwards search, install and configure the gvim-pdfsync
 [https://www.vim.org/scripts/script.php?script_id=1951] plugin.
 
 PLUGINS  *vwt-1468-plugins*
-    - Automatic LaTeX plugin [http://atp-vim.sf.net] has forward and backward search which works for quite a few viewers: xpdf (v3.03), evince, okular, xdvi, open (on MacOs). Unfortunatelly, the plugin doesn't officially support Windows.
-    - LaTeX Suite [http://vim-latex.sf.net] also support forward and reverse searching.
+    - Automatic LaTeX plugin [http://atp-vim.sf.net] has forward and backward 
+      search which works for quite a few viewers: xpdf (v3.03), evince, okular, 
+      xdvi, open (on MacOs). Unfortunatelly, the plugin doesn't officially support 
+      Windows. 
+    - LaTeX Suite [http://vim-latex.sf.net] also support forward and reverse 
+      searching. 
 
 
  vim:tw=78:et:ft=help:norl:

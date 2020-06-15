@@ -70,19 +70,23 @@ plugins that I mentioned above, and optionally create a mapping:
 <
 
 Here are the concise steps to locate beans:
-    -  Execute the below command:
+    - Execute the below command: 
 
 
 >
     :FoldMatching "displayName" -1
 <
-    -  Search for the bean name or any others that you are interested in (like a filename or command being executed). This will position the cursor on the fold that the matching line is part of (vim might automatically open the fold, depending on your 'foldopen' setting):
+    - Search for the bean name or any others that you are interested in (like a 
+      filename or command being executed). This will position the cursor on the fold 
+      that the matching line is part of (vim might automatically open the fold, 
+      depending on your 'foldopen' setting): 
 
 
 >
     /\.ear
 <
-    -  Now execute the above function (or the map) multiple times until you reach the parent that is familiar to you:
+    - Now execute the above function (or the map) multiple times until you reach 
+      the parent that is familiar to you: 
 
 
 >

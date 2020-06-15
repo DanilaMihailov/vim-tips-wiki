@@ -124,8 +124,8 @@ A file you are editing in Vim may include the following text:
 <
 
 Use this procedure to filter the text:
-    - Press V on the first line, then jj to select three lines.
-    - Type !python sortwords.py and press Enter.
+    - Press V on the first line, then jj to select three lines. 
+    - Type !python sortwords.py and press Enter. 
 
 
 The lines are replaced with the result from running the program:
@@ -137,8 +137,8 @@ The lines are replaced with the result from running the program:
 <
 
 REFERENCES  *vwt-374-references*
-    - :help  |filter|
-    - :help  |:!|
+    - :help |filter| 
+    - :help |:!| 
 
 
 COMMENTS  *vwt-374-comments*

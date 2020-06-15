@@ -151,8 +151,10 @@ you really need help you might have to try the mailing list (click "Community
 portal" in the sidebar). However I can say vaguely what the tip is attempting.
 
 You could type map ^[[1~ <Home> in the following way:
-    - Type "map " then Ctrl-v then press the Home key (do all that while in insert mode). When you press the Home key you will see something like "^[[1~".
-    - Then type " <Home>" and press Enter. You do not press the Home key. Type the characters exactly as shown.
+    - Type "map " then Ctrl-v then press the Home key (do all that while in insert 
+      mode). When you press the Home key you will see something like "^[[1~". 
+    - Then type " <Home>" and press Enter. You do not press the Home key. Type the 
+      characters exactly as shown. 
 
 
 When you type the following, enter it in normal mode, exactly as shown (do 

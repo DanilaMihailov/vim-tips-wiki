@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip174 |vwt-174|
+    - VimTip174 |vwt-174| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -162,7 +162,9 @@ footnotes might be added during the initial text entry).
 
 i really like your 100% function implementation (as opposed to my 
 half-macro), but i have some comments:
-    -  detail: you don't use an input text to ask the text of the footnote, which i found nicer than providing a goto footnote (see my latest version). it's trivial to change though:
+    - detail: you don't use an input text to ask the text of the footnote, which i 
+      found nicer than providing a goto footnote (see my latest version). it's 
+      trivial to change though: 
 
 
 >
@@ -186,7 +188,9 @@ half-macro), but i have some comments:
       execute "normal `a"
     endfunction
 <
-    -  bigger problem: if you insert a footnote, and undo it, and insert a footnote again, the number is incremented once too much. i guess it's impossible to catch undo events for vim functions? :O(
+    - bigger problem: if you insert a footnote, and undo it, and insert a footnote 
+      again, the number is incremented once too much. i guess it's impossible to 
+      catch undo events for vim functions? :O( 
 
 
 ==============================================================================

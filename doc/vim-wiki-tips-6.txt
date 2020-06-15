@@ -9,10 +9,13 @@ created 2001 · complexity basic · author Yegappan · version 6.0
 % KEY  *vwt-6-%-key*
 
 The % key can be used for the following :
-    - To jump to a matching opening or closing parenthesis, square bracket or a curly brace: ([{}])
-    - To jump to start or end of a C-style comment: /* */.
-    - To jump to a matching C/C++ preprocessor conditional: #if, #ifdef, #else, #elif, #endif.
-    - To jump between appropriate keywords, if supported by the ftplugin file, for example, between begin and end in a Pascal program.
+    - To jump to a matching opening or closing parenthesis, square bracket or a 
+      curly brace: ([{}]) 
+    - To jump to start or end of a C-style comment: /* */. 
+    - To jump to a matching C/C++ preprocessor conditional: #if, #ifdef, #else, 
+      #elif, #endif. 
+    - To jump between appropriate keywords, if supported by the ftplugin file, for 
+      example, between begin and end in a Pascal program. 
 
 
 A nice keymap is:
@@ -72,20 +75,23 @@ See :help |matchit-install| for more information on installing matchit. After
 installation you can use :help matchit for usage information.
 
 SEE ALSO  *vwt-6-see-also*
-    - :help  |%|
-    - :help 'matchpairs'
-    - :help 'showmatch'
-    - :help  |matchit-install|
-    - matchit: Extended % matching for HTML, LaTeX and many other languages [https://www.vim.org/scripts/script.php?script_id=39]
-    - ruby-matchit: 'Matchit' for Ruby [https://www.vim.org/scripts/script.php?script_id=290]
+    - :help |%| 
+    - :help 'matchpairs' 
+    - :help 'showmatch' 
+    - :help |matchit-install| 
+    - matchit: Extended % matching for HTML, LaTeX and many other languages 
+      [https://www.vim.org/scripts/script.php?script_id=39] 
+    - ruby-matchit: 'Matchit' for Ruby 
+      [https://www.vim.org/scripts/script.php?script_id=290] 
 
 
 COMMENTS  *vwt-6-comments*
 
 You can select a block delimited by braces using any the following:
-    - With the cursor on a brace, type v% to select to the matching brace.
-    - With the cursor inside a block, type viB (inner block) or vaB (a block, including the braces).
-    - Using a mouse, double-click a brace.
+    - With the cursor on a brace, type v% to select to the matching brace. 
+    - With the cursor inside a block, type viB (inner block) or vaB (a block, 
+      including the braces). 
+    - Using a mouse, double-click a brace. 
 
 
 ==============================================================================

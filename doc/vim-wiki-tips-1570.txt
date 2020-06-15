@@ -10,8 +10,8 @@ created
 
 This tip uses the opfunc option to define two operators. Assuming the default 
 backslash leader key, the operators are:
-    - \c    to comment lines (insert a comment string before each line)
-    - \C    to uncomment lines
+    - \c to comment lines (insert a comment string before each line) 
+    - \C to uncomment lines 
 
 
 USAGE  *vwt-1570-usage*
@@ -43,15 +43,15 @@ manner, the command \cip will comment-out the block, resulting in:
 Later, you could remove the comment signifiers with \Cip.
 
 An operator can be used in two ways:
-    - Invoke the operator, then enter a movement command. or
-    - Visually select a block, then invoke the operator.
+    - Invoke the operator, then enter a movement command. or 
+    - Visually select a block, then invoke the operator. 
 
 
 Examples:
-    - \ciB    comment inner block (between braces)
-    - \c}    comment to end paragraph
-    - \cG    comment to end buffer
-    - Vjjj\c    comment visually-selected lines
+    - \ciB comment inner block (between braces) 
+    - \c} comment to end paragraph 
+    - \cG comment to end buffer 
+    - Vjjj\c comment visually-selected lines 
 
 
 SCRIPT  *vwt-1570-script*
@@ -120,13 +120,13 @@ can define the buffer-local variable comment, for example:
 <
 
 SEE ALSO  *vwt-1570-see-also*
-    - Creating new text objects |vwt-1555|
-    - Operator pending mode maps |vwt-1516#Operator_pending_mode_maps|
-    - Easy (un)commenting out of source code |vwt-271|
+    - Creating new text objects |vwt-1555| 
+    - Operator pending mode maps |vwt-1516#Operator_pending_mode_maps| 
+    - Easy (un)commenting out of source code |vwt-271| 
 
 
 REFERENCES  *vwt-1570-references*
-    - :help 'opfunc'
+    - :help 'opfunc' 
 
 
 COMMENTS  *vwt-1570-comments*

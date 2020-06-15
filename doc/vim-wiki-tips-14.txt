@@ -160,18 +160,19 @@ uses a regular expression for the match so that the current setting of
 highlight "Example").
 
 SEE ALSO  *vwt-14-see-also*
-    - Searching |vwt-1|
-    - Search for visually selected text |vwt-171|
-    - Highlight multiple words |vwt-1572|
-    - Auto highlight current word when idle |vwt-572|
+    - Searching |vwt-1| 
+    - Search for visually selected text |vwt-171| 
+    - Highlight multiple words |vwt-1572| 
+    - Auto highlight current word when idle |vwt-572| 
 
 
 REFERENCES  *vwt-14-references*
-    - :help 'hlsearch' option to control search highlighting
-    - :help  |:nohlsearch| command to temporarily remove search highlighting
-    - :help 'viminfo' include h to disable the effect of 'hlsearch'
-    - :help 'highlight' l:Search means the Search highlight group is used for matches
-    - :help  |:match| you can highlight more than the search pattern
+    - :help 'hlsearch' option to control search highlighting 
+    - :help |:nohlsearch| command to temporarily remove search highlighting 
+    - :help 'viminfo' include h to disable the effect of 'hlsearch' 
+    - :help 'highlight' l:Search means the Search highlight group is used for 
+      matches 
+    - :help |:match| you can highlight more than the search pattern 
 
 
 COMMENTS  *vwt-14-comments*

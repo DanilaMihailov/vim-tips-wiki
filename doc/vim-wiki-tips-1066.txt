@@ -29,22 +29,27 @@ Put the following mappings in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 
 In normal mode, the mappings perform these operations without moving the 
 cursor:
-    - Ctrl-j deletes the line below the current line, if it is blank.
-    - Ctrl-k deletes the line above the current line, if it is blank.
-    - Alt-j inserts a blank line below the current line.
-    - Alt-k inserts a blank line above the current line.
+    - Ctrl-j deletes the line below the current line, if it is blank. 
+    - Ctrl-k deletes the line above the current line, if it is blank. 
+    - Alt-j inserts a blank line below the current line. 
+    - Alt-k inserts a blank line above the current line. 
 
-    - m` sets the context mark to the current cursor position.
-    - `` jumps to the context mark to restore the cursor position.
-    - The g/^\s*$/ commands search for a line matching ^ (begin line), then zero or more occurrences of whitespace, then $ (end line), that is, blank lines.
-    - \m sets the 'magic' option so the pattern will work regardless of the current 'magic' option.
-    - +g/pattern/d executes d (delete) on lines matching pattern in the range + (a single line after the current line).
-    - :noh turns off any search highlighting. :help  |:nohlsearch|
-    - :set paste sets Paste mode to temporarily switch off auto indenting so program comments won't be inserted (for example, in a cpp file, o on a //comment may insert // on the next line).
+    - m` sets the context mark to the current cursor position. 
+    - `` jumps to the context mark to restore the cursor position. 
+    - The g/^\s*$/ commands search for a line matching ^ (begin line), then zero or 
+      more occurrences of whitespace, then $ (end line), that is, blank lines. 
+    - \m sets the 'magic' option so the pattern will work regardless of the current 
+      'magic' option. 
+    - +g/pattern/d executes d (delete) on lines matching pattern in the range + (a 
+      single line after the current line). 
+    - :noh turns off any search highlighting. :help |:nohlsearch| 
+    - :set paste sets Paste mode to temporarily switch off auto indenting so 
+      program comments won't be inserted (for example, in a cpp file, o on a 
+      //comment may insert // on the next line). 
 
 
 SEE ALSO  *vwt-1066-see-also*
-    - Remove unwanted empty lines |vwt-72| to delete all blank lines.
+    - Remove unwanted empty lines |vwt-72| to delete all blank lines. 
 
 
 ALTERNATIVE  *vwt-1066-alternative*

@@ -22,10 +22,13 @@ times, and so on:
 USING A DICTIONARY  *vwt-1531-using-a-dictionary*
 
 Procedure:
-    - In Vim, copy the code shown below, then enter :@" to execute it (or put the code in your vimrc [https://vim.fandom.com/wiki/Vimrc]).
-    - Press V then move the cursor to select the lines whose words you want to count.
-    - Alternatively, select no lines, in which case all words in the buffer will be counted.
-    - Type :WordFrequency and press Enter.
+    - In Vim, copy the code shown below, then enter :@" to execute it (or put the 
+      code in your vimrc [https://vim.fandom.com/wiki/Vimrc]). 
+    - Press V then move the cursor to select the lines whose words you want to 
+      count. 
+    - Alternatively, select no lines, in which case all words in the buffer will be 
+      counted. 
+    - Type :WordFrequency and press Enter. 
 
 
 A new window will open with a scratch buffer showing the word frequencies.
@@ -175,8 +178,12 @@ value is a repeat count for the Ctrl-A which increments the 1 that many times
 to accumulate the total; k goes up one line; dd deletes that line.
 
 Possible mods:
-    -  use a more general substitute pattern for non-English texts: :%s/\%(\K\@!\_.\)\+/\t1\r/g This will keep all 'iskeyword' characters (except digits) instead of only letters.
-    -  at the end, add a command to sort after the counts: :sort! n /\t/! - reverse sort, n - sort after numbers, /\t/ - only look at text right from the first Tab character
+    - use a more general substitute pattern for non-English texts: 
+      :%s/\%(\K\@!\_.\)\+/\t1\r/g This will keep all 'iskeyword' characters (except 
+      digits) instead of only letters. 
+    - at the end, add a command to sort after the counts: :sort! n /\t/! - reverse 
+      sort, n - sort after numbers, /\t/ - only look at text right from the first 
+      Tab character 
 
 
 COMMENTS  *vwt-1531-comments*

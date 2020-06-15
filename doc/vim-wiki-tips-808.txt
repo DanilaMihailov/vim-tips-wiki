@@ -8,17 +8,18 @@ created 2004 · complexity intermediate · author Chip Campbell · version 6.0
 
 One may overwrite a visual-block of text with another visual-block of text 
 by:
-    - Select the first block: ctrl-v move "ay
-    - Select the second block: ctrl-v move c ctrl-o "aP <Esc>
+    - Select the first block: ctrl-v move "ay 
+    - Select the second block: ctrl-v move c ctrl-o "aP <Esc> 
 
 
 COMMENTS  *vwt-808-comments*
 
 Based on the current tip, I've added a little extension to visswap.vim which 
 allows one to
-    - Select a region using Ctrl-v + motion (visual block).
-    - Press Escape.
-    - Move cursor to another location, hit \vr (the backslash is actually <Leader>, so folks may customize that easily).
+    - Select a region using Ctrl-v + motion (visual block). 
+    - Press Escape. 
+    - Move cursor to another location, hit \vr (the backslash is actually <Leader>, 
+      so folks may customize that easily). 
 
 
 That sequence will replace the text in a visual-block fashion below the 

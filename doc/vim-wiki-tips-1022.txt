@@ -20,8 +20,9 @@ provide a mapping to fold on an already-performed search:
 >
     nnoremap \z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
 <
-    - The foldexpr is an extension of foldexpr=(getline(v:lnum)=~@/)?0:1
-    - The following options set the foldmethod to use the fold expression, and some other convenient values.
+    - The foldexpr is an extension of foldexpr=(getline(v:lnum)=~@/)?0:1 
+    - The following options set the foldmethod to use the fold expression, and some 
+      other convenient values. 
 
 
 First search for a pattern, then fold everything else with \zUse zr to 
@@ -146,24 +147,25 @@ languages such as Java do not currently have this functionality built in, so
 keep this idea around just in case you need it!
 
 RELATED PLUGINS  *vwt-1022-related-plugins*
-    - script#158 [https://www.vim.org/scripts/script.php?script_id=158]
-    - script#318 [https://www.vim.org/scripts/script.php?script_id=318]
-    - script#2521 [https://www.vim.org/scripts/script.php?script_id=2521]
-    - script#2302 [https://www.vim.org/scripts/script.php?script_id=2302]
+    - script#158 [https://www.vim.org/scripts/script.php?script_id=158] 
+    - script#318 [https://www.vim.org/scripts/script.php?script_id=318] 
+    - script#2521 [https://www.vim.org/scripts/script.php?script_id=2521] 
+    - script#2302 [https://www.vim.org/scripts/script.php?script_id=2302] 
 
 
 SEE ALSO  *vwt-1022-see-also*
-    - Toggle a fold with a single keystroke |vwt-108| press space bar in normal mode to toggle fold
-    - Delete all lines containing a pattern |vwt-213| to delete matching or non-matching lines, rather than folding them
+    - Toggle a fold with a single keystroke |vwt-108| press space bar in normal 
+      mode to toggle fold 
+    - Delete all lines containing a pattern |vwt-213| to delete matching or 
+      non-matching lines, rather than folding them 
 
 
 COMMENTS  *vwt-1022-comments*
 
 TO DO
-    - Explain better how the foldexpr string works.
-
-Convert it into a function?
-An excellent idea, or use line continuations. The current state is very hard to read (especially in IE where the scroll bar obscures part of the text).
+    - Explain better how the foldexpr string works. Convert it into a function? An 
+      excellent idea, or use line continuations. The current state is very hard to 
+      read (especially in IE where the scroll bar obscures part of the text). 
 
 
 >
@@ -177,16 +179,18 @@ An excellent idea, or use line continuations. The current state is very hard to 
       :setl foldmethod=expr fen
     endfunc
 <
-    - Check if the comments in the original tip should be added (have they been taken into account?).
-
-Yes, they have, though the link to the script should probably be moved to a more prominent place.
-    - A quick test suggests that "\<CR>" can be used instead of an actual ^M (so we should probably edit the tip in due course, although "\<CR>" possibly relies on some non-compatibility setting).
-
-I think if people are using a crazy setting that breaks things like "\<CR>" they should figure out how to fix the consequences on their own. No harm in mentioning it though, I guess.
-    - Link to Folding for Quickfix |vwt-76|.
-    - Perhaps add following section (merged in from VimTip1022 |vwt-1022|). A very quick test suggests it's ok.
-
-I like it. Probably add it as part of the explanation, though. Maybe build up to the final expression gradually.
+    - Check if the comments in the original tip should be added (have they been 
+      taken into account?). Yes, they have, though the link to the script should 
+      probably be moved to a more prominent place. 
+    - A quick test suggests that "\<CR>" can be used instead of an actual ^M (so we 
+      should probably edit the tip in due course, although "\<CR>" possibly relies 
+      on some non-compatibility setting). I think if people are using a crazy 
+      setting that breaks things like "\<CR>" they should figure out how to fix the 
+      consequences on their own. No harm in mentioning it though, I guess. 
+    - Link to Folding for Quickfix |vwt-76|. 
+    - Perhaps add following section (merged in from VimTip1022 |vwt-1022|). A very 
+      quick test suggests it's ok. I like it. Probably add it as part of the 
+      explanation, though. Maybe build up to the final expression gradually. 
 
 
 SIMPLE FOLDING  *vwt-1022-simple-folding*

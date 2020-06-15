@@ -23,12 +23,14 @@ option.
 The 'foldmethod' option (abbreviated to 'fdm') is local to each window. It 
 determines what kind of folding applies in the current window. Possible values 
 are:
-    - manual – folds must be defined by entering commands (such as  |zf|)
-    - indent – groups of lines with the same indent form a fold
-    - syntax – folds are defined by syntax highlighting
-    - expr   – folds are defined by a user-defined expression
-    - marker – special characters can be manually or automatically added to your text to flag the start and end of folds
-    - diff – used to fold unchanged text when viewing differences (automatically set in diff mode)
+    - manual – folds must be defined by entering commands (such as |zf|) 
+    - indent – groups of lines with the same indent form a fold 
+    - syntax – folds are defined by syntax highlighting 
+    - expr – folds are defined by a user-defined expression 
+    - marker – special characters can be manually or automatically added to your 
+      text to flag the start and end of folds 
+    - diff – used to fold unchanged text when viewing differences (automatically 
+      set in diff mode) 
 
 
 MANUAL FOLDING  *vwt-108-manual-folding*
@@ -219,18 +221,24 @@ results.
 Todo: Explain how a command stored in a register can be executed this way. Ctrl-r, followed by the register name does not appear to execute the set of keystrokes for each line that is folded?
 
 SEE ALSO  *vwt-108-see-also*
-    - Syntax folding of Vim scripts [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] discusses folding for files in the Vim script [https://vim.fandom.com/wiki/Category:VimL] language
-    - Auto-fold Perl subs [https://vim.fandom.com/wiki/Auto-fold_Perl_subs] discusses folding for the Perl [https://vim.fandom.com/wiki/Category:Perl] language
-    - Dosini files [https://vim.fandom.com/wiki/Dosini_files#Folding_sections] includes information about folding in DOS-style .ini files
+    - Syntax folding of Vim scripts 
+      [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] discusses folding 
+      for files in the Vim script [https://vim.fandom.com/wiki/Category:VimL] 
+      language 
+    - Auto-fold Perl subs [https://vim.fandom.com/wiki/Auto-fold_Perl_subs] 
+      discusses folding for the Perl [https://vim.fandom.com/wiki/Category:Perl] 
+      language 
+    - Dosini files [https://vim.fandom.com/wiki/Dosini_files#Folding_sections] 
+      includes information about folding in DOS-style .ini files 
 
 
 REFERENCES  *vwt-108-references*
-    - :help  |folding|
-    - :help  |zc|
-    - :help  |zo|
-    - :help  |za|
-    - :help  |zf|
-    - :help  |:syn-fold|
+    - :help |folding| 
+    - :help |zc| 
+    - :help |zo| 
+    - :help |za| 
+    - :help |zf| 
+    - :help |:syn-fold| 
 
 
 COMMENTS  *vwt-108-comments*

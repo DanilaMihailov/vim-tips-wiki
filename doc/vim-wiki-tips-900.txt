@@ -14,11 +14,11 @@ Put this in your vimrc and you can have nicely aligned comment boxes:
 <
 
 Note:
-    - The above should all be on one line.
-    - There is a space after the "A" at the end of the line above.
-    - While in navigation mode use ,co to create a comment block.
-    - The comment block will chop off at column 100.
-    - It relies on having autoindent set.
+    - The above should all be on one line. 
+    - There is a space after the "A" at the end of the line above. 
+    - While in navigation mode use ,co to create a comment block. 
+    - The comment block will chop off at column 100. 
+    - It relies on having autoindent set. 
 
 
 COMMENTS  *vwt-900-comments*

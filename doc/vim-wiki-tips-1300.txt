@@ -23,8 +23,8 @@ previous editing sessions. :help 'viminfo'
 USING A CHANGE LIST  *vwt-1300-using-a-change-list*
 
 You can go back, then forward, to visit the locations where changes occurred:
-    - Type g; to jump back to the position of the previous (older) change.
-    - Type g, to jump to the position of the next (newer) change.
+    - Type g; to jump back to the position of the previous (older) change. 
+    - Type g, to jump to the position of the next (newer) change. 
 
 
 Display the change list for the current buffer with:
@@ -50,9 +50,9 @@ something like this:
 <
 
 Given the above, you could press:
-    - g, to jump to line 39.
-    - g; to jump to line 89.
-    - 4 then g; to jump to line 42.
+    - g, to jump to line 39. 
+    - g; to jump to line 89. 
+    - 4 then g; to jump to line 42. 
 
 
 In the example, line 93 no longer exists (the change location is invalid).
@@ -74,13 +74,14 @@ temporarily switched off to avoid the "-- More --" prompt.
 <
 
 SEE ALSO  *vwt-1300-see-also*
-    - Using marks |vwt-42| to manually record marks that you can return to
-    - Jumping to previously visited locations |vwt-10| the jump list records where jumps occurred
+    - Using marks |vwt-42| to manually record marks that you can return to 
+    - Jumping to previously visited locations |vwt-10| the jump list records where 
+      jumps occurred 
 
 
 REFERENCES  *vwt-1300-references*
-    - :help  |changelist|
-    - :help  |:changes|
+    - :help |changelist| 
+    - :help |:changes| 
 
 
 COMMENTS  *vwt-1300-comments*

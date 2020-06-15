@@ -57,12 +57,16 @@ colorscheme that supports 256 colors like desert256
 [https://www.vim.org/scripts/script.php?script_id=1348].
 
 REFERENCES  *vwt-1312-references*
-    - :help  |xterm-color|
+    - :help |xterm-color| 
 
 
 SEE ALSO  *vwt-1312-see-also*
-    - colorschemedegrade script [http://www.cs.drexel.edu/~mjw452/colorschemedegrade.tar.gz], converts any GUI-only colorscheme to 256 colors; GUI version of VIM is required.
-    - View all colors available to gvim [https://vim.fandom.com/wiki/View_all_colors_available_to_gvim] describes how to list available color names and numbers
+    - colorschemedegrade script 
+      [http://www.cs.drexel.edu/~mjw452/colorschemedegrade.tar.gz], converts any 
+      GUI-only colorscheme to 256 colors; GUI version of VIM is required. 
+    - View all colors available to gvim 
+      [https://vim.fandom.com/wiki/View_all_colors_available_to_gvim] describes how 
+      to list available color names and numbers 
 
 
 COMMENTS  *vwt-1312-comments*
@@ -105,11 +109,11 @@ All moderm terminal emulators support setting the TERM variable except for
 the Gnome Terminal.
 
 Here's what to set the TERM entry for, based upon your terminal emulator:
-    -  PuTTY - putty-256color
-    -  rxvt - rxvt-256color
-    -  Eterm - Eterm-256color
-    -  Konsole - konsole-256color
-    -  XFCE's Terminal - gnome-256color
+    - PuTTY - putty-256color 
+    - rxvt - rxvt-256color 
+    - Eterm - Eterm-256color 
+    - Konsole - konsole-256color 
+    - XFCE's Terminal - gnome-256color 
 
 
 XFCE's Terminal uses the same library as the Gnome Terminal to create the 

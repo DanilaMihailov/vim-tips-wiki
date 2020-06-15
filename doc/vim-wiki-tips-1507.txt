@@ -27,8 +27,10 @@ unexpected hardware failure or unexpected electricity failure:
 May uninterrupted power be with you.
 
 COMMENTS  *vwt-1507-comments*
-    -  Be careful, this can freeze your vim session on heavy disk io, e.g. writing to a slow usb flash.
-    -  Setting option 'swapsync' might be an alternative to the mentioned autocommand.
+    - Be careful, this can freeze your vim session on heavy disk io, e.g. writing 
+      to a slow usb flash. 
+    - Setting option 'swapsync' might be an alternative to the mentioned 
+      autocommand. 
 
 
 ==============================================================================

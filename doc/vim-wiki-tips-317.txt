@@ -111,16 +111,27 @@ at link.
 OTHER INFORMATION  *vwt-317-other-information*
 
 Some related information follows:
-    - Mozilla has a reference [http://www.mozilla.org/unix/customizing.html#keys] on how to configure key bindings, if you want to configure Firefox yourself.
-    - In Firefox, press F7 to toggle the text cursor on/off ("caret browsing").
-    - Calmar on Firefox, Vim [http://www.calmar.ws/firefox/index.php] more information.
-    - Calmar on Opera [http://www.calmar.ws/opera] can configure Vim key bindings in Opera.
-    - Mouseless Browsing [https://addons.mozilla.org/en-US/firefox/addon/879] add-on numbers each link; can click on links without a mouse.
-    - Vimium [http://vimium.github.com] provides Vim key bindings for Google Chrome (and Chromium).
-    - Qutebrowser [http://qutebrowser.org/] (wikipedia:Qutebrowser [http://en.wikipedia.org/wiki/Qutebrowser]) is keyboard-driven web browser with Vim keybindings.
-    - Vimb [https://fanglingsu.github.io/vimb/] is the vim like browser (WebKit + GTK+) , it is keyboard-driven browser with Vim keybindings.
-    - Luakit [https://luakit.github.io/] is a highly configurable browser framework (Lua + WebKit + GTK+) it is keyboard-driven browser with Vim keybindings.
-    - Vieb [https://github.com/Jelmerro/Vieb/] is a Vim Inspired Electron Browser. It is based on Electron/Chromium and features lots of settings including custom keybindings.
+    - Mozilla has a reference [http://www.mozilla.org/unix/customizing.html#keys] 
+      on how to configure key bindings, if you want to configure Firefox yourself. 
+    - In Firefox, press F7 to toggle the text cursor on/off ("caret browsing"). 
+    - Calmar on Firefox, Vim [http://www.calmar.ws/firefox/index.php] more 
+      information. 
+    - Calmar on Opera [http://www.calmar.ws/opera] can configure Vim key bindings 
+      in Opera. 
+    - Mouseless Browsing [https://addons.mozilla.org/en-US/firefox/addon/879] 
+      add-on numbers each link; can click on links without a mouse. 
+    - Vimium [http://vimium.github.com] provides Vim key bindings for Google Chrome 
+      (and Chromium). 
+    - Qutebrowser [http://qutebrowser.org/] (wikipedia:Qutebrowser 
+      [http://en.wikipedia.org/wiki/Qutebrowser]) is keyboard-driven web browser 
+      with Vim keybindings. 
+    - Vimb [https://fanglingsu.github.io/vimb/] is the vim like browser (WebKit + 
+      GTK+) , it is keyboard-driven browser with Vim keybindings. 
+    - Luakit [https://luakit.github.io/] is a highly configurable browser framework 
+      (Lua + WebKit + GTK+) it is keyboard-driven browser with Vim keybindings. 
+    - Vieb [https://github.com/Jelmerro/Vieb/] is a Vim Inspired Electron Browser. 
+      It is based on Electron/Chromium and features lots of settings including 
+      custom keybindings. 
 
 
 OLD INFORMATION  *vwt-317-old-information*
@@ -131,10 +142,13 @@ Firefox.
 Finding the arrow keys on a laptop is annoying, when you simply want to 
 scroll the web page. Here is how to customize Mozilla browsers to use the Vim 
 h/j/k/l keys.
-    - Locate your mozilla/res/builtin directory (varies by platform). You could search for htmlBindings.xml to find it. (ie. locate htmlBindings.xml.
-    - On Mac OS X it's inside the Mozilla application bundle. /Applications/Mozilla/Mozilla.app/Contents/MacOS/res/builtin.
-    - Create a new XML file called userHTMLBindings.xml, making it executable for all users and making sure the CRLF format is the same as htmlBindings.xml.
-    - Place the following XML into the userHTMLBindings.xml file.
+    - Locate your mozilla/res/builtin directory (varies by platform). You could 
+      search for htmlBindings.xml to find it. (ie. locate htmlBindings.xml. 
+    - On Mac OS X it's inside the Mozilla application bundle. 
+      /Applications/Mozilla/Mozilla.app/Contents/MacOS/res/builtin. 
+    - Create a new XML file called userHTMLBindings.xml, making it executable for 
+      all users and making sure the CRLF format is the same as htmlBindings.xml. 
+    - Place the following XML into the userHTMLBindings.xml file. 
 
 
 >

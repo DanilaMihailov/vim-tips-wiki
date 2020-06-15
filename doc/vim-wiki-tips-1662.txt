@@ -32,9 +32,12 @@ example).
 <
 
 Most of this is self-explanatory, but there are a couple tricks to it:
-    - The 'n' flag is used on the search, so that the cursor does not move.
-    - The autocmd is nested. This allows other autocmds, like those that load syntax highlighting, etc., to also fire on the reload.
-    - Because the autocmd is nested, it will itself fire again on the reload. Thus, we use the b:reload_dos variable to detect when it has already fired so we do not keep firing recursively.
+    - The 'n' flag is used on the search, so that the cursor does not move. 
+    - The autocmd is nested. This allows other autocmds, like those that load 
+      syntax highlighting, etc., to also fire on the reload. 
+    - Because the autocmd is nested, it will itself fire again on the reload. Thus, 
+      we use the b:reload_dos variable to detect when it has already fired so we do 
+      not keep firing recursively. 
 
 
 This can be improved a bit. It might be nice to have a warning of some sort 
@@ -81,8 +84,12 @@ DOS-style lined endings out of 12000 lines."
 <
 
 CAVEATS  *vwt-1662-caveats*
-    -  It is not trivial to make this work alongside plugins which also reload the buffer. See comments below.
-    -  If you use a plugin which relies on byte counts within a file (like eclim [http://eclim.org]), buffers reloaded in this way will no longer match the byte counts in the file on disk, so any communication about the byte position can easily fail.
+    - It is not trivial to make this work alongside plugins which also reload the 
+      buffer. See comments below. 
+    - If you use a plugin which relies on byte counts within a file (like eclim 
+      [http://eclim.org]), buffers reloaded in this way will no longer match the 
+      byte counts in the file on disk, so any communication about the byte position 
+      can easily fail. 
 
 
 COMMENTS  *vwt-1662-comments*
@@ -105,9 +112,14 @@ echomsg command in the above snippet by the following:
 <
 
 (the next statement is the final endif ).Notes:
-    -  This applies to Vim 7.1.211 or later; how to do it for earlier versions too is left as an exercise to the student.
-    -  The Unix/Dos switch is bypassed if the file is 'readonly' or 'nomodifiable' at the time of the  |BufReadPost| event. Either option can be set afterwards by a  |modeline|.
-    -  This takes advantage of the fact that adding zero to a String gives the Number found at the start of the string (or zero if the string starts with a non-numeric character or is empty) — see (of all places) :help  |octal|
+    - This applies to Vim 7.1.211 or later; how to do it for earlier versions too 
+      is left as an exercise to the student. 
+    - The Unix/Dos switch is bypassed if the file is 'readonly' or 'nomodifiable' 
+      at the time of the |BufReadPost| event. Either option can be set afterwards by 
+      a |modeline|. 
+    - This takes advantage of the fact that adding zero to a String gives the 
+      Number found at the start of the string (or zero if the string starts with a 
+      non-numeric character or is empty) — see (of all places) :help |octal| 
 
 
 — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 04:41, September 21, 

@@ -15,8 +15,12 @@ let Vim know, from the path in which the projects reside, what rules to apply
 for each individual project.
 
 For example, you might have a few projects with the following details:
-    - The first project resides in /home/user/projects/Project1, and the rules state that tabs should be replaced with 4 spaces in all files that are not YAML, and with 2 spaces in YAML files.
-    - All other projects reside in /home/user/projects and have the rules that tabs remain tabs in all files, and they should be treated as being equal with 4 spaces.
+    - The first project resides in /home/user/projects/Project1, and the rules 
+      state that tabs should be replaced with 4 spaces in all files that are not 
+      YAML, and with 2 spaces in YAML files. 
+    - All other projects reside in /home/user/projects and have the rules that tabs 
+      remain tabs in all files, and they should be treated as being equal with 4 
+      spaces. 
 
 
 To accommodate the above scenario, you could define an autocmd in your vimrc 
@@ -44,9 +48,9 @@ RELATED PLUGINS  *vwt-1649-related-plugins*
 
 Many plugins allow this capability and many other project-related features. 
 Just a few of them are listed here:
-    - local_vimrc [https://github.com/LucHermitte/local_vimrc]
-    - localrc plugin [https://www.vim.org/scripts/script.php?script_id=3393]
-    - project plugin [https://www.vim.org/scripts/script.php?script_id=69]
+    - local_vimrc [https://github.com/LucHermitte/local_vimrc] 
+    - localrc plugin [https://www.vim.org/scripts/script.php?script_id=3393] 
+    - project plugin [https://www.vim.org/scripts/script.php?script_id=69] 
 
 
 COMMENTS  *vwt-1649-comments*

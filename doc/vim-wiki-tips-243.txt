@@ -35,8 +35,8 @@ add a modeline at the top or bottom of the file, for example:
 >
     " vim:ff=unix
 <
-    - :help  |modeline|
-    - :help 'fileformat'
+    - :help |modeline| 
+    - :help 'fileformat' 
 
 
 ==============================================================================

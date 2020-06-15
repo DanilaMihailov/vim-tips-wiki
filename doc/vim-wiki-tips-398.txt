@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip144 |vwt-144|
+    - VimTip144 |vwt-144| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -20,9 +20,12 @@ done quickly when you don't want to mess with Vim script or mappings, or if
 you do not yet know how to do it more elegantly.
 
 In Vim, the word "macro" may refer to:
-    - A sequence of commands recorded to a register (this tip).
-    - A mapping to expand a sequence of typed keys to a longer sequence (see tutorial [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)]).
-    - A script written in the Vim script language (stored in a file with extension .vim – see :help  |script|).
+    - A sequence of commands recorded to a register (this tip). 
+    - A mapping to expand a sequence of typed keys to a longer sequence (see 
+      tutorial 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)]). 
+    - A script written in the Vim script language (stored in a file with extension 
+      .vim – see :help |script|). 
 
 
 RECORDING A MACRO  *vwt-398-recording-a-macro*
@@ -71,21 +74,17 @@ macro to change each other line. When finished, manually insert the initial
 "data = {" line, and the final "}" line.
 
 The following shows one way to record a suitable macro.
-    - Put the cursor on the first line.
-    - Type qd (the q starts recording; the d is the register where keys will be recorded).
-    - Type the following command to change the first sequence of whitespace to "': '":
-
-:s/\s\+/': ' (then press Enter)
-    - Type the following to insert four spaces followed by "'" at the start of the line:
-
-I    ' (then press Escape)
-    - Type the following to append "'," to the line:
-
-A', (then press Escape)
-    - Type the following to move the cursor to the start of the line, then down to the next line:
-
-0j (or press Enter)
-    - Type q to stop recording the macro.
+    - Put the cursor on the first line. 
+    - Type qd (the q starts recording; the d is the register where keys will be 
+      recorded). 
+    - Type the following command to change the first sequence of whitespace to "': 
+      '": :s/\s\+/': ' (then press Enter) 
+    - Type the following to insert four spaces followed by "'" at the start of the 
+      line: I ' (then press Escape) 
+    - Type the following to append "'," to the line: A', (then press Escape) 
+    - Type the following to move the cursor to the start of the line, then down to 
+      the next line: 0j (or press Enter) 
+    - Type q to stop recording the macro. 
 
 
 The cursor should now be on the second line. Type @d to playback the macro 
@@ -101,15 +100,16 @@ Use this mapping as a convenient way to play a macro recorded to register q:
 >
     :nnoremap <Space> @q
 <
-    - Start recording keystrokes by typing qq.
-    - End recording with q (first press Escape if you are in insert mode).
-    - Play the recorded keystrokes by hitting space.
+    - Start recording keystrokes by typing qq. 
+    - End recording with q (first press Escape if you are in insert mode). 
+    - Play the recorded keystrokes by hitting space. 
 
 
 Suppose you have a macro which operates on the text in a single line. You can 
 run the macro on each line in a visual selection in a single operation:
-    - Visually select some lines (for example, type vip to select the current paragraph).
-    - Type :normal @q to run the macro from register q on each line.
+    - Visually select some lines (for example, type vip to select the current 
+      paragraph). 
+    - Type :normal @q to run the macro from register q on each line. 
 
 
 VIEWING A MACRO  *vwt-398-viewing-a-macro*
@@ -217,21 +217,30 @@ above, then edit the file.
 NORMAL/INSERT MODE IN A BUFFER  *vwt-398-normal/insert-mode-in-a-buffer*
 
 SEE ALSO  *vwt-398-see-also*
-    - Record a recursive macro [https://vim.fandom.com/wiki/Record_a_recursive_macro]
-    - Reversing order of blocks of text [https://vim.fandom.com/wiki/Reversing_order_of_blocks_of_text] example of recording a macro to move blocks
-    - Using command-line history [https://vim.fandom.com/wiki/Using_command-line_history] repeating ex commands without a macro
-    - Recursive repeats for quick editing of structured text [https://vim.fandom.com/wiki/Recursive_repeats_for_quick_editing_of_structured_text]
-    - Easy playback of recorded keys [https://vim.fandom.com/wiki/Easy_playback_of_recorded_keys]
-    - Recording keys for repeated jobs [https://vim.fandom.com/wiki/Recording_keys_for_repeated_jobs]
-    - vim-macrobatics [https://github.com/svermeulen/vim-macrobatics] - Plugin that adds some extra functionality to macros
+    - Record a recursive macro 
+      [https://vim.fandom.com/wiki/Record_a_recursive_macro] 
+    - Reversing order of blocks of text 
+      [https://vim.fandom.com/wiki/Reversing_order_of_blocks_of_text] example of 
+      recording a macro to move blocks 
+    - Using command-line history 
+      [https://vim.fandom.com/wiki/Using_command-line_history] repeating ex commands 
+      without a macro 
+    - Recursive repeats for quick editing of structured text 
+      [https://vim.fandom.com/wiki/Recursive_repeats_for_quick_editing_of_structured_text] 
+    - Easy playback of recorded keys 
+      [https://vim.fandom.com/wiki/Easy_playback_of_recorded_keys] 
+    - Recording keys for repeated jobs 
+      [https://vim.fandom.com/wiki/Recording_keys_for_repeated_jobs] 
+    - vim-macrobatics [https://github.com/svermeulen/vim-macrobatics] - Plugin that 
+      adds some extra functionality to macros 
 
 
 REFERENCES  *vwt-398-references*
-    - :help  |registers|
-    - :help  |recording|
-    - :help  |:registers|
-    - :help 'viminfo'
-    - :help  |i_CTRL-R_CTRL-R|
+    - :help |registers| 
+    - :help |recording| 
+    - :help |:registers| 
+    - :help 'viminfo' 
+    - :help |i_CTRL-R_CTRL-R| 
 
 
 COMMENTS  *vwt-398-comments*

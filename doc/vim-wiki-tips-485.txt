@@ -51,8 +51,8 @@ using vim as a man-page viewer under Unix
 [https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix].
 
 REFERENCES  *vwt-485-references*
-    - :help  |windows|
-    - :help  |:wincmd|
+    - :help |windows| 
+    - :help |:wincmd| 
 
 
 The col command may differ on your version of Unix, see col(1) for details.

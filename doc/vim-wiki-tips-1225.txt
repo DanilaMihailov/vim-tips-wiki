@@ -159,9 +159,16 @@ If you want to open many files at once or open them in splits instead of
 tabs, you can use this script instead.
 
 It addresses these problems with the simpler solutions above:
-    -  There is no --remote-split parameter so a different approach is needed for opening files in a new split window.  --remote-send can be used to send an arbitary command for this, but unlike --remote-tab it will not open a new instance of gvim if one doesn't already exist.
-    -  If you select multiple files and use the Windows context menu, each file gets its own invocation of the command.  gvim does not handle several simultaneous --remote-tab commands well.
-    -  The SendTo menu does pass all the selected files to one command, but it is an extra click on the right menu to get there, so it is nice to use the Context menu.
+    - There is no --remote-split parameter so a different approach is needed for 
+      opening files in a new split window. --remote-send can be used to send an 
+      arbitary command for this, but unlike --remote-tab it will not open a new 
+      instance of gvim if one doesn't already exist. 
+    - If you select multiple files and use the Windows context menu, each file gets 
+      its own invocation of the command. gvim does not handle several simultaneous 
+      --remote-tab commands well. 
+    - The SendTo menu does pass all the selected files to one command, but it is an 
+      extra click on the right menu to get there, so it is nice to use the Context 
+      menu. 
 
 
 The command it uses to open split windows could probably be used by itself in 
@@ -172,11 +179,14 @@ the techniques above.
 <
 
 SEE ALSO  *vwt-1225-see-also*
-    - :help  |clientserver|
-    - :help  |--servername|
-    - Associate files with no extension to Vim under Windows [https://vim.fandom.com/wiki/Associate_files_with_no_extension_to_Vim_under_Windows]
-    - Make vim the editor for files with unregistered extensions in Windows [https://vim.fandom.com/wiki/Make_vim_the_editor_for_files_with_unregistered_extensions_in_Windows]
-    - Launch files in new tabs under Unix [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix]
+    - :help |clientserver| 
+    - :help |--servername| 
+    - Associate files with no extension to Vim under Windows 
+      [https://vim.fandom.com/wiki/Associate_files_with_no_extension_to_Vim_under_Windows] 
+    - Make vim the editor for files with unregistered extensions in Windows 
+      [https://vim.fandom.com/wiki/Make_vim_the_editor_for_files_with_unregistered_extensions_in_Windows] 
+    - Launch files in new tabs under Unix 
+      [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix] 
 
 
 COMMENTS  *vwt-1225-comments*
@@ -200,16 +210,10 @@ USING THE WINDOWS OPEN OR DOUBLE-CLICK TO OPEN FILES IN GVIM TABS  *vwt-1225-usi
 
 To provide an "open in tabs" capability for files without an association on 
 Double-Click or Open menu one need to edit registry as follows:
-    -  
-
->
-    C:\Program Files\Vim\vim72\gvim.exe --remote-tab-silent "%1"
-< if you want file to open in new tab
-    -  
-
->
-    C:\Program Files\Vim\vim72\gvim.exe --remote-silent "%1"
-< if you want to open file in new buffer
+    - > C:\Program Files\Vim\vim72\gvim.exe --remote-tab-silent "%1" < if you want 
+      file to open in new tab 
+    - > C:\Program Files\Vim\vim72\gvim.exe --remote-silent "%1" < if you want to 
+      open file in new buffer 
 
 
 The path might need to be modified for the location of gvim on your machine.

@@ -103,14 +103,17 @@ Again, this will replace the selected lines with the command's output which
 can be useful for some commands.
 
 SEE ALSO  *vwt-1642-see-also*
-    - renamer.vim [https://www.vim.org/scripts/script.php?script_id=1721] plugin to list and rename files
-    - vidir, emv, qmv [https://www.reddit.com/r/vim/comments/24ju8p/vidir_a_tool_to_rename_files_with_vi/] external tools which works with vim
+    - renamer.vim [https://www.vim.org/scripts/script.php?script_id=1721] plugin to 
+      list and rename files 
+    - vidir, emv, qmv 
+      [https://www.reddit.com/r/vim/comments/24ju8p/vidir_a_tool_to_rename_files_with_vi/] 
+      external tools which works with vim 
 
 
 COMMENTS  *vwt-1642-comments*
 
 TO DO
-    - Probably should generalise by adding a section for Windows.
+    - Probably should generalise by adding a section for Windows. 
 
 
  vim:tw=78:et:ft=help:norl:

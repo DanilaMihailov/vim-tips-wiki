@@ -33,9 +33,9 @@ Often you also have a normal-mode mapping, in which case you can write:
 <
 
 When you need to do more than one thing in the mapping, you can
-    - Use more Ctrl-O, one before each command, or
-    - Use | to run more commands at once, or
-    - Define a command (or function) doing everything and map a key to call it.
+    - Use more Ctrl-O, one before each command, or 
+    - Use | to run more commands at once, or 
+    - Define a command (or function) doing everything and map a key to call it. 
 
 
 Ctrl-O sometimes has weird side effects when at the end of the line, in which 

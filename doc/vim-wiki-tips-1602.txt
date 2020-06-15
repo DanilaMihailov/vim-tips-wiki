@@ -18,8 +18,8 @@ This is a simple procedure to change variables names from
 $this_variable_style to $thisVariableStyle.
 
 The commands below define these mappings:
-    - +   Find the next $variable_with_underscores.
-    - _   Convert the next underscore on the current line.
+    - + Find the next $variable_with_underscores. 
+    - _ Convert the next underscore on the current line. 
 
 
 When required, you can yank the following lines in Vim (on the first line, 
@@ -134,10 +134,20 @@ Be sure to run a diff to verify that the substitute has changed what you
 want.
 
 SEE ALSO  *vwt-1602-see-also*
-    - Tim Pope's Abolish [https://www.vim.org/scripts/script.php?script_id=1545] plugin includes mappings for case conversion of the word under the cursor, such as crs and crc to convert to snake case or camel case.
-    - Moving through camel case words [https://vim.fandom.com/wiki/Moving_through_camel_case_words]
-    - The keepcase [https://www.vim.org/scripts/script.php?script_id=6] plugin allows to do case persistent substitutions.
-    - lh-style plugin [https://github.com/LucHermitte/lh-style] provides two commands to convert to an exact style (UpperCamelCase, snake_case, lowerCamelCase), or to a semantic style (variable, getter, setter, constant, function, member, parameter, local, global, ... -- the exact style can be configured for each kind). :NameConvert snake will convert the word under the cursor to snake_case, %ConvertNames/\<m_\w\+(/getter/gc will convert occurrences of the pattern to getter names, after user confirmation.
+    - Tim Pope's Abolish [https://www.vim.org/scripts/script.php?script_id=1545] 
+      plugin includes mappings for case conversion of the word under the cursor, 
+      such as crs and crc to convert to snake case or camel case. 
+    - Moving through camel case words 
+      [https://vim.fandom.com/wiki/Moving_through_camel_case_words] 
+    - The keepcase [https://www.vim.org/scripts/script.php?script_id=6] plugin 
+      allows to do case persistent substitutions. 
+    - lh-style plugin [https://github.com/LucHermitte/lh-style] provides two 
+      commands to convert to an exact style (UpperCamelCase, snake_case, 
+      lowerCamelCase), or to a semantic style (variable, getter, setter, constant, 
+      function, member, parameter, local, global, ... -- the exact style can be 
+      configured for each kind). :NameConvert snake will convert the word under the 
+      cursor to snake_case, %ConvertNames/\<m_\w\+(/getter/gc will convert 
+      occurrences of the pattern to getter names, after user confirmation. 
 
 
 COMMENTS  *vwt-1602-comments*

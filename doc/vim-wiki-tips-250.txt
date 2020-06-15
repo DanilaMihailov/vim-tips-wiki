@@ -8,11 +8,11 @@ created May 23, 2002 · complexity basic · author Kontra Gergely · version 5.7
 
 If you like to see your files in fullscreen, and you have to edit more files, 
 you can do the following.
-    -  Use only one window
-    -  Open further files with :e
-    -  type :nm <A-Up> :bp!<CR>
-    -  type :nm <A-Down> :bn!<CR>
-    -  type :nm <C-F4> :bd!<CR>
+    - Use only one window 
+    - Open further files with :e 
+    - type :nm <A-Up> :bp!<CR> 
+    - type :nm <A-Down> :bn!<CR> 
+    - type :nm <C-F4> :bd!<CR> 
 
 
 You can of course change the keys.

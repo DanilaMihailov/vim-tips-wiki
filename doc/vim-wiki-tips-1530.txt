@@ -37,8 +37,10 @@ If you visually select some text then type \[ or \{ or \/, the search locates
 the next occurrence of the selected text, but only within the specified scope.
 
 If there is no selected text:
-    - Typing \[ or \{ searches for the word under the cursor (same as * [https://vim.fandom.com/wiki/Searching]).
-    - Typing \/ displays a search pattern that defines the scope. Finish the pattern by typing any desired text, then press Enter to complete the search.
+    - Typing \[ or \{ searches for the word under the cursor (same as * 
+      [https://vim.fandom.com/wiki/Searching]). 
+    - Typing \/ displays a search pattern that defines the scope. Finish the 
+      pattern by typing any desired text, then press Enter to complete the search. 
 
 
 After searching, press n or N to search for the next or previous occurrence, 
@@ -102,15 +104,17 @@ detected, the script returns "\b" (a backspace character) which cancels the
 search that was started by the mapping.
 
 SEE ALSO  *vwt-1530-see-also*
-    - Searching [https://vim.fandom.com/wiki/Searching] basic how-to
-    - Search for visually selected text [https://vim.fandom.com/wiki/Search_for_visually_selected_text] search whole buffer for selected text
+    - Searching [https://vim.fandom.com/wiki/Searching] basic how-to 
+    - Search for visually selected text 
+      [https://vim.fandom.com/wiki/Search_for_visually_selected_text] search whole 
+      buffer for selected text 
 
 
 REFERENCES  *vwt-1530-references*
-    - :help  |quote=| for help on the expression register '='
-    - :help  |[[|
-    - :help  |[{|
-    - :help  |/\%l|
+    - :help |quote=| for help on the expression register '=' 
+    - :help |[[| 
+    - :help |[{| 
+    - :help |/\%l| 
 
 
 COMMENTS  *vwt-1530-comments*

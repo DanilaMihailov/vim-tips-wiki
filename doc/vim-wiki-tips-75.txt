@@ -434,8 +434,10 @@ consists of one mapping (01,00,3a,00) which replaces the scancode 0x003a with
 0x0001. That means that pressing CapsLock (0x3a) will generate Escape (0x01).
 
 SEE ALSO  *vwt-75-see-also*
-    - Discussion page [https://vim.fandom.com/wiki/Talk:Map_caps_lock_to_escape_in_Windows] for more details and alternatives
-    - Avoid the escape key |vwt-285| for Vim methods to make pressing Esc easier
+    - Discussion page 
+      [https://vim.fandom.com/wiki/Talk:Map_caps_lock_to_escape_in_Windows] for more 
+      details and alternatives 
+    - Avoid the escape key |vwt-285| for Vim methods to make pressing Esc easier 
 
 
 COMMENTS  *vwt-75-comments*

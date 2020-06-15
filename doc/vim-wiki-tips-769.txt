@@ -76,21 +76,25 @@ mapping:
 <
 
 REFERENCES  *vwt-769-references*
-    - :help  |:match|
-    - :help 'cursorcolumn'
-    - :help 'cursorline'
-    - :help  |hl-CursorLine|
-    - :help  |WinEnter|
+    - :help |:match| 
+    - :help 'cursorcolumn' 
+    - :help 'cursorline' 
+    - :help |hl-CursorLine| 
+    - :help |WinEnter| 
 
 
 SEE ALSO  *vwt-769-see-also*
-    - Highlight current word to find cursor |vwt-235|
+    - Highlight current word to find cursor |vwt-235| 
 
 
 RELATED PLUGINS  *vwt-769-related-plugins*
-    - script#555 [https://www.vim.org/scripts/script.php?script_id=555]
-    - script#319 [https://www.vim.org/scripts/script.php?script_id=319]
-    - CursorLineCurrentWindow [https://www.vim.org/scripts/script.php?script_id=4178] highlights the current line only the current window, and allows for exceptions like disabling the cursorline for a particular window or making it permanent for (another) window.
+    - script#555 [https://www.vim.org/scripts/script.php?script_id=555] 
+    - script#319 [https://www.vim.org/scripts/script.php?script_id=319] 
+    - CursorLineCurrentWindow 
+      [https://www.vim.org/scripts/script.php?script_id=4178] highlights the current 
+      line only the current window, and allows for exceptions like disabling the 
+      cursorline for a particular window or making it permanent for (another) 
+      window. 
 
 
 COMMENTS  *vwt-769-comments*

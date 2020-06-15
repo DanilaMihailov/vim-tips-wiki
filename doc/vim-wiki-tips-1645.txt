@@ -12,13 +12,14 @@ On Mac OS X systems, you can automatically source Vim sessions by creating an
 Automator Application that forwards the file to Vim with the -S option.
 
 PROCEDURE  *vwt-1645-procedure*
-    - Name all your Vim sessions with the same extension, for example ".vis".
-    - Open Automator and create a workflow, using File > New.
-    - Choose Application as the type for your document.
-    - In the Library of Actions, choose Utilities.
-    - From the Utilities section, drag the Run Shell Script action.
-    - In the Run Shell Script window, choose /bin/bash in Shell pop-up button and as arguments in Pass input pop-up button.
-    - Write the script:
+    - Name all your Vim sessions with the same extension, for example ".vis". 
+    - Open Automator and create a workflow, using File > New. 
+    - Choose Application as the type for your document. 
+    - In the Library of Actions, choose Utilities. 
+    - From the Utilities section, drag the Run Shell Script action. 
+    - In the Run Shell Script window, choose /bin/bash in Shell pop-up button and 
+      as arguments in Pass input pop-up button. 
+    - Write the script: 
 
 
 >
@@ -32,8 +33,9 @@ It is possible to write the script in some other language, but bash is more
 simple.
 
 [https://vignette.wikia.nocookie.net/vim/images/d/d2/Automator_bash.png/revision/latest?cb=20120312224103]
-    - Save the Automator Application in some folder that is already in your path.
-    - Set this application as the default app to open Vim session files (borrowed from the Finder Help):
+    - Save the Automator Application in some folder that is already in your path. 
+    - Set this application as the default app to open Vim session files (borrowed 
+      from the Finder Help): 
 
 
 RESULT  *vwt-1645-result*

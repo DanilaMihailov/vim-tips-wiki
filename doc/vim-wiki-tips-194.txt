@@ -68,10 +68,11 @@ lines:
 
 To insert " Hello world." (space + clipboard) at the end of each of these 
 lines:
-    - On a character in the first line, press Ctrl-V (or Ctrl-Q if Ctrl-V is paste).
-    - Press jj to extend the visual block over three lines.
-    - Press $ to extend the visual block to the end of each line.
-    - Press A then space then Ctrl-R then + then Esc.
+    - On a character in the first line, press Ctrl-V (or Ctrl-Q if Ctrl-V is 
+      paste). 
+    - Press jj to extend the visual block over three lines. 
+    - Press $ to extend the visual block to the end of each line. 
+    - Press A then space then Ctrl-R then + then Esc. 
 
 
 The result is:
@@ -95,16 +96,17 @@ a range |[range]| immediately after the colon, for instance :.-5,$s/ etc. to
 substitute from 5 lines above the cursor to the end of the file.
 
 SEE ALSO  *vwt-194-see-also*
-    - Macros [https://vim.fandom.com/wiki/Macros]
-    - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change]
-    - Search and replace in a visual selection [https://vim.fandom.com/wiki/Search_and_replace_in_a_visual_selection]
+    - Macros [https://vim.fandom.com/wiki/Macros] 
+    - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change] 
+    - Search and replace in a visual selection 
+      [https://vim.fandom.com/wiki/Search_and_replace_in_a_visual_selection] 
 
 
 REFERENCES  *vwt-194-references*
-    - :help  |v_b_A|
-    - :help  |v_b_I|
-    - :help  |i_CTRL-R|
-    - :help  |i_CTRL-R_CTRL-R|
+    - :help |v_b_A| 
+    - :help |v_b_I| 
+    - :help |i_CTRL-R| 
+    - :help |i_CTRL-R_CTRL-R| 
 
 
 COMMENTS  *vwt-194-comments*

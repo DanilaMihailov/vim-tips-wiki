@@ -15,10 +15,13 @@ updated. Instead, use the techniques discussed here.
 DOCUMENTATION  *vwt-24-documentation*
 
 Here are some pointers to the Vim documentation on syntax highlighting.
-    - I want *.foo files to be highlighted like HTML files: :help  |new-filetype|
-    - I want to define a syntax file for *.bar files. Read the above and also: :help  |mysyntaxfile|
-    - I want to make a few changes to the existing syntax highlighting: :help  |mysyntaxfile-add|
-    - I want to change some of the colors from their defaults. Again, read :help  |mysyntaxfile|
+    - I want *.foo files to be highlighted like HTML files: :help |new-filetype| 
+    - I want to define a syntax file for *.bar files. Read the above and also: 
+      :help |mysyntaxfile| 
+    - I want to make a few changes to the existing syntax highlighting: :help 
+      |mysyntaxfile-add| 
+    - I want to change some of the colors from their defaults. Again, read :help 
+      |mysyntaxfile| 
 
 
 PYTHON TRIPLE-QUOTED COMMENTS  *vwt-24-python-triple-quoted-comments*
@@ -46,7 +49,8 @@ directories and the file.
 COMMENTS  *vwt-24-comments*
 
 This tip is vaguely related:
-    - 1120 Remove annoyance with syntax highlighting when starting a string |vwt-1120|
+    - 1120 Remove annoyance with syntax highlighting when starting a string 
+      |vwt-1120| 
 
 
 CHANGING SYNCOLOR.VIM  *vwt-24-changing-syncolor.vim*

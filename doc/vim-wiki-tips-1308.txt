@@ -16,9 +16,17 @@ INTRODUCTION  *vwt-1308-introduction*
 The conceal patch by Vince Negri allows one to "conceal" parts of lines 
 (in-line folding). One can make those parts completely invisible or replace 
 them with shorter/alternate characters. Uses for this patch include:
-    -  Creating vertical folds (folding visual blocks or columns). See the foldcol.vim script [http://vim.sourceforge.net/scripts/script.php?script_id=1161], which uses the conceal patch to achieve this.
-    -  Hiding certain "distracting" characters, like ANSI escape sequences. See the AnsiEsc.vim script [http://vim.sourceforge.net/scripts/script.php?script_id=302]. (Although it seems the conceal version of the script has been replaced with one using "ignore" highlighting.)
-    -  Hiding or altering HTML tags. For example "Text in <b>bold</b>" can appear as "Text in *bold*", or simply as "Text in bold".
+    - Creating vertical folds (folding visual blocks or columns). See the 
+      foldcol.vim script 
+      [http://vim.sourceforge.net/scripts/script.php?script_id=1161], which uses the 
+      conceal patch to achieve this. 
+    - Hiding certain "distracting" characters, like ANSI escape sequences. See the 
+      AnsiEsc.vim script 
+      [http://vim.sourceforge.net/scripts/script.php?script_id=302]. (Although it 
+      seems the conceal version of the script has been replaced with one using 
+      "ignore" highlighting.) 
+    - Hiding or altering HTML tags. For example "Text in <b>bold</b>" can appear as 
+      "Text in *bold*", or simply as "Text in bold". 
 
 
 When used with color highlighting, conceal can be a very useful feature, 
@@ -782,10 +790,13 @@ someone resolve the cause of this error?If anyone has success compiling Vim
 APPENDIX D: REQUEST FOR MORE INFORMATION  *vwt-1308-appendix-d:-request-for-more-information*
 
 Please post your findings to these issues:
-    -  What development packages are required on other distros besides Ubuntu?
-    -  What is the cause of the error when making Vim 7.0.35 on Ubuntu Gutsy (see Appendix C |vwt-1308-appendix-c:-compile-errors|)?
-    -  Is there any way (proper solution or hack) to avoid the unconcealment of the line on which the cursor is on?
-    -  Post any useful syntax files you've made that use conceal on vim.org and link them here.
+    - What development packages are required on other distros besides Ubuntu? 
+    - What is the cause of the error when making Vim 7.0.35 on Ubuntu Gutsy (see 
+      Appendix C |vwt-1308-appendix-c:-compile-errors|)? 
+    - Is there any way (proper solution or hack) to avoid the unconcealment of the 
+      line on which the cursor is on? 
+    - Post any useful syntax files you've made that use conceal on vim.org and link 
+      them here. 
 
 
 COMMENTS  *vwt-1308-comments*

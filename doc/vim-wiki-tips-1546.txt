@@ -12,8 +12,8 @@ You can use gf (goto file) in Python source code to open an imported Python
 file.
 
 Put the following in a script in:
-    - ~/.vim/after/ftplugin/python.vim    (on Unix systems)
-    - $HOME/vimfiles/after/ftplugin/python.vim    (on Windows systems)
+    - ~/.vim/after/ftplugin/python.vim (on Unix systems) 
+    - $HOME/vimfiles/after/ftplugin/python.vim (on Windows systems) 
 
 
 >
@@ -43,10 +43,10 @@ But not so well with:
 <
 
 REFERENCES  *vwt-1546-references*
-    - :help  |python|
-    - :help  |gf|
-    - :help  |CTRL-W_CTRL-F|
-    - :help  |after-directory|
+    - :help |python| 
+    - :help |gf| 
+    - :help |CTRL-W_CTRL-F| 
+    - :help |after-directory| 
 
 
 COMMENTS  *vwt-1546-comments*

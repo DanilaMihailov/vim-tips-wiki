@@ -11,8 +11,10 @@ version 6.0
 
 This is the first part of a three part tutorial on mapping keys in Vim. You 
 can read the other two parts of this tutorial from the following pages:
-    -  Mapping keys in Vim - Tutorial (Part 2) [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)]
-    -  Mapping keys in Vim - Tutorial (Part 3) [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)]
+    - Mapping keys in Vim - Tutorial (Part 2) 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)] 
+    - Mapping keys in Vim - Tutorial (Part 3) 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)] 
 
 
 
@@ -971,18 +973,24 @@ it is actually possible to define custom text object selection o-mappings that
 change the starting location of the cursor. We must first move the cursor to 
 the start of the selection, then go to visual mode, and finally move the 
 cursor to the end of the selection. See for instance:
-    -  Indent text object [https://vim.fandom.com/wiki/Indent_text_object]
-    -  Creating new text objects [https://vim.fandom.com/wiki/Creating_new_text_objects]
-    -  the thread about Text object selection for function parameters [http://groups.google.com/group/vim_use/browse_frm/thread/94a43931e9e999c3/5b7fd13c4a2c8cae] on Vim mailing list.
-    -  In the mouse section, it would be nice to mention if mouse scroll wheel events can be mapped
+    - Indent text object [https://vim.fandom.com/wiki/Indent_text_object] 
+    - Creating new text objects 
+      [https://vim.fandom.com/wiki/Creating_new_text_objects] 
+    - the thread about Text object selection for function parameters 
+      [http://groups.google.com/group/vim_use/browse_frm/thread/94a43931e9e999c3/5b7fd13c4a2c8cae] 
+      on Vim mailing list. 
+    - In the mouse section, it would be nice to mention if mouse scroll wheel 
+      events can be mapped 
 
 
 Very useful, thanks!
 
 ==============================================================================
-    -  worth noting that apostrophes may be added with the surround.vim [https://vim.fandom.com/wiki/Script:1697] plugin.
+    - worth noting that apostrophes may be added with the surround.vim 
+      [https://vim.fandom.com/wiki/Script:1697] plugin. 
 
-    -  mapping authors often forget to use v:count, v:register and repeat.vim [https://vim.fandom.com/wiki/Script:2136] in a sensible way
+    - mapping authors often forget to use v:count, v:register and repeat.vim 
+      [https://vim.fandom.com/wiki/Script:2136] in a sensible way 
 
 
  vim:tw=78:et:ft=help:norl:

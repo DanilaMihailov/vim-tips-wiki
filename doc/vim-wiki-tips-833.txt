@@ -7,8 +7,10 @@ created 2003 · complexity basic · author xiangjiang · version 6.0
 ==============================================================================
 
 TO DO
-    - This tip is mostly obsolete, however, it will be kept so other, similar tips can be merged to here.
-    - A list of web browser related tips is here |vwt-127#See_also| (including tips which should be merged to this tip).
+    - This tip is mostly obsolete, however, it will be kept so other, similar tips 
+      can be merged to here. 
+    - A list of web browser related tips is here |vwt-127#See_also| (including tips 
+      which should be merged to this tip). 
 
 
 ORIGINAL TIP  *vwt-833-original-tip*
@@ -34,9 +36,14 @@ To open Internet Explorer:
 ROUGH MERGE IN FROM TIP 833  *vwt-833-rough-merge-in-from-tip-833*
 
 TO DO
-    - Following is the contents from tip 833 (now removed).
-    - I have moved this here to keep it in the history of this main "look up word at cursor" tip (and 833 will redirect to here because this tip will have the most applicable content).
-    - However, I will delete this section because the tip is a rip-off copied from someone's blog, and because when you follow the link in the blog to find the "google" Python module, you learn that it uses the old Google API that no longer functions (i.e. this code will not work).
+    - Following is the contents from tip 833 (now removed). 
+    - I have moved this here to keep it in the history of this main "look up word 
+      at cursor" tip (and 833 will redirect to here because this tip will have the 
+      most applicable content). 
+    - However, I will delete this section because the tip is a rip-off copied from 
+      someone's blog, and because when you follow the link in the blog to find the 
+      "google" Python module, you learn that it uses the old Google API that no 
+      longer functions (i.e. this code will not work). 
 
 
 ==============================================================================
@@ -84,8 +91,10 @@ Now put this program somewhere in your PATH, saved as "ghref":
 ROUGH MERGE IN FROM TIP 1157  *vwt-833-rough-merge-in-from-tip-1157*
 
 TO DO
-    - Following is the contents from tip 1157 (now removed; 1157 redirects to here).
-    - Decide what to do with the following (will merge essential idea with other content here).
+    - Following is the contents from tip 1157 (now removed; 1157 redirects to 
+      here). 
+    - Decide what to do with the following (will merge essential idea with other 
+      content here). 
 
 
 ==============================================================================
@@ -223,7 +232,8 @@ If you use console vim, I'm sure that you could bind it to a key command with
 map instead of "amenu [menuitem]". But I've never tried.
 
 RELATED SCRIPTS  *vwt-833-related-scripts*
-    - script#2528 [https://www.vim.org/scripts/script.php?script_id=2528] thesaurus suggestion script
+    - script#2528 [https://www.vim.org/scripts/script.php?script_id=2528] thesaurus 
+      suggestion script 
 
 
  vim:tw=78:et:ft=help:norl:

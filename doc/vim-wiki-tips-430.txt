@@ -117,20 +117,23 @@ LEAVING MODIFIED BUFFERS  *vwt-430-leaving-modified-buffers*
 If Vim is running with its default settings, or in vi compatible mode, the 
 commands :bnext, :bprevious and :buffer won't abandon the buffer until any 
 changes have been written. There are a few ways this can be changed.
-    - The commands can be called with a trailing !, for example, :bnext!, which will discard any changes made to the buffer.
-    - Setting the hidden option (:set hidden) will keep the changes to the buffer without writing them to the file. This affects all commands and all buffers.
-    - Setting either the autowrite or the autowriteall options (:set autowrite or :set autowriteall) will automatically save the changes made to the buffer.
+    - The commands can be called with a trailing !, for example, :bnext!, which 
+      will discard any changes made to the buffer. 
+    - Setting the hidden option (:set hidden) will keep the changes to the buffer 
+      without writing them to the file. This affects all commands and all buffers. 
+    - Setting either the autowrite or the autowriteall options (:set autowrite or 
+      :set autowriteall) will automatically save the changes made to the buffer. 
 
 
 REFERENCES  *vwt-430-references*
-    - :help  |:bnext|
-    - :help  |:bprevious|
-    - :help  |:bdelete|
-    - :help  |abandon|
-    - :help  |unlisted-buffer|
-    - :help 'hidden'
-    - :help 'autowrite'
-    - :help 'autowriteall'
+    - :help |:bnext| 
+    - :help |:bprevious| 
+    - :help |:bdelete| 
+    - :help |abandon| 
+    - :help |unlisted-buffer| 
+    - :help 'hidden' 
+    - :help 'autowrite' 
+    - :help 'autowriteall' 
 
 
 COMMENTS  *vwt-430-comments*

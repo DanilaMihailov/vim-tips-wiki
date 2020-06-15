@@ -41,20 +41,24 @@ Having selected the function, you could press x to delete it, or y to copy
 it.
 
 SEE ALSO  *vwt-1130-see-also*
-    - 597 Indent a code block |vwt-597| (consider merging)
-    - Run Vim command on current C/C++/Java function |vwt-945|
-    - textobj-function [https://www.vim.org/scripts/script.php?script_id=2619] plugin to make a function a text object
+    - 597 Indent a code block |vwt-597| (consider merging) 
+    - Run Vim command on current C/C++/Java function |vwt-945| 
+    - textobj-function [https://www.vim.org/scripts/script.php?script_id=2619] 
+      plugin to make a function a text object 
 
 
 REFERENCES  *vwt-1130-references*
-    - :help  |text-objects|
+    - :help |text-objects| 
 
 
 COMMENTS  *vwt-1130-comments*
 
 TO DO
-    - Change theme of whole tip to be working with code blocks via text objects (an introduction to viB and friends).
-    - Perhaps talk about textobj-function [https://www.vim.org/scripts/script.php?script_id=2619] plugin (it's in 'See also'; thanks for the comment letting us know about it).
+    - Change theme of whole tip to be working with code blocks via text objects (an 
+      introduction to viB and friends). 
+    - Perhaps talk about textobj-function 
+      [https://www.vim.org/scripts/script.php?script_id=2619] plugin (it's in 'See 
+      also'; thanks for the comment letting us know about it). 
 
 
  vim:tw=78:et:ft=help:norl:

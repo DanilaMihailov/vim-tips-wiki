@@ -63,17 +63,22 @@ OTHER PLUGINS  *vwt-1550-other-plugins*
 Automatic LaTeX Plugin [http://atp-vim.sf.net] and Vim-LaTeX 
 [http://vim-latex.sf.net] are fully flagged plugins, if you prefer a smaller 
 solutions there are also these plugins available:
-    -  LaTeX-Box script#3109 [https://www.vim.org/scripts/script.php?script_id=3109] which is using Latexmk [http://atp-vim.sourceforge.net/features.shtml]
-    -  TeX-9 script#3508 [https://www.vim.org/scripts/script.php?script_id=3508] a nice small plugin written in Python
-    -  TeX-PDF script#3230 [https://www.vim.org/scripts/script.php?script_id=3230] which uses Makefile if present, otherwise invokes Rubber [https://launchpad.net/rubber]
-    -  TeX Mini script#3058 [https://www.vim.org/scripts/script.php?script_id=3058]
-    -  vimtex [https://github.com/lervag/vimtex]
+    - LaTeX-Box script#3109 [https://www.vim.org/scripts/script.php?script_id=3109] 
+      which is using Latexmk [http://atp-vim.sourceforge.net/features.shtml] 
+    - TeX-9 script#3508 [https://www.vim.org/scripts/script.php?script_id=3508] a 
+      nice small plugin written in Python 
+    - TeX-PDF script#3230 [https://www.vim.org/scripts/script.php?script_id=3230] 
+      which uses Makefile if present, otherwise invokes Rubber 
+      [https://launchpad.net/rubber] 
+    - TeX Mini script#3058 [https://www.vim.org/scripts/script.php?script_id=3058] 
+    - vimtex [https://github.com/lervag/vimtex] 
 
 
 There are also other LaTeX plugins which do not provide interface for 
 compilation"
-    -  AucTex script#162 [https://www.vim.org/scripts/script.php?script_id=162]
-    -  Tex Autoclose script#920 [https://www.vim.org/scripts/script.php?script_id=920]
+    - AucTex script#162 [https://www.vim.org/scripts/script.php?script_id=162] 
+    - Tex Autoclose script#920 
+      [https://www.vim.org/scripts/script.php?script_id=920] 
 
 
 RUBBER PLUS MAKE  *vwt-1550-rubber-plus-make*

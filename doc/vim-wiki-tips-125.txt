@@ -112,8 +112,10 @@ Okay. I have changed this script. It takes into account the last note and
 some other things I noticed.
 
 Notes:
-    -  This will not indent correctly unless you're using cindent. For some reason, a friend of mine with smartindent and it didn't work
-    -  If your style is to put the curly bracket on it's own line after the "if", add "-1" to all the getline calls.
+    - This will not indent correctly unless you're using cindent. For some reason, 
+      a friend of mine with smartindent and it didn't work 
+    - If your style is to put the curly bracket on it's own line after the "if", 
+      add "-1" to all the getline calls. 
 
 
 >

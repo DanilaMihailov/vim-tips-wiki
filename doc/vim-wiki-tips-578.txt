@@ -9,9 +9,9 @@ created [https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200812#Ranges]
 
 A range permits a command to be applied to a group of lines in the current 
 buffer. For most commands, the default range is the current line. For example:
-    - :s/old/new/g   changes all old to new in the current line
-    - :11,15s/old/new/g   changes lines 11 to 15 inclusive
-    - :%s/old/new/g   changes all lines
+    - :s/old/new/g changes all old to new in the current line 
+    - :11,15s/old/new/g changes lines 11 to 15 inclusive 
+    - :%s/old/new/g changes all lines 
 
 
 EXAMPLES  *vwt-578-examples*
@@ -77,8 +77,8 @@ line number before the move occurred.
 RANGES WITH MARKS AND SEARCHES  *vwt-578-ranges-with-marks-and-searches*
 
 In a range, a line number can be given as:
-    - A mark (for example, 'x is the line containing mark x).
-    - A search (for example, /pattern/ is the next line matching pattern).
+    - A mark (for example, 'x is the line containing mark x). 
+    - A search (for example, /pattern/ is the next line matching pattern). 
 
 
 When using a mark, it must exist in the current buffer.

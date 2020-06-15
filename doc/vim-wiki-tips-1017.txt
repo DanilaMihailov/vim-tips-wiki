@@ -53,13 +53,13 @@ The key to highlighting anything else other than '(' and ')' is in the
 visual-mode command used to select the text ... in this case 'ab' for 'a 
 block' ... if you use ':help ab' you'll see there are many other ways to 
 select blocks of text:
-    -  a[ - select a '[ ]' block of text
-    -  a( - select a '( )' block of text
-    -  a{ - select a '{ }' block of text
-    -  a< - select a '< >' block of text
-    -  ap - select a paragraph
-    -  as - select a sentence
-    -  aw - select a word
+    - a[ - select a '[ ]' block of text 
+    - a( - select a '( )' block of text 
+    - a{ - select a '{ }' block of text 
+    - a< - select a '< >' block of text 
+    - ap - select a paragraph 
+    - as - select a sentence 
+    - aw - select a word 
 
 
 etc .... So with a few extra mappings, you could select some of the other 

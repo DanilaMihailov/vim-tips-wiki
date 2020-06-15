@@ -20,11 +20,13 @@ solution is simple: we can add a BOM to the file by setting the 'bomb' option
 represented as Latin1? This is a little trickier, but the answer is simple; 
 it's of the kind that makes one say "Now why didn't I think of that?". Here it 
 is:
-    -  If you want your file to be always interpreted by Vim as Latin1 and never as UTF-8, place in it a line with a number of "upper-ASCII" bytes in it (i.e. bytes in the range 128-255), then save the file after making sure that 'fileencoding' is set to Latin1, e.g. by doing ":setlocal fenc=latin1". In a program source file or a shell script, the line can be a comment; in a text file, it can be "fancy underlining". The following will do (for example):
-
->
-    # zim: set fenc=latin1 nomod : ÷÷÷÷÷÷
-<
+    - If you want your file to be always interpreted by Vim as Latin1 and never as 
+      UTF-8, place in it a line with a number of "upper-ASCII" bytes in it (i.e. 
+      bytes in the range 128-255), then save the file after making sure that 
+      'fileencoding' is set to Latin1, e.g. by doing ":setlocal fenc=latin1". In a 
+      program source file or a shell script, the line can be a comment; in a text 
+      file, it can be "fancy underlining". The following will do (for example): > # 
+      zim: set fenc=latin1 nomod : ÷÷÷÷÷÷ < 
 
 
 Place it where you would a modeline. Notice that with the letter v instead of 

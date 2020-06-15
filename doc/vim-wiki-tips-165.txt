@@ -21,9 +21,9 @@ USAGE  *vwt-165-usage*
 
 The :Bclose command deletes a buffer without changing the window layout. For 
 each window where the buffer is currently displayed:
-    - Show the alternate buffer (:buffer #), if any.
-    - Otherwise, show the previous buffer (:bprevious), if any.
-    - Otherwise, show an empty buffer.
+    - Show the alternate buffer (:buffer #), if any. 
+    - Otherwise, show the previous buffer (:bprevious), if any. 
+    - Otherwise, show an empty buffer. 
 
 
 :Bclose
@@ -221,10 +221,17 @@ script.
 <
 
 SEE ALSO  *vwt-165-see-also*
-    -  Bbye [https://github.com/moll/vim-bbye] Delete buffers and close files in Vim without messing up your window layout. Rewritten Bclose.vim to handle multiple windows. Comes with warranty!
-    - BufClose [https://www.vim.org/scripts/script.php?script_id=559] not useful because it doesn't work as expected (if you close a buffer that's open in several windows, those windows close)
-    - bufkill [https://www.vim.org/scripts/script.php?script_id=1147] unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)
-    - MiniBufExplorer [https://www.vim.org/scripts/script.php?script_id=159] provides this capability with a simple user interface
+    - Bbye [https://github.com/moll/vim-bbye] Delete buffers and close files in Vim 
+      without messing up your window layout. Rewritten Bclose.vim to handle multiple 
+      windows. Comes with warranty! 
+    - BufClose [https://www.vim.org/scripts/script.php?script_id=559] not useful 
+      because it doesn't work as expected (if you close a buffer that's open in 
+      several windows, those windows close) 
+    - bufkill [https://www.vim.org/scripts/script.php?script_id=1147] 
+      unload/delete/wipe a buffer, keep its window(s), display last accessed 
+      buffer(s) 
+    - MiniBufExplorer [https://www.vim.org/scripts/script.php?script_id=159] 
+      provides this capability with a simple user interface 
 
 
 COMMENTS  *vwt-165-comments*

@@ -8,21 +8,22 @@ created March 18, 2004 · complexity intermediate · author Suresh Govindachar
 ==============================================================================
 
 If you are comfortable
-    -  with Vim's modes and
-    -  with using the <Esc> key (meaning you rarely hit <Esc> unnecessarily)
+    - with Vim's modes and 
+    - with using the <Esc> key (meaning you rarely hit <Esc> unnecessarily) 
 
 
 and you
-    -  would prefer entering : commands in a modal command window rather than on the command line
+    - would prefer entering : commands in a modal command window rather than on the 
+      command line 
 
 
 Then this tip is for you.
 
 Some key features of the command window (see :help |cmdwin|) that would lead 
 one to be interested in it are:
-    -  One can edit the buffer any way one wants
-    -  Hitting <CR> results in the line one was on being executed
-    -  editing in the command window is much nicer than editing on the command line
+    - One can edit the buffer any way one wants 
+    - Hitting <CR> results in the line one was on being executed 
+    - editing in the command window is much nicer than editing on the command line 
 
 
 Basic use of the command window 
@@ -47,8 +48,10 @@ single key-stroke:
 
 Some nice things about the command line that are not present in the usual 
 command window are:
-    -  The <UP> and <DOWN> arrow find all the commands that match the text entered to the left of the cursor
-    -  Hitting <C-D> shows the ways in which the typed text can be completed (see :help  |cmdline-completion|)
+    - The <UP> and <DOWN> arrow find all the commands that match the text entered 
+      to the left of the cursor 
+    - Hitting <C-D> shows the ways in which the typed text can be completed (see 
+      :help |cmdline-completion|) 
 
 
 It is possible to have similar features in the command-window too. For the 
@@ -90,9 +93,16 @@ cursor.This information can left on the command window or removedby typing u
 
 The nature of the information provided by <C-D> depends on whatis to the left 
 of the cursor:
-    - If the stuff to the left of the cursor looks, essentially like "map " or "map foo" then the information provided by <C-D> is the same as the information that appears when the the same stuff is typed on the command line and return is hit.
-    - If the stuff to the left of the cursor begins, essentially like "sf " or like "find " then what is displayed on <C-D> is the glob of the remaining stuff (after appending the remaining stuff with a *)
-    - If the stuff to the left of the cursor looks like neither of the above two cases then what is displayed is the glob of the very last non-space separated "word" (after appending that "word" with a *)
+    - If the stuff to the left of the cursor looks, essentially like "map " or "map 
+      foo" then the information provided by <C-D> is the same as the information 
+      that appears when the the same stuff is typed on the command line and return 
+      is hit. 
+    - If the stuff to the left of the cursor begins, essentially like "sf " or like 
+      "find " then what is displayed on <C-D> is the glob of the remaining stuff 
+      (after appending the remaining stuff with a *) 
+    - If the stuff to the left of the cursor looks like neither of the above two 
+      cases then what is displayed is the glob of the very last non-space separated 
+      "word" (after appending that "word" with a *) 
 
 
 >
@@ -140,11 +150,10 @@ that the command window does not have!
 COMMENTS  *vwt-681-comments*
 
 TO DO
-    - Define the undefined :ECWtobedefined, or remove it
-    - Test whether this tip even works
-
-How does it work?  I thought the first example needs s/nmap/nnoremap/, but it works.
-    - Reword as desired for better "flow" and layout
+    - Define the undefined :ECWtobedefined, or remove it 
+    - Test whether this tip even works How does it work? I thought the first 
+      example needs s/nmap/nnoremap/, but it works. 
+    - Reword as desired for better "flow" and layout 
 
 
 ==============================================================================

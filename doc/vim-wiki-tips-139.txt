@@ -5,9 +5,9 @@
 
 
 This tip is very similar to the following:
-    - VimTip893 |vwt-893|
-    - VimTip894 |vwt-894|
-    - VimTip570 |vwt-570|
+    - VimTip893 |vwt-893| 
+    - VimTip894 |vwt-894| 
+    - VimTip570 |vwt-570| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -25,22 +25,24 @@ you can get them from either script 294
 [https://www.vim.org/scripts/script.php?script_id=294] or from here 
 [http://www.drchip.org/astronaut/vim/index.html#ALIGN]. Among many other 
 things, this pair of plugins lets you:
-    - align C language statements on their = += -= /= etc symbols
-    - align C language declararations: separate columns for types, *[, variable names, initializations (=), and comments (// or /* .. */)
-    - align C/C++ language comments (//, /* .. */)
-    - align C/C++ language (ansi) function argument lists
-    - align LaTeX tables on their && separators
-    - align HTML tables with </TD><TD> separators
-    - align on several characters: < ? : | @ ; (or modify them to handle whatever alignment characters you want)
+    - align C language statements on their = += -= /= etc symbols 
+    - align C language declararations: separate columns for types, *[, variable 
+      names, initializations (=), and comments (// or /* .. */) 
+    - align C/C++ language comments (//, /* .. */) 
+    - align C/C++ language (ansi) function argument lists 
+    - align LaTeX tables on their && separators 
+    - align HTML tables with </TD><TD> separators 
+    - align on several characters: < ? : | @ ; (or modify them to handle whatever 
+      alignment characters you want) 
 
 
 The align plugin also supports:
-    - cyclic left, right, and centering justification
-    - cyclic or equivalent multiple regular-expression separators
-    - improved initial white space control
-    - specifiable separator padding
-    - visual range specified alignment, including via visual-block
-    - an Align.txt help file is available
+    - cyclic left, right, and centering justification 
+    - cyclic or equivalent multiple regular-expression separators 
+    - improved initial white space control 
+    - specifiable separator padding 
+    - visual range specified alignment, including via visual-block 
+    - an Align.txt help file is available 
 
 
 COMMENTS  *vwt-139-comments*

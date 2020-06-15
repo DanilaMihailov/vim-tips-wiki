@@ -7,22 +7,30 @@ created 2002 · complexity basic · author Niels Aan de Brugh · version 5.7
 ==============================================================================
 
 TO DO
-    - I propose making this the "copy/paste mappings" tip, and merge in the various other attempts.
-    - When finished, rename this tip (and maybe some of the others).
-    - Possibly have a section for Windows Ctrl-C/X/V stuff, and another for other approaches.
-    - For Windows Ctrl-C/X/V, is there any need for a tip other than to explain about mswin.vim?
-    - The wiki should explain how to use Vim properly, so a bunch of tips on making Vim imitate Notepad are not helpful IMHO. However, one tip on Ctrl-C/X/V is warranted (particularly now they are "standard" on Mac + Windows + Linux).
-    - Might keep some different approaches, but perhaps will just pick what appears to be the "best".
-    - Use following list for related tips (probably will not merge them to here, but may find some info in them that could be moved to this tip).
+    - I propose making this the "copy/paste mappings" tip, and merge in the various 
+      other attempts. 
+    - When finished, rename this tip (and maybe some of the others). 
+    - Possibly have a section for Windows Ctrl-C/X/V stuff, and another for other 
+      approaches. 
+    - For Windows Ctrl-C/X/V, is there any need for a tip other than to explain 
+      about mswin.vim? 
+    - The wiki should explain how to use Vim properly, so a bunch of tips on making 
+      Vim imitate Notepad are not helpful IMHO. However, one tip on Ctrl-C/X/V is 
+      warranted (particularly now they are "standard" on Mac + Windows + Linux). 
+    - Might keep some different approaches, but perhaps will just pick what appears 
+      to be the "best". 
+    - Use following list for related tips (probably will not merge them to here, 
+      but may find some info in them that could be moved to this tip). 
 
-    -  Copy/paste mappings (this tip)
-    - 312 Copy, cut and paste |vwt-312| Copy/paste without selection
-    - 960 Copy an Entire Buffer to the Clipboard |vwt-960| Copy All
+    - Copy/paste mappings (this tip) 
+    - 312 Copy, cut and paste |vwt-312| Copy/paste without selection 
+    - 960 Copy an Entire Buffer to the Clipboard |vwt-960| Copy All 
 
-    - 21 Easy pasting to Windows applications |vwt-21| :set clipboard=unnamed, :set go+=a
-    - 687 Mac OS X clipboard sharing |vwt-687|
-    - 984 Accessing the system clipboard |vwt-984|
-    - 1511 In line copy and paste to system clipboard |vwt-1511| Mac OS X?
+    - 21 Easy pasting to Windows applications |vwt-21| :set clipboard=unnamed, :set 
+      go+=a 
+    - 687 Mac OS X clipboard sharing |vwt-687| 
+    - 984 Accessing the system clipboard |vwt-984| 
+    - 1511 In line copy and paste to system clipboard |vwt-1511| Mac OS X? 
 
 
 CONTENT FROM VIMTIP356 (THIS TIP)  *vwt-356-content-from-vimtip356-(this-tip)*
@@ -138,8 +146,8 @@ COMMENTS  *vwt-356-comments*
 
 What's wrong with the default? In Vim 7.1, see the files distributed with 
 Vim:
-    - vim/vim71/macmap.vim, vim/vim71/menu.vim, vim/vim71/mswin.vim
-    - vim/vim71/autoload/paste.vim
+    - vim/vim71/macmap.vim, vim/vim71/menu.vim, vim/vim71/mswin.vim 
+    - vim/vim71/autoload/paste.vim 
 
 
 ==============================================================================

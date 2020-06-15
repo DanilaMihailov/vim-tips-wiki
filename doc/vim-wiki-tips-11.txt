@@ -7,8 +7,8 @@ created 2001 · complexity basic · author Jamo.sp · version 5.7
 ==============================================================================
 
 In insert mode, type the first couple of characters of a word, then press:
-    - Ctrl-N to insert the next matching word; or
-    - Ctrl-P to insert the previous matching word.
+    - Ctrl-N to insert the next matching word; or 
+    - Ctrl-P to insert the previous matching word. 
 
 
 This is particularly useful when entering the names of variables in a 
@@ -21,30 +21,30 @@ The 'completeopt' option controls how the completion occurs (for example,
 whether a menu is shown).
 
 SEE ALSO  *vwt-11-see-also*
-    - Using abbreviations |vwt-43| defining abbreviations for commonly-used text
-    - 91 Dictionary completions |vwt-91|
-    - 102 Smart mapping for tab completion |vwt-102|
-    - 295 Line/word/file/whatever completion |vwt-295|
-    - 481 Abbreviations only on shortcut |vwt-481|
-    - 498 Completion using a syntax file |vwt-498|
-    - 566 Autocomplete with TAB when typing words |vwt-566|
-    - 765 Complete from filetype syntax file |vwt-765|
-    - 968 Custom keyword completion |vwt-968|
-    - 1228 Improve completion popup menu |vwt-1228|
-    - 1386 Make Vim completion popup menu work just like in an IDE |vwt-1386|
-    - 1486 Omni completion popup menu |vwt-1486|
-    - 1591 Omni completion |vwt-1591|
-    - 1608 C++ code completion |vwt-1608|
+    - Using abbreviations |vwt-43| defining abbreviations for commonly-used text 
+    - 91 Dictionary completions |vwt-91| 
+    - 102 Smart mapping for tab completion |vwt-102| 
+    - 295 Line/word/file/whatever completion |vwt-295| 
+    - 481 Abbreviations only on shortcut |vwt-481| 
+    - 498 Completion using a syntax file |vwt-498| 
+    - 566 Autocomplete with TAB when typing words |vwt-566| 
+    - 765 Complete from filetype syntax file |vwt-765| 
+    - 968 Custom keyword completion |vwt-968| 
+    - 1228 Improve completion popup menu |vwt-1228| 
+    - 1386 Make Vim completion popup menu work just like in an IDE |vwt-1386| 
+    - 1486 Omni completion popup menu |vwt-1486| 
+    - 1591 Omni completion |vwt-1591| 
+    - 1608 C++ code completion |vwt-1608| 
 
 
 REFERENCES  *vwt-11-references*
-    - :help  |i_CTRL-N|
-    - :help  |i_CTRL-P|
-    - :help  |ins-completion|
-    - :help 'complete'
-    - :help 'completeopt'
-    - :help  |i_CTRL-X_CTRL-P|
-    - :help  |i_CTRL-X_CTRL-N|
+    - :help |i_CTRL-N| 
+    - :help |i_CTRL-P| 
+    - :help |ins-completion| 
+    - :help 'complete' 
+    - :help 'completeopt' 
+    - :help |i_CTRL-X_CTRL-P| 
+    - :help |i_CTRL-X_CTRL-N| 
 
 
 COMMENTS  *vwt-11-comments*
@@ -62,9 +62,9 @@ after.
 
 It's completion that made me unable to use Visual Studio's editor (which has 
 some completion, but it's not as good) anymore. I get lots of use out of:
-    - File completion: <C-X><C-F>
-    - Line completion: <C-X><C-L>
-    - Omni completion: <C-X><C-O>
+    - File completion: <C-X><C-F> 
+    - Line completion: <C-X><C-L> 
+    - Omni completion: <C-X><C-O> 
 
 
 ==============================================================================

@@ -121,27 +121,35 @@ When working with Javascript ES6, it may be useful to sort your imports
 <
 
 SEE ALSO  *vwt-1166-see-also*
-    - 374 Use filter commands to process text |vwt-374|
-    - 588 How to sort using visual blocks |vwt-588|
-    - 758 Search and sort by selection |vwt-758|
-    - 800 Sorting lines in a file based on the number of words in each line |vwt-800|
-    - 923 Sort lines by a specified word number |vwt-923|
-    - 667 Working with CSV files |vwt-667| sort by CSV field
-    - 128 Use Unix command-line tools in Windows |vwt-128| links to download GNU sort for Windows
-    - 648 Uniq - Removing duplicate lines |vwt-648| techniques to remove duplicate lines
+    - 374 Use filter commands to process text |vwt-374| 
+    - 588 How to sort using visual blocks |vwt-588| 
+    - 758 Search and sort by selection |vwt-758| 
+    - 800 Sorting lines in a file based on the number of words in each line 
+      |vwt-800| 
+    - 923 Sort lines by a specified word number |vwt-923| 
+    - 667 Working with CSV files |vwt-667| sort by CSV field 
+    - 128 Use Unix command-line tools in Windows |vwt-128| links to download GNU 
+      sort for Windows 
+    - 648 Uniq - Removing duplicate lines |vwt-648| techniques to remove duplicate 
+      lines 
 
 
 REFERENCES  *vwt-1166-references*
-    - :help  |:sort|
+    - :help |:sort| 
 
 
 COMMENTS  *vwt-1166-comments*
 
 TO DO
-    - Probably need some general :sort command info.
-    - Give examples of numeric sort and using regex sort.
-    - Clean up my "see also" list. It's useful now for a comprehensive list of related tips, some of which need work. At least should add a note on point of tip.
-    - If we're going to mention an external sort tool, we may as well include the following with a brief explanation. Vim could do this, but only with a complex regex. Or perhaps better, mention it in VimTip374 |vwt-374| or VimTip923 |vwt-923| in "see also". -k2 sorts on the second field (word by default).
+    - Probably need some general :sort command info. 
+    - Give examples of numeric sort and using regex sort. 
+    - Clean up my "see also" list. It's useful now for a comprehensive list of 
+      related tips, some of which need work. At least should add a note on point of 
+      tip. 
+    - If we're going to mention an external sort tool, we may as well include the 
+      following with a brief explanation. Vim could do this, but only with a complex 
+      regex. Or perhaps better, mention it in VimTip374 |vwt-374| or VimTip923 
+      |vwt-923| in "see also". -k2 sorts on the second field (word by default). 
 
 
 >

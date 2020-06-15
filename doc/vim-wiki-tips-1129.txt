@@ -35,7 +35,7 @@ examples:
 <
 
 SEE ALSO  *vwt-1129-see-also*
-    - Fix meta-keys that break out of Insert mode |vwt-738|
+    - Fix meta-keys that break out of Insert mode |vwt-738| 
 
 
 URXVT  *vwt-1129-urxvt*
@@ -180,8 +180,10 @@ Last two lines maps same keys in cyrrilic layout. They can be detected by xev
 program.
 
 Note:
-    - To type "^[[1;5C" I entered insert mode, pressed Ctrl+V, then Ctrl+Left_arrow. Copypaste probably will not work.
-    - Of cause, It changes every console application's reactions, not only vim's one.
+    - To type "^[[1;5C" I entered insert mode, pressed Ctrl+V, then 
+      Ctrl+Left_arrow. Copypaste probably will not work. 
+    - Of cause, It changes every console application's reactions, not only vim's 
+      one. 
 
 
 sergey

@@ -22,8 +22,8 @@ idea:
 
 Now you can cycle between the registers "", "a, "b by pressing \s (assuming 
 the default backslash for the leader key).
-    - :let @a=@b copies register "b to register "a.
-    - | separates Ex commands; \ escapes the pipe for the map command.
+    - :let @a=@b copies register "b to register "a. 
+    - | separates Ex commands; \ escapes the pipe for the map command. 
 
 
 This is also useful if you want to copy between the xclipboard and the 
@@ -43,10 +43,10 @@ To see what it's changing, you could modify the command like this:
 <
 
 REFERENCES  *vwt-1562-references*
-    - :help  |:let|
-    - :help  |:reg|
-    - :help  |registers|
-    - :help  |map_bar|
+    - :help |:let| 
+    - :help |:reg| 
+    - :help |registers| 
+    - :help |map_bar| 
 
 
 COMMENTS  *vwt-1562-comments*

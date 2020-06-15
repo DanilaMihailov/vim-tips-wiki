@@ -78,8 +78,10 @@ files. Rather than automating the process, it is best to use Vim's procedures.
 For example:
 
 In the above substitute command:
-    - The search pattern is empty, so the last search is used.
-    - Type your replacement text instead of replace. If the text is similar to the current word press Ctrl-R then Ctrl-W to insert that word into the command line, then change it.
+    - The search pattern is empty, so the last search is used. 
+    - Type your replacement text instead of replace. If the text is similar to the 
+      current word press Ctrl-R then Ctrl-W to insert that word into the command 
+      line, then change it. 
 
 
 Alternatively, you might try the following user command or mapping.

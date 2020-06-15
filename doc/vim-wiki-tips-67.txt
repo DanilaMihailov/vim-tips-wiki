@@ -25,15 +25,22 @@ laststatus=2 so that the status line is visible in edit sessions with only one
 window showing.
 
 RELATED SCRIPTS  *vwt-67-related-scripts*
-    -  The characterize plugin [https://www.vim.org/scripts/script.php?script_id=4410] overrides the ga command to provide even more useful information for Unicode characters, such as any  |digraphs| Vim has defined to enter the character.
-    -  The unicode plugin [https://www.vim.org/scripts/script.php?script_id=2822] also provides additional information for any character without overriding the ga normal command. It provides the :UnicodeName command, that displays the official Unicode name for any character as well as defined digraphs or html entity name. This also works correctly for combined chars.
+    - The characterize plugin 
+      [https://www.vim.org/scripts/script.php?script_id=4410] overrides the ga 
+      command to provide even more useful information for Unicode characters, such 
+      as any |digraphs| Vim has defined to enter the character. 
+    - The unicode plugin [https://www.vim.org/scripts/script.php?script_id=2822] 
+      also provides additional information for any character without overriding the 
+      ga normal command. It provides the :UnicodeName command, that displays the 
+      official Unicode name for any character as well as defined digraphs or html 
+      entity name. This also works correctly for combined chars. 
 
 
 REFERENCES  *vwt-67-references*
-    - :help  |ga|
-    - :help  |g8|
-    - :help 'statusline'
-    - :help 'laststatus'
+    - :help |ga| 
+    - :help |g8| 
+    - :help 'statusline' 
+    - :help 'laststatus' 
 
 
 COMMENTS  *vwt-67-comments*

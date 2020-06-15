@@ -88,22 +88,26 @@ the original cursor location in the line (or selection) by first getting it
 with virtcol() and then restoring it with |.
 
 SEE ALSO  *vwt-191-see-also*
-    - Moving lines up or down [https://vim.fandom.com/wiki/Moving_lines_up_or_down]
-    - Swapping characters, words and lines [https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines]
-    - Text "bubbling" [http://vimcasts.org/episodes/bubbling-text/]
+    - Moving lines up or down [https://vim.fandom.com/wiki/Moving_lines_up_or_down] 
+    - Swapping characters, words and lines 
+      [https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines] 
+    - Text "bubbling" [http://vimcasts.org/episodes/bubbling-text/] 
 
 
 RELATED PLUGINS  *vwt-191-related-plugins*
-    - unimpaired.vim [https://www.vim.org/scripts/script.php?script_id=1590] [e and ]e exchange current line with [count] lines above/below
-    - LineJuggler [https://www.vim.org/scripts/script.php?script_id=4140] plugin has [e and ]e (among other movement and duplication related mappings)
-    - upAndDown.vim [https://www.vim.org/scripts/script.php?script_id=2586] plugin implementing this tip
+    - unimpaired.vim [https://www.vim.org/scripts/script.php?script_id=1590] [e and 
+      ]e exchange current line with [count] lines above/below 
+    - LineJuggler [https://www.vim.org/scripts/script.php?script_id=4140] plugin 
+      has [e and ]e (among other movement and duplication related mappings) 
+    - upAndDown.vim [https://www.vim.org/scripts/script.php?script_id=2586] plugin 
+      implementing this tip 
 
 
 REFERENCES  *vwt-191-references*
-    - :help  |:move|
-    - :help  |v:count1|
-    - :help  |virtcol()|
-    - :help  |bar|
+    - :help |:move| 
+    - :help |v:count1| 
+    - :help |virtcol()| 
+    - :help |bar| 
 
 
 COMMENTS  *vwt-191-comments*

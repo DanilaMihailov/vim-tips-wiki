@@ -76,7 +76,7 @@ Now you know what is wrong (from my personal point of view) with just typing
 "syntax off".
 
 ==============================================================================
-    -  Additionally:
+    - Additionally: 
 
 
 For a more practical reason to include set t_Co=0 than just "to beat it into 
@@ -86,7 +86,7 @@ endings under set list, or characters made visible via ^V). If the colors are
 hard to read on a given terminal, the ability to turn them off can be crucial.
 
 ==============================================================================
-    -  An alternative viewpoint:
+    - An alternative viewpoint: 
 
 
 I couldn't get "syntax off" to work reliably enough for me (admittedly this 
@@ -108,7 +108,7 @@ That doesn't disable all the highlighting completely, but I find that
 whatever is leftover is fine. YMMV, natch.
 
 ==============================================================================
-    -  An alternative viewpoint:
+    - An alternative viewpoint: 
 
 
 On debian 6 based system, I found a /etc/vim/vimrc.local file had syntax on 

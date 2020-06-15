@@ -20,13 +20,18 @@ FOLD AWAY MISSES  *vwt-76-fold-away-misses*
 The following script can be used to fold away lines with no errors/matches.
 
 Usage
-    - Create file ~/.vim/plugin/foldmisses.vim (Unix) or $HOME/vimfiles/plugin/foldmisses.vim (Windows) containing the script below, then restart Vim.
-    - Edit a file.
-    - Enter a command like :vimgrep /regexp/ % to get a quickfix list.
-    - Enter :FoldMisses to fold away lines in the current buffer that are not in the quickfix list.
-    - Enter :FoldLMisses to fold away lines in the current buffer that are not in the buffer's location list.
-    - Optional: :1FoldMisses will give 1 extra context line (fewer lines folded). You can set a default via let g:foldmisses_context = 1
-    - As normal, za toggles a fold, and zR opens all folds.
+    - Create file ~/.vim/plugin/foldmisses.vim (Unix) or 
+      $HOME/vimfiles/plugin/foldmisses.vim (Windows) containing the script below, 
+      then restart Vim. 
+    - Edit a file. 
+    - Enter a command like :vimgrep /regexp/ % to get a quickfix list. 
+    - Enter :FoldMisses to fold away lines in the current buffer that are not in 
+      the quickfix list. 
+    - Enter :FoldLMisses to fold away lines in the current buffer that are not in 
+      the buffer's location list. 
+    - Optional: :1FoldMisses will give 1 extra context line (fewer lines folded). 
+      You can set a default via let g:foldmisses_context = 1 
+    - As normal, za toggles a fold, and zR opens all folds. 
 
 
 >

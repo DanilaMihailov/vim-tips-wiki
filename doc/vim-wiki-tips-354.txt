@@ -15,10 +15,10 @@ expressions in multiple files. Vim has this feature, but it is a little hard
 to find.
 
 Vim provides these commands for searching files:
-    - :grep
-    - :lgrep
-    - :vimgrep
-    - :lvimgrep
+    - :grep 
+    - :lgrep 
+    - :vimgrep 
+    - :lvimgrep 
 
 
 All of these commands can be used to search for a regular expression in 
@@ -65,10 +65,10 @@ OLD SEARCH RESULTS  *vwt-354-old-search-results*
 If you would like to view the results of a previous search, the :colder (or 
 :lolder) and :cnewer (or :lnewer) commands will allow you to do this without 
 typing the search again.
-    - :help  |:colder|
-    - :help  |:cnewer|
-    - :help  |:lolder|
-    - :help  |:lnewer|
+    - :help |:colder| 
+    - :help |:cnewer| 
+    - :help |:lolder| 
+    - :help |:lnewer| 
 
 
 RECURSIVE SEARCH  *vwt-354-recursive-search*
@@ -206,8 +206,10 @@ many Unix-based systems (which have grep in the path), and on many Windows
 systems (where Vim will try to use findstr).
 
 In addition there are plugins to integrate these utilities with Vim:
-    - grep.vim : Grep search tools integration with Vim [https://www.vim.org/scripts/script.php?script_id=311]
-    - findstr.vim : Using MS-Windows findstr utility to search for text with Vim [https://www.vim.org/scripts/script.php?script_id=1575]
+    - grep.vim : Grep search tools integration with Vim 
+      [https://www.vim.org/scripts/script.php?script_id=311] 
+    - findstr.vim : Using MS-Windows findstr utility to search for text with Vim 
+      [https://www.vim.org/scripts/script.php?script_id=1575] 
 
 
 One of the advantages of using an external command, is that the search is 
@@ -239,26 +241,34 @@ Note also that replacing 'grep' with 'lgrep' and 'copen' with 'lopen'will do
 about the same thing with the location list instead of thequickfix list.
 
 RELATED PLUGINS  *vwt-354-related-plugins*
-    - trag.vim: A wrapper for vimgrep that facilitates regexp building and project handling [https://www.vim.org/scripts/script.php?script_id=2033]
-    - EasyGrep: Makes vimgrep easier with mappings and configurable options, and provides "replace in files" capability [https://www.vim.org/scripts/script.php?script_id=2438]
-    - Filesearch: Filesystem searching using glob or regular expression patterns [https://www.vim.org/scripts/script.php?script_id=3646]
+    - trag.vim: A wrapper for vimgrep that facilitates regexp building and project 
+      handling [https://www.vim.org/scripts/script.php?script_id=2033] 
+    - EasyGrep: Makes vimgrep easier with mappings and configurable options, and 
+      provides "replace in files" capability 
+      [https://www.vim.org/scripts/script.php?script_id=2438] 
+    - Filesearch: Filesystem searching using glob or regular expression patterns 
+      [https://www.vim.org/scripts/script.php?script_id=3646] 
 
 
 SEE ALSO  *vwt-354-see-also*
-    - Tip 1234: Find files in subdirectories |vwt-1234|, for when the contents of a file are not known, but the file name or part of the file name is.
-    - Tip 1008: Toggle to open or close the quickfix window |vwt-1008|, for a quick way to toggle on or off the quickfix window which contains the results of your vimgrep searches.
-    - Asynchronous grep on Windows [https://vim.fandom.com/wiki/Execute_external_programs_asynchronously_under_Windows#Extended_example:_asynchronous_grep]
+    - Tip 1234: Find files in subdirectories |vwt-1234|, for when the contents of a 
+      file are not known, but the file name or part of the file name is. 
+    - Tip 1008: Toggle to open or close the quickfix window |vwt-1008|, for a quick 
+      way to toggle on or off the quickfix window which contains the results of your 
+      vimgrep searches. 
+    - Asynchronous grep on Windows 
+      [https://vim.fandom.com/wiki/Execute_external_programs_asynchronously_under_Windows#Extended_example:_asynchronous_grep] 
 
 
 REFERENCES  *vwt-354-references*
-    - :help  |:grep|
-    - :help  |:vimgrep|
-    - :help  |quickfix|
-    - :help  |starstar|
-    - :help  |:<cword>|
-    - :help  |c_<C-R>_<C-W>|
-    - :help  |:cabbrev|
-    - :help  |abbreviations|
+    - :help |:grep| 
+    - :help |:vimgrep| 
+    - :help |quickfix| 
+    - :help |starstar| 
+    - :help |:<cword>| 
+    - :help |c_<C-R>_<C-W>| 
+    - :help |:cabbrev| 
+    - :help |abbreviations| 
 
 
 COMMENTS  *vwt-354-comments*
@@ -268,9 +278,10 @@ I enjoy using the GNU id-utils (http://www.gnu.org/software/idutils/
 incredibly fast!
 
 For a few tips and plugins about the id-utils see:
-    - :help  |tips.txt|
-    - Using_vim_as_an_IDE_all_in_one [https://vim.fandom.com/wiki/Using_vim_as_an_IDE_all_in_one]
-    - script#251 [https://www.vim.org/scripts/script.php?script_id=251]
+    - :help |tips.txt| 
+    - Using_vim_as_an_IDE_all_in_one 
+      [https://vim.fandom.com/wiki/Using_vim_as_an_IDE_all_in_one] 
+    - script#251 [https://www.vim.org/scripts/script.php?script_id=251] 
 
 
 And don't forget ctags and the TagList plugin if you are developing code.

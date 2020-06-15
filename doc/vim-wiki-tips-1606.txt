@@ -135,8 +135,9 @@ EXAMPLE  *vwt-1606-example*
 When using our CSV tip [https://vim.fandom.com/wiki/Working_with_CSV_files], 
 it is necessary to specify that *.csv files have the csv file type. To do 
 this, edit the following file:
-    - $HOME/.vim/filetype.vim (Unix based systems)
-    - $HOME/vimfiles/filetype.vim (Windows systems – can use forward slash or backslash in Vim)
+    - $HOME/.vim/filetype.vim (Unix based systems) 
+    - $HOME/vimfiles/filetype.vim (Windows systems – can use forward slash or 
+      backslash in Vim) 
 
 
 Check that $HOME has been defined, and that the $HOME/.vim directory (Unix) 
@@ -165,15 +166,15 @@ enable all the features available for a particular file type.
 <
 
 REFERENCES  *vwt-1606-references*
-    - :help  |filetype|
-    - :help  |new-filetype|
-    - :help 'filetype'
-    - :help  |:setf|
-    - :help 'runtimepath'
+    - :help |filetype| 
+    - :help |new-filetype| 
+    - :help 'filetype' 
+    - :help |:setf| 
+    - :help 'runtimepath' 
 
 
 COMMENTS  *vwt-1606-comments*
-    - Possibly mention the "ftdetect" directory. :help  |ftdetect|
+    - Possibly mention the "ftdetect" directory. :help |ftdetect| 
 
 
  vim:tw=78:et:ft=help:norl:

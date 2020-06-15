@@ -11,25 +11,29 @@ ENGLISH TEXT  *vwt-545-english-text*
 
 This is the full set of messages, menus and encodings to be used to support 
 Greek language. This set contains:
-    - vim.pot – dummy portable object template for
-    - vim-6.1 (can be used with any language)
-    - vim.po – the above vim.pot file with strings translated in Greek
-    - lang/el/LC_MESSAGES/vim.mo – the Greek vim.po file formatted in machine object mode (vim.mo)
-    - lang/menu_gr_gr.greek.vim – Greek used as the default encoding
-    - lang/menu_gr_gr.latin1.vimq – Greek for Latin
-    - lang/menu_gr_gr.iso_8859-1.vim – Latin-based ISO encoding sourcing from iso_8859-7 spec
-    - lang/menu_gr_gr.iso_8859-7.vim – Greek-Latin-based ISO encoding
-    - lang/menu_greece_greek.737.vim – MS-DOS/Windows codepage for Greek (737)
-    - lang/menu_greek_greece.1253.vim – MS-DOS/Windows codepage for Greek (1253)
-    - lang/menu_greek_greece.cp437.vim – Unix CodePage for Greek (nl_cp437)
-    - lang/menu_gr_gr.utf-8.vim – UTF-8 for Greek
-    - tutor/tutor.gr – Vim TUTOR in Greek
-    - README.TXT – this file
+    - vim.pot – dummy portable object template for 
+    - vim-6.1 (can be used with any language) 
+    - vim.po – the above vim.pot file with strings translated in Greek 
+    - lang/el/LC_MESSAGES/vim.mo – the Greek vim.po file formatted in machine 
+      object mode (vim.mo) 
+    - lang/menu_gr_gr.greek.vim – Greek used as the default encoding 
+    - lang/menu_gr_gr.latin1.vimq – Greek for Latin 
+    - lang/menu_gr_gr.iso_8859-1.vim – Latin-based ISO encoding sourcing from 
+      iso_8859-7 spec 
+    - lang/menu_gr_gr.iso_8859-7.vim – Greek-Latin-based ISO encoding 
+    - lang/menu_greece_greek.737.vim – MS-DOS/Windows codepage for Greek (737) 
+    - lang/menu_greek_greece.1253.vim – MS-DOS/Windows codepage for Greek (1253) 
+    - lang/menu_greek_greece.cp437.vim – Unix CodePage for Greek (nl_cp437) 
+    - lang/menu_gr_gr.utf-8.vim – UTF-8 for Greek 
+    - tutor/tutor.gr – Vim TUTOR in Greek 
+    - README.TXT – this file 
 
 
 These compressed archives can be downloaded from:
-    - http://lynxx.org/misc/download/vim-6.1-menu_el.zip [http://lynxx.org/misc/download/vim-6.1-menu_el.zip]
-    - http://lynxx.org/misc/download/vim-6.1-menu_el.tgz [http://lynxx.org/misc/download/vim-6.1-menu_el.tgz]
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.zip 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.zip] 
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.tgz 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.tgz] 
 
 
 To use Vim to edit in Greek (or any) language, we first enable the language 
@@ -47,9 +51,9 @@ This is what one may call manual extraction, so please wash your hands
 beforehand.
 
 For help on setting up Vim to support Greek – see:
-    - :help  |:language|
-    - :help  |messages|
-    - :help 'encoding'
+    - :help |:language| 
+    - :help |messages| 
+    - :help 'encoding' 
 
 
 For messages you'll have to set at least:
@@ -80,25 +84,33 @@ Vim στα Ελληνικά - Πλήρες σετ υποστήριξης ελλ�
 υποστήριξη της ελληνικής γλώσσας με το Vim 6.1.
 
 Περιεχόμενα:
-    - vim.pot – κενό πρότυπο ΡΟ
-    - για το vim-6.1 (μπορεί να χρησιμοποιηθεί με οποιαδήποτε γλώσσα
-    - vim.po – το παραπάνω αρχείο vim.pot με συμβολοσειρές μεταφρ. στα ελληνικα
-    - lang/el/LC_MESSAGES/vim.mo – το ελληνικό αρχείο vim.po μορφοποιημένο σε κατάσταση ΜΟ (vim.mo)
-    - lang/menu_gr_gr.greek.vim – Greek χρησιμοποιείται σαν κωδικοποίηση προεπιλογής
-    - lang/menu_gr_gr.latin1.vimq – Ελληνικά για Latin
-    - lang/menu_gr_gr.iso_8859-1.vim – κωδικοποίηση ISO με βάση τη Λατινική, εκπηγάζει από τη προδιαγραφή iso_8859-7
-    - lang/menu_gr_gr.iso_8859-7.vim – κωδικοποίηση ISO με βάση τη Λατινική-Ελληνική
-    - lang/menu_greece_greek.737.vim – κωδικοσελίδα MS-DOS/Windows για ελληνικά (737)
-    - lang/menu_greek_greece.1253.vim – κωδικοσελίδα MS-DOS/Windows για ελληνικά (1253)
-    - lang/menu_greek_greece.cp437.vim – Κωδικοσελίδα Unix για ελληνικά (nl_cp437)
-    - lang/menu_gr_gr.utf-8.vim – UTF-8 για Ελληνικά
-    - tutor/tutor.gr – ΦΡΟΝΤΙΣΤΗΣ Vim στα Ελληνικά
-    - README.TXT – αυτό το αρχείο
+    - vim.pot – κενό πρότυπο ΡΟ 
+    - για το vim-6.1 (μπορεί να χρησιμοποιηθεί με οποιαδήποτε γλώσσα 
+    - vim.po – το παραπάνω αρχείο vim.pot με συμβολοσειρές μεταφρ. στα ελληνικα 
+    - lang/el/LC_MESSAGES/vim.mo – το ελληνικό αρχείο vim.po μορφοποιημένο σε 
+      κατάσταση ΜΟ (vim.mo) 
+    - lang/menu_gr_gr.greek.vim – Greek χρησιμοποιείται σαν κωδικοποίηση 
+      προεπιλογής 
+    - lang/menu_gr_gr.latin1.vimq – Ελληνικά για Latin 
+    - lang/menu_gr_gr.iso_8859-1.vim – κωδικοποίηση ISO με βάση τη Λατινική, 
+      εκπηγάζει από τη προδιαγραφή iso_8859-7 
+    - lang/menu_gr_gr.iso_8859-7.vim – κωδικοποίηση ISO με βάση τη 
+      Λατινική-Ελληνική 
+    - lang/menu_greece_greek.737.vim – κωδικοσελίδα MS-DOS/Windows για ελληνικά 
+      (737) 
+    - lang/menu_greek_greece.1253.vim – κωδικοσελίδα MS-DOS/Windows για ελληνικά 
+      (1253) 
+    - lang/menu_greek_greece.cp437.vim – Κωδικοσελίδα Unix για ελληνικά (nl_cp437) 
+    - lang/menu_gr_gr.utf-8.vim – UTF-8 για Ελληνικά 
+    - tutor/tutor.gr – ΦΡΟΝΤΙΣΤΗΣ Vim στα Ελληνικά 
+    - README.TXT – αυτό το αρχείο 
 
 
 Αυτά τα συμπιεσμένα αρχεία μπορούν να μεταφορτωθούν από:
-    - http://lynxx.org/misc/download/vim-6.1-menu_el.zip [http://lynxx.org/misc/download/vim-6.1-menu_el.zip]
-    - http://lynxx.org/misc/download/vim-6.1-menu_el.tgz [http://lynxx.org/misc/download/vim-6.1-menu_el.tgz]
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.zip 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.zip] 
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.tgz 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.tgz] 
 
 
 Για να χρησιμοποιήσετ το Vim σαν επεξεργαστή κειμένου στα ελληνικά (ή 
@@ -119,9 +131,9 @@ Vim στα Ελληνικά - Πλήρες σετ υποστήριξης ελλ�
 
 Για βοήθεια στη ρύθμιση των παραμέτων του Vim για υποστήριξη ελληνικών, από 
 τη γραμμή εντολών του Vim, δώστε:
-    - :help  |:language|
-    - :help  |messages|
-    - :help 'encoding'
+    - :help |:language| 
+    - :help |messages| 
+    - :help 'encoding' 
 
 
 από τη γραμμή εντολών του Vim. Τουλάχιστον πρέπει να τεθούν για μυνήματα:

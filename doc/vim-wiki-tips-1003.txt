@@ -165,15 +165,21 @@ up the file association given in our example above:
 <
 
 SEE ALSO  *vwt-1003-see-also*
-    - Launch files in new tabs under Windows#Using File Associations [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows#Using_File_Associations] demonstrating clever use of the --remote family of command-line options as part of a file association.
-    - Special-use file associations |vwt-934| for when you don't just want to edit a file, but do something else with it in Vim.
+    - Launch files in new tabs under Windows#Using File Associations 
+      [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows#Using_File_Associations] 
+      demonstrating clever use of the --remote family of command-line options as 
+      part of a file association. 
+    - Special-use file associations |vwt-934| for when you don't just want to edit 
+      a file, but do something else with it in Vim. 
 
 
 COMMENTS  *vwt-1003-comments*
 
 TO DO
-    - For user-specific associations, should also mention creating and merging a reg file, which is probably easier.
-    - The usual Windows escape character is "^". Why do we need to escape quotes with a backslash in the "reg add" command? This seems weird, but it works.
+    - For user-specific associations, should also mention creating and merging a 
+      reg file, which is probably easier. 
+    - The usual Windows escape character is "^". Why do we need to escape quotes 
+      with a backslash in the "reg add" command? This seems weird, but it works. 
 
 
 ==============================================================================

@@ -23,15 +23,16 @@ source code |vwt-83| for background information on indenting.
 SPACES OR TABS?  *vwt-1626-spaces-or-tabs?*
 
 Programs use whitespace (spaces or tabs) for two purposes:
-    - To indent blocks of code (for example, to show the code that is in a loop).
-    - To align text (for example, so comments start in the same column).
+    - To indent blocks of code (for example, to show the code that is in a loop). 
+    - To align text (for example, so comments start in the same column). 
 
 
 Some procedures commonly used to write programs are:
-    - Use spaces for indentation and alignment.
-    - Use tabs |vwt-1626-using-tabs-for-indentation| for indentation and alignment.
-    - Use a mixture of tabs and spaces for indentation and alignment.
-    - Use tabs for indentation and spaces for alignment ("smart tabs |vwt-1626-smart-tabs|").
+    - Use spaces for indentation and alignment. 
+    - Use tabs |vwt-1626-using-tabs-for-indentation| for indentation and alignment. 
+    - Use a mixture of tabs and spaces for indentation and alignment. 
+    - Use tabs for indentation and spaces for alignment ("smart tabs 
+      |vwt-1626-smart-tabs|"). 
 
 
 In large projects, using as many tabs as possible can significantly reduce 
@@ -166,7 +167,7 @@ the third and fourth lines), while spaces will be used for alignment:
 That makes the alignment of "x" and "y" independent of tabstop.
 
 SEE ALSO  *vwt-1626-see-also*
-    - Super retab |vwt-1592| to convert leading spaces to tabs
+    - Super retab |vwt-1592| to convert leading spaces to tabs 
 
 
 COMMENTS  *vwt-1626-comments*

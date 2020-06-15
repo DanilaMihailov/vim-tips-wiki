@@ -197,7 +197,8 @@ cannot accidentally change it.
 <
 
 SEE ALSO  *vwt-1242-see-also*
-    - We have many tips about using tab pages [https://vim.fandom.com/wiki/Category:Tabs]
+    - We have many tips about using tab pages 
+      [https://vim.fandom.com/wiki/Category:Tabs] 
 
 
 
@@ -207,23 +208,28 @@ FIXING TIPS ON TAB PAGES  *vwt-1242-fixing-tips-on-tab-pages*
 This section is a temporary area to plan merging/fixing existing tips on tab pages.
 
 TO DO
-    - Perhaps merge in some information from tips listed below (or add as 'see also').
-    - I think the tip should be renamed to "Using tab pages"? Any comments?
+    - Perhaps merge in some information from tips listed below (or add as 'see 
+      also'). 
+    - I think the tip should be renamed to "Using tab pages"? Any comments? 
 
 
 - Put some basic commands up top (move between tabs, open a new tab in VIM etc). This aught to answer 90% of the questions, then go into :tabedit {file} commands which is much more details than most people want or care about. 
 Yes, this tip is much less of an introduction and covers much more detail now. I was thinking about this tip as a "How to use tab pages" and Quick tips for using tab pages as a "Why to use tab pages" but I don't think there's that much reason to make those the names. The pages really don't have that much to do with each other. --Fritzophrenic 15:59, May 20, 2010 (UTC)
 
 Navigation mappings
-    - 1221 Alternative tab navigation |vwt-1221| mappings to jump to a tab
-    - 1295 Select tab page with a key |vwt-1295| tab navigation mappings
-    - 1309 Safari style keybindings for tab navigation |vwt-1309| more tab navigation mappings
+    - 1221 Alternative tab navigation |vwt-1221| mappings to jump to a tab 
+    - 1295 Select tab page with a key |vwt-1295| tab navigation mappings 
+    - 1309 Safari style keybindings for tab navigation |vwt-1309| more tab 
+      navigation mappings 
 
 
 Miscellaneous
-    - 1247 Tabclose instead of quit-all |vwt-1247| something about closing tab pages
-    - 1317 Open every buffer in its own tabpage |vwt-1317| open each buffer in a tab page
-    - 1333 Have focus on left tab after tabclose |vwt-1333| close tab and focus on previous tab
+    - 1247 Tabclose instead of quit-all |vwt-1247| something about closing tab 
+      pages 
+    - 1317 Open every buffer in its own tabpage |vwt-1317| open each buffer in a 
+      tab page 
+    - 1333 Have focus on left tab after tabclose |vwt-1333| close tab and focus on 
+      previous tab 
 
 
 COMMENTS  *vwt-1242-comments*

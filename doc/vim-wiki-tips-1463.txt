@@ -23,15 +23,16 @@ paste after the line with the cursor, or P to paste before).
 
 You can cut several lines, or blocks of text, by appending to a register 
 using an uppercase letter, for example:
-    - Move to the first line you wish to move; type "add to delete it to register a.
-    - Move to another line; type "Add to delete it and append to the same register.
-    - Move to another line; type "Add to delete it and append to the same register.
-    - or type "." for the same effect
-
-    - Select a range of lines vith V; type "Ad to delete the entire range and append it to the same register.
-    - Continue in this fashion.
-    - Move to the wanted destination.
-    - Press "ap to paste after the line with the cursor, or "aP to paste before.
+    - Move to the first line you wish to move; type "add to delete it to register 
+      a. 
+    - Move to another line; type "Add to delete it and append to the same register. 
+    - Move to another line; type "Add to delete it and append to the same register. 
+      - or type "." for the same effect 
+    - Select a range of lines vith V; type "Ad to delete the entire range and 
+      append it to the same register. 
+    - Continue in this fashion. 
+    - Move to the wanted destination. 
+    - Press "ap to paste after the line with the cursor, or "aP to paste before. 
 
 
 MOVE COMMAND  *vwt-1463-move-command*
@@ -123,10 +124,13 @@ The == re-indents the line to suit its new position. For the visual-mode
 mappings, gv reselects the last visual block and = re-indents that block.
 
 SEE ALSO  *vwt-1463-see-also*
-    - Transposing |vwt-191| enhanced mappings (better at maintaining cursor position?)
-    - Cut or copy lines without counting the lines |vwt-344| (needs to be fixed)
-    - stackoverflow - Move entire line up and down in Vim [http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim]
-    - stackoverflow - Alt keys in Vim on OS X [https://stackoverflow.com/questions/7501092/can-i-map-alt-key-in-vim/15399297#15399297]
+    - Transposing |vwt-191| enhanced mappings (better at maintaining cursor 
+      position?) 
+    - Cut or copy lines without counting the lines |vwt-344| (needs to be fixed) 
+    - stackoverflow - Move entire line up and down in Vim 
+      [http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim] 
+    - stackoverflow - Alt keys in Vim on OS X 
+      [https://stackoverflow.com/questions/7501092/can-i-map-alt-key-in-vim/15399297#15399297] 
 
 
 COMMENTS  *vwt-1463-comments*

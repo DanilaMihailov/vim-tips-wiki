@@ -12,9 +12,9 @@ This tip is for those who want to avoid setting $VIMRUNTIME as an
 enviromental variable (either rc file on Unix or enviroment on Windows).
 
 I found the following steps worked on my PC and Unix:
-    - Find out your $VIM (on Windows, it is the directory where gvim.exe lives).
-    - Create a directory called doc under $VIM (now, we have $VIM/doc).
-    - Copy help.txt from official $VIMRUNTIME/doc (now, we have $VIM/doc/help.txt).
+    - Find out your $VIM (on Windows, it is the directory where gvim.exe lives). 
+    - Create a directory called doc under $VIM (now, we have $VIM/doc). 
+    - Copy help.txt from official $VIMRUNTIME/doc (now, we have $VIM/doc/help.txt). 
 
 
 Now, we can set $VIMRUNTIME within vimrc, for example

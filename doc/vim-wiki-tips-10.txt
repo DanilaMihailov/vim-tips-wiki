@@ -21,8 +21,8 @@ sessions. :help 'viminfo'
 USING A JUMP LIST  *vwt-10-using-a-jump-list*
 
 Like a web browser, you can go back, then forward:
-    - Press Ctrl-O to jump back to the previous (older) location.
-    - Press Ctrl-I (same as Tab) to jump forward to the next (newer) location.
+    - Press Ctrl-O to jump back to the previous (older) location. 
+    - Press Ctrl-I (same as Tab) to jump forward to the next (newer) location. 
 
 
 Display the jump list for the current window with:
@@ -49,15 +49,17 @@ something like this:
 <
 
 Given the above, you could press:
-    - Ctrl-I to jump to line 39 in the current buffer.
-    - Ctrl-O to jump to line 89 in the current buffer.
-    - 4 then Ctrl-O to jump to line 102 in file somefile.txt.
-    - 3 then Ctrl-I to jump to line 53 in the current buffer.
+    - Ctrl-I to jump to line 39 in the current buffer. 
+    - Ctrl-O to jump to line 89 in the current buffer. 
+    - 4 then Ctrl-O to jump to line 102 in file somefile.txt. 
+    - 3 then Ctrl-I to jump to line 53 in the current buffer. 
 
 
 In the example above:
-    - The last line was added to the jump list when the first Ctrl-O was pressed (so you can return to the initial position: line 53, column 102).
-    - Line 93 in the current buffer no longer exists (the jump location is invalid).
+    - The last line was added to the jump list when the first Ctrl-O was pressed 
+      (so you can return to the initial position: line 53, column 102). 
+    - Line 93 in the current buffer no longer exists (the jump location is 
+      invalid). 
 
 
 USING A SCRIPT TO SELECT A JUMP IN THE LIST  *vwt-10-using-a-script-to-select-a-jump-in-the-list*
@@ -99,14 +101,15 @@ You can also have a mapping for it, for example:
 <
 
 SEE ALSO  *vwt-10-see-also*
-    - Using marks |vwt-42| to manually record marks that you can return to
-    - List changes to the current file |vwt-1300| the change list records where changes occurred
+    - Using marks |vwt-42| to manually record marks that you can return to 
+    - List changes to the current file |vwt-1300| the change list records where 
+      changes occurred 
 
 
 REFERENCES  *vwt-10-references*
-    - :help  |jump-motions|
-    - :help  |jumplist|
-    - :help  |:jumps|
+    - :help |jump-motions| 
+    - :help |jumplist| 
+    - :help |:jumps| 
 
 
 COMMENTS  *vwt-10-comments*

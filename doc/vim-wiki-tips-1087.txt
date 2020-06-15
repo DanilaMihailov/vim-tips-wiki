@@ -5,10 +5,10 @@
 
 
 This tip is very similar to the following:
-    - VimTip945 |vwt-945|
-    - VimTip1267 |vwt-1267|
-    - VimTip1296 |vwt-1296|
-    - VimTip1454 |vwt-1454|
+    - VimTip945 |vwt-945| 
+    - VimTip1267 |vwt-1267| 
+    - VimTip1296 |vwt-1296| 
+    - VimTip1454 |vwt-1454| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -57,8 +57,11 @@ type CTRL-O (<C-O>) to jump to the definition, and type `k can jump back.
 .cs, .pas, .c, .sql filetype is supported with this trick.
 
 RELATED PLUGINS  *vwt-1087-related-plugins*
-    -  Taglist [https://www.vim.org/scripts/script.php?script_id=273] not only highlights the current function in a sidebar, but allows you to jump to the various tags in this sidebar
-    -  StlShowFunc [https://github.com/dr-chip-vim-scripts/StlShowFunc]:  Works with several languages, doesn't rely on tags.
+    - Taglist [https://www.vim.org/scripts/script.php?script_id=273] not only 
+      highlights the current function in a sidebar, but allows you to jump to the 
+      various tags in this sidebar 
+    - StlShowFunc [https://github.com/dr-chip-vim-scripts/StlShowFunc]: Works with 
+      several languages, doesn't rely on tags. 
 
 
 COMMENTS  *vwt-1087-comments*

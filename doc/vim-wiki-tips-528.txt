@@ -56,9 +56,13 @@ SCRIPT  *vwt-528-script*
 
 An alternative to the simple mappings is to use a script that can cycle 
 between different states (only n and N are mapped):
-    - Normal – No mappings: search next and search previous work as normal (default).
-    - Scroll hit to middle if not on same page – No scrolling occurs if the next hit is after the first line and before the last line of the window; otherwise, the search hit is scrolled to the middle.
-    - Scroll hit to middle – The search hit is always scrolled to the middle (when possible).
+    - Normal – No mappings: search next and search previous work as normal 
+      (default). 
+    - Scroll hit to middle if not on same page – No scrolling occurs if the next 
+      hit is after the first line and before the last line of the window; otherwise, 
+      the search hit is scrolled to the middle. 
+    - Scroll hit to middle – The search hit is always scrolled to the middle (when 
+      possible). 
 
 
 With the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc], 
@@ -107,8 +111,10 @@ keeping each match centered as you work your way through the file:
 <
 
 SEE ALSO  *vwt-528-see-also*
-    - Searching [https://vim.fandom.com/wiki/Searching] for basic search information
-    - Keep cursor vertically centered |vwt-182| to keep the cursor line in the middle
+    - Searching [https://vim.fandom.com/wiki/Searching] for basic search 
+      information 
+    - Keep cursor vertically centered |vwt-182| to keep the cursor line in the 
+      middle 
 
 
 COMMENTS  *vwt-528-comments*

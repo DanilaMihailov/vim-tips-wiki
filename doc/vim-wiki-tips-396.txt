@@ -287,21 +287,33 @@ to make sure clearmatches() is an available function (apparently available in
 <
 
 SEE ALSO  *vwt-396-see-also*
-    - Highlight some whitespace characters |vwt-1274| a script to toggle specified highlighting
-    - Converting tabs to spaces |vwt-12| to convert tabs to spaces or vice versa
-    - Remove unwanted spaces |vwt-878| to display or remove unwanted spaces
-    - Remove unwanted empty lines |vwt-72| to delete blank lines
-    - cream-showinvisibles [https://www.vim.org/scripts/script.php?script_id=363] plugin for attractive display of tabs, returns and trailing spaces
+    - Highlight some whitespace characters |vwt-1274| a script to toggle specified 
+      highlighting 
+    - Converting tabs to spaces |vwt-12| to convert tabs to spaces or vice versa 
+    - Remove unwanted spaces |vwt-878| to display or remove unwanted spaces 
+    - Remove unwanted empty lines |vwt-72| to delete blank lines 
+    - cream-showinvisibles [https://www.vim.org/scripts/script.php?script_id=363] 
+      plugin for attractive display of tabs, returns and trailing spaces 
 
 
 RELATED SCRIPTS  *vwt-396-related-scripts*
-    - The ShowTrailingWhitespace [https://www.vim.org/scripts/script.php?script_id=3966] plugin highlights without affecting syntax or :match command, and comes with exceptions for certain filetypes.
-    - The JumpToTrailingWhitespace [https://www.vim.org/scripts/script.php?script_id=3968] plugin provides corresponding movement commands to quickly locate trailing whitespace.
-    - The smartmatcheol.vim [https://www.vim.org/scripts/script.php?script_id=2635] plugin highlights based on file extension or name.
-    - The trailing-whitespace [https://www.vim.org/scripts/script.php?script_id=3201] plugin uses :match.
-    - The bad-whitespace [https://www.vim.org/scripts/script.php?script_id=3735] plugin uses :match, allows on/off/toggling via commands.
-    - The Trailer Trash [https://www.vim.org/scripts/script.php?script_id=3938] plugin uses :match.
-    - The DynamicSigns [https://www.vim.org/scripts/script.php?script_id=3965] plugin can show whitespace errors (also mixed indent) in the sign column.
+    - The ShowTrailingWhitespace 
+      [https://www.vim.org/scripts/script.php?script_id=3966] plugin highlights 
+      without affecting syntax or :match command, and comes with exceptions for 
+      certain filetypes. 
+    - The JumpToTrailingWhitespace 
+      [https://www.vim.org/scripts/script.php?script_id=3968] plugin provides 
+      corresponding movement commands to quickly locate trailing whitespace. 
+    - The smartmatcheol.vim [https://www.vim.org/scripts/script.php?script_id=2635] 
+      plugin highlights based on file extension or name. 
+    - The trailing-whitespace 
+      [https://www.vim.org/scripts/script.php?script_id=3201] plugin uses :match. 
+    - The bad-whitespace [https://www.vim.org/scripts/script.php?script_id=3735] 
+      plugin uses :match, allows on/off/toggling via commands. 
+    - The Trailer Trash [https://www.vim.org/scripts/script.php?script_id=3938] 
+      plugin uses :match. 
+    - The DynamicSigns [https://www.vim.org/scripts/script.php?script_id=3965] 
+      plugin can show whitespace errors (also mixed indent) in the sign column. 
 
 
 COMMENTS  *vwt-396-comments*

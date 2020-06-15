@@ -27,8 +27,10 @@ keys if working with Vim in a terminal.
 The following is a slightly more comprehensive solution.
 
 The example mappings below work as follows:
-    -  [l and ]l jump to the previous or the next line with the same indentation level as the current line.
-    -  [L and ]L jump to the previous or the next line with an indentation level lower than the current line.
+    - [l and ]l jump to the previous or the next line with the same indentation 
+      level as the current line. 
+    - [L and ]L jump to the previous or the next line with an indentation level 
+      lower than the current line. 
 
 
 These movements also work in visual mode and in operator pending mode, 

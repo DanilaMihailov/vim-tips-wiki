@@ -59,25 +59,27 @@ inserts the contents of a register. Register 0 (zero) contains the text that
 was copied with y$.
 
 SEE ALSO  *vwt-44-see-also*
-    - Using command-line history |vwt-45|
-    - Repeat command on each line in visual block |vwt-84|
-    - Recording keys for repeated jobs |vwt-144|
-    - Repeat last colon command |vwt-990|
-    - Repeating an ex command on multiple blocks |vwt-1118|
-    - Repeat last command and put cursor at start of change |vwt-1142|
+    - Using command-line history |vwt-45| 
+    - Repeat command on each line in visual block |vwt-84| 
+    - Recording keys for repeated jobs |vwt-144| 
+    - Repeat last colon command |vwt-990| 
+    - Repeating an ex command on multiple blocks |vwt-1118| 
+    - Repeat last command and put cursor at start of change |vwt-1142| 
 
 
 REFERENCES  *vwt-44-references*
-    - :help  |single-repeat|
+    - :help |single-repeat| 
 
 
 COMMENTS  *vwt-44-comments*
-    - plugin repeat.vim [https://vim.fandom.com/wiki/Script:2136] (repeat.vim [https://www.vim.org/scripts/script.php?script_id=2136]) to repeat your own complex mappings and functions; see comments in script header for use
-    - @@ to repeat last played macro
-    - n, N, ;, , to repeat searches
-    - & to repeat subsititution
-    -  |i_CTRL-A| also known as  |i_CTRL-R_.|
-    - Undo and Redo [https://vim.fandom.com/wiki/Undo_and_Redo]
+    - plugin repeat.vim [https://vim.fandom.com/wiki/Script:2136] (repeat.vim 
+      [https://www.vim.org/scripts/script.php?script_id=2136]) to repeat your own 
+      complex mappings and functions; see comments in script header for use 
+    - @@ to repeat last played macro 
+    - n, N, ;, , to repeat searches 
+    - & to repeat subsititution 
+    - |i_CTRL-A| also known as |i_CTRL-R_.| 
+    - Undo and Redo [https://vim.fandom.com/wiki/Undo_and_Redo] 
 
 
  vim:tw=78:et:ft=help:norl:

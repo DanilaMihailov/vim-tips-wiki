@@ -22,13 +22,13 @@ COMMENTS  *vwt-393-comments*
 
 Or if you have ruby compiled in (look for +ruby in :ver output), you can use 
 the following:
-    -  Equivalent to s/pattern/replacement/g
+    - Equivalent to s/pattern/replacement/g 
 
 
 >
     :rubydo gsub /pattern/,'replacement'
 <
-    -  Equivalent to s/pattern/replacement/
+    - Equivalent to s/pattern/replacement/ 
 
 
 >

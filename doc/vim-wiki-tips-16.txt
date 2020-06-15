@@ -86,24 +86,26 @@ To prevent prompt on mappings create mappings using :map <silent>:
 <
 
 SEE ALSO  *vwt-16-see-also*
-    - Execute external programs asynchronously under Windows |vwt-1549| for the "Hit any key to close this window..." prompt.
+    - Execute external programs asynchronously under Windows |vwt-1549| for the 
+      "Hit any key to close this window..." prompt. 
 
 
 REFERENCES  *vwt-16-references*
-    - :help  |hit-enter|
-    - :help 'shortmess'
-    - :help 'cmdheight'
-    - :help  |:!cmd|
-    - :help  |:silent|
-    - :help  |:map-<silent>|
+    - :help |hit-enter| 
+    - :help 'shortmess' 
+    - :help 'cmdheight' 
+    - :help |:!cmd| 
+    - :help |:silent| 
+    - :help |:map-<silent>| 
 
 
 COMMENTS  *vwt-16-comments*
-    -  putting the following setting into your .vimrc settings file works good for eliminating the <Press Enter> message when first bringing up a vim editor to a specific file with a large path.The 't' option chops the beginning portion of file lines, indicating the truncation with a < sign at the point of truncation. 
-
->
-    set shortmess=at
-<Keithel [https://vim.fandom.com/wiki/User:Keithel] 21:08, 13 August 2009 (UTC)
+    - putting the following setting into your .vimrc settings file works good for 
+      eliminating the <Press Enter> message when first bringing up a vim editor to a 
+      specific file with a large path.The 't' option chops the beginning portion of 
+      file lines, indicating the truncation with a < sign at the point of 
+      truncation. > set shortmess=at <Keithel 
+      [https://vim.fandom.com/wiki/User:Keithel] 21:08, 13 August 2009 (UTC) 
 
 
 That option generally doesn't prevent the message. 

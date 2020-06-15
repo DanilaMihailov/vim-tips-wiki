@@ -116,8 +116,9 @@ Now you can press F12 to clean up most syntax highlighting problems.
 Sometimes, pressing Ctrl-L to redraw the screen helps.
 
 REFERENCES  *vwt-269-references*
-    - :help  |:syn-sync|
-    - Search for 'sync' in your favorite syntax file in the $VIMRUNTIME/syntax directory (use :echo expand('$VIMRUNTIME/syntax') to see its location).
+    - :help |:syn-sync| 
+    - Search for 'sync' in your favorite syntax file in the $VIMRUNTIME/syntax 
+      directory (use :echo expand('$VIMRUNTIME/syntax') to see its location). 
 
 
 COMMENTS  *vwt-269-comments*

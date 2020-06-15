@@ -95,9 +95,9 @@ Here is a set of autocommands that allows you to work on GPG-encrypted files
 as though they were ordinary text files. Be aware that Vim uses temporary 
 files (rather than pipes) when filtering data through external programs, so 
 the fully decrypted file will be written to disk twice:
-    - Once when reading from gpg --decrypt,
-    - once when writing to gpg --encrypt,
-    - and perhaps another time if your OS has unencrypted swap files.
+    - Once when reading from gpg --decrypt, 
+    - once when writing to gpg --encrypt, 
+    - and perhaps another time if your OS has unencrypted swap files. 
 
 
 With that said, here is the code.

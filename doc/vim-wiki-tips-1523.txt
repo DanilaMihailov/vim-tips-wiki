@@ -170,9 +170,9 @@ any character at a virtual column below 81; \%>77v causes the match to fail
 unless the virtual column of the next character is above 77.
 
 REFERENCES  *vwt-1523-references*
-    - :help  |matchadd()|
-    - :help  |:match|
-    - :help  |/\%v|
+    - :help |matchadd()| 
+    - :help |:match| 
+    - :help |/\%v| 
 
 
 COMMENTS  *vwt-1523-comments*

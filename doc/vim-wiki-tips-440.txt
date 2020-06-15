@@ -36,18 +36,19 @@ An example setting for formatoptions (fo) is:
 COMMENTS  *vwt-440-comments*
 
 TO DO
-    - Explain what above fo does, and how to configure so paragraphs do not have the first line indented, and are separated by a blank line.
-    - Discuss :setl fo+=a and :setl fo-=a.
-    - Incorporate following comments.
-    - For CJK/Asian language, :set fo+=m will break line at double width chars too.
+    - Explain what above fo does, and how to configure so paragraphs do not have 
+      the first line indented, and are separated by a blank line. 
+    - Discuss :setl fo+=a and :setl fo-=a. 
+    - Incorporate following comments. 
+    - For CJK/Asian language, :set fo+=m will break line at double width chars too. 
 
 
 ==============================================================================
 
 Sometimes it is useful to keep each paragraph as one long line (that is, do 
 not break the paragraph into lines). See these related tips:
-    - 38 Move cursor by display lines when wrapping |vwt-38|
-    - 989 Word wrap without line breaks |vwt-989|
+    - 38 Move cursor by display lines when wrapping |vwt-38| 
+    - 989 Word wrap without line breaks |vwt-989| 
 
 
 The following sets the current buffer so that long lines are automatically 

@@ -33,9 +33,9 @@ Run regedit and set the following values to the correct paths:
     [HKEY_LOCAL_MACHINE\SOFTWARE\Vim\Gvim]
     path=C:\Program Files\Vim\vim80\gvim.exe
 <
-    - Save this file as edit-with-vim-dll.reg.
-    - Make sure the paths are right for your machine.
-    - Double click on it in Explorer to import this file.
+    - Save this file as edit-with-vim-dll.reg. 
+    - Make sure the paths are right for your machine. 
+    - Double click on it in Explorer to import this file. 
 
 
 >
@@ -50,9 +50,9 @@ Run regedit and set the following values to the correct paths:
 <
 
 For 64-bit Windows, use gvimext64.dll instead.
-    - Save this file as edit-with-vim-64bit-dll.reg.
-    - Make sure the paths are right for your machine.
-    - Double click on it in Explorer to import this file.
+    - Save this file as edit-with-vim-64bit-dll.reg. 
+    - Make sure the paths are right for your machine. 
+    - Double click on it in Explorer to import this file. 
 
 
 >
@@ -76,12 +76,12 @@ USING GVIM.EXE DIRECTLY (ALTERNATE METHOD)  *vwt-636-using-gvim.exe-directly-(al
 
 To add "Edit with Vim" to the Windows File Explorer context menu without any 
 dependency on the DLL:
-    - Save this file as edit-with-vim.reg.
-    - Make sure the paths are right for your machine.
-    - Double click on it in Explorer to import this file.
-    - The double quotes are needed for filenames with spaces.
-    - The '*' means 'for all files'.
-    - Use whatever path you installed Vim to for the shell\vim\command value.
+    - Save this file as edit-with-vim.reg. 
+    - Make sure the paths are right for your machine. 
+    - Double click on it in Explorer to import this file. 
+    - The double quotes are needed for filenames with spaces. 
+    - The '*' means 'for all files'. 
+    - Use whatever path you installed Vim to for the shell\vim\command value. 
 
 
 >
@@ -101,8 +101,9 @@ takes advantage of the same Windows features used by file associations
 context menu entry for the Vim executable.
 
 SEE ALSO  *vwt-636-see-also*
-    - Right click in Windows Explorer to open gvim in explorer mode |vwt-861|
-    - Windows file associations [https://vim.fandom.com/wiki/Windows_file_associations]
+    - Right click in Windows Explorer to open gvim in explorer mode |vwt-861| 
+    - Windows file associations 
+      [https://vim.fandom.com/wiki/Windows_file_associations] 
 
 
 COMMENTS  *vwt-636-comments*

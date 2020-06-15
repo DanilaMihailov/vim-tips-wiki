@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip398 |vwt-398|
+    - VimTip398 |vwt-398| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -28,16 +28,17 @@ easy playback. Place in vimrc:
 This allows playback of the recording that was put into the q register.
 
 Example of recording and playback usage:
-    - Begin recording keystrokes by typing "qq".
-    - Perform your customized keystrokes.
-    - To end recording, type
+    - Begin recording keystrokes by typing "qq". 
+    - Perform your customized keystrokes. 
+    - To end recording, type 
 
 
 >
     q               in normal/visual mode
     Ctrl-o q        in insert mode
 <
-    - To playback recording, hit the Caps Lock key and use "Q" in normal/visual mode. The Caps Lock key acts as a flip switch between recording and playback.
+    - To playback recording, hit the Caps Lock key and use "Q" in normal/visual 
+      mode. The Caps Lock key acts as a flip switch between recording and playback. 
 
 
 Playback can accept a count. For example, "5Q" repeats the recorded 
@@ -47,11 +48,11 @@ If you'd still like to access Ex-mode like it was with the default "Q", use
 "gQ" instead. It has more features than the original Ex-mode.
 
 REFERENCES  *vwt-1249-references*
-    - VimTip144 |vwt-144|
-    - :help  |complex-repeat|
-    - :help  |registers|
-    - :help  |Q|
-    - :help  |gQ|
+    - VimTip144 |vwt-144| 
+    - :help |complex-repeat| 
+    - :help |registers| 
+    - :help |Q| 
+    - :help |gQ| 
 
 
 COMMENTS  *vwt-1249-comments*

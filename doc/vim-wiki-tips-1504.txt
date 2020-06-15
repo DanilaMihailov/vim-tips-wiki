@@ -43,13 +43,13 @@ almost always the best procedure.
 
 You could use <CR> (4 characters), which should work when your 'cpo' does not 
 have < included. See
-    - :help  |cpo-<|
-    - :help  |<>|
+    - :help |cpo-<| 
+    - :help |<>| 
 
 
 Even with < in 'cpo', you would be able to enter a mapping this way – you 
 need to use <special> modifier. See
-    - :help  |:map-special|
+    - :help |:map-special| 
 
 
 One more thing: Ctrl-V is mapped only when your _vimrc contains the following 

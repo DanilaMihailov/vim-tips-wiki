@@ -23,9 +23,10 @@ must :wq from afiedit.buf). I would have liked a split window viewing both
 afiedit.buf and sqlplus.log, but have not been able to do that.
 
 So I looked for a way to accomplish these three things:
-    - Append the contents of afiedt.buf to a log file.
-    - Keep the log file visible after :wq from afiedit.buf.
-    - Pass the control back to Oracle properly so Oracle could see the contents of afiedt.buf.
+    - Append the contents of afiedt.buf to a log file. 
+    - Keep the log file visible after :wq from afiedit.buf. 
+    - Pass the control back to Oracle properly so Oracle could see the contents of 
+      afiedt.buf. 
 
 
 While in SQL*PLUS, I enter
@@ -81,10 +82,10 @@ Also, the split window between sqlplus.log and afiedt.buf would be nice to
 have.
 
 REFERENCES  *vwt-1092-references*
-    - :help  |:function|
-    - :help  |:au|
-    - :help  |BufWrite|
-    - :help  |gui-fork|
+    - :help |:function| 
+    - :help |:au| 
+    - :help |BufWrite| 
+    - :help |gui-fork| 
 
 
 COMMENTS  *vwt-1092-comments*

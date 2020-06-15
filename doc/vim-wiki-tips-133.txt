@@ -128,18 +128,23 @@ along with the current window or buffer:
 <
 
 REFERENCES  *vwt-133-references*
-    - :help  |:windo|
-    - :help  |:bufdo|
-    - :help  |:tabdo|
+    - :help |:windo| 
+    - :help |:bufdo| 
+    - :help |:tabdo| 
 
 
 COMMENTS  *vwt-133-comments*
 
 TODO  *vwt-133-todo*
-    - Tip 382 Search and replace in multiple buffers [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] give advice re using argdo as well as bufdo
-    - Tip 767 Multiple commands at once [https://vim.fandom.com/wiki/Multiple_commands_at_once]
-    - Tip 1160 Auto save files when focus is lost [https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost]
-    - Tip 1161 Windo and restore current window [https://vim.fandom.com/wiki/Windo_and_restore_current_window]
+    - Tip 382 Search and replace in multiple buffers 
+      [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] give 
+      advice re using argdo as well as bufdo 
+    - Tip 767 Multiple commands at once 
+      [https://vim.fandom.com/wiki/Multiple_commands_at_once] 
+    - Tip 1160 Auto save files when focus is lost 
+      [https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost] 
+    - Tip 1161 Windo and restore current window 
+      [https://vim.fandom.com/wiki/Windo_and_restore_current_window] 
 
 
 Tips 1160 and 1161 have some interesting code (although I would never use 
@@ -190,13 +195,17 @@ bufdo [https://vim.fandom.com/wiki/Bufdo], tabdo
 [https://vim.fandom.com/wiki/Tabdo], windo [https://vim.fandom.com/wiki/Windo] 
 point to this tip, and I would also make argdo 
 [https://vim.fandom.com/wiki/Argdo]):
-    - Run a command on all buffers or tabs or windows [https://vim.fandom.com/wiki/Run_a_command_on_all_buffers_or_tabs_or_windows] this tip
-    - Search and replace in multiple buffers [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] similar tip but focuses on substitute
+    - Run a command on all buffers or tabs or windows 
+      [https://vim.fandom.com/wiki/Run_a_command_on_all_buffers_or_tabs_or_windows] 
+      this tip 
+    - Search and replace in multiple buffers 
+      [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] similar 
+      tip but focuses on substitute 
 
 
 Should we rename these, perhaps:
-    - Run a command in multiple files
-    - Search and replace in multiple files
+    - Run a command in multiple files 
+    - Search and replace in multiple files 
 
 
 The "files" is not strictly correct since it might be just a buffer with no 

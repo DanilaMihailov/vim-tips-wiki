@@ -23,7 +23,10 @@ the cursor up). This is what the relevant part of my vimrc file looks like:
 <
 
 COMMENTS  *vwt-1334-comments*
-    - The above example does the job, but hides some functionality. For example, you won't be able do delete "inner word" text object with 'diw' combination, because 'di' will act like 'd<Up>' thus deleting one row before cursor. The simple workaround is to add
+    - The above example does the job, but hides some functionality. For example, 
+      you won't be able do delete "inner word" text object with 'diw' combination, 
+      because 'di' will act like 'd<Up>' thus deleting one row before cursor. The 
+      simple workaround is to add 
 
 
 >
@@ -47,7 +50,7 @@ Another(and imo better) solution is to swap i and h:
 
 This allows to use all operations replacing i with h. E.g., to delete "inner 
 word" pres 'dhw'.
-    - You might as well want to use the gmail convention:
+    - You might as well want to use the gmail convention: 
 
 
 >

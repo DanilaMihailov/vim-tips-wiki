@@ -5,8 +5,8 @@
 
 
 This tip is very similar to the following:
-    - VimTip518 |vwt-518|
-    - VimTip682 |vwt-682|
+    - VimTip518 |vwt-518| 
+    - VimTip682 |vwt-682| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -212,45 +212,50 @@ CMAKE  *vwt-1575-cmake*
 <
 
 SEE ALSO  *vwt-1575-see-also*
-    - Errorformat for icc7 |vwt-518|
-    - Errorformat for Intel ifort |vwt-682|
-    - Errorformat for java/ant/junit/cygwin/bash |vwt-325|
-    - Errorformat and makeprg |vwt-476|
+    - Errorformat for icc7 |vwt-518| 
+    - Errorformat for Intel ifort |vwt-682| 
+    - Errorformat for java/ant/junit/cygwin/bash |vwt-325| 
+    - Errorformat and makeprg |vwt-476| 
 
 
 REFERENCES  *vwt-1575-references*
-    - :help 'errorformat'
-    - :help 'makeef'
+    - :help 'errorformat' 
+    - :help 'makeef' 
 
 
 COMMENTS  *vwt-1575-comments*
 
 TO DO
-    - Clean up tips in Category:Compiler [https://vim.fandom.com/wiki/Category:Compiler].
-    - Where appropriate, should merge compiler tips for a particular language into one tip.
-    - Need emphasis to be on the :compiler command (don't directly mess with 'efm').
-    - Settings for errorformat should be in a compiler plugin rather than in vimrc. :help  |write-compiler-plugin| :help  |compiler-select|
-    - If there is no support for a compiler, user should add a new compiler (need example of how).
-    - Need links to a tip with info on the quickfix window.
+    - Clean up tips in Category:Compiler 
+      [https://vim.fandom.com/wiki/Category:Compiler]. 
+    - Where appropriate, should merge compiler tips for a particular language into 
+      one tip. 
+    - Need emphasis to be on the :compiler command (don't directly mess with 
+      'efm'). 
+    - Settings for errorformat should be in a compiler plugin rather than in vimrc. 
+      :help |write-compiler-plugin| :help |compiler-select| 
+    - If there is no support for a compiler, user should add a new compiler (need 
+      example of how). 
+    - Need links to a tip with info on the quickfix window. 
 
 
 Related tips (all are in Compiler category; first four are in 'see also' 
 above)
-    - 476 Errorformat and makeprg |vwt-476|
-    - 325 Errorformat for java/ant/junit/cygwin/bash |vwt-325|
-    - 518 Errorformat for icc7 |vwt-518|
-    - 682 Errorformat for Intel ifort |vwt-682|
-    - 1107 J2ME development |vwt-1107|
-    - 3 Compile Java with Jikes |vwt-3|
-    - 120 Compile Java with Sun JDK javac |vwt-120|
-    - 385 Some Java tips |vwt-385|
-    - 458 Use the quickfix window to list all errors |vwt-458|
-    - 280 Integration with PyUnit testing framework |vwt-280|
-    - 949 Integrate Pylint and Pychecker support |vwt-949|
-    - 473 Compiler for perl |vwt-473|
-    - 692 Runtime syntax check for php |vwt-692|
-    - 443 A better interfacing of (La)TeX with the quickfix mode |vwt-443|
-    - 852 Make support for NEC V850 CA850 compilers |vwt-852|
+    - 476 Errorformat and makeprg |vwt-476| 
+    - 325 Errorformat for java/ant/junit/cygwin/bash |vwt-325| 
+    - 518 Errorformat for icc7 |vwt-518| 
+    - 682 Errorformat for Intel ifort |vwt-682| 
+    - 1107 J2ME development |vwt-1107| 
+    - 3 Compile Java with Jikes |vwt-3| 
+    - 120 Compile Java with Sun JDK javac |vwt-120| 
+    - 385 Some Java tips |vwt-385| 
+    - 458 Use the quickfix window to list all errors |vwt-458| 
+    - 280 Integration with PyUnit testing framework |vwt-280| 
+    - 949 Integrate Pylint and Pychecker support |vwt-949| 
+    - 473 Compiler for perl |vwt-473| 
+    - 692 Runtime syntax check for php |vwt-692| 
+    - 443 A better interfacing of (La)TeX with the quickfix mode |vwt-443| 
+    - 852 Make support for NEC V850 CA850 compilers |vwt-852| 
 
 
 Many existing tips have obsolete/bad advice, for example, tip 476 says to 

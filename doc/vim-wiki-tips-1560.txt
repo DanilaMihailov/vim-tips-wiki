@@ -119,8 +119,10 @@ Thanks for posting this.
 Here is how I modified the completion function with tags-file search for my 
 own .bashrc. I basically rewrote most of it, partly just for stylistic 
 preference, but also to make some improvements:
-    - the upward directory search doesn't change the current directory, which is typically not a good idea in a shell function
-    - it uses grep instead of awk. grep is most likely faster, and the invocation is simpler
+    - the upward directory search doesn't change the current directory, which is 
+      typically not a good idea in a shell function 
+    - it uses grep instead of awk. grep is most likely faster, and the invocation 
+      is simpler 
 
 
 >

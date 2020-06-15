@@ -9,13 +9,14 @@ created 2004 · complexity intermediate · version 7.0
 CSV files (comma-separated values) are often used to save tables of data in 
 plain text. Following are some useful techniques for working with CSV files. 
 You can:
-    - Highlight all text in any column.
-    - View fields (convert csv text to columns or separate lines).
-    - Navigate using the HJKL keys to go left, down, up, right by cell (hjkl work as normal).
-    - Search for text in a specific column.
-    - Sort lines by column.
-    - Delete a column.
-    - Specify a delimiter other than comma.
+    - Highlight all text in any column. 
+    - View fields (convert csv text to columns or separate lines). 
+    - Navigate using the HJKL keys to go left, down, up, right by cell (hjkl work 
+      as normal). 
+    - Search for text in a specific column. 
+    - Sort lines by column. 
+    - Delete a column. 
+    - Specify a delimiter other than comma. 
 
 
 HIGHLIGHTING A COLUMN  *vwt-667-highlighting-a-column*
@@ -90,33 +91,35 @@ assumes that commas are only used as delimiters. The following code has more
 features, and it is presented as a plugin due to its length.
 
 FEATURES  *vwt-667-features*
-    - Fields are generally correctly highlighted, according to the CSV specification [http://tools.ietf.org/html/rfc4180]: quotes, commas inside quotes, quote inside quotes are all correctly processed.
-    - (However it does not handle quoted fields that begin with a space before the quote, i.e. where the delimiter is ", " so for this see work-around below |vwt-667-working-with-multi-character-delimiters|)
-    - It does not go beyond the last column (from a count of the columns in the first and last three lines).
-    - HJKL go left, down, up, right by "cell". Focus is set to the first character of the cell.
-    - space highlight the cell the focus is on
-    - 0 and $ highlight the first and last cell. Focus is set to the first character of the cell.
-    - Ctrl-f, Ctrl-b page forward and back, while staying in the same column.
-    - \J is Join :help  |J| and \K is Keyword :help  |K| (assuming the default \ local leader key :help  |maplocalleader|).
-    - The column number and heading are displayed when moving around. The headings are taken from a specified line, by default, the first line.
-    - Search within column. The command 
-
->
-    :SC n=str
-< will search for str in the n-th column. If "n=" is omitted, the search is within the currently highlighted column. For example: 
-
->
-    :SC 2=john  " search for john in the 2nd column only
-<
-
->
-    :SC john    " search for john in the currently highlighted column
-< Case sensitivity is the same as for / (toggle with :set ic! ic? see :help 'ignorecase'). After the search, the @/ variable is set. So, for example, after :SC 2=john, one can use g//d to delete all lines whose second field contains john.
-    - Copy column. The command 
-
->
-    :CC n x
-< will copy (yank) the n-th column to register x. If n is omitted, then the current highlighted column is copied. If x is omitted, the unnamed register is used. Examples:
+    - Fields are generally correctly highlighted, according to the CSV 
+      specification [http://tools.ietf.org/html/rfc4180]: quotes, commas inside 
+      quotes, quote inside quotes are all correctly processed. 
+    - (However it does not handle quoted fields that begin with a space before the 
+      quote, i.e. where the delimiter is ", " so for this see work-around below 
+      |vwt-667-working-with-multi-character-delimiters|) 
+    - It does not go beyond the last column (from a count of the columns in the 
+      first and last three lines). 
+    - HJKL go left, down, up, right by "cell". Focus is set to the first character 
+      of the cell. 
+    - space highlight the cell the focus is on 
+    - 0 and $ highlight the first and last cell. Focus is set to the first 
+      character of the cell. 
+    - Ctrl-f, Ctrl-b page forward and back, while staying in the same column. 
+    - \J is Join :help |J| and \K is Keyword :help |K| (assuming the default \ 
+      local leader key :help |maplocalleader|). 
+    - The column number and heading are displayed when moving around. The headings 
+      are taken from a specified line, by default, the first line. 
+    - Search within column. The command > :SC n=str < will search for str in the 
+      n-th column. If "n=" is omitted, the search is within the currently 
+      highlighted column. For example: > :SC 2=john " search for john in the 2nd 
+      column only < > :SC john " search for john in the currently highlighted column 
+      < Case sensitivity is the same as for / (toggle with :set ic! ic? see :help 
+      'ignorecase'). After the search, the @/ variable is set. So, for example, 
+      after :SC 2=john, one can use g//d to delete all lines whose second field 
+      contains john. 
+    - Copy column. The command > :CC n x < will copy (yank) the n-th column to 
+      register x. If n is omitted, then the current highlighted column is copied. If 
+      x is omitted, the unnamed register is used. Examples: 
 
 
 >
@@ -125,12 +128,14 @@ FEATURES  *vwt-667-features*
     :CC a            " copy current column to register a
     :CC 12 a         " copy column 12 to register a
 <
-    - Delete column. The command 
-
->
-    :DC n
-< will delete the n-th column. If n is omitted, then the current highlighted column is deleted.
-    - Change the headings line. By default the first line is assumed to contain column headings, but you can change the line used with the HL command. Note that the headings line is a fixed line number; it does not update if that line is moved, for example if you delete or insert lines above it. Also, the headings line value will be reset to 1 (the default) if you reload the buffer, for example, with the :e! command.
+    - Delete column. The command > :DC n < will delete the n-th column. If n is 
+      omitted, then the current highlighted column is deleted. 
+    - Change the headings line. By default the first line is assumed to contain 
+      column headings, but you can change the line used with the HL command. Note 
+      that the headings line is a fixed line number; it does not update if that line 
+      is moved, for example if you delete or insert lines above it. Also, the 
+      headings line value will be reset to 1 (the default) if you reload the buffer, 
+      for example, with the :e! command. 
 
 
 >
@@ -138,7 +143,7 @@ FEATURES  *vwt-667-features*
     :HL              " set the line currently under the cursor to contain the column headings
     :HL 0            " turn off the headings line
 <
-    - Specify a character to be used as the delimiter (',' is the default).
+    - Specify a character to be used as the delimiter (',' is the default). 
 
 
 >
@@ -149,14 +154,19 @@ FEATURES  *vwt-667-features*
 
 Delimiters can only be one character. For multi-character delimiters see the 
 work-around below |vwt-667-working-with-multi-character-delimiters|)
-    - Change the default delimiter (you could put one of the following examples in your vimrc [https://vim.fandom.com/wiki/Vimrc]):
+    - Change the default delimiter (you could put one of the following examples in 
+      your vimrc [https://vim.fandom.com/wiki/Vimrc]): 
 
 
 >
     :let g:csv_delimiter = ";"
     :let g:csv_delimiter = "\t"
 <
-    - Sort lines by column. This works like the :sort command except that the specified field is used for sorting. The heading line and lines above it in the buffer are not included, unless you explicitly specify a range that starts on or before the heading line.  To sort all lines, explicitly specify the range, or turn off the headings line. Some examples follow.
+    - Sort lines by column. This works like the :sort command except that the 
+      specified field is used for sorting. The heading line and lines above it in 
+      the buffer are not included, unless you explicitly specify a range that starts 
+      on or before the heading line. To sort all lines, explicitly specify the 
+      range, or turn off the headings line. Some examples follow. 
 
 
 >
@@ -729,13 +739,24 @@ on-the-fly.
 COMMENTS  *vwt-667-comments*
 
 Note
-    - Add any problem reports or quick comments below.
-    - See the discussion page [https://vim.fandom.com/wiki/Talk:Working_with_CSV_files] for extended discussions and more information.
-    - See update [https://vim.fandom.com/wiki/Talk:Working_with_CSV_files#Update_February_2010] for information on improved custom delimiters and a "copy column" command.
-    - There is a filetype [https://www.vim.org/scripts/script.php?script_id=2830] plugin available, that implements most of the commands mentioned here and also adds some syntax highlighting and some more extra commands, including multi-character delimiters.
-    - A copy of the script listed on this wiki page can be found on github [https://github.com/dsummersl/wikia-csv]
-    -  quick comment: (2013-01-31) I changed csv.vim as follows since I often have wrapmargin set to a positive number in, for instance, markdown files.
-    -  There's also exist rainbow_csv plugin for highlighting csv columns in different colors. It can be found on github: rainbow_csv [https://github.com/mechatroner/rainbow_csv]
+    - Add any problem reports or quick comments below. 
+    - See the discussion page 
+      [https://vim.fandom.com/wiki/Talk:Working_with_CSV_files] for extended 
+      discussions and more information. 
+    - See update 
+      [https://vim.fandom.com/wiki/Talk:Working_with_CSV_files#Update_February_2010] 
+      for information on improved custom delimiters and a "copy column" command. 
+    - There is a filetype [https://www.vim.org/scripts/script.php?script_id=2830] 
+      plugin available, that implements most of the commands mentioned here and also 
+      adds some syntax highlighting and some more extra commands, including 
+      multi-character delimiters. 
+    - A copy of the script listed on this wiki page can be found on github 
+      [https://github.com/dsummersl/wikia-csv] 
+    - quick comment: (2013-01-31) I changed csv.vim as follows since I often have 
+      wrapmargin set to a positive number in, for instance, markdown files. 
+    - There's also exist rainbow_csv plugin for highlighting csv columns in 
+      different colors. It can be found on github: rainbow_csv 
+      [https://github.com/mechatroner/rainbow_csv] 
 
 
 >
@@ -754,7 +775,7 @@ Note
 Addon 
 readingshttp://acg.github.io/2013/03/29/turn-vim-into-excel-tips-for-tabular-data-editing.html 
 [http://acg.github.io/2013/03/29/turn-vim-into-excel-tips-for-tabular-data-editing.html]
-    - Tall Spreadsheets: Always-Visible Column Names Above
+    - Tall Spreadsheets: Always-Visible Column Names Above 
 
 
 We want those column names to always be visible, ... splitting the current 
@@ -766,7 +787,7 @@ window in two ... upper for the headers... lower for data:
     1 CTRL-W _
     CTRL-W j
 <
-    - bounded horizontal scrolling of the two windows
+    - bounded horizontal scrolling of the two windows 
 
 
 >
@@ -776,7 +797,7 @@ window in two ... upper for the headers... lower for data:
     :set scrollbind
     CTRL-W j
 <
-    - No wrap
+    - No wrap 
 
 
 >
@@ -785,7 +806,7 @@ window in two ... upper for the headers... lower for data:
     :set nowrap
     CTRL-W j
 <
-    - CSV adn TSV (tab separated)
+    - CSV adn TSV (tab separated) 
 
 
 https://gist.github.com/acg/5312217 

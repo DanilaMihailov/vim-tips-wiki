@@ -12,10 +12,12 @@ More explaining please!
 
 While the scripts in this tip may be very useful, nobody who isn't familiar 
 with the subject matter will know what they do or why. This tip may need:
-    - a problem statement explaining—in layman's terms—what the problem is that is solved by this tip
-    - a "do it yourself" example showing how to do it manually without a complicated script, and telling why this may not be sufficient
-    - explanations of how the script works at a basic level
-    - comments in the script itself for the complicated bits
+    - a problem statement explaining—in layman's terms—what the problem is that is 
+      solved by this tip 
+    - a "do it yourself" example showing how to do it manually without a 
+      complicated script, and telling why this may not be sufficient 
+    - explanations of how the script works at a basic level 
+    - comments in the script itself for the complicated bits 
 
 
 This tip was inspired by a tip on using bash completion with ctags 
@@ -68,13 +70,17 @@ directories:
 I find this really useful when I'm jumping into a quick bug fix.
 
 SEE ALSO  *vwt-1665-see-also*
-    - Using bash completion with ctags and Vim [https://vim.fandom.com/wiki/Using_bash_completion_with_ctags_and_Vim]
+    - Using bash completion with ctags and Vim 
+      [https://vim.fandom.com/wiki/Using_bash_completion_with_ctags_and_Vim] 
 
 
 COMMENTS  *vwt-1665-comments*
-    -  Cool! How would I do this using the new compsys (compdef?) instead of the old compctl?
+    - Cool! How would I do this using the new compsys (compdef?) instead of the old 
+      compctl? 
 
-    -  It didn't work for me. The problem was that "$cur" was being populated with "vim -t", which most likely would not match anything in the tags file. I used the following,
+    - It didn't work for me. The problem was that "$cur" was being populated with 
+      "vim -t", which most likely would not match anything in the tags file. I used 
+      the following, 
 
 
 >

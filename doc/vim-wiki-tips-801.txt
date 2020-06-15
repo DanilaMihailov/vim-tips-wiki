@@ -96,13 +96,13 @@ This will initially open all the folds if there is only one fold, or if there
 are fewer than 25 lines in the quickfix window.
 
 SEE ALSO  *vwt-801-see-also*
-    - Folding with Regular Expression |vwt-282| fold misses from a search
-    - Find in files within Vim |vwt-1543| using vimgrep to search files
+    - Folding with Regular Expression |vwt-282| fold misses from a search 
+    - Find in files within Vim |vwt-1543| using vimgrep to search files 
 
 
 REFERENCES  *vwt-801-references*
-    - :help  |quickfix|
-    - :help  |:copen|
+    - :help |quickfix| 
+    - :help |:copen| 
 
 
 COMMENTS  *vwt-801-comments*

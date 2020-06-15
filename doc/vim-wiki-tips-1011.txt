@@ -97,14 +97,15 @@ such as ciw to change the inner word. This method has the advantage of being
 easily repeatable using the . repeat command.
 
 TO DO
-    - Use with clipboard @+
-    - Explain: Use register 2 to insert previously deleted text: diw"2P
+    - Use with clipboard @+ 
+    - Explain: Use register 2 to insert previously deleted text: diw"2P 
 
 
 This process works with any selected text, although it works best if:
-    - The yanked text is characterwise and the replaced text is selected characterwise; or
-    - The yanked text is linewise and the replaced text is selected linewise; or
-    - The yanked text is blockwise and the replaced text is selected blockwise.
+    - The yanked text is characterwise and the replaced text is selected 
+      characterwise; or 
+    - The yanked text is linewise and the replaced text is selected linewise; or 
+    - The yanked text is blockwise and the replaced text is selected blockwise. 
 
 
 Typing yiw (yank inner word) is an example of a characterwise copy, while yy 
@@ -209,58 +210,71 @@ One key <F7> does everything. Good for inter-window copying and pasting.
 <
 
 SEE ALSO  *vwt-1011-see-also*
-    - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change]
+    - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change] 
 
 
 RELATED PLUGINS  *vwt-1011-related-plugins*
-    - ReplaceWithRegister [https://www.vim.org/scripts/script.php?script_id=2703] plugin to replace text covered by a motion, entire line(s) or the current selection with the contents of a register; more versatile and covers corner cases better than simple mappings
-    - YankRing [https://www.vim.org/scripts/script.php?script_id=1234] - Maintains a history of previous yanks, changes and deletes
-    - yankstack [https://github.com/maxbrunsfeld/vim-yankstack] - It allows you to yank and delete things without worrying about losing the text that you yanked previously. It effectively turns your default register into a stack, and lets you cycle through the items in the stack after doing a paste. This plugin is intended to be a simpler alternative to the YankRing plugin.
-    - vim-easyclip [https://github.com/svermeulen/vim-easyclip] - This plugin solves that problem by redirecting all change and delete operations to the black hole register and introducing a new operator, 'cut' (by default this is mapped to the m key for 'move').
+    - ReplaceWithRegister [https://www.vim.org/scripts/script.php?script_id=2703] 
+      plugin to replace text covered by a motion, entire line(s) or the current 
+      selection with the contents of a register; more versatile and covers corner 
+      cases better than simple mappings 
+    - YankRing [https://www.vim.org/scripts/script.php?script_id=1234] - Maintains 
+      a history of previous yanks, changes and deletes 
+    - yankstack [https://github.com/maxbrunsfeld/vim-yankstack] - It allows you to 
+      yank and delete things without worrying about losing the text that you yanked 
+      previously. It effectively turns your default register into a stack, and lets 
+      you cycle through the items in the stack after doing a paste. This plugin is 
+      intended to be a simpler alternative to the YankRing plugin. 
+    - vim-easyclip [https://github.com/svermeulen/vim-easyclip] - This plugin 
+      solves that problem by redirecting all change and delete operations to the 
+      black hole register and introducing a new operator, 'cut' (by default this is 
+      mapped to the m key for 'move'). 
 
 
 REFERENCES  *vwt-1011-references*
-    - :help  |registers|
-    - :help  |v_p|
+    - :help |registers| 
+    - :help |v_p| 
 
 
 COMMENTS  *vwt-1011-comments*
 
 TO DO
-    - Prune out any misguided information.
-    - That will leave some notes on copying a word (or selected text) and pasting it to replace another word (or selected text).
-    - There will also be some notes on visual mode which should be moved elsewhere (possibly 1584).
+    - Prune out any misguided information. 
+    - That will leave some notes on copying a word (or selected text) and pasting 
+      it to replace another word (or selected text). 
+    - There will also be some notes on visual mode which should be moved elsewhere 
+      (possibly 1584). 
 
 
 Related:
-    - 47 Swapping characters, words and lines |vwt-47|
-    - 191 Transposing |vwt-191|
-    - 438 Search and replace in a visual selection |vwt-438|
-    - 646 Moving lines up or down in a file |vwt-646|
-    - 1584 Visual selection |vwt-1584|
+    - 47 Swapping characters, words and lines |vwt-47| 
+    - 191 Transposing |vwt-191| 
+    - 438 Search and replace in a visual selection |vwt-438| 
+    - 646 Moving lines up or down in a file |vwt-646| 
+    - 1584 Visual selection |vwt-1584| 
 
 
 I hope some of these can be merged, while others will be "see also".
 
 Copy/paste tips:
-    - 66 Transfer text between two Vim instances |vwt-66|
-    - 71 Transfer text between two gvim sessions using clipboard |vwt-71|
-    - 261 Close windows from gvim popup menu |vwt-261|
-    - 312 Copy, cut and paste |vwt-312|
-    - 344 Cut or copy lines without counting the lines |vwt-344|
-    - 356 Quick yank and paste |vwt-356|
-    - 386 Cut/copy and paste using visual selection |vwt-386|
-    - 432 Putting the current file on the Windows clipboard |vwt-432|
-    - 471 Using the mouse for Vim in an xterm |vwt-471|
-    - 478 Copy the search results into clipboard |vwt-478|
-    - 829 Copy and paste between Vim instances |vwt-829|
-    - 834 Word-wise cut, copy and paste |vwt-834|
-    - 964 GNU/Linux clipboard copy/paste with xclip |vwt-964|
-    - 984 Accessing the system clipboard |vwt-984|
-    - 1199 Unconditional linewise or characterwise paste |vwt-1199|
-    - 1268 Copy and paste between sessions using a temporary file |vwt-1268|
-    - 1593 Smart paste |vwt-1593|
-    - 1623 Using the Windows clipboard in Cygwin Vim |vwt-1623|
+    - 66 Transfer text between two Vim instances |vwt-66| 
+    - 71 Transfer text between two gvim sessions using clipboard |vwt-71| 
+    - 261 Close windows from gvim popup menu |vwt-261| 
+    - 312 Copy, cut and paste |vwt-312| 
+    - 344 Cut or copy lines without counting the lines |vwt-344| 
+    - 356 Quick yank and paste |vwt-356| 
+    - 386 Cut/copy and paste using visual selection |vwt-386| 
+    - 432 Putting the current file on the Windows clipboard |vwt-432| 
+    - 471 Using the mouse for Vim in an xterm |vwt-471| 
+    - 478 Copy the search results into clipboard |vwt-478| 
+    - 829 Copy and paste between Vim instances |vwt-829| 
+    - 834 Word-wise cut, copy and paste |vwt-834| 
+    - 964 GNU/Linux clipboard copy/paste with xclip |vwt-964| 
+    - 984 Accessing the system clipboard |vwt-984| 
+    - 1199 Unconditional linewise or characterwise paste |vwt-1199| 
+    - 1268 Copy and paste between sessions using a temporary file |vwt-1268| 
+    - 1593 Smart paste |vwt-1593| 
+    - 1623 Using the Windows clipboard in Cygwin Vim |vwt-1623| 
 
 
 I'm parking the copy/paste list here; later will work out which is "main" 

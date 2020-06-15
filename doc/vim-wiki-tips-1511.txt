@@ -87,11 +87,16 @@ place of xclip to gain access to the clipboard, should users find the "+ and
 COMMENTS  *vwt-1511-comments*
 
 TO DO
-    - Explain the point of this tip. Why is it necessary to avoid using the copy/paste mechanisms provided by Vim?
-    - Is this tip only related to Mac OS X or the Ubuntu Linux? If so, state that at the top.
-    - Is there some problem with Vim (what version?) on Mac OS X? Exactly what? Has the appropriate mailing list been informed?
-    - Do other users experience this problem? If not, should the tip be flagged for deletion?
-    - VimTip1199 |vwt-1199| claims to be related to character-wise pasting. Is it helpful?
+    - Explain the point of this tip. Why is it necessary to avoid using the 
+      copy/paste mechanisms provided by Vim? 
+    - Is this tip only related to Mac OS X or the Ubuntu Linux? If so, state that 
+      at the top. 
+    - Is there some problem with Vim (what version?) on Mac OS X? Exactly what? Has 
+      the appropriate mailing list been informed? 
+    - Do other users experience this problem? If not, should the tip be flagged for 
+      deletion? 
+    - VimTip1199 |vwt-1199| claims to be related to character-wise pasting. Is it 
+      helpful? 
 
 
 To address the first question, the point of mapping <C-c> is to be able to 

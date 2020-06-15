@@ -49,14 +49,19 @@ can call find with the -regex or -iregex flags instead (if supported).
 The function uses some standard Unix-like utilities: find, file, sed.
 
 RELATED PLUGINS  *vwt-799-related-plugins*
-    -  FuzzyFinder [https://www.vim.org/scripts/script.php?script_id=1984] (requires L9 plugin [https://www.vim.org/scripts/script.php?script_id=3252])
-    -  Ctrl-P [http://kien.github.io/ctrlp.vim/] (temporarily expands the commandline)
-    -  Command-T [https://www.vim.org/scripts/script.php?script_id=3025] (requires Ruby support)
-    -  AsyncFinder [https://www.vim.org/scripts/script.php?script_id=4198] (requires Python support, splits open a temporary window, never locks up Vim)
+    - FuzzyFinder [https://www.vim.org/scripts/script.php?script_id=1984] (requires 
+      L9 plugin [https://www.vim.org/scripts/script.php?script_id=3252]) 
+    - Ctrl-P [http://kien.github.io/ctrlp.vim/] (temporarily expands the 
+      commandline) 
+    - Command-T [https://www.vim.org/scripts/script.php?script_id=3025] (requires 
+      Ruby support) 
+    - AsyncFinder [https://www.vim.org/scripts/script.php?script_id=4198] (requires 
+      Python support, splits open a temporary window, never locks up Vim) 
 
 
 SEE ALSO  *vwt-799-see-also*
-    - Find files in subdirectories [https://vim.fandom.com/wiki/Find_files_in_subdirectories]
+    - Find files in subdirectories 
+      [https://vim.fandom.com/wiki/Find_files_in_subdirectories] 
 
 
 COMMENTS  *vwt-799-comments*

@@ -116,18 +116,30 @@ other text, and press Ctrl-X. The two pieces of text should then be swapped.
 <
 
 RELATED PLUGINS  *vwt-470-related-plugins*
-    - vim-exchange [https://github.com/tommcdo/vim-exchange] Easy text exchange/swap operator 
-    - Visual Mode Based Swapping [http://www.drchip.org/astronaut/vim/index.html#VISSWAP] script by Chip Campbell to swap visually-selected text
-    - Swap plugin [https://www.vim.org/scripts/script.php?script_id=3250] provides mappings to swap adjacent words or selected text around a "pivot"
-    - Transpose words plugin [https://www.vim.org/scripts/script.php?script_id=3656] swap two words as M-t (transpose words) in Emacs or bash
-    - Swap two columns plugin [https://www.vim.org/scripts/script.php?script_id=3708] swap two columns (words) in one line or multiple selected lines
-    - Flipwords plugin [https://www.vim.org/scripts/script.php?script_id=4020] swap delimited words
-    - vim-tip-swap-word [https://github.com/LucHermitte/lh-misc/blob/master/plugin/vim-tip-swap-word.vim] variation on the topic that avoids side effects like polluting registers
+    - vim-exchange [https://github.com/tommcdo/vim-exchange] Easy text 
+      exchange/swap operator 
+    - Visual Mode Based Swapping 
+      [http://www.drchip.org/astronaut/vim/index.html#VISSWAP] script by Chip 
+      Campbell to swap visually-selected text 
+    - Swap plugin [https://www.vim.org/scripts/script.php?script_id=3250] provides 
+      mappings to swap adjacent words or selected text around a "pivot" 
+    - Transpose words plugin 
+      [https://www.vim.org/scripts/script.php?script_id=3656] swap two words as M-t 
+      (transpose words) in Emacs or bash 
+    - Swap two columns plugin 
+      [https://www.vim.org/scripts/script.php?script_id=3708] swap two columns 
+      (words) in one line or multiple selected lines 
+    - Flipwords plugin [https://www.vim.org/scripts/script.php?script_id=4020] swap 
+      delimited words 
+    - vim-tip-swap-word 
+      [https://github.com/LucHermitte/lh-misc/blob/master/plugin/vim-tip-swap-word.vim] 
+      variation on the topic that avoids side effects like polluting registers 
 
 
 SEE ALSO  *vwt-470-see-also*
-    - Moving lines up or down |vwt-646| mappings to move lines up/down, with re-indenting
-    - Transposing |vwt-191| script to move current or selected lines up/down
+    - Moving lines up or down |vwt-646| mappings to move lines up/down, with 
+      re-indenting 
+    - Transposing |vwt-191| script to move current or selected lines up/down 
 
 
 COMMENTS  *vwt-470-comments*

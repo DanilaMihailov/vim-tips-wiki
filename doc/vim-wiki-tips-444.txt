@@ -25,15 +25,18 @@ via ant, and it's obnoxious to keep typing <c-w>b<CR> every time i do a :cn,
 so i mapped this.
 
 Detailed explanation:
-    - ":cwindow<CR>" ensures that the quickfix window is shown.
+    - ":cwindow<CR>" ensures that the quickfix window is shown. 
 
-    - ":cc" (:cn, and :cp) actually do the operation
+    - ":cc" (:cn, and :cp) actually do the operation 
 
-    - "<c-w>b" go to the bottom window (which cwindow will be if it's shown) which will magically center on the error
+    - "<c-w>b" go to the bottom window (which cwindow will be if it's shown) which 
+      will magically center on the error 
 
-    - "z<CR>" will reposition the buffer in the window so that the current line becomes the top line in the window
+    - "z<CR>" will reposition the buffer in the window so that the current line 
+      becomes the top line in the window 
 
-    - "<CR>" carriage-return on the error line, taking you back to the code with the error
+    - "<CR>" carriage-return on the error line, taking you back to the code with 
+      the error 
 
 
 COMMENTS  *vwt-444-comments*

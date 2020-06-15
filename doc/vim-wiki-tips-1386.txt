@@ -93,19 +93,19 @@ extra context completion and allows you to use Tab to advance through your
 completion options.
 
 REFERENCES  *vwt-1386-references*
-    -  :help 'completeopt'.
+    - :help 'completeopt'. 
 
 
 COMMENTS  *vwt-1386-comments*
 
 TO DO
-    - Merge with VimTip1228 |vwt-1228|?
+    - Merge with VimTip1228 |vwt-1228|? 
 
 
 I don't know. Tip 1228 doesn't explain what their mappings do at all, and there are a lot more of them. This tip tells what's going on, although admittedly it does not tell how it works (which I would like).
 --Fritzophrenic 17:12, 19 November 2007 (UTC)
-    - Further explanation?
-    - Broken mapping?
+    - Further explanation? 
+    - Broken mapping? 
 
 
 The <CR> mapping doesn't work - it causes vim to insert

@@ -29,8 +29,9 @@ C:\Program Files\Vim\Vim73\syntax\python.vim.
 
 The python.vim file should be copied to the following directory (you need to 
 create any directories that are not present on your system):
-    - ~/.vim/after/syntax on Unix-based systems; or
-    - $HOME/vimfiles/after/syntax on Windows systems (use :echo $HOME to determine your $HOME directory)
+    - ~/.vim/after/syntax on Unix-based systems; or 
+    - $HOME/vimfiles/after/syntax on Windows systems (use :echo $HOME to determine 
+      your $HOME directory) 
 
 
 Open the copied file in Vim and change it like this:
@@ -79,12 +80,14 @@ The changed syntax script removes the syntax highlighting for keywords class
 and def.
 
 SEE ALSO  *vwt-741-see-also*
-    - Syntax folding of Vim scripts [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] contains a complete but complex example on how to syntax fold Vim scripts
+    - Syntax folding of Vim scripts 
+      [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] contains a 
+      complete but complex example on how to syntax fold Vim scripts 
 
 
 PLUGINS  *vwt-741-plugins*
-    - jpythonfold [https://www.vim.org/scripts/script.php?script_id=2527]
-    - python_fold [https://www.vim.org/scripts/script.php?script_id=515]
+    - jpythonfold [https://www.vim.org/scripts/script.php?script_id=2527] 
+    - python_fold [https://www.vim.org/scripts/script.php?script_id=515] 
 
 
 COMMENTS  *vwt-741-comments*

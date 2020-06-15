@@ -27,8 +27,8 @@ MANUALLY  *vwt-1291-manually*
 
 In your PuTTY Configuration --> Window --> Colours, Change the following 
 values:
-    - Default Background = #333333 (51, 51, 51)
-    - ANSI Blue Bold = #87CEEB (135, 206, 235) (some kind of yellow)
+    - Default Background = #333333 (51, 51, 51) 
+    - ANSI Blue Bold = #87CEEB (135, 206, 235) (some kind of yellow) 
 
 
 Functions in the theme should be red. <?PHP tags and brackets should be 
@@ -36,15 +36,16 @@ yellow.
 
 They both use "ANSI Magenta", so you can only choose one of the two (yellow 
 or red; I chose yellow in the registry file).
-    - ANSI Magenta = #FFDEAD (255, 222, 173) (yellow) { or #CD5C5C (205, 92, 92) (red) }
-    - ANSI Cyan = #FFA0A0 (255, 160, 160)
-    - ANSI Black = #4D4D4D (77, 77, 77)
-    - ANSI Cyan Bold = #FFD700 (255, 215, 0)
-    - Default Foreground = #FFFFFF (255, 255, 255)
-    - ANSI Yellow = #F0E68C (240, 230, 140)
-    - ANSI Green = #98FB98 (152, 251, 152)
-    - ANSI Blue = #CD853F (205, 133, 63) (used in HIGHLIGHT)
-    - ANSI White = #F5DEB3 (245, 222, 179)
+    - ANSI Magenta = #FFDEAD (255, 222, 173) (yellow) { or #CD5C5C (205, 92, 92) 
+      (red) } 
+    - ANSI Cyan = #FFA0A0 (255, 160, 160) 
+    - ANSI Black = #4D4D4D (77, 77, 77) 
+    - ANSI Cyan Bold = #FFD700 (255, 215, 0) 
+    - Default Foreground = #FFFFFF (255, 255, 255) 
+    - ANSI Yellow = #F0E68C (240, 230, 140) 
+    - ANSI Green = #98FB98 (152, 251, 152) 
+    - ANSI Blue = #CD853F (205, 133, 63) (used in HIGHLIGHT) 
+    - ANSI White = #F5DEB3 (245, 222, 179) 
 
 
 PUTTY version: This was tested on PuTTY 0.58, and will probably work with 

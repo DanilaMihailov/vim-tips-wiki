@@ -68,8 +68,8 @@ Since all the commands in build.vim are ex-commands, you could source it with
 would move the last command (to close Vim) out of the script and to a -cq! 
 argument at the end of the command line though, to make the script easier to 
 run from within a running Vim.
-    -  :help  |-s|
-    -  :help  |-S|
+    - :help |-s| 
+    - :help |-S| 
 
 
 --Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 01:57, September 11, 
@@ -110,8 +110,8 @@ smoothly (see also Vim as a system interpreter for vimscript
 [https://vim.fandom.com/wiki/Vim_as_a_system_interpreter_for_vimscript]).
 
 For this you should use:
-    -  -e for ex mode (that is, command mode)
-    -  -s for silent (batch) mode
+    - -e for ex mode (that is, command mode) 
+    - -s for silent (batch) mode 
 
 
 Ex mode will also make Vim return a non-zero status if anything goes wrong, 
@@ -119,18 +119,21 @@ which is expected in a Makefile.
 
 Silent mode, other than preventing the window from showing up, also has two 
 other effects:
-    -  skips vimrc initialization, and as a side effect Vim stays in 'compatible' mode, which you are not going to like. So include the nocompatible -N option explicitly. This will among other things make Vim load the system addons, too, which we happen to need in here, to get the %MkVimball command.
-    -  prevents messages from being output, including errors, which is likely to get you confused. For that, set 'verbose' to non-zero, either with:
-    -  :set verbose=1 in the build.vim script
-    -  -V1 on the vim command line
-
+    - skips vimrc initialization, and as a side effect Vim stays in 'compatible' 
+      mode, which you are not going to like. So include the nocompatible -N option 
+      explicitly. This will among other things make Vim load the system addons, too, 
+      which we happen to need in here, to get the %MkVimball command. 
+    - prevents messages from being output, including errors, which is likely to get 
+      you confused. For that, set 'verbose' to non-zero, either with: - :set 
+      verbose=1 in the build.vim script - -V1 on the vim command line 
 
 
 I also believe the quit command should be moved out of the script, and that a 
 few other options would help for this sort of usage:
-    -  -n, do not write a swap file
-    -  -u NORC, do not read the .vimrc and .gvimrc files (though redundant with the -s switch)
-    -  -i NONE, do not use a viminfo file
+    - -n, do not write a swap file 
+    - -u NORC, do not read the .vimrc and .gvimrc files (though redundant with the 
+      -s switch) 
+    - -i NONE, do not use a viminfo file 
 
 
 So the resulting command would look like:
@@ -204,8 +207,9 @@ how to do this on a per-user basis without admin rights.
 2012 (UTC)
 
 ALTERNATIVE TOOLS TO CREATE VIMBALLS  *vwt-1601-alternative-tools-to-create-vimballs*
-    -  mkvimball [http://www.drchip.org/astronaut/src/index.html#MKVIMBALL]: Written in C (by the creator of vimball.vim Charles E Campbell)
-    -  vimball.rb [https://github.com/tomtom/vimball.rb]: Written in ruby
+    - mkvimball [http://www.drchip.org/astronaut/src/index.html#MKVIMBALL]: Written 
+      in C (by the creator of vimball.vim Charles E Campbell) 
+    - vimball.rb [https://github.com/tomtom/vimball.rb]: Written in ruby 
 
 
  vim:tw=78:et:ft=help:norl:

@@ -55,10 +55,11 @@ compile the file in the current buffer. If modified, the file is first saved.
 COMMENTS  *vwt-264-comments*
 
 TO DO
-    - I've done a pretty quick clean up. Would someone please reply here with news about whether it actually works (after testing).
-    - "set makeprg=gcc\ -o\ %<\ %" worked with VIM 8.0 on OSX 10.12.16
-
-    - Need some explanation, including note about (deprecated) %<. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 04:49, 14 July 2009 (UTC)
+    - I've done a pretty quick clean up. Would someone please reply here with news 
+      about whether it actually works (after testing). - "set makeprg=gcc\ -o\ %<\ 
+      %" worked with VIM 8.0 on OSX 10.12.16 
+    - Need some explanation, including note about (deprecated) %<. JohnBeckett 
+      [https://vim.fandom.com/wiki/User:JohnBeckett] 04:49, 14 July 2009 (UTC) 
 
 
  vim:tw=78:et:ft=help:norl:

@@ -17,12 +17,20 @@ system. GNU Make will search for source file changes and will rebuild tags
 when a file is opened from the project window.
 
 RELATED PLUGINS  *vwt-1618-related-plugins*
-    -  the Indexer [https://www.vim.org/scripts/script.php?script_id=3221] plugin already provides painless automatic tags generation for entire projects, and keeps tags up-to-date. It can work as add-on for the Project.vim [https://www.vim.org/scripts/script.php?script_id=69] plugin. Probably this is a better option if you're looking for a ready-made solution.
+    - the Indexer [https://www.vim.org/scripts/script.php?script_id=3221] plugin 
+      already provides painless automatic tags generation for entire projects, and 
+      keeps tags up-to-date. It can work as add-on for the Project.vim 
+      [https://www.vim.org/scripts/script.php?script_id=69] plugin. Probably this is 
+      a better option if you're looking for a ready-made solution. 
 
 
 PREREQUISITES  *vwt-1618-prerequisites*
-    - Project.vim [https://www.vim.org/scripts/script.php?script_id=69] plugin to set up a list of frequently-accessed files for easy navigation.
-    - GNU Make [http://www.gnu.org/software/make/] tool to control the generation of executables and other non-source files of a program from the program's source files. Windows version [http://gnuwin32.sourceforge.net/packages/make.htm] of GNU Make.
+    - Project.vim [https://www.vim.org/scripts/script.php?script_id=69] plugin to 
+      set up a list of frequently-accessed files for easy navigation. 
+    - GNU Make [http://www.gnu.org/software/make/] tool to control the generation 
+      of executables and other non-source files of a program from the program's 
+      source files. Windows version 
+      [http://gnuwin32.sourceforge.net/packages/make.htm] of GNU Make. 
 
 
 For comfortable use, add Make.exe to your PATH in order to run Make without 

@@ -8,7 +8,9 @@ created 2001 · complexity intermediate · author Charles E Campbell · version
 ==============================================================================
 
 PLUGINS  *vwt-80-plugins*
-    -  The vim-lastplace [https://github.com/farmergreg/vim-lastplace] plugin will open your files at the last edit position. It is smart enough to handle commit messages correctly too!
+    - The vim-lastplace [https://github.com/farmergreg/vim-lastplace] plugin will 
+      open your files at the last edit position. It is smart enough to handle commit 
+      messages correctly too! 
 
 
 DOING IT MANUALLY  *vwt-80-doing-it-manually*
@@ -102,15 +104,20 @@ Finish by modifying the previously added augroup:
 <
 
 ADDITIONAL INFORMATION  *vwt-80-additional-information*
-    - Help for viminfo is at: :help  |viminfo|.
-    - Part of this tip has made its way into the manual: :help  |last-position-jump|.
-    - There is an improved script#3059 [https://www.vim.org/scripts/script.php?script_id=3059] version of last-position-jump that also works for easy Vim
+    - Help for viminfo is at: :help |viminfo|. 
+    - Part of this tip has made its way into the manual: :help 
+      |last-position-jump|. 
+    - There is an improved script#3059 
+      [https://www.vim.org/scripts/script.php?script_id=3059] version of 
+      last-position-jump that also works for easy Vim 
 
 
 COMMENTS  *vwt-80-comments*
 
 TO DO
-    - It looks  like `:mkview` and `:loadview` are much better solutions to this (see http://stackoverflow.com/questions/8854371 [http://stackoverflow.com/questions/8854371])
+    - It looks like `:mkview` and `:loadview` are much better solutions to this 
+      (see http://stackoverflow.com/questions/8854371 
+      [http://stackoverflow.com/questions/8854371]) 
 
 
 Sorry if I am mistakenly messing with your formatting.
@@ -124,8 +131,10 @@ I currently use this simple alternative:
 <
 
 --andresp (probably not logged in atm)
-    - Check my comment following, and the explanation after that (refactored from Anres.p's comment with dealt-with material omitted).
-    - I have not yet looked at the current solution. JohnBot [https://vim.fandom.com/wiki/User:JohnBot] 07:14, January 22, 2011 (UTC)
+    - Check my comment following, and the explanation after that (refactored from 
+      Anres.p's comment with dealt-with material omitted). 
+    - I have not yet looked at the current solution. JohnBot 
+      [https://vim.fandom.com/wiki/User:JohnBot] 07:14, January 22, 2011 (UTC) 
 
 
 On my system, I copy the restore-last-position code from vimrc_example.vim (a 

@@ -44,15 +44,16 @@ at the beginning of the inserted text, and uses the = operator to indent
 [https://vim.fandom.com/wiki/Indenting_source_code] the entire inserted text.
 
 REFERENCES  *vwt-272-references*
-    - :help  |:nnoremap|
-    - :hel  |p|
-    - :help  |=|
-    - :help  |`]|
-    - :help  |]p|
+    - :help |:nnoremap| 
+    - :hel |p| 
+    - :help |=| 
+    - :help |`]| 
+    - :help |]p| 
 
 
 RELATED PLUGINS  *vwt-272-related-plugins*
-    -  vim-pasta [https://github.com/sickill/vim-pasta] allows for pasting with automatic adjusting of indentation to destination context.
+    - vim-pasta [https://github.com/sickill/vim-pasta] allows for pasting with 
+      automatic adjusting of indentation to destination context. 
 
 
 COMMENTS  *vwt-272-comments*

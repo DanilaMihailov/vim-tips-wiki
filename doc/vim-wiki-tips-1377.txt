@@ -15,11 +15,11 @@ Add following to gvimrc:
 <
 
 This accomplishes the following:
-    - Starts a new instance of Internet Explorer.
-    - Navigates to Google search.
-    - Limits the search to site msdn.microsoft.com.
-    - Searches for the term under the cursor.
-    - Navigates the browser directly to the first page returned from the search.
+    - Starts a new instance of Internet Explorer. 
+    - Navigates to Google search. 
+    - Limits the search to site msdn.microsoft.com. 
+    - Searches for the term under the cursor. 
+    - Navigates the browser directly to the first page returned from the search. 
 
 
 For example, putting your cursor over WaitForSingleObject and hitting <F1> 

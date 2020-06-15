@@ -19,19 +19,19 @@ To jump to the beginning of a parenthesis use the [( command.
 To jump to the end of a parenthesis use the ]) command.
 
 REFERENCES  *vwt-7-references*
-    - :help  |[{|
-    - :help  |]}|
-    - :help  |[(|
-    - :help  |])|
+    - :help |[{| 
+    - :help |]}| 
+    - :help |[(| 
+    - :help |])| 
 
 
 COMMENTS  *vwt-7-comments*
 
 Related to these motion commands are [[ and ]]
-    - [[ : sections backward or to the previous '{' in the first column.
-    - ]] : sections forward or to the next '{' in the first column.
-    - [] : sections backward or to the previous '}' in the first column.
-    - ][ : sections forward or to the next '}' in the first column.
+    - [[ : sections backward or to the previous '{' in the first column. 
+    - ]] : sections forward or to the next '{' in the first column. 
+    - [] : sections backward or to the previous '}' in the first column. 
+    - ][ : sections forward or to the next '}' in the first column. 
 
 
 This is particularly useful for jumping to the top of the functions and 

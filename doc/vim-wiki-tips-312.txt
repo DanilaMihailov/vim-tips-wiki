@@ -15,8 +15,8 @@ Cut and paste:
 
 Copy and paste is performed with the same steps except for step 4 where you 
 would press y instead of d:
-    - d stands for delete in Vim, which in other editors is usually called cut
-    - y stands for yank in Vim, which in other editors is usually called copy
+    - d stands for delete in Vim, which in other editors is usually called cut 
+    - y stands for yank in Vim, which in other editors is usually called copy 
 
 
 COPYING AND CUTTING IN NORMAL MODE  *vwt-312-copying-and-cutting-in-normal-mode*
@@ -24,16 +24,21 @@ COPYING AND CUTTING IN NORMAL MODE  *vwt-312-copying-and-cutting-in-normal-mode*
 In normal mode, one can copy (yank) with y{motion}, where {motion} is a Vim 
 motion. For example, yw copies to the beginning of the next word. Other 
 helpful yanking commands include:
-    - yy or Y – yank the current line, including the newline character at the end of the line
-    - y$ – yank to the end of the current line (but don't yank the newline character); note that many people like to remap Y to y$ in line with C and D
-    - yiw – yank the current word (excluding surrounding whitespace)
-    - yaw – yank the current word (including leading or trailing whitespace)
-    - ytx – yank from the current cursor position up to and before the character (til x)
-    - yfx – yank from the current cursor position up to and including the character (find x)
+    - yy or Y – yank the current line, including the newline character at the end 
+      of the line 
+    - y$ – yank to the end of the current line (but don't yank the newline 
+      character); note that many people like to remap Y to y$ in line with C and D 
+    - yiw – yank the current word (excluding surrounding whitespace) 
+    - yaw – yank the current word (including leading or trailing whitespace) 
+    - ytx – yank from the current cursor position up to and before the character 
+      (til x) 
+    - yfx – yank from the current cursor position up to and including the character 
+      (find x) 
 
 
 Cutting can be done using d{motion}, including:
-    -  dd - cut the current line, including the newline character at the end of the line
+    - dd - cut the current line, including the newline character at the end of the 
+      line 
 
 
 To copy into a register, one can use "{register} immediately before one of 
@@ -124,8 +129,8 @@ WINDOWS CLIPBOARD  *vwt-312-windows-clipboard*
 
 When using Vim under Windows, the clipboard can be accessed with the 
 following:
-    - In step 4, press Shift+Delete to cut or Ctrl+Insert to copy.
-    - In step 6, press Shift+Insert to paste.
+    - In step 4, press Shift+Delete to cut or Ctrl+Insert to copy. 
+    - In step 6, press Shift+Insert to paste. 
 
 
 DIFFERENT INSTANCES  *vwt-312-different-instances*
@@ -138,12 +143,12 @@ After copying text, open a new buffer for a new file:
 >
     :e ~/dummy
 <
-    - Paste the text to the new buffer.
-    - Write the new buffer :w.
-    - Switch to the previous buffer :bp to release *.swp.
-    - Now switch to the other console.
-    - Put the cursor at the desired place.
-    - Read the dummy file :r ~/dummy
+    - Paste the text to the new buffer. 
+    - Write the new buffer :w. 
+    - Switch to the previous buffer :bp to release *.swp. 
+    - Now switch to the other console. 
+    - Put the cursor at the desired place. 
+    - Read the dummy file :r ~/dummy 
 
 
 INCREASING THE BUFFER SIZE  *vwt-312-increasing-the-buffer-size*
@@ -153,10 +158,15 @@ is not saved if it contains more than 10 kilobytes. :help 'viminfo'
 
 In the example below, the first line displays the current settings, while the 
 second line sets:
-    - '100 Marks [https://vim.fandom.com/wiki/Using_marks] will be remembered for the last 100 edited files.
-    - <100 Limits the number of lines saved for each register to 100 lines; if a register contains more than 100 lines, only the first 100 lines are saved.
-    - s20 Limits the maximum size of each item to 20 kilobytes; if a register contains more than 20 kilobytes, the register is not saved.
-    - h Disables search highlighting [https://vim.fandom.com/wiki/Highlight_all_search_pattern_matches] when Vim starts.
+    - '100 Marks [https://vim.fandom.com/wiki/Using_marks] will be remembered for 
+      the last 100 edited files. 
+    - <100 Limits the number of lines saved for each register to 100 lines; if a 
+      register contains more than 100 lines, only the first 100 lines are saved. 
+    - s20 Limits the maximum size of each item to 20 kilobytes; if a register 
+      contains more than 20 kilobytes, the register is not saved. 
+    - h Disables search highlighting 
+      [https://vim.fandom.com/wiki/Highlight_all_search_pattern_matches] when Vim 
+      starts. 
 
 
 >
@@ -165,10 +175,13 @@ second line sets:
 <
 
 SEE ALSO  *vwt-312-see-also*
-    -  Quick yank and paste |vwt-356|
-    -  Cut/copy and paste using visual selection [https://vim.fandom.com/wiki/Cut/copy_and_paste_using_visual_selection]
-    -  In line copy and paste to system clipboard [https://vim.fandom.com/wiki/In_line_copy_and_paste_to_system_clipboard]
-    -  Accessing the system clipboard [https://vim.fandom.com/wiki/Accessing_the_system_clipboard]
+    - Quick yank and paste |vwt-356| 
+    - Cut/copy and paste using visual selection 
+      [https://vim.fandom.com/wiki/Cut/copy_and_paste_using_visual_selection] 
+    - In line copy and paste to system clipboard 
+      [https://vim.fandom.com/wiki/In_line_copy_and_paste_to_system_clipboard] 
+    - Accessing the system clipboard 
+      [https://vim.fandom.com/wiki/Accessing_the_system_clipboard] 
 
 
 COMMENTS  *vwt-312-comments*

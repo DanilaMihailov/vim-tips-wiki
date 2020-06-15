@@ -18,8 +18,10 @@ press ctrl-b
 <
 
 COMMENTS  *vwt-692-comments*
-    - phpErrorMarker.vim [https://www.vim.org/scripts/script.php?script_id=2794] plugin implementing this tip
-    - checksyntax.vim [https://www.vim.org/scripts/script.php?script_id=1431] A generalized syntax checker plugin
+    - phpErrorMarker.vim [https://www.vim.org/scripts/script.php?script_id=2794] 
+      plugin implementing this tip 
+    - checksyntax.vim [https://www.vim.org/scripts/script.php?script_id=1431] A 
+      generalized syntax checker plugin 
 
 
 ==============================================================================
@@ -58,9 +60,9 @@ If you also set 'autowrite' to true the file is automatically written when
 calling :make
 
 See also:
-    - :help  |:make|
-    - :help 'autowrite'
-    - :help 'makeprg'
+    - :help |:make| 
+    - :help 'autowrite' 
+    - :help 'makeprg' 
 
 
 ==============================================================================

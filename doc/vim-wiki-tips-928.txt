@@ -20,16 +20,18 @@ history, and :his / lists the search history.
 
 In many situations, a better solution is the command-line window which you 
 can open in two ways:
-    - Type q: for commands, or q/ for searches; or
-    - Type : or / to start entering a command or search, then press the 'cedit' key (default is Ctrl-f :help 'cedit').
+    - Type q: for commands, or q/ for searches; or 
+    - Type : or / to start entering a command or search, then press the 'cedit' key 
+      (default is Ctrl-f :help 'cedit'). 
 
 
 The advantage of the command-line window is that you can use all Vim's 
 editing power, including searching with '/' in normal mode, or using 
 whole-line completion (:help |compl-whole-line|) in insert mode. After editing 
 a command, you can:
-    - Press Enter to execute the current line (and close the command-line window); or
-    - Press Ctrl-c twice to close the command-line window (cancel).
+    - Press Enter to execute the current line (and close the command-line window); 
+      or 
+    - Press Ctrl-c twice to close the command-line window (cancel). 
 
 
 DETAILS  *vwt-928-details*
@@ -81,25 +83,32 @@ g:CmdWindowLineMark=line(".")<CR><CR>q::execute "normal
 ".g:CmdWindowLineMark."G"<CR>
 
 REFERENCES  *vwt-928-references*
-    - :help  |history|
-    - :help  |Cmdline|
-    - :help  |cmdwin|
-    - :help 'cmdwinheight' option controls initial height of command-line window
-    - :help 'history' option controls number of history items stored in viminfo
+    - :help |history| 
+    - :help |Cmdline| 
+    - :help |cmdwin| 
+    - :help 'cmdwinheight' option controls initial height of command-line window 
+    - :help 'history' option controls number of history items stored in viminfo 
 
 
 COMMENTS  *vwt-928-comments*
 
 TO DO
-    - Fix Enhanced command window |vwt-681| (or delete it if not helpful). If keep, add it as a "see also" here.
+    - Fix Enhanced command window |vwt-681| (or delete it if not helpful). If keep, 
+      add it as a "see also" here. 
 
-    - The standard way to close the command-line window is with :q, or <C-W>q, or any of the standard "close this window" commands --- not with double Ctrl-C.
+    - The standard way to close the command-line window is with :q, or <C-W>q, or 
+      any of the standard "close this window" commands --- not with double Ctrl-C. 
 
-    -  What is the history file called? Where is it stored?
-    -  The command window is not associated with a file at all. It is populated at startup from the .viminfo file, however. That may be worth mentioning somewhere...and the option to disable this.
+    - What is the history file called? Where is it stored? - The command window is 
+      not associated with a file at all. It is populated at startup from the 
+      .viminfo file, however. That may be worth mentioning somewhere...and the 
+      option to disable this. 
 
-
-    -  The cmdwin would be very useful to use as an interpreter to debug and quickly craft things (with the above trick to keep it open). Since however I can't see my :echo results, it is almost useless for that purpose. I think it's because the wincmd redraws the screen when it reappears, still I wonder if there is a workaround?
+    - The cmdwin would be very useful to use as an interpreter to debug and quickly 
+      craft things (with the above trick to keep it open). Since however I can't see 
+      my :echo results, it is almost useless for that purpose. I think it's because 
+      the wincmd redraws the screen when it reappears, still I wonder if there is a 
+      workaround? 
 
 
  vim:tw=78:et:ft=help:norl:

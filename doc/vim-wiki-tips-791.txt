@@ -18,8 +18,8 @@ Here's a technique. Place the cursor on the character, then:
 <
 
 REFERENCES  *vwt-791-references*
-    - :help  |ga|
-    - :help  |c_CTRL-R|
+    - :help |ga| 
+    - :help |c_CTRL-R| 
 
 
 COMMENTS  *vwt-791-comments*
@@ -38,8 +38,11 @@ For cleaning up win/dos text files for *nix, there's dos2unix (aka fromdos).
 ==============================================================================
 
 SEE ALSO:  *vwt-791-see-also:*
-    -  :help  |i_CTRL-V_digit| (which applies also on the command-line, notwithstanding its i_ initial) about additional ways to enter a character by its hex value (below 0x100: by its hex, decimal, or octal value)
-    -  to enable/disable keymaps on the command-line: :help 'iminsert', :help 'imsearch', :help  |c_CTRL-^|
+    - :help |i_CTRL-V_digit| (which applies also on the command-line, 
+      notwithstanding its i_ initial) about additional ways to enter a character by 
+      its hex value (below 0x100: by its hex, decimal, or octal value) 
+    - to enable/disable keymaps on the command-line: :help 'iminsert', :help 
+      'imsearch', :help |c_CTRL-^| 
 
 
 --Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 23:38, 20 August 2009 

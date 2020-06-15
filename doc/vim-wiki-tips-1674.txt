@@ -73,9 +73,11 @@ The following alternative defines a command that works with ranges
 <
 
 Usage examples:
-    - :RandomLine jump to a random line from the first to the last inclusive.
-    - :.,$RandomLine jump to a random line from the current line (.) to the last line ($) inclusive.
-    - :?^=?,/^=/RandomLine jump to a random line within the current section, where each section starts with a header having "=" as the first character.
+    - :RandomLine jump to a random line from the first to the last inclusive. 
+    - :.,$RandomLine jump to a random line from the current line (.) to the last 
+      line ($) inclusive. 
+    - :?^=?,/^=/RandomLine jump to a random line within the current section, where 
+      each section starts with a header having "=" as the first character. 
 
 
 PLUGINS  *vwt-1674-plugins*

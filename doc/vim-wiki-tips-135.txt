@@ -64,9 +64,9 @@ or ":files" command. This list is called the 'buffer list'.
 
 To display all the buffers including unlisted buffers, use the ":buffers!" or 
 ":ls!" or ":files!" command.
-    - :help  |:buffers|
-    - :help  |:ls|
-    - :help  |:files|
+    - :help |:buffers| 
+    - :help |:ls| 
+    - :help |:files| 
 
 
 How do I delete a buffer?
@@ -88,20 +88,22 @@ longer included in the buffer list. But the buffer name and other information
 associated with the buffer is still remembered. To completely delete the 
 buffer, use the ":bwipeout" command. This command will remove the buffer 
 completely (i.e. the buffer will not become a unlisted buffer).
-    - :help  |:bdelete|
-    - :help  |:bwipeout|
+    - :help |:bdelete| 
+    - :help |:bwipeout| 
 
 
 How do I delete multiple buffers?
 
 You can delete multiple buffers in several ways:
-    -  Pass a range argument to the ":bdelete" command. For example, the following command deletes the buffers 3, 4 and 5.
+    - Pass a range argument to the ":bdelete" command. For example, the following 
+      command deletes the buffers 3, 4 and 5. 
 
 
 >
     :3,5bdelete
 <
-    -  Pass multiple buffer names to the ":bdelete" command. For example, the following command deletes buffers buf1.txt, buf2.c and buf3.h.
+    - Pass multiple buffer names to the ":bdelete" command. For example, the 
+      following command deletes buffers buf1.txt, buf2.c and buf3.h. 
 
 
 >
@@ -110,8 +112,8 @@ You can delete multiple buffers in several ways:
 
 In this example, after typing ":bdelete buf", you can press <Ctrl-A> to 
 expand all the buffer names starting with 'buf'.
-    - :help  |:bdelete|
-    - :help  |:bwipeout|
+    - :help |:bdelete| 
+    - :help |:bwipeout| 
 
 
 How do I remove a buffer from a window?
@@ -123,43 +125,43 @@ You can remove a buffer displayed in a window in several ways:
 How do I edit an existing buffer from the buffer list?
 
 You can edit or jump to a buffer in the buffer list in several ways:
-    - :help  |:buffer|
-    - :help  |:sbuffer|
-    - :help  |CTRL-W_^|
-    - :help  |CTRL-^|
+    - :help |:buffer| 
+    - :help |:sbuffer| 
+    - :help |CTRL-W_^| 
+    - :help |CTRL-^| 
 
 
 How do I browse through all the available buffers?
 
 You can browse through the buffers in the buffer list in several ways:
-    - :help  |:bfirst|
-    - :help  |:brewind|
-    - :help  |:sbfirst|
-    - :help  |:sbrewind|
-    - :help  |:bnext|
-    - :help  |:sbnext|
-    - :help  |:bprevious|
-    - :help  |:bNext|
-    - :help  |:sbprevious|
-    - :help  |:sbNext|
-    - :help  |:blast|
-    - :help  |:sblast|
+    - :help |:bfirst| 
+    - :help |:brewind| 
+    - :help |:sbfirst| 
+    - :help |:sbrewind| 
+    - :help |:bnext| 
+    - :help |:sbnext| 
+    - :help |:bprevious| 
+    - :help |:bNext| 
+    - :help |:sbprevious| 
+    - :help |:sbNext| 
+    - :help |:blast| 
+    - :help |:sblast| 
 
 
 How do I open all the buffers in the buffer list?
 
 You can open all the buffers present in the buffer list using the ":ball" or 
 ":sball" commands.
-    - :help  |:ball|
-    - :help  |:sball|
+    - :help |:ball| 
+    - :help |:sball| 
 
 
 How do I open all the loaded buffers?
 
 You can open all the loaded buffers in the buffer list using the ":unhide" or 
 ":sunhide" commands. Each buffer will be loaded in a separate new window.
-    - :help  |:unhide|
-    - :help  |:sunhide|
+    - :help |:unhide| 
+    - :help |:sunhide| 
 
 
 How do I open the next modified buffer?
@@ -167,8 +169,8 @@ How do I open the next modified buffer?
 You can open the next or a specific modified buffer using the ":bmodified" 
 command. You can open the next or a specific modified buffer in a new window 
 using the ":sbmodified" command.
-    - :help  |:bmodified|
-    - :help  |:sbmodified|
+    - :help |:bmodified| 
+    - :help |:sbmodified| 
 
 
 Is there a simpler way for using the buffers under gvim (GUI Vim)?
@@ -194,8 +196,8 @@ flag in the 'viminfo' option. Note that if Vim is invoked with a filename
 argument, then the buffer list will not be restored from the last session. To 
 use buffer lists across sessions, invoke Vim without passing filename 
 arguments.
-    - :help 'viminfo'
-    - :help  |viminfo|
+    - :help 'viminfo' 
+    - :help |viminfo| 
 
 
 We can save different buffer list for different folders, by setting a local 
@@ -224,10 +226,10 @@ A hidden buffer is a buffer with some unsaved modifications and is not
 displayed in a window. Hidden buffers are useful, if you want to edit multiple 
 buffers without saving the modifications made to a buffer while loading other 
 buffers.
-    - :help  |buffer-!|
-    - :help 'hidden'
-    - :help  |hidden-buffer|
-    - :help  |buffer-hidden|
+    - :help |buffer-!| 
+    - :help 'hidden' 
+    - :help |hidden-buffer| 
+    - :help |buffer-hidden| 
 
 
 How do I load buffers in a window, which currently has a buffer with unsaved 
@@ -285,10 +287,10 @@ When a buffer is unloaded, it is not removed from the buffer list. Only the
 file contents associated with the buffer are removed from memory. When a 
 buffer is deleted, it is unloaded and removed from the buffer list. A deleted 
 buffer becomes an 'unlisted' buffer.
-    - :help  |:bunload|
-    - :help  |:bdelete|
-    - :help  |:bwipeout|
-    - :help  |unlisted-buffer|
+    - :help |:bunload| 
+    - :help |:bdelete| 
+    - :help |:bwipeout| 
+    - :help |unlisted-buffer| 
 
 
 Is it possible to configure Vim, by setting some option, to re-use the number 
@@ -324,8 +326,8 @@ warning.
 Also you can use scratch.vim 
 [https://www.vim.org/scripts/script.php?script_id=664] for creating a scratch 
 buffer.
-    - :help  |special-buffers|
-    - :help 'buftype'
+    - :help |special-buffers| 
+    - :help 'buftype' 
 
 
 How do I prevent a buffer from being added to the buffer list?
@@ -388,8 +390,8 @@ command. For example,
 
 This will set the 'textwidth' option to 70 only for the current buffer. All 
 other buffers will have the default or the previous 'textwidth' value.
-    - :help 'setlocal'
-    - :help  |local-options|
+    - :help 'setlocal' 
+    - :help |local-options| 
 
 
 How do I define mappings specific to the current buffer?

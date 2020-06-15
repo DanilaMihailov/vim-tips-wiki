@@ -17,11 +17,11 @@ Instead, when in insert mode, press Ctrl-^ (hold down Ctrl and press ^ – the 6
 key on US keyboards) to toggle "Caps Lock" on or off.
 
 This "Caps Lock" does not apply in normal mode. It only applies when:
-    - Typing while in insert mode.
-    - Typing in the command line.
-    - Typing a search pattern.
-    - Typing a character for commands like r and f.
-    - Typing in the input() line.
+    - Typing while in insert mode. 
+    - Typing in the command line. 
+    - Typing a search pattern. 
+    - Typing a character for commands like r and f. 
+    - Typing in the input() line. 
 
 
 USING LANGUAGE MAPPINGS  *vwt-1183-using-language-mappings*
@@ -114,8 +114,8 @@ Using the keymap procedure, the effect of pressing Ctrl-^ is buffer local (so
 "Caps Lock" may be on in one buffer and off in another).
 
 REFERENCES  *vwt-1183-references*
-    - :help  |language-mapping|
-    - :help  |i_CTRL-^|
+    - :help |language-mapping| 
+    - :help |i_CTRL-^| 
 
 
 COMMENTS  *vwt-1183-comments*

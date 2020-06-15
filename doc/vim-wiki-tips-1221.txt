@@ -14,9 +14,9 @@ so, add the desired snippet to your vimrc.
 
 Some of the mappings used here interfere with Vim's normal procedures. For 
 example:
-    -   |Ctrl-T| is used for jumping to previous tags
-    -  Ctrl+W is used as a prefix for the window commands |CTRL-W|
-    -  Ctrl+Tab is captured by KDE to switch workspaces.
+    - |Ctrl-T| is used for jumping to previous tags 
+    - Ctrl+W is used as a prefix for the window commands |CTRL-W| 
+    - Ctrl+Tab is captured by KDE to switch workspaces. 
 
 
 Some mappings might not work in terminal versions of Vim (especially 

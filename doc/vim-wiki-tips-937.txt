@@ -98,20 +98,20 @@ solution though I failed to mention this in my original post because <Tab>
 does the same as <C-D> for me as I have 'wildmode' set to "list:full"). Ok, 
 here are the benefits I want to point out with the solution using 
 tagselect.vim:
-    - looking up the matching topic
-    - with <C-D> you need to do it visually (it is not that easy to do random searching using your eyes),
-    - with tagselect.vim, you can use the vim search.
-
-    - selecting a topic
-    - with <C-D> you need to back off the partial pattern (<C-W> or something like that) and retype the *exact* topic name that you looked up.
-    - with tagselect.vim, you can just press Enter
-
-    - Once you select a topic out of say, 100 matching topics, how would you look up and jump to another one?
-    - with <C-D>, you need to repeat the :h command with <C-D> etc.
-    - with tagselect.vim, you would use :Ts command (with no arguments) and repeat the search and select procedure.
-
-    - Using tagselect.vim also allows you to view the filename to narrow down the topic you want.
-    - Using :ts or :Ts allows you to specify any regular expression, but :h command always assumes substring.
+    - looking up the matching topic - with <C-D> you need to do it visually (it is 
+      not that easy to do random searching using your eyes), - with tagselect.vim, 
+      you can use the vim search. 
+    - selecting a topic - with <C-D> you need to back off the partial pattern 
+      (<C-W> or something like that) and retype the *exact* topic name that you 
+      looked up. - with tagselect.vim, you can just press Enter 
+    - Once you select a topic out of say, 100 matching topics, how would you look 
+      up and jump to another one? - with <C-D>, you need to repeat the :h command 
+      with <C-D> etc. - with tagselect.vim, you would use :Ts command (with no 
+      arguments) and repeat the search and select procedure. 
+    - Using tagselect.vim also allows you to view the filename to narrow down the 
+      topic you want. 
+    - Using :ts or :Ts allows you to specify any regular expression, but :h command 
+      always assumes substring. 
 
 
 The above may not make sense to someone whose needs and usage patterns are 

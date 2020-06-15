@@ -192,8 +192,11 @@ treated as hexadecimal values:
 USING EXTERNAL PROGRAMS  *vwt-27-using-external-programs*
 
 TO DO
-    - Fix or delete this section.
-    - The following is from old tip 772 [https://vim.fandom.com/index.php?title=Convert_numbers_hex/decimal_via_menu&oldid=20568]. It does not seem helpful, but we should discuss the menus somewhere so I am keeping the text for a while.
+    - Fix or delete this section. 
+    - The following is from old tip 772 
+      [https://vim.fandom.com/index.php?title=Convert_numbers_hex/decimal_via_menu&oldid=20568]. 
+      It does not seem helpful, but we should discuss the menus somewhere so I am 
+      keeping the text for a while. 
 
 
 This example creates a menu for conversions using the bc 
@@ -218,12 +221,21 @@ that the selected text is in the * register).
 <
 
 SEE ALSO  *vwt-27-see-also*
-    - Hex dump |vwt-1613| editing or displaying binary files in hex
-    - Improved hex editing |vwt-1518| automating some of the procedures to edit binary files in hex
-    - How to convert from decimal to hex [http://easyguyevo.hubpages.com/hub/Convert-Hex-to-Decimal]Manual hex to decimal conversion
-    - ConvertBase [https://www.vim.org/scripts/script.php?script_id=54] plugin to convert to/from various numeric bases
-    - Convert Hexadecimal to Decimal Number [http://www.stringfunction.com/hex-decimal.html] online tool to convert hex to dec
-    - From one to another number system [https://www.codeproject.com/Articles/350252/From-one-to-another-number-system/], article related to creating computer program for conversion of number from one to another number system with source code written in C#
+    - Hex dump |vwt-1613| editing or displaying binary files in hex 
+    - Improved hex editing |vwt-1518| automating some of the procedures to edit 
+      binary files in hex 
+    - How to convert from decimal to hex 
+      [http://easyguyevo.hubpages.com/hub/Convert-Hex-to-Decimal]Manual hex to 
+      decimal conversion 
+    - ConvertBase [https://www.vim.org/scripts/script.php?script_id=54] plugin to 
+      convert to/from various numeric bases 
+    - Convert Hexadecimal to Decimal Number 
+      [http://www.stringfunction.com/hex-decimal.html] online tool to convert hex to 
+      dec 
+    - From one to another number system 
+      [https://www.codeproject.com/Articles/350252/From-one-to-another-number-system/], 
+      article related to creating computer program for conversion of number from one 
+      to another number system with source code written in C# 
 
 
 COMMENTS  *vwt-27-comments*

@@ -27,7 +27,7 @@ Example:
 <
 
 REFERENCES  *vwt-687-references*
-    - :help  |filter|
+    - :help |filter| 
 
 
 COMMENTS  *vwt-687-comments*
@@ -78,8 +78,11 @@ the current content from the clipboard.
 ==============================================================================
 
 My maps just add onto what these guys have worked on.
-    - <F1> pastes, but I have it configured so it works very well in insert mode and in normal mode. The nopaste setting makes sure that auto-indent doesn't go crazy when you try to paste something in.
-    - <F2> copies text. If you are in normal mode, it will just grab the line your working on. If you in visual mode however, it will grab all the selected text.
+    - <F1> pastes, but I have it configured so it works very well in insert mode 
+      and in normal mode. The nopaste setting makes sure that auto-indent doesn't go 
+      crazy when you try to paste something in. 
+    - <F2> copies text. If you are in normal mode, it will just grab the line your 
+      working on. If you in visual mode however, it will grab all the selected text. 
 
 
 >

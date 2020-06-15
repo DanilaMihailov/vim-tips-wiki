@@ -36,8 +36,13 @@ as a normal-mode command, so the Home which follows invokes the normal mode
 mapping.
 
 The simple mappings have two deficiencies:
-    - If there are no non-whitespace characters, match() returns −1 which becomes 0 after adding 1, and that value never equals the result from col('.'). Therefore the mapping always performs ^.
-    - The mapping does not account for the case where the 'wrap' option is on and long lines are wrapped. In that case, pressing Home will jump to the first nonblank character or the start of the line, whereas moving to the start of the screen line may be wanted.
+    - If there are no non-whitespace characters, match() returns −1 which becomes 0 
+      after adding 1, and that value never equals the result from col('.'). 
+      Therefore the mapping always performs ^. 
+    - The mapping does not account for the case where the 'wrap' option is on and 
+      long lines are wrapped. In that case, pressing Home will jump to the first 
+      nonblank character or the start of the line, whereas moving to the start of 
+      the screen line may be wanted. 
 
 
 MORE FEATURES  *vwt-315-more-features*
@@ -70,7 +75,10 @@ will move to the start of the line.
 <
 
 SEE ALSO  *vwt-315-see-also*
-    - homeLikeVC++.vim [https://github.com/LucHermitte/lh-cpp/blob/master/plugin/homeLikeVC%2B%2B.vim] provides smart Home and smart End using @= rather than <expr>, which should work on versions prior to Vim 7
+    - homeLikeVC++.vim 
+      [https://github.com/LucHermitte/lh-cpp/blob/master/plugin/homeLikeVC%2B%2B.vim] 
+      provides smart Home and smart End using @= rather than <expr>, which should 
+      work on versions prior to Vim 7 
 
 
 COMMENTS  *vwt-315-comments*

@@ -21,7 +21,7 @@ be used. In earlier versions of Vim, //e can be used to repeat the last search
 the cursor to the end of the search hit. :help |search-offset|
 
 VIM 7.4 AND LATER  *vwt-1597-vim-7.4-and-later*
-    - TODO: Finish!
+    - TODO: Finish! 
 
 
 After searching, typing n searches forward from the current position to find 
@@ -36,11 +36,12 @@ repeat the last operation.
 A SEARCH TEXT OBJECT FOR OLDER VIM 7.3 AND EARLIER  *vwt-1597-a-search-text-object-for-older-vim-7.3-and-earlier*
 
 By defining the mappings below for s, after searching you can:
-    - Type ys to copy the search hit.
-    - Type "+ys to copy the hit to the clipboard.
-    - Type cs to change the hit.
-    - Type gUs to convert the hit to uppercase.
-    - Type vs to visually select the hit. If you type another s you will extend the selection to the end of the next hit.
+    - Type ys to copy the search hit. 
+    - Type "+ys to copy the hit to the clipboard. 
+    - Type cs to change the hit. 
+    - Type gUs to convert the hit to uppercase. 
+    - Type vs to visually select the hit. If you type another s you will extend the 
+      selection to the end of the next hit. 
 
 
 For example, search for 'File' and change it to 'Data' (cs = change search):
@@ -98,19 +99,24 @@ LIMITATIONS  *vwt-1597-limitations*
 The tip can be helpful to reduce distractions while editing because you can 
 always press ys to yank the hit, or cs to change it (you don't have to think 
 about an alternative method). However, the tip has several limitations:
-    - Pressing . to repeat a change will change the same number of characters that were previously changed (so you can only repeat a change when the search hit is a fixed length).
-    - The text object fails when the search hit is a single character, and when search wraps around the end of the buffer.
-    - Suppose you use :set selection=exclusive and search for 'abc'. If you find 'abc' at the end of a line, operations such as ys or cs will include the line break.
+    - Pressing . to repeat a change will change the same number of characters that 
+      were previously changed (so you can only repeat a change when the search hit 
+      is a fixed length). 
+    - The text object fails when the search hit is a single character, and when 
+      search wraps around the end of the buffer. 
+    - Suppose you use :set selection=exclusive and search for 'abc'. If you find 
+      'abc' at the end of a line, operations such as ys or cs will include the line 
+      break. 
 
 
 SEE ALSO  *vwt-1597-see-also*
-    - Copy the search results into clipboard |vwt-478|
+    - Copy the search results into clipboard |vwt-478| 
 
 
 REFERENCES  *vwt-1597-references*
-    - :help  |gn|
-    - :help  |text-objects|
-    - :help  |:map-modes|
+    - :help |gn| 
+    - :help |text-objects| 
+    - :help |:map-modes| 
 
 
 COMMENTS  *vwt-1597-comments*

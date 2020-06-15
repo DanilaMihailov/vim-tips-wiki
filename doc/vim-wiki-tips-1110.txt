@@ -81,11 +81,11 @@ an un-maximized window in most applications I use).
 ==============================================================================
 
 On RedHat Linux, I find it inadvisable to set lines/columns=999.
-    - To maximize window: Alt-F10
-    - To restore window: Alt-F5
-    - To maximize height within window size: Ctrl-w, Ctrl-_
-    - To maximize width within window size: Ctrl-w, Ctrl-|
-    - Resize window height to 45 lines: z45<Enter>
+    - To maximize window: Alt-F10 
+    - To restore window: Alt-F5 
+    - To maximize height within window size: Ctrl-w, Ctrl-_ 
+    - To maximize width within window size: Ctrl-w, Ctrl-| 
+    - Resize window height to 45 lines: z45<Enter> 
 
 
 For more controls, see :help |window-resize|

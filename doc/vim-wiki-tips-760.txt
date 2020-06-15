@@ -7,7 +7,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip414 |vwt-414|
+    - VimTip414 |vwt-414| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -63,9 +63,12 @@ RELATED PLUGINS  *vwt-760-related-plugins*
 
 As an alternative, you could use one of these plugins which work with fonts 
 on Unix and Windows systems:
-    - quickfonts.vim [https://www.vim.org/scripts/script.php?script_id=202] : quickly switch between a list of favorite fonts, manage list of favorite fonts
-    - guifont++.vim [https://www.vim.org/scripts/script.php?script_id=593] : Vim plugin for quickly changing GUI font size
-    - fontsize [https://www.vim.org/scripts/script.php?script_id=2809] : Vim plugin for adjusting GUI font size via "font size" mode single-key shortcuts
+    - quickfonts.vim [https://www.vim.org/scripts/script.php?script_id=202] : 
+      quickly switch between a list of favorite fonts, manage list of favorite fonts 
+    - guifont++.vim [https://www.vim.org/scripts/script.php?script_id=593] : Vim 
+      plugin for quickly changing GUI font size 
+    - fontsize [https://www.vim.org/scripts/script.php?script_id=2809] : Vim plugin 
+      for adjusting GUI font size via "font size" mode single-key shortcuts 
 
 
 MAPPING SOLUTION  *vwt-760-mapping-solution*
@@ -127,8 +130,8 @@ you can add 'g' to the last argument of the substitute command above to
 <
 
 REFERENCES  *vwt-760-references*
-    - :help  |sub-replace-expression|
-    - :help  |eval()|
+    - :help |sub-replace-expression| 
+    - :help |eval()| 
 
 
 COMMENTS  *vwt-760-comments*

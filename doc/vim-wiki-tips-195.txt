@@ -36,12 +36,14 @@ commands (tab next, and tab previous).
 <
 
 REFERENCES  *vwt-195-references*
-    - Easier_buffer_switching [https://vim.fandom.com/wiki/Easier_buffer_switching] - I highly recommend the <F5> mapping followed by completion with <Ctrl-N> or <Tab>.
-    - :help  |CTRL-W|
-    - :help  |:bnext|
-    - :help  |:bprevious|
-    - :help  |:tabnext|
-    - :help  |:tabprevious|
+    - Easier_buffer_switching [https://vim.fandom.com/wiki/Easier_buffer_switching] 
+      - I highly recommend the <F5> mapping followed by completion with <Ctrl-N> or 
+      <Tab>. 
+    - :help |CTRL-W| 
+    - :help |:bnext| 
+    - :help |:bprevious| 
+    - :help |:tabnext| 
+    - :help |:tabprevious| 
 
 
 COMMENTS  *vwt-195-comments*

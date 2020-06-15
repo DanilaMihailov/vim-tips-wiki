@@ -50,13 +50,17 @@ window. Setting 'scrolloff' to 0 allows the cursor to be positioned at the
 bottom of the screen (with command L).
 
 Problems
-    - If the cursor is in the last line when the mapping is executed, the mapping fails because j cannot move the cursor down (and the remaining commands are not executed).
-    - Register z is changed.
+    - If the cursor is in the last line when the mapping is executed, the mapping 
+      fails because j cannot move the cursor down (and the remaining commands are 
+      not executed). 
+    - Register z is changed. 
 
 
 SEE ALSO  *vwt-1615-see-also*
-    - vim_use discussion [http://groups.google.com/group/vim_use/browse_thread/thread/64c46a0f0c573003/942231124a5163f4]
-    - MPage [http://www.drchip.org/astronaut/vim/index.html#MPAGE] plugin that supports multiple windows (two or more) with sequential text
+    - vim_use discussion 
+      [http://groups.google.com/group/vim_use/browse_thread/thread/64c46a0f0c573003/942231124a5163f4] 
+    - MPage [http://www.drchip.org/astronaut/vim/index.html#MPAGE] plugin that 
+      supports multiple windows (two or more) with sequential text 
 
 
 COMMENTS  *vwt-1615-comments*

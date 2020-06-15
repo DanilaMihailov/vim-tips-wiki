@@ -42,8 +42,8 @@ To change the number of space characters inserted for indentation, use the
 <
 
 For example, to get the following coding style,
-    - No tabs in the source file.
-    - All tab characters are 4 space characters.
+    - No tabs in the source file. 
+    - All tab characters are 4 space characters. 
 
 
 use the following set of options:
@@ -78,16 +78,16 @@ option to cause <Tab> and <BS> to insert and delete the correct number of
 spaces.
 
 SEE ALSO  *vwt-12-see-also*
-    - Super retab |vwt-1592| to change only indents (whitespace at left margin)
-    - Highlight unwanted spaces |vwt-396| to display unwanted whitespace
+    - Super retab |vwt-1592| to change only indents (whitespace at left margin) 
+    - Highlight unwanted spaces |vwt-396| to display unwanted whitespace 
 
 
 REFERENCES  *vwt-12-references*
-    - :help 'tabstop'
-    - :help 'shiftwidth'
-    - :help 'expandtab'
-    - :help 'smarttab'
-    - :help 'softtabstop'
+    - :help 'tabstop' 
+    - :help 'shiftwidth' 
+    - :help 'expandtab' 
+    - :help 'smarttab' 
+    - :help 'softtabstop' 
 
 
 COMMENTS  *vwt-12-comments*

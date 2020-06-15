@@ -15,13 +15,13 @@ CONTROL VISUAL STUDIO FROM VIM  *vwt-1253-control-visual-studio-from-vim*
 
 Script visual_studio.vim 
 [https://www.vim.org/scripts/script.php?script_id=864] includes features:
-    - Compatible with Visual Studio 2003, 2005, 2008, and 2010
-    - Control Visual Studio from within Vim.
-    - Load the current Visual Studio file into Vim.
-    - Load the current Vim file into Visual Studio.
-    - Compile the current file (C/C++) within Vim.
-    - Build the current project (C/C++/C#) within Vim.
-    - Load results from Visual Studio into the Vim quickfix file.
+    - Compatible with Visual Studio 2003, 2005, 2008, and 2010 
+    - Control Visual Studio from within Vim. 
+    - Load the current Visual Studio file into Vim. 
+    - Load the current Vim file into Visual Studio. 
+    - Compile the current file (C/C++) within Vim. 
+    - Build the current project (C/C++/C#) within Vim. 
+    - Load results from Visual Studio into the Vim quickfix file. 
 
 
 IF YOU GET ERRORS, especially E887, you may need to copy some pywin32 files 
@@ -52,9 +52,9 @@ open the current VS file in vim with the cursor at the same line and even at
 the same column.
 
 The Tool: In Visual Studio, Tools > External Tools > Add:
-    - Title: &Vim
-    - Command: C:\Vim\vim73\gvim.exe
-    - Arguments:
+    - Title: &Vim 
+    - Command: C:\Vim\vim73\gvim.exe 
+    - Arguments: 
 
 
 >
@@ -68,7 +68,7 @@ The Tool: In Visual Studio, Tools > External Tools > Add:
 >
     --servername gVimStudio --remote-silent +"execute 'normal! $(CurLine)G$(CurCol)|'" "$(ItemPath)"
 <
-    - Initial directory: $(ItemDir)
+    - Initial directory: $(ItemDir) 
 
 
 Note that, if you are using tabs for indenting, this will only place the 
@@ -84,8 +84,9 @@ environment variable if one is defined, or Vim determines an appropriate
 directory which you can see by doing :echo $HOME within Vim.
 
 The Shortcut: In Visual Studio, Tools -> Options -> Environment -> Keyboard:
-    - Command: ExternalCommand1 (it's easiest if you move your Vim external tool to be the first, otherwise use the correct index).
-    - Shortcut key: F1
+    - Command: ExternalCommand1 (it's easiest if you move your Vim external tool to 
+      be the first, otherwise use the correct index). 
+    - Shortcut key: F1 
 
 
 This will allow you to use your key combination to open the current file at 
@@ -98,8 +99,8 @@ of Vim each time.
 Preventing Nagging: In order to effectively use the two together and make 
 sure .NET does not complain about its files changing, goto Tools > Options > 
 Environment > Documents and ensure these two options are checked:
-    - Detect when file is changed outside the environment.
-    - Auto-load changes (if not currently modified inside the environment).
+    - Detect when file is changed outside the environment. 
+    - Auto-load changes (if not currently modified inside the environment). 
 
 
 In your visualstudioinvoke.vim, enable autoread so vim will update files when 
@@ -115,10 +116,10 @@ some useful plugins to help you stay in Vim longer.
 Note: Only old versions of Vim include sendtovim.exe.
 
 The Tool: In Visual Studio, Tools > Customize > Tools:
-    - Title: &Vim
-    - Command: C:\Vim\vim51\sendtovim.exe
-    - Arguments: <c-z>:cd $(FileDir)<CR>:e $(FilePath)<CR>:$(CurLine)<CR>
-    - Initial directory: $(FileDir)
+    - Title: &Vim 
+    - Command: C:\Vim\vim51\sendtovim.exe 
+    - Arguments: <c-z>:cd $(FileDir)<CR>:e $(FilePath)<CR>:$(CurLine)<CR> 
+    - Initial directory: $(FileDir) 
 
 
 Note: <c-z> brings gvim to foreground - on win2k, gvim gets focus but won't 
@@ -126,7 +127,8 @@ bring itself to foreground otherwise. You can remove it if you don't have this
 bring-to-foreground problem.
 
 These arguments work better as for some reason the above ones break.
-    - Arguments: --remote-silent +"call cursor($(CurLine),$(CurCol))" $(ItemFileName)$(ItemExt)
+    - Arguments: --remote-silent +"call cursor($(CurLine),$(CurCol))" 
+      $(ItemFileName)$(ItemExt) 
 
 
 OPENING VIM FILE IN VISUAL STUDIO  *vwt-1253-opening-vim-file-in-visual-studio*
@@ -146,12 +148,16 @@ USE VIM INSTEAD OF VISUAL STUDIO'S EDITOR  *vwt-1253-use-vim-instead-of-visual-s
 
 This is not the same as Embedding vim in Visual Studio 
 [https://vim.fandom.com/wiki/Embedding_vim_in_Visual_Studio].
-    - Open a solution in VS.Net.
-    - In the solution explorer (View->Solution or Ctrl + R), you should see a list of files (click on the "Solution Explorer" tab if you do not see the file list).
-    - Right click on any of the files and choose "Open With...", this brings up the Open With dialog.
-    - Click on "Add..." this brings up the Add Program dialog.
-    - Click on "Browse..." and point the Browse dialog to your gvim location.
-    - You have now added gvim to the list of editors, you may also select gvim to be the default editor for that file type.
+    - Open a solution in VS.Net. 
+    - In the solution explorer (View->Solution or Ctrl + R), you should see a list 
+      of files (click on the "Solution Explorer" tab if you do not see the file 
+      list). 
+    - Right click on any of the files and choose "Open With...", this brings up the 
+      Open With dialog. 
+    - Click on "Add..." this brings up the Add Program dialog. 
+    - Click on "Browse..." and point the Browse dialog to your gvim location. 
+    - You have now added gvim to the list of editors, you may also select gvim to 
+      be the default editor for that file type. 
 
 
 You may need to do this for all file types you wish to edit with gvim. And 
@@ -187,9 +193,12 @@ of gvim to use vim's server-client functionality. Try this:
 <
 
 INTEGRATION OF VIM WITH PRE-2003 VERSIONS OF VISUAL STUDIO  *vwt-1253-integration-of-vim-with-pre-2003-versions-of-visual-studio*
-    - VisVim for Visual Studio [https://vim.fandom.com/wiki/VisVim_for_Visual_Studio]
-    - Using DDE to open the current Vim file in Visual Studio [https://vim.fandom.com/wiki/Using_DDE_to_open_the_current_Vim_file_in_Visual_Studio]
-    - Embedding vim in Visual Studio [https://vim.fandom.com/wiki/Embedding_vim_in_Visual_Studio]
+    - VisVim for Visual Studio 
+      [https://vim.fandom.com/wiki/VisVim_for_Visual_Studio] 
+    - Using DDE to open the current Vim file in Visual Studio 
+      [https://vim.fandom.com/wiki/Using_DDE_to_open_the_current_Vim_file_in_Visual_Studio] 
+    - Embedding vim in Visual Studio 
+      [https://vim.fandom.com/wiki/Embedding_vim_in_Visual_Studio] 
 
 
 COMPILING FROM VIM  *vwt-1253-compiling-from-vim*
@@ -198,15 +207,16 @@ If you use nmake, you can use compiler msvc to set Vim's errorformat and
 makeprg for Visual C++. Use compiler cs for C#.
 
 SEE ALSO  *vwt-1253-see-also*
-    - Use Vim like an IDE [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE]
-    - 345 Quickfix and Visual Studio and cygwin |vwt-345|
-    - 719 Use Python to build project in Visual Studio |vwt-719|
+    - Use Vim like an IDE [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE] 
+    - 345 Quickfix and Visual Studio and cygwin |vwt-345| 
+    - 719 Use Python to build project in Visual Studio |vwt-719| 
 
 
 REFERENCES  *vwt-1253-references*
-    - :help  |--servername|
-    - :help  |--remote|
-    - Visual Studio: Arguments for External Tools [http://msdn.microsoft.com/en-us/library/ekbzk5f8(v=VS.100).aspx]
+    - :help |--servername| 
+    - :help |--remote| 
+    - Visual Studio: Arguments for External Tools 
+      [http://msdn.microsoft.com/en-us/library/ekbzk5f8(v=VS.100).aspx] 
 
 
 COMMENTS  *vwt-1253-comments*

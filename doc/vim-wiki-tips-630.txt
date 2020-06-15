@@ -190,16 +190,53 @@ different scripts that accomplish this task.
 PLUGINS  *vwt-630-plugins*
 
 The auto-insertion of matching brackets is provided by these plugins:
-    - delimitMate by Israel Chauca Fuentes [https://www.vim.org/scripts/script.php?script_id=2754] (configurable, latest version on GitHub [https://github.com/Raimondi/delimitMate] doesn't break undo/redo/repeat).
-    - AutoClose by Karl Guertin [https://www.vim.org/scripts/script.php?script_id=1849] (auto-closes specific hard-coded characters, and doesn't break undo/redo/repeat in Vim 7.3 or lower)
-    - AutoClose by Thiago Alves [https://www.vim.org/scripts/script.php?script_id=2009] (configurable, but breaks undo/redo/repeat)
-    - auto-pairs Auto Pairs by Miao Jiang [https://www.vim.org/scripts/script.php?script_id=3599] (configurable, latest version on GitHub [https://github.com/jiangmiao/auto-pairs] doesn't break undo/redo/repeat)
-    - ClosePairs by Edoardo Vacchi [https://www.vim.org/scripts/script.php?script_id=2373] (configurable, but breaks undo/redo/repeat)
-    - smartinput by Kana Natsuno [https://github.com/kana/vim-smartinput] (configurable, but breaks undo/redo/repeat)
-    -  Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] has some very advanced and smart abbreviations [https://github.com/LucHermitte/lh-brackets]. Those scripts give advanced brace-handling features like markers support (placeholders in another terminology), several things can be easily tweaked (whether we want newlines or not before the curly-brackets, ...), the abbreviations are buffer-relative (which is necessary to have "{" expand into different things according to the filetype of the buffer edited), context-sensitive (the abbreviations are not expanded within comments or string contexts) and more. lh-brackets also provides surrounding, and a smart <BS> that deletes both characters from an empty pair. See also lh-cpp, the C & C++ ftplugin suite [https://github.com/LucHermitte/lh-cpp] built on top of it, where ; can close all pending ). lh-brackets supports redo/repeat on vim versions >= 7.4-849.
-    -  Srinath Avadhanula's imaps.vim [https://www.vim.org/scripts/script.php?script_id=244] is used by Latex-Suite [http://vim-latex.sourceforge.net/] to provide a similar bracketing system.
-    -  Marcn Szamotulski's Automatic LaTeX Plugin [https://www.vim.org/scripts/script.php?script_id=2945] is closing open brackets within the omnicompletion mechanism, it also closes opened LaTeX environments.
-    -  The popular surround.vim [https://www.vim.org/scripts/script.php?script_id=1697] provides an insert-mode mapping to insert pairs of any delimiter defined by a text object together, if you can remember to use it instead of just typing the opening delimiter. surround.vim integrates with the repeat.vim [https://www.vim.org/scripts/script.php?script_id=2136] plugin to provide some support for the repeat command for its normal-mode commands, but the insert-mode command will still break the undo sequence.
+    - delimitMate by Israel Chauca Fuentes 
+      [https://www.vim.org/scripts/script.php?script_id=2754] (configurable, latest 
+      version on GitHub [https://github.com/Raimondi/delimitMate] doesn't break 
+      undo/redo/repeat). 
+    - AutoClose by Karl Guertin 
+      [https://www.vim.org/scripts/script.php?script_id=1849] (auto-closes specific 
+      hard-coded characters, and doesn't break undo/redo/repeat in Vim 7.3 or lower) 
+    - AutoClose by Thiago Alves 
+      [https://www.vim.org/scripts/script.php?script_id=2009] (configurable, but 
+      breaks undo/redo/repeat) 
+    - auto-pairs Auto Pairs by Miao Jiang 
+      [https://www.vim.org/scripts/script.php?script_id=3599] (configurable, latest 
+      version on GitHub [https://github.com/jiangmiao/auto-pairs] doesn't break 
+      undo/redo/repeat) 
+    - ClosePairs by Edoardo Vacchi 
+      [https://www.vim.org/scripts/script.php?script_id=2373] (configurable, but 
+      breaks undo/redo/repeat) 
+    - smartinput by Kana Natsuno [https://github.com/kana/vim-smartinput] 
+      (configurable, but breaks undo/redo/repeat) 
+    - Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] has some very 
+      advanced and smart abbreviations [https://github.com/LucHermitte/lh-brackets]. 
+      Those scripts give advanced brace-handling features like markers support 
+      (placeholders in another terminology), several things can be easily tweaked 
+      (whether we want newlines or not before the curly-brackets, ...), the 
+      abbreviations are buffer-relative (which is necessary to have "{" expand into 
+      different things according to the filetype of the buffer edited), 
+      context-sensitive (the abbreviations are not expanded within comments or 
+      string contexts) and more. lh-brackets also provides surrounding, and a smart 
+      <BS> that deletes both characters from an empty pair. See also lh-cpp, the C & 
+      C++ ftplugin suite [https://github.com/LucHermitte/lh-cpp] built on top of it, 
+      where ; can close all pending ). lh-brackets supports redo/repeat on vim 
+      versions >= 7.4-849. 
+    - Srinath Avadhanula's imaps.vim 
+      [https://www.vim.org/scripts/script.php?script_id=244] is used by Latex-Suite 
+      [http://vim-latex.sourceforge.net/] to provide a similar bracketing system. 
+    - Marcn Szamotulski's Automatic LaTeX Plugin 
+      [https://www.vim.org/scripts/script.php?script_id=2945] is closing open 
+      brackets within the omnicompletion mechanism, it also closes opened LaTeX 
+      environments. 
+    - The popular surround.vim 
+      [https://www.vim.org/scripts/script.php?script_id=1697] provides an 
+      insert-mode mapping to insert pairs of any delimiter defined by a text object 
+      together, if you can remember to use it instead of just typing the opening 
+      delimiter. surround.vim integrates with the repeat.vim 
+      [https://www.vim.org/scripts/script.php?script_id=2136] plugin to provide some 
+      support for the repeat command for its normal-mode commands, but the 
+      insert-mode command will still break the undo sequence. 
 
 
 REPLACECURLY SCRIPT  *vwt-630-replacecurly-script*
@@ -249,7 +286,9 @@ expanded when the expression register is evaluated instead of when the mapping
 is executed.
 
 SEE ALSO  *vwt-630-see-also*
-    - Auto closing an HTML tag [https://vim.fandom.com/wiki/Auto_closing_an_HTML_tag] using omni completion to auto complete tags
+    - Auto closing an HTML tag 
+      [https://vim.fandom.com/wiki/Auto_closing_an_HTML_tag] using omni completion 
+      to auto complete tags 
 
 
 COMMENTS  *vwt-630-comments*

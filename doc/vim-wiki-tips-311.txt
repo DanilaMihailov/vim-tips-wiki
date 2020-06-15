@@ -5,8 +5,8 @@
 
 
 This tip is very similar to the following:
-    - VimTip493 |vwt-493|
-    - VimTip1336 |vwt-1336|
+    - VimTip493 |vwt-493| 
+    - VimTip1336 |vwt-1336| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -22,12 +22,12 @@ file is not open for browsing.
 
 The easy way to browse a file's directory without leaving Vim, is to use one 
 of the built-in Netrw commands to open the current file's directory:
-    -  :help  |:Explore|
-    -  :help  |netrw-:Explore|
-    -  :help  |netrw-:Sexplore|
-    -  :help  |netrw-:Vexplore|
-    -  :help  |netrw-:Hexplore|
-    -  :help  |netrw-:Texplore|
+    - :help |:Explore| 
+    - :help |netrw-:Explore| 
+    - :help |netrw-:Sexplore| 
+    - :help |netrw-:Vexplore| 
+    - :help |netrw-:Hexplore| 
+    - :help |netrw-:Texplore| 
 
 
 Netrw or some of its replacements (like NERDtree 

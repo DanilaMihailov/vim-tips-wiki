@@ -125,11 +125,11 @@ following to ~/.vim/after/ftplugin/python.vim
 <
 
 REFERENCES  *vwt-280-references*
-    - :help 'efm'
-    - :help 'makeprg'
-    - :help  |compiler-pyunit|
-    - :help  |quickfix|
-    - http://c2.com/cgi/wiki?PythonUnit [http://c2.com/cgi/wiki?PythonUnit]
+    - :help 'efm' 
+    - :help 'makeprg' 
+    - :help |compiler-pyunit| 
+    - :help |quickfix| 
+    - http://c2.com/cgi/wiki?PythonUnit [http://c2.com/cgi/wiki?PythonUnit] 
 
 
 COMMENTS  *vwt-280-comments*
@@ -155,10 +155,10 @@ There are no tips really suitable for holding the iabbr info; following are
 slightly plausible candidates. Meanwhile, I have moved the abbreviations to 
 the comments section where they are less intrusive. JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] 03:20, 4 August 2009 (UTC)
-    - 610 Use abbreviations for frequently-used words |vwt-610|
-    - 709 Simple creation of scripts |vwt-709|
-    - 778 Speed up Python coding |vwt-778|
-    - 1041 Snippets for JavaScript, HTML and Python |vwt-1041|
+    - 610 Use abbreviations for frequently-used words |vwt-610| 
+    - 709 Simple creation of scripts |vwt-709| 
+    - 778 Speed up Python coding |vwt-778| 
+    - 1041 Snippets for JavaScript, HTML and Python |vwt-1041| 
 
 
  vim:tw=78:et:ft=help:norl:

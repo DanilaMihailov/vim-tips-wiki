@@ -197,9 +197,10 @@ these two settings, however.
 Comments
 
 TO DO
-    - Merge in some of the following info
-    - prune what is incorrect (for example, the java.vim syntax file last update 2010 March 23 still lacks folding of javadoc)
-    - bring this to the attention of the java.vim syntax maintainer
+    - Merge in some of the following info 
+    - prune what is incorrect (for example, the java.vim syntax file last update 
+      2010 March 23 still lacks folding of javadoc) 
+    - bring this to the attention of the java.vim syntax maintainer 
 
 
 In Vim 7.0, this can be accomplished by using the syntax file. It has been 
@@ -241,7 +242,7 @@ Vim developers' list:
 Basically, until they update the syntax/java.vim, putting the above in your 
 after/syntax/java.vim should fix things. (You'll have to set fdm=syntax in 
 your ftplugin, of course.)
-    -  Using 7.2.79 here, and this doesn't appear to be necessary anymore
+    - Using 7.2.79 here, and this doesn't appear to be necessary anymore 
 
 
 However, if you're not using Vim 7 yet, my original solution with expression 
@@ -361,7 +362,8 @@ it possible, because its a bit more bruteforce.
 <
 
 SEE ALSO  *vwt-1150-see-also*
-    - Customize text for closed folds [https://vim.fandom.com/wiki/Customize_text_for_closed_folds]
+    - Customize text for closed folds 
+      [https://vim.fandom.com/wiki/Customize_text_for_closed_folds] 
 
 
 COMMENTS  *vwt-1150-comments*

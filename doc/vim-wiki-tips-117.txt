@@ -57,9 +57,12 @@ E79: Cannot expand wildcards
 
 I'm not really certain what problem this tip tries to solve, but here are 
 some potential alternatives:
-    - The Project plugin [https://www.vim.org/scripts/script.php?script_id=69] includes a "search in project" feature
-    - You can Find in files within Vim [https://vim.fandom.com/wiki/Find_in_files_within_Vim] with a builtin command
-    - :help  |tags-and-searches| tells you about Vim's built-in interface for jumping around in your code based on a premade data file.
+    - The Project plugin [https://www.vim.org/scripts/script.php?script_id=69] 
+      includes a "search in project" feature 
+    - You can Find in files within Vim 
+      [https://vim.fandom.com/wiki/Find_in_files_within_Vim] with a builtin command 
+    - :help |tags-and-searches| tells you about Vim's built-in interface for 
+      jumping around in your code based on a premade data file. 
 
 
  vim:tw=78:et:ft=help:norl:

@@ -7,9 +7,9 @@ created 2001 · complexity basic · author slimzhao · version 6.0
 ==============================================================================
 
 The options that configure Vim are of three types:
-    - boolean : on or off (example :help 'autochdir')
-    - number : an integer value (example :help 'textwidth')
-    - string : a string value (example :help 'backspace')
+    - boolean : on or off (example :help 'autochdir') 
+    - number : an integer value (example :help 'textwidth') 
+    - string : a string value (example :help 'backspace') 
 
 
 Options can be global, or may apply only to a particular buffer or window. 
@@ -56,12 +56,14 @@ It's easier to toggle a boolean option, for example:
 <
 
 REFERENCES  *vwt-37-references*
-    - :help  |set-option|
+    - :help |set-option| 
 
 
 COMMENTS  *vwt-37-comments*
-    - Vim settings [http://apps.brrm.ru/vim-options/] editing app for Mac - a GUI tool to edit "set" options.
-    - Also see the  |:options| command for a similar built-in editable list of current option values.
+    - Vim settings [http://apps.brrm.ru/vim-options/] editing app for Mac - a GUI 
+      tool to edit "set" options. 
+    - Also see the |:options| command for a similar built-in editable list of 
+      current option values. 
 
 
  vim:tw=78:et:ft=help:norl:

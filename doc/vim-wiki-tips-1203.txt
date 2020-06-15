@@ -16,11 +16,11 @@ your Vim window. Add the following to your vimrc:
 <
 
 The mapping does the following:
-    - Opens the TagList (opens left by default).
-    - Switches to the TagList window and splits it.
-    - Opens VTreeExplorer in the split window.
-    - Turns of line numbering in the VTreeExplorer.
-    - Switches back to the window where you started.
+    - Opens the TagList (opens left by default). 
+    - Switches to the TagList window and splits it. 
+    - Opens VTreeExplorer in the split window. 
+    - Turns of line numbering in the VTreeExplorer. 
+    - Switches back to the window where you started. 
 
 
 COMMENTS  *vwt-1203-comments*

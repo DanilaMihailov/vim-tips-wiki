@@ -91,16 +91,22 @@ Setting up these function calls in your after/syntax directory will allow you
 to automatically allow such snippet sections in every file of a given type.
 
 NOTES  *vwt-857-notes*
-    - If highlighting gets out of sync, try executing :syn sync fromstart to fix it.
-    - If you want this highlighting within other syntax items (like strings), you may need to tweak the syntax rules here or in the syntax file using contains and/or containedin. :help  |:syn-contains| :help  |:syn-containedin|
+    - If highlighting gets out of sync, try executing :syn sync fromstart to fix 
+      it. 
+    - If you want this highlighting within other syntax items (like strings), you 
+      may need to tweak the syntax rules here or in the syntax file using contains 
+      and/or containedin. :help |:syn-contains| :help |:syn-containedin| 
 
 
 REFERENCES  *vwt-857-references*
-    - :help  |:syn-include|
+    - :help |:syn-include| 
 
 
 RELATED PLUGINS  *vwt-857-related-plugins*
-    - SyntaxRange [https://www.vim.org/scripts/script.php?script_id=4168] uses the mechanism from this page to define  and  commands, which allow for quick, interactive application, as well as functions for finer control and use in custom mappings or syntax tweaks.
+    - SyntaxRange [https://www.vim.org/scripts/script.php?script_id=4168] uses the 
+      mechanism from this page to define and commands, which allow for quick, 
+      interactive application, as well as functions for finer control and use in 
+      custom mappings or syntax tweaks. 
 
 
 COMMENTS  *vwt-857-comments*

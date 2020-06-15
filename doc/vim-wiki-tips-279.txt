@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip185 |vwt-185|
+    - VimTip185 |vwt-185| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -66,12 +66,13 @@ file-extension in gvim by default
 [https://vim.fandom.com/wiki/Associate_files_with_no_extension_to_Vim_under_Windows].
 
 COMPATIBILITY NOTE  *vwt-279-compatibility-note*
-    - MS Windows 95 - works OK
-    - MS Windows 98 - works OK
-    - MS Windows NT - not sure; if anyone can confirm this please add a note.
-    - MS Windows 2000 - works OK
-    - MS Windows XP - should work.
-    - MS Windows 7 - works, with data added manually in regedit (change existing ...\shell key value from "openas" to "vim")
+    - MS Windows 95 - works OK 
+    - MS Windows 98 - works OK 
+    - MS Windows NT - not sure; if anyone can confirm this please add a note. 
+    - MS Windows 2000 - works OK 
+    - MS Windows XP - should work. 
+    - MS Windows 7 - works, with data added manually in regedit (change existing 
+      ...\shell key value from "openas" to "vim") 
 
 
 COMMENTS  *vwt-279-comments*
@@ -79,10 +80,10 @@ COMMENTS  *vwt-279-comments*
 What I do on any machine I'm working on, and should work in any of the 
 Windows OSs, is add a shortcut to Gvim in my SendTo folder. This can be done 
 by:
-    - Right-click on the START button.
-    - Click Explore All Users
-    - Find the folder with your username and open it.
-    - Find the Send To folder, and copy a shortcut to Gvim in there.
+    - Right-click on the START button. 
+    - Click Explore All Users 
+    - Find the folder with your username and open it. 
+    - Find the Send To folder, and copy a shortcut to Gvim in there. 
 
 
 Now, if I right-click on any file, I can choose to send it to GVim by using 

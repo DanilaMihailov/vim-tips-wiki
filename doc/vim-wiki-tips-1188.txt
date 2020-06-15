@@ -20,44 +20,59 @@ and using tags files (for the details, see :help |tagsrch.txt|).
 USING TAGS  *vwt-1188-using-tags*
 
 Jumping to a tag
-    - You can use the 'tag' ex command. For example, the command ':tag <tagname>' will jump to the tag named <tagname>.
-    - You can position the cursor over a tag name and then press Ctrl-].
-    - You can visually select a text and then press Ctrl-] to jump to the tag matching the selected text.
-    - You can click on the tag name using the left mouse button, while pressing the <Ctrl> key.
-    - You can press the g key and then click on the tag name using the left mouse button.
-    - You can use the 'stag' ex command, to open the tag in a new window. For example, the command ':stag func1' will open the func1 definition in a new window.
-    - You can position the cursor over a tag name and then press Ctrl-W ]. This will open the tag location in a new window.
+    - You can use the 'tag' ex command. For example, the command ':tag <tagname>' 
+      will jump to the tag named <tagname>. 
+    - You can position the cursor over a tag name and then press Ctrl-]. 
+    - You can visually select a text and then press Ctrl-] to jump to the tag 
+      matching the selected text. 
+    - You can click on the tag name using the left mouse button, while pressing the 
+      <Ctrl> key. 
+    - You can press the g key and then click on the tag name using the left mouse 
+      button. 
+    - You can use the 'stag' ex command, to open the tag in a new window. For 
+      example, the command ':stag func1' will open the func1 definition in a new 
+      window. 
+    - You can position the cursor over a tag name and then press Ctrl-W ]. This 
+      will open the tag location in a new window. 
 
 
 Help: :tag, Ctrl-], v_CTRL_], <C-LeftMouse>, g<LeftMouse>, :stag, Ctrl-W_]
 
 How do I jump to a particular tag match, if there are multiple matching tags?
-    - You can use the 'tselect' ex command to list all the tag matches. For example, the command ':tselect func1' will list all the locations where func1 is defined. You can then enter the number of a tag match to jump to that location.
-    - You can position the cursor over the tag name and press g] to get a list of matching tags.
-    - You can visually select a text and press g] to get a list of matching tags.
-    - You can use the 'stselect' ex command. This will open the selected tag from the tag list in a new window.
-    - You can position the cursor over the tag name and press Ctrl-W g] to do a :stselect.
+    - You can use the 'tselect' ex command to list all the tag matches. For 
+      example, the command ':tselect func1' will list all the locations where func1 
+      is defined. You can then enter the number of a tag match to jump to that 
+      location. 
+    - You can position the cursor over the tag name and press g] to get a list of 
+      matching tags. 
+    - You can visually select a text and press g] to get a list of matching tags. 
+    - You can use the 'stselect' ex command. This will open the selected tag from 
+      the tag list in a new window. 
+    - You can position the cursor over the tag name and press Ctrl-W g] to do a 
+      :stselect. 
 
 
 Help: tag-matchlist, :tselect, g], v_g], :stselect, Ctrl-W_g]
 
 Returning after a tag jump
-    - You can use the 'pop' ex command.
-    - You can press Ctrl-t.
-    - You can click the right mouse button, while pressing the <Ctrl> key.
-    - You can press the g key and then click the right mouse button.
+    - You can use the 'pop' ex command. 
+    - You can press Ctrl-t. 
+    - You can click the right mouse button, while pressing the <Ctrl> key. 
+    - You can press the g key and then click the right mouse button. 
 
 
 Help: :pop, Ctrl-T, <C-RightMouse>, g<RightMouse>
 
 How do I jump again to a previously jumped tag location?
-    - You can use the 'tag' ex command to jump to a previously jumped tag location, which is stored in the tag stack.
+    - You can use the 'tag' ex command to jump to a previously jumped tag location, 
+      which is stored in the tag stack. 
 
 
 Help: tag
 
 How do I list the contents of the tag stack?
-    - Vim remembers the location from which you jumped to a tag in the tag stack. You can list the current tag stack using the 'tags' ex command.
+    - Vim remembers the location from which you jumped to a tag in the tag stack. 
+      You can list the current tag stack using the 'tags' ex command. 
 
 
 Help: :tags, tagstack
@@ -67,11 +82,15 @@ of matching tags should be displayed. How do I do this?
 
 There are several ways to make Vim to jump to a tag directly, if there is 
 only one tag match, otherwise present a list of tag matches.
-    - You can use the 'tjump' ex command. For example, the command ':tjump func1' will jump to the definition func1, if it is defined only once. If func1 is defined multiple times, a list of matching tags will be presented.
-    - You can position the cursor over the tag and press g Ctrl-].
-    - You can visually select a text and press g Ctrl-] to jump or list the matching tags.
-    - You can use the 'stjump' ex command. This will open the matching or selected tag from the tag list in a new window.
-    - You can press Ctrl-W g Ctrl-] to do a :stjump.
+    - You can use the 'tjump' ex command. For example, the command ':tjump func1' 
+      will jump to the definition func1, if it is defined only once. If func1 is 
+      defined multiple times, a list of matching tags will be presented. 
+    - You can position the cursor over the tag and press g Ctrl-]. 
+    - You can visually select a text and press g Ctrl-] to jump or list the 
+      matching tags. 
+    - You can use the 'stjump' ex command. This will open the matching or selected 
+      tag from the tag list in a new window. 
+    - You can press Ctrl-W g Ctrl-] to do a :stjump. 
 
 
 Help: :tjump, g_Ctrl-], v_g_CTRL-], :stjump, Ctrl-W_g_Ctrl-]
@@ -80,10 +99,11 @@ How do browse through a list of multiple tag matches?
 
 If there are multiple tag matches, you can browse through all of them using 
 several of the Vim ex commands.
-    - To go to the first tag in the list, use the 'tfirst' or 'trewind' ex command.
-    - To go to the last tag in the list, use the 'tlast' ex command.
-    - To go to the next matching tag in the list, use the 'tnext' ex command.
-    - To go to the previous matching tag in the list, use the 'tprevious' or 'tNext' ex command.
+    - To go to the first tag in the list, use the 'tfirst' or 'trewind' ex command. 
+    - To go to the last tag in the list, use the 'tlast' ex command. 
+    - To go to the next matching tag in the list, use the 'tnext' ex command. 
+    - To go to the previous matching tag in the list, use the 'tprevious' or 
+      'tNext' ex command. 
 
 
 Help: :tfirst, :trewind, :tlast, :tnext, :tprevious, :tNext
@@ -92,11 +112,15 @@ How do I preview a tag?
 
 You can use the preview window to preview a tag, without leaving the original 
 window. There are several ways to preview a tag:
-    - You can use the 'ptag' ex command to open a tag in the preview window.
-    - You can position the cursor on a tag name and press Ctrl-W } to open the tag in the preview window.
-    - You can use the 'ptselect' ex command to do the equivalent of the 'tselect' ex command in the preview window.
-    - You can use the 'ptjump' ex command to do the equivalent of the 'tjump' ex command in the preview window.
-    - You can position the cursor on the tag and press Ctrl-W g} to do a :ptjump on the tag.
+    - You can use the 'ptag' ex command to open a tag in the preview window. 
+    - You can position the cursor on a tag name and press Ctrl-W } to open the tag 
+      in the preview window. 
+    - You can use the 'ptselect' ex command to do the equivalent of the 'tselect' 
+      ex command in the preview window. 
+    - You can use the 'ptjump' ex command to do the equivalent of the 'tjump' ex 
+      command in the preview window. 
+    - You can position the cursor on the tag and press Ctrl-W g} to do a :ptjump on 
+      the tag. 
 
 
 Help: :preview-window, :ptag, Ctrl-W_}, :ptselect, :ptjump, Ctrl-W_g}
@@ -105,10 +129,12 @@ How do I browse through the tag list in a preview window?
 
 If there are multiple tag matches, you can browse through all of them in the 
 preview window using several of the Vim ex commands.
-    - To go to the first tag in the list, use the 'ptfirst' or 'ptrewind' ex command.
-    - To go to the last tag in the list, use the 'ptlast' ex command.
-    - To go to the next matching tag in the list, use the 'ptnext' ex command.
-    - To go to the previous matching tag in the list, use the 'ptprevious' or 'ptNext' ex command.
+    - To go to the first tag in the list, use the 'ptfirst' or 'ptrewind' ex 
+      command. 
+    - To go to the last tag in the list, use the 'ptlast' ex command. 
+    - To go to the next matching tag in the list, use the 'ptnext' ex command. 
+    - To go to the previous matching tag in the list, use the 'ptprevious' or 
+      'ptNext' ex command. 
 
 
 Help: :ptfirst, :ptrewind, :ptlast, :ptnext, :ptprevious, :ptNext
@@ -123,7 +149,8 @@ Help: -t
 How do I list all the tags matching a search pattern?
 
 There are several ways to go through a list of all tags matching a pattern.
-    - You can list all the tags matching a particular regular expression pattern by prepending the tag name with the '/' search character. For example,
+    - You can list all the tags matching a particular regular expression pattern by 
+      prepending the tag name with the '/' search character. For example, 
 
 
 >
@@ -135,8 +162,12 @@ There are several ways to go through a list of all tags matching a pattern.
     :ptselect /<pattern>
     :ptjump /<pattern>
 <
-    - If you have the 'wildmenu' option set, then you can press the <Tab> key to display a list of all the matching tags in the status bar. You can use the arrow keys to move between the tags and then use the Enter key to select a tag.
-    - If you don't have the 'wildmenu' option set, you can still use the <Tab> key to browse through the list of matching tags.
+    - If you have the 'wildmenu' option set, then you can press the <Tab> key to 
+      display a list of all the matching tags in the status bar. You can use the 
+      arrow keys to move between the tags and then use the Enter key to select a 
+      tag. 
+    - If you don't have the 'wildmenu' option set, you can still use the <Tab> key 
+      to browse through the list of matching tags. 
 
 
 Help: tag-regexp, wildmenu
@@ -145,10 +176,15 @@ What options are available to control how Vim handles the tags file?
 
 You can use the following options to control the handling of tags file by 
 Vim:
-    - 'tagrelative' - Controls how the file names in the tags file are treated. When on, the filenames are relative to the directory where the tags file is present.
-    - 'taglength' - Controls the number of significant characters used for recognizing a tag.
-    - 'tagbsearch' - Controls the method used to search the tags file for a tag. If this option is on, binary search is used to search the tags file. Otherwise, linear search is used.
-    - 'tagstack' - Controls how the tag stack is used.
+    - 'tagrelative' - Controls how the file names in the tags file are treated. 
+      When on, the filenames are relative to the directory where the tags file is 
+      present. 
+    - 'taglength' - Controls the number of significant characters used for 
+      recognizing a tag. 
+    - 'tagbsearch' - Controls the method used to search the tags file for a tag. If 
+      this option is on, binary search is used to search the tags file. Otherwise, 
+      linear search is used. 
+    - 'tagstack' - Controls how the tag stack is used. 
 
 
 Help: 'tagrelative', 'taglength', 'tagbsearch', 'tagstack'
@@ -163,8 +199,10 @@ escape character?
 The default escape characters for telnet in Unix systems is Ctrl-]. While 
 using Vim in a telnet session, if you use Ctrl-] to jump to a tag, you will 
 get the telnet prompt. There are two ways to avoid this problem:
-    - Map the telnet escape character to some other character using the "-e <escape character>" telnet command line option
-    - Disable the telnet escape character using the "-E" telnet command line option.
+    - Map the telnet escape character to some other character using the "-e <escape 
+      character>" telnet command line option 
+    - Disable the telnet escape character using the "-E" telnet command line 
+      option. 
 
 
 Help: telnet-CTRL-]
@@ -184,23 +222,32 @@ Exuberant Ctags has built-in support for 34 different programming languages,
 and can be extended to support others. Some alternatives are listed below, but 
 it is better to use Exuberant Ctags unless you know that your circumstances 
 require something else. :help |ctags|
-    - IDL: idltags [http://idlwave.org/download/idltags]
-    - Java: jtags [http://www.fleiner.com/jtags/]
-    - Perl: ptags [http://www.eleves.ens.fr:8080/home/nthiery/Tags/]
-    - Python: utility Tools/scripts/ptags.py under your Python distribution.
-    - Verilog: vtags [http://www.probo.com/vtags.htm] or veri-tags [http://www.cs.albany.edu/~mosh/Perl/veri-tags]
-    - C, C++, LaTeX, maple, vim, yacc, assembly: Hdrtag [http://www.drchip.org/astronaut/src/index.html#HDRTAG]
-    - LaTeX, BibTeX: modified Exuberant Ctags [http://www.unb.ca/fredericton/science/chem/ajit/vim.htm]
-    - Perl or shell script: pltags.pl or shtags.pl provided with Vim (directory $VIMRUNTIME/tools)
-    - Erlang: This page [http://www.reddit.com/r/vim/comments/cve43/how_to_generate_tags_file_for_use_in_erlang/] contains a Vim command to generate Erlang tags.
-    - CoffeeScript: This ruby gem [http://rubygems.org/gems/CoffeeTags] contains a ruby cli tool to generate tags for CoffeeScript. Src is on github [https://github.com/lukaszkorecki/CoffeeTags]
-    - JavaScript: 
-    -  DoctorJS/jsctags [https://github.com/mozilla/doctorjs] is a ctags-compatible code indexing solution for JavaScript. Its interface and output are essentially identical to Exuberant Ctags.
-    -  Also here are ctags configurations for Javascript: ctags configurations for Javascript [https://github.com/winstonwolff/ctags-javascript-coffeescript]
-
-    -  Haskell: see the Haskell wiki [http://www.haskell.org/haskellwiki/Tags]
-    -  Go: Gotags [https://github.com/jstemmer/gotags]
-    -  Ruby: Ripper-tags [https://github.com/tmm1/ripper-tags]
+    - IDL: idltags [http://idlwave.org/download/idltags] 
+    - Java: jtags [http://www.fleiner.com/jtags/] 
+    - Perl: ptags [http://www.eleves.ens.fr:8080/home/nthiery/Tags/] 
+    - Python: utility Tools/scripts/ptags.py under your Python distribution. 
+    - Verilog: vtags [http://www.probo.com/vtags.htm] or veri-tags 
+      [http://www.cs.albany.edu/~mosh/Perl/veri-tags] 
+    - C, C++, LaTeX, maple, vim, yacc, assembly: Hdrtag 
+      [http://www.drchip.org/astronaut/src/index.html#HDRTAG] 
+    - LaTeX, BibTeX: modified Exuberant Ctags 
+      [http://www.unb.ca/fredericton/science/chem/ajit/vim.htm] 
+    - Perl or shell script: pltags.pl or shtags.pl provided with Vim (directory 
+      $VIMRUNTIME/tools) 
+    - Erlang: This page 
+      [http://www.reddit.com/r/vim/comments/cve43/how_to_generate_tags_file_for_use_in_erlang/] 
+      contains a Vim command to generate Erlang tags. 
+    - CoffeeScript: This ruby gem [http://rubygems.org/gems/CoffeeTags] contains a 
+      ruby cli tool to generate tags for CoffeeScript. Src is on github 
+      [https://github.com/lukaszkorecki/CoffeeTags] 
+    - JavaScript: - DoctorJS/jsctags [https://github.com/mozilla/doctorjs] is a 
+      ctags-compatible code indexing solution for JavaScript. Its interface and 
+      output are essentially identical to Exuberant Ctags. - Also here are ctags 
+      configurations for Javascript: ctags configurations for Javascript 
+      [https://github.com/winstonwolff/ctags-javascript-coffeescript] 
+    - Haskell: see the Haskell wiki [http://www.haskell.org/haskellwiki/Tags] 
+    - Go: Gotags [https://github.com/jstemmer/gotags] 
+    - Ruby: Ripper-tags [https://github.com/tmm1/ripper-tags] 
 
 
 EXTENDING EXUBERANT CTAGS  *vwt-1188-extending-exuberant-ctags*
@@ -279,32 +326,43 @@ either locates the 'tags' file or reaches the root directory. :help
 <
 
 PLUGINS  *vwt-1188-plugins*
-    - taglist [https://www.vim.org/scripts/script.php?script_id=273] source code browser plugin; uses ctags to display a list of tags for the current file in a menu
-    - Tagbar [https://www.vim.org/scripts/script.php?script_id=3465] similar to taglist but displays tags sorted by their scope like classes etc.
-    - yate [https://www.vim.org/scripts/script.php?script_id=2068] makes search in tags more convenient. It holds query and search result in one buffer for faster jump to desired tag.
-    - easytags.vim [http://peterodding.com/code/vim/easytags/] (script#3114 [https://www.vim.org/scripts/script.php?script_id=3114]) automatically creates a global tags file and keeps it up-to-date as you edit files in Vim. The tags are also used to perform dynamic syntax highlighting of user-defined functions and types.
-    - vim-gutentags [https://github.com/ludovicchabant/vim-gutentags] pure-vim plugin that manages your tag file out of the box
+    - taglist [https://www.vim.org/scripts/script.php?script_id=273] source code 
+      browser plugin; uses ctags to display a list of tags for the current file in a 
+      menu 
+    - Tagbar [https://www.vim.org/scripts/script.php?script_id=3465] similar to 
+      taglist but displays tags sorted by their scope like classes etc. 
+    - yate [https://www.vim.org/scripts/script.php?script_id=2068] makes search in 
+      tags more convenient. It holds query and search result in one buffer for 
+      faster jump to desired tag. 
+    - easytags.vim [http://peterodding.com/code/vim/easytags/] (script#3114 
+      [https://www.vim.org/scripts/script.php?script_id=3114]) automatically creates 
+      a global tags file and keeps it up-to-date as you edit files in Vim. The tags 
+      are also used to perform dynamic syntax highlighting of user-defined functions 
+      and types. 
+    - vim-gutentags [https://github.com/ludovicchabant/vim-gutentags] pure-vim 
+      plugin that manages your tag file out of the box 
 
 
 SEE ALSO  *vwt-1188-see-also*
-    - 79 Use grep to get a clickable list of function names |vwt-79|
-    - 404 Tags for Mixed Assembly and C |vwt-404|
-    - 558 Using TagList for ANT build files |vwt-558|
-    - 568 Use temporary tags file when browsing new source |vwt-568|
-    - 711 Tags generation for current file |vwt-711|
-    - 804 Single tags file for a source tree |vwt-804|
-    - 840 Show tags in a separate preview window |vwt-840|
-    - 858 Setting tags when working with multiple source branches |vwt-858|
-    - 1299 Autocmd to update ctags file |vwt-1299|
-    - 1608 C++ code completion |vwt-1608|
-    - including tags from external libraries or Ruby "gems" [http://stackoverflow.com/questions/680291/global-go-to-definition-in-vim-for-ruby]
+    - 79 Use grep to get a clickable list of function names |vwt-79| 
+    - 404 Tags for Mixed Assembly and C |vwt-404| 
+    - 558 Using TagList for ANT build files |vwt-558| 
+    - 568 Use temporary tags file when browsing new source |vwt-568| 
+    - 711 Tags generation for current file |vwt-711| 
+    - 804 Single tags file for a source tree |vwt-804| 
+    - 840 Show tags in a separate preview window |vwt-840| 
+    - 858 Setting tags when working with multiple source branches |vwt-858| 
+    - 1299 Autocmd to update ctags file |vwt-1299| 
+    - 1608 C++ code completion |vwt-1608| 
+    - including tags from external libraries or Ruby "gems" 
+      [http://stackoverflow.com/questions/680291/global-go-to-definition-in-vim-for-ruby] 
 
 
 COMMENTS  *vwt-1188-comments*
 
 TO DO
-    -  too wordy, let's make it more concise
-    -  add :help links
+    - too wordy, let's make it more concise 
+    - add :help links 
 
 
 ==============================================================================

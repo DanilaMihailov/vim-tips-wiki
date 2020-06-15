@@ -65,20 +65,22 @@ Based on discussion on the vim_use mailing list
 REFERENCES  *vwt-1568-references*
 
 Basis of this tip:
-    - :help  |FileChangedShell|
-    - :help  |v:fcs_reason|
-    - :help  |v:fcs_choice|
+    - :help |FileChangedShell| 
+    - :help |v:fcs_reason| 
+    - :help |v:fcs_choice| 
 
 
 Used in this tip:
-    - :help  |setbufvar()|
-    - :help  |:echohl|
-    - :help  |:echomsg|
+    - :help |setbufvar()| 
+    - :help |:echohl| 
+    - :help |:echomsg| 
 
 
 SEE ALSO  *vwt-1568-see-also*
-    - Suppressing file changed warnings in a specific buffer [https://vim.fandom.com/wiki/Suppressing_file_changed_warnings_in_a_specific_buffer]
-    - Setting file attributes without reloading a buffer [https://vim.fandom.com/wiki/Setting_file_attributes_without_reloading_a_buffer]
+    - Suppressing file changed warnings in a specific buffer 
+      [https://vim.fandom.com/wiki/Suppressing_file_changed_warnings_in_a_specific_buffer] 
+    - Setting file attributes without reloading a buffer 
+      [https://vim.fandom.com/wiki/Setting_file_attributes_without_reloading_a_buffer] 
 
 
 COMMENTS  *vwt-1568-comments*

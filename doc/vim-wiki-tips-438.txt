@@ -90,11 +90,12 @@ For another example, copy the following text into a buffer:
 <
 
 Perform a block selection:
-    - Type /abc and press Enter to search for 'abc'.
-    - Press Ctrl-V to start a block selection (press Ctrl-Q if you use Ctrl-V for paste).
-    - Type eee to select to the end of "sold".
-    - Type jj to extend the block selection over three lines.
-    - Press Escape to clear the selection.
+    - Type /abc and press Enter to search for 'abc'. 
+    - Press Ctrl-V to start a block selection (press Ctrl-Q if you use Ctrl-V for 
+      paste). 
+    - Type eee to select to the end of "sold". 
+    - Type jj to extend the block selection over three lines. 
+    - Press Escape to clear the selection. 
 
 
 Now we will use a substitute command to replace each "old" with "NEW". The 
@@ -169,11 +170,11 @@ See Search keywords in C function |vwt-1530| which uses this technique to
 search within a function in a C program.
 
 REFERENCES  *vwt-438-references*
-    - :help :'
-    - :help  |history|
-    - :help  |/\%V|
-    - :help /\%>'m
-    - :help /\%<'m
+    - :help :' 
+    - :help |history| 
+    - :help |/\%V| 
+    - :help /\%>'m 
+    - :help /\%<'m 
 
 
 COMMENTS  *vwt-438-comments*

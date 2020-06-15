@@ -39,9 +39,11 @@ keypad on/off. At startup, the numeric keypad operates normally because only
 \m is mapped.
 
 After typing \m to enable the mappings, you could use the keypad to:
-    - Press 1 to highlight the current visually selected text, or the current word (if nothing is selected). Highlight group hl1 is used.
-    - Press 2 for highlight hl2, 3 for highlight hl3, etc.
-    - Press 0 to remove all highlights from the current visually selected text, or the current word.
+    - Press 1 to highlight the current visually selected text, or the current word 
+      (if nothing is selected). Highlight group hl1 is used. 
+    - Press 2 for highlight hl2, 3 for highlight hl3, etc. 
+    - Press 0 to remove all highlights from the current visually selected text, or 
+      the current word. 
 
 
 For example, if you place the cursor on the word "rain" and press 4 on the 
@@ -57,17 +59,19 @@ windows, you can have one set of highlights in the top window, and a different
 set in the other window.
 
 With the mappings enabled, you could use the keypad to:
-    - Press - to remove all highlights in the current window.
-    - Press + to restore the highlighting when - was last used in the current window.
-    - Press * to restore the highlighting when - was last used in any window.
+    - Press - to remove all highlights in the current window. 
+    - Press + to restore the highlighting when - was last used in the current 
+      window. 
+    - Press * to restore the highlighting when - was last used in any window. 
 
 
 For example, suppose you are displaying two windows and you want the same 
 highlighting in each window. In the first window, apply the wanted 
 highlighting. Then (using the numeric keypad keys):
-    - Press - to remove all highlights in the first window.
-    - Press + to restore them.
-    - Switch to the other window and press * to apply the highlights from the first window.
+    - Press - to remove all highlights in the first window. 
+    - Press + to restore them. 
+    - Switch to the other window and press * to apply the highlights from the first 
+      window. 
 
 
 SEARCHING  *vwt-1572-searching*
@@ -534,18 +538,23 @@ then restart Vim.
 <
 
 SEE ALSO  *vwt-1572-see-also*
-    - Discussion page [https://vim.fandom.com/wiki/Talk:Highlight_multiple_words] for alternative methods
-    - View all named colors |vwt-634| to show the colors for the standard color names
-    - Highlighting information |vwt-24| want to fix this to list relevant tips
-    - MultipleSearch [https://www.vim.org/scripts/script.php?script_id=479] highlight multiple searches, each with a different color
-    - Mark [https://www.vim.org/scripts/script.php?script_id=2666] highlight several words in different colors simultaneously (a continuation of the original Mark [https://www.vim.org/scripts/script.php?script_id=1238] plugin)
+    - Discussion page [https://vim.fandom.com/wiki/Talk:Highlight_multiple_words] 
+      for alternative methods 
+    - View all named colors |vwt-634| to show the colors for the standard color 
+      names 
+    - Highlighting information |vwt-24| want to fix this to list relevant tips 
+    - MultipleSearch [https://www.vim.org/scripts/script.php?script_id=479] 
+      highlight multiple searches, each with a different color 
+    - Mark [https://www.vim.org/scripts/script.php?script_id=2666] highlight 
+      several words in different colors simultaneously (a continuation of the 
+      original Mark [https://www.vim.org/scripts/script.php?script_id=1238] plugin) 
 
 
 REFERENCES  *vwt-1572-references*
-    - :help  |matchadd()|
-    - :help  |matchdelete()|
-    - :help  |clearmatches()|
-    - :help  |gui-colors|
+    - :help |matchadd()| 
+    - :help |matchdelete()| 
+    - :help |clearmatches()| 
+    - :help |gui-colors| 
 
 
 COMMENTS  *vwt-1572-comments*

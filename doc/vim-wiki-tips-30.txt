@@ -128,12 +128,13 @@ incremented, as does 104, and so on. That can be done using :.,$g/^\d/exe
 "normal! \<C-a>" (see here [https://vim.fandom.com/wiki/Power_of_g]).
 
 SEE ALSO  *vwt-30-see-also*
-    - Making a list of numbers [https://vim.fandom.com/wiki/Making_a_list_of_numbers]
+    - Making a list of numbers 
+      [https://vim.fandom.com/wiki/Making_a_list_of_numbers] 
 
 
 REFERENCES  *vwt-30-references*
-    - :help  |CTRL-A|
-    - :help 'nrformats'
+    - :help |CTRL-A| 
+    - :help 'nrformats' 
 
 
 COMMENTS  *vwt-30-comments*

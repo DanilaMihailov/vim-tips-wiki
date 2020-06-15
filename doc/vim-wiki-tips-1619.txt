@@ -84,16 +84,19 @@ PUTTING IT ALL TOGETHER  *vwt-1619-putting-it-all-together*
 
 Both plugins guicolorscheme and CSApprox aim to achieve the same goal but 
 they do it in very different ways which have their pros and cons:
-    - CSApprox is more robust since it does not rely on parsing the colorscheme script.
-    - CSApprox takes into account the different color cubes for different terminals.
-    - CSApprox is more configurable.
-    - CSApprox is better documented (:help csapprox).
-    - CSApprox is easier to set up, it does not rely on the hack using the runtime! command to load the plugin before loading the color scheme.
+    - CSApprox is more robust since it does not rely on parsing the colorscheme 
+      script. 
+    - CSApprox takes into account the different color cubes for different 
+      terminals. 
+    - CSApprox is more configurable. 
+    - CSApprox is better documented (:help csapprox). 
+    - CSApprox is easier to set up, it does not rely on the hack using the runtime! 
+      command to load the plugin before loading the color scheme. 
 
 
 On the other hand:
-    - guicolorscheme does not require the +gui feature unlike CSApprox.
-    - guicolorscheme is faster.
+    - guicolorscheme does not require the +gui feature unlike CSApprox. 
+    - guicolorscheme is faster. 
 
 
 The most portable way to get consistent colors in the terminal is to try 
@@ -143,7 +146,7 @@ to use guicolorscheme:
 <
 
 OTHER PLUGINS  *vwt-1619-other-plugins*
-    -  colorsupport.vim [https://www.vim.org/scripts/script.php?script_id=2682]
+    - colorsupport.vim [https://www.vim.org/scripts/script.php?script_id=2682] 
 
 
 COMMENTS  *vwt-1619-comments*
@@ -153,9 +156,12 @@ reside in $VIM/vimfiles/plugin/ just as well as in ~/.vim/plugin/. To load the
 colorscheme after the guicolorscheme plugin, there are two solutions which are 
 equivalent, and more robust than testing for filereadable() (use only one of 
 them):
-    -  Put the if / then / else block with :colorscheme and :GuiColorScheme commands in an  (maybe ~/.vim/after/plugin/guicolorscheme.vim )
-    -  Load it from an autocommand for the  event, which is triggered at the very end of startup, after all global plugins have been run.
-    -  In both cases, since now we know that the plugin has already been run if only it is installed,  is a good enough test of its presence.
+    - Put the if / then / else block with :colorscheme and :GuiColorScheme commands 
+      in an (maybe ~/.vim/after/plugin/guicolorscheme.vim ) 
+    - Load it from an autocommand for the event, which is triggered at the very end 
+      of startup, after all global plugins have been run. 
+    - In both cases, since now we know that the plugin has already been run if only 
+      it is installed, is a good enough test of its presence. 
 
 
 So here is a modified snippet for either a function called at the VimEnter 
@@ -187,10 +193,12 @@ use different terminals on the same machine, some of them 88/256-color-capable
 and some not, and none of them setting in their termcaps?
 
 My idea is to check the terminal name: for instance, on my system,
-    -  the Linux console has only 8 background + 16 foreground colours
-    -  the konsole terminal tries to pass itself off as "xterm"; it is 256-colour-capable but doesn't advertise it
-    -  the mlterm terminal is also 256-colour-capable and doesn't advertise it either
-    -  I haven't tested other terminals such as gnome-terminal or rxvt
+    - the Linux console has only 8 background + 16 foreground colours 
+    - the konsole terminal tries to pass itself off as "xterm"; it is 
+      256-colour-capable but doesn't advertise it 
+    - the mlterm terminal is also 256-colour-capable and doesn't advertise it 
+      either 
+    - I haven't tested other terminals such as gnome-terminal or rxvt 
 
 
 So I have the following in my vimrc, before CSApprox (which is what I use) 

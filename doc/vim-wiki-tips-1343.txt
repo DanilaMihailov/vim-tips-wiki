@@ -13,8 +13,9 @@ As suggested in the comments, this functionality is built-in to Vim, with the
 :diffthis, :diffsplit, :diffoff, etc. commands
 
 If you are already in Vim, there are two methods to do a vimdiff:
-    - Run another Vim with command line vimdiff.
-    - Open a new window (C-w s) and then enter appropriate commands in the two buffers.
+    - Run another Vim with command line vimdiff. 
+    - Open a new window (C-w s) and then enter appropriate commands in the two 
+      buffers. 
 
 
 This tip provides a function (SetDiffEnviron) to set the "diff" environment 
@@ -35,8 +36,8 @@ Add the following to your vimrc file:
 <
 
 REFERENCES  *vwt-1343-references*
-    - :help  |:diffthis|
-    - :help  |:diffoff|
+    - :help |:diffthis| 
+    - :help |:diffoff| 
 
 
 COMMENTS  *vwt-1343-comments*

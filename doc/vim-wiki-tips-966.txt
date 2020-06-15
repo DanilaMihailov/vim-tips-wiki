@@ -49,11 +49,12 @@ world" C program:
       printf("Hello World\n");
     }
 <
-    - Place the :vmap key mappings into a file and source it.
-    - Place the cursor on the first line and press Shift-V.
-    - Press the 'j' key until the entire code block is highlighted.
-    - Press Ctrl-C. This places the \<CR> in front of each line.
-    - Add "iab cmain " (no quotes) just above the abbreviation, and ensure there's a space after cmain. It should look like this:
+    - Place the :vmap key mappings into a file and source it. 
+    - Place the cursor on the first line and press Shift-V. 
+    - Press the 'j' key until the entire code block is highlighted. 
+    - Press Ctrl-C. This places the \<CR> in front of each line. 
+    - Add "iab cmain " (no quotes) just above the abbreviation, and ensure there's 
+      a space after cmain. It should look like this: 
 
 
 >

@@ -7,8 +7,10 @@ created 2002 · complexity basic · author Dimitri Antoniou · version 6.0+
 ==============================================================================
 
 Vim can interact with the tricks that the latest xdvi or kdvi does:
-    - If one clicks at some place in xdvi (usually Ctrl+Button1), Vim automatically jumps to the corresponding line in the LaTeX source file ("reverse search")
-    - Also, from inside Vim, one can jump to the corresponding line in xdvi which becomes highlighted ("forward search").
+    - If one clicks at some place in xdvi (usually Ctrl+Button1), Vim automatically 
+      jumps to the corresponding line in the LaTeX source file ("reverse search") 
+    - Also, from inside Vim, one can jump to the corresponding line in xdvi which 
+      becomes highlighted ("forward search"). 
 
 
 First of all, the latex document need to tell the latex compiler to set marks 

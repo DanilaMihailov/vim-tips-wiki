@@ -15,8 +15,8 @@ CHANGING GUIOPTIONS  *vwt-1677-changing-guioptions*
 
 The standard method for displaying or hiding the menu bar is to use these 
 commands in gvim:
-    - :set guioptions+=m   enable (display) menu bar
-    - :set guioptions-=m   disable (hide) menu bar
+    - :set guioptions+=m enable (display) menu bar 
+    - :set guioptions-=m disable (hide) menu bar 
 
 
 If you are using Gnome/Metacity, a problem may prevent the menu bar from 
@@ -82,7 +82,8 @@ problem. This is due to a recent version of compiz causing issues with unity
 -- 5 Apr 2018
 
 ON UBUNTU  *vwt-1677-on-ubuntu*
-    - If you are using Unity and want GVim's menu bar attached to the window, start GVim with the terminal command:     
+    - If you are using Unity and want GVim's menu bar attached to the window, start 
+      GVim with the terminal command: 
 
 
 >

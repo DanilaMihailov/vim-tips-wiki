@@ -60,11 +60,17 @@ typed:
 <
 
 EXPLANATION  *vwt-1660-explanation*
-    - The commands add a combining character after each non-control character within the selected area in the given range.
-    - If you invoke the commands while the selection is still active, the range will appear on the command line. :help  |:command-range|
-    - The combining characters are encoded in strings using Unicode escapes (for example, "\u0305"). :help  |expr-string|
-    - The characters are inserted only after non-control (printable) characters. If they come after control characters, the text is not well-formed and will not render correctly. :help [:cntrl: |[:cntrl:]|]
-    - The pattern searches for a character prefixed by \%V: that means the character is only matched if it is within the previous selection. :help  |/\%V|
+    - The commands add a combining character after each non-control character 
+      within the selected area in the given range. 
+    - If you invoke the commands while the selection is still active, the range 
+      will appear on the command line. :help |:command-range| 
+    - The combining characters are encoded in strings using Unicode escapes (for 
+      example, "\u0305"). :help |expr-string| 
+    - The characters are inserted only after non-control (printable) characters. If 
+      they come after control characters, the text is not well-formed and will not 
+      render correctly. :help [:cntrl: |[:cntrl:]|] 
+    - The pattern searches for a character prefixed by \%V: that means the 
+      character is only matched if it is within the previous selection. :help |/\%V| 
 
 
 To delete a combining character, first use :set delcombine. *:help 

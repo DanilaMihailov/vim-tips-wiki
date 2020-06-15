@@ -38,10 +38,12 @@ gvim.exe with this file extension.
 Click Start, Run and enter regedit.
 
 In the registry, scroll HKEY_CLASSES_ROOT until you get to Vim.Application
-    - Add a key called "shell".
-    - In [HKEY_CLASSES_ROOT\Vim.Application\shell] and a key called "open".
-    - In [HKEY_CLASSES_ROOT\Vim.Application\shell\open] and a key called "command".
-    - Double click the "(Default)" value of "command" and change it to point to the location of gvim.exe on your system. I entered the following in the text field "Value data" C:\PROGRA~1\Vim\vim62\gvim.exe "%1"
+    - Add a key called "shell". 
+    - In [HKEY_CLASSES_ROOT\Vim.Application\shell] and a key called "open". 
+    - In [HKEY_CLASSES_ROOT\Vim.Application\shell\open] and a key called "command". 
+    - Double click the "(Default)" value of "command" and change it to point to the 
+      location of gvim.exe on your system. I entered the following in the text field 
+      "Value data" C:\PROGRA~1\Vim\vim62\gvim.exe "%1" 
 
 
 In regedit, find HKEY_CLASSES_ROOT and scroll to ".vtd", then change the 
@@ -77,12 +79,12 @@ Vim.vtd" is created which inherits all the setting defined in vimrc. I find
 this more useful and it also simplifies the instructions.
 
 The only changes to the instructions in this tip are
-    - Skip the whole creation of the file gvim.vtd
-    - Change the instructions:
+    - Skip the whole creation of the file gvim.vtd 
+    - Change the instructions: 
 
 
 Click on "ShellNew" and add a string value called "FileName". Double click on "FileName" and enter GVIM.vtd
-    - to
+    - to 
 
 
 Click on "ShellNew" and add a string value called "NullFile".

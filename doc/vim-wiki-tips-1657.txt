@@ -15,24 +15,24 @@ are saved to a different file, for example, filename.js saves as both
 filename.js and filename.min.js.
 
 THE REGULAR WAY  *vwt-1657-the-regular-way*
-    - Edit .js file
-    - Save .js file
-    - Link it in .html file
-    - Compile .js file
-    - Link compiled version in .html file
-    - Edit .js file
-    - Save .js file
-    - Forget to compile it
-    - Become frustrated because the compiled version is still linked in .html file
+    - Edit .js file 
+    - Save .js file 
+    - Link it in .html file 
+    - Compile .js file 
+    - Link compiled version in .html file 
+    - Edit .js file 
+    - Save .js file 
+    - Forget to compile it 
+    - Become frustrated because the compiled version is still linked in .html file 
 
 
 USING THIS TIP  *vwt-1657-using-this-tip*
-    - Edit .js file
-    - Save .js file
-    - Link compiled version in .html
-    - Edit .js file
-    - Save .js file
-    - Test (because it's automatically compiled!)
+    - Edit .js file 
+    - Save .js file 
+    - Link compiled version in .html 
+    - Edit .js file 
+    - Save .js file 
+    - Test (because it's automatically compiled!) 
 
 
 AUTO COMPILE  *vwt-1657-auto-compile*
@@ -80,13 +80,13 @@ Put the following in .vim/compiler/closure.vim:
 <
 
 USING THIS TIP  *vwt-1657-using-this-tip*
-    - Edit .js file
-    - Set compiler: :compiler closure
-    - Save .js file
-    - :make
-    - Fix bugs (:cope, :cn, etc), repeat.
-    - Link compiled version in .html
-    - Test (because it's compiled while checking for errors!)
+    - Edit .js file 
+    - Set compiler: :compiler closure 
+    - Save .js file 
+    - :make 
+    - Fix bugs (:cope, :cn, etc), repeat. 
+    - Link compiled version in .html 
+    - Test (because it's compiled while checking for errors!) 
 
 
 One could add the following to one's vimrc 
@@ -104,15 +104,15 @@ Note the use of make! instead of make to avoid jumping to the first error
 automatically. This could be annoying when make is automatically invoked!
 
 Then the process is:
-    - Edit .js file
-    - Save .js file
-    - Fix bugs (:cope, :cn, etc), repeat.
-    - Link compiled version in .html
-    - Test (because it's automatically compiled!)
+    - Edit .js file 
+    - Save .js file 
+    - Fix bugs (:cope, :cn, etc), repeat. 
+    - Link compiled version in .html 
+    - Test (because it's automatically compiled!) 
 
 
 COMMENTS  *vwt-1657-comments*
-    - Could be expanded to other file types.
+    - Could be expanded to other file types. 
 
 
  vim:tw=78:et:ft=help:norl:

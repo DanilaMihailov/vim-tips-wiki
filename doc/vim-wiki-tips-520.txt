@@ -119,8 +119,10 @@ any order:
 
 In a pattern, \& separates alternates, each of which has to match at the same 
 position. The two alternates in this example are:
-    - .*red (will match all characters from the beginning of a line to the end of the last "red"); and
-    - .*blue (will match all characters from the beginning of a line to the end of the last "blue").
+    - .*red (will match all characters from the beginning of a line to the end of 
+      the last "red"); and 
+    - .*blue (will match all characters from the beginning of a line to the end of 
+      the last "blue"). 
 
 
 A line which contains both "red" and "blue" will match both alternates, 
@@ -158,9 +160,10 @@ the command :%s///g would delete all the redundant zeroes (the search pattern
 is empty, so it uses the last search).
 
 The pattern:
-    - Contains \@<= which checks if the preceding atom matches just before what follows.
-    - First searches for 0\+\> (what follows).
-    - Then checks if what is just before matches \(\.\d\+\) (preceding atom).
+    - Contains \@<= which checks if the preceding atom matches just before what 
+      follows. 
+    - First searches for 0\+\> (what follows). 
+    - Then checks if what is just before matches \(\.\d\+\) (preceding atom). 
 
 
 The first search is 0\+\> which finds one or more (\+) of 0 followed by end 
@@ -172,8 +175,8 @@ decimal digits (\d\+). The escaped parentheses \(...\) make an "atom" from
 what is enclosed by the parentheses.
 
 REFERENCES  *vwt-520-references*
-    - :help  |pattern|
-    - :help  |/\&|
+    - :help |pattern| 
+    - :help |/\&| 
 
 
 COMMENTS  *vwt-520-comments*
@@ -181,8 +184,10 @@ COMMENTS  *vwt-520-comments*
 TO DO "finding two words appearing together" as a subtopic will make it 
 easier to reach this url through google. It has tips really very useful but 
 rarely discussed else where.
-    - Mention :h /... for help on a search topic.
-    - Should link to a discussion on what "word" means (:help 'iskeyword' simplified), perhaps mentioning \k and \w (and confess that "Finding a whole word" is really "Finding a whole identifier").
+    - Mention :h /... for help on a search topic. 
+    - Should link to a discussion on what "word" means (:help 'iskeyword' 
+      simplified), perhaps mentioning \k and \w (and confess that "Finding a whole 
+      word" is really "Finding a whole identifier"). 
 
 
 I'm a little worried about this tip. I like it best when Vim tips have a 

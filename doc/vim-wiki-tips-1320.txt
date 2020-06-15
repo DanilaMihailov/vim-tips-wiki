@@ -29,8 +29,9 @@ A: Use this pattern
 <
 
 Explanation:
-    - \<for\> //Match the word "for"
-    - [ ^I\n]\{-0,} //Match any whitespace (space " ", tab "^I", newline "\n") 0 or more times with a non-greedy search (the negative makes it non-greedy)
+    - \<for\> //Match the word "for" 
+    - [ ^I\n]\{-0,} //Match any whitespace (space " ", tab "^I", newline "\n") 0 or 
+      more times with a non-greedy search (the negative makes it non-greedy) 
 
 
 Why go to all this trouble instead of searching for \<for\>?

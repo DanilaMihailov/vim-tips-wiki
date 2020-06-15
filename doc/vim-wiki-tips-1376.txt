@@ -81,11 +81,25 @@ The "if...else...endif" construct is a little different and works as follows:
 PROBLEMS  *vwt-1376-problems*
 
 These syntax folds are not perfect, and suffer from at least the following:
-    - The syntax definitions are fairly complex. Sometimes, especially when deleting or commenting out an "else", "catch", or "finally", you will need to type :syn sync fromstart to update the fold information. You may want to map this command to a key if you need to do it often.
-    - The "skip" group could probably be improved. Currently, it will attempt to skip single and double-quoted strings, and comments.
-    - Some keywords (such as "else" and "catch") must be preceded by nothing but whitespace to properly trigger fold behavior; this may or may not be an issue depending on your coding style.
-    - If you use reserved words like "while" or "if" for purposes other than Vim language constructs, these fold definitions may incorrectly match them to start a fold. The definitions have an extensive vimNoFold group in an attempt to prevent this, but it can still be fooled. Try to avoid such keywords if you can, especially for variable names. Note: because of the "extend" part of the fold definitions, an incorrect match may cause incorrect syntax highlighting as well as incorrect folding.
-    - While the start-of-region keywords (if, while, etc.) will not start within a group in the vimNoFold cluster, end-of-region keywords (endif, endwhile, etc.) are not similarly protected. Only the skip group protects these.
+    - The syntax definitions are fairly complex. Sometimes, especially when 
+      deleting or commenting out an "else", "catch", or "finally", you will need to 
+      type :syn sync fromstart to update the fold information. You may want to map 
+      this command to a key if you need to do it often. 
+    - The "skip" group could probably be improved. Currently, it will attempt to 
+      skip single and double-quoted strings, and comments. 
+    - Some keywords (such as "else" and "catch") must be preceded by nothing but 
+      whitespace to properly trigger fold behavior; this may or may not be an issue 
+      depending on your coding style. 
+    - If you use reserved words like "while" or "if" for purposes other than Vim 
+      language constructs, these fold definitions may incorrectly match them to 
+      start a fold. The definitions have an extensive vimNoFold group in an attempt 
+      to prevent this, but it can still be fooled. Try to avoid such keywords if you 
+      can, especially for variable names. Note: because of the "extend" part of the 
+      fold definitions, an incorrect match may cause incorrect syntax highlighting 
+      as well as incorrect folding. 
+    - While the start-of-region keywords (if, while, etc.) will not start within a 
+      group in the vimNoFold cluster, end-of-region keywords (endif, endwhile, etc.) 
+      are not similarly protected. Only the skip group protects these. 
 
 
 NEW BUILT-IN FOLDING  *vwt-1376-new-built-in-folding*
@@ -93,9 +107,9 @@ NEW BUILT-IN FOLDING  *vwt-1376-new-built-in-folding*
 Version 7.1-76 of the default vim.vim syntax file (released January 24, 2008) 
 includes folding for the following as a configurable option 
 [https://vim.fandom.com/wiki/Check_your_syntax_files_for_configurable_options]:
-    - augroups
-    - functions
-    - embedded scripts in scheme, perl, python, ruby, and tcl
+    - augroups 
+    - functions 
+    - embedded scripts in scheme, perl, python, ruby, and tcl 
 
 
 See :help |g:vimsyn_folding| for details.
@@ -260,24 +274,34 @@ As mentioned above, place the following in your after/syntax Vim file:
 <
 
 SEE ALSO  *vwt-1376-see-also*
-    - Folding [https://vim.fandom.com/wiki/Folding] presents an overview of how to use folding
+    - Folding [https://vim.fandom.com/wiki/Folding] presents an overview of how to 
+      use folding 
 
 
 REFERENCES  *vwt-1376-references*
-    - :help  |mysyntaxfile-add| tells how to add to a syntax file as done in this tip
-    - :help  |:syn-region|
-    - :help  |:syn-fold|
-    - :help  |/\@!| used to match only when a string doesn't match
-    - :help /\%[ |/\%[]|] used to match parts of a string
-    - :help  |:syn-pattern-offset| used to "back up" on an if-else to allow else-endif to match
+    - :help |mysyntaxfile-add| tells how to add to a syntax file as done in this 
+      tip 
+    - :help |:syn-region| 
+    - :help |:syn-fold| 
+    - :help |/\@!| used to match only when a string doesn't match 
+    - :help /\%[ |/\%[]|] used to match parts of a string 
+    - :help |:syn-pattern-offset| used to "back up" on an if-else to allow 
+      else-endif to match 
 
 
 COMMENTS  *vwt-1376-comments*
 
 TO DO
-    - Fix problems mentioned in tip.
-    - Rework so that fold groups contain top-level language constructs instead of being contained within them. This approach would make more sense conceptually, and could potentially be less dependent on the specific names in the distributed syntax file. The current @vimNoFold cluster is getting very long and probably still doesn't cover everything. It is very difficult to maintain; I frequently find new groups to add, especially when examining other syntax files.
-    - Explain excerpts from the script in the tip proper, with the full script at the end as it is currently.
+    - Fix problems mentioned in tip. 
+    - Rework so that fold groups contain top-level language constructs instead of 
+      being contained within them. This approach would make more sense conceptually, 
+      and could potentially be less dependent on the specific names in the 
+      distributed syntax file. The current @vimNoFold cluster is getting very long 
+      and probably still doesn't cover everything. It is very difficult to maintain; 
+      I frequently find new groups to add, especially when examining other syntax 
+      files. 
+    - Explain excerpts from the script in the tip proper, with the full script at 
+      the end as it is currently. 
 
 
 ==============================================================================

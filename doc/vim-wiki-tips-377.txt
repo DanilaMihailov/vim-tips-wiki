@@ -127,10 +127,10 @@ in your X start up file.
 ==============================================================================
 
 I know how to turn caps off in Tiger (or turn it into a Ctrl key):
-    - Open System Preferences
-    - Goto Keyboard & Mouse
-    - At the bottom of the panel there is a "Modifier Keys..." button, click it
-    - Choose "No Action" or "^ ctrl" for caps-lock
+    - Open System Preferences 
+    - Goto Keyboard & Mouse 
+    - At the bottom of the panel there is a "Modifier Keys..." button, click it 
+    - Choose "No Action" or "^ ctrl" for caps-lock 
 
 
 ==============================================================================
@@ -395,9 +395,9 @@ Here's part of my xmodmap:
 <
 
 The keys are:
-    -  115 - Windows key, between the left-hand Ctrl and Alt keys
-    -  116 - Windows key, to the right of the AltGr key
-    -  117 - Menu key, to the left of the right-hand Ctrl key
+    - 115 - Windows key, between the left-hand Ctrl and Alt keys 
+    - 116 - Windows key, to the right of the AltGr key 
+    - 117 - Menu key, to the left of the right-hand Ctrl key 
 
 
 Valid for all environments with X, on *BSD as well as on Linux.
@@ -424,11 +424,11 @@ key you could map to Alt Ctr and use it with your left hand.
 ==============================================================================
 
 Why don't you map
-    -  left winkey -> {
-    -  shift+left winkey -> [
-    -  right winkey -> <Esc>
-    -  right winmenu -> }
-    -  shift+right winmenu ]
+    - left winkey -> { 
+    - shift+left winkey -> [ 
+    - right winkey -> <Esc> 
+    - right winmenu -> } 
+    - shift+right winmenu ] 
 
 
 ==============================================================================

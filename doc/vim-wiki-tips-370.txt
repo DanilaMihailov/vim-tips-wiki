@@ -75,8 +75,10 @@ place. For example, to not change directory if the file is in /tmp:
 <
 
 CAVEATS  *vwt-370-caveats*
-    - Either of these automatic methods will make loading and saving sessions work incorrectly.
-    - Problems with 'autochdir' and netrw have been reported in the past, though they are fixed now.
+    - Either of these automatic methods will make loading and saving sessions work 
+      incorrectly. 
+    - Problems with 'autochdir' and netrw have been reported in the past, though 
+      they are fixed now. 
 
 
 ALTERNATIVES  *vwt-370-alternatives*
@@ -145,24 +147,30 @@ files in the same directory is much faster, because that directory will be the
 first item in the search path.
 
 SEE ALSO  *vwt-370-see-also*
-    - Easy edit of files in the same directory [https://vim.fandom.com/wiki/Easy_edit_of_files_in_the_same_directory] how to edit a file without needing to change to its directory
-    - Project browsing using find [https://vim.fandom.com/wiki/Project_browsing_using_find]
+    - Easy edit of files in the same directory 
+      [https://vim.fandom.com/wiki/Easy_edit_of_files_in_the_same_directory] how to 
+      edit a file without needing to change to its directory 
+    - Project browsing using find 
+      [https://vim.fandom.com/wiki/Project_browsing_using_find] 
 
 
 REFERENCES  *vwt-370-references*
-    - :help  |filename-modifiers| information about %:p:h
-    - :help 'autochdir'
-    - :help  |:autocmd|
-    - :help  |:lcd|
-    - :help  |expand()|
-    - :help  |:find|
-    - :help 'path'
+    - :help |filename-modifiers| information about %:p:h 
+    - :help 'autochdir' 
+    - :help |:autocmd| 
+    - :help |:lcd| 
+    - :help |expand()| 
+    - :help |:find| 
+    - :help 'path' 
 
 
 COMMENTS  *vwt-370-comments*
 
 This was added by an anonymous user, to the Caveats section above:
-    - Files outside of the local directory cannot be opened from the command line (at least in gVim 7.2 on Windows).  e.g. 'gvim dirA/dirB/file.txt' will change into 'dirA/dirB' and then try to open 'dirA/dirB/file.txt'. Unsurprisingly, dirA/dirB/dirA/dirB/file.txt does not exist.
+    - Files outside of the local directory cannot be opened from the command line 
+      (at least in gVim 7.2 on Windows). e.g. 'gvim dirA/dirB/file.txt' will change 
+      into 'dirA/dirB' and then try to open 'dirA/dirB/file.txt'. Unsurprisingly, 
+      dirA/dirB/dirA/dirB/file.txt does not exist. 
 
 
 This statement is simply false. I use gvim 7.2 on Windows, and the example 

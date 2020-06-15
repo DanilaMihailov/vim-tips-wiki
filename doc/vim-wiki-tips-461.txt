@@ -51,20 +51,21 @@ Online documentation for word under cursor |vwt-1354|
 COMMENTS  *vwt-461-comments*
 
 TO DO
-    - Cleanup this and VimTip614 |vwt-614|, and merge 614 to here.
-    - Rename this tip.
-    - I'm pretty sure all the autocmd suggestions are misguided (and should be deleted).
-    - Instead, show how to use an after/ftplugin/perl.vim file.
+    - Cleanup this and VimTip614 |vwt-614|, and merge 614 to here. 
+    - Rename this tip. 
+    - I'm pretty sure all the autocmd suggestions are misguided (and should be 
+      deleted). 
+    - Instead, show how to use an after/ftplugin/perl.vim file. 
 
 
 The following have suggestions for working with K that may be helpful in this 
 tip:
-    - 506 Open Windows Help files on a specific topic |vwt-506|
-    - 598 PHP online help |vwt-598|
-    - 642 Use K to easily run a Windows program for the current word |vwt-642|
-    - 826 PHP manual in Vim help format |vwt-826|
-    - 1341 Power K |vwt-1341|
-    - 1533 Vim Doclet |vwt-1533|
+    - 506 Open Windows Help files on a specific topic |vwt-506| 
+    - 598 PHP online help |vwt-598| 
+    - 642 Use K to easily run a Windows program for the current word |vwt-642| 
+    - 826 PHP manual in Vim help format |vwt-826| 
+    - 1341 Power K |vwt-1341| 
+    - 1533 Vim Doclet |vwt-1533| 
 
 
 I had a quick try with the after file, but there is some weird stuff going on 

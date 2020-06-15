@@ -46,8 +46,8 @@ Using a lowercase letter (for example `a) will only work if that mark exists
 in the current buffer. Using an uppercase letter (for example `A) will jump to 
 the file and the position holding the mark (you do not need to open the file 
 prior to jumping to the mark).
-    - Each file can have mark a – use a lowercase mark to jump within a file.
-    - There is only one file mark A – use an uppercase mark to jump between files.
+    - Each file can have mark a – use a lowercase mark to jump within a file. 
+    - There is only one file mark A – use an uppercase mark to jump between files. 
 
 
 Commands like d'a operate "linewise" and include the start and end 
@@ -76,12 +76,16 @@ The :delmarks command (abbreviated as :delm) may be used to delete specified
 marks.
 
 SEE ALSO  *vwt-42-see-also*
-    - showmarks [https://www.vim.org/scripts/script.php?script_id=152] plugin to put a sign in the left margin for each mark; works poorly and interferes with other commands in Vim 7 (updated version working in 7.4 here: [1] [https://github.com/jacquesbh/vim-showmarks])
-    - script#2142 [https://www.vim.org/scripts/script.php?script_id=2142] is another showmarks plugin which works without problems in Vim 7
+    - showmarks [https://www.vim.org/scripts/script.php?script_id=152] plugin to 
+      put a sign in the left margin for each mark; works poorly and interferes with 
+      other commands in Vim 7 (updated version working in 7.4 here: [1] 
+      [https://github.com/jacquesbh/vim-showmarks]) 
+    - script#2142 [https://www.vim.org/scripts/script.php?script_id=2142] is 
+      another showmarks plugin which works without problems in Vim 7 
 
 
 REFERENCES  *vwt-42-references*
-    - :help  |mark-motions|
+    - :help |mark-motions| 
 
 
 COMMENTS  *vwt-42-comments*

@@ -14,9 +14,11 @@ go to a dedicated backup directory. Furthermore, it kept the full directory
 structure.
 
 Example:
-    - I edit the file e:\project1\web\show_users.asp, when i open it up, a backup would be created at f:\vim_backups\E\project1\web\show_users.001
+    - I edit the file e:\project1\web\show_users.asp, when i open it up, a backup 
+      would be created at f:\vim_backups\E\project1\web\show_users.001 
 
-    - If I close my editor and re-open the file again in the afternoon, i would get another backup at f:\vim_backups\E\project1\web\show_users.002
+    - If I close my editor and re-open the file again in the afternoon, i would get 
+      another backup at f:\vim_backups\E\project1\web\show_users.002 
 
 
 This could lead to a huge number of files but it's easier to retrieve data 

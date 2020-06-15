@@ -40,11 +40,11 @@ passes in the value of the variable fileformat, used locally in the function
 above via the a:var variable.
 
 REFERENCES  *vwt-736-references*
-    - Change end-of-line format for dos-mac-unix |vwt-26|
-    - Show fileencoding and bomb in the status line |vwt-735|
-    - :help 'statusline'
-    - :help  |hl-User1..9|
-    - :help  |user-functions|
+    - Change end-of-line format for dos-mac-unix |vwt-26| 
+    - Show fileencoding and bomb in the status line |vwt-735| 
+    - :help 'statusline' 
+    - :help |hl-User1..9| 
+    - :help |user-functions| 
 
 
 A wiki page that speaks to Vim's auto-detection of fileformat is located at 

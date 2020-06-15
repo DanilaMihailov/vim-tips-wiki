@@ -128,15 +128,15 @@ If you use Ctrl-V for paste, you will probably need to unmap CTRL-A |vwt-30|
 first.
 
 EASTER EGGS  *vwt-201-easter-eggs*
-    - :help  |42|
-    - :help  |holy-grail|
-    - :help!
-    - :help  |map-modes| (see comment below the table about :nunmap)
-    - :help  |UserGettingBored|
-    - :help  |spoon|
-    - :help  |showmatch| (read the note)
-    - :Ni!
-    - :help  |bar|
+    - :help |42| 
+    - :help |holy-grail| 
+    - :help! 
+    - :help |map-modes| (see comment below the table about :nunmap) 
+    - :help |UserGettingBored| 
+    - :help |spoon| 
+    - :help |showmatch| (read the note) 
+    - :Ni! 
+    - :help |bar| 
 
 
 MARKERS AND MOVING ABOUT  *vwt-201-markers-and-moving-about*
@@ -349,7 +349,7 @@ SUBSTITUTION  *vwt-201-substitution*
     :%s/suck\|buck/loopy/gc       : ORing
     :s/__date__/\=strftime("%c")/ : insert datestring
 <
-    - Replace FIX delimiter for a 'caret':
+    - Replace FIX delimiter for a 'caret': 
 
 
 '01' is the hex for the FIX protocol delimiter. You can move your cursor over 
@@ -669,11 +669,29 @@ characters?DG12 [https://vim.fandom.com/wiki/User:DG12] 13:51, December 6,
 ==============================================================================
 
 My thoughts on comments by DG12 above and on my talk:
-    - By "all be kept" above, I mean that the content is probably all good and should not be removed (although there's a lot of it, and when I take some time to look through it again I might change my mind).
-    - Re the format of the tip: The current plain text with just a ':' separating command and text is a bit confusing in places, but the simplicity rather suits Vim. I have used cleartable in a couple of tips, and I might try it here. See VimTip605 |vwt-605| for an example. Wikitable is also available, but it's rather overwhelming; see VimTip1611 |vwt-1611| for an example.
-    - Re the style of the tip: The quirky comments are often not directly helpful but they worked well for me when I first read this tip (at vim.org) several years ago. For example ":set ignorecase : you nearly always want this" alerts readers that they should find out what the command means and consider using it. If every point were clarified, the tip would be far too long and hard to read. Currently the tip is useful because it provides a subjective overview of what people should look for in Vim.
-    - Re the case sensitive point above: While a/A is a good example, it's not needed as an additional example. I think the ce is to show a complete change command. It might be a good idea to replace the c/C/ce with a/A which makes the point. Actually, even better might be j/J because the two actions are totally different.
-    - The "Help for help" section is perhaps confusing, but it is exactly correct because it shows what a person should type. Like many of the items, it could be improved while resisting the tempation to add too many words.
+    - By "all be kept" above, I mean that the content is probably all good and 
+      should not be removed (although there's a lot of it, and when I take some time 
+      to look through it again I might change my mind). 
+    - Re the format of the tip: The current plain text with just a ':' separating 
+      command and text is a bit confusing in places, but the simplicity rather suits 
+      Vim. I have used cleartable in a couple of tips, and I might try it here. See 
+      VimTip605 |vwt-605| for an example. Wikitable is also available, but it's 
+      rather overwhelming; see VimTip1611 |vwt-1611| for an example. 
+    - Re the style of the tip: The quirky comments are often not directly helpful 
+      but they worked well for me when I first read this tip (at vim.org) several 
+      years ago. For example ":set ignorecase : you nearly always want this" alerts 
+      readers that they should find out what the command means and consider using 
+      it. If every point were clarified, the tip would be far too long and hard to 
+      read. Currently the tip is useful because it provides a subjective overview of 
+      what people should look for in Vim. 
+    - Re the case sensitive point above: While a/A is a good example, it's not 
+      needed as an additional example. I think the ce is to show a complete change 
+      command. It might be a good idea to replace the c/C/ce with a/A which makes 
+      the point. Actually, even better might be j/J because the two actions are 
+      totally different. 
+    - The "Help for help" section is perhaps confusing, but it is exactly correct 
+      because it shows what a person should type. Like many of the items, it could 
+      be improved while resisting the tempation to add too many words. 
 
 
 Finally thanks for drawing attention to this page because the tip does need 
@@ -681,7 +699,7 @@ cleaning, and discussion and work will help. JohnBeckett
 [https://vim.fandom.com/wiki/User:JohnBeckett] 01:03, December 7, 2009 (UTC)
 
 ==============================================================================
-    - re Help for help: I was refering to:
+    - re Help for help: I was refering to: 
 
 
 >
@@ -693,11 +711,14 @@ or maybe I am confused? (Be nice!)
 
 I also think some people know the info so well what is unclear to someone 
 reading the tip may not seem awkward at all.
-    - re case sensitive example: I choose a/A because many (well some) of the uppercase form of the command are like BIG versions of the lowercase version w/W b/B h/H i/I ...
+    - re case sensitive example: I choose a/A because many (well some) of the 
+      uppercase form of the command are like BIG versions of the lowercase version 
+      w/W b/B h/H i/I ... 
 
-    - re "quirky" comments: may mean something to look into but without a link its not much help.
+    - re "quirky" comments: may mean something to look into but without a link its 
+      not much help. 
 
-    - Then there is the length of this document which makes scrolling difficult!
+    - Then there is the length of this document which makes scrolling difficult! 
 
 
 DG12 [https://vim.fandom.com/wiki/User:DG12] 01:58, December 7, 2009 (UTC)

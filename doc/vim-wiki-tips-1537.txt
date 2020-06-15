@@ -15,15 +15,20 @@ TERMINOLOGY  *vwt-1537-terminology*
 
 Some of the terms used in this tip are briefly explained below. For more 
 details see the buffer FAQ |vwt-135| and :help |windows-intro|.
-    - When a file is loaded into memory for editing, a new buffer is created to hold it.
-    - A buffer can be created to hold text that isn't related to a file, such as a directory listing.
-    - A window is a view port onto a buffer.
-    - A buffer is active if it is shown in a window.
-    - A buffer is hidden if it is not shown in a window.
-    - A buffer is a listed buffer if it is always shown in the buffer list.
-    - A buffer is an unlisted buffer if it is not shown in the buffer list by default.
-    - Each buffer is given a unique number when it is first created. It keeps this number for the duration of the Vim session.
-    - The name of a buffer is the name of the file that has been loaded into it, or for buffers not containing the contents of a file, it can be any string.
+    - When a file is loaded into memory for editing, a new buffer is created to 
+      hold it. 
+    - A buffer can be created to hold text that isn't related to a file, such as a 
+      directory listing. 
+    - A window is a view port onto a buffer. 
+    - A buffer is active if it is shown in a window. 
+    - A buffer is hidden if it is not shown in a window. 
+    - A buffer is a listed buffer if it is always shown in the buffer list. 
+    - A buffer is an unlisted buffer if it is not shown in the buffer list by 
+      default. 
+    - Each buffer is given a unique number when it is first created. It keeps this 
+      number for the duration of the Vim session. 
+    - The name of a buffer is the name of the file that has been loaded into it, or 
+      for buffers not containing the contents of a file, it can be any string. 
 
 
 LISTING BUFFERS  *vwt-1537-listing-buffers*
@@ -143,10 +148,20 @@ LEAVING MODIFIED BUFFERS  *vwt-1537-leaving-modified-buffers*
 If Vim is running with its default settings, or in vi compatible mode, the 
 :buffer command will not abandon the buffer until any changes have been 
 written. There are a few ways this can be changed:
-    - Append ! to the command to force the current buffer to be hidden, despite being modified. For example, if buffer 1 is the current buffer and it has been modified, the command :buffer! 2 (or :b! 2) would hide buffer 1 (keeping its changes), and display buffer 2.
-    - Set the hidden option (:set hidden) so any buffer can be hidden (keeping its changes) without first writing the buffer to a file. This affects all commands and all buffers.
-    - Set the confirm option (:set confirm) so that when you tell Vim to abandon a buffer but you have unsaved changes, Vim will ask you whether to save your changes first, abandon them, or cancel the action. The choices given do not seem to allow simply hiding the buffer as in the previous options.
-    - Set either the autowrite or the autowriteall options (:set autowrite or :set autowriteall) to automatically save any changes made to the buffer before it is hidden.
+    - Append ! to the command to force the current buffer to be hidden, despite 
+      being modified. For example, if buffer 1 is the current buffer and it has been 
+      modified, the command :buffer! 2 (or :b! 2) would hide buffer 1 (keeping its 
+      changes), and display buffer 2. 
+    - Set the hidden option (:set hidden) so any buffer can be hidden (keeping its 
+      changes) without first writing the buffer to a file. This affects all commands 
+      and all buffers. 
+    - Set the confirm option (:set confirm) so that when you tell Vim to abandon a 
+      buffer but you have unsaved changes, Vim will ask you whether to save your 
+      changes first, abandon them, or cancel the action. The choices given do not 
+      seem to allow simply hiding the buffer as in the previous options. 
+    - Set either the autowrite or the autowriteall options (:set autowrite or :set 
+      autowriteall) to automatically save any changes made to the buffer before it 
+      is hidden. 
 
 
 CONVENIENTLY ACCESSING BUFFERS  *vwt-1537-conveniently-accessing-buffers*
@@ -246,49 +261,83 @@ SCRIPTS  *vwt-1537-scripts*
 Some scripts for buffer switching are listed below, in order by the script 
 id. You can search Vim Scripts [http://www.vim.org/scripts/index.php] for 
 "buffer" to find others.
-    - bufexplorer [https://www.vim.org/scripts/script.php?script_id=42] A popular buffer explorer.
-    - SelectBuf [https://www.vim.org/scripts/script.php?script_id=107] A fast and extensible buffer explorer.
-    - selbuff [https://www.vim.org/scripts/script.php?script_id=125] Another buffer select script
-    - PopupBuffer [https://www.vim.org/scripts/script.php?script_id=132] To select a buffer from a PopUp menu.
-    - minibufexpl [https://www.vim.org/scripts/script.php?script_id=159] A popular and compact buffer explorer. Clickable tabs w/ `set mouse=a`
-    - FavMenu [https://www.vim.org/scripts/script.php?script_id=161]
-    - mru [https://www.vim.org/scripts/script.php?script_id=521]
-    - incbufswitch [https://www.vim.org/scripts/script.php?script_id=685] Switch buffers using an incremental search.
-    - bufmenu2 [https://www.vim.org/scripts/script.php?script_id=921] More balanced buffers menu hierarchy.
-    - buflist [https://www.vim.org/scripts/script.php?script_id=1011] Buffer browser.
-    - TinyBufferExplorer [https://www.vim.org/scripts/script.php?script_id=1283] A 1-file buffer list plugin with grouping.
-    - bufferlist [https://www.vim.org/scripts/script.php?script_id=1325] Simple, fast, and slick non-disturbing buffer list.
-    - TabBar [https://www.vim.org/scripts/script.php?script_id=1338]
-    - bufmap [https://www.vim.org/scripts/script.php?script_id=1422] Automatically maps buffers to function keys.
-    - buftabs [https://www.vim.org/scripts/script.php?script_id=1664] Minimalistic buffer tabs saving screen space.
-    - bufpos [https://www.vim.org/scripts/script.php?script_id=1836] Switch buffer with Alt-<number>.
-    - tselectbuffer [https://www.vim.org/scripts/script.php?script_id=1866] A quick buffer selector/switcher.
-    - LustyExplorer [https://www.vim.org/scripts/script.php?script_id=1890] Dynamic filesystem and buffer explorer.
-    - QuickBuf [https://www.vim.org/scripts/script.php?script_id=1910] Very small but quick and powerful buffer manager.
-    - fuzzyfinder [https://www.vim.org/scripts/script.php?script_id=1984] Explore buffer/file/MRU/favorite with a fuzzy pattern.
-    - LustyJuggler [https://www.vim.org/scripts/script.php?script_id=2050] Switch very quickly between active buffers.
-    - QuickName [https://www.vim.org/scripts/script.php?script_id=2317] Conveniently navigate buffers; incremental search by name.
-    - bufmru [https://www.vim.org/scripts/script.php?script_id=2346] Quickly switch to most recently used buffer.
-    - vimuiex [https://www.vim.org/scripts/script.php?script_id=2606] Commands: VxBufListSelect/VxOpenRecentFile/VxFileBrowser, with filtering and MRU
-    - Command-T [https://www.vim.org/scripts/script.php?script_id=3025] Fast buffer and file navigation
-    - QuickNameBuf [https://www.vim.org/scripts/script.php?script_id=3217] Quickly navigate between buffers using an incremental search by name (a combination of QuickName [https://www.vim.org/scripts/script.php?script_id=2317] and QuickBuf [https://www.vim.org/scripts/script.php?script_id=1910])
-    - Buffergator [https://www.vim.org/scripts/script.php?script_id=3619] Lists buffers in a new split, and quickly go to selected buffer in previous window, new (vertical/horizontal) split, or new tab page. Walk up and down buffer list, previewing buffers quickly without leaving buffer list.
-    - Buffet [https://www.vim.org/scripts/script.php?script_id=3896] A fast, easy to use buffer list plugin for switching and managing buffers.buffer list contains tab and window numbers.Provides commands to load, delete, switch,horizontal/vertical/diff split open buffers and command to close opened windows.
-    -  Unite.vim [https://github.com/Shougo/unite.vim] script for fast navigation between mru, buffers, files in project tree, user-defined menus and many more
+    - bufexplorer [https://www.vim.org/scripts/script.php?script_id=42] A popular 
+      buffer explorer. 
+    - SelectBuf [https://www.vim.org/scripts/script.php?script_id=107] A fast and 
+      extensible buffer explorer. 
+    - selbuff [https://www.vim.org/scripts/script.php?script_id=125] Another buffer 
+      select script 
+    - PopupBuffer [https://www.vim.org/scripts/script.php?script_id=132] To select 
+      a buffer from a PopUp menu. 
+    - minibufexpl [https://www.vim.org/scripts/script.php?script_id=159] A popular 
+      and compact buffer explorer. Clickable tabs w/ `set mouse=a` 
+    - FavMenu [https://www.vim.org/scripts/script.php?script_id=161] 
+    - mru [https://www.vim.org/scripts/script.php?script_id=521] 
+    - incbufswitch [https://www.vim.org/scripts/script.php?script_id=685] Switch 
+      buffers using an incremental search. 
+    - bufmenu2 [https://www.vim.org/scripts/script.php?script_id=921] More balanced 
+      buffers menu hierarchy. 
+    - buflist [https://www.vim.org/scripts/script.php?script_id=1011] Buffer 
+      browser. 
+    - TinyBufferExplorer [https://www.vim.org/scripts/script.php?script_id=1283] A 
+      1-file buffer list plugin with grouping. 
+    - bufferlist [https://www.vim.org/scripts/script.php?script_id=1325] Simple, 
+      fast, and slick non-disturbing buffer list. 
+    - TabBar [https://www.vim.org/scripts/script.php?script_id=1338] 
+    - bufmap [https://www.vim.org/scripts/script.php?script_id=1422] Automatically 
+      maps buffers to function keys. 
+    - buftabs [https://www.vim.org/scripts/script.php?script_id=1664] Minimalistic 
+      buffer tabs saving screen space. 
+    - bufpos [https://www.vim.org/scripts/script.php?script_id=1836] Switch buffer 
+      with Alt-<number>. 
+    - tselectbuffer [https://www.vim.org/scripts/script.php?script_id=1866] A quick 
+      buffer selector/switcher. 
+    - LustyExplorer [https://www.vim.org/scripts/script.php?script_id=1890] Dynamic 
+      filesystem and buffer explorer. 
+    - QuickBuf [https://www.vim.org/scripts/script.php?script_id=1910] Very small 
+      but quick and powerful buffer manager. 
+    - fuzzyfinder [https://www.vim.org/scripts/script.php?script_id=1984] Explore 
+      buffer/file/MRU/favorite with a fuzzy pattern. 
+    - LustyJuggler [https://www.vim.org/scripts/script.php?script_id=2050] Switch 
+      very quickly between active buffers. 
+    - QuickName [https://www.vim.org/scripts/script.php?script_id=2317] 
+      Conveniently navigate buffers; incremental search by name. 
+    - bufmru [https://www.vim.org/scripts/script.php?script_id=2346] Quickly switch 
+      to most recently used buffer. 
+    - vimuiex [https://www.vim.org/scripts/script.php?script_id=2606] Commands: 
+      VxBufListSelect/VxOpenRecentFile/VxFileBrowser, with filtering and MRU 
+    - Command-T [https://www.vim.org/scripts/script.php?script_id=3025] Fast buffer 
+      and file navigation 
+    - QuickNameBuf [https://www.vim.org/scripts/script.php?script_id=3217] Quickly 
+      navigate between buffers using an incremental search by name (a combination of 
+      QuickName [https://www.vim.org/scripts/script.php?script_id=2317] and QuickBuf 
+      [https://www.vim.org/scripts/script.php?script_id=1910]) 
+    - Buffergator [https://www.vim.org/scripts/script.php?script_id=3619] Lists 
+      buffers in a new split, and quickly go to selected buffer in previous window, 
+      new (vertical/horizontal) split, or new tab page. Walk up and down buffer 
+      list, previewing buffers quickly without leaving buffer list. 
+    - Buffet [https://www.vim.org/scripts/script.php?script_id=3896] A fast, easy 
+      to use buffer list plugin for switching and managing buffers.buffer list 
+      contains tab and window numbers.Provides commands to load, delete, 
+      switch,horizontal/vertical/diff split open buffers and command to close opened 
+      windows. 
+    - Unite.vim [https://github.com/Shougo/unite.vim] script for fast navigation 
+      between mru, buffers, files in project tree, user-defined menus and many more 
 
 
 SEE ALSO  *vwt-1537-see-also*
-    - Cycle through buffers including hidden buffers |vwt-873| to cycle through existing buffers, in order by buffer number
+    - Cycle through buffers including hidden buffers |vwt-873| to cycle through 
+      existing buffers, in order by buffer number 
 
 
 REFERENCES  *vwt-1537-references*
-    - Vim buffer FAQ |vwt-135|
-    - :help  |buffers|
-    - :help  |buffer|
-    - :help  |bnext|
-    - :help  |bprevious|
-    - :help  |CTRL-^|
-    - :help  |alternate-file|
+    - Vim buffer FAQ |vwt-135| 
+    - :help |buffers| 
+    - :help |buffer| 
+    - :help |bnext| 
+    - :help |bprevious| 
+    - :help |CTRL-^| 
+    - :help |alternate-file| 
 
 
 COMMENTS  *vwt-1537-comments*

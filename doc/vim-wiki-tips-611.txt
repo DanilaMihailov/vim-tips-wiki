@@ -43,7 +43,9 @@ certain options for files over a certain size (in this example, 10mb).
 <
 
 SEE ALSO  *vwt-611-see-also*
-    - Edit large files quickly [https://www.vim.org/scripts/script.php?script_id=1506] plugin to handle many of the above changes and more
+    - Edit large files quickly 
+      [https://www.vim.org/scripts/script.php?script_id=1506] plugin to handle many 
+      of the above changes and more 
 
 
 COMMENTS  *vwt-611-comments*
@@ -52,11 +54,11 @@ IMPROVEMENT PROPOSAL  *vwt-611-improvement-proposal*
 
 I changed the code a bit here and the final result is the following. 
 Differences are:
-    -  Files with filesize too large are recognized too (getfsize = -2)
-    -  Readability
-    -  Message that options are changed at startup
-    -  Got rid of things like my_autocommands_loaded (I didn't get the use...)
-    -  And what about the first <pre.. block? (didn't get the use too...)
+    - Files with filesize too large are recognized too (getfsize = -2) 
+    - Readability 
+    - Message that options are changed at startup 
+    - Got rid of things like my_autocommands_loaded (I didn't get the use...) 
+    - And what about the first <pre.. block? (didn't get the use too...) 
 
 
 >

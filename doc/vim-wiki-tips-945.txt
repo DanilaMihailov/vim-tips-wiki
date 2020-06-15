@@ -5,10 +5,10 @@
 
 
 This tip is very similar to the following:
-    - VimTip1087 |vwt-1087|
-    - VimTip1267 |vwt-1267|
-    - VimTip1296 |vwt-1296|
-    - VimTip1454 |vwt-1454|
+    - VimTip1087 |vwt-1087| 
+    - VimTip1267 |vwt-1267| 
+    - VimTip1296 |vwt-1296| 
+    - VimTip1454 |vwt-1454| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -65,8 +65,10 @@ Press Enter to execute the command. The function changes to:
 The range can be used with other commands too.
 
 This tip assumes that:
-    - Your source code is indented, so that curly braces on the first column always open or close a function body.
-    - A function name is followed by a (. This is true in C, mostly true in C++ and Java, and true to a limited extend in Perl.
+    - Your source code is indented, so that curly braces on the first column always 
+      open or close a function body. 
+    - A function name is followed by a (. This is true in C, mostly true in C++ and 
+      Java, and true to a limited extend in Perl. 
 
 
 This tip does not work for constructor definitions in C++ and Java, since 

@@ -5,7 +5,7 @@
 
 
 This tip is very similar to the following:
-    - VimTip337 |vwt-337|
+    - VimTip337 |vwt-337| 
 
 
 These tips need to be merged – see the merge guidelines 
@@ -26,15 +26,15 @@ can do this manually, but it's a hassle, besides, if it can be done
 automatically, why not go for that?
 
 You need the following installed and properly configured:
-    - Vim
-    - netrw.vim (distributed with Vim)
-    - scp, rcp, ftp or ftp+
+    - Vim 
+    - netrw.vim (distributed with Vim) 
+    - scp, rcp, ftp or ftp+ 
 
 
 To use, all you need is to specify the protocol, user, host and path to the 
 file you want to edit:
-    - vim scp://konimi@vim.org//var/www/html/rtc_functions.php
-    - gvim scp://konimi@vim.org//var/www/html/tips/add_tip.php
+    - vim scp://konimi@vim.org//var/www/html/rtc_functions.php 
+    - gvim scp://konimi@vim.org//var/www/html/tips/add_tip.php 
 
 
 Every time you write the file (:w etc) the file will get copied over to the 

@@ -84,29 +84,33 @@ to source the script.
 RELATED TIPS  *vwt-894-related-tips*
 
 TO DO
-    - We have a number of tips which use the terms "align", "justify", "format" in various, often inconsistent, ways. Need to check each tip and see they use the words correctly.
-    - Need to clean up following tips. Some might be merged, but want to avoid undue complexity.
+    - We have a number of tips which use the terms "align", "justify", "format" in 
+      various, often inconsistent, ways. Need to check each tip and see they use the 
+      words correctly. 
+    - Need to clean up following tips. Some might be merged, but want to avoid 
+      undue complexity. 
 
 
 Align text using Vim
-    - 139 Align text plugin |vwt-139| describes the Align [https://www.vim.org/scripts/script.php?script_id=294] plugin (script 294)
-    - 253 Specify a column with bar |vwt-253|
-    - 319 Simple text alignment |vwt-319|
-    - 893 Align numbers at decimal point |vwt-893|
-    - 894 Regex-based text alignment this tip
+    - 139 Align text plugin |vwt-139| describes the Align 
+      [https://www.vim.org/scripts/script.php?script_id=294] plugin (script 294) 
+    - 253 Specify a column with bar |vwt-253| 
+    - 319 Simple text alignment |vwt-319| 
+    - 893 Align numbers at decimal point |vwt-893| 
+    - 894 Regex-based text alignment this tip 
 
 
 Align text using an external script
-    - 570 Align text into a table |vwt-570| Perl script intend merging this to 139
+    - 570 Align text into a table |vwt-570| Perl script intend merging this to 139 
 
 
 Align tables using Vim
-    - 547 Smarter Table Editing |vwt-547|
-    - 554 Smarter Table Editing II |vwt-554|
+    - 547 Smarter Table Editing |vwt-547| 
+    - 554 Smarter Table Editing II |vwt-554| 
 
 
 Invoke an external text formatting tool
-    - 584 Par text reformatter |vwt-584|
+    - 584 Par text reformatter |vwt-584| 
 
 
 COMMENTS  *vwt-894-comments*
@@ -120,7 +124,7 @@ lines which satisfy (or don't satisfy) a regular expression pattern
 ALTERNATIVE SCRIPT  *vwt-894-alternative-script*
 
 TO DO
-    - Examine following. Is it worth keeping?
+    - Examine following. Is it worth keeping? 
 
 
 I decided to extend the tip's functionality to be able to do left, right and 

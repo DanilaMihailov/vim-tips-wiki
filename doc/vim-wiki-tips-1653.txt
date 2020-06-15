@@ -59,9 +59,12 @@ below.
 SIMPLE CASE: GETTING NEW PATCHES  *vwt-1653-simple-case:-getting-new-patches*
 
 This applies if all of the following are true:
-    - You have no local changes to the Vim source, ancillary and runtime files (including the Makefile; you can easily compile a custom Vim with no Makefile changes, as detailed in the compiling "how to" pages |vwt-1653-external-links| below)
-    - You compile only one Vim and therefore don't use a shadow directory
-    - You don't build a cscope database inside the Vim source tree
+    - You have no local changes to the Vim source, ancillary and runtime files 
+      (including the Makefile; you can easily compile a custom Vim with no Makefile 
+      changes, as detailed in the compiling "how to" pages |vwt-1653-external-links| 
+      below) 
+    - You compile only one Vim and therefore don't use a shadow directory 
+    - You don't build a cscope database inside the Vim source tree 
 
 
 In this case, all you need to check for (and, if necessary, get) any changes 
@@ -201,17 +204,17 @@ are what you would expect.
 SEE ALSO  *vwt-1653-see-also*
 
 MANPAGES  *vwt-1653-manpages*
-    - man hg
-    - man hgrc
-    - man hgignore
+    - man hg 
+    - man hgrc 
+    - man hgignore 
 
 
 THE MERCURIAL ONLINE HELP  *vwt-1653-the-mercurial-online-help*
 
 In my experience, second only to the Vim help itself. It includes the whole 
 contents of the manpages |vwt-1653-manpages|, and more.
-    - hg help
-    - hg help subject
+    - hg help 
+    - hg help subject 
 
 
 where subject is a Mercurial command (e.g. pull) or other help subject (e.g. 
@@ -220,15 +223,17 @@ extensions).
 Note: The full text of the help is only obtained with -v or --verbose, or when the [ui] section of your hgrc (or, on Windows, Mercurial.ini) contains the line verbose=1
 
 IN THIS WIKI  *vwt-1653-in-this-wiki*
-    - Category:Building Vim [https://vim.fandom.com/wiki/Category:Building_Vim]
+    - Category:Building Vim [https://vim.fandom.com/wiki/Category:Building_Vim] 
 
 
 EXTERNAL LINKS  *vwt-1653-external-links*
-    - The Mercurial site [http://mercurial.selenic.com/]
-    - The Mercurial Guide [http://mercurial.selenic.com/guide/]
-    - The Mercurial mailing list [http://selenic.com/mailman/listinfo/mercurial]
-    - Compiling Vim on Windows [http://users.skynet.be/antoine.mechelynck/vim/compile.htm]
-    - Compiling Vim on Unix/Linux [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm]
+    - The Mercurial site [http://mercurial.selenic.com/] 
+    - The Mercurial Guide [http://mercurial.selenic.com/guide/] 
+    - The Mercurial mailing list [http://selenic.com/mailman/listinfo/mercurial] 
+    - Compiling Vim on Windows 
+      [http://users.skynet.be/antoine.mechelynck/vim/compile.htm] 
+    - Compiling Vim on Unix/Linux 
+      [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm] 
 
 
 COMMENTS  *vwt-1653-comments*
@@ -288,8 +293,8 @@ Example (for the shell on Unix-like systems):
 [https://vim.fandom.com/wiki/User_talk:Tonymec]) 02:56, July 16, 2012 (UTC)
 
 USEFUL COMMANDS TO GET INFORMATION  *vwt-1653-useful-commands-to-get-information*
-    - hg -v help
-    - hg -v help |less
+    - hg -v help 
+    - hg -v help |less 
 
 
 what are the basic hg commands, and what do they do?
@@ -297,11 +302,11 @@ what are the basic hg commands, and what do they do?
 
 
 (where command is a Mercurial command) what are the possible arguments to that command (and what do they mean)?(-v or --verbose is necessary to get the full text of the concerned help section)
-    - hg status
+    - hg status 
 
 
 are there local files waiting for a disposition (commit possibly preceded by add and/or forget)? The reply is one filename per line, preceded by A (added to the list of tracked files), M (merged), D (deleted i.e. specifically not tracked), ? (new file, neither "tracked" nor "not tracked" yet).
-    - hg heads
+    - hg heads 
 
 
 what are all the "tree leaves" ? (commits which are not a parent to a later commit)
@@ -309,15 +314,15 @@ what are all the "tree leaves" ? (commits which are not a parent to a later com
 
 
 (where N is a number): show the N latest commits, with relative number and short hash, branch name if any, tags if any, parent(s) if not, or not only, the immediately older commit, and description (commit message)
-    - hg log -l  -f
+    - hg log -l -f 
 
 
 same as above, but only for the current tip and its parents and ancestors.
-    - hg incoming
+    - hg incoming 
 
 
 tells you (in the same format as hg log) which changesets (if any) are waiting for you to pull them.
-    - hg diff -r xxxxxxxxxxxx [-r yyyyyyyyyyyy] [ ...]
+    - hg diff -r xxxxxxxxxxxx [-r yyyyyyyyyyyy] [ ...] 
 
 
 where xxxxxxxxxxxx (and yyyyyyyyyyyy if present) are revision IDs: Produce a diff of the file(s) named, as they changed between the named revisions. With only one revision: compare it to the current tip. With no filenames: give all differences between these revisions.

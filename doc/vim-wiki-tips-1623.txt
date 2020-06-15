@@ -10,9 +10,9 @@ April 10, 2009 · complexity basic · author Ir0nh34d · version 7.0
 
 Using Vim under Cygwin, it is difficult to access the Windows clipboard 
 [https://vim.fandom.com/wiki/Accessing_the_system_clipboard]:
-    - Typing "+y does not yank (copy) to the Windows clipboard.
+    - Typing "+y does not yank (copy) to the Windows clipboard. 
     - Typing "+p does not paste from the Windows clipboard. 
-    - Typing "*y and "*p instead seems to work however
+    - Typing "*y and "*p instead seems to work however 
 
 
 As a result, you cannot easily use the clipboard to copy text between Cygwin 
@@ -114,7 +114,8 @@ You can use the normal paste options (for example, \p to paste the clipboard
 contents, assuming the default backslash leader key).
 
 SEE ALSO  *vwt-1623-see-also*
-    - fakeclip [https://www.vim.org/scripts/script.php?script_id=2098] plugin allowing use of "*p, "*yy and more on Cygwin
+    - fakeclip [https://www.vim.org/scripts/script.php?script_id=2098] plugin 
+      allowing use of "*p, "*yy and more on Cygwin 
 
 
 COMMENTS  *vwt-1623-comments*

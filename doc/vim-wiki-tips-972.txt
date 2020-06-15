@@ -24,21 +24,27 @@ copy&paste via the clipboard:
 <
 
 Notes:
-    - In each alias, the whole string after the first = is surrounded by single quotes
-    - This assumes that $VIM and $HOME are correctly defined in the master environment. How to set them is outside the scope of this tip.
-    - Today (while I'm writing this) the current Vim versions are 6.3 (stable) and 7.0aa (under development). Sooner or later there will be a newer version. Just change the last directory name in the above aliases to reflect it.
-    - See 'man cygpath' for more info.
+    - In each alias, the whole string after the first = is surrounded by single 
+      quotes 
+    - This assumes that $VIM and $HOME are correctly defined in the master 
+      environment. How to set them is outside the scope of this tip. 
+    - Today (while I'm writing this) the current Vim versions are 6.3 (stable) and 
+      7.0aa (under development). Sooner or later there will be a newer version. Just 
+      change the last directory name in the above aliases to reflect it. 
+    - See 'man cygpath' for more info. 
 
 
 COMMENTS  *vwt-972-comments*
-    -  Due to spaces in directory names the aliases should be in the form:
+    - Due to spaces in directory names the aliases should be in the form: 
 
 
 >
     alias gvim='VIM=`cygpath -d "$VIM"` HOME=`cygpath -d "$HOME"` "`cygpath -u "$VIM"`/vim63/gvim.exe"'
 <
-    -  Make sure .bash_profile is saved with 'fileformat' set to "unix"
-    -  If the installation path of the VIM is in your $PATH, you don't need to create an alias to run gvim. However, you'll still need a wrapper to correctly translate the filepath you pass in as a argument to gvim.
+    - Make sure .bash_profile is saved with 'fileformat' set to "unix" 
+    - If the installation path of the VIM is in your $PATH, you don't need to 
+      create an alias to run gvim. However, you'll still need a wrapper to correctly 
+      translate the filepath you pass in as a argument to gvim. 
 
 
 e.g. gvim ~/.bash_profile won't work without doing something like
@@ -52,9 +58,10 @@ e.g. gvim ~/.bash_profile won't work without doing something like
 I've created this 
 [http://web.archive.org/20081018133743/alecthegeek.wordpress.com/2008/10/09/handy-hack-run-vim-for-windows-under-cygwin/] 
 Bashfunction that handles
-    -  Vim command line options e.g. -p
-    -  Creates files with any name (e.g. .My.DotFile). That's why I don't use the -d option to cygpath
-    -  Supports file path names with spaces
+    - Vim command line options e.g. -p 
+    - Creates files with any name (e.g. .My.DotFile). That's why I don't use the -d 
+      option to cygpath 
+    - Supports file path names with spaces 
 
 
 Suggestion for improvements most welcome

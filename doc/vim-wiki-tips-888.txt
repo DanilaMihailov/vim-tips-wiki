@@ -29,8 +29,10 @@ Then do something like this to edit multiple files:
 <
 
 Customizations
-    - If desired, substitute --remote-tab-silent in place of --remote-silent to load all the files in new tabs.
-    - If running under Windows, you'll probably want to allow backslashes to occur in path names, like this:
+    - If desired, substitute --remote-tab-silent in place of --remote-silent to 
+      load all the files in new tabs. 
+    - If running under Windows, you'll probably want to allow backslashes to occur 
+      in path names, like this: 
 
 
 >
@@ -90,15 +92,15 @@ the current tab page shows the first file added.
 <
 
 REFERENCES  *vwt-888-references*
-    - :help  |--remote-silent|
-    - :help  |--remote-tab-silent|
-    - :help  |--servername|
+    - :help |--remote-silent| 
+    - :help |--remote-tab-silent| 
+    - :help |--servername| 
 
 
 COMMENTS  *vwt-888-comments*
 
 TO DO
-    - Use fnameescape(), especially in the method that uses the shell.
+    - Use fnameescape(), especially in the method that uses the shell. 
 
 
 ==============================================================================

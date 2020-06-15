@@ -196,10 +196,16 @@ Under Windows Vista using GVIM 7.2, I added the following bit to my vimrc:
 <
 
 This combines a number of the previous tips:
-    - The mkdir makes sure the folder always exists (this is probably less important if you're using VIMRUNTIME like I am here, but if you're using a temp folder that may get purged regularly, it's a good thing to have).
-    - The del clears out old backups on each restart.
-    - The 'directory' uses path qualifiers on swap files so you can edit multiple files with the same name without vim freaking out (e.g., c%%Vim%vim72%vimrc.vim.swp).
-    - The 'backupdir' sets the path to store backups. Unlike 'directory', this does not add path qualifiers even with the double slash, so you will get overwriting if you're working on files with the same name.
+    - The mkdir makes sure the folder always exists (this is probably less 
+      important if you're using VIMRUNTIME like I am here, but if you're using a 
+      temp folder that may get purged regularly, it's a good thing to have). 
+    - The del clears out old backups on each restart. 
+    - The 'directory' uses path qualifiers on swap files so you can edit multiple 
+      files with the same name without vim freaking out (e.g., 
+      c%%Vim%vim72%vimrc.vim.swp). 
+    - The 'backupdir' sets the path to store backups. Unlike 'directory', this does 
+      not add path qualifiers even with the double slash, so you will get 
+      overwriting if you're working on files with the same name. 
 
 
 But to add a new tip: Vim 7.2 on Vista at least supports the '/' for folder 

@@ -76,11 +76,11 @@ The following has been moved here from VimTip516; it needs a clean up.
 I wanted to test how quickly various searches are. I used a 20MB file 
 containing a list of email headers, which was 450k lines, and ran the test 
 function shown below, with these results:
-    - 1870 matches in 1s for ^\(.*www\&.*x\)
-    - 1870 matches in 1s for ^\(.*www\)\@=\(.*x\)\@=
-    - 1870 matches in 5s for .*www\&.*x
-    - 1870 matches in 9s for www.*x\|x.*www
-    - 1870 matches in 18s for \(www.*x\)\|\(x.*www\)
+    - 1870 matches in 1s for ^\(.*www\&.*x\) 
+    - 1870 matches in 1s for ^\(.*www\)\@=\(.*x\)\@= 
+    - 1870 matches in 5s for .*www\&.*x 
+    - 1870 matches in 9s for www.*x\|x.*www 
+    - 1870 matches in 18s for \(www.*x\)\|\(x.*www\) 
 
 
 Omitting the parens in \(www.*x\)\|\(x.*www\) roughly doubles its speed, by 

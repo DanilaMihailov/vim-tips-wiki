@@ -9,9 +9,12 @@ created 2003 · complexity basic · author Christian Obrecht · version 6.0
 Vim's quickfix mode is a very nice feature. Nevertheless, I was not 
 completely satisfied when I used it together with (La)TeX. Here are the main 
 reasons:
-    - The default error format pattern is able to extract the line number and the error message, but not the column number.
-    - This pattern is of course unable to deal with BibTeX's or MakeIndex's error messages.
-    - TeX's messages are quite verbose. Having them displayed at each run, even when no error occurs is sometimes annoying.
+    - The default error format pattern is able to extract the line number and the 
+      error message, but not the column number. 
+    - This pattern is of course unable to deal with BibTeX's or MakeIndex's error 
+      messages. 
+    - TeX's messages are quite verbose. Having them displayed at each run, even 
+      when no error occurs is sometimes annoying. 
 
 
 Thus I implemented TeXwrapper, a small program which silently runs TeX and 

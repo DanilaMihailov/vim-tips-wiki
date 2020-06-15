@@ -186,16 +186,19 @@ full path for gvim.exe in place of "vim". Remove the "-p" and
 "--remote-tab-silent" option if you do not want the tabbed interface. The -c 
 "set binary" ensures that any tabwidth, wrap, etc. settings are overwritten 
 after the file finishes loading.
-    - Launch in tabs in a new dedicated Vim hex editor: vim -p -b -c "set binary" --servername HEXVIM <files>
-    - Launch in tabs in an existing dedicated Vim hex editor: vim -b -c "set binary" --servername HEXVIM --remote-tab-silent <files>
+    - Launch in tabs in a new dedicated Vim hex editor: vim -p -b -c "set binary" 
+      --servername HEXVIM <files> 
+    - Launch in tabs in an existing dedicated Vim hex editor: vim -b -c "set 
+      binary" --servername HEXVIM --remote-tab-silent <files> 
 
 
 REFERENCES  *vwt-1518-references*
-    - :help  |hex-editing|
-    - :help  |:autocmd|
-    - :help  |internal-variables|
-    - :help  |edit-binary|
-    - Set_options_or_named_registers_with_let [https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let]
+    - :help |hex-editing| 
+    - :help |:autocmd| 
+    - :help |internal-variables| 
+    - :help |edit-binary| 
+    - Set_options_or_named_registers_with_let 
+      [https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let] 
 
 
 COMMENTS  *vwt-1518-comments*

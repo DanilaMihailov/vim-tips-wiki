@@ -87,9 +87,12 @@ options, like:
 <
 
 Some more details and examples here:
-    - Build Vim in Windows with Cygwin [https://vim.fandom.com/wiki/Build_Vim_in_Windows_with_Cygwin]
-    - Build Vim in Windows with Visual Studio [https://vim.fandom.com/wiki/Build_Vim_in_Windows_with_Visual_Studio]
-    - Build Python-enabled Vim on Windows with MinGW [https://vim.fandom.com/wiki/Build_Python-enabled_Vim_on_Windows_with_MinGW]
+    - Build Vim in Windows with Cygwin 
+      [https://vim.fandom.com/wiki/Build_Vim_in_Windows_with_Cygwin] 
+    - Build Vim in Windows with Visual Studio 
+      [https://vim.fandom.com/wiki/Build_Vim_in_Windows_with_Visual_Studio] 
+    - Build Python-enabled Vim on Windows with MinGW 
+      [https://vim.fandom.com/wiki/Build_Python-enabled_Vim_on_Windows_with_MinGW] 
 
 
 After you've built Vim, run the compiled executable and do :version to verify 
@@ -99,7 +102,8 @@ before you continue.
 One option is to just install manually every time without any nice installer 
 options like having .bat files in your system path to launch Vim from the 
 command line, a default _vimrc, shell context-menu "Edit with Vim" item, etc.:
-    - Version independent installation of Vim on Windows [https://vim.fandom.com/wiki/Version_independent_installation_of_Vim_on_Windows]
+    - Version independent installation of Vim on Windows 
+      [https://vim.fandom.com/wiki/Version_independent_installation_of_Vim_on_Windows] 
 
 
 But most of the time you want to install Vim somewhere everybody on the 
@@ -132,13 +136,13 @@ The following applies to Unix-based systems, and Windows.
 
 Download the source from ftp://ftp.vim.org/pub/vim/unix/ 
 [ftp://ftp.vim.org/pub/vim/unix/]
-    - vim-7.2.tar.bz2 (7.1MB)
+    - vim-7.2.tar.bz2 (7.1MB) 
 
 
 Download the extras from ftp://ftp.vim.org/pub/vim/extra/ 
 [ftp://ftp.vim.org/pub/vim/extra/]
-    - vim-7.2-extra.tar.gz (0.8MB)
-    - vim-7.2-lang.tar.gz (1.4MB)
+    - vim-7.2-extra.tar.gz (0.8MB) 
+    - vim-7.2-lang.tar.gz (1.4MB) 
 
 
 Expand each in the same directory, for example somewhere/vim/build/72/
@@ -157,35 +161,41 @@ Install.
 SEE ALSO  *vwt-376-see-also*
 
 Tips, some of which need updating
-    - Building vim with color on HP-UX [https://vim.fandom.com/wiki/Building_vim_with_color_on_HP-UX]
-    - Compile a separate copy of Vim for Python coding [https://vim.fandom.com/wiki/Compile_a_separate_copy_of_Vim_for_Python_coding]
-    - Getting the Vim source with Mercurial [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial]
-    - Get latest releases for syntax highlighting, runtime, plugins etc [https://vim.fandom.com/wiki/Get_latest_releases_for_syntax_highlighting,_runtime,_plugins_etc]
-    - Category of tips for building Vim [https://vim.fandom.com/wiki/Category:Building_Vim]
+    - Building vim with color on HP-UX 
+      [https://vim.fandom.com/wiki/Building_vim_with_color_on_HP-UX] 
+    - Compile a separate copy of Vim for Python coding 
+      [https://vim.fandom.com/wiki/Compile_a_separate_copy_of_Vim_for_Python_coding] 
+    - Getting the Vim source with Mercurial 
+      [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial] 
+    - Get latest releases for syntax highlighting, runtime, plugins etc 
+      [https://vim.fandom.com/wiki/Get_latest_releases_for_syntax_highlighting,_runtime,_plugins_etc] 
+    - Category of tips for building Vim 
+      [https://vim.fandom.com/wiki/Category:Building_Vim] 
 
 
 External sites with how-to information on building Vim
-    - on Windows [http://users.skynet.be/antoine.mechelynck/vim/compile.htm]
-    - on Unix/Linux [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm]
+    - on Windows [http://users.skynet.be/antoine.mechelynck/vim/compile.htm] 
+    - on Unix/Linux [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm] 
 
 
 COMMENTS  *vwt-376-comments*
 
 TO DO
-    - Where to get other stuff included in the standard installation, like diff.exe.
+    - Where to get other stuff included in the standard installation, like 
+      diff.exe. 
 
 
 Merge or link to some of these?
-    - 636 Adding Vim to MS-Windows File Explorer Menu |vwt-636|
-    - 861 Right click in Windows Explorer to open gvim in explorer mode |vwt-861|
-    - 1003 Windows file associations |vwt-1003|
-    - 1225 Open files in multiple tabs using the Windows Context Menu |vwt-1225|
-    - 1314 Add open-in-tabs context menu for Windows |vwt-1314|
-    - 1542 Vim On Vista |vwt-1542| (the introductory para)
+    - 636 Adding Vim to MS-Windows File Explorer Menu |vwt-636| 
+    - 861 Right click in Windows Explorer to open gvim in explorer mode |vwt-861| 
+    - 1003 Windows file associations |vwt-1003| 
+    - 1225 Open files in multiple tabs using the Windows Context Menu |vwt-1225| 
+    - 1314 Add open-in-tabs context menu for Windows |vwt-1314| 
+    - 1542 Vim On Vista |vwt-1542| (the introductory para) 
 
 
 The only tip with info on diff.exe is:
-    - 416 Running diff |vwt-416|
+    - 416 Running diff |vwt-416| 
 
 
 ==============================================================================

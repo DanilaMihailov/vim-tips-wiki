@@ -49,8 +49,14 @@ will be sorted by file name and line number, and duplicates will be removed.
 ORIGINAL SCRIPT  *vwt-1639-original-script*
 
 TO DO
-    - Following is the original code. I am fairly confident that the version shown above is equivalent, but I'm keeping the original code for a while in the hope it will get more checking.
-    - I do not undertand how two buffers could have the same name while having different buffer numbers (buffer names seem to be unique). I would therefore think that 'bufname()' could be omitted so the tests simply check buffer numbers, rather than buffer names. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 12:07, May 13, 2010 (UTC)
+    - Following is the original code. I am fairly confident that the version shown 
+      above is equivalent, but I'm keeping the original code for a while in the hope 
+      it will get more checking. 
+    - I do not undertand how two buffers could have the same name while having 
+      different buffer numbers (buffer names seem to be unique). I would therefore 
+      think that 'bufname()' could be omitted so the tests simply check buffer 
+      numbers, rather than buffer names. JohnBeckett 
+      [https://vim.fandom.com/wiki/User:JohnBeckett] 12:07, May 13, 2010 (UTC) 
 
 
 As far as I can remember I had problems with duplicated entries in my quickfix list because on Ms Windows some file would appear with both 8.3 short names and long name in wy quickfix list as a result of a CScope command. This is why I did that but I am not sure whether this is really required.EUEU 16:06, May 18, 2010 (UTC)

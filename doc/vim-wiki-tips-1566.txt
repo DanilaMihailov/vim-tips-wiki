@@ -55,29 +55,42 @@ COMMENTS  *vwt-1566-comments*
 There is now a plugin, SofterTabstop 
 [https://github.com/orbisvicis/SofterTabstop] that takes over the backspace 
 key (among others), implementing this behaviour:
-    -  backspace: align to first previous dedent within count search lines up, down.
-    -  tab: align to nearest next indent within intersection(adjacent lines of deeper indentation, count search lines up, down).
-    -  space: don't disable indentation alignment (default vim behavior) if editing beyond indent.
+    - backspace: align to first previous dedent within count search lines up, down. 
+    - tab: align to nearest next indent within intersection(adjacent lines of 
+      deeper indentation, count search lines up, down). 
+    - space: don't disable indentation alignment (default vim behavior) if editing 
+      beyond indent. 
 
 
 Alignment to multiples of shiftwidth (default vim behaviour) continues to be 
 supported.
 
 TO DO
-    - The introduction to the tip is a little mysterious. A brief example of the problem would be helpful.
-    - The comments below are from the author. They explain the need for the "To get more sane behaviour" comment for the alternative mapping in the tip. However, a quick test with Vim 7.2 and 7.0.40 on junk.py and junk.c failed to reproduce the issue.
-    - Possibilities: Something clever that I've forgotten about on my system avoids the problem, or, the problem does not exist on newish versions?
-    - The tip includes the suggestion in the comment near the bottom that starts "I believe that the indent is also kept if you move the cursor about in the line".
-    - Therefore, I think all the following (and this "todo") can be deleted. Any opinions? --JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 00:47, 17 August 2008 (UTC)
+    - The introduction to the tip is a little mysterious. A brief example of the 
+      problem would be helpful. 
+    - The comments below are from the author. They explain the need for the "To get 
+      more sane behaviour" comment for the alternative mapping in the tip. However, 
+      a quick test with Vim 7.2 and 7.0.40 on junk.py and junk.c failed to reproduce 
+      the issue. 
+    - Possibilities: Something clever that I've forgotten about on my system avoids 
+      the problem, or, the problem does not exist on newish versions? 
+    - The tip includes the suggestion in the comment near the bottom that starts "I 
+      believe that the indent is also kept if you move the cursor about in the 
+      line". 
+    - Therefore, I think all the following (and this "todo") can be deleted. Any 
+      opinions? --JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 00:47, 
+      17 August 2008 (UTC) 
 
 
 ==============================================================================
 
 When editing files in some kind of auto-indent (set ai, set cin etc.), vim 
 behaves like this to the user:
-    - End a line by pressing Enter
-    - Vim will determine the indent of the next line, either by using the previous line's indent or by calling a language specific indent script.
-    - In the new line, the cursor appears to be at the correct indent preceded by whitespace.
+    - End a line by pressing Enter 
+    - Vim will determine the indent of the next line, either by using the previous 
+      line's indent or by calling a language specific indent script. 
+    - In the new line, the cursor appears to be at the correct indent preceded by 
+      whitespace. 
 
 
 In reality, the new line in the buffer is actually empty (there is no spoon.. 

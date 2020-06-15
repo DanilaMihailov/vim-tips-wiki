@@ -29,12 +29,12 @@ without a range. In addition, they can be called with or without arguments.
 Without a range they operate on the current line.
 
 There are two supported arguments. They are described below:
-    -  arg1 the number to start at. The default is one. This will
+    - arg1 the number to start at. The default is one. This will 
 
 
 number your selected lines sequentially. The start can be anumber, ., $, or, 
 'x (like getline).
-    -  arg2 Text to append after numbers. The default is a space.
+    - arg2 Text to append after numbers. The default is a space. 
 
 
 EXAMPLES  *vwt-124-examples*

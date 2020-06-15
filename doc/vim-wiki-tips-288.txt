@@ -57,8 +57,11 @@ variable. A user can continue typing jgs until all the getters/setters have
 been generated.
 
 PLUGINS  *vwt-288-plugins*
-    - The java_getset.vim [https://www.vim.org/scripts/script.php?script_id=490] script makes it dead simple to auto generate getters and setters, plus its easy to install and configure.
-    - lh-refactor [http://code.google.com/p/lh-vim/wiki/lhRefactor] handles getters and setters among other refactorings (and languages)
+    - The java_getset.vim [https://www.vim.org/scripts/script.php?script_id=490] 
+      script makes it dead simple to auto generate getters and setters, plus its 
+      easy to install and configure. 
+    - lh-refactor [http://code.google.com/p/lh-vim/wiki/lhRefactor] handles getters 
+      and setters among other refactorings (and languages) 
 
 
 COMMENTS  *vwt-288-comments*

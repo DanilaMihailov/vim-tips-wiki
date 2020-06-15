@@ -20,13 +20,13 @@ For example:
 <
 
 You can create the complete string table by:
-    - Marking the lines containing the complete typedef enum.
-    - Selecting menu C/C++.transform enum2Stringtab
+    - Marking the lines containing the complete typedef enum. 
+    - Selecting menu C/C++.transform enum2Stringtab 
 
 
 You can create string table entries by:
-    - Marking the lines within the typedef enum
-    - Selecting menu C/C++.transform enum2String
+    - Marking the lines within the typedef enum 
+    - Selecting menu C/C++.transform enum2String 
 
 
 This makes it easy to keep the enum (on changes) consistent to the string 

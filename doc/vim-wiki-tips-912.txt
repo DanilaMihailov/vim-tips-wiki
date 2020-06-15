@@ -18,8 +18,8 @@ removes the character trigering the expansion. JAVA_insert_p is a predicate
 which checks whether we are typing a String or not.
 
 JAVA_replace executes name or repl:
-    -  name is a short String being executed, if you are in a String.
-    -  repl is to be executed, when you want your expansion.
+    - name is a short String being executed, if you are in a String. 
+    - repl is to be executed, when you want your expansion. 
 
 
 >

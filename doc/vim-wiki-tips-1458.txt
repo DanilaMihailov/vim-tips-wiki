@@ -27,13 +27,16 @@ One might wonder why these mappings would be useful, since there are so many
 other ways to move quickly. These mappings have some advantages, however. For 
 example, if you use 'w' or 'b' to move, the cursor jumps unevenly, so you 
 must:
-    - Press it somewhat slowly as your eye tracks where the cursor moves with each press; or
-    - Count (or estimate) the number of words to jump, press the key sequence, then correct any mistake you made.
+    - Press it somewhat slowly as your eye tracks where the cursor moves with each 
+      press; or 
+    - Count (or estimate) the number of words to jump, press the key sequence, then 
+      correct any mistake you made. 
 
 
 Another option is to use 'f<char>' (followed by ';'), but this is a similar 
 case:
-    - Find a character close to where you want to go (e.g. h), press 'fh', and keep pressing ';' until you get close by.
+    - Find a character close to where you want to go (e.g. h), press 'fh', and keep 
+      pressing ';' until you get close by. 
 
 
 All three options require the eye to actively track the cursor and/or the 

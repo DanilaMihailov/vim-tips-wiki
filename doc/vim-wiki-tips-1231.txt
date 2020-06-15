@@ -64,8 +64,10 @@ This command detects and sets the indent options when a new file is opened
 
 The following setup performs all the required steps whenever a Python file is 
 opened.
-    - Place vindent.py in your .vim (Unix based systems) or vimfiles (Windows) directory.
-    - Create an after/ftplugin/python.vim file with the following contents. On Windows systems, change .vim to vimfiles.
+    - Place vindent.py in your .vim (Unix based systems) or vimfiles (Windows) 
+      directory. 
+    - Create an after/ftplugin/python.vim file with the following contents. On 
+      Windows systems, change .vim to vimfiles. 
 
 
 >

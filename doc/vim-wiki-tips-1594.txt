@@ -87,14 +87,16 @@ removal only left of the cursor.
 <
 
 REFERENCES  *vwt-1594-references*
-    - :help  |c_CTRL-N|
-    - :help  |c_CTRL-P|
-    - :help  |compl-filename|
-    - :help 'isfname'
+    - :help |c_CTRL-N| 
+    - :help |c_CTRL-P| 
+    - :help |compl-filename| 
+    - :help 'isfname' 
 
 
 RELATED PLUGINS  *vwt-1594-related-plugins*
-    -  CmdlineSpecialEdits.vim [https://www.vim.org/scripts/script.php?script_id=5865] has a CTRL-BS mapping that has been inspired by this Wiki page
+    - CmdlineSpecialEdits.vim 
+      [https://www.vim.org/scripts/script.php?script_id=5865] has a CTRL-BS mapping 
+      that has been inspired by this Wiki page 
 
 
 COMMENTS  *vwt-1594-comments*

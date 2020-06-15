@@ -12,8 +12,8 @@ arise on Unix-based systems because of the wide variety of hardware and
 software involved.
 
 TO DO
-    - Following is a rough merge from some mysterious tips.
-    - Need to reword and clarify what each is talking about.
+    - Following is a rough merge from some mysterious tips. 
+    - Need to reword and clarify what each is talking about. 
 
 
 BACKSPACE KEY WON'T MOVE FROM CURRENT LINE  *vwt-1284-backspace-key-won't-move-from-current-line*
@@ -116,7 +116,7 @@ And add put this mapping into your .vimrc:
 <
 
 SEE ALSO  *vwt-1284-see-also*
-    - Fix broken arrow key navigation in insert mode |vwt-1290| cursor key problems
+    - Fix broken arrow key navigation in insert mode |vwt-1290| cursor key problems 
 
 
 COMMENTS  *vwt-1284-comments*
@@ -124,8 +124,8 @@ COMMENTS  *vwt-1284-comments*
 Might want to add following info somewhere in tip:
 
 On many Linux systems, running in an xterm window:
-    - Backspace key emits <BS> (8 or ^H)
-    - Ctrl-Backspace key combination emits <Del> (127 or ^?)
+    - Backspace key emits <BS> (8 or ^H) 
+    - Ctrl-Backspace key combination emits <Del> (127 or ^?) 
 
 
 I got it to work on my system by creating a .vimrc file in the home directory 
