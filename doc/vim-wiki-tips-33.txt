@@ -1,0 +1,55 @@
+*vim-wiki-tips-33.txt*   Toggle off the line-number when enter on-line help *vwt-33*
+
+
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 33 [https://vim.fandom.com/wiki/Toggle_off_the_line-number_when_enter_on-line_help]   Previous |vwt-32| Next |vwt-34|
+
+created March 7, 2001 · complexity intermediate · author slimzhao · version 
+5.7
+
+==============================================================================
+
+':set nu' enables line-numbering. Before version 7, it also shows in the 
+on-line help which is not useful. This autocommand disables it for the help in 
+older vim.
+
+>
+    :au filetype help :se nonu
+<
+
+COMMENTS  *vwt-33-comments*
+
+This is done by default in vim 7
+
+I find it at least educational. And I would not be as strict for older 
+versions. And please sign your comments, John :-) bastl 
+[https://vim.fandom.com/wiki/User:Bastl] 08:59, 26 July 2007 (UTC)
+
+==============================================================================
+
+I think it is entirely too specific. I am not sure how to edit the title but 
+a much better title would be Running COmmands Automatically for a Given File 
+Type --Ojblass [https://vim.fandom.com/wiki/User:Ojblass] 02:06, 31 March 2009 
+(UTC)
+
+==============================================================================
+
+I like the specificity and think it's needed because people google for 
+specifics...when a specific problem comes up. However, "Running Commands 
+Automatically for a Given File Type" would be an excellent topic to have 
+linking off of these specific questions so that the pattern becomes clear. 
+This wikia needs to allow cut and paste on the commentary for viewers. --March 
+3, 2012
+
+Please see Disable beeping#Comments where I just replied that copying text from the tips works well. JohnBeckett 00:51, March 4, 2012 (UTC)

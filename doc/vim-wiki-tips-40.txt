@@ -1,0 +1,64 @@
+*vim-wiki-tips-40.txt*   Insert a file *vwt-40*
+
+Tip 40 [https://vim.fandom.com/wiki/Insert_a_file]   Previous |vwt-39| Next |vwt-41|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+Use the :read command to insert a file, or the output from a system command, 
+into the current buffer. Examples:
+
+>
+    :r foo.txt    Insert the file foo.txt below the cursor.
+    :0r foo.txt   Insert the file foo.txt before the first line.
+    :r !ls        Insert a directory listing below the cursor.
+    :$r !pwd      Insert the current working directory below the last line.
+<
+
+On Windows, the last two commands would be:
+
+>
+    :r !dir
+    :$r !cd
+<
+
+REFERENCES  *vwt-40-references*
+    - :help  |:read|
+    - :help  |cmdline-ranges|
+    - :help  |:!cmd|
+
+
+COMMENTS  *vwt-40-comments*
+
+Don't know the path to perl (for #!/.../perl)?
+
+>
+    :r !which perl
+<
+
+==============================================================================
+
+I now no longer need to use "append system" code in my scripts. I used to use 
+code like:
+
+>
+    call append(line("."), system(l:cmd))
+<
+
+And because this puts the entire results of the system command on a single 
+line separated by ^@, I need to split the lines up:
+
+>
+    silent! exec "%s/\<CR>/\<CR>/g"
+    silent! exec "%s/\<NL>/\<CR>/g"
+<
+
+The worst thing was when the results were really large (try running %s on a 
+single 6Mb line... not pleasant)I can now just use
+
+>
+    exec "r !".l:cmd
+<
+
+==============================================================================

@@ -1,0 +1,58 @@
+*vim-wiki-tips-24.txt*   Changing the default syntax highlighting *vwt-24*
+
+Tip 24 [https://vim.fandom.com/wiki/Changing_the_default_syntax_highlighting]   Previous |vwt-23| Next |vwt-25|
+
+created 2001 · complexity intermediate · version 6.0
+
+==============================================================================
+
+Vim provides syntax files that can provide syntax coloring or folding for 
+certain types of files. This tip discusses how to change some features of the 
+standard syntax files to suit a personal preference. Do not change any of the 
+files distributed with Vim because such updates will be lost when Vim is 
+updated. Instead, use the techniques discussed here.
+
+DOCUMENTATION  *vwt-24-documentation*
+
+Here are some pointers to the Vim documentation on syntax highlighting.
+    - I want *.foo files to be highlighted like HTML files: :help  |new-filetype|
+    - I want to define a syntax file for *.bar files. Read the above and also: :help  |mysyntaxfile|
+    - I want to make a few changes to the existing syntax highlighting: :help  |mysyntaxfile-add|
+    - I want to change some of the colors from their defaults. Again, read :help  |mysyntaxfile|
+
+
+PYTHON TRIPLE-QUOTED COMMENTS  *vwt-24-python-triple-quoted-comments*
+
+In Vim 7.3 the file vim73/syntax/python.vim provides syntax highlighting for 
+Python files. That file (correctly) treats """...""" as a string and 
+highlights it accordingly. If you prefer, instances of """...""" or '''...''' 
+that start on the line following a line ending with a colon can be treated as 
+a comment. To do that, create file python.vim in your "after" syntax directory 
+as in the following. The next Python file you open should treat triple-quoted 
+doc strings in functions as comments (assuming your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] includes commands like filetype indent 
+plugin on and syntax on).
+
+Add the following to file ~/.vim/after/syntax/python.vim (Unix) or 
+$HOME/vimfiles/after/syntax/python.vim (Windows)—you may need to create the 
+directories and the file.
+
+>
+    syn region pythonComment
+          \ start=+\%(:\n\s*\)\@<=\z('''\|"""\)+ end=+\z1+ keepend
+          \ contains=pythonEscape,pythonTodo,@Spell
+<
+
+COMMENTS  *vwt-24-comments*
+
+This tip is vaguely related:
+    - 1120 Remove annoyance with syntax highlighting when starting a string |vwt-1120|
+
+
+CHANGING SYNCOLOR.VIM  *vwt-24-changing-syncolor.vim*
+
+It is possible to replace Vim's syncolor.vim file to customise syntax 
+highlighting. :help |syncolor| See Highlight special filetype docs 
+[https://vim.fandom.com/wiki/Highlight_special_filetype_docs] which includes a 
+comment that a syncolor.vim alternative is available here 
+[https://vim.fandom.com/wiki/User:Donald_j_axel/syncolor]. --March 9, 2013

@@ -1,0 +1,103 @@
+*vim-wiki-tips-46.txt*   Where to download Vim *vwt-46*
+
+Tip 1578 [https://vim.fandom.com/wiki/Where_to_download_Vim]   Previous |vwt-1577| Next |vwt-1579|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Where_to_download_Vim] 
+2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+This tip outlines some recommended procedures for downloading a Vim 
+executable (that is, a program you can run). Alternatively, you can download 
+the Vim source and build your own Vim 
+[https://vim.fandom.com/wiki/Building_Vim].
+
+WINDOWS  *vwt-46-windows*
+
+Which version of Vim should I use?
+    -  I want the newest Vim builds, I could live with relatively untested features.
+    -  Nightly snapshot builds are available at the vim-win32-installer repository [https://github.com/vim/vim-win32-installer].
+    - You can try http://tuxproject.de/projects/vim [http://tuxproject.de/projects/vim] , supports both x86 (32-bit) and x64 (64-bit) architectures, compiled with Xpm and DirectX support, provides "huge" feature set and scripting interfaces for Tcl, Python 2, Python 3, Ruby, Lua, Racket, and Perl
+
+    - I want a more stable but still up-to-date Vim, without compiling it myself.
+
+Get Vim without Cream: The easiest and best solution for Windows users on 32-bit systems is to use the standard Vim at http://sourceforge.net/projects/cream/files/Vim/. This lags behind the nightly builds a little to wait for any issues to be found.
+Under "Newest Files" near the top of the list, there should be a file with a name like gvim-7-4-560.exe(Vim without Cream, version 7.4.560 = 7.4 with patches 1–560).
+The release notes are also available; they show the output of the Vim :versioncommand which includes what features are in the build.
+Click the most recent gvim-7-4-xxx.exe to download.
+Run the downloaded installer and accept the license agreement.
+On the Choose Components window, expand "Icons, menus and shortcuts".
+If you want an "Edit with Vim" item in Explorer's right-click menu, check the box for "Add Contextual Menu".
+Finish the install.
+It installs a patched standard gvim.exe (GUI) and vim.exe (console), with all help and runtime files.
+All installed files are "standard" Vim (the installers named cream-xxx.exe are for a special "Vim with Cream" version).
+Includes interfaces for Lua, MzScheme, Perl, Python, Tcl. Ruby 1.8 support was included up until version 7.3.289. More recent versions no longer include Ruby support.
+See "Vim without Cream problems" below.
+    - I'm using 32-bit Windows.
+    - kybu Windows build available at https://bitbucket.org/kybu/vim-for-windows-single-drop [https://bitbucket.org/kybu/vim-for-windows-single-drop] This includes support for Ruby, Python, Perl, Lua, libiconv and vimproc. All third-party dependencies (e.g. Python DLL) are included in this one installer.
+
+    - I'm using 64-bit Windows.
+    - You can probably use the Vim without Cream install mentioned above. The Cream build is better tested and supported than current 64-bit distributions.
+    - You can try http://tuxproject.de/projects/vim [http://tuxproject.de/projects/vim] , supports both x86 (32-bit) and x64 (64-bit) architectures, compiled with Xpm and DirectX support, provides "huge" feature set and scripting interfaces for Tcl, Python 2, Python 3, Ruby, Lua, Racket, and Perl
+
+
+
+While the 32-bit Vim should suffice for most users as mentioned, there are a few reasons why a 64-bit Vim is preferable to a 32-bit version on 64-bit systems:
+ Editing files >4GB in size.
+ 64-bit WinPE does not have a WOW64 subsystem, hence you cannot run a 32-bit executable.
+ Windows Server 2008 R2 (i.e. Win7 Server) also does not have the WOW64 subsystem, by default, although it is an optional component you can install.
+ Potential for performance gains, particularly in heavy memory operations like memcpy and memcmp which can be optimized for the 64-bit word size.
+Getting 32-bit Vim into a 64-bit "Edit with Vim" context menu entry is tricky.
+    - I want standard Vim (source code to compile for all platforms, or unpatched Windows executables).
+
+Available at http://www.vim.org/download.php
+    - I want an easy-to-use configuration for Windows with common menus and standard keyboard shortcuts.
+
+Cream for BSD, Linux and Windows is available at http://cream.sourceforge.net/download.html
+Click "Windows ... One-click installer, includes both Vim and Cream".
+You will download a file with a name like cream-0-42-gvim-7-2-245.exe(Cream version 0.42 with gvim version 7.2.245 = 7.2 with patches 1–245).
+
+
+VIM WITHOUT CREAM PROBLEMS  *vwt-46-vim-without-cream-problems*
+
+"Vim without Cream", as described above, is the best Vim for 32-bit Windows 
+(without compiling it yourself). This section documents known problems.
+    - The release notes show that it is built with feature +ole which means that it will try to load the OLE interface DLL each time it starts, which would be irritating if you just wanted to run Vim on another computer without bothering to install Vim.
+    - The format of the Sourceforge page occasionally changes and the instructions given above may not exactly match what you see. For standard Vim and gvim without Cream, look for the highest version of the gvim-7-4-xxx.exe file.
+    - In the past, the Sourceforge page required that scripting be enabled in your browser, and, near the bottom of the file list, you had to click "+" next to "Vim" to expand the list of files.
+
+
+MACINTOSH  *vwt-46-macintosh*
+
+See the versions at http://www.vim.org/download.php#mac 
+[http://www.vim.org/download.php#mac]
+
+LINUX/UNIX  *vwt-46-linux/unix*
+
+Linux distributions by default often include a stripped-down version of Vim 
+without scripting or GUI (aliased to command vi or vim). Use your 
+distribution's package manager to install the full-featured Vim version. The 
+relevant package names are usually in the form vim-* .
+
+For Debian and Ubuntu-based Linux distributions:
+
+# apt-get install vim-gtk
+
+For Fedora:
+
+# yum install vim-enhanced vim-X11
+
+Beware that installing distribution's Vim package usually adds a system-wide 
+customization of Vim via .vimrc, .gvimrc, .virc, etc. You may want to examine 
+locations of system .vimrc files in the output of :version and to check what 
+gets sourced on Vim startup with :scriptnames. In case of Debian vim-gtk 
+package, the system-wide customization starts in /etc/vim/ and the actual 
+settings are in /usr/share/vim/vim74/debian.vim or similar.
+
+Your distribution's package for installing Vim may be very out of date, or it 
+may not have the right Vim features. You may get a better result by 
+downloading the source and building your own Vim because it is very easy to 
+build your own Vim [https://vim.fandom.com/wiki/Building_Vim].
+
+COMMENTS  *vwt-46-comments*

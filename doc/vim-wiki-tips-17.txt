@@ -1,0 +1,33 @@
+*vim-wiki-tips-17.txt*   Erasing previously entered characters in insert mode *vwt-17*
+
+Tip 17 [https://vim.fandom.com/wiki/Erasing_previously_entered_characters_in_insert_mode]   Previous |vwt-16| Next |vwt-18|
+
+created February 24, 2001 · complexity basic · author Yegappan · version 5.7
+
+==============================================================================
+
+In insert mode, to allow the backspace key to erase previously entered 
+characters, autoindent, and newlines, set the following option:
+
+>
+    :set backspace=indent,eol,start
+<
+
+Or:
+
+>
+    :set backspace=2
+<
+
+By default this option is empty, not allowing you to backspace over 
+characters that weren't entered during the current insert mode session, the 
+automatically inserted indentation, or across line breaks. This is the 
+standard vi behavior.
+
+REFERENCES  *vwt-17-references*
+    - :help 'backspace'
+
+
+COMMENTS  *vwt-17-comments*
+
+Good work!

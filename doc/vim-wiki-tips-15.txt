@@ -1,0 +1,23 @@
+*vim-wiki-tips-15.txt*   Displaying status line always *vwt-15*
+
+Tip 15 [https://vim.fandom.com/wiki/Displaying_status_line_always]   Previous |vwt-14| Next |vwt-16|
+
+created February 24, 2001 · complexity basic · author Yegappan · version 5.7
+
+==============================================================================
+
+To display the status line always, set the following option in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    :set laststatus=2
+<
+
+The advantage of having the status line displayed always is, you can see the 
+current mode, file name, file status, ruler, etc.
+
+REFERENCES  *vwt-15-references*
+    - :help 'laststatus'
+
+
+COMMENTS  *vwt-15-comments*

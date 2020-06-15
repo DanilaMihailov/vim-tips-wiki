@@ -1,0 +1,105 @@
+*vim-wiki-tips-28.txt*   Insert line numbers *vwt-28*
+
+Tip 28 [https://vim.fandom.com/wiki/Insert_line_numbers]   Previous |vwt-27| Next |vwt-29|
+
+created 2001 · complexity intermediate · version 7.0
+
+==============================================================================
+
+The :set number command displays line numbers. This tip, however, shows how 
+to insert line numbers into a file, or into just a section. Also, the option 
+to print with line numbers is given (Vim can print lines with numbers, and 
+does not need the numbers in the file).
+
+USING VIM  *vwt-28-using-vim*
+
+The :s [https://vim.fandom.com/wiki/Search_and_replace] command can be used 
+to insert line numbers before each line:
+
+>
+    :%s/^/\=printf('%-4d', line('.'))
+<
+
+The pattern ^ matches the start of every line, and the replacement \= is the 
+result of evaluating the following expression. That expression uses printf() 
+to format the number of the current line: %-4d is a left-aligned decimal 
+number, padded if necessary by adding spaces to a 4-column width (%4d is 
+right-aligned, and %04d inserts leading zeroes).
+
+To number a section, specify which lines should be numbered with a range 
+[https://vim.fandom.com/wiki/Ranges]. For example, press V to select the first 
+line, then press j to extend the selection down until all required lines are 
+selected. Then type the following command (do not type '<,'> as that is 
+inserted by Vim):
+
+>
+    :'<,'>s/^/\=printf("%d.\t", line(".") - line("'<") + 1)
+<
+
+The above example has a format string of "%d.\t" which inserts a left-aligned 
+number, followed by a period and a tab character. Each line in the selected 
+range is numbered. Use the following if you want to only number non-blank 
+lines (it finds the start of a line followed by a character that is not 
+whitespace):
+
+>
+    :'<,'>s/^\S/\=printf("%d.\t", line(".") - line("'<") + 1)
+<
+
+In the above, blank lines are counted, but do not have a number inserted (the 
+inserted numbers would be 1, 2, 3, 5, 6 if line 4 was blank).
+
+The following alternative does not number blank lines and does not skip line 
+numbers:
+
+>
+    :'<,'>g/^\S/s/^/\=printf("%d.\t", Inc())
+<
+
+The above requires the Inc() function from here 
+[https://vim.fandom.com/wiki/Making_a_list_of_numbers]. In addition, you need 
+to set the value for the first line number before selecting any lines. To do 
+that enter:
+
+>
+    :let i = 1
+<
+
+USING NL  *vwt-28-using-nl*
+
+On Unix based systems, the number lines utility can be used to insert numbers 
+by filtering the whole buffer:
+
+>
+    :%!nl -ba
+<
+
+The nl utility has many options to control which lines are numbered and how 
+the numbers are formatted.
+
+To number a section, specify which lines should be numbered with a range 
+[https://vim.fandom.com/wiki/Ranges]. For example, press V to select the first 
+line, then press j to extend the selection down until all required lines are 
+selected. Then type :!nl -ba. You will see (the '<,'> is inserted by Vim):
+
+>
+    :'<,'>!nl -ba
+<When using the nl utility up to 6 leading spaces will be added by default, and the number will be separated from the line content by a single tab character. To reduce the leading spaces to 2 (for numbering up to 99) and to replace the separator with '. ' you can use the following flags:
+
+>
+    :'<,'>!nl -s '. ' -w 2
+<
+
+PRINTING WITH LINE NUMBERS  *vwt-28-printing-with-line-numbers*
+
+There is no need to insert line numbers if all that is wanted is to have 
+lines numbered in a printout. Instead, use the following command to tell Vim 
+to insert line numbers on printing (change y to n to turn this off):
+
+>
+    :set printoptions=number:y
+<
+
+COMMENTS  *vwt-28-comments*
+
+Insert line numbers with a Perl filter |vwt-569| is another method.

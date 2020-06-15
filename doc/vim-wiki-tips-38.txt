@@ -1,0 +1,276 @@
+*vim-wiki-tips-38.txt*   Move cursor by display lines when wrapping *vwt-38*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 38 [https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping]   Previous |vwt-37| Next |vwt-39|
+
+created 2001 · complexity basic · author ktohg · version 5.7
+
+==============================================================================
+
+The command :set wrap lbr will wrap long lines between words.
+
+However, when you move the cursor down (or up), the cursor will jump from one 
+physical line to the next. You can press j to move down one physical line, or 
+gj to move down one displayed line.
+
+To make it easy, you could put the following in your vimrc file. Then press 
+\w to toggle wrapping on or off (that's a backslash then w, assuming the 
+default Leader key). When wrap is on, the cursor movement keys are mapped to 
+move by display lines.
+
+>
+    noremap <silent> <Leader>w :call ToggleWrap()<CR>
+    function ToggleWrap()
+      if &wrap
+        echo "Wrap OFF"
+        setlocal nowrap
+        set virtualedit=all
+        silent! nunmap <buffer> <Up>
+        silent! nunmap <buffer> <Down>
+        silent! nunmap <buffer> <Home>
+        silent! nunmap <buffer> <End>
+        silent! iunmap <buffer> <Up>
+        silent! iunmap <buffer> <Down>
+        silent! iunmap <buffer> <Home>
+        silent! iunmap <buffer> <End>
+      else
+        echo "Wrap ON"
+        setlocal wrap linebreak nolist
+        set virtualedit=
+        setlocal display+=lastline
+        noremap  <buffer> <silent> <Up>   gk
+        noremap  <buffer> <silent> <Down> gj
+        noremap  <buffer> <silent> <Home> g<Home>
+        noremap  <buffer> <silent> <End>  g<End>
+        inoremap <buffer> <silent> <Up>   <C-o>gk
+        inoremap <buffer> <silent> <Down> <C-o>gj
+        inoremap <buffer> <silent> <Home> <C-o>g<Home>
+        inoremap <buffer> <silent> <End>  <C-o>g<End>
+      endif
+    endfunction
+<
+
+COMMENTS  *vwt-38-comments*
+
+You can add the following to get the `standard keys' to work:
+
+>
+    noremap <silent> k gk
+    noremap <silent> j gj
+    noremap <silent> 0 g0
+    noremap <silent> $ g$
+<
+
+==============================================================================
+
+If you copy the code from the tip into your vimrc file, make sure that you 
+delete trailing spaces from each line, AND that you put the new code near the 
+bottom of the vimrc file. If the code is near the top of vimrc, something 
+coming after it might redefine those keys.
+
+==============================================================================
+
+Unfortunately, this tip breaks the movement commands in conjunction with 
+other commands. For example, d<Down> will no longer delete two lines but 
+delete from the cursor tothe position in the next line.
+
+But you can still use j to move down by a physical line, and dj will do what you want.
+ 
+ You can avoid this by mapping the keys in the operator-pending mode as well:
+
+>
+    onoremap <silent> j gj
+    onoremap <silent> k gk
+<
+
+==============================================================================
+
+Additional care is required to not break Omnicompletion when remapping arrow 
+keys. I have yet to find where this breaks:
+
+>
+    function! NoremapNormalCmd(key, preserve_omni, ...)
+      let cmd = ''
+      let icmd = ''
+      for x in a:000
+        let cmd .= x
+        let icmd .= "<C-\\><C-O>" . x
+      endfor
+      execute ":nnoremap <silent> " . a:key . " " . cmd
+      execute ":vnoremap <silent> " . a:key . " " . cmd
+      if a:preserve_omni
+        execute ":inoremap <silent> <expr> " . a:key . " pumvisible() ? \"" . a:key . "\" : \"" . icmd . "\""
+      else
+        execute ":inoremap <silent> " . a:key . " " . icmd
+      endif
+    endfunction
+    
+    " Cursor moves by screen lines
+    call NoremapNormalCmd("<Up>", 1, "gk")
+    call NoremapNormalCmd("<Down>", 1, "gj")
+    call NoremapNormalCmd("<Home>", 0, "g<Home>")
+    call NoremapNormalCmd("<End>", 0, "g<End>")
+    
+    " PageUp/PageDown preserve relative cursor position
+    call NoremapNormalCmd("<PageUp>", 0, "<C-U>", "<C-U>")
+    call NoremapNormalCmd("<PageDown>", 0, "<C-D>", "<C-D>")
+<
+
+==============================================================================
+
+TODO: On Windows, if you use the above to wrap, you can then press Shift+Down 
+or Shift+Up to perform a selection. However, after releasing the Shift key, 
+moving the cursor up/down does not exit from selection mode. Can that be 
+fixed?
+
+==============================================================================
+
+TODO: Following is the original tip. Is there anything below which needs to 
+be kept, or should it all be deleted?
+
+If you're tired of the cursor jumping past 5 lines when :set wrap then add 
+these mappings to your vimrc file.
+
+>
+    nnoremap j gj
+    nnoremap k gk
+    vnoremap j gj
+    vnoremap k gk
+    nnoremap <Down> gj
+    nnoremap <Up> gk
+    vnoremap <Down> gj
+    vnoremap <Up> gk
+    inoremap <Down> <C-o>gj
+    inoremap <Up> <C-o>gk
+<
+
+What they do is remap the cursor keys to use there `g' equvilant. See :help 
+|gj|I added support for visual mode while in wrap mode. To remove this, you 
+can just remove any line starting with 'vnoremap' or 'vunmap'
+
+==============================================================================
+
+To enable/disable the key mappings with wrap:
+
+>
+    nnoremap <silent> c :call ChooseWrap()<CR>
+    function ChooseWrap()
+      let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
+      if l:choice==1
+        if &wrap
+          call DisableDisplayWrapping()
+        else
+          call EnableDisplayWrapping()
+        endif
+      endif
+    endfunction
+    
+    function EnableDisplayWrapping()
+      if !&wrap
+        setlocal wrap
+        " don't skip wrapped lines
+        nnoremap <buffer> <Up> gk
+        nnoremap <buffer> <Down> gj
+        inoremap <buffer> <Up> <C-O>gk
+        inoremap <buffer> <Down> <C-O>gj
+        vnoremap <buffer> <Up> gk
+        vnoremap <buffer> <Down> gj
+      endif
+    endfunction
+    
+    function DisableDisplayWrapping()
+      if &wrap
+        setlocal nowrap
+        nunmap <buffer> <Up>
+        nunmap <buffer> <Down>
+        iunmap <buffer> <Up>
+        iunmap <buffer> <Down>
+        vunmap <buffer> <Up>
+        vunmap <buffer> <Down>
+      endif
+    endfunction
+<
+
+(if you hit 'c' in command mode, it'll pop up a menu asking if you want to 
+toggle wrapping - you could obviously change this slightly to have it ask you 
+if you would like to enable or disable wrapping)
+
+==============================================================================
+
+I found the following to work pretty nicely. It maps movements per-screen 
+(using the 'g' prefix) only when in wrap mode.
+
+I added support while in wrap is set for visual selections. If you want to 
+remove this, just remove any of the lines below that begin with the word 
+'vnoremap'.
+
+Put the following in your vimrc:
+
+>
+    " mapping to make movements operate on 1 screen line in wrap mode
+    function! ScreenMovement(movement)
+      if &wrap && b:gmove == 'yes'
+        return "g" . a:movement
+      else
+        return a:movement
+      endif
+    endfunction
+    onoremap <silent> <expr> j ScreenMovement("j")
+    onoremap <silent> <expr> k ScreenMovement("k")
+    onoremap <silent> <expr> 0 ScreenMovement("0")
+    onoremap <silent> <expr> ^ ScreenMovement("^")
+    onoremap <silent> <expr> $ ScreenMovement("$")
+    nnoremap <silent> <expr> j ScreenMovement("j")
+    nnoremap <silent> <expr> k ScreenMovement("k")
+    nnoremap <silent> <expr> 0 ScreenMovement("0")
+    nnoremap <silent> <expr> ^ ScreenMovement("^")
+    nnoremap <silent> <expr> $ ScreenMovement("$")
+    vnoremap <silent> <expr> j ScreenMovement("j")
+    vnoremap <silent> <expr> k ScreenMovement("k")
+    vnoremap <silent> <expr> 0 ScreenMovement("0")
+    vnoremap <silent> <expr> ^ ScreenMovement("^")
+    vnoremap <silent> <expr> $ ScreenMovement("$")
+    vnoremap <silent> <expr> j ScreenMovement("j")
+    " toggle showbreak
+    function! TYShowBreak()
+      if &showbreak == ''
+        set showbreak=>
+      else
+        set showbreak=
+      endif
+    endfunction
+    let b:gmove = "yes"
+    function! TYToggleBreakMove()
+      if exists("b:gmove") && b:gmove == "yes"
+        let b:gmove = "no"
+      else
+        let b:gmove = "yes"
+      endif
+    endfunction
+    nmap  <expr> ,b  TYShowBreak()
+    nmap  <expr> ,bb  TYToggleBreakMove()
+<
+
+==============================================================================
+
+Also to select displayed lines using shift + home/end/arrow-keys:
+
+>
+    noremap <buffer> <silent> <S-Home>  vg<Home>o<S-Right>o
+    noremap <buffer> <silent> <S-End>  vg<End>
+    noremap <buffer> <silent> <S-Up>  vgk
+    noremap <buffer> <silent> <S-Down>  vgj
+    inoremap <buffer> <silent> <S-Home>  <C-o>vg<Home>o<S-Right>o
+    inoremap <buffer> <silent> <S-End>  <C-o>vg<End>
+    inoremap <buffer> <silent> <S-Up>  <C-o>vgk
+    inoremap <buffer> <silent> <S-Down>  <C-o>vgj
+<
+
+==============================================================================

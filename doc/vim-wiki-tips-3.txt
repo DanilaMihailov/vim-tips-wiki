@@ -1,0 +1,263 @@
+*vim-wiki-tips-3.txt*   Compile Java with Jikes *vwt-3*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 3 [https://vim.fandom.com/wiki/Compile_Java_with_Jikes]   Previous |vwt-2| Next |vwt-4|
+
+created 2001 · complexity advanced · author scott · version 5.7
+
+==============================================================================
+
+Here is how you use Vim to compile your Java on PCs.
+
+1. While I'm sure this works with javac, javac is slow slow slow. So download 
+the Jikes compiler first. (Jikes is from IBM, search on Google for jikes and 
+you will find it.)
+
+2. Add the following to your vimrc:
+
+>
+    set makeprg=jikes\ -nowarn\ -Xstdout\ +E\ %
+    set errorformat=%f:%l:%c:%*\\d:%*\\d:%*\\s%m
+<
+
+3. When you are editing a java file type :make and it will compile the 
+current file and jump you to the first error in the file (if any). Read :help 
+|quickfix| for how to move between errors.
+
+To setup your classpath environment either launch gvim from a shell that has 
+your classpath/path setup or use the "let" command to configure it in your 
+vimrc.
+
+REFERENCES  *vwt-3-references*
+    - :help  |quickfix|
+    - :help 'efm'
+    - :help 'makeprg'
+
+
+COMMENTS  *vwt-3-comments*
+
+You also may want to try using ant as your makeprg as follows:
+
+>
+    set makeprg=ant.bat " Use ant as the makefile (remove .bat on *nix machines)
+<
+
+You can get ant from reference below. Then set your errorformat to:
+
+>
+    "For ant (http://jakarta.apache.org/) the above errorformat has to be modified
+    "to honour the leading [javac] in front of each javac output line:
+    set errorformat=%A%*\s%[javac%\] %f:%l: %m,%Z%*\s%[javac%\] symbol%*\s: %m
+<
+
+Put both of these in your .vimrc, use the :cn and :cp commands and have fun.
+
+==============================================================================
+
+Another quick way of getting :make to work with ant is to add the following 
+line to your .vimrc file
+
+>
+    makeprg=ant\ -emacs
+<
+
+The -emacs option converts Java formatted error messages to C-like error 
+messages. This way you don't have to mess with the errorformat (efm) string 
+(which I was never able to get to work).
+
+==============================================================================
+
+None of the solutions above let you specify a classpath for jikes. I 
+currently have the following in my .vimrc:
+
+>
+    set makeprg=jikes\ -nowarn\ -Xstdout\ +E\ -classpath\ $CLASSPATH\ %
+    set errorformat=%f:%l:%c:%*\\d:%*\\d:%*\\s%m
+<
+
+However, the $CLASSPATH isn't expanded. Is there some trick to this?
+
+==============================================================================
+
+Use the following to expand $CLASSPATH
+
+>
+    <C-R>=$CLASSPATH<CR>
+<
+
+==============================================================================
+
+I'm using "slow" ;) javac too. I have only this in my .vimrc:
+
+linux:
+
+>
+    set makeprg=javac\ %
+    set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+<
+
+win:
+
+>
+    set makeprg=cmd\ /c\ \"cmd\ \/c\ javac\ %\ 2>&1\"
+    errorformat is the same
+<
+
+==============================================================================
+
+On the windows machine... the following worksDownload stderr from 
+http://www.teaser.fr/~amajorel/stderr/ 
+[http://www.teaser.fr/~amajorel/stderr/] and add it to your path
+
+>
+    set shell=cmd
+    set makeprg=stderr\ javac\ %
+    set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+<
+
+To browse through the errors use
+
+>
+    :cl
+    :cn
+    :cp
+<
+
+==============================================================================
+
+I use ant for full builds, but when I am refactoring, and thus compiling 
+small changes frequently, ant is way too slow. When compiling frequently I 
+want to use jikes directly, so I have this in my .vimrc (note that makejhess 
+is simply a script that executes ant with the right command line options for 
+me for me):
+
+>
+    nmap <F6> :set makeprg=jikes\ -d\ $JHESS_HOME/build\ -deprecation\ -Xstdout\ +E\ % <CR> :make <CR> :set makeprg=makejhess <CR> :cc <CR>
+<
+
+Thus hitting F6 changes my makeprg to jikes, executes jikes, and then 
+switches makeprg back to ant. It takes less than a second to build my project 
+with jikes. It take roughly 4 seconds to build it with ant, so I get a huge 
+speed up!
+
+==============================================================================
+
+Some of you might have had problems setting up SUN's software to work with 
+VIM correctly with WIN32. As far as compilation is concerned, most of the 
+problems have been solved (mentioned above). However, I had problems whenever 
+I tried to create a mapping allowing me to "execute" my new classes. Typing:
+
+>
+    java c:\somejavaprojectsdir\MyCompiledClass
+<
+
+would return an error. However, using
+
+>
+    java -cp c:\somejavaprojectsdir MyCompiledClass
+<
+
+would be okay.
+
+I realized it was good enough, if I changed the working path of the file. One 
+of the tips I found:
+
+>
+    cd %:p:h
+<
+
+So, the final thing was to add something like:
+
+>
+    augroup filetypedetect
+    au BufNewFile,BufRead,BufEnter *.java
+     \ map <F9> :w<CR>:!javac "%"<CR> |
+     \ map <F6> :!java -cp %:p:h %:t:r<CR>
+    augroup END
+<
+
+==============================================================================
+
+Windows 2000 and XP support redirecting stderr.
+
+Just do:
+
+>
+    :set shellpipe=>\ %s\ 2>&1
+<
+
+Then, :make will be expanded to {makeprg} > {errorfile} 2>&1 and you'll see 
+all the output from the make program!
+
+==============================================================================
+
+FYI if you are getting an e40 error (remember, :help |e40|:
+
+>
+    :!jikes +E aka.java > C:/DOCUM~1/dhazel/LOCALS~1/Temp/VIe31f.tmp 2>&1
+    shell returned 1
+    E40: Can't open error file ...
+<
+
+do what the help doc says and check to make sure your mkprg, sh, etc. are all 
+set correctly. This is probably due to a path issue (like to where your shell 
+is).
+
+==============================================================================
+
+This is my script. i think is great because use MAPS and i can see correctly 
+the javac error message:
+
+>
+    set makeprg=javac\ %
+    set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+    colorscheme oceandeep
+    map <F9> :make <CR>
+    map <F6> :!java -cp %:p:h %:t:r<CR>
+<
+
+==============================================================================
+
+The Ant is the tool to compile Java. It is necessary when you compile 
+multiple packages or when you use some .jar libraries.This is how I invoke the 
+Ant:
+
+jikes:
+
+>
+    ant -emacs -Dbuild.compiler=jikes -Dbuild.compiler.emacs=true
+<
+
+javac:
+
+>
+    ant -emacs
+<
+
+ejc:
+
+>
+    ant -emacs -Dbuild.compiler=org.eclipse.jdt.core.JDTCompilerAdapter
+<
+
+And this is my errorformat for the all three compilers:
+
+>
+    set efm=%f:%l:%v:%*\\d:%*\\d:%*\\s%m,%f:%l:%m,%A%*\\d.\ %t%.%#\ in\ %f,%C\ (at\ line\ %l),%-C\ %.%#,%Z%m
+<
+
+Note that there is tab in the last but one format.
+
+==============================================================================
+
+See the second errorformat example at :help |errorformat-javac|.That will 
+print complete javac error report.
+
+==============================================================================

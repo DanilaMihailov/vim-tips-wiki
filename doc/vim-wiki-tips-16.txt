@@ -1,0 +1,112 @@
+*vim-wiki-tips-16.txt*   Avoiding the "Hit ENTER to continue" prompts *vwt-16*
+
+Tip 16 [https://vim.fandom.com/wiki/Avoiding_the_%22Hit_ENTER_to_continue%22_prompts]   Previous |vwt-15| Next |vwt-17|
+
+created 2001 · complexity basic · author Yegappan · version 5.7
+
+==============================================================================
+
+The "Hit ENTER to continue" prompt is displayed when Vim is about to redraw 
+the screen, but there's text on the screen that you might need to read. This 
+happens when something is displayed on the status line that is wider than the 
+window, and after executing an external command.
+
+To reduce how often you see the "Hit ENTER to continue" prompt, you can 
+shorten the messages, increase the space for displaying messages, or even tell 
+Vim not to worry about external command output.
+
+To decrease message size, use the 'shortmess' option. Add the following line 
+to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    :set shortmess=a
+<
+
+This will use abbreviations for status messages to make lines shorter. (There 
+are several other flags for 'shortmess' that can shorten messages even more. 
+:help 'shortmess')
+
+To give more space for displaying messages, you can increase the height of 
+the command line to 2 or greater:
+
+>
+    :set cmdheight=2
+<
+
+The default command height is 1. Increasing cmdheight will allow more room 
+for commands, although it will take some space away from editing.
+
+You can temporarily change the cmdheight to display a prompt for example, and 
+then revert it to its original value. This way, you won't have to hit enter 
+and it won't take space once finished.
+
+Finally, you can use :silent to keep external commands from triggering the 
+"Hit ENTER" prompt:
+
+>
+    :silent !echo Hello
+<
+
+If the command generates any output, you may need to manually refresh the 
+screen once you return to Vim (by typing Ctrl-L or entering :redraw!). If 
+you're running a GUI version of Vim, :silent may keep you from seeing any 
+output from the command at all!To fix the above problem with regular vim, you 
+can use a custom command like this one:
+
+>
+    command! -nargs=1 Silent
+    \   execute 'silent !' . <q-args>
+    \ | execute 'redraw!'
+<
+
+Use it like a regular command:
+
+>
+    :Silent command
+<
+
+Or to fix the redraw problems with external grep use:
+
+>
+    command! -nargs=+ Silent
+    \   execute 'silent <args>'
+    \ | redraw!
+<
+
+Which you can use like this:
+
+>
+    :Silent grep -RIi "Lost words" .
+<
+
+To prevent prompt on mappings create mappings using :map <silent>:
+
+>
+    :map <silent> <F12> :call Your_function()<cr>
+<
+
+SEE ALSO  *vwt-16-see-also*
+    - Execute external programs asynchronously under Windows |vwt-1549| for the "Hit any key to close this window..." prompt.
+
+
+REFERENCES  *vwt-16-references*
+    - :help  |hit-enter|
+    - :help 'shortmess'
+    - :help 'cmdheight'
+    - :help  |:!cmd|
+    - :help  |:silent|
+    - :help  |:map-<silent>|
+
+
+COMMENTS  *vwt-16-comments*
+    -  putting the following setting into your .vimrc settings file works good for eliminating the <Press Enter> message when first bringing up a vim editor to a specific file with a large path.The 't' option chops the beginning portion of file lines, indicating the truncation with a < sign at the point of truncation. 
+
+>
+    set shortmess=at
+<Keithel [https://vim.fandom.com/wiki/User:Keithel] 21:08, 13 August 2009 (UTC)
+
+
+That option generally doesn't prevent the message. 
+ Majkinetor (talk) 09:24, January 14, 2014 (UTC)
+
+==============================================================================
