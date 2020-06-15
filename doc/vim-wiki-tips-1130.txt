@@ -7,7 +7,8 @@ created 2006 · complexity basic · author Matt Zyzik · version 6.0
 ==============================================================================
 
 This tip has some suggestions for operating on blocks of source code, 
-particularly using text objects such as iB (inner block, same as i{ or i}).
+particularly using text objects such as `iB` (inner block, same as `i{` or 
+`i}`).
 
 FORMATTING A FUNCTION                         *vwt-1130-formatting-a-function*
 
@@ -19,7 +20,7 @@ vi{ visually selects the inner code block around the cursor.
 =i{ formats the code block.
 =2i{ formats the current block and the block around it.
 
-You can format the entire buffer with gg=G.
+You can format the entire buffer with `gg=G`.
 
 SELECTING A FUNCTION                           *vwt-1130-selecting-a-function*
 
@@ -32,13 +33,13 @@ the function, you can type the following to select the entire function
     V/{<CR>%
 <
 
-The V starts linewise visual selection; the /{ searches for the first left 
-brace ("<CR>" means to press Enter); the % moves to the matching right brace 
-(which should be the end of the function). You may want to then press j to 
-move the cursor down to select any blank lines.
+The `V` starts linewise visual selection; the `/{` searches for the first 
+left brace ("<CR>" means to press Enter); the `%` moves to the matching right 
+brace (which should be the end of the function). You may want to then press 
+`j` to move the cursor down to select any blank lines.
 
-Having selected the function, you could press x to delete it, or y to copy 
-it.
+Having selected the function, you could press `x` to delete it, or `y` to 
+copy it.
 
 SEE ALSO                                                   *vwt-1130-see-also*
     - 597 Indent a code block |vwt-597| (consider merging) 
@@ -55,7 +56,7 @@ COMMENTS                                                   *vwt-1130-comments*
 
 TO DO
     - Change theme of whole tip to be working with code blocks via text objects (an 
-      introduction to viB and friends). 
+      introduction to `viB` and friends). 
     - Perhaps talk about textobj-function 
       [https://www.vim.org/scripts/script.php?script_id=2619] plugin (it's in 'See 
       also'; thanks for the comment letting us know about it). 

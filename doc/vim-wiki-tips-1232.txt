@@ -43,7 +43,7 @@ use of floats and the reltime() function.
 <
 
 Use an optional count argument, to specify how many iterations should be 
-made, e.g. :100Timer :call funcFoobar() will call the function 100 times.
+made, e.g. `:100Timer :call funcFoobar()` will call the function 100 times.
 
 COMMENTS                                                   *vwt-1232-comments*
 

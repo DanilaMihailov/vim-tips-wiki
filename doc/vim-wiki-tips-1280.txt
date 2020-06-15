@@ -12,7 +12,7 @@ available at script#69 [https://www.vim.org/scripts/script.php?script_id=69].
 
 Using the Project plugin to organize, edit and read remote files is an 
 excellent idea. For example, let's say that you're administering 10 Unix 
-servers, and have the following file on each server: /opt/myapp/etc/myapprc
+servers, and have the following file on each server: `/opt/myapp/etc/myapprc`
 
 Also, let's say that you need to check this file on a couple of machines a 
 day and occasionally compare files. Instead of logging into multiple machines 
@@ -38,7 +38,7 @@ The netrw plugin allows you to edit and read these files in a fairly
 transparent manner. And if you're using scp and ssh-agent, you can work with 
 all of these files without even using passwords. Also, if you wanted to do a 
 vimdiff of two of these files, you can open one of them using the Project 
-plugin and use the :diffsplit command to open the other file.
+plugin and use the `:diffsplit` command to open the other file.
 
 COMMENTS                                                   *vwt-1280-comments*
 

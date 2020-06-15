@@ -8,22 +8,23 @@ created 2004 · complexity basic · author Dave Silvia · version 6.0
 
 You might want to search for the current word in another window, without 
 changing the view shown by the current window. Enter the following then press 
-\w (assuming the default backslash leader key). That will split the window, 
-then search for the current word in the other window. Press n for the next 
-match, or N for the previous match. When finished, press Ctrl-w c to close the 
-window.
+`\w` (assuming the default backslash leader key). That will split the window, 
+then search for the current word in the other window. Press `n` for the next 
+match, or `N` for the previous match. When finished, press `Ctrl-w c` to close 
+the window.
 
 >
     :nnoremap <Leader>w :let @/=expand("<cword>")<Bar>split<Bar>normal n<CR>
     :nnoremap <Leader>W :let @/='\<'.expand("<cword>").'\>'<Bar>split<Bar>normal n<CR>
 <
 
-If the cursor is on "rain", pressing \w will find "rain" and "drain" and 
-"rainbow". However, pressing \W will find "rain" only.
+If the cursor is on "rain", pressing `\w` will find "rain" and "drain" and 
+"rainbow". However, pressing `\W` will find "rain" only.
 
 Alternatively, if you are already showing two windows on the same file (that 
-is, you have used :split), then the following map will search for the current 
-word in the other window. Press Ctrl-w w to return to the original window.
+is, you have used `:split`), then the following map will search for the 
+current word in the other window. Press `Ctrl-w w` to return to the original 
+window.
 
 >
     :nnoremap <Leader>w :let @/=expand("<cword>")<Bar>wincmd w<Bar>normal n<CR>
@@ -36,8 +37,8 @@ You can also use marks to return to where you started the search:
     `.   Returns to where you last made an edit.
 <
 
-Or just set a mark (press mm), do the search, then return to the mark by 
-pressing `m
+Or just set a mark (press `mm`), do the search, then return to the mark by 
+pressing ``m`
 
 REFERENCES                                                *vwt-798-references*
     - :help |mapleader| 

@@ -50,13 +50,13 @@ Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     endfunction
 <
 
-Now you can press Ctrl-i to enter insert mode and map the keys "a s d f g h j 
-k l ;" to the digits "1 2 3 4 5 6 7 8 9 0". Pressing Esc will end this mode 
-and restore the letter keys. Since Ctrl-i is Tab, you can just press the Tab 
-key to enter VimLock mode.
+Now you can press `Ctrl-i` to enter insert mode and map the keys "`a s d f g 
+h j k l ;`" to the digits "`1 2 3 4 5 6 7 8 9 0`". Pressing `Esc` will end 
+this mode and restore the letter keys. Since `Ctrl-i` is Tab, you can just 
+press the Tab key to enter VimLock mode.
 
-The mappings assume a QWERTY US keyboard where the ; key is on the right of 
-L. If necessary, change ; to suit your keyboard.
+The mappings assume a QWERTY US keyboard where the `;` key is on the right of 
+`L`. If necessary, change `;` to suit your keyboard.
 
 REFERENCES                                               *vwt-1564-references*
     - :help |vimrc| 

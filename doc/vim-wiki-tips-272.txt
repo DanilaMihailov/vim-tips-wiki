@@ -15,23 +15,23 @@ can be given:
 <
 
 Some users prefer to have all of their text pasted with indenting intact. In 
-order to make this easier, the ]p command can be mapped to the p command, so 
-that whenever p is used, ]p will be executed. The following can be added to 
-the .vimrc to accomplish this:
+order to make this easier, the `]p` command can be mapped to the `p` command, 
+so that whenever `p` is used, `]p` will be executed. The following can be 
+added to the .vimrc to accomplish this:
 
 >
     :nnoremap p ]p
     :nnoremap <c-p> p
 <
 
-This simply maps normal mode p to what ]p normally does. While ctrl+p now 
-performs just p without the indenting functionality.
+This simply maps normal mode `p` to what `]p` normally does. While `ctrl+p` 
+now performs just `p` without the indenting functionality.
 
 CORRECTING BAD INDENT WHILE PASTING *vwt-272-correcting-bad-indent-while-pasting*
 
-Unfortunately, the ]p command will only adjust indent to match the current 
+Unfortunately, the `]p` command will only adjust indent to match the current 
 line, it will not re-indent the pasted text to correct it according to your 
-current indent rules. You can do this as well, using the special mark, `]. 
+current indent rules. You can do this as well, using the special mark, ``]`. 
 This will jump to the last character of the paste, so you could change the p 
 mapping above to:
 
@@ -40,7 +40,7 @@ mapping above to:
 <
 
 This takes advantage of the fact that a paste operation will place the cursor 
-at the beginning of the inserted text, and uses the = operator to indent 
+at the beginning of the inserted text, and uses the `=` operator to indent 
 [https://vim.fandom.com/wiki/Indenting_source_code] the entire inserted text.
 
 REFERENCES                                                *vwt-272-references*

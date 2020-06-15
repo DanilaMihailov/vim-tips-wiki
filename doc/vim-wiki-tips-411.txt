@@ -21,7 +21,7 @@ sourced, so the command isn't available yet.
 
 ==============================================================================
 
-Solution 1: put in .vim/after/plugin a file of the same name as the plugin 
+Solution 1: put in `.vim/after/plugin` a file of the same name as the plugin 
 you're initializing. In that file put
 
 >
@@ -30,16 +30,16 @@ you're initializing. In that file put
     Command      : TheInitializationCommand
 <
 
-For example, the <HiMtchBrkt.vim> script which supports the highlighting of 
+For example, the <`HiMtchBrkt.vim`> script which supports the highlighting of 
 matching brackets as you move onto a bracket is not on by default. Normally it 
-requires one to type \[i to start it. However, if you'd like to have the 
+requires one to type `\[i` to start it. However, if you'd like to have the 
 script to start enabled, then put
 
 >
     norm \[i
 <
 
-into the file .vim/after/plugin/HiMtchBrkt.vim.
+into the file `.vim/after/plugin/HiMtchBrkt.vim`.
 
 Windows users: Change .vim to _vimfiles and / to \ in the tip above.
 
@@ -49,14 +49,14 @@ Ron1989 [https://vim.fandom.com/wiki/User:Ron1989] (talk
 [https://vim.fandom.com/wiki/User_talk:Ron1989]) 06:15, July 4, 2014 (UTC) The 
 solution below is tested working on current version of vim(both 7.3 and 7.4).
 
-Solution 2: for users reluctant to separate plugin initialization from file 
-~/.vimrc, it is also possible to achieve the same goal utilizing the autocmd 
-event VimEnter. Because Event VimEnter is performed after all other startup 
-stuff, commands called with this autocmd will take place after the loading of 
-all plugins. The procedure is as following:
+Solution 2: for users reluctant to separate plugin initialization from file` 
+~/.vimrc`, it is also possible to achieve the same goal utilizing the 
+`autocmd` event `VimEnter`. Because Event `VimEnter` is performed after all 
+other startup stuff, commands called with this `autocmd` will take place after 
+the loading of all plugins. The procedure is as following:
 
 First create a function including all the plugin specific scripts in it. As 
-an example, we initialise plugin tabular and dragvisuals here.
+an example, we initialise plugin `tabular` and `dragvisuals` here.
 
 >
     function! g:LoadPluginScript ()
@@ -80,8 +80,8 @@ an example, we initialise plugin tabular and dragvisuals here.
 <
 
 After the definition of this function, call it somewhere later in the 
-~/.vimrc file with an autocmd. And all plugin initialisations that require the 
-plugin to be loaded in the first place will take place accordingly.
+~/.vimrc file with an `autocmd`. And all plugin initialisations that require 
+the plugin to be loaded in the first place will take place accordingly.
 
 >
     augroup plugin_initialize
@@ -101,8 +101,8 @@ putting in the line:
     execute "SeeTab"
 <
 
-in my after\plugin\SeeTab.vim file with the original SeeTab.vim file in 
-plugin\SeeTab.vim.
+in my `after\plugin\SeeTab.vim` file with the original `SeeTab.vim` file in 
+`plugin\SeeTab.vim`.
 
 This works ok while gvim is open, but I get an error message when exiting:
 

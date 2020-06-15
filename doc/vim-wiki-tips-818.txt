@@ -33,7 +33,7 @@ COMMENTS                                                    *vwt-818-comments*
 You don't have to create a .bat file to do this. Just enter "C:\Program 
 Files\Vim63\GVim.exe" as "Diff application".
 
-Set "Two-way diff parameters" as -d "%1" "%2".
+Set "Two-way diff parameters" as `-d "%1" "%2"`.
 
 ==============================================================================
 

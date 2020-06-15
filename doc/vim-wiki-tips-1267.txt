@@ -40,7 +40,7 @@ example, to use ",f" just change the last line to read:
 <
 
 Now if you have jumped into a lengthy function (via tag or search) you can 
-see its name without any further scrolling – just press f.
+see its name without any further scrolling – just press `f`.
 
 If you have very large functions, or small terminal, you may add 
 [:winwidth('%')-3] as follow

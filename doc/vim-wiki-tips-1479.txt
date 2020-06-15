@@ -16,42 +16,43 @@ in hex.
 COMMANDS                                                   *vwt-1479-commands*
 
 Occasional conversions can be performed by entering commands. In Vim, put the 
-cursor on 0x12345 and type :echo then Space Ctrl-R Ctrl-W Enter. That will 
-execute :echo 0x12345 which displays 74565 (decimal equivalent of hex 12345).
+cursor on 0x12345 and type `:echo` then Space Ctrl-R Ctrl-W Enter. That will 
+execute `:echo 0x12345` which displays 74565 (decimal equivalent of hex 
+12345).
 
 An example of converting decimal to hex would be to enter :echo 
 printf('%x',74565) which displays 12345 (hex equivalent of decimal 74565).
 
 In addition, the expression register can be used to enter converted numbers 
-while typing. In insert mode, press Ctrl-R then = then the expression wanted, 
-then press Enter. The value of the expression is inserted, and you will remain 
-in insert mode. For example, <C-R>=0x09ab<Enter> will insert 2475, and 
-<C-R>=printf('0x%04x',2475)<Enter> will insert 0x09ab.
+while typing. In insert mode, press Ctrl-R then `=` then the expression 
+wanted, then press Enter. The value of the expression is inserted, and you 
+will remain in insert mode. For example, <C-R>=0x09ab<Enter> will insert 
+`2475`, and <C-R>=printf('0x%04x',2475)<Enter> will insert `0x09ab`.
 
-In normal mode, type ga to display the decimal and hex values for the 
-character under the cursor, or type g8 to display the hex bytes for a UTF-8 
+In normal mode, type `ga` to display the decimal and hex values for the 
+character under the cursor, or type `g8` to display the hex bytes for a UTF-8 
 character.
 
 The following commands illustrate other simple techniques to convert strings 
-to numbers which are displayed in decimal (the :echo is just for illustration; 
-these techniques would be used in a script). The first shows that adding zero 
-to a string converts the string to a number.
+to numbers which are displayed in decimal (the `:echo` is just for 
+illustration; these techniques would be used in a script). The first shows 
+that adding zero to a string converts the string to a number.
 
 The following convert decimal numbers to hex strings.
 
 COPYING A HEX NUMBER AS DECIMAL     *vwt-1479-copying-a-hex-number-as-decimal*
 
 With the following mapping, you can put the cursor on a hex number and press 
-\h (assuming the default backslash leader) to yank the value of the hex number 
-(using :let means the equivalent decimal string is copied). You can then move 
-the cursor elsewhere and press p to paste the decimal value.
+`\h` (assuming the default backslash leader) to yank the value of the hex 
+number (using `:let` means the equivalent decimal string is copied). You can 
+then move the cursor elsewhere and press `p` to paste the decimal value.
 
 >
     nnoremap \h :let @@=<C-R><C-W><CR>
 <
 
 Alternatively, you can use a global variable to avoid using a register. With 
-these mappings, \h will yank a hex value, and \p will paste the decimal 
+these mappings, `\h` will yank a hex value, and `\p` will paste the decimal 
 string:
 
 >
@@ -103,7 +104,7 @@ entered on the command line, or all numbers in selected text.
     endfunction
 <
 
-The above defines user commands :Dec2hex and :Hex2dec that will either 
+The above defines user commands `:Dec2hex` and `:Hex2dec` that will either 
 display the result of converting a number that you enter, or will convert all 
 numbers in selected text. A decimal number is a word consisting only of 
 decimal digits, while a hex number consists of "0x" followed by one or more 
@@ -211,8 +212,8 @@ menu to transform the number.
 <
 
 More is needed to make it work. I had to do the following on a Linux system, 
-but I suspect a setting regarding register * is also being used (it assumes 
-that the selected text is in the * register).
+but I suspect a setting regarding register `*` is also being used (it assumes 
+that the selected text is in the `*` register).
 
 >
     set mousemodel=popup

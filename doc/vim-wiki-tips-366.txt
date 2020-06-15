@@ -12,10 +12,11 @@ RCS scripts for text-mode. Key there is almost. It's still a kludge, but it
 works without too much hassle.
 
 I've chosen F1 and F2, because I never use those keys for what they are 
-intended. I use :help for a command reference, not for a tutorial style thing. 
-So, use some discretion. Also, the write command could just as easily have 
-been a :write!, but I decided against that in the case of files that weren't 
-checked out. You should check them out, first, and they should be writable.
+intended. I use `:help` for a command reference, not for a tutorial style 
+thing. So, use some discretion. Also, the write command could just as easily 
+have been a :write!, but I decided against that in the case of files that 
+weren't checked out. You should check them out, first, and they should be 
+writable.
 
 >
     map <F1> :write %<CR>:!ci -l %<CR>:edit!<CR>

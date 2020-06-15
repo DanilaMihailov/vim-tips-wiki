@@ -16,20 +16,20 @@ created 2003 · complexity basic · author Nitya · version 6.0
 ==============================================================================
 
 Place the cursor on any variable in your program.
-    - gd will take you to the local declaration. 
-    - gD will take you to the global declaration. 
-    - g* search for the word under the cursor (like *, but g* on 'rain' will find 
-      words like 'rainbow'). 
-    - g# same as g* but in backward direction. 
-    - gg goes to the first line in the buffer (or provide a count before the 
+    - `gd` will take you to the local declaration. 
+    - `gD` will take you to the global declaration. 
+    - `g*` search for the word under the cursor (like `*`, but `g*` on 'rain' will 
+      find words like 'rainbow'). 
+    - `g#` same as g* but in backward direction. 
+    - `gg` goes to the first line in the buffer (or provide a count before the 
       command for a specific line). 
-    - G goes to the last line (or provide a count before the command for a specific 
-      line). 
+    - `G` goes to the last line (or provide a count before the command for a 
+      specific line). 
 
 
 SEE ALSO                                                    *vwt-462-see-also*
-    - gf will go to the file under the cursor |vwt-299| 
-    - g] and other commands will jump to a tag definition 
+    - `gf` will go to the file under the cursor |vwt-299| 
+    - `g]` and other commands will jump to a tag definition 
       [https://vim.fandom.com/wiki/Browsing_programs_with_tags] (a tag can be a 
       function or variable name, or more). 
 

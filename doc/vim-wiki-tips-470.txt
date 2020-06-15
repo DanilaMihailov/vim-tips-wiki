@@ -59,14 +59,14 @@ See moving lines up or down
 [https://vim.fandom.com/wiki/Moving_lines_up_or_down] for the best method to 
 move lines.
 
-To use gc to swap the current character with the next, without changing the 
+To use `gc` to swap the current character with the next, without changing the 
 cursor position:
 
 >
     :nnoremap <silent> gc xph
 <
 
-To use gw to swap the current word with the next, without changing cursor 
+To use `gw` to swap the current word with the next, without changing cursor 
 position: (See note.)
 
 >
@@ -75,41 +75,42 @@ position: (See note.)
     :nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
 <
 
-To use gl to swap the current word with the previous, keeping cursor on 
+To use `gl` to swap the current word with the previous, keeping cursor on 
 current word: (This feels like "pushing" the word to the left.) (See note.)
 
 >
     :nnoremap <silent> gl "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
 <
 
-To use gr to swap the current word with the next, keeping cursor on current 
+To use `gr` to swap the current word with the next, keeping cursor on current 
 word: (This feels like "pushing" the word to the right.) (See note.)
 
 >
     :nnoremap <silent> gr "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>:nohlsearch<CR>
 <
 
-To use g{ to swap the current paragraph with the next:
+To use `g{` to swap the current paragraph with the next:
 
 >
     :nnoremap g{ {dap}p{
 <
 
 Note: Mappings above which perform a search-and-replace (ones containing 
-:s//) will operate incorrectly on words with accented characters. To adjust 
-the mappings above to work with your locale, replace all \w with [alphabet] 
-and \W with [^alphabet], where alphabet is the set of characters in your 
+`:s//`) will operate incorrectly on words with accented characters. To adjust 
+the mappings above to work with your locale, replace all `\w` with [alphabet] 
+and `\W` with `[^alphabet]`, where alphabet is the set of characters in your 
 alphabet. :help |/\w|
 
-For ISO/IEC_8859-1 Latin-1 Supplement characters, substitute all \w instances 
-with [0-9A-Za-zÀ-ÖØ-öø-ÿ_] and all \_W instances with 
-\_[^0-9A-Za-zÀ-ÖØ-öø-ÿ_].
+For ISO/IEC_8859-1 Latin-1 Supplement characters, substitute all `\w` 
+instances with `[0-9A-Za-zÀ-ÖØ-öø-ÿ_]` and all `\_W` instances with 
+`\_[^0-9A-Za-zÀ-ÖØ-öø-ÿ_]`.
 
 VISUAL-MODE SWAPPING                            *vwt-470-visual-mode-swapping*
 
-To use this mapping: first, delete some text (using a command such as daw or 
-dt in normal mode, or x in visual mode). Then, use visual mode to select some 
-other text, and press Ctrl-X. The two pieces of text should then be swapped.
+To use this mapping: first, delete some text (using a command such as `daw` 
+or `dt` in normal mode, or `x` in visual mode). Then, use visual mode to 
+select some other text, and press Ctrl-X. The two pieces of text should then 
+be swapped.
 
 >
     :vnoremap <C-X> <Esc>`.``gvP``P

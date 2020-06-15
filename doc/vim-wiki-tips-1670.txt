@@ -9,10 +9,10 @@ October 31, 2010 · complexity basic · author Alexjak · version 7.0
 ==============================================================================
 
 Using the Windows installer to install Vim with default settings will put the 
-executable in a directory with a name like C:\Program Files\vim\VimXX (where 
-XX is a number such as 72 to indicate version 7.2). When the next version is 
-installed, files will be placed in a new subdirectory, for example Vim73 for 
-version 7.3. This tip describes how to handle the fact that you may have 
+executable in a directory with a name like `C:\Program Files\vim\VimXX` (where 
+`XX` is a number such as `72` to indicate version 7.2). When the next version 
+is installed, files will be placed in a new subdirectory, for example `Vim73` 
+for version 7.3. This tip describes how to handle the fact that you may have 
 registered Vim as the editor to be used with various applications, and now the 
 path to the executable needs to be changed in multiple locations.
 

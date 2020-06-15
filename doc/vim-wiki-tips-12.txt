@@ -67,8 +67,8 @@ ADJUSTING INDENT                                     *vwt-12-adjusting-indent*
 Since tabs effectively group spaces together, you may be tempted to work with 
 tabs rather than spaces and change individual lines selectively. To easily 
 change a tab-based indent to use spaces instead when 'noexpandtab' is set, you 
-can temporarily set 'expandtab' and use :retab with a range. For example, to 
-convert only the current line to use spaces, use :.retab.
+can temporarily set 'expandtab' and use `:retab` with a range. For example, to 
+convert only the current line to use spaces, use `:.retab`.
 
 However, with some configuration, Vim makes working with spaces for 
 indentation [https://vim.fandom.com/wiki/Indenting_source_code] as easy as 

@@ -14,13 +14,13 @@ different lines.
 
 HIGHLIGHTING THAT MOVES WITH THE CURSOR *vwt-263-highlighting-that-moves-with-the-cursor*
 
-Simply putting :set cursorline in your vimrc 
+Simply putting `:set cursorline` in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] will highlight the current line in every 
 window and update the highlight as the cursor moves.
 
 The following example shows how to change the highlight colors and how to 
-create a mapping to toggle cursorline (to highlight the current line) and 
-cursorcolumn (to highlight the current column):
+create a mapping to toggle `cursorline` (to highlight the current line) and 
+`cursorcolumn` (to highlight the current column):
 
 >
     :hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
@@ -28,8 +28,8 @@ cursorcolumn (to highlight the current column):
     :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 <
 
-With the default backslash leader key, typing \c will toggle highlighting on 
-and off. That makes it easy to locate the cursor after scrolling in a large 
+With the default backslash leader key, typing `\c` will toggle highlighting 
+on and off. That makes it easy to locate the cursor after scrolling in a large 
 file.
 
 If you only want the highlight applied in the current window, use an autocmd 
@@ -62,9 +62,9 @@ when the cursor is moved, use this mapping:
     :nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
 <
 
-With the default backslash leader key, pressing \l will highlight the line 
-that currently contains the cursor. The mapping also sets mark l so you can 
-type 'l to return to the highlighted line. Enter :match to clear the 
+With the default backslash leader key, pressing `\l` will highlight the line 
+that currently contains the cursor. The mapping also sets mark `l` so you can 
+type 'l to return to the highlighted line. Enter `:match` to clear the 
 highlighting when finished.
 
 To highlight the current virtual column (column after tabs are expanded), and 

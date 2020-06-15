@@ -67,32 +67,32 @@ AN IMPROVED VERSION                             *vwt-1583-an-improved-version*
 
 It is a bad idea to change 'shell' and 'cmdheight', however temporary, in 
 tips like these, because it distracts the user from the important parts of the 
-script. Also, setting 'shell' to "sh" renders this tip unusable for Windows.
+script. Also, setting 'shell' to `"sh"` renders this tip unusable for Windows.
 
-It is also quite silly to use several autocmds, and inadvertently depending 
+It is also quite silly to use several `autocmd`s, and inadvertently depending 
 on Vim executing them in the same order they were defined, to perform a 
-sequence of commands. Use :|s or :functions instead.
+sequence of commands. Use `:|`s or `:function`s instead.
 
 I neither disagree nor agree at this point, but I should point out that Vim will always execute them in the defined order. :help :autocmd mentions that "autocommands execute in the order in which they were given." --Fritzophrenic 18:55, 8 July 2009 (UTC)
 True, or the original tip wouldn't work, but that doesn't mean that depending on this is a good idea. In any case, my major objection is that it makes the code harder to read. (Spiiph 14:27, 27 July 2009 (UTC))
 In this specific case, I agree that autocmds probably shouldn't be used in this fashion; it would be better to define one or two that run a function or use line continuations. However, in general there is nothing wrong with depending on this well-defined and intentional behavior. For example, one can take advantage of the order of execution to set an option to one value for *all* files in one autocmd, and then set it differently for files of a given type in another without any logic needed. All one needs to do is put the specific autocmd after the general one. --Fritzophrenic 15:11, 27 July 2009 (UTC)
 Alright, this I can agree with. (Spiiph 23:05, 28 July 2009 (UTC))
 
-Unnecessarily using :set instead of :setlocal is now considered a felony in 
-several countries.
+Unnecessarily using `:set` instead of `:setlocal` is now considered a felony 
+in several countries.
 
-Redirecting stderr to /dev/null seems strange. If gpg runs into any problems, 
-I'd want to know about it. The redirect was, in any case, removed to improve 
-platform independence.
+Redirecting stderr to `/dev/null` seems strange. If `gpg` runs into any 
+problems, I'd want to know about it. The redirect was, in any case, removed to 
+improve platform independence.
 
 I'm uncertain as to how well the '[,']!gpg commands actually work. It seems 
-like it wouldn't work perfectly in all situations, and that %!gpg would be the 
-way to go, but I've left it as it was. Maybe it does something smart that I 
-haven't thought of.
+like it wouldn't work perfectly in all situations, and that `%!gpg` would be 
+the way to go, but I've left it as it was. Maybe it does something smart that 
+I haven't thought of.
 
 Note that this script is quite nasty in that it empties the 'viminfo' option. 
 Unfortunately, 'viminfo' is not "local to buffer". It's probably best to keep 
-this script in a separate file, and :source it only when editing encrypted 
+this script in a separate file, and `:source` it only when editing encrypted 
 files.
 
 Note that this script doesn't seem to work out of the box, at least of OSX 10.5.7. It correctly writes encrypted files, but it seems to get confused when trying to open *.gpg files - I think there's just a syntax error on the BufReadPost line with the --decrypt statement. AFAIK the setlocal and execute commands are getting passed to the shell, instead of being executed by Vim. (Anonymous)

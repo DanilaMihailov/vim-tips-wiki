@@ -41,15 +41,15 @@ jV/<\/div><CR> (select the next block – these commands work for this example)
 'a (return to mark 'a')
 q (finish recording macro)
 
-Now you should be able to run the macro with @a (and then @@ for each 
+Now you should be able to run the macro with `@a` (and then `@@` for each 
 subsequent run) for each block you need to move.
 
 For the impatient, move to the last line of your block and type 
-maqajV/<\/div><CR>:m0<CR>'aq@a@@@@@@@@; keep doing @@ until the file is 
+maqajV/<\/div><CR>:m0<CR>'aq@a@@@@@@@@; keep doing `@@` until the file is 
 reordered appropriately.
 
 Note that this won't work for nested <div> tags (in this example). The 
-matchit.vim extension may allow you to use % instead.
+matchit.vim extension may allow you to use `%` instead.
 
 SEE ALSO                                                   *vwt-1632-see-also*
     - Macros [https://vim.fandom.com/wiki/Macros] overview 

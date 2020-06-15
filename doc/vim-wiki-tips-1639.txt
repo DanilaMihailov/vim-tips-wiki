@@ -15,11 +15,12 @@ remove duplicates.
 
 SCRIPT                                                       *vwt-1639-script*
 
-Create file ~/.vim/plugin/quickfix.vim (Unix) or 
-$HOME/vimfiles/plugin/quickfix.vim (Windows) containing the script below, then 
-restart Vim. After a quickfix command such as :grep is run, the script will 
-automatically be invoked by the QuickfixCmdPost event, and the quickfix list 
-will be sorted by file name and line number, and duplicates will be removed.
+Create file `~/.vim/plugin/quickfix.vim` (Unix) or 
+`$HOME/vimfiles/plugin/quickfix.vim` (Windows) containing the script below, 
+then restart Vim. After a quickfix command such as `:grep` is run, the script 
+will automatically be invoked by the `QuickfixCmdPost` event, and the quickfix 
+list will be sorted by file name and line number, and duplicates will be 
+removed.
 
 >
     function! s:CompareQuickfixEntries(i1, i2)
@@ -54,7 +55,7 @@ TO DO
       it will get more checking. 
     - I do not undertand how two buffers could have the same name while having 
       different buffer numbers (buffer names seem to be unique). I would therefore 
-      think that 'bufname()' could be omitted so the tests simply check buffer 
+      think that '`bufname()`' could be omitted so the tests simply check buffer 
       numbers, rather than buffer names. JohnBeckett 
       [https://vim.fandom.com/wiki/User:JohnBeckett] 12:07, May 13, 2010 (UTC) 
 
@@ -93,11 +94,11 @@ As far as I can remember I had problems with duplicated entries in my quickfix l
 
 COMMENTS                                                   *vwt-1639-comments*
 
-Possibly bufname() could be omitted from each expression like 
-bufname(a:i1.bufnr) because buffer names are unique, except that more than one 
-buffer can have an empty name. Also should contemplate Windows systems where 
-buffer names (like file names) are not case sensitive. Using == to compare two 
-names is either case sensitive or not, depending on the setting of 
+Possibly `bufname()` could be omitted from each expression like 
+`bufname(a:i1.bufnr)` because buffer names are unique, except that more than 
+one buffer can have an empty name. Also should contemplate Windows systems 
+where buffer names (like file names) are not case sensitive. Using `==` to 
+compare two names is either case sensitive or not, depending on the setting of 
 'ignorecase'. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 
 05:01, May 15, 2010 (UTC)
 

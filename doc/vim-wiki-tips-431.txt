@@ -8,7 +8,7 @@ created 2003 · complexity basic · version 6.0
 
 In Windows, file paths use a backslash as a delimiter. This tip helps easily 
 change between backslash and forward slash. For example, you could change 
-C:\data\doc.txt to C:/data/doc.txt, or vice versa.
+`C:\data\doc.txt` to `C:/data/doc.txt`, or vice versa.
 
 CHANGE TO FORWARD/BACK SLASHES        *vwt-431-change-to-forward/back-slashes*
 
@@ -21,22 +21,22 @@ allow easily changing slashes in the current line.
 <
 
 By default the <Leader> key is backslash, and <Bslash> is a way to refer to a 
-backslash in a mapping, so by default these commands map \/ and \\ 
+backslash in a mapping, so by default these commands map `\/` and `\\` 
 respectively.
 
-Press \/ to change every backslash to a forward slash, in the current line.
+Press `\/` to change every backslash to a forward slash, in the current line.
 
-Press \\ to change every forward slash to a backslash, in the current line.
+Press `\\` to change every forward slash to a backslash, in the current line.
 
-The mappings save and restore the search register (@/) so a previous search 
-can be continued, if wanted. The :noh command is used to remove search 
+The mappings save and restore the search register (`@/`) so a previous search 
+can be continued, if wanted. The `:noh` command is used to remove search 
 highlighting (if enabled) to avoid search hits being highlighted after setting 
 the search register.
 
-In the substitute command (:s), a colon (:) is used as a delimiter, so the 
-slashes do not need to be escaped. The substitute flags (ge) cause all 
-occurrences on the line to be substituted (g), and no error to be reported if 
-no slash is found (e).
+In the substitute command (`:s`), a colon (`:`) is used as a delimiter, so 
+the slashes do not need to be escaped. The substitute flags (`ge`) cause all 
+occurrences on the line to be substituted (`g`), and no error to be reported 
+if no slash is found (`e`).
 
 TOGGLE FORWARD/BACK SLASHES              *vwt-431-toggle-forward/back-slashes*
 
@@ -62,7 +62,7 @@ slashes in the current line, or a range of lines.
     noremap <silent> <F8> :ToggleSlash<CR>
 <
 
-After sourcing the script, press F8 or enter :ToggleSlash to toggle between 
+After sourcing the script, press F8 or enter `:ToggleSlash` to toggle between 
 forward and back slashes. If no lines are selected, the command operates on 
 the current line. If multiple lines are selected, the command operates on each 
 selected line. A line is ignored if it does not contain a slash.
@@ -71,8 +71,8 @@ By default, each line is handled independently: if the first slash in the
 line is a forward slash, all slashes in that line are changed to backslashes; 
 if the first slash is a backslash, all slashes are changed to forward slashes.
 
-Enter :ToggleSlash! to force changes to each selected line to be the same: if 
-the first slash found is a forward slash, all slashes in all selected lines 
+Enter `:ToggleSlash!` to force changes to each selected line to be the same: 
+if the first slash found is a forward slash, all slashes in all selected lines 
 are changed to backslashes; otherwise, all slashes in all selected lines are 
 changed to forward slashes.
 

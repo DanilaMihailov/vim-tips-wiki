@@ -6,10 +6,10 @@ created 2005 · complexity intermediate · author Nall-ohki · version 7.0
 
 ==============================================================================
 
-Some people like to align program statements, for example, so that the "=" in 
-assignments are lined up. This tip provides a script that defaults to aligning 
-"=", but which can align using a search pattern. The script may not work 
-correctly when tab characters are present.
+Some people like to align program statements, for example, so that the "`=`" 
+in assignments are lined up. This tip provides a script that defaults to 
+aligning "`=`", but which can align using a search pattern. The script may not 
+work correctly when tab characters are present.
 
 EXAMPLES                                                    *vwt-894-examples*
 
@@ -21,7 +21,7 @@ For example, consider the lines:
     let something = 42
 <
 
-With this tip, if you visually select the lines then press \a (assuming the 
+With this tip, if you visually select the lines then press `\a` (assuming the 
 default backslash leader key), the lines would be changed to:
 
 >
@@ -38,9 +38,9 @@ Now consider:
     const *char GetString(unsigned int index);
 <
 
-Selecting these lines, then entering the command :Align \S\+( would align the 
-function names. Repeating, with command :Align ( would then align the (. Doing 
-both results in:
+Selecting these lines, then entering the command `:Align \S\+(` would align 
+the function names. Repeating, with command `:Align (` would then align the 
+`(`. Doing both results in:
 
 >
     int         Add       (int a, int b);
@@ -50,8 +50,8 @@ both results in:
 
 SCRIPT                                                        *vwt-894-script*
 
-Save the following in a file, say, align.vim. Enter the command :so align.vim 
-to source the script.
+Save the following in a file, say, `align.vim`. Enter the command `:so 
+align.vim` to source the script.
 
 >
     command! -nargs=? -range Align <line1>,<line2>call AlignSection('<args>')
@@ -119,7 +119,7 @@ See Align text plugin |vwt-139| which describes the Align
 [https://www.vim.org/scripts/script.php?script_id=294] plugin. Separators are 
 regular expression patterns, and one may restrict Align to operate only on 
 lines which satisfy (or don't satisfy) a regular expression pattern 
-(:AlignCtrl g pattern or :AlignCtrl v pattern).
+(`:AlignCtrl g pattern` or `:AlignCtrl v pattern`).
 
 ALTERNATIVE SCRIPT                                *vwt-894-alternative-script*
 
@@ -131,11 +131,11 @@ I decided to extend the tip's functionality to be able to do left, right and
 shift alignments. Shift alignments are basically indentation alignments that 
 are useful for aligning decimal points on numbers.
 
-Align() also allows alignment of words before and after the regex pattern. 
+`Align()` also allows alignment of words before and after the regex pattern. 
 For words before the pattern, enter a positive number when prompted. For words 
 after the pattern, enter a negative number instead. For example, to choose the 
-second word after the regex pattern, enter -2. After that, select the type of 
-alignment to be done.
+second word after the regex pattern, enter `-2`. After that, select the type 
+of alignment to be done.
 
 >
     "place in vimrc - tested on gvim 6.3

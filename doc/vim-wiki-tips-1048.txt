@@ -9,7 +9,7 @@ created 2005 · complexity basic · author Don Mitchell · version 6.0
 In program development, it is common to use the name of the current file as a 
 classname, after omitting the path and extension of the file. One way to do 
 this quickly is to use an insert-mode abbreviation. In the following example 
-,f is mapped as an abbreviation for the filename without the path and 
+`,f` is mapped as an abbreviation for the filename without the path and 
 extension. Add the following lines to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] file to define the abbreviation:
 
@@ -18,17 +18,17 @@ extension. Add the following lines to your vimrc
     iab <buffer> <unique> ,f <C-r>=expand('%:t:r')<CR>
 <
 
-In insert mode, typing <C-r>= (Ctrl-R then =) inserts the value of the 
+In insert mode, typing <C-r>= (Ctrl-R then `=`) inserts the value of the 
 following expression. The expression is expand('%:t:r') (terminated by <CR> 
 which represents Enter).
 
-The expand() function expands '%' (representing the name of the current 
-file), while modifying that name according to the given codes: :t is the tail 
-of the full path name (file name and extension, after omitting any path), and 
-:r is the root part of the name after omitting any extension.
+The `expand()` function expands '%' (representing the name of the current 
+file), while modifying that name according to the given codes: `:t` is the 
+tail of the full path name (file name and extension, after omitting any path), 
+and `:r` is the root part of the name after omitting any extension.
 
-To use this, while in insert mode, type ,f followed by a space or the escape 
-key to insert the name of the current file.
+To use this, while in insert mode, type `,f` followed by a space or the 
+escape key to insert the name of the current file.
 
 SEE ALSO                                                   *vwt-1048-see-also*
     - :help |filename-modifiers| information on filename modifiers 

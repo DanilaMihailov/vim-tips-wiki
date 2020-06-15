@@ -15,9 +15,9 @@ In each window that should scroll simultaneously, enter the command:
     :set scrollbind
 <
 
-You can enter scb as an abbreviation for scrollbind, and the ! flag causes 
-:set to toggle a boolean option. Therefore, it is convenient to enter the 
-following to toggle scrollbind on or off:
+You can enter `scb` as an abbreviation for scrollbind, and the `!` flag 
+causes `:set` to toggle a boolean option. Therefore, it is convenient to enter 
+the following to toggle scrollbind on or off:
 
 >
     :set scb!

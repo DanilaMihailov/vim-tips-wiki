@@ -8,10 +8,10 @@ created
 
 ==============================================================================
 
-We often use :make to build my C++ project and then go through the compile 
+We often use `:make` to build my C++ project and then go through the compile 
 errors and fix them. :help |quickfix|
 
-This simple tip shows how you can use :make to use Quickfix with doxygen 
+This simple tip shows how you can use `:make` to use Quickfix with doxygen 
 [http://www.stack.nl/~dimitri/doxygen/].
 
 From the shell command line, generate a default config file:

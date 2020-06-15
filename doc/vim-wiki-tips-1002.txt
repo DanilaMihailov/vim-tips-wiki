@@ -14,9 +14,10 @@ buffer:
 <
 
 This takes advantage of the implementation detail noted just below :help 
-|:v|, that :g works by first marking all lines that match, then visiting each 
-mark in order to run the command. Hence, you first move the first line to the 
-top, then the second above the first, then the third above the second, etc.
+|:v|, that `:g` works by first marking all lines that match, then visiting 
+each mark in order to run the command. Hence, you first move the first line to 
+the top, then the second above the first, then the third above the second, 
+etc.
 
 If you do not want to reverse the entire file, you can supply the range of 
 lines to reverse to the command and adjust the destination accordingly. For 
@@ -26,9 +27,9 @@ example, to reverse only lines 100-150:
     :100,150g/^/m99
 <
 
-If you are running Vim on a Unix-like operating system, the tac utility will 
-reverse all lines for you. Like any external utility, you can call tac from 
-Vim as an alternate method:
+If you are running Vim on a Unix-like operating system, the `tac` utility 
+will reverse all lines for you. Like any external utility, you can call `tac` 
+from Vim as an alternate method:
 
 >
     :%!tac

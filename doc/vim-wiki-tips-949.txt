@@ -112,7 +112,7 @@ However, the compiler method tends to break on simple errors. For example:
 Then I made one small change to a file that previously tested errorfree. I 
 changed a "not" to a "!" in an if statement (common mistake for me).
 
-I then entered the :make command and Vim responded with:
+I then entered the `:make` command and Vim responded with:
 
 >
     "pydsh" [New File]
@@ -145,15 +145,15 @@ error.
 
 ==============================================================================
 
-Simple Pylint makeprg and errorformat settings are:
+Simple Pylint `makeprg` and `errorformat` settings are:
 
 >
     setlocal makeprg=pylint\ --output-format=parseable\ --reports=n\ %
     setlocal efm=%f:%l:\ [%t]%m,%f:%l:%m
 <
 
-Slight improvement on the above that accounts for the [...function] as well 
-as the multiline error-in-column (^^) output:
+Slight improvement on the above that accounts for the `[...function]` as well 
+as the multiline error-in-column (`^^`) output:
 
 >
     au FileType python set makeprg=pylint\ --reports=n\ --output-format=parseable\ %:p

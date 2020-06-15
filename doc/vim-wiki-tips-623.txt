@@ -23,8 +23,8 @@ file).
     }
 <
 
-Such that I just type vxp and it opens a new Vim just containing the current 
-paste buffer.
+Such that I just type `vxp` and it opens a new Vim just containing the 
+current paste buffer.
 
 To automatically cause the rewriting of the paste buffer add the following to 
 your vimrc

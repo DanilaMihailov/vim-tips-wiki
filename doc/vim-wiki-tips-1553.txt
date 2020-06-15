@@ -51,8 +51,8 @@ how to do it?
 VISUAL MODE MAPPING                             *vwt-1553-visual-mode-mapping*
 
 Visual mode is easy. We know what text is selected by using '< and '>, and we 
-know the comment leader, so we can simply apply a :s command to remove the 
-comment leader before using J normally.
+know the comment leader, so we can simply apply a `:s` command to remove the 
+comment leader before using `J` normally.
 
 For Vim code, you could do it this way:
 
@@ -69,7 +69,7 @@ The breakdown:
       BEGINNING of a line, and all surrounding whitespace, with a single space. Use 
       the e flag to suppress errors if the pattern is not found (so joins of 
       non-comment lines continue to work). The <CR> runs the ex command. 
-    - gvJ – select the last visual selection range and perform a normal J command 
+    - `gvJ` – select the last visual selection range and perform a normal J command 
       on it. Since we've removed the comment leaders, this will now work as desired. 
 
 
@@ -122,19 +122,19 @@ lines to join. For this, we need a function.
     endfunction
 <
 
-This function works by taking the number of lines, and using a regular old J 
-command that many times, starting on the current line. The cool thing about J 
-is that it places the cursor on the start of the joined line after it is done. 
-For example:
+This function works by taking the number of lines, and using a regular old 
+`J` command that many times, starting on the current line. The cool thing 
+about `J` is that it places the cursor on the start of the joined line after 
+it is done. For example:
 
 >
     " I joined two lines "    and look what happened!
 <
 
-Right after a J, the cursor will be on the 2nd " in the line.
+Right after a `J`, the cursor will be on the 2nd `"` in the line.
 
-The function above takes advantage of this fact by using the \%# atom in the 
-substitute pattern to match the comment leader ONLY AT THE CURRENT CURSOR 
+The function above takes advantage of this fact by using the `\%#` atom in 
+the substitute pattern to match the comment leader ONLY AT THE CURRENT CURSOR 
 POSITION to allow us to remove it safely. After a successful substitute, we 
 must move the cursor to its previous position, because a successful substitute 
 will move it to the beginning of the line. However, since a failed substitute 
@@ -149,13 +149,13 @@ Whew! Now, to allow normal mode joining of comments, you can do this:
 
 In this mapping, we again use <C-U> to remove the count that automatically 
 gets added to the beginning of an ex command given a count, and we then pass 
-this count to our function using v:count.
+this count to our function using `v:count`.
 
 TYING IT ALL TOGETHER                         *vwt-1553-tying-it-all-together*
 
-Now, we can individually map J in normal and visual mode to do what we want. 
-But it would be nice to be able to do it more simply! This function allows a 
-very easy mapping and adapts well to almost any language:
+Now, we can individually map `J` in normal and visual mode to do what we 
+want. But it would be nice to be able to do it more simply! This function 
+allows a very easy mapping and adapts well to almost any language:
 
 >
     " Eliminate comment leader when joining comment lines
@@ -177,7 +177,7 @@ very easy mapping and adapts well to almost any language:
 Now, you can do cool things by calling this function in your 
 $HOME/vimfiles/ftplugin/{filetype}.vim file!
 
-For example, I have set up my J command to join Vim comments AND continued 
+For example, I have set up my `J` command to join Vim comments AND continued 
 lines (using backslash) in Vim, by placing the following in 
 $HOME/vimfiles/ftplugin/vim.vim:
 
@@ -186,11 +186,11 @@ $HOME/vimfiles/ftplugin/vim.vim:
     call MapJoinWithLeaders('"\\|\\')
 <
 
-Note the use of \\| to allow matches on both \ and ".
+Note the use of `\\|` to allow matches on both `\` and `"`.
 
 LIMITATIONS                                             *vwt-1553-limitations*
 
-If you join a comment line to a non-comment line with a J command innormal 
+If you join a comment line to a non-comment line with a `J` command innormal 
 mode, you will change something this...
 
 >
@@ -205,8 +205,8 @@ into this...
 <
 
 This is probably not what is desired! To avoid this, in situations like the 
-above, instead of using J use :normal! J to avoid the mapping. Note that the 
-mappings defined above are all undoable with u.
+above, instead of using `J` use `:normal! J` to avoid the mapping. Note that 
+the mappings defined above are all undoable with `u`.
 
 You can partially fix this problem by tweaking the substitution pattern to 
 only take effect when there is a comment leader prior to the cursor in the 

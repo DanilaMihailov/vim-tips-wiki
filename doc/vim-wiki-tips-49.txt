@@ -12,8 +12,8 @@ Toggle case "HellO" to "hELLo" with g~ then a movement.
 Uppercase "HellO" to "HELLO" with gU then a movement.
 Lowercase "HellO" to "hello" with gu then a movement.
 
-Alternatively, you can visually select text then press ~ to toggle case, or U 
-to convert to uppercase, or u to convert to lowercase.
+Alternatively, you can visually select text then press `~` to toggle case, or 
+`U` to convert to uppercase, or `u` to convert to lowercase.
 
 EXAMPLES                                                     *vwt-49-examples*
 
@@ -58,7 +58,7 @@ guu
 
 TITLE CASE                                                 *vwt-49-title-case*
 
-The :s substitute command can change case (see :help |s/\u|).
+The `:s` substitute command can change case (see :help |s/\u|).
 
 The following converts the current line to Title Case (all lowercase, except 
 for initial uppercase letters):
@@ -67,13 +67,13 @@ for initial uppercase letters):
     :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g
 <
 
-Explanation The search pattern is \<\(\w\)\(\w*\)\> which searches for \< 
-(beginning of word), then \w (a word character), then \w* (zero or more word 
-characters), then \> (end of word). The \(...\) create subexpressions to be 
-recalled with \1 and \2 in the replacement. The replacement is \u\1\L\2 which 
-substitutes the two subexpressions transformed: The \u converts the first 
-character of what follows to uppercase, while \L converts all of what follows 
-to lowercase.
+Explanation The search pattern is \<\(\w\)\(\w*\)\> which searches for `\<` 
+(beginning of word), then `\w` (a word character), then `\w*` (zero or more 
+word characters), then \> (end of word). The `\(...\)` create subexpressions 
+to be recalled with `\1` and `\2` in the replacement. The replacement is 
+`\u\1\L\2` which substitutes the two subexpressions transformed: The `\u` 
+converts the first character of what follows to uppercase, while `\L` converts 
+all of what follows to lowercase.
 
 This approach has shortcomings in cases where words may contain what the 
 regular expression recognizes as non-word characters, such as an apostrophe in 
@@ -83,7 +83,7 @@ regular expression recognizes as non-word characters, such as an apostrophe in
     :s/\<\(\w\)\(\S*\)/\u\1\L\2/g
 <
 
-Another alternative is to replace the separator with # and use \v (very 
+Another alternative is to replace the separator with # and use `\v` (very 
 magic) to reduce the need to escape characters.
 
 >
@@ -94,8 +94,8 @@ TWIDDLE CASE                                             *vwt-49-twiddle-case*
 
 With the following (for example, in vimrc 
 [https://vim.fandom.com/wiki/Vimrc]), you can visually select text then press 
-~ to convert the text to UPPER CASE, then to lower case, then to Title Case. 
-Keep pressing ~ until you get the case you want.
+`~` to convert the text to `UPPER CASE`, then to `lower case`, then to `Title 
+Case`. Keep pressing `~` until you get the case you want.
 
 >
     function! TwiddleCase(str)

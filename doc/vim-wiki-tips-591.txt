@@ -7,16 +7,16 @@ version 6.0
 
 ==============================================================================
 
-Are you tired of hundreds of mappings and functions that pollute your vimrc? 
-Do you want to nicely organize your customization to quickly find what you 
-search ? Perhaps is it time for you to consider the use of plugins (if it is 
-not already done).
+Are you tired of hundreds of mappings and functions that pollute your 
+`vimrc`? Do you want to nicely organize your customization to quickly find 
+what you search ? Perhaps is it time for you to consider the use of plugins 
+(if it is not already done).
 
 Plugins are really easy to do and provide a simple way to organize functions 
 and mappings. They are automatically loaded.
 
 Here is an example of simple and very short plugin that provides a command 
-:MyCommand that saves the selected text in the file passed in parameter. I 
+`:MyCommand` that saves the selected text in the file passed in parameter. I 
 don't know if the function is useful but the example show the parameter 
 passing, the autocompletion and the use of ranges in a function.
 

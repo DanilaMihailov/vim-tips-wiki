@@ -6,7 +6,7 @@ created 2003 · complexity basic · author Usman Latif · version 5.7
 
 ==============================================================================
 
-Using :put " pastes text from the default register below the current line. 
+Using `:put "` pastes text from the default register below the current line. 
 That is useful if some characters within a line have been copied, and you 
 would like the copied text pasted as a separate line.
 

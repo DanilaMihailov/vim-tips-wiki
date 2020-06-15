@@ -6,7 +6,7 @@ created 2006 · complexity basic · author Salman Halim · version 6.0
 
 ==============================================================================
 
-This function/command works just like the built-in :set except that it 
+This function/command works just like the built-in `:set` except that it 
 escapes out the spaces on the rhs, making things a bit more easy:
 
 Regular set:
@@ -21,7 +21,7 @@ Our set:
     Set fp=par 70j
 <
 
-Just like the regular :set, multiple options may still be specified:
+Just like the regular `:set`, multiple options may still be specified:
 
 >
     Set fp=par 70j tw=100 ai! ai?

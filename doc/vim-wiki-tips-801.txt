@@ -6,22 +6,22 @@ created 2004 · complexity basic · author Jonas Lööf · version 6.0
 
 ==============================================================================
 
-The quickfix window is often used to process the results of using make to 
-build a program, or using vimgrep (or grep) to search files. When the quickfix 
-list is long, it can be helpful to fold related lines together to help show an 
-overview.
+The quickfix window is often used to process the results of using `make` to 
+build a program, or using `vimgrep` (or `grep`) to search files. When the 
+quickfix list is long, it can be helpful to fold related lines together to 
+help show an overview.
 
 This tip concerns folding lines in the quickfix window. See here |vwt-76| for 
 how to fold the current buffer based on the content of the quickfix list.
 
 FOLDING OUTPUT FROM MAKE                    *vwt-801-folding-output-from-make*
 
-When using make on a large software project with multiple directories, the 
+When using `make` on a large software project with multiple directories, the 
 quickfix window can be quite long. Use the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] to automatically fold on each 
 subdirectory, and open folds containing errors (the string "error:"). 
-Additionally, zw opens also the folds containing the string "warning:", while 
-zq switches back to the original.
+Additionally, `zw` opens also the folds containing the string "warning:", 
+while `zq` switches back to the original.
 
 >
     " Folding of (gnu)make output.
@@ -34,12 +34,12 @@ zq switches back to the original.
 
 FOLDING OUTPUT FROM VIMGREP              *vwt-801-folding-output-from-vimgrep*
 
-You may search files with a command like :vimgrep /pattern/ *.c, then open 
-the quickfix window with :cwindow. The following script will fold all the 
+You may search files with a command like `:vimgrep /pattern/ *.c`, then open 
+the quickfix window with `:cwindow`. The following script will fold all the 
 search hits for one file into a single line.
 
-Put the following in file ~/.vim/ftplugin/qf_fold.vim (Unix) or 
-$HOME/vimfiles/ftplugin/qf_fold.vim (Windows):
+Put the following in file `~/.vim/ftplugin/qf_fold.vim` (Unix) or 
+`$HOME/vimfiles/ftplugin/qf_fold.vim` (Windows):
 
 >
     setlocal foldlevel=0
@@ -53,9 +53,9 @@ If the next line is for a different file, the current line is the end of a
 fold.
 
 In the setlocal command, the string '^[^\|]\\+' is used. That command 
-processes the backslashes with the result that the pattern used by matchstr() 
-is '^[^|]\+' (that is, the file path/name consisting of one or more characters 
-that are not '|', at the start of the line).
+processes the backslashes with the result that the pattern used by 
+`matchstr()` is '^[^|]\+' (that is, the file path/name consisting of one or 
+more characters that are not '`|`', at the start of the line).
 
 FOLDING BY DIRECTORY INSTEAD OF FILENAME *vwt-801-folding-by-directory-instead-of-filename*
 
@@ -66,9 +66,10 @@ directory name instead. Replace the foldexpr above with this one:
     setlocal foldexpr=matchstr(substitute(getline(v:lnum),'\|.*','',''),'^.*/')==#matchstr(substitute(getline(v:lnum+1),'\|.*','',''),'^.*/')?1:'<1'
 <
 
-In this expression, first everything after the first '|' is discarded with 
-the calls to substitute(), and then everything up to the last '/' is compared 
-using matchstr(). (This creates only one level of folding, not a tree.)
+In this expression, first everything after the first '`|`' is discarded with 
+the calls to `substitute()`, and then everything up to the last '`/`' is 
+compared using `matchstr()`. (This creates only one level of folding, not a 
+tree.)
 
 You may also like to customise the way that folded lines are displayed:
 
@@ -189,9 +190,9 @@ February 10, 2012 (UTC)
 ALSO FOLD UP THE || OVERFLOW LINES IN QUICKFIX WINDOW *vwt-801-also-fold-up-the-||-overflow-lines-in-quickfix-window*
 
 I loved folding by file or folder in the quickfix, but got very annoyed by 
-the || lines which appear when very long lines overflow. To gather these into 
-the fold that precedes them, I replaced the calls to getline() with a custom 
-function g:GetLastNonWrappedQFLine(). First I defined it as follows:
+the `|| ` lines which appear when very long lines overflow. To gather these 
+into the fold that precedes them, I replaced the calls to `getline()` with a 
+custom function `g:GetLastNonWrappedQFLine()`. First I defined it as follows:
 
 >
     function! g:GetLastNonWrappedQFLine(startline)

@@ -19,7 +19,7 @@ you will find it.)
     set errorformat=%f:%l:%c:%*\\d:%*\\d:%*\\s%m
 <
 
-3. When you are editing a java file type :make and it will compile the 
+3. When you are editing a java file type `:make` and it will compile the 
 current file and jump you to the first error in the file (if any). Read :help 
 |quickfix| for how to move between errors.
 

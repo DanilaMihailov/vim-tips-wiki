@@ -7,8 +7,8 @@ created 2004 · complexity basic · author vid luther · version 6.0
 ==============================================================================
 
 Ever wanted to just check your php script to see if it had any syntax errors? 
-Similar to perl -c?. You could always do it by doing php -l, with this little 
-macro, you can do it in your buffer.
+Similar to `perl -c`?. You could always do it by doing `php -l`, with this 
+little macro, you can do it in your buffer.
 
 Just add the following line in your vimrc, and whenever you want to test, 
 press ctrl-b
@@ -138,7 +138,7 @@ little.
 
 ==============================================================================
 
-I used to do :!php -l %. The previous tip has by far worked the best for me 
+I used to do `:!php -l %`. The previous tip has by far worked the best for me 
 since that. I made a small modification to return the cursor to the previous 
 position if there were no errors; as it was above sent the cursor to the first 
 line when successfully saved.

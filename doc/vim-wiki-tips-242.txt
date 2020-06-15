@@ -7,22 +7,23 @@ created 2002 · complexity intermediate · version 6.0
 ==============================================================================
 
 Vim can search for text that spans multiple lines. For example, the search 
-/hello\_sworld finds "hello world" in a single line, and also finds "hello" 
-ending one line, with "world" starting the next line. In a search, \s finds 
-space or tab, while \_s finds newline or space or tab: an underscore adds a 
+`/hello\_sworld` finds "hello world" in a single line, and also finds "hello" 
+ending one line, with "world" starting the next line. In a search, `\s` finds 
+space or tab, while `\_s` finds newline or space or tab: an underscore adds a 
 newline to any character class.
 
 This tip shows how to search over multiple lines, and presents a useful 
-command so entering :S hello world finds "hello" followed by "world" separated 
-by spaces or tabs or newlines, and :S! hello world allows any non-word 
-characters, including newlines, between the words.
+command so entering `:S hello world` finds "hello" followed by "world" 
+separated by spaces or tabs or newlines, and `:S! hello world` allows any 
+non-word characters, including newlines, between the words.
 
 PATTERNS INCLUDING END-OF-LINE        *vwt-242-patterns-including-end-of-line*
 
-The search /^abcd finds abcd at the beginning of a line, and /abcd$ finds 
-abcd at the end of a line. However, in /abcd^efgh and /abcd$efgh the ^ and $ 
-are just ordinary characters with no special meaning. By contrast, each of the 
-following has a special meaning anywhere in a search pattern.
+The search `/^abcd` finds `abcd` at the beginning of a line, and `/abcd$` 
+finds `abcd` at the end of a line. However, in `/abcd^efgh` and `/abcd$efgh` 
+the `^` and `$` are just ordinary characters with no special meaning. By 
+contrast, each of the following has a special meaning anywhere in a search 
+pattern.
 
 Example searches:
 
@@ -76,8 +77,8 @@ The following search finds any HTML comment:
     /<!--\_.\{-}-->
 <
 
-The atom \_. finds any character including end-of-line. The multi \{-} 
-matches as few as possible (stopping at the first "-->"; the multi * is too 
+The atom `\_.` finds any character including end-of-line. The multi `\{-}` 
+matches as few as possible (stopping at the first "-->"; the multi `*` is too 
 greedy and would stop at the last occurrence).
 
 Syntax highlighting may be not be accurate, particularly with long comments. 
@@ -90,16 +91,16 @@ may be slower (:help |:syn-sync|):
 
 SEARCHING OVER MULTIPLE LINES          *vwt-242-searching-over-multiple-lines*
 
-A pattern can find any specified characters, for example, [aeiou] matches 'a' 
-or 'e' or 'i' or 'o' or 'u'. In addition, Vim defines several character 
-classes. For example, \a is [A-Za-z] (matches any alphabetic character), and 
-\A is [^A-Za-z] (opposite of \a; matches any non-alphabetic character). :help 
-|/\a|
+A pattern can find any specified characters, for example, `[aeiou]` matches 
+'a' or 'e' or 'i' or 'o' or 'u'. In addition, Vim defines several character 
+classes. For example, `\a` is `[A-Za-z]` (matches any alphabetic character), 
+and `\A` is `[^A-Za-z]` (opposite of `\a`; matches any non-alphabetic 
+character). :help |/\a|
 
 An underscore can be used to extend a character class to include a newline 
-(end of line). For example, searching for \_[aeiou] finds a newline or a 
-vowel, so \_[aeiou]\+ matches any sequence of vowels, even a sequence spanning 
-multiple lines. Similarly, \_a\+ matches any sequence of alphabetic 
+(end of line). For example, searching for `\_[aeiou]` finds a newline or a 
+vowel, so `\_[aeiou]\+` matches any sequence of vowels, even a sequence 
+spanning multiple lines. Similarly, `\_a\+` matches any sequence of alphabetic 
 characters, even when spanning multiple lines.
 
 The following search pattern finds "hello world" where any non-alphabetic 
@@ -109,13 +110,13 @@ characters separate the words:
     hello\_[^a-zA-Z]*world
 <
 
-The above pattern (which is equivalent to hello\_A*world) matches 
+The above pattern (which is equivalent to `hello\_A*world`) matches 
 "helloworld", and "hello? ... world", and similar strings, even if "hello" is 
 on one line and "world" is on a following line.
 
 SEARCHING OVER MULTIPLE LINES WITH A USER COMMAND *vwt-242-searching-over-multiple-lines-with-a-user-command*
 
-The script below defines the command :S that will search for a phrase, even 
+The script below defines the command `:S` that will search for a phrase, even 
 when the words are on different lines. Examples:
 
 :S hello world
@@ -124,11 +125,11 @@ Searches for "hello" followed by "world", separated by whitespace including newl
 Searches for "hello" followed by "world", separated by any non-word characters (whitespace, newlines, punctuation).
 Finds, for example, "hello, world" and "hello+world" and "hello ... world". The words can be on different lines.
 
-After entering the command, press n or N to search for the next or previous 
-occurrence.
+After entering the command, press `n` or `N` to search for the next or 
+previous occurrence.
 
 Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] (or in 
-file searchmultiline.vim in your plugin directory):
+file `searchmultiline.vim` in your plugin directory):
 
 >
     " Search for the ... arguments separated with whitespace (if no '!'),

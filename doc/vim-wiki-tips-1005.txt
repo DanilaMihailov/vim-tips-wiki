@@ -7,13 +7,13 @@ created 2005 · complexity basic · author Jos van den Oever · version 6.0
 ==============================================================================
 
 There are several ways to deal with HTML entities so that text can be edited, 
-for example, while it contains a simple ampersand (&) rather than its HTML 
-entity (&amp;).
+for example, while it contains a simple ampersand (`&`) rather than its HTML 
+entity (`&amp;`).
 
 SIMPLE SEARCH AND REPLACE                 *vwt-1005-simple-search-and-replace*
 
-This code allows you to easily escape or unescape HTML entities: Change (<, 
->, &) to (&lt;, &gt;, &amp;), or the reverse.
+This code allows you to easily escape or unescape HTML entities: Change (`<`, 
+>, `&`) to (`&lt;`, `&gt;`, `&amp;`), or the reverse.
 
 This does not escape all characters that should be escaped—just the most 
 common.
@@ -41,13 +41,13 @@ common.
 <
 
 If you add the above code to your vimrc [https://vim.fandom.com/wiki/Vimrc], 
-you can HTML escape the current line by typing \H, and unescape by typing \h 
-(assuming the default backslash leader key). The same keys can be used to 
+you can HTML escape the current line by typing `\H`, and unescape by typing 
+`\h` (assuming the default backslash leader key). The same keys can be used to 
 operate on all lines in a visually selected area, for example, select several 
-lines then type \h to unescape them.
+lines then type `\h` to unescape them.
 
 In addition, a user command is defined. It defaults to operating on the 
-current line, but accepts a range. The argument is 0 to unescape, or 1 to 
+current line, but accepts a range. The argument is `0` to unescape, or `1` to 
 escape, for example:
 
 >
@@ -66,7 +66,7 @@ converts entities when files are read and written, so you can view the
 characters, and write the codes, or vice versa. It was originally written for 
 Java unicodes, but there is also a setting for HTML codes.
 
-The script is for &nnn style encoding, not the HTML entities.
+The script is for `&nnn` style encoding, not the HTML entities.
 
 PERL HTML::ENTITIES                             *vwt-1005-perl-html::entities*
 
@@ -101,7 +101,7 @@ need Perl [http://www.perl.org/] and HTML-Parser
     nnoremap <Leader>H :call HTMLDecode()<CR>
 <
 
-To convert a line, put the cursor in the line and type \h or \H.
+To convert a line, put the cursor in the line and type `\h` or `\H`.
 
 RUBY HTMLENCODE                                     *vwt-1005-ruby-htmlencode*
 
@@ -125,7 +125,7 @@ LANGUAGE SPECIFIC HTML-ENTITIES     *vwt-1005-language-specific-html-entities*
 
 To change, for example, Norwegian special characters, there is no need to 
 select text and not check all the text since it is never part of code-syntax. 
-With the following, typing ,r will check all the text and replace all three 
+With the following, typing `,r` will check all the text and replace all three 
 Norwegian special characters with entities. This can easily be applied to 
 other languages.
 

@@ -15,10 +15,11 @@ with these settings:
     :setlocal foldmethod=syntax
 <
 
-After entering the above, type zM to close all folds, or zR to open them.
+After entering the above, type `zM` to close all folds, or `zR` to open them.
 
-If you have set 'foldcolumn' to more than 0 you can open/close the empty-line 
-blocks by clicking the '+' or '-' with the mouse in the folder column.
+If you have set '`foldcolumn`' to more than 0 you can open/close the 
+empty-line blocks by clicking the '+' or '-' with the mouse in the folder 
+column.
 
 SEE ALSO                                                    *vwt-399-see-also*
     - Remove unwanted empty lines |vwt-72| to delete blank lines 

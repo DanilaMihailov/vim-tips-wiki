@@ -44,8 +44,8 @@ Here's the end-result that we want:
     -rwxr21102wx---
 <
 
-Yes, this can be done via :substitute with back references (Try: 
-%s/\v(.+r)(.+)\s(\d{5})/\1\3\2/), but that can be intimidating for some. An 
+Yes, this can be done via `:substitute` with back references (Try: 
+`%s/\v(.+r)(.+)\s(\d{5})/\1\3\2/`), but that can be intimidating for some. An 
 easier, more flexible and often quicker method to accomplish the same task is 
 to use "complex repeats", which really aren't too complex.
 
@@ -54,9 +54,9 @@ Here's how:
 With this knowledge, you can now quickly perform complex editing of any 
 structured text with relative ease.
 
-This works much the same way as typing 9999@q to execute the 'q' register as 
-many times as the count you pass, except that you do not need to think about 
-the size of your file before doing so to make sure enough 9s are added.
+This works much the same way as typing `9999@q` to execute the 'q' register 
+as many times as the count you pass, except that you do not need to think 
+about the size of your file before doing so to make sure enough 9s are added.
 
 ENDING THE RECURSION                           *vwt-1577-ending-the-recursion*
 
@@ -64,9 +64,9 @@ Normally, a macro recorded in this way will repeat until it reaches the end
 of the file. But, you can easily take advantage of the fact that a macro will 
 stop running if it encounters an error to end the recursion when you want. For 
 example, suppose you have a list of file names (perhaps you obtained it with 
-:r !ls *.c), and you want to verify that every one of these file names occurs 
-in another buffer (a makefile, for instance). You could do this quickly and 
-easily as follows:
+`:r !ls *.c`), and you want to verify that every one of these file names 
+occurs in another buffer (a makefile, for instance). You could do this quickly 
+and easily as follows:
     - Format the file list to one file name per line, with each file name starting 
       at beginning of the line 
     - Split a new window with the file you wish to contain all the file names (for 
@@ -95,8 +95,8 @@ found error and (if 'hlsearch' is on) the missing file will be highlighted in
 the list.
 
 If you don't wan't to rely on an error in this way to end the recursion, you 
-could also do :if cond | exe 'normal @q' | endif instead of @q while recording 
-the macro to provide a base case to end the recursion.
+could also do :if cond | exe 'normal @q' | endif instead of `@q` while 
+recording the macro to provide a base case to end the recursion.
 
 ADDING RECURSION TO AN EXISTING MACRO *vwt-1577-adding-recursion-to-an-existing-macro*
 
@@ -119,11 +119,11 @@ register, see Best Vim Tips: Appending to registers
 NOTE                                                           *vwt-1577-note*
 
 One may wonder, "why is it necessary to empty out a register prior to 
-recording into it?" A sequence such as qf starts recording into an empty "f" 
-register by definition. However, without emptying the register with qfq prior 
-to recording, the register will not be empty when you add @f to your macro, 
-and thus whatever is currently stored there will be executed, instead of doing 
-nothing until you actually run the macro, as intended.
+recording into it?" A sequence such as `qf` starts recording into an empty "f" 
+register by definition. However, without emptying the register with `qfq` 
+prior to recording, the register will not be empty when you add `@f` to your 
+macro, and thus whatever is currently stored there will be executed, instead 
+of doing nothing until you actually run the macro, as intended.
 
 SEE ALSO                                                   *vwt-1577-see-also*
     - This can also be done with a mapping 
@@ -144,9 +144,9 @@ has the added benefit of being able to monitor/guide the process.
 In many cases, it's both easier and faster to use the :normal command (which 
 runs normal-mode commands from the command mode) in order to invoke macros. As 
 an ex command, :normal can take a range of lines. In the example given at the 
-top of the page, one could set the macro with qqf2dwFrpq -- and then move to 
+top of the page, one could set the macro with `qqf2dwFrpq` -- and then move to 
 the next line and perform the macro on the remainder of the file with 
-:.,$normal @q. Since this doesn't use recursion, it's much faster -- 
+`:.,$normal @q`. Since this doesn't use recursion, it's much faster -- 
 especially noticeable on large files (though, of course, it still won't be as 
 fast as a regex or a specialized external command).
 

@@ -33,7 +33,7 @@ Display the jump list for the current window with:
 
 Your current location in the jump list is indicated with '>', and the first 
 number in each row is a count that can be used to jump to that position. For 
-example, after pressing Ctrl-O three times, the :jumps command may show 
+example, after pressing Ctrl-O three times, the `:jumps` command may show 
 something like this:
 
 >
@@ -51,8 +51,8 @@ something like this:
 Given the above, you could press:
     - Ctrl-I to jump to line 39 in the current buffer. 
     - Ctrl-O to jump to line 89 in the current buffer. 
-    - 4 then Ctrl-O to jump to line 102 in file somefile.txt. 
-    - 3 then Ctrl-I to jump to line 53 in the current buffer. 
+    - `4` then Ctrl-O to jump to line 102 in file `somefile.txt`. 
+    - `3` then Ctrl-I to jump to line 53 in the current buffer. 
 
 
 In the example above:
@@ -114,7 +114,7 @@ REFERENCES                                                *vwt-553-references*
 
 COMMENTS                                                    *vwt-553-comments*
 
-You can also use g; and g, to move backward and forward in your edit 
+You can also use `g;` and `g,` to move backward and forward in your edit 
 locations.
 
 One thing that may not be immediately evident is that this works only 

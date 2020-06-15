@@ -16,13 +16,13 @@ near, or have exceeded a certain column width (say 80 columns). Vim's
 highlighting features can be used to easily identify when this occurs. Unlike 
 some editors, Vim cannot show a line at this width.
 
-You can also wrap long lines |vwt-38|, or show < > flags when characters are 
-not displayed |vwt-396#HighlightLongLines| on long lines.
+You can also wrap long lines |vwt-38|, or show `<` > flags when characters 
+are not displayed |vwt-396#HighlightLongLines| on long lines.
 
 SEARCHING                                                  *vwt-810-searching*
 
 A quick method to find long lines is a search like the following. If you use 
-search highlighting |vwt-14| (:set hlsearch), this will highlight all text 
+search highlighting |vwt-14| (`:set hlsearch`), this will highlight all text 
 after virtual column 80 (after tabs are expanded).
 
 >
@@ -38,7 +38,7 @@ A simple command will highlight any text after virtual column 80:
 <
 
 Of course, you can define your own highlight groups |vwt-24| if ErrorMsg is 
-not to your taste. Enter :match to clear matching.
+not to your taste. Enter `:match` to clear matching.
 
 Alternatively, you can just highlight any character in column 81. This is 
 less visually aggressive if you have lines that extend past 80 characters, and 
@@ -63,7 +63,7 @@ AUTOMATIC MATCHING                                *vwt-810-automatic-matching*
 
 If you want to be warned whenever text exceeds 80 columns you can use 
 matching. In Vim 7.2 this is easy to achieve with the following commands (the 
--1 means any search highlighting will override the match highlighting):
+`-1` means any search highlighting will override the match highlighting):
 
 >
     :let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
@@ -78,8 +78,8 @@ like this in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 <
 
-You can change the * to a different pattern, or a comma-separated list, to 
-make it work only for certain file types like *.c,*.h for example.
+You can change the `*` to a different pattern, or a comma-separated list, to 
+make it work only for certain file types like `*.c,*.h` for example.
 
 Since matches are local to a window and are not inherited when a new window 
 is created, this method will not necessarily apply to all new windows you 
@@ -125,8 +125,8 @@ Clear the highlighting (after saving any changes) with:
 <
 
 This assumes you are editing a file using syntax rules contained in a syntax 
-file (which usually do a syntax clear before applying their rules). If you are 
-editing a file with no pre-existing syntax rules, you can get rid of all 
+file (which usually do a `syntax clear` before applying their rules). If you 
+are editing a file with no pre-existing syntax rules, you can get rid of all 
 syntax highlighting with:
 
 >
@@ -156,16 +156,16 @@ EXPLANATION                                              *vwt-810-explanation*
 
 The search pattern \%>80v.\+ checks for a match at each position. If the 
 position being tested is at a virtual column above 80, the text at that 
-position is checked to see if it matches what follows (.\+). That matches one 
-or more characters, up to but not including the end-of-line.
+position is checked to see if it matches what follows (`.\+`). That matches 
+one or more characters, up to but not including the end-of-line.
 
-A simpler pattern such as \%81v.* fails to highlight text past the limit if 
+A simpler pattern such as `\%81v.*` fails to highlight text past the limit if 
 there is no character in virtual column 81, for example if a tab starts just 
-before that column. Furthermore, \%81v.* can give an erroneous highlight of 
+before that column. Furthermore, `\%81v.*` can give an erroneous highlight of 
 column 81 on lines of exactly 80 characters.
 
 The pattern \%<81v.\%>77v matches any character at virtual column 77 to 80 
-inclusive. The pattern checks for a match at each position: \%<81v. matches 
+inclusive. The pattern checks for a match at each position: `\%<81v.` matches 
 any character at a virtual column below 81; \%>77v causes the match to fail 
 unless the virtual column of the next character is above 77.
 

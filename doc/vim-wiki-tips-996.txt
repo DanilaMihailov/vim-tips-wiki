@@ -6,7 +6,7 @@ created 2005 · complexity basic · author Ivan Tishchenko · version 5.7
 
 ==============================================================================
 
-I often use the following sequence of commands (g/pattern/# lists each line 
+I often use the following sequence of commands (`g/pattern/#` lists each line 
 containing pattern, with line numbers):
 
 >
@@ -60,8 +60,8 @@ Here is the command.
 
 COMMENTS                                                    *vwt-996-comments*
 
-This duplicates behavior of the :ilist command, though I think your approach 
-saves a keystroke or two.
+This duplicates behavior of the `:ilist` command, though I think your 
+approach saves a keystroke or two.
 
 >
     :ilist /public
@@ -72,12 +72,12 @@ public methods, for example). The matching line's linenumber will be to the
 left of the displayed line. You can then type ':<linenumber><CR>' to go to the 
 appropriate line.
 
-You can abbreviate :ilist to :il so you could enter :il /public.
+You can abbreviate `:ilist` to `:il` so you could enter `:il /public`.
 
 ==============================================================================
 
-However, :ilist searches the current file, and also all included files. This 
-is not what I want, and is too slow.
+However, `:ilist` searches the current file, and also all included files. 
+This is not what I want, and is too slow.
 
 Also, the tip makes selecting the wanted line a lot easier.
 
@@ -91,10 +91,10 @@ following:
 <
 
 Now the output of the command is in register "a". Place in buffer where you 
-want it with "ap.
+want it with `"ap`.
 
 The reason for wrapping the command in quotes and exe-ing it is because some 
-commands, like :global, see the following | as part of the command, so the 
+commands, like `:global`, see the following `|` as part of the command, so the 
 redirection doesn't behave properly. :help |:redir| :help |:bar|
 
 ==============================================================================

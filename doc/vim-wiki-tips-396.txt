@@ -11,14 +11,14 @@ tab). You may not want spaces before tabs, or trailing whitespace at the end
 of a line. Sometimes you may want to avoid tabs, or just see where tabs occur.
 
 This tip shows several ways to highlight unwanted whitespace. In addition, 
-the tip explains how to use the listchars option (abbreviated to lcs) to 
+the tip explains how to use the `listchars` option (abbreviated to `lcs`) to 
 indicate when characters are not displayed on long lines.
 
 HIGHLIGHTING WITH A SEARCH                *vwt-396-highlighting-with-a-search*
 
 For occasional use, you can simply search using a suitable pattern to 
 highlight what you want. The following examples assume you use search 
-highlighting |vwt-14| (:set hlsearch).
+highlighting |vwt-14| (`:set hlsearch`).
 
 >
     " Show all tabs:
@@ -36,12 +36,13 @@ highlighting |vwt-14| (:set hlsearch).
 
 HIGHLIGHTING WITH THE MATCH COMMAND *vwt-396-highlighting-with-the-match-command*
 
-The :match command specifies the name of a highlight group and a pattern. Any 
-text matching the pattern will be displayed in the foreground and background 
-colors defined by the highlight group. :help |:match| :help |:2match|
+The `:match` command specifies the name of a highlight group and a pattern. 
+Any text matching the pattern will be displayed in the foreground and 
+background colors defined by the highlight group. :help |:match| :help 
+|:2match|
 
-Some examples follow. These use a highlight group named ExtraWhitespace which 
-could be defined with one of the following in your vimrc 
+Some examples follow. These use a highlight group named `ExtraWhitespace` 
+which could be defined with one of the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]. :help |:highlight|
 
 >
@@ -107,9 +108,9 @@ Or alternatively, the following can be used:
 
 which does not "flash" the screen.
 
-Any :match highlighting applies only to the current window. With the 
+Any `:match` highlighting applies only to the current window. With the 
 following in your vimrc, the command will be applied to the first window, and 
-to any subsequent windows. The pattern * applies the highlight to all files.
+to any subsequent windows. The pattern `*` applies the highlight to all files.
 
 >
     " Show leading whitespace that includes spaces, and trailing whitespace.
@@ -117,16 +118,16 @@ to any subsequent windows. The pattern * applies the highlight to all files.
 <
 
 Rather than an autocmd, you may prefer a mapping. With the following, and the 
-default backslash Leader key, you can type \wn to switch highlighting on, and 
-\wf to switch it off.
+default backslash Leader key, you can type `\wn` to switch highlighting on, 
+and `\wf` to switch it off.
 
 >
     :nnoremap <Leader>wn :match ExtraWhitespace /^\s* \s*\<Bar>\s\+$/<CR>
     :nnoremap <Leader>wf :match<CR>
 <
 
-With Vim 7.1.40 and later, you can use the matchadd() function to define 
-matches (making the :match command available for other purposes). See 
+With Vim 7.1.40 and later, you can use the `matchadd()` function to define 
+matches (making the `:match` command available for other purposes). See 
 Highlight long lines |vwt-810| for examples.
 
 If your goal is to:
@@ -146,13 +147,13 @@ list of precisely what you need.
 
 HIGHLIGHTING WITH THE SYNTAX COMMAND *vwt-396-highlighting-with-the-syntax-command*
 
-Using the :match command is easy, but you may want to keep it for another 
+Using the `:match` command is easy, but you may want to keep it for another 
 purpose. An alternative is to use syntax highlighting. :help |syntax|
 
 Here is an example using one of the patterns shown earlier. Put this in your 
-vimrc [https://vim.fandom.com/wiki/Vimrc], after the command :syntax on (which 
-you may already have). Of course you would also need to define ExtraWhitespace 
-with a :highlight command, as shown earlier.
+vimrc [https://vim.fandom.com/wiki/Vimrc], after the command `:syntax on` 
+(which you may already have). Of course you would also need to define 
+`ExtraWhitespace` with a `:highlight` command, as shown earlier.
 
 >
     " Show trailing whitepace and spaces before a tab:
@@ -160,32 +161,32 @@ with a :highlight command, as shown earlier.
 <
 
 If you want the above command to also work if the match is nested in some 
-other syntax group, append containedin=ALL to the end.
+other syntax group, append `containedin=ALL` to the end.
 
 USING THE LIST AND LISTCHARS OPTIONS *vwt-396-using-the-list-and-listchars-options*
 
 In Vim, 'list' is a boolean option that defaults to off. If 'list' is on, 
 whitespace characters are made visible. The 'listchars' option can be used to 
-customize the way whitespace characters are shown. The default displays "^I" 
-for each tab, and "$" at each EOL (end of line, so trailing whitespace can be 
-seen). :help 'list'
+customize the way whitespace characters are shown. The default displays "`^I`" 
+for each tab, and "`$`" at each EOL (end of line, so trailing whitespace can 
+be seen). :help 'list'
 
-The command :set list displays whitespace, while :set nolist displays 
-normally. It is convenient to use :set list! to toggle the option on, so that 
-you can later press : followed by the up arrow to repeat the previous command, 
-to toggle 'list' off.
+The command `:set list` displays whitespace, while `:set nolist` displays 
+normally. It is convenient to use `:set list!` to toggle the option on, so 
+that you can later press `:` followed by the up arrow to repeat the previous 
+command, to toggle 'list' off.
 
-The following example toggles list, then sets listchars to not display an 
+The following example toggles `list`, then sets `listchars` to not display an 
 end-of-line character, and to display > for the first character occupied by a 
-tab, and - for any subsequent characters that the tab may occupy.
+tab, and `-` for any subsequent characters that the tab may occupy.
 
 >
     :set list!
     :set listchars=tab:>-
 <
 
-Here are some alternatives that you can try (each sets list and listchars in 
-one command):
+Here are some alternatives that you can try (each sets `list` and `listchars` 
+in one command):
 
 >
     :set list listchars=tab:>-,trail:.,extends:>
@@ -205,7 +206,7 @@ The listchars option uses the "NonText" highlighting group for "eol",
 USING SYNTAX SPACE ERRORS                  *vwt-396-using-syntax-space-errors*
 
 Vim has several syntax files that support the display of "space errors". For 
-example, for the C programming language (:set filetype=c), you could put the 
+example, for the C programming language (`:set filetype=c`), you could put the 
 following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 
 >
@@ -236,10 +237,10 @@ of tabs:
 <
 
 If you are interested in learning more, open the syntax file for C (in Vim, 
-put the cursor on the path $VIMRUNTIME/syntax/c.vim and type gf). Then look 
-for the definition of the highlight group cSpaceError (near the end of the 
-file). That group specifies the color used to display space errors in C files. 
-The command :hi cSpaceError will show "xxx" in that color.
+put the cursor on the path `$VIMRUNTIME/syntax/c.vim` and type `gf`). Then 
+look for the definition of the highlight group `cSpaceError` (near the end of 
+the file). That group specifies the color used to display space errors in C 
+files. The command `:hi cSpaceError` will show "xxx" in that color.
 
 
 
@@ -250,8 +251,8 @@ horizontally scroll the text, for example by moving the cursor to the end of a
 long line. Therefore there may be characters preceding the visible text 
 (non-displayed characters on the left), and there may be characters that 
 extend after the visible text (non-displayed characters on the right). The 
-listchars option can be used to show a highlighted symbol when characters are 
-not displayed, for example:
+`listchars` option can be used to show a highlighted symbol when characters 
+are not displayed, for example:
 
 >
     " Show < or > when characters are not displayed on the left or right.
@@ -318,9 +319,9 @@ RELATED SCRIPTS                                      *vwt-396-related-scripts*
 
 COMMENTS                                                    *vwt-396-comments*
 
-If you want to leave :match available for other uses and still have the match 
-change when you enter or leave Insert mode, then you can use the following 
-snippet.
+If you want to leave `:match` available for other uses and still have the 
+match change when you enter or leave Insert mode, then you can use the 
+following snippet.
 
 >
     highlight ExtraWhitespace ctermbg=red guibg=red

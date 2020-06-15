@@ -34,8 +34,8 @@ directory):
     :lcd %:p:h
 <
 
-In these commands, % gives the name of the current file, %:p gives its full 
-path, and %:p:h gives its directory (the "head" of the full path).
+In these commands, `%` gives the name of the current file, `%:p` gives its 
+full path, and `%:p:h` gives its directory (the "head" of the full path).
 
 AUTOMATICALLY CHANGE THE CURRENT DIRECTORY *vwt-64-automatically-change-the-current-directory*
 
@@ -48,7 +48,7 @@ file you are editing. To achieve this, put the following in your vimrc:
 
 That's it! Unfortunately, when this option is set some plugins may not work 
 correctly if they make assumptions about the current directory. Sometimes, as 
-an alternative to setting autochdir, the following command gives better 
+an alternative to setting `autochdir`, the following command gives better 
 results:
 
 >
@@ -68,7 +68,7 @@ Either of these methods will "cd" to the directory of the file in the current
 window, each time you switch to that window.
 
 Using the autocmd method, you could customize when the directory change takes 
-place. For example, to not change directory if the file is in /tmp:
+place. For example, to not change directory if the file is in `/tmp`:
 
 >
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
@@ -87,7 +87,7 @@ MAPPING OR COMMAND FOR QUICK DIRECTORY CHANGE *vwt-64-mapping-or-command-for-qui
 
 Rather than automatically change the working directory, you can use a mapping 
 or a user command to easily change directory to the file being edited. The 
-command below maps your leader key followed by cd to do that.
+command below maps your leader key followed by `cd` to do that.
 
 >
     nnoremap <leader>cd :cd %:p:h<CR>
@@ -102,7 +102,7 @@ Alternatively, use:
 to print the directory after changing, so you know where you ended up.
 
 If you prefer, use a command instead of a mapping. The following allows you 
-to enter :CDC to change directory (it also displays the new directory):
+to enter `:CDC` to change directory (it also displays the new directory):
 
 >
     " CDC = Change to Directory of Current file
@@ -113,7 +113,7 @@ ADD FILE DIRECTORY TO VIM PATH         *vwt-64-add-file-directory-to-vim-path*
 
 If your main purpose in setting the working directory is to easily open files 
 in a project, another approach is to add the directory to the path so that you 
-can use the :find command to open any other file in the directory:
+can use the `:find` command to open any other file in the directory:
 
 >
     " Add the current file's directory to the path if not already present.
@@ -122,12 +122,12 @@ can use the :find command to open any other file in the directory:
           \ exec "set path+=".s:tempPath
 <
 
-This can be modified using :set path^= instead of :set path+=, which prepends 
-the new directory to the beginning of the path instead of appending it to the 
-end. For this to work, you will need to remove the path being added first, 
-because otherwise the path^= will take no action. You should probably remove 
-and then prepend the default value of 'path' as well, so that the default 
-value remains at the beginning.
+This can be modified using `:set path^=` instead of `:set path+=`, which 
+prepends the new directory to the beginning of the path instead of appending 
+it to the end. For this to work, you will need to remove the path being added 
+first, because otherwise the `path^=` will take no action. You should probably 
+remove and then prepend the default value of 'path' as well, so that the 
+default value remains at the beginning.
 
 >
     let s:default_path = escape(&path, '\ ') " store default value of 'path'
@@ -155,7 +155,7 @@ SEE ALSO                                                     *vwt-64-see-also*
 
 
 REFERENCES                                                 *vwt-64-references*
-    - :help |filename-modifiers| information about %:p:h 
+    - :help |filename-modifiers| information about `%:p:h` 
     - :help 'autochdir' 
     - :help |:autocmd| 
     - :help |:lcd| 

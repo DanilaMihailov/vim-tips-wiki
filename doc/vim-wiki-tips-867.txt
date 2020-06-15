@@ -6,10 +6,10 @@ created 2003 · complexity basic · author Fritz Cizmarov · version 6.0
 
 ==============================================================================
 
-This tip presents several ways to access Python documentation using pydoc. 
+This tip presents several ways to access Python documentation using `pydoc`. 
 The recommended location for the commands in this snippet is 
-~/.vim/after/ftplugin/python.vim, or $HOME\vimfiles\after\ftplugin\python.vim 
-on Windows.
+`~/.vim/after/ftplugin/python.vim`, or 
+`$HOME\vimfiles\after\ftplugin\python.vim` on Windows.
 
 USING A SHELL (SIMPLE)                        *vwt-867-using-a-shell-(simple)*
 
@@ -41,7 +41,7 @@ or for Windows
 <
 
 These mappings only work for single words. To display the documentation for a 
-method or a class in a module, for example os.popen(), modify the mapping in 
+method or a class in a module, for example `os.popen()`, modify the mapping in 
 this way
 
 >
@@ -51,17 +51,18 @@ this way
         \ let &iskeyword = save_isk<CR>
 <
 
-It is not recommended to permanently add . to 'iskeyword'.
+It is not recommended to permanently add `.` to 'iskeyword'.
 
 USING THE PREVIEW WINDOW OR A SCRATCH BUFFER *vwt-867-using-the-preview-window-or-a-scratch-buffer*
 
 This snippet allows you to use the command :Pyhelp <string> to preview Python 
-documentation in the preview window. It also remaps K in the same manner as 
+documentation in the preview window. It also remaps `K` in the same manner as 
 above.
 
-If Vim is compiled with +python, it automatically finds the path to pydoc.py. 
-Otherwise, set the s:pydoc_path variable to a suitable value. This seemingly 
-indirect approach is used in an effort to make the snippet platform agnostic.
+If Vim is compiled with `+python`, it automatically finds the path to 
+`pydoc.py`. Otherwise, set the `s:pydoc_path` variable to a suitable value. 
+This seemingly indirect approach is used in an effort to make the snippet 
+platform agnostic.
 
 >
     if has("python")
@@ -95,7 +96,7 @@ indirect approach is used in an effort to make the snippet platform agnostic.
 <
 
 If, instead, you prefer using a scratch buffer to the preview window, change 
-the ShowPydoc function to
+the `ShowPydoc` function to
 
 >
     function! ShowPydoc(what)

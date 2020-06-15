@@ -24,7 +24,7 @@ This code snippet is a part of a vimrc file to set comments in various
 filetypes. The function CommentIt() decides itself, according to the current 
 file's type which variant of comments to use.
 
-This function should be called with autocmd BufEnter * call CommentIt() 
+This function should be called with `autocmd BufEnter * call CommentIt()` 
 somewhere after its declaration to be invoked every time the user enters a new 
 buffer.
 

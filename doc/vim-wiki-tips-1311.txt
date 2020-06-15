@@ -11,16 +11,16 @@ access, this can be very useful. But instead of using ROX?, all you need to do
 is set your VIM, VIMRUNTIME, and PATH environment variables after running 
 `make`
 
-Python omnicomplete requires Vim 7 compiled with a Python interpreter (config 
---enable-pythoninterp), but that makes the Vim executable about 4.5MB larger. 
-For normal text editing I don't need that extra baggage, so I use two 
-different copies of Vim: one that's compiled with my normal options (no 
-Python), and one that's compiled with Python. I use the ROX filer to launch 
-normal text files with "vim" (my normal executable), and *.py files with 
-"vimpy" (compiled with --enable-pythoninterp). This solution is optimal if you 
-have hard drive space to spare, but no time to waste waiting for Vim to start. 
-The following steps will give you my setup; they assume that you use the 
-standard installation directory for Vim, but if you're changing that, you 
+Python omnicomplete requires Vim 7 compiled with a Python interpreter 
+(`config --enable-pythoninterp`), but that makes the Vim executable about 
+4.5MB larger. For normal text editing I don't need that extra baggage, so I 
+use two different copies of Vim: one that's compiled with my normal options 
+(no Python), and one that's compiled with Python. I use the ROX filer to 
+launch normal text files with "vim" (my normal executable), and *.py files 
+with "vimpy" (compiled with `--enable-pythoninterp`). This solution is optimal 
+if you have hard drive space to spare, but no time to waste waiting for Vim to 
+start. The following steps will give you my setup; they assume that you use 
+the standard installation directory for Vim, but if you're changing that, you 
 probably also know how to tweak my directions for your needs.
 
 STEPS                                                         *vwt-1311-steps*
@@ -33,11 +33,11 @@ powerful, and useful.
 [http://www.vim.org/download.php]), extract and load up a terminal in the 
 extracted directory.
 
-3. Run ./configure with the options that you want for your standard Vim 
-install (but without --enable-pythoninterp), then "make" and "make install".
+3. Run `./configure` with the options that you want for your standard Vim 
+install (but without `--enable-pythoninterp`), then "make" and "make install".
 
-4. Run ./configure --enable-pythoninterp and with any other options that you 
-want for your Python editing Vim install, then "make" (but don't "make 
+4. Run `./configure --enable-pythoninterp` and with any other options that 
+you want for your Python editing Vim install, then "make" (but don't "make 
 install" this time).
 
 5. Do a "cd src" to get to where your newly-compiled version of Vim is, then 
@@ -45,13 +45,13 @@ do "sudo mv ./vim /usr/local/bin/vimpy" to name the python-enabled copy of Vim
 "vimpy" and move it to same directory as your normal Vim executable.
 
 6. In ROX filer, right-click a Python code file and select "Set Run Action". 
-Where it says "Enter a shell command", enter this text: vimpy -g "$@" 
-[OPTIONAL]
+Where it says "Enter a shell command", enter this text: `vimpy -g "$@" 
+[OPTIONAL]`
 
 7. Also in ROX, right-click a normal text file, and select "Set Run Action" 
 again. This time go to the top where it has two radio buttons, and select the 
 one that says "Set default for all 'text/<anything>'". Where it says "Enter a 
-shell command", enter this text: gvim "$@" [OPTIONAL]
+shell command", enter this text: `gvim "$@" [OPTIONAL]`
 
 Now anytime that you launch a Python source file from ROX, a copy of gvim 
 will start up that has Python support compiled in. Anytime you launch a text 

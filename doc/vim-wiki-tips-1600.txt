@@ -18,11 +18,11 @@ the user wishes to use it.
 
 It turns out, Vim does have this functionality, but it is hard to find.
 
-The :drop command will edit a new file, or jump to the window containing it 
-if it already exists. Using :tab with it (i.e. :tab drop {file}) will open the 
-file in a new tab if it isn't already open.
+The `:drop` command will edit a new file, or jump to the window containing it 
+if it already exists. Using `:tab` with it (i.e. `:tab drop {file}`) will open 
+the file in a new tab if it isn't already open.
 
-Dragging and dropping a file into gvim automatically invokes the :drop 
+Dragging and dropping a file into gvim automatically invokes the `:drop` 
 command. If you hold down the CTRL key while doing this, it will force a 
 window to split (there isn't a way to force a tab, but CTRL-W T right 
 afterwards will do that for you easily). If you hold down SHIFT, it will set 
@@ -36,7 +36,7 @@ REFERENCES                                               *vwt-1600-references*
 COMMENTS                                                   *vwt-1600-comments*
 
 You can use :command! -nargs=1 -complete=file O tab drop <args> to open the 
-file or jump to it using :O FILENAME.
+file or jump to it using `:O FILENAME`.
 
 Here is a powershell script I use to run gvim for me. If the file is already 
 open in another window, it opens that instead; otherwise, it just open it 

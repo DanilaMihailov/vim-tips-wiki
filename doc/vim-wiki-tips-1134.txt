@@ -19,7 +19,7 @@ Although this tip is very useful for me, but I think it is somehow complex
 for needing a outter command tool. The most important things today I do with 
 the internet is receiving and sending emails.
 
-But sometimes I just got some base64 raw string like aGFwcHkgdmltbWluZyA=.
+But sometimes I just got some base64 raw string like `aGFwcHkgdmltbWluZyA=`.
 
 Here is how to use a system command to read it in Vim directly.
 
@@ -112,11 +112,11 @@ You need write some script in your vimrc:
     endfunction " #endregion
 <
 
-Now open a new gvim instance and copy and paste aGFwcHkgdmltbWluZyA= into it. 
-Use virtual mode to select it, then press ;mmd
+Now open a new gvim instance and copy and paste `aGFwcHkgdmltbWluZyA=` into 
+it. Use virtual mode to select it, then press `;mmd`
 
-You can see the output text at the bottom of the window: answer = happy 
-vimming
+You can see the output text at the bottom of the window: `answer = happy 
+vimming`
 
 Sometimes the raw base64 string is encoded from Unicode original string. If 
 you want to read it please type:

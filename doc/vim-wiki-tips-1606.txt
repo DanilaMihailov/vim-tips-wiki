@@ -8,16 +8,16 @@ created
 
 ==============================================================================
 
-This tip is a tutorial on the use of the file filetype.vim which is used to 
-determine the "type" of a file. For example, while editing example.py the 
-command :set ft? should display filetype=python if :filetype indent plugin on 
-has been used. The file type determines whether any plugins for scripts, 
-indenting rules, or syntax highlighting are loaded. See file type plugins 
-[https://vim.fandom.com/wiki/File_type_plugins] for an overview.
+This tip is a tutorial on the use of the file `filetype.vim` which is used to 
+determine the "type" of a file. For example, while editing `example.py` the 
+command `:set ft?` should display `filetype=python` if `:filetype indent 
+plugin on` has been used. The file type determines whether any plugins for 
+scripts, indenting rules, or syntax highlighting are loaded. See file type 
+plugins [https://vim.fandom.com/wiki/File_type_plugins] for an overview.
 
 FILE STRUCTURE                                       *vwt-1606-file-structure*
 
-Custom filetype.vim files should always have the following structure:
+Custom `filetype.vim` files should always have the following structure:
 
 >
     if exists("did_load_filetypes")
@@ -28,8 +28,8 @@ Custom filetype.vim files should always have the following structure:
     augroup END
 <
 
-Files that are being used as fallbacks (in the after directories) should use 
-a form such as
+Files that are being used as fallbacks (in the `after` directories) should 
+use a form such as
 
 >
     if exists("did_load_filetypes_userafter")
@@ -41,43 +41,44 @@ a form such as
     augroup END
 <
 
-because did_load_filetypes will be set before the after files are used. Using 
-the suffixes _userafter and _systemafter as appropriate will prevent one from 
-interfering with the other.
+because `did_load_filetypes` will be set before the `after` files are used. 
+Using the suffixes `_userafter` and `_systemafter` as appropriate will prevent 
+one from interfering with the other.
 
 FILE CONTENTS                                         *vwt-1606-file-contents*
 
-Between augroup filetypedetect and augroup END there will be one or more 
-autocmd statements that may assign a filetype when the BufNewFile and BufRead 
-events occur (that is, when a new file is created, or when an existing file is 
-read).
+Between `augroup filetypedetect` and `augroup END` there will be one or more 
+`autocmd` statements that may assign a filetype when the `BufNewFile` and 
+`BufRead` events occur (that is, when a new file is created, or when an 
+existing file is read).
 
 Following are some examples to illustrate common scenarios.
 
-Assign the dosbatch filetype to any file with name ending in .bat or .sys:
+Assign the `dosbatch` filetype to any file with name ending in `.bat` or 
+`.sys`:
 
 >
     au! BufNewFile,BufRead *.bat,*.sys setf dosbatch
 <
 
-If the first line of a .cmd file begins with /* then assign the filetype 
-rexx, otherwise assign the filetype dosbatch:
+If the first line of a `.cmd` file begins with `/*` then assign the filetype 
+`rexx`, otherwise assign the filetype `dosbatch`:
 
 >
     au! BufNewFile,BufRead *.cmd if getline(1) =~ '^/\*' | setf rexx | else | setf dosbatch | endif
 <
 
-If the first line of a .bat file contains "--*-Perl-*--" then assign the 
-filetype perl, otherwise do nothing and continue processing rules (see tip 
+If the first line of a `.bat` file contains "`--*-Perl-*--`" then assign the 
+filetype `perl`, otherwise do nothing and continue processing rules (see tip 
 [https://vim.fandom.com/wiki/Editing_ActiveState_Perl_batch_files]):
 
 >
     au! BufRead,BufNewFile *.bat if getline(1) =~ '--\*-Perl-\*--' | setf perl | endif
 <
 
-When reading a .btm file, if the variable g:dosbatch_syntax_for_btm is 
-defined and non-zero then assign the dosbatch filetype, otherwise assign the 
-btm filetype.
+When reading a `.btm` file, if the variable `g:dosbatch_syntax_for_btm` is 
+defined and non-zero then assign the `dosbatch` filetype, otherwise assign the 
+`btm` filetype.
 
 >
     au! BufNewFile,BufRead *.btm call s:FTbtm()
@@ -92,10 +93,10 @@ btm filetype.
 
 FILE LOCATIONS                                       *vwt-1606-file-locations*
 
-The file filetype.vim is read from directories in the runtime path. The first 
-match which executes :setf will set the filetype for the file Vim is creating 
-or reading. If no rules execute :setf then additional filetype.vim files will 
-be read.
+The file `filetype.vim` is read from directories in the runtime path. The 
+first match which executes `:setf` will set the filetype for the file Vim is 
+creating or reading. If no rules execute `:setf` then additional 
+`filetype.vim` files will be read.
 
 The file locations (in the order that the files are processed) are:
 
@@ -125,26 +126,26 @@ In Vim, use commands like the following to check these locations:
     :echo $VIMRUNTIME
 <
 
-On Windows systems, $HOME is set from the environment variable HOME, if 
-defined; or is set by joining variables HOMEDRIVE and HOMEPATH, if they are 
-defined. At command prompt (not in Vim), enter set H to display the 
-environment variables that begin with 'H'.
+On Windows systems, `$HOME` is set from the environment variable `HOME`, if 
+defined; or is set by joining variables `HOMEDRIVE` and `HOMEPATH`, if they 
+are defined. At command prompt (not in Vim), enter `set H` to display the 
+environment variables that begin with '`H`'.
 
 EXAMPLE                                                     *vwt-1606-example*
 
 When using our CSV tip [https://vim.fandom.com/wiki/Working_with_CSV_files], 
-it is necessary to specify that *.csv files have the csv file type. To do 
+it is necessary to specify that `*.csv` files have the `csv` file type. To do 
 this, edit the following file:
-    - $HOME/.vim/filetype.vim (Unix based systems) 
-    - $HOME/vimfiles/filetype.vim (Windows systems – can use forward slash or 
+    - `$HOME/.vim/filetype.vim` (Unix based systems) 
+    - `$HOME/vimfiles/filetype.vim` (Windows systems – can use forward slash or 
       backslash in Vim) 
 
 
-Check that $HOME has been defined, and that the $HOME/.vim directory (Unix) 
-or $HOME/vimfiles directory (Windows) exists, and you may need to create the 
-filetype.vim file in that directory.
+Check that `$HOME` has been defined, and that the `$HOME/.vim` directory 
+(Unix) or `$HOME/vimfiles` directory (Windows) exists, and you may need to 
+create the `filetype.vim` file in that directory.
 
-Contents of user filetype.vim (which may include other rules):
+Contents of user `filetype.vim` (which may include other rules):
 
 >
     if exists("did_load_filetypes")
@@ -155,7 +156,7 @@ Contents of user filetype.vim (which may include other rules):
     augroup END
 <
 
-As well as configuring filetype.vim, you may need the following commands 
+As well as configuring `filetype.vim`, you may need the following commands 
 (which would normally be in your vimrc [https://vim.fandom.com/wiki/Vimrc]) to 
 enable all the features available for a particular file type.
 

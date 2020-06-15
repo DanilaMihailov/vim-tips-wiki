@@ -21,15 +21,15 @@ To turn this shortening on, you need two steps:
     :exe "norm :echomsg LongMessage\n"
 <
 
-Or use the function ShortEcho() below.
+Or use the function `ShortEcho()` below.
 
-The first step (set shortmess+=T) is straightforward. You might already have 
-T in the shortmess option already.
+The first step (`set shortmess+=T`) is straightforward. You might already 
+have T in the `shortmess` option already.
 
-The second step is tricky. :echo does not shorten long messages. :echomsg, by 
-itself, does not shorten long messages. Only when :echomsg is used under 
-:norm, are long messages truncated. And don't forget trailing \n when using 
-:exe norm.
+The second step is tricky. `:echo` does not shorten long messages. 
+`:echomsg`, by itself, does not shorten long messages. Only when `:echomsg` is 
+used under `:norm`, are long messages truncated. And don't forget trailing 
+`\n` when using `:exe norm`.
 
 >
     function! ShortEcho(msg)

@@ -22,8 +22,9 @@ This is a problem when you do not have gvim installed, or when you simply
 prefer to use "normal" Vim from within your preferred terminal (for example, 
 gnome-terminal).
 
-Create a file named vim-gnome with the following contents, and place it on 
-your execution PATH (and use chmod +x vim-gnome to make vim-gnome executable):
+Create a file named `vim-gnome` with the following contents, and place it on 
+your execution PATH (and use `chmod +x vim-gnome` to make `vim-gnome` 
+executable):
 
 >
     #!/bin/sh
@@ -32,10 +33,10 @@ your execution PATH (and use chmod +x vim-gnome to make vim-gnome executable):
 <
 
 This wrapper handles passing extra arguments to Vim, so you can enter things 
-like vim-gnome myfile.txt +42 to edit myfile.txt and jump to line 42.
+like `vim-gnome myfile.txt +42` to edit `myfile.txt` and jump to line 42.
 
-Now you can use vim-gnome everywhere that you could have used gvim, or any 
-other pop-up editor.
+Now you can use `vim-gnome` everywhere that you could have used `gvim`, or 
+any other pop-up editor.
 
 SEE ALSO                                                   *vwt-1655-see-also*
     - Set Vim as your default editor for Unix 

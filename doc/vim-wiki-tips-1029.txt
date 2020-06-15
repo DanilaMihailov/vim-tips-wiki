@@ -7,8 +7,8 @@ created 2005 · complexity basic · author bwana147 · version 5.7
 ==============================================================================
 
 I sometimes want to insert text at the beginning of a line, but if I happen 
-to already be at the beginning of that line, I use the i command instead of I. 
-Then, I realize that the same text has to be inserted at the beginning of 
+to already be at the beginning of that line, I use the `i` command instead of 
+`I`. Then, I realize that the same text has to be inserted at the beginning of 
 other lines as well: I go there and hit ".", and the text gets inserted 
 wherever I am in the line (which of course is seldom the beginning). So I have 
 to "u"ndo, hit "I", retype my text and go one moving around and hit "." 
@@ -18,7 +18,7 @@ What bothers me is the retyping. I would like to change the "repeat last
 command", so that it becomes "insert at the beginning" instead of "insert 
 wherever you happen to be".
 
-Here comes the ". register. All I do now, is "u"ndo to remove the text that 
+Here comes the `".` register. All I do now, is "u"ndo to remove the text that 
 was wrongly inserted in the middle of the line, hit "I" to start inserting at 
 the beginning of the line, then <C-R>. (that's Ctrl-R followed by a dot), 
 which inserts whatever I had just inserted with the "i" command, and <Esc>, of 
@@ -31,7 +31,7 @@ COMMENTS                                                   *vwt-1029-comments*
 
 Is this the same as
     - do edit in wrong place 
-    - undo, go to beginning of line, repeat with u0. 
+    - undo, go to beginning of line, repeat with `u0.` 
 
 
 ==============================================================================

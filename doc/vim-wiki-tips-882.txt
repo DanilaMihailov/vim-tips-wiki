@@ -12,25 +12,26 @@ to spend a few minutes learning how it is organised.
 GETTING STARTED                                      *vwt-882-getting-started*
 
 Try these examples:
-    - Enter :help to browse help. Scroll down the help page to see the quickref and 
-      tutor links, and the table of contents. 
+    - Enter `:help` to browse help. Scroll down the help page to see the quickref 
+      and tutor links, and the table of contents. 
     - Enter :help |pattern| for help on the topic pattern (for example). 
-    - :h pattern is the same (the :help command can be abbreviated). 
+    - `:h pattern` is the same (the `:help` command can be abbreviated). 
 
 
 Command completion can be used when entering a help topic:
-    - Type :h patt then press Ctrl-D to list all topics that contain "patt". 
-    - Type :h patt then press Tab to scroll through the topics that start with 
-      "patt". 
-    - If you have set the 'wildmenu' option (e.g. by using :set wildmenu), then :h 
-      patt followed by <Tab> opens a menu on the statusline, with all help topics 
-      containing "patt". You can select any item in the menu with the arrow keys or 
-      more presses of the <Tab> key to fill in the rest of your command line. 
+    - Type `:h patt` then press Ctrl-D to list all topics that contain "`patt`". 
+    - Type `:h patt` then press Tab to scroll through the topics that start with 
+      "`patt`". 
+    - If you have set the 'wildmenu' option (e.g. by using `:set wildmenu`), then 
+      `:h patt` followed by <Tab> opens a menu on the statusline, with all help 
+      topics containing "`patt`". You can select any item in the menu with the arrow 
+      keys or more presses of the <Tab> key to fill in the rest of your command 
+      line. 
 
 
 Links:
-    - Enter :h to open the main help page. 
-    - Type /quick to search for "quick" (should find the quickref link). 
+    - Enter `:h` to open the main help page. 
+    - Type `/quick` to search for "quick" (should find the `quickref` link). 
     - Press Ctrl-] to follow the link (jump to the quickref topic). 
     - After browsing the quickref topic, press Ctrl-T to go back to the previous 
       topic. 
@@ -39,8 +40,8 @@ Links:
 
 
 Searching:
-    - Search within a help file using / like you would when searching any file. 
-    - Search all the help files with the :helpgrep command, for example: 
+    - Search within a help file using `/` like you would when searching any file. 
+    - Search all the help files with the `:helpgrep` command, for example: 
 
 
 :helpgrep \csearch.\{,12}file
@@ -63,7 +64,7 @@ which brings you back to the current match after you scrolled the helpfile, or
 
 which will list out all the matches in a separate window. Read up on these commands with the :help entry for each of them!
 
-Each week (or more often if you prefer), read a new section from the :help 
+Each week (or more often if you prefer), read a new section from the `:help` 
 page to learn something new!
 
 CONTEXT                                                      *vwt-882-context*
@@ -71,21 +72,21 @@ CONTEXT                                                      *vwt-882-context*
 Each help topic has a context:
 
 Sometimes you want to know what a particular control key means to Vim. For 
-example, to see all help topics containing "ctrl-r", type :h ctrl-r then press 
-Ctrl-D. The following examples show the help for pressing various keys in 
-different contexts.
+example, to see all help topics containing "ctrl-r", type `:h ctrl-r` then 
+press Ctrl-D. The following examples show the help for pressing various keys 
+in different contexts.
 
 SIMPLIFY HELP NAVIGATION                    *vwt-882-simplify-help-navigation*
 
 The following mappings simplify navigation when viewing help:
     - Press Enter to jump to the subject (topic) under the cursor. 
     - Press Backspace to return from the last jump. 
-    - Press s to find the next subject, or S to find the previous subject. 
-    - Press o to find the next option, or O to find the previous option. 
+    - Press `s` to find the next subject, or `S` to find the previous subject. 
+    - Press `o` to find the next option, or `O` to find the previous option. 
 
 
-Create file ~/.vim/ftplugin/help.vim (Unix) or 
-$HOME/vimfiles/ftplugin/help.vim (Windows) containing:
+Create file `~/.vim/ftplugin/help.vim` (Unix) or 
+`$HOME/vimfiles/ftplugin/help.vim` (Windows) containing:
 
 >
     nnoremap <buffer> <CR> <C-]>
@@ -97,7 +98,7 @@ $HOME/vimfiles/ftplugin/help.vim (Windows) containing:
 <
 
 The following mappings (which can go in your vimrc) simplify navigating the 
-results of |quickfix| commands such as (among others) :helpgrep
+results of |quickfix| commands such as (among others) `:helpgrep`
 
 >
     :nnoremap <S-F1>  :cc<CR>

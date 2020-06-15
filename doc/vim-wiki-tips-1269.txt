@@ -10,7 +10,7 @@ This tip is an improvement of VimTip1014 |vwt-1014| to allow indented text
 blocks to be treated as text objects. See the already available :help 
 |text-objects|.
 
-For this tip, use ai to select "an indent".
+For this tip, use `ai` to select "an indent".
 
 When the cursor is on a line with zero indent, the selection will be 
 delimited by blank lines (that may or may not contain whitespaces).
@@ -19,7 +19,7 @@ When the cursor is on a line with a non-zero indent, the selection will be
 delimited by lines with an indent that is less than the original line; blank 
 lines will be SELECTED.
 
-Use ii to select "an inner indent".
+Use `ii` to select "an inner indent".
 
 When the cursor is on a line with zero indent, the selection will be 
 delimited by blank lines (that may or may not contain whitespaces).

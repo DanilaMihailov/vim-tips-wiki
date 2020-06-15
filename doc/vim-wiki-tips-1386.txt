@@ -8,8 +8,8 @@ created 2006 · complexity intermediate · author Matt Zyzik · version n/a
 
 COMPLETION MENU                                     *vwt-1386-completion-menu*
 
-The completion menu is controlled by completeopt. You can set multiple values 
-to combine behaviours.
+The completion menu is controlled by `completeopt`. You can set multiple 
+values to combine behaviours.
 
 Your completion options may be full text from files (see :help 'complete'), 
 Omni completion [https://vim.fandom.com/wiki/Omni_completion], or a custom 
@@ -32,8 +32,8 @@ The first step to "improve" the menu behavior is to execute this command:
 The above command will change the 'completeopt' option so that Vim's popup 
 menu doesn't select the first completion item, but rather just inserts the 
 longest common text of all matches; and the menu will come up even if there's 
-only one match. (The longest setting is responsible for the former effect and 
-the menuone is responsible for the latter.)
+only one match. (The `longest` setting is responsible for the former effect 
+and the `menuone` is responsible for the latter.)
 
 The next enhancement is the following mapping:
 

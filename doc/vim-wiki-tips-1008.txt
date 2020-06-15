@@ -90,23 +90,23 @@ this would be:
     augroup END
 <
 
-I set g:jah_Quickfix_Win_Height in my vimrc to something around 10.
+I set `g:jah_Quickfix_Win_Height` in my vimrc to something around 10.
 
 ==============================================================================
 
-Maybe I'm missing something, but why don't just use :copen and :cclose? Why 
-do you need that function/command?
+Maybe I'm missing something, but why don't just use `:copen` and `:cclose`? 
+Why do you need that function/command?
 
 ==============================================================================
 
-Because this is a toggle (open/close) in a single command, whereas :copen and 
-:cclose are 2 different commands and 2 different mappings, in case you wish to 
-map it.
+Because this is a toggle (open/close) in a single command, whereas `:copen` 
+and `:cclose` are 2 different commands and 2 different mappings, in case you 
+wish to map it.
 
 ==============================================================================
 
-You can use t:qfix_win instead of g:qfix_win if you need to switch between 
-tabs.
+You can use `t:qfix_win` instead of `g:qfix_win` if you need to switch 
+between tabs.
 
 ==============================================================================
 

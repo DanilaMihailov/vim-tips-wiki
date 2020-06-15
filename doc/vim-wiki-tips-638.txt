@@ -26,7 +26,7 @@ your user (~/.vim) or machine ($VIMRUNTIME/vimfiles) version of filetype.vim
     au BufRead,BufNewFile *.bat 	if getline(1) =~ '--\*-Perl-\*--' | setf perl | endif
 <
 
-This will cause Vim to scan any .bat files for --*-Perl-*-- on the first 
+This will cause Vim to scan any .bat files for `--*-Perl-*--` on the first 
 line, and if it's found it will be treated as a Perl file, otherwise the 
 predefined rules for .bat extensions will run.
 

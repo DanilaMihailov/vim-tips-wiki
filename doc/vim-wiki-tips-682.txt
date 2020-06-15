@@ -22,8 +22,8 @@ errorformat string that works with the new compiler is:
     set efm=%E%.%#rror:\ %f\\,\ line\ %l:\ %m,\%-C%.%#,\%-Z\%p^
 <
 
-Note that you may have to change your isfilename string to not allow commas, 
-like this:
+Note that you may have to change your `isfilename` string to not allow 
+commas, like this:
 
 >
     let isf="@,48-57,/,.,-,_,+,#,^,,$,%,~,="

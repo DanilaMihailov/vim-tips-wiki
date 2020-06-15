@@ -8,13 +8,13 @@ March 15, 2011 · complexity basic · author Kurkale6ka · version 7.0
 
 ==============================================================================
 
-In normal mode, typing gm moves the cursor to the middle of the current 
+In normal mode, typing `gm` moves the cursor to the middle of the current 
 screen line. With 'wrap' on, a long line may be wrapped so it appears on 
-several screen lines. Typing gm moves the cursor to the middle of the current 
-line on the screen (or to the end of the line, if it ends before the middle of 
-the screen).
+several screen lines. Typing `gm` moves the cursor to the middle of the 
+current line on the screen (or to the end of the line, if it ends before the 
+middle of the screen).
 
-This tips remaps gm so the cursor is moved to the middle of the current 
+This tips remaps `gm` so the cursor is moved to the middle of the current 
 physical line. Any leading or trailing whitespace is ignored: the cursor moves 
 to the middle of the text between the first and last non-whitespace 
 characters.

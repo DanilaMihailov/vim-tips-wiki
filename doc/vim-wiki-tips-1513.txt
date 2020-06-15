@@ -36,7 +36,7 @@ This is exactly what I thought of to start with. It is a nice, simple, easy regu
 ==============================================================================
 
 The first search pattern does not recognize tags that have digits in it,like 
-<H1>.It can be corrected replacing the \a (=any alphabetic character) by a \w 
-(=any word character) which includes digits.
+<H1>.It can be corrected replacing the `\a` (=any alphabetic character) by a 
+`\w` (=any word character) which includes digits.
 
  vim:tw=78:et:ft=help:norl:

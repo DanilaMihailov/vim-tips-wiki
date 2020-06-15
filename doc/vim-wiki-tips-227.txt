@@ -6,10 +6,10 @@ created 2002 · complexity intermediate · author Arun Easi · version 6.0
 
 ==============================================================================
 
-The global command :g is very useful. Here are some examples showing the 
-power of :g.
+The global command `:g` is very useful. Here are some examples showing the 
+power of `:g`.
 
-BRIEF EXPLANATION OF :G                      *vwt-227-brief-explanation-of-:g*
+BRIEF EXPLANATION OF `:G`                  *vwt-227-brief-explanation-of-`:g`*
 
 >
     :[range]g/pattern/cmd
@@ -17,7 +17,7 @@ BRIEF EXPLANATION OF :G                      *vwt-227-brief-explanation-of-:g*
 
 This acts on the specified [range] (default whole file), by executing the Ex 
 command cmd for each line matching pattern (an Ex command is one starting with 
-a colon such as :d for delete). Before executing cmd, "." is set to the 
+a colon such as `:d` for delete). Before executing cmd, "`.`" is set to the 
 current line.
 
 EXAMPLES                                                    *vwt-227-examples*
@@ -37,21 +37,21 @@ Delete all lines matching a pattern.
 <
 
 Delete all lines that do not match a pattern. The commands shown are 
-equivalent (v is "inerse").
+equivalent (`v` is "inerse").
 
 >
     :g!/pattern/d
     :v/pattern/d
 <
 
-Delete all blank lines (^ is start of line; \s* is zero or more whitespace 
-characters; $ is end of line)
+Delete all blank lines (`^` is start of line; `\s*` is zero or more 
+whitespace characters; `$` is end of line)
 
 >
     :g/^\s*$/d
 <
 
-Double space the file (^ is start of line which matches each line).
+Double space the file (`^` is start of line which matches each line).
 
 >
     :g/^/pu =\"\n\"
@@ -80,7 +80,7 @@ Copy all lines matching a pattern to register 'a'.
 Explanation qaq is a trick to clear register a (qa starts recording a macro to register a, then q stops recording, leaving a empty). y A is an Ex command (:help :y). It yanks the current line into register A (append to register a).
 
 Increment each number at the start of a line, from the current line to 
-end-of-file, by one (the exclamation mark in :normal! means this will work 
+end-of-file, by one (the exclamation mark in `:normal!` means this will work 
 even if Ctrl-A has been mapped to perform a function other than its default of 
 incrementing a number).
 
@@ -124,13 +124,13 @@ Add text to the end of a line that begins with a certain string.
 
 DELETING MANY LINES                              *vwt-227-deleting-many-lines*
 
-The command :g/pattern/d performs :d on all lines matching the pattern, see 
-:help |:delete|. When a line is deleted, it is first copied to a 
+The command `:g/pattern/d` performs `:d` on all lines matching the pattern, 
+see :help |:delete|. When a line is deleted, it is first copied to a 
 register—since no register is specified, the default (unnamed) register is 
 used. If many thousands of lines are deleted, the copy process can take a 
-significant time. To avoid that waste of time, the blackhole register (_) can 
-be specified because any copy or cut into the blackhole register performs no 
-operation.
+significant time. To avoid that waste of time, the blackhole register (`_`) 
+can be specified because any copy or cut into the blackhole register performs 
+no operation.
 
 Fast delete of all lines matching a pattern.
 
@@ -140,7 +140,7 @@ Fast delete of all lines matching a pattern.
 
 NOTES                                                          *vwt-227-notes*
 
-Some explanation of commands commonly used with :g
+Some explanation of commands commonly used with `:g`
 
 >
     :2,8co15  "copy lines 2 through 8 after line 15
@@ -338,8 +338,8 @@ Another way to collapse empty lines, including whitespace, is:
     :%s/^\_s\+/\r/g
 <
 
-\_s matches whitespace (space and tab) including end of line, \+ matches 1 or 
-more of those, as many as possible, \r inserts carriage return specific to 
-file format (unix-dos-mac).
+`\_s` matches whitespace (space and tab) including end of line, `\+` matches 
+1 or more of those, as many as possible, `\r` inserts carriage return specific 
+to file format (unix-dos-mac).
 
  vim:tw=78:et:ft=help:norl:

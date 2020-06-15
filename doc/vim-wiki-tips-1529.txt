@@ -8,7 +8,7 @@ created
 
 ==============================================================================
 
-When opening a new file with :edit or :split, you may want to create the 
+When opening a new file with `:edit` or `:split`, you may want to create the 
 directory the file will reside in. This can be done in autocommand BufNewFile 
 (add to vimrc [https://vim.fandom.com/wiki/Vimrc] in any Unix-like system with 
 mkdir that accepts -p switch).
@@ -21,14 +21,14 @@ COMMENTS                                                   *vwt-1529-comments*
 
 TO DO This tip is rather dodgy for those of us who sometimes make mistakes. I 
 don't think it should automatically create possibly several directories as a 
-result of a simple typo in the :edit /path/file command.
+result of a simple typo in the `:edit /path/file` command.
 
 The tip should instead provide a specific command to create a path and edit a 
 file (you would know that using the command may create unwanted directories if 
 you made a typo).
 
 I believe that the md/mkdir in any Windows with cmd.exe (possibly not NT4) 
-will make intermediate directories without needing -p or any other option.
+will make intermediate directories without needing `-p` or any other option.
 
 ==============================================================================
 

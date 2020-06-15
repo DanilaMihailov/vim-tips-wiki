@@ -60,7 +60,7 @@ This works for Ubuntu on windows. This doesn't really work very well for me
 on SunOS -- I have the same problem but :set term=cons25 just gives me OC 
 everywhere before each character until I redraw. Weird.
 
-But, :set term=ansi works great, and the arrow keys work.
+But, `:set term=ansi` works great, and the arrow keys work.
 
 A better solution is to, while in vi, type in insert mode [ctrl-v][arrow up] 
 and see what you get.Then, in your .vimrc, add the lines
@@ -96,7 +96,7 @@ So are we to be left with no good freebsd / bash solution?
 
 did nothing for me... and the no environment option is not a good one.
 
-set mouse=a at least allows me to move in insert mode.
+`set mouse=a` at least allows me to move in insert mode.
 
 SOLUTION 4                                                *vwt-550-solution-4*
 
@@ -122,9 +122,9 @@ nocompatible is this nugget:
 By default this option is on and the Vi defaults are used for the options. This default was chosen for those people who want to use Vim just like Vi, and don't even (want to) know about the 'compatible' option.
 When a vimrc or gvimrc file is found while Vim is starting up, this option is switched off, and all options that have not been modified will be set to the Vim defaults. Effectively, this means that when a vimrc or gvimrc file exists, Vim will use the Vim defaults, otherwise it will use the Vi defaults.
 
-So rather than mucking around with termcap settings create an empty .vimrc 
+So rather than mucking around with termcap settings create an empty `.vimrc` 
 file first and see if the issue is resolved. Or, copy the default 
-vimrc_example.vim to ~/.vimrc If not, try the termcap suggestions.
+`vimrc_example.vim` to `~/.vimrc` If not, try the termcap suggestions.
 
 ==============================================================================
 

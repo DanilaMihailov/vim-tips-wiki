@@ -30,8 +30,8 @@ command.
     :normal V/{/^M%d
 <
 
-Rather than using literal ^M characters, you can use :execute to allow you to 
-place the entire command a string, which lets you use "\<CR>" instead. The 
+Rather than using literal ^M characters, you can use `:execute` to allow you 
+to place the entire command a string, which lets you use "\<CR>" instead. The 
 first example would thus become:
 
 >

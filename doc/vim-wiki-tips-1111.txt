@@ -13,11 +13,12 @@ mode, I mapped the semicolon key to do the same thing.
     :nmap ; :
 <
 
-This overwrites the original mapping of repeating the last f or t command.
+This overwrites the original mapping of repeating the last `f` or `t` 
+command.
 
 COMMENTS                                                   *vwt-1111-comments*
 
-You can do the following to regain the functionality of ;
+You can do the following to regain the functionality of `;`
 
 >
     nnoremap ; :
@@ -37,7 +38,7 @@ I use the following instead:
 This takes over the ; even in visual mode (why should I be forced to hold the 
 shift down there but not in normal mode?). Furthermore, sometimes I want to 
 run a custom command that starts with a capital letter, so I might have the 
-shift already held down when I hit the ; (making it a colon), which would 
+shift already held down when I hit the `;` (making it a colon), which would 
 cause problems if the colon were mapped back to the semicolon. I get around 
 this by this mapping:
 
@@ -55,9 +56,9 @@ example (the start of :sp), there is no delay.
 
 CAVEATS                                                     *vwt-1111-caveats*
 
-When you run a command like :ls that leaves output on the screen while 
+When you run a command like `:ls` that leaves output on the screen while 
 waiting for you to enter another command, using semi-colon instead of colon 
-will cause the output of :ls to be hidden as soon as you start entering the 
+will cause the output of `:ls` to be hidden as soon as you start entering the 
 new command. There may be a fix for this, but I haven't found one yet.
 
  vim:tw=78:et:ft=help:norl:

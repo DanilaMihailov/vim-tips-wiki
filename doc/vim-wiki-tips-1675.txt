@@ -14,20 +14,20 @@ are successfully processed by many tools. However some tools do not work with
 these characters.
 
 Instead of changing the tools, it is common to remove the diacritical signs 
-(e.g. replace á with a, and ç with c). This tip provides a script to do the 
-necessary substitutions in a single step.
+(e.g. replace `á` with `a`, and `ç` with `c`). This tip provides a script to 
+do the necessary substitutions in a single step.
 
 SCRIPT                                                       *vwt-1675-script*
 
-Create file ~/.vim/plugin/diacritics.vim (Unix) or 
-$HOME/vimfiles/plugin/diacritics.vim (Windows) containing one of the scripts 
+Create file `~/.vim/plugin/diacritics.vim` (Unix) or 
+`$HOME/vimfiles/plugin/diacritics.vim` (Windows) containing one of the scripts 
 below, then restart Vim. Alternatively, add one of the scripts to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] and restart Vim.
 
-The following script uses Vim's tr() to translate characters with diacritics 
-to characters without. It loads the buffer into a variable in memory and 
-translates all characters in one operation, so it is efficient. However, there 
-is no opportunity to review changes as they occur.
+The following script uses Vim's `tr()` to translate characters with 
+diacritics to characters without. It loads the buffer into a variable in 
+memory and translates all characters in one operation, so it is efficient. 
+However, there is no opportunity to review changes as they occur.
 
 >
     " Remove diacritical signs from characters in specified range of lines.
@@ -43,9 +43,9 @@ is no opportunity to review changes as they occur.
     command! -range=% RemoveDiacritics call s:RemoveDiacritics(<line1>, <line2>)
 <
 
-The following alternative script uses :s to search and replace, with an 
-opportunity to confirm each change so it can be reviewed (or press a to 
-proceed with all changes). The substitute uses a replacement expression (\=) 
+The following alternative script uses `:s` to search and replace, with an 
+opportunity to confirm each change so it can be reviewed (or press `a` to 
+proceed with all changes). The substitute uses a replacement expression (`\=`) 
 to look up the translation character in a dictionary.
 
 >
@@ -68,8 +68,8 @@ to look up the translation character in a dictionary.
     command! -range=% RemoveDiacritics call s:RemoveDiacritics(<line1>, <line2>)
 <
 
-Each alternative script above defines the :RemoveDiacritics command, and the 
-command accepts a range which defaults to the whole buffer. Some examples 
+Each alternative script above defines the `:RemoveDiacritics` command, and 
+the command accepts a range which defaults to the whole buffer. Some examples 
 follow (type the first couple of letters of the command then press Tab for 
 command completion, or press the up arrow for command history):
 
@@ -114,7 +114,7 @@ http://stackoverflow.com/questions/765894/can-i-substitute-multiple-items-in-a-s
 [http://stackoverflow.com/questions/765894/can-i-substitute-multiple-items-in-a-single-regular-expression-in-vim-or-perl]After 
 I've give up searching for an existing way of replacing the diacritic 
 characters and decided to create the script, I spent some time thinking on how 
-to write it. I had the idea of performing all the changes with a single :s, 
+to write it. I had the idea of performing all the changes with a single `:s`, 
 but was unable to figure out how. Therefore I copied it from another person, 
 and referencing that page was intending to given him the credit for the 
 implementation.I thought that it could also be useful to understand the implementation. The comment line 
@@ -132,7 +132,7 @@ __NORELATEDARTICLES__
 
 If you have Linux and glibc, can you please try my plugin Diacritic 
 [https://github.com/kubahorak/diacritic]? It's more universal, because it uses 
-iconv command to transliterate.--Haisaul 
+`iconv` command to transliterate.--Haisaul 
 [https://vim.fandom.com/wiki/User:Haisaul] (talk 
 [https://vim.fandom.com/wiki/User_talk:Haisaul]) 14:35, September 24, 2014 
 (UTC)

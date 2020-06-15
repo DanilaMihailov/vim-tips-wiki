@@ -6,7 +6,7 @@ created 2005 · complexity basic · author Bernard Pratz · version 6.0
 
 ==============================================================================
 
-Sometimes you modify a file, for example from the /etc directory, then when 
+Sometimes you modify a file, for example from the `/etc` directory, then when 
 you try to save the file, you get a permission-denied error. This tip presents 
 some suggestions for using sudo from with Vim, so you can successfullly write 
 the file with temporary privileges.
@@ -15,13 +15,13 @@ Of course, this tip has to be used with caution, as it gets you more power.
 
 SUGGESTION 1                                            *vwt-975-suggestion-1*
 
-If you find you do not have permission to perform :w, use the following:
+If you find you do not have permission to perform `:w`, use the following:
 
 >
     :w !sudo tee "%" > /dev/null
 <
 
-You can make a command so :W invokes sudo:
+You can make a command so `:W` invokes sudo:
 
 >
     command W w !sudo tee "%" > /dev/null
@@ -57,7 +57,7 @@ replaced by a file with the symlink's modes, which are 777.
 
 SUGGESTION 3                                            *vwt-975-suggestion-3*
 
-Here is a mapping to save to a /tmp file, then overwrite the working file.
+Here is a mapping to save to a `/tmp` file, then overwrite the working file.
 
 >
     nnoremap <leader>es :w! /tmp/sudoSave \| let $fileToSave=expand('%') \| let $fileToSaveBackup=expand('%').'~' \| !sudo cp $fileToSave $fileToSaveBackup && sudo cp /tmp/sudoSave $fileToSave<CR><ESC>:e!<CR>
@@ -66,7 +66,7 @@ Here is a mapping to save to a /tmp file, then overwrite the working file.
 Warning This command will reload the file; you will lose the modifications 
 history (undo will not work, although it does keep a backup).
 
-Note that a backup is made, even when 'nobackup' is set.
+Note that a backup is made, even when '`nobackup`' is set.
 
 COMMENTS                                                    *vwt-975-comments*
 

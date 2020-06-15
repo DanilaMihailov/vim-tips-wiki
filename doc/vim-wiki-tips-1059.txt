@@ -17,10 +17,10 @@ file:
     :g/^/execute '.w '.line('.').'.txt'
 <
 
-The first line is saved in file 1.txt, and the second line is saved in file 
-2.txt, and so on. If a file exists, it is not overwritten—the command stops 
+The first line is saved in file `1.txt`, and the second line is saved in file 
+`2.txt`, and so on. If a file exists, it is not overwritten—the command stops 
 with an error message, and does not attempt to write any further files. If 
-wanted, replace .w with .w! to force files to be overwritten.
+wanted, replace `.w` with `.w!` to force files to be overwritten.
 
 The following command is similar, but it only saves non-empty lines (empty 
 lines are skipped):
@@ -40,13 +40,13 @@ The w is the write command, and the . is a range that refers to the current line
 line('.').'.txt'
 line('.') gives the current line number, which is concatenated with the string .txt.
 
-For the first line, :g/^/ executes the command execute '.w 1.txt' which 
-writes the current line (the first line) to file 1.txt.
+For the first line, `:g/^/` executes the command execute '.w 1.txt' which 
+writes the current line (the first line) to file `1.txt`.
 
 If only some lines are wanted, an appropriate search pattern can be used. For 
 example, the following command operates on all lines that start with "Error". 
 In each case, three lines (the line before "Error", the "Error" line, and the 
-line after) are written to a file named N.txt where N is the number of the 
+line after) are written to a file named `N.txt` where `N` is the number of the 
 line containing "Error".
 
 >

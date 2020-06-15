@@ -8,9 +8,9 @@ created 2006 · complexity intermediate · author Suresh Govindachar · version
 ==============================================================================
 
 In an operating system's command-line terminal, one can get a quick peek at a 
-file using commands such as more, cat, head etc. In Vim, one way to peek at a 
-file would be to open it in a new buffer -- but there is a way to peek at a 
-file from Vim without having to open it in a buffer, browse it and close the 
+file using commands such as `more`, `cat`, `head` etc. In Vim, one way to peek 
+at a file would be to open it in a new buffer -- but there is a way to peek at 
+a file from Vim without having to open it in a buffer, browse it and close the 
 buffer -- one can just view it in Vim's command line! This mode of viewing is 
 facilitated by Vim version 7's support for scrolling (see :help 
 |new-scroll-back|).
@@ -26,9 +26,9 @@ One way to implement the idea would be:
 <
 
 One could also do :echo system('cat foo.bat'), but we are trying to avoid 
-explicit system calls. In version 7, Vim supports readfile(). But the result 
-of readfile() is an array of lines -- and these lines would need to be joined 
-to enable viewing; so we have:
+explicit system calls. In version 7, Vim supports `readfile()`. But the result 
+of `readfile()` is an array of lines -- and these lines would need to be 
+joined to enable viewing; so we have:
 
 >
     :echo join(readfile('foo.bat'), "\n")

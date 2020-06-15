@@ -6,13 +6,13 @@ created 2007 · complexity basic · author Shotaro Aoyama · version n/a
 
 ==============================================================================
 
-When you want to jump to a definition of a variable, what do you do? Use C-] 
-or gd?
+When you want to jump to a definition of a variable, what do you do? Use 
+`C-]` or `gd`?
 
-C-] finds only global variables (and functions; ctags extracts only global 
+`C-]` finds only global variables (and functions; ctags extracts only global 
 objects).
 
-On the other hand, gd detects only local variables.
+On the other hand, `gd` detects only local variables.
 
 I think it's a bit complicated to choose between them. So I wrote this 
 function:
@@ -28,9 +28,9 @@ function:
     nnoremap <C-]> :<C-U>call GoDefinition()<CR>
 <
 
-This function first does gd to try to find a local definition of a variable 
+This function first does `gd` to try to find a local definition of a variable 
 under the cursor, and if it failed then probably the variable is a global 
-variable, so it tries :tag.
+variable, so it tries `:tag`.
 
 This way, you can jump to the definition of both local and global variables 
 with the same key.

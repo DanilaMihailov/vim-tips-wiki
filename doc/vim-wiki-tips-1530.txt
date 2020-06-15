@@ -10,18 +10,18 @@ created
 
 Vim can search within a limited scope, for example, finding hits only within 
 the current function, or only within the current brace-delimited block 
-({...}). This tip provides a script to make searching in a block easy. The 
+(`{...}`). This tip provides a script to make searching in a block easy. The 
 procedure works for any program, such as C or C++, where a code block starts 
-with '{' and ends with '}', and where a function starts with '{' at the left 
-margin.
+with '`{`' and ends with '`}`', and where a function starts with '`{`' at the 
+left margin.
 
 USAGE                                                         *vwt-1530-usage*
 
 After creating the script shown below, edit a program that uses braces 
-({...}) around blocks. The script defines some mappings using the <Leader> key 
-which is backslash by default.
+(`{...}`) around blocks. The script defines some mappings using the <Leader> 
+key which is backslash by default.
 
-With the cursor inside a function, type \[ or \{ or \/ to search:
+With the cursor inside a function, type `\[` or `\{` or `\/` to search:
 
 \[
 Search for visually selected text, or the current word, but only
@@ -33,23 +33,24 @@ within the current block ({...}).
 Search for visually selected text, or whatever text you enter, but only
 within the current function.
 
-If you visually select some text then type \[ or \{ or \/, the search locates 
-the next occurrence of the selected text, but only within the specified scope.
+If you visually select some text then type `\[` or `\{` or `\/`, the search 
+locates the next occurrence of the selected text, but only within the 
+specified scope.
 
 If there is no selected text:
-    - Typing \[ or \{ searches for the word under the cursor (same as * 
+    - Typing `\[` or `\{` searches for the word under the cursor (same as * 
       [https://vim.fandom.com/wiki/Searching]). 
-    - Typing \/ displays a search pattern that defines the scope. Finish the 
+    - Typing `\/` displays a search pattern that defines the scope. Finish the 
       pattern by typing any desired text, then press Enter to complete the search. 
 
 
-After searching, press n or N to search for the next or previous occurrence, 
-within the same scope.
+After searching, press `n` or `N` to search for the next or previous 
+occurrence, within the same scope.
 
 SCRIPT                                                       *vwt-1530-script*
 
-Create file ~/.vim/plugin/scopesearch.vim (Unix) or 
-$HOME/vimfiles/plugin/scopesearch.vim (Windows) containing the script below, 
+Create file `~/.vim/plugin/scopesearch.vim` (Unix) or 
+`$HOME/vimfiles/plugin/scopesearch.vim` (Windows) containing the script below, 
 then restart Vim.
 
 >
@@ -96,12 +97,12 @@ then restart Vim.
     endfunction
 <
 
-The script uses [[ to jump to the start of the current function, or [{ to 
+The script uses `[[` to jump to the start of the current function, or `[{` to 
 jump to the start of the current block. That should place the cursor on a left 
-brace. Then % is used to jump to the matching right brace. The numbers of the 
-lines holding the left and right braces define the scope. In case no block is 
-detected, the script returns "\b" (a backspace character) which cancels the 
-search that was started by the mapping.
+brace. Then `%` is used to jump to the matching right brace. The numbers of 
+the lines holding the left and right braces define the scope. In case no block 
+is detected, the script returns `"\b"` (a backspace character) which cancels 
+the search that was started by the mapping.
 
 SEE ALSO                                                   *vwt-1530-see-also*
     - Searching [https://vim.fandom.com/wiki/Searching] basic how-to 

@@ -8,7 +8,7 @@ created
 
 ==============================================================================
 
-When I do :cw, a quickfix window opens with a 10-line height, even when the 
+When I do `:cw`, a quickfix window opens with a 10-line height, even when the 
 number of errors is 1 or 2. I think it's a waste of window space.
 
 So I wrote the following code in my vimrc. With it, a quickfix window height 
@@ -24,8 +24,8 @@ is automatically adjusted to fit its contents (maximum 10 lines).
 Of course, this function can be applied to other windows besides the quickfix 
 window.
 
-If you feel it's too tight, you may want to replace line("$") with 
-line("$")+1.
+If you feel it's too tight, you may want to replace `line("$")` with 
+`line("$")+1`.
 
 COMMENTS                                                   *vwt-1536-comments*
 

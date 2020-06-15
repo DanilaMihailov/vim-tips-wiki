@@ -19,7 +19,7 @@ that file even after I quit from the afiedt.buf (the default file created by
 Oracle upon executing the "edit" command in SQL*PLUS). This is the aspect of 
 VimTip41 |vwt-41| that I could not get to work. Oracle requires that the 
 process that creates that afiedt.buf return control back to Oracle (i.e. you 
-must :wq from afiedit.buf). I would have liked a split window viewing both 
+must `:wq` from afiedit.buf). I would have liked a split window viewing both 
 afiedit.buf and sqlplus.log, but have not been able to do that.
 
 So I looked for a way to accomplish these three things:

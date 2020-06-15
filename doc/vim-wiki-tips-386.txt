@@ -20,18 +20,18 @@ text and entering insert mode so you can type the new text.
 PASTING OVER A BLOCK OF TEXT            *vwt-386-pasting-over-a-block-of-text*
 
 You can copy a block of text by pressing Ctrl-v (or Ctrl-q if you use Ctrl-v 
-for paste), then moving the cursor to select, and pressing y to yank. Now you 
-can move elsewhere and press p to paste the text after the cursor (or P to 
-paste before). The paste inserts a block (which might, for example, be 4 rows 
-by 3 columns of text).
+for paste), then moving the cursor to select, and pressing `y` to yank. Now 
+you can move elsewhere and press `p` to paste the text after the cursor (or 
+`P` to paste before). The paste inserts a block (which might, for example, be 
+4 rows by 3 columns of text).
 
 Instead of inserting the block, it is also possible to replace (paste over) 
-the destination. To do this, move to the target location then press 1vp (1v 
-selects an area equal to the original, and p pastes over it).
+the destination. To do this, move to the target location then press `1vp` 
+(`1v` selects an area equal to the original, and `p` pastes over it).
 
-When a count is used before v, V, or ^V (character, line or block selection), 
-an area equal to the previous area, multiplied by the count, is selected. See 
-the paragraph after :help |<LeftRelease>|.
+When a count is used before `v`, `V`, or `^V` (character, line or block 
+selection), an area equal to the previous area, multiplied by the count, is 
+selected. See the paragraph after :help |<LeftRelease>|.
 
 Note that this will only work if you actually did something to the previous 
 visual selection, such as a yank, delete, or change operation. It will not 

@@ -6,20 +6,20 @@ created 2004 · complexity basic · author Rory McCann · version 5.7
 
 ==============================================================================
 
-Say you delete a paragraph with the command d} and you intend to paste that 
+Say you delete a paragraph with the command `d}` and you intend to paste that 
 paragraph into another file.
 
-So you edit the other file with :e other.txt and you scroll down to where you 
-want to paste the original paragraph. But then you accidentally delete or yank 
-some text.
+So you edit the other file with `:e other.txt` and you scroll down to where 
+you want to paste the original paragraph. But then you accidentally delete or 
+yank some text.
 
-Now typing p simply pastes the text that you just deleted or yanked.
+Now typing `p` simply pastes the text that you just deleted or yanked.
 
 Fortunately, Vim remembers previous deletes/yanks in the numbered registers. 
-You can enter the command :reg to list all the registers.
+You can enter the command `:reg` to list all the registers.
 
-If the text you want is in register 2, enter "2p to paste it after the 
-cursor, or "2P to paste it before the cursor.
+If the text you want is in register 2, enter `"2p` to paste it after the 
+cursor, or `"2P` to paste it before the cursor.
 
 Small deletes (less than a complete line) do not fill the numbered registers.
 
@@ -49,8 +49,8 @@ registers and not intuitive.
 
 ==============================================================================
 
-After doing a "1p you can also cycle through the numbered registers by doing 
-u. repeatedly (i.e. remove the last paste and paste the next numbered 
+After doing a `"1p` you can also cycle through the numbered registers by 
+doing `u.` repeatedly (i.e. remove the last paste and paste the next numbered 
 register, much like "yank-pop" in Emacs: M-y). See :help redo-register for 
 further Information
 

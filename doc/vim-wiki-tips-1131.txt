@@ -9,16 +9,16 @@ created 2006 · complexity basic · version 6.0
 In Vim, you may want to format long lines, that is, wrap long lines so the 
 longest is, say, 80 characters.
 
-The standard approach is to set the local 'textwidth' option, then use gq to 
-format the wanted lines.
+The standard approach is to set the local 'textwidth' option, then use `gq` 
+to format the wanted lines.
 
 >
     :setl tw=80
     gggqG
 <
 
-In the above, gggqG is gg (go to the first line) then gq (format) to G (the 
-last line).
+In the above, `gggqG` is `gg` (go to the first line) then `gq` (format) to 
+`G` (the last line).
 
 That works, but it also joins consecutive short lines together although it 
 does not join lines that are separated with an empty line. For example, this 
@@ -45,9 +45,9 @@ To wrap long lines without affecting short lines, use:
     :g/./ normal gqq
 <
 
-The g command [https://vim.fandom.com/wiki/Power_of_g] executes normal gqq on 
-each line matching . (any line with at least one character). The normal-mode 
-gqq command then formats that line.
+The g command [https://vim.fandom.com/wiki/Power_of_g] executes `normal gqq` 
+on each line matching `.` (any line with at least one character). The 
+normal-mode `gqq` command then formats that line.
 
 An alternative would be to use the par text reformatter 
 [https://vim.fandom.com/wiki/Par_text_reformatter]. The following replaces 
@@ -70,7 +70,7 @@ SEE ALSO                                                   *vwt-1131-see-also*
 
 COMMENTS                                                   *vwt-1131-comments*
 
-How is this better than gq with a line width of 80?
+How is this better than `gq` with a line width of 80?
 
 This IS better than gq with a line width of 80 because it prevents short lines without empty line between them from being concatenated! --February 3, 2016
 See :help 'formatprg'. You could probably get the best of both worlds. --Fritzophrenic (talk)

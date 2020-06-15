@@ -13,27 +13,29 @@ features of Vim at an easy pace. The concepts should be accessible even to
 beginning users, and will enhance your productivity greatly. See the Tutorial 
 [https://vim.fandom.com/wiki/Tutorial] if you are just starting your Vim 
 experience.
-    - Using the * key searches for the word under the cursor. Use # to do the same 
-      thing backwards. more |vwt-1| 
-    - Using the % key on brackets (([{}])) will find the matching one. It should 
-      also work for <> tags in HTML.more [https://vim.fandom.com/wiki/Matchit] 
-    - Using the . key will repeat last change. 
-    - Use u to undo, and <C-R> to redo (reverse an undo). 
-    - Hitting gf will open the file under the cursor 
+    - Using the `*` key searches for the word under the cursor. Use `#` to do the 
+      same thing backwards. more |vwt-1| 
+    - Using the `%` key on brackets (`([{}])`) will find the matching one. It 
+      should also work for <> tags in HTML.more 
+      [https://vim.fandom.com/wiki/Matchit] 
+    - Using the `.` key will repeat last change. 
+    - Use `u` to undo, and <C-R> to redo (reverse an undo). 
+    - Hitting `gf` will open the file under the cursor 
       [https://vim.fandom.com/wiki/Open_file_under_cursor]. 
     - <C-N> and <C-P> in insert mode will try to autocomplete the current word by 
       looking for similar words in the rest of the file and other places defined by 
       the 'complete' option :help 'complete'. These are two of the many insert-mode 
       completion commands: :help |ins-completion| 
     - If you have long lines in a document, and 'wrap' is set :help 'wrap', you can 
-      map j and k to move between visible lines by doing :nmap j gj and :nmap k gk. 
-    - The :g command is useful to apply a command to all lines matching a search. 
-      :g/pattern/d will delete all lines matching pattern. more 
+      map `j` and `k` to move between visible lines by doing `:nmap j gj` and `:nmap 
+      k gk`. 
+    - The `:g` command is useful to apply a command to all lines matching a search. 
+      `:g/pattern/d` will delete all lines matching `pattern`. more 
       [https://vim.fandom.com/wiki/Delete_all_lines_containing_a_pattern] 
-    - :bufdo is useful to apply a command to all open buffers. :bufdo 
-      %s/pattern/substitution/g will substitute all instances of pattern with 
-      substitution in all open buffers. 
-    - To maximize a window |vwt-88|, type :simalt ~x (MS Windows only). 
+    - `:bufdo` is useful to apply a command to all open buffers. `:bufdo 
+      %s/pattern/substitution/g` will substitute all instances of `pattern` with 
+      `substitution` in all open buffers. 
+    - To maximize a window |vwt-88|, type `:simalt ~x` (MS Windows only). 
 
 
 COMMENTS                                                   *vwt-1586-comments*
@@ -47,7 +49,7 @@ TO DO
 
 ==============================================================================
 
-I'd consider the :simalt ~x tip rather circumstancial. I don't think it 
+I'd consider the `:simalt ~x` tip rather circumstancial. I don't think it 
 belongs to a "beginner's tips category". :) (Spiiph 
 [https://vim.fandom.com/wiki/User:Spiiph] 14:09, 28 July 2009 (UTC))
 

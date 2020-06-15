@@ -36,7 +36,7 @@ For example:
     /* vim:fdm=marker fmr=zz.FOLDSTART,zz.END fdl=2 fdc=2: */
 <
 
-Now the file will be opened with the methods neatly folded, and typing zR 
+Now the file will be opened with the methods neatly folded, and typing `zR` 
 will open all folds.
 
 ==============================================================================
@@ -50,7 +50,7 @@ adding markers is to set your foldmarker to the javadoc comment blocks:
     fdm=/**,*/
 <
 
-Try the following to fold on /* */ if editing source that is overcommented:
+Try the following to fold on `/* */` if editing source that is overcommented:
 
 >
     autocmd FileType java :set fmr=/**,*/ fdm=marker fdc=1
@@ -61,10 +61,10 @@ FROM 201110 SYNTAX FOLD FOR JAVA [HTTPS://VIM.FANDOM.COM/WIKI/SYNTAX_FOLD_FOR_JA
 TODO: Make this the main tip.
 
 By default, the officially distributed Java syntax file (as of Vim 7.3.462) 
-provides folding for all {...} blocks. However, this may not be sufficient for 
-some users, who may wish to fold comments and javadoc, or who may wish to see 
-the function name or enumeration folded with the block. This tip provides a 
-syntax file for Java to fold methods, constructors, enums, and comments in 
+provides folding for all `{...}` blocks. However, this may not be sufficient 
+for some users, who may wish to fold comments and javadoc, or who may wish to 
+see the function name or enumeration folded with the block. This tip provides 
+a syntax file for Java to fold methods, constructors, enums, and comments in 
 Java code in a more appealing way. Note, however, that it depends on good 
 indentation style to work. If your file is poorly indented, the folding will 
 not be correct.
@@ -74,11 +74,12 @@ SYNTAX FILE                                              *vwt-304-syntax-file*
 The following will fold all methods in a Java program. The enum syn region is 
 not perfect, but it's workable. Annotations are included in the fold, which 
 cleans up the fold display. It also folds C-style comment blocks, including 
-javadoc. Single line functions, like public int getFoo() { return 4; } are not 
-folded.
+javadoc. Single line functions, like `public int getFoo() { return 4; }` are 
+not folded.
 
-Place the following script in file ~/.vim/after/syntax/java.vim on Unix-based 
-systems, or in file $HOME/vimfiles/after/syntax/java.vim on Windows systems.
+Place the following script in file `~/.vim/after/syntax/java.vim` on 
+Unix-based systems, or in file `$HOME/vimfiles/after/syntax/java.vim` on 
+Windows systems.
 
 >
     " Include annotations inside folds
@@ -134,8 +135,8 @@ Comments
 
 This is great, but I had a lot of problems with it (brace-folds kept folding 
 to the end of the class etc). It seems that my settings for java highlighting 
-(e.g. let java_highlight_functions="style") have a lot to do with it. So I did 
-some changes.
+(e.g. `let java_highlight_functions="style"`) have a lot to do with it. So I 
+did some changes.
 
 I cannot really explain exactly why the following works, but it does for me:
 
@@ -154,8 +155,8 @@ cleaner; still, here goes:
     syn region foldImports start=/\(^\s*\n^import\)\@<= .\+;/ end=+^\s*$+ transparent fold keepend
 <
 
-Notably the \n in the start of foldImports and the redefinition of 
-javaExternal (so that import will match) seem quite nasty. If you have a 
+Notably the `\n` in the start of `foldImports` and the redefinition of 
+`javaExternal` (so that `import` will match) seem quite nasty. If you have a 
 better solution for this, please share them here.
 
 COPY FROM 1150 JAVA/C/C++ FOLDING [HTTPS://VIM.FANDOM.COM/WIKI/JAVA/C/C%2B%2B_FOLDING] *vwt-304-copy-from-1150-java/c/c++-folding-[https://vim.fandom.com/wiki/java/c/c%2b%2b_folding]*
@@ -183,16 +184,16 @@ applicable to C/C++ code also:
     setlocal foldmethod=expr
 <
 
-The 'foldexpr' basically folds away multi-line JavaDoc and {} blocks. This is 
-different from setting:
+The 'foldexpr' basically folds away multi-line JavaDoc and `{}` blocks. This 
+is different from setting:
 
 >
     set foldmethod=marker
     set foldmarker={,}
 <
 
-in that it also fold away JavaDocs—the {} pair folding is the same effect as 
-these two settings, however.
+in that it also fold away JavaDocs—the `{}` pair folding is the same effect 
+as these two settings, however.
 
 Comments
 

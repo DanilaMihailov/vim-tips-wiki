@@ -95,9 +95,9 @@ Some more details and examples here:
       [https://vim.fandom.com/wiki/Build_Python-enabled_Vim_on_Windows_with_MinGW] 
 
 
-After you've built Vim, run the compiled executable and do :version to verify 
-it built as you intended. Then you're ready to install; close the Vim instance 
-before you continue.
+After you've built Vim, run the compiled executable and do `:version` to 
+verify it built as you intended. Then you're ready to install; close the Vim 
+instance before you continue.
 
 One option is to just install manually every time without any nice installer 
 options like having .bat files in your system path to launch Vim from the 
@@ -118,37 +118,38 @@ create default _vimrc, user config areas, .bat files for command-line use,
 
 MISCELLANEOUS                                          *vwt-376-miscellaneous*
 
-In Vim, the command :version includes "Compiled by user@host" (the user and 
+In Vim, the command `:version` includes "Compiled by user@host" (the user and 
 computer host names are provided by the operating system).
 
-The configuration option --with-compiledby can be used to set the exact 
+The configuration option `--with-compiledby` can be used to set the exact 
 "Compiled by" text (for example, to include an email address).
 
 If you are using Perlbrew and want to build Vim with perl (and why wouldn't 
 you want that if you are using Perlbrew?) you must disable Perlbrew before 
-building with $ perlbrew off and build with system perl, which hopefully isn't 
-too outdated. As of early 2016 Ubuntu is at 5.18 which isn't all that bad!
+building with `$ perlbrew off` and build with system perl, which hopefully 
+isn't too outdated. As of early 2016 Ubuntu is at 5.18 which isn't all that 
+bad!
 
 USING PATCHES                                          *vwt-376-using-patches*
 
 Following works but is obsolete; see above for information on using Mercurial.
 The following applies to Unix-based systems, and Windows.
 
-Download the source from ftp://ftp.vim.org/pub/vim/unix/ 
-[ftp://ftp.vim.org/pub/vim/unix/]
-    - vim-7.2.tar.bz2 (7.1MB) 
+Download the source from `ftp://ftp.vim.org/pub/vim/unix/ 
+[ftp://ftp.vim.org/pub/vim/unix/]`
+    - `vim-7.2.tar.bz2` (7.1MB) 
 
 
-Download the extras from ftp://ftp.vim.org/pub/vim/extra/ 
-[ftp://ftp.vim.org/pub/vim/extra/]
-    - vim-7.2-extra.tar.gz (0.8MB) 
-    - vim-7.2-lang.tar.gz (1.4MB) 
+Download the extras from `ftp://ftp.vim.org/pub/vim/extra/ 
+[ftp://ftp.vim.org/pub/vim/extra/]`
+    - `vim-7.2-extra.tar.gz` (0.8MB) 
+    - `vim-7.2-lang.tar.gz` (1.4MB) 
 
 
-Expand each in the same directory, for example somewhere/vim/build/72/
+Expand each in the same directory, for example `somewhere/vim/build/72/`
 
-Download the patches from ftp://ftp.vim.org/pub/vim/patches/7.2/ 
-[ftp://ftp.vim.org/pub/vim/patches/7.2/]
+Download the patches from `ftp://ftp.vim.org/pub/vim/patches/7.2/ 
+[ftp://ftp.vim.org/pub/vim/patches/7.2/]`
 
 Apply the patches.
 
@@ -182,7 +183,7 @@ COMMENTS                                                    *vwt-376-comments*
 
 TO DO
     - Where to get other stuff included in the standard installation, like 
-      diff.exe. 
+      `diff.exe`. 
 
 
 Merge or link to some of these?

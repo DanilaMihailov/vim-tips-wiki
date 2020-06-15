@@ -18,17 +18,17 @@ Doing
 <
 
 will set the 'errorformat' option for PyUnit, enabling Vim to parse a 
-unittest test runner's output and to enter quickfix mode.
+`unittest` test runner's output and to enter quickfix mode.
 
-To run all your unit tests at once, using Vim's :make command, you'll need to 
-set the 'makeprg' option and provide a test runner. This is often done using 
-an alltests.py script.
+To run all your unit tests at once, using Vim's `:make` command, you'll need 
+to set the 'makeprg' option and provide a test runner. This is often done 
+using an `alltests.py` script.
 
 >
     :setlocal makeprg=./alltests.py
 <
 
-Here is an example alltests.py:
+Here is an example `alltests.py`:
 
 >
     #!/usr/bin/env python2
@@ -52,7 +52,7 @@ Here is an example alltests.py:
       unittest.main(defaultTest='suite')
 <
 
-Here is an alternative alltests.py:
+Here is an alternative `alltests.py`:
 
 >
     #!/usr/bin/env python
@@ -108,8 +108,8 @@ Here is an alternative alltests.py:
 <
 
 To have Vim automatically use these settings for all Python files, add the 
-following to ~/.vim/after/ftplugin/python.vim 
-($HOME\vimfiles\after\ftplugin\python.vim on Windows)
+following to `~/.vim/after/ftplugin/python.vim` 
+(`$HOME\vimfiles\after\ftplugin\python.vim` on Windows)
 
 >
     " Additions to Vim's filetype plugin for Python, to set up PyUnit as

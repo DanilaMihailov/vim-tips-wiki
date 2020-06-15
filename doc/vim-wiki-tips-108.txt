@@ -23,13 +23,13 @@ option.
 The 'foldmethod' option (abbreviated to 'fdm') is local to each window. It 
 determines what kind of folding applies in the current window. Possible values 
 are:
-    - manual – folds must be defined by entering commands (such as |zf|) 
-    - indent – groups of lines with the same indent form a fold 
-    - syntax – folds are defined by syntax highlighting 
-    - expr – folds are defined by a user-defined expression 
-    - marker – special characters can be manually or automatically added to your 
+    - `manual` – folds must be defined by entering commands (such as |zf|) 
+    - `indent` – groups of lines with the same indent form a fold 
+    - `syntax` – folds are defined by syntax highlighting 
+    - `expr` – folds are defined by a user-defined expression 
+    - `marker` – special characters can be manually or automatically added to your 
       text to flag the start and end of folds 
-    - diff – used to fold unchanged text when viewing differences (automatically 
+    - `diff` – used to fold unchanged text when viewing differences (automatically 
       set in diff mode) 
 
 
@@ -38,26 +38,26 @@ MANUAL FOLDING                                        *vwt-108-manual-folding*
 Normally it is best to use an automatic folding method, but manual folding is 
 simple and can be useful for dealing with small folds.
 
-When foldmethod is set to manual (or marker), a fold can be created in Normal 
-mode by typing zf{motion}. For example, zf'a will fold from the current line 
-to wherever the mark a has been set, or zf3j folds the current line along with 
-the following 3 lines. If you want to create folds in a text file that uses 
-curly braces to delimit code blocks ({...}), you can use the command zfa} to 
-create a fold for the current code block.
+When `foldmethod` is set to `manual` (or `marker`), a fold can be created in 
+Normal mode by typing `zf{motion}`. For example, zf'a will fold from the 
+current line to wherever the mark a has been set, or `zf3j` folds the current 
+line along with the following 3 lines. If you want to create folds in a text 
+file that uses curly braces to delimit code blocks (`{...}`), you can use the 
+command `zfa}` to create a fold for the current code block.
 
 Alternatively, an arbitrary group of lines can be folded by selecting them to 
-enter Visual mode and pressing zf. This allows you to preview the section 
+enter Visual mode and pressing `zf`. This allows you to preview the section 
 you've selected before you fold it. The above example of folding the current 
 code block could also be accomplished by first selecting the code block 
-delimited by the curly braces (va}) and then creating the fold (zf). Putting 
-this together gives va}zf.
+delimited by the curly braces (`va}`) and then creating the fold (`zf`). 
+Putting this together gives `va}zf`.
 
-Manual folds can also be created in Command mode :{range}fo[ld], e.g., the 
+Manual folds can also be created in Command mode `:{range}fo[ld]`, e.g., the 
 current line along with the following three lines (as in the example above) 
-can be folded by running :,+3fo.
+can be folded by running `:,+3fo`.
 
-Use zd to delete the fold at the cursor (no text is deleted, just the fold 
-markers); zD is used to recursively delete folds at the cursor.
+Use `zd` to delete the fold at the cursor (no text is deleted, just the fold 
+markers); `zD` is used to recursively delete folds at the cursor.
 
 INDENT FOLDING                                        *vwt-108-indent-folding*
 
@@ -87,7 +87,7 @@ in the file can be folded, or are already folded, with a '+' (closed) or '-'
 
 SYNTAX FOLDING                                        *vwt-108-syntax-folding*
 
-Try :setlocal foldmethod=syntax. Many syntax files define folding based on 
+Try `:setlocal foldmethod=syntax`. Many syntax files define folding based on 
 the language syntax, although you may need to enable it by setting syntax file 
 options |vwt-1534|. If a specific syntax file doesn't define folding, you can 
 define your own [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts].
@@ -156,29 +156,30 @@ If you want folding in diff/patch files, see Folding for diff files
 
 OPENING AND CLOSING FOLDS                  *vwt-108-opening-and-closing-folds*
 
-The command zc will close a fold (if the cursor is in an open fold), and zo 
-will open a fold (if the cursor is in a closed fold). It's easier to just use 
-za which will toggle the current fold (close it if it was open, or open it if 
-it was closed).
+The command `zc` will close a fold (if the cursor is in an open fold), and 
+`zo` will open a fold (if the cursor is in a closed fold). It's easier to just 
+use `za` which will toggle the current fold (close it if it was open, or open 
+it if it was closed).
 
-The commands zc (close), zo (open), and za (toggle) operate on one level of 
-folding, at the cursor. The commands zC, zO and zA are similar, but operate on 
-all folding levels (for example, the cursor line may be in an open fold, which 
-is inside another open fold; typing zC would close all folds at the cursor).
+The commands `zc` (close), `zo` (open), and `za` (toggle) operate on one 
+level of folding, at the cursor. The commands `zC`, `zO` and `zA` are similar, 
+but operate on all folding levels (for example, the cursor line may be in an 
+open fold, which is inside another open fold; typing `zC` would close all 
+folds at the cursor).
 
-The command zr reduces folding by opening one more level of folds throughout 
-the whole buffer (the cursor position is not relevant). Use zR to open all 
-folds.
+The command `zr` reduces folding by opening one more level of folds 
+throughout the whole buffer (the cursor position is not relevant). Use `zR` to 
+open all folds.
 
-The command zm gives more folding by closing one more level of folds 
-throughout the whole buffer. Use zM to close all folds.
+The command `zm` gives more folding by closing one more level of folds 
+throughout the whole buffer. Use `zM` to close all folds.
 
 MAPPINGS TO TOGGLE FOLDS                    *vwt-108-mappings-to-toggle-folds*
 
 With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc], you can 
-toggle folds open/closed by pressing F9. In addition, if you have :set 
-foldmethod=manual, you can visually select some lines, then press F9 to create 
-a fold.
+toggle folds open/closed by pressing F9. In addition, if you have `:set 
+foldmethod=manual`, you can visually select some lines, then press F9 to 
+create a fold.
 
 >
     inoremap <F9> <C-O>za
@@ -189,7 +190,7 @@ a fold.
 
 Here is an alternative procedure: In normal mode, press Space to toggle the 
 current fold open/closed. However, if the cursor is not in a fold, move to the 
-right (the default behavior). In addition, with the manual fold method, you 
+right (the default behavior). In addition, with the `manual` fold method, you 
 can create a fold by visually selecting some lines, then pressing Space.
 
 >
@@ -197,7 +198,7 @@ can create a fold by visually selecting some lines, then pressing Space.
     vnoremap <Space> zf
 <
 
-In the first mapping for Space, @= refers to the expression register (:help 
+In the first mapping for Space, `@=` refers to the expression register (:help 
 |@=|). The following expression is evaluated when Enter is pressed (<CR>). The 
 value of foldlevel('.') is determined (the fold level at the current line, or 
 zero if the current line is not in a fold). If the result is nonzero (true), 
@@ -207,16 +208,16 @@ character). :help |expr1|
 
 SAVING FOLDS BEFORE CLOSING VIM      *vwt-108-saving-folds-before-closing-vim*
 
-Vim provides a good mechanism called view. You can use it to save a fold. See 
-Make views automatic |vwt-991|. You may also want to use plugin 
+Vim provides a good mechanism called `view`. You can use it to save a fold. 
+See Make views automatic |vwt-991|. You may also want to use plugin 
 restore_view.vim [https://www.vim.org/scripts/script.php?script_id=4021].
 
 COMMANDS OVER FOLDS                              *vwt-108-commands-over-folds*
 
 Folds can be created using one of the methods described above. Then, all the 
-folds can be closed using zM. Now, commands can be executed on each line that 
-is folded, using :folddoc <command>. Reopen the folds using zR to see the 
-results.
+folds can be closed using `zM`. Now, commands can be executed on each line 
+that is folded, using :folddoc <command>. Reopen the folds using `zR` to see 
+the results.
 
 Todo: Explain how a command stored in a register can be executed this way. Ctrl-r, followed by the register name does not appear to execute the set of keystrokes for each line that is folded?
 
@@ -229,7 +230,7 @@ SEE ALSO                                                    *vwt-108-see-also*
       discusses folding for the Perl [https://vim.fandom.com/wiki/Category:Perl] 
       language 
     - Dosini files [https://vim.fandom.com/wiki/Dosini_files#Folding_sections] 
-      includes information about folding in DOS-style .ini files 
+      includes information about folding in DOS-style `.ini` files 
 
 
 REFERENCES                                                *vwt-108-references*

@@ -8,8 +8,8 @@ created 2003 · complexity basic · author rajesh · version 5.7
 
 For all verilog users dealing with netlists, this an easier way to find out 
 in which module you are really working in.add this map to your vimrc 
-[https://vim.fandom.com/wiki/Vimrc]. Press ` to find out which module you are 
-actually residing in.
+[https://vim.fandom.com/wiki/Vimrc]. Press ``` to find out which module you 
+are actually residing in.
 
 >
     map ` ma?module<CR>Wyiw'a:echo "module -->" @0<CR>

@@ -22,27 +22,27 @@ example, when using Mutt, put this line in your .muttrc:
 <
 
 Make sure when you have an email message loaded in Vim, that the value of 
-'formatoptions' contains both c and q, that the value of 'textwidth' is set to 
-a good width (like 76, to insert line breaks after 76 characters), and that 
-'filetype' is "mail" (technically, what matters is the 'comments' option to be 
-set properly, in particular, it needs to include the n:> flag, which 
+'formatoptions' contains both `c` and `q`, that the value of 'textwidth' is 
+set to a good width (like 76, to insert line breaks after 76 characters), and 
+that 'filetype' is "mail" (technically, what matters is the 'comments' option 
+to be set properly, in particular, it needs to include the n:> flag, which 
 unfortunately the filetype plugin "mail.vim" does not set, but which Vim does 
 include by default).
 
 The bundled mail.vim filetype sets the options 'textwidth' and 
 'formatoptions' to some reasonable defaults and also defines two maps for 
 quoting text. If these options are not set to your liking, create a file 
-~/.vim/ftplugin/mail.vim and set them as you like. Assuming your vimrc 
+`~/.vim/ftplugin/mail.vim` and set them as you like. Assuming your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] turns on File type plugins 
 [https://vim.fandom.com/wiki/File_type_plugins], (e.g. your .vimrc should 
-contain a line like filetype plugin on, see :help |ftplugins|) this should 
+contain a line like `filetype plugin on`, see :help |ftplugins|) this should 
 cause Vim to load your desired settings for any buffer with the "mail" 
 filetype. If your 'comments' option has been changed from the Vim default to 
 no longer include n:>, this file is the place to add it back in as well.
 
 However for mutt, Vim can detect the filetype automatically and therefore 
 load the specific filetype, since the path and filename always contains 
-/tmp/mutt-XXXX where XXX is a variable string. (For other applications, you 
+`/tmp/mutt-XXXX` where XXX is a variable string. (For other applications, you 
 may need to call Vim and set the filetype specifically like set editor="vim -c 
 'set filetype=mail'")
 
@@ -58,20 +58,20 @@ FORMAT VISUAL SELECTION                      *vwt-273-format-visual-selection*
 
 
 MOVEMENT-BASED FORMAT                          *vwt-273-movement-based-format*
-    - Move cursor to the first line (possibly by pressing { to jump to the top of 
+    - Move cursor to the first line (possibly by pressing `{` to jump to the top of 
       the paragraph). 
-    - Type gq} to format from the cursor to the end of the paragraph, gqq to format 
-      just the current line, gq4j to format 4 lines, etc. 
+    - Type `gq}` to format from the cursor to the end of the paragraph, `gqq` to 
+      format just the current line, `gq4j` to format 4 lines, etc. 
 
 
 FORMAT A TEXT OBJECT                            *vwt-273-format-a-text-object*
-    - From anywhere in the paragraph, type gqip or gqap 
+    - From anywhere in the paragraph, type `gqip` or `gqap` 
 
 
 QUOTE THE TEXT                                        *vwt-273-quote-the-text*
-    - From visual mode simply press \q (assuming your default Leader key is '\' see 
-      :help |<LocalLeader>|) and the visually selected text will be preceeded by a 
-      '> ' using the Mapping provided in the default filetype plugin. 
+    - From visual mode simply press `\q` (assuming your default Leader key is '\' 
+      see :help |<LocalLeader>|) and the visually selected text will be preceeded by 
+      a '> ' using the Mapping provided in the default filetype plugin. 
 
 
 REFERENCES                                                *vwt-273-references*

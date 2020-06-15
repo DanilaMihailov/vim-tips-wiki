@@ -7,11 +7,12 @@ created 2005 · complexity basic · author Tye Z · version 6.0
 ==============================================================================
 
 When starting Vim, you can open multiple files, one to a window or tab, with 
-the -o, -O or -p options. This tip discusses doing the same from within Vim.
+the `-o`, `-O` or `-p` options. This tip discusses doing the same from within 
+Vim.
 
-You can use a command like :args *.c to replace the argument list with all .c 
-files, then display those files with a command like :sall (split window to 
-show one file per window), or :tab sall (show one file per tab).
+You can use a command like `:args *.c` to replace the argument list with all 
+`.c` files, then display those files with a command like `:sall` (split window 
+to show one file per window), or `:tab sall` (show one file per tab).
 
 Here is another method. Put the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]:
@@ -29,7 +30,7 @@ Then do something like this to edit multiple files:
 <
 
 Customizations
-    - If desired, substitute --remote-tab-silent in place of --remote-silent to 
+    - If desired, substitute `--remote-tab-silent` in place of `--remote-silent` to 
       load all the files in new tabs. 
     - If running under Windows, you'll probably want to allow backslashes to occur 
       in path names, like this: 
@@ -41,12 +42,12 @@ Customizations
 
 ALTERNATIVE                                              *vwt-888-alternative*
 
-If you put the following code in your vimrc, you can simply do :Etabs file 
-list, :Ewindows file list (horizontal windows), or :Evwindows file list 
+If you put the following code in your vimrc, you can simply do `:Etabs file 
+list`, `:Ewindows file list` (horizontal windows), or `:Evwindows file list` 
 (vertical windows).
 
 The commands can be abbreviated, and the function allows for file globbing, 
-so doing something like :Et *.html should work. You may even find yourself 
+so doing something like `:Et *.html` should work. You may even find yourself 
 using one of these to replace the :edit command |vwt-1285|!
 
 >
@@ -70,8 +71,8 @@ using one of these to replace the :edit command |vwt-1285|!
 ALTERNATIVE 2                                          *vwt-888-alternative-2*
 
 I added this command to my vimrc [https://vim.fandom.com/wiki/Vimrc] to open 
-a list of globbed files in tab pages. For example, the command :Tabe *.py 
-*.txt opens a new tab page for each *.py and each *.txt file. When finished, 
+a list of globbed files in tab pages. For example, the command `:Tabe *.py 
+*.txt` opens a new tab page for each *.py and each *.txt file. When finished, 
 the current tab page shows the first file added.
 
 >

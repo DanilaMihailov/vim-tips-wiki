@@ -9,7 +9,7 @@ created 2002 · complexity intermediate · author Max Ischenko · version 6.0
 While creating scripts and other executable files with Vim you need to set 
 the Unix executable bit on the file.
 
-You can do this from inside Vim with :!chmod a+x %. The % represents the 
+You can do this from inside Vim with `:!chmod a+x %`. The `%` represents the 
 current buffer's file name.
 
 The problem is that Vim will notice attribute changes and prompt you to 
@@ -35,7 +35,7 @@ that Vim acts normally for future file attribute changes.
     command! Xbit call SetExecutableBit()
 <
 
-Now you can type :Xbit to make the file executable.
+Now you can type `:Xbit` to make the file executable.
 
 COMMENTS                                                    *vwt-212-comments*
 
@@ -59,7 +59,7 @@ file on Windows.
     command! XRU call ToggleReadOnlyBit()
 <
 
-Note that a simple let fname = expand("%:p") doesn't work on Windows since 
+Note that a simple `let fname = expand("%:p")` doesn't work on Windows since 
 autocmd patterns need /'s instead on \'s. It also seemed prudent to escape the 
 filename in case it had embedded spaces. 32.97.110.54 
 [https://vim.fandom.com/wiki/Special:Contributions/32.97.110.54] 21:08, 7 

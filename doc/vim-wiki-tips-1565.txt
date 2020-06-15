@@ -16,13 +16,13 @@ SYNTAX HIGHLIGHTING                             *vwt-1565-syntax-highlighting*
 
 Install the moin.vim script 
 [https://www.vim.org/scripts/script.php?script_id=1459] by copying the file 
-to~/.vim/syntax/moin.vim on Unix-based systems, or to 
-$HOME/vimfiles/syntax/moin.vim on Windows systems.
+to`~/.vim/syntax/moin.vim` on Unix-based systems, or to 
+`$HOME/vimfiles/syntax/moin.vim` on Windows systems.
 
-You may need to create the .vim (or vimfiles) directory, and you may need to 
-create the syntax subdirectory. In Vim, your home directory is specified with 
-~ on Unix systems, and $HOME on Windows systems. You can see what directories 
-to use by entering commands like the following in Vim:
+You may need to create the `.vim` (or `vimfiles`) directory, and you may need 
+to create the `syntax` subdirectory. In Vim, your home directory is specified 
+with `~` on Unix systems, and `$HOME` on Windows systems. You can see what 
+directories to use by entering commands like the following in Vim:
 
 >
     :echo expand('~')
@@ -34,12 +34,12 @@ to use by entering commands like the following in Vim:
 FOLDING                                                     *vwt-1565-folding*
 
 This will allow you to fold wiki sections that start with a header like 
-==section== or ===subsection===, etc. It is done through expression folding, 
-so you have to define the folding expression and set the proper fold method 
-(expr).
+`==section==` or `===subsection===`, etc. It is done through expression 
+folding, so you have to define the folding expression and set the proper fold 
+method (`expr`).
 
-Create file ~/.vim/ftplugin/moin.vim (Unix) or 
-$HOME/vimfiles/ftplugin/moin.vim (Windows). The contents of the file should 
+Create file `~/.vim/ftplugin/moin.vim` (Unix) or 
+`$HOME/vimfiles/ftplugin/moin.vim` (Windows). The contents of the file should 
 be:
 
 >
@@ -63,14 +63,14 @@ be:
 <
 
 Explanation
-    - The optional expandtab setting expands any tab characters that you insert to 
-      an equivalent number of spaces. 
+    - The optional `expandtab` setting expands any tab characters that you insert 
+      to an equivalent number of spaces. 
     - For security, it is highly desirable to switch modelines off to avoid 
       applying settings or executing code that someone may have inserted in a 
       modeline on the wiki. 
-    - The optional foldlevel=20 setting means that all folds will initially be open 
-      so you can see everything (you can close folds if wanted). If you prefer all 
-      folds to be closed initially, omit this line. :help |folding| 
+    - The optional `foldlevel=20` setting means that all folds will initially be 
+      open so you can see everything (you can close folds if wanted). If you prefer 
+      all folds to be closed initially, omit this line. :help |folding| 
 
 
 Note: if you use non-ASCII characters in your file, you'll need to be sure to 
@@ -79,11 +79,11 @@ set an appropriate set of encoding options
 
 FILE TYPE DETECTION                             *vwt-1565-file-type-detection*
 
-It is necessary to tell Vim to associate MoinMoin files with the moin 
-filetype so you don't need to manually enter :setlocal filetype=moin when 
+It is necessary to tell Vim to associate MoinMoin files with the `moin` 
+filetype so you don't need to manually enter `:setlocal filetype=moin` when 
 editing a wiki file. The following rule in filetype.vim 
 [https://vim.fandom.com/wiki/Filetype.vim] will cause Vim to identify all 
-files with extension .moin as MoinMoin files.
+files with extension `.moin` as MoinMoin files.
 
 >
     au! BufNewFile,BufRead *.moin setf moin

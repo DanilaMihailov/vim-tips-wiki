@@ -6,11 +6,11 @@ created 2001 · complexity intermediate · version 7.0
 
 ==============================================================================
 
-Ever want to capture the output of an ex command like :set all into a Vim 
+Ever want to capture the output of an ex command like `:set all` into a Vim 
 text buffer for easy viewing? This is actually a very easy thing to 
 accomplish!
 
-You can use the :redir command to redirect the output of an ex command to a 
+You can use the `:redir` command to redirect the output of an ex command to a 
 register and then paste the contents of the register into a Vim buffer.
 
 For example:
@@ -22,7 +22,7 @@ For example:
 <
 
 Now, register 'a' will have the output of the "set all" ex command. You can 
-paste this into a Vim buffer, using "ap.
+paste this into a Vim buffer, using `"ap`.
 
 You can also write a Vim function to do the above. Since you probably don't 
 want your command output to mess up your carefully constructed window layout, 
@@ -55,12 +55,12 @@ Example usage:
     :TabMessage highlight
 <
 
-Note that :redir can use a variable instead of a register, as shown above.
+Note that `:redir` can use a variable instead of a register, as shown above.
 
-Note also that :redir will capture silenced messages as well. While this 
+Note also that `:redir` will capture silenced messages as well. While this 
 won't be problematic with most builtin commands that echo stuff that we are 
 interested in, this is quite problematic when we execute a sequence of several 
-commands. Since version 7.4-2008, Vim provides an execute() function that'll 
+commands. Since version 7.4-2008, Vim provides an `execute()` function that'll 
 simplify things and avoid side-effects.
 
 REFERENCES                                                 *vwt-95-references*
@@ -84,8 +84,8 @@ replace the current file/buffer with the output of that command, using this:
     :%! [cmd]
 <
 
-That is, if you didn't know about the :retab command, you could expand tabs 
-using basic Unix commands like :%! expand -t 4.
+That is, if you didn't know about the `:retab` command, you could expand tabs 
+using basic Unix commands like `:%! expand -t 4`.
 
 ==============================================================================
 

@@ -30,7 +30,7 @@ a C++ file:
     nnoremap <M-K> ?\v^(\w+\s+)?\w+::\w+\(.*\)
 <
 
-Better still, if this is in file ftplugin/cpp.vim, it only activates when 
+Better still, if this is in file `ftplugin/cpp.vim`, it only activates when 
 editing C++ files.
 
 This only works if the format of the method is:

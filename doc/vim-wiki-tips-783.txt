@@ -67,28 +67,28 @@ standard system without the need to edit each systems vim mappings.
 MAPPINGS                                                    *vwt-783-mappings*
 
 It can be convenient to use a mapping so that pressing a key, or sequence of 
-keys, generates Escape. The :imap command is used to create the mapping so 
-that it only applies while in insert mode (but see note about :inoremap 
+keys, generates Escape. The `:imap` command is used to create the mapping so 
+that it only applies while in insert mode (but see note about `:inoremap` 
 below).
 
-For example, the following allows you to press jj to exit from insert mode: 
-(or jk ,kj, etc)
+For example, the following allows you to press `jj` to exit from insert mode: 
+(or `jk` ,`kj`, etc)
 
 >
     :imap jj <Esc>
 <
 
-To generate Escape, jj has to be typed quickly. :help 'timeout'
+To generate Escape, `jj` has to be typed quickly. :help 'timeout'
 
-A problem with mapping a sequence like jj is that Vim will pause whenever you 
-type j in insert mode (it is waiting for the next key to determine whether to 
-apply the mapping). The pause is merely a visual distraction which you may not 
-notice, and it does not slow down typing.
+A problem with mapping a sequence like `jj` is that Vim will pause whenever 
+you type `j` in insert mode (it is waiting for the next key to determine 
+whether to apply the mapping). The pause is merely a visual distraction which 
+you may not notice, and it does not slow down typing.
 
-For simplicity, we will show :imap but careful Vimmers are in the habit of 
-using :inoremap which does not attempt to interpret the result of the mapping 
-(with the :imap command, the result is scanned to see whether it contains 
-another mapping).
+For simplicity, we will show `:imap` but careful Vimmers are in the habit of 
+using `:inoremap` which does not attempt to interpret the result of the 
+mapping (with the `:imap` command, the result is scanned to see whether it 
+contains another mapping).
 
 If you are considering putting this map in your .vimrc be careful to not put 
 any comments after it, imap will try to interpret the blank spaces after <Esc> 
@@ -160,30 +160,30 @@ press Tab to return to normal mode:
     cnoremap <Tab> <C-C><Esc>
     inoremap <Tab> <Esc>`^
     inoremap <Leader><Tab> <Tab>
-<In normal mode, you can press prefix keys before a command (for example, 12 for a count). The nnoremap causes Tab to cancel any prefix keys.
+<In normal mode, you can press prefix keys before a command (for example, 12 for a count). The `nnoremap` causes Tab to cancel any prefix keys.
 
-The vnoremap causes Tab to cancel any selection (gV is required to prevent 
-automatic reselection).
+The `vnoremap` causes Tab to cancel any selection (`gV` is required to 
+prevent automatic reselection).
 
-The onoremap causes Tab to cancel any operator-pending command (for example, 
-y).
+The `onoremap` causes Tab to cancel any operator-pending command (for 
+example, `y`).
 
 The cnoremap causes Tab to cancel any command that was entered.
 
-The first inoremap causes Tab to exit insert mode, and the `^ restores the 
-cursor position so exiting insert does not move the cursor left.
+The first `inoremap` causes Tab to exit insert mode, and the ``^` restores 
+the cursor position so exiting insert does not move the cursor left.
 
-The second inoremap, assuming the default leader key, allows you to press \ 
-then Tab to insert a tab character. You may prefer an alternative mapping to 
-make it easier to insert a tab. For example, on some systems, you may be able 
-to use Alt-Tab to insert a tab character with:
+The second `inoremap`, assuming the default leader key, allows you to press 
+`\` then Tab to insert a tab character. You may prefer an alternative mapping 
+to make it easier to insert a tab. For example, on some systems, you may be 
+able to use Alt-Tab to insert a tab character with:
 
 >
     inoremap <M-i> <Tab>
 <
 
-Some plugins may remap the Tab key. To remap them back from .vimrc, use 
-autocmd:
+Some plugins may remap the Tab key. To remap them back from `.vimrc`, use 
+`autocmd`:
 
 >
     au VimEnter * map <Tab> <Esc>
@@ -195,8 +195,8 @@ Due to the way that Vim read keys, Ctrl-i is the same as Tab. Therefore, you
 cannot map Tab to generate Escape, and map Ctrl-i to do something different.
 
 When adjusting indents, you can avoid tabs altogether:
-    - In normal mode: Type << to shift the line left one 'shiftwidth', or >> to 
-      shift right (and press . to repeat). 
+    - In normal mode: Type `<<` to shift the line left one 'shiftwidth', or >> to 
+      shift right (and press `.` to repeat). 
     - In insert mode: Press Ctrl-d to shift left, or Ctrl-t to shift right. 
 
 
@@ -204,7 +204,7 @@ If you are using MacVim under Mac OS X, there is a good method to use the Tab
 key for Escape. The tool KeyRemap4MacBook can configure the Tab key to act as 
 an Esc key in MacVim only (leaving the rest of the system untouched). Then you 
 can press Ctrl-i to insert a tab character, and can press the Tab key to send 
-Escape to MacVim. To do this, add the following to your private.xml file:
+Escape to MacVim. To do this, add the following to your `private.xml` file:
 
 >
     <!-- TAB key changed to act as ESC, for MacVim only -->
@@ -228,7 +228,7 @@ It's very easy to exit insert mode using the Enter key:
     :inoremap <CR> <Esc>
 <
 
-An example of using the above would be to type ce to change to the end of a 
+An example of using the above would be to type `ce` to change to the end of a 
 word, then type new text, then press Enter to return to normal mode.
 
 When you want to enter a newline, you may find that Shift-Enter or Ctrl-Enter 
@@ -277,15 +277,15 @@ Features
 
 Explanation
 
-The mapcheck() function returns the current insert-mode mapping for <CR> 
-(Enter). The empty() function returns nonzero (true) if there is no such 
+The `mapcheck()` function returns the current insert-mode mapping for <CR> 
+(Enter). The `empty()` function returns nonzero (true) if there is no such 
 mapping.
 
 The inoremap <expr> command maps Shift-Enter to generate the expression 
-returned by calling ToggleEnterMapping() (the code for either Escape or 
+returned by calling `ToggleEnterMapping()` (the code for either Escape or 
 Enter). Calling the function toggles the insert-mode mapping for Enter: if it 
 is mapped, it is unmapped; otherwise it is mapped to <Esc>`^ (generate Escape 
-then go to the ^ mark).
+then go to the `^` mark).
 
 TOGGLING INSERT MODE                            *vwt-783-toggling-insert-mode*
 
@@ -297,8 +297,8 @@ Shift-Space is above |vwt-783-alternative-mappings|):
     imap <C-space> <Esc>
 <
 
-Or you may prefer to map Ctrl-Space to a rather than i so that repeatedly 
-pressing Ctrl-Space does not move the cursor back (remember that pressing I 
+Or you may prefer to map Ctrl-Space to `a` rather than `i` so that repeatedly 
+pressing Ctrl-Space does not move the cursor back (remember that pressing `I` 
 allows you to insert a character at the beginning of the line):
 
 >
@@ -313,9 +313,9 @@ me).
 command-line vim. I ended up mapping <C-space> to <Nul> and mapping with <Nul> 
 for a more general mapping.
 
-An alternative follows. It uses /i to toggle insertion at the cursor, and /a 
-to toggle insertion at the end of the line. If you use /i (or /a) to insert, 
-you must /i (or /a) to exit (not Esc).
+An alternative follows. It uses `/i` to toggle insertion at the cursor, and 
+`/a` to toggle insertion at the end of the line. If you use `/i` (or `/a`) to 
+insert, you must `/i` (or `/a`) to exit (not Esc).
 
 >
     nnoremap <silent> /i :let &insertmode=1-&insertmode<CR>
@@ -331,9 +331,9 @@ References
 
 Comment
 
-Probably can use :set insertmode! to toggle.
+Probably can use `:set insertmode!` to toggle.
 
-The / is easy to type, but did you mean to use <Leader>? Also, why toggle 
+The `/` is easy to type, but did you mean to use <Leader>? Also, why toggle 
 'insertmode'? Why not the following (and similar for append):
 
 >
@@ -396,8 +396,8 @@ want to try this variation from the Tab key section above:
     inoremap <Esc> <Esc>`^
 <
 
-The above trick means that the cursor will not move if you press i to enter 
-insert mode, then press Esc to exit. However, pressing a (append) then Esc 
+The above trick means that the cursor will not move if you press `i` to enter 
+insert mode, then press Esc to exit. However, pressing `a` (append) then Esc 
 will move the cursor, so this "improvement" may not satisfy you.
 
 COMMAND-LINE MODE                                  *vwt-783-command-line-mode*

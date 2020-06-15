@@ -6,23 +6,23 @@ created 2001 · complexity intermediate · version 7.0
 
 ==============================================================================
 
-You may use the :split or :vsplit commands to display several windows, with 
-some windows showing different parts of one buffer, while other windows show 
-other buffers.
+You may use the `:split` or `:vsplit` commands to display several windows, 
+with some windows showing different parts of one buffer, while other windows 
+show other buffers.
 
-When finished with a buffer, you can close it with the :bdelete command. 
+When finished with a buffer, you can close it with the `:bdelete` command. 
 However, that command will also close all windows currently showing the 
 buffer.
 
-The script below defines the :Bclose command that deletes a buffer, while 
+The script below defines the `:Bclose` command that deletes a buffer, while 
 keeping the current window layout (no windows are closed).
 
 USAGE                                                          *vwt-622-usage*
 
-The :Bclose command deletes a buffer without changing the window layout. For 
-each window where the buffer is currently displayed:
-    - Show the alternate buffer (:buffer #), if any. 
-    - Otherwise, show the previous buffer (:bprevious), if any. 
+The `:Bclose` command deletes a buffer without changing the window layout. 
+For each window where the buffer is currently displayed:
+    - Show the alternate buffer (`:buffer #`), if any. 
+    - Otherwise, show the previous buffer (`:bprevious`), if any. 
     - Otherwise, show an empty buffer. 
 
 
@@ -35,14 +35,15 @@ Close buffer number N (as shown by :ls).
 :Bclose Name
 Close buffer named Name (as shown by :ls).
 
-Assuming the default backslash leader key, you can also press \bd to close 
-(delete) the buffer in the current window (same as :Bclose).
+Assuming the default backslash leader key, you can also press `\bd` to close 
+(delete) the buffer in the current window (same as `:Bclose`).
 
-Like the :bdelete command, :Bclose will fail if the buffer has been modified. 
-You can append ! to discard all changes (for example, :Bclose! will delete the 
-buffer in the current window; any changes to the buffer are lost).
+Like the `:bdelete` command, `:Bclose` will fail if the buffer has been 
+modified. You can append `!` to discard all changes (for example, `:Bclose!` 
+will delete the buffer in the current window; any changes to the buffer are 
+lost).
 
-By default, :Bclose will close a buffer even if it is displayed in multiple 
+By default, `:Bclose` will close a buffer even if it is displayed in multiple 
 windows (the windows are not closed). Put the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] if you would prefer that a buffer is not 
 closed if it is displayed more than once:
@@ -53,8 +54,8 @@ closed if it is displayed more than once:
 
 SCRIPT                                                        *vwt-622-script*
 
-Create file ~/.vim/plugin/bclose.vim (Unix) or 
-$HOME/vimfiles/plugin/bclose.vim (Windows) containing the script below, then 
+Create file `~/.vim/plugin/bclose.vim` (Unix) or 
+`$HOME/vimfiles/plugin/bclose.vim` (Windows) containing the script below, then 
 restart Vim.
 
 >
@@ -143,7 +144,7 @@ ensures this doesn't happen.
 
 Everything in this tutorial assumes the user does "set hidden".
 
-Using this Kwbd command (:Kwbd) will make Vim windows behave more like an 
+Using this Kwbd command (`:Kwbd`) will make Vim windows behave more like an 
 IDE, or maybe even better. You can also setup a mapping, see the end of the 
 script.
 
@@ -237,7 +238,7 @@ SEE ALSO                                                    *vwt-622-see-also*
 COMMENTS                                                    *vwt-622-comments*
 
 For getting asked what should be done, when a file has been modified I use 
-normally :confirm :bd. So I changed the script in 2lines to achieve this:
+normally `:confirm :bd`. So I changed the script in 2lines to achieve this:
 
 >
     if empty(a:bang) && getbufvar(btarget, '&modified')

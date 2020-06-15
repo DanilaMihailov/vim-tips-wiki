@@ -179,41 +179,42 @@ to trip up if you have strange characters in your filenames.
 
 COMMENTS                                                   *vwt-1669-comments*
 
-On Unix you can use find /some/directory | vim -. Windows users could install 
-GnuWin [http://gnuwin32.sourceforge.net/packages/findutils.htm] to obtain a 
-version of find utility to use the same procedure. The GnuWin package is 
-updated from an earlier and obsolete UnxUtils package.
+On Unix you can use `find /some/directory | vim -`. Windows users could 
+install GnuWin [http://gnuwin32.sourceforge.net/packages/findutils.htm] to 
+obtain a version of find utility to use the same procedure. The GnuWin package 
+is updated from an earlier and obsolete UnxUtils package.
 
 I refactored the above comment to remove the link to UnxUtils which I am fairly sure is obsolete. See here for info on signing comments. JohnBeckett 10:16, September 2, 2010 (UTC)
 
 ==============================================================================
 
 A simple Windows procedure to list file paths is to enter the following at 
-command prompt, replacing DIRECTORY with the path of the directory you want:
+command prompt, replacing `DIRECTORY` with the path of the directory you want:
 
 >
     xcopy DIRECTORY\* \ /s /h /l
 <
 
-That produces a list of the full path of each file in and under DIRECTORY. If 
-you replace the * with *.c the list will include only *.c files. JohnBeckett 
-[https://vim.fandom.com/wiki/User:JohnBeckett] 10:16, September 2, 2010 (UTC)
+That produces a list of the full path of each file in and under `DIRECTORY`. 
+If you replace the `*` with `*.c` the list will include only `*.c` files. 
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 10:16, September 2, 
+2010 (UTC)
 
 Wow, this is really slick, and gets rid of most of the scripting in the tip. Thanks! I was going to mention the /b option for the dir command, but this is even better! --Fritzophrenic 13:39, September 2, 2010 (UTC)
 
 ==============================================================================
 
 Great info about getting directory listings for dos. I didn't know of either 
-of these methods and I can't think why I didn't try the /b switch. I would not 
-have written the vim script if I was aware of these alternatives and saved 
+of these methods and I can't think why I didn't try the `/b` switch. I would 
+not have written the vim script if I was aware of these alternatives and saved 
 myself some time.
 
 It may be interesting to note that the 3 mentioned methods of generating a 
 dir listing all differ slightly in what they produce and one or other may be 
-better suited depending on what you intend to do with the output. The xcopy 
+better suited depending on what you intend to do with the output. The `xcopy` 
 command does not produce directory entries and gives a one line file summary 
-at the end. dir /s /b lists directories and lists them first but doesn't 
-distinguish between a directory and a file. dir /s and vim script produces a 
+at the end. `dir /s /b` lists directories and lists them first but doesn't 
+distinguish between a directory and a file. `dir /s` and vim script produces a 
 directory listing and marks directories with a trailing slash. I have a 
 feeling it might not list empty directories and it also produces double 
 slashes for the drive root, if included - probably an easy fix.
@@ -231,9 +232,9 @@ There is also the /a option: dir /s /b /a-d is files only ("attributes not direc
 The following script (which could be in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]) defines a command to list files in a 
 scratch buffer. There are several good tools for finding files and navigating 
-(for example, :e . explores the current directory). However, it can be useful 
-to generate a list of file paths which you can edit. With the cursor in a file 
-path, press gf to jump to that file.
+(for example, `:e .` explores the current directory). However, it can be 
+useful to generate a list of file paths which you can edit. With the cursor in 
+a file path, press `gf` to jump to that file.
 
 >
     " Create a scratch buffer with a list of files (full path names).
@@ -283,11 +284,11 @@ systems):
 <
 
 Depending on what commands you have defined on your system, you may be able 
-to abbreviate :Listfile to simply :L.
+to abbreviate `:Listfile` to simply `:L`.
 
-Todo Could make a buffer-local mapping so that pressing Enter will execute gf 
-on the current line. Use command 0vg_gf to select the current line before the 
-gf so that it works on paths that contain spaces.
+Todo Could make a buffer-local mapping so that pressing Enter will execute 
+`gf` on the current line. Use command `0vg_gf` to select the current line 
+before the `gf` so that it works on paths that contain spaces.
 
 I have just created the above script. It should work on all Vim 7 systems, 
 and might be worth mentioning in a tip, perhaps here. If anyone has some 

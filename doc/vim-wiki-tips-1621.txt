@@ -8,8 +8,8 @@ created
 
 ==============================================================================
 
-When Vim is called from crontab -e it will not work if the 'backup' option is 
-set to no or auto. (I get the error message
+When Vim is called from `crontab -e` it will not work if the '`backup`' 
+option is set to no or auto. (I get the error message
 
 crontab: temp file must be edited in place
 
@@ -22,7 +22,7 @@ to work:
 <
 
 The temporary file created by crontab on Mac OS X is named something like 
-/private/tmp/crontab.XXXXXXXXXX (with a random string of characters at the 
+`/private/tmp/crontab.XXXXXXXXXX` (with a random string of characters at the 
 end). On other systems, you may need to use a different pattern.
 
 Another option that can be set in vimrc tip from ( 

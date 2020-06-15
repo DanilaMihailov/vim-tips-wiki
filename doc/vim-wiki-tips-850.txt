@@ -6,8 +6,8 @@ created 2005 · complexity basic · author mmj · version 6.0
 
 ==============================================================================
 
-You can set the text width for automatic word wrapping using :set textwidth=n 
-(or :set tw=n) where n is a positive integer, for example:
+You can set the text width for automatic word wrapping using `:set 
+textwidth=n` (or `:set tw=n`) where n is a positive integer, for example:
 
 >
     :set tw=79
@@ -42,8 +42,8 @@ To stop automatic wrapping, unset textwidth using:
 <
 
 If you want to wrap lines in a specific area, move the cursor to the text you 
-want to format and type gq followed by the range. For example, gqq wraps the 
-current line and gqip wraps the current paragraph.
+want to format and type `gq` followed by the range. For example, `gqq` wraps 
+the current line and `gqip` wraps the current paragraph.
 
 The following sets a wrap margin of 2 characters from the right window 
 border. A system-dependent EOL character 
@@ -64,8 +64,8 @@ text but simply displays it on multiple lines. This can be achieved with:
 <
 
 Note that this may lead to a bunch of screen lines being taken up by only a 
-single "real" line, so commands like j and k which move on real lines will 
-skip over a lot of screen lines. You can use gj and gk to move by screen 
+single "real" line, so commands like `j` and `k` which move on real lines will 
+skip over a lot of screen lines. You can use `gj` and `gk` to move by screen 
 lines.
 
 REFERENCES                                                *vwt-850-references*

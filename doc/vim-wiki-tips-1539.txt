@@ -27,7 +27,7 @@ I'm sure that a "previous word" version to handle line breaks can be done,
 especially if you relax the requirement of using \k to match keyword 
 characters.
 
-The traditional way to swap words is something like dawwp (see VimTip47 
+The traditional way to swap words is something like `dawwp` (see VimTip47 
 |vwt-47|) or such movements. However these aren't a generic solution and only 
 work where the delimiters are whitespace.
 
@@ -49,10 +49,10 @@ becomes
 It can also be used with other atoms such as [a-zA-Z0-9] which in some ways 
 is simpler as it can be negated more easily (aiding with the 'reverse' case).
 
-The trick for this tip is the %# atom, which matches the cursor position. 
+The trick for this tip is the `%#` atom, which matches the cursor position. 
 This atom can easily be used in cases like this for acting on text under the 
-cursor. Note the use of \v, "very magic" and of \_., "any character including 
-newline".
+cursor. Note the use of `\v`, "very magic" and of `\_.`, "any character 
+including newline".
 
 REFERENCES                                               *vwt-1539-references*
     - :help |/\%#| 

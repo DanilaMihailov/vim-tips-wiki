@@ -24,8 +24,8 @@ setting 't_Co' to 256 in vimrc [https://vim.fandom.com/wiki/Vimrc] is enough
 to make Vim use 256 colors. However, setting up a color scheme to look 
 identical in different terminals and in the GUI is difficult since colors for 
 the GUI are defined by RGB, and colors in a terminal are defined by color 
-indices. Furthermore, the indices for ctermfg and ctermbg depend on the number 
-of colors that the terminal supports.
+indices. Furthermore, the indices for `ctermfg` and `ctermbg` depend on the 
+number of colors that the terminal supports.
 
 SOLUTION 1: THE GUICOLORSCHEME PLUGIN *vwt-1619-solution-1:-the-guicolorscheme-plugin*
 
@@ -36,8 +36,8 @@ of the GUI.
 
 To use it, download and install the guicolorscheme plugin. Then add the 
 following lines to your vimrc [https://vim.fandom.com/wiki/Vimrc]. You may 
-have to uncomment the line set t_Co=256 or set t_Co=88 if your terminal does 
-not use 256 colors by default. You can of course replace the rastafari 
+have to uncomment the line `set t_Co=256` or `set t_Co=88` if your terminal 
+does not use 256 colors by default. You can of course replace the rastafari 
 [https://www.vim.org/scripts/script.php?script_id=2198] color scheme in the 
 example below with your favorite. This color scheme is used as an example 
 because it defines colors for the GUI:
@@ -89,13 +89,13 @@ they do it in very different ways which have their pros and cons:
     - CSApprox takes into account the different color cubes for different 
       terminals. 
     - CSApprox is more configurable. 
-    - CSApprox is better documented (:help csapprox). 
-    - CSApprox is easier to set up, it does not rely on the hack using the runtime! 
-      command to load the plugin before loading the color scheme. 
+    - CSApprox is better documented (`:help csapprox`). 
+    - CSApprox is easier to set up, it does not rely on the hack using the 
+      `runtime!` command to load the plugin before loading the color scheme. 
 
 
 On the other hand:
-    - guicolorscheme does not require the +gui feature unlike CSApprox. 
+    - guicolorscheme does not require the `+gui` feature unlike CSApprox. 
     - guicolorscheme is faster. 
 
 
@@ -152,19 +152,19 @@ OTHER PLUGINS                                         *vwt-1619-other-plugins*
 COMMENTS                                                   *vwt-1619-comments*
 
 Global plugins are loaded by Vim without user intervention, and they can 
-reside in $VIM/vimfiles/plugin/ just as well as in ~/.vim/plugin/. To load the 
-colorscheme after the guicolorscheme plugin, there are two solutions which are 
-equivalent, and more robust than testing for filereadable() (use only one of 
-them):
-    - Put the if / then / else block with :colorscheme and :GuiColorScheme commands 
-      in an (maybe ~/.vim/after/plugin/guicolorscheme.vim ) 
+reside in `$VIM/vimfiles/plugin/` just as well as in `~/.vim/plugin/`. To load 
+the colorscheme after the `guicolorscheme` plugin, there are two solutions 
+which are equivalent, and more robust than testing for `filereadable()` (use 
+only one of them):
+    - Put the `if / then / else` block with `:colorscheme` and `:GuiColorScheme` 
+      commands in an (maybe `~/.vim/after/plugin/guicolorscheme.vim` ) 
     - Load it from an autocommand for the event, which is triggered at the very end 
       of startup, after all global plugins have been run. 
     - In both cases, since now we know that the plugin has already been run if only 
       it is installed, is a good enough test of its presence. 
 
 
-So here is a modified snippet for either a function called at the VimEnter 
+So here is a modified snippet for either a function called at the `VimEnter` 
 event, or a user-after-plugin:
 
 See:

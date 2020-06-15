@@ -42,8 +42,8 @@ HELP?Anthony@griffith.edu.au
       usually due to termcap/terminfo settings not corresponding to what the 
       keyboard is sending or the display accepting. If the installed 
       termcap/terminfo is "better" than the one of the same name built into Vim you 
-      can cure the problem by means of :set nottybuiltin — but more often the $TERM 
-      environment variable is set to the name of a termcap/terminfo entry not 
+      can cure the problem by means of `:set nottybuiltin` — but more often the 
+      $TERM environment variable is set to the name of a termcap/terminfo entry not 
       corresponding to the actual terminal in use and that's the culprit. Since I'm 
       on SuSE and not on gentoo I cannot tell which case applies here. — Tonymec 
       [https://vim.fandom.com/wiki/User:Tonymec] 17:54, 20 February 2009 (UTC) - — 

@@ -17,7 +17,7 @@ DROPBOX                                                     *vwt-1637-dropbox*
 You can use a Dropbox [http://www.getdropbox.com] account to synchronize your 
 configuration files (vimrc or any files) to different computers.
 
-Just move the config files into your ~/Dropbox/ directory (automatically 
+Just move the config files into your `~/Dropbox/` directory (automatically 
 created by installation of Dropbox software) and create new config files at 
 the original location, containing:
 
@@ -40,10 +40,11 @@ If you only have one master system where you make edits, and just want to
 push or pull updates to/from clients, the simpler rsync 
 [http://samba.anu.edu.au/rsync/] tool may be sufficient.
 
-One helpful Vim setting in a mixed-OS environment is to use .vim for Vim user 
-settings also for Windows systems (Vim automatically picks up a .vimrc config 
-file instead of _vimrc by default). The following snippet in .vimrc will do 
-the trick, and thus allow you to synchronize without directory renaming:
+One helpful Vim setting in a mixed-OS environment is to use `.vim` for Vim 
+user settings also for Windows systems (Vim automatically picks up a `.vimrc` 
+config file instead of `_vimrc` by default). The following snippet in .vimrc 
+will do the trick, and thus allow you to synchronize without directory 
+renaming:
 
 >
     " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization

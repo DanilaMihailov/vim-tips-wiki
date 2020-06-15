@@ -6,10 +6,10 @@ created 2005 · complexity basic · author Ethan Mallove · version 6.0
 
 ==============================================================================
 
-I re-fell in love with :g/ when I discovered norm f{char}. In the following 
-sample text, say you want to delete the two words between the name and the IP 
-address, and "has address" isn't spelled consistently throughout (preventing 
-us from using :s/has address//). You can do this:
+I re-fell in love with `:g/` when I discovered `norm f{char}`. In the 
+following sample text, say you want to delete the two words between the name 
+and the IP address, and "has address" isn't spelled consistently throughout 
+(preventing us from using `:s/has address//`). You can do this:
 
 >
     :g/\d\+\.\d\+\.\d\+\.\d\+/norm f w2dw

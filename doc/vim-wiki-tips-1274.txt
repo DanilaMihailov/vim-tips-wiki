@@ -17,9 +17,9 @@ issues:
     - Tabs not at the start of the line (that is, not used for indents). 
 
 
-After sourcing the following script, you can type \ws (assuming the default 
+After sourcing the following script, you can type `\ws` (assuming the default 
 leader key) to toggle whitespace highlighting on/off. The buffer local 
-variable b:ws_flags determines what is highlighted (see "default" below).
+variable `b:ws_flags` determines what is highlighted (see "default" below).
 
 >
     " Highlight whitespace problems.

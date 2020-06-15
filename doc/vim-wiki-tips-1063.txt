@@ -6,42 +6,42 @@ created 2005 · complexity basic · author zzapper · version 6.0
 
 ==============================================================================
 
-After searching for text, you can use :g// to list all lines containing the 
-pattern you last searched for. Or, just type g/pattern/ to display all lines 
+After searching for text, you can use `:g//` to list all lines containing the 
+pattern you last searched for. Or, just type `g/pattern/` to display all lines 
 containing pattern. This tip shows how to capture the result (the list of all 
 lines that contain the pattern).
 
 USER COMMAND                                           *vwt-1063-user-command*
 
 The following addition for your vimrc [https://vim.fandom.com/wiki/Vimrc] 
-defines the :Filter command:
+defines the `:Filter` command:
 
 >
     command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 <
 
-After searching for some text, enter :Filter (or just type :F then press Tab 
-for command completion). Entering this command will open a new scratch window 
-listing all lines that contain the text that was last searched for.
+After searching for some text, enter `:Filter` (or just type `:F` then press 
+Tab for command completion). Entering this command will open a new scratch 
+window listing all lines that contain the text that was last searched for.
 
 You can also type the search pattern on the command line. For example, 
-:Filter red\|blue lists all lines that contain "red" or "blue".
+`:Filter red\|blue` lists all lines that contain "red" or "blue".
 
-The command accepts zero or one argument (-nargs=?), and the argument 
-replaces <args> where it occurs in the following. Register a is cleared (let 
-@a=''), then each matching line is appended to that register (y A performed on 
-all matching lines by g/pattern/). A new window with a scratch buffer is 
-created (new | setlocal bt=nofile), and the register is pasted before the 
-blank line in the scratch buffer (put! a). When :g/pattern/ is used, all 
+The command accepts zero or one argument (`-nargs=?`), and the argument 
+replaces <args> where it occurs in the following. Register `a` is cleared (let 
+@a=''), then each matching line is appended to that register (`y A` performed 
+on all matching lines by `g/pattern/`). A new window with a scratch buffer is 
+created (`new | setlocal bt=nofile`), and the register is pasted before the 
+blank line in the scratch buffer (`put! a`). When `:g/pattern/` is used, all 
 following text is taken as a command to be executed on matching lines. Since 
-only y A is wanted, the execute command is used as it stops at the bar.
+only `y A` is wanted, the `execute` command is used as it stops at the bar.
 
 REDIRECTING OUTPUT                               *vwt-1063-redirecting-output*
 
 This mapping shows an alternative method using redirection. Put the following 
 in your vimrc [https://vim.fandom.com/wiki/Vimrc]. Then, when you are 
 satisfied with the regex you last used for searching, press F3 to output the 
-:g/pattern/ results to a new window.
+`:g/pattern/` results to a new window.
 
 >
     nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
@@ -66,7 +66,7 @@ temporary copy of matches for several different patterns.
 <
 
 SEE ALSO                                                   *vwt-1063-see-also*
-    - Power of g |vwt-227| for more on the :g// command 
+    - Power of g |vwt-227| for more on the `:g//` command 
     - Copy the search results into clipboard |vwt-478| for other methods to capture 
       search hits 
 

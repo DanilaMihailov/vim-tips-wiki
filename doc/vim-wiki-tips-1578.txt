@@ -82,7 +82,7 @@ VIM WITHOUT CREAM PROBLEMS               *vwt-1578-vim-without-cream-problems*
       to install Vim. 
     - The format of the Sourceforge page occasionally changes and the instructions 
       given above may not exactly match what you see. For standard Vim and gvim 
-      without Cream, look for the highest version of the gvim-7-4-xxx.exe file. 
+      without Cream, look for the highest version of the `gvim-7-4-xxx.exe` file. 
     - In the past, the Sourceforge page required that scripting be enabled in your 
       browser, and, near the bottom of the file list, you had to click "+" next to 
       "Vim" to expand the list of files. 
@@ -110,8 +110,8 @@ For Fedora:
 
 Beware that installing distribution's Vim package usually adds a system-wide 
 customization of Vim via .vimrc, .gvimrc, .virc, etc. You may want to examine 
-locations of system .vimrc files in the output of :version and to check what 
-gets sourced on Vim startup with :scriptnames. In case of Debian vim-gtk 
+locations of system .vimrc files in the output of `:version` and to check what 
+gets sourced on Vim startup with `:scriptnames`. In case of Debian vim-gtk 
 package, the system-wide customization starts in /etc/vim/ and the actual 
 settings are in /usr/share/vim/vim74/debian.vim or similar.
 

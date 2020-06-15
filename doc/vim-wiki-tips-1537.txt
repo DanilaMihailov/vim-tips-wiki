@@ -33,30 +33,31 @@ details see the buffer FAQ |vwt-135| and :help |windows-intro|.
 
 LISTING BUFFERS                                     *vwt-1537-listing-buffers*
 
-The :buffers command lists the current buffers. There are two alternate names 
-for this command :ls and :files. By default, only listed buffers will be 
-displayed. Unlisted buffers can be included by appending !, for example :ls!.
+The `:buffers` command lists the current buffers. There are two alternate 
+names for this command `:ls` and `:files`. By default, only listed buffers 
+will be displayed. Unlisted buffers can be included by appending `!`, for 
+example `:ls!`.
 
 SWITCHING TO ANOTHER BUFFER             *vwt-1537-switching-to-another-buffer*
 
-The command to switch to another buffer is :buffer, which is often 
-abbreviated as :b, :bu or :buf. :buffer can be given either the name or the 
-number of the buffer to edit.
+The command to switch to another buffer is `:buffer`, which is often 
+abbreviated as `:b`, `:bu` or `:buf`. `:buffer` can be given either the name 
+or the number of the buffer to edit.
 
 SWITCHING BY NAME                                 *vwt-1537-switching-by-name*
 
-When using the buffer name as the argument to :buffer, you don't have to 
+When using the buffer name as the argument to `:buffer`, you don't have to 
 specify the entire name. However, if more than one buffer matches the given 
 argument then the buffers won't be switched.
 
 Any fragment of the buffer name can be used to match against, although 
 buffers which match at the beginning of their name will be selected in 
 preference to buffers which match elsewhere in their name. For example, if you 
-have the buffers request_manager.java and queue_manager.java then :buffer que 
-matches both of them, but will switch to queue_manager.java as it matches at 
-the beginning.
+have the buffers request_manager.java and queue_manager.java then `:buffer 
+que` matches both of them, but will switch to queue_manager.java as it matches 
+at the beginning.
 
-Tab completion can be used to complete the buffer name, :buffer any snippet 
+Tab completion can be used to complete the buffer name, `:buffer` any snippet 
 of text<Tab> will complete to the full buffer name if only one buffer matches 
 any snippet of text. If more than one buffer matches, the matches will be 
 cycled through on further presses of <tab>. The switch will take place once 
@@ -108,9 +109,9 @@ select one of the matching buffers by buffer number.
 SWITCHING BY NUMBER                             *vwt-1537-switching-by-number*
 
 If you know the number of the buffer you want to switch to, you can pass that 
-as the argument to :buffer, for example :buffer 5 will switch to buffer number 
-5. An alternative which can be used from normal mode is buffer number<C-^>, 
-for example 5<C-^> will switch to buffer number 5.
+as the argument to `:buffer`, for example `:buffer 5` will switch to buffer 
+number 5. An alternative which can be used from normal mode is buffer 
+number<C-^>, for example 5<C-^> will switch to buffer number 5.
 
 When there are several buffers open in a Vim session, it can become difficult 
 to keep track of the buffers and their respective buffer numbers. If this is 
@@ -120,25 +121,25 @@ the case, switching to a different file can be made easier using a simple map:
     :nnoremap <F5> :buffers<CR>:buffer<Space>
 <
 
-When F5 is pressed, a numbered list of file names is printed, and the user 
+When `F5` is pressed, a numbered list of file names is printed, and the user 
 needs to type a single number based on the "menu" and press enter. The "menu" 
 disappears after choosing the number so it appears only when you need it.
 
 The <Space> at the end of the map isn't required, but does help to separate 
-the input from the "prompt". As the :buffer command is being used to perform 
+the input from the "prompt". As the `:buffer` command is being used to perform 
 the switch, the buffer name could be used instead, if preferred.
 
-The :edit command can also be used to switch to a given buffer number if the 
-argument begins with #. For example, :edit #5 will switch to buffer number 5. 
-This can be used in the above map to allow the user to view the current 
-buffers and then either enter the number you wish to switch to, or if it isn't 
-yet loaded, delete the # and enter the path to the file.
+The `:edit` command can also be used to switch to a given buffer number if 
+the argument begins with `#`. For example, `:edit #5` will switch to buffer 
+number 5. This can be used in the above map to allow the user to view the 
+current buffers and then either enter the number you wish to switch to, or if 
+it isn't yet loaded, delete the `#` and enter the path to the file.
 
 SWITCHING TO THE PREVIOUSLY EDITED BUFFER *vwt-1537-switching-to-the-previously-edited-buffer*
 
 Often the buffer that you want to edit is the buffer that you have just left. 
 Vim provides a couple of convenient commands to switch back to the previous 
-buffer. These are <C-^> (or <C-6>) and :b#.
+buffer. These are <C-^> (or <C-6>) and `:b#`.
 
 Both of these technically edit the alternate file, although this is usually 
 the previously edited buffer.
@@ -146,22 +147,22 @@ the previously edited buffer.
 LEAVING MODIFIED BUFFERS                   *vwt-1537-leaving-modified-buffers*
 
 If Vim is running with its default settings, or in vi compatible mode, the 
-:buffer command will not abandon the buffer until any changes have been 
+`:buffer` command will not abandon the buffer until any changes have been 
 written. There are a few ways this can be changed:
-    - Append ! to the command to force the current buffer to be hidden, despite 
+    - Append `!` to the command to force the current buffer to be hidden, despite 
       being modified. For example, if buffer 1 is the current buffer and it has been 
-      modified, the command :buffer! 2 (or :b! 2) would hide buffer 1 (keeping its 
-      changes), and display buffer 2. 
-    - Set the hidden option (:set hidden) so any buffer can be hidden (keeping its 
-      changes) without first writing the buffer to a file. This affects all commands 
-      and all buffers. 
-    - Set the confirm option (:set confirm) so that when you tell Vim to abandon a 
-      buffer but you have unsaved changes, Vim will ask you whether to save your 
+      modified, the command `:buffer! 2` (or `:b! 2`) would hide buffer 1 (keeping 
+      its changes), and display buffer 2. 
+    - Set the hidden option (`:set hidden`) so any buffer can be hidden (keeping 
+      its changes) without first writing the buffer to a file. This affects all 
+      commands and all buffers. 
+    - Set the confirm option (`:set confirm`) so that when you tell Vim to abandon 
+      a buffer but you have unsaved changes, Vim will ask you whether to save your 
       changes first, abandon them, or cancel the action. The choices given do not 
       seem to allow simply hiding the buffer as in the previous options. 
-    - Set either the autowrite or the autowriteall options (:set autowrite or :set 
-      autowriteall) to automatically save any changes made to the buffer before it 
-      is hidden. 
+    - Set either the autowrite or the autowriteall options (`:set autowrite` or 
+      `:set autowriteall`) to automatically save any changes made to the buffer 
+      before it is hidden. 
 
 
 CONVENIENTLY ACCESSING BUFFERS       *vwt-1537-conveniently-accessing-buffers*
@@ -218,7 +219,7 @@ through the buffers.
 MAPPINGS FOR BUFFER NUMBER               *vwt-1537-mappings-for-buffer-number*
 
 If you know the buffer numbers, the following mappings are useful. For 
-example, typing \1 (assuming the default backslash leader) will switch to 
+example, typing `\1` (assuming the default backslash leader) will switch to 
 buffer number 1.
 
 >
@@ -245,8 +246,8 @@ buffer number 1.
     set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 <
 
-The following lets you type Ngb to jump to buffer number N (a number from 1 
-to 99). For example, typing 12gb would jump to buffer 12.
+The following lets you type `Ngb` to jump to buffer number N (a number from 1 
+to 99). For example, typing `12gb` would jump to buffer 12.
 
 >
     let c = 1
@@ -342,25 +343,25 @@ REFERENCES                                               *vwt-1537-references*
 
 COMMENTS                                                   *vwt-1537-comments*
 
-I suggest changing all mappings starting with , to start with <Leader> 
+I suggest changing all mappings starting with `,` to start with <Leader> 
 instead. I know that this is more confusing, but I strongly dislike seeing a 
-perfectly good command — that is , — go to waste before the user has had a 
+perfectly good command — that is `,` — go to waste before the user has had a 
 chance to learn it. I think this should be done for all articles. (Spiiph 
 [https://vim.fandom.com/wiki/User:Spiiph] 22:19, September 4, 2009 (UTC))
 
 Good idea. I changed this tip. I have left a few ',' mappings in the past for simplicity, but consistenly using <Leader> would be better. JohnBeckett 09:52, September 5, 2009 (UTC)
 
-The following simple user-defined command :Buffer allows switching a buffer 
+The following simple user-defined command `:Buffer` allows switching a buffer 
 in the current windowchoosing it from the buffer list:
 
 >
     command -nargs=? -bang Buffer if <q-args> != '' | exe 'buffer '.<q-args> | else | ls<bang> | let buffer_nn=input('Which one: ') | if buffer_nn != '' | exe buffer_nn != 0 ? 'buffer '.buffer_nn : 'enew' | endif | endif
 <
 
-It can be abbreviated as :BIt shows the buffer list printed out by the :ls command and asks a user for the input which is transferred to :buffer command.
+It can be abbreviated as `:B`It shows the buffer list printed out by the `:ls` command and asks a user for the input which is transferred to `:buffer` command.
 
-The command with an exclamation mark :B! executes :ls! which includes 
+The command with an exclamation mark `:B!` executes `:ls!` which includes 
 unlisted buffers in the list. Entering a zero as answer creates a new buffer 
-with :enew command.Also a desired buffer number or part of buffer's name can be specified directly as argument to :B . (Gmikeus [https://vim.fandom.com/wiki/User:Gmikeus] 19:43, December 19, 2010 (UTC))
+with `:enew` command.Also a desired buffer number or part of buffer's name can be specified directly as argument to `:B` . (Gmikeus [https://vim.fandom.com/wiki/User:Gmikeus] 19:43, December 19, 2010 (UTC))
 
  vim:tw=78:et:ft=help:norl:

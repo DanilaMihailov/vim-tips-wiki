@@ -15,14 +15,14 @@ work for parsing the comments ourselves.The command
 <
 
 echoes the group used for highlighting the character at the current cursor 
-position, see :help |synIDtrans()|. It will usually be Comment if the cursor 
+position, see :help |synIDtrans()|. It will usually be `Comment` if the cursor 
 is inside of a comment, so
 
 >
     synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name") == "Comment"
 <
 
-detects, independent of the filetype (which have their own group names for 
+detects, independent of the filetype (which have their own group `names` for 
 comments), if the cursor is inside a comment or not.
 
 The expression

@@ -30,7 +30,7 @@ with it:
     endfunction
 <
 
-Put it in ~/.vim/scripts/wrapwithtag.vim and enable in ~/.vimrc:
+Put it in `~/.vim/scripts/wrapwithtag.vim` and enable in `~/.vimrc`:
 
 >
     au Filetype html,xml source ~/.vim/scripts/wrapwithtag.vim
@@ -38,13 +38,13 @@ Put it in ~/.vim/scripts/wrapwithtag.vim and enable in ~/.vimrc:
 
 When editing HTML file, visually highlight text and press {Leader} w, enter 
 tag name (where {Leader} defaults to the '\' key, but you can override with a 
-:let mapleader = command :help |mapleader|).
+`:let mapleader =` command :help |mapleader|).
 
 COMMENTS                                                   *vwt-1495-comments*
 
 Another option is to use the xml.vim 
 [https://www.vim.org/scripts/script.php?script_id=1397] plugin. Save it as 
-~/.vim/ftplugins/html.vim. To wrap some text with tag, visually select the 
+`~/.vim/ftplugins/html.vim`. To wrap some text with tag, visually select the 
 text, and press <LocalLeader>x (<LocalLeader> is backslash \ by default). To 
 strip the surrounding tag, press <LocalLeader>d.
 

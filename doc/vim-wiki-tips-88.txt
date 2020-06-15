@@ -35,8 +35,9 @@ Here is a more sophisticated version:
 <
 
 On Linux/bsd's terminal, this is done automatically. If you want to set the 
-initial size of gvim, you can put set lines=N columns=N in .gvimrc. Some 
-systems support -geometry as shown in the following example. :help |-geometry|
+initial size of gvim, you can put `set lines=N columns=N` in .gvimrc. Some 
+systems support `-geometry` as shown in the following example. :help 
+|-geometry|
 
 >
     gvim -geometry 97x46+1913+145
@@ -96,7 +97,7 @@ start Vim, for example:
     cmd /c start /max "C:\Program Files\vim\vim71\gvim.exe"
 <
 
-This will not work, however, if you disable the menu with guioptions-=m and 
+This will not work, however, if you disable the menu with `guioptions-=m` and 
 this is not usable if you need to specify gvim as configuration option of some 
 third party tools (file managers etc).
 
@@ -146,8 +147,8 @@ TODO Following are related tips. Should merge some of these.
 
 EDIT JUNE 9, 2014                                   *vwt-88-edit-june-9,-2014*
 
-An edit put simalt ~x in the "more sophisticated" script, but that is already 
-in the tip so I removed it. JohnBeckett 
+An edit put `simalt ~x` in the "more sophisticated" script, but that is 
+already in the tip so I removed it. JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] (talk 
 [https://vim.fandom.com/wiki/User_talk:JohnBeckett]) 05:57, June 10, 2014 
 (UTC)

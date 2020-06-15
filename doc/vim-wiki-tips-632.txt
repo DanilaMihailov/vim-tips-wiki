@@ -84,7 +84,7 @@ For kvim (i.e. when has("gui_kde") is TRUE), there are several positional
 parameters separated by slashes. Internal spaces must, as always, be 
 backslash-escaped. So in that case one may use something like
 
-set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
+`set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0`
 
 The parameters are in the following order:
 
@@ -103,7 +103,7 @@ The parameters are in the following order:
 
 ==============================================================================
 
-On Windows, I like the font to be bold. To do this, use :b at the end:
+On Windows, I like the font to be bold. To do this, use `:b` at the end:
 
 >
     set guifont=courier_new:h11:b
@@ -166,7 +166,7 @@ I think I shall be trying this one out in my editors for a while.
 
 ==============================================================================
 
-If you like :set guifont=*, you could always map a key to allow you to 
+If you like `:set guifont=*`, you could always map a key to allow you to 
 quickly choose a font. For example:
 
 >

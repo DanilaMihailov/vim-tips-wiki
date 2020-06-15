@@ -73,8 +73,8 @@ About the t (movement "till") key: the more I use Vim and the more I use it.
 A year ago I didn't even know that the function existed. Now I would need to 
 assign it to the {rhs} of a new mapping if it were unavailable. In general it 
 is dangerous in Vim to "steal" existing keys for a different purpose: the main 
-argument against the mswin.vim plugin is precisely that it steals quite useful 
-keys to remap already-existing functions to them. --Tonymec 
+argument against the `mswin.vim` plugin is precisely that it steals quite 
+useful keys to remap already-existing functions to them. --Tonymec 
 [https://vim.fandom.com/wiki/User:Tonymec] 10:57, 12 August 2009 (UTC)
 
  vim:tw=78:et:ft=help:norl:

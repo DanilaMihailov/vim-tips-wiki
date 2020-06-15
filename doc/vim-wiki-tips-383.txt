@@ -15,7 +15,7 @@ the problem. (Notice how it can be altered for other languages)
     nmap gx yiw/^\(sub\<Bar>function\)\s\+<C-R>"<CR>
 <
 
-Instructions: Place cursor over called function (normal mode) and type gx
+Instructions: Place cursor over called function (normal mode) and type `gx`
 
 HOW IT WORKS                                            *vwt-383-how-it-works*
 

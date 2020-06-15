@@ -81,7 +81,7 @@ So to do 'the real work', put the following in the 'gtkrc' file.
     class "GtkTreeView" binding "gtk-vi-tree-view"
 <
 
-Now create in themes directory (usually in /usr/share/themes) a directory 
+Now create in `themes` directory (usually in `/usr/share/themes`) a directory 
 named 'Vi' (or 'Vim' if you prefer). In it, make 'gtk-2.0-key' directory too. 
 Copy created 'gtkrc' file there. At the end, you should get something like:
 
@@ -107,7 +107,7 @@ Increase or decrease scroll jump as you like.
 
 COMMENTS                                                    *vwt-970-comments*
 
-Instead of /usr/share/themes you can use ~/.themes
+Instead of `/usr/share/themes` you can use `~/.themes`
 
 Also you can set the gconf key with
 

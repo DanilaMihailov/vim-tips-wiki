@@ -9,7 +9,7 @@ created 2001 · complexity basic · version 6.0
 DIGRAPHS                                                     *vwt-51-digraphs*
 
 To enter "special" characters such as the euro or copyright symbols, or 
-diacritical marks such as the German umlaut or accent grave, digraphs can be 
+diacritical marks such as the German umlaut or accent grave, `digraphs` can be 
 used.
 
 Digraphs work by pressing CTRL-K and a two-letter combination while in insert 
@@ -22,7 +22,7 @@ mode. For example, in insert mode type:
 
 to give ä and ê.
 
-You can also set the digraph option :set digraph (or :set dg).
+You can also set the digraph option `:set digraph` (or `:set dg`).
 
 With the digraph option set you can enter
 
@@ -33,9 +33,9 @@ With the digraph option set you can enter
 
 to give the same result.
 
-To list the currently defined digraphs type::digraphs
+To list the currently defined digraphs type:`:digraphs`
 
-Here is a small extract from the :digraphs command:
+Here is a small extract from the `:digraphs` command:
 
 >
     Ct ¢  162    Pd £  163    Cu ¤  164    Ye ¥  165

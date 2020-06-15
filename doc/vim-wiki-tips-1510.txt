@@ -9,7 +9,7 @@ created
 ==============================================================================
 
 Many tips that you find on this site and others will tell you to add some 
-code to your .vimrc file. (Or on Windows, your _vimrc file.) :help 
+code to your `.vimrc` file. (Or on Windows, your `_vimrc` file.) :help 
 |vimrc-intro|
 
 Once you do this a few times, it can get pretty big and confusing, especially 
@@ -22,8 +22,8 @@ can learn all about it by reading :help |vimfiles|, :help |ftplugin-overrule|,
 :help |after-directory|.
 
 The quick way to get started is to move all the language-specific stuff from 
-your .vimrc file into a file named .vim/ftplugin/language.vim (or 
-$HOME/vimfiles/ftplugin/language.vim on Windows).
+your .vimrc file into a file named `.vim/ftplugin/language.vim` (or 
+`$HOME/vimfiles/ftplugin/language.vim` on Windows).
 
 This turns a .vimrc that looks like this:
 
@@ -64,25 +64,26 @@ this line:
 
 If you like most of what Vim's filetype plugin is doing, but you want to 
 override something specific, you can place your settings in 
-.vim/after/ftplugin/language.vim ($HOME/vimfiles/after/ftplugin/language.vim 
-on Windows). See :help |after-directory|
+`.vim/after/ftplugin/language.vim` 
+(`$HOME/vimfiles/after/ftplugin/language.vim` on Windows). See :help 
+|after-directory|
 
 If there is a new file extension that you want Vim to recognize, don't muck 
-about with augroup in your .vimrc, put the settings in the right place. See 
+about with `augroup` in your .vimrc, put the settings in the right place. See 
 :help |ftdetect|
 
-There is a lot more you can do with your ~/.vim directory ($HOME/vimfiles on 
-Windows). ~/.vim/compiler is a good place to keep configuration that gets 
+There is a lot more you can do with your `~/.vim` directory (`$HOME/vimfiles` 
+on Windows). `~/.vim/compiler` is a good place to keep configuration that gets 
 applied on a per-compiler basis (for example, I might need to use any of 
 javac, jikes, ant, or make to compile and parse the compiler output for a java 
-source file.) I also like to keep a couple color schemes in ~/.vim/colors, and 
-I keep notes in vimhelp format in ~/.vim/doc. Periodically running :helptags 
-~/.vim/doc lets me jump to a tag in those notes using :h. :help |helptags| 
-:help |vimfiles|
+source file.) I also like to keep a couple color schemes in `~/.vim/colors`, 
+and I keep notes in vimhelp format in `~/.vim/doc`. Periodically running 
+`:helptags ~/.vim/doc` lets me jump to a tag in those notes using `:h`. :help 
+|helptags| :help |vimfiles|
 
 This tip suggests moving language-specific settings to a suitable ftplugin 
 file. For that to work, you need to have file type detection enabled. Enter 
-the command :filetype to determine whether detection is enabled on your 
+the command `:filetype` to determine whether detection is enabled on your 
 system. On some Linux distributions, file type detection is disabled, in which 
 case you should add a command like the following to your vimrc:
 

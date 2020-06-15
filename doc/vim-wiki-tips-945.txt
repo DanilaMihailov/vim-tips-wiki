@@ -18,15 +18,15 @@ created 2005 · complexity basic · author Lorenz Wegener · version 5.7
 
 ==============================================================================
 
-It is often useful to restrict the range of commands like s or g to the 
+It is often useful to restrict the range of commands like `s` or `g` to the 
 function one is currently editing. For C/C++ and Java,
 
 >
     :cmap ;tf ?^{??(?,/^}/
 <
 
-maps the keystrokes ;tf (this function) to the range of the function in which 
-the cursor is currently located. It works by searching backwards for a { 
+maps the keystrokes `;tf` (this function) to the range of the function in 
+which the cursor is currently located. It works by searching backwards for a { 
 occurring in the first column, and then for a ( to find the start of the 
 function. A } in the first column ends the function body.
 
@@ -43,7 +43,7 @@ the current function from i to ii:
     }
 <
 
-In normal mode, type :;tf followed by the subsitution command s/\<i\>/ii/g. 
+In normal mode, type `:;tf` followed by the subsitution command s/\<i\>/ii/g. 
 The command line now reads:
 
 >
@@ -67,8 +67,8 @@ The range can be used with other commands too.
 This tip assumes that:
     - Your source code is indented, so that curly braces on the first column always 
       open or close a function body. 
-    - A function name is followed by a (. This is true in C, mostly true in C++ and 
-      Java, and true to a limited extend in Perl. 
+    - A function name is followed by a `(`. This is true in C, mostly true in C++ 
+      and Java, and true to a limited extend in Perl. 
 
 
 This tip does not work for constructor definitions in C++ and Java, since 
@@ -96,7 +96,7 @@ It's used in K&R-Style
 
 ==============================================================================
 
-This is pretty cool if you forget to do va{ (or similar) first, but 
+This is pretty cool if you forget to do `va{` (or similar) first, but 
 text-object methods should be discussed as well.
 
 ==============================================================================

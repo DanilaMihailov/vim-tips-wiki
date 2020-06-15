@@ -22,7 +22,7 @@ For example:
 
 The cursor will be on line 6, not line 3.
 
-Say you have a function func() that changes the text. Cursor is somewhere 
+Say you have a function `func()` that changes the text. Cursor is somewhere 
 before the calling. You can insert
 
 >
@@ -32,8 +32,8 @@ before the calling. You can insert
 
 in the beginning of the function/script (before other changes). Then when the 
 script returns, an undo will restore the cursor position to the place right 
-before func() is called. With the above two lines before any other changes to 
-be made by the function, the following effect is achieved:
+before `func()` is called. With the above two lines before any other changes 
+to be made by the function, the following effect is achieved:
 
 >
     " cursor is now at linenr, colnr

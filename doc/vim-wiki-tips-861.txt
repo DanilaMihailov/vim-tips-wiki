@@ -43,8 +43,8 @@ This command will open a new buffer with path set:
 
 FROM 200911                                              *vwt-861-from-200911*
 
-Find or create registry key HKEY_CLASSES_ROOT\Folder\shell\Open Vim 
-here\command and change the default value to (using the correct path for your 
+Find or create registry key `HKEY_CLASSES_ROOT\Folder\shell\Open Vim 
+here\command` and change the default value to (using the correct path for your 
 system):
 
 >
@@ -54,12 +54,12 @@ system):
 The "Open Vim here" is any text that will be shown on the context menu when a 
 directory is right clicked in Windows Explorer.
 
-The quotes in "%1" are required to work with a directory with a space in its 
-name. Alternatively, just use . as shown above.
+The quotes in `"%1"` are required to work with a directory with a space in 
+its name. Alternatively, just use `.` as shown above.
 
 The following could be saved in a .reg file to be imported for a slightly 
 different implementation to achieve the same result. Because this uses 
-HKEY_CURRENT_USER the user does not need administrative privileges.
+`HKEY_CURRENT_USER` the user does not need administrative privileges.
 
 >
     REGEDIT4

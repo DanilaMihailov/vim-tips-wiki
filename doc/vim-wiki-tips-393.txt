@@ -6,7 +6,7 @@ created 2002 · complexity intermediate · version 6.0
 
 ==============================================================================
 
-1. Verify with :ver that +perl or +perl/dyn is compiled in.
+1. Verify with `:ver` that +perl or +perl/dyn is compiled in.
 
 2. Install Perl if necessary. On Windows, ActivePerl is standard but any 
 dependency-free perl58.dll will work if you don't need any other perl modules. 
@@ -14,9 +14,9 @@ If you don't want a full install of perl, copy perl58.dll from Strawberry Perl
 5.8.x [http://strawberryperl.com/releases.html] into the folder vim.exe lives 
 and the commands below will work.
 
-3. Type :perldo s/searchme/replaceme/g
+3. Type `:perldo s/searchme/replaceme/g`
 
-Note: +perl/dyn doesn't seem to be necessary.
+Note: `+perl/dyn` doesn't seem to be necessary.
 
 COMMENTS                                                    *vwt-393-comments*
 
@@ -47,14 +47,14 @@ you know the best.
 Perl regexes also have a different set of "special characters".
 
 For example, the parentheses () are special characters that automatically do 
-grouping and capturing in perl. In a vi regex, they need to be escaped (\( \)) 
-before they'll turn special.
+grouping and capturing in perl. In a vi regex, they need to be escaped (`\( 
+\)`) before they'll turn special.
 
 ==============================================================================
 
-Keep in mind that :perldo is not always enough. Just try to replace something 
-with a newline (:perldo s/<text>/\n/<ENTER>). I get ^@ character instead of a 
-line break. Yeah, I asked for it, but it's not what I wanted.
+Keep in mind that `:perldo` is not always enough. Just try to replace 
+something with a newline (:perldo s/<text>/\n/<ENTER>). I get ^@ character 
+instead of a line break. Yeah, I asked for it, but it's not what I wanted.
 
 Maybe it works to let Perl parse the \n instead of Vim? I don't have Perl support in my Vim, but maybe using \\n instead of \n might work. --Fritzophrenic (talk) 15:35, August 7, 2013 (UTC)
 

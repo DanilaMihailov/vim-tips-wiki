@@ -10,8 +10,8 @@ When editing source code in Vim, you may want to lookup online documentation
 for the word under the cursor. With the following in your vimrc, you can press 
 <M-d> to open your browser on the online documentation for the current word.
 
-This script is like a generalization of the K command (:help |K|), where the 
-keyword can be embedded anywhere in the command string.
+This script is like a generalization of the `K` command (:help |K|), where 
+the keyword can be embedded anywhere in the command string.
 
 The script here is configured for C++/Qt (keywords are Qt class names), Ruby 
 (keywords are Ruby class names), and Perl (keywords are Perl functions), but 
@@ -42,8 +42,8 @@ to correctly refer to your browser's executable.
 <
 
 <M-d> means press the meta key ("Alt" on most machines, see :help |meta|) and 
-the "d" key at the same. Of course, you can change the mapping to whatever key 
-you like – see :help |:imap|. The "d" refers to "doc" or "documentation".
+the "`d`" key at the same. Of course, you can change the mapping to whatever 
+key you like – see :help |:imap|. The "d" refers to "doc" or "documentation".
 
 COMMENTS                                                   *vwt-1354-comments*
 
@@ -58,13 +58,13 @@ dropping keystrokes into text.
 
 ==============================================================================
 
-If you're using Linux, replace the "let s:cmd = ..." line with:
+If you're using Linux, replace the "`let s:cmd = ...`" line with:
 
 >
     let s:cmd = "silent !" . s:browser . " " . s:url . "&"
 <
 
-and make sure that the contents of the s:browser string is sufficient to 
+and make sure that the contents of the `s:browser` string is sufficient to 
 launch your browser from the command shell. If Firefox is on your comand path, 
 the following should work:
 

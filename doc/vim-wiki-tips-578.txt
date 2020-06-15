@@ -9,9 +9,9 @@ created [https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200812#Ranges]
 
 A range permits a command to be applied to a group of lines in the current 
 buffer. For most commands, the default range is the current line. For example:
-    - :s/old/new/g changes all old to new in the current line 
-    - :11,15s/old/new/g changes lines 11 to 15 inclusive 
-    - :%s/old/new/g changes all lines 
+    - `:s/old/new/g` changes all old to new in the current line 
+    - `:11,15s/old/new/g` changes lines 11 to 15 inclusive 
+    - `:%s/old/new/g` changes all lines 
 
 
 EXAMPLES                                                    *vwt-578-examples*
@@ -19,16 +19,16 @@ EXAMPLES                                                    *vwt-578-examples*
 A range can be specified using line numbers or special characters, as in 
 these examples:
 
-The :s/// command substitutes in the specified lines. The :w command writes a 
-file. On its own, :w writes all lines from the current buffer to the file name 
-for the buffer. Given a range and a file name, :w writes only the specified 
-lines to the specified file. The example above creates file single.txt 
-containing the current line.
+The `:s///` command substitutes in the specified lines. The `:w` command 
+writes a file. On its own, `:w` writes all lines from the current buffer to 
+the file name for the buffer. Given a range and a file name, `:w` writes only 
+the specified lines to the specified file. The example above creates file 
+`single.txt` containing the current line.
 
 If you know you want to substitute in six lines, starting from the current 
 line, you can use either of the ranges shown above. An easier method is to 
-enter a count value (type 6), then enter the colon command with no range (type 
-:s/old/new/g). Because you entered a count, Vim displays the command:
+enter a count value (type `6`), then enter the colon command with no range 
+(type `:s/old/new/g`). Because you entered a count, Vim displays the command:
 
 >
     :.,.+5s/old/new/g
@@ -36,20 +36,20 @@ enter a count value (type 6), then enter the colon command with no range (type
 
 DEFAULT RANGE                                          *vwt-578-default-range*
 
-For most commands, the default range is . (the current line, for example, 
-:s/// substitutes in the current line). However, for :g// and :w the default 
-is % (all lines).
+For most commands, the default range is `.` (the current line, for example, 
+`:s///` substitutes in the current line). However, for `:g//` and `:w` the 
+default is `%` (all lines).
 
 SELECTIONS                                                *vwt-578-selections*
 
-A command like :123,145s/old/new/g substitutes in lines 123 to 145 inclusive, 
-but what if you're not sure what the line numbers are? One method is to use 
-marks: Type ma in the first line, then type mb in the last line (to set marks 
-a and b). Then enter command :'a,'bs/old/new/g to substitute in lines from 
-mark a to b, inclusive.
+A command like `:123,145s/old/new/g` substitutes in lines 123 to 145 
+inclusive, but what if you're not sure what the line numbers are? One method 
+is to use marks: Type `ma` in the first line, then type `mb` in the last line 
+(to set marks `a` and `b`). Then enter command :'a,'bs/old/new/g to substitute 
+in lines from mark `a` to `b`, inclusive.
 
 Another method is to visually select lines, then enter a colon command (for 
-example, :s/old/new/g). Note that you do not enter a range. However, because 
+example, `:s/old/new/g`). Note that you do not enter a range. However, because 
 the command was entered while lines were selected, Vim displays the command 
 as:
 
@@ -60,15 +60,15 @@ as:
 The range '<,'> is entered automatically to identify the lines that were last 
 visually selected (they do not need to be visually selected now).
 
-For example, you might type vip to visually select "inner paragraph" (the 
-paragraph holding the cursor). Then type :s/old/new/g to substitute in all 
+For example, you might type `vip` to visually select "inner paragraph" (the 
+paragraph holding the cursor). Then type `:s/old/new/g` to substitute in all 
 lines in the selected paragraph.
 
 DELETING, COPYING AND MOVING            *vwt-578-deleting,-copying-and-moving*
 
-Ranges work with Ex commands (those typed after a colon, for example, :w). As 
-well as the commands we've seen so far, it's handy to know how to use :d 
-(delete lines), :t or :co (copy lines), and :m (move lines).
+Ranges work with Ex commands (those typed after a colon, for example, `:w`). 
+As well as the commands we've seen so far, it's handy to know how to use `:d` 
+(delete lines), `:t` or `:co` (copy lines), and `:m` (move lines).
 
 The line numbers in a command are those before the command executes. In the 
 earlier example which moved lines 21..25 to after 30, the "30" refers to the 
@@ -77,8 +77,8 @@ line number before the move occurred.
 RANGES WITH MARKS AND SEARCHES        *vwt-578-ranges-with-marks-and-searches*
 
 In a range, a line number can be given as:
-    - A mark (for example, 'x is the line containing mark x). 
-    - A search (for example, /pattern/ is the next line matching pattern). 
+    - A mark (for example, 'x is the line containing mark `x`). 
+    - A search (for example, `/pattern/` is the next line matching pattern). 
 
 
 When using a mark, it must exist in the current buffer.
@@ -133,7 +133,7 @@ I would prefer 21-25 ... --July 19, 2016
 ==============================================================================
 
 A dash cannot be used because it refers to negative numbers, relative to the 
-current line. The following uses range -3,-1 to yank (copy) the three line 
+current line. The following uses range `-3,-1` to yank (copy) the three line 
 just before each line containing "password".
 
 >

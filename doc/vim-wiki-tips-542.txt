@@ -42,11 +42,11 @@ source and you will be brought back to your session for further editing.
 
 If you already have an open session, then just issue the following commands:
 
-To read/load up a file: :Nread 
-scp://konimi@vim.org//var/www/html/rtc_functions.php
+To read/load up a file: `:Nread 
+scp://konimi@vim.org//var/www/html/rtc_functions.php`
 
-To write the file back: :Nwrite 
-scp://konimi@vim.org//var/www/html/rtc_functions.php
+To write the file back: `:Nwrite 
+scp://konimi@vim.org//var/www/html/rtc_functions.php`
 
 That's it! You'll be editing at local speed.
 

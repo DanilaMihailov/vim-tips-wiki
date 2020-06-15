@@ -34,9 +34,9 @@ QUICK MOVEMENTS                                     *vwt-1646-quick-movements*
 <
 
 Those mappings stay in insert mode.
-    - II go to just before the first non-blank text of the line 
-    - AA go to the end of the line 
-    - OO start editing on a new line above the current line 
+    - `II` go to just before the first non-blank text of the line 
+    - `AA` go to the end of the line 
+    - `OO` start editing on a new line above the current line 
 
 
 LINE MODIFICATIONS                               *vwt-1646-line-modifications*
@@ -47,10 +47,10 @@ LINE MODIFICATIONS                               *vwt-1646-line-modifications*
     inoremap DD <Esc>dd
     inoremap UU <Esc>u
 <
-    - CC change what is on the right of the cursor 
-    - SS change the whole line 
-    - DD delete the current line (end in normal mode) 
-    - UU undo 
+    - `CC` change what is on the right of the cursor 
+    - `SS` change the whole line 
+    - `DD` delete the current line (end in normal mode) 
+    - `UU` undo 
 
 
 COMMENTS                                                   *vwt-1646-comments*

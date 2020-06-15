@@ -51,8 +51,8 @@ COMMON ISSUES                                         *vwt-1582-common-issues*
       create diffs under Windows 
       [https://vim.fandom.com/wiki/Fix_error_E97_Cannot_create_diffs_under_Windows] 
     - How can I make keywords autocompletable when creating a new C source file? 
-      Make sure Vim knows it is a C file. For example, open it with :e main.c, not 
-      just :enew. 
+      Make sure Vim knows it is a C file. For example, open it with `:e main.c`, not 
+      just `:enew`. 
     - How can I get Visual Studio like completion (i.e. Intellisense) in Vim? Omni 
       completion [https://vim.fandom.com/wiki/Omni_completion] 
     - How can I delete parens that surround text? See Surround at Best plugins 
@@ -112,7 +112,7 @@ Indenting
     - :help 'tabstop' 
     - :help 'copyindent' 
     - :help 'preserveindent' 
-    - :help |sub-replace-special| why \n doesn't do what you want in :s/// 
+    - :help |sub-replace-special| why `\n` doesn't do what you want in `:s///` 
 
 
 Not indenting when pasting

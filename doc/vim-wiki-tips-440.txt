@@ -21,13 +21,13 @@ FORMATTING A PARAGRAPH                        *vwt-440-formatting-a-paragraph*
 
 You may edit a paragraph consisting of several lines. When finished editing, 
 some lines may be shorter than required. To fix this, in normal mode, type 
-gqip to format the "inner paragraph". In this context, "format" means to 
+`gqip` to format the "inner paragraph". In this context, "format" means to 
 reflow the paragraph so that all lines are the optimal length.
 
 Alternatively, format options can be set so that a paragraph is reflowed 
 automatically, after each change. :help |auto-format|
 
-An example setting for formatoptions (fo) is:
+An example setting for `formatoptions` (`fo`) is:
 
 >
     :setl fo=aw2tq
@@ -36,11 +36,12 @@ An example setting for formatoptions (fo) is:
 COMMENTS                                                    *vwt-440-comments*
 
 TO DO
-    - Explain what above fo does, and how to configure so paragraphs do not have 
+    - Explain what above `fo` does, and how to configure so paragraphs do not have 
       the first line indented, and are separated by a blank line. 
-    - Discuss :setl fo+=a and :setl fo-=a. 
+    - Discuss `:setl fo+=a` and `:setl fo-=a`. 
     - Incorporate following comments. 
-    - For CJK/Asian language, :set fo+=m will break line at double width chars too. 
+    - For CJK/Asian language, `:set fo+=m` will break line at double width chars 
+      too. 
 
 
 ==============================================================================
@@ -54,7 +55,7 @@ not break the paragraph into lines). See these related tips:
 The following sets the current buffer so that long lines are automatically 
 wrapped on the screen, with lines only breaking at a space. The mappings move 
 the cursor up/down by screen lines instead of by file lines. There is a space 
-following the backslash for the 'breakat' option (the set command requires a 
+following the backslash for the 'breakat' option (the `set` command requires a 
 backslash before each space). Each long line will be displayed on the screen 
 as multiple lines.
 
@@ -80,10 +81,10 @@ is very good for editing a text file. With the following in your vimrc
 ==============================================================================
 
 If you make a change to a wrapped paragraph and need to re-format it, you can 
-use gq followed by a movement over the area you want to re-format, e.g. 3j or 
-}.
+use `gq` followed by a movement over the area you want to re-format, e.g. `3j` 
+or `}`.
 
-Automatic text wrapping and re-formatting with gq can work on comments lines 
-also, provided the value of the 'comments' option is set correctly.
+Automatic text wrapping and re-formatting with `gq` can work on comments 
+lines also, provided the value of the 'comments' option is set correctly.
 
  vim:tw=78:et:ft=help:norl:

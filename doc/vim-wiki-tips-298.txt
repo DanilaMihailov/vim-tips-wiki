@@ -12,12 +12,12 @@ of characters that match some criteria. This can be done easily using regular
 expressions.
 
 In a substitute command [https://vim.fandom.com/wiki/Search_and_replace], 
-place \U or \L before backreferences for the desired output. Everything after 
-\U, stopping at \E or \e, is converted to uppercase. Similarly, everything 
-after \L, stopping at \E or \e, is converted to lowercase.
+place `\U` or `\L` before backreferences for the desired output. Everything 
+after `\U`, stopping at `\E` or `\e`, is converted to uppercase. Similarly, 
+everything after `\L`, stopping at `\E` or `\e`, is converted to lowercase.
 
-Alternatively, use \u to uppercase only the first character of what follows, 
-or \l to lowercase only the first character.
+Alternatively, use `\u` to uppercase only the first character of what 
+follows, or `\l` to lowercase only the first character.
 
 For example, assume a line with the text "This is a test".
 
@@ -34,9 +34,9 @@ produces: This is a TEST FILE
 produces: This is a TEST file
 
 A backreference is part of a regular expression that refers to a previous 
-part of the regular expression. The most common backreferences are & (all the 
-matched text), \1 (the matched text within the first \(...\)), \2 (the match 
-within the second), and so on.
+part of the regular expression. The most common backreferences are `&` (all 
+the matched text), `\1` (the matched text within the first `\(...\)`), `\2` 
+(the match within the second), and so on.
 
 Some examples that demonstrate the power of this technique:
 
@@ -46,7 +46,7 @@ Lowercase the entire file
     :%s/.*/\L&/
 <
 
-Uppercase all words that are preceded by < (an opening HTML tag):
+Uppercase all words that are preceded by `<` (an opening HTML tag):
 
 >
     :%s/<\(\w*\)/<\U\1/g

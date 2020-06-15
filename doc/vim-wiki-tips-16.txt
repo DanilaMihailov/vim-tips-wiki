@@ -33,14 +33,14 @@ the command line to 2 or greater:
     :set cmdheight=2
 <
 
-The default command height is 1. Increasing cmdheight will allow more room 
+The default command height is 1. Increasing `cmdheight` will allow more room 
 for commands, although it will take some space away from editing.
 
-You can temporarily change the cmdheight to display a prompt for example, and 
-then revert it to its original value. This way, you won't have to hit enter 
-and it won't take space once finished.
+You can temporarily change the `cmdheight` to display a prompt for example, 
+and then revert it to its original value. This way, you won't have to hit 
+enter and it won't take space once finished.
 
-Finally, you can use :silent to keep external commands from triggering the 
+Finally, you can use `:silent` to keep external commands from triggering the 
 "Hit ENTER" prompt:
 
 >
@@ -48,8 +48,8 @@ Finally, you can use :silent to keep external commands from triggering the
 <
 
 If the command generates any output, you may need to manually refresh the 
-screen once you return to Vim (by typing Ctrl-L or entering :redraw!). If 
-you're running a GUI version of Vim, :silent may keep you from seeing any 
+screen once you return to Vim (by typing Ctrl-L or entering `:redraw!`). If 
+you're running a GUI version of Vim, `:silent` may keep you from seeing any 
 output from the command at all!To fix the above problem with regular vim, you 
 can use a custom command like this one:
 

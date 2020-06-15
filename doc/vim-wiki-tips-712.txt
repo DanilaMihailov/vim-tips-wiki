@@ -7,9 +7,9 @@ created 2004 · complexity basic · author David Fishburn · version 5.7
 ==============================================================================
 
 Simply enable visual mode (v), highlight the characters you want inverted, 
-and hit \is.
+and hit `\is`.
 
-For a single word you can use vw (or viw):
+For a single word you can use `vw` (or `viw`):
 
 >
     viw\is

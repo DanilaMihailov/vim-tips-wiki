@@ -9,21 +9,21 @@ created 2005 · complexity intermediate · author Feral · version 6.0
 THE WHY                                                      *vwt-902-the-why*
 
 Some include paths (VC7 in particular) are very deep, so much so that I opted 
-to "set complete-=i" (which is to say to not 'scan current and included files' 
-during completion; see :help 'complete').
+to "`set complete-=i`" (which is to say to not 'scan current and included 
+files' during completion; see :help 'complete').
 
 This allowed me to <ctrl+n>/<ctrl+p> without delay, and when I knew what I 
 was trying to complete was in the system includes (sprintf for instance) I 
 could use CTRL-X CTRL-I (see: :help |i_CTRL-X_CTRL-I|) as needed, for instance 
 'spr<ctrl-x><ctrl-i>'. This worked like a charm for many moons. Until recently 
 when I've found a need to have a different set of includes to search and I 
-wanted normal CTRL-N/CTRL-P to search these files and NOT the system include. 
-I was also getting kind of tired of not searching the current directory via 
-CTRL-N/CTRL-P as well.
+wanted normal `CTRL-N`/`CTRL-P` to search these files and NOT the system 
+include. I was also getting kind of tired of not searching the current 
+directory via CTRL-N/CTRL-P as well.
 
 SOLUTION: AKA HAIR BRAINED SCHEME #1 *vwt-902-solution:-aka-hair-brained-scheme-#1*
 
-The concept is simple, search the path each time (i.e."set complete+=i", 
+The concept is simple, search the path each time (i.e."`set complete+=i`", 
 which is default) but limit what the path is.
 
 I decided on a few global scoped variables to hold my paths and then a 
@@ -70,8 +70,8 @@ with no adverse effects, but I am very definitely not certain of that yet.
     command -nargs=1 FP call Feral_Path(<q-args>)
 <
 
-Note that the chars you pass to the :FP command are upper cased (via call to 
-toupper()) this may or may not be desirable for you.
+Note that the chars you pass to the `:FP` command are upper cased (via call 
+to `toupper()`) this may or may not be desirable for you.
 
 THE USAGE                                                  *vwt-902-the-usage*
 
@@ -79,8 +79,8 @@ To use this the above code fragment must be sourced, in my case this is in my
 vimrc.
 
 You need some paths to switch between, these global variables must start with 
-"g:feral_path_" and the last character is used to identify (single char only!) 
-the path.
+"`g:feral_path_`" and the last character is used to identify (single char 
+only!) the path.
 
 For instance:
 
@@ -89,7 +89,7 @@ For instance:
     " set path+=C:/Program\ Files/Microsoft\ Visual\ Studio\ .NET/Vc7/PlatformSDK/include/prerelease/**
 <
 
-Note how I use 'set path=' and thus can use this more or less naturally, 
+Note how I use '`set path=`' and thus can use this more or less naturally, 
 including += to add an additional path. Not strickly necessary but does not 
 hurt anything as far as I know.
 
@@ -103,8 +103,8 @@ value of &path.
 It is a bit messy but it is straight forward and to the point.
 
 I also define the base path (referenced as 'B'), and my project path 
-(referenced as 'P'). NOTE how 'B' is set to &path's initial value; which in my 
-case is the default for the system.
+(referenced as 'P'). NOTE how 'B' is set to `&path`'s initial value; which in 
+my case is the default for the system.
 
 >
     " Base path :".,,"
@@ -131,7 +131,7 @@ I set &path to the default value I want directly:
 Now, to use this when you are coding away you can *easily* change &path via 
 the :FP command.
 
-The :FP command takes one argument, that argument is the one-word group of 
+The `:FP` command takes one argument, that argument is the one-word group of 
 paths to set, use the one character to reference each path;
 
 i.e.
@@ -172,7 +172,7 @@ a problem.
 An alternative to the above mess:
 
 You could of course forgot the above mess and just have menu 
-entries/commands/mappings/what have you that sets &path directly.
+entries/commands/mappings/what have you that sets `&path` directly.
 
 COMMENTS                                                    *vwt-902-comments*
 

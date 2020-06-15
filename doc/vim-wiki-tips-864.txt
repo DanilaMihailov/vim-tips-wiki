@@ -9,15 +9,15 @@ created 2005 · complexity basic · version 6.0
 On Windows, new users may notice that the arrow keys end visual mode rather 
 than extending the selection.
 
-If this happens, it is because of the behave mswin line in the default _vimrc 
-installed on a Windows system.
+If this happens, it is because of the `behave mswin` line in the default 
+_vimrc installed on a Windows system.
 
 The best solution is to simply remove this line from the global _vimrc, or to 
 create your own _vimrc without it.
 
-However, if you like most of the effects of behave mswin (see :help |behave|) 
-and only want to "fix" the visual selection behavior, simply put this into 
-your vimrc after the behave mswin:
+However, if you like most of the effects of `behave mswin` (see :help 
+|behave|) and only want to "fix" the visual selection behavior, simply put 
+this into your vimrc after the `behave mswin`:
 
 >
     set keymodel-=stopsel

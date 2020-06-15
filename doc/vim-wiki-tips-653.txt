@@ -7,11 +7,12 @@ created 2004 · complexity intermediate · author Michael Brailsford · version
 
 ==============================================================================
 
-This will continue lines of /// doxygen [http://www.doxygen.org] comments 
+This will continue lines of `///` doxygen [http://www.doxygen.org] comments 
 when you reach the end of a line while typing a comment. It also works if you 
-use o to open a new line while on a comment starting with ///. It only works 
-if there is a space between the last / and the first letter of the comment, 
-that is no big deal, since it lends itself to readability. So for example:
+use `o` to open a new line while on a comment starting with `///`. It only 
+works if there is a space between the last `/` and the first letter of the 
+comment, that is no big deal, since it lends itself to readability. So for 
+example:
 
 >
     /// This will work.

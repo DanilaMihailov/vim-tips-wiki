@@ -83,14 +83,14 @@ compilation"
 
 RUBBER PLUS MAKE                                    *vwt-627-rubber-plus-make*
 
-Rubber [https://launchpad.net/rubber] (sudo apt-get install rubber) is a 
+Rubber [https://launchpad.net/rubber] (`sudo apt-get install rubber`) is a 
 wonderful tool for compiling latex files. It knows how many times to compile, 
 knows to run bibtex, filters error messages and warnings (so you can ignore 
 overfull hboxes until you want to see them), and so on. Rubber combined with 
 make is a great fit for Vim's quickfix.
 
 First, create a generic makefile for compiling latex using rubber and place 
-it in some global location (I use ~/academic/tools/latex.mk).
+it in some global location (I use `~/academic/tools/latex.mk`).
 
 >
     .PHONY: clean
@@ -104,13 +104,14 @@ it in some global location (I use ~/academic/tools/latex.mk).
 <
 
 Edit to your taste. In particular, you might consider updating the clean to 
-not remove all pdfs (if you have figures in pdfs) perhaps using rubber --clean 
-(see rubber's man page). Other changes include ignoring certain warnings or 
-passing other options to rubber (see the man page). Also, you might add a tags 
-target which runs ctags with the correct options (see tag-list documentation 
-[http://vim-taglist.sourceforge.net/extend.html] for ctags arguments).
+not remove all pdfs (if you have figures in pdfs) perhaps using rubber 
+`--clean` (see rubber's man page). Other changes include ignoring certain 
+warnings or passing other options to rubber (see the man page). Also, you 
+might add a tags target which runs ctags with the correct options (see 
+tag-list documentation [http://vim-taglist.sourceforge.net/extend.html] for 
+ctags arguments).
 
-Now in your tex.vim ftplugin add the following lines:
+Now in your `tex.vim` ftplugin add the following lines:
 
 >
     setlocal errorformat=%f:%l:\ %m,%f:%l-%\\d%\\+:\ %m

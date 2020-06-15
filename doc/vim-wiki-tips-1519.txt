@@ -110,9 +110,9 @@ COMMENTS                                                   *vwt-1519-comments*
 
 TO DO
     - If it's really necessary to have 26 mappings, you could probably have one map 
-      command repeated in a loop (using execute). 
+      command repeated in a loop (using `execute`). 
     - Shouldn't the "Mixed" function just unmap the keys rather than mapping them 
-      again? What does Vim do with imap a a?). 
+      again? What does Vim do with `imap a a`?). 
     - Is there a Vim-only solution that allows use of CapsLock via the CapsLock key 
       without using an external program, but also keeps CapsLock off in normal mode? 
     - Improve the title (there is no particular fault with CapsLock in Vim). 

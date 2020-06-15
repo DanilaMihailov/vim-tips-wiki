@@ -24,8 +24,8 @@ input of Vim by entering:
     \ls | vim -
 <
 
-The backslash tells your shell to disregard any aliases for ls; we need plain 
-output with no color. Vim will open, displaying a list of file names.
+The backslash tells your shell to disregard any aliases for `ls`; we need 
+plain output with no color. Vim will open, displaying a list of file names.
 
 CHANGE TO LIST OF SHELL COMMANDS   *vwt-1642-change-to-list-of-shell-commands*
 
@@ -38,13 +38,13 @@ For example, to rename the files to lowercase:
     :%s/.*/mv -i & \L&/g
 <
 
-To append .orig to each file name:
+To append `.orig` to each file name:
 
 >
     :%s/.*/mv -i & &.orig/g
 <
 
-To change all .JPEG extensions to .jpg:
+To change all `.JPEG` extensions to `.jpg`:
 
 >
     :%s/.*/mv -i & &/g
@@ -64,7 +64,7 @@ To substitute certain text in the filename:
     :%s/.*/\="mv -i ".submatch(0)." ".substitute(submatch(0), "foo", "bar", "g")/g
 <
 
-\= is substitute command expression. See VimTip755 |vwt-755| for more 
+`\=` is substitute command expression. See VimTip755 |vwt-755| for more 
 details.
 
 Note: In case the file name contains space character, it should be surrounded 
@@ -80,9 +80,9 @@ EXECUTE THE COMMANDS                           *vwt-1642-execute-the-commands*
 <
 
 The reason this works is Vim writes a file line-by-line. So if you started 
-with a list of 100 file names, it will execute 100 mv commands. Sure there are 
-utilities that may do this better, but Vim is always available and that's one 
-less thing you have to remember.
+with a list of 100 file names, it will execute 100 `mv` commands. Sure there 
+are utilities that may do this better, but Vim is always available and that's 
+one less thing you have to remember.
 
 An alternative method of executing the commands is:
 
@@ -90,10 +90,10 @@ An alternative method of executing the commands is:
     :%!bash
 <
 
-This will pipe the whole buffer to the system command bash, thus executing 
+This will pipe the whole buffer to the system command `bash`, thus executing 
 all of the move commands. This will also replace the file with the command's 
-output, which is useful for commands besides mv. You can also visually select 
-a small subset of lines, and only execute those commands:
+output, which is useful for commands besides `mv`. You can also visually 
+select a small subset of lines, and only execute those commands:
 
 >
     :'<,'>!bash

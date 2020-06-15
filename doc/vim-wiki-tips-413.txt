@@ -10,7 +10,7 @@ You can open files in Vim by drag&drop of selected file names from Windows
 Explorer.
 
 This also works by dropping into the Vim command line, so for example, you 
-can type :split then type a space, then drag&drop a selected file to Vim 
+can type `:split` then type a space, then drag&drop a selected file to Vim 
 window and press Enter.
 
 The complete path and filename is transferred to commandline and the file is 

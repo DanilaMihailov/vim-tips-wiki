@@ -96,7 +96,7 @@ To eat the last space, for example, with:
     iabbrev did <div id="
 <
 
-In insert mode, type did then press Ctrl-]
+In insert mode, type `did` then press Ctrl-]
 
 Result: The abbreviation is expanded with no extra characters, and you are 
 still in insert mode and can continue typing.

@@ -10,9 +10,9 @@ It can be convenient to scroll down or up by one line, while not changing the
 cursor screen line.
 
 You can scroll down in this way by typing <C-e>j (Ctrl-e to scroll down to 
-see more text at the bottom, and j to move the cursor down so its screen line 
-hasn't changed). An alternative is 1<C-d> (Ctrl-d to scroll down, with a count 
-of 1 which sets the 'scroll' option to 1 so one line is scrolled).
+see more text at the bottom, and `j` to move the cursor down so its screen 
+line hasn't changed). An alternative is 1<C-d> (Ctrl-d to scroll down, with a 
+count of `1` which sets the 'scroll' option to 1 so one line is scrolled).
 
 A superior solution is to place the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]. This script behaves better at the top and 

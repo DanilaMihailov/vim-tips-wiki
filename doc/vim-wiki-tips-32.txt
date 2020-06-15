@@ -17,7 +17,7 @@ language and the bash shell.
 C and bash allow both lowercase and uppercase.
 
 However, Vim 7 :help |autoload| plugins allow an exception: they authorize 
-lowercase functions like my#library#foo(), my#library#_internal(), etc.
+lowercase functions like `my#library#foo()`, `my#library#_internal()`, etc.
 
 >
     fu! Hex2dec(var1, var2)
@@ -25,7 +25,7 @@ lowercase functions like my#library#foo(), my#library#_internal(), etc.
       let str2=a:var2
 <
 
-You must prefix a parameter name with "a:" (argument).
+You must prefix a parameter name with "`a:`" (argument).
 
 A function cannot change a parameter (let a:var1=1 is invalid).
 
@@ -36,8 +36,8 @@ See :help |a:1|
 >
     fu! Hex2dec(fixedparam, ...)
 <
-    - a:0 is the number of extra parameters "..." used to call the function. 
-    - a:1 is the first extra parameter. 
+    - `a:0` is the number of extra parameters "..." used to call the function. 
+    - `a:1` is the first extra parameter. 
 
 
 For example:
@@ -60,8 +60,8 @@ Since Vim 7, iIt's possible thanks to :help |function()| and :help |:call|:
 <
 
 Vim has its own function library, see :help |functions|
-    - += exists in Vim since version 7.0 
-    - ++ does not 
+    - `+=` exists in Vim since version 7.0 
+    - `++` does not 
 
 
 >

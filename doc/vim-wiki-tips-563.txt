@@ -6,15 +6,15 @@ created 2003 · complexity basic · author lechee · version 6.0
 
 ==============================================================================
 
-Press [I to display all lines that contain the keyword under the cursor. 
+Press `[I` to display all lines that contain the keyword under the cursor. 
 Lines from the current file, and from included files, are listed. Another 
 command (see the references below |vwt-563-references|) allows you to jump to 
 one of the displayed occurrences.
 
 Here are two functions to simplify the process. With the mappings shown (and 
-the default backspace Leader key) you can press \j to list occurrences of the 
-keyword under the cursor. You are then prompted to enter the number of an 
-item, in order to jump to that occurrence. Alternatively, press \p for a 
+the default backspace Leader key) you can press `\j` to list occurrences of 
+the keyword under the cursor. You are then prompted to enter the number of an 
+item, in order to jump to that occurrence. Alternatively, press `\p` for a 
 prompt allowing you to enter the keyword.
 
 >
@@ -51,9 +51,9 @@ prompt allowing you to enter the keyword.
     nnoremap <Leader>p :call <SID>JumpPrompt()<CR>
 <
 
-Paste the code above into a file, save the file, then enter the command :so % 
-(source current file). Then put the cursor on a word in any file and press \j 
-to list occurrences, and jump to the selected occurrence.
+Paste the code above into a file, save the file, then enter the command `:so 
+%` (source current file). Then put the cursor on a word in any file and press 
+`\j` to list occurrences, and jump to the selected occurrence.
 
 REFERENCES                                                *vwt-563-references*
     - :help |[I| 
@@ -65,13 +65,13 @@ REFERENCES                                                *vwt-563-references*
 
 COMMENTS                                                    *vwt-563-comments*
 
-If you would prefer to modify [I to prompt for a number to jump to the 
+If you would prefer to modify `[I` to prompt for a number to jump to the 
 following map does so:
 
 nnoremap [I [I:let nr = input("Which one: ")<Bar>if nr != ""<Bar>exe "silent! 
 normal " . nr ."[\t"<Bar>endif<CR>
 
-and again for ]I
+and again for `]I`
 
 nnoremap ]I ]I:let nr = input("Which one: ")<Bar>if nr != ""<Bar>exe "silent! 
 normal " . nr ."]\t"<Bar>endif<CR>

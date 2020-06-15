@@ -24,10 +24,10 @@ The many ways to set a boolean option are best illustrated by a simple
 example. In the following, the 'number' option is used. Any boolean option, 
 such as wrap, linebreak, diff, etc can be set in these ways.
 
-Replace number with any boolean option.
+Replace `number` with any boolean option.
 
-For nonboolean options, :set option& also sets the option to its default 
-value, and :set option? will display the current value.
+For nonboolean options, `:set option&` also sets the option to its default 
+value, and `:set option?` will display the current value.
 
 TOGGLING AN OPTION                                 *vwt-37-toggling-an-option*
 

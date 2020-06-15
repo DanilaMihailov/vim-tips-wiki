@@ -14,7 +14,7 @@ here were broken by Vim version 7.4. A fix has been included as of 7.4.849
 workarounds; this tip needs updating to reflect the new method.
 
 This tip discusses methods to automatically add closing characters (such as 
-adding "}" after typing "{").
+adding "`}`" after typing "`{`").
 
 A SIMPLE SOLUTION                                  *vwt-630-a-simple-solution*
 
@@ -38,8 +38,8 @@ will not do anything special.
 One thing to be aware of with these mappings is that they will interrupt your 
 undo sequence, as documented at :help |ins-special-special|. This means that 
 after using these mappings and inserting more text between the braces, 
-pressing u will only undo the text inserted between the braces. Similarly, 
-pressing . (repeat) will only insert the same text.
+pressing `u` will only undo the text inserted between the braces. Similarly, 
+pressing `.` (repeat) will only insert the same text.
 
 SKIPPING OVER THE CLOSING CHARACTER *vwt-630-skipping-over-the-closing-character*
 
@@ -82,9 +82,9 @@ MORE ON UNDO/REDO/REPEAT                    *vwt-630-more-on-undo/redo/repeat*
 Without interrupting the undo/redo/repeat sequence, there is not an easy way 
 to move the cursor in insert mode or to insert text without moving the cursor. 
 In Vim 7.4.849 you can move the cursor in insert mode and leave the undo 
-sequence intact with the CTRL-G_U sequence. But, it is possible in Vim 7.3 and 
-below, using setpos() or setline() within a function called from an insertion 
-of the expression register, for example:
+sequence intact with the `CTRL-G_U` sequence. But, it is possible in Vim 7.3 
+and below, using `setpos()` or `setline()` within a function called from an 
+insertion of the expression register, for example:
 
 >
     " Incomplete example moving the cursor after insertion.
@@ -122,11 +122,12 @@ the cursor or changing text is not allowed within an <expr> mapping.
 Unfortunately, even though the undo sequence is unbroken, without a 
 complicated set of other mappings, the text inserted or cursor movement 
 accomplished within the expression mapping will not be reflected in the text 
-inserted by pressing '.'. Using the first method (moving the cursor without 
-breaking undo) you would insert "abc(def)" and repeat using . to get 
-"abc()def". Using the second method (inserting text without moving the cursor) 
-you would insert "abc(def)" (with the closing ')' added automatically) and 
-repeat only "abc(def" (without the automatic closing character).
+inserted by pressing '`.`'. Using the first method (moving the cursor without 
+breaking undo) you would insert "`abc(def)`" and repeat using `.` to get 
+"`abc()def`". Using the second method (inserting text without moving the 
+cursor) you would insert "`abc(def)`" (with the closing ')' added 
+automatically) and repeat only "`abc(def`" (without the automatic closing 
+character).
 
 If you want auto-insertion of closing characters which does not break your 
 undo sequence, you should consider one of the plugins |vwt-630-plugins| which 
@@ -173,7 +174,7 @@ depending on the type of file you're editing. Some languages use duplicate
 single-quotes a lot, and some pair the backtick with the quote. For these 
 situations, you might want to put similar commands into language-specific 
 files. For example, this quote-completer for GNU M4 might live in 
-~/.vim/after/ftplugin/m4.vim. :help |after-directory|
+`~/.vim/after/ftplugin/m4.vim`. :help |after-directory|
 
 >
     inoremap `      `')<Left><Left>
@@ -220,7 +221,7 @@ The auto-insertion of matching brackets is provided by these plugins:
       string contexts) and more. lh-brackets also provides surrounding, and a smart 
       <BS> that deletes both characters from an empty pair. See also lh-cpp, the C & 
       C++ ftplugin suite [https://github.com/LucHermitte/lh-cpp] built on top of it, 
-      where ; can close all pending ). lh-brackets supports redo/repeat on vim 
+      where `;` can close all pending `)`. lh-brackets supports redo/repeat on vim 
       versions >= 7.4-849. 
     - Srinath Avadhanula's imaps.vim 
       [https://www.vim.org/scripts/script.php?script_id=244] is used by Latex-Suite 
@@ -244,7 +245,7 @@ REPLACECURLY SCRIPT                              *vwt-630-replacecurly-script*
 This script operates only on braces, but is smarter about detecting when it 
 should act. It will not take effect when editing comments, strings and lines 
 containing the the word "new." (This is useful for array initialization, e.g. 
-string[] myArray = new string[] {"a", "b"}.)
+`string[] myArray = new string[] {"a", "b"}`.)
 
 >
     imap { <Esc>:call ReplaceCurly()<CR>"_cl

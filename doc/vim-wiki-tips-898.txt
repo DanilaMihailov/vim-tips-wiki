@@ -15,8 +15,8 @@ solution.
 SETTINGS                                                    *vwt-898-settings*
 
 The 'errorbells' (abbreviated as 'eb') option is off by default. If it is on 
-(that is, if :set errorbells is used), Vim will either beep or flash its 
-screen when an error message is displayed. For example, the command :set xyz 
+(that is, if `:set errorbells` is used), Vim will either beep or flash its 
+screen when an error message is displayed. For example, the command `:set xyz` 
 displays an error message because 'xyz' is not a valid option. If 'errorbells' 
 is on, the error message will attempt to either sound a beep or flash Vim's 
 screen.
@@ -26,7 +26,7 @@ error message is not displayed (for example, on pressing Esc when in normal
 mode).
 
 The 'visualbell' (abbreviated as 'vb') option is off by default.If it is on 
-(that is, if :set visualbell is used), Vim will flash its screen instead of 
+(that is, if `:set visualbell` is used), Vim will flash its screen instead of 
 sounding a beep (that is, at times when a beep would have occurred, the screen 
 will flash instead).
 
@@ -36,7 +36,7 @@ its default value. If 't_vb' is cleared, Vim will never flash the
 screen—however, it has to be cleared after the GUI has started.
 
 If 't_vb' is cleared and 'visualbell' is set, no beep and no flash will ever 
-occur. That is achieved by entering the command :set vb t_vb= after the GUI 
+occur. That is achieved by entering the command `:set vb t_vb=` after the GUI 
 has started—see method 1 |vwt-898-disable-beep-and-flash-with-an-autocmd| or 
 method 2 |vwt-898-disable-beep-and-flash-with-gvimrc| below.
 
@@ -50,7 +50,7 @@ initializations from vimrc or gvimrc, but using 'nocompatible' mode:
 <
 
 In Vim, press Esc. If your sound system is working, you should hear your 
-system's version of a "bell" (often a beep). Enter the command :set xyz and 
+system's version of a "bell" (often a beep). Enter the command `:set xyz` and 
 observe that an error message is displayed, but no beep occurs. Display the 
 default settings by entering:
 
@@ -58,7 +58,7 @@ default settings by entering:
     :set eb? vb? t_vb?
 <
 
-Vim will display something like (the ^[... depends on your system):
+Vim will display something like (the `^[...` depends on your system):
 
 >
     noerrorbells
@@ -66,20 +66,20 @@ Vim will display something like (the ^[... depends on your system):
       t_vb=^[...
 <
 
-Due to noerrorbells, no beep occurs when an error message is displayed. 
+Due to `noerrorbells`, no beep occurs when an error message is displayed. 
 However, other "errors" such as pressing Esc when in normal mode will cause a 
 beep.
 
-Enter the command :set vb to set visualbell. Entering :set xyz will give the 
-same result as before. However, pressing Esc should flash Vim's screen (a 
-"visual bell").
+Enter the command `:set vb` to set `visualbell`. Entering `:set xyz` will 
+give the same result as before. However, pressing Esc should flash Vim's 
+screen (a "visual bell").
 
-Enter the command :set t_vb= to clear the t_vb option (so it will do 
-nothing). Entering :set xyz will give the same result as before (a message but 
-no beep or flash). However, pressing Esc should also do nothing (no beep and 
-no flash). The t_vb option controls how Vim flashes the screen (on both Unix 
-and Windows systems, for both terminal and gui Vim). If the option is empty, 
-Vim does not flash the screen.
+Enter the command `:set t_vb=` to clear the `t_vb` option (so it will do 
+nothing). Entering `:set xyz` will give the same result as before (a message 
+but no beep or flash). However, pressing Esc should also do nothing (no beep 
+and no flash). The `t_vb` option controls how Vim flashes the screen (on both 
+Unix and Windows systems, for both terminal and gui Vim). If the option is 
+empty, Vim does not flash the screen.
 
 DISABLE BEEP AND FLASH WITH AN AUTOCMD *vwt-898-disable-beep-and-flash-with-an-autocmd*
 
@@ -100,7 +100,7 @@ The same commands can be entered using abbreviations:
 <
 
 The above will give an error message if run on a Vim which was not compiled 
-with the +autocmd feature. To avoid that possibility, use:
+with the `+autocmd` feature. To avoid that possibility, use:
 
 >
     set noerrorbells visualbell t_vb=
@@ -150,7 +150,7 @@ You should be able to copy text from the wiki! I just tried it (again) in both F
 
 ==============================================================================
 
-Did not work for me. The final solution was set belloff=all in vimrc 
+Did not work for me. The final solution was `set belloff=all` in vimrc 
 [https://vim.fandom.com/wiki/Vimrc].
 
 Thanks, it works !

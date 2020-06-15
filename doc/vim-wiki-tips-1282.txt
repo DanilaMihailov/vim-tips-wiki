@@ -20,7 +20,7 @@ a mapping for the F9 key:
 
 This opens a new buffer, reads the SVN diff, sets syntax highlighting and 
 tells Vim not to save the buffer, and places the cursor at the top. Since the 
-buffer won't be saved, you may quit using :wqa when you're finished writing 
+buffer won't be saved, you may quit using `:wqa` when you're finished writing 
 the commit message.
 
 COMMENTS                                                   *vwt-1282-comments*
@@ -46,7 +46,7 @@ Or for a separate window:
                     -c "wincmd k" +0'
 <
 
-Replace below new with vnew for a vertical split.
+Replace `below new` with `vnew` for a vertical split.
 
 ==============================================================================
 

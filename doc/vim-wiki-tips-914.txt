@@ -53,8 +53,8 @@ jmk-x11-fonts package from http://nikolas.us.to/jmkfonts/
 
 It differentiates between a zero and the letter "O" and looks really nice. I 
 use it for programming on a 1600x1200 screen.
-    - On Debian/Ubuntu: apt-get install xfonts-jmk 
-    - On Gentoo: emerge x11fonts-jmk 
+    - On Debian/Ubuntu: `apt-get install xfonts-jmk` 
+    - On Gentoo: `emerge x11fonts-jmk` 
 
 
 Once you have installed the font you should put a line like this in your 
@@ -81,7 +81,8 @@ athttp://zevv.nl/play/code/zevv-neep/ [http://zevv.nl/play/code/zevv-neep/]
 
 Design considerations
     - Clean, avoid clutter. 
-    - Very clear distinction between similar characters like 0 O o and i I l 1 |. 
+    - Very clear distinction between similar characters like `0 O o` and `i I l 1 
+      |`. 
     - Suitable for light text on a dark background. 
     - Not too densely packed to allow a good separation between characters. 
 
@@ -214,7 +215,7 @@ OTHER                                                          *vwt-914-other*
       http://www.cosmix.org/software [http://www.cosmix.org/software]. 
     - Microsoft Consolas is an epic programming font. Obviously looks best with 
       ClearType but can be made to look decent under Xorg. To use Consolas on gvim 
-      for Windows set: set guifont=Consolas:h11 where h11 is the font size 11. 
+      for Windows set: `set guifont=Consolas:h11` where `h11` is the font size 11. 
       http://en.wikipedia.org/wiki/Consolas [http://en.wikipedia.org/wiki/Consolas], 
       http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252 
       [http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252] 
@@ -257,8 +258,8 @@ My favorite fonts are 10x20/X and fixedsys/Windows, always clear and crisp.
 As has been noted, sometimes font size 16 is better for Proggy Clean.
 
 On a Linux system, it can be useful to tell fontconfig to turn off 
-antialiasing for specific fonts. Just create a file named .fonts.conf in your 
-home directory with the following content:
+antialiasing for specific fonts. Just create a file named `.fonts.conf` in 
+your home directory with the following content:
 
 >
     <?xml version="1.0"?>

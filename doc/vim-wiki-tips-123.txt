@@ -16,12 +16,13 @@ created 2001 · complexity basic · version 6.0
 ==============================================================================
 
 It is easy to search for the word under the cursor using the super star 
-[https://vim.fandom.com/wiki/Searching] (*). Here is how to search all files 
+[https://vim.fandom.com/wiki/Searching] (`*`). Here is how to search all files 
 in a directory.
 
-Enter the command :set grepprg? to determine what program is used on your 
-system to execute the :grep command. If it is the grep utility, the following 
-mappings allow searching files in a directory for the word under the cursor.
+Enter the command `:set grepprg?` to determine what program is used on your 
+system to execute the `:grep` command. If it is the `grep` utility, the 
+following mappings allow searching files in a directory for the word under the 
+cursor.
 
 >
     :nnoremap gr :grep <cword> *<CR>
@@ -31,19 +32,19 @@ mappings allow searching files in a directory for the word under the cursor.
 <
 
 The first mapping searches for the text in the word under the cursor (like 
-g*) in any of the files in the current directory.
+`g*`) in any of the files in the current directory.
 
 The second mapping searches for the text in the word under the cursor (like 
-g*) in any of the files in the same directory as the current file.
+`g*`) in any of the files in the same directory as the current file.
 
-The third mapping searches for the whole word under the cursor (like *) in 
+The third mapping searches for the whole word under the cursor (like `*`) in 
 any of the files in the current directory.
 
-The fourth mapping searches for the whole word under the cursor (like *) in 
+The fourth mapping searches for the whole word under the cursor (like `*`) in 
 any of the files in the same directory as the current file.
 
-On a Windows system, 'grepprg' may be set to use the findstr utility. In that 
-case, the last two mappings should be:
+On a Windows system, 'grepprg' may be set to use the `findstr` utility. In 
+that case, the last two mappings should be:
 
 >
     :nnoremap gR :grep "\<<cword>\>" *<CR>

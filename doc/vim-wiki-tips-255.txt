@@ -20,17 +20,17 @@ Within Vim I use
     :set tags+=jsp.tags
 <
 
-Now I can to simple :tag file.jsp to quickly switch between the many .jsp 
+Now I can to simple `:tag file.jsp` to quickly switch between the many .jsp 
 files.
 
-The sort utility will use the value of LC_COLLATE to sort according to your 
-locale. This will give Vim issues. On Unix based systems, try LC_COLLATE=C 
-sort instead of plain sort.
+The `sort` utility will use the value of LC_COLLATE to sort according to your 
+locale. This will give Vim issues. On Unix based systems, try `LC_COLLATE=C 
+sort` instead of plain `sort`.
 
 COMMENTS                                                    *vwt-255-comments*
 
-There's also the :find command and the path-option, with which one can easily 
-switch between files in arbitrary directories.
+There's also the `:find` command and the path-option, with which one can 
+easily switch between files in arbitrary directories.
 
 For example, if one sets
 
@@ -48,7 +48,7 @@ Recursive search is also possible by using the double-star:
 
 Vim will :find any file under the current sub directory.
 
-Use :sfind (split find) to open the file in a new window.
+Use `:sfind` (split find) to open the file in a new window.
 
 ==============================================================================
 

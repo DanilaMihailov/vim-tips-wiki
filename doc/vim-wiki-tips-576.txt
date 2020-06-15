@@ -31,9 +31,9 @@ For this to work, you will need:
     :set ambiwidth=double  "for CJK characters (probably not needed)
 <
 
-Copy the following into a file, then type :so % (source current file) to 
-define the function. Enter :new and type :call GenerateUnicode(0x9900,0x9fff) 
-(after setting the font and encoding).
+Copy the following into a file, then type `:so %` (source current file) to 
+define the function. Enter `:new` and type `:call 
+GenerateUnicode(0x9900,0x9fff)` (after setting the font and encoding).
 
 >
     function! GenerateUnicode(first, last)

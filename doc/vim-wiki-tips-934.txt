@@ -31,9 +31,9 @@ A session file is a script created by Vim in order to save the current
 editing session (window layout, buffer file names, mappings, and more). You 
 can use a session file to save the state of a project that you are working on. 
 After you have opened all the files in your project and arranged the windows 
-as required, use the command :mksession projectname.vis to save the session. 
-Replace projectname.vis with whatever name you like, although the following 
-assumes that extension .vis is used. You can include a path so the session 
+as required, use the command `:mksession projectname.vis` to save the session. 
+Replace `projectname.vis` with whatever name you like, although the following 
+assumes that extension `.vis` is used. You can include a path so the session 
 file is saved in a convenient directory (or your desktop). The task of 
 entering a path is made easier by pressing the Tab key to complete 
 partially-entered directory or file names.
@@ -46,7 +46,7 @@ script. You could do that at command prompt as in this example:
 <
 
 It is also possible to define a file association so that double clicking 
-projectname.vis in Windows Explorer opens the session.
+`projectname.vis` in Windows Explorer opens the session.
 
 USING CONSOLE UTILITIES                      *vwt-934-using-console-utilities*
 
@@ -65,7 +65,7 @@ USING THE REGISTRY                                *vwt-934-using-the-registry*
 The following alternative does not require administrative privilege because 
 it applies the file association only for the current user 
 [https://vim.fandom.com/wiki/Windows_file_associations#User-specific_file_associations]. 
-Place the following lines in file sessions.reg (for example) and execute it. 
+Place the following lines in file `sessions.reg` (for example) and execute it. 
 Change the path to where your gvim is installed.
 
 >
@@ -114,8 +114,8 @@ OPENING PROJECT.VIM PROJECT FILES  *vwt-934-opening-project.vim-project-files*
 
 If you use the project.vim 
 [https://www.vim.org/scripts/script.php?script_id=69] plugin on Windows XP, it 
-is useful to associate .vimprojects files with Vim so they can be opened with 
-a double-click in Explorer.
+is useful to associate `.vimprojects` files with Vim so they can be opened 
+with a double-click in Explorer.
 
 USING CONSOLE UTILITIES                      *vwt-934-using-console-utilities*
 
@@ -157,7 +157,7 @@ COMMENTS                                                    *vwt-934-comments*
     - TO DO 
 
 
-Probably should change "...\shell\edit\command" from edit to open.
+Probably should change "`...\shell\edit\command`" from edit to open.
 
 I'm pretty sure it's supposed to be "open". From what I understand, the 
 action name will appear in the context menu as given (so right-click, choose 

@@ -21,12 +21,12 @@ Vim.
 
 REGISTRY                                                     *vwt-75-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
-Before trying the following, you should run regedit.exe and inspect the 
+Before trying the following, you should run `regedit.exe` and inspect the 
 relevant registry keys, and export them for a backup. Make sure you know how 
 to remove the registry changes if they cause trouble.
 
 For the current user (doesn't work in Windows 7 or 8 and 10): To map CapsLock 
-to Escape, and ScrollLock to CapsLock, create file (for example) keys.reg 
+to Escape, and ScrollLock to CapsLock, create file (for example) `keys.reg` 
 containing:
 
 >
@@ -51,9 +51,9 @@ file and reboot (this key still works in Windows 7 or 8 and 10):
     "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,3a,00,46,00,01,00,3a,00,00,00,00,00
 <
 
-To restore the keyboard, run regedit.exe and delete the "Scancode Map" entry 
-from HKEY_CURRENT_USER (and log off/on), or from HKEY_LOCAL_MACHINE (and 
-reboot), depending on which section of the registry you changed.
+To restore the keyboard, run `regedit.exe` and delete the "Scancode Map" 
+entry from `HKEY_CURRENT_USER` (and log off/on), or from `HKEY_LOCAL_MACHINE` 
+(and reboot), depending on which section of the registry you changed.
 
 USE THE CAPS LOCK KEY AS CTRL           *vwt-75-use-the-caps-lock-key-as-ctrl*
 
@@ -63,8 +63,8 @@ to press Ctrl-[ as an alternative to pressing Esc |vwt-285|.
 
 The following applies to the current user (log off and log on to apply). 
 Alternatively, an administrator can apply the change to all users (reboot to 
-apply) by replacing [HKEY_CURRENT_USER\Keyboard Layout] with 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+apply) by replacing `[HKEY_CURRENT_USER\Keyboard Layout]` with 
+`[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]`
 
 Map CapsLock to LeftCtrl (press CapsLock to generate LeftCtrl):
 
@@ -125,7 +125,7 @@ that can be downloaded and run without setup or reboot. The key mappings are
 not permanent: they last only as long as Uncap is running.
 
 If Uncap is run without any arguments, it maps CapsLock to Escape while 
-leaving Escape unchanged. Run uncap 0x1b:0x14 to swap CapsLock and Escape.
+leaving Escape unchanged. Run `uncap 0x1b:0x14` to swap CapsLock and Escape.
 
 AUTOHOTKEY                                                 *vwt-75-autohotkey*
 
@@ -430,8 +430,9 @@ For example, the line
     "Scancode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,01,00,3a,00,00,00,00,00
 <
 
-consists of one mapping (01,00,3a,00) which replaces the scancode 0x003a with 
-0x0001. That means that pressing CapsLock (0x3a) will generate Escape (0x01).
+consists of one mapping (`01,00,3a,00`) which replaces the scancode 0x003a 
+with 0x0001. That means that pressing CapsLock (0x3a) will generate Escape 
+(0x01).
 
 SEE ALSO                                                     *vwt-75-see-also*
     - Discussion page 

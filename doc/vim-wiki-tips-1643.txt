@@ -28,12 +28,12 @@ soon as you leave insert mode a new change will start. It is important to
 leave insert mode so you will really create a new distinct change to which you 
 can later move back, otherwise all changes that are done while you are in 
 insert mode will be considered the same change. While in insert mode, you can 
-also press Ctrl-G then u to break the undo sequence and start a new change. In 
-fact, it is probably a good idea to automatically do this in some situations, 
-for example so you can undo one inserted line at a time |vwt-86|, so you can 
-recover if you change your mind after pressing Ctrl-U in normal mode 
-[https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U], or so you can 
-execute a normal-mode command you accidentally entered in insert mode 
+also press Ctrl-G then `u` to break the undo sequence and start a new change. 
+In fact, it is probably a good idea to automatically do this in some 
+situations, for example so you can undo one inserted line at a time |vwt-86|, 
+so you can recover if you change your mind after pressing Ctrl-U in normal 
+mode [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U], or so you 
+can execute a normal-mode command you accidentally entered in insert mode 
 [https://vim.fandom.com/wiki/Execute_accidentally_inserted_commands]. Note, 
 that some commands (CTRL-G u is one of these) will break your insert mode 
 edits into multiple changes. See :help |ins-special-special| for details.
@@ -42,20 +42,20 @@ You can imagine the undo branches like a tree with the top node being the
 first change that you have made to your text. Whenever you undo some changes 
 and make a new change you create a new node.
 
-Using u in normal mode will undo your last change and move you through the 
+Using `u` in normal mode will undo your last change and move you through the 
 tree upwards. In contrast redo (Ctrl-R) will move down through this tree of 
 changes. This is the same, as was done before Version 7 was released and is 
 backwards compatible with other vi clones.
 
 But you can also move through the changes in the order they were made. Thus 
-g- will move you to the previous change, regardless where it is situated in 
-your undo tree. Further use of g- will move you to the chronological previous 
-change. As g- moves backwards through the undo tree, g+ will move forward 
-through all changes until the final state is reached.
+`g-` will move you to the previous change, regardless where it is situated in 
+your undo tree. Further use of `g-` will move you to the chronological 
+previous change. As `g-` moves backwards through the undo tree, `g+` will move 
+forward through all changes until the final state is reached.
 
-Besides the use of g+ and g- you can also use the ex-commands :earlier and 
-:later. Both commands optionally accept either a count or an amount of time 
-that you want to move, thus
+Besides the use of `g+` and `g-` you can also use the ex-commands `:earlier` 
+and `:later`. Both commands optionally accept either a count or an amount of 
+time that you want to move, thus
 
 :earlier 10
 
@@ -63,8 +63,8 @@ will move 10 changes backwards through the undo tree, and
 
 :earlier 1h
 
-will move to the state of the buffer as it existed 1 hour ago (use s for 
-seconds, m for minutes, and h for hours), and then
+will move to the state of the buffer as it existed 1 hour ago (use `s` for 
+seconds, `m` for minutes, and `h` for hours), and then
 
 :later 10
 
@@ -78,7 +78,7 @@ previous state.
 With the addition of persistent undo |vwt-1643-persistent-undo| in Vim 7.3, 
 the ex-commands above also provide the ability to easily revisit the state of 
 the buffer exactly as it was the last time it was saved to a file (or 2 saves 
-ago, 3 saves ago, etc.) using, for example, :earlier 1f.
+ago, 3 saves ago, etc.) using, for example, `:earlier 1f`.
 
 EXAMPLE                                                     *vwt-1643-example*
 
@@ -95,11 +95,11 @@ You can always check the number of the most recent change with:
 
 :echo changenr()
 
-This will output 3 since you have made 3 changes (started insert mode 3 
+This will output `3` since you have made 3 changes (started insert mode 3 
 times).
 
-Now press u to undo one change, start insert mode again and change the buffer 
-so it will look like this:
+Now press `u` to undo one change, start insert mode again and change the 
+buffer so it will look like this:
 
 1 2 4
 
@@ -110,15 +110,15 @@ new undo branch. Using:
 
 will output 4.
 
-If you press u in normal mode you will move back to
+If you press `u` in normal mode you will move back to
 
 1 2
 
-A further undo using u will change the buffer to
+A further undo using `u` will change the buffer to
 
 1
 
-and if you press u a final time, you'll have an empty buffer again, as this 
+and if you press `u` a final time, you'll have an empty buffer again, as this 
 is the state at which you started. You are now back before change 1 and
 
 :echo changenr()
@@ -138,13 +138,14 @@ and finally
 1 2 4
 
 Notice, that you never reached change number 3 in which the buffer contained 
-'1 2 3'. You can however use the g- and :earlier commands to move back to that 
-change. So if you now press g- or :earlier your buffer looks like this:
+'1 2 3'. You can however use the `g-` and `:earlier` commands to move back to 
+that change. So if you now press `g-` or `:earlier` your buffer looks like 
+this:
 
 1 2 3
 
-If you know to which change you want to jump, you can also use :undo to jump 
-to the specified change.
+If you know to which change you want to jump, you can also use `:undo` to 
+jump to the specified change.
 
 Entering
 
@@ -158,9 +159,9 @@ UNDOLEVELS OPTION                                 *vwt-1643-undolevels-option*
 
 The number of changes that are remembered is controlled by the 'undolevels' 
 option. This is a global option that defines how many changes for each buffer 
-will be remembered and that you can travel back. So if you set it to 25, you 
-can at most undo 25 changes. If you set it to -1 you will not be able to undo 
-any changes!
+will be remembered and that you can travel back. So if you set it to `25`, you 
+can at most undo 25 changes. If you set it to `-1` you will not be able to 
+undo any changes!
 
 PLUGINS                                                     *vwt-1643-plugins*
 
@@ -190,18 +191,18 @@ HISTWIN                                                     *vwt-1643-histwin*
 The histwin [https://www.vim.org/scripts/script.php?script_id=2932] plugin 
 provides an easy way to jump back to previous branches in your history.
 
-It provides the command :UB to open a new window listing the different 
+It provides the command `:UB` to open a new window listing the different 
 branches of the changes made. On each item in the list, if you press Enter, 
 you will move back to that state in the history tree of your buffer.
 
-Additionally, you can tag certain states using T on the item. If you press D, 
-a diff window is shown allowing you to review all changes that have been made 
-between your current state and the selected state. And as some kind of funny 
-feature, you can even let Vim replay the changes that have been made from the 
-beginning.
+Additionally, you can tag certain states using `T` on the item. If you press 
+`D`, a diff window is shown allowing you to review all changes that have been 
+made between your current state and the selected state. And as some kind of 
+funny feature, you can even let Vim replay the changes that have been made 
+from the beginning.
 
 After installing the plugin, read its help on configuration and usage by 
-entering :help histwin.txt.
+entering `:help histwin.txt`.
 
 OTHERS                                                       *vwt-1643-others*
     - undotree [https://www.vim.org/scripts/script.php?script_id=4177] offers a 
@@ -227,8 +228,8 @@ To make use of the feature, you need to set 'undofile':
 
 :set undofile
 
-You can then use the new commands :wundo to write the undo history to the 
-file and :rundo to read the undo history back. For each file that is edited, 
+You can then use the new commands `:wundo` to write the undo history to the 
+file and `:rundo` to read the undo history back. For each file that is edited, 
 the undo tree will be saved in a separate file in the same directory to the 
 file, that you edited as .filename.un~ similar to the way swap files are 
 saved. If you like to save all undo-files in a separate direcotry, you can set 
@@ -239,19 +240,20 @@ read back when you start editing that file again.
 Additionally Vim 7.3 allows to jump back to previous save states of your 
 file. This can be done by using :earlier <nr>f and :later <nr>f where <nr> is 
 the number of file write. The different number of file-writes can be seen in 
-the saved column of the :undolist command. For example :earlier 1f would go 
-back to the state where the text was, when it was last saved and :later 1f 
-would move in the undo tree to the next newer state, where the file was saved.
+the saved column of the `:undolist` command. For example `:earlier 1f` would 
+go back to the state where the text was, when it was last saved and `:later 
+1f` would move in the undo tree to the next newer state, where the file was 
+saved.
 
 The new option 'undoreload' now determines, if the text state will be saved, 
-before the buffer is reloaded using e.g. :e!. This is set by default to the 
+before the buffer is reloaded using e.g. `:e!`. This is set by default to the 
 value of 10,000. This means the buffer contents will be stored in the undo 
 tree, if the buffer contains fewer than 10,000 lines. For example if you edit 
-a simple file, :echo changenr() will output, the current position in the undo 
-tree. If you now reload the buffer using :e! and output :echo changenr(), you 
-will notice, that a new change was created (but only, if the buffer contained 
-less lines than the option of 'undoreload' specifies or the value of 
-'undoreload' is negative).
+a simple file, `:echo changenr()` will output, the current position in the 
+undo tree. If you now reload the buffer using `:e!` and output `:echo 
+changenr()`, you will notice, that a new change was created (but only, if the 
+buffer contained less lines than the option of 'undoreload' specifies or the 
+value of 'undoreload' is negative).
 
 However, note that if a file is modified externally without Vim, Vim will not 
 be able to read the undo history back when you start editing the file again 

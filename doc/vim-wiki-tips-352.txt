@@ -7,7 +7,7 @@ created 2002 · complexity intermediate · author Kartik Agaram · version 6.0
 ==============================================================================
 
 Have you ever been annoyed by an over-zealous cabbrev? A simple way to 
-temporarily disable it is set invpaste. Very convenient in combination with 
+temporarily disable it is `set invpaste`. Very convenient in combination with 
 the 'pastetoggle' key. Note however that 'pastetoggle' does not work if you 
 are already in command-line mode, as documented in the help.
 

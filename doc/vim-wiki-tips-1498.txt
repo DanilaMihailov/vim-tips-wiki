@@ -9,7 +9,7 @@ created 2007 · complexity basic · author fomit · version 5.7
 Often, you might want to delete a set of arguments within bash scripts in 
 Unix environments as an admin.
 
-So you might think dw (delete word) does the job, because it often does, 
+So you might think `dw` (delete word) does the job, because it often does, 
 actually. However, in Unix environments you might also interpret a word in a 
 different way, e.g. a "/path/to/file" can be seen as just one word in terms of 
 the number of arguments. In that case, "dw" will not delete "/path/to/file", 

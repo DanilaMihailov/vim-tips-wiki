@@ -11,8 +11,8 @@ June 28, 2010 · complexity basic · author Sternebrau
 
 This tip describes a simple way to automatically compile Javascript files 
 using Google Closure [http://code.google.com/closure/]. The compiled results 
-are saved to a different file, for example, filename.js saves as both 
-filename.js and filename.min.js.
+are saved to a different file, for example, `filename.js` saves as both 
+`filename.js` and `filename.min.js`.
 
 THE REGULAR WAY                                     *vwt-1657-the-regular-way*
     - Edit .js file 
@@ -61,7 +61,7 @@ ALTERNATIVE USING  |:COMPILER|       *vwt-1657-alternative-using--|:compiler|*
 This procedure defines a closure compiler plugin that may be used rather than 
 the above.
 
-Put the following in .vim/compiler/closure.vim:
+Put the following in `.vim/compiler/closure.vim`:
 
 >
     if exists("current_compiler")
@@ -81,17 +81,17 @@ Put the following in .vim/compiler/closure.vim:
 
 USING THIS TIP                                       *vwt-1657-using-this-tip*
     - Edit .js file 
-    - Set compiler: :compiler closure 
+    - Set compiler: `:compiler closure` 
     - Save .js file 
-    - :make 
-    - Fix bugs (:cope, :cn, etc), repeat. 
+    - `:make` 
+    - Fix bugs (`:cope`, `:cn`, etc), repeat. 
     - Link compiled version in .html 
     - Test (because it's compiled while checking for errors!) 
 
 
 One could add the following to one's vimrc 
 [https://vim.fandom.com/wiki/Vimrc] to automatically set the proper compiler, 
-and to automatically invoke :make after saving a file, opening the quickfix 
+and to automatically invoke `:make` after saving a file, opening the quickfix 
 window if there are any errors:
 
 >
@@ -100,13 +100,13 @@ window if there are any errors:
     autocmd BufWritePost *.js cwindow
 <
 
-Note the use of make! instead of make to avoid jumping to the first error 
+Note the use of `make!` instead of `make` to avoid jumping to the first error 
 automatically. This could be annoying when make is automatically invoked!
 
 Then the process is:
     - Edit .js file 
     - Save .js file 
-    - Fix bugs (:cope, :cn, etc), repeat. 
+    - Fix bugs (`:cope`, `:cn`, etc), repeat. 
     - Link compiled version in .html 
     - Test (because it's automatically compiled!) 
 

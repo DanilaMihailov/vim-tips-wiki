@@ -18,8 +18,8 @@ this:
     doSomething(a,b,c): 37
 <
 
-c for it looks like printf("doSomething(a,b,c): \"%s\"\n", 
-doSomething(a,b,c));
+c for it looks like `printf("doSomething(a,b,c): \"%s\"\n", 
+doSomething(a,b,c));`
 
 kind of a pain to type often. i also try to make it so the cursor ends up 
 over the s so that you can replace it with d, etc for printing things other 

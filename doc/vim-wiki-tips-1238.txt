@@ -35,7 +35,7 @@ when the autoread option is enabled.
 
 COMMENTS                                                   *vwt-1238-comments*
 
-Why is the b:setmodifiable variable needed?
+Why is the `b:setmodifiable` variable needed?
 
 >
     autocmd BufReadPost * if &modifiable | setlocal nomodifiable | else | setlocal modifiable | endif

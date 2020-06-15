@@ -13,13 +13,13 @@ vimrc [https://vim.fandom.com/wiki/Vimrc]:
     noremap <Leader>s :update<CR>
 <
 
-With the default leader key, just press \s to save any changes to the current 
-file. If the buffer has not been modified since the last save, the file is not 
-written.
+With the default leader key, just press `\s` to save any changes to the 
+current file. If the buffer has not been modified since the last save, the 
+file is not written.
 
 On many Windows systems, the file mswin.vim is sourced when Vim starts. In 
-that case, Ctrl-S is mapped to :update, so the above mapping is not necessary 
-(press Ctrl-S to save).
+that case, Ctrl-S is mapped to `:update`, so the above mapping is not 
+necessary (press Ctrl-S to save).
 
 REFERENCES                                                *vwt-582-references*
     - :help |:update| command to save file if changed 

@@ -6,32 +6,32 @@ created 2001 · complexity intermediate · version 7.0
 
 ==============================================================================
 
-After executing :make or :grep you can browse the list of errors/matches, and 
-the appropriate source code locations, with commands like :cnext. :help 
+After executing `:make` or `:grep` you can browse the list of errors/matches, 
+and the appropriate source code locations, with commands like `:cnext`. :help 
 |quickfix|
 
 This tip folds away lines [https://vim.fandom.com/wiki/Folding] in the 
-current buffer that have no errors (when using :make), or that do not match 
-the search pattern (when using :grep). See here |vwt-801| to fold lines in the 
-quickfix list.
+current buffer that have no errors (when using `:make`), or that do not match 
+the search pattern (when using `:grep`). See here |vwt-801| to fold lines in 
+the quickfix list.
 
 FOLD AWAY MISSES                                     *vwt-76-fold-away-misses*
 
 The following script can be used to fold away lines with no errors/matches.
 
 Usage
-    - Create file ~/.vim/plugin/foldmisses.vim (Unix) or 
-      $HOME/vimfiles/plugin/foldmisses.vim (Windows) containing the script below, 
+    - Create file `~/.vim/plugin/foldmisses.vim` (Unix) or 
+      `$HOME/vimfiles/plugin/foldmisses.vim` (Windows) containing the script below, 
       then restart Vim. 
     - Edit a file. 
-    - Enter a command like :vimgrep /regexp/ % to get a quickfix list. 
-    - Enter :FoldMisses to fold away lines in the current buffer that are not in 
+    - Enter a command like `:vimgrep /regexp/ %` to get a quickfix list. 
+    - Enter `:FoldMisses` to fold away lines in the current buffer that are not in 
       the quickfix list. 
-    - Enter :FoldLMisses to fold away lines in the current buffer that are not in 
+    - Enter `:FoldLMisses` to fold away lines in the current buffer that are not in 
       the buffer's location list. 
-    - Optional: :1FoldMisses will give 1 extra context line (fewer lines folded). 
-      You can set a default via let g:foldmisses_context = 1 
-    - As normal, za toggles a fold, and zR opens all folds. 
+    - Optional: `:1FoldMisses` will give 1 extra context line (fewer lines folded). 
+      You can set a default via `let g:foldmisses_context = 1` 
+    - As normal, `za` toggles a fold, and `zR` opens all folds. 
 
 
 >

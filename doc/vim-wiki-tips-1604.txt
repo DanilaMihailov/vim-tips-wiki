@@ -63,9 +63,9 @@ correctly.
 COMMENTS                                                   *vwt-1604-comments*
 
 TO DO
-    - I suspect this code should be in something like after/ftplugin/cpp.vim (not 
+    - I suspect this code should be in something like `after/ftplugin/cpp.vim` (not 
       vimrc). 
-    - And/or, remove the set indentexpr=QtCppIndent() and have a mapping to apply 
+    - And/or, remove the `set indentexpr=QtCppIndent()` and have a mapping to apply 
       that when wanted (setlocal?). 
     - Need to clarify what settings are required in vimrc to get everything 
       working. 

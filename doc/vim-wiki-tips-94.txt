@@ -225,14 +225,14 @@ require something else. :help |ctags|
     - IDL: idltags [http://idlwave.org/download/idltags] 
     - Java: jtags [http://www.fleiner.com/jtags/] 
     - Perl: ptags [http://www.eleves.ens.fr:8080/home/nthiery/Tags/] 
-    - Python: utility Tools/scripts/ptags.py under your Python distribution. 
+    - Python: utility `Tools/scripts/ptags.py` under your Python distribution. 
     - Verilog: vtags [http://www.probo.com/vtags.htm] or veri-tags 
       [http://www.cs.albany.edu/~mosh/Perl/veri-tags] 
     - C, C++, LaTeX, maple, vim, yacc, assembly: Hdrtag 
       [http://www.drchip.org/astronaut/src/index.html#HDRTAG] 
     - LaTeX, BibTeX: modified Exuberant Ctags 
       [http://www.unb.ca/fredericton/science/chem/ajit/vim.htm] 
-    - Perl or shell script: pltags.pl or shtags.pl provided with Vim (directory 
+    - Perl or shell script: `pltags.pl` or `shtags.pl` provided with Vim (directory 
       $VIMRUNTIME/tools) 
     - Erlang: This page 
       [http://www.reddit.com/r/vim/comments/cve43/how_to_generate_tags_file_for_use_in_erlang/] 
@@ -254,7 +254,7 @@ EXTENDING EXUBERANT CTAGS                   *vwt-94-extending-exuberant-ctags*
 
 Following is an example of defining a language for Exuberant Ctags. IDL 
 (Interactive Data Language) procedures and functions are supported by putting 
-the following in your .ctags file:
+the following in your `.ctags` file:
 
 >
     --langdef=IDL
@@ -283,7 +283,7 @@ Same, processing the current directory and all subdirectories:
     $ ctags -R .
 <
 
-Generate a tags file for all files listed in file flist:
+Generate a tags file for all files listed in file `flist`:
 
 >
     $ ctags -L flist
@@ -291,14 +291,14 @@ Generate a tags file for all files listed in file flist:
 
 CONFIGURING VIM                                       *vwt-94-configuring-vim*
 
-Vim needs to be told where to look for your tags files, using the 'tags' 
+Vim needs to be told where to look for your tags files, using the '`tags`' 
 option. :help 'tags' :help |tags-option|
 
 >
     :set tags=/my/dir/tags
 <
 
-The 'tags' option can specify more than one tags file:
+The '`tags`' option can specify more than one tags file:
 
 >
     :set tags=/my/dir1/tags,/my/dir2/tags
@@ -306,14 +306,14 @@ The 'tags' option can specify more than one tags file:
 
 In a large project, it is common to have a tags file in each directory (with 
 each tags file handling the files in its directory). To assist, there is a 
-special case: If a file specified in 'tags' starts with "./", the '.' is 
+special case: If a file specified in '`tags`' starts with "./", the '.' is 
 replaced with the path of the current file.
 
 With this setting, the tags file is in the directory of the current file (no 
 matter what the current directory is). You can define which tag file is 
-searched first: In the current directory ("tags,./tags"), or in the directory 
-of the current file ("./tags,tags"). You might also consider setting your 
-working directory to the current file |vwt-64|.
+searched first: In the current directory ("`tags,./tags`"), or in the 
+directory of the current file ("`./tags,tags`"). You might also consider 
+setting your working directory to the current file |vwt-64|.
 
 With the following setting, Vim will search for the file named 'tags', 
 starting with the directory of the current file and then going to the parent 

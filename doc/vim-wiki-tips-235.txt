@@ -7,10 +7,10 @@ created 2002 · complexity basic · author HughSasse · version 6.0
 ==============================================================================
 
 When scrolling or searching through a large file it is easy to lose sight of 
-the cursor. A simple way to locate the cursor is to type zz (which scrolls the 
-cursor line to the middle of the window), or to quickly type jk (which moves 
-the cursor down then up; the movement shows where the cursor is). This tip 
-shows other ways to find the cursor with highlighting.
+the cursor. A simple way to locate the cursor is to type `zz` (which scrolls 
+the cursor line to the middle of the window), or to quickly type `jk` (which 
+moves the cursor down then up; the movement shows where the cursor is). This 
+tip shows other ways to find the cursor with highlighting.
 
 HIGHLIGHTING TEXT NEAR THE CURSOR  *vwt-235-highlighting-text-near-the-cursor*
 
@@ -33,11 +33,11 @@ Put this script in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     endfunction
 <
 
-The search pattern uses \%# to match the cursor position, including \k* (all 
-consecutive keyword characters) before and after that match. :help |/\%#| 
+The search pattern uses `\%#` to match the cursor position, including `\k*` 
+(all consecutive keyword characters) before and after that match. :help |/\%#| 
 :help |/\k|
 
-The match uses the Todo highlight group.
+The match uses the `Todo` highlight group.
 
 SEE ALSO                                                    *vwt-235-see-also*
     - Highlight current line |vwt-769| 

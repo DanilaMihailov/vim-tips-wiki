@@ -6,12 +6,12 @@ created 2006 · complexity intermediate · author Yakov Lerner · version 7.0
 
 ==============================================================================
 
-When switching buffers using the Ctrl-^ and :bp commands, Vim will keep the 
-cursor on the line number where it was before switching the buffer but it 
+When switching buffers using the `Ctrl-^` and `:bp` commands, Vim will keep 
+the cursor on the line number where it was before switching the buffer but it 
 might change the position of the current line relative to the screen. For 
 example, the cursor may be in line 1234 of the file, with that line at the top 
-of the screen. The user may switch to another buffer, then switch back (:bn 
-:bp), and find that the current line has been repositioned to the middle of 
+of the screen. The user may switch to another buffer, then switch back (`:bn 
+:bp`), and find that the current line has been repositioned to the middle of 
 the screen.
 
 If the line number is restored correctly, but the shift in screen view is 
@@ -49,17 +49,17 @@ correctly:
 
 The above logic works around a couple of issues with the simpler original 
 logic below. First, the view is restored only when the cursor is at 
-start-of-file during the BufEnter event. This prevents old saved settings from 
-overriding a newly selected cursor position when the user scrolls an inactive 
-window with the mouse wheel and clicks in that inactive window. When switching 
-buffers within one window, Vim first sets the cursor position to the start of 
-the file, then fires a BufEnter event; afterward, if no autocmd has changed 
-the cursor position, Vim restores the cursor position based on values saved in 
-its internal data structures. In contrast, when switching to another window 
-the cursor position is not forced to the start of the file; this includes the 
-case when the user scrolls and clicks with the mouse. The logic in 
-AutoRestoreWinView() therefore restores the view only when the cursor is at 
-start-of-file.
+start-of-file during the `BufEnter` event. This prevents old saved settings 
+from overriding a newly selected cursor position when the user scrolls an 
+inactive window with the mouse wheel and clicks in that inactive window. When 
+switching buffers within one window, Vim first sets the cursor position to the 
+start of the file, then fires a `BufEnter` event; afterward, if no `autocmd` 
+has changed the cursor position, Vim restores the cursor position based on 
+values saved in its internal data structures. In contrast, when switching to 
+another window the cursor position is not forced to the start of the file; 
+this includes the case when the user scrolls and clicks with the mouse. The 
+logic in `AutoRestoreWinView()` therefore restores the view only when the 
+cursor is at start-of-file.
 
 Secondly, the view settings are stored on a per-buffer, per-window basis, 
 allow the user to maintain two independent cursor positions for one buffer 
@@ -75,7 +75,7 @@ Here is the original logic for historical reference:
     endif
 <
 
-Alternatively a user can :set scrolloff=999 which keeps the current line 
+Alternatively a user can `:set scrolloff=999` which keeps the current line 
 vertically centered.
 
 SEE ALSO                                                   *vwt-1375-see-also*

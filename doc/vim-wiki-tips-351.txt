@@ -76,7 +76,7 @@ ie.
 <
 
 I work in embedded system and a lot of time our only debugging tool for code 
-is printf. Not all of us have in circuit emulators available to us.
+is `printf`. Not all of us have in circuit emulators available to us.
 
 And like you said, this is debugging. The code does not go live with 
 debugging statements, they are removed.

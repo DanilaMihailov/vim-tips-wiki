@@ -10,7 +10,7 @@ created
 
 Often when you enter a blank line by pressing Enter twice in insert mode, Vim 
 removes the indent from the blank line and your cursor moves back to column 1. 
-Likewise, if you position the cursor on a blank line and press letter o to 
+Likewise, if you position the cursor on a blank line and press letter `o` to 
 open a new line below it, Vim does not open that line with any indent. Often, 
 though, you want to use the same indent as the preceding non-blank line.
 
@@ -91,9 +91,9 @@ your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     augroup END
 <
 
-You can change the * in the au command at the bottom to make it apply to only 
-the filetypes you want, or put the part after the * in after scripts instead 
-of with the above. :help |after-directory|
+You can change the `*` in the `au` command at the bottom to make it apply to 
+only the filetypes you want, or put the part after the `*` in after scripts 
+instead of with the above. :help |after-directory|
 
 It works by 'wrapping' your indentexpr in another. The script sets the 
 indentexpr to its own function, which adjusts the cursor position and 

@@ -6,16 +6,16 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-Vim provides the :s (substitute) command for search and replace; this tip 
+Vim provides the `:s` (substitute) command for search and replace; this tip 
 shows examples of how to substitute. On some systems, gvim has Find and 
 Replace on the Edit menu (:help |:promptrepl|), however it is easier to use 
-the :s command due to its command line history |vwt-45| and ability to insert 
-text (for example, the word under the cursor) into the search or replace 
-fields.
+the `:s` command due to its command line history |vwt-45| and ability to 
+insert text (for example, the word under the cursor) into the search or 
+replace fields.
 
 BASIC SEARCH AND REPLACE                     *vwt-31-basic-search-and-replace*
 
-The :substitute command searches for a text pattern |vwt-188|, and replaces 
+The `:substitute` command searches for a text pattern |vwt-188|, and replaces 
 it with a text string. There are many options, but these are what you probably 
 want:
 
@@ -41,33 +41,33 @@ Change each 'foo' (case sensitive due to the I flag) to 'bar'; ask for confirmat
 :%s/foo\C/bar/gc is the same because \C makes the search case sensitive.
 This may be wanted after using :set ignorecase to make searches case insensitive.
 
-The g flag means global – each occurrence in the line is changed, rather than 
-just the first. This tip assumes the default setting for the 'gdefault' and 
-'edcompatible' option (off), which requires that the g flag be included in 
-%s///g to perform a global substitute. Using :set gdefault creates confusion 
-because then %s/// is global, whereas %s///g is not (that is, g reverses its 
-meaning).
+The `g` flag means global – each occurrence in the line is changed, rather 
+than just the first. This tip assumes the default setting for the 'gdefault' 
+and 'edcompatible' option (off), which requires that the `g` flag be included 
+in `%s///g` to perform a global substitute. Using `:set gdefault` creates 
+confusion because then `%s///` is global, whereas `%s///g` is not (that is, 
+`g` reverses its meaning).
 
-When using the c flag, you need to confirm for each match what to do. Vim 
-will output something like:replace with foobar (y/n/a/q/l/^E/^Y)?(where foobar 
-is the replacement part of the :s/.../.../ command. You can type y which means 
-to substitute this match, n to skip this match, a to substitute this and all 
-remaining matches ("all" remaining matches), q to quit the command, l to 
-substitute this match and quit (think of "last"), ^E to scroll the screen up 
-by holding the Ctrl key and pressing E and ^Y to scroll the screen down by 
-holding the Ctrl key and pressing Y. However, the last two choices are only 
-available, if your Vim is a normal, big or huge built or the insert_expand 
-feature was enabled at compile time (look for +insert_expand in the output of 
-:version).
+When using the `c` flag, you need to confirm for each match what to do. Vim 
+will output something like:`replace with foobar (y/n/a/q/l/^E/^Y)?`(where 
+foobar is the replacement part of the `:s/.../.../` command. You can type `y` 
+which means to substitute this match, `n` to skip this match, `a` to 
+substitute this and all remaining matches ("all" remaining matches), `q` to 
+quit the command, `l` to substitute this match and quit (think of "last"), 
+`^E` to scroll the screen up by holding the Ctrl key and pressing E and `^Y` 
+to scroll the screen down by holding the Ctrl key and pressing Y. However, the 
+last two choices are only available, if your Vim is a normal, big or huge 
+built or the insert_expand feature was enabled at compile time (look for 
+`+insert_expand` in the output of `:version`).
 
-Also when using the c flag, Vim will jump to the first match it finds 
+Also when using the `c` flag, Vim will jump to the first match it finds 
 starting from the top of the buffer and prompt you for confirmation to perform 
-replacement on that match. Vim applies the IncSearch highlight group to the 
+replacement on that match. Vim applies the `IncSearch` highlight group to the 
 matched text to give you a visual cue as to which match it is operating on 
-(set to reverse by default for all three term types as of Vim 7.3). 
+(set to `reverse` by default for all three term types as of Vim 7.3). 
 Additionally, if more than one match is found and you have search highlighting 
-enabled with :set hlsearch, Vim highlights the remaining matches with the 
-Search highlight group. If you do use search highlighting, you should make 
+enabled with `:set hlsearch`, Vim highlights the remaining matches with the 
+`Search` highlight group. If you do use search highlighting, you should make 
 sure that these two highlight groups are visually distinct or you won't be 
 able to easily tell which match Vim is prompting you to substitute.
 
@@ -99,8 +99,8 @@ You can use other delimiters with substitute:
 
 :s#http://www.example.com/index.html#http://example.com/#
 
-Save typing by using \zs and \ze to set the start and end of a pattern. For 
-example, instead of:
+Save typing by using `\zs` and `\ze` to set the start and end of a pattern. 
+For example, instead of:
 
 :s/Copyright 2007 All Rights Reserved/Copyright 2008 All Rights Reserved/
 
@@ -270,11 +270,12 @@ some of the related tips (but don't make the result too complex). I included
 the tip numbers to help editors keep track.
 
 Want a short section mentioning that simple substitutes are often best 
-handled by searching then manually changing (and pressing . to repeat the last 
-change). Additionally, you can decide how to change each instance. See Copy or 
-change search hit [https://vim.fandom.com/wiki/Copy_or_change_search_hit] for 
-a technique where you can press n to find the next instance, then type cs to 
-change the search hit to whatever.
+handled by searching then manually changing (and pressing `.` to repeat the 
+last change). Additionally, you can decide how to change each instance. See 
+Copy or change search hit 
+[https://vim.fandom.com/wiki/Copy_or_change_search_hit] for a technique where 
+you can press `n` to find the next instance, then type `cs` to change the 
+search hit to whatever.
 
 ==============================================================================
 

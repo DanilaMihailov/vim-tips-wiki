@@ -6,10 +6,10 @@ created 2003 · complexity intermediate · author Yakov Lerner · version 6.0
 
 ==============================================================================
 
-The :scriptnames command can be used to list the scripts that Vim has loaded. 
-This tip provides information on how to list scripts that Vim failed to load. 
-In addition, a user command is provided to list loaded scripts in a scratch 
-buffer which you can search and edit (convenient for use of gf 
+The `:scriptnames` command can be used to list the scripts that Vim has 
+loaded. This tip provides information on how to list scripts that Vim failed 
+to load. In addition, a user command is provided to list loaded scripts in a 
+scratch buffer which you can search and edit (convenient for use of gf 
 [https://vim.fandom.com/wiki/Open_file_under_cursor] to edit scripts).
 
 LISTING LOADED SCRIPTS                        *vwt-515-listing-loaded-scripts*
@@ -23,7 +23,7 @@ loaded implicitly at startup, enter:
 
 The list does not include "would-be scripts" (scripts that Vim tried to open 
 but which failed without warning, perhaps because the script could not be 
-found). To see the "would-be" scripts use the -V option when starting Vim:
+found). To see the "would-be" scripts use the `-V` option when starting Vim:
 
 >
     vim -V
@@ -39,20 +39,20 @@ files (but not the location of system/personal plugins):
 LISTING TO A SCRATCH BUFFER              *vwt-515-listing-to-a-scratch-buffer*
 
 The following code (for your vimrc [https://vim.fandom.com/wiki/Vimrc]) 
-defines the :Scriptnames user command to list loaded scripts in a scratch 
-buffer which you can search and edit. I.e. it wraps the built-in :scriptnames 
-command to place the output in a buffer instead of just displaying it 
-on-screen so that you can now manipulate the output. For example, this lets 
-you put the cursor on the name of a script, and type gf ("goto file") to show 
-that script.
+defines the `:Scriptnames` user command to list loaded scripts in a scratch 
+buffer which you can search and edit. I.e. it wraps the built-in 
+`:scriptnames` command to place the output in a buffer instead of just 
+displaying it on-screen so that you can now manipulate the output. For 
+example, this lets you put the cursor on the name of a script, and type `gf` 
+("goto file") to show that script.
 
-The :Scriptnames command takes an argument which is a pattern to match the 
+The `:Scriptnames` command takes an argument which is a pattern to match the 
 names of scripts of interest. Lines which do not contain the given argument 
-are removed from the list. For example, entering :Scriptnames surround will 
+are removed from the list. For example, entering `:Scriptnames surround` will 
 list all scripts which contain "surround" in the path name of the script.
 
-Create file ~/.vim/plugin/scriptnames.vim (Unix) or 
-$HOME/vimfiles/plugin/scriptnames.vim (Windows) containing the script below, 
+Create file `~/.vim/plugin/scriptnames.vim` (Unix) or 
+`$HOME/vimfiles/plugin/scriptnames.vim` (Windows) containing the script below, 
 then restart Vim.
 
 >

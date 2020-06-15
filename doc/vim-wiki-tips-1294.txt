@@ -7,7 +7,7 @@ created 2006 · complexity basic · author vagusri · version 5.7
 ==============================================================================
 
 I had been searching for a way to ignore white spaces while using vimdiff. 
-Unfortunately, vimdiff -h yields the generic Vim help. I finally found that 
+Unfortunately, `vimdiff -h` yields the generic Vim help. I finally found that 
 including the following line in vimrc solves the problem.
 
 >

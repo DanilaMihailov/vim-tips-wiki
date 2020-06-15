@@ -7,8 +7,8 @@ created 2002 · complexity intermediate · author Edwin · version 6.0
 ==============================================================================
 
 I wanted to start using folding without having to get used to seeing the 
-(default) markers, aka {{{ and }}}. So, here are two autocmds that will make 
-them fade to black (bg=black, fg=black). Alternatively, you could use the 
+(default) markers, aka `{{{` and `}}}`. So, here are two autocmds that will 
+make them fade to black (bg=black, fg=black). Alternatively, you could use the 
 Ignore highlighting group.
 
 Method 1:

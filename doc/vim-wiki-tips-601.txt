@@ -25,9 +25,10 @@ simplicity here):
     second   two.txt   /\%1200l\%56c/
 <
 
-These define two tags: tag first refers to file one.txt at line 12, column 34 
-(where 1 is the first line and the first column). The last field is a search 
-pattern where \%12l identifies line 12 and \%34c identifies column 34.
+These define two tags: tag `first` refers to file `one.txt` at line 12, 
+column 34 (where 1 is the first line and the first column). The last field is 
+a search pattern where `\%12l` identifies line 12 and `\%34c` identifies 
+column 34.
 
 EXAMPLE                                                      *vwt-601-example*
 
@@ -79,16 +80,16 @@ The above script can be used like this:
     call setline(1, MakeTags('*.txt', '\<\h\w*'))
 <
 
-All *.txt files in the current directory are searched, and each hit (matching 
-text, file, line, column) creates an item in the resulting tags file. The 
-example places the tags lines in a new buffer, which would generally be saved 
-to a file called tags (no extension). Each line will be similar to the example 
-shown earlier.
+All `*.txt` files in the current directory are searched, and each hit 
+(matching text, file, line, column) creates an item in the resulting tags 
+file. The example places the tags lines in a new buffer, which would generally 
+be saved to a file called `tags` (no extension). Each line will be similar to 
+the example shown earlier.
 
-The pattern \<\h\w* finds all words (actually program identifiers): \< is the 
-beginning of a word; \h is [A-Za-z_]; \w is [0-9A-Za-z_].
+The pattern `\<\h\w*` finds all words (actually program identifiers): `\<` is 
+the beginning of a word; `\h` is `[A-Za-z_]`; `\w` is `[0-9A-Za-z_]`.
 
-The while 1 loop exits when no match occurs (p1 < 0).
+The `while 1` loop exits when no match occurs (`p1 < 0`).
 
 COMMENTS                                                    *vwt-601-comments*
 

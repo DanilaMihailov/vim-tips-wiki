@@ -28,17 +28,17 @@ are unsaved changes:
     :up
 <
 
-Analogously to :wq, Vim provides a way to save your file (only if there are 
+Analogously to `:wq`, Vim provides a way to save your file (only if there are 
 unsaved changes) and exit Vim at the same time with:
 
 >
     :x
 <
 
-The difference between {:w, :wq} and {:up, :x} is that the former always 
-writes the buffer to a file even when there are no unsaved changes, so that 
-the last modified timestamp is always updated. The latter commands will not 
-update the last modified timestamp unless the buffer was modified.
+The difference between {`:w`, `:wq`} and {`:up`, `:x`} is that the former 
+always writes the buffer to a file even when there are no unsaved changes, so 
+that the last modified timestamp is always updated. The latter commands will 
+not update the last modified timestamp unless the buffer was modified.
 
 You can save all modified buffers (all open files) with:
 

@@ -36,8 +36,8 @@ edit it, you can create a map by putting the following command in your vimrc
     map @@x !%xmllint --format --recover -^M
 <
 
-When you are in command mode and press @@x, Vim will run all of the lines in 
-the current file through the xmllint command.
+When you are in command mode and press `@@x`, Vim will run all of the lines 
+in the current file through the `xmllint` command.
 
 XMLLINT AS A FILTER                              *vwt-349-xmllint-as-a-filter*
 
@@ -118,11 +118,11 @@ the file:
     :% !xmllint.exe "%" --format
 <
 
-The first % ensures the content of the open file is replaced with the results 
-of passing through xmllint. The order of the second % and the flag --format is 
-important as otherwise xmllint will try to open a file with the name 
-"--format". The quotes around the second % allow file paths that include 
-spaces to be passed to xmllint.
+The first `%` ensures the content of the open file is replaced with the 
+results of passing through xmllint. The order of the second `%` and the flag 
+`--format` is important as otherwise xmllint will try to open a file with the 
+name "--format". The quotes around the second `%` allow file paths that 
+include spaces to be passed to xmllint.
 
 Binaries
     - http://www.zlatkovic.com/projects/libxml/ 

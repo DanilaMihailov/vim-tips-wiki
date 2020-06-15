@@ -14,8 +14,8 @@ patches.
 Often there are questions on how to capture every key press from a user. The 
 answer is that you can't, unless you map all keys. But even if you map all 
 keys, it is not flexible enough. Here is a trick with recursive <expr> maps 
-and getchar() to have all keys pass through your function. You can do whatever 
-you want with the keys, swallow them or pass them to Vim.
+and `getchar()` to have all keys pass through your function. You can do 
+whatever you want with the keys, swallow them or pass them to Vim.
 
 Here is a demo that shows how to use it in insert mode. What the function 
 does is to double every key you press, except <Esc> and <C-C>, when it breaks 

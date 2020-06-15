@@ -16,7 +16,7 @@ METHOD 1                                                    *vwt-184-method-1*
 
 By adding the following to your vimrc file this method will rot13 encode your 
 text when you hit the F3 key. This encoding can be reversed by using the F3 
-key again or undoing with u.
+key again or undoing with `u`.
 
 >
     map <F3> ggg?G
@@ -27,16 +27,17 @@ set a-z and A-Z.
 
 METHOD 2                                                    *vwt-184-method-2*
 
-This method also rot13s your buffer when typing \r after adding the following 
-to the vimrc file:
+This method also rot13s your buffer when typing `\r` after adding the 
+following to the vimrc file:
 
 >
     noremap <Leader>r ggg?G``
 <
 
 As with all rot13, this works best with the English character set a-z and 
-A-Z. To reverse, simple hit \r again because rot13 is a symmetrical algorithm, 
-the characters will return to normal. Or as mentioned before, simply hit u.
+A-Z. To reverse, simple hit `\r` again because rot13 is a symmetrical 
+algorithm, the characters will return to normal. Or as mentioned before, 
+simply hit `u`.
 
 METHOD 3                                                    *vwt-184-method-3*
 
@@ -55,7 +56,7 @@ appropriately.
 
 COMMENTS                                                    *vwt-184-comments*
 
-I would also :se rl! to make punctuations
+I would also `:se rl!` to make punctuations
 
 ==============================================================================
 

@@ -8,13 +8,13 @@ created 2001 · complexity intermediate · author Mary Ellen Foster · version
 ==============================================================================
 
 If you want to use Vim's syntax highlighting in a pager, here's how. Since 
-version 6, Vim comes with a script $VIMRUNTIME/macros/less.sh, and this gives 
-syntax highlighting in a pager. See :help |less|.
+version 6, Vim comes with a script `$VIMRUNTIME/macros/less.sh`, and this 
+gives syntax highlighting in a pager. See :help |less|.
 
 The original tip (below) was for a "more"-style pager. It is kept here 
 because it explains the principles nicely.
 
-First, create a vimrc like the following – I called mine ~/.vimrc.more
+First, create a vimrc like the following – I called mine `~/.vimrc.more`
 
 >
     " No compatibility – necessary for mappings to work.
@@ -53,9 +53,9 @@ willbe something like:
     alias vmore "vim -u ~/.vimrc.more -"
 <
 
-Then you can type program | vmore to view program's output in this "pager". 
-Spacebar will move down, 'b' will move back up, and 'q' quits. You can add 
-mappings for other keys if you want to, also.
+Then you can type `program | vmore` to view `program`'s output in this 
+"pager". Spacebar will move down, 'b' will move back up, and 'q' quits. You 
+can add mappings for other keys if you want to, also.
 
 Those who like to use Vim as a viewer might want to see Using Vim as a 
 man-page viewer under Unix |vwt-167|.

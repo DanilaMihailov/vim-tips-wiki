@@ -24,7 +24,7 @@ debian.vim.
 
 REQUIREMENTS                                           *vwt-1628-requirements*
 
-The code in this example .vimrc requires a full featured Vim. While it is 
+The code in this example `.vimrc` requires a full featured Vim. While it is 
 possible to insert checks to omit some settings for Vim binaries with fewer 
 features, that would make the file more complex and hard to understand.
 

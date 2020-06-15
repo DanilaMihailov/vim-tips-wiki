@@ -10,7 +10,7 @@ Here is one use of substitute with an expression (:help
 |sub-replace-expression|).
 
 I needed to sort a file according to the number of words in each line. Using 
-the :s command, I inserted the number of words each line contains, at the 
+the `:s` command, I inserted the number of words each line contains, at the 
 beginning of the line.
 
 To simplify sorting (using the excellent VisSort 

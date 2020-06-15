@@ -22,7 +22,7 @@ Here's a twisted one
     let @y='yy@"'
 <
 
-The command is executed by doing a @m
+The command is executed by doing a `@m`
 
 You can overwrite them of course when doing a recording or a plain yank; I 
 prefer to leave registers a-q for yanks or recordings and preload the others.

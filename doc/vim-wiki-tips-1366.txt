@@ -8,7 +8,7 @@ created 2006 · complexity intermediate · author Cory · version 6.0
 
 FIRST METHOD                                           *vwt-1366-first-method*
 
-Add this to your vimrc so you can type :PrettyXML and automatically 
+Add this to your vimrc so you can type `:PrettyXML` and automatically 
 pretty-format XML. Requires the command 'xmllint' in your PATH.
 
 Note that this ignores significant whitespace! The result will be more 
@@ -50,7 +50,7 @@ SECOND METHOD                                         *vwt-1366-second-method*
 
 This method requires only python3!
 
-Add this to your vimrc and type :FormatXML or =.
+Add this to your vimrc and type `:FormatXML `or `=`.
 
 >
     com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"

@@ -43,7 +43,7 @@ Use the extract method refactoring to make a composed method.
 
 I use a Vim function (see below) to build the extracted method.
 
-I highlight the code part I want to extract and press \em (for extract 
+I highlight the code part I want to extract and press `\em` (for extract 
 method).
 
 A dialog appears and asks me how to name the new method.
@@ -139,7 +139,7 @@ work." He just uses fields instead.
 With Vim it is no problem to write a property, that is, to use the Self 
 Encapsulate Field refactoring.
 
-I write a name e.g. Name press CTRL-C CTRL-P CTRL-S (create property with 
+I write a name e.g. `Name` press `CTRL-C CTRL-P CTRL-S` (create property with 
 string). Voila, the new property appears in just a second:
 
 >
@@ -186,9 +186,9 @@ all these classes ..."
 
 With Vim it's just a question of a few seconds.
 
-To build the abstract class I type, say Fruit.
+To build the abstract class I type, say `Fruit`.
 
-Then I press CTRL-C CTRL-A CTRL-C (create abstract class) and get
+Then I press `CTRL-C CTRL-A CTRL-C` (create abstract class) and get
 
 >
     public abstract class Fruit
@@ -209,11 +209,11 @@ Now I fill in the methods.
     }
 <
 
-Now I go on the first letter of Fruit and type CTRL-C CTRL-C CTRL-C (create 
-concrete class).
+Now I go on the first letter of `Fruit` and type `CTRL-C CTRL-C CTRL-C` 
+(create concrete class).
 
 A dialog appears and asks me for the new name of the concrete class. I type 
-in Apple and get
+in `Apple` and get
 
 >
     public class Apple : Fruit
@@ -281,8 +281,8 @@ Here is a variation
 This will create a property from a <type> <Field Name>. This alleviates the 
 need for multiple mappings for each data type in the vimrc file
 
-So if you want to create a property from Rectangle Box just press <C-c><C-p> 
-and you get
+So if you want to create a property from `Rectangle Box` just press 
+<C-c><C-p> and you get
 
 >
     private Rectangle m_Box;

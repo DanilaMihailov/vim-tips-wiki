@@ -7,7 +7,7 @@ created 2003 · complexity basic · author Raj Kiran · version 5.7
 ==============================================================================
 
 You don't need to use the slash character as the expression delimiter. 
-Whatever character follows the :s is defined to be the delimiter character. 
+Whatever character follows the `:s` is defined to be the delimiter character. 
 You can use most non-alphanumeric characters (but not \, " or |). This is very 
 handy when working with Unix filenames, as in the following example:
 

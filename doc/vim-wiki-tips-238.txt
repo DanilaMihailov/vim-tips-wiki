@@ -7,10 +7,10 @@ created 2002 · complexity basic · author Michel de Bree · version 6.0
 ==============================================================================
 
 I use the following code in my plugins directory to ease session persistence. 
-If I want my session to persist I use :mks! and then whenever I open the 
-session.vim file, my session is restored. If I am working from a restored 
+If I want my session to persist I use `:mks!` and then whenever I open the 
+`session.vim` file, my session is restored. If I am working from a restored 
 session and I close Vim, the session is saved automatically. Drawback is that 
-it makes editing session.vim a bit cumbersome.
+it makes editing `session.vim` a bit cumbersome.
 
 >
     au BufRead session.vim so %

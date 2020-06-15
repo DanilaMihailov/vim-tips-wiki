@@ -57,9 +57,9 @@ REFERENCES                                               *vwt-1249-references*
 
 COMMENTS                                                   *vwt-1249-comments*
 
-I do the same thing except I map @a, @b and @c to the function keys F2, F3 
-and F4. This way it's even less keystrokes plus you can have three macros at 
-your fingertips instead of just the one.
+I do the same thing except I map `@a`, `@b` and `@c` to the function keys F2, 
+F3 and F4. This way it's even less keystrokes plus you can have three macros 
+at your fingertips instead of just the one.
 
 To map the F2 function key, put this in your vimrc file:
 
@@ -69,8 +69,8 @@ To map the F2 function key, put this in your vimrc file:
 
 ==============================================================================
 
-Or map F2 to @@. That way you only have to invoke a macro once explicitly 
-like @a, then repeat it by pressing F2.
+Or map F2 to `@@`. That way you only have to invoke a macro once explicitly 
+like `@a`, then repeat it by pressing F2.
 
 ==============================================================================
 

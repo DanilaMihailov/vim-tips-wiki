@@ -29,22 +29,22 @@ This tip shows how to build Vim with or without a Python interface. Python is
 optional, and not needed for normal Vim.
 
 Vim can be compiled to provide an interface so that Vim scripts can be 
-written in Python, and so that Vim commands like :py print 2**1024 work. If an 
-interface between Vim and Python is wanted, Python needs to be installed 
+written in Python, and so that Vim commands like `:py print 2**1024` work. If 
+an interface between Vim and Python is wanted, Python needs to be installed 
 separately, and Vim needs to be compiled with support for the version of 
 Python used. Vim can be configured to work with Python 2.x or 3.x or both 
 (although the 3.x configuration is newer and less tested).
 
 To determine whether a particular installation of Vim supports Python, enter 
-the command :version in Vim. If the output includes +python/dyn (with "+") 
-then Python 2.x is supported, and the DLL file specified in the link command 
-shown in the output will be dynamically loaded if needed. If the output 
-includes +python3/dyn then Python 3.x is supported, and the Python 3 DLL file 
-shown in the output will be dynamically loaded if needed. On Windows, dynamic 
-loading is standard with the result that although Python needs to be installed 
-to build Vim, the resulting Vim executable can be run on a system with no 
-Python (Vim would work, but attempting to use the Python interface would 
-fail).
+the command `:version` in Vim. If the output includes `+python/dyn` (with 
+"`+`") then Python 2.x is supported, and the DLL file specified in the link 
+command shown in the output will be dynamically loaded if needed. If the 
+output includes `+python3/dyn` then Python 3.x is supported, and the Python 3 
+DLL file shown in the output will be dynamically loaded if needed. On Windows, 
+dynamic loading is standard with the result that although Python needs to be 
+installed to build Vim, the resulting Vim executable can be run on a system 
+with no Python (Vim would work, but attempting to use the Python interface 
+would fail).
 
 REQUIRED TOOLS                                       *vwt-1673-required-tools*
 
@@ -102,20 +102,20 @@ Directory \myname\bin
 Will hold some files used when building, as well as the Vim executable and runtime files used to run Vim. The intention is that myname holds programs or other files that are wanted on several different computers. Make a master copy on one computer, then copy the master to other computers. No installation will be required on the other computers, apart from adjusting the PATH. The bin directory can contain any simple tools that do not need installation, although for this tip it will only contain two batch files. The Vim files will be installed in a subdirectory.
 Replace "myname" with whatever you like, however if the path contains spaces, more care will be needed.
 
-In a command prompt window, enter the following to make the current and build 
-directories (the vim subdirectory will be created later).
+In a command prompt window, enter the following to make the `current` and 
+`build` directories (the `vim` subdirectory will be created later).
 
 >
     md \current\build
 <
 
-Enter the following to make the myname and bin directories.
+Enter the following to make the `myname` and `bin` directories.
 
 >
     md \myname\bin
 <
 
-Create file \myname\bin\vimconfig.cmd with contents as follows, if a Python 
+Create file `\myname\bin\vimconfig.cmd` with contents as follows, if a Python 
 interface is not wanted:
 
 >
@@ -134,7 +134,7 @@ Alternatively, use the following contents if a Python interface is wanted
     set PYTHON_VER=27
 <
 
-If installing with Python 3 and above, replace PYTHON with PYTHON3:
+If installing with Python 3 and above, replace `PYTHON` with `PYTHON3`:
 
 >
     :: Set environment for wanted options before building Vim.
@@ -157,7 +157,7 @@ Additional options could be:
 More information on the build options is available here 
 |http://vimdoc.sourceforge.net/howto/win32-compile/Vim-Compile-Win32-HOWTO/compiling.html|.
 
-Create file \myname\bin\vimcopy.cmd with contents as follows:
+Create file `\myname\bin\vimcopy.cmd` with contents as follows:
 
 >
     :: Copy any new Vim exe + runtime files to current install.
@@ -171,10 +171,10 @@ Create file \myname\bin\vimcopy.cmd with contents as follows:
 
 VIM SOURCE AND RUNTIME FILES           *vwt-1673-vim-source-and-runtime-files*
 
-The following sets build as the current directory, then downloads the entire 
-Vim source and runtime files to a tree under the vim subdirectory (created by 
-the hg command). This is required once only, to get started, and will take a 
-few minutes.
+The following sets `build` as the current directory, then downloads the 
+entire Vim source and runtime files to a tree under the `vim` subdirectory 
+(created by the `hg` command). This is required once only, to get started, and 
+will take a few minutes.
 
 >
     cd \current\build
@@ -199,8 +199,8 @@ discard your changes.
 
 BUILDING VIM                                           *vwt-1673-building-vim*
 
-After the initial clone (hg clone) or update (hg pull -u), the executable Vim 
-programs can be built with the following.
+After the initial clone (`hg clone`) or update (`hg pull -u`), the executable 
+Vim programs can be built with the following.
 
 >
     cd \current\build\vim\src
@@ -210,25 +210,25 @@ programs can be built with the following.
 <
 
 These commands use:
-    - File \current\build\vim\src\msvc2010.bat supplied with Vim. This calls file 
-      vsvars32.bat (installed with Visual Studio) to configure environment variables 
-      to allow building at the command prompt. 
-    - File \myname\bin\vimconfig.cmd (created in an earlier step) to configure 
+    - File `\current\build\vim\src\msvc2010.bat` supplied with Vim. This calls file 
+      `vsvars32.bat` (installed with Visual Studio) to configure environment 
+      variables to allow building at the command prompt. 
+    - File `\myname\bin\vimconfig.cmd` (created in an earlier step) to configure 
       environment variables for the options wanted while building Vim. 
-    - File nmake.exe (installed with Visual Studio) to compile and link Vim. 
+    - File `nmake.exe` (installed with Visual Studio) to compile and link Vim. 
 
 
-The above builds programs gvim.exe (GUI Vim), vimrun.exe (to run external 
-commands from Vim), and xxd.exe (to display binary files in hex 
-[https://vim.fandom.com/wiki/Hex_dump]). If wanted, you can also build vim.exe 
-(console Vim, to run in a command prompt window) with:
+The above builds programs `gvim.exe` (GUI Vim), `vimrun.exe` (to run external 
+commands from Vim), and `xxd.exe` (to display binary files in hex 
+[https://vim.fandom.com/wiki/Hex_dump]). If wanted, you can also build 
+`vim.exe` (console Vim, to run in a command prompt window) with:
 
 >
     cd \current\build\vim\src
     nmake -f Make_mvc.mak gui=no
 <
 
-If wanted, you can change the options used to build Vim (see Make_mvc.mak). 
+If wanted, you can change the options used to build Vim (see `Make_mvc.mak`). 
 However, the old build files must be "cleaned" (deleted, so the new build will 
 not use a mixture of files from the old and new configurations). Clean with 
 the following.
@@ -245,15 +245,15 @@ CONFIGURING VIM                                     *vwt-1673-configuring-vim*
 Vim is usually configured with a vimrc [https://vim.fandom.com/wiki/Vimrc] 
 file and with runtime files set by the user (in addition to the runtime files 
 provided with Vim). Generally the user config files are under the $HOME 
-directory. Vim sets its $HOME variable from the environment variable HOME, if 
-defined, or, more commonly on Windows systems, by joining variables HOMEDRIVE 
-and HOMEPATH.
+directory. Vim sets its $HOME variable from the environment variable `HOME`, 
+if defined, or, more commonly on Windows systems, by joining variables 
+`HOMEDRIVE` and `HOMEPATH`.
 
 By default, a user logged on as Myname on a Windows XP system will have 
-C:\Documents and Settings\Myname as their $HOME directory. On some systems, 
-that location can be changed by running lusrmgr.msc: display the Properties of 
-the user; on the Profile tab, set "Home folder, Local path" to be any wanted 
-directory (for example C:\myname).
+`C:\Documents and Settings\Myname` as their $HOME directory. On some systems, 
+that location can be changed by running `lusrmgr.msc`: display the Properties 
+of the user; on the Profile tab, set "Home folder, Local path" to be any 
+wanted directory (for example `C:\myname`).
 
 In Vim, you can display the value of $HOME by entering:
 
@@ -261,7 +261,7 @@ In Vim, you can display the value of $HOME by entering:
     :echo $HOME
 <
 
-Create file $HOME/_vimrc with your preferred settings, for example:
+Create file `$HOME/_vimrc` with your preferred settings, for example:
 
 >
     set nocompatible
@@ -295,23 +295,24 @@ See disable beeping [https://vim.fandom.com/wiki/Disable_beeping] for
 information on the 'visualbell' option, and see example vimrc 
 [https://vim.fandom.com/wiki/Example_vimrc] for further ideas.
 
-As an example of a configuration file, create file python.vim in the 
-directory $HOME\vimfiles\after\ftplugin (you will need to create the vimfiles 
-and after and ftplugin directories). The file should contain:
+As an example of a configuration file, create file `python.vim` in the 
+directory `$HOME\vimfiles\after\ftplugin` (you will need to create the 
+`vimfiles` and `after` and `ftplugin` directories). The file should contain:
 
 >
     setlocal expandtab
 <
 
 After creating the directories, you can enter this command in Vim to create 
-the file (~ is the same as $HOME):
+the file (`~` is the same as `$HOME`):
 
 >
     :e ~\vimfiles\after\ftplugin\python.vim
 <
 
-The effect of this example is that, when editing *.py files, the 'expandtab' 
-option will be set, so spaces will be inserted when the Tab key is pressed.
+The effect of this example is that, when editing `*.py` files, the 
+'expandtab' option will be set, so spaces will be inserted when the Tab key is 
+pressed.
 
 INSTALLING VIM                                       *vwt-1673-installing-vim*
 
@@ -324,8 +325,8 @@ running.
     \myname\bin\vimcopy.cmd
 <
 
-This uses file vimcopy.cmd (created in an earlier step) to copy the Vim files 
-from the build directory to directory C:\myname\bin\vim\vim73 (and 
+This uses file `vimcopy.cmd` (created in an earlier step) to copy the Vim 
+files from the build directory to directory `C:\myname\bin\vim\vim73` (and 
 subdirectories).
 
 Vim can now be run in a command prompt window, although it is necessary to 
@@ -338,19 +339,19 @@ adjust the PATH:
 
 To permanently update the PATH, run System Properties: on the Advanced tab, 
 click Environment Variables. An administrator can edit "Path" under System 
-variables (which will apply to all users). Append ;C:\myname\bin\vim\vim73 to 
-the existing PATH.
+variables (which will apply to all users). Append `;C:\myname\bin\vim\vim73` 
+to the existing PATH.
 
-If other tools are placed in the bin directory, also append ;C:\myname\bin to 
-the PATH. If that is done, the "build" step can use vimconfig rather than 
-\myname\bin\vimconfig.cmd, and the "installing" step can use vimcopy rather 
-than \myname\bin\vimcopy.cmd
+If other tools are placed in the `bin` directory, also append 
+`;C:\myname\bin` to the PATH. If that is done, the "build" step can use 
+`vimconfig` rather than `\myname\bin\vimconfig.cmd`, and the "installing" step 
+can use `vimcopy` rather than `\myname\bin\vimcopy.cmd`
 
 It is possible to add an "Edit with Vim" entry to the Windows Explorer 
 context menu. If that is not wanted, installation is finished, and gvim can be 
 run from a command prompt window. It is also possible to drag and drop one or 
 more files from Windows Explorer to gvim and then to display each file in its 
-own tab by entering :tab sball.
+own tab by entering `:tab sball`.
 
 To add an "Edit with Vim" entry to the context menu, as an administrator open 
 a command prompt window and enter:
@@ -360,12 +361,12 @@ a command prompt window and enter:
     install
 <
 
-The install.exe program runs in a command prompt window and presents a series 
-of options regarding the actions that it will take. Actions can be configured 
-or disabled by responding to the prompts. One of the possible actions is to 
-generate a sample vimrc file which is not recommended. The option to add an 
-entry to the popup (context) menu only works when performed by an 
-administrator.
+The `install.exe` program runs in a command prompt window and presents a 
+series of options regarding the actions that it will take. Actions can be 
+configured or disabled by responding to the prompts. One of the possible 
+actions is to generate a sample vimrc file which is not recommended. The 
+option to add an entry to the popup (context) menu only works when performed 
+by an administrator.
 
 DIFF PROGRAM                                           *vwt-1673-diff-program*
 
@@ -377,14 +378,14 @@ accept the defaults, or install in a temporary directory that you will later
 delete (perhaps by running the uninstall program). If wanted, you can install 
 without administrative privileges: select "Don't create a Start Menu folder" 
 and click Ignore several times when setup fails to write to the registry. Copy 
-files diff.exe and *.dll from the resulting GnuWin32\bin subdirectory to a 
-directory that is in your PATH (you could use C:\myname\bin\vim\vim73 although 
-it would be better to use another directory for programs not distributed with 
-Vim).
+files `diff.exe` and `*.dll` from the resulting `GnuWin32\bin` subdirectory to 
+a directory that is in your PATH (you could use `C:\myname\bin\vim\vim73` 
+although it would be better to use another directory for programs not 
+distributed with Vim).
 
-If you have run the Vim install.exe program and used it to generate a sample 
-vimrc file, it will include set diffexpr=MyDiff() which is not wanted: remove 
-that line (and the MyDiff function) from vimrc.
+If you have run the Vim `install.exe` program and used it to generate a 
+sample vimrc file, it will include `set diffexpr=MyDiff()` which is not 
+wanted: remove that line (and the `MyDiff` function) from vimrc.
 
 COMMENTS                                                   *vwt-1673-comments*
 

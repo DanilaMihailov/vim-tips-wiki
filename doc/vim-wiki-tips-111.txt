@@ -15,15 +15,15 @@ created 2001 · complexity intermediate · author Aric Blumer · version 6.0
 
 ==============================================================================
 
-I have found it undesirable to use :hardcopy directly because it uses the 
+I have found it undesirable to use `:hardcopy` directly because it uses the 
 current syntax highlighting to determine how to print the text. For example, I 
 like to print comments in italics, but I don't like italic fonts on the 
 screen. This tip will show you how to set up a colorscheme for printing and 
 use it only when you print. This assumes that you are already using a 
 colorscheme.
 
-I copied an existing colorscheme to ~/.vim/colors/print.vim, and changed all 
-the lines like this:
+I copied an existing colorscheme to `~/.vim/colors/print.vim`, and changed 
+all the lines like this:
 
 >
     highlight Normal ctermbg=DarkGrey ctermfg=White guifg=White guibg=grey20

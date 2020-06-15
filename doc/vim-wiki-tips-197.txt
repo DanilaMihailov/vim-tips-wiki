@@ -7,7 +7,7 @@ created 2002 · complexity basic · author T. Zellerin · version 7.4
 ==============================================================================
 
 If you want to edit a new file in an already-running Vim, instead of 
-launching another instance, you may use --remote argument:
+launching another instance, you may use `--remote` argument:
 
 >
     gvim first_file

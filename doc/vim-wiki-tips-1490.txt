@@ -6,8 +6,8 @@ created 2007 · complexity basic · author Mosh · version n/a
 
 ==============================================================================
 
-I read lots of files each day, and use file ~/.vims to remember the important 
-ones.
+I read lots of files each day, and use file `~/.vims` to remember the 
+important ones.
 
 >
     function! MoshBookmark()
@@ -30,7 +30,7 @@ COMMENTS                                                   *vwt-1490-comments*
 
 TO DO Explain when to use above function and what idea is.
 
-To use the bookmark file, open it in Vim: vim ~/.vims
+To use the bookmark file, open it in Vim: `vim ~/.vims`
 
 Press gF when cursor is on a filename.
 

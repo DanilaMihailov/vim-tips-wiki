@@ -6,9 +6,9 @@ created 2005 · complexity basic · author Ulfalizer · version 6.0
 
 ==============================================================================
 
-Starting in normal mode, you can press O to insert a blank line before the 
-current line, or o to insert one after. O and o ("open") also switch to insert 
-mode so you can start typing.
+Starting in normal mode, you can press `O` to insert a blank line before the 
+current line, or `o` to insert one after. `O` and `o` ("open") also switch to 
+insert mode so you can start typing.
 
 To add 10 empty lines below the cursor in normal mode, type 10o<Esc> or to 
 add them above the cursor type 10O<Esc>.
@@ -34,18 +34,19 @@ cursor:
     - Alt-j inserts a blank line below the current line. 
     - Alt-k inserts a blank line above the current line. 
 
-    - m` sets the context mark to the current cursor position. 
-    - `` jumps to the context mark to restore the cursor position. 
-    - The g/^\s*$/ commands search for a line matching ^ (begin line), then zero or 
-      more occurrences of whitespace, then $ (end line), that is, blank lines. 
-    - \m sets the 'magic' option so the pattern will work regardless of the current 
-      'magic' option. 
-    - +g/pattern/d executes d (delete) on lines matching pattern in the range + (a 
-      single line after the current line). 
-    - :noh turns off any search highlighting. :help |:nohlsearch| 
-    - :set paste sets Paste mode to temporarily switch off auto indenting so 
-      program comments won't be inserted (for example, in a cpp file, o on a 
-      //comment may insert // on the next line). 
+    - `m`` sets the context mark to the current cursor position. 
+    - ```` jumps to the context mark to restore the cursor position. 
+    - The `g/^\s*$/` commands search for a line matching `^` (begin line), then 
+      zero or more occurrences of whitespace, then `$` (end line), that is, blank 
+      lines. 
+    - `\m` sets the 'magic' option so the pattern will work regardless of the 
+      current 'magic' option. 
+    - `+g/pattern/d` executes `d` (delete) on lines matching pattern in the range 
+      `+` (a single line after the current line). 
+    - `:noh` turns off any search highlighting. :help |:nohlsearch| 
+    - `:set paste` sets Paste mode to temporarily switch off auto indenting so 
+      program comments won't be inserted (for example, in a cpp file, `o` on a 
+      `//comment` may insert `//` on the next line). 
 
 
 SEE ALSO                                                   *vwt-1066-see-also*

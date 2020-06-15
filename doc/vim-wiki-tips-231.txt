@@ -19,7 +19,7 @@ WHICH FILE                                                *vwt-231-which-file*
 When using one instance of Vim to edit multiple files it can be easy to 
 switch to Vim from another application then start typing in the current buffer 
 which may not be for the intended file (requires Esc, undo, go to the other 
-buffer and . to redo).
+buffer and `.` to redo).
 
 One way to avoid this is to use a different color scheme depending on the 
 file you are working on:
@@ -30,12 +30,12 @@ file you are working on:
     au BufLeave * if (exists("b:current_colors")) | execute "colorscheme " . b:current_colors | endif
 <
 
-If you define b:colors_name with a particular color scheme name, then the 
+If you define `b:colors_name` with a particular color scheme name, then the 
 above autocommands will switch to that colorscheme when you enter that window, 
 and will return to the original color upon departure.
 
-Inside ftplugin/java.vim, for example, you might have let 
-b:colors_name=morning, causing all java files to have a distinguishing color 
+Inside `ftplugin/java.vim`, for example, you might have `let 
+b:colors_name=morning`, causing all java files to have a distinguishing color 
 scheme.
 
 WHICH DIRECTORY                                      *vwt-231-which-directory*
@@ -48,7 +48,7 @@ identify the directory of the current file:
     :autocmd BufEnter * if match(@%,'/otherdir/')>=0 | colorscheme oceanblack | else | colorscheme inkpot | end
 <
 
-Register |registers| @% contains the name of the current file.
+Register |registers| `@%` contains the name of the current file.
 
 The procedure does not work well for split windows (it might be better to use 
 BufWinEnter instead of BufEnter?).
@@ -110,7 +110,7 @@ vimrc or as a global |plugin|:
 <
     - Advantages: - Don't invoke the |:colorscheme| command if the desired 
       colorscheme is already set - When switching between buffers, both of which 
-      have b:colors_name set, don't load (even temporarily) the colorscheme which 
+      have `b:colors_name` set, don't load (even temporarily) the colorscheme which 
       was set before we entered the one we're now leaving - Handles the case when no 
       "default colorscheme" is set by the vimrc - "Degrades gracefully" when run on 
       feature-poor versions of Vim 

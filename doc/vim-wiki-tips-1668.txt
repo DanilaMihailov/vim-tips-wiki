@@ -9,13 +9,13 @@ February 11, 2011 · complexity basic · author Dorserg · version 7.0
 ==============================================================================
 
 By default, Cscope script [http://cscope.sourceforge.net/cscope_maps.vim] 
-adds cscope.out from Vim's current directory and from $CSCOPE_DB. However, if 
-you start Vim from say ~/proj/src/a/b/c/, while cscope.out is at ~/proj/src/, 
-that cscope.out won't be loaded automatically.
+adds `cscope.out` from Vim's current directory and from `$CSCOPE_DB`. However, 
+if you start Vim from say `~/proj/src/a/b/c/`, while `cscope.out` is at 
+`~/proj/src/`, that `cscope.out` won't be loaded automatically.
 
-For ctags, there is a nice trick: with the command :set tags=tags;/ Vim will 
-look for tags file everywhere starting from the current directory up to the 
-root.
+For ctags, there is a nice trick: with the command `:set tags=tags;/` Vim 
+will look for tags file everywhere starting from the current directory up to 
+the root.
 
 This tip provides the same "autoloading" functionality for Cscope. Just add 
 the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]:

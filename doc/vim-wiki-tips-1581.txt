@@ -28,9 +28,9 @@ that you may want to try.
 
 LAUNCHING VIM                                         *vwt-1581-launching-vim*
 
-In order to launch Vim, open a terminal, and type the command vim.You can 
-also open a file by specifying a name: vim foo.txt. If foo.txt exists, it will 
-be edited. Otherwise it will be created.
+In order to launch Vim, open a terminal, and type the command `vim`.You can 
+also open a file by specifying a name: `vim foo.txt`. If foo.txt exists, it 
+will be edited. Otherwise it will be created.
 
 INSERTING TEXT                                       *vwt-1581-inserting-text*
 
@@ -43,55 +43,56 @@ In normal mode, you can enter commands, for example, to copy, delete or
 indent text. You return to normal mode from other modes by pressing the Esc 
 key.
 
-You can enter insert mode from normal mode by pressing the i key. Now, text 
+You can enter insert mode from normal mode by pressing the `i` key. Now, text 
 you type will be inserted.
 
-You can enter visual mode from normal mode by pressing the v key. That starts 
-a visual selection.
+You can enter visual mode from normal mode by pressing the `v` key. That 
+starts a visual selection.
 
 There are several more ways to enter insert mode, depending on where you want 
 to insert the text:
-    - i insert at current location 
-    - a insert after current location (append) 
-    - I insert AT START of current line 
-    - A insert AFTER END of current line 
-    - o insert line below current line (open) 
-    - O insert line ABOVE current line 
-    - s delete character under cursor and start inserting in its place (substitute 
-      text) 
-    - S delete all text on line and start inserting in its place (substitute line) 
-    - cw delete to the end of current word and start inserting in its place (any 
-      movement command can be substituted for w) 
-    - cc same as S (change line) 
-    - C delete from the cursor to the end of line and start inserting at the cursor 
-      position 
+    - `i` insert at current location 
+    - `a` insert after current location (append) 
+    - `I` insert AT START of current line 
+    - `A` insert AFTER END of current line 
+    - `o` insert line below current line (open) 
+    - `O` insert line ABOVE current line 
+    - `s` delete character under cursor and start inserting in its place 
+      (substitute text) 
+    - `S` delete all text on line and start inserting in its place (substitute 
+      line) 
+    - `cw` delete to the end of current word and start inserting in its place (any 
+      movement command can be substituted for `w`) 
+    - `cc` same as S (change line) 
+    - `C` delete from the cursor to the end of line and start inserting at the 
+      cursor position 
 
 
-For example, starting in normal mode, if you press A then type "hello" and 
+For example, starting in normal mode, if you press `A` then type "hello" and 
 press Esc, you will append "hello" to the end of the current line. If you move 
-to another line and press . you will append "hello" to that line as well (. 
-repeats the last operation). If you had used I (instead of A), the "hello" 
-would have been inserted at the start of the line, and pressing . would repeat 
-that operation.
+to another line and press `.` you will append "hello" to that line as well 
+(`.` repeats the last operation). If you had used `I` (instead of `A`), the 
+"hello" would have been inserted at the start of the line, and pressing `.` 
+would repeat that operation.
 
 SAVING AND QUITTING                             *vwt-1581-saving-and-quitting*
 
-Save the current file by entering :w (which always writes the file even if it 
-has not changed), or :update (which only writes the file if it has changed). 
-That is, press Esc to enter normal mode if necessary, then press the : key, 
-then the w key, then press Enter. If Vim indicates a problem (for example, the 
-file was flagged as read-only in Vim, or the file has been modified by another 
-program since you began editing), you can use :w! to force Vim to write the 
-file anyway.
+Save the current file by entering `:w` (which always writes the file even if 
+it has not changed), or `:update` (which only writes the file if it has 
+changed). That is, press Esc to enter normal mode if necessary, then press the 
+`:` key, then the `w` key, then press Enter. If Vim indicates a problem (for 
+example, the file was flagged as read-only in Vim, or the file has been 
+modified by another program since you began editing), you can use `:w!` to 
+force Vim to write the file anyway.
 
 If you are not editing an existing file (for example if you launched Vim with 
 no arguments), you will need to provide a file name when you save. You can do 
-this with :w filename or :saveas filename, for example, :w myfile.txt.
+this with `:w filename` or `:saveas filename`, for example, `:w myfile.txt`.
 
-After saving your changes, you can quit Vim with :q. Or the saving and 
-quitting can be combined into one operation with :wq or :x.
+After saving your changes, you can quit Vim with `:q`. Or the saving and 
+quitting can be combined into one operation with `:wq` or `:x`.
 
-If you want to discard any changes, enter :q! to quit Vim without saving.
+If you want to discard any changes, enter `:q!` to quit Vim without saving.
 
 It is possible to have more than one file open in Vim, and there are commands 
 for saving or quitting when working with multiple files (see :help 
@@ -101,12 +102,12 @@ The word "file" was used above, although the correct term is "buffer". A
 buffer is an area used by Vim to store a collection of text. Usually, a buffer 
 has an associated file: to start, a buffer is filled by reading its file, and 
 the buffer can be saved by writing to its file. A file is read into a buffer 
-when you start Vim with a file name argument (for example, vim myfile.txt), or 
-when you issue the :e filename (edit) command within Vim.
+when you start Vim with a file name argument (for example, `vim myfile.txt`), 
+or when you issue the `:e filename` (edit) command within Vim.
 
 However, it is easy to have buffers that are not associated with a file. 
 Examples are starting Vim with no argument (which gives an empty buffer with 
-no file name), or entering :new to create a new buffer within Vim.
+no file name), or entering `:new` to create a new buffer within Vim.
 
 MOVEMENT AND MORE                                 *vwt-1581-movement-and-more*
     - Hands on the home row asdf hjkl. 

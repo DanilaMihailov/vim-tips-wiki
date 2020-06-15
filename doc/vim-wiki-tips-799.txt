@@ -8,18 +8,18 @@ created October 3, 2004 · complexity intermediate · author elz · version 7.3
 
 Vim offers several commands for searching for files by name: |:find|, 
 |:sfind|, |:tabfind| on the command-line, several normal-mode commands like 
-|gf|, and others. If you just enter :find filename, Vim will directly open the 
-first file found in your 'path' matching "filename". You can provide a count 
-like :2find filename to edit the second file on the path matching the 
+|gf|, and others. If you just enter `:find filename`, Vim will directly open 
+the first file found in your 'path' matching "filename". You can provide a 
+count like `:2find filename` to edit the second file on the path matching the 
 filename, but it can be difficult to figure out what order the file you're 
 looking for might occur in your path. Vim 7.3 makes this easier, by 
-introducing tab-completion of filenames found by the :find command. If you set 
-'wildmenu', then you can see a list of all files found by the command and 
+introducing tab-completion of filenames found by the `:find` command. If you 
+set 'wildmenu', then you can see a list of all files found by the command and 
 select which one to edit without worrying about counts or anything else.
 
-You can also use external utilities like find on Unix-like systems to look 
+You can also use external utilities like `find` on Unix-like systems to look 
 for files. For example, if you want to populate your |quickfix| list with the 
-output of a find command, you could add this to your vimrc 
+output of a `find` command, you could add this to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] file:
 
 >
@@ -35,16 +35,17 @@ output of a find command, you could add this to your vimrc
     command! -nargs=1 FindFile call FindFiles(<q-args>)
 <
 
-Then, when in normal mode, use the :FindFile command to search for a filename 
-pattern. All the file names that match this pattern (under the current 
-directory) will be displayed in the quickfix window, along with a description 
-of each of one of them.
+Then, when in normal mode, use the `:FindFile` command to search for a 
+filename pattern. All the file names that match this pattern (under the 
+current directory) will be displayed in the quickfix window, along with a 
+description of each of one of them.
 
 Notice, the search is done in a recursive manner, and you can use wildcards. 
-If your version of find supports it, you can do a case-insensitive search by 
-replacing -name with -iname; otherwise you can specify multiple cases with a 
-pattern like [Ff]oo[Bb]ar.txt. If you want to use a regular expression, you 
-can call find with the -regex or -iregex flags instead (if supported).
+If your version of `find` supports it, you can do a case-insensitive search by 
+replacing `-name` with `-iname`; otherwise you can specify multiple cases with 
+a pattern like `[Ff]oo[Bb]ar.txt`. If you want to use a regular expression, 
+you can call `find` with the `-regex` or `-iregex` flags instead (if 
+supported).
 
 The function uses some standard Unix-like utilities: find, file, sed.
 
@@ -106,7 +107,7 @@ This is what I do:
 
 ==============================================================================
 
-This way the files are opened in your args list and you can use :argdo
+This way the files are opened in your args list and you can use `:argdo`
 
 >
     " Use grep on filenames instead of relying on find's patterns.

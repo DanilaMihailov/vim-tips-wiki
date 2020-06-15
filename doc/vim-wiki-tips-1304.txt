@@ -18,9 +18,9 @@ just mapping the following to the key of my choice:
 <
 
 I wanted to just yank the at text-object instead of visually selecting it, 
-but it seems that the `[ and `] marks are cleared when the first edit is made 
-thus making it imposible to just back to the end of the object and kill the 
-closing tag. For large blocks of text using the visual select causes a 
+but it seems that the ``[` and ``]` marks are cleared when the first edit is 
+made thus making it imposible to just back to the end of the object and kill 
+the closing tag. For large blocks of text using the visual select causes a 
 momentary flicker, but for smaller chunks of content it is not visible.
 
 COMMENTS                                                   *vwt-1304-comments*

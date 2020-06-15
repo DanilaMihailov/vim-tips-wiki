@@ -6,23 +6,23 @@ created 2001 · complexity basic · version 5.7
 
 ==============================================================================
 
-When you press : to enter a command, or / to start a search, you often want 
-to edit a previous command or search. That can be done using the up and down 
-arrow keys to scroll through the history. Then you can edit a previous line. 
-help |:|
+When you press `:` to enter a command, or `/` to start a search, you often 
+want to edit a previous command or search. That can be done using the up and 
+down arrow keys to scroll through the history. Then you can edit a previous 
+line. help |:|
 
-For example, type :s and then press the up arrow key. The last command that 
+For example, type `:s` and then press the up arrow key. The last command that 
 starts with exactly what you typed will be displayed. Scroll through the 
 history by pressing up or down. There is a history for commands, and another 
 for searches (and more :help |history|). You can list the entire history using 
-the :history command (:help |:history|). The command :his lists the command 
-history, and :his / lists the search history.
+the :history command (:help |:history|). The command `:his` lists the command 
+history, and `:his /` lists the search history.
 
 In many situations, a better solution is the command-line window which you 
 can open in two ways:
-    - Type q: for commands, or q/ for searches; or 
-    - Type : or / to start entering a command or search, then press the 'cedit' key 
-      (default is Ctrl-f :help 'cedit'). 
+    - Type `q:` for commands, or `q/` for searches; or 
+    - Type `:` or `/` to start entering a command or search, then press the 'cedit' 
+      key (default is Ctrl-f :help 'cedit'). 
 
 
 The advantage of the command-line window is that you can use all Vim's 
@@ -39,22 +39,23 @@ DETAILS                                                       *vwt-45-details*
 Suppose you search for "horse", then for "Hello", then for "helium", then for 
 "habit".
 
-If you type /h and repeatedly press up arrow, you will see /habit, then 
-/helium, then /horse ("Hello" is skipped because the history navigation is 
+If you type `/h` and repeatedly press up arrow, you will see `/habit`, then 
+`/helium`, then `/horse` ("Hello" is skipped because the history navigation is 
 case-sensitive and "Hello" does not start with a lowercase "h").
 
-Register : holds the last command, and / holds the last search. Therefore ":p 
-will paste the last command, and "/p will paste the last search.
+Register `:` holds the last command, and `/` holds the last search. Therefore 
+`":p` will paste the last command, and `"/p` will paste the last search.
 
-Type @: to repeat the last command.
+Type `@:` to repeat the last command.
 
-You may have used several commands (for example, :%s/old/new/g) on the 
+You may have used several commands (for example, `:%s/old/new/g`) on the 
 current buffer, and now find you would like to repeat those commands on 
-another buffer. Type q: to enter the command window, then select and yank the 
-commands you want. Press Ctrl-c twice to close the command window. If wanted, 
-you can paste the commands into a buffer, then edit and save them. Later, you 
-can source the file containing the commands, or you can yank the commands, 
-then type :@"<CR> to execute the yanked commands on the current buffer.
+another buffer. Type `q:` to enter the command window, then select and yank 
+the commands you want. Press Ctrl-c twice to close the command window. If 
+wanted, you can paste the commands into a buffer, then edit and save them. 
+Later, you can source the file containing the commands, or you can yank the 
+commands, then type :@"<CR> to execute the yanked commands on the current 
+buffer.
 
 If you always want to use the command editing window, try these mappings:
 
@@ -87,7 +88,7 @@ REFERENCES                                                 *vwt-45-references*
     - :help |Cmdline| 
     - :help |cmdwin| 
     - :help 'cmdwinheight' option controls initial height of command-line window 
-    - :help 'history' option controls number of history items stored in viminfo 
+    - :help 'history' option controls number of history items stored in `viminfo` 
 
 
 COMMENTS                                                     *vwt-45-comments*

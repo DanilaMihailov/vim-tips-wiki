@@ -8,7 +8,7 @@ created 2004 · complexity intermediate · author Chip Campbell · version 6.0
 
 One may overwrite a visual-block of text with another visual-block of text 
 by:
-    - Select the first block: ctrl-v move "ay 
+    - Select the first block: `ctrl-v move "ay` 
     - Select the second block: ctrl-v move c ctrl-o "aP <Esc> 
 
 
@@ -23,7 +23,7 @@ allows one to
 
 
 That sequence will replace the text in a visual-block fashion below the 
-cursor. One may repeat the \vr multiple times for additional replacements.
+cursor. One may repeat the `\vr` multiple times for additional replacements.
 
 For visswap.vim, see Visual Mode Based Swapping 
 [http://www.drchip.org/astronaut/vim/index.html#VISSWAP].

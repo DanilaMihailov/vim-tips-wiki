@@ -8,19 +8,19 @@ created 2004 · complexity basic · author stsi · version 6.0
 
 Q: Why does Vim place # at the first column?
 
-A: You are using 'smartindent', or you have 0# in your 'cinkeys' or 
+A: You are using 'smartindent', or you have `0#` in your 'cinkeys' or 
 'indentkeys' options.
 
-Under some circumstances, when you type a '#' character while in insert mode, 
-the indent on the current line will be removed. Also, formatting or otherwise 
-attempting to adjust the indent of a line starting with '#' may not work as 
-you expect.
+Under some circumstances, when you type a '`#`' character while in insert 
+mode, the indent on the current line will be removed. Also, formatting or 
+otherwise attempting to adjust the indent of a line starting with '`#`' may 
+not work as you expect.
 
 This tip discusses the issues and how problems can be avoided.
 
 SIMPLE SOLUTION                                      *vwt-644-simple-solution*
 
-In your ~/.vimrc file, remove
+In your `~/.vimrc` file, remove
 
 >
     set smartindent
@@ -36,7 +36,7 @@ and add
 
 USING FILETYPE INDENTATION                *vwt-644-using-filetype-indentation*
 
-In general, the 'smartindent' option should not be set (typing :set si? 
+In general, the 'smartindent' option should not be set (typing `:set si?` 
 should show "nosmartindent"). 'smartindent' is deprecated in favor of 
 'cindent' (for C-style indentation). In most cases, there shouldn't be a need 
 to manually set an indent option. Instead, it is better to use the filetype 
@@ -46,31 +46,32 @@ and functionality. See :help |30.3| and Example vimrc
 any automatic indentation, 'autoindent' should be preferred as it will simply 
 keep the indent of the previous line.
 
-With this advice, you should avoid the '#' problem.
+With this advice, you should avoid the '`#`' problem.
 
 USING SMARTINDENT                                  *vwt-644-using-smartindent*
 
-If you need to set 'smartindent' you will find that inserting '#' at the 
+If you need to set 'smartindent' you will find that inserting '`#`' at the 
 start of a line will cause any indent to be removed (that is, any leading 
-whitespace before '#' is deleted). To avoid this, :help 'smartindent' suggests 
-the following mapping:
+whitespace before '`#`' is deleted). To avoid this, :help 'smartindent' 
+suggests the following mapping:
 
 >
     :inoremap # X<BS>#
 <
 
 Another consequence of setting 'smartindent' is that the operator > will not 
-indent a line starting with '#', and the operator = will remove indents from 
-any lines starting with '#'. If that is a concern, do not set 'smartindent'.
+indent a line starting with '`#`', and the operator `=` will remove indents 
+from any lines starting with '`#`'. If that is a concern, do not set 
+'smartindent'.
 
 ADJUSTING CINKEYS OR INDENTKEYS      *vwt-644-adjusting-cinkeys-or-indentkeys*
 
-When 'equalprg' has its default empty value, the = operator adjusts 
-indentation. For example, typing == re-indents the current line. The 
-re-indentation may remove all indents from lines that start with '#'.
+When 'equalprg' has its default empty value, the `=` operator adjusts 
+indentation. For example, typing `==` re-indents the current line. The 
+re-indentation may remove all indents from lines that start with '`#`'.
 
-To prevent any special treatment of lines starting with '#', remove the '0#' 
-value from:
+To prevent any special treatment of lines starting with '`#`', remove the 
+'`0#`' value from:
     - The 'cinkeys' option (if using 'cindent'). 
     - The 'indentkeys' option (if using 'indentexpr'). 
 
@@ -91,13 +92,13 @@ INSERTING TEXT IN A BLANK LINE        *vwt-644-inserting-text-in-a-blank-line*
 
 Here is how to insert text into a blank line, while having the text correctly 
 indented:
-    - Use file type indentation (:filetype indent on in vimrc). 
-    - Do not press i or A to start insert mode in a blank line. 
-    - Instead, type cc to start insert mode with the cursor correctly indented. 
-    - Alternatively, press S (same as cc). 
+    - Use file type indentation (`:filetype indent on` in vimrc). 
+    - Do not press `i` or `A` to start insert mode in a blank line. 
+    - Instead, type `cc` to start insert mode with the cursor correctly indented. 
+    - Alternatively, press `S` (same as `cc`). 
 
 
-cc deletes the current line, then starts insert mode on a new line. :help 
+`cc` deletes the current line, then starts insert mode on a new line. :help 
 |cc|
 
 Also, in insert mode, pressing Ctrl-F will re-indent the current line. :help 
@@ -130,7 +131,7 @@ the current cursor position.
 
 Comments
 
-what about simply pressing Ctrl-R" ?
+what about simply pressing `Ctrl-R"` ?
 
 ==============================================================================
 
@@ -157,11 +158,11 @@ to force Vim to keep the indentation with the following lines in your vimrc:
     nnoremap O O<Space><BS>
 <
 
-If you are using filetype indentation (with filetype indent on in your vimrc 
-[https://vim.fandom.com/wiki/Vimrc]) rather than using the 'autoindent' 
+If you are using filetype indentation (with `filetype indent on` in your 
+vimrc [https://vim.fandom.com/wiki/Vimrc]) rather than using the 'autoindent' 
 setting, this is unnecessary. After Vim removes the indentation from an empty 
-line, you can press cc or S on that empty line and Vim will reapply the 
-indentation rules. This happens because cc works by deleting the entire line 
+line, you can press `cc` or `S` on that empty line and Vim will reapply the 
+indentation rules. This happens because `cc` works by deleting the entire line 
 and then re-entering insert mode on a brand-new line (or as :help |cc| says, 
 "delete {count} lines and start insert linewise").
 
@@ -229,7 +230,7 @@ Usage of S and cc. This works regardless of method of indentation. (I.e., you do
 Pasting is a different matter altoghether. Let it be dealt with elsewhere. Basically, there are a few commands which let you paste-and-indent-properly, most notably [p. (Spiiph 23:41, September 1, 2009 (UTC))
     - Is there anything helpful we can say about pasting with correct indents? If 
       moving a few lines of code around, I would use normal mode, and would manually 
-      fix the indent. We have some advice somewhere on using = to fix indents on 
+      fix the indent. We have some advice somewhere on using `=` to fix indents on 
       pasted text – I'll find that later. JohnBeckett 
       [https://vim.fandom.com/wiki/User:JohnBeckett] 12:29, 23 August 2009 (UTC) 
 

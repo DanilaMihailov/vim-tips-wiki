@@ -12,11 +12,11 @@ properly. I prefer to send out "correct" email, including the stuff I'm
 quoting, and Vim helps me do that. I added this function to my vimrc, and now 
 I use it when editing mail by simply typing:
 
+```
 
+Fixq`
 
-Fixq
-
-
+``
 
 Here's the function:
 

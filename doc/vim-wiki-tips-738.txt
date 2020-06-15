@@ -27,7 +27,7 @@ Check what your Meta-keys generate:
     i<press Ctrl-V><press Meta-A>
 <
 
-If you see ^[a (that is, escape character followed by something), then add 
+If you see `^[a` (that is, escape character followed by something), then add 
 this snippet to your vimrc:
 
 >

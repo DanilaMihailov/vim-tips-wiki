@@ -21,8 +21,8 @@ how tabs can be used to their full potential.
 
 Trying to configure Vim to always have one file per tab will not be 
 successful, and would remove much of the power of Vim. However, when you want 
-to edit a file, it is easy to use :tabe instead of :e so that usually there is 
-one file per tab. You can also launch files in new tabs under Windows 
+to edit a file, it is easy to use `:tabe` instead of `:e` so that usually 
+there is one file per tab. You can also launch files in new tabs under Windows 
 [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows] and Unix 
 [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix].
 
@@ -34,8 +34,8 @@ BufExplorer [https://www.vim.org/scripts/script.php?script_id=42].
 
 OPENING AND CLOSING TABS                   *vwt-1347-opening-and-closing-tabs*
 
-When starting Vim, the -p option opens each specified file in a separate tab 
-(up to the value of the 'tabpagemax' option). Examples:
+When starting Vim, the `-p` option opens each specified file in a separate 
+tab (up to the value of the 'tabpagemax' option). Examples:
 
 >
     vim -p first.txt second.txt
@@ -53,11 +53,11 @@ close tabs:
     :tabonly          close all other tabs (show only the current tab)
 <
 
-The :tabfind command uses Vim's 'path' option to determine which directories 
-should be searched when opening the specified file. For example, the following 
-tells Vim to look in the directory containing the current file (.), then the 
-current directory (empty text between two commas), then each directory under 
-the current directory ('**').
+The `:tabfind` command uses Vim's 'path' option to determine which 
+directories should be searched when opening the specified file. For example, 
+the following tells Vim to look in the directory containing the current file 
+(`.`), then the current directory (empty text between two commas), then each 
+directory under the current directory ('`**`').
 
 >
     :set path=.,,**
@@ -65,7 +65,7 @@ the current directory ('**').
 
 Remember, as with any Vim commands, you only need type enough characters in 
 the command for Vim to be able to unambiguously identify it. For example, you 
-could use :tabe and :tabf instead of :tabedit and :tabfind.
+could use `:tabe` and `:tabf` instead of `:tabedit` and `:tabfind`.
 
 In addition to these commands, because Vim already has a plethora of commands 
 for working with split windows, Vim provides the |:tab| command-line modifier, 
@@ -79,18 +79,18 @@ split a window. For example:
     :tab split        copy the current window to a new tab of its own
 <
 
-A command like :sp myfile.txt creates a new window in the current tab editing 
-the specified file. That window can be moved to a new tab by pressing Ctrl-W 
-T, and can be copied to a new tab with the command :tab sp (split the current 
-window, but open the split in a new tab).
+A command like `:sp myfile.txt` creates a new window in the current tab 
+editing the specified file. That window can be moved to a new tab by pressing 
+Ctrl-W `T`, and can be copied to a new tab with the command `:tab sp` (split 
+the current window, but open the split in a new tab).
 
-You can type Ctrl-W c to close the current window. If that window is the last 
-window visible in a tab, the tab is also closed (if another tab page is 
+You can type Ctrl-W `c` to close the current window. If that window is the 
+last window visible in a tab, the tab is also closed (if another tab page is 
 currently open).
 
 If the file you are editing contains the name of another file, you can put 
-the cursor on the name and type gf to edit the file (goto file 
-[https://vim.fandom.com/wiki/Open_file_under_cursor]). If you type Ctrl-W gf 
+the cursor on the name and type `gf` to edit the file (goto file 
+[https://vim.fandom.com/wiki/Open_file_under_cursor]). If you type Ctrl-W `gf` 
 the file is displayed in a new tab.
 
 In gvim, you can right click the tab label bar for a popup menu with Close, 
@@ -129,8 +129,8 @@ Using recent vim versions, in normal mode and in insert mode, you can type:
     Ctrl-PgUp     go to previous tab
 <
 
-Jumping to a specific tab with {i}gt is easier if you set up your tabline to 
-show the tab number 
+Jumping to a specific tab with `{i}gt` is easier if you set up your tabline 
+to show the tab number 
 [https://vim.fandom.com/wiki/Show_tab_number_in_your_tab_line].
 
 SWITCHING TO ANOTHER BUFFER             *vwt-1347-switching-to-another-buffer*
@@ -154,7 +154,7 @@ split, and the target buffer will be displayed in the new window.
 <
 
 If you prefer to open a new tab instead of a new split window, you can set 
-switchbuf to usetab,newtab.
+`switchbuf` to `usetab,newtab`.
 
 Using this technique will cycle between buffers without disturbing the 
 current window or tab layout, providing each buffer is already in a window in 
@@ -181,16 +181,16 @@ Alt-Right to move the current tab to the left or right.
 <
 
 With the following, you can press F8 to show all buffers in tabs, or to close 
-all tabs (toggle: it alternately executes :tab ball and :tabo).
+all tabs (toggle: it alternately executes `:tab ball` and `:tabo`).
 
 >
     let notabs = 0
     nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
 <
 
-The following command abbreviation allows typing :tabv myfile.txt to view the 
-specified file in a new tab; the buffer is read-only and nomodifiable so you 
-cannot accidentally change it.
+The following command abbreviation allows typing `:tabv myfile.txt` to view 
+the specified file in a new tab; the buffer is read-only and nomodifiable so 
+you cannot accidentally change it.
 
 >
     cabbrev tabv tab sview +setlocal\ nomodifiable

@@ -41,7 +41,7 @@ Notes:
     - Visual Studio.NET handles an MDI Vim window much better, especially if you 
       set the "MDI Environment" setting in Tools->Options->Environment->General. 
       With .NET, you can actually launch the selected file in an internal Vim window 
-      automatically by adding +$(CurLine) "$(ItemPath)" to the end of the 
+      automatically by adding `+$(CurLine) "$(ItemPath)"` to the end of the 
       "arguments" field above. --remote-tab-silent can also be used if desired. 
     - The MDI window created by this call will not automatically gain input focus. 
       Make sure Vim has focus before entering any commands! 

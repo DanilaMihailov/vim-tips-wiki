@@ -40,10 +40,10 @@ without.
 
 COPY                                                            *vwt-327-copy*
 
-To copy text to the end-of-line, you can press y$ or you can use the 
-following and press Y instead. This mapping sets up Y to be consistent with 
-the C and D operators, which act from the cursor to the end of the line. The 
-default behavior of Y is to yank the whole line.
+To copy text to the end-of-line, you can press `y$` or you can use the 
+following and press `Y` instead. This mapping sets up `Y` to be consistent 
+with the `C` and `D` operators, which act from the cursor to the end of the 
+line. The default behavior of `Y` is to yank the whole line.
 
 >
     nnoremap Y y$
@@ -57,12 +57,12 @@ To copy an entire line, and paste it before the current line:
     nnoremap _ ggY``P
 <
 
-Use a count to specify the line number (default is line 1). For example, 12_ 
-would copy line 12 to before the current line.
+Use a count to specify the line number (default is line 1). For example, 
+`12_` would copy line 12 to before the current line.
 
 DELETE                                                        *vwt-327-delete*
 
-In normal mode, you can press D to delete all characters from the cursor to 
+In normal mode, you can press `D` to delete all characters from the cursor to 
 end-of-line. The following mapping allows Ctrl-Delete to do the same, in 
 insert mode: :help |i_CTRL-\_CTRL-O|
 
@@ -72,7 +72,7 @@ insert mode: :help |i_CTRL-\_CTRL-O|
 
 SEARCH                                                        *vwt-327-search*
 
-It's easier to press Space than / for searching:
+It's easier to press Space than `/` for searching:
 
 >
     nmap <Space> /

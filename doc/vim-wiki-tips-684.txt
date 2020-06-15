@@ -38,11 +38,11 @@ page.
 
 After sourcing the above, and assuming the default backslash Leader key, you 
 can:
-    - Edit an html file, then type \H to save and preview the file. 
-    - Visually select the full path of a local html file or a URL, then type \h to 
-      preview the file or web page. 
+    - Edit an html file, then type `\H` to save and preview the file. 
+    - Visually select the full path of a local html file or a URL, then type `\h` 
+      to preview the file or web page. 
     - Copy the full path of a local html file or a URL in another application, then 
-      type \h to preview the file or web page in Vim. 
+      type `\h` to preview the file or web page in Vim. 
 
 
 FROM 256 OPENING CURRENT VIM FILE IN YOUR WINDOWS BROWSER [HTTPS://VIM.FANDOM.COM/WIKI/OPENING_CURRENT_VIM_FILE_IN_YOUR_WINDOWS_BROWSER] *vwt-684-from-256-opening-current-vim-file-in-your-windows-browser-[https://vim.fandom.com/wiki/opening_current_vim_file_in_your_windows_browser]*
@@ -63,11 +63,11 @@ not work when the URL is in an html tag surrounded by quotes. However, using
     nnoremap <F8> :silent !firefox <cfile><CR>
 <
 
-In the above, there is no space after ! and the Vim command has the form 
-:!start program file which causes Vim (on Windows) to run the specified 
+In the above, there is no space after `!` and the Vim command has the form 
+`:!start program file` which causes Vim (on Windows) to run the specified 
 program with the file as an argument. If the program is not in a PATH 
 directory, the full path to the program must be specified. If the program path 
-contains spaces, it is necessary to put the path in quotes ("...").
+contains spaces, it is necessary to put the path in quotes (`"..."`).
 
 ==============================================================================
 
@@ -98,7 +98,7 @@ Or it might be here:
 
 ==============================================================================
 
-On Linux, use xdg-open to open the file using its default application. The 
+On Linux, use `xdg-open` to open the file using its default application. The 
 first of the following mappings saves the current file, then opens it; the 
 second opens the file under the cursor:
 
@@ -117,26 +117,26 @@ file and open it in your default browser:
 <
 
 On Windows, the current file can be opened in its associated application 
-using the start command of the cmd.exe shell. With this mapping, press F5 to 
-save the current file and open it in its associated application:
+using the `start` command of the `cmd.exe` shell. With this mapping, press F5 
+to save the current file and open it in its associated application:
 
 >
     nnoremap <silent> <F5> :update<Bar>silent ! start %:p<CR>
 <
 
-The space after ! is required (on Windows, a command of the form !start xxx 
-causes Vim to run xxx asynchronously; Vim does not run start, whereas ! start 
-xxx invokes the shell cmd.exe to run its start internal command operating on 
-xxx). In the unlikely case that the associated application runs in a console 
-(command prompt window), it would be better to add the /b option so the 
-application runs in the same console as start. That is, change the command to 
-start /b %:p.
+The space after `!` is required (on Windows, a command of the form `!start 
+xxx` causes Vim to run `xxx` asynchronously; Vim does not run `start`, whereas 
+`! start xxx` invokes the shell `cmd.exe` to run its `start` internal command 
+operating on `xxx`). In the unlikely case that the associated application runs 
+in a console (command prompt window), it would be better to add the `/b` 
+option so the application runs in the same console as `start`. That is, change 
+the command to `start /b %:p`.
 
 It is convenient to leave the browser window open: switch back to Vim to do 
 any further editing required, save the file, then switch to the browser and 
 tell it to reload the file with a key like Ctrl-R or F5.
 
-A Linux version of the above mapping would use a program like xdg-open:
+A Linux version of the above mapping would use a program like `xdg-open`:
 
 >
     nnoremap <F5> :update<Bar>silent !xdg-open %:p &<CR>
@@ -191,7 +191,7 @@ file with the default application ... if the cursor is over a directory, it
 will open in Finder)
 
 Also, for Mac users, here is a way to save the current PHP file then preview 
-it through localhost (TODO see %:p:s?pat?sub? below for Vim procedure):
+it through localhost (TODO see `%:p:s?pat?sub?` below for Vim procedure):
 
 >
     nnoremap <F5> :update<Bar>!open -a Google\ Chrome `echo http://localhost/${PWD\#*/*/*/*/*/}/%`<CR>
@@ -201,21 +201,21 @@ FROM 1015 PREVIEW FILE ON LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_FILE_ON
 
 Using this mapping will save the current file (if changed), then preview it 
 on localhost. For example, if you are editing file 
-/var/www/html/one/two/my.html, pressing F5 will use Firefox to open 
-http://localhost/one/two/my.html.
+`/var/www/html/one/two/my.html`, pressing F5 will use Firefox to open 
+`http://localhost/one/two/my.html`.
 
 >
     nnoremap <F5> :silent update<Bar>silent !firefox %:p:s?\(.\{-}/\)\{4}?http://localhost/?<CR>
 <
 
-The core command has the form !firefox %:p:s?pat?sub? which uses the shell to 
-start Firefox to open the current file (%) with its name modified by forming 
-the full path (:p) then substituting the pattern pat with sub.
+The core command has the form `!firefox %:p:s?pat?sub?` which uses the shell 
+to start Firefox to open the current file (`%`) with its name modified by 
+forming the full path (`:p`) then substituting the pattern `pat` with `sub`.
 
-The pattern is \(.\{-}/\)\{4} which finds exactly four occurrences of any 
-character (.) repeated as few times as possible (\{-}) up to and including the 
-next slash (/). If the file being edited is my.html in directory 
-/var/www/html/one/two, the pattern matches /var/www/html/ (the first 
+The pattern is `\(.\{-}/\)\{4}` which finds exactly four occurrences of any 
+character (`.`) repeated as few times as possible (`\{-}`) up to and including 
+the next slash (`/`). If the file being edited is `my.html` in directory 
+`/var/www/html/one/two`, the pattern matches `/var/www/html/` (the first 
 occurrence of four slashes, with any characters between).
 
 FROM 201110 PREVIEW CURRENT HTML IN BROWSER ON LINUX [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_LINUX] *vwt-684-from-201110-preview-current-html-in-browser-on-linux-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_linux]*
@@ -303,9 +303,9 @@ under the cursor. Might rethink that after all merging complete. JohnBeckett
 
 ==============================================================================
 
-TODO: Probably need shellescape() or at least quotes in some of the mappings 
-to handle embedded spaces. I think the Linux mappings also need & appended. 
-JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:01, April 27, 
-2012 (UTC)
+TODO: Probably need `shellescape()` or at least quotes in some of the 
+mappings to handle embedded spaces. I think the Linux mappings also need `&` 
+appended. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:01, 
+April 27, 2012 (UTC)
 
  vim:tw=78:et:ft=help:norl:

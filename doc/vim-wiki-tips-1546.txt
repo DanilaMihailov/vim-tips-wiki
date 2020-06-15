@@ -8,12 +8,12 @@ created
 
 ==============================================================================
 
-You can use gf (goto file) in Python source code to open an imported Python 
+You can use `gf` (goto file) in Python source code to open an imported Python 
 file.
 
 Put the following in a script in:
-    - ~/.vim/after/ftplugin/python.vim (on Unix systems) 
-    - $HOME/vimfiles/after/ftplugin/python.vim (on Windows systems) 
+    - `~/.vim/after/ftplugin/python.vim` (on Unix systems) 
+    - `$HOME/vimfiles/after/ftplugin/python.vim` (on Windows systems) 
 
 
 >
@@ -29,8 +29,8 @@ Put the following in a script in:
     EOF
 <
 
-This allows you to use gf or Ctrl-W Ctrl-F to open the file under the cursor. 
-It works pretty well. particularly for imports of the form:
+This allows you to use `gf` or Ctrl-W Ctrl-F to open the file under the 
+cursor. It works pretty well. particularly for imports of the form:
 
 >
     import abc.def.module

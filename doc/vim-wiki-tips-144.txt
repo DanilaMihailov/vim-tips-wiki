@@ -17,15 +17,15 @@ created 2001 · complexity basic · author Sameer Chabungbam · version 6.0
 
 One of Vim's most useful features is its ability to record what you type for 
 later playback. :help |recording| This is most useful for repeated jobs which 
-cannot easily be done with ".".
+cannot easily be done with "`.`".
 
-To start recording, press q in normal mode followed by a letter (a to z). 
-That starts recording keystrokes to the specified register. Vim displays 
+To start recording, press `q` in normal mode followed by a letter (`a` to 
+`z`). That starts recording keystrokes to the specified register. Vim displays 
 recording in the status line. Type any normal mode commands, or enter insert 
-mode and type text. To stop recording, again press q while in normal mode.
+mode and type text. To stop recording, again press `q` while in normal mode.
 
-To playback your keystrokes, press @ followed by the letter previously 
-chosen. Typing @@ repeats the last playback.
+To playback your keystrokes, press `@` followed by the letter previously 
+chosen. Typing `@@` repeats the last playback.
 
 SEE ALSO                                                    *vwt-144-see-also*
     - A way to record recursive macros 
@@ -37,8 +37,8 @@ SEE ALSO                                                    *vwt-144-see-also*
 
 COMMENTS                                                    *vwt-144-comments*
 
-To delete a recording just record nothing over it. For example, qxq erases 
-whatever was recorded to register x.
+To delete a recording just record nothing over it. For example, `qxq` erases 
+whatever was recorded to register `x`.
 
 or :call setreg('x', '')
 or :let @x = ''
@@ -60,8 +60,8 @@ multiple *.cpp files:
 
 ==============================================================================
 
-One way to edit a recording (for example, to register x) is to paste it into 
-a new buffer, then edit the buffer, then copy the results back into the 
+One way to edit a recording (for example, to register `x`) is to paste it 
+into a new buffer, then edit the buffer, then copy the results back into the 
 register. For example:
 
 >
@@ -74,13 +74,13 @@ register. For example:
     @x        # execute modified recording
 <
 
-Alternatively, edit the contents of register x in the command line:
+Alternatively, edit the contents of register `x` in the command line:
 
 >
     :let @x="<Ctrl-R><Ctrl-R>x"
 <
 
-The name @x identifes register x. At the command line, Ctrl-R pastes the 
+The name `@x` identifes register `x`. At the command line, Ctrl-R pastes the 
 contents of the named register into the command line, thus making it available 
 for editing.
 

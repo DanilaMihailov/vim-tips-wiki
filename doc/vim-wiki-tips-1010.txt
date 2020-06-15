@@ -9,8 +9,8 @@ created 2005 · complexity basic · author Frans · version 6.0
 Developers and users will often have a need to change one pattern of text to 
 match a different pattern. This can be completed using a key map and a regular 
 expression. For example some development requires developers to be MISRA 
-compliant. One of the MISRA rules is //-style-comments are not acceptable. 
-These occurrences must be replaced by /*-style-comments-*/. Adding the 
+compliant. One of the MISRA rules is `//-style-comments` are not acceptable. 
+These occurrences must be replaced by `/*-style-comments-*/`. Adding the 
 following mapping to the vimrc file will do this per line.
 
 >

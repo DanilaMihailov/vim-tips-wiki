@@ -9,7 +9,7 @@ created 2005 · complexity basic · author vineeth · version 6.0
 In gvim, after changing the default color scheme, the next time gvim is 
 started, the default setting is restored.
 
-To retain the color scheme add colorscheme <scheme_name> to vimrc.
+To retain the color scheme add colorscheme <scheme_name> to `vimrc`.
 
 For example:
 
@@ -19,42 +19,43 @@ For example:
 
 COMMENTS                                                   *vwt-1036-comments*
 
-MS Windows: By default Vim calculates the HOME directory as 
-%HOMEDIR%%HOMEPATH%. If this is not the location you want, make sure HOME 
-exists and is set to where your vimrc file is located. The $HOME environment 
-variable can be set by going to your desktop, right click on "My Computer", 
-click the "Advanced" tab, select "Environment Variables". If HOME is not in 
-the list of variables, create a new variable named HOME and point it to the 
-location of your vimrc. This is normally C:\Documents And Settings\<USERNAME> 
-and you'll have to create vimfiles\colors and put your new colorscheme in this 
-folder.
+MS Windows: By default Vim calculates the `HOME` directory as 
+`%HOMEDIR%%HOMEPATH%`. If this is not the location you want, make sure `HOME` 
+exists and is set to where your `vimrc` file is located. The `$HOME` 
+environment variable can be set by going to your desktop, right click on "My 
+Computer", click the "Advanced" tab, select "Environment Variables". If `HOME` 
+is not in the list of variables, create a new variable named HOME and point it 
+to the location of your vimrc. This is normally C:\Documents And 
+Settings\<USERNAME> and you'll have to create `vimfiles\colors` and put your 
+new colorscheme in this folder.
 
 An easy way to set this on Windows that should be forward/backwards 
-compatible is to run in a cmd prompt this command setx /S %COMPUTERNAME% /U 
-%USERNAME% HOME %HOMEPATH% which will set the HOME variable to the current 
+compatible is to run in a cmd prompt this command `setx /S %COMPUTERNAME% /U 
+%USERNAME% HOME %HOMEPATH%` which will set the `HOME` variable to the current 
 user's home folder.
 
 On Unix/Linux/MacOSX this should be preset and can be seen by going to a 
-command prompt/Terminal window and typing echo $HOME or in vim enter :echo 
-$HOME.
+command prompt/Terminal window and typing `echo $HOME` or in vim enter `:echo 
+$HOME`.
 
 ==============================================================================
 
 Sometimes if colorscheme <colorscheme> is not loading properly on startup, 
-edit your gvimrc file and comment out or remove the lines containing highlight 
-aka hi.
+edit your `gvimrc` file and comment out or remove the lines containing 
+`highlight` aka `hi`.
 
 Save your changes and start vim.
 
 ==============================================================================
 
 You can set your preferred color scheme in gvim for MS Windows by editing the 
-file _vimrc in C:\Program Files\Vim or the location where you installed Vim.
+file `_vimrc` in `C:\Program Files\Vim` or the location where you installed 
+Vim.
 
 This is bad advice; you should place your vimrc in your home directory, as noted in the other comments here. Putting anything in Program Files will risk all your changes being lost any time you install a new version of Vim, and additionally it will affect all uses instead of just your login. --Fritzophrenic (talk) 17:34, June 24, 2015 (UTC)
 
-Edit _vimrc and add a line like colors <your color scheme> as the last line. 
-For example:
+Edit `_vimrc` and add a line like colors <your color scheme> as the last 
+line. For example:
 
 >
     colors koehler
@@ -65,9 +66,9 @@ Save the file and start gvim you will see your color scheme.
 ==============================================================================
 
 MS Windows: (this particular example applies to any instance of gvim), :help 
-|gvimrc| states that for MS Win32 if vimrc is not in $HOME, the _gvimrc in 
-$VIM. You may display these by issuing, :echo $VIM, or :echo $VIM from within 
-gvim.
+|gvimrc| states that for MS Win32 if `vimrc` is not in `$HOME`, the _gvimrc in 
+$VIM. You may display these by issuing, `:echo $VIM`, or `:echo $VIM` from 
+within `gvim`.
 
 ==============================================================================
 

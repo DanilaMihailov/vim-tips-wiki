@@ -24,9 +24,9 @@ cursor on the name of the variable and use the gD command in the normal mode.
 COMMENTS                                                      *vwt-8-comments*
 
 This works in Java, Perl and a number of other languages as well.However 
-sometimes gD does not find the definition of a function but a mere call to it. 
-A function below is a simple search for the function at cursor definition (C, 
-C++).
+sometimes `gD` does not find the definition of a function but a mere call to 
+it. A function below is a simple search for the function at cursor definition 
+(C, C++).
 
 >
     function! GotoDefinition()
@@ -38,14 +38,14 @@ C++).
 
 ==============================================================================
 
-To jump back use `` (backquote backquote).
+To jump back use ```` (backquote backquote).
 
 You can also jump back using Ctrl-o or '' (single qoute, single quote).
 
 ==============================================================================
 
 ctags can be used to do a more comprehensive job. Make 'tags' file with: 
-ctags -R *.cpp *.h
+`ctags -R *.cpp *.h`
 
 Then, goto any variable and pressing Ctrl-] will take you to the 
 declaration/definition. Same for functions as well. Use Ctrl-t to return back.

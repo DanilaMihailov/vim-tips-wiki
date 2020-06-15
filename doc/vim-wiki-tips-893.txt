@@ -109,7 +109,7 @@ context.
 
 COMMENTS                                                    *vwt-893-comments*
 
-See VimTip139 |vwt-139| for AlignMaps which provides the \anum (actually 
+See VimTip139 |vwt-139| for AlignMaps which provides the `\anum` (actually 
 <Leader>anum) to do something similar:
 
 >
@@ -120,7 +120,7 @@ See VimTip139 |vwt-139| for AlignMaps which provides the \anum (actually
     +47.11
 <
 
-It doesn't append the zeros, just does a numeric alignment. \anum also 
+It doesn't append the zeros, just does a numeric alignment. `\anum` also 
 handles the use of commas instead of periods, European style.
 
 ==============================================================================

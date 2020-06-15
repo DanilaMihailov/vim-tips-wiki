@@ -6,14 +6,14 @@ created 2002 · complexity basic · author Feral · version 5.7
 
 ==============================================================================
 
-This is relevant when your 'formatoptions' includes o.
+This is relevant when your 'formatoptions' includes `o`.
 
 From :help |fo-table|, "Automatically insert the current comment leader after 
 hitting 'o' or 'O' in Normal mode."
 
-I like this behavior enough to keep the o option, however at times I want to 
-not insert the comment chars, and although manually deleting the added chars 
-is not hard I present these simple mappings that delete the added chars 
+I like this behavior enough to keep the `o` option, however at times I want 
+to not insert the comment chars, and although manually deleting the added 
+chars is not hard I present these simple mappings that delete the added chars 
 automatically.
 
 >
@@ -26,8 +26,8 @@ while gO opens a new line above the cursor and removes inserted chars.
 
 COMMENTS                                                    *vwt-350-comments*
 
-It should be noted that the go mapping presented above will interfere with 
-Vim's default go (Go to {count} byte in the buffer :help |go|) command.
+It should be noted that the `go` mapping presented above will interfere with 
+Vim's default `go` (Go to {count} byte in the buffer :help |go|) command.
 
 There should be a much more elegant way of achieving the same effect, but I 
 am currently unaware of what it might be.

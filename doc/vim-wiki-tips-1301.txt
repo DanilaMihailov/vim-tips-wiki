@@ -17,7 +17,7 @@ I've found is, in a command prompt window:
 <
 
 Where txtfile has been defined as a file type that is opened with Vim. See 
-VimTip1003 |vwt-1003|, and try ftype /? at the command prompt.
+VimTip1003 |vwt-1003|, and try `ftype /?` at the command prompt.
 
 This will cause files with no extension (e.g. "Makefile") to open 
 automatically in Vim.

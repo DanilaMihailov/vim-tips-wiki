@@ -20,7 +20,7 @@ something like:
 Although the above works well enough it is a pain to maintain and add new 
 words (not to mention it's just a touch messy).
 
-A more elegant (and easier to use I believe) method would be to use \%[] as 
+A more elegant (and easier to use I believe) method would be to use `\%[]` as 
 part of a pattern.
 
 For instance, "\\<re\\%[tur]\\>" will match "re", "ret", "retu" or "retur"

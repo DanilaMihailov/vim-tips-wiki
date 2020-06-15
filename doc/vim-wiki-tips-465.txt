@@ -13,8 +13,8 @@ mapping that I use all the time.
     imap ,,, <Esc>bdwa<<Esc>pa><CR></<Esc>pa><Esc>kA
 <
 
-If in isert mode I type programlisting,,, the text immediately gets modified 
-to
+If in isert mode I type `programlisting,,, ` the text immediately gets 
+modified to
 
 >
     <programlisting>
@@ -37,7 +37,7 @@ in a namespace.
 
 ==============================================================================
 
-If you use :set ai then indenting will be retained.
+If you use `:set ai` then indenting will be retained.
 
 ==============================================================================
 

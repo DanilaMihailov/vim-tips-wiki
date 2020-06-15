@@ -20,10 +20,10 @@ define how to launch and display results from your own asynchronous commands
 
 RUNNING EXTERNAL COMMANDS                 *vwt-1549-running-external-commands*
 
-Under Windows, Vim provides two commands for running external programs: ! and 
-!start. The first suspends Vim, runs the program, waits for a keypress, then 
-returns to Vim. The second runs the program without suspending Vim or waiting 
-for a keypress.
+Under Windows, Vim provides two commands for running external programs: `!` 
+and `!start`. The first suspends Vim, runs the program, waits for a keypress, 
+then returns to Vim. The second runs the program without suspending Vim or 
+waiting for a keypress.
 
 The first method has the drawback of not letting you work while the program 
 is running, but with the second you do not see the result of the program's 
@@ -49,38 +49,38 @@ compiled program corresponding to the current source file:
 
 EXPLANATION                                             *vwt-1549-explanation*
 
-Under Windows, if the command begins with "!start ", Vim creates a process to 
-run the program without invoking a shell, so the "Hit any key to close this 
+Under Windows, if the command begins with "`!start `", Vim creates a process 
+to run the program without invoking a shell, so the "Hit any key to close this 
 window..." message does not appear. :help |:!start| :help |win32-vimrun|
 
-This tip assumes that cmd.exe is your shell (Windows command prompt :help 
+This tip assumes that `cmd.exe` is your shell (Windows command prompt :help 
 'shell'), and that you are running a console program (not GUI). Most console 
 programs (and batch scripts) will not pause at the end of the output, so just 
-calling the command by itself with :!start is not helpful because you will not 
-see the output. Vim's :!start command starts a single process and additional 
-shell commands like pause cannot be fed to that process. The mapping works 
-around these issues by invoking the shell directly and telling it to run a 
-command like "my app.exe" & pause. The cmd shell will execute "my app.exe" 
-(the quotes are required if the path contains a space), and will then execute 
-pause (if && is used instead of &, the pause will only be executed if "my 
-app.exe" returns errorlevel 0).
+calling the command by itself with `:!start` is not helpful because you will 
+not see the output. Vim's `:!start` command starts a single process and 
+additional shell commands like `pause` cannot be fed to that process. The 
+mapping works around these issues by invoking the shell directly and telling 
+it to run a command like `"my app.exe" & pause`. The cmd shell will execute 
+`"my app.exe"` (the quotes are required if the path contains a space), and 
+will then execute `pause` (if `&&` is used instead of `&`, the `pause` will 
+only be executed if `"my app.exe"` returns errorlevel 0).
 
-The expression %:p:r:s,$,.exe, is replaced with the current file name (%) 
-modified to include the full path (:p), without the extension (:r), and with 
-the end of the string ($) replaced with .exe. The comma (,) is a delimiter for 
-the substitute (:s). :help |filename-modifiers|
+The expression `%:p:r:s,$,.exe,` is replaced with the current file name (`%`) 
+modified to include the full path (`:p`), without the extension (`:r`), and 
+with the end of the string (`$`) replaced with `.exe`. The comma (`,`) is a 
+delimiter for the substitute (`:s`). :help |filename-modifiers|
 
-The alternate method works in the same way, but uses the /k cmd.exe switch, 
-which executes a command and leaves the window open, as opposed to the /c 
+The alternate method works in the same way, but uses the `/k` cmd.exe switch, 
+which executes a command and leaves the window open, as opposed to the `/c` 
 switch, which runs a command and exits.
 
 GUI applications do not need to use this method. For example, if you enter a 
-command like :!calc (to run calc.exe for the Windows calculator), Vim will 
-open a shell window, then launch a new calc window from that shell. When calc 
-is closed, the prompt Hit any key to close this window... appears, and Vim is 
-frozen until a key is pressed. But Calculator is a GUI program so it runs in a 
-new process, in a new window. So, if you want to asynchronously run a GUI 
-program like Calculator, you can simply enter:
+command like `:!calc` (to run calc.exe for the Windows calculator), Vim will 
+open a shell window, then launch a new `calc` window from that shell. When 
+`calc` is closed, the prompt `Hit any key to close this window...` appears, 
+and Vim is frozen until a key is pressed. But Calculator is a GUI program so 
+it runs in a new process, in a new window. So, if you want to asynchronously 
+run a GUI program like Calculator, you can simply enter:
 
 >
     :!start calc
@@ -154,8 +154,8 @@ for details:
 The following mapping launches the currently edited file with the external 
 application that is associated with it, using the file type's default handler. 
 This is like entering the filename in the Start > Run... dialog, or 
-double-clicking in Windows Explorer. For example, example.html will be opened 
-in your default browser.
+double-clicking in Windows Explorer. For example, `example.html` will be 
+opened in your default browser.
 
 >
     :nmap <Leader>x :silent ! start "1" "%:p"<CR>
@@ -165,11 +165,11 @@ EXPLANATION                                             *vwt-1549-explanation*
 
 In the Vim command, ':silent' avoids the Hit-Enter prompt, ':p' makes this 
 launch independent from the CWD, the surrounding "" make it handle spaces. The 
-Windows start command opens the passed file in a separate window, so that Vim 
-doesn't block; the Windows shell locates the application that is associated 
-with the type of file. The "1" is the optional "title" argument to 'start'; 
-without this dummy, 'start' will take the passed file as the title, because it 
-is enclosed in double quotes.
+Windows `start` command opens the passed file in a separate window, so that 
+Vim doesn't block; the Windows shell locates the application that is 
+associated with the type of file. The "1" is the optional "title" argument to 
+'start'; without this dummy, 'start' will take the passed file as the title, 
+because it is enclosed in double quotes.
 
 GETTING RESULTS BACK INTO VIM         *vwt-1549-getting-results-back-into-vim*
 
@@ -210,20 +210,21 @@ window is:
     echo hello Vim > some_temporary_file_name & vim --servername GVIM3 --remote-expr "GetAsyncText('some_temporary_file_name')" & pause
 <
 
-Note how our use of use of --servername v:servername ensures that the results 
-will be sent back to the correct Vim. We use --remote-expr to make it easy to 
-write and invoke a function to process the results of the command in any way 
-we desire. In our case it is a simple readfile call, but it could be pretty 
-much anything, including use of a command like cgetfile to run an asynchronous 
-search |vwt-1549-extended-example:-asynchronous-grep|, for example. The basic 
-idea is the same, however: call a shell command that writes to a known file 
-name before invoking a Vim function on the results.
+Note how our use of use of `--servername v:servername` ensures that the 
+results will be sent back to the correct Vim. We use `--remote-expr` to make 
+it easy to write and invoke a function to process the results of the command 
+in any way we desire. In our case it is a simple `readfile` call, but it could 
+be pretty much anything, including use of a command like `cgetfile` to run an 
+asynchronous search |vwt-1549-extended-example:-asynchronous-grep|, for 
+example. The basic idea is the same, however: call a shell command that writes 
+to a known file name before invoking a Vim function on the results.
 
-You may have realized that the pause is unnecessary in this case, but it 
+You may have realized that the `pause` is unnecessary in this case, but it 
 serves to demonstrate the fact that the newly spawned window is opened in the 
 foreground. If your goal is to continue working in Vim, sending the new 
 console window to the background would be useful. In most versions of Windows, 
-this can be done using :!start /min instead of just :!start in the command.
+this can be done using `:!start /min` instead of just `:!start` in the 
+command.
 
 One final thing to note is the final call to the |delete()| function in our 
 processing function. This is important, otherwise every time we invoke our 
@@ -323,7 +324,7 @@ COMMENTS                                                   *vwt-1549-comments*
 
 TO DO
     - Ask on vim_use for some async execution techniques for Unix-based systems 
-      because :help |:!start| indicates that :!start is for Windows only. 
+      because :help |:!start| indicates that `:!start` is for Windows only. 
 
 
 Generally, you can just add '&' to the end of a command on Unix. It won't pop open a terminal like Windows, so it's even more important to redirect the output to a file. --Pydave 23:01, August 8, 2011 (UTC)
@@ -341,9 +342,9 @@ Explanation:
     - I removed the <buffer> since you would need to apply the mapping to every 
       appropriate buffer which is too hard, particularly for someone trying a simple 
       tip. 
-    - The "%<.exe" does not work as hoped: the ".exe" does nothing (and "%<" is 
-      deprecated). Also, it does not include the path (editing /my/prog/sample.c 
-      would execute sample). 
+    - The "`%<.exe`" does not work as hoped: the "`.exe`" does nothing (and "`%<`" 
+      is deprecated). Also, it does not include the path (editing 
+      `/my/prog/sample.c` would execute `sample`). 
     - While it's not really necessary to append ".exe", the weird ':s,$,.exe,' 
       expression does it correctly without requiring an <expr> mapping. 
     - Using '&&', the cmd shell executes 'pause' only if the first program returns 

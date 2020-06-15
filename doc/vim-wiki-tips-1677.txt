@@ -15,14 +15,14 @@ CHANGING GUIOPTIONS                             *vwt-1677-changing-guioptions*
 
 The standard method for displaying or hiding the menu bar is to use these 
 commands in gvim:
-    - :set guioptions+=m enable (display) menu bar 
-    - :set guioptions-=m disable (hide) menu bar 
+    - `:set guioptions+=m` enable (display) menu bar 
+    - `:set guioptions-=m` disable (hide) menu bar 
 
 
 If you are using Gnome/Metacity, a problem may prevent the menu bar from 
 being displayed: Gnome tries to dock the menu in a place where you cannot see 
-it. A test to see if this is the issue is to open gvim as root (with sudo 
-gvim), then see if the menu can be enabled and disabled using the above 
+it. A test to see if this is the issue is to open gvim as root (with `sudo 
+gvim`), then see if the menu can be enabled and disabled using the above 
 commands.
 
 SOLUTION                                                   *vwt-1677-solution*
@@ -45,7 +45,7 @@ menu will be displayed again.
 
 COMMENTS                                                   *vwt-1677-comments*
 
-Deleting the file ~/.gnome2/Vim worked, but the problem recurs. Examining 
+Deleting the file `~/.gnome2/Vim` worked, but the problem recurs. Examining 
 this file shows that the problem is that the toolbar and the menubar are 
 overlayed:
 
@@ -68,12 +68,12 @@ This works on Ubuntu 14.04, June 2014. --July 5, 2014
 
 ==============================================================================
 
-If deleting ~/.gnome2/Vim does not work, check the .vimrc file permission to 
-make sure the current user can read it. If GVim is installed by root, or the 
-.vimrc file is copied from a flash key, its permission may prevent other users 
-from reading it when starting GVim. When that happens all custom settings in 
-.vimrc, including the menu, do not apply, causing the menu not to be shown. 
---Oct 2013
+If deleting `~/.gnome2/Vim` does not work, check the `.vimrc` file permission 
+to make sure the current user can read it. If GVim is installed by root, or 
+the .vimrc file is copied from a flash key, its permission may prevent other 
+users from reading it when starting GVim. When that happens all custom 
+settings in .vimrc, including the menu, do not apply, causing the menu not to 
+be shown. --Oct 2013
 
 ==============================================================================
 

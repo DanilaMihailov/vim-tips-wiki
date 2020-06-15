@@ -33,7 +33,7 @@ command below will cause those warnings to be ignored.
     :au FocusLost * silent! wa
 <
 
-This variant will silently ignore errors from the :wa command, but it does 
+This variant will silently ignore errors from the `:wa` command, but it does 
 mean any of your untitled buffers, buffers for read-only files, etc. will not 
 be saved just from losing focus, and you will not be notified of this. You 
 will need to remember to save them manually.
@@ -69,7 +69,7 @@ or
 <
 
 This will save the file when you switch buffers, make it etc. See the 
-appropriate :help pages for the exact details.
+appropriate `:help` pages for the exact details.
 
 COMMENTS                                                   *vwt-1160-comments*
 
@@ -80,7 +80,7 @@ TO DO
 
 ==============================================================================
 
-Thank you for the tip :au FocusLost * :waHow can we extend this function to 
+Thank you for the tip `:au FocusLost * :wa`How can we extend this function to 
 save untitled buffers?We need to give the untitled buffers a filename, perhaps 
 the date combined with the first 5 words of non-blank space text in the 
 document.

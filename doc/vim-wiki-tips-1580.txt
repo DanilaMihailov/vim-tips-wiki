@@ -12,16 +12,16 @@ Vim ships with its own Tutorial [https://vim.fandom.com/wiki/Tutorial], but
 the following should get you started if you're in a hurry:
 
 At first:
-    - Start typing something by pressing i. 
-    - Exit Vim by pressing Esc then writing :q and pressing Enter 
-    - Save your file similarly but using :w myfile.txt 
+    - Start typing something by pressing `i`. 
+    - Exit Vim by pressing Esc then writing `:q` and pressing Enter 
+    - Save your file similarly but using `:w myfile.txt` 
 
 
 Getting help:
-    - :help :help - how to use help 
-    - :help :helpgrep - how to use the searchable help 
+    - `:help :help` - how to use help 
+    - `:help :helpgrep` - how to use the searchable help 
     - Learn to use the :help [https://vim.fandom.com/wiki/Learn_to_use_help]. Know 
-      the difference between :help foo, :help 'foo and :help c_foo. 
+      the difference between `:help foo`, :help 'foo and `:help c_foo`. 
     - Try Ctrl-D completion on help topics 
     - Refer to the Vimdoc |http://vimdoc.sourceforge.net| website for HTML versions 
       of the Vim docs and electronic copy of the Newriders Vimdoc 

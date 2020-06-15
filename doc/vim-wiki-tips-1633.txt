@@ -59,13 +59,13 @@ COMMENTS                                                   *vwt-1633-comments*
 
 Thanks for the tip, but we need a little more info to avoid having each 
 reader spend time working out what actually happens. I install yuicompressor 
-and put the above code in vimrc. I edit example.js. I make some changes and 
+and put the above code in vimrc. I edit `example.js`. I make some changes and 
 save the file. What happens then? JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] 10:25, September 11, 2009 (UTC)
 
 Thanks for reformatting. At first, You must use yuicompressor to compress 
-example.js youself. In most case, the compressed file will name as 
-example.min.js. So you might execute the following command:
+`example.js` youself. In most case, the compressed file will name as 
+`example.min.js`. So you might execute the following command:
 
 >
     yuicompressor example.js > example.min.js

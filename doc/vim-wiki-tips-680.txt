@@ -34,7 +34,7 @@ NOTES                                                          *vwt-680-notes*
     - The idea of the "if" statement is to avoid interfering with a -V argument 
       which might be set in the command-line for debugging. 
     - The command-line is widened to at least two lines to avoid Hit-Enter prompts 
-      on ":set option?" ":edit existing/filename" etc. 
+      on `":set option?"` `":edit existing/filename"` etc. 
 
 
 REFERENCES                                                *vwt-680-references*
@@ -46,8 +46,8 @@ REFERENCES                                                *vwt-680-references*
 COMMENTS                                                    *vwt-680-comments*
 
 The problem with always having verbose=1 becomes apparent when one does a 
-:help or anything -- you get 'file not found' messages about indentation files 
-and the lot. I suggest the following:
+`:help` or anything -- you get 'file not found' messages about indentation 
+files and the lot. I suggest the following:
 
 >
     function! Set( optionName )
@@ -70,15 +70,15 @@ However, those are left to the reader as an exercise (note that the first is
 very easy and the second might be a little more interesting, though quite 
 simple, also).
 
-Note that if one decides to indeed replace the built-in ':set' with this 
-'Set' (by placing all the functionality of ':set' into the function), then the 
-following might be useful:
+Note that if one decides to indeed replace the built-in '`:set`' with this 
+'`Set`' (by placing all the functionality of '`:set`' into the function), then 
+the following might be useful:
 
 >
     cab set Set
 <
 
-This will allow one to type ':set' in lower-case and still get the 
+This will allow one to type '`:set`' in lower-case and still get the 
 functionality desired.
 
 ==============================================================================

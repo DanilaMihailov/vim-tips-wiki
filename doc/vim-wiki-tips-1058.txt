@@ -9,9 +9,9 @@ created 2005 · complexity intermediate · author Kartik Agaram · version 6.0
 This tip is for when you are working with a two-window vertical diff 
 (comparing two files, side-by-side).
 
-Use ]c and [c to go to a specific change. Then use M-, and M-. to patch using 
-the version on the left or right respectively. The cursor is then positioned 
-in the file that changed for ease of saving, etc.
+Use `]c` and `[c` to go to a specific change. Then use M-, and M-. to patch 
+using the version on the left or right respectively. The cursor is then 
+positioned in the file that changed for ease of saving, etc.
 
 I find this more intuitive than using diffput and diffget because I no longer 
 need to remember which window the cursor is in.

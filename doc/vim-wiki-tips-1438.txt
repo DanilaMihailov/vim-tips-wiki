@@ -11,7 +11,7 @@ and :help |@|) comes in handy when one has to insert the same text over and
 over again. Usually, this snippet will not be used literally all over again, 
 but contain variable parts which need to be adapted for every occurrence. 
 Usually you would either enter the varying parts manually or use the 
-:substitute command, both of which will become cumbersome if there are many 
+`:substitute` command, both of which will become cumbersome if there are many 
 occurrences. Using a parameter substitution engine, such as VPars (script#1696 
 [https://www.vim.org/scripts/script.php?script_id=1696]) can relieve you of 
 much of this burden.
@@ -41,7 +41,7 @@ snippet was inserted, I make them VPars variables by including them in "<| ..
 This snippet will then be saved in a suitable register (I use m for 'macro'). 
 And in another register (the q register comes in very handy for this purpose), 
 I put the following commands. Just type and then copy this sequence into the q 
-register by "qy or equivalent:
+register by `"qy` or equivalent:
 
 >
     0"mPV4j,jj
@@ -53,7 +53,7 @@ order to stop recording. Unfortunately, this <Esc> gets recorded as well,
 causing Vim to later drop out of insert mode when executing the macro.
 
 Now all I have to do is to position the cursor at the line where the snippet 
-is to be inserted, and then issue @q. Vim will insert the snippet and call 
+is to be inserted, and then issue `@q`. Vim will insert the snippet and call 
 VPars with the ",jj" shortcut. VPars in turn will stop at the first variable 
 (# denotes the cursor):
 
@@ -62,11 +62,11 @@ VPars with the ",jj" shortcut. VPars in turn will stop at the first variable
 <
 
 and wait there, in insert mode already, for some replacement value. Just type 
-it in and press the <F3> function key (or use the ,jj shortcut). VPars will 
+it in and press the <F3> function key (or use the `,jj` shortcut). VPars will 
 substitute <|name|> for this text at all occurrences immediately, and then 
 wait for a <|value|> replacement. Enter text, press <F3>, and VPars will after 
-substitution put the cursor at the end of the snippet. There you may issue @q 
-again and repeat the game as many times as wanted.
+substitution put the cursor at the end of the snippet. There you may issue 
+`@q` again and repeat the game as many times as wanted.
 
 COMMENTS                                                   *vwt-1438-comments*
 

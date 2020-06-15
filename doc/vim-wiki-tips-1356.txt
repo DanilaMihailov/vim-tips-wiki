@@ -9,8 +9,8 @@ created 2006 · complexity basic · version 7.0
 This tip shows how to use Vim to view the text in a PDF document. That can be 
 useful to use Vim to see the differences between the text in two versions of a 
 pdf. You need to install xpdf [http://www.foolabs.com/xpdf/] (available on all 
-major platforms) as it provides the pdftotext utility to read the text from a 
-pdf file.
+major platforms) as it provides the `pdftotext` utility to read the text from 
+a pdf file.
 
 PROCEDURE                                                 *vwt-1356-procedure*
 
@@ -22,10 +22,10 @@ Put one of the following mappings in your vimrc
     :command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> - |fmt -csw78
 <
 
-These define the :Rpdf command to read the result of converting a pdf 
+These define the `:Rpdf` command to read the result of converting a pdf 
 document to text. The text is read into the current buffer after the current 
 line. The first reads the pdf with each paragraph as a long line, while the 
-second wraps long lines (if the fmt utility is available).
+second wraps long lines (if the `fmt` utility is available).
 
 For example, the following commands open a new tab page and read the text 
 from a pdf document into the buffer.

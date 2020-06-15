@@ -52,11 +52,11 @@ Why not just use script#69
 
 Problem with editing crontab, /etc/passwd, and the like.
 
-If you are in $HOME and edit the crontab via crontab -e and then quit Vim 
+If you are in $HOME and edit the crontab via `crontab -e` and then quit Vim 
 without first closing the buffer explicitly, and do this again from $HOME, you 
 will look at an empty crontab.
 
-Why? When you enter crontab -e, crontab essentially copies the current 
+Why? When you enter `crontab -e`, crontab essentially copies the current 
 crontab to /tmp/<random_filename> and opens this temporary file in $EDITOR, 
 which is of course Vim. The next time, crontab creates a new temporary file, 
 but Vim restores the last session from $HOME. Hence, you end up editing an 
@@ -64,7 +64,7 @@ empty temporary file. What's more, if you save this file, it won't be
 activated afterwards because you made no changes to the current temporary 
 crontab file.
 
-The same goes for vipw and vigr and more utilities.
+The same goes for `vipw` and `vigr` and more utilities.
 
 I think the tip would be more useful if it did only restore a session when 
 Vim is started without a filename argument.
@@ -266,7 +266,7 @@ If you omit 'options' from 'sessionoptions', you might want to use nested
 flag from VimEnter autocmd. Syntax highlighting and mappings might not be 
 restored otherwise.
 
-autocmd VimEnter * nested call RestoreSession()
+`autocmd VimEnter * nested call RestoreSession()`
 
 ==============================================================================
 

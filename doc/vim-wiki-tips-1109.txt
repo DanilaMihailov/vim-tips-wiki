@@ -9,9 +9,9 @@ created 2006 · complexity advanced · author Gerald Lai · version 6.0
 This is for script writers who wish to save and restore the position of the 
 normal cursor and its screen.
 
-To save cursor and screen positions: call CurPos("save")
+To save cursor and screen positions: `call CurPos("save")`
 
-To restore positions: call CurPos("restore")
+To restore positions: `call CurPos("restore")`
 
 Example:
 

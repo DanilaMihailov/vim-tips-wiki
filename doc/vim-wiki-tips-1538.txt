@@ -8,9 +8,9 @@ created
 
 ==============================================================================
 
-When the preprocessor directives #if, #ifdef, #elif, #else and #endif are 
-used extensively in source code, it can be extremely valuable to have comments 
-on the #else and #endif lines to make the code clearer.
+When the preprocessor directives `#if`, `#ifdef`, `#elif`, `#else` and 
+`#endif` are used extensively in source code, it can be extremely valuable to 
+have comments on the `#else` and `#endif` lines to make the code clearer.
 
 For example:
 
@@ -21,11 +21,11 @@ For example:
     #endif /* def DEBUG */
 <
 
-With multiple levels of #ifs, this can simplify the code considerably 
-(particularly with the addition of comments on the #else lines. The function 
+With multiple levels of `#if`s, this can simplify the code considerably 
+(particularly with the addition of comments on the `#else` lines. The function 
 below can be used to automate this process. It will also highlight (with a 
-comment containing 'XXX') any inaccurate comments (for example a /* def DEBUG 
-*/ linked to a #ifndef DEBUG).
+comment containing 'XXX') any inaccurate comments (for example a `/* def DEBUG 
+*/` linked to a `#ifndef DEBUG`).
 
 A more advanced version of this code, with a (slightly buggy) Brace Commenter 
 as well, is available as a plugin from 

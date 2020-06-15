@@ -69,13 +69,14 @@ But I would prefer a maintained thing any day.
 
 ==============================================================================
 
-The first filetype autocmd uses set filetype=php instead of setf php, which 
-could cause it to replace the filetype (depending on where in the runtime path 
-and file it's placed). It's also the only one which changes a filetype (and it 
-does so a bit overzealously, not all .inc or .class files are php).
+The first filetype autocmd uses `set filetype=php` instead of `setf php`, 
+which could cause it to replace the filetype (depending on where in the 
+runtime path and file it's placed). It's also the only one which changes a 
+filetype (and it does so a bit overzealously, not all .inc or .class files are 
+php).
 
-I think the setf can be removed altogether, or moved into a different tip, at 
-least.
+I think the `setf` can be removed altogether, or moved into a different tip, 
+at least.
 
 In fact, these would probably be better in vimrc autocmds as
 

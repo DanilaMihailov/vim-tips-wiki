@@ -87,8 +87,8 @@ to insert a new line:
 
 ==============================================================================
 
-Since I have inoremap jj <Esc> in my .vimrc, it take not too much to type ojj 
-or Ojj.
+Since I have inoremap jj <Esc> in my `.vimrc`, it take not too much to type 
+`ojj` or `Ojj`.
 
 ==============================================================================
 
@@ -115,11 +115,11 @@ a):
 
 This mapping interferes with command execution in the command-line window. 
 The command-line window can operate in normal or insert mode and in both <CR> 
-executes the command from current line. Using nmap instead of map in the 
+executes the command from current line. Using `nmap` instead of `map` in the 
 mapping declaration partially fixes the problem. Then, to execute the command, 
 you must enter the insert mode and press <CR>. While this is a feasible 
-workaround, I prefer to dispense with this mapping and type oii to insert a 
-new line (ii being my map for <Esc>).
+workaround, I prefer to dispense with this mapping and type `oii` to insert a 
+new line (`ii` being my map for <Esc>).
 
 Excellent point! :map applies to too many modes, I went ahead and made it :nmap. For the other problem, we should edit the mapping to detect the command-line window, like in Syntax folding of Vim scripts. Probably this will need an <expr> form of the mapping to do easily. --Fritzophrenic (talk) 15:01, June 27, 2013 (UTC)
 

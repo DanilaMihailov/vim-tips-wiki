@@ -25,7 +25,7 @@ If you like other colors, just change them.
 <
 
 If you want a different color based on the kind of insert mode you are in 
-(i.e. insert, replace, or virtual insert), then you can use the v:insertmode 
+(i.e. insert, replace, or virtual insert), then you can use the `v:insertmode` 
 variable during the InsertEnter event execution to do something different in 
 each mode. For example:
 

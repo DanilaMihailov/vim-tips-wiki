@@ -9,8 +9,8 @@ created April 26, 2006 · complexity basic · author Robert & Bill · version
 
 This tip is about how to resize Windows |usr_08.txt| efficiently.
 
-You can use the :resize command or its shortcut :res to change the height of 
-the window. To change the height to 60 rows, use:
+You can use the `:resize` command or its shortcut `:res` to change the height 
+of the window. To change the height to 60 rows, use:
 
 >
     :resize 60
@@ -24,7 +24,7 @@ increments of 5, use:
     :res -5
 <
 
-You can use :vertical resize to change the width of the current window. To 
+You can use `:vertical resize` to change the width of the current window. To 
 change the width to 80 columns, use:
 
 >
@@ -39,19 +39,19 @@ increments of 5, use:
     :vertical resize -5
 <
 
-For a split window: You can use Ctrl-w + and Ctrl-w - to resize the height of 
-the current window by a single row. For a vsplit window: You can use Ctrl-w > 
-and Ctrl-w < to resize the width of the current window by a single column. 
-Additionally, these key combinations accept a count prefix so that you can 
-change the window size in larger steps. [e.g. Ctrl-w 10 + increases the window 
-size by 10 lines]
+For a split window: You can use `Ctrl-w +` and `Ctrl-w -` to resize the 
+height of the current window by a single row. For a vsplit window: You can use 
+Ctrl-w > and `Ctrl-w <` to resize the width of the current window by a single 
+column. Additionally, these key combinations accept a count prefix so that you 
+can change the window size in larger steps. [e.g. `Ctrl-w 10 +` increases the 
+window size by 10 lines]
 
 To resize all windows to equal dimensions based on their splits, you can use 
-Ctrl-w =.
+`Ctrl-w =`.
 
-To increase a window to its maximum height, use Ctrl-w _.
+To increase a window to its maximum height, use `Ctrl-w _`.
 
-To increase a window to its maximum width, use Ctrl-w |.
+To increase a window to its maximum width, use `Ctrl-w |`.
 
 To resize in different steps, you can create maps that will adjust the window 
 size differently. For example to increase the window size by a factor of 1.5 
@@ -73,7 +73,7 @@ SEE ALSO                                                   *vwt-1215-see-also*
 PLUGINS                                                     *vwt-1215-plugins*
 
 The following plugins allow to define submodes, that make it possible to use 
-e.g. Ctrl-W + to increase the window size and keep on increasing as long as 
+e.g. `Ctrl-W +` to increase the window size and keep on increasing as long as 
 you keep '+' pressed:
     - Andy Wokulas tinymode plugin 
       [https://www.vim.org/scripts/script.php?script_id=2223] 

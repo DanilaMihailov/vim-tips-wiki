@@ -30,10 +30,10 @@ in visually selected text when Ctrl-_ is pressed:
     vnoremap <C-_> "-y:echo 'text' @- 'has length' strlen(@-)<CR>
 <
 
-It would be better to use :set showcmd to display the length (in bytes and 
-characters) of any visually selected text. Then type viw to select the current 
-word and show its length (v starts a character-wise visual selection and iw 
-selects the inner word).
+It would be better to use `:set showcmd` to display the length (in bytes and 
+characters) of any visually selected text. Then type `viw` to select the 
+current word and show its length (`v` starts a character-wise visual selection 
+and `iw` selects the inner word).
 
 COMMENTS                                                    *vwt-258-comments*
 

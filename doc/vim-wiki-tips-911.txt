@@ -10,7 +10,7 @@ Currently fileencoding does not work well in a modeline. When Vim sees the
 fileencoding setting, the file has already been read, so setting 
 'fileencoding' in a modeline normally has no effect until you write the file. 
 That will cause even more trouble as, for example, if the default encoding is 
-latin1 and the modeline has fileencoding=utf-8, then the resulting file will 
+latin1 and the modeline has `fileencoding=utf-8`, then the resulting file will 
 be a utf-8 file converted as latin1 to utf-8 again.
 
 Vim does as best as it can to detect your encoding, if you place its name in 
@@ -39,11 +39,11 @@ configured for working with multiple encodings.
 This script will store off the fileencoding which Vim detects after reading 
 the file, but before processing modelines, and then compare it to the 
 fileencoding after processing modelines. If they differ, it will re-read the 
-file with the new fileencoding value. For this step :e! must be used, because 
-when the fileencoding changes the buffer is marked as modified. This is made 
-less dangerous because we unlet the stored fileencoding value, so that we only 
-issue the e! command if this is the first time BufWinEnter fired after reading 
-the file.
+file with the new fileencoding value. For this step `:e!` must be used, 
+because when the fileencoding changes the buffer is marked as modified. This 
+is made less dangerous because we unlet the stored fileencoding value, so that 
+we only issue the `e!` command if this is the first time BufWinEnter fired 
+after reading the file.
 
 SEE ALSO                                                    *vwt-911-see-also*
     - Detect encoding from the charset specified in HTML files 

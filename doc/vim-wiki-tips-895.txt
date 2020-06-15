@@ -41,27 +41,27 @@ This tip is aimed for those who wish to write scripts in vimL
     nnoremap \gg :TestTwo 3<CR>
 <
 
-\aa : Using a map to call TestOne(). When no count (ie. 5\aa) is provided, 
+`\aa` : Using a map to call TestOne(). When no count (ie. 5\aa) is provided, 
 the only thing interesting is that firstline and lastline are equal to the 
 current line.
 
-5\aa : Like \aa, but this time lastline= firstline+5-1. Thus one can pass a 
-repetition count of sorts to the map. However, one will get an "Invalid range" 
-error within four lines of the end-of-file.
+`5\aa` : Like `\aa`, but this time `lastline= firstline+5-1`. Thus one can 
+pass a repetition count of sorts to the map. However, one will get an "Invalid 
+range" error within four lines of the end-of-file.
 
-\bb : How to pass the optional "!" to a function. Useful for having an 
+`\bb` : How to pass the optional "!" to a function. Useful for having an 
 alternate behavior associated with a function.
 
-\cc : Illustrates the use of <reg> -- note that the first argument
+`\cc` : Illustrates the use of <reg> -- note that the first argument
 
-\dd : is made available by the <reg>, and is elided from the arguments. The
+`\dd` : is made available by the <reg>, and is elided from the arguments. The
 
-\ee : \ee map shows how arguments are still available.
+`\ee` : `\ee` map shows how arguments are still available.
 
-\ff : Shows how to pass a fixed range to a function. Here the <line1>,<line2> 
-construct is being illustrated
+`\ff` : Shows how to pass a fixed range to a function. Here the 
+<line1>,<line2> construct is being illustrated
 
-\gg : Illustrates the use of <count>.
+`\gg` : Illustrates the use of <count>.
 
 COMMENTS                                                    *vwt-895-comments*
 

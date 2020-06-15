@@ -23,7 +23,7 @@ form before saving a file.
 EASILY ENTER AND LEAVE HEX MODE     *vwt-1518-easily-enter-and-leave-hex-mode*
 
 Placing the following code in your vimrc [https://vim.fandom.com/wiki/Vimrc] 
-will provide a :Hexmode ex command to toggle xxd hex mode on or off. It will 
+will provide a `:Hexmode` ex command to toggle xxd hex mode on or off. It will 
 keep track of what mode you are in, so you don't have to. This ex command is 
 easy to map like this:
 
@@ -209,7 +209,7 @@ for its usefulness/completeness/correctness.
 
 ==============================================================================
 
-For me, the code to automatically enter hex mode causes :help commands to 
+For me, the code to automatically enter hex mode causes `:help` commands to 
 fail for any gzipped help files, so I fixed it by adding this chunk of code
 
 >

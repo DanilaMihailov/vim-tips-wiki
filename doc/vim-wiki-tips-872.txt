@@ -32,13 +32,14 @@ modem dial the number.
 <
 
 After sourcing the above script:
-    - In any file, put the cursor on a phone number and type @p to dial the number. 
-    - In any file with a name starting with "phone", put the cursor on a phone 
+    - In any file, put the cursor on a phone number and type `@p` to dial the 
+      number. 
+    - In any file with a name starting with "`phone`", put the cursor on a phone 
       number and press Enter to dial the number. 
 
 
-The shell script dial (not shown) uses its argument to write modem control 
-sequences to /dev/ttysS0 to cause the modem to dial the phone number. The 
+The shell script `dial` (not shown) uses its argument to write modem control 
+sequences to `/dev/ttysS0` to cause the modem to dial the phone number. The 
 script removes all non-digit characters from the number, then does something 
 like this shell command:
 
@@ -48,7 +49,7 @@ like this shell command:
 
 COMMENTS                                                    *vwt-872-comments*
 
-Not many people will have a modem (or the required dial script) to try this 
+Not many people will have a modem (or the required `dial` script) to try this 
 tip, but there are some useful ideas that might be useful for other 
 applications. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 
 10:54, May 11, 2012 (UTC)

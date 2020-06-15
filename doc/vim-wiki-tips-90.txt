@@ -6,8 +6,8 @@ created 2001 · complexity intermediate · author Erhan · version 6.0
 
 ==============================================================================
 
-Vim can encrypt your documents. :X prompts for an encryption key, which is 
-stored in the key option. The file will remain unchanged until you write it.
+Vim can encrypt your documents. `:X` prompts for an encryption key, which is 
+stored in the `key` option. The file will remain unchanged until you write it.
 
 When you reopen the file, Vim will ask for the key; if you enter the wrong 
 key, Vim will "decrypt" it to gibberish content. DO NOT SAVE such a gibberish 
@@ -20,15 +20,15 @@ used:
     :set viminfo=
 <
 
-If you want to disable encryption, just empty the key option:
+If you want to disable encryption, just empty the `key` option:
 
 >
     :set key=
 <
 
-The difference between :X and :set key=something is that :X displays 
+The difference between `:X` and `:set key=something` is that `:X` displays 
 asterisks as you type, so that no one can peek at your encryption key. Also, 
-:set commands may end up in your viminfo file.
+`:set` commands may end up in your viminfo file.
 
 From version 7.3, Vim supports Blowfish encryption as well as the default 
 pkzip-compatible method. Starting at 7.4.399, a new blowfish method is 
@@ -44,9 +44,9 @@ before writing the file:
     :setlocal cm=blowfish2     " best (requires Vim version 7.4.399 or higher)
 <
 
-cm is an abbreviation for cryptmethod. Pkzip is a weak encryption method, but 
-is compatible with Vim 7.2 and older; Blowfish is strong, especially using the 
-fixed "blowfish2" method. :help |encryption| includes:
+`cm` is an abbreviation for `cryptmethod`. Pkzip is a weak encryption method, 
+but is compatible with Vim 7.2 and older; Blowfish is strong, especially using 
+the fixed "blowfish2" method. :help |encryption| includes:
 
 
 
@@ -78,7 +78,7 @@ PGP                                                               *vwt-90-pgp*
 
 Here are some autocommands tested with pgp version 2.6.2. The pgp call for 
 writing uses PGP's "conventional" cryptography; to use its public key 
-cryptography, use pgp -fe userid instead.
+cryptography, use `pgp -fe userid` instead.
 
 >
     augroup PGP
@@ -95,8 +95,8 @@ Here is a set of autocommands that allows you to work on GPG-encrypted files
 as though they were ordinary text files. Be aware that Vim uses temporary 
 files (rather than pipes) when filtering data through external programs, so 
 the fully decrypted file will be written to disk twice:
-    - Once when reading from gpg --decrypt, 
-    - once when writing to gpg --encrypt, 
+    - Once when reading from `gpg --decrypt`, 
+    - once when writing to `gpg --encrypt`, 
     - and perhaps another time if your OS has unencrypted swap files. 
 
 
@@ -135,14 +135,14 @@ With that said, here is the code.
 <
 
 If you use tcsh as your shell, the 2>/dev/null will make your shell sad. 
-Create a gpg.sh script which will do the stderr redirection:
+Create a `gpg.sh` script which will do the `stderr` redirection:
 
 >
     #!/bin/sh
     gpg "$@" 2>> .gpg.err
 <
 
-And then change the two lines of the lines in the .vimrc snippet from above 
+And then change the two lines of the lines in the `.vimrc` snippet from above 
 that actually do the GPG encryption/decryption to:
 
 >
@@ -150,7 +150,7 @@ that actually do the GPG encryption/decryption to:
     autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg.sh --default-recipient-self -ae
 <
 
-CCRYPT                                                         *vwt-90-ccrypt*Here is a working autocmd set for ccrypt: note that it uses the environment variable, which can be dangerous on older multi-user systems (see man ccrypt, also lookup scrypt, bcrypt on google).
+CCRYPT                                                         *vwt-90-ccrypt*Here is a working autocmd set for ccrypt: note that it uses the environment variable, which can be dangerous on older multi-user systems (see `man ccrypt, also lookup scrypt, bcrypt on google`).
 
 >
     augroup CPT
@@ -166,7 +166,7 @@ CCRYPT                                                         *vwt-90-ccrypt*He
     augroup END
 <
 
-To create a test.cpt file, do this:
+To create a test`.cpt` file, do this:
 
 >
     C:\> dir > test.cpt
@@ -177,7 +177,7 @@ To create a test.cpt file, do this:
     C:\> ccrypt -e -E CPT_PASS test.cpt
 <
 
-That will create a file test.cpt, which you can then open in Vim.
+That will create a file `test.cpt`, which you can then open in Vim.
 
 COMMENTS                                                     *vwt-90-comments*
 

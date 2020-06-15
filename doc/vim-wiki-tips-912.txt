@@ -18,8 +18,8 @@ removes the character trigering the expansion. JAVA_insert_p is a predicate
 which checks whether we are typing a String or not.
 
 JAVA_replace executes name or repl:
-    - name is a short String being executed, if you are in a String. 
-    - repl is to be executed, when you want your expansion. 
+    - `name` is a short String being executed, if you are in a String. 
+    - `repl` is to be executed, when you want your expansion. 
 
 
 >
@@ -63,12 +63,12 @@ Here are some mappings:
     iabbrev <silent> <buffer> trya try{<CR>}catch(Exception e){}<Esc>O<C-R>=JAVA_EatChar('\s')<CR>
 <
 
-I'm using JAVA_replace for for while sysout syserr, but not for others, for 
-example fori forint.
+I'm using JAVA_replace for `for while sysout syserr`, but not for others, for 
+example `fori forint`.
 
-This is very important, because if you define e.g. fori with JAVA_replace the 
-expansion will be executed with "exec" which will call the abbreviation for 
-"for", thus unfortunatelly defining abbreviation for keywords which extend 
+This is very important, because if you define e.g. `fori` with JAVA_replace 
+the expansion will be executed with "exec" which will call the abbreviation 
+for "for", thus unfortunatelly defining abbreviation for keywords which extend 
 other keywords will become some kind of tricky.
 
 But since the functions don't do any syntax checking by themself, it won't be 

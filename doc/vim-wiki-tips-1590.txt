@@ -8,12 +8,13 @@ created
 
 ==============================================================================
 
-On Unix-based systems, the shell command ln x y creates y as a hard link to 
-file x. There is only a single file, so if you edit y, you will also change x.
+On Unix-based systems, the shell command `ln x y` creates `y` as a hard link 
+to file `x`. There is only a single file, so if you edit `y`, you will also 
+change `x`.
 
 If wanted, you can configure Vim so that it will break hard links whenever a 
-file is written, providing a backup is made. In that case, editing y would 
-automatically remove the link, and create a separate file, leaving x 
+file is written, providing a backup is made. In that case, editing `y` would 
+automatically remove the link, and create a separate file, leaving `x` 
 unchanged. The Vim command (in vimrc [https://vim.fandom.com/wiki/Vimrc]) is:
 
 >

@@ -12,8 +12,8 @@ This tip deals with Screen and Vim integration.
 
 GETTING THE ESC KEY TO WORK              *vwt-965-getting-the-esc-key-to-work*
 
-If you use Vim under Screen, you might find that the Esc key doesn't work. To 
-fix this, add the following to your .screenrc:
+If you use Vim under Screen, you might find that the `Esc` key doesn't work. 
+To fix this, add the following to your `.screenrc`:
 
 >
     maptimeout 5
@@ -43,7 +43,7 @@ Also note that Ctrl-v might be mapped to something else in your configuration.
 See :help |i_CTRL-V|.
 
 You can check whether your mapping works by entering the following in Normal 
-mode (not in your .vimrc), and pressing Home:
+mode (not in your .vimrc), and pressing `Home`:
 
 >
     :map <Home> :echo "It works!"<CR>
@@ -51,7 +51,7 @@ mode (not in your .vimrc), and pressing Home:
 
 CHANGING VIM'S IDEA OF THE TERMINAL *vwt-965-changing-vim's-idea-of-the-terminal*
 
-In addition to the Esc key, you might find that all sorts of other things 
+In addition to the `Esc` key, you might find that all sorts of other things 
 don't work the way they should. This is because, by default, Screen sets the 
 $TERM environmental variable to "screen", which Vim does not recognize. There 
 are two (or three) ways to fix this:
@@ -62,13 +62,13 @@ use if this is not the case.)
 
 1ST ALTERNATIVE: MODIFY YOUR .SCREENRC *vwt-965-1st-alternative:-modify-your-.screenrc*
 
-Add the following line to your .screenrc:
+Add the following line to your `.screenrc`:
 
 >
     term xterm
 <
 
-Note: This changes the $TERM variable, so it affects more than Vim.
+Note: This changes the `$TERM` variable, so it affects more than Vim.
 
 You could also use the following :
 
@@ -80,7 +80,7 @@ This will fix so the colours will look the same as in vim outside screen.
 
 2ND ALTERNATIVE: MODIFY YOUR .VIMRC *vwt-965-2nd-alternative:-modify-your-.vimrc*
 
-The very simplest thing to do is to add the following lines to your .vimrc:
+The very simplest thing to do is to add the following lines to your `.vimrc`:
 
 >
     if match($TERM, "screen")!=-1
@@ -107,7 +107,7 @@ ideas), use the following alternative:
 
 SCREEN-AWARE COMMANDS                          *vwt-965-screen-aware-commands*
 
-If you decided you'd like there to be a g:GNU_Screen_used variable, you may 
+If you decided you'd like there to be a `g:GNU_Screen_used` variable, you may 
 use it in all sorts of ways.
 
 Say, for instance, you've defined a command to play a music file under your 
@@ -151,8 +151,9 @@ you really need help you might have to try the mailing list (click "Community
 portal" in the sidebar). However I can say vaguely what the tip is attempting.
 
 You could type map ^[[1~ <Home> in the following way:
-    - Type "map " then Ctrl-v then press the Home key (do all that while in insert 
-      mode). When you press the Home key you will see something like "^[[1~". 
+    - Type "`map `" then Ctrl-v then press the Home key (do all that while in 
+      insert mode). When you press the Home key you will see something like 
+      "`^[[1~`". 
     - Then type " <Home>" and press Enter. You do not press the Home key. Type the 
       characters exactly as shown. 
 

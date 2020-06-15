@@ -18,8 +18,9 @@ can provide a second line of defense.
 
 To use it, add the following to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc], or create file 
-~/.vim/plugin/filechanged.vim (Unix) or $HOME/vimfiles/plugin/filechanged.vim 
-(Windows) containing the script below, then restart Vim.
+`~/.vim/plugin/filechanged.vim` (Unix) or 
+`$HOME/vimfiles/plugin/filechanged.vim` (Windows) containing the script below, 
+then restart Vim.
 
 >
     au FileChangedShell * call FCSHandler(expand("<afile>:p"))
@@ -56,7 +57,7 @@ To use it, add the following to your vimrc
 <
 
 You can easily customize this code to take whatever action you desire for the 
-various values of v:fcs_reason, by setting v:fcs_choice (for example, you 
+various values of `v:fcs_reason`, by setting `v:fcs_choice` (for example, you 
 could reload the buffer if the mode has changed).
 
 Based on discussion on the vim_use mailing list 

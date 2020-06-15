@@ -78,7 +78,7 @@ subtle?
 The really subtle part was how to delete all the stuff before the first 
 slash.
 
-One could ask "Why not use :r !locate filename?"
+One could ask "Why not use `:r !locate filename`?"
 
 That would have given us the data we needed with no manipulation necessary. 
 However that is beyond the scope of this tip.

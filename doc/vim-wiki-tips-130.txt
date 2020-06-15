@@ -8,8 +8,8 @@ created 2001 · complexity intermediate · author Benji Fisher · version 6.0
 
 A file type plugin (ftplugin) is a script that is run automatically when Vim 
 detects the type of file when the file is created or opened. The type can be 
-detected from the file name (for example, file sample.c has file type c), or 
-from the file contents.
+detected from the file name (for example, file `sample.c` has file type `c`), 
+or from the file contents.
 
 OVERVIEW                                                    *vwt-130-overview*
 
@@ -21,21 +21,21 @@ If you want to disable all ftplugins, or disable a particular default
 ftplugin, see :help |:filetype| and :help |ftplugin-overrule|.
 
 If you have your own ftplugins, and you want to disable all the default ones, 
-then do not include a check for b:did_ftplugin in your ftplugin files, and add 
-the line
+then do not include a check for `b:did_ftplugin` in your ftplugin files, and 
+add the line
 
 >
     :autocmd BufReadPre,BufNewFile * let b:did_ftplugin = 1
 <
 
-to your vimrc [https://vim.fandom.com/wiki/Vimrc], before the :filetype 
-plugin on line.
+to your vimrc [https://vim.fandom.com/wiki/Vimrc], before the `:filetype 
+plugin on` line.
 
 SETTING A DEFAULT FILETYPE                *vwt-130-setting-a-default-filetype*
 
 When you edit a blank buffer (for example, just after starting Vim, or as a 
-result of the :new command), the buffer will have no filetype so there will be 
-no syntax highlighting or other ftplugin assistance.
+result of the `:new` command), the buffer will have no filetype so there will 
+be no syntax highlighting or other ftplugin assistance.
 
 You can check the filetype of the current buffer with command:
 
@@ -51,7 +51,7 @@ example:
 <
 
 Another approach is to assign a file name when creating the blank buffer, for 
-example, by entering a command like vim mynewfile.py to start Vim, or with 
+example, by entering a command like `vim mynewfile.py` to start Vim, or with 
 commands like these from within Vim:
 
 >
@@ -71,12 +71,12 @@ buffers:
     au BufEnter * if g:do_filetype | setf python | let g:do_filetype = 0 | endif
 <
 
-BufWinEnter is for the buffer that is opened on startup. BufAdd is for new 
-blank buffers.
+`BufWinEnter` is for the buffer that is opened on startup. `BufAdd` is for 
+new blank buffers.
 
-Why the need to use a global variable, and not set the filetype immediately, 
-is to my understanding, because the buffer hasn't been fully created when the 
-autocmd is triggered.
+Why the need to use a global variable, and not set the `filetype` 
+immediately, is to my understanding, because the buffer hasn't been fully 
+created when the autocmd is triggered.
 
 SEE ALSO                                                    *vwt-130-see-also*
     - 180 Reload your filetype/syntax plugin |vwt-180| 

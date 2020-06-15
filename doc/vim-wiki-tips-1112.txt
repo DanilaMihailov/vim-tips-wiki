@@ -12,8 +12,8 @@ Use the following to list your buffers.
     nnoremap <m-:> :ls\|sleep<CR><CR>
 <
 
-Press Alt-: to show the results of :ls for one second. Pressing Alt-: 3 times 
-will show the :ls listing for 3 seconds.
+Press Alt-: to show the results of `:ls` for one second. Pressing Alt-: 3 
+times will show the `:ls` listing for 3 seconds.
 
 You can also hold down Alt-: to show the file list continuously, then press 
 Ctrl-c when you're done. This can be very useful when working with many files.

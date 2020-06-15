@@ -14,8 +14,8 @@ against this annoying pitfall.
 
 The following script auto-converts 8 spaces at the beginning of line (only in 
 Makefiles, and only at the beginning of line) into tab, as you type or paste. 
-It is suggested to have :set list in Makefiles, too. This script will only 
-work if :set nopaste is set.
+It is suggested to have `:set list` in Makefiles, too. This script will only 
+work if `:set nopaste` is set.
 
 >
     " In Makefile, automatically convert eight spaces at the beginning

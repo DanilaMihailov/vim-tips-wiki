@@ -14,7 +14,7 @@ USING STRFTIME()                                     *vwt-97-using-strftime()*
 
 Vim's internal strftime() function (:help |strftime()|) returns a date/time 
 string formatted in a way you specify with a format string. Most systems 
-support strftime(), but some don't.
+support `strftime()`, but some don't.
 
 To insert a timestamp in the default strftime format "%c", type either of the 
 following commands:
@@ -39,7 +39,7 @@ This will enter something like the following in your file buffer:
 Quotation marks have to be escaped in this usage so as not to terminate the 
 line because a quote starts a comment.
 
-To store the return value of the function, the "= register (:help |"=|) is 
+To store the return value of the function, the `"=` register (:help |"=|) is 
 used. Here's a bunch of examples:
 
 Press F5 in normal mode or in insert mode to insert the current datestamp: 
@@ -50,13 +50,13 @@ Press F5 in normal mode or in insert mode to insert the current datestamp:
     :inoremap <F5> <C-R>=strftime("%c")<CR>
 <
 
-In the example above, the uppercase P at the end inserts before the current 
+In the example above, the uppercase `P` at the end inserts before the current 
 character, which allows datestamps inserted at the beginning of an existing 
 line. Other 'put' commands may be more useful for you: :hel |p| :help |P| 
 :help |gp| :help |gP|
 
-Type dts in insert mode to expand to a datestamp: :help |abbreviations| using 
-an expression :help |:map-expression|
+Type `dts` in insert mode to expand to a datestamp: :help |abbreviations| 
+using an expression :help |:map-expression|
 
 >
     :iab <expr> dts strftime("%c")
@@ -68,13 +68,13 @@ To replace text with the current date in a substitute command:
     :s/text to replace/\=strftime("%c")/
 <
 
-Vary the format string (the "%c" argument), to change how the time and/or 
+Vary the format string (the `"%c"` argument), to change how the time and/or 
 date are displayed. For some formats, the result may depend on your locale. 
 :help |:language|
 
 The specification for the format string itself depends on the implementation 
-of strftime() on your platform. For details, Unix users may refer to the 
-strftime(3) man page, by running 'man 3 strftime'.
+of `strftime()` on your platform. For details, Unix users may refer to the 
+`strftime(3)` man page, by running '`man 3 strftime`'.
 
 SOME STRFTIME() FORMAT STRING EXAMPLES *vwt-97-some-strftime()-format-string-examples*
 
@@ -103,7 +103,7 @@ SOME STRFTIME() FORMAT STRING EXAMPLES *vwt-97-some-strftime()-format-string-exa
 USING EXTERNAL TOOLS                             *vwt-97-using-external-tools*
 
 On Unix-based systems, enter the following in Vim to read the output from 
-running the date utility, inserting the result after the current line:
+running the `date` utility, inserting the result after the current line:
 
 >
     :r !date
@@ -115,9 +115,9 @@ Under Windows, use:
     :r !date /t
 <
 
-The above commands insert the output of the date program after the current 
-line. If wanted, the !! command can be used to filter the current line, 
-replacing it with the output of date.
+The above commands insert the output of the `date` program after the current 
+line. If wanted, the `!!` command can be used to filter the current line, 
+replacing it with the output of `date`.
 
 >
     !!date
@@ -137,10 +137,10 @@ file is written:
     :au BufWritePre *.html exe "norm mz"|exe '%s/\(<!-- DATE -->\).\{-\}\d\d:\d\d:\d\d/\1'.strftime("%b %d, %Y %X")."/e"|norm `z
 <
 
-That way a string of the form Aug 13, 2001 14:19:50 is embedded in the text, 
-and it will be updated to the current date and time automatically, every time 
-the file is saved (the ...DATE... stuff is an HTML comment and won't appear in 
-an HTML document).
+That way a string of the form `Aug 13, 2001 14:19:50` is embedded in the 
+text, and it will be updated to the current date and time automatically, every 
+time the file is saved (the ...DATE... stuff is an HTML comment and won't 
+appear in an HTML document).
 
 This is a general solution:
 
@@ -161,8 +161,8 @@ This is a general solution:
     autocmd BufWritePre * call LastModified()
 <
 
-keepjumps excludes timestamp position from jump list, which is a false 
-positive in this context. Calling histdel removes timestamp search pattern 
+`keepjumps` excludes timestamp position from jump list, which is a false 
+positive in this context. Calling `histdel` removes timestamp search pattern 
 from search history.
 
 UPDATING TIMESTAMPS IN XML FILES     *vwt-97-updating-timestamps-in-xml-files*
@@ -176,10 +176,10 @@ given as the number of milliseconds past the epoch
 <
 
 With the code below in your vimrc [https://vim.fandom.com/wiki/Vimrc], enter 
-:UpdateTimestamps to update the value to the current time in each instance of 
-a tag with the format shown above. The code uses Vim's strftime() which 
+`:UpdateTimestamps` to update the value to the current time in each instance 
+of a tag with the format shown above. The code uses Vim's `strftime()` which 
 requires support by the operating system, so this will only work on systems 
-which handle %s (the number of seconds since the start of 1970-01-01; should 
+which handle `%s` (the number of seconds since the start of 1970-01-01; should 
 be available on Unix systems but not Windows).
 
 >
@@ -191,11 +191,11 @@ be available on Unix systems but not Windows).
     command! UpdateTimestamps call s:UpdateTimestamps()
 <
 
-It is not necessary to type the full command: just type :Up then press Tab 
+It is not necessary to type the full command: just type `:Up` then press Tab 
 for command completion. Using a command allows updating to be easily applied 
 to multiple buffers 
 [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers], for example, 
-entering :bufdo UpdateTimestamps would update all tags in all buffers.
+entering `:bufdo UpdateTimestamps` would update all tags in all buffers.
 
 UPDATING A DNS SOA SERIAL NUMBER     *vwt-97-updating-a-dns-soa-serial-number*
 
@@ -218,10 +218,10 @@ after the cursor is "2008123002", pressing the F8 key would change the number
 to "2009042100", and would display "2008123002" in the message line at the 
 bottom of the window.
 
-The command searches for \< (beginning word), followed by 10 digits, followed 
-by \> (end word). The ce changes to the end of the word (deleting the number 
-to the unnamed register), then inserts (Ctrl-r) the value of register = (which 
-evaluates the following expression).
+The command searches for `\<` (beginning word), followed by 10 digits, 
+followed by \> (end word). The `ce` changes to the end of the word (deleting 
+the number to the unnamed register), then inserts (Ctrl-r) the value of 
+register `=` (which evaluates the following expression).
 
 SEE ALSO                                                     *vwt-97-see-also*
     - Automatically Update Copyright Notice in Files |vwt-1521| 

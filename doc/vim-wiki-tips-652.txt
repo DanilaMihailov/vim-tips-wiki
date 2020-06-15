@@ -10,12 +10,12 @@ Vim can open multiple files, each in its own buffer. Here is how to save all
 changes and continue working, or save all changes and exit Vim. It is also 
 possible to quit all (discard changes).
 
-The :wa and :xa commands only write a file when its buffer has been changed. 
-By contrast, the :w command always writes the current buffer to its file (use 
-:update to save the current buffer only if it has been changed).
+The `:wa` and `:xa` commands only write a file when its buffer has been 
+changed. By contrast, the `:w` command always writes the current buffer to its 
+file (use `:update` to save the current buffer only if it has been changed).
 
-Warning: If you enter :qa!, Vim will discard all changes without asking "are 
-you sure?".
+Warning: If you enter `:qa!`, Vim will discard all changes without asking 
+"are you sure?".
 
 SEE ALSO                                                    *vwt-652-see-also*
     - Tutorial [https://vim.fandom.com/wiki/Tutorial] 

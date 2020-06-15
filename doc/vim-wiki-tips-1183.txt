@@ -13,22 +13,22 @@ still on? Using this tip, you can enable Caps Lock only when typing text,
 eliminating those pesky <Esc>JJJJUUU commands you accidentally enter.
 
 After implementing this tip, you do not need to use the Caps Lock key. 
-Instead, when in insert mode, press Ctrl-^ (hold down Ctrl and press ^ – the 6 
-key on US keyboards) to toggle "Caps Lock" on or off.
+Instead, when in insert mode, press Ctrl-`^` (hold down Ctrl and press `^` – 
+the `6` key on US keyboards) to toggle "Caps Lock" on or off.
 
 This "Caps Lock" does not apply in normal mode. It only applies when:
     - Typing while in insert mode. 
     - Typing in the command line. 
     - Typing a search pattern. 
-    - Typing a character for commands like r and f. 
-    - Typing in the input() line. 
+    - Typing a character for commands like `r` and `f`. 
+    - Typing in the `input()` line. 
 
 
 USING LANGUAGE MAPPINGS                     *vwt-1183-using-language-mappings*
 
-To use Ctrl-^ to toggle "Caps Lock", place the following in your vimrc 
+To use Ctrl-`^` to toggle "Caps Lock", place the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] (or just yank the lines in Vim, then type 
-:@" to execute them):
+`:@"` to execute them):
 
 >
     " Execute 'lnoremap x X' and 'lnoremap X x' for each letter a-z.
@@ -47,23 +47,23 @@ mode:
     autocmd InsertLeave * set iminsert=0
 <
 
-Note the use of the 'iminsert' option. Pressing CTRL-^ actually toggles this 
-option between 0 and 1, which automatically enables or disables your language 
-maps. A related option, 'imsearch', controls the mappings while entering a 
-search pattern.
+Note the use of the 'iminsert' option. Pressing `CTRL-^` actually toggles 
+this option between 0 and 1, which automatically enables or disables your 
+language maps. A related option, 'imsearch', controls the mappings while 
+entering a search pattern.
 
 USING A KEYMAP [HTTPS://VIM.FANDOM.COM/WIKI/HOW_TO_MAKE_A_KEYMAP] *vwt-1183-using-a-keymap-[https://vim.fandom.com/wiki/how_to_make_a_keymap]*
 
-An alternative procedure that also causes Ctrl-^ to toggle "Caps Lock", is to 
-use a keymap (this is not a mapping; see :help |mbyte-keymap|).
+An alternative procedure that also causes Ctrl-`^` to toggle "Caps Lock", is 
+to use a keymap (this is not a mapping; see :help |mbyte-keymap|).
 
 Using the 'keymap' option keeps vimrc clean 
 [https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean] and adds an indicator 
 to the status line while in this "Caps Lock" mode.
 
 Complete and place the following in file 
-~/.vim/keymap/insert-only_capslock.vim on Unix-based systems, or file 
-$HOME/vimfiles/keymap/insert-only_capslock.vim on Windows systems:
+`~/.vim/keymap/insert-only_capslock.vim` on Unix-based systems, or file 
+`$HOME/vimfiles/keymap/insert-only_capslock.vim` on Windows systems:
 
 >
     " Toggle Caps Lock by pressing Ctrl-^, but only for insert and command mode.
@@ -99,7 +99,7 @@ Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     set iminsert=0
 <
 
-The same InsertLeave autocmd defined for the language mappings can be used 
+The same `InsertLeave` autocmd defined for the language mappings can be used 
 for this method.
 
 You may want to include the following in your vimrc so the cursor color 
@@ -110,8 +110,8 @@ changes when "Caps Lock" is on:
     :highlight lCursor guifg=NONE guibg=Cyan
 <
 
-Using the keymap procedure, the effect of pressing Ctrl-^ is buffer local (so 
-"Caps Lock" may be on in one buffer and off in another).
+Using the keymap procedure, the effect of pressing Ctrl-`^` is buffer local 
+(so "Caps Lock" may be on in one buffer and off in another).
 
 REFERENCES                                               *vwt-1183-references*
     - :help |language-mapping| 
@@ -138,13 +138,13 @@ language mappings with the command:
 
 ==============================================================================
 
-One could also set a lCursor highlight different from the Cursor highlight, 
-as a reminder that "pseudo-CapsLock mode" is on (however it is not possible to 
-use different lCursor highlights for different keymaps used in parallel in 
-different buffers, except maybe by means of fancy BufEnter autocommands); it 
-could then (if one didn't play with 'iminsert') apply also to the operand of 
-Normal-mode r f t and the like, and, with 'imsearch' set to -1, to / and ? 
-searches.
+One could also set a `lCursor` highlight different from the `Cursor` 
+highlight, as a reminder that "pseudo-CapsLock mode" is on (however it is not 
+possible to use different `lCursor` highlights for different keymaps used in 
+parallel in different buffers, except maybe by means of fancy `BufEnter` 
+autocommands); it could then (if one didn't play with 'iminsert') apply also 
+to the operand of Normal-mode `r f t` and the like, and, with 'imsearch' set 
+to -1, to `/` and `?` searches.
 
 Does this work with the lmaps or just with the keymap? This would be good to know. The buffer info is useful, but the highlight info is already in the tip. --Fritzophrenic 18:31, September 1, 2009 (UTC)
 
@@ -152,9 +152,9 @@ IIUC, Cursor vs. lCursor vs. CursorIM highlighting of the cursor depends on 'imi
 
 ==============================================================================
 
-With "national keyboards" other than en-US, hitting the 6 digit key while 
-holding down the Ctrl key may or may not produce Ctrl-^, but you can e.g. use 
-the following mappings to use F5 instead in that case:
+With "national keyboards" other than en-US, hitting the `6` digit key while 
+holding down the `Ctrl` key may or may not produce `Ctrl-^`, but you can e.g. 
+use the following mappings to use `F5` instead in that case:
 
 >
     noremap  <F5> :let &l:imi = !&l:imi<CR>

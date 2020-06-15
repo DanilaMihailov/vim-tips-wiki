@@ -11,11 +11,11 @@ treating them the same as Vim treats zip files.
 
 If you want to figure out how to do this yourself, read :help |new-filetype| 
 and zipPlugin.vim. The latter is a plugin distributed with Vim: in Vim, put 
-the cursor on $VIMRUNTIME/plugin/zipPlugin.vim and type gf.
+the cursor on `$VIMRUNTIME/plugin/zipPlugin.vim` and type `gf`.
 
 For impatient people, just place the following in a file named 
-~/.vim/ftdetect/jar.vim (on Unix systems) or $HOME/vimfiles/ftdetect/jar.vim 
-(on Windows systems):
+`~/.vim/ftdetect/jar.vim` (on Unix systems) or 
+`$HOME/vimfiles/ftdetect/jar.vim` (on Windows systems):
 
 >
     au BufRead,BufNewFile *.jar,*.war,*.ear,*.sar,*.rar set filetype=zip

@@ -71,7 +71,7 @@ the previous default directory C:\Temp and C:\TMP. For some reason, Vim
 doesn't (as of 2013-03-07) use $TEMP or $TMP for the default value of the 
 'directory' option. Fixing this is easy, just put this in your .vimrc:
 
-set directory=.,$TMP,$TEMP
+`set directory=.,$TMP,$TEMP`
 
 See http://code.google.com/p/vim/issues/detail?id=28 
 [http://code.google.com/p/vim/issues/detail?id=28] for current status of this 

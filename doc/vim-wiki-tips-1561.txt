@@ -20,7 +20,7 @@ This tutorial creates a syntax file for Celestia star catalogs. Celestia
 astronomy and space. All we need to know for this tutorial is that a star 
 catalog lists a star name with its positional information, distance and 
 attributes (color, radius, mass, brightness). Here is an example entry in a 
-star catalog file (.stc):
+star catalog file (`.stc`):
 
 >
     600000 "My Star"
@@ -34,7 +34,7 @@ star catalog file (.stc):
     }
 <
 
-The entry consists of a number, a string, and a {...} block, with some 
+The entry consists of a number, a string, and a `{...}` block, with some 
 keywords within that block ("RA", "Dec", etc). Comments are prefixed with "#" 
 like in shell scripts or conf files. There can be multiple entries like this 
 with a number (the HIP number), the string, and the block containing the 
@@ -45,8 +45,8 @@ SYNTAX FILES                                           *vwt-1561-syntax-files*
 
 BUILD A SYNTAX FILE                             *vwt-1561-build-a-syntax-file*
 
-First, create a new file named cel.vim with the following contents (see below 
-|vwt-1561-install-the-syntax-file| for its location):
+First, create a new file named `cel.vim` with the following contents (see 
+below |vwt-1561-install-the-syntax-file| for its location):
 
 >
     " Vim syntax file
@@ -60,9 +60,9 @@ First, create a new file named cel.vim with the following contents (see below
 <
 
 Vim comments start with a quote. Following the convention of the built-in 
-syntax files, we start with a comment flower box. The test if 
-exists("b:current_syntax") ... checks whether an earlier file has defined a 
-syntax already. If so, the script exits with finish.
+syntax files, we start with a comment flower box. The test `if 
+exists("b:current_syntax") ...` checks whether an earlier file has defined a 
+syntax already. If so, the script exits with `finish`.
 
 KEYWORD, MATCH AND REGION ELEMENTS *vwt-1561-keyword,-match-and-region-elements*
 
@@ -89,12 +89,12 @@ recognize them, you can use a definition:
     syn keyword basicLanguageKeywords PRINT OPEN IF
 <
 
-For now we are not going to worry about nextgroup=.
+For now we are not going to worry about `nextgroup=`.
 
 Vim will now recognize the keywords PRINT, OPEN and IF as syntax elements of 
-type basicLanguageKeywords. You can add more on the same line, or add another 
-line with the same type (basicLanguageKeywords). For example, to add the 
-keywords DO, WHILE and WEND, you could add to the previous line like this:
+type `basicLanguageKeywords`. You can add more on the same line, or add 
+another line with the same type (`basicLanguageKeywords`). For example, to add 
+the keywords DO, WHILE and WEND, you could add to the previous line like this:
 
 >
     syn keyword basicLanguageKeywords PRINT OPEN IF DO WHILE WEND
@@ -122,7 +122,7 @@ We will apply this procedure to our star catalog entry from above:
 <
 
 We can group the following keywords as part of a syntax element called 
-celBlockCmd by adding the following to our syntax file.
+`celBlockCmd` by adding the following to our syntax file.
 
 >
     syn keyword celBlockCmd RA Dec SpectralType Mass Distance AbsMag
@@ -138,28 +138,28 @@ We want Vim to know that following a certain keyword there is going to be some
 set of characters, perhaps defined as a regular expression.
 
 This is where matches come in; along with an additional caveat to using 
-keywords, the nextgroup and skipwhite arguments as seen above.
+keywords, the `nextgroup` and `skipwhite` arguments as seen above.
 
 >
     syn match celNumber '\d\+'
     syn keyword celBlockCmd RA Dec Mass Distance AbsMag nextgroup=celNumber skipwhite
 <
 
-Now as you can see the match was given a regular expression \d\+ meaning to 
-match one or more (\+) digits 0-9 (\d). The keyword syntax element celBlockCmd 
-has been modified slightly because following the SpectralType keyword is not a 
-number but a string. Hence it has been excluded from the list of keywords for 
-now. Later we will address that problem by creating another regular expression 
-to match strings and apply it to that keyword.
+Now as you can see the match was given a regular expression `\d\+` meaning to 
+match one or more (`\+`) digits 0-9 (`\d`). The keyword syntax element 
+`celBlockCmd` has been modified slightly because following the `SpectralType` 
+keyword is not a number but a string. Hence it has been excluded from the list 
+of keywords for now. Later we will address that problem by creating another 
+regular expression to match strings and apply it to that keyword.
 
-Notice the nextgroup argument. We are telling the editor to expect a 
-celNumber after the keyword. So that is the first pattern the editor will 
+Notice the `nextgroup` argument. We are telling the editor to expect a 
+`celNumber` after the keyword. So that is the first pattern the editor will 
 attempt to match after finding one of those keywords.
 
-The skipwhite argument simply tells the editor to expect some whitespace 
+The `skipwhite` argument simply tells the editor to expect some whitespace 
 (spaces or tabs) between the keyword and the number.
 
-One problem is that the above pattern (\d\+) will only match numbers like 
+One problem is that the above pattern (`\d\+`) will only match numbers like 
 1234, 93, and 0. It will not match numbers like 3.1416 or -1. To fix that, we 
 need a more advanced regular expression borrowed from one of the existing Vim 
 syntax files and slightly modified for our needs.
@@ -181,8 +181,8 @@ syntax files and slightly modified for our needs.
     syn match celNumber '\d[[:digit:]]*\.\d*[eE][\-+]\=\d\+'
 <
 
-We can keep creating more lines like syn match celNumber pattern to match all 
-those patterns as one syntax element type (in this case celNumber).
+We can keep creating more lines like `syn match celNumber pattern` to match 
+all those patterns as one syntax element type (in this case `celNumber`).
 
 Looking at the star catalog entry again shows another challenge:
 
@@ -203,7 +203,7 @@ an HIP catalog entry [http://www.rssd.esa.int/index.php?project=HIPPARCOS]
 (more like a star's ID number rather than a value with physical meaning like 
 mass or distance). The real numbers are the arguments to the keywords (like 
 "RA" and "Dec"). It would be nice if we could have the editor match those 
-differently than regular numbers. But, since celNumbers and HIPs consist of 
+differently than regular numbers. But, since `celNumber`s and HIPs consist of 
 the digits 0-9 they conflict with one another. How can we fix that 
 discrepancy?
 
@@ -213,18 +213,18 @@ argument to the keyword and match definition blocks, and introduce another
 type of syntax element: a region.
 
 First, we let the editor know that the keywords only exist within brackets. 
-Second, we specify that celNumber syntax elements only exist within brackets. 
-This is the concept of a region.
+Second, we specify that `celNumber` syntax elements only exist within 
+brackets. This is the concept of a region.
 
 >
     syn region celDescBlock start="{" end="}" fold transparent
 <
 
-The fold argument means that Vim can increase the fold count inside brackets 
-so you can press Ctrl-F9 to expand and contract the code. The transparent is 
-the important keyword here. It tells the editor to continue to apply matches 
-and keywords to what is inside the region. Otherwise the region would not be 
-colorized properly.
+The `fold` argument means that Vim can increase the fold count inside 
+brackets so you can press Ctrl-F9 to expand and contract the code. The 
+`transparent` is the important keyword here. It tells the editor to continue 
+to apply matches and keywords to what is inside the region. Otherwise the 
+region would not be colorized properly.
 
 We must add another additional argument to finish off everything.
 
@@ -232,13 +232,13 @@ We must add another additional argument to finish off everything.
     syn region celDescBlock start="{" end="}" fold transparent contains=celNumber,celBlockCmd
 <
 
-The contains argument tells the editor which syntax elements this region will 
-contain. In this case keywords and numbers. But we have strings too, right? So 
-let's implement the required syntax elements since we know all about keywords, 
-matches and regions now. In addition we pickup another argument along the way, 
-contained.
+The `contains` argument tells the editor which syntax elements this region 
+will contain. In this case keywords and numbers. But we have strings too, 
+right? So let's implement the required syntax elements since we know all about 
+keywords, matches and regions now. In addition we pickup another argument 
+along the way, `contained`.
 
-Let's define comments as a syntax element and see how contained works.
+Let's define comments as a syntax element and see how `contained` works.
 
 >
     syn keyword celTodo contained TODO FIXME XXX NOTE
@@ -249,9 +249,9 @@ Comments start with a "#" and run until the end of line. So that's a simple
 regular expression '#.*$'. Starts with a "#" and match all characters until 
 the end of a line.
 
-contained tells the editor that the keyword is only valid when contained by 
-another syntax element, in this case a celTodo is only treated as a separate 
-syntax element when contained by celComment.
+`contained` tells the editor that the keyword is only valid when contained by 
+another syntax element, in this case a `celTodo` is only treated as a separate 
+syntax element when contained by `celComment`.
 
 >
     syn keyword celTodo contained TODO FIXME XXX NOTE
@@ -289,10 +289,10 @@ syntax element when contained by celComment.
 
 TELLING VIM HOW TO HIGHLIGHT + FINAL TOUCHES *vwt-1561-telling-vim-how-to-highlight-+-final-touches*
 
-We can now take the syntax elements and use the hi def link command to tell 
+We can now take the syntax elements and use the `hi def link` command to tell 
 Vim how to highlight them.
 
-Set the b:current_syntax variable to a name, for example, "cel". That name 
+Set the `b:current_syntax` variable to a name, for example, "cel". That name 
 can be used to modify the Un/Commentify (F6/Shift-F6) script in Cream, for 
 example to block comment-out lines with the new file type.
 
@@ -308,31 +308,32 @@ example to block comment-out lines with the new file type.
     hi def link celNumber      Constant
 <
 
-The hi def link command has different types of highlighting options that we 
+The `hi def link` command has different types of highlighting options that we 
 need not consider. The ones used here are:
-    - Todo: used for the todo comments (ones that have "TODO: something" in them) 
-    - Comment: indicates a code comment 
-    - Statement: a code statement like a for loop 
-    - Type: a user defined type generally 
-    - PreProc: a pre-processor statement like #include <stdio.h> in C 
-    - Constant: like a string or number in code 
+    - `Todo`: used for the todo comments (ones that have "TODO: something" in them) 
+    - `Comment`: indicates a code comment 
+    - `Statement`: a code statement like a for loop 
+    - `Type`: a user defined type generally 
+    - `PreProc`: a pre-processor statement like #include <stdio.h> in C 
+    - `Constant`: like a string or number in code 
 
 
 These of course are guidelines. In this example, there are no statements or 
-pre-processor commands, however celBlockCmd has been set to use Statement 
-highlighting, and celHip will use Type highlighting.
+pre-processor commands, however `celBlockCmd` has been set to use `Statement` 
+highlighting, and `celHip` will use `Type` highlighting.
 
 You can view more options in Vim with :help |syntax|
 
 INSTALL THE SYNTAX FILE                     *vwt-1561-install-the-syntax-file*
 
-Save the file, then install it by copying the file to ~/.vim/syntax/cel.vim 
-on Unix-based systems, or to $HOME/vimfiles/syntax/cel.vim on Windows systems.
+Save the file, then install it by copying the file to `~/.vim/syntax/cel.vim` 
+on Unix-based systems, or to `$HOME/vimfiles/syntax/cel.vim` on Windows 
+systems.
 
-You may need to create the .vim (or vimfiles) directory, and you may need to 
-create the syntax subdirectory. In Vim, your home directory is specified with 
-~ on Unix systems, and $HOME on Windows systems. You can see what directories 
-to use by entering commands like the following in Vim:
+You may need to create the `.vim` (or `vimfiles`) directory, and you may need 
+to create the `syntax` subdirectory. In Vim, your home directory is specified 
+with `~` on Unix systems, and `$HOME` on Windows systems. You can see what 
+directories to use by entering commands like the following in Vim:
 
 >
     :echo expand('~')
@@ -345,9 +346,9 @@ Using the directory specified above means the syntax file will be available
 to you, but not to other users. If you want the syntax file to be available to 
 all users, do not save the file under your home directory; instead, copy the 
 file under your Vim system directory. The default for both Unix and Windows is 
-that system-wide syntax files are placed in the $VIM/vimfiles/syntax directory 
-(which you may need to create). You can see the full path name of the required 
-file by entering the following in Vim:
+that system-wide syntax files are placed in the `$VIM/vimfiles/syntax` 
+directory (which you may need to create). You can see the full path name of 
+the required file by entering the following in Vim:
 
 >
     :echo expand('$VIM/vimfiles/syntax/cel.vim')
@@ -363,13 +364,13 @@ buffer):
     :put =&runtimepath
 <
 
-By default, the first item in runtimepath is the base directory for your 
+By default, the first item in `runtimepath` is the base directory for your 
 personal Vim files, and the second item is the base directory for system-wide 
-Vim files. Place the syntax subdirectory under either of these directories; 
+Vim files. Place the `syntax` subdirectory under either of these directories; 
 doing that means your syntax file will not be overwritten when you next 
 upgrade Vim. Do not use a directory containing the files distributed with Vim 
 because that will be overwritten during an upgrade (in particular, do not use 
-the $VIMRUNTIME directory).
+the `$VIMRUNTIME` directory).
 
 MAKE VIM RECOGNIZE THE FILETYPE     *vwt-1561-make-vim-recognize-the-filetype*
 
@@ -379,8 +380,8 @@ few methods to add filetype detection for files of this new type. See :help
 
 This is probably the simplest method.
 
-Simply create a file in ~/.vim/ftdetect with the same name as your syntax 
-file, in this case ~/.vim/ftdetect/cel.vim. In this file place a single line 
+Simply create a file in `~/.vim/ftdetect` with the same name as your syntax 
+file, in this case `~/.vim/ftdetect/cel.vim`. In this file place a single line 
 to set the filetype on buffer read or creation:
 
 >
@@ -392,22 +393,22 @@ filetype.
 
 Add filetype detection to filetype.vim 
 [https://vim.fandom.com/wiki/Filetype.vim]: in this case the Vim script is 
-named cel.vim so we use the filetype "cel".
+named `cel.vim` so we use the filetype "cel".
 
 >
     au BufRead,BufNewFile *.stc setfiletype cel
 <
 
-Note the use of |:setfiletype| instead of set filetype=. This is so that Vim 
-does not override any previously detected filetypes while running this script. 
-Details :help |:setfiletype|.
+Note the use of |:setfiletype| instead of `set filetype=`. This is so that 
+Vim does not override any previously detected filetypes while running this 
+script. Details :help |:setfiletype|.
 
 This method does not apply in our example case, but some filetypes can only 
 be detected by examining buffer contents. For example, maybe you have a config 
 file that is actually in XML format but does not have a normal file extension 
 reflecting that, like *.xml. Details at :help |new-filetype-scripts|. 
 Basically you just add tests using |getline()|, |search()|, etc. and use them 
-to determine whether to set the filetype with |:setfiletype|.Add filetype detection to vimrc [https://vim.fandom.com/wiki/Open_vimrc_file] in this case the Vim script is named cel.vim so we use the filetype "cel".
+to determine whether to set the filetype with |:setfiletype|.Add filetype detection to vimrc [https://vim.fandom.com/wiki/Open_vimrc_file] in this case the Vim script is named `cel.vim` so we use the filetype "cel".
 
 >
     au BufRead,BufNewFile *.stc set filetype=cel

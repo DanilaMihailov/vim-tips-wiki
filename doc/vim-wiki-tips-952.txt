@@ -15,8 +15,8 @@ do that.
 
 Install the genutils.vim script#197 
 [https://www.vim.org/scripts/script.php?script_id=197] plugin or just copy 
-paste the GetVimCmdOutput() function into your vimrc, and create the following 
-cmap:
+paste the `GetVimCmdOutput()` function into your vimrc, and create the 
+following cmap:
 
 >
     cnoremap <C-X><C-L> <C-R>=GetVimCmdOutput('redraw')<CR>

@@ -15,8 +15,8 @@ UPDATE                                                       *vwt-1432-update*
 
 A much better method to get this feature is to install the FuzzyFinder 
 [https://www.vim.org/scripts/script.php?script_id=1984] plugin. Use the 
-function FuzzyFinderFile with argument **/ to do a recursive search through 
-the current directory tree.
+function `FuzzyFinderFile` with argument `**/` to do a recursive search 
+through the current directory tree.
 
 Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] so you 
 can invoke the function by pressing F5:
@@ -114,8 +114,8 @@ page).
 
 ==============================================================================
 
-Change find to grep, map to \* and you get a nice intuitive 'find references' 
-function.
+Change `find` to `grep`, `map` to `\*` and you get a nice intuitive 'find 
+references' function.
 
 ==============================================================================
 

@@ -8,7 +8,7 @@ created 2002 · complexity basic · author scott urban · version 5.7
 
 Suppose you want to reverse some text. This mapping will reverse visually 
 selected text. Put the mapping in your vimrc or otherwise source it, then 
-visually select the word or words, and type ;rv – really only works with 
+visually select the word or words, and type `;rv` – really only works with 
 selections on one line:
 
 >

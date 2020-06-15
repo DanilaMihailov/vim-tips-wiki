@@ -21,8 +21,9 @@ You may like auto indenting in C programs, but dislike it when editing html
 files. You can disable auto indentation for particular files types; the 
 following example shows how to do this for html files.
 
-Create the file ~/.vim/indent/html.vim on Unix-based systems, or 
-$HOME/vimfiles/indent/html.vim on Windows systems, containing the single line:
+Create the file `~/.vim/indent/html.vim` on Unix-based systems, or 
+`$HOME/vimfiles/indent/html.vim` on Windows systems, containing the single 
+line:
 
 >
     let b:did_indent = 1
@@ -31,13 +32,13 @@ $HOME/vimfiles/indent/html.vim on Windows systems, containing the single line:
 This creates a user-specific indent script which will be loaded before the 
 file type indent script. Auto indenting for the particular file type is 
 disabled because well-behaved indent scripts do nothing if the buffer-local 
-variable b:did_indent is defined (that variable indicates that the current 
+variable `b:did_indent` is defined (that variable indicates that the current 
 buffer already has script-based indenting enabled).
 
-You need to use the correct name for the file type (html in the above). If 
+You need to use the correct name for the file type (`html` in the above). If 
 you are not sure what that name is, edit a file where you want to remove auto 
-indentation (for example, my.htm), then enter the following command to display 
-the value of the ft (filetype) option for the current buffer:
+indentation (for example, `my.htm`), then enter the following command to 
+display the value of the `ft` (`filetype`) option for the current buffer:
 
 >
     :set ft?
@@ -63,11 +64,11 @@ or
     filetype indent on
 <
 
-If you remove the indent keyword, none of your files will have file type 
+If you remove the `indent` keyword, none of your files will have file type 
 based indentation rules applied.
 
-However, the filetype indent plugin on command may be included in a 
-system-wide vimrc (:help |system-vimrc|), or in the file vimrc_example.vim 
+However, the `filetype indent plugin on` command may be included in a 
+system-wide vimrc (:help |system-vimrc|), or in the file `vimrc_example.vim` 
 sourced from your vimrc. For either of these cases, put the following near the 
 bottom of your vimrc to disable filetype based indentation:
 
@@ -110,7 +111,7 @@ COMMENTS                                                    *vwt-330-comments*
 
 You may have disabled auto indenting in HTML files, but you would like auto 
 indenting of your embedded PHP code. When wanted, enter the following to 
-toggle the smartindent option, and show its current value:
+toggle the `smartindent` option, and show its current value:
 
 >
     :setl si! si?
@@ -159,13 +160,13 @@ GLOBALLY DISABLE AUTO-INDENTATION BY DISABLING THE FILE *vwt-330-globally-disabl
     cp indent.vim indent.vim.bak
 <
 
-indent.vim in the Vim directory (vim80 for the latest version of Vim)
+`indent.vim` in the Vim directory (vim80 for the latest version of Vim)
 
-is THE file which sources indent/ directory (located in /usr/share/vim80 and 
-being indent.vim's sibling node)
+is THE file which sources `indent/` directory (located in /usr/share/vim80 
+and being indent.vim's sibling node)
 
-which contains *filetype*.vim files (eg. sh.vim) who set indentexpr option 
-(eg to GetShIndent()).
+which contains *filetype*.vim files (eg. `sh.vim`) who set `indentexpr` 
+option (eg to `GetShIndent()`).
 
 to trigger based on filetypes of opened files.
 

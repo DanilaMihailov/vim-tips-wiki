@@ -17,7 +17,7 @@ completely defined by the static text in the template file. Many templates
 will have dynamic content such as copyright dates, creation times, file name, 
 etc. that are impossible to define statically. If you don't need or want a 
 huge plugin with tons of features you never use, but need more power than the 
-static initial text given by the example in the :help documents, or if you 
+static initial text given by the example in the `:help` documents, or if you 
 just like doing things yourself, then read on.
 
 DYNAMIC CONTENT FROM STATIC FILES *vwt-1567-dynamic-content-from-static-files*
@@ -26,7 +26,7 @@ The first idea one might have to allow dynamic template content could be to
 define autocmds that would replace specific pre-defined tags like [:DATE:] or 
 [:FILE_NAME:] with the appropriate text. But, why define a syntax of your own, 
 when Vim has a perfectly good expression syntax that you will eventually need 
-to translate into anyway? Using the eval() function, you can easily evaluate 
+to translate into anyway? Using the `eval()` function, you can easily evaluate 
 an expression obtained from the template file itself in order to provide 
 dynamic content limited only by Vim's expression syntax and parsing. Here's 
 how:
@@ -43,12 +43,12 @@ modified to do it automatically. It should look something like this:
     augroup END
 <
 
-silent! is used to ignore errors for non-existent templates. This command 
+`silent!` is used to ignore errors for non-existent templates. This command 
 allows you to create a template for a new file type simply by naming it 
 appropriately and placing it in the correct directory.
 
 Next, decide on special indicators to tell Vim to use certain text as an 
-expression. I used [:VIM_EVAL:]...[:END_EVAL:], where the '...' is replaced 
+expression. I used `[:VIM_EVAL:]...[:END_EVAL:]`, where the '...' is replaced 
 with whatever expression you want Vim to evaluate to replace the entire block.
 
 Now, create all your template files, defining your dynamic content just as 
@@ -148,11 +148,11 @@ instructions like
 
 Hence my first hack in mu-template in order to support evaluation and 
 execution. The solution consisted in having a hand made loop that tests each 
-line and execute :substitute, g//exe + normal dd depending on the expression 
-detected.But I still needed more like having template-files that include other 
-template-files. For instance, a C header file always has the same structure: 
-copyrigth headers + header-gates + content + header-date + company-footers. 
-The initial code was quite ugly and damn slow.
+line and execute `:substitute`, `g//exe + normal dd` depending on the 
+expression detected.But I still needed more like having template-files that 
+include other template-files. For instance, a C header file always has the 
+same structure: copyrigth headers + header-gates + content + header-date + 
+company-footers. The initial code was quite ugly and damn slow.
 
 Hence the third version of the engine 
 [http://code.google.com/p/lh-vim/wiki/muTemplate] where everything is loaded 

@@ -720,8 +720,8 @@ attribute to the map command. For example,
 
 The above command creates a map to compile the file opened in the current 
 buffer. You can add the above set of commands to a filetype plugin. For 
-example, you can add it to file ~/.vim/after/ftplugin/c.vim (Unix) or 
-$HOME/vimfiles/after/ftplugin/c.vim (Windows)—create any missing directories 
+example, you can add it to file `~/.vim/after/ftplugin/c.vim` (Unix) or 
+`$HOME/vimfiles/after/ftplugin/c.vim` (Windows)—create any missing directories 
 or files. Now, you can compile a C file in the current buffer, by pressing the 
 <F3> key. When you open a Java file, this command will not be available.
 

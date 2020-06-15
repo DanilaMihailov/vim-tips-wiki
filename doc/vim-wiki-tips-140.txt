@@ -8,7 +8,7 @@ created 2001 · complexity advanced · author Benoit Cerrina · version 7.2
 
 Writing scripts using the embedded Perl interpreter provides a powerful and 
 fast scripting language (much faster than Vim scripts). Embedded Perl is 
-available if the Vim :version command shows the +perl or +perl/dyn 
+available if the Vim `:version` command shows the `+perl` or `+perl/dyn` 
 configuration options. This tip shows how to access embedded Perl scripts from 
 Vim.
 
@@ -33,7 +33,7 @@ it like this:
 
 PASSING VALUES BETWEEN VIM AND PERL *vwt-140-passing-values-between-vim-and-perl*
 
-To pass a computed argument to your Perl sub use the Vim :execute command:
+To pass a computed argument to your Perl sub use the Vim `:execute` command:
 
 >
     function! MyFunction
@@ -93,7 +93,7 @@ fatal by using something like this at the start of your Perl section:
 
 This way both compile-time and run-time warnings are propagated up to the Vim 
 UI level. Redefinitions are allowed so that you can continually re-execute 
-your .vimrc or other scripts from a single running Vim session.
+your `.vimrc` or other scripts from a single running Vim session.
 
 It's possible to make sure the Perl code embedded in a Vim file is 
 syntacticly correct when it is saved using script#3411 
@@ -144,8 +144,8 @@ debugger, for example:
     1;
 <
 
-Then you can copy your other Perl code in a separate file and add a use VIM; 
-at the top, and you are set to debug.
+Then you can copy your other Perl code in a separate file and add a `use 
+VIM;` at the top, and you are set to debug.
 
 COMMENTS                                                    *vwt-140-comments*
 

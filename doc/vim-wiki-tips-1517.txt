@@ -49,7 +49,7 @@ Sure, this would make a good script, but I am a big fan of "learn to do it by
 hand". That way you can do it on any system, and you can use each of the 
 little steps to aid your daily vimming.
 
-If you want to know more about the commands used, use :help, for example:
+If you want to know more about the commands used, use `:help`, for example:
     - :help |CTRL-W_l| 
     - :help |:diffthis| 
 
@@ -102,13 +102,13 @@ QUICK COMPARISON WITH A LITTLE PLUGIN *vwt-1517-quick-comparison-with-a-little-p
 
 Instead of steps 2-8 above, I do a quick comparison with:
 
-2. :DiffAgainstFileOnDisk
+2. `:DiffAgainstFileOnDisk`
 
-And after that I do :e<Enter>d to delete the swapfile, or :w! to overwrite 
+And after that I do :e<Enter>d to delete the swapfile, or `:w!` to overwrite 
 the file.
 
-For this shortcut you will need a system with diff, and this script in 
-~/.vim/plugin/diff_against_file_on_disk.vim
+For this shortcut you will need a system with `diff`, and this script in 
+`~/.vim/plugin/diff_against_file_on_disk.vim`
 
 >
     command! DiffAgainstFileOnDisk call DiffAgainstFileOnDisk()
@@ -131,8 +131,8 @@ shortened the command to DiffSwap to be handier:
     endfunction
 <
 
-When the swap prompt comes and you're not sure what to do, simply hit r and 
-then run :DiffSwap, which will initiate a vim diff of the file on disk and 
+When the swap prompt comes and you're not sure what to do, simply hit `r` and 
+then run `:DiffSwap`, which will initiate a vim diff of the file on disk and 
 swapfile.
 
 FEATURE REQUEST                                     *vwt-1517-feature-request*
@@ -234,11 +234,11 @@ file.
     }
 <
 
-Usage is simple: vim-process-swap file [swapfile [recoverfile]] swapfile and 
-recoverfile are optional.
+Usage is simple: `vim-process-swap file [swapfile [recoverfile]]` swapfile 
+and recoverfile are optional.
 
 If you are using the function in a loop over swap files, you can use the 
-script like so: vim-process-swap -s $swapfile and you won't need to pass the 
+script like so: `vim-process-swap -s $swapfile` and you won't need to pass the 
 real filename. Note that when using the -s flag that it isn't possible to 
 specify a recoveryfile name or location.
 

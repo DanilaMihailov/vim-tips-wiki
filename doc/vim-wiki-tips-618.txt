@@ -24,7 +24,7 @@ page for diff to create one big patch.
 
 Vim can automatically create the backup, by setting the 'patchmode' option to 
 the string you want to append to make the backup file's name. Do this before 
-you save for the first time. For example, :set patchmode=.orig
+you save for the first time. For example, `:set patchmode=.orig`
 
 You can also easily export a patch from Mercurial or Git, if you get the 
 source that way. Then you don't need to bother making backups. This is 

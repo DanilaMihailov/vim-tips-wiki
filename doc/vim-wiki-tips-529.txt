@@ -61,8 +61,8 @@ other things to try below.
 
 Interpreting shift-tab correctly:
 
-Once you have the shift-tab key combo generating the correct string ^[[Z you 
-just need to make sure that is then interpreted by Vim as <s-tab>
+Once you have the shift-tab key combo generating the correct string `^[[Z` 
+you just need to make sure that is then interpreted by Vim as <s-tab>
 
 As of version 6.2 Vim does this, so upgrading to 6.2 would be good. If you 
 cannot upgrade for whatever reason try this workaround:
@@ -77,7 +77,7 @@ can then use in other maps/scripts I suggest adding these lines (minus the
 leading : of course) to your .vimrc
 
 A more robust version of the above is to directly tell Vim what escape 
-sequence is used for <S-Tab>. This can be done by setting the t_kB option 
+sequence is used for <S-Tab>. This can be done by setting the `t_kB` option 
 appropriately:
 
 >

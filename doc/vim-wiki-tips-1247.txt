@@ -6,17 +6,17 @@ created 2006 · complexity basic · author hari_vim · version 7.0
 
 ==============================================================================
 
-Occasionally users will improperly use the commands :qa or :qa! instead of 
-the proper :tabclose to close a tab in a session, quitting the entire session 
-instead. A few methods can be used to remap the :tabclose command to a more 
-memoriable command as outlined below.
+Occasionally users will improperly use the commands `:qa` or `:qa!` instead 
+of the proper `:tabclose` to close a tab in a session, quitting the entire 
+session instead. A few methods can be used to remap the `:tabclose` command to 
+a more memoriable command as outlined below.
 
 REMAP :TABCLOSE TO QA                         *vwt-1247-remap :tabclose-to-qa*
 
 This method requires the plugin cmdalias.vim plugin 
 [https://www.vim.org/scripts/script.php?script_id=746]. This plugin will allow 
 you to keep your abbreviations in the context of a : command. Once this plugin 
-is loaded add the following to your vimrc to create a user command for QA.
+is loaded add the following to your vimrc to create a user command for `QA`.
 
 >
     command! -bang QA :call TabQAll('<bang>')
@@ -33,10 +33,10 @@ is loaded add the following to your vimrc to create a user command for QA.
     endfunction
 <
 
-Finally create an abbreviation for :qa to mean :QA which will allow you to 
-not have to remember :QA making it easier to use the command you are already 
-familiar with to "close" your tab. To accomplish this add the following to 
-your vimrc:
+Finally create an abbreviation for `:qa` to mean `:QA` which will allow you 
+to not have to remember `:QA` making it easier to use the command you are 
+already familiar with to "close" your tab. To accomplish this add the 
+following to your vimrc:
 
 >
     function! InitPlugins()
@@ -50,7 +50,7 @@ your vimrc:
     aug END
 <
 
-Now typing :qa in a tab will close out the tab.
+Now typing `:qa` in a tab will close out the tab.
 
 Note the use of a VimEnter autocmd instead of calling CmdAlias directly in 
 the vimrc [https://vim.fandom.com/wiki/Vimrc]. This is done, because the 

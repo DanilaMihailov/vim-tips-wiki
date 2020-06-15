@@ -19,16 +19,16 @@ created 2004 · complexity basic · author Suresh Govindachar · version 6.0
 The following mappings help to execute "things" in win98.
 
 1) If you are editing a file (eg, html file) file and want to view it, the 
-mapping \xf will do it.
+mapping `\xf` will do it.
 
 2) If you want to execute the string under the cursor (<cWORD>):The mapping 
-\x executes the <cWORD> "as is", whereas the mapping \xl executes it after 
+`\x` executes the <cWORD> "as is", whereas the mapping `\xl` executes it after 
 pre-pending it with the full path to the current file.
 
-Example for \xf -- viewing an html file while editing it.
+Example for `\xf` -- viewing an html file while editing it.
 
-Example for \x -- the string under the cursor can be a google search for the 
-word mail on this web-site: 
+Example for `\x` -- the string under the cursor can be a google search for 
+the word mail on this web-site: 
 http://www.google.com/search?q=mail+site:vim.sourceforge.net 
 [http://www.google.com/search?q=mail+site:vim.sourceforge.net]
 

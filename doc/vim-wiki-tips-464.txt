@@ -13,12 +13,12 @@ tip simplifies such operations.
 MANUAL PROCEDURE                                    *vwt-464-manual-procedure*
 
 If you only have a few occurrences to change, you might prefer a manual 
-technique which does not require a mapping. If all foo words need to be 
-changed to bar:
-    - Put the cursor on foo. 
-    - Press * to search for the next occurrence. 
-    - Type ciw (change inner word) then bar then press Escape. 
-    - Press n (move to next occurrence) then . (repeat change 
+technique which does not require a mapping. If all `foo` words need to be 
+changed to `bar`:
+    - Put the cursor on `foo`. 
+    - Press `*` to search for the next occurrence. 
+    - Type `ciw` (change inner word) then `bar` then press Escape. 
+    - Press `n` (move to next occurrence) then `.` (repeat change 
       [https://vim.fandom.com/wiki/Repeat_last_change]). 
     - Repeat last step. 
 
@@ -33,18 +33,18 @@ cursor:
     :nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 <
 
-Given this mapping, if the cursor is on the word foo and you press \s 
+Given this mapping, if the cursor is on the word `foo` and you press `\s` 
 (assuming the default backslash Leader key), you will see:
 
 >
     :%s/\<foo\>/
 <
 
-If you now type bar/g and press Enter, you will change all foo to bar. The \< 
-and \> ensure that only complete words are found (the search finds foo but not 
-food).
+If you now type `bar/g` and press Enter, you will change all `foo` to `bar`. 
+The `\<` and \> ensure that only complete words are found (the search finds 
+`foo` but not `food`).
 
-Alternatively, you could use this mapping so that the final /g is already 
+Alternatively, you could use this mapping so that the final `/g` is already 
 entered:
 
 >
@@ -54,7 +54,7 @@ entered:
 SIMILAR CHANGES                                      *vwt-464-similar-changes*
 
 Sometimes similar changes to several words are needed. For example, you might 
-need < before each word, and > after (this specific example is probably best 
+need `<` before each word, and > after (this specific example is probably best 
 handled with the surround plugin 
 [https://www.vim.org/scripts/script.php?script_id=1697], and is used here just 
 as an illustration). One approach would be to record a macro 
@@ -62,13 +62,13 @@ as an illustration). One approach would be to record a macro
 The following alternative uses substitute commands.
 
 If you know in advance what needs to be changed, you could use a suitable 
-pattern. For example, the following changes all red and all blue words:
+pattern. For example, the following changes all `red` and all `blue` words:
 
 >
     :%s/\<\(<red>\|<blue>\)\>/<&>/g
 <
 
-The replacement is <&> where & has a special meaning: it is replaced by the 
+The replacement is <&> where `&` has a special meaning: it is replaced by the 
 search match.
 
 The following mapping evaluates an expression to replace all occurrences of 

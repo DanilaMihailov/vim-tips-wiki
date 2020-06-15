@@ -12,8 +12,8 @@ from the script itself.
 
 This allows me to set a default value for a configuration variable inside my 
 script and the user to change it on a global level by setting the same 
-variable with a g: prepended. then, they can further set it on a per-buffer 
-level by the b: mechanism. One of the examples for this might be my comments 
+variable with a `g:` prepended. then, they can further set it on a per-buffer 
+level by the `b:` mechanism. One of the examples for this might be my comments 
 script (not uploaded). I have a variable in there that determines whether 
 comment characters (// for java, for example) are placed the beginning of the 
 line or just before the first-non-blanks in the text. I set up a default in my 
@@ -49,7 +49,7 @@ just put the following in my ftplugin/vim.vim:
 <
 
 So, to specify the default scope for java bean properties (used inside 
-javabean.vim, though I chose not to put this mechanism in there to avoid the 
+`javabean.vim`, though I chose not to put this mechanism in there to avoid the 
 dependency on this function), I just use:
 
 >
@@ -101,8 +101,8 @@ BTW, the function I use is the following:
     endfunction
 <
 
-NB: it can also support window-variables (w:), tab-variables (t:), arguments 
-(a:), ... See :help |internal-variables|
+NB: it can also support window-variables (`w:`), tab-variables (`t:`), 
+arguments (`a:`), ... See :help |internal-variables|
 
 --Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] 13:09, 30 July 
 2007 (UTC)

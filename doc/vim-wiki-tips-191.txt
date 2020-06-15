@@ -80,12 +80,12 @@ in Eclipse.
 The above mappings all take a count so 5<C-Up> would move the current line 
 (or visual selection) 5 lines up.
 
-They make use of the :move command to do the movement which avoids 
-overwritting a register which other methods may suffer from. As :move wont 
+They make use of the `:move` command to do the movement which avoids 
+overwritting a register which other methods may suffer from. As `:move` wont 
 move a line to an invalid location an extra check is made to move no further 
 than the start (or end) of the file. The mappings are also careful to restore 
 the original cursor location in the line (or selection) by first getting it 
-with virtcol() and then restoring it with |.
+with `virtcol()` and then restoring it with `|`.
 
 SEE ALSO                                                    *vwt-191-see-also*
     - Moving lines up or down [https://vim.fandom.com/wiki/Moving_lines_up_or_down] 
@@ -95,10 +95,10 @@ SEE ALSO                                                    *vwt-191-see-also*
 
 
 RELATED PLUGINS                                      *vwt-191-related-plugins*
-    - unimpaired.vim [https://www.vim.org/scripts/script.php?script_id=1590] [e and 
-      ]e exchange current line with [count] lines above/below 
+    - unimpaired.vim [https://www.vim.org/scripts/script.php?script_id=1590] `[e` 
+      and `]e` exchange current line with [count] lines above/below 
     - LineJuggler [https://www.vim.org/scripts/script.php?script_id=4140] plugin 
-      has [e and ]e (among other movement and duplication related mappings) 
+      has `[e` and `]e` (among other movement and duplication related mappings) 
     - upAndDown.vim [https://www.vim.org/scripts/script.php?script_id=2586] plugin 
       implementing this tip 
 

@@ -84,7 +84,7 @@ Additional information is available to a Vim script. For example, :help
 
 A script called bugreport.vim is provided with Vim. When run, the script 
 produces a file with information about Vim's environment. To see the script, 
-use the command :view $VIMRUNTIME/bugreport.vim in Vim.
+use the command `:view $VIMRUNTIME/bugreport.vim` in Vim.
 
 COMMENTS                                                   *vwt-1522-comments*
 

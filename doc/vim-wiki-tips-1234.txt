@@ -4,7 +4,7 @@
 
 This tip is deprecated for the following reasons:
 
-Version 7.3 of Vim supports tab-completion of :find command, this is easier 
+Version 7.3 of Vim supports tab-completion of `:find` command, this is easier 
 than scripting and should be prominently mentioned.Tip 1234 [https://vim.fandom.com/wiki/Find_files_in_subdirectories]   Previous |vwt-1232| Next |vwt-1235|
 
 created 2006 · complexity intermediate · author Vladimir Marek · version 6.0
@@ -22,11 +22,11 @@ for searching on filenames alone I have been using:
 <
 
 to locate the file and then edit it. I was trying to find if there is some 
-solution directly in Vim, and haven't found one. Closest were :find and 
-:globpath(). :find works nearly as I need, but unfortunatelly it opens the 
+solution directly in Vim, and haven't found one. Closest were `:find` and 
+`:globpath()`. `:find` works nearly as I need, but unfortunatelly it opens the 
 first file of a given name without telling me that there are more. For 
-globpath() I was unable to make it work with the '**' construction, so that it 
-would look into all subdirectories under current directory.
+`globpath()` I was unable to make it work with the '**' construction, so that 
+it would look into all subdirectories under current directory.
 
 So I wrote this small function. You can use it like this:
 
@@ -110,7 +110,7 @@ args ../../**/*.[ch]
 
 The only caveat (and it's a major one) is that it's very slow.
 
-There's also the :Explore **/[pattern] command, available via netrw.vim. 
+There's also the `:Explore **/[pattern]` command, available via netrw.vim. 
 Example:
 
 >
@@ -124,7 +124,7 @@ course.
 
 ==============================================================================
 
-When I try the :Explore command it gives error: E77: Too many file names
+When I try the `:Explore` command it gives error: `E77: Too many file names`
 
 Adding a quit button is not a bad idea. Vim internal pager has quit bound to 
 'q' (see :help |more-prompt|), but this will stop my original script. I tried 
@@ -192,7 +192,7 @@ Here is a other nice solution to vimrc
 well, is on the shell $PROJECTDIR defined the include recursive all 
 directories.
 
-with :find foo.cpp it's open the file on Vim.
+with `:find foo.cpp` it's open the file on Vim.
 
 ==============================================================================
 

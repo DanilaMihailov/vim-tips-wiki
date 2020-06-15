@@ -8,11 +8,11 @@ created 2005 · complexity intermediate · author Bertram Scharpf · version 6.0
 
 SIMPLE COMMANDS TO REMOVE UNWANTED WHITESPACE *vwt-878-simple-commands-to-remove-unwanted-whitespace*
 
-In a search, \s finds whitespace (a space or a tab), and \+ finds one or more 
-occurrences.
+In a search, `\s` finds whitespace (a space or a tab), and `\+` finds one or 
+more occurrences.
 
 The following command deletes any trailing whitespace at the end of each 
-line. If no trailing whitespace is found no change occurs, and the e flag 
+line. If no trailing whitespace is found no change occurs, and the `e` flag 
 means no error is displayed.
 
 >
@@ -28,13 +28,13 @@ The following deletes any leading whitespace at the beginning of each line.
 <
 
 With the following mapping a user can press F5 to delete all trailing 
-whitespace. The variable _s is used to save and restore the last search 
-pattern register (so next time the user presses n they will continue their 
-last search), and :nohl is used to switch off search highlighting (so trailing 
-spaces will not be highlighted while the user types). The e flag is used in 
-the substitute command so no error is shown if trailing whitespace is not 
-found. Unlike before, the substitution text must be specified in order to use 
-the required flag.
+whitespace. The variable `_s` is used to save and restore the last search 
+pattern register (so next time the user presses `n` they will continue their 
+last search), and `:nohl` is used to switch off search highlighting (so 
+trailing spaces will not be highlighted while the user types). The `e` flag is 
+used in the substitute command so no error is shown if trailing whitespace is 
+not found. Unlike before, the substitution text must be specified in order to 
+use the required flag.
 
 >
     :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
@@ -95,8 +95,8 @@ sometimes changing scroll position.
 AUTOMATICALLY REMOVING ALL TRAILING WHITESPACE *vwt-878-automatically-removing-all-trailing-whitespace*
 
 One way to make sure to remove all trailing whitespace in a file is to set an 
-autocmd in your .vimrc file. Every time the user issues a :w command, Vim will 
-automatically remove all trailing whitespace before saving.
+`autocmd` in your .vimrc file. Every time the user issues a `:w` command, Vim 
+will automatically remove all trailing whitespace before saving.
 
 >
     autocmd BufWritePre * %s/\s\+$//e
@@ -105,7 +105,7 @@ automatically remove all trailing whitespace before saving.
 However, this is a potentially dangerous autocmd to have as it will always 
 strip trailing whitespace from every file a user saves. Sometimes, trailing 
 whitespace is desired, or even essential in a file so be careful when 
-implementing this autocmd.
+implementing this `autocmd`.
 
 One method to mitigate this issue in a .vimrc file, where trailing whitespace 
 matters, is to change how .vimrc prepends wrapped lines. For example, add the 
@@ -121,15 +121,15 @@ following into the .vimrc:
 Now when saving the .vimrc it will use "> \" instead of "> " to prepend 
 wrapped lines.
 
-A user can also specify a particular filetype in an autocmd so that only that 
-filetype will be changed when saving. The following only changes files with 
-the extension .pl:
+A user can also specify a particular filetype in an `autocmd` so that only 
+that filetype will be changed when saving. The following only changes files 
+with the extension .pl:
 
 >
     autocmd BufWritePre *.pl %s/\s\+$//e
 <
 
-Additionally, a FileType autocommand can be used to restrict the autocmd to 
+Additionally, a FileType autocommand can be used to restrict the `autocmd` to 
 certain file types only.
 
 >
@@ -137,7 +137,7 @@ certain file types only.
 <
 
 SEE ALSO                                                    *vwt-878-see-also*
-    - :help |:autocmd| - Additional information on autocmd 
+    - :help |:autocmd| - Additional information on `autocmd` 
 
 
 RELATED SCRIPTS                                      *vwt-878-related-scripts*
@@ -251,7 +251,7 @@ found
 
 ==============================================================================
 
-I didn't get the * match to work so I used *.* instead:
+I didn't get the `*` match to work so I used `*.*` instead:
 
 >
     autocmd BufWritePre *.* %s/\s\+$//e
@@ -259,8 +259,8 @@ I didn't get the * match to work so I used *.* instead:
 
 ==============================================================================
 
-Marks are unnecessary, at least in Vim 7. (Yes, that *.{cpp,h,c,etc} syntax 
-is valid. Much better than *.cpp,*.h,*.c,*.etc IMHO.)
+Marks are unnecessary, at least in Vim 7. (Yes, that `*.{cpp,h,c,etc}` syntax 
+is valid. Much better than `*.cpp,*.h,*.c,*.etc` IMHO.)
 
 >
     autocmd BufWritePre  *.{cpp,h,c,etc}  call StripTrailingWhite()
@@ -274,8 +274,9 @@ is valid. Much better than *.cpp,*.h,*.c,*.etc IMHO.)
 
 ==============================================================================
 
-Actually because %s seems like is forcing a redraw line by line (is a guess) 
-(see also option lazyredraw), I get faster result by entering EX mode first:
+Actually because `%s` seems like is forcing a redraw line by line (is a 
+guess) (see also option `lazyredraw`), I get faster result by entering EX mode 
+first:
 
 >
     autocmd BufWritePre <Esc>Q :call StripTailingWhite()<CR>:visual<CR>

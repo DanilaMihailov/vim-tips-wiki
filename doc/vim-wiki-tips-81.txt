@@ -6,8 +6,8 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-The s (substitute) command can be used to replace specified characters, and 
-the S command can be used to replace specified lines.
+The `s` (substitute) command can be used to replace specified characters, and 
+the `S` command can be used to replace specified lines.
 
 For example, the following has the same leading string on several lines:
 
@@ -20,19 +20,20 @@ For example, the following has the same leading string on several lines:
     foo_bar_baz6 = a6
 <
 
-Put the cursor on the f at the start of the first line and type the 
-following: 7s then fixed then press Esc. That changes foo_bar_baz1 to 
-fixed_baz1. Move the cursor to the start of the next line and press . to 
+Put the cursor on the `f` at the start of the first line and type the 
+following: `7s` then `fixed` then press Esc. That changes `foo_bar_baz1` to 
+`fixed_baz1`. Move the cursor to the start of the next line and press `.` to 
 repeat the command.
 
-A single character can be replaced with the r command. For example, with the 
-cursor on "f", type rt to replace the "f" with "t". That only works with 
-characters that can be entered with a single key press, and s can be used to 
+A single character can be replaced with the `r` command. For example, with 
+the cursor on "f", type `rt` to replace the "f" with "t". That only works with 
+characters that can be entered with a single key press, and `s` can be used to 
 for a replacement with a digraph. For example, put the cursor on the "x" in 
-text "12x10" then press s followed by Ctrl-K *X to change the text to "12×10".
+text "12x10" then press `s` followed by Ctrl-K `*X` to change the text to 
+"12×10".
 
-If you need to substitute three lines of text, type 3S. Vim deletes the three 
-lines and enters insert mode, waiting for the subsitution text.
+If you need to substitute three lines of text, type `3S`. Vim deletes the 
+three lines and enters insert mode, waiting for the subsitution text.
 
 COMMENTS                                                     *vwt-81-comments*
 

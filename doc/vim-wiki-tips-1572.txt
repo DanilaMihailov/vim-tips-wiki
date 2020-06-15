@@ -16,81 +16,84 @@ word.
 
 REQUIREMENTS                                           *vwt-1572-requirements*
 
-The script uses matchadd() which requires Vim 7.2 
+The script uses `matchadd()` which requires Vim 7.2 
 [https://vim.fandom.com/wiki/Where_to_download_Vim] (actually version 7.1.040 
 or later). You will probably need gvim to display the colors specified in the 
 script. In addition, the script assumes you have a numeric keypad and a system 
 that allows you to map keys on that keypad (for example, the command :map <k0> 
-:echo 'Hello'<CR> would display Hello when you press 0 on the numeric keypad).
+:echo 'Hello'<CR> would display Hello when you press `0` on the numeric 
+keypad).
 
-You need the script (highlights.vim) and the file that defines the highlight 
-groups (highlights.csv); these are given below.
+You need the script (`highlights.vim`) and the file that defines the 
+highlight groups (`highlights.csv`); these are given below.
 
 USAGE                                                         *vwt-1572-usage* [https://vignette.wikia.nocookie.net/vim/images/b/b7/HighlightMultipleWords.png/revision/latest?cb=20081027044439]
 
-The script defines highlight groups named hl1, hl2, ... hl9 (and more). Once 
-enabled, pressing one of the keys 1, 2, ... 9 on the numeric keypad will 
-highlight the word under the cursor with the colors defined in the 
-corresponding highlight group (for example, press 4 on the keypad to highlight 
-the current word with the hl4 group).
+The script defines highlight groups named `hl1`, `hl2`, ... `hl9` (and more). 
+Once enabled, pressing one of the keys `1`, `2`, ... `9` on the numeric keypad 
+will highlight the word under the cursor with the colors defined in the 
+corresponding highlight group (for example, press `4` on the keypad to 
+highlight the current word with the `hl4` group).
 
-Type \m (assuming the default backslash leader key) to toggle mapping of the 
-keypad on/off. At startup, the numeric keypad operates normally because only 
-\m is mapped.
+Type `\m` (assuming the default backslash leader key) to toggle mapping of 
+the keypad on/off. At startup, the numeric keypad operates normally because 
+only `\m` is mapped.
 
-After typing \m to enable the mappings, you could use the keypad to:
-    - Press 1 to highlight the current visually selected text, or the current word 
-      (if nothing is selected). Highlight group hl1 is used. 
-    - Press 2 for highlight hl2, 3 for highlight hl3, etc. 
-    - Press 0 to remove all highlights from the current visually selected text, or 
-      the current word. 
+After typing `\m` to enable the mappings, you could use the keypad to:
+    - Press `1` to highlight the current visually selected text, or the current 
+      word (if nothing is selected). Highlight group `hl1` is used. 
+    - Press `2` for highlight `hl2`, `3` for highlight `hl3`, etc. 
+    - Press `0` to remove all highlights from the current visually selected text, 
+      or the current word. 
 
 
-For example, if you place the cursor on the word "rain" and press 4 on the 
-keypad, all occurrences of "rain" will be highlighted (use :hi hl4 to show the 
-colors). No highlighting will occur in words like "rainbow".
+For example, if you place the cursor on the word "rain" and press `4` on the 
+keypad, all occurrences of "rain" will be highlighted (use `:hi hl4` to show 
+the colors). No highlighting will occur in words like "rainbow".
 
-Alternatively, place the cursor on "rain" and press viw to select the word, 
-then 4. All occurrences of the visually selected text will be highlighted, 
+Alternatively, place the cursor on "rain" and press `viw` to select the word, 
+then `4`. All occurrences of the visually selected text will be highlighted, 
 including the "rain" in "rainbow".
 
-Each window has its own set of highlights: if you use :split to show two 
+Each window has its own set of highlights: if you use `:split` to show two 
 windows, you can have one set of highlights in the top window, and a different 
 set in the other window.
 
 With the mappings enabled, you could use the keypad to:
-    - Press - to remove all highlights in the current window. 
-    - Press + to restore the highlighting when - was last used in the current 
+    - Press `-` to remove all highlights in the current window. 
+    - Press `+` to restore the highlighting when `-` was last used in the current 
       window. 
-    - Press * to restore the highlighting when - was last used in any window. 
+    - Press `*` to restore the highlighting when `-` was last used in any window. 
 
 
 For example, suppose you are displaying two windows and you want the same 
 highlighting in each window. In the first window, apply the wanted 
 highlighting. Then (using the numeric keypad keys):
-    - Press - to remove all highlights in the first window. 
-    - Press + to restore them. 
-    - Switch to the other window and press * to apply the highlights from the first 
-      window. 
+    - Press `-` to remove all highlights in the first window. 
+    - Press `+` to restore them. 
+    - Switch to the other window and press `*` to apply the highlights from the 
+      first window. 
 
 
 SEARCHING                                                 *vwt-1572-searching*
 
-After using \m to enable mappings, you can search for the next or previous 
-occurrence of highlighted text. Patterns highlighted with the :match or 
-:2match commands are also found.
+After using `\m` to enable mappings, you can search for the next or previous 
+occurrence of highlighted text. Patterns highlighted with the `:match` or 
+`:2match` commands are also found.
 
-Type \f to find the next match, or \F to find backwards. This has no effect 
-on search highlighting or history.
+Type `\f` to find the next match, or `\F` to find backwards. This has no 
+effect on search highlighting or history.
 
-Alternatively, type \n or \N to search forwards or backwards. Now you can 
-press the normal search keys n or N to find the next or previous occurrence.
+Alternatively, type `\n` or `\N` to search forwards or backwards. Now you can 
+press the normal search keys `n` or `N` to find the next or previous 
+occurrence.
 
 HIGHLIGHT COMMAND                                 *vwt-1572-highlight-command*
 
-The script defines a :Highlight n pattern command where n is a number (1..99) 
-and pattern is the text you want highlighted. Depending on your system, you 
-may be able to use the abbreviation :Hi rather than :Highlight.
+The script defines a `:Highlight n pattern` command where n is a number 
+(1..99) and pattern is the text you want highlighted. Depending on your 
+system, you may be able to use the abbreviation `:Hi` rather than 
+`:Highlight`.
 
 The following examples use different colors to highlight various patterns:
 
@@ -102,7 +105,7 @@ The following examples use different colors to highlight various patterns:
 <
 
 The second example is the same as placing the cursor on "hello" then pressing 
-5 on the numeric keypad. The last example highlights th occurring at the 
+`5` on the numeric keypad. The last example highlights `th` occurring at the 
 beginning of a word, not case sensitive.
 
 The following command will list all active highlights (group names and 
@@ -114,16 +117,16 @@ patterns):
 
 OTHER COMMANDS                                       *vwt-1572-other-commands*
 
-After using \m to enable the keypad mappings, you can press 1..9 on the 
+After using `\m` to enable the keypad mappings, you can press 1..9 on the 
 keypad to highlight the visual selection (if any), or the current word. For 
-example, pressing 4 on the keypad will highlight using the hl4 group.
+example, pressing `4` on the keypad will highlight using the `hl4` group.
 
 In addition, you can press a digit 1..9 on the main keyboard before pressing 
-1..9 on the keypad. For example, if you press 2 on the main keyboard before 4 
-on the keypad, the hl24 highlight group will be used.
+1..9 on the keypad. For example, if you press `2` on the main keyboard before 
+`4` on the keypad, the `hl24` highlight group will be used.
 
-The :Hclear command can clear highlights. After typing :Hclear, you can enter 
-an argument, or you can press Space then Tab for command completion 
+The `:Hclear` command can clear highlights. After typing `:Hclear`, you can 
+enter an argument, or you can press Space then Tab for command completion 
 (highlighted patterns). Examples:
 
 >
@@ -151,12 +154,13 @@ The following commands can be used to save or restore the current highlights:
     :Hrestore anyname
 <
 
-Replace anyname with any name you would like to use. These commands use 
-uppercase global variables (anyname is converted to uppercase), which Vim will 
-save providing you have the ! flag in the 'viminfo' option (:set viminfo^=!).
+Replace `anyname` with any name you would like to use. These commands use 
+uppercase global variables (`anyname` is converted to uppercase), which Vim 
+will save providing you have the `!` flag in the 'viminfo' option (`:set 
+viminfo^=!`).
 
-After typing :Hsave or :Hrestore, you can press Space then Tab for command 
-completion.
+After typing `:Hsave` or `:Hrestore`, you can press Space then Tab for 
+command completion.
 
 EXAMPLE                                                     *vwt-1572-example*
 
@@ -169,20 +173,20 @@ Copy this text into Vim to test word highlighting:
     111222 333444 555666 777888999 111222 333444 555666
 <
 
-Use :sp to split the window and view the above text in both windows. Use \m 
-to enable mappings, then apply some matches in the top window. Switch to the 
-bottom window and apply some different matches: each window maintains a 
+Use `:sp` to split the window and view the above text in both windows. Use 
+`\m` to enable mappings, then apply some matches in the top window. Switch to 
+the bottom window and apply some different matches: each window maintains a 
 separate list of highlight matches.
 
-In the next step, you must use the -+* keys on the numeric keypad. While in 
-the bottom window, press - to clear highlighting in that window. If wanted, 
-press + to restore highlighting. In the top window, press * to apply the 
+In the next step, you must use the `-+*` keys on the numeric keypad. While in 
+the bottom window, press `-` to clear highlighting in that window. If wanted, 
+press `+` to restore highlighting. In the top window, press `*` to apply the 
 highlighting from the bottom window.
 
 SCRIPT                                                       *vwt-1572-script*
 
-Create file ~/.vim/plugin/highlights.vim (Unix) or 
-$HOME/vimfiles/plugin/highlights.vim (Windows) containing the script below, 
+Create file `~/.vim/plugin/highlights.vim` (Unix) or 
+`$HOME/vimfiles/plugin/highlights.vim` (Windows) containing the script below, 
 then restart Vim.
 
 >
@@ -494,16 +498,16 @@ then restart Vim.
 DEFINING HIGHLIGHT GROUPS                 *vwt-1572-defining-highlight-groups*
 
 The script reads a CSV [https://vim.fandom.com/wiki/CSV] file with the same 
-directory/name as the script, but with .csv extension. Each line should 
+directory/name as the script, but with `.csv` extension. Each line should 
 consist of five comma-separated fields, where the first field is a number from 
 1 to 99 inclusive (any other lines are ignored).
 
-For example, the line "5,white,blue,black,green" would define a highlight 
-group named hl5 which color terminals would display as white on blue, and gvim 
-would display as black on green.
+For example, the line "`5,white,blue,black,green`" would define a highlight 
+group named `hl5` which color terminals would display as white on blue, and 
+gvim would display as black on green.
 
-Create file ~/.vim/plugin/highlights.csv (Unix) or 
-$HOME/vimfiles/plugin/highlights.csv (Windows) containing the sample below, 
+Create file `~/.vim/plugin/highlights.csv` (Unix) or 
+`$HOME/vimfiles/plugin/highlights.csv` (Windows) containing the sample below, 
 then restart Vim.
 
 >

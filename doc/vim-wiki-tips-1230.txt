@@ -41,13 +41,13 @@ args list or whatever. I came up with the following script.
 
 COMMENTS                                                   *vwt-1230-comments*
 
-Is this to do :n file*.[ch] | sball
+Is this to do `:n file*.[ch] | sball`
 
-or with Vim 7 :n file*.[ch] | tab sball
+or with Vim 7 `:n file*.[ch] | tab sball`
 
 ==============================================================================
 
-sball isn't workable if you already have a big buffer list of other stuff.
+`sball` isn't workable if you already have a big buffer list of other stuff.
 
 ==============================================================================
 

@@ -7,7 +7,7 @@ created 2006 · complexity intermediate · author Manu Hack · version n/a
 ==============================================================================
 
 If you have a Matlab script file (not function file), then you could add the 
-following simple files to C:/Program Files/Vim/vimfiles/ftplugin/matlab 
+following simple files to `C:/Program Files/Vim/vimfiles/ftplugin/matlab` 
 (depends on where you installed Vim).
 
 run.py
@@ -26,7 +26,7 @@ run.vim
     map <buffer> ,r :w<CR>:cd C:/Program Files/Vim/vimfiles/ftplugin/matlab<CR>:pyf run.py<CR>
 <
 
-Then just type ,r you can run and get the results in the current windows.
+Then just type `,r` you can run and get the results in the current windows.
 
 Make sure you have a running Python. I'm using WinXP, Vim 7.0, Matlab 6.5, 
 and Python 2.4.

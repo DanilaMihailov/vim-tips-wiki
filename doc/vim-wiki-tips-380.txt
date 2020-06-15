@@ -86,7 +86,7 @@ So, if you add the following lines to your .vimrc:
 <
 
 Now, Ctrl-D will open the current dbx file and line (mnemonic: d for debug). 
-,v will open up a listing of variables (mnemonic: v for variables).
+`,v` will open up a listing of variables (mnemonic: v for variables).
 
 With only this, you can have a pretty good debugging setup with just vim and 
 dbx.
@@ -118,7 +118,7 @@ The alias would look like
     alias z="source ~/.dbx.comm"
 <
 
-It should go in your ~/.dbxrc file.
+It should go in your `~/.dbxrc` file.
 
 COMMENTS                                                    *vwt-380-comments*
 

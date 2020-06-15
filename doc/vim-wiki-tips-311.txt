@@ -33,7 +33,7 @@ of the built-in Netrw commands to open the current file's directory:
 Netrw or some of its replacements (like NERDtree 
 [https://www.vim.org/scripts/script.php?script_id=1658]) also allow simply 
 editing a directory name to bring up a directory browser, for example with 
-:new %:p:h.
+`:new %:p:h`.
 
 If you prefer the Windows Explorer GUI, this key map opens the folder that 
 contains the currently open file, checking first to prevent trying to open the 
@@ -53,7 +53,7 @@ If you have Vim 7.4.191 or higher, the mapping can be shortened to:
 <
 
 Note, if you are using the 'shellslash' option, you will need to temporarily 
-toggle it off in your mapping before using shellescape().
+toggle it off in your mapping before using `shellescape()`.
 
 COMMENTS                                                    *vwt-311-comments*
 

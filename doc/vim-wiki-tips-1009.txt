@@ -6,13 +6,13 @@ created 2005 · complexity basic · author Anupam · version 5.7
 
 ==============================================================================
 
-To quickly change a word you can use cw,caw or ciw. Use c$ or just C to 
-quickly change from the cursor to the end of a line, cc to change an entire 
-line, or cis for a sentence.
+To quickly change a word you can use `cw`,`caw` or `ciw`. Use `c$` or just 
+`C` to quickly change from the cursor to the end of a line, `cc` to change an 
+entire line, or `cis` for a sentence.
 
-The standard change word command requires you to type cw, then a new word, 
-then press Escape. Using the version below, you would type pw, then a new 
-word, then press Space to exit back to normal mode. Or, you would type p$, 
+The standard change word command requires you to type `cw`, then a new word, 
+then press Escape. Using the version below, you would type `pw`, then a new 
+word, then press Space to exit back to normal mode. Or, you would type `p$`, 
 then a new line, then press Enter.
 
 >

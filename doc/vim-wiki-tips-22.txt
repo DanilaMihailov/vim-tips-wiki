@@ -95,7 +95,7 @@ you'll need to disable cabbrev [https://vim.fandom.com/wiki/Disabling_cabbrev]
 temporarily.
 
 Most typos of the types shown above usually happen when entering a single, 
-quick command like :w. It might be a good idea to use a cabbrev that only 
+quick command like `:w`. It might be a good idea to use a cabbrev that only 
 triggers in the first column 
 [https://vim.fandom.com/wiki/Replace_a_builtin_command_using_cabbrev] of the 
 command line.

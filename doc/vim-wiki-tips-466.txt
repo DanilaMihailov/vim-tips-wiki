@@ -16,7 +16,7 @@ presses are needed to insert one character. Here is a slightly easier way:
 Now, when in normal mode, press Space followed by the character that you want 
 to insert.
 
-Bug: Repeating the insertion with . does not work.
+Bug: Repeating the insertion with `.` does not work.
 
 COMMENTS                                                    *vwt-466-comments*
 
@@ -36,7 +36,7 @@ I consider this a better solution:
     :nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
 <
 
-Such inserts can be repeated with '.' thus making this command worthy (it's 
+Such inserts can be repeated with '`.`' thus making this command worthy (it's 
 not a big problem to make an additional keypress but imagine you need to 
 manually put some spaces or other separators).
 
@@ -53,9 +53,9 @@ The built-in s command is very useful, but that's a choice for the user. JohnBec
 ==============================================================================
 
 I quite like the solution you proposed, but it does not allow for 
-repetitions, I found myself wanting to do '5s '. I couldn't use the repetition 
-inline because it would repeat the call to getchar so I added a simple proxy 
-function, the result is:
+repetitions, I found myself wanting to do '`5s `'. I couldn't use the 
+repetition inline because it would repeat the call to getchar so I added a 
+simple proxy function, the result is:
 
 >
     function! RepeatChar(char, count)
@@ -66,7 +66,7 @@ function, the result is:
 <
 
 Note that the C-U is necessary to support the ranges and as far as I could 
-tell the '."\e"' was unnecessary, so I removed it
+tell the '`."\e"`' was unnecessary, so I removed it
 
 Thanks, I packaged this as a plugin on github at https://github.com/rjayatilleka/vim-insert-char.
 Interesting, thanks. Why wouldn't repeat(getchar(), v:count1) work (why the RepeatChar function)? JohnBeckett 11:20, September 28, 2010 (UTC)

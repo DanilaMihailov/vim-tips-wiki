@@ -8,7 +8,7 @@ created 2006 · complexity intermediate · author Martin Krischik · version 6.0
 
 While fine tuning my plugins, I noticed that Vim does not correctly work with 
 maps using <Leader> when the mapleader is a function key like <F12>. You have 
-to use :execute to get a correct mapping:
+to use `:execute` to get a correct mapping:
 
 >
     execute "nnoremap <unique> " . escape(g:mapleader . "1" , "\") . " :call <SID>Set_Font (1) <CR>"
@@ -47,8 +47,8 @@ But then you can't use the g:mapleader for setting up menus any more. I guess th
 Isn't it a much more general issue that affects all special keys? (see :help 
 |expr-string|)
 
-It seems to me that special keys must always be escaped for :execute purpose, 
-and of course not escaped when you want to use their name.
+It seems to me that special keys must always be escaped for `:execute` 
+purpose, and of course not escaped when you want to use their name.
 
 ==============================================================================
 

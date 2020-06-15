@@ -27,8 +27,8 @@ Then for example, enter the following into a buffer:
     Gnu & stuffed & 92.59
 <
 
-Now visually select the lines (for example, ggVG), and enter the command 
-!ltpretty to filter the text through the ltpretty script. The lines are 
+Now visually select the lines (for example, `ggVG`), and enter the command 
+`!ltpretty` to filter the text through the `ltpretty` script. The lines are 
 replaced with the following LaTeX code:
 
 >

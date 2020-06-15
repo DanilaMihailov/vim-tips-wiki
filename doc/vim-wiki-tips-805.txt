@@ -44,8 +44,8 @@ SCRIPT USAGE                                            *vwt-805-script-usage*
 When you want to use Vim to edit some text in an application such as an email 
 client or web browser, move your cursor to the text area and hit Ctrl-Alt-V. 
 The current text will be copied into gvim where it can be edited. When 
-finished editing, type :wq and answer "Y" to update register "*". Your edited 
-text should now appear in the text area.
+finished editing, type `:wq` and answer "Y" to update register "*". Your 
+edited text should now appear in the text area.
 
 FIREFOX                                                      *vwt-805-firefox*
 
@@ -88,7 +88,7 @@ feel this solution is not ideal in this case.
 a) It would be better for the VBScript to put the clipboard into a temporary 
 file and pass this to Vim. This would allow the original clipboard to be saved 
 and restored. Using a temporary file also fits better into how Vim works. When 
-you finish editing :wq is normal, :q! is a kludge.
+you finish editing `:wq` is normal, `:q!` is a kludge.
 
 b) When Vim is exited the original application should be made active to 
 ensure that the text is pasted back in to the correct place. AppActivate is 

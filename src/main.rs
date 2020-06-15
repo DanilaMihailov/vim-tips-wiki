@@ -87,12 +87,20 @@ impl<'a> WikiEntry<'a> {
                 }
                 node.children().map(|n| self.parse_node(n)).collect()
             }
-            Some("code") => format!(
-                "{}",
-                node.children()
+            Some("code") => {
+                let code = node
+                    .children()
                     .map(|n| self.parse_node(n))
-                    .collect::<String>()
-            ),
+                    .collect::<String>();
+
+                let quotes_re = Regex::new(r"'*'").unwrap();
+                let brackets_re = Regex::new(r"<*>").unwrap();
+                if quotes_re.is_match(&code) || brackets_re.is_match(&code) {
+                    code
+                } else {
+                    format!("`{}`", code)
+                }
+            }
             Some("ul") => {
                 let mut res = String::new();
                 for child in node.children() {

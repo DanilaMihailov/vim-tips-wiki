@@ -85,17 +85,17 @@ useful is to use fold markers in the begin and end patterns, like this:
     call TextEnableCodeSnip('html' ,'#{{{html' ,'#html}}}', 'SpecialComment')
 <
 
-This will allow you to fold snippet sections if you :set foldmethod=marker.
+This will allow you to fold snippet sections if you `:set foldmethod=marker`.
 
 Setting up these function calls in your after/syntax directory will allow you 
 to automatically allow such snippet sections in every file of a given type.
 
 NOTES                                                          *vwt-857-notes*
-    - If highlighting gets out of sync, try executing :syn sync fromstart to fix 
+    - If highlighting gets out of sync, try executing `:syn sync fromstart` to fix 
       it. 
     - If you want this highlighting within other syntax items (like strings), you 
-      may need to tweak the syntax rules here or in the syntax file using contains 
-      and/or containedin. :help |:syn-contains| :help |:syn-containedin| 
+      may need to tweak the syntax rules here or in the syntax file using `contains` 
+      and/or `containedin`. :help |:syn-contains| :help |:syn-containedin| 
 
 
 REFERENCES                                                *vwt-857-references*
@@ -130,10 +130,10 @@ Thanks. I'll give it a try. If I can manage to do it, I will try to post a tip o
 
 CONTAINEDIN EXAMPLE REQUESTED          *vwt-857-containedin-example-requested*
 
-An example on how to use containedin would be most useful. I am attempting to 
-use this tip in a reStructuredText file (vim syntax file: rst.vim). I have 
-identified the parent syntax item is rstLiteralBlock, what do I modify in the 
-tip to make it work when containedin this block?
+An example on how to use `containedin` would be most useful. I am attempting 
+to use this tip in a reStructuredText file (vim syntax file: rst.vim). I have 
+identified the parent syntax item is `rstLiteralBlock`, what do I modify in 
+the tip to make it work when containedin this block?
 
 DOESN'T WORK ON A FILE THAT ALREADY HAS HIGHLIGHTING? *vwt-857-doesn't-work-on-a-file-that-already-has-highlighting?*
 

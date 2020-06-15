@@ -10,20 +10,21 @@ Often search and replace [https://vim.fandom.com/wiki/Search_and_replace] is
 needed in multiple files. This tip uses the procedures from run a command in 
 multiple buffers 
 [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers] to show how a 
-substitute may be executed multiple times using :argdo (all files in argument 
-list), or :bufdo (all buffers), or :tabdo (all tabs), :windo (all windows in 
-the current tab), or :cdo (all files listed in the quickfix list).
+substitute may be executed multiple times using `:argdo` (all files in 
+argument list), or `:bufdo` (all buffers), or `:tabdo` (all tabs), `:windo` 
+(all windows in the current tab), or `:cdo` (all files listed in the quickfix 
+list).
 
 ALL BUFFERS                                              *vwt-324-all-buffers*
 
 The following performs a search and replace in all buffers (all those listed 
-with the :ls command):
+with the `:ls` command):
 
 >
     :bufdo %s/pattern/replace/ge | update
 <
 
-The command above uses :update to save each buffer, if it was changed. That 
+The command above uses `:update` to save each buffer, if it was changed. That 
 is necessary because, by default, Vim will not switch away from a buffer if it 
 has been changed.
 
@@ -36,7 +37,8 @@ automatically saved when required:
 <
 
 Another alternative is to set the 'hidden' option so buffers do not need to 
-be saved, then use :wa to save all changes (only changed buffers are written):
+be saved, then use `:wa` to save all changes (only changed buffers are 
+written):
 
 >
     :set hidden
@@ -46,7 +48,7 @@ be saved, then use :wa to save all changes (only changed buffers are written):
 
 If you don't wish to save the results of your replacement, but want to review 
 each changed buffer first, you can force the bufdo to continue without saving 
-files with bufdo!:
+files with `bufdo!`:
 
 >
     :bufdo! %s/pattern/replace/ge
@@ -56,7 +58,7 @@ ALL WINDOWS                                              *vwt-324-all-windows*
 
 If you are not dealing with a lot of files, it can be useful to display each 
 wanted file in its own window, then operate on each window. For example, after 
-opening multiple files with a shell command like gvim *.c, you could choose 
+opening multiple files with a shell command like `gvim *.c`, you could choose 
 which files you wanted to operate on like this:
 
 ALL FILES IN A TREE                              *vwt-324-all-files-in-a-tree*
@@ -68,8 +70,9 @@ A similar procedure can perform the same operation on all wanted files in the
 current directory, and in all subdirectories (or in any specified tree of 
 directories):
 
-In the above, a forward slash was used in **/*.cpp. That works on all systems 
-(Unix and Windows). If wanted, a backslash can be used on Windows systems.
+In the above, a forward slash was used in `**/*.cpp`. That works on all 
+systems (Unix and Windows). If wanted, a backslash can be used on Windows 
+systems.
 
 REPLACING CURRENT WORD                        *vwt-324-replacing-current-word*
 
@@ -79,8 +82,8 @@ For example:
 
 In the above substitute command:
     - The search pattern is empty, so the last search is used. 
-    - Type your replacement text instead of replace. If the text is similar to the 
-      current word press Ctrl-R then Ctrl-W to insert that word into the command 
+    - Type your replacement text instead of `replace`. If the text is similar to 
+      the current word press Ctrl-R then Ctrl-W to insert that word into the command 
       line, then change it. 
 
 
@@ -103,15 +106,15 @@ Alternatively, you might try the following user command or mapping.
 
 For example:
 
-Instead of the :Replace command, you could use the mapping. Move the cursor 
-to the word that is to be replaced and press \r (backslash, assuming the 
-default Leader key, then r).
+Instead of the `:Replace` command, you could use the mapping. Move the cursor 
+to the word that is to be replaced and press `\r` (backslash, assuming the 
+default Leader key, then `r`).
 
 In the function, any special characters in the search word are escaped for 
 generality, although that is unlikely to be needed since a word will not 
-contain special characters. If the cursor is on the word old_text, the search 
-pattern will be \<old_text\> so that only instances of the whole word are 
-found.
+contain special characters. If the cursor is on the word `old_text`, the 
+search pattern will be \<old_text\> so that only instances of the whole word 
+are found.
 
 COMMENTS                                                    *vwt-324-comments*
 

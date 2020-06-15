@@ -11,7 +11,7 @@ file's "last modified" time to be changed. For example, I might be updating a
 comment in a source file, and I don't need my build system to re-compile the 
 file.
 
-If your build of Vim has +python you can define the following function and 
+If your build of Vim has `+python` you can define the following function and 
 call it instead of using the write command.
 
 >

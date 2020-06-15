@@ -81,7 +81,7 @@ for their functions in the plugin portion; when the user invokes the command
 or map, vim will only then load the autoload/NameOfScriptFile.vim script. I 
 heartily recommend that plugin writers avail themselves of this method!
 
-Plugins are intended to be "drop into <.vim/plugin>" and work. The problem 
+Plugins are intended to be "drop into <`.vim/plugin`>" and work. The problem 
 that the <Plug>, <SID>, etc stuff is intended to resolve: what to do about 
 functions that have the same names in different plugins, and what to do about 
 maps that use the same sequence of characters? The first problem is solved 
@@ -102,7 +102,7 @@ only removes the maps the starter made but restores any maps the user had had
 that would have clashed. I also use the start/stop pair of functions to set 
 and restore options that cause my scripts difficulties.
 
-Check out DrawIt.vim's SaveMap() function for a way to save user 
+Check out `DrawIt.vim`'s `SaveMap()` function for a way to save user 
 maps.Restoring maps with it is easy:
 
 >
@@ -116,8 +116,8 @@ So you can see it sets up a string variable with all the maps that the user
 had that would have clashed with my application.
 
 One final thing: if your application needs to share information between its 
-various functions, see if you can use s:varname (a variable that only your 
-script's functions can access) or b:varname (a variable that anything 
+various functions, see if you can use `s:varname` (a variable that only your 
+script's functions can access) or `b:varname` (a variable that anything 
 associated with the buffer your application is running with can access) 
 instead of using global variables.
 

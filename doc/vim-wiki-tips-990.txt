@@ -6,10 +6,10 @@ created 2005 · complexity basic · author klausenhausen · version 5.7
 
 ==============================================================================
 
-The last command entered with ':' can be repeated with @: and further repeats 
-can be done with @@
+The last command entered with ':' can be repeated with `@:` and further 
+repeats can be done with `@@`
 
-This is useful for commands like :bnext or :cNext.
+This is useful for commands like `:bnext` or `:cNext`.
 
 COMMENTS                                                    *vwt-990-comments*
 

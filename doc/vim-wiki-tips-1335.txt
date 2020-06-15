@@ -6,24 +6,24 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-This tip shows how to apply a command multiple times using :argdo (all files 
-in argument list), or :bufdo (all buffers), or :tabdo (all tabs), or :windo 
-(all windows in the current tab). See search and replace in multiple buffers 
-[https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] for the 
-common requirement to perform a substitute multiple times.
+This tip shows how to apply a command multiple times using `:argdo` (all 
+files in argument list), or `:bufdo` (all buffers), or `:tabdo` (all tabs), or 
+`:windo` (all windows in the current tab). See search and replace in multiple 
+buffers [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] 
+for the common requirement to perform a substitute multiple times.
 
 BUFDO                                                         *vwt-1335-bufdo*
 
 You may want to perform the same operation on each buffer. For example, you 
-may have recorded a macro [https://vim.fandom.com/wiki/Macros] to register a 
+may have recorded a macro [https://vim.fandom.com/wiki/Macros] to register `a` 
 and want to apply the macro to each buffer. You could do that by entering:
 
 >
     :bufdo execute "normal! @a" | w
 <
 
-The w will write each buffer to disk (whether the buffer was changed or not). 
-To only write if changed, use:
+The `w` will write each buffer to disk (whether the buffer was changed or 
+not). To only write if changed, use:
 
 >
     :bufdo execute "normal! @a" | update
@@ -38,7 +38,7 @@ automatically saved when switching to another buffer:
 <
 
 Yet another alternative is to set the 'hidden' option so buffers do not need 
-to be saved, then use :wa to save all changes (only changed buffers are 
+to be saved, then use `:wa` to save all changes (only changed buffers are 
 written):
 
 >
@@ -52,7 +52,7 @@ TO DO
 Refactor following.
 
 The command to do normal commands from the command-line is "normal" and I 
-wanted to run the macro recorded in register a, so that explains the "normal 
+wanted to run the macro recorded in register `a`, so that explains the "normal 
 @a".
 
 I also wanted to do this over multiple buffers, which explains the "bufdo".
@@ -77,8 +77,8 @@ you started.
 These versions (Bufdo, Windo and Tabdo) restore the current window or buffer 
 or tab, when the command is finished.
 
-For example, to turn on line numbers everywhere, I use :Windo set nu. Using 
-:windo set nu does the same, but the cursor finishes in a different window.
+For example, to turn on line numbers everywhere, I use `:Windo set nu`. Using 
+`:windo set nu` does the same, but the cursor finishes in a different window.
 
 >
     " Like windo but restore the current window.
@@ -177,7 +177,7 @@ Here is something tricky I needed recently:
 <
 
 I wanted to put the cursor on the next occurrence of pattern in each buffer, 
-but I found that :bufdo normal! n or other search attempts did not work. I 
+but I found that `:bufdo normal! n` or other search attempts did not work. I 
 thought I had searched before, but I could not make it work without the trick 
 above. Any insight? JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 
 08:15, August 12, 2011 (UTC)

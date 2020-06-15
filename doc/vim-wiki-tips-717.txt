@@ -6,15 +6,15 @@ created 2004 · complexity basic · author Chao-Kuo Lin · version 6.0
 
 ==============================================================================
 
-Even thought I can press "c" to switch directory if I want to execute a 
+Even thought I can press "`c`" to switch directory if I want to execute a 
 command in the directory that I am viewing with the explorer.vim plugin, but 
 sometimes I don't want to actually change to that directory to execute it 
 because I want to remain in whatever directory I am in such as a root 
 directory of source files. So I opened up explorer.vim to see if I can add it 
 directly to the plugin, but I found out that it can call a variable 
-g:explFileHandler that stores the user defined function whenever the key 'x' 
-is pressed on a file or directory. So I used that to implement executing a 
-command in the viewing directory in my vimrc as follows:
+`g:explFileHandler` that stores the user defined function whenever the key 
+'`x`' is pressed on a file or directory. So I used that to implement executing 
+a command in the viewing directory in my vimrc as follows:
 
 >
     function! MyFileHandler(filename)

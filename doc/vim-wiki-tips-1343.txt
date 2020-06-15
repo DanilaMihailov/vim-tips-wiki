@@ -42,7 +42,7 @@ REFERENCES                                               *vwt-1343-references*
 
 COMMENTS                                                   *vwt-1343-comments*
 
-How does this differ from the :diffthis command?
+How does this differ from the `:diffthis` command?
 
 ==============================================================================
 
@@ -53,13 +53,13 @@ Might I suggest the following commands instead:
     :windo diffthis
 <
 
-For variety, you could try :vs instead of :sp
+For variety, you could try `:vs` instead of `:sp`
 
 ==============================================================================
 
 I think the easiest way to diff a currently open file with another is the 
-:diffsplit command. It loads the file and sets all the right options. 
-Personally I like to use :vert diffsplit
+`:diffsplit` command. It loads the file and sets all the right options. 
+Personally I like to use `:vert diffsplit`
 
 ==============================================================================
 
@@ -85,7 +85,7 @@ complex. I use the following function:
 
 ==============================================================================
 
-As of Vim 7, there is also :diffoff which is very similar to the DiffOff 
+As of Vim 7, there is also `:diffoff` which is very similar to the DiffOff 
 function above.
 
 ==============================================================================

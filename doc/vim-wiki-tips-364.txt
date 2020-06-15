@@ -73,7 +73,7 @@ a fix:
 I found a case with a new file not in your current view (for example, one 
 that is not yet associated with a baseline) in which even the above fix does 
 not work. It seems that, in such situations, there are at least two @@ marks 
-in the file path. A simple tweak in the substitute pattern to find the last 
+in the file path. A simple tweak in the `substitute` pattern to find the last 
 one works for me:
 
 >

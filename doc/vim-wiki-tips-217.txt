@@ -9,7 +9,7 @@ created 2002 · complexity intermediate · author Larry Clapp · version 6.0
 I found a website (tivoli.com) that likes to obfuscate some help file web 
 pages using &#nnn; instead of normal ascii. If you load the source with Vim 
 (in Opera you can just designate Vim as your source viewing program), you can 
-:source the following code to make it readable.
+`:source` the following code to make it readable.
 
 >
     let n = 32

@@ -83,7 +83,7 @@ For a class-variable you get:
 
 NOTE                                                            *vwt-407-note*
 
-It does not work if you have = like in
+It does not work if you have `= ` like in
 
 >
     function serialize_it($something = ) {}

@@ -8,8 +8,8 @@ created 2003 · complexity basic · author Fabien Bouleau · version 6.0
 
 Sometimes the Fortran syntax files do not set the correct source form which 
 can cause issues with highlighting. In order to fix this issue a user may wish 
-to set the source manually for the .for extension. This can be done by adding 
-the following to the .vimrc file:
+to set the source manually for the `.for` extension. This can be done by 
+adding the following to the .vimrc file:
 
 >
     au BufRead,BufNewFile *.for let b:fortran_fixed_source=1

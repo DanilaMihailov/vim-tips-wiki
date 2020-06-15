@@ -28,8 +28,8 @@ file containing an outdated "COPYRIGHT yyyy" notice (case-insensitive). It
 only does this if the file has been modified.
 
 An explanation of the command string follows:
-    - g# - search and replace only on a line matching copyright notice patten. '#' 
-      is used rather than the customary '/' to avoid confusion with all the '\' 
+    - `g#` - search and replace only on a line matching copyright notice patten. 
+      '#' is used rather than the customary '/' to avoid confusion with all the '\' 
       characters. 
 
 
@@ -37,7 +37,7 @@ An explanation of the command string follows:
 \\(".strftime("%Y")."\\)\\@! - only match when the entire match does not consist of the current year (i.e. don't update a notice containing only the current year, like "Copyright 2007").
 [0-9]\\{4\\} - matches a 4-digit number for the first year in the notice
 \\(-".strftime("%Y")."\\)\\@! - don't match on up-to-date notices
-    - #s# - search and replace the outdated year 
+    - `#s#` - search and replace the outdated year 
 
 
 \\([0-9]\\{4\\}\\) - match a 4-digit year and give it a backreference
@@ -94,19 +94,19 @@ FIRST PASS (NEEDS A COMMA)               *vwt-1521-first-pass-(needs-a-comma)*
 
 Summary: Replace all lines with a copyright notice, that do NOT end in the 
 previous or current year, with a comma and the current year.
-    - %s: - start a "replace in all lines" search, using ':' rather than the 
+    - `%s:` - start a "replace in all lines" search, using ':' rather than the 
       customary '/' for clarity. 
-    - \cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s* - find lines containing the copyright 
-      flag (copyright {optional symbol}) as in the simple method. 
-    - \%({below}\)* - match any number of year ranges followed by commas, but DO 
+    - `\cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s*` - find lines containing the 
+      copyright flag (copyright {optional symbol}) as in the simple method. 
+    - `\%({below}\)*` - match any number of year ranges followed by commas, but DO 
       NOT use them for backreferences. 
 
 
 [0-9]\{4}\(-[0-9]\{4\}\)\?,\s* - match a year or year range, followed by a comma and whitespace.
-    - \zs - Place the "start of match" at this point. This means that any matched 
+    - `\zs` - Place the "start of match" at this point. This means that any matched 
       text previous to this point (i.e. the copyright flag, and any year-ranges 
       followed by commas) will NOT be replaced with the replacement text. 
-    - \({below}\&{below}\) - The parentheses group two "concats" separated by the 
+    - `\({below}\&{below}\)` - The parentheses group two "concats" separated by the 
       \&. All concats must match at the same place for the pattern to match. When it 
       matches, it matches the final concat. 
 
@@ -115,15 +115,15 @@ previous or current year, with a comma and the current year.
 \%(-'.strftime("%Y").'\)\@!\%(-[0-9]\{4\}\)\? - optionally match any year range ending ("-{year}") to complete the first concat
 \%([0-9]\{4\}-\)\? - optionally match a year range beginning ("-{year}")
 \%('.(strftime("%Y")-1).'\)\@!\%([0-9]\)\{4\} - match any year except for the previous year (note, current year already known NOT to match) to complete the final concat
-    - \ze - place the end of the match at this point, so that any text following 
+    - `\ze` - place the end of the match at this point, so that any text following 
       this point is NOT affected by the replacement. 
-    - \%(\%([0-9]\{4\}\)\@!.\)*$ - match any text that does not contain a year, 
+    - `\%(\%([0-9]\{4\}\)\@!.\)*$` - match any text that does not contain a year, 
       until the end of the line. This ensures that we captured only the very last 
       year in the line with our final concat, above. 
     - :&, '.strftime("%Y") - replace with the entire match (i.e. the last concat 
       above) followed by a comma and the current year. Recall that the match start 
       and end were defined carefully so that only the desired text is replaced. 
-    - :e - suppress error when no match is found so you don't see error messages 
+    - `:e` - suppress error when no match is found so you don't see error messages 
       when your copyright is up-to-date, and to allow the mapping to continue on to 
       the second pass... 
 
@@ -133,16 +133,16 @@ SECOND PASS (CAN USE A HYPHEN)       *vwt-1521-second-pass-(can-use-a-hyphen)*
 Summary: Replace all remaining lines with a copyright notice, that do NOT end 
 in the current year (i.e. they end in the previous year), with a hyphen and 
 the current year.
-    - %s: - start a "replace in all lines" search, using ':' rather than the 
+    - `%s:` - start a "replace in all lines" search, using ':' rather than the 
       customary '/' for clarity. 
-    - \cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s* - find lines containing the copyright 
-      flag (copyright {optional symbol}) as in the simple method. 
-    - \%({below}\)* - match any number of year ranges followed by commas, but DO 
+    - `\cCOPYRIGHT\s*\%((c)\|©\|&copy;\)\?\s*` - find lines containing the 
+      copyright flag (copyright {optional symbol}) as in the simple method. 
+    - `\%({below}\)*` - match any number of year ranges followed by commas, but DO 
       NOT use them for backreferences. 
 
 
 [0-9]\{4}\(-[0-9]\{4\}\)\?,\s* - match a year or year range, followed by a comma and whitespace.
-    - \zs - Place the "start of match" at this point. This means that any matched 
+    - `\zs` - Place the "start of match" at this point. This means that any matched 
       text previous to this point (i.e. the copyright flag, and any year-ranges 
       followed by commas) will NOT be replaced with the replacement text. 
     - \%('.strftime("%Y").'\)\@!\([0-9]\{4\}\) - match any year except for the 
@@ -150,15 +150,15 @@ the current year.
       in every previous grouping) 
     - \%(-'.strftime("%Y").'\)\@!\%(-[0-9]\{4\}\)\? - optionally match a year range 
       ending that does NOT include the current year. 
-    - \ze - place the end of the match at this point, so that any text following 
+    - `\ze` - place the end of the match at this point, so that any text following 
       this point is NOT affected by the replacement. 
-    - \%(\%([0-9]\{4\}\)\@!.\)*$ - match any text that does not contain a year, 
+    - `\%(\%([0-9]\{4\}\)\@!.\)*$` - match any text that does not contain a year, 
       until the end of the line. This ensures that we captured only the very last 
       year in the line. 
     - \1-'.strftime("%Y") - replace with the first backreference (i.e. the first 
       year in the final year range of the line), followed by a hyphen and the 
       current year. 
-    - :e - suppress error when no match is found so you don't see error messages 
+    - `:e` - suppress error when no match is found so you don't see error messages 
       whenever your copyright notice is up-to-date. 
 
 

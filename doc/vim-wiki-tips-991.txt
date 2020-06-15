@@ -6,8 +6,8 @@ created 2005 · complexity basic · author manalive · version 6.0
 
 ==============================================================================
 
-You can use :mkview to save folds and such when you close a file - but you 
-have to use :loadview next time you use the file.
+You can use `:mkview` to save folds and such when you close a file - but you 
+have to use `:loadview` next time you use the file.
 
 With two lines in your vimrc, you can make that automatic.
 
@@ -56,11 +56,11 @@ This really should be:
     autocmd BufWinEnter *.* silent loadview
 <
 
-*.* is better for me than using just *, as when I load Vim it defaults to [No 
-File], which of course triggers the BufWinEnter, and since there is no file 
-name, an error occurs as it tries to execute.
+`*.*` is better for me than using just *, as when I load Vim it defaults to 
+[No File], which of course triggers the BufWinEnter, and since there is no 
+file name, an error occurs as it tries to execute.
 
-The error does not appear when using *.*
+The error does not appear when using `*.*`
 
 ==============================================================================
 

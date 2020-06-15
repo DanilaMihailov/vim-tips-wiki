@@ -7,14 +7,14 @@ created 2003 · complexity intermediate · author rainbrot · version 5.7
 ==============================================================================
 
 You can type Ctrl-R to insert a register when in insert mode, or when typing 
-in the command or search line. When you press Ctrl-R you will see " (quote) to 
-prompt you to finish the command by entering a register. For example, press 
-Ctrl-R then a to insert the contents of the a register, or Ctrl-R then " to 
-insert the contents of the unnamed register.
+in the command or search line. When you press Ctrl-R you will see `"` (quote) 
+to prompt you to finish the command by entering a register. For example, press 
+Ctrl-R then `a` to insert the contents of the `a` register, or Ctrl-R then `"` 
+to insert the contents of the unnamed register.
 
-You can press v then move the cursor to visually select some text (say the 
-text is "hello world"). If you press y the selected text is yanked (copied) 
-into the unnamed register. You can now type :%s/ then <C-r>" (Ctrl-R quote), 
+You can press `v` then move the cursor to visually select some text (say the 
+text is "hello world"). If you press `y` the selected text is yanked (copied) 
+into the unnamed register. You can now type `:%s/` then <C-r>" (Ctrl-R quote), 
 which would show the following in the command line:
 
 >

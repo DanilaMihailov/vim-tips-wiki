@@ -35,7 +35,7 @@ appears, click on File Types and then scroll the file types until you reach
 VTD. Click on the file extension VTD and click on Change; now associate 
 gvim.exe with this file extension.
 
-Click Start, Run and enter regedit.
+Click Start, Run and enter `regedit`.
 
 In the registry, scroll HKEY_CLASSES_ROOT until you get to Vim.Application
     - Add a key called "shell". 
@@ -43,16 +43,16 @@ In the registry, scroll HKEY_CLASSES_ROOT until you get to Vim.Application
     - In [HKEY_CLASSES_ROOT\Vim.Application\shell\open] and a key called "command". 
     - Double click the "(Default)" value of "command" and change it to point to the 
       location of gvim.exe on your system. I entered the following in the text field 
-      "Value data" C:\PROGRA~1\Vim\vim62\gvim.exe "%1" 
+      "Value data" `C:\PROGRA~1\Vim\vim62\gvim.exe "%1"` 
 
 
 In regedit, find HKEY_CLASSES_ROOT and scroll to ".vtd", then change the 
-string value (Default) to Vim.Application
+string value (Default) to `Vim.Application`
 
 Click on [HKEY_CLASSES_ROOT\.vtd] and add a key called "ShellNew".
 
 Click on "ShellNew" and add a string value called "FileName". Double click on 
-"FileName" and enter GVIM.vtd
+"FileName" and enter` GVIM.vtd`
 
 In Windows Explorer, navigate to any directory. Right click the pane 
 displaying the files, to see "Vim" as one of your options. When you choose 

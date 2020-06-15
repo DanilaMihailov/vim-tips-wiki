@@ -32,10 +32,10 @@ And I want to change the leading path, I can go to the first one, and type
     .../drop/bar/slop.c
 <
 
-Now I can just go the beginning of the second line and hit .j. to change the 
-second and third lines. Of course you could also use a regexp for stuff like 
-this, but often . is a little faster and saves precious brain cells. See :help 
-|.|.
+Now I can just go the beginning of the second line and hit `.j.` to change 
+the second and third lines. Of course you could also use a regexp for stuff 
+like this, but often . is a little faster and saves precious brain cells. See 
+:help |.|.
 
 COMMENTS                                                   *vwt-1142-comments*
 

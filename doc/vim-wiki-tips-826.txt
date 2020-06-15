@@ -30,7 +30,7 @@ runtimepath+=c:\program\vim\php
 ==============================================================================
 
 I found it necessary to unset keywordprg (which I did in ftplugin/php.vim) so 
-that the K defaults to the :help command (rather than :!man).
+that the K defaults to the `:help` command (rather than :!man).
 
 ==============================================================================
 

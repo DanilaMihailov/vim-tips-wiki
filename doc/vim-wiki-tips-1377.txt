@@ -25,11 +25,11 @@ This accomplishes the following:
 For example, putting your cursor over WaitForSingleObject and hitting <F1> 
 brings you directly to the documentation for that API on the MSDN site.
 
-Use :set ch=2 to avoid the Hit Enter To Continue message.
+Use `:set ch=2` to avoid the Hit Enter To Continue message.
 
 The space between "!" and "start" is needed to avoid a "command not found" 
 error. The space causes Vim to send the start command to the cmd.exe shell. 
-Start is a cmd command, not a separate program.
+`Start` is a cmd command, not a separate program.
 
 COMMENTS                                                   *vwt-1377-comments*
 

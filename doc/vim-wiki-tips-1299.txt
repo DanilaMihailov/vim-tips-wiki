@@ -47,10 +47,10 @@ To run a command in the background you may try script script#1582
 Since I wrote it, I prefer script#1343 
 [https://www.vim.org/scripts/script.php?script_id=1343].
 
-The big advantage, that I see, is that simply running ctags -a on a written 
+The big advantage, that I see, is that simply running `ctags -a` on a written 
 file leaves behind in the tags file tags for items you've just deleted before 
 writing the file. Script 1343 removes all entries for the file you've just 
-written and then runs ctags -a.
+written and then runs `ctags -a`.
 
 [meta comment: the script presented here also removes deleted entries before 
 appending new ones.]

@@ -13,9 +13,9 @@ modern versions of Visual Studio, see Integrate gvim with Visual Studio
 VISVIM FOR VISUAL STUDIO 5.0 AND 6.0 *vwt-946-visvim-for-visual-studio-5.0-and-6.0*
     - The OLE version of gvim can be used as the editor in Visual Studio 5.0 and 
       6.0. This is called VisVim. :help |VisVim| 
-    - The source code for Vim includes directory src/VisVim which allows building 
-      file VisVim.dll. 
-    - File src/VisVim/README_VisVim.txt is the documentation. 
+    - The source code for Vim includes directory `src/VisVim` which allows building 
+      file `VisVim.dll`. 
+    - File `src/VisVim/README_VisVim.txt` is the documentation. 
     - With VisVim, you can use Visual Studio for designing and building, and use 
       Vim commands within Visual Studio for editing. 
     - VisVim does not work with Visual Studio 2002 and later (Visual Studio .NET). 

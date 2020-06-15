@@ -6,10 +6,10 @@ created 2006 · complexity intermediate · author Salman Halim · version 7.0
 
 ==============================================================================
 
-Vim 7 has a built-in function called sort() that takes a List and an optional 
-comparator. It works really well, but unlike the Vim 7 command :sort, there is 
-no way to have the function remove duplicates from the list. Hence, this 
-function:
+Vim 7 has a built-in function called `sort()` that takes a List and an 
+optional comparator. It works really well, but unlike the Vim 7 command 
+`:sort`, there is no way to have the function remove duplicates from the list. 
+Hence, this function:
 
 >
     " Works like sort(), optionally taking in a comparator (just like the
@@ -29,9 +29,9 @@ function:
     endfunction
 <
 
-Call it just like you would sort(). Note that because it removes duplicate 
+Call it just like you would `sort()`. Note that because it removes duplicate 
 entries, the return List isn't necessarily going to be the same size as the 
-original. Furthermore, unlike sort(), this can't do things in place. To 
+original. Furthermore, unlike `sort()`, this can't do things in place. To 
 replace the original List, do this:
 
 >

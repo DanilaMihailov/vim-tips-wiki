@@ -19,8 +19,8 @@ Add the following to your vimrc file:
 <
 
 This will make Control-] pop open a window and show the tag there. The 
-:ptjump command shows the tag in a preview window without changing the current 
-buffer or your cursor position.
+`:ptjump` command shows the tag in a preview window without changing the 
+current buffer or your cursor position.
 
 This is especially handy for referencing C/C++ function declarations while 
 entering code.

@@ -18,11 +18,11 @@ random function (although the current time can be used as a crude form of
 USING BASH                                               *vwt-1674-using-bash*
 
 The bash shell provides the RANDOM environment variable that gives a random 
-integer from 0 to 32767 inclusive, on many Linux systems. Since 0G jumps to 
+integer from 0 to 32767 inclusive, on many Linux systems. Since `0G` jumps to 
 the last line, this variable provides line numbers effectively from 1 to 32768 
 inclusive, and if the number of lines in the buffer is 32768 or less, the 
-following can be used to define a command such that :RandomLine will jump to a 
-random line in the buffer:
+following can be used to define a command such that `:RandomLine` will jump to 
+a random line in the buffer:
 
 >
     :command! RandomLine execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
@@ -30,25 +30,25 @@ random line in the buffer:
 
 USING URANDOM                                         *vwt-1674-using-urandom*
 
-On Linux, random bytes can be read from /dev/urandom. The following takes 
-three such bytes (-N3) which results in a random integer from 0 to 16,777,215 
-inclusive. Using more than three bytes might give integer overflow with a 
-negative result (not a problem for G but undesirable if used for something 
-else).
+On Linux, random bytes can be read from `/dev/urandom`. The following takes 
+three such bytes (`-N3`) which results in a random integer from 0 to 
+16,777,215 inclusive. Using more than three bytes might give integer overflow 
+with a negative result (not a problem for `G` but undesirable if used for 
+something else).
 
-The following defines a command such that :RandomLine will jump to a random 
+The following defines a command such that `:RandomLine` will jump to a random 
 line in the buffer:
 
 >
     :command! RandomLine execute 'normal! '.(matchstr(system('od -vAn -N3 -tu4 /dev/urandom'), '^\_s*\zs.\{-}\ze\_s*$') % line('$')).'G'
 <
 
-The matchstr() strips leading and trailing whitespace, including newlines, 
-from the result of calling system() (the leading whitespace must be removed 
+The `matchstr()` strips leading and trailing whitespace, including newlines, 
+from the result of calling `system()` (the leading whitespace must be removed 
 since Vim, when converting a string to a number, gives zero if the string does 
-not start with a digit). The od (octal dump) utility reads 3 bytes from 
-urandom and outputs the text equivalent of a 4 byte unsigned integer (-tu4) 
-with no lines marked and no addresses (-vAn).
+not start with a digit). The `od` (octal dump) utility reads 3 bytes from 
+`urandom` and outputs the text equivalent of a 4 byte unsigned integer 
+(`-tu4`) with no lines marked and no addresses (`-vAn`).
 
 USING RUBY                                               *vwt-1674-using-ruby*
 
@@ -73,11 +73,11 @@ The following alternative defines a command that works with ranges
 <
 
 Usage examples:
-    - :RandomLine jump to a random line from the first to the last inclusive. 
-    - :.,$RandomLine jump to a random line from the current line (.) to the last 
-      line ($) inclusive. 
-    - :?^=?,/^=/RandomLine jump to a random line within the current section, where 
-      each section starts with a header having "=" as the first character. 
+    - `:RandomLine` jump to a random line from the first to the last inclusive. 
+    - `:.,$RandomLine` jump to a random line from the current line (`.`) to the 
+      last line (`$`) inclusive. 
+    - `:?^=?,/^=/RandomLine` jump to a random line within the current section, 
+      where each section starts with a header having "`=`" as the first character. 
 
 
 PLUGINS                                                     *vwt-1674-plugins*

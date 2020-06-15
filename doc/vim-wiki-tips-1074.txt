@@ -68,7 +68,7 @@ specification:
 Please notice that the nested autocommand is used to ensure the syntax 
 highlighting is OK and the remembered cursor position is still kept.
 
-It is recommended to use set encoding=utf-8 in order to ensure successful 
+It is recommended to use `set encoding=utf-8` in order to ensure successful 
 encoding conversion.
 
 PLUGINS                                                     *vwt-1074-plugins*

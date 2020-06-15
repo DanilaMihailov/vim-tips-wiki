@@ -28,7 +28,7 @@ WHAT TO DO                                                *vwt-246-what-to-do*
 <
 
 WHAT THE ABOVE DOES                              *vwt-246-what-the-above-does*
-    - has("multi_byte") checks if you have the right options compiled-in. If you 
+    - `has("multi_byte")` checks if you have the right options compiled-in. If you 
       haven't got what it takes, it's no use trying to use Unicode. 
 
     - 'termencoding' defines how your keyboard encodes what you type. Here we save 
@@ -70,8 +70,8 @@ ADDITIONAL REMARKS                                *vwt-246-additional-remarks*
     - In "replace" mode, one utf character (one or more data bytes) replaces one 
       utf character (which need not use the same number of bytes). 
 
-    - In "normal" mode, ga shows the character under the cursor as text, decimal, 
-      octal and hex; g8 shows which byte or bytes are used to represent it. - This 
+    - In "normal" mode, `ga` shows the character under the cursor as text, decimal, 
+      octal and hex; `g8` shows which byte or bytes are used to represent it. - This 
       mapping inserts the codepoint of the character under the cursor on the next 
       line in the form U+XXXX (further information 
       [https://www.reddit.com/r/vim_magic/comments/4uanzz/insert_the_codepoint_of_the_character_under_the/]): 
@@ -83,7 +83,7 @@ ADDITIONAL REMARKS                                *vwt-246-additional-remarks*
       are a huge lot of them, see :dig after setting enc=utf-8) can be entered with 
       a Ctrl-K prefix; - any utf character at all can be entered with a Ctrl-V 
       prefix, either <Ctrl-V> u aaaa or <Ctrl-V> U bbbbbbbb, with 0 <= aaaa <= FFFF, 
-      or 0 <= bbbbbbbb <= 7FFFFFFF. - If you have sourced mswin.vim (which I don't 
+      or 0 <= bbbbbbbb <= 7FFFFFFF. - If you have sourced `mswin.vim` (which I don't 
       recommend) then <Ctrl-V> has been remapped to the "paste" operation; in this 
       case you need to use <Ctrl-Q> instead. - details in our tip on Entering 
       special characters [https://vim.fandom.com/wiki/Entering_special_characters] 
@@ -168,21 +168,21 @@ About accents: see :help |digraph.txt| and in particular :help
 
 The combinations listed under :help |digraphs-default| are standard and come 
 from RFC 1345 [//tools.ietf.org/html/rfc1345]. Other digraphs for some 
-accented Latin letters are found at the very end of the output of the :digraph 
-command: these are nonstandard synonyms, defined for compatibility with some 
-legacy versions of Vim.
+accented Latin letters are found at the very end of the output of the 
+`:digraph` command: these are nonstandard synonyms, defined for compatibility 
+with some legacy versions of Vim.
 
 In insert mode, type Ctrl-k + letter + accent; for instance with RFC 1345 
 [//tools.ietf.org/html/rfc1345] digraphs:
     - Ctrl-K a ' results in á 
-    - Ctrl-K e ! results in è 
-    - Ctrl-K o ? results in õ (o with tilde, as in Portuguese) 
-    - Ctrl-K u : results in ü 
+    - `Ctrl-K e !` results in è 
+    - `Ctrl-K o ?` results in õ (o with tilde, as in Portuguese) 
+    - `Ctrl-K u :` results in ü 
     - Ctrl-K i > results in î 
-    - Ctrl-K c , results in ç 
-    - Ctrl-K a ; results in ą 
-    - Ctrl-K o " results in ő (o with double acute, as in Hungarian) 
-    - Ctrl-K A 0 results in Å 
+    - `Ctrl-K c ,` results in ç 
+    - `Ctrl-K a ;` results in ą 
+    - `Ctrl-K o "` results in ő (o with double acute, as in Hungarian) 
+    - `Ctrl-K A 0` results in Å 
     - etc... 
 
 
@@ -203,8 +203,8 @@ preference:
       the file is in UTF-8 
     - Disadvantage: In some filetypes where the file could be in ASCII or in UTF-8 
       but not in other Unicode encodings, and in particular in any script starting 
-      with #! in its first line, the BOM won't be recognised and may cause a syntax 
-      error. 
+      with `#!` in its first line, the BOM won't be recognised and may cause a 
+      syntax error. 
 
 
 — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 12:25, March 31, 2011 
@@ -218,7 +218,7 @@ preference:
 
 does not work for me. I expect the default file encoding to be applied to 
 newly created files, new buffers. This does not happen. Documentation says 
-fileencoding is buffer local, so I assume setglobal has no effect.
+`fileencoding` is buffer local, so I assume `setglobal` has no effect.
 
 Solution I use for setting specific default file encoding is this:
 
@@ -243,15 +243,15 @@ What "doesn't work" for you? Do you have other encoding-modifying autocmds or pl
 ==============================================================================
 
 The 'bomb' setting should probably not use 'setglobal', at least on my system 
-that doesn't get used if you don't also set after it setlocal bomb< or set 
-bomb<.
+that doesn't get used if you don't also set after it `setlocal bomb<` or `set 
+bomb<`.
 
 In this wiki it was probably written like that just because the 
 'fileencoding' from which it was taken (see 
 http://vim.wikia.com/wiki/Working_with_Unicode?diff=29876&oldid=29794 
 [https://vim.fandom.com/wiki/Working_with_Unicode?diff=29876&oldid=29794]) 
-used setglobal (rightfully so in that case, the help says: "For a new file the 
-global value of 'fileencoding' is used")
+used `setglobal` (rightfully so in that case, the help says: "For a new file 
+the global value of 'fileencoding' is used")
 
 I haven't changed anything yet because I'm not 100% sure.
 

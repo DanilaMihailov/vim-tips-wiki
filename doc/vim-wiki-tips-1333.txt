@@ -8,12 +8,12 @@ created 2006 · complexity basic · author mz · version n/a
 
 By default when a tab is closed, if another tab is open to the right of the 
 tab that was just closed, it will become the "in focus" or current tab. 
-However, when editing quickly this does not provide symmetry with the :tabopen 
-command, because the :tabopen command opens a new tab to the right, and the 
-:tabclose does restore focus to the original tab upon closing. With the 
-following command in the .vimrc file, when editing a file, if the user needs 
-to do something quickly in a new tab, they can use a mapping to close it and 
-return to the original tab.
+However, when editing quickly this does not provide symmetry with the 
+`:tabopen` command, because the `:tabopen` command opens a new tab to the 
+right, and the `:tabclose` does restore focus to the original tab upon 
+closing. With the following command in the .vimrc file, when editing a file, 
+if the user needs to do something quickly in a new tab, they can use a mapping 
+to close it and return to the original tab.
 
 >
     noremap <silent><C-S-w> :if tabpagenr() != tabpagenr('$')<CR>:tabclose<CR>:if tabpagenr() > 1<CR>:tabprev<CR>:endif<CR>:else<CR>:tabclose<CR>:endif<CR>
@@ -22,7 +22,7 @@ return to the original tab.
 COMMENTS                                                   *vwt-1333-comments*
 
 The following accomplishes the same as above, but if a tab is not being 
-closed, will just call the :q command.
+closed, will just call the `:q` command.
 
 >
     function! CloseSomething()

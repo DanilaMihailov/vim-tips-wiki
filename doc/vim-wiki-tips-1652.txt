@@ -11,10 +11,10 @@ April 23, 2010 · complexity basic · author Alain b · version 7.0
 This tip shows how to launch batch jobs and view the results in a manner that 
 is close to interactive. Where I work, supercomputers users and Linux cluster 
 users launch, from their PC, execution prepared files (jobs) by commands such 
-as qsub or llsubmit. They then have to wait for a listing file to come back 
-with results. Every listing file is generally named some_name.oNNNN (NNNN is a 
-unique number). This process is referred to as batch mode and was common many 
-years before PCs were developed.
+as `qsub` or `llsubmit`. They then have to wait for a listing file to come 
+back with results. Every listing file is generally named `some_name.oNNNN` 
+(`NNNN` is a unique number). This process is referred to as batch mode and was 
+common many years before PCs were developed.
 
 You may want to have those two operations, job launching and listing viewing, 
 as simple and close as possible, to perform what I name "close to 

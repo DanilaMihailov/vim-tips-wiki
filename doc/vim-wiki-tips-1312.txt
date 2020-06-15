@@ -10,11 +10,11 @@ XTerm and most other modern terminal emulators support 256 colors, you can
 use a script to check if your terminal supports 256 colors 
 [https://raw.github.com/incitat/eran-dotfiles/master/bin/terminalcolors.py].
 
-To enable colors on XTerm you will need to run the configure scripts with the 
---enable-256-color switch, in addition you may also need to set your TERM 
-environment variable to xterm-256color.
+To enable colors on XTerm you will need to run the `configure` scripts with 
+the `--enable-256-color` switch, in addition you may also need to set your 
+`TERM` environment variable to `xterm-256color`.
 
-For bourne shells (bash, zsh, pdksh) this is done in ~/.profile:
+For bourne shells (bash, zsh, pdksh) this is done in `~/.profile`:
 
 >
     if [ -e /usr/share/terminfo/x/xterm-256color ]; then
@@ -24,7 +24,7 @@ For bourne shells (bash, zsh, pdksh) this is done in ~/.profile:
     fi
 <
 
-Or for csh shells this is done in ~/.cshrc:
+Or for csh shells this is done in `~/.cshrc`:
 
 >
     setenv TERM xterm-256color
@@ -71,9 +71,9 @@ SEE ALSO                                                   *vwt-1312-see-also*
 
 COMMENTS                                                   *vwt-1312-comments*
 
-Setting $TERM in the shell profile is generally a bad idea, since you may 
-wish to use different terminals. It is preferable to add it to .Xdefaults (or 
-similar file read by X applications):
+Setting `$TERM` in the shell profile is generally a bad idea, since you may 
+wish to use different terminals. It is preferable to add it to `.Xdefaults` 
+(or similar file read by X applications):
 
 >
     XTerm*termName:         xterm-256color

@@ -17,7 +17,7 @@ the Help screen pops up. Here is a solution:
 You can't just ":unmap <F1>" because Vim would complain that no such mapping 
 exists.
 
-You could still access the help system via :help command or the gvim menu.
+You could still access the help system via `:help command` or the gvim menu.
 
 COMMENTS                                                   *vwt-1007-comments*
 

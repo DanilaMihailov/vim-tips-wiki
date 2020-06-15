@@ -25,9 +25,9 @@ This tip was inspired by a tip on using bash completion with ctags
 
 This implementation is significantly simpler but gets the basic job done. The 
 only downside that I see is that it does not work in concert with the other 
-Vim completions for zsh. For example, if you type 'vim -o somefile.sh -t' then 
-press the Tab key, it will not provide completions. It must be 'vim -t' then 
-Tab to work.
+Vim completions for zsh. For example, if you type '`vim -o somefile.sh -t`' 
+then press the Tab key, it will not provide completions. It must be '`vim -t`' 
+then Tab to work.
 
 COMPLETING CTAGS WITH ZSH                 *vwt-1665-completing-ctags-with-zsh*
 

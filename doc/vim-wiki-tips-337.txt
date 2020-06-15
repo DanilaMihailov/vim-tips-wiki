@@ -241,9 +241,9 @@ connect.
 
 bcvi [http://sshmenu.sourceforge.net/articles/bcvi/] is a utility that works 
 with SSH/SCP and the Vim NetRW plugin described above. When you log into a 
-remote server with SSH+bcvi, you can cd into any directory then type vi 
-filename and the gvim command will get launched back on your workstation, with 
-the correct SCP URL to point to the file on the server. If that sounds 
+remote server with SSH+bcvi, you can `cd` into any directory then type `vi 
+filename` and the gvim command will get launched back on your workstation, 
+with the correct SCP URL to point to the file on the server. If that sounds 
 confusing, the bcvi article [http://sshmenu.sourceforge.net/articles/bcvi/] 
 clarifies things with examples and pictures.
 

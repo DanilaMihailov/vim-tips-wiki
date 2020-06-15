@@ -38,9 +38,9 @@ the autocmds:
 
 VERSION 1 (VIM 7 AND ABOVE)             *vwt-1569-version-1-(vim-7-and-above)*
 
-This version uses Vim's readfile() and writefile() functions to access the 
-file used to save the size/position. That in addition to the use of the 
-split() function makes this version unusable in Vim 6.x.
+This version uses Vim's `readfile()` and `writefile()` functions to access 
+the file used to save the size/position. That in addition to the use of the 
+`split()` function makes this version unusable in Vim 6.x.
 
 >
     if has("gui_running")

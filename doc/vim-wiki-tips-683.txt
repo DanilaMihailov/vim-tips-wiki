@@ -52,8 +52,8 @@ open the current VS file in vim with the cursor at the same line and even at
 the same column.
 
 The Tool: In Visual Studio, Tools > External Tools > Add:
-    - Title: &Vim 
-    - Command: C:\Vim\vim73\gvim.exe 
+    - Title: `&Vim` 
+    - Command: `C:\Vim\vim73\gvim.exe` 
     - Arguments: 
 
 
@@ -68,7 +68,7 @@ The Tool: In Visual Studio, Tools > External Tools > Add:
 >
     --servername gVimStudio --remote-silent +"execute 'normal! $(CurLine)G$(CurCol)|'" "$(ItemPath)"
 <
-    - Initial directory: $(ItemDir) 
+    - Initial directory: `$(ItemDir)` 
 
 
 Note that, if you are using tabs for indenting, this will only place the 
@@ -79,9 +79,9 @@ If you have other settings you'd like to apply (like normal zz to centre the
 cursor or updating path for :find 
 [https://vim.fandom.com/wiki/Project_browsing_using_find], then you can put 
 them in $HOME/vimfiles/visualstudioinvoke.vim and add +"runtime 
-visualstudioinvoke.vim" before $(ItemFileName). $HOME is either the %HOME% 
+visualstudioinvoke.vim" before $(ItemFileName). `$HOME` is either the %HOME% 
 environment variable if one is defined, or Vim determines an appropriate 
-directory which you can see by doing :echo $HOME within Vim.
+directory which you can see by doing `:echo $HOME` within Vim.
 
 The Shortcut: In Visual Studio, Tools -> Options -> Environment -> Keyboard:
     - Command: ExternalCommand1 (it's easiest if you move your Vim external tool to 
@@ -93,8 +93,8 @@ This will allow you to use your key combination to open the current file at
 the current line and cursor in a new vim browser. The browser will start at 
 the directory of that file, so ':e .' will edit the directory of that file.
 
-Remove the --servername VimStudio part if you want it to open a new instance 
-of Vim each time.
+Remove the `--servername VimStudio` part if you want it to open a new 
+instance of Vim each time.
 
 Preventing Nagging: In order to effectively use the two together and make 
 sure .NET does not complain about its files changing, goto Tools > Options > 
@@ -116,10 +116,10 @@ some useful plugins to help you stay in Vim longer.
 Note: Only old versions of Vim include sendtovim.exe.
 
 The Tool: In Visual Studio, Tools > Customize > Tools:
-    - Title: &Vim 
-    - Command: C:\Vim\vim51\sendtovim.exe 
+    - Title: `&Vim` 
+    - Command: `C:\Vim\vim51\sendtovim.exe` 
     - Arguments: <c-z>:cd $(FileDir)<CR>:e $(FilePath)<CR>:$(CurLine)<CR> 
-    - Initial directory: $(FileDir) 
+    - Initial directory: `$(FileDir)` 
 
 
 Note: <c-z> brings gvim to foreground - on win2k, gvim gets focus but won't 
@@ -127,15 +127,15 @@ bring itself to foreground otherwise. You can remove it if you don't have this
 bring-to-foreground problem.
 
 These arguments work better as for some reason the above ones break.
-    - Arguments: --remote-silent +"call cursor($(CurLine),$(CurCol))" 
-      $(ItemFileName)$(ItemExt) 
+    - Arguments: `--remote-silent +"call cursor($(CurLine),$(CurCol))" 
+      $(ItemFileName)$(ItemExt)` 
 
 
 OPENING VIM FILE IN VISUAL STUDIO  *vwt-683-opening-vim-file-in-visual-studio*
 
-Much like Vim's --remote, you can run devenv with the edit parameter to open 
-a file in an existing Visual Studio. This command abbreviation opens the file 
-you are currently editing, but doesn't transfer line or column postition.
+Much like Vim's `--remote`, you can run devenv with the edit parameter to 
+open a file in an existing Visual Studio. This command abbreviation opens the 
+file you are currently editing, but doesn't transfer line or column postition.
 
 >
     :cabbrev vsedit :!start "c:\Program Files\Microsoft Visual Studio 8\Common7\ide\devenv.exe" /edit "%"
@@ -203,8 +203,8 @@ INTEGRATION OF VIM WITH PRE-2003 VERSIONS OF VISUAL STUDIO *vwt-683-integration-
 
 COMPILING FROM VIM                                *vwt-683-compiling-from-vim*
 
-If you use nmake, you can use compiler msvc to set Vim's errorformat and 
-makeprg for Visual C++. Use compiler cs for C#.
+If you use nmake, you can use `compiler msvc` to set Vim's `errorformat` and 
+`makeprg` for Visual C++. Use `compiler cs` for C#.
 
 SEE ALSO                                                    *vwt-683-see-also*
     - Use Vim like an IDE [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE] 

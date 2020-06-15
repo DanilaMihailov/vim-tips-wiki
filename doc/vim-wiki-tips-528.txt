@@ -8,7 +8,7 @@ created 2003 · complexity basic · version 6.0
 
 When searching in Vim, it can be useful to have the text scroll so that the 
 line with the next search hit is in the middle of the screen. That's easy with 
-the built in commands: type n to jump to the next search hit, then zz to 
+the built in commands: type `n` to jump to the next search hit, then `zz` to 
 vertically center the line. In addition, the 'scrolloff' option can be used to 
 automatically scroll text into view, so that search hits always have some 
 "context" lines before and after.
@@ -20,7 +20,7 @@ SCROLLOFF OPTION                                    *vwt-528-scrolloff-option*
 
 The 'scrolloff' (scroll offset) option determines the minimum number of 
 screen lines that you would like above and below the cursor. By default, 
-'scrolloff' is 0 which means that you can move the cursor to any line in the 
+'scrolloff' is `0` which means that you can move the cursor to any line in the 
 window without causing scrolling.
 
 The following command scrolls the text so that (when possible) there are 
@@ -32,11 +32,11 @@ below the cursor:
 <
 
 This option applies to all commands, including searching. After entering the 
-above command (which can be abbreviated as :set so=5), the next search hit 
+above command (which can be abbreviated as `:set so=5`), the next search hit 
 will have at least five visible lines of text above and below (except when 
 near the beginning or the end of the buffer).
 
-Entering :set so=999 will keep the cursor vertically centered |vwt-182|.
+Entering `:set so=999` will keep the cursor vertically centered |vwt-182|.
 
 SIMPLE MAPPINGS                                      *vwt-528-simple-mappings*
 
@@ -55,7 +55,7 @@ middle of the screen:
 SCRIPT                                                        *vwt-528-script*
 
 An alternative to the simple mappings is to use a script that can cycle 
-between different states (only n and N are mapped):
+between different states (only `n` and `N` are mapped):
     - Normal – No mappings: search next and search previous work as normal 
       (default). 
     - Scroll hit to middle if not on same page – No scrolling occurs if the next 
@@ -66,7 +66,7 @@ between different states (only n and N are mapped):
 
 
 With the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc], 
-press F4 to cycle the behavior of n and N:
+press F4 to cycle the behavior of `n` and `N`:
 
 >
     nnoremap <silent> <F4> :call <SID>SearchMode()<CR>
@@ -97,13 +97,14 @@ press F4 to cycle the behavior of n and N:
     endfunction
 <
 
-CENTERING :SUBSTITUTE MATCHES          *vwt-528-centering-:substitute-matches*
+CENTERING `:SUBSTITUTE` MATCHES      *vwt-528-centering-`:substitute`-matches*
 
-If you'd like to have the substitute command center matches during 
-confirmation, you can wrap the command and fiddle with scrolloff. For example, 
-here's a mapping from <Leader>s that will start a substitution on the selected 
-text, starting from the cursor to the end of the file, with confirmation, 
-keeping each match centered as you work your way through the file:
+If you'd like to have the `substitute` command center matches during 
+confirmation, you can wrap the command and fiddle with `scrolloff`. For 
+example, here's a mapping from <Leader>s that will start a substitution on the 
+selected text, starting from the cursor to the end of the file, with 
+confirmation, keeping each match centered as you work your way through the 
+file:
 
 >
     com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0

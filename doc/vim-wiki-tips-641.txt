@@ -28,7 +28,7 @@ file:
 
 This doesn't work in all cases (for instance, it doesn't highlight 
 constructors using an initialization list on the same line) but it shouldn't 
-highlight function calls (such as MyClass::MyStaticMethod( int foo ); )
+highlight function calls (such as `MyClass::MyStaticMethod( int foo );` )
 
 SEE ALSO                                                    *vwt-641-see-also*
     - Jump between methods in C++ 

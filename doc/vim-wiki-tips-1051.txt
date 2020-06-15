@@ -25,7 +25,7 @@ To open a file in a new buffer instead of opening a new window every time:
     - When opening files in Cygwin, add this to your .bashrc: alias vi='gvim 
       --remote-silent' 
     - When opening files in a command-prompt window, add this to your doskey 
-      configuration: vi=gvim --remote-silent $* 
+      configuration: `vi=gvim --remote-silent $*` 
 
 
 When working in Vim, I recomend you use the minibuffer explorer: 

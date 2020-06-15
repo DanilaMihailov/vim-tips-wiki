@@ -11,10 +11,10 @@ created
 Here is a convenience function to help Perl programmers when writing new 
 routines.
 
-Put the cursor on a word, then type \ns (assuming the default backslash 
+Put the cursor on a word, then type `\ns` (assuming the default backslash 
 leader key) to create a new subroutine. The subroutine is given the name of 
 the word under the cursor, and is placed at the "bottom" of the file. If any 
-__xxx__ tokens are used (such as __DATA__ or __END__), the subroutine is 
+`__xxx__` tokens are used (such as `__DATA__` or `__END__`), the subroutine is 
 inserted before that token. Otherwise, it is appended to the end of the file.
 
 >

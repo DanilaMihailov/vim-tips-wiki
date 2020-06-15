@@ -13,44 +13,44 @@ command will do. See :help |function-list| for a list of Vim's built-in
 functions.
 
 The results from running a shell command can be inserted into the current 
-buffer with the :read command, or lines can be replaced in a buffer with a 
-filter command, or Vim's system() function can be used like the backquote 
+buffer with the `:read` command, or lines can be replaced in a buffer with a 
+filter command, or Vim's `system()` function can be used like the backquote 
 syntax (aka backtick) that many Unix shells provide to capture command output, 
 which you can then use in a script or expression-register (:help |quote=|) to 
 insert in the buffer or parse in some way.
 
-The following examples capture the output of the shell's date command. This 
-is just an example: it is better to use Vim's strftime() function to get the 
+The following examples capture the output of the shell's `date` command. This 
+is just an example: it is better to use Vim's `strftime()` function to get the 
 date or time [https://vim.fandom.com/wiki/Insert_current_date_or_time].
 
 USING :READ                                              *vwt-467-using :read*
 
-The :read command can insert a file or the result from running an external 
+The `:read` command can insert a file or the result from running an external 
 program into the current buffer. To run a program, preface the shell command 
-with ! (see :help |:read!|). For example,
+with `!` (see :help |:read!|). For example,
 
 >
     :read !date
 <
 
 inserts the current date on a new line below the current line on most 
-Unix-like systems (on Windows, use :read !date /t).
+Unix-like systems (on Windows, use `:read !date /t`).
 
 If a line number is specified, the new text is inserted after that line. For 
-example, :12read !date inserts the result after line 12, and :$read !date 
+example, `:12read !date` inserts the result after line 12, and `:$read !date` 
 inserts the result after the last line. To insert the result before the first 
-line, specify line 0 (:0read !date).
+line, specify line 0 (`:0read !date`).
 
-As a convenience, a user command (named R) can be defined to allow easy 
+As a convenience, a user command (named `R`) can be defined to allow easy 
 capture of output in a scratch buffer:
 
 >
     :command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 <
 
-On a Unix-based system, the command :R ls -l would open a new window listing 
-all files in the current directory, while on Windows commands such as :R dir 
-or :R dir /b /a-d might be used.
+On a Unix-based system, the command `:R ls -l` would open a new window 
+listing all files in the current directory, while on Windows commands such as 
+`:R dir` or `:R dir /b /a-d` might be used.
 
 The following example (for Unix) finds all files in or below the current 
 directory that were modified in the last week (under 8 days); those files are 
@@ -65,14 +65,14 @@ USING SYSTEM()                                        *vwt-467-using-system()*
 
 If you don't want the command output on a line by itself, or if you don't 
 want it inserted, you can use the |system()| function. For example, to put the 
-current date into a variable named curdate, which you can then use inside a 
+current date into a variable named `curdate`, which you can then use inside a 
 script, use:
 
 >
     :let curdate=system('date')
 <
 
-Using system() is the most flexible method as it allows a script to process 
+Using `system()` is the most flexible method as it allows a script to process 
 the result before any output. For example, the function below appends the 
 output of the command (if successfully executed) to the end of the current 
 line. The script demonstrates these important concepts:
@@ -83,7 +83,7 @@ line. The script demonstrates these important concepts:
 
 
 After sourcing the following script, press F8 to append the result from 
-running the command to the current line. The date -u command, which works on 
+running the command to the current line. The `date -u` command, which works on 
 Unix-based systems, outputs UTC time.
 
 >
@@ -97,7 +97,7 @@ Unix-based systems, outputs UTC time.
     endfunction
 <
 
-Using strftime() as explained at date or time 
+Using `strftime()` as explained at date or time 
 [https://vim.fandom.com/wiki/Insert_current_date_or_time] is a better option 
 for capturing timestamps. For example, the following command provides a 
 mapping to append a tab character and the local time to the current line when 
@@ -107,12 +107,13 @@ F5 is pressed:
     nnoremap <F5> m'A<C-R>="\t".strftime('%Y-%m-%d %H:%M')<CR><Esc>``
 <
 
-In the mapping, A (append) enters insert mode at the end of the current line. 
-Ctrl-R followed by = inserts the expression register, which evaluates the 
-following expression, finishing with CR (Enter). The expression is "\t" (tab 
-character), concatenated with the strftime() result. The final Esc exits from 
-insert mode. The initial m' sets the previous context mark, and the final `` 
-jumps to that location to restore the cursor position after the append.
+In the mapping, `A` (append) enters insert mode at the end of the current 
+line. Ctrl-R followed by `=` inserts the expression register, which evaluates 
+the following expression, finishing with `CR` (Enter). The expression is 
+`"\t"` (tab character), concatenated with the `strftime()` result. The final 
+`Esc` exits from insert mode. The initial m' sets the previous context mark, 
+and the final ```` jumps to that location to restore the cursor position after 
+the append.
 
 USING A FILTER COMMAND                        *vwt-467-using-a-filter-command*
 
@@ -130,13 +131,13 @@ For example, the following text may appear in a file that is being edited:
     canopy,cherry,cabbage,cricket,codex
 <
 
-The following procedure uses the cut utility (available on many Unix-based 
+The following procedure uses the `cut` utility (available on many Unix-based 
 systems) to replace each line with fields 2 to 3 inclusive:
     - On the first line, press V to start a visual selection. 
     - Press j to move the cursor down until all wanted lines are selected. 
     - Press ! (the command line will show :'<,'>! indicating that the selected 
       range will be filtered). 
-    - Enter a command to be executed by the shell, such as cut -f2-3 -d, (select 
+    - Enter a command to be executed by the shell, such as `cut -f2-3 -d,` (select 
       fields 2-3 using comma as a delimiter between fields). 
 
 
@@ -168,19 +169,19 @@ Windows if the buffer contains
     ping -n 1 1.1.1.5
 <
 
-and you issue the command :%!cmd the five lines will be replaced with the 
+and you issue the command `:%!cmd` the five lines will be replaced with the 
 output of the five commands.
 
 The same method can be used on Unix with appropriate changes (for bash you 
-would issue the command %!bash, and in this example the ping command would be 
-ping -c 1).
+would issue the command `%!bash`, and in this example the ping command would 
+be `ping -c 1`).
 
 USING BACKTICKS                                      *vwt-467-using-backticks*
 
-Above it is mentioned that using system() is like using backtick expansion in 
-many shells. It should be noted that Vim actually does support real backticks 
-in some situations. See :help |backtick-expansion| for details. This means you 
-can do things like:
+Above it is mentioned that using `system()` is like using backtick expansion 
+in many shells. It should be noted that Vim actually does support real 
+backticks in some situations. See :help |backtick-expansion| for details. This 
+means you can do things like:
 
 >
     :new `date`

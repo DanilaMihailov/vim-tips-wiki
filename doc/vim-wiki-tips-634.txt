@@ -11,17 +11,17 @@ when trying to choose colors for your system. Not all systems will be able to
 display the specified colors, and of course Vim can't show all available 
 colors at one time.
 
-The pre-defined color names are from file $VIMRUNTIME/rgb.txt (in Vim, put 
-the cursor on the file name, then type gf to open the file). You can also 
+The pre-defined color names are from file `$VIMRUNTIME/rgb.txt` (in Vim, put 
+the cursor on the file name, then type `gf` to open the file). You can also 
 specify a wider range of colors using RGB (red, green, blue) values directly, 
 with two-digit hexadecimal numbers (from 00 to ff) in the format #rrggbb.
 
-See also file $VIMRUNTIME/syntax/colortest.vim provided with Vim. :help 
+See also file `$VIMRUNTIME/syntax/colortest.vim` provided with Vim. :help 
 |colortest.vim|
 
 COLOR NUMBERS AND NAMES FOR GVIM    *vwt-634-color-numbers-and-names-for-gvim*
 
-Copy the following script into gvim. Save the file, then enter :so % to 
+Copy the following script into gvim. Save the file, then enter `:so %` to 
 source the script. The script creates a scratch buffer with the named colors 
 in rgb.txt, and displays each color name using a background color of the name.
 
@@ -74,9 +74,9 @@ in rgb.txt, and displays each color name using a background color of the name.
 COMPACT LIST OF COLOR NAMES FOR GVIM *vwt-634-compact-list-of-color-names-for-gvim*
 
 Copy the following script into gvim. Save the file (must have filetype 'vim', 
-for example, file colors.vim), then enter :so % to source the script. 
-Optionally, enter :let g:rgb_fg=1 first to change the foreground color rather 
-than the background color.
+for example, file `colors.vim`), then enter `:so %` to source the script. 
+Optionally, enter `:let g:rgb_fg=1` first to change the foreground color 
+rather than the background color.
 
 The script highlights the color names in the comments at the end of the 
 script.
@@ -190,11 +190,11 @@ script.
 
 COLOR NUMBERS FOR XTERM AND GVIM    *vwt-634-color-numbers-for-xterm-and-gvim*
 
-Copy the following script into Vim, save the file, then enter :so % to source 
-the script. Enter one of the following commands to create a color test script, 
-and to execute that script:
-    - For a console or terminal Vim, enter the command :VimColorTest 
-    - For gvim, enter the command :GvimColorTest 
+Copy the following script into Vim, save the file, then enter `:so %` to 
+source the script. Enter one of the following commands to create a color test 
+script, and to execute that script:
+    - For a console or terminal Vim, enter the command `:VimColorTest` 
+    - For gvim, enter the command `:GvimColorTest` 
 
 
 >

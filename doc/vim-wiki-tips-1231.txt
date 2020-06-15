@@ -20,8 +20,8 @@ INDENTCONSISTENCYCOP                           *vwt-1231-indentconsistencycop*
 The IndentConsistencyCop 
 [https://www.vim.org/scripts/script.php?script_id=1690] plugin warns if 
 inconsistent indentation is used in a buffer and also offers to correct the 
-buffer's indent settings (shiftwidth, softtabstop, etc) if they do not match 
-the indent type used in the buffer. This plugin is not limited to Python 
+buffer's indent settings (`shiftwidth`, `softtabstop`, etc) if they do not 
+match the indent type used in the buffer. This plugin is not limited to Python 
 files. Checks can be triggered manually or (with the 
 IndentConsistencyCopAutoCmds 
 [https://www.vim.org/scripts/script.php?script_id=1691] add-on plugin) 
@@ -38,14 +38,14 @@ VINDECT                                                     *vwt-1231-vindect*
 
 Vindect [http://freshmeat.net/projects/vindect/] is a Python script to detect 
 the indent options required for editing a Python program. In Vim, output from 
-the :version command should include "+python".
+the `:version` command should include "+python".
 
 The following options are set based upon usage in the current file, and your 
-preferences: shiftwidth, tabstop, softtabstop, smarttab, expandtab.
+preferences: `shiftwidth`, `tabstop`, `softtabstop`, `smarttab`, `expandtab`.
 
-Rename the downloaded file to vindect.py. The file includes setup 
-instructions using the deprecated mysyntaxfile variable. Following is a better 
-procedure that should be used instead.
+Rename the downloaded file to `vindect.py`. The file includes setup 
+instructions using the deprecated `mysyntaxfile` variable. Following is a 
+better procedure that should be used instead.
 
 The following commands need to be executed once per Vim session (done below):
 
@@ -64,10 +64,10 @@ This command detects and sets the indent options when a new file is opened
 
 The following setup performs all the required steps whenever a Python file is 
 opened.
-    - Place vindent.py in your .vim (Unix based systems) or vimfiles (Windows) 
-      directory. 
-    - Create an after/ftplugin/python.vim file with the following contents. On 
-      Windows systems, change .vim to vimfiles. 
+    - Place `vindent.py` in your `.vim` (Unix based systems) or `vimfiles` 
+      (Windows) directory. 
+    - Create an `after/ftplugin/python.vim` file with the following contents. On 
+      Windows systems, change `.vim` to `vimfiles`. 
 
 
 >
@@ -102,7 +102,7 @@ set is used if tabs are detected; otherwise another set is used (for space
 indents).
 
 You could put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] 
-and use a mapping to call PyIndentAutoCfg() when wanted, or define an auto 
+and use a mapping to call `PyIndentAutoCfg()` when wanted, or define an auto 
 command to call that function when a Python file is opened.
 
 >
@@ -156,7 +156,7 @@ command to call that function when a Python file is opened.
 COMMENTS                                                   *vwt-1231-comments*
 
 Re configuration of vindent: It may be possible to avoid a hard coded path to 
-vindect.py by using :exec with expand('<sfile>') and filenamemodify().
+`vindect.py` by using `:exec` with expand('<sfile>') and `filenamemodify()`.
 
 ==============================================================================
 

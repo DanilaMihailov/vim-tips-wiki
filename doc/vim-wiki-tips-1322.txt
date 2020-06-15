@@ -47,7 +47,7 @@ line, but that would normally be a feature.
 Why visually select the line....and why :r!pwd even. Simply !!pwd on a line 
 will replace it with the output of the pwd command. Personally my favorite 
 external command setup is to mark the top of the region with an "a" mark the 
-bottom of the region with a "s" and then :`a,`s !sort or any other command. 
+bottom of the region with a "s" and then `:`a,`s !sort` or any other command. 
 Even better if you map a key to :`a,`s. E.g.
 
 >
@@ -60,8 +60,8 @@ Even better if you map a key to :`a,`s. E.g.
 
 On Windows, instead of "pwd" use "cd", and instead of "ls" use "dir".
 
-On Windows in normal mode, type !!cd and press Enter, to replace the current 
-line with the name of the current directory.
+On Windows in normal mode, type `!!cd` and press Enter, to replace the 
+current line with the name of the current directory.
 
 ==============================================================================
 

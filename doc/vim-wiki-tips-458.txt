@@ -8,11 +8,11 @@ created 2003 · complexity intermediate · author Omanakuttan · version 6.0
 
 Until vim 5.8, I was using the cfile, clist etc for quickfix mode.
 
-In vim6.x, I found out that :cw will boost my productivity as a programmer.
+In vim6.x, I found out that `:cw` will boost my productivity as a programmer.
 
-To make, type :make as we do in older versions of vim (<6.0).
+To make, type `:make` as we do in older versions of vim (<6.0).
 
-Instead of clist, cfile, etc., type
+Instead of `clist`, `cfile`, etc., type
 
 >
     :cw<enter>

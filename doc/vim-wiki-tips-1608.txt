@@ -10,11 +10,11 @@ created
 
 This tip describes how to use C++ code completion in Vim (omni completion).
 
-When editing a C++ file, enter the command :set omnifunc? to see what 
+When editing a C++ file, enter the command `:set omnifunc?` to see what 
 completion function is currently used. If the result is 
-omnifunc=ccomplete#Complete, it means you are using the C completion provided 
-with Vim (not C++). If your :set omnifunc? is not set as desired or maybe 
-empty this is a good workaround for C++ files:
+`omnifunc=ccomplete#Complete`, it means you are using the C completion 
+provided with Vim (not C++). If your `:set omnifunc?` is not set as desired or 
+maybe empty this is a good workaround for C++ files:
 
 >
     au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
@@ -26,12 +26,13 @@ REQUIRED SETUP                                       *vwt-1608-required-setup*
 
 1. Install OmniCppComplete 
 [https://www.vim.org/scripts/script.php?script_id=1520]. See its 
-doc/omnicppcomplete.txt file for information.
+`doc/omnicppcomplete.txt` file for information.
 
-2. Make a directory, for example ~/.vim/tags that will hold your ctags.
+2. Make a directory, for example `~/.vim/tags` that will hold your ctags.
 
 3. Create stdc++ tags: Download and unpack the modified libstdc++ headers 
-[https://www.vim.org/scripts/script.php?script_id=2358] to ~/.vim/tags/cpp_src
+[https://www.vim.org/scripts/script.php?script_id=2358] to 
+`~/.vim/tags/cpp_src`
 
 4. Run ctags:
 
@@ -78,9 +79,9 @@ doc/omnicppcomplete.txt file for information.
 USING OMNI COMPLETION                         *vwt-1608-using-omni-completion*
 
 When everything is set up properly you can use the code completion. Make sure 
-the 'filetype' of your file is set to cpp. You can check this by doing :set 
-filetype?. If your 'filetype' isn't cpp, you might have to enable file type 
-detection by adding filetype on to your vimrc 
+the 'filetype' of your file is set to `cpp`. You can check this by doing `:set 
+filetype?`. If your 'filetype' isn't `cpp`, you might have to enable file type 
+detection by adding `filetype on` to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc], and restart Vim.
 
 Now start typing (for me this only works if std:: is indented; otherwise I 
@@ -93,14 +94,14 @@ get Omni-completion (^0^N^P) Pattern not found):
 A box opens with suggestions. You can use <C-N> and <C-P> to navigate. 
 <C-X><C-O> opens the omnicompletion manually. A preview window should also 
 appear on the top which shows the signature of functions and the like. Choose 
-vector and continue:
+`vector` and continue:
 
 >
     std::vector<int> vi;
     vi.
 <
 
-Another box opens with suggestions. Choose push_back( and continue.
+Another box opens with suggestions. Choose `push_back(` and continue.
 
 As you can see this is a really nice feature which is especially handy when 
 you use an external library which you don't know very well. Simply create the 
@@ -121,7 +122,8 @@ REFERENCES                                               *vwt-1608-references*
 COMMENTS                                                   *vwt-1608-comments*
 
 If you want completion to work for local variables in your code, you have to 
-add the '+l' (letter "l" from local) option to the c++-kinds argument, as in:
+add the '`+l`' (letter "l" from local) option to the `c++-kinds` argument, as 
+in:
 
 >
     map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
@@ -129,8 +131,8 @@ add the '+l' (letter "l" from local) option to the c++-kinds argument, as in:
 
 ==============================================================================
 
-Some recent edits have introduced --sort=1 (the "1" should be "yes") and 
---sort=yes. I believe ctags defaults to sort=yes so these edits are not 
+Some recent edits have introduced `--sort=1` (the "1" should be "yes") and 
+`--sort=yes`. I believe ctags defaults to `sort=yes` so these edits are not 
 necessary. I'm wondering if the edits are useful. JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] 23:32, May 28, 2010 (UTC)
 

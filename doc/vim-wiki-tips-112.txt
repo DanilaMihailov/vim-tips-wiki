@@ -17,24 +17,24 @@ the line you are currently on. The following mappings in your vimrc
     nnoremap <M-.> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
 <
 
-With these mappings, in normal mode, press Alt-, to find the previous line 
-with the same indent as the current line, or press Alt-. to find the next such 
-line. These mappings should work in gvim, but you may need to choose different 
-keys if working with Vim in a terminal.
+With these mappings, in normal mode, press `Alt-,` to find the previous line 
+with the same indent as the current line, or press `Alt-.` to find the next 
+such line. These mappings should work in gvim, but you may need to choose 
+different keys if working with Vim in a terminal.
 
 ==============================================================================
 
 The following is a slightly more comprehensive solution.
 
 The example mappings below work as follows:
-    - [l and ]l jump to the previous or the next line with the same indentation 
+    - `[l` and `]l` jump to the previous or the next line with the same indentation 
       level as the current line. 
-    - [L and ]L jump to the previous or the next line with an indentation level 
+    - `[L` and `]L` jump to the previous or the next line with an indentation level 
       lower than the current line. 
 
 
 These movements also work in visual mode and in operator pending mode, 
-meaning that you can enter commands like d]l to delete lines. The motion is 
+meaning that you can enter commands like `d]l` to delete lines. The motion is 
 specified as being exclusive when in operator pending mode.
 
 These mappings are useful when writing programs in Python, Haskell, or 

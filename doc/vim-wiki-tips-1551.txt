@@ -69,7 +69,7 @@ I used the following script:
 
 WINDOWS                                                     *vwt-1551-windows*
 
-Find ipythonrc.ini and in this file find this line:
+Find `ipythonrc.ini` and in this file find this line:
 
 >
     editor 0
@@ -81,11 +81,11 @@ and change this line to this line:
     editor gvim -f
 <
 
-In ipythonrc.ini the hash symbol (#) means comments as in Python. Be aware 
-that there are two ipythonrc.ini files: one in the installation directory, the 
-other in C:\Documents and Settings\<UserName>; one needs to modify the file in 
-<Documents and Settings> and not in the installation directory for the effects 
-to take place.
+In `ipythonrc.ini` the hash symbol (#) means comments as in Python. Be aware 
+that there are two `ipythonrc.ini` files: one in the installation directory, 
+the other in C:\Documents and Settings\<UserName>; one needs to modify the 
+file in <Documents and Settings> and not in the installation directory for the 
+effects to take place.
 
 After doing these modifications, restart IPython and type:
 
@@ -111,6 +111,6 @@ It works with:
     c.TerminalInteractiveShell.editor = 'gvim -f'
 <
 
-Restart ipython, then %edit should work.
+Restart ipython, then `%edit` should work.
 
  vim:tw=78:et:ft=help:norl:

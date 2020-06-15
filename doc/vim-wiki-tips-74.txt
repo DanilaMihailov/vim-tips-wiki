@@ -13,7 +13,7 @@ to demote headlines.
 In command mode, << promotes (n<< to promote multiple lines), and >> demotes. 
 Also, highlight several headlines and < or > to promote or demote.
 
-:set foldmethod=indent and then your z commands can expand or collapse 
+`:set foldmethod=indent` and then your z commands can expand or collapse 
 headline trees, filewide or by the tree.
 
 VIMOUTLINER                                               *vwt-74-vimoutliner*

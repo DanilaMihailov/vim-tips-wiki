@@ -9,7 +9,7 @@ created 2002 · complexity basic · author vim_power · version 7.0
 $VIMRUNTIME identifes a directory where Vim's support files are located. Many 
 of the files are not necessary for Vim to run, but are used to provide extra 
 functionality such as syntax highlighting and filetype-based plugins. Its 
-value can be displayed in Vim with the command :echo $VIMRUNTIME. It is set 
+value can be displayed in Vim with the command `:echo $VIMRUNTIME`. It is set 
 using the procedure at :help |$VIMRUNTIME|.
 
 Here is a brief overview of files and directories in $VIMRUNTIME (directories 
@@ -73,7 +73,7 @@ in bold).
     - synmenu.vim – creates the default Syntax menu in the GUI menu bar. 
     - syntax – Contains Syntax definition files for various programming languages. 
       See :help |syntax|. 
-    - tools – Some useful tools. Like blink to blink the cursor in xterm. 
+    - tools – Some useful tools. Like `blink` to blink the cursor in xterm. 
     - tutor – Contains the Vim tutorial, in multiple languages. See :help |tutor|. 
     - vim.exe (Windows only) – the non-gui console Vim application. 
     - vim32x32.xpm – Vim Logo. 

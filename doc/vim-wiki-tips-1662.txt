@@ -36,8 +36,8 @@ Most of this is self-explanatory, but there are a couple tricks to it:
     - The autocmd is nested. This allows other autocmds, like those that load 
       syntax highlighting, etc., to also fire on the reload. 
     - Because the autocmd is nested, it will itself fire again on the reload. Thus, 
-      we use the b:reload_dos variable to detect when it has already fired so we do 
-      not keep firing recursively. 
+      we use the `b:reload_dos` variable to detect when it has already fired so we 
+      do not keep firing recursively. 
 
 
 This can be improved a bit. It might be nice to have a warning of some sort 
@@ -50,7 +50,7 @@ large files.
 
 The following version (when possible) limits the length of time allowed for 
 the search before giving up, and additionally gives a message to the user by 
-redirecting the output of an :s command with the 'n' flag to count matches 
+redirecting the output of an `:s` command with the 'n' flag to count matches 
 without making changes and parsing it to output a message like, "File has 2 
 DOS-style lined endings out of 12000 lines."
 
@@ -95,7 +95,7 @@ CAVEATS                                                     *vwt-1662-caveats*
 COMMENTS                                                   *vwt-1662-comments*
 
 To set the 'fileformat' to whatever will change the fewer lines, replace the 
-echomsg command in the above snippet by the following:
+`echomsg` command in the above snippet by the following:
 
 >
     \ let s:l_tot = line('$') |
@@ -111,7 +111,7 @@ echomsg command in the above snippet by the following:
       \ endif |
 <
 
-(the next statement is the final endif ).Notes:
+(the next statement is the final `endif` ).Notes:
     - This applies to Vim 7.1.211 or later; how to do it for earlier versions too 
       is left as an exercise to the student. 
     - The Unix/Dos switch is bypassed if the file is 'readonly' or 'nomodifiable' 

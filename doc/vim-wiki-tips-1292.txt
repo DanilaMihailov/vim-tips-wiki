@@ -56,7 +56,7 @@ SEE ALSO                                                   *vwt-1292-see-also*
     - Unique sorting |vwt-1148| script to 'sort unique' a List (not text lines) 
     - system_utils.vim 
       [http://code.google.com/p/lh-vim/source/browse/system-tools/trunk/plugin/system_utils.vim] 
-      command to remove duplicate lines in a range (uses g//d method) 
+      command to remove duplicate lines in a range (uses `g//d` method) 
     - Sort lines |vwt-1166| how to sort lines 
 
 
@@ -73,7 +73,7 @@ command maybe optional.
     :nno \d1 :g/^/m0<CR>:g/^\(.*\)\n\_.*\%(^\1$\)/d<CR>:g/^/m0<CR>
 <
 
-This is faster. Uses mark l.
+This is faster. Uses mark `l`.
 
 >
     :nno \d2 :g/^/kl\|if search('^'.escape(getline('.'),'\.*[]^$/').'$','bW')\|'ld<CR>
@@ -83,7 +83,7 @@ This is faster. Uses mark l.
 
 Following uses a substitute to delete all repeated lines (leaving only the 
 first line, while deleting following duplicate lines). This is a variation on 
-the g//d method.
+the `g//d` method.
 
 >
     %s/^\(.*\)\(\n\1\)\+$/\1/

@@ -14,34 +14,35 @@ special meaning on their own and which do not. Quite often I need several
 attempts to write a search pattern because I can't remember which characters 
 need to be preceded by a backslash.
 
-Thankfully, any Vim search pattern can include the special sequence \v (very 
-magic), and this will make every following character except a-zA-Z0-9 and '_' 
-have special meaning. Using \V has the opposite effect: all characters have 
-their literal meaning and must be preceded by \ to activate their special 
-meaning. So if you have forgotten which characters have special meaning in 
-Vim, start the pattern with \v or \V to switch them all on or off.
+Thankfully, any Vim search pattern can include the special sequence `\v` 
+(very magic), and this will make every following character except a-zA-Z0-9 
+and '_' have special meaning. Using `\V` has the opposite effect: all 
+characters have their literal meaning and must be preceded by `\` to activate 
+their special meaning. So if you have forgotten which characters have special 
+meaning in Vim, start the pattern with `\v` or `\V` to switch them all on or 
+off.
 
 Vim's default 'magic' setting makes characters have the same meaning as in 
-grep, and \v (very magic) makes them the same as the extended regular 
+grep, and `\v` (very magic) makes them the same as the extended regular 
 expressions used by egrep.
 
-Regular expressions in scripts should always specify one of \v, \m, \M, or 
-\V, to make them immune to the user's 'magic' setting.
+Regular expressions in scripts should always specify one of `\v`, `\m`, `\M`, 
+or `\V`, to make them immune to the user's 'magic' setting.
 
-The :substitute command has the :smagic and :snomagic alternate forms (the 
-same as \m and \M), so you can search and replace 
-[https://vim.fandom.com/wiki/Search_and_replace] with %sno/regex/new_text/g. 
+The `:substitute` command has the `:smagic` and `:snomagic` alternate forms 
+(the same as `\m` and `\M`), so you can search and replace 
+[https://vim.fandom.com/wiki/Search_and_replace] with `%sno/regex/new_text/g`. 
 Alternatively, you might find it helpful to refine your regular expression by 
-searching with /\v first, then you can insert your regular expression by 
+searching with `/\v` first, then you can insert your regular expression by 
 typing:
 
 :s/<Ctrl-R>/
 
 PERMANENT VERY MAGIC MODE                 *vwt-1237-permanent-very-magic-mode*
 
-Vim does not have an option to use "very magic" by default (whereas :set 
-ignorecase will always ignore case 
-[https://vim.fandom.com/wiki/Searching#Case_sensitivity] unless \C is used). 
+Vim does not have an option to use "very magic" by default (whereas `:set 
+ignorecase` will always ignore case 
+[https://vim.fandom.com/wiki/Searching#Case_sensitivity] unless `\C` is used). 
 The following mappings, however, effectively achieve the same purpose (from 
 stackoverflow [http://stackoverflow.com/a/23021259/1858225]):
 

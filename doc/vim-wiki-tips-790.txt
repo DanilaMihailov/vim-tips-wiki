@@ -26,7 +26,7 @@ To view MS-Word documents in Vim, add lines to your vimrc similar to:
     autocmd BufReadPost *.doc %!antiword "%"
 <
 
-Now you can do vim resume.doc to view a text version of your document 
+Now you can do `vim resume.doc` to view a text version of your document 
 (hitting Enter on .doc file in your .vimprojects list works too).
 
 If you're on a Windows system, in Explorer, try -> selecting resume-1.1.doc 

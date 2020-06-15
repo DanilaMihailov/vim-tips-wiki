@@ -19,9 +19,9 @@ FAKING A TIMER                                       *vwt-1612-faking-a-timer*
 Since there is no timer function in Vim < version 8, a trick is needed: the 
 CursorHold autocommand that re-triggers itself. In the following, feedkeys() 
 function is used with specially crafted key sequence that has no effect except 
-re-triggering the autoevent. The period depends on the value of updatetime 
-option (also known as ut). The value of updatetime option is in milliseconds. 
-Do not set the value too low.
+re-triggering the autoevent. The period depends on the value of `updatetime` 
+option (also known as `ut`). The value of `updatetime` option is in 
+milliseconds. Do not set the value too low.
 
 >
     autocmd CursorHold * call Timer()

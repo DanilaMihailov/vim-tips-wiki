@@ -40,7 +40,7 @@ file. It also handles folding markers.
 COMMENTS                                                    *vwt-333-comments*
 
 It seems to me that the default folds set up by the C syntax file work great! 
-Just setting foldmethod=syntax should do the trick. This allows folding of 
+Just setting `foldmethod=syntax` should do the trick. This allows folding of 
 /*...*/ comments as well. Since it is built into the syntax file, the below is 
 unnecessary, since it already applies all the right groups.
 
@@ -49,18 +49,18 @@ they do.
 
 ==============================================================================
 
-The syn region myFold start="{" end="}" transparent fold method does not like 
-to work when you have other syn groups for {,}. I found this annoying (as I 
-like my colored braces) so I figured a pure marker method would work nearly as 
-well, and it does, at least for my uses.
+The `syn region myFold start="{" end="}" transparent fold` method does not 
+like to work when you have other syn groups for {,}. I found this annoying (as 
+I like my colored braces) so I figured a pure marker method would work nearly 
+as well, and it does, at least for my uses.
 
 Experiment with the "matchgroup", "contains", "containedin", "keepline", and "extend" options to fix this. I'm sure there is a way to make it work the way you want it. Using syntax folding is certainly the way to go, since that's exactly what you're trying to do here, and you can define multiple fold groups (e.g., folding not only on {..}, but also /*...*/ and #if...#endif).
 
 One way that does work with matchgroup is simply to create 
-~/.vim/after/syntax/c.vim and insert the following line:syntax region cBlock 
+~/.vim/after/syntax/c.vim and insert the following line:`syntax region cBlock 
 matchgroup=Operator start="{" end="}" 
 contains=ALLBUT,cCurlyError,@cParenGroup,cErrInParen,cCppParen,cErrInBracket,cCppBracket,cCppString,@Spell 
-foldThen you may proceed to set highlights on Operator as usual.
+fold`Then you may proceed to set highlights on Operator as usual.
 
 Hopefully everything works just did v0.03 and I have run out of time, enjoy!
 
@@ -245,7 +245,7 @@ Here is the code
 <
 
 Copy and save this as outlinetoggle.vim in your Vim/vim63/plugins directory. 
-To toggle folding, type :FOLD.Remember you can use :zE to expand all folds.
+To toggle folding, type `:FOLD`.Remember you can use :zE to expand all folds.
 
 ==============================================================================
 

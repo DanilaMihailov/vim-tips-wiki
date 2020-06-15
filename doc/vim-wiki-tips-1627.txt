@@ -13,8 +13,8 @@ This tip is deprecated for the following reasons:
 The persistent undo feature added in Vim 7.3 provides built-in undo through 
 reload (and much more).
 
-While editing a file, you might decide to abandon your edits by using the :e 
-command to reload the current file (:e! if you have modified the file).
+While editing a file, you might decide to abandon your edits by using the 
+`:e` command to reload the current file (`:e!` if you have modified the file).
 
 Once the file is reloaded, your edits prior to the reload are lost (you 
 cannot undo past the reload). Following is an alternative procedure so you can 
@@ -23,7 +23,7 @@ reload and keep your undo list.
 RELOAD                                                       *vwt-1627-reload*
 
 The following line (which you could add to your vimrc 
-[https://vim.fandom.com/wiki/Vimrc]) defines a :Reload command that replaces 
+[https://vim.fandom.com/wiki/Vimrc]) defines a `:Reload` command that replaces 
 the current buffer by the current file contents, while preserving the undo 
 history:
 
@@ -31,22 +31,22 @@ history:
     command! Reload %d|r|1d
 <
 
-When you type :Reload and press Enter, the Ex commands shown will be 
-executed:%d deletes the contents of the buffer (leaving a single blank line); 
-r reads the current file after the blank line; 1d deletes the first line (the 
-blank).
+When you type `:Reload` and press Enter, the Ex commands shown will be 
+executed:`%d` deletes the contents of the buffer (leaving a single blank 
+line); `r` reads the current file after the blank line; `1d` deletes the first 
+line (the blank).
 
-Warning It is easy to disable undo (for example :set ul=-1 :help 
-'undolevels'). If you have disabled undo, the Reload command will still undo 
-all your unsaved changes and you won't be able to undo that. Also, if the r 
+Warning It is easy to disable undo (for example `:set ul=-1` :help 
+'undolevels'). If you have disabled undo, the `Reload` command will still undo 
+all your unsaved changes and you won't be able to undo that. Also, if the `r` 
 command fails for some reason (for example, if you forgot that you are editing 
 a new file or a new buffer with no file), you will be left with a blank 
-screen. You should be able to paste the deleted text by pressing p.
+screen. You should be able to paste the deleted text by pressing `p`.
 
 COMMENTS                                                   *vwt-1627-comments*
 
-After :Reload, the buffer will be marked as modified. If wanted, the command 
-:set nomodified could be added.
+After `:Reload`, the buffer will be marked as modified. If wanted, the 
+command `:set nomodified` could be added.
 
 The command should restore the cursor position, at least to the correct line, 
 if possible.

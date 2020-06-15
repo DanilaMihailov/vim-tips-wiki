@@ -49,13 +49,13 @@ Just use:
 
 COMMENTS                                                    *vwt-552-comments*
 
-Use %bdelete instead of 1,999bdelete.
+Use `%bdelete` instead of `1,999bdelete`.
 
 ==============================================================================
 
 That won't always work.
 
-%bdelete only deletes as many buffers as there are lines in the current 
+`%bdelete` only deletes as many buffers as there are lines in the current 
 buffer.
 
 ==============================================================================

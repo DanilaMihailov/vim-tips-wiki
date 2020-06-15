@@ -37,9 +37,9 @@ in a single Vim session.
 How do I create a buffer?
 
 When you open a file using any of the Vim commands, a buffer is automatically 
-created. For example, if you use :edit file to edit a file, a new buffer is 
-automatically created. An empty buffer can be created by entering :enew or 
-:new or :vnew.
+created. For example, if you use `:edit file` to edit a file, a new buffer is 
+automatically created. An empty buffer can be created by entering `:enew` or 
+`:new` or `:vnew`.
 
 How do I add a new buffer for a file to the buffer list without opening the 
 file?
@@ -309,7 +309,7 @@ sessions).
 
 How is a scratch (temporary) buffer created?
 
-In any buffer (for example, after entering :new to create a new buffer), 
+In any buffer (for example, after entering `:new` to create a new buffer), 
 enter the following options to change the current buffer to a scratch buffer:
 
 >

@@ -26,7 +26,7 @@ handling a keypress in different contexts more dynamic.
 This function calls a list of handlers until one returns true, indicating the 
 event was handled. If no handler returns true, a default action is executed.
 
-Take for example, the following CloseScratch function.
+Take for example, the following `CloseScratch` function.
 
 >
     function! CloseScratch()
@@ -38,8 +38,8 @@ Take for example, the following CloseScratch function.
     endfunction
 <
 
-Using RunHandlers I can now dynamically overload <Esc> to call this function 
-(in normal mode), like so:
+Using `RunHandlers` I can now dynamically overload <Esc> to call this 
+function (in normal mode), like so:
 
 >
     " Default Escape and clear message line.
@@ -53,8 +53,8 @@ Using RunHandlers I can now dynamically overload <Esc> to call this function
     nnoremap <Esc> :call RunHandlers(g:esc_handler, "call DefaultEsc()")<CR>
 <
 
-Adding more handlers should be easy enough. In this case, CloseScratch is 
-tried first, and if that fails DefaultEsc is called.
+Adding more handlers should be easy enough. In this case, `CloseScratch` is 
+tried first, and if that fails `DefaultEsc` is called.
 
 COMMENTS                                                   *vwt-1558-comments*
 

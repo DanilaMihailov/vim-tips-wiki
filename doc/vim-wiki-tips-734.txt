@@ -6,13 +6,13 @@ created 2004 · complexity basic · author Yakov Lerner · version 6.0
 
 ==============================================================================
 
-This tip is useful only for those who use virtualedit mode (set 
-virtualedit=all, or set ve=all).
+This tip is useful only for those who use virtualedit mode (`set 
+virtualedit=all`, or `set ve=all`).
 
-I like virtualedit mode except for behaviour of 'x' (delete character). When 
-'x' is used past end-of-line, it does nothing. I wanted it to jump left to the 
-actual end-of-line so as to start deleting characters there. Below is 'x' 
-redefinition that does exactly this; and it does not break 'x' in 
+I like virtualedit mode except for behaviour of '`x`' (delete character). 
+When '`x`' is used past end-of-line, it does nothing. I wanted it to jump left 
+to the actual end-of-line so as to start deleting characters there. Below is 
+'`x`' redefinition that does exactly this; and it does not break '`x`' in 
 non-virtualedit mode:
 
 >

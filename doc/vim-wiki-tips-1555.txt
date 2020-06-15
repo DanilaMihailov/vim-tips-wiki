@@ -13,9 +13,10 @@ allowing you to delete a word with the cursor anywhere on the word, visually
 select a block of code from anywhere within the code, etc. with very little 
 typing and no movement.
 
-For example, to visually select a quoted string (with the quotes), type va". 
-To change the entire contents of a () group (without changing the parentheses 
-themselves), type ci(. See :help |text-objects| for more details.
+For example, to visually select a quoted string (with the quotes), type 
+`va"`. To change the entire contents of a `()` group (without changing the 
+parentheses themselves), type `ci(`. See :help |text-objects| for more 
+details.
 
 Occasionally, however, you will come across a situation where what you want 
 to act on is a well-defined object, but is not a Vim-defined text object. 
@@ -34,14 +35,15 @@ start of visual mode to the start of the fold, so we will first need to leave
 visual mode with <Esc> (because <Esc> will work no matter what the visual mode 
 is) and then move the cursor to the start of the fold with [z. This command 
 will fail if performed when already on the first line in a fold, so we need to 
-wrap the command in :silent! normal! in order to continue the mapping even in 
-the case of an error. Next, we need to re-enter visual mode. Folds are based 
-on lines, so it makes most sense to enter visual line selection with V. The 
-other option would be to use an <expr> mapping, and use the 'mode()' function 
-to discover the visual mode, but this is inconsistent with the behavior of 
-other text objects. Finally, we need to set the end of the visual selection to 
-the end of the fold with ]z. The entire mapping looks like this (vnoremap is 
-used to ensure we get the built-in functionality of all commands):
+wrap the command in `:silent! normal!` in order to continue the mapping even 
+in the case of an error. Next, we need to re-enter visual mode. Folds are 
+based on lines, so it makes most sense to enter visual line selection with V. 
+The other option would be to use an <expr> mapping, and use the 'mode()' 
+function to discover the visual mode, but this is inconsistent with the 
+behavior of other text objects. Finally, we need to set the end of the visual 
+selection to the end of the fold with ]z. The entire mapping looks like this 
+(vnoremap is used to ensure we get the built-in functionality of all 
+commands):
 
 >
     vnoremap af :<C-U>silent! normal! [zV]z<CR>
@@ -58,10 +60,10 @@ This can be done with:
     omap af :normal Vaf<CR>
 <
 
-Here, we use omap and :normal without a bang (!) in order to make sure we use 
-the remapped version of visual selection.
+Here, we use `omap` and `:normal` without a bang (!) in order to make sure we 
+use the remapped version of visual selection.
 
-With these two simple mappings, you will now be able to use af just like a 
+With these two simple mappings, you will now be able to use `af` just like a 
 normal text object to act on folded text! More complex applications such as an 
 indent-level text object [https://vim.fandom.com/wiki/Indent_text_object] may 
 require a function call to accomplish, but the concept is the same. Map an 

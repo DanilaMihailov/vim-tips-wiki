@@ -24,7 +24,7 @@ visual selection too.
     - ,p / ,P read from ~/reg.txt and paste using p/P. 
 
 
-In visual mode, ,y is yank and save.
+In visual mode, `,y` is yank and save.
 
 >
     vmap <silent> ,y y:new<CR>:call setline(1,getregtype())<CR>o<Esc>P:wq! ~/reg.txt<CR>
@@ -37,15 +37,15 @@ COMMENTS                                                    *vwt-829-comments*
 
 You can use the selection and drop registers to copy between sessions.
 
-For example, "*yy will copy the current line to the clipboard, then "*p will 
-put whatever is on the clipboard in the document.
+For example, `"*yy` will copy the current line to the clipboard, then `"*p` 
+will put whatever is on the clipboard in the document.
 
 You can use any normal motion command or visual selection when yanking. See 
 :help |registers|.
 
 ==============================================================================
 
-You can use :set paste and :set nopaste to tell vim to not autoindent or 
+You can use `:set paste` and `:set nopaste` to tell vim to not autoindent or 
 otherwise alter the format of your pasted text.
 
 ==============================================================================

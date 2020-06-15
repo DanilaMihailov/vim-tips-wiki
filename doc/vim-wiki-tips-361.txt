@@ -32,26 +32,27 @@ can be a little less "smooth".
 
 WITH XDVI                                                  *vwt-361-with-xdvi*
 
-It's very simple. In your .vimrc file, add at the end:
+It's very simple. In your `.vimrc` file, add at the end:
 
 >
     :map \ld :execute '!xdvi -editor "vim --servername 'v:servername' --remote +\%l \%f" -sourceposition ' . line(".") . expand("%") . " '" . expand(Tex_GetMainFileName(':r')) . ".dvi' >/dev/null&" <CR><CR>
 <
 
-and in your .bashrc:
+and in your `.bashrc`:
 
 >
     alias vim='vim --servername vimtex'
 <
 
-The first allows the forward search by \ld in normal mode.
+The first allows the forward search by `\ld` in normal mode.
 
-To allow the reverse search, Vim has to be opened with vimtex servername; 
-that's the reason for the second line. (I don't use the normal shortcut \ls as 
-that doesn't allow me to use the v:servername variable, see end of this tip.)
+To allow the reverse search, Vim has to be opened with `vimtex` servername; 
+that's the reason for the second line. (I don't use the normal shortcut `\ls` 
+as that doesn't allow me to use the `v:servername` variable, see end of this 
+tip.)
 
 Keep in mind that any other program that communicates with Vim server should 
-be aware of the name change (for example jabref). A little script like ouvre 
+be aware of the name change (for example `jabref`). A little script like ouvre 
 [http://web.archive.org/web/20090715013750/http://corentin.barbu.free.fr/codes/stable/ouvre] 
 can avoid to systematically name the Vim server "vimtex".
 
@@ -70,9 +71,9 @@ doesn't allow running multiple couples of (vim, kdvi). The tips for xdvi would
 apply, but I've no more time to set it.
 
 Then in kdvi in "configuration> configure kdvi > dvi specificity" set Editor 
-to "vim".
+to "`vim`".
 
-You can then forward search in Vim or gvim by \lf in normal mode.
+You can then forward search in Vim or gvim by `\lf` in normal mode.
 
 If you want to use it from gvim only, in the script change:
 
@@ -86,7 +87,7 @@ to
     echo "alias gvim='gvim --servername KDVI'" >> ~/.bashrc
 <
 
-It works by a little script in your ~/bin/ directory.
+It works by a little script in your `~/bin/` directory.
 
 Here is the install script:
 
@@ -127,8 +128,8 @@ From my Vim script for tex files:
     execute '!start yap -1 -s' line(".") . expand("%:t") expand("%:p:r")
 <
 
-(Of course, I have a :map and :menu to do this.) This expands to something 
-like:
+(Of course, I have a `:map` and `:menu` to do this.) This expands to 
+something like:
 
 >
     !start yap -1 -s 1353foo.tex c:\path\to\foo
@@ -142,7 +143,7 @@ enter:
 <
 
 in the "Command line" box. This can probably be improved: doesn't the 
-installer put a .bat file somewhere?
+installer put a `.bat` file somewhere?
 
 ==============================================================================
 
@@ -157,9 +158,9 @@ will jump to the location in the same Vim.
 
 ==============================================================================
 
-As a followup to benji's excellent tip for yap, (win32)the command :!start as 
-opposed to :! does a kind of fork, so Vim won't wait for the executed program 
-to finish.
+As a followup to benji's excellent tip for yap, (win32)the command `:!start` 
+as opposed to `:!` does a kind of fork, so Vim won't wait for the executed 
+program to finish.
 
 That is, type:
 
@@ -179,7 +180,7 @@ spaces in the file path, it needs a little modification:
     exe 'silent !start yap -1 -s' line(".") . expand("%:t") '"' . expand("%:r") . '.dvi' . '"'
 <
 
-The corresponding mapping (to _g) is:
+The corresponding mapping (to `_g`) is:
 
 >
     map _g :exe 'silent !start yap -1 -s' line(".") . expand("%:t") '"' . expand("%:r") . '.dvi' . '"'<CR><CR>
@@ -212,10 +213,10 @@ This part has been partly reviewed, other contributors welcome.
 
 0-Check the configuration of the source file (file.tex)
 
-Check you've got the package srcltx.sty and \usepackage{srcltx} (which should 
-be commented out when one finishes and is ready for printing etc).
+Check you've got the package `srcltx.sty` and `\usepackage{srcltx}` (which 
+should be commented out when one finishes and is ready for printing etc).
 
-If you do not have the LaTeX package srctex, try compiling your file with:
+If you do not have the LaTeX package `srctex`, try compiling your file with:
 
 >
     latex --src [your_file.tex]
@@ -233,7 +234,7 @@ On Linux Mandrake 9.0. gvim is compiled with the client-server option and Vim
 is not.
 
 1-Check that your xdvi version provides the "source-special" functions, by 
-typing 'xdvi -version' or 'man xdvi'
+typing '`xdvi -version`' or '`man xdvi`'
 
 2-Configuration of xdvi
 
@@ -262,13 +263,13 @@ Syntax is:
     xdvi -sourceposition l:cfile.tex file.dvi
 <
 
-l is the line number, c is the column number
+`l` is the line number, `c` is the column number
 
-Be careful: there is no space between "c" (column number) and file.tex.
+Be careful: there is no space between "`c`" (column number) and file.tex.
 
 To make it easier to use, you can do the following.
 
-First create a file named for example xdvi_source.vim with following lines.
+First create a file named for example `xdvi_source.vim` with following lines.
 
 >
     " This script calls xdvi source and puts cursor in xdvi viewer at
@@ -339,7 +340,7 @@ For kdvi the command should read:
     kdvi file:name.dvi#src:lname.tex
 <
 
-where l is the linenumber and name is the filename.
+where `l` is the linenumber and `name` is the filename.
 
 COMMENTS                                                    *vwt-361-comments*
 

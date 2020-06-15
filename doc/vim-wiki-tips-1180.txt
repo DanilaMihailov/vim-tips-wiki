@@ -56,15 +56,15 @@ To match all words except 'foo', use:
 >
     /\<\(foo\>\)\@!\k\+\>
 <
-    - \< Start-of-word 
+    - `\<` Start-of-word 
     - \(Foo\>\) The atom 'Foo' followed by end-of-word 
-    - \@! Match (with zero length) when the previous atom doesn't match. 
-    - \k\+ Match one or more Keywords 
+    - `\@!` Match (with zero length) when the previous atom doesn't match. 
+    - `\k\+` Match one or more Keywords 
     - \> Match end-of-word. 
 
 
-The use of \@! can be very tricky. According to the Vim help files, it is 
-often easier to use \@<! instead. For example, to find all 'bar' strings 
+The use of `\@!` can be very tricky. According to the Vim help files, it is 
+often easier to use `\@<!` instead. For example, to find all 'bar' strings 
 unless they are part of 'foobar', use the following (non-magic):
 
 >
@@ -152,7 +152,7 @@ The last example was non-greedy, that is, matches up to the first occurrence
 of 'magic' in a line.
 
 Other interesting searches are the beginning of a file. For example to find 
-the first word of a file, we can do (this one needs the +syntax feature when 
+the first word of a file, we can do (this one needs the `+syntax` feature when 
 compiled):
 
 >

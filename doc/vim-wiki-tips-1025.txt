@@ -10,14 +10,14 @@ Here are some suggestions that may help when editing PHP files.
 
 MOVE TO NEXT VARIABLE ON CURRENT LINE *vwt-1025-move-to-next-variable-on-current-line*
 
-PHP variables start with '$', for example, $var. In normal mode, type f$ to 
-jump forwards to the next variable; repeat by pressing ; (next, in same 
-direction), or , (next, in opposite direction). Typing F$ finds '$' in the 
-backwards direction. :help |f|
+PHP variables start with '`$`', for example, `$var`. In normal mode, type 
+`f$` to jump forwards to the next variable; repeat by pressing `;` (next, in 
+same direction), or `,` (next, in opposite direction). Typing `F$` finds '`$`' 
+in the backwards direction. :help |f|
 
 If you do this a lot, you may want to use the following mappings in your 
-vimrc [https://vim.fandom.com/wiki/Vimrc] so you can press L to jump to the 
-next variable, or H to jump to the previous variable:
+vimrc [https://vim.fandom.com/wiki/Vimrc] so you can press `L` to jump to the 
+next variable, or `H` to jump to the previous variable:
 
 >
     noremap L f$
@@ -26,13 +26,13 @@ next variable, or H to jump to the previous variable:
 
 FIX 4 INSTEAD OF $                               *vwt-1025-fix-4-instead-of-$*
 
-It's easy to press 4 instead of $, resulting in code like this:
+It's easy to press `4` instead of `$`, resulting in code like this:
 
 >
     $var = "sometext"; echo 4var;
 <
 
-With the following map, you can quickly fix this problem by typing \4 while 
+With the following map, you can quickly fix this problem by typing `\4` while 
 the cursor is still on the same line, after the '4' (this assumes the default 
 backslash <Leader> key):
 
@@ -50,21 +50,21 @@ Here is an alternative that returns the cursor to its initial position:
 ABBREVIATIONS TO INSERT DEBUG CODE *vwt-1025-abbreviations-to-insert-debug-code*
 
 The following abbreviations provide an easy way to enter debug code. In 
-insert mode, type phpb then the name of a variable to be displayed.
+insert mode, type `phpb` then the name of a variable to be displayed.
 
 >
     iab phpb exit("<hr>Debug ");
     iab phpv echo "<hr><pre>";var_dump($a);exit("debug ");
 <
 
-These display any variables that have been yanked into register a:
+These display any variables that have been yanked into register `a`:
 
 >
     iab phpbb exit("<hr>Debug <C-R>a ");
     iab phpvv echo "<hr><pre>";var_dump(<C-R>a);exit("debug ");
 <
 
-Var_dump is used for displaying arrays.
+`Var_dump` is used for displaying arrays.
 
 This displays all defined variables:
 
@@ -93,7 +93,7 @@ Command:
     :%s/\['\(.\{-}\)'\]/->\1/gc
 <
 
-In the above, the c flag prompts for confirmation of each change.
+In the above, the `c` flag prompts for confirmation of each change.
 
 SEE ALSO                                                   *vwt-1025-see-also*
     - php.vim (html enhanced) 

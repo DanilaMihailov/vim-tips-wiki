@@ -6,8 +6,8 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-Use the :read command to insert a file, or the output from a system command, 
-into the current buffer. Examples:
+Use the `:read` command to insert a file, or the output from a system 
+command, into the current buffer. Examples:
 
 >
     :r foo.txt    Insert the file foo.txt below the cursor.

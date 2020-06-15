@@ -16,8 +16,8 @@ pages. Say for example I have something like this on my html file:
     #refile=path/templates/footer.html
 <
 
-I want the files header.html and footer.html to be inserted on my page, you 
-can do this with the following command:
+I want the files `header.html` and `footer.html` to be inserted on my page, 
+you can do this with the following command:
 
 >
     command! -range=% Refile <line1>,<line2>g/^#refile=/exe ":r " . strpart(getline("."), 8) | normal! kdd

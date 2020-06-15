@@ -8,8 +8,8 @@ created
 
 ==============================================================================
 
-When editing a git commit message (.git/COMMIT_EDITMSG) you often won't start 
-on the first line due to Vim remembering your last position in that file 
+When editing a git commit message (`.git/COMMIT_EDITMSG`) you often won't 
+start on the first line due to Vim remembering your last position in that file 
 [https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session]. 
 An easy way to fix this is to add the following line to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]:
@@ -18,9 +18,9 @@ An easy way to fix this is to add the following line to your vimrc
     autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 <
 
-Alternatively, you can create a file named gitcommit.vim in ~/.vim/ftplugin 
-[https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean] containing the 
-following line:
+Alternatively, you can create a file named `gitcommit.vim` in 
+`~/.vim/ftplugin [https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean]` 
+containing the following line:
 
 >
     call setpos('.', [0, 1, 1, 0])
@@ -33,9 +33,9 @@ We have two other short git tips:
     - 1614 Using Git from Vim |vwt-1614| 
 
 
-Why is this tip needed when it is so easy to type gg to go to the first line? 
-JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:01, May 15, 2010 
-(UTC)
+Why is this tip needed when it is so easy to type `gg` to go to the first 
+line? JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:01, May 
+15, 2010 (UTC)
 
 Probably because muscle-memory might lead someone to immediately try to 
 insert text, without looking? ~Anon, 2012-08-21 8:47-0700

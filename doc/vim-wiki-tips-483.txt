@@ -6,9 +6,9 @@ created 2003 · complexity intermediate · author Feral · version 7.0
 
 ==============================================================================
 
-You can define a command allowing you to type :GREP to search for the current 
-word under the cursor, with the results presented in the quickfix window as a 
-'list occurrences' search.
+You can define a command allowing you to type `:GREP` to search for the 
+current word under the cursor, with the results presented in the quickfix 
+window as a 'list occurrences' search.
 
 See :help |:ilist| for another method.
 
@@ -26,9 +26,9 @@ This makes use of the vimgrep command, normally used as a "find in files"
 limited to search the current file only. In Vim 7.0 and later, see :help 
 |:vimgrep| for help on this tool. Alternatively, you could replace "vimgrep" 
 with "grep", and set the grepprg option (see :help 'grepprg'. For example, you 
-might use set grepprg=C:\bin\grep.exe\ -niH on a win32 system.
+might use `set grepprg=C:\bin\grep.exe\ -niH` on a win32 system.
 
-Here are some mappings to avoid needing to type :cnext and :cprev to move 
+Here are some mappings to avoid needing to type `:cnext` and `:cprev` to move 
 through the quickfix window.
 
 >
@@ -69,7 +69,7 @@ If you do not want to use a user command, you can use:
 <
 
 Of course if you do not want the syncing with taglist.vim simply remove 
-:TlistSync.
+`:TlistSync`.
 
 Now, the advantage of having s:Fancy_Quickfix_Cmd() is that we can 
 conditionally do something based on the command, or some other attribute. In 

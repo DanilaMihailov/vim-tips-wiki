@@ -7,7 +7,7 @@ created 2006 · complexity basic · author l1th10n · version 5.7
 ==============================================================================
 
 When writing bash scripts and sudoers files, it can be tedious to determine 
-the paths of the commands. Here is a procedure to use the which command to 
+the paths of the commands. Here is a procedure to use the `which` command to 
 return the path of the selected word:
 
 >
@@ -54,7 +54,7 @@ On Windows, you will have to translate ';' (instead of ':') into ',', and
 replace 'cat' by 'cat.exe'.
 
 These solutions will work even without 'which' installed on the system. The 
-path translation mechanism is wrapped in :SearchInPATH from script#229 
+path translation mechanism is wrapped in `:SearchInPATH` from script#229 
 [https://www.vim.org/scripts/script.php?script_id=229].
 
 ==============================================================================

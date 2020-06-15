@@ -6,10 +6,10 @@ created 2003 · complexity basic · author Nazri Ramliy · version 6.0
 
 ==============================================================================
 
-Mutt has a feature to list expired mails (~E). Sadly, there's no built in way 
-to set the expiry date of a certain mail so I came up with a Vim mapping to 
-manually insert the "Expiry:" field of the mail header. It will ask for the 
-date the email should expire (default is 'today') and then run the date 
+Mutt has a feature to list expired mails (`~E`). Sadly, there's no built in 
+way to set the expiry date of a certain mail so I came up with a Vim mapping 
+to manually insert the "`Expiry:`" field of the mail header. It will ask for 
+the date the email should expire (default is 'today') and then run the date 
 command to produce the RFC-822 compliant date.
 
 Here's the mapping and related function:

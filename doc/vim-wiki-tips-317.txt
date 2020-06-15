@@ -6,9 +6,9 @@ created 2002 · complexity basic · author Matthew J. Stott · version 6.0
 
 ==============================================================================
 
-Vim users find the h, j, k, l keys useful for navigating documents without a 
-mouse. This tip shows some techniques for configuring vi-like key bindings in 
-web browsers such as Mozilla Firefox and Chromium.
+Vim users find the `h`, `j`, `k`, `l` keys useful for navigating documents 
+without a mouse. This tip shows some techniques for configuring vi-like key 
+bindings in web browsers such as Mozilla Firefox and Chromium.
 
 EXTENSIONS                                                *vwt-317-extensions*
 
@@ -80,10 +80,10 @@ been replaced by VimFx which as of November 2015 is in active development.
 VIMKEYBINDINGS                                        *vwt-317-vimkeybindings*
 
 Vimkeybindings [https://addons.mozilla.org/en-US/firefox/addon/52496] is a 
-small addon for Firefox that adds only Vim hjkl keys, much like Konqueror, and 
-g and G as home and end replacement. It is a useful extension for those who do 
-not want to change the appearance and behaviour of their browser interface and 
-/ or need extensions which rely on the status bar, etc.
+small addon for Firefox that adds only Vim `hjkl` keys, much like Konqueror, 
+and `g` and `G` as `home` and `end` replacement. It is a useful extension for 
+those who do not want to change the appearance and behaviour of their browser 
+interface and / or need extensions which rely on the status bar, etc.
 
 SURFINGKEYS                                              *vwt-317-surfingkeys*
 

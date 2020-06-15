@@ -15,17 +15,17 @@ let Vim know, from the path in which the projects reside, what rules to apply
 for each individual project.
 
 For example, you might have a few projects with the following details:
-    - The first project resides in /home/user/projects/Project1, and the rules 
+    - The first project resides in `/home/user/projects/Project1`, and the rules 
       state that tabs should be replaced with 4 spaces in all files that are not 
       YAML, and with 2 spaces in YAML files. 
-    - All other projects reside in /home/user/projects and have the rules that tabs 
-      remain tabs in all files, and they should be treated as being equal with 4 
-      spaces. 
+    - All other projects reside in `/home/user/projects` and have the rules that 
+      tabs remain tabs in all files, and they should be treated as being equal with 
+      4 spaces. 
 
 
-To accommodate the above scenario, you could define an autocmd in your vimrc 
-[https://vim.fandom.com/wiki/Vimrc] for switching between rules, depending on 
-the file path:
+To accommodate the above scenario, you could define an `autocmd` in your 
+vimrc [https://vim.fandom.com/wiki/Vimrc] for switching between rules, 
+depending on the file path:
 
 >
     function! SetupEnvironment()

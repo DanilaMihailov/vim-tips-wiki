@@ -21,7 +21,7 @@ Requires: Vim 6.x with Perl support. Uses Perl module MIME::Base64.
 If you have MIME Base64 or Quoted-Printable encoded text in a Vim buffer, the 
 following commands can be used to replace the encoded lines with their decoded 
 information. Just visually select the lines corresponding to the encoded text 
-and issue the appropriate command (:Decode64 or :DecodeQP).
+and issue the appropriate command (`:Decode64` or `:DecodeQP`).
 
 >
     command! -range=% Decode64 :w | <line1>,<line2>delete | let foo = @"

@@ -18,10 +18,10 @@ When it is in normal mode, the cursor only touches the alphabet underneath it
 
 When it is in insert mode, the cursor touches the alphabet beside it. A few 
 examples below (assume pipe character as cursor):
-    - foo| bar – "foo" gets capitalized 
-    - foo |bar – "bar" gets capitalized 
-    - foo b|ar – "bar" gets capitalized 
-    - foo bar | more – no word gets capitalized 
+    - `foo| bar` – "foo" gets capitalized 
+    - `foo |bar` – "bar" gets capitalized 
+    - `foo b|ar` – "bar" gets capitalized 
+    - `foo bar | more` – no word gets capitalized 
 
 
 Cursor stays where it is after capitalization, in its current mode.

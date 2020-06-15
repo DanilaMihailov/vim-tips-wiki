@@ -29,7 +29,7 @@ AUTOEXEC.BAT may contain:
 <
 
 b. Have a soft link to it in a directory in the PATH, for example on Unix you 
-may have a soft link /usr/bin/vim pointing to /usr/share/vim/vim63/vim
+may have a soft link `/usr/bin/vim` pointing to `/usr/share/vim/vim63/vim`
 
 To use the non-default version (or, on Windows, the default when you are in 
 the directory of the other one), use a full path. In the case above, you will 
@@ -37,7 +37,7 @@ invoke the default Vim as "vim" and the other one as (for example, on Windows)
 %VIM%\vim70aa\vim
 
 2. The permanent environment may possibly contain a VIM variable (which may 
-for instance be set to C:\PROGRA~1\vim on Windows or to /usr/share/vim on 
+for instance be set to `C:\PROGRA~1\vim` on Windows or to `/usr/share/vim` on 
 Unix) but not a VIMRUNTIME variable. Each executable will select a different 
 $VIMRUNTIME according to its version number. If VIM is unset, Vim will 
 normally set it correctly; but even if you use the default it can be useful to 

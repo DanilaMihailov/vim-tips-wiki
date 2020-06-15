@@ -29,10 +29,10 @@ not folded:
     :folddoopen s/old/new/ge
 <
 
-With :folddoopen, each unfolded line is marked. Then the command 
-(s/old/new/ge) is executed on each marked line. Therefore the s/// command has 
-no range (it operates on the current line), and it has the e flag so no error 
-is shown if a line does not contain 'old'.
+With `:folddoopen`, each unfolded line is marked. Then the command 
+(`s/old/new/ge`) is executed on each marked line. Therefore the `s///` command 
+has no range (it operates on the current line), and it has the `e` flag so no 
+error is shown if a line does not contain 'old'.
 
 REFERENCES                                                *vwt-389-references*
     - :help |folding| 

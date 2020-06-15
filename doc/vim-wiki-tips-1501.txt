@@ -8,8 +8,9 @@ created 2007 · complexity basic · author Jerome · version n/a
 
 When doing a complex substitution with a regular expression, it's useful to 
 first search for what you want to replace, to confirm that the search pattern 
-works. Or, just press * to search for the current exact word |vwt-1|, followed 
-by `` (two backticks) if you want to jump back to your original word.
+works. Or, just press `*` to search for the current exact word |vwt-1|, 
+followed by ```` (two backticks) if you want to jump back to your original 
+word.
 
 To do the substitute, type:
 
@@ -20,7 +21,7 @@ To do the substitute, type:
 In this substitute, the search pattern is empty, so it will use the last 
 search.
 
-Alternately, you can press Ctrl-r followed by / to insert the last-search 
+Alternately, you can press Ctrl-r followed by `/` to insert the last-search 
 register (for example, you might want to edit the command before pressing 
 Enter):
 
@@ -28,9 +29,9 @@ Enter):
     :%s/<c-r>//New String/g
 <
 
-If the pattern is in a register, say the a register, you can press Ctrl-r 
-then a to insert the contents of the register at the appropriate place in the 
-command.
+If the pattern is in a register, say the `a` register, you can press Ctrl-r 
+then `a` to insert the contents of the register at the appropriate place in 
+the command.
 
 COMMENTS                                                   *vwt-1501-comments*
     - why would anyone use ``? Just get accustomed to CTRL-o and CTRL-i and enjoy. 

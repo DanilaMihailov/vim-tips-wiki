@@ -8,9 +8,9 @@ created 2006 · complexity intermediate · author Ben Staniford · version 5.7
 
 This tip is deprecated for the following reasons:
 
-Spell support is now built in as of Vim 7.0. Just :set spell spelllang=en_us 
-for example. Some people may prefer a different speller with a plugin but most 
-users should use the built in functionality.
+Spell support is now built in as of Vim 7.0. Just `:set spell 
+spelllang=en_us` for example. Some people may prefer a different speller with 
+a plugin but most users should use the built in functionality.
 
 A little while ago, I tried out all the spelling plug-ins for Vim because I 
 was doing a bit of a project and needed to make sure it was all beautifully 

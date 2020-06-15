@@ -6,21 +6,21 @@ created October 1, 2004 · complexity basic · author Pim Snel · version 6.0
 
 ==============================================================================
 
-When you set foldmethod to something like indent or syntax, which defines 
-folds as soon as you open the file, all folds are closed by default. If you 
-set the foldlevel to a high setting, files are always loaded with opened 
-folds. For example, you could put the settings below in your vimrc:
+When you set `foldmethod` to something like `indent` or `syntax`, which 
+defines folds as soon as you open the file, all folds are closed by default. 
+If you set the `foldlevel` to a high setting, files are always loaded with 
+opened folds. For example, you could put the settings below in your `vimrc`:
 
 >
     set foldmethod=indent
     set foldlevel=20
 <
 
-This is not ideal, however, as the foldlevel option is local to the window, 
+This is not ideal, however, as the `foldlevel` option is local to the window, 
 and additionally gets modified every time you use a command that adjusts the 
-fold level, like zm, zr, and their friends.
+fold level, like `zm`, `zr`, and their friends.
 
-A better method is to set the foldlevel whenever you load a buffer into a 
+A better method is to set the `foldlevel` whenever you load a buffer into a 
 window. You could use autocommands for this, but there is a built-in option 
 that does this for you automatically:
 
@@ -29,10 +29,10 @@ that does this for you automatically:
 <
 
 This is much closer to an optimal solution, but one problem remains: even 
-with the foldlevelstart option, it will take several iterations of the zm 
-command to hide any of a file if you have set the foldlevel high enough. To 
+with the `foldlevelstart` option, it will take several iterations of the `zm` 
+command to hide any of a file if you have set the `foldlevel` high enough. To 
 fix this, you need to use autocmds. For example, to open all folds for a list 
-of file types, but only up to the maximum fold level so that zm and related 
+of file types, but only up to the maximum fold level so that `zm` and related 
 commands work right away, you could do the following:
 
 >
@@ -43,7 +43,7 @@ commands work right away, you could do the following:
 
 Tweak the event and filetypes matched to your liking.
 
-You could use a combination of this method and the foldlevelstart option to 
+You could use a combination of this method and the `foldlevelstart` option to 
 get just enough fold levels open on certain filetypes, but default to having 
 them all open for files which are not of one of your chosen types.
 

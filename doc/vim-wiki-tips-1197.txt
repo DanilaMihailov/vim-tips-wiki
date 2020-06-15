@@ -6,11 +6,12 @@ created 2006 · complexity basic · author Eric Arnold · version 5.7
 
 ==============================================================================
 
-I've decided to swap the ; and : keys since I use the : key much more often.
+I've decided to swap the `;` and `:` keys since I use the : key much more 
+often.
 
-I also made a mapping so that ;; puts you directly into the command line edit 
-window. My fingers always get into a knot when entering a lot of :ex commands 
-and editing them often.
+I also made a mapping so that `;;` puts you directly into the command line 
+edit window. My fingers always get into a knot when entering a lot of :ex 
+commands and editing them often.
 
 >
     " nothing but '<C-V><C-F>' worked, including combinations of "\<C-F"

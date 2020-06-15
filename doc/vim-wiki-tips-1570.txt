@@ -8,10 +8,10 @@ created
 
 ==============================================================================
 
-This tip uses the opfunc option to define two operators. Assuming the default 
-backslash leader key, the operators are:
-    - \c to comment lines (insert a comment string before each line) 
-    - \C to uncomment lines 
+This tip uses the `opfunc` option to define two operators. Assuming the 
+default backslash leader key, the operators are:
+    - `\c` to comment lines (insert a comment string before each line) 
+    - `\C` to uncomment lines 
 
 
 USAGE                                                         *vwt-1570-usage*
@@ -28,8 +28,8 @@ code:
             return 0
 <
 
-The command yip (yank inner paragraph) would copy the block. In a similar 
-manner, the command \cip will comment-out the block, resulting in:
+The command `yip` (yank inner paragraph) would copy the block. In a similar 
+manner, the command `\cip` will comment-out the block, resulting in:
 
 >
     class Example:
@@ -40,7 +40,7 @@ manner, the command \cip will comment-out the block, resulting in:
         #     return 0
 <
 
-Later, you could remove the comment signifiers with \Cip.
+Later, you could remove the comment signifiers with `\Cip`.
 
 An operator can be used in two ways:
     - Invoke the operator, then enter a movement command. or 
@@ -48,10 +48,10 @@ An operator can be used in two ways:
 
 
 Examples:
-    - \ciB comment inner block (between braces) 
-    - \c} comment to end paragraph 
-    - \cG comment to end buffer 
-    - Vjjj\c comment visually-selected lines 
+    - `\ciB` comment inner block (between braces) 
+    - `\c}` comment to end paragraph 
+    - `\cG` comment to end buffer 
+    - `Vjjj\c` comment visually-selected lines 
 
 
 SCRIPT                                                       *vwt-1570-script*
@@ -104,16 +104,17 @@ Here's the code. It only handles linewise comments.
 EXPLANATION                                             *vwt-1570-explanation*
 
 A custom operator can be defined using visual-mode maps (to apply the 
-operator to a selection), and using the operatorfunc (opfunc) option (to apply 
-the operator to a movement).
+operator to a selection), and using the `operatorfunc` (`opfunc`) option (to 
+apply the operator to a movement).
 
-The g@ operator can be used in a map to define your own operator. When g@ is 
-invoked, the function defined by the opfunc option is called with an argument 
-indicating the type of motion ("line", "char" or "block"). In addition, the '[ 
-and '] marks identify the start and end positions of the motion.
+The `g@` operator can be used in a map to define your own operator. When `g@` 
+is invoked, the function defined by the `opfunc` option is called with an 
+argument indicating the type of motion ("line", "char" or "block"). In 
+addition, the '[ and '] marks identify the start and end positions of the 
+motion.
 
 You can let the script determine the comment string from the filetype, or you 
-can define the buffer-local variable comment, for example:
+can define the buffer-local variable `comment`, for example:
 
 >
     :let b:comment='#---'

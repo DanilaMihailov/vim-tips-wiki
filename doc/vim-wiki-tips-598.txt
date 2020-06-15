@@ -18,9 +18,9 @@ However, you can use:
     set keywordprg=a_script
 <
 
-Then, by default, when the cursor is on a WORD and you press K in normal 
-mode, Vim will run man WORD. If you set keywordprg=a_script, Vim will run 
-'a_script WORD'.
+Then, by default, when the cursor is on a WORD and you press `K` in normal 
+mode, Vim will run `man WORD`. If you set `keywordprg=a_script`, Vim will run 
+'`a_script WORD`'.
 
 So I have
 
@@ -28,7 +28,7 @@ So I have
     set keywordprg=/home/marcel/php_doc
 <
 
-and php_doc looks like:
+and `php_doc` looks like:
 
 >
     #!/usr/bin/bash
@@ -38,7 +38,7 @@ and php_doc looks like:
 And now I have online help.
 
 links [http://links.browser.org/] is a text browser for Unix. Of course you 
-can use lynx instead.
+can use `lynx` instead.
 
 REFERENCES                                                *vwt-598-references*
     - :help 'keywordprg' 

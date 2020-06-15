@@ -23,7 +23,7 @@ mix it with Vim in the following way:
 Press F7 to copy all current buffer to clipboard, or a selection, or press 
 shift-F7 to paste all clipboard contents.
 
-I prefer doing this way because "*p is slow with a lot of data.
+I prefer doing this way because `"*p` is slow with a lot of data.
 
 COMMENTS                                                    *vwt-964-comments*
 
@@ -49,8 +49,8 @@ Why use another utility when you can just have something like:
 
 But it doesn't work with Vim 6.3.82.
 
-"*y doesn't copy the selection into my XA_PRIMARY, XA_CLIPBOARD or secondary 
-clipboard under RHEL4.0.2 with gnome.
+`"*y` doesn't copy the selection into my XA_PRIMARY, XA_CLIPBOARD or 
+secondary clipboard under RHEL4.0.2 with gnome.
 
 The clipboard feature must be enabled at compile time. Check with vim --version | grep +clipboard. On Fedora the feature is enbaled only in vimx from the vim-X11 package.
 

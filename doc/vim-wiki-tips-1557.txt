@@ -51,18 +51,18 @@ Create a file called (for example) filter.vim containing:
     nnoremap <silent> <Esc> :call CloseScratch()<CR>
 <
 
-In Vim, the command :source filter.vim will execute the script.
+In Vim, the command `:source filter.vim` will execute the script.
 
 Assuming the default leader key (backslash), you can now:
-    - Type \f and enter a pattern when prompted. 
-    - Type \F to filter on the last search pattern. 
+    - Type `\f` and enter a pattern when prompted. 
+    - Type `\F` to filter on the last search pattern. 
     - Press Escape to close the scratch buffer listing the search hits. 
 
 
-For example, you could put the cursor on a word and press * to search for the 
-next occurrence of that word. If you now type \F a new window will open with a 
-list of all lines that contain the word you searched for. Press Escape to 
-close the window.
+For example, you could put the cursor on a word and press `*` to search for 
+the next occurrence of that word. If you now type `\F` a new window will open 
+with a list of all lines that contain the word you searched for. Press Escape 
+to close the window.
 
 ALTERNATIVE PROCEDURES                       *vwt-1557-alternative-procedures*
 
@@ -76,7 +76,7 @@ A simple procedure to list all lines matching a pattern is:
 <
 
 The following will delete all lines that do not contain a pattern, leaving 
-only the search hits. You could then press u to undo the changes.
+only the search hits. You could then press `u` to undo the changes.
 
 >
     :v/pattern/d
@@ -93,10 +93,10 @@ SEE ALSO                                                   *vwt-1557-see-also*
       for some simple techniques to display lines of interest 
     - Copy the search results into clipboard |vwt-478| to copy matching patterns 
       (not lines) 
-    - Redirect g search output |vwt-1063| uses :redir with g//p for a limited 
+    - Redirect g search output |vwt-1063| uses `:redir` with `g//p` for a limited 
       one-line version of this tip 
     - List lines with current search pattern highlighted |vwt-1141| defines command 
-      PP to highlight matches displayed with :g//PP 
+      `PP` to highlight matches displayed with `:g//PP` 
 
 
 COMMENTS                                                   *vwt-1557-comments*

@@ -22,7 +22,7 @@ In filetype.vim add:
     au BufNewFile,BufRead *.h call FTCheck_inform()
 <
 
-and after augroup END add
+and after `augroup END` add
 
 >
     " function to detect inform code (any extension)

@@ -51,12 +51,12 @@ As a visual block calculator
 1. First, visually select a (block of) math expression(s). Example: "12.7 + 
 sqrt(98.7)" (without the quotes).
 
-Then type ether \C or \C=
+Then type ether `\C` or `\C=`
 
-With \C the formula will be replaced by its result from bc ("22.63" in the 
+With `\C` the formula will be replaced by its result from bc ("22.63" in the 
 example).
 
-With \C= the formula will remain, but the result will be appended ("12.7 + 
+With `\C=` the formula will remain, but the result will be appended ("12.7 + 
 sqrt(98.7) = 22.63" in the example).
 
 2. First, visually select a (block of) math expression(s). Example: 
@@ -86,7 +86,7 @@ block:
     s(4)
 <
 
-and type \C you will have the block replaced with:
+and type `\C` you will have the block replaced with:
 
 >
     22.63

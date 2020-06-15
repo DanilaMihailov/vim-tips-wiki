@@ -11,12 +11,13 @@ complexity basic · version 7.0
 Vim recognizes three file formats (unix, dos, mac) that determine what line 
 ending characters (line terminators) are removed from each line when a file is 
 read, or are added to each line when a file is written. A file format problem 
-can display ^M characters, or can prevent scripts from running correctly. This 
-tip explains how to avoid problems, and how to convert from one file format to 
-another. Use of the 'fileformat' and 'fileformats' options is also explained. 
-See below |vwt-1585-converting-the-current-file| if all you want to know is 
-how to remove ^M characters, or how to fix the line endings in the file you 
-are working on (in brief, enter :e ++ff=dos to remove ^M when viewing a file).
+can display `^M` characters, or can prevent scripts from running correctly. 
+This tip explains how to avoid problems, and how to convert from one file 
+format to another. Use of the 'fileformat' and 'fileformats' options is also 
+explained. See below |vwt-1585-converting-the-current-file| if all you want to 
+know is how to remove ^M characters, or how to fix the line endings in the 
+file you are working on (in brief, enter `:e ++ff=dos` to remove `^M` when 
+viewing a file).
 
 The line terminator expected for each file format is:
 
@@ -39,9 +40,9 @@ automatically detect which file format should be used to read a file). The
 first file format in 'fileformats' is also used as the default for a new 
 buffer.
 
-The following command displays the fileformat option (abbreviated as ff) for 
-the current buffer, and the fileformats global option (abbreviated as ffs) 
-which determines how Vim reads and writes files: :help 'ff' :help 'ffs'
+The following command displays the `fileformat` option (abbreviated as `ff`) 
+for the current buffer, and the `fileformats` global option (abbreviated as 
+`ffs`) which determines how Vim reads and writes files: :help 'ff' :help 'ffs'
 
 >
     :set ff? ffs?
@@ -53,52 +54,53 @@ This command also shows where each option was last set:
     :verbose set ff? ffs?
 <
 
-The fileformats option is often not explicitly set (the defaults are usually 
-adequate). However, the above command may indicate that the option was set in 
-your vimrc [https://vim.fandom.com/wiki/Vimrc] because that file probably 
-contains set nocompatible which sets many options.
+The `fileformats` option is often not explicitly set (the defaults are 
+usually adequate). However, the above command may indicate that the option was 
+set in your vimrc [https://vim.fandom.com/wiki/Vimrc] because that file 
+probably contains `set nocompatible` which sets many options.
 
 FILE FORMAT DETECTION                         *vwt-1585-file-format-detection*
 
 The 'fileformats' option ('ffs') has these defaults:
 
 When a file is read, the order of the items specified in 'ffs' has no effect 
-(for example, ffs=unix,dos has the same effect as ffs=dos,unix when reading). 
-The order is only important when a new buffer is created (if not empty, the 
-first item in 'ffs' is used as the file format for a new buffer; this 
-determines which line endings will be added when the buffer is saved).
+(for example, `ffs=unix,dos` has the same effect as `ffs=dos,unix` when 
+reading). The order is only important when a new buffer is created (if not 
+empty, the first item in 'ffs' is used as the file format for a new buffer; 
+this determines which line endings will be added when the buffer is saved).
 
-Suppose your system has ffs=dos,unix and you open an existing file. Vim will 
-look for both dos and unix line endings, but Vim has a built-in preference for 
-the unix format.
+Suppose your system has `ffs=dos,unix` and you open an existing file. Vim 
+will look for both dos and unix line endings, but Vim has a built-in 
+preference for the unix format.
     - If all lines in the file end with CRLF, the dos file format will be applied, 
       meaning that each CRLF is removed when reading the lines into a buffer, and 
       the buffer 'ff' option will be dos. 
     - If one or more lines end with LF only, the unix file format will be applied, 
       meaning that each LF is removed (but each CR will be present in the buffer, 
-      and will display as ^M), and the buffer 'ff' option will be unix. 
+      and will display as `^M`), and the buffer 'ff' option will be unix. 
 
 
 CONVERTING THE CURRENT FILE             *vwt-1585-converting-the-current-file*
 
-A common problem is that you open a file and see ^M at the end of many lines. 
-Entering :set ff? will probably show that the file was read as unix: the 
-problem is that some lines actually end with CRLF while others end with LF. To 
-fix this, you need to tell Vim to read the file again using dos file format. 
-When reading as dos, all CRLF line endings, and all LF-only line endings, are 
-removed. Then you need to change the file format for the buffer and save the 
-file. The following procedures will easily handle this situation, but they 
-only work reliably on reasonably recent versions of Vim (7.2.40 or higher).
+A common problem is that you open a file and see `^M` at the end of many 
+lines. Entering `:set ff?` will probably show that the file was read as unix: 
+the problem is that some lines actually end with CRLF while others end with 
+LF. To fix this, you need to tell Vim to read the file again using dos file 
+format. When reading as dos, all CRLF line endings, and all LF-only line 
+endings, are removed. Then you need to change the file format for the buffer 
+and save the file. The following procedures will easily handle this situation, 
+but they only work reliably on reasonably recent versions of Vim (7.2.40 or 
+higher).
 
 Convert from dos/unix to unix
 
 To convert the current file from any mixture of CRLF/LF-only line endings, so 
 all lines end with LF only:
 
-In the above, replacing :set ff=unix with :set ff=mac would write the file 
-with mac (CR-only) line endings. Or, if it was a mac file to start with, you 
-would use :e ++ff=mac to read the file correctly, so you could convert the 
-line endings to unix or dos.
+In the above, replacing `:set ff=unix` with `:set ff=mac` would write the 
+file with mac (CR-only) line endings. Or, if it was a mac file to start with, 
+you would use `:e ++ff=mac` to read the file correctly, so you could convert 
+the line endings to unix or dos.
 
 Convert from dos/unix to dos
 
@@ -151,23 +153,23 @@ Notes C
 REMOVING UNWANTED CR OR LF CHARACTERS *vwt-1585-removing-unwanted-cr-or-lf-characters*
 
 First ensure you have read the file with the appropriate file format. For 
-example, use :e ++ff=dos to remove all CRLF and LF-only line terminators, or 
-use :e ++ff=mac if the file uses CR as a line terminator,.
+example, use `:e ++ff=dos` to remove all CRLF and LF-only line terminators, or 
+use `:e ++ff=mac` if the file uses CR as a line terminator,.
 
 After reading with the correct file format, the buffer may still contain 
-unwanted CR characters. You can search for these with /\r (slash starts a 
-search; backslash r represents CR when searching; press Enter to search).
+unwanted CR characters. You can search for these with `/\r` (slash starts a 
+search; backslash `r` represents CR when searching; press Enter to search).
 
-To delete ^M at line endings, and replace it with a space everywhere else 
-(the c flag will prompt to confirm that you want each replacement, and the e 
-flag prevents an error message if the string is not found):
+To delete `^M` at line endings, and replace it with a space everywhere else 
+(the `c` flag will prompt to confirm that you want each replacement, and the 
+`e` flag prevents an error message if the string is not found):
 
 >
     :%s/\r\+$//e
     :%s/\r/ /gce
 <
 
-To process, say, all *.txt files in the current directory:
+To process, say, all `*.txt` files in the current directory:
 
 >
     vim *.txt
@@ -177,7 +179,7 @@ To process, say, all *.txt files in the current directory:
     :xa
 <
 
-To delete every ^M, regardless of where they occur in a line (this is not a 
+To delete every `^M`, regardless of where they occur in a line (this is not a 
 good idea if two lines were separated only by a CR because the command joins 
 the lines together):
 
@@ -185,18 +187,18 @@ the lines together):
     :%s/\r//g
 <
 
-To replace every CR with LF (when searching, \r matches CR, but when 
-replacing, \r inserts LF; this is not a good idea if LF occurs at the end of a 
-line, because an extra blank line will be created):
+To replace every CR with LF (when searching, `\r` matches CR, but when 
+replacing, `\r` inserts LF; this is not a good idea if LF occurs at the end of 
+a line, because an extra blank line will be created):
 
 >
     :%s/\r/\r/g
 <
 
-If a file uses CR line terminators, it should be read as mac (using :e 
-++ff=mac). After doing that, you may see unwanted ^J (LF) characters. In a mac 
-buffer, all CR characters will have been removed because CR is the line 
-terminator, and searching for \r will find unwanted LF characters. Use these 
+If a file uses CR line terminators, it should be read as mac (using `:e 
+++ff=mac`). After doing that, you may see unwanted ^J (LF) characters. In a 
+mac buffer, all CR characters will have been removed because CR is the line 
+terminator, and searching for `\r` will find unwanted LF characters. Use these 
 commands to remove ^J from the start of all lines, and to replace all other ^J 
 with a line break:
 
@@ -239,9 +241,9 @@ of each). These steps are required when converting each file:
     - Read the file as dos so any text ending with CRLF or LF-only is regarded as a 
       line. These line endings (CRLF and LF) are removed and are not present in the 
       buffer. 
-    - If you want to force all line endings to CRLF, write as dos. The :w command 
-      is required (not :update or :wa because these only write if the buffer has not 
-      been modified, and no modification has occurred). 
+    - If you want to force all line endings to CRLF, write as dos. The `:w` command 
+      is required (not `:update` or `:wa` because these only write if the buffer has 
+      not been modified, and no modification has occurred). 
     - If you want to force all line endings to LF-only, write as unix. 
     - If you want to force all line endings to CR-only, write as mac. 
 
@@ -261,7 +263,7 @@ those two bytes are removed, and the preceding text is regarded as a line.
 Similarly, if LF is encountered, it is removed, and the preceding text is 
 regarded as a line. However, if a CR is encountered (without a following LF), 
 the CR will be regarded as a normal character and will be copied into the 
-buffer where it will be displayed as ^M (Ctrl-M, the code for CR).
+buffer where it will be displayed as `^M` (Ctrl-M, the code for CR).
 
 RESULTS OF INCORRECT FILE FORMAT DETECTION *vwt-1585-results-of-incorrect-file-format-detection*
 
@@ -273,29 +275,30 @@ Suppose a file contains two lines:
 <
 
 When reading the file, if Vim does not correctly detect the file format, here 
-is what you will see in the buffer (^J is Ctrl-J or LF; ^M is Ctrl-M or CR).
+is what you will see in the buffer (`^J` is Ctrl-J or LF; `^M` is Ctrl-M or 
+CR).
 
-File has unix line endings; file read with ff=dos:
+File has unix line endings; file read with `ff=dos`:
 
 >
     Line 1
     Line 2
 <
 
-File has unix line endings; file read with ff=mac:
+File has unix line endings; file read with `ff=mac`:
 
 >
     Line 1^JLine 2^J
 <
 
-File has dos line endings; file read with ff=unix:
+File has dos line endings; file read with `ff=unix`:
 
 >
     Line 1^M
     Line 2^M
 <
 
-File has dos line endings; file read with ff=mac:
+File has dos line endings; file read with `ff=mac`:
 
 >
     Line 1
@@ -303,7 +306,7 @@ File has dos line endings; file read with ff=mac:
     ^J
 <
 
-File has mac line endings; file read with ff=unix or ff=dos:
+File has mac line endings; file read with `ff=unix` or `ff=dos`:
 
 >
     Line 1^MLine 2^M
@@ -312,14 +315,14 @@ File has mac line endings; file read with ff=unix or ff=dos:
 VIM SCRIPT PROBLEMS                             *vwt-1585-vim-script-problems*
 
 Under Unix, you may find that a Vim script does not work because you have 
-downloaded a script that contains CR characters. Each CR displays as ^M and 
+downloaded a script that contains CR characters. Each CR displays as `^M` and 
 will cause some scripts to fail.
 
-If you put, say, script.vim in your plugin directory, you may not see any 
+If you put, say, `script.vim` in your plugin directory, you may not see any 
 useful error messages about CR characters when using Vim. You can source the 
-script after starting Vim (for example, :source ~/.vim/plugin/script.vim) to 
-see if errors including ^M are shown. To fix, you need to convert the file to 
-unix format.
+script after starting Vim (for example, `:source ~/.vim/plugin/script.vim`) to 
+see if errors including `^M` are shown. To fix, you need to convert the file 
+to unix format.
 
 PITFALLS                                                   *vwt-1585-pitfalls*
 
@@ -327,36 +330,37 @@ Some suggestions for working with file formats suffer from pitfalls that are
 described here.
 
 You are editing a file which you expect to be in unix format, yet you see 
-many ^M characters. The following attempt to convert the file to unix format 
+many `^M` characters. The following attempt to convert the file to unix format 
 does not work:
 
 The file was probably already detected as unix format, so the :set ff=unix 
 command will do nothing (the problem is that the file uses dos format, but Vim 
 read it as unix because at least one line had an LF-only ending). Furthermore, 
-each ^M represents a CR character that is in the current buffer, and writing 
+each `^M` represents a CR character that is in the current buffer, and writing 
 the buffer will write that CR to the file (not what you want).
 
 You are editing a file which you expect to be in unix format, yet you see 
-many ^M characters. You perform the following to convert it to unix format, 
+many `^M` characters. You perform the following to convert it to unix format, 
 then perform further edits:
 
 The first two steps above are correct, and the file will initially be written 
-in unix format. However, the buffer is still marked as dos format, so the :w 
-will overwrite the file using CRLF line endings. The :e ++ff=dos command tells 
-Vim to read the file again, forcing dos file format. Vim will remove CRLF and 
-LF-only line endings, leaving only the text of each line in the buffer. 
-However, if you are going to edit the file, you need to use these commands:
+in unix format. However, the buffer is still marked as dos format, so the `:w` 
+will overwrite the file using CRLF line endings. The `:e ++ff=dos` command 
+tells Vim to read the file again, forcing dos file format. Vim will remove 
+CRLF and LF-only line endings, leaving only the text of each line in the 
+buffer. However, if you are going to edit the file, you need to use these 
+commands:
 
 Here is a mistaken attempt to convert certain files from dos to unix format 
-by starting Vim with commands to convert all *.c and *.h files in the current 
-directory:
+by starting Vim with commands to convert all `*.c` and `*.h` files in the 
+current directory:
 
 This will work if 'fileformats' includes dos and if the files have only CRLF 
 line endings. However, if 'fileformats' includes both dos and unix, and if a 
 file has at least one LF-only line ending, that file will be detected as unix, 
-and any CR in the file will be shown in the buffer as ^M. The :setlocal 
-ff=unix will not flag a unix file as modified, so the +wqa command (same as 
-:xa) will not save that file. If :w is used to write the buffer, nothing 
+and any CR in the file will be shown in the buffer as `^M`. The `:setlocal 
+ff=unix` will not flag a unix file as modified, so the `+wqa` command (same as 
+`:xa`) will not save that file. If `:w` is used to write the buffer, nothing 
 useful will be achieved because the CR characters will be written to the file.
 
 OTHER APPROACHES                                   *vwt-1585-other-approaches*
@@ -365,7 +369,7 @@ You may find a discussion of other techniques for handling line endings
 elsewhere. Some drawbacks of other procedures are mentioned here.
 
 You can specify a file format for a particular file by inserting a modeline 
-in that file. For example, in file my.c, you may put the following comment 
+in that file. For example, in file `my.c`, you may put the following comment 
 near the top or bottom of the file in an attempt to maintain dos line endings, 
 regardless of what system is used to edit the file:
 
@@ -377,16 +381,17 @@ In general, using a modeline is useless in this context, although it may help
 if the file format is correctly detected when the file is read, because the 
 next write will save the file in the preferred format specified in the 
 modeline. However, the modeline does not avoid problems, and may make problems 
-worse. For example, if file my.c has one or more lines that end with LF only, 
-and the file is edited on a default Windows system, the file will be detected 
-as having unix format, and the modeline will then change the format to dos, 
-which will set the buffer modified flag. The buffer will display each CR as 
-^M. If you now save the file, each line will be written with a CRLF ending. 
-However, the ^M characters that were visible in the buffer will be written to 
-the file, so some lines will now end with CRCRLF (two CR characters).
+worse. For example, if file `my.c` has one or more lines that end with LF 
+only, and the file is edited on a default Windows system, the file will be 
+detected as having unix format, and the modeline will then change the format 
+to dos, which will set the buffer modified flag. The buffer will display each 
+CR as `^M`. If you now save the file, each line will be written with a CRLF 
+ending. However, the `^M` characters that were visible in the buffer will be 
+written to the file, so some lines will now end with CRCRLF (two CR 
+characters).
 
-Another unhelpful approach is to hide ^M characters which occur at the end of 
-a line by highlighting them with the Ignore highlight group:
+Another unhelpful approach is to hide `^M` characters which occur at the end 
+of a line by highlighting them with the Ignore highlight group:
 
 >
     :match Ignore /\r$/
@@ -402,11 +407,12 @@ TOOLS                                                         *vwt-1585-tools*
 Several tools are available to convert files from one type of line ending to 
 another. These need to be run at the command line, and are not related to Vim.
 
-On Unix-based systems, the file utility can display what kind of line endings 
-are present in a file. For example, file *.c will report what line terminators 
-(CRLF, CR, LF) are present in each *.c file. The dos2unix utility can convert 
-from dos or mac format to unix, and the unix2dos utility can convert from unix 
-to dos format, optionally while preserving file timestamps.
+On Unix-based systems, the `file` utility can display what kind of line 
+endings are present in a file. For example, `file *.c` will report what line 
+terminators (CRLF, CR, LF) are present in each `*.c` file. The `dos2unix` 
+utility can convert from dos or mac format to unix, and the `unix2dos` utility 
+can convert from unix to dos format, optionally while preserving file 
+timestamps.
 
 Many other conversion tools are available. For example, flip 
 [https://ccrma.stanford.edu/~craig/utility/flip/] can convert files between 

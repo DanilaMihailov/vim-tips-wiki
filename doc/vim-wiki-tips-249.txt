@@ -14,7 +14,7 @@ because it's very fast, my fingers easily roll from one key to the next,
 obviously YMMV.
 
 To use this mapping, go to the line of code that you want the '#if 0' to be 
-on, type ma to mark this line with the marker a, then move to the line that 
+on, type `ma` to mark this line with the marker a, then move to the line that 
 should be last line just above the '#endif' and press ;'
 
 >
@@ -31,10 +31,11 @@ You can have custom if macro such that
 <
 
 Copy some word or sentence somehow, e.g. Go to the word MACRO_TESTING and 
-press yiw. This copied word will be placed at appropriate places by <C-r>" 
+press `yiw`. This copied word will be placed at appropriate places by <C-r>" 
 Then go to the line of code that you want the '#if defined(MACRO_TESTING)' to 
-be on, type ma to mark this line with the marker a, then move to the line that 
-should be last line just above the '#endif /* MACRO_TESTING */' and press ;;
+be on, type `ma` to mark this line with the marker a, then move to the line 
+that should be last line just above the '#endif /* MACRO_TESTING */' and press 
+`;;`
 
 >
     map ;; mz'aO<Esc>i#if defined(<C-r>")<Esc>'zo<Esc>i#endif /* <C-r>" */<Esc>

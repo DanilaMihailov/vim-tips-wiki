@@ -21,8 +21,8 @@ and the number of windows in the tab. Drop it into your vimrc
 Getting the tab number is easy, it's just the "let label.=v:lnum" portion of 
 the script, if you don't want to use the entire thing. We could have also used 
 the tabpagenr() function, which may be required if using 'tabline' instead. 
-Note that we CANNOT simply use %N as stated in :help |setting-guitablabel|, 
-because we are returning text from a function that is called using %{...} 
+Note that we CANNOT simply use `%N` as stated in :help |setting-guitablabel|, 
+because we are returning text from a function that is called using `%{...}` 
 syntax.
 
 Note, this script only works in GUI Vim, because it uses the (marginally 
@@ -119,14 +119,14 @@ The tip could be tweaked to use the 'tabline' option for terminal Vim.
 
 Should probably start with a simple version, something like following.
 
-Set tab label to show tab number, filename, if modified ('+' is shown if the 
-current window in the tab has been modified):
+Set tab label to show tab number, filename, if modified ('`+`' is shown if 
+the current window in the tab has been modified):
 
 >
     :set guitablabel=%N/\ %t\ %M
 <
 
-Then mention how the script shows '+' if any window in the tab has been 
+Then mention how the script shows '`+`' if any window in the tab has been 
 modified. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 07:27, 
 May 19, 2010 (UTC)
 
@@ -149,7 +149,7 @@ the tab line...not sure though.
 ==============================================================================
 
 Here's a text-style tabline for both Console and GUI modes; it displays 
-before each filename something like 3:4/8, meaning "Tab 3, window 4 of 8". 
+before each filename something like `3:4/8`, meaning "Tab 3, window 4 of 8". 
 These numbers are in "User1" highlight, or "User2" for the current tab, while 
 the TabLine, TabLineSel and TabLineFill highlight groups have their usual 
 meanings, see :help |setting-tabline|. You may want to set the colours in a 

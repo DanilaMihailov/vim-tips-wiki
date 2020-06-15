@@ -38,17 +38,17 @@ netrw.vim (netrw v46a now supports remote directory listing for example).
 
 COMMENTS                                                    *vwt-747-comments*
 
-If you have rsync installed, you can use it to synchronize your runtime 
+If you have `rsync` installed, you can use it to synchronize your runtime 
 files. I use it to keep my "master" runtimes up-to-date, currently at 
-~/.build/vim/vim72/runtime/, as follows (the "parent" vim72 directory being 
-the current directory):
+`~/.build/vim/vim72/runtime/`, as follows (the "parent" `vim72` directory 
+being the current directory):
 
 >
     rsync -avzcP --delete --exclude="/dos/" ftp.nluug.nl::Vim/runtime/ ./runtime/
 <
 
-On Linux, I follow that by a make installruntime step if anything other than 
-tags has been updated.
+On Linux, I follow that by a `make installruntime` step if anything other 
+than `tags` has been updated.
 
 Note: Even on Windows, where I expect rsync to be available at least via 
 Cygwin and/or MinGW and/or GnuWin32, I recommend downloading the "Unix" 

@@ -9,7 +9,7 @@ created 2006 · complexity advanced · author Yakov Lerner · version 6.0
 Sometimes echo from a mapping disappears and is not seen (every script writer 
 knows this problem).
 
-This weird trick, PersistentEcho(), echoes messages that will not easily 
+This weird trick, `PersistentEcho()`, echoes messages that will not easily 
 disappear.
 
 This is a really intrusive and weird trick. Please do not use for external 
@@ -32,12 +32,12 @@ scripts (since it modifies &updatetime). For your internal consumption only.
 
 COMMENTS                                                   *vwt-1379-comments*
 
-Would :echom by definition be a persistent echo?
+Would `:echom` by definition be a persistent echo?
 
 ==============================================================================
 
-No. echom results in a longer-term message that can be recalled on demand; 
-however, the user would need to know to type :messages to see it.
+No. `echom` results in a longer-term message that can be recalled on demand; 
+however, the user would need to know to type `:messages` to see it.
 
 ==============================================================================
 

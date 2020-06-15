@@ -38,7 +38,7 @@ Of course if you want to redistribute your script and others don't have this
 function you need to direct users to this tip, so not much gained then. Might 
 be handy for your own quick and dirty scripts.
 
-Note: let a.="abc" means let a=a."abc" (Vim 7).
+Note: `let a.="abc"` means `let a=a."abc"` (Vim 7).
 
 COMMENTS                                                   *vwt-1133-comments*
 
@@ -68,13 +68,13 @@ returns the word 'finish' if we should quit.
 A plugin developed with this approach can't be easily redistributed. However, 
 this can be worked around by using Vim 7's autoload plugins (as VimL library 
 plugins). Instead of being defined in the vimrc, the function would be named 
-my_libs#plugin#DontLoadTwice(), and defined in 
-{rtp}/autoload/my_libs/plugin.vim.
+`my_libs#plugin#DontLoadTwice()`, and defined in 
+`{rtp}/autoload/my_libs/plugin.vim`.
 
 Another approach would be to use a template expander plugin 
 [https://vim.fandom.com/wiki/Category:Automated_Text_Insertion]. For instance, 
-µ-template comes with a template that recognizes whether the new .vim file is 
-a plugin or a ftplugin, and proposes a default anti-reinclusion mecanism 
+µ-template comes with a template that recognizes whether the new `.vim` file 
+is a plugin or a ftplugin, and proposes a default anti-reinclusion mecanism 
 accordingly.
 
 ==============================================================================

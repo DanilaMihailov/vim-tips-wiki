@@ -25,12 +25,12 @@ In Vim, the word "macro" may refer to:
       tutorial 
       [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)]). 
     - A script written in the Vim script language (stored in a file with extension 
-      .vim – see :help |script|). 
+      `.vim` – see :help |script|). 
 
 
 RECORDING A MACRO                                  *vwt-398-recording-a-macro*
 
-Each register is identified by a letter a to z.
+Each register is identified by a letter `a` to `z`.
 
 To enter a macro, type:
 
@@ -71,12 +71,12 @@ program, with this result:
 
 To do this, record a macro while changing the first line. Then, playback the 
 macro to change each other line. When finished, manually insert the initial 
-"data = {" line, and the final "}" line.
+"`data = {`" line, and the final "`}`" line.
 
 The following shows one way to record a suitable macro.
     - Put the cursor on the first line. 
-    - Type qd (the q starts recording; the d is the register where keys will be 
-      recorded). 
+    - Type `qd` (the `q` starts recording; the `d` is the register where keys will 
+      be recorded). 
     - Type the following command to change the first sequence of whitespace to "': 
       '": :s/\s\+/': ' (then press Enter) 
     - Type the following to insert four spaces followed by "'" at the start of the 
@@ -84,40 +84,41 @@ The following shows one way to record a suitable macro.
     - Type the following to append "'," to the line: A', (then press Escape) 
     - Type the following to move the cursor to the start of the line, then down to 
       the next line: 0j (or press Enter) 
-    - Type q to stop recording the macro. 
+    - Type `q` to stop recording the macro. 
 
 
-The cursor should now be on the second line. Type @d to playback the macro 
+The cursor should now be on the second line. Type `@d` to playback the macro 
 once. That should change the second line, with the cursor finishing on the 
-third line. Type 2@@ to finish. The 2 means that what follows is performed 
-twice, and the @@ plays back the last used macro. Instead of 2@@, you could 
-type @d or @@ twice.
+third line. Type `2@@` to finish. The `2` means that what follows is performed 
+twice, and the `@@` plays back the last used macro. Instead of `2@@`, you 
+could type `@d` or `@@` twice.
 
 RUNNING A MACRO                                      *vwt-398-running-a-macro*
 
-Use this mapping as a convenient way to play a macro recorded to register q:
+Use this mapping as a convenient way to play a macro recorded to register 
+`q`:
 
 >
     :nnoremap <Space> @q
 <
-    - Start recording keystrokes by typing qq. 
-    - End recording with q (first press Escape if you are in insert mode). 
+    - Start recording keystrokes by typing `qq`. 
+    - End recording with `q` (first press Escape if you are in insert mode). 
     - Play the recorded keystrokes by hitting space. 
 
 
 Suppose you have a macro which operates on the text in a single line. You can 
 run the macro on each line in a visual selection in a single operation:
-    - Visually select some lines (for example, type vip to select the current 
+    - Visually select some lines (for example, type `vip` to select the current 
       paragraph). 
-    - Type :normal @q to run the macro from register q on each line. 
+    - Type `:normal @q` to run the macro from register `q` on each line. 
 
 
 VIEWING A MACRO                                      *vwt-398-viewing-a-macro*
 
-You can use the :registers command to view the current contents of any or all 
-register values in Vim. For example, use :reg to view all registers, or :reg a 
-to view only what you have recorded into register a. Typing :reg abx will show 
-the contents of registers a, b, and x.
+You can use the `:registers` command to view the current contents of any or 
+all register values in Vim. For example, use `:reg` to view all registers, or 
+`:reg a` to view only what you have recorded into register `a`. Typing `:reg 
+abx` will show the contents of registers a, b, and x.
 
 SAVING A MACRO                                        *vwt-398-saving-a-macro*
 
@@ -130,14 +131,14 @@ nocompatible default alone, Vim will automatically write all your registers to
 a file and restore them at startup.
 
 By default, the content of each register is saved, and will be available next 
-time you run Vim. For example, you might record a macro to register a, then 
-exit from Vim with :q!. On restarting Vim, you can press @a to run the macro 
-from register a.
+time you run Vim. For example, you might record a macro to register `a`, then 
+exit from Vim with `:q!`. On restarting Vim, you can press `@a` to run the 
+macro from register `a`.
 
-The 'viminfo' option can disable the saving of registers. If :set viminfo? 
-shows a value including (for example) <50 and s10 then up to 50 lines and 10KB 
-will be saved in each register. If either item is zero, no registers are 
-saved. :help 'viminfo'
+The '`viminfo`' option can disable the saving of registers. If `:set 
+viminfo?` shows a value including (for example) `<50` and `s10` then up to 50 
+lines and 10KB will be saved in each register. If either item is zero, no 
+registers are saved. :help 'viminfo'
 
 The second way to save a macro for later use (especially if you think you 
 might overwrite the macro by accident, therefore restoring the wrong value 
@@ -164,7 +165,7 @@ line:
 Assuming that you already have the macro recorded, you can easily insert the 
 register contents rather that typing them all again. While entering the above 
 line, after typing let @a=', simply type Ctrl-R Ctrl-R a to insert the 
-contents of the a register. The double Ctrl-R is to insert the contents 
+contents of the `a` register. The double Ctrl-R is to insert the contents 
 literally, rather than interpreting them as if typed.
 
 Single quote characters (') are recommended and used in the above examples, 
@@ -176,11 +177,11 @@ escape it. For example, if you want your register to contain "Vim's quote
 handling is a little tricky" you would type :let @a='"Vim''s quote handling is 
 a little tricky"'
 
-Note however, that the above method using :let will not work as expected for 
-any macros which you make ending in a <CR> or <NL> character (carriage return 
-or newline). This is because, as documented in :help |:let-@|, Vim will treat 
-the register as "linewise" under these conditions. The reason for this is to 
-make registers set with :let act "the right way" when dealing with 
+Note however, that the above method using `:let` will not work as expected 
+for any macros which you make ending in a <CR> or <NL> character (carriage 
+return or newline). This is because, as documented in :help |:let-@|, Vim will 
+treat the register as "linewise" under these conditions. The reason for this 
+is to make registers set with `:let` act "the right way" when dealing with 
 yanked/deleted text, but it can cause headaches when dealing with recorded 
 macros. Possible workarounds include using the |setreg()| function or adding 
 "no-op" commands to the end of the macro, such as a<Esc>. See the discussion 
@@ -195,12 +196,12 @@ commands to it, you can easily append the commands to an existing macro
 instead of recording the whole thing over again. Simply replace the register 
 letter with a capital letter.
 
-For example, if you recorded into register a using qa...q, you could add to 
-the macro (without replacing it) using qA...q.
+For example, if you recorded into register `a` using `qa...q`, you could add 
+to the macro (without replacing it) using `qA...q`.
 
 EDITING A MACRO                                      *vwt-398-editing-a-macro*
 
-Suppose that you have recorded a macro in register a and you would like to 
+Suppose that you have recorded a macro in register `a` and you would like to 
 edit the macro. There are multiple ways to accomplish this.
 
 VISUAL MODE ON THE COMMAND LINE      *vwt-398-visual-mode-on-the-command-line*

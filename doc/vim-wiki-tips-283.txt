@@ -22,7 +22,8 @@ If you have that, and still don't get syntax highlighting in Vim running in a
 terminal (i.e. not a GUI like MacVim), you may need to inform Vim how to 
 handle the terminal.
 
-Something like this is needed, prior to the syntax on command in your .vimrc:
+Something like this is needed, prior to the `syntax on` command in your 
+.vimrc:
 
 >
     set term=builtin_beos-ansi

@@ -51,8 +51,8 @@ through directories to look for files (esp. if you are a touch typist.)
 
 Variations
     - You can change your path variable anytime to change the find path. 
-    - You can use :sfind instead of :find to open it in a split window, and :tabf 
-      to open it in a new tab. 
+    - You can use `:sfind` instead of `:find` to open it in a split window, and 
+      `:tabf` to open it in a new tab. 
     - Coupled with cscope (see :help cscope) you editing code across files becomes 
       very convenient. 
 
@@ -101,7 +101,7 @@ required.(Surely you mean "edit in the current window", not buffer.)
 
 ==============================================================================
 
-On Windows use, set path=.\**
+On Windows use, `set path=.\**`
 
 ==============================================================================
 

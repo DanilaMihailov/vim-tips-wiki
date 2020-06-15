@@ -6,7 +6,7 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-Use the :abbreviate command to define abbreviations.
+Use the `:abbreviate` command to define abbreviations.
 
 Abbreviations can save typing, and can improve accuracy, when you need to 
 enter the same text throughout your document. You can also create 
@@ -49,7 +49,7 @@ The following abbreviation provides faster access to 'helpgrep'.
     :cnoreabbrev H helpgrep
 <
 
-This allows me to type :H uganda to search for the word 'uganda' in all of 
+This allows me to type `:H uganda` to search for the word 'uganda' in all of 
 the help files.
 
 ROUGH MERGE IN OF COMMENTS FROM 4  *vwt-992-rough-merge-in-of-comments-from-4*

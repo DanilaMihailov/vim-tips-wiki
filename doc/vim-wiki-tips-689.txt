@@ -11,10 +11,10 @@ a particular word, and more.
 
 COUNTING NUMBER OF WORDS                    *vwt-689-counting-number-of-words*
 
-To count the number of words in the current buffer, press g then Ctrl-g.
+To count the number of words in the current buffer, press `g` then Ctrl-g.
 
 To count the number of words in a block, select the block (for example, type 
-V5j to select 6 lines) and again press g then Ctrl-g.
+`V5j` to select 6 lines) and again press `g` then Ctrl-g.
 
 The output looks like this:
 
@@ -31,16 +31,16 @@ count of the entire file:
     :!wc %
 <
 
-The initial :w writes the current file so that the external program can read 
-it. An alternative (which does not require saving the buffer to a file), is to 
-use the command:
+The initial `:w` writes the current file so that the external program can 
+read it. An alternative (which does not require saving the buffer to a file), 
+is to use the command:
 
 >
     :w !wc
 <
 
-The above writes the current buffer to the standard input of the external wc 
-program. :help |:write_c|
+The above writes the current buffer to the standard input of the external 
+`wc` program. :help |:write_c|
 
 LIVE WORD COUNT                                      *vwt-689-live-word-count*
 
@@ -93,7 +93,7 @@ perfectly.
 
 COUNTING OCCURRENCES OF A PATTERN  *vwt-689-counting-occurrences-of-a-pattern*
 
-Use the :s substitute command with the n flag (counts number of hits; no 
+Use the `:s` substitute command with the `n` flag (counts number of hits; no 
 changes occur) to count the number of occurrences of a pattern. For example:
 
 >
@@ -111,8 +111,8 @@ For example to count space delimited words in a file you could use:
 <
 
 A quick way to list all occurrences of the word under the cursor it to type 
-[I (which displays each line containing the current keyword, in this file and 
-in included files when using a language such as C). :help |[I|
+`[I` (which displays each line containing the current keyword, in this file 
+and in included files when using a language such as C). :help |[I|
 
 RELATED PLUGINS                                      *vwt-689-related-plugins*
 

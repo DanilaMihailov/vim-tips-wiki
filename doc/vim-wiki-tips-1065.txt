@@ -19,9 +19,9 @@ with the default Alt/Shift + clicking to make it work more seamlessly.
 This tip also attempts to resolve an issue that was brought up in the Vim 
 mailing list:
     - Console/terminal* Vims that are not compiled with the +xterm_clipboard option 
-      (see :version) have trouble pasting from external sources. They are not able 
+      (see `:version`) have trouble pasting from external sources. They are not able 
       to access the clipboard, and have to make use of the middleclick paste 
-      function. Unfortunately, if the mouse option was set as ':set mouse=a', the 
+      function. Unfortunately, if the mouse option was set as '`:set mouse=a`', the 
       middleclick paste will not help. On the other hand, if the mouse option wasn't 
       set, the middleclick paste would work fine, but instead, many of the console 
       mouse functionalities such as positioning, wheel-scrolling and window sizing 

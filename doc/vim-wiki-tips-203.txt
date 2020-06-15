@@ -8,7 +8,7 @@ created 2002 · complexity basic · author Padraic Renaghan · version 6.0
 
 ORIGINAL IDEA                                          *vwt-203-original-idea*
 
-Put the following into your vimrc, then use :Make instead of :make.
+Put the following into your vimrc, then use `:Make` instead of `:make`.
 
 >
     " Command Make will call make and then cwindow which
@@ -17,18 +17,18 @@ Put the following into your vimrc, then use :Make instead of :make.
     :command -nargs=* Make make <args> | cwindow 3
 <
 
-Try this mapping so you can just press \j to make your program:
+Try this mapping so you can just press `\j` to make your program:
 
 >
     :map <Leader>j :Make<CR>
 <
 
-You can use the new :Make command as an extension point for other 
+You can use the new `:Make` command as an extension point for other 
 customizations, too.
 
 AUTOMATICALLY OPEN THE QUICKFIX WINDOW ON :MAKE *vwt-203-automatically-open-the-quickfix-window-on :make*
 
-Starting with Vim 7, there's no need for an additional :Make command; 
+Starting with Vim 7, there's no need for an additional `:Make` command; 
 autocmds can be used to hook into the execution of the quickfix command, and 
 open the quickfix window automatically:
 
@@ -47,7 +47,7 @@ open the quickfix window automatically:
 
 Note that the quickfix window will also automatically close in case the 
 quickfix list becomes empty.If instead you always want to open the quickfix 
-window, replace the cwindow with copen.
+window, replace the `cwindow` with `copen`.
 
 RELATED                                                      *vwt-203-related*
     - Automatically fitting a quickfix window height 

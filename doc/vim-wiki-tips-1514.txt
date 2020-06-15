@@ -8,7 +8,7 @@ created
 
 ==============================================================================
 
-Many programs store configuration information in text files with .ini 
+Many programs store configuration information in text files with `.ini` 
 extension ("dosini" file type). An example of a section from an ini file is:
 
 >
@@ -18,15 +18,15 @@ extension ("dosini" file type). An example of a section from an ini file is:
     PromptToSave=1
 <
 
-Vim includes file syntax/dosini.vim for syntax highlighting. This tip shows 
+Vim includes file `syntax/dosini.vim` for syntax highlighting. This tip shows 
 two enhancements: Folding sections, and correct highlighting when 
 heredoc-style parameters are used.
 
 FOLDING SECTIONS                                   *vwt-1514-folding-sections*
 
 You can enable folding of dosini sections by placing a script in file 
-~/.vim/after/syntax/dosini.vim on Unix-based systems, or in file 
-$HOME/vimfiles/after/syntax/dosini.vim on Windows systems.
+`~/.vim/after/syntax/dosini.vim` on Unix-based systems, or in file 
+`$HOME/vimfiles/after/syntax/dosini.vim` on Windows systems.
 
 The script should contain:
 
@@ -52,8 +52,8 @@ Some ini parsers suppport heredoc-style parameter settings, for example:
 <
 
 To correctly handle syntax highlighting with heredoc parameters, create file 
-~/.vim/after/syntax/dosini.vim (Unix), or 
-$HOME/vimfiles/after/syntax/dosini.vim (Windows), containing lines:
+`~/.vim/after/syntax/dosini.vim` (Unix), or 
+`$HOME/vimfiles/after/syntax/dosini.vim` (Windows), containing lines:
 
 >
     syn match  dosinicomment        "^;.*$\|^#.*$"

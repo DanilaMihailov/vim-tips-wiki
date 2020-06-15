@@ -8,22 +8,22 @@ March 4, 2008 · complexity basic · author Edouard · version 7.0
 
 ==============================================================================
 
-I wanted to improve the standard Vim foldtext both to look better in GUI 
+I wanted to improve the standard Vim `foldtext` both to look better in GUI 
 versions of Vim, and to make the folding work better with C-like languages 
 (such as C++, Java and pov).
 
-The foldtext function below does three things:
+The `foldtext` function below does three things:
     - Is less intrusive when displaying code, and right-aligns the number of lines 
       in the fold. 
     - Collapses folds that start and end on braces with everything between the 
-      braces replaced with {...}. 
+      braces replaced with `{...}`. 
     - Tries to collapse multiline comments with the first non-blank line in the 
       comment. 
 
 
 Outstanding issues:
     - Right alignment may not work with signs turned on. 
-    - Tabs mess up the in-place display of the initial '{'. 
+    - Tabs mess up the in-place display of the initial '`{`'. 
 
 
 >
@@ -64,7 +64,7 @@ Outstanding issues:
     endfunction
 <
 
-I also use the following highlights with white backgrounded source to 
+I also use the following `highlight`s with white backgrounded source to 
 visually set the folds apart from non-folded lines, while trying to keep a 
 nice aesthetic.
 
@@ -92,8 +92,9 @@ provide a good fallback for all other folds, and define something special for
 diff folding. I really like the way the author of this tip treats comments in 
 a special way—I might need to use that idea.
 
-In my $HOME/vimfiles/ftplugin directory, I set up different file-types to use 
-my different fold patterns. For example, in c.vim, I have 'let b:foldpat=1'.
+In my `$HOME/vimfiles/ftplugin` directory, I set up different file-types to 
+use my different fold patterns. For example, in `c.vim`, I have '`let 
+b:foldpat=1`'.
 
 >
     if has("folding")

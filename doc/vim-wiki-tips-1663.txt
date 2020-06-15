@@ -11,16 +11,16 @@ A buffer is an area of Vim's memory used to hold text read from a file. In
 addition, an empty buffer with no associated file can be created to allow the 
 entry of text.
 
-The :e filename command can edit an existing file or a new file. When a file 
-is edited, the file is read into a new buffer that holds a temporary copy of 
-the file (or an empty buffer for a new file). Editing makes changes to the 
+The `:e filename` command can edit an existing file or a new file. When a 
+file is edited, the file is read into a new buffer that holds a temporary copy 
+of the file (or an empty buffer for a new file). Editing makes changes to the 
 buffer. To save a file, the original file is replaced by writing the buffer to 
 disk.
 
-The :new command creates a new window displaying the contents of a new 
+The `:new` command creates a new window displaying the contents of a new 
 (empty) buffer.
 
-To list all buffers use the :ls command. Each buffer is assigned a number 
+To list all buffers use the `:ls` command. Each buffer is assigned a number 
 that is displayed in the first column.
 
 The second column describes the state of the buffer. The different states are 
@@ -31,31 +31,31 @@ OVERVIEW                                                   *vwt-1663-overview*
 
 The image shows a session of Vim created with these steps:
 
-In the image, the label for the current tab shows 4 example.txt because there 
-are four windows in the tab, and the cursor is in window 3 which shows the 
-buffer for file example.txt. This label results from the default setting of 
-'guitablabel'; see here 
+In the image, the label for the current tab shows `4 example.txt` because 
+there are four windows in the tab, and the cursor is in window 3 which shows 
+the buffer for file `example.txt`. This label results from the default setting 
+of 'guitablabel'; see here 
 [https://vim.fandom.com/wiki/Show_tab_number_in_your_tab_line] for an example 
 of changing the default.
 
 WORKING WITH BUFFERS                           *vwt-1663-working-with-buffers*
 
-The commands :bnext and :bprev allow changing between buffers, but are not 
-convenient. They can be shortened to :bn and :bp respectively.
+The commands `:bnext` and `:bprev` allow changing between buffers, but are 
+not convenient. They can be shortened to `:bn` and `:bp` respectively.
 
-The :b command can also accept either a number or a string argument 
+The `:b` command can also accept either a number or a string argument 
 specifying which buffer to display. The buffers are numbered as they are 
-created and can be viewed in a list using :buffers. Supplying a number after 
-:b brings up that buffer e.g. :b2. Or if you have already typed :buffers, you 
-can just type the appropriate number after seeing the list.
+created and can be viewed in a list using `:buffers`. Supplying a number after 
+`:b` brings up that buffer e.g. `:b2`. Or if you have already typed 
+`:buffers`, you can just type the appropriate number after seeing the list.
 
 If a string is supplied, the buffer with a matching file name is displayed. 
 You do not need to write the full name of the file as the best match will be 
 used. After typing the first couple of characters, you can press Tab for 
 completion of the name. For example, if a buffer is named example.txt, typing 
-:b ex and pressing Enter will switch to the example.txt buffer, provided no 
+`:b ex` and pressing Enter will switch to the example.txt buffer, provided no 
 other buffer matches "ex". If the command fails (because more than one buffer 
-matches), press : then Up arrow to recall the command, then press Tab to 
+matches), press `:` then Up arrow to recall the command, then press Tab to 
 choose the wanted name.
 
 JUMPING AROUND                                       *vwt-1663-jumping-around*
@@ -70,13 +70,14 @@ main keyboard).
 
 SPLITS                                                       *vwt-1663-splits*
 
-You can use :split and :vsplit to divide the current area into two windows 
-with the same buffer. If you supply an argument then one of the new windows is 
-created with the argument as a file name used for the buffer in the new window
+You can use `:split` and `:vsplit` to divide the current area into two 
+windows with the same buffer. If you supply an argument then one of the new 
+windows is created with the argument as a file name used for the buffer in the 
+new window
 
 To gain more control over how the splits are created, you can combine the 
-:vertical, :leftabove and :rightbelow commands. Also of use are the the :sfind 
-and :sb commands.
+`:vertical`, `:leftabove` and `:rightbelow` commands. Also of use are the the 
+`:sfind` and `:sb` commands.
 
 EXAMPLES                                                   *vwt-1663-examples*
 
@@ -91,7 +92,7 @@ Create a horizontal split and read file.txt into the buffer in the bottom window
 
 NAVIGATING SPLITS                                 *vwt-1663-navigating-splits*
 
-Use Ctrl-W followed by one of the hjkl movement keys.
+Use Ctrl-W followed by one of the `hjkl` movement keys.
 
 MANAGING BUFFERS                                   *vwt-1663-managing-buffers*
 
@@ -106,9 +107,9 @@ files; such as a combination of buffers, windows
 Here are the essential buffer commands:
 
 There are many plugins for managing buffers, but it is often easier to just 
-use the above commands. Enter :ls to list the buffers, then (while the list is 
-still displayed), enter a command like :b12 to display buffer 12 (no space is 
-needed).
+use the above commands. Enter `:ls` to list the buffers, then (while the list 
+is still displayed), enter a command like `:b12` to display buffer 12 (no 
+space is needed).
 
 SEE ALSO                                                   *vwt-1663-see-also*
     - Easier buffer switching [https://vim.fandom.com/wiki/Easier_buffer_switching] 

@@ -13,9 +13,9 @@ comfortably browse it. Use all fold commands of Vim to open/close parts of the
 directory tree, as used from standard file managers ( but even more flexible, 
 including moving in fold structure, executing commands on folds ... )
 
-The more, on Unix-like systems you can pipe the output of tools like find, 
-locate, tar -t, ... directly into Vim executing this script by using - as 
-filename.
+The more, on Unix-like systems you can pipe the output of tools like `find`, 
+`locate`, `tar -t`, ... directly into Vim executing this script by using `-` 
+as filename.
 
 Examples:
 
@@ -57,7 +57,7 @@ TO DO
     - Briefly explain purpose of tip and how to use (don't assume reader can 
       quickly determine what idea is). 
     - Include something like "On Unix systems..." near top as hint for new readers. 
-    - Mention how the - makes Vim input from stdin. 
+    - Mention how the `-` makes Vim input from stdin. 
 
 
 ==============================================================================

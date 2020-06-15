@@ -6,15 +6,15 @@ created 2006 · complexity intermediate · author Yakov Lerner · version 6.0
 
 ==============================================================================
 
-This command (PP) prints lines (like :p or :#) with the search pattern 
-highlighted. I use g//p quite often, and I was missing the highlighting of 
+This command (`PP`) prints lines (like `:p` or `:#`) with the search pattern 
+highlighted. I use `g//p` quite often, and I was missing the highlighting of 
 search pattern. To test this command, try something like:
 
 >
     :g/a/PP
 <
 
-If you supply the optional argument # (PP #) then line numbers are also 
+If you supply the optional argument `#` (`PP #`) then line numbers are also 
 printed.
 
 >
@@ -65,7 +65,7 @@ A small addition:
     nmap [I :execute 'SS g/\<' . expand( '<cword>' ) . '\>/PP #'<CR>
 <
 
-Changes the behaviour of the internal [I to highlight the text now.
+Changes the behaviour of the internal `[I` to highlight the text now.
 
 I noticed that it breaks on ^ and $ (if they're alone), also, but that 
 doesn't really happen that often.
@@ -78,8 +78,8 @@ I think you meant (without SS):
     nmap [I :execute 'g/\<' . expand( '<cword>' ) . '\>/PP #'<CR>
 <
 
-Yes, [I with highlighting is a great idea. Now the only thing lacking is the 
-jump numbers at the start of each line that are right-aligned.
+Yes, `[I` with highlighting is a great idea. Now the only thing lacking is 
+the jump numbers at the start of each line that are right-aligned.
 
 About choking on ^ and $ anchors, it actually poses minor practical problems. 
 Searching for ^ or $ alone is useful to indicate the whole line. In the case 

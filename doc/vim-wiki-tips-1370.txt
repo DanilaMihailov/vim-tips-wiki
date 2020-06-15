@@ -67,9 +67,9 @@ The 'autosave' option is in the todo list, but as of Vim 7.3.000 not yet impleme
 
 ==============================================================================
 
-Use :set paste to avoid autoindent applying to pasted text, in a terminal.
+Use `:set paste` to avoid autoindent applying to pasted text, in a terminal.
 
-Also, you may need :set noexpandtab to stop Vim from expanding tabs to 
+Also, you may need `:set noexpandtab` to stop Vim from expanding tabs to 
 spaces.
 
 This is not necessary; the :put command that is used in the function already inserts the text literally. -- Inkarkat 13:19, September 20, 2010 (UTC)

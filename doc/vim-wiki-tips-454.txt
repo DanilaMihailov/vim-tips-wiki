@@ -9,17 +9,17 @@ created 2002 · complexity basic · version 6.0
 Syntax highlighting allows files of a certain type (for example, Python 
 programs) to have parts of the text highlighted to distinctively show 
 keywords, comments, or other components. When editing, Vim can lose track of 
-the syntax and may highlight text incorrectly. The :syntax sync command 
+the syntax and may highlight text incorrectly. The `:syntax sync` command 
 controls how Vim synchronizes the syntax state that should apply at a 
 particular point in the text. The most accurate but slowest result occurs from 
 having Vim always rescan the buffer from the start. Often the syntax file (for 
-example, $VIMRUNTIME/syntax/python.vim) uses :syntax sync to specify the 
+example, `$VIMRUNTIME/syntax/python.vim`) uses `:syntax sync` to specify the 
 synchronization method to be used for a particular file type.
 
 HIGHLIGHT FROM START OF FILE            *vwt-454-highlight-from-start-of-file*
 
 For the most accurate but slowest result, set the syntax synchronization 
-method to fromstart. This can be done with an autocmd in your vimrc 
+method to `fromstart`. This can be done with an autocmd in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]:
 
 >
@@ -29,18 +29,18 @@ method to fromstart. This can be done with an autocmd in your vimrc
 SEARCH BACKWARDS FOR A HIGHLIGHT STARTING POINT *vwt-454-search-backwards-for-a-highlight-starting-point*
 
 For languages that supports C-style comments (e.g. C, C++, javascript and 
-more) it may be desirable to set the synchronization method to ccomment. This 
-method detects if the current position belongs to a multiline comment region. 
-By default, it is for the region Comment, but it can use any other region, 
-like javaScriptComment. Then it searches backward for the starting point /*, 
-and starts highlighting from there.
+more) it may be desirable to set the synchronization method to `ccomment`. 
+This method detects if the current position belongs to a multiline comment 
+region. By default, it is for the region `Comment`, but it can use any other 
+region, like `javaScriptComment`. Then it searches backward for the starting 
+point `/*`, and starts highlighting from there.
 
 >
     autocmd FileType javascript syn sync ccomment javaScriptComment
 <
 
 For the rest of multiline syntactic units and comment styles, take a look at 
-:h syn-sync-fourth. This example covers script blocks delimited by <script> 
+`:h syn-sync-fourth`. This example covers script blocks delimited by <script> 
 and </script> in a html document.
 
 First define the region, if not already defined:
@@ -49,8 +49,8 @@ First define the region, if not already defined:
     autocmd FileType html syn region javaScript start=+<script\_[^>]*>+ keepend end=+</script\_[^>]*>+me=s-1 contains=@htmlJavaScript,htmlCssStyleComment,htmlScriptTag,@htmlPreproc
 <
 
-And then, when vim detects that current position belongs to a javaScript 
-region, search backwards for <script and start highlighting from there.
+And then, when vim detects that current position belongs to a `javaScript` 
+region, search backwards for `<script` and start highlighting from there.
 
 >
     autocmd FileType html syn sync match htmlHighlight groupthere javaScript "<script"
@@ -60,7 +60,7 @@ HIGHLIGHT FROM AN AMOUNT BACKWARDS *vwt-454-highlight-from-an-amount-backwards*
 
 Vim supports highlighting synchronization by searching a variable amount 
 backwards from the current position for a recognized syntax state. An example 
-for C, from $VIMRUNTIME/syntax/c.vim, is:
+for C, from `$VIMRUNTIME/syntax/c.vim`, is:
 
 >
     if exists("c_minlines")
@@ -75,8 +75,8 @@ for C, from $VIMRUNTIME/syntax/c.vim, is:
     exec "syn sync ccomment cComment minlines=" . b:c_minlines
 <
 
-Where c_minlines is the minimum number of lines that Vim goes backward to try 
-to find the start of a comment for syntax highlighting. If the line which 
+Where `c_minlines` is the minimum number of lines that Vim goes backward to 
+try to find the start of a comment for syntax highlighting. If the line which 
 starts a comment is outside that range, highlighting may be incorrect. Your 
 vimrc [https://vim.fandom.com/wiki/Vimrc] can define this setting, for 
 example:
@@ -87,7 +87,7 @@ example:
 
 Larger values improve accuracy, but slow down syntax highlighting.
 
-Rather than using fromstart syntax highlighting, you may get accurate but 
+Rather than using `fromstart` syntax highlighting, you may get accurate but 
 faster results with something like:
 
 >
@@ -117,7 +117,7 @@ Sometimes, pressing Ctrl-L to redraw the screen helps.
 
 REFERENCES                                                *vwt-454-references*
     - :help |:syn-sync| 
-    - Search for 'sync' in your favorite syntax file in the $VIMRUNTIME/syntax 
+    - Search for 'sync' in your favorite syntax file in the `$VIMRUNTIME/syntax` 
       directory (use :echo expand('$VIMRUNTIME/syntax') to see its location). 
 
 
@@ -125,10 +125,10 @@ COMMENTS                                                    *vwt-454-comments*
 
 I have tweaked the wording, but haven't considered the content much. The 
 autocmd is a bit extreme (applying to all files). It's not clear why the 
-extract from syntax/c.vim is useful. When synching breaks for me, I find that 
-scrolling up/down often fixes it, with no need for the more elaborate ideas 
-here. This doesn't happen often, so I'm not sure what is actually needed, or 
-whether anything helpful can be said about scrolling. JohnBeckett 
+extract from `syntax/c.vim` is useful. When synching breaks for me, I find 
+that scrolling up/down often fixes it, with no need for the more elaborate 
+ideas here. This doesn't happen often, so I'm not sure what is actually 
+needed, or whether anything helpful can be said about scrolling. JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] 10:06, May 1, 2011 (UTC)
 
 Surprisingly, I've actually found :syntax sync fromstart to be faster than 

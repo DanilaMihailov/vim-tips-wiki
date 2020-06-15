@@ -7,8 +7,8 @@ created 2003 · complexity intermediate · author David Kalita · version 6.0
 ==============================================================================
 
 Usually I have open one window with source code and one with error codes 
-(command :copen). When I quit the source code quickfix window stays open. The 
-following causes the quickfix window to close automatically.
+(command `:copen`). When I quit the source code quickfix window stays open. 
+The following causes the quickfix window to close automatically.
 
 >
     au BufEnter * call MyLastWindow()

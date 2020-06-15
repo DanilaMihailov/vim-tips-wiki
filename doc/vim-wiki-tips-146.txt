@@ -6,10 +6,10 @@ created 2001 · complexity basic · author salmanhalim · version 5.7
 
 ==============================================================================
 
-I use the :split command a lot -- both to open a second window containing the 
-currently edited file and to edit a new file altogether (with the :split 
+I use the `:split` command a lot -- both to open a second window containing 
+the currently edited file and to edit a new file altogether (with the :split 
 <filename> option). however, I also like to be able to edit more than one file 
-and calling :sp multiple times is inconvenient. so, I created the following 
+and calling `:sp` multiple times is inconvenient. so, I created the following 
 command, function and abbreviation:
 
 >
@@ -29,9 +29,9 @@ command, function and abbreviation:
     cab sp Sp
 <
 
-This retains the behaviour of :sp in that I can still type :sp (the 
-abbreviation takes care of that). :Sp takes any number of files and opens them 
-all up, one after the other.
+This retains the behaviour of `:sp` in that I can still type `:sp` (the 
+abbreviation takes care of that). `:Sp` takes any number of files and opens 
+them all up, one after the other.
 
 The things I have noticed are that this causes 'sp' to be expanded to 'Sp' 
 everywhere, even in search patterns. Also, prepending 'vert' doesn't work.
@@ -101,7 +101,7 @@ glob:
 
 ==============================================================================
 
-This tip is superseded by :argadd:
+This tip is superseded by `:argadd`:
 
 >
     :argadd *.html

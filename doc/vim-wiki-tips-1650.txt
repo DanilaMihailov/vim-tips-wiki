@@ -26,11 +26,11 @@ example, you need Vim for a different version of Python.
 
 PREREQUISITES                                         *vwt-1650-prerequisites*
     - Vim version 7.3.x or 7.4.x is already installed. We only want to replace 
-      files gvim.exe and vim.exe. 
+      files `gvim.exe` and `vim.exe`. 
     - Python 2.x and Python 3.x are installed. Let's assume Python 2.7 is installed 
-      in C:/Python27 and Python 3.3 is installed in C:/Python33. The official Python 
-      installers from http://www.python.org [http://www.python.org] place the DLL 
-      files (python27.dll and python33.dll) in the system path, usually 
+      in `C:/Python27` and Python 3.3 is installed in `C:/Python33`. The official 
+      Python installers from http://www.python.org [http://www.python.org] place the 
+      DLL files (python27.dll and python33.dll) in the system path, usually 
       C:\Windows\system32 or C:\Windows\SysWOW64. 
     - These instructions are for compiling 32-bit Vim. Python must be 32-bit. 
 
@@ -47,13 +47,13 @@ installer, mingw-get-setup.exe, as of Oct 14, 2013.)
 Alternatively, install MinGW using installer or individual packages from the 
 TDM-GCC project: http://tdm-gcc.tdragon.net/ [http://tdm-gcc.tdragon.net/]
 
-Let's assume MingW is installed in E:\MinGW.
+Let's assume MingW is installed in `E:\MinGW`.
 
 STEP 2: DOWNLOAD VIM SOURCE FILES *vwt-1650-step-2:-download-vim-source-files*
     - Get Vim source files from one of the links below. The source version should 
       match your currently installed Vim version. - 
       https://github.com/b4winckler/vim [https://github.com/b4winckler/vim] This is 
-      a git clone of Vim's official Mercurial repository 
+      a `git` clone of Vim's official Mercurial repository 
       [http://code.google.com/p/vim/]. This may be the easiest way to get the most 
       recent Vim source with all patches included, because you can download 
       snapshots with a web browser without installing any other software. Google 
@@ -62,7 +62,7 @@ STEP 2: DOWNLOAD VIM SOURCE FILES *vwt-1650-step-2:-download-vim-source-files*
       [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial] - 
       ftp://ftp.vim.org/pub/vim/unix/ [ftp://ftp.vim.org/pub/vim/unix/] 
     - Extract or check out all in one directory, for example 
-      E:\devel\vim_sources\vim-7-4-050. 
+      `E:\devel\vim_sources\vim-7-4-050`. 
 
 
 STEP 3 (OPTIONAL): APPLY PATCHES   *vwt-1650-step-3-(optional):-apply-patches*
@@ -85,7 +85,7 @@ Apply the patch:
 
 STEP 4: BUILD GVIM.EXE AND VIM.EXE *vwt-1650-step-4:-build-gvim.exe-and-vim.exe*
 
-Create a batch file build_vim.bat with the following content. It will build 
+Create a batch file `build_vim.bat` with the following content. It will build 
 gvim.exe and vim.exe with Python 2.7 and Python 3.3 support, HUGE feature set, 
 no OLE. You can remove options PYTHON3, PYTHON3_VER, DYNAMIC_PYTHON3 if you 
 need only Python 2.7.
@@ -151,13 +151,13 @@ console window.
 STEP 5: REPLACE GVIM.EXE AND VIM.EXE WITH NEW FILES *vwt-1650-step-5:-replace-gvim.exe-and-vim.exe-with-new-files*
 
 Shut down all instances of Vim. Navigate to Vim program folder: 
-C:\Programs\Vim\vim73 or similar. Back up the original gvim.exe and vim.exe: 
-either rename them to gvim_original.exe, vim_original.exe or move them to 
-another folder.
+`C:\Programs\Vim\vim73` or similar. Back up the original `gvim.exe` and 
+`vim.exe`: either rename them to `gvim_original.exe`, `vim_original.exe` or 
+move them to another folder.
 
-Copy the new gvim.exe and vim.exe files to the Vim program folder (by copying 
-the files, the default permissions of the folder should be applied to the 
-copies). Start Vim and see if it works:
+Copy the new `gvim.exe` and `vim.exe` files to the Vim program folder (by 
+copying the files, the default permissions of the folder should be applied to 
+the copies). Start Vim and see if it works:
 
 >
     :py print 2**0.5

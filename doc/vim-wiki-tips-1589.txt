@@ -9,7 +9,7 @@ created
 ==============================================================================
 
 Vim can read and write environment variables within your current shell 
-session. Use a $ prefix to identify an environment variable, as in the 
+session. Use a `$` prefix to identify an environment variable, as in the 
 following examples.
 
 Display the contents of the PATH environment variable:
@@ -30,8 +30,8 @@ Change the PATH environment variable for the current session:
     :let $PATH = '/foo:/bar'
 <
 
-Insert the contents of the PATH environment variable into the buffer:Press i 
-to enter insert mode, press Ctrl-r then =$PATH and press Enter.
+Insert the contents of the PATH environment variable into the buffer:Press 
+`i` to enter insert mode, press Ctrl-r then `=$PATH` and press Enter.
 
 Append to the Existing Path.
 

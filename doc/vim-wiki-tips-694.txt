@@ -54,11 +54,11 @@ Unfortunately this tip interferes with MRU.vim script#521
 
 ==============================================================================
 
-If you don't want the backup files in the MRU, try using :w! {file}
+If you don't want the backup files in the MRU, try using `:w! {file}`
 
-instead of :sav! {file} \| :e
+instead of `:sav! {file} \| :e`
 
-Using :w[rite] with a filename writes the new file, but doesn't change the 
+Using `:w[rite]` with a filename writes the new file, but doesn't change the 
 name of the buffer.
 
 check also :file for buffer name problems

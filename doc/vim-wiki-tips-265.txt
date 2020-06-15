@@ -17,7 +17,7 @@ SUGGESTION 1                                            *vwt-265-suggestion-1*
     vim -c "help $1" -c only
 <
 
-Now name it, for example, vih and from the command line:
+Now name it, for example, `vih` and from the command line:
 
 >
     $ vih makeprg
@@ -37,7 +37,7 @@ rest. You only see your help text, just what you wanted to read.
 FROM 200904 TIP (NOW REMOVED)          *vwt-265-from-200904-tip-(now-removed)*
 
 Sometimes you may want to start Vim to look at a specific help page. I have 
-these two functions in my ~/.bashrc for this purpose.
+these two functions in my `~/.bashrc` for this purpose.
 
 To open the help page for a given word from the command line:
 
@@ -59,11 +59,11 @@ quickfix window)
 <
 
 Now you can invoke the function with your search and Vim opens the desired 
-help page. With the ;vimhelpgrep function it opens an additional quickfix 
+help page. With the `;vimhelpgrep` function it opens an additional quickfix 
 window and goes to the first hit.
 
 TO DO
-    - The two commands above include "au! VimEnter *" which removes all VimEnter 
+    - The two commands above include `"au! VimEnter *"` which removes all VimEnter 
       autocommands. 
     - That is probably to remove the effect of something in the author's vimrc, but 
       is not required in general. 
@@ -79,7 +79,7 @@ These tips attempt to deal with making your own help text:
     - 823 Add your note files to Vim help |vwt-823| 
 
 
-These tips relate to using vim -c:
+These tips relate to using `vim -c`:
     - 36 Using Gnu-info help in vim |vwt-36| 
     - 167 Using vim as a man-page viewer under Unix |vwt-167| 
     - 265 Fast help in full window |vwt-265| 

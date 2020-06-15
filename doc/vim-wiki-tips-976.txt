@@ -9,9 +9,9 @@ created 2005 · complexity intermediate · author Suresh Govindachar · version
 
 This tip requires Perl and overwrites the unnamed register.
 
-The output of :ls is sorted by buffer number.
+The output of `:ls` is sorted by buffer number.
 
-The following command results in a user defined command named :Ls (all user 
+The following command results in a user defined command named `:Ls` (all user 
 defined commands need to start with a capital letter).
 
 The output of :Ls is the same as the output of :ls except that the output is 

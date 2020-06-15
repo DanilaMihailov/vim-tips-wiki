@@ -63,11 +63,11 @@ Otherwise, it's in the half you kept. Continue disabling or removing half of
 the "bad" group until you find the plugin causing the issue. This lets you 
 search over a hundred plugins in only 7 or so steps.
 
-Alternatively, start Vim with --noplugin -D to step through all the startup 
+Alternatively, start Vim with `--noplugin -D` to step through all the startup 
 scripts (this can be tedious). If you are running a GUI version, debugging 
-only starts after the GUI is up. Put a gui command in your .vimrc to fix this; 
-it will start the debugging right after that command, and let you step through 
-.vimrc.
+only starts after the GUI is up. Put a `gui` command in your .vimrc to fix 
+this; it will start the debugging right after that command, and let you step 
+through .vimrc.
 
 OTHER NOTES                                              *vwt-244-other-notes*
 

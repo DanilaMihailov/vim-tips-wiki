@@ -109,13 +109,13 @@ Does anyone have a similar mapping for colemak? DarwinSurvivor
 While working out what colemak was, I found its FAQ which mentions Vim near the bottom. JohnBeckett 03:17, April 22, 2011 (UTC)
 
 For people who aren't already highly experienced with vim, it seems to me 
-that remapping t->j, n->k, and s->l (+ caps) makes a world of sense. This puts 
-all of the cursor movement keys "right at home" ;). This seems much more 
+that remapping t->j, n->k, and s->`l` (+ caps) makes a world of sense. This 
+puts all of the cursor movement keys "right at home" ;). This seems much more 
 sensible than the vim standard, which owes only to some arrows printed on the 
 hjk&l keys of Bill Joy's terminal 
 [http://www.tentacle.franken.de/adm3a/adm3a-hjkl.jpg]. Then, as necessary, 
-remap the j, k, and l keys to pick up t, n, and s. I haven't ever used t or s 
-in vim, so I just remapped l to n (+ caps). I haven't actually put this to 
+remap the j, k, and `l` keys to pick up t, n, and s. I haven't ever used t or 
+s in vim, so I just remapped `l` to n (+ caps). I haven't actually put this to 
 much use, though.
 
 I'm surprised you haven't found 't' useful, it's great for things like "dt(" (delete until the next paren). Up until a couple months ago I'd agree with your dismissal of 's', but recently I've found that using 's' with a count makes it very useful for small changes, e.g. 3s at the beginning of abc_func_call deletes the 3 letters "abc" and puts you into insert mode. Granted, c3l does the same thing. The point remains, however, that almost the entire keyboard is used in Vim, and you will doubtless lose some function or another if you start remapping only a few keys. This is why the main body of the tip recommends a full remapping, if any remapping is attempted at all. --Fritzophrenic 14:58, April 28, 2011 (UTC)

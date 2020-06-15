@@ -10,7 +10,7 @@ created
 ==============================================================================
 
 This tip explains how to cycle between several registers, while accessing 
-their content through the standard "unnamed" register (@").
+their content through the standard "unnamed" register (`@"`).
 
 To easily swap between different registers it is convenient to map a key to 
 move the registers in a "circular list". The following mapping illustrates the 
@@ -20,10 +20,10 @@ idea:
     :nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
 <
 
-Now you can cycle between the registers "", "a, "b by pressing \s (assuming 
-the default backslash for the leader key).
-    - :let @a=@b copies register "b to register "a. 
-    - | separates Ex commands; \ escapes the pipe for the map command. 
+Now you can cycle between the registers `""`, `"a`, `"b` by pressing `\s` 
+(assuming the default backslash for the leader key).
+    - `:let @a=@b` copies register `"b` to register `"a`. 
+    - `|` separates Ex commands; `\` escapes the pipe for the map command. 
 
 
 This is also useful if you want to copy between the xclipboard and the 

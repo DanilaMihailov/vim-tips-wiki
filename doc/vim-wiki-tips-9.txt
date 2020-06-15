@@ -7,13 +7,13 @@ created 2001 · complexity basic · author · version 5.7
 ==============================================================================
 
 To display the definition of a variable, place the cursor on the variable and 
-use the [i command.
+use the `[i` command.
 
 To display a macro definition, place the cursor on the macro name and use the 
-[d command.
+`[d` command.
 
 To display all the lines containing the variable name under the cursor, use 
-the [I command.
+the `[I` command.
 
 These commands work by literally searching for the text. So they work in 
 most, but not all, cases.
@@ -53,7 +53,7 @@ REFERENCES                                                  *vwt-9-references*
 
 SEARCH IN FILES                                        *vwt-9-search-in-files*
 
-Use :grep or :vimgrep to search for a pattern in files. See Find in files 
+Use `:grep` or `:vimgrep` to search for a pattern in files. See Find in files 
 within Vim |vwt-1543|.
 
 >
@@ -63,8 +63,8 @@ within Vim |vwt-1543|.
 
 You can omit <CR> for manual changing the file pattern before searching.
 
-If you have configured set grepprg=mygrep\ -n then you can use quickfix mode 
-for jumping to the found locations.
+If you have configured `set grepprg=mygrep\ -n` then you can use quickfix 
+mode for jumping to the found locations.
 
 COMMENTS                                                      *vwt-9-comments*
 

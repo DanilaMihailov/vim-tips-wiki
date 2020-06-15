@@ -15,9 +15,9 @@ changed by putting this in your vimrc file:
     set whichwrap+=<,>,h,l,[,]
 <
 
-This causes the left and right arrow keys, as well as h and l, to wrap when 
-used at beginning or end of lines. ( < > are the cursor keys used in normal 
-and visual mode, and [ ] are the cursor keys in insert mode).
+This causes the left and right arrow keys, as well as `h` and `l`, to wrap 
+when used at beginning or end of lines. ( < > are the cursor keys used in 
+normal and visual mode, and `[ ]` are the cursor keys in insert mode).
 
 REFERENCES                                                *vwt-137-references*
     - :help 'whichwrap' 

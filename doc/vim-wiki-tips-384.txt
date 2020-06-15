@@ -97,7 +97,7 @@ Pros
 Cons
     - Somehow large (200+ lines of non boilerplate code) 
     - Depends on a library plugin (lh-vim-lib) 
-    - A few features from original a.vim have been removed (:IH & co) 
+    - A few features from original a.vim have been removed (`:IH` & co) 
 
 
 USING CTAGS                                              *vwt-384-using-ctags*
@@ -126,7 +126,7 @@ Pros
 
 Cons
     - You have to modify filetype plugins (not that bad). 
-    - :find can be slow, especially when the file you are switching to does not 
+    - `:find` can be slow, especially when the file you are switching to does not 
       exist. 
     - Error when file does not exist. 
 
@@ -152,10 +152,11 @@ to switch to the corresponding source file, and
 
 to switch to the corresponding header file.
 
-The built-in :find command will search (recursively or not) for the specified 
-file anywhere in your Vim 'path' setting. The :sf is short for split-find, 
-meaning that if Vim finds your file it will open it in a split window. Simply 
-add the vert keyword before sf if you want a vertical split.
+The built-in `:find` command will search (recursively or not) for the 
+specified file anywhere in your Vim 'path' setting. The `:sf` is short for 
+split-find, meaning that if Vim finds your file it will open it in a split 
+window. Simply add the `vert` keyword before `sf` if you want a vertical 
+split.
 
 The mappings can (and indeed, should) be made local to buffer with a <buffer> 
 modifier.
@@ -195,7 +196,7 @@ when you edit them.
 SINGLE LINE SOLUTION                            *vwt-384-single-line-solution*
 
 Pros
-    - Only takes one line in .vimrc, and so is very quick to set up 
+    - Only takes one line in `.vimrc`, and so is very quick to set up 
 
 
 Cons
@@ -203,8 +204,8 @@ Cons
     - Does not handle multiple extension styles simultaneously 
 
 
-For programmers that want to switch from foo.cpp to foo.h (or vice versa) on 
-a single key stroke, this might help:
+For programmers that want to switch from `foo.cpp` to `foo.h` (or vice versa) 
+on a single key stroke, this might help:
 
 >
     map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
@@ -226,7 +227,7 @@ Pros
 
 
 Cons
-    - :find can be slow. 
+    - `:find` can be slow. 
     - overwrites path 
 
 
@@ -327,8 +328,8 @@ go there with "ggW" and tell Vim to open it with "gf" (go back with
 "CTRL_o"). Add "set path=.,<relative include dir>" for searching for header in 
 particular directories. For more information do ":help file-searching".
 
-Bonus With the cursor on "somefile.h", type CTRL-W f to split the window and 
-show the original C program and the header file.
+Bonus With the cursor on `"somefile.h"`, type CTRL-W f to split the window 
+and show the original C program and the header file.
 
 Pro: No need of changing anything – works with every Vim.
 

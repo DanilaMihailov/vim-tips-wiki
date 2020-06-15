@@ -62,7 +62,7 @@ The docs say to use:
 That extension does not support multibyte language. When writing mail in 
 English, it works well.
 
-I copy the content from Thunderbird to Vim, and then :set syntax=mail, then 
+I copy the content from Thunderbird to Vim, and then `:set syntax=mail`, then 
 edit it, then paste it back to Thunderbird.
 
 ==============================================================================

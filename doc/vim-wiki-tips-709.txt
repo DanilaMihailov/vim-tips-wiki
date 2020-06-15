@@ -7,7 +7,8 @@ created 2004 · complexity basic · author Yakov Lerner · version 6.0
 ==============================================================================
 
 If you create lots of scripts, you can arrange for the executable bit to be 
-automagically set on save if the file begins with '#!/usr/bin/' or '#!/bin'.
+automagically set on save if the file begins with '`#!/usr/bin/`' or 
+'`#!/bin`'.
 
 >
     function! MySetExecutableIfScript(line1, current_file)
@@ -21,7 +22,7 @@ automagically set on save if the file begins with '#!/usr/bin/' or '#!/bin'.
 
 COMMENTS                                                    *vwt-709-comments*
 
-WARNING: autocommands with constructs like 'if condition | clause | endif' 
+WARNING: autocommands with constructs like '`if condition | clause | endif`' 
 are problematic for me, and apparently for others given the comments below. 
 They seem to have the potential to make other autocommands declared later not 
 happen. I recommend having you autocommand call a function and doing your 

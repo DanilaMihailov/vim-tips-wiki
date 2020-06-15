@@ -16,7 +16,7 @@ USING FILE ASSOCIATIONS [HTTPS://VIM.FANDOM.COM/WIKI/WINDOWS_FILE_ASSOCIATIONS] 
 To automatically open a file in a Vim tab with a double-click or other "Open" 
 action, you need to set up file associations 
 [https://vim.fandom.com/wiki/Windows_file_associations]. Open a command prompt 
-window (Start, Run cmd.exe). This example uses C source-code files – modify 
+window (Start, Run `cmd.exe`). This example uses C source-code files – modify 
 the commands for whatever file types you want. At command prompt, type (you 
 may need to change the path to suit your system):
 
@@ -66,13 +66,13 @@ another instance using the code example given earlier.
 <
 
 SendTo menu items for specific Vim instances can be created in the same way, 
-by adding a --servername option before the --remote-tab-silent in the target 
-for the shortcut created in the section above.
+by adding a `--servername` option before the `--remote-tab-silent` in the 
+target for the shortcut created in the section above.
 
 Note that the .txt extension defaults to the txtfile association on Windows. 
 In fact, many extensions are already associated with txtfile, so just setting 
 the ftype as above will automatically set the correct behavior for several 
-filetypes, more of which (such as .log) can be added with assoc as shown.To see a list of current associations on your system, type assoc with no arguments in a cmd window. Or, for easier viewing, read the list into Vim with 
+filetypes, more of which (such as .log) can be added with `assoc` as shown.To see a list of current associations on your system, type `assoc` with no arguments in a cmd window. Or, for easier viewing, read the list into Vim with 
 
 >
     :r !assoc

@@ -15,8 +15,8 @@ updated. Instead, use the techniques discussed here.
 DOCUMENTATION                                           *vwt-24-documentation*
 
 Here are some pointers to the Vim documentation on syntax highlighting.
-    - I want *.foo files to be highlighted like HTML files: :help |new-filetype| 
-    - I want to define a syntax file for *.bar files. Read the above and also: 
+    - I want `*.foo` files to be highlighted like HTML files: :help |new-filetype| 
+    - I want to define a syntax file for `*.bar` files. Read the above and also: 
       :help |mysyntaxfile| 
     - I want to make a few changes to the existing syntax highlighting: :help 
       |mysyntaxfile-add| 
@@ -26,18 +26,18 @@ Here are some pointers to the Vim documentation on syntax highlighting.
 
 PYTHON TRIPLE-QUOTED COMMENTS           *vwt-24-python-triple-quoted-comments*
 
-In Vim 7.3 the file vim73/syntax/python.vim provides syntax highlighting for 
-Python files. That file (correctly) treats """...""" as a string and 
-highlights it accordingly. If you prefer, instances of """...""" or '''...''' 
-that start on the line following a line ending with a colon can be treated as 
-a comment. To do that, create file python.vim in your "after" syntax directory 
-as in the following. The next Python file you open should treat triple-quoted 
-doc strings in functions as comments (assuming your vimrc 
-[https://vim.fandom.com/wiki/Vimrc] includes commands like filetype indent 
-plugin on and syntax on).
+In Vim 7.3 the file `vim73/syntax/python.vim` provides syntax highlighting 
+for Python files. That file (correctly) treats `"""..."""` as a string and 
+highlights it accordingly. If you prefer, instances of `"""..."""` or 
+'''...''' that start on the line following a line ending with a colon can be 
+treated as a comment. To do that, create file `python.vim` in your "after" 
+syntax directory as in the following. The next Python file you open should 
+treat triple-quoted doc strings in functions as comments (assuming your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] includes commands like `filetype indent 
+plugin on` and `syntax on`).
 
-Add the following to file ~/.vim/after/syntax/python.vim (Unix) or 
-$HOME/vimfiles/after/syntax/python.vim (Windows)—you may need to create the 
+Add the following to file `~/.vim/after/syntax/python.vim` (Unix) or 
+`$HOME/vimfiles/after/syntax/python.vim` (Windows)—you may need to create the 
 directories and the file.
 
 >

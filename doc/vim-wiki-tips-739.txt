@@ -22,7 +22,7 @@ Now here is the statusline:
     set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 <
 
-This is true for any option set using the :set command. It is possible to 
+This is true for any option set using the `:set` command. It is possible to 
 work around this using single-quoted strings and the let command 
 [https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let].
 

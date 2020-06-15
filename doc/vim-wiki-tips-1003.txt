@@ -12,10 +12,10 @@ have it open in Vim. This "double-click to open" is commonly referred to as a
 "file association" and is fairly easy to set up in Microsoft Windows. You can 
 use the "Open With..." menu in Windows to set up a basic association, but that 
 will not allow you to specify any command-line arguments to Vim, such as 
---remote-silent to open with an existing Vim instance. In order to fully 
+`--remote-silent` to open with an existing Vim instance. In order to fully 
 specify the action to take when double-clicking a file, Windows provides the 
-ftype and assoc command-line tools. These tools affect all users. You need to 
-use the registry if you want to create #User-specific file associations 
+`ftype` and `assoc` command-line tools. These tools affect all users. You need 
+to use the registry if you want to create #User-specific file associations 
 |vwt-1003-user-specific-file-associations|.
 
 To use, simply open a Windows command prompt and type something like the 
@@ -27,20 +27,20 @@ following:
 <
 
 Note: If the above commands are entered in a batch file, the percent sign 
-must be escaped (replace "%1" with "%%1").
+must be escaped (replace `"%1"` with `"%%1"`).
 
 This particular command sequence will set up Windows to open any files with a 
 .php extension in an existing gvim window 
 [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows] (or it 
 will open new gvim window if there is no already opened gvim window).
 
-In general, the assoc command is used to associate a given file extension 
-with a filetype. The ftype command is used to tell Windows what to do to open 
-files of a given file type. You can associate any number of file extensions 
-with a given filetype, which makes it easy to set up a single action for 
-similar types of files. For example, the following will treat any files with 
-extensions .c, .h, .pl, or .py as "sourcecode", which it will launch in Vim as 
-we did with PHPFile above:
+In general, the `assoc` command is used to associate a given file extension 
+with a filetype. The `ftype` command is used to tell Windows what to do to 
+open files of a given file type. You can associate any number of file 
+extensions with a given filetype, which makes it easy to set up a single 
+action for similar types of files. For example, the following will treat any 
+files with extensions .c, .h, .pl, or .py as "sourcecode", which it will 
+launch in Vim as we did with PHPFile above:
 
 >
     assoc .c=sourcecode
@@ -51,24 +51,24 @@ we did with PHPFile above:
 <
 
 Note: If the above commands are entered in a batch file, the percent sign 
-must be escaped (replace "%1" with "%%1").
+must be escaped (replace `"%1"` with `"%%1"`).
 
 HOW IT WORKS                                           *vwt-1003-how-it-works*
 
-Both the ftype and assoc commands work by creating entries in a specific 
+Both the `ftype` and `assoc` commands work by creating entries in a specific 
 registry location which Windows will check for various actions taken on a 
 file. The easiest and safest way to create these entries is to use the 
 command-line tools, but it is possible to create them by hand.
 
-assoc .c=sourcecode will create a registry key at HKEY_CLASSES_ROOT\.c that 
-has a (Default) value of sourcecode. When you double-click on a .c file, 
-Windows will see this key and look for another key to figure out what to do 
-with a sourcecode file.
+`assoc .c=sourcecode` will create a registry key at `HKEY_CLASSES_ROOT\.c` 
+that has a `(Default)` value of `sourcecode`. When you double-click on a .c 
+file, Windows will see this key and look for another key to figure out what to 
+do with a `sourcecode` file.
 
-ftype sourcecode="C:\Program Files\Vim\vim72\gvim.exe" "%1" will set up 
-another registry entry, in HKEY_CLASSES_ROOT\sourcecode\Shell\Open\command 
-with (Default) value of "C:\Program Files\Vim\vim72\gvim.exe" "%1". This entry 
-could do with more inspection.
+`ftype sourcecode="C:\Program Files\Vim\vim72\gvim.exe" "%1"` will set up 
+another registry entry, in `HKEY_CLASSES_ROOT\sourcecode\Shell\Open\command` 
+with `(Default)` value of `"C:\Program Files\Vim\vim72\gvim.exe" "%1"`. This 
+entry could do with more inspection.
 
 ASSOCIATING VIM WITH OTHER ACTIONS *vwt-1003-associating-vim-with-other-actions*
 
@@ -76,17 +76,18 @@ Consider the .html file extension. For most users, it would not make sense to
 open a .html file in Vim when double-clicking the file. Most users would want 
 the file to open in a web browser when double-clicking, but being able to 
 automatically edit the file in Vim when modifying the file would be a nice 
-thing to be able to do. This is where the registry entry created by ftype 
+thing to be able to do. This is where the registry entry created by `ftype` 
 comes in.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
 There are no easy command-line or GUI tools to do this, but you can set up 
-other actions, such as "edit", in the same registry area that ftype uses. 
+other actions, such as "edit", in the same registry area that `ftype` uses. 
 Simply replace the "open" portion of the registry key path with the desired 
 action (in this case, "edit"). For example, assume that .html files have been 
-associated with a filetype called htmlfile. Then, to keep the existing 
+associated with a filetype called `htmlfile`. Then, to keep the existing 
 double-click action in place, but add Vim as the "edit" action, give the 
-following registry key a (Default) value of "C:\Program 
-Files\Vim\vim72\gvim.exe" "%1": HKEY_CLASSES_ROOT\htmlfile\Shell\Edit\command
+following registry key a `(Default)` value of `"C:\Program 
+Files\Vim\vim72\gvim.exe" "%1"`: 
+`HKEY_CLASSES_ROOT\htmlfile\Shell\Edit\command`
 
 Note: in Windows XP, there is a GUI for doing this, accessible through the 
 "Folder Options" dialog.
@@ -112,8 +113,8 @@ these tools to make files launch in Vim.
 Luckily, although Windows does not provide a GUI or even easy command-line 
 tools to edit or change it, Windows 2000 and above provide a place in the 
 registry that can be used to store user-specific file associations. This place 
-is HKEY_CURRENT_USER\Software\Classes. Creating a file association here uses 
-two steps, which duplicate what the assoc and ftype commands do in their 
+is `HKEY_CURRENT_USER\Software\Classes`. Creating a file association here uses 
+two steps, which duplicate what the `assoc` and `ftype` commands do in their 
 registry area. For an example, we will associate the ".c" extension to the 
 "sourcecode" filetype, and then tell Windows to launch anything in the 
 "sourcecode" filetype in gvim version 7.2, opening the file in a new tab 
@@ -125,21 +126,22 @@ STEP 1: ASSOCIATE THE FILE EXTENSION WITH A FILE TYPE *vwt-1003-step-1:-associat
 To do this, you need only create a registry key with the name of the file 
 extension desired and a default value of the filetype you want to associate 
 with it. For our example, you would create the key, 
-HKEY_CURRENT_USER\Software\Classes\.c (using regedit or the command-line "reg 
-add" command |vwt-1003-scripting-the-additions|). In regedit, you can see a 
-(Default) value for this key after creating it. Set the value to sourcecode.
+`HKEY_CURRENT_USER\Software\Classes\.c` (using `regedit` or the command-line 
+"reg add" command |vwt-1003-scripting-the-additions|). In regedit, you can see 
+a (Default) value for this key after creating it. Set the value to 
+`sourcecode`.
 
 STEP 2: ASSOCIATE THE FILETYPE WITH GVIM *vwt-1003-step-2:-associate-the-filetype-with-gvim*
 
 The next step is to tell Windows what to do with your new filetype, just like 
-the ftype command.
+the `ftype` command.
 
 First, create the key 
-HKEY_CURRENT_USER\Software\Classes\sourcecode\shell\open\command. This key 
+`HKEY_CURRENT_USER\Software\Classes\sourcecode\shell\open\command`. This key 
 will also have a (Default) value, which you need to set to the program used to 
-open files of this type. For example, you could set it to "C:\Program 
-Files\Vim\vim72\gvim.exe" --remote-tab-silent "%1" to open .c files (and other 
-sourcecode typed files) in a new tab in the default gvim.
+open files of this type. For example, you could set it to `"C:\Program 
+Files\Vim\vim72\gvim.exe" --remote-tab-silent "%1"` to open .c files (and 
+other `sourcecode` typed files) in a new tab in the default gvim.
 
 Just as we explained above, you can specify other actions 
 |vwt-1003-associating-vim-with-other-actions| to take besides opening on a 
@@ -148,14 +150,14 @@ registry key path.
 
 SCRIPTING THE ADDITIONS                     *vwt-1003-scripting-the-additions*
 
-Windows does provide a command-line utility for editing the registry: reg 
-add. You can use this tool from a CMD prompt, but it is probably more useful 
+Windows does provide a command-line utility for editing the registry: `reg 
+add`. You can use this tool from a CMD prompt, but it is probably more useful 
 to create a batch file containing commands to set all your desired file 
 associations.
 
 You need to escape double-quote characters with a backslash. To set the 
-(Default) value we need, provide an empty string as the value name using /v 
-"". In a batch file, you also need to escape the '%' character with a second 
+(Default) value we need, provide an empty string as the value name using `/v 
+""`. In a batch file, you also need to escape the '%' character with a second 
 '%' character. With this in mind, the following lines in a batch file will set 
 up the file association given in our example above:
 
@@ -167,7 +169,7 @@ up the file association given in our example above:
 SEE ALSO                                                   *vwt-1003-see-also*
     - Launch files in new tabs under Windows#Using File Associations 
       [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows#Using_File_Associations] 
-      demonstrating clever use of the --remote family of command-line options as 
+      demonstrating clever use of the `--remote` family of command-line options as 
       part of a file association. 
     - Special-use file associations |vwt-934| for when you don't just want to edit 
       a file, but do something else with it in Vim. 
@@ -302,13 +304,14 @@ July 2009 (UTC)
 
 ==============================================================================
 
-The HKEY_CLASSES_ROOT key provides a merged view of 
-HKEY_LOCAL_MACHINE\Software\Classes and HKEY_CURRENT_USER\Software\Classes.
+The `HKEY_CLASSES_ROOT` key provides a merged view of 
+`HKEY_LOCAL_MACHINE\Software\Classes` and 
+`HKEY_CURRENT_USER\Software\Classes`.
 
-When reading, the HKEY_CURRENT_USER settings have priority over the 
-HKEY_LOCAL_MACHINE settings.
+When reading, the `HKEY_CURRENT_USER` settings have priority over the 
+`HKEY_LOCAL_MACHINE` settings.
 
-If you write values to a key under HKEY_CLASSES_ROOT, the values will:
+If you write values to a key under `HKEY_CLASSES_ROOT`, the values will:
 
 --December 23, 2012
 

@@ -27,7 +27,7 @@ result is as if the characters in the string had been pressed. The expression
 compares col('.') (the cursor column position, where 1 is the first column) 
 and match(getline('.'),'\S')+1 (the index of the first non-whitespace 
 character in the current line; 1 is added because the index starts at 0). If 
-both sides of "==" are equal, the result is '0' (move to start of line); 
+both sides of "`==`" are equal, the result is '0' (move to start of line); 
 otherwise it is '^' (move to first nonblank character).
 
 In insert mode, the second line applies and if Home is pressed the result is 
@@ -36,9 +36,9 @@ as a normal-mode command, so the Home which follows invokes the normal mode
 mapping.
 
 The simple mappings have two deficiencies:
-    - If there are no non-whitespace characters, match() returns −1 which becomes 0 
-      after adding 1, and that value never equals the result from col('.'). 
-      Therefore the mapping always performs ^. 
+    - If there are no non-whitespace characters, `match()` returns −1 which becomes 
+      0 after adding 1, and that value never equals the result from col('.'). 
+      Therefore the mapping always performs `^`. 
     - The mapping does not account for the case where the 'wrap' option is on and 
       long lines are wrapped. In that case, pressing Home will jump to the first 
       nonblank character or the start of the line, whereas moving to the start of 
@@ -77,7 +77,7 @@ will move to the start of the line.
 SEE ALSO                                                    *vwt-315-see-also*
     - homeLikeVC++.vim 
       [https://github.com/LucHermitte/lh-cpp/blob/master/plugin/homeLikeVC%2B%2B.vim] 
-      provides smart Home and smart End using @= rather than <expr>, which should 
+      provides smart Home and smart End using `@=` rather than <expr>, which should 
       work on versions prior to Vim 7 
 
 

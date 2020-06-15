@@ -18,11 +18,11 @@ cwindow:
     map <Leader>cp :cwindow<CR>:cp<CR><c-w>bz<CR><CR>
 <
 
-and when you use \cc (or whatever your leader character is + cc), \cn or \cp, 
-it will do what :cc, :cn and :cp usually did, with the added bonus of showing 
-the entire contents of multiline errors. this is especially useful for javac 
-via ant, and it's obnoxious to keep typing <c-w>b<CR> every time i do a :cn, 
-so i mapped this.
+and when you use `\cc` (or whatever your leader character is + cc), `\cn` or 
+`\cp`, it will do what :cc, :cn and :cp usually did, with the added bonus of 
+showing the entire contents of multiline errors. this is especially useful for 
+javac via ant, and it's obnoxious to keep typing <c-w>b<CR> every time i do a 
+:cn, so i mapped this.
 
 Detailed explanation:
     - ":cwindow<CR>" ensures that the quickfix window is shown. 

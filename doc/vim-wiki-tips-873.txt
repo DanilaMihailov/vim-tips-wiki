@@ -14,8 +14,8 @@ switching [https://vim.fandom.com/wiki/Easier_buffer_switching].
 
 CYCLING THROUGH LISTED BUFFERS        *vwt-873-cycling-through-listed-buffers*
 
-The commands :bnext and :bprevious will switch to the next or previous buffer 
-in the buffer list. So a couple of useful maps for cycling through your 
+The commands `:bnext` and `:bprevious` will switch to the next or previous 
+buffer in the buffer list. So a couple of useful maps for cycling through your 
 buffers are:
 
 >
@@ -45,9 +45,9 @@ and then use the first set of maps to quickly navigate to it.
 
 INCLUDING UNLISTED BUFFERS IN THE CYCLE *vwt-873-including-unlisted-buffers-in-the-cycle*
 
-The :bnext and :bprevious commands skip unlisted buffers, which can prove 
+The `:bnext` and `:bprevious` commands skip unlisted buffers, which can prove 
 frustrating when buffers have been opened to view directory listings, or when 
-you want to view a buffer previously deleted with :bdelete. Consider the 
+you want to view a buffer previously deleted with `:bdelete`. Consider the 
 following example.
 
 >
@@ -78,12 +78,12 @@ opposite direction.
 However, this does not always work, because there might be holes in the 
 buffer numbers. For example, the buffer list may contain buffer numbers 1, 2, 
 6, 9, 10 and 14. Using the above map for <C-n> from buffer #6, would produce 
-the error message "E86: Buffer 7 does not exist". Also, unlike :bnext and 
-:bprevious, the above maps will cycle from non-help buffers to help buffers 
+the error message "E86: Buffer 7 does not exist". Also, unlike `:bnext` and 
+`:bprevious`, the above maps will cycle from non-help buffers to help buffers 
 and vice-versa.
 
 A solution is to write a function searching for the next buffer with 
-bufexists(), and checking its filetype with getbufvar().
+`bufexists()`, and checking its filetype with `getbufvar()`.
 
 >
     function! SwitchToNextBuffer(incr)
@@ -115,14 +115,14 @@ bufexists(), and checking its filetype with getbufvar().
 LEAVING MODIFIED BUFFERS                    *vwt-873-leaving-modified-buffers*
 
 If Vim is running with its default settings, or in vi compatible mode, the 
-commands :bnext, :bprevious and :buffer won't abandon the buffer until any 
-changes have been written. There are a few ways this can be changed.
-    - The commands can be called with a trailing !, for example, :bnext!, which 
+commands `:bnext`, `:bprevious` and `:buffer` won't abandon the buffer until 
+any changes have been written. There are a few ways this can be changed.
+    - The commands can be called with a trailing !, for example, `:bnext!`, which 
       will discard any changes made to the buffer. 
-    - Setting the hidden option (:set hidden) will keep the changes to the buffer 
+    - Setting the hidden option (`:set hidden`) will keep the changes to the buffer 
       without writing them to the file. This affects all commands and all buffers. 
-    - Setting either the autowrite or the autowriteall options (:set autowrite or 
-      :set autowriteall) will automatically save the changes made to the buffer. 
+    - Setting either the autowrite or the autowriteall options (`:set autowrite` or 
+      `:set autowriteall`) will automatically save the changes made to the buffer. 
 
 
 REFERENCES                                                *vwt-873-references*
@@ -161,7 +161,7 @@ The following is a tweaked version of code from a proposed new tip
 
 Press the mapped keys to switch to the next buffer and display a list of all 
 buffers to indicate where you are. Problems: The list of buffers is often not 
-visible (it is overwritten by the :bnext message); if have many buffers, the 
+visible (it is overwritten by the `:bnext` message); if have many buffers, the 
 display is not helpful; after closing several buffers, the display includes 
 unhelpful blank entries. JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] 07:03, April 27, 2010 (UTC)

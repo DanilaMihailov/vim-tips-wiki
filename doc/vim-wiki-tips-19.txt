@@ -108,10 +108,10 @@ Finally, you can change the color used for the line numbers. For example:
 RELATIVE LINE NUMBERS                           *vwt-19-relative-line-numbers*
 
 For some commands, it is easier to know how many lines a given bit of text 
-is, relative to the current cursor position. For example, moving with j and k 
-with a count like 5j; or deleting 8 lines with 8dd can be easier if you have 
-an at-a-glance view of distance from the cursor line instead of distance from 
-the top of the file as with :set number.
+is, relative to the current cursor position. For example, moving with `j` and 
+`k` with a count like `5j`; or deleting 8 lines with `8dd` can be easier if 
+you have an at-a-glance view of distance from the cursor line instead of 
+distance from the top of the file as with `:set number`.
 
 To display line numbers relative to the line with the cursor, use:
 
@@ -126,10 +126,10 @@ or
 <
 
 'relativenumber' is not a complete replacement for 'number'; rather, these 
-two options interact so that you can show only relative numbers (number off 
-and relativenumber on), only absolute line numbers (relativenumber off and 
-number on), or show the absolute number on the cursor line and relative 
-numbers everywhere else (both relativenumber and number on).
+two options interact so that you can show only relative numbers (`number` off 
+and `relativenumber` on), only absolute line numbers (`relativenumber` off and 
+`number` on), or show the absolute number on the cursor line and relative 
+numbers everywhere else (both `relativenumber` and `number` on).
 
 REFERENCES                                                 *vwt-19-references*
     - :help 'number' 

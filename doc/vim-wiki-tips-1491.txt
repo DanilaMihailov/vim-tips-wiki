@@ -80,12 +80,12 @@ And for those who want to use Vim from Tortoise:
 
 Go to tortoisesvn, settings
 
-Diff viewer : gvim -d %base %mine
+Diff viewer : `gvim -d %base %mine`
 
-Diff viewer in tab in running vim: gvim --remote-tab +"vert diffsplit %base" 
-"%mine"
+Diff viewer in tab in running vim: `gvim --remote-tab +"vert diffsplit %base" 
+"%mine"`
 
-Merge Tool : gvim -c":tabnew %merged" -d %theirs %mine
+Merge Tool : `gvim -c":tabnew %merged" -d %theirs %mine`
 
 ==============================================================================
 

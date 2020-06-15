@@ -10,8 +10,8 @@ You can use code completion with CTRL-X CTRL-U. See :help 'completefunc'.
 
 With this small script, you can complete keywords using some kind wildcards. 
 By default '\k\zs' reg-exp is used as wildcard. Useful if you are using 
-identifiers with mixed case, so aCN expands to anyCrazyName or 
-anotherCodeName, but not AnotherCodeName neither BadCodeName.
+identifiers with mixed case, so `aCN` expands to `anyCrazyName` or 
+`anotherCodeName`, but not `AnotherCodeName` neither `BadCodeName`.
 
 >
     " settings:

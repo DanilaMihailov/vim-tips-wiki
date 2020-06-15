@@ -6,8 +6,8 @@ created 2004 · complexity intermediate · author Xiangjiang Ma · version 6.0
 
 ==============================================================================
 
-To make gf work for a URL, say, file:///C:/myfile.txt, I have the following 
-in my vimrc on Windows:
+To make `gf` work for a URL, say, `file:///C:/myfile.txt`, I have the 
+following in my vimrc on Windows:
 
 >
     au BufReadCmd file:///* exe "bd!|edit ".substitute(expand("<afile>"),"file:/*","","")
@@ -15,7 +15,7 @@ in my vimrc on Windows:
 
 COMMENTS                                                    *vwt-691-comments*
 
-How about extending it for http://x.y [http://x.y]
+How about extending it for `http://x.y [http://x.y]`
 
 For network file like http:// ftp:// etc, I guess it is better to use netrw 
 plugin.

@@ -18,25 +18,25 @@ created
 
 ==============================================================================
 
-The errorformat (or efm) option is a comma-separated list of scanf-style 
+The `errorformat` (or `efm`) option is a comma-separated list of scanf-style 
 format strings that are used with QuickFix to extract information like file 
 name, line number, column number, etc, from errors and warnings generated with 
-:make. If an error/warning message in the quickfix window matches one of your 
-error formats, you can select it (double click in gvim, or press Enter on the 
-line) to jump to the correct place. It also provides some simple reformatting 
-and highlighting to standardize the display of recognized messages. :help 
-'efm'
+`:make`. If an error/warning message in the quickfix window matches one of 
+your error formats, you can select it (double click in gvim, or press Enter on 
+the line) to jump to the correct place. It also provides some simple 
+reformatting and highlighting to standardize the display of recognized 
+messages. :help 'efm'
 
-Vim comes preloaded with some good defaults. You can use the set errorformat 
-command in (for instance) your vimrc [https://vim.fandom.com/wiki/Vimrc] file 
-to add more for tools you use. If you use the += operator for the assignment, 
-it will append the text to the current value, separated with a comma, as 
-required for the errorformat.
+Vim comes preloaded with some good defaults. You can use the `set 
+errorformat` command in (for instance) your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] file to add more for tools you use. If you 
+use the `+=` operator for the assignment, it will append the text to the 
+current value, separated with a comma, as required for the errorformat.
 
 If some builtin format bugs you, you could be tempted to copy the default 
-errorformat and remove the annoying format (good luck to escape all the 
-must-be-escaped characters). Or you could use the -= operator, e.g. set 
-errorformat-=%f:%l:%m
+`errorformat` and remove the annoying format (good luck to escape all the 
+must-be-escaped characters). Or you could use the `-=` operator, e.g. `set 
+errorformat-=%f:%l:%m`
 
 Since compilers and other programs generate messages according to their own 
 rules, there are a multitude of error formats that could be useful. Some are 
@@ -45,7 +45,7 @@ listed here.
 FLEX                                                           *vwt-1575-flex*
 
 The free alternative to LEX, a lexical parser generator. Error messages are 
-like: "somefile.l", line 15: rule cannot be matched.
+like: `"somefile.l", line 15: rule cannot be matched`.
 
 >
     set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
@@ -68,7 +68,7 @@ column range) follows, and then a colon, space, and the error message.
 TEXAS INSTRUMENTS CL2000 COMPILER *vwt-1575-texas-instruments-cl2000-compiler*
 
 This is the C-compiler and linker that's used for some Texas Instruments DSP 
-microprocessors. Error format is like "file.c", line 17: some error message.
+microprocessors. Error format is like `"file.c", line 17: some error message`.
 
 >
     set errorformat=\"%f\"\\,\ line\ %l:\ %m
@@ -77,7 +77,7 @@ microprocessors. Error format is like "file.c", line 17: some error message.
 ESLINT                                                       *vwt-1575-eslint*
 
 This common linting utility for Javascript has a few output formats. The 
-compact format outputs a structure similar to the following:
+`compact` format outputs a structure similar to the following:
 
 >
     /some/dir/fullOfProblems.js: line 3, col 16, Error - Unexpected space before unary operator '++'. (space-unary-ops)
@@ -107,13 +107,13 @@ A suitable 'errorformat' for gfortran is:
     set efm=%E%f:%l.%c:,%E%f:%l:,%C,%C%p%*[0123456789^],%ZError:\ %m,%C%.%#
 <
 
-%E%f:%l.%c: to parse "FILENAME:LINENUMBER.COLNUMBER:".%E%f:%l: to parse 
-"FILENAME:LINENUMBER:".%C: to pass over the empty line.%C%p%*[0123456789^]: to 
-get the column number from the indicator line (" 1").%ZError:\ %m: to parse 
-the error message ("Error: ERROR_MESSAGE").%C%.%#: to pass over the source 
-code line (and ignore it).
+`%E%f:%l.%c:` to parse "FILENAME:LINENUMBER.COLNUMBER:".`%E%f:%l:` to parse 
+"FILENAME:LINENUMBER:".`%C:` to pass over the empty 
+line.`%C%p%*[0123456789^]:` to get the column number from the indicator line 
+(" 1").`%ZError:\ %m:` to parse the error message ("Error: 
+ERROR_MESSAGE").`%C%.%#:` to pass over the source code line (and ignore it).
 
-The following allows parsing of the following message (make output):
+The following allows parsing of the following message (`make` output):
 
 >
     gfortran hello-world.f90 -o hello-world.exe
@@ -130,7 +130,7 @@ The following allows parsing of the following message (make output):
     make: *** [hello-world.exe] Error 1
 <
 
-In Vim, :clist then shows:
+In Vim, `:clist` then shows:
 
 >
     2 hello-world.f90:11 col 1 error:  Unclassifiable statement at (1)
@@ -155,8 +155,8 @@ Where hello-world.f90 is:
 
 MODELSIM VLOG/VCOM FOR VERILOG/VHDL *vwt-1575-modelsim-vlog/vcom-for-verilog/vhdl*
 
-A simulation tool for Verilog/VHDL. Error messages look like:** Error: 
-/pathto/somefile.v(115): near \"source text\": syntax error message.
+A simulation tool for Verilog/VHDL. Error messages look like:`** Error: 
+/pathto/somefile.v(115): near \"source text\": syntax error message`.
 
 >
     set errorformat=**\ Error:\ %f(%l):\ %m
@@ -176,14 +176,14 @@ microprocessor can be built from Vim after installing ZDS. Create a makefile
 manually or use the one generated from a ZDS project.
 
 With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc], you can 
-use :Make to perform a :make and to open any resulting quickfix window:
+use `:Make` to perform a `:make` and to open any resulting quickfix window:
 
 >
     command -nargs=* Make make <args>|cwindow 3
 <
 
-Add the following to file ~/.vim/after/ftplugin/c.vim (Unix) or 
-$HOME/vimfiles/after/ftplugin/c.vim (Windows) – you may need to create the 
+Add the following to file `~/.vim/after/ftplugin/c.vim` (Unix) or 
+`$HOME/vimfiles/after/ftplugin/c.vim` (Windows) – you may need to create the 
 file. Then you can press F7 to build:
 
 >
@@ -230,10 +230,10 @@ TO DO
       [https://vim.fandom.com/wiki/Category:Compiler]. 
     - Where appropriate, should merge compiler tips for a particular language into 
       one tip. 
-    - Need emphasis to be on the :compiler command (don't directly mess with 
+    - Need emphasis to be on the `:compiler` command (don't directly mess with 
       'efm'). 
-    - Settings for errorformat should be in a compiler plugin rather than in vimrc. 
-      :help |write-compiler-plugin| :help |compiler-select| 
+    - Settings for `errorformat` should be in a compiler plugin rather than in 
+      vimrc. :help |write-compiler-plugin| :help |compiler-select| 
     - If there is no support for a compiler, user should add a new compiler (need 
       example of how). 
     - Need links to a tip with info on the quickfix window. 
@@ -259,8 +259,9 @@ above)
 
 
 Many existing tips have obsolete/bad advice, for example, tip 476 says to 
-edit the $VIM/ftplugin/perl.vim file (probably means 
-$VIMRUNTIME/ftplugin/perl.vim but you should never patch a distribution file).
+edit the `$VIM/ftplugin/perl.vim` file (probably means 
+`$VIMRUNTIME/ftplugin/perl.vim` but you should never patch a distribution 
+file).
 
 ==============================================================================
 

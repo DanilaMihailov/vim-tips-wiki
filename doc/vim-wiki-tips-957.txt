@@ -13,15 +13,15 @@ Use Vimer [https://github.com/susam/vimer] tool to ensure that whenever a new
 file is opened from terminal, it opens as a new buffer in an existing 
 GVim/MacVim window (not a new instance of GVim/MacVim). This script is 
 available for Windows, Linux and macOS. It works with both GVim and MacVim. 
-You can download the script and just rename it to vi (on Linux or macOS) or 
-vi.cmd (on Windows) and place the script in a directory that appears in the 
-PATH environment variable. Then just run vi foo.txt on the terminal and Vimer 
-will ensure that the new file is always opened in a buffer of an existing 
-instance of GVim/MacVim (not a new one). If you would rather want to open the 
-files as new tabs (not buffers) in existing instance of GVim/MacVim, then use 
-the -t option with Vimer like this: vi -t foo.txt. Read Vimer's Getting 
-Started Guide [https://github.com/susam/vimer#getting-started] for more 
-details.
+You can download the script and just rename it to `vi` (on Linux or macOS) or 
+`vi.cmd` (on Windows) and place the script in a directory that appears in the 
+`PATH` environment variable. Then just run `vi foo.txt` on the terminal and 
+Vimer will ensure that the new file is always opened in a buffer of an 
+existing instance of GVim/MacVim (not a new one). If you would rather want to 
+open the files as new tabs (not buffers) in existing instance of GVim/MacVim, 
+then use the `-t` option with Vimer like this: `vi -t foo.txt`. Read Vimer's 
+Getting Started Guide [https://github.com/susam/vimer#getting-started] for 
+more details.
 
 For example: opening a file already open in the first Vim instance within a 
 second instance of Vim gives an error message, because the swap file is 
@@ -56,17 +56,17 @@ as:
     alias gvimrem='/usr/local/bin/gvim --remote-silent'
 <
 
-However, running gvimrem alone would lead to an error because the 
---remote-silent option must always be followed by one or more filenames.
+However, running `gvimrem` alone would lead to an error because the 
+`--remote-silent` option must always be followed by one or more filenames.
 
 There is a script called Vimer [https://github.com/susam/vimer#readme] that 
 takes care of these corner cases and opens files in existing instance of GVim 
 or MacVim.
 
 For more convenience, consider renaming the script to a command you already 
-use, e.g. vi, gvim, etc. On Windows, you have to rename it to vi.cmd, 
-gvim.cmd, etc. This means that you don't have to retrain your muscle memory to 
-use a new command and you can continue typing the command you are used to.
+use, e.g. `vi`, `gvim`, etc. On Windows, you have to rename it to `vi.cmd`, 
+`gvim.cmd`, etc. This means that you don't have to retrain your muscle memory 
+to use a new command and you can continue typing the command you are used to.
 
 ==============================================================================
 
@@ -90,8 +90,8 @@ And you may also replace the operator '=~?' with '=~'
 
 ==============================================================================
 
-See the :RemoteOpen command from remoteopen.vim which is part of latex-suite 
-plugin.
+See the `:RemoteOpen` command from remoteopen.vim which is part of 
+latex-suite plugin.
 
 ==============================================================================
 

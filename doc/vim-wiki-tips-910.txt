@@ -10,7 +10,7 @@ I often have a local working copy of a remote directory tree (e.g. a website)
 and sometimes I want to transfer some minor changes to a file very fast (e.g. 
 when updating a webpage).
 
-You can do this by simply typing :Upload while editing a file using the 
+You can do this by simply typing `:Upload` while editing a file using the 
 following line in vimrc:
 
 >
@@ -55,7 +55,7 @@ on the server and the local directory root which is corresponding to the
 remote directory.
 
 You can specify the location either in the script, or as environment 
-variables as export UPLOAD_REMOTE_ROOT=/some/directory
+variables as `export UPLOAD_REMOTE_ROOT=/some/directory`
 
 If the file you are editing is in the specified local directory or one of its 
 subdirectories, the script will automatically upload it to the correct 
@@ -77,7 +77,7 @@ Using netrw, Vim keeps a local copy of the document in your temp folder.
 You can use a procedure like the following to use short names to access 
 hosts.
 
-Add following lines to .ssh/config
+Add following lines to `.ssh/config`
 
 >
     Host short
@@ -96,7 +96,7 @@ Now try this:
     vim scp://short/~/path/to/file
 <
 
-The ~ is your home folder (usually you keep files here).
+The `~` is your home folder (usually you keep files here).
 
 ==============================================================================
 

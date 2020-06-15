@@ -6,14 +6,14 @@ created 2006 · complexity basic · author gosman · version n/a
 
 ==============================================================================
 
-First, source the script man.vim in your vimrc like below, then you can use 
-:Man command.
+First, source the script `man.vim` in your vimrc like below, then you can use 
+`:Man` command.
 
 >
     source /usr/share/vim/vim70/ftplugin/man.vim
 <
 
-Then, create a bash script gman like below:
+Then, create a bash script `gman` like below:
 
 >
     #!/bin/bash

@@ -73,9 +73,9 @@ exercise.
 
 I don't understand why you would use all those commands and functions.
 
-Why not :echo delete(filename)? Or, if you want to delete file and wipeout 
-buffer, which I guess happens very rarely, you may write :echo delete(@%), and 
-if successfull -- :bw!.
+Why not `:echo delete(filename)`? Or, if you want to delete file and wipeout 
+buffer, which I guess happens very rarely, you may write `:echo delete(@%)`, 
+and if successfull -- `:bw!`.
 
 ==============================================================================
 

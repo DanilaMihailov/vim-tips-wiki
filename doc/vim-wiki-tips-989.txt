@@ -15,11 +15,11 @@ breaks inserted when you explicitly press the Enter key:
     " :set nolist In vim versions prior to 7.4.353 list disabled linebreak
 <
 
-This will get Vim to wrap existing text as desired. wrap tells Vim to word 
-wrap visually (as opposed to changing the text in the buffer), and linebreak 
-tells Vim to only wrap at a character in the breakat option (by default, this 
-includes " ^I!@*-+;:,./?" (note the inclusion of " " and that ^I is the 
-control character for Tab)).
+This will get Vim to wrap existing text as desired. `wrap` tells Vim to word 
+wrap visually (as opposed to changing the text in the buffer), and `linebreak` 
+tells Vim to only wrap at a character in the `breakat` option (by default, 
+this includes "` ^I!@*-+;:,./?`" (note the inclusion of " " and that `^I` is 
+the control character for Tab)).
 
 In addition, you will need to prevent Vim from automatically inserting line 
 breaks in newly entered text. The easiest way to do this is:

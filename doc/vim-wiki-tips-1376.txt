@@ -18,14 +18,14 @@ can at least use as a starting point.
 USAGE                                                         *vwt-1376-usage*
 
 The code at the end of this tip allows folding of various Vim script 
-constructs via foldmethod=syntax. Put it in after/syntax/vim.vim, located 
+constructs via `foldmethod=syntax`. Put it in `after/syntax/vim.vim`, located 
 either in your system-wide or home Vim directory (see :help 
 |after-directory|).
 
 To use these folds [https://vim.fandom.com/wiki/Use_folds_in_your_program], 
-put setlocal foldmethod=syntax in after/ftplugin/vim.vim. While you're at it, 
-it also makes sense to avoid folding in the command window (q:). You can use 
-the following fragment for that:
+put `setlocal foldmethod=syntax` in `after/ftplugin/vim.vim`. While you're at 
+it, it also makes sense to avoid folding in the command window (`q:`). You can 
+use the following fragment for that:
 
 >
     " Folding via syntax is used for this filetype.
@@ -47,8 +47,8 @@ the following fragment for that:
 
 Alternatively, you can use an autocommand or a mapping to enable folding. If 
 using an autocommand, the FileType and Syntax events are probably the best 
-ones to use. Calling zR as well when you do this will start with all the folds 
-open when loading the file 
+ones to use. Calling `zR` as well when you do this will start with all the 
+folds open when loading the file 
 [https://vim.fandom.com/wiki/All_folds_open_when_opening_a_file].
 
 HOW IT WORKS                                           *vwt-1376-how-it-works*
@@ -59,19 +59,19 @@ the lhs of a mapping, and attempt to skip over commented-out end patterns with
 the skip pattern.
 
 A syntax cluster (:help |:syn-cluster|) called vimNoFold is defined to easily 
-exclude certain syntax items from containing a fold. The containedin option is 
-set to @vimNoFold to make sure the fold definitions do not match in areas such 
-as comments, syntax definitions, embedded scripts, and the like. The syntax 
-items contained in @vimNoFold were determined through (a) finding an error and 
-(b) looking at vim.vim to determine which ones are triggering the syntax 
-folding that shouldn't be. It is useful to display the highlight group under 
-the cursor 
+exclude certain syntax items from containing a fold. The `containedin` option 
+is set to @vimNoFold to make sure the fold definitions do not match in areas 
+such as comments, syntax definitions, embedded scripts, and the like. The 
+syntax items contained in @vimNoFold were determined through (a) finding an 
+error and (b) looking at vim.vim to determine which ones are triggering the 
+syntax folding that shouldn't be. It is useful to display the highlight group 
+under the cursor 
 [https://vim.fandom.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor] 
 while debugging in this way.
 
 Most of the syntax rules have "begin" and "end" keywords that set up a simple 
-syntax region, using keepend to allow syntax highlighting of end markers and 
-extend to allow nesting.
+syntax region, using `keepend` to allow syntax highlighting of end markers and 
+`extend` to allow nesting.
 
 The "if...else...endif" construct is a little different and works as follows:
 
@@ -83,7 +83,7 @@ PROBLEMS                                                   *vwt-1376-problems*
 These syntax folds are not perfect, and suffer from at least the following:
     - The syntax definitions are fairly complex. Sometimes, especially when 
       deleting or commenting out an "else", "catch", or "finally", you will need to 
-      type :syn sync fromstart to update the fold information. You may want to map 
+      type `:syn sync fromstart` to update the fold information. You may want to map 
       this command to a key if you need to do it often. 
     - The "skip" group could probably be improved. Currently, it will attempt to 
       skip single and double-quoted strings, and comments. 

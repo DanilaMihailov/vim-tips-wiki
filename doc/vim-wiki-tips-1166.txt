@@ -30,7 +30,7 @@ easily. For example, Unix sort, removing duplicate lines:
 Many other systems also have an external sort utility, but the options and 
 capabilities will differ. It is probably better to use the built-in Vim sort 
 unless you are looking for a specific feature of the external sort (or using 
-an old Vim without the :sort command).
+an old Vim without the `:sort` command).
 
 EXAMPLES                                                   *vwt-1166-examples*
 
@@ -141,7 +141,7 @@ REFERENCES                                               *vwt-1166-references*
 COMMENTS                                                   *vwt-1166-comments*
 
 TO DO
-    - Probably need some general :sort command info. 
+    - Probably need some general `:sort` command info. 
     - Give examples of numeric sort and using regex sort. 
     - Clean up my "see also" list. It's useful now for a comprehensive list of 
       related tips, some of which need work. At least should add a note on point of 
@@ -149,7 +149,7 @@ TO DO
     - If we're going to mention an external sort tool, we may as well include the 
       following with a brief explanation. Vim could do this, but only with a complex 
       regex. Or perhaps better, mention it in VimTip374 |vwt-374| or VimTip923 
-      |vwt-923| in "see also". -k2 sorts on the second field (word by default). 
+      |vwt-923| in "see also". `-k2` sorts on the second field (word by default). 
 
 
 >
@@ -170,15 +170,15 @@ used to match a patern |.*| used to match words delimited between || and | as pi
 
 This is wrong and should never work. Here's what it is actually doing:
 
-/|.*|/: jump to the next line that has two '|' characters in it, anywhere
+`/|.*|/`: jump to the next line that has two '|' characters in it, anywhere
 
-|: command separator, this lets you start a new command on the current line
+`|`: command separator, this lets you start a new command on the current line
 
-sort: do a default sort of the entire buffer
+`sort`: do a default sort of the entire buffer
 
-Basically this is the equivalent of typing :%sort.
+Basically this is the equivalent of typing `:%sort`.
 
-Now, what you CAN do, is provide a pattern that the :sort command will skip 
+Now, what you CAN do, is provide a pattern that the `:sort` command will skip 
 over and ignore at the start of every line while sorting. For example, to sort 
 based only on text after the last '|' character on the line (what I think was 
 intended by the example), you'd do this:

@@ -32,7 +32,7 @@ go, e.g. go to the 3 and press "c/:<Cr>formula<Esc>". Or separately as
     if x > formula:
 <
 
-Then pressing \v gives
+Then pressing `\v` gives
 
 >
     formula = 3 * y + 4 * z
@@ -43,7 +43,7 @@ What it does:
 
 COMMENTS                                                   *vwt-1171-comments*
 
-Note that the " register has your last edit and in insert mode, <C-R> will 
+Note that the `"` register has your last edit and in insert mode, <C-R> will 
 paste the contents of the register indicated by the next keystroke, so your 
 example re-interpreted with standard commands is:
 

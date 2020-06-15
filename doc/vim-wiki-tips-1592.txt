@@ -8,16 +8,16 @@ complexity basic · author Metacosm · version 7.0
 
 ==============================================================================
 
-This tip explains how :retab converts tabs to spaces, or spaces to tabs, and 
-provides a "super retab" command to convert only the whitespace used for 
+This tip explains how `:retab` converts tabs to spaces, or spaces to tabs, 
+and provides a "super retab" command to convert only the whitespace used for 
 indentation in programs.
 
 STANDARD RETAB                                       *vwt-1592-standard-retab*
 
-You can set the 'expandtab' (abbreviated to 'et') option so each tab that you 
-type is converted to an equivalent number of spaces. And you can use the 
-:retab command to convert all existing tabs to spaces. You can do both in one 
-command:
+You can set the '`expandtab`' (abbreviated to '`et`') option so each tab that 
+you type is converted to an equivalent number of spaces. And you can use the 
+`:retab` command to convert all existing tabs to spaces. You can do both in 
+one command:
 
 >
     :set et|retab
@@ -37,8 +37,9 @@ or tabs after the first non-white character are not affected.
 
 SUPER RETAB                                             *vwt-1592-super-retab*
 
-Use the following command to define a new SuperRetab command. You could enter 
-this in Vim, or put it in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+Use the following command to define a new `SuperRetab` command. You could 
+enter this in Vim, or put it in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
 
 >
     :command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
@@ -46,7 +47,7 @@ this in Vim, or put it in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 
 For example, you may have a code snippet which uses two-space indents, and 
 you want to entab the indents (convert each leading group of two spaces to a 
-tab). To do this, visually select the code (press V then j), then enter:
+tab). To do this, visually select the code (press `V` then `j`), then enter:
 
 >
     :'<,'>SuperRetab 2
@@ -60,7 +61,7 @@ The above command would change:
       }
 <
 
-to the following ("|-------" represents a tab):
+to the following ("`|-------`" represents a tab):
 
 >
     |-------for {
@@ -68,7 +69,7 @@ to the following ("|-------" represents a tab):
     |-------}
 <
 
-The command :SuperRetab 5 would give the same result from the following 
+The command `:SuperRetab 5` would give the same result from the following 
 selected text:
 
 >
@@ -86,10 +87,10 @@ An alternative super retab procedure is to use the following two commands:
     :command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
 <
 
-The above defines a Tab2Space and a Space2Tab command that convert leading 
-whitespace (spaces and tabs that are not at the beginning of a line are not 
-affected). These commands use the current 'tabstop' (abbreviated as 'ts') 
-option.
+The above defines a `Tab2Space` and a `Space2Tab` command that convert 
+leading whitespace (spaces and tabs that are not at the beginning of a line 
+are not affected). These commands use the current '`tabstop`' (abbreviated as 
+'`ts`') option.
 
 Examples:
 
@@ -113,7 +114,7 @@ features:
     - Redundant spaces in an indent are removed (in the above mapping, converting 
       tabs to spaces will not change lines where there is a space before a tab in 
       the indent). 
-    - The search history is not changed (pressing n will do the same search it 
+    - The search history is not changed (pressing `n` will do the same search it 
       would have done before the conversion was performed). 
     - The cursor position is restored, although the column will be slightly wrong 
       owing to the different number of characters in the indent. 

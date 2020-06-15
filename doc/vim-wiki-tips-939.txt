@@ -8,7 +8,7 @@ created 2005 · complexity basic · author Lee Savidge · version 5.7
 
 I got really bored of editing multiple vimrc files when I wanted to change 
 mine. So, after installing cygwin under Windows I added an environment 
-variable which set HOME to be c:\cygwin\home\username. Vim/GVim in Windows 
+variable which set HOME to be `c:\cygwin\home\username`. Vim/GVim in Windows 
 reads that variable if it is set and notes that the config file to read is the 
 one I have in my cygwin directory. Also, because Vim/GVim under Windows 
 understands that the config files could be called either .vimrc or _vimrc it 

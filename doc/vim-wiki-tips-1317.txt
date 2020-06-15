@@ -42,7 +42,7 @@ line with Vim also opens in its own tab:
     :au BufAdd,BufNewFile,BufRead * nested tab sball
 <
 
-However when I do :e! to reload the current buffer, it always jumps to the 
+However when I do `:e!` to reload the current buffer, it always jumps to the 
 last opened tab and reloads it.
 
 ==============================================================================
@@ -59,17 +59,17 @@ is no option to have them work in this way in Vim.
 
 ==============================================================================
 
-This seems to do horrid things when I reference the help (e.g. :help :auto): 
-from 1 buffer containing the file I'm editing, I end up with 2, each in their 
-own tab. My original file has been hidden, and I've two windows on the 
-helpfile autocmd.txt - one pointing at start-of-file, the other pointing to 
-the referenced tag.
+This seems to do horrid things when I reference the help (e.g. `:help 
+:auto`): from 1 buffer containing the file I'm editing, I end up with 2, each 
+in their own tab. My original file has been hidden, and I've two windows on 
+the helpfile autocmd.txt - one pointing at start-of-file, the other pointing 
+to the referenced tag.
 
 ==============================================================================
 
-It also does not work nicely if you use the :Explore command to navigate the 
-file system (which I do all the time). Every time you list a new directory, it 
-opens a new tab. Needless to say the tabs pile up quickly.
+It also does not work nicely if you use the `:Explore` command to navigate 
+the file system (which I do all the time). Every time you list a new 
+directory, it opens a new tab. Needless to say the tabs pile up quickly.
 
 ==============================================================================
 
@@ -77,7 +77,7 @@ I'm not sure why there's such a problem dealing with tabs - at least I don't
 find them difficult.
 
 When I open a couple files and I want them to be in individual tabs, I add 
-'-p' to the command:gvim -p file1 file2 ... and they all open in their own 
+'-p' to the command:`gvim -p file1 file2 ...` and they all open in their own 
 tabs.
 
 Or, if I don't want that behavior, I omit the '-p', and Vim opens them in 

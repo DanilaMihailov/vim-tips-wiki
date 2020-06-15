@@ -20,8 +20,8 @@ This does not work
 <
 
 The former will act on the dollar sign without using it as a count; the 
-latter counts $ as the number of lines in the current buffer, and goes to the 
-very last window if the "$-1" count exceeds the number of windows in the 
+latter counts `$` as the number of lines in the current buffer, and goes to 
+the very last window if the "`$-1`" count exceeds the number of windows in the 
 current or only tab page.
 
 This works

@@ -27,7 +27,7 @@ There are two limitations in this key mapping:
 ALTERNATE VERSION                                 *vwt-1509-alternate-version*
 
 Related to limitation #2 above, it's not actually necessary to kill the 
-cscope connection. The command cs reset can accomplish this purpose, if 
+cscope connection. The command `cs reset` can accomplish this purpose, if 
 cscope.out is already selected as the cscope file. This gives the following 
 variant:
 

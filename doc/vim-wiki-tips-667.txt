@@ -11,8 +11,8 @@ plain text. Following are some useful techniques for working with CSV files.
 You can:
     - Highlight all text in any column. 
     - View fields (convert csv text to columns or separate lines). 
-    - Navigate using the HJKL keys to go left, down, up, right by cell (hjkl work 
-      as normal). 
+    - Navigate using the `HJKL` keys to go left, down, up, right by cell (`hjkl` 
+      work as normal). 
     - Search for text in a specific column. 
     - Sort lines by column. 
     - Delete a column. 
@@ -22,7 +22,7 @@ You can:
 HIGHLIGHTING A COLUMN                          *vwt-667-highlighting-a-column*
 
 It's easy to find a column in csv text if you source the following script. 
-Enter a command like :Csv 23 to highlight column 23.
+Enter a command like `:Csv 23` to highlight column 23.
 
 >
     " Highlight a column in csv text.
@@ -47,7 +47,7 @@ Enter a command like :Csv 23 to highlight column 23.
 HIGHLIGHTING THE HEADER ROW              *vwt-667-highlighting-the-header-row*
 
 If the first row is a header row, you can highlight the header fields by 
-putting the following lines in the file syntax/csv.vim (see syntax 
+putting the following lines in the file `syntax/csv.vim` (see syntax 
 highlighting for moin |vwt-1565#Syntax_highlighting|). This requires csv file 
 type detection (see Usage below |vwt-667-usage|).
 
@@ -82,7 +82,7 @@ its own line:
     :%s/,/\r/g
 <
 
-In the replace text of a substitute, \r substitutes a newline.
+In the replace text of a substitute, `\r` substitutes a newline.
 
 NAVIGATING IN CSV TEXT                        *vwt-667-navigating-in-csv-text*
 
@@ -99,24 +99,24 @@ FEATURES                                                    *vwt-667-features*
       |vwt-667-working-with-multi-character-delimiters|) 
     - It does not go beyond the last column (from a count of the columns in the 
       first and last three lines). 
-    - HJKL go left, down, up, right by "cell". Focus is set to the first character 
-      of the cell. 
-    - space highlight the cell the focus is on 
-    - 0 and $ highlight the first and last cell. Focus is set to the first 
+    - `HJKL` go left, down, up, right by "cell". Focus is set to the first 
       character of the cell. 
-    - Ctrl-f, Ctrl-b page forward and back, while staying in the same column. 
-    - \J is Join :help |J| and \K is Keyword :help |K| (assuming the default \ 
-      local leader key :help |maplocalleader|). 
+    - `space` highlight the cell the focus is on 
+    - `0` and `$` highlight the first and last cell. Focus is set to the first 
+      character of the cell. 
+    - `Ctrl-f`, `Ctrl-b` page forward and back, while staying in the same column. 
+    - `\J` is Join :help |J| and `\K` is Keyword :help |K| (assuming the default 
+      `\` local leader key :help |maplocalleader|). 
     - The column number and heading are displayed when moving around. The headings 
       are taken from a specified line, by default, the first line. 
-    - Search within column. The command > :SC n=str < will search for str in the 
-      n-th column. If "n=" is omitted, the search is within the currently 
+    - Search within column. The command > :SC n=str < will search for `str` in the 
+      n-th column. If "`n=`" is omitted, the search is within the currently 
       highlighted column. For example: > :SC 2=john " search for john in the 2nd 
       column only < > :SC john " search for john in the currently highlighted column 
-      < Case sensitivity is the same as for / (toggle with :set ic! ic? see :help 
-      'ignorecase'). After the search, the @/ variable is set. So, for example, 
-      after :SC 2=john, one can use g//d to delete all lines whose second field 
-      contains john. 
+      < Case sensitivity is the same as for `/` (toggle with `:set ic! ic?` see 
+      :help 'ignorecase'). After the search, the `@/` variable is set. So, for 
+      example, after `:SC 2=john`, one can use `g//d` to delete all lines whose 
+      second field contains john. 
     - Copy column. The command > :CC n x < will copy (yank) the n-th column to 
       register x. If n is omitted, then the current highlighted column is copied. If 
       x is omitted, the unnamed register is used. Examples: 
@@ -131,11 +131,11 @@ FEATURES                                                    *vwt-667-features*
     - Delete column. The command > :DC n < will delete the n-th column. If n is 
       omitted, then the current highlighted column is deleted. 
     - Change the headings line. By default the first line is assumed to contain 
-      column headings, but you can change the line used with the HL command. Note 
+      column headings, but you can change the line used with the `HL` command. Note 
       that the headings line is a fixed line number; it does not update if that line 
       is moved, for example if you delete or insert lines above it. Also, the 
       headings line value will be reset to 1 (the default) if you reload the buffer, 
-      for example, with the :e! command. 
+      for example, with the `:e!` command. 
 
 
 >
@@ -162,7 +162,7 @@ work-around below |vwt-667-working-with-multi-character-delimiters|)
     :let g:csv_delimiter = ";"
     :let g:csv_delimiter = "\t"
 <
-    - Sort lines by column. This works like the :sort command except that the 
+    - Sort lines by column. This works like the `:sort` command except that the 
       specified field is used for sorting. The heading line and lines above it in 
       the buffer are not included, unless you explicitly specify a range that starts 
       on or before the heading line. To sort all lines, explicitly specify the 
@@ -211,15 +211,15 @@ Put a .csv rule in filetype.vim [https://vim.fandom.com/wiki/Filetype.vim]
     au! BufNewFile,BufRead *.csv setf csv
 <
 
-Create file ~/.vim/ftplugin/csv.vim (Unix) or $HOME/vimfiles/ftplugin/csv.vim 
-(Windows) containing the script below.
+Create file `~/.vim/ftplugin/csv.vim` (Unix) or 
+`$HOME/vimfiles/ftplugin/csv.vim` (Windows) containing the script below.
 
-Open a file (named anything.csv) that contains fields separated by commas. 
-Use H J K L 0 $ to move from cell to cell.
+Open a file (named `anything.csv`) that contains fields separated by commas. 
+Use `H J K L 0 $` to move from cell to cell.
 
-If you open a *.csv file, the current column will be highlighted. Conversely, 
-you may open a file with csv data, yet the file is not named *.csv, so 
-highlighting will not occur.
+If you open a `*.csv` file, the current column will be highlighted. 
+Conversely, you may open a file with csv data, yet the file is not named 
+`*.csv`, so highlighting will not occur.
 
 You can switch highlighting off by setting the filetype option to nothing:
 
@@ -235,7 +235,7 @@ This command switches highlighting on:
 
 THE CODE                                                    *vwt-667-the-code*
 
-This is the ftplugin csv.vim script:
+This is the ftplugin `csv.vim` script:
 
 >
     " Filetype plugin for editing CSV files.

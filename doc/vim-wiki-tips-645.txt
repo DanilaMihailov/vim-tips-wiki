@@ -22,9 +22,9 @@ to make this work. Now I can use
     Alt+Space followed by 'r' to restore!
 <
 
-Note that with winaltkeys=yes, you won't be able to map any ALT key 
-combinations. If this is a problem for you, try winaltkeys=menu or 
-winaltkeys=no in conjunction with :simalt.
+Note that with `winaltkeys=yes`, you won't be able to map any ALT key 
+combinations. If this is a problem for you, try `winaltkeys=menu` or 
+`winaltkeys=no` in conjunction with `:simalt`.
 
 REFERENCES                                                *vwt-645-references*
     - :help 'winaltkeys' 

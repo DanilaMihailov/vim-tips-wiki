@@ -6,7 +6,7 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-The $VIMRUNTIME/compiler directory has jikes.vim, but there's nothing for 
+The `$VIMRUNTIME/compiler` directory has `jikes.vim`, but there's nothing for 
 traditional Sun JDK (javac), so I tried (only tested on Windows):
 
 >

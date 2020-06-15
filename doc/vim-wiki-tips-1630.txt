@@ -18,11 +18,11 @@ potential.
 
 FULL-PAGE REFERENCE DOCUMENTS         *vwt-1630-full-page-reference-documents*
 
-By simply prefacing a :help command with the :tab modifier, you can have 
+By simply prefacing a `:help` command with the `:tab` modifier, you can have 
 multiple full-page Vim help topics, each in its own conveniently-labeled tab 
 page, without messing up your window layout. For example, instead of entering 
-:help toc, type :tab help toc. If you have already opened a document in a 
-window and would like it in a tab, press Ctrl-W then T.
+`:help toc`, type `:tab help toc`. If you have already opened a document in a 
+window and would like it in a tab, press Ctrl-W then `T`.
 
 You don't need to limit this to Vim's help. You can open other reference 
 material (API docs, framework source code, project notes, etc.), each in a new 
@@ -45,7 +45,7 @@ If you are working in a buffer with most folds open, you can keep a second
 tab page showing the buffer with all folds closed for an "at a glance 
 summary". The folded version serves as an overview of the entire file, often 
 visible on a single screen. You can take advantage of the "at a glance" view 
-to rapidly find and mark a place in a file (typing ma creates a mark that 
+to rapidly find and mark a place in a file (typing `ma` creates a mark that 
 applies to the buffer), then jump to the mark ('a) in a different tab showing 
 the same buffer.
 
@@ -53,7 +53,7 @@ You can also go the other way. Instead of keeping a tab page for a
 "summarized" view, you could open a tab page for a detailed "x-ray" view of a 
 buffer. In a separate tab page, you can enable useful but visually noisy 
 options like 'list', 'cursorcolumn', 'cursorline', and 'number', and you may 
-have several :match patterns active, or similar. This way, you can keep your 
+have several `:match` patterns active, or similar. This way, you can keep your 
 regular working view clean and uncluttered, but quickly flip over to the 
 information-overloaded version when needed. This idea works for the settings 
 in :help |option-summary| that are labeled 'local to window'.
@@ -62,18 +62,18 @@ SEPARATE 'DIFF' VIEWS                         *vwt-1630-separate-'diff'-views*
 
 Along the same lines as the "x-ray" tab above, you can take advantage of the 
 fact that a 'diff' view of two or more buffers is local to the tab page. 
-Knowing this, you can open up a new tab on the current buffer with :tab split, 
-and then in the new tab use the |:DiffOrig| command to create a tab containing 
-a diff of the current state of the buffer with the original state on disk. 
-Now, you can go back to your original tab, make and even save changes, and 
-your 'diff' tab will remain open for you to quickly see changes you have made 
-since you started.
+Knowing this, you can open up a new tab on the current buffer with `:tab 
+split`, and then in the new tab use the |:DiffOrig| command to create a tab 
+containing a diff of the current state of the buffer with the original state 
+on disk. Now, you can go back to your original tab, make and even save 
+changes, and your 'diff' tab will remain open for you to quickly see changes 
+you have made since you started.
 
 You can go further than this. Using tabs, you are not limited to a single 
 diff. If you have two portions of a single file that are very similar, and you 
 want to see exactly how similar, you can open a new tab with two new buffers, 
 then copy and paste the two sections of the original buffer which you want to 
-compare, one in each window. Then run :windo diffthis in the new tab and you 
+compare, one in each window. Then run `:windo diffthis` in the new tab and you 
 have a quick comparison of just parts of the buffer.
 
 You don't even need to close any other diffs you may have in progress to do 
@@ -91,7 +91,7 @@ up your current window layout or buffer contents. If you do this often enough,
 you could create a simple command or mapping.
 
 You can do the same sort of thing with external commands. The method is even 
-easier. Just open a new tab with :tabnew, then use the |:r!| command to read 
+easier. Just open a new tab with `:tabnew`, then use the |:r!| command to read 
 in the external command. If you find yourself doing this a lot, you can use a 
 script [https://vim.fandom.com/wiki/Capture_ex_command_output].
 
@@ -100,7 +100,7 @@ MINI-SESSIONS                                         *vwt-1630-mini-sessions*
 If you remove 'tabpages' from 'sessionoptions', then |:mksession| will only 
 pay attention to the current tab page. This makes it easy to use tab pages as 
 a lightweight project-organization tool–just open a set of files in whatever 
-window layout you like, then run :mksession some-project.vim to save the 
+window layout you like, then run `:mksession some-project.vim` to save the 
 current tab page as a session. To work on that set of files again, open a new 
 tab page and :source the appropriate session file.
 
@@ -123,7 +123,7 @@ for your organization, you can even do something like:
 
 to open a tab with a window for ALL currently loaded buffers, and then close 
 any buffers you wish to exclude from your command. Then proceed with the 
-:windo and close the tab to return to what you were doing before.
+`:windo` and close the tab to return to what you were doing before.
 
 This method can be especially nice when working with the |quickfix| list, 
 because you can use the 'switchbuf' option to automatically split a window for 

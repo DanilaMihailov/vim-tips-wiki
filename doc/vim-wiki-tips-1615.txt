@@ -12,9 +12,9 @@ When reading text, it can be useful to make a wide window, then split it
 vertically so two consecutive pages of text can be seen in the left and right 
 windows.
 
-With a large monitor, you might enter :set columns=160 to make the screen 160 
-columns wide. This tip can then be used to split the screen to show two 
-windows, with the 'scrollbind' option set so that scrolling one window also 
+With a large monitor, you might enter `:set columns=160` to make the screen 
+160 columns wide. This tip can then be used to split the screen to show two 
+windows, with the '`scrollbind`' option set so that scrolling one window also 
 scrolls the other window.
 
 MAPPING                                                     *vwt-1615-mapping*
@@ -26,9 +26,9 @@ Enter the following command (or put in your vimrc
     :noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 <
 
-With the default leader, you can now press \vs to vertically split the screen 
-into two windows with 'scrollbind' set. To display only a single window, press 
-Ctrl-W then o.
+With the default leader, you can now press `\vs` to vertically split the 
+screen into two windows with '`scrollbind`' set. To display only a single 
+window, press Ctrl-W then `o`.
 
 The mapping performs these operations:
 
@@ -44,14 +44,14 @@ The mapping performs these operations:
     :let &so=@z         " restore scrolloff
 <
 
-The mapping clears 'scrollbind' before manipulating the windows so that the 
+The mapping clears '`scrollbind`' before manipulating the windows so that the 
 position of the second window can be adjusted without scrolling the first 
-window. Setting 'scrolloff' to 0 allows the cursor to be positioned at the 
-bottom of the screen (with command L).
+window. Setting '`scrolloff`' to 0 allows the cursor to be positioned at the 
+bottom of the screen (with command `L`).
 
 Problems
     - If the cursor is in the last line when the mapping is executed, the mapping 
-      fails because j cannot move the cursor down (and the remaining commands are 
+      fails because `j` cannot move the cursor down (and the remaining commands are 
       not executed). 
     - Register z is changed. 
 

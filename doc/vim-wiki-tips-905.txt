@@ -18,8 +18,9 @@ The '%' flag tells vim to remember your list of opened buffers in your
 viminfo file.
 
 Try, for example, opening Vim and editing your vimrc file. Then without using 
-:bd to delete the buffer, quit Vim (:wq). If you open Vim again, check your 
-buffer list (:ls) and you will notice that the vimrc buffer is still there.
+`:bd` to delete the buffer, quit Vim (`:wq`). If you open Vim again, check 
+your buffer list (`:ls`) and you will notice that the vimrc buffer is still 
+there.
 
 COMMENTS                                                    *vwt-905-comments*
 

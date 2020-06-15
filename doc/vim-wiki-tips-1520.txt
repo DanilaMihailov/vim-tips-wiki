@@ -42,9 +42,9 @@ versions of Vim, as follows:
     endif
 <
 
-Sourcing the above script sets register a. In normal mode, put the cursor in 
-a word and press @a to execute the commands: yaw (yank a word), P (paste), `[ 
-(jump to start of last yank), j (down).
+Sourcing the above script sets register `a`. In normal mode, put the cursor 
+in a word and press `@a` to execute the commands: `yaw` (yank a word), `P` 
+(paste), ``[` (jump to start of last yank), `j` (down).
 
 That duplicates the initial word, and is an example of how a macro can be 
 placed in a register.

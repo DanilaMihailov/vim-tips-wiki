@@ -8,30 +8,32 @@ September 9, 2010 · complexity basic · author jeet · version 7.0
 
 ==============================================================================
 
-The o and O open commands are useful to insert a blank line below or above 
-the current line, and start insert mode. This tip shows how to easily insert 
-multiple blank lines so new text that you enter will have at least one blank 
-line before and after. A count controls how many blank lines are inserted.
+The `o` and `O` open commands are useful to insert a blank line below or 
+above the current line, and start insert mode. This tip shows how to easily 
+insert multiple blank lines so new text that you enter will have at least one 
+blank line before and after. A count controls how many blank lines are 
+inserted.
 
-Using this tip, and assuming the default backslash leader key, typing 5\o 
+Using this tip, and assuming the default backslash leader key, typing `5\o` 
 will insert five blank lines below the current line, and will enter insert 
-mode on the second blank line. The S command is used to start insert mode, so 
-the cursor is automatically indented according to the rules for the current 
-file type (if any). Typing 5\O performs a similar operation, above the current 
-line.
+mode on the second blank line. The `S` command is used to start insert mode, 
+so the cursor is automatically indented according to the rules for the current 
+file type (if any). Typing `5\O` performs a similar operation, above the 
+current line.
 
-The minimum count is 3, so typing \o will insert three blank lines (ensuring 
-that one blank line is before and after the text that will be entered).
+The minimum count is 3, so typing `\o` will insert three blank lines 
+(ensuring that one blank line is before and after the text that will be 
+entered).
 
-Without this tip, you could type 5o then press Esc. That would insert five 
+Without this tip, you could type `5o` then press Esc. That would insert five 
 blank lines, but you would then need to enter commands to position the cursor 
 and start insert mode. While easy to do, that process can break your train of 
 thought.
 
 SCRIPT                                                       *vwt-1661-script*
 
-Create file ~/.vim/plugin/insertmultiple.vim (Unix) or 
-$HOME/vimfiles/plugin/insertmultiple.vim (Windows) containing the script 
+Create file `~/.vim/plugin/insertmultiple.vim` (Unix) or 
+`$HOME/vimfiles/plugin/insertmultiple.vim` (Windows) containing the script 
 below, then restart Vim. Alternatively, add the script to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] and restart Vim.
 

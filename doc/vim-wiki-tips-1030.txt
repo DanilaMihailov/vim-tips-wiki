@@ -15,7 +15,7 @@ docs (and how to use it in a new tab
 Here is a function and command to see a diff between the currently edited 
 file and its unmodified version in the filesystem. Just put this in your vimrc 
 or in the plugin directory, open a file, make some modifications without 
-saving them, and do :DiffSaved.
+saving them, and do `:DiffSaved`.
 
 >
     function! s:DiffWithSaved()
@@ -28,9 +28,9 @@ saving them, and do :DiffSaved.
     com! DiffSaved call s:DiffWithSaved()
 <
 
-To get out of diff view you can use the :diffoff command.
+To get out of diff view you can use the `:diffoff` command.
 
-Below is a similar function, adapted to mimic the 'cvs diff' command (cvs 
+Below is a similar function, adapted to mimic the '`cvs diff`' command (cvs 
 must be in the path):
 
 >

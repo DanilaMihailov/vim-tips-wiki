@@ -20,12 +20,12 @@ With the following abbreviation in your vimrc
     :iabbrev </ </<C-X><C-O>
 <
 
-With this abbreviation, you can simply type </ then press Space to 
+With this abbreviation, you can simply type `</` then press Space to 
 automatically complete the tag.
 
-You may find that sometimes you want to type </ without invoking the 
+You may find that sometimes you want to type `</` without invoking the 
 abbreviation. If that happens a lot, you may prefer the following abbreviation 
-so you have to enter <// to invoke tag completion:
+so you have to enter `<//` to invoke tag completion:
 
 >
     :iabbrev <// </<C-X><C-O>
@@ -61,7 +61,7 @@ line, and ><Leader> to cancel autocompleteion for those special times.
     autocmd BufRead,BufNewFile *.html,*.js,*.xml call s:CompleteTags()
 <
 
-==============================================================================I suspect the abbreviation is not very helpful in practice because it won't work if you type, for example, abc</ (it only works if you enter insert mode to type the abbreviation, or if the abbreviation follows whitespace. Perhaps a mapping like 
+==============================================================================I suspect the abbreviation is not very helpful in practice because it won't work if you type, for example, `abc</` (it only works if you enter insert mode to type the abbreviation, or if the abbreviation follows whitespace. Perhaps a mapping like 
 
 >
     :inoremap <F8> </<C-X><C-O>
@@ -87,7 +87,7 @@ key in ":help leader")--Devgutt28 [https://vim.fandom.com/wiki/User:Devgutt28]
 
 I know I'm a bit late to the party, but I added on to Fritzophrenic's version 
 with :inoremap <lt>/ </<C-x><C-o><Esc>==gi so the new tag properly indents 
-itself. == re-indents the current line (also moving the cursor), and gi 
+itself. `==` re-indents the current line (also moving the cursor), and `gi` 
 returns the cursor to its location before the re-indent and enters insert 
 mode. (September 2, 2017)
 

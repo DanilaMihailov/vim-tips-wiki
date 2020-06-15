@@ -16,9 +16,9 @@ first thing that I do after creating it is to add the following block of text:
     }
 <
 
-Rather than have to type the ClassName twice (once when you first opened the 
-new file, and then again for this block), you can use this autocmd to insert 
-that text for you automatically:
+Rather than have to type the `ClassName` twice (once when you first opened 
+the new file, and then again for this block), you can use this autocmd to 
+insert that text for you automatically:
 
 >
     autocmd BufNewFile *.java

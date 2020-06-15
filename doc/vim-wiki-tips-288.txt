@@ -53,7 +53,7 @@ Then type:
 <
 
 This will create the first getter/setter and then move up to the next 
-variable. A user can continue typing jgs until all the getters/setters have 
+variable. A user can continue typing `jgs` until all the getters/setters have 
 been generated.
 
 PLUGINS                                                      *vwt-288-plugins*
@@ -73,9 +73,9 @@ Additionally, it assumes a tabstop of 8 instead of letting the file type
 indent do the work, plus the spacing is a little messed up.
 
 What I usually do is type all my private members. I got to the first one and 
-hit qa to start macro recording to register a. Then I make my getter and 
+hit `qa` to start macro recording to register a. Then I make my getter and 
 setter using only commands that operate on words and not characters. When 
-done, hit q again, and now register a has your macro.
+done, hit `q` again, and now register a has your macro.
 
 Comment from Jeremy; This mapping caused a delay on the last j press in 
 normal mode for me. It was quite irritating. I would suggest pointing the 

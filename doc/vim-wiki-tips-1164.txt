@@ -14,7 +14,7 @@ Sample call: echo HowLong("echo 'test'", 100)
 This will execute "echo 'test'" 100 times and display the number of seconds 
 it took to do so.
 
-Multiple commands can be separated by a |.
+Multiple commands can be separated by a `|`.
 
 >
     " Times the number of times a particular command takes to execute the specified number of times (in seconds).
@@ -76,18 +76,18 @@ The following has been moved here from VimTip516; it needs a clean up.
 I wanted to test how quickly various searches are. I used a 20MB file 
 containing a list of email headers, which was 450k lines, and ran the test 
 function shown below, with these results:
-    - 1870 matches in 1s for ^\(.*www\&.*x\) 
-    - 1870 matches in 1s for ^\(.*www\)\@=\(.*x\)\@= 
-    - 1870 matches in 5s for .*www\&.*x 
-    - 1870 matches in 9s for www.*x\|x.*www 
-    - 1870 matches in 18s for \(www.*x\)\|\(x.*www\) 
+    - 1870 matches in 1s for `^\(.*www\&.*x\)` 
+    - 1870 matches in 1s for `^\(.*www\)\@=\(.*x\)\@=` 
+    - 1870 matches in 5s for `.*www\&.*x` 
+    - 1870 matches in 9s for `www.*x\|x.*www` 
+    - 1870 matches in 18s for `\(www.*x\)\|\(x.*www\)` 
 
 
-Omitting the parens in \(www.*x\)\|\(x.*www\) roughly doubles its speed, by 
+Omitting the parens in `\(www.*x\)\|\(x.*www\)` roughly doubles its speed, by 
 avoiding the overhead of filling in back-references internally.
 
-While being the shortest pattern, .*www\&.*x is not the fastest. It can be 
-sped up to the same level as ^\(.*www\)\@=\(.*x\)\@= (the fastest pattern) 
+While being the shortest pattern, `.*www\&.*x` is not the fastest. It can be 
+sped up to the same level as `^\(.*www\)\@=\(.*x\)\@=` (the fastest pattern) 
 with only a slight increase in complexity (anchoring it to the start of the 
 line), though.
 

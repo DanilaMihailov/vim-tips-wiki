@@ -22,8 +22,8 @@ If you regularly switch to a larger or smaller font, for example because
 someone looking at your code thinks the letters are too small, or because you 
 want to lay back in your chair while reading, this tip is for you.
 
-The following script defines two commands, :LargerFont and :SmallerFont, to 
-allow quick adjustments to the font size used in the gtk2 gui. Change 
+The following script defines two commands, `:LargerFont` and `:SmallerFont,` 
+to allow quick adjustments to the font size used in the gtk2 gui. Change 
 minfontsize and maxfontsize to suit your needs. See below for alternative 
 solutions.
 
@@ -75,8 +75,8 @@ MAPPING SOLUTION                                    *vwt-760-mapping-solution*
 
 Another alternative is to use the following mappings which use a clever 
 substitute (no functions are required). This example works using gvim under 
-Windows, where the command :set guifont? would show the font name and :h12 if 
-the font size is 12 points, for example.
+Windows, where the command `:set guifont?` would show the font name and `:h12` 
+if the font size is 12 points, for example.
 
 >
     nnoremap <C-Up> :silent! let &guifont = substitute(
@@ -91,20 +91,21 @@ the font size is 12 points, for example.
      \ '')<CR>
 <
 
-For example, the command :echo &guifont might show 
-Bitstream_Vera_Sans_Mono:h12:b:cANSI.
+For example, the command `:echo &guifont` might show 
+`Bitstream_Vera_Sans_Mono:h12:b:cANSI`.
 
-The substitute pattern :h\zs\d\+ looks for :h followed by a number (one or 
-more digits). The \zs marks the start of what is found (so it skips the :h).
+The substitute pattern `:h\zs\d\+` looks for `:h` followed by a number (one 
+or more digits). The `\zs` marks the start of what is found (so it skips the 
+`:h`).
 
-The replacement string \=eval(submatch(0)+1) uses:
+The replacement string `\=eval(submatch(0)+1)` uses:
 
 \=
 Following is an expression to be evaluated.
 submatch(0)
 The text that matched (this example finds 12 with \d\+).
 
-eval()
+`eval()`
 
 Evaluate the following string (12+1).
 

@@ -41,7 +41,7 @@ COMMENTS                                                    *vwt-268-comments*
 
 Here is a variation on the same theme.
 
-Add this to your vimrc, then type :HowFar or :HF to display "Byte aaaa of 
+Add this to your vimrc, then type `:HowFar` or `:HF` to display "Byte aaaa of 
 bbbbb (xx%)" on the bottom line. Note: The command! statement is one long 
 line.
 

@@ -39,7 +39,7 @@ A simple recursive mapping that will do the job is:
     :map z Iwc <Esc>lyawA><Esc>pa.log<CR>echo "HelloWorld"<Esc>jz
 <
 
-Now type z in the first line and everything else is magic.
+Now type `z` in the first line and everything else is magic.
 
 Here is the breakup where {} contain the vim commands.
 
@@ -94,7 +94,7 @@ search has a terminating condition.
 
 ==============================================================================
 
-I think nmap z /^\*\*\*\*\*k"Ay}3jz should be
+I think `nmap z /^\*\*\*\*\*k"Ay}3jz` should be
 
 >
     nmap z /^\*\*\*\*\*<CR>k"Ay}3jz

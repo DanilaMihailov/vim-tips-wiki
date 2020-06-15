@@ -144,7 +144,7 @@ NOTES                                                          *vwt-434-notes*
 1. The strftime() function is not portable. You might need to change the 
 format specifier for your system. For example, on a Unix-like system, the 
 format specifier "%a %b %e %T %Z %Y" is a better match for the results of the 
-Vim command !!date.
+Vim command `!!date`.
 
 2. The autogroup commands assumes that there is a file called skeleton.h at 
 the location ~/etc/skeletons.
@@ -178,7 +178,7 @@ You might have to modify the path and file name. In my case, the skeleton.h file
 
 Search the script for the pattern "CHANGE" to see where you might have to make changes.
 
-3. The ModifyTime function does not quite do the right thing if there is no 
+3. The `ModifyTime` function does not quite do the right thing if there is no 
 space after the ":" character. This can be fixed, but is hard to depict in the 
 code sample. The "2l" has to be replaced by "a<Space><Esc>lx", but you can't 
 actually use "<Space>" or "<Esc>" but must insert the actual characters. Not 

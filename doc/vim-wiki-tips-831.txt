@@ -11,25 +11,25 @@ tutorial introduction to using search patterns.
 
 FINDING A WHOLE WORD                            *vwt-831-finding-a-whole-word*
 
-In a program, you may want to search for an identifier named i. However, 
-entering the search /i will find every hit, including the "i" in words like 
-"if" and "while". In a pattern, \< represents the beginning of a word, and \> 
-represents the end of a word, so to find only the whole word "i", use the 
+In a program, you may want to search for an identifier named `i`. However, 
+entering the search `/i` will find every hit, including the "i" in words like 
+"if" and "while". In a pattern, `\<` represents the beginning of a word, and 
+\> represents the end of a word, so to find only the whole word "i", use the 
 pattern:
 
 >
     \<i\>
 <
 
-In normal mode, press / to start a search, then type the pattern (\<i\>), 
+In normal mode, press `/` to start a search, then type the pattern (\<i\>), 
 then press Enter.
 
 If you have an example of the word you want to find on screen, you do not 
 need to enter a search pattern. Simply move the cursor anywhere within the 
-word, then press * to search for the next occurrence of that whole word. Vim 
-inserts \< and \> automatically (see searching |vwt-1|).
+word, then press `*` to search for the next occurrence of that whole word. Vim 
+inserts `\<` and \> automatically (see searching |vwt-1|).
 
-The pattern \<i finds all words that start with "i", while i\> finds all 
+The pattern `\<i` finds all words that start with "i", while i\> finds all 
 words that end with "i".
 
 FINDING DUPLICATE WORDS                      *vwt-831-finding-duplicate-words*
@@ -42,18 +42,18 @@ following pattern finds repeated words that are separated by whitespace
     \(\<\w\+\>\)\_s*\<\1\>
 <
 
-The pattern searches for \<\w\+\> (word beginning \<, word character \w, one 
-or more \+ word characters, word end \>). That is, it searches for a whole 
-word. It then looks for any amount of whitespace (\_s*); \s matches space or 
-tab, while \_s matches space or tab or newline (end-of-line character). 
-Finally, the pattern looks for \1 which is the whole word that was found in 
-the escaped parentheses.
+The pattern searches for \<\w\+\> (word beginning `\<`, word character `\w`, 
+one or more `\+` word characters, word end \>). That is, it searches for a 
+whole word. It then looks for any amount of whitespace (`\_s*`); `\s` matches 
+space or tab, while `\_s` matches space or tab or newline (end-of-line 
+character). Finally, the pattern looks for `\1` which is the whole word that 
+was found in the escaped parentheses.
 
 FINDING THIS OR THAT                            *vwt-831-finding-this-or-that*
 
-A search pattern can use \| to search for something or something else. For 
+A search pattern can use `\|` to search for something or something else. For 
 example, to search for all occurrences of "red" or "green" or "blue", enter 
-the following search pattern (in normal mode, press / then type the pattern, 
+the following search pattern (in normal mode, press `/` then type the pattern, 
 then press Enter):
 
 >
@@ -74,11 +74,11 @@ pattern to find only the whole words "red" or "green" or "blue":
     \<\(red\|green\|blue\)\>
 <
 
-In a pattern, \< and \> respectively specify the beginning and end of a word, 
-while \( and \) respectively specify the beginning and end of a group (the 
-pattern \<red\|green\|blue\>, without escaped parentheses, would find "red" 
-occurring at the beginning of a word, or "green" occurring anywhere, or "blue" 
-occurring at the end of a word).
+In a pattern, `\<` and \> respectively specify the beginning and end of a 
+word, while `\(` and `\)` respectively specify the beginning and end of a 
+group (the pattern \<red\|green\|blue\>, without escaped parentheses, would 
+find "red" occurring at the beginning of a word, or "green" occurring 
+anywhere, or "blue" occurring at the end of a word).
 
 After searching with the command /\<\(red\|green\|blue\)\> you could change 
 the whole words "red" or "green" or "blue" to "purple" by entering the 
@@ -89,16 +89,17 @@ search):
     :%s//purple/g
 <
 
-In a substitute, you can use & in the replacement to mean the "whole matched 
-pattern" (everything that was found). For example, the following will insert 
-quotes around all occurrences of the whole words "red" and "green" and "blue":
+In a substitute, you can use `&` in the replacement to mean the "whole 
+matched pattern" (everything that was found). For example, the following will 
+insert quotes around all occurrences of the whole words "red" and "green" and 
+"blue":
 
 >
     :%s/\<\(red\|green\|blue\)\>/"&"/g
 <
 
 If you do not want the whole matched pattern, you can use parentheses to 
-group text in the search pattern, and use the replacement variable \1 to 
+group text in the search pattern, and use the replacement variable `\1` to 
 specify the first group. For example, the following finds "color x" and 
 replaces it with "colored x" where x is the whole word "red" or "green" or 
 "blue":
@@ -117,18 +118,18 @@ any order:
     .*red\&.*blue
 <
 
-In a pattern, \& separates alternates, each of which has to match at the same 
-position. The two alternates in this example are:
-    - .*red (will match all characters from the beginning of a line to the end of 
+In a pattern, `\&` separates alternates, each of which has to match at the 
+same position. The two alternates in this example are:
+    - `.*red` (will match all characters from the beginning of a line to the end of 
       the last "red"); and 
-    - .*blue (will match all characters from the beginning of a line to the end of 
-      the last "blue"). 
+    - `.*blue` (will match all characters from the beginning of a line to the end 
+      of the last "blue"). 
 
 
 A line which contains both "red" and "blue" will match both alternates, 
-starting at the beginning of the line. The pattern .*red\&.*blue finds the 
+starting at the beginning of the line. The pattern `.*red\&.*blue` finds the 
 last alternate (but only if all alternates match at the same position), so if 
-you are highlighting matches |vwt-14|, you will see text matched by .*blue 
+you are highlighting matches |vwt-14|, you will see text matched by `.*blue` 
 highlighted.
 
 An alternative procedure is to use a pattern that explicitly finds "red" 
@@ -156,23 +157,23 @@ The following pattern finds redundant trailing zeroes in numbers:
 
 The pattern does not find the "0" in "1.0", but it finds the trailing "00" in 
 each of the following numbers: 1.000 1.000200 1.0002000300. After searching, 
-the command :%s///g would delete all the redundant zeroes (the search pattern 
-is empty, so it uses the last search).
+the command `:%s///g` would delete all the redundant zeroes (the search 
+pattern is empty, so it uses the last search).
 
 The pattern:
-    - Contains \@<= which checks if the preceding atom matches just before what 
+    - Contains `\@<=` which checks if the preceding atom matches just before what 
       follows. 
     - First searches for 0\+\> (what follows). 
-    - Then checks if what is just before matches \(\.\d\+\) (preceding atom). 
+    - Then checks if what is just before matches `\(\.\d\+\)` (preceding atom). 
 
 
-The first search is 0\+\> which finds one or more (\+) of 0 followed by end 
-of word (\>).
+The first search is 0\+\> which finds one or more (`\+`) of `0` followed by 
+end of word (\>).
 
 The check is \(\.\d\+\)\@<=0\+\> which verifies that the text immediately 
-before the trailing zeroes consists of a decimal point (\.), then one or more 
-decimal digits (\d\+). The escaped parentheses \(...\) make an "atom" from 
-what is enclosed by the parentheses.
+before the trailing zeroes consists of a decimal point (`\.`), then one or 
+more decimal digits (`\d\+`). The escaped parentheses `\(...\)` make an "atom" 
+from what is enclosed by the parentheses.
 
 REFERENCES                                                *vwt-831-references*
     - :help |pattern| 
@@ -184,10 +185,10 @@ COMMENTS                                                    *vwt-831-comments*
 TO DO "finding two words appearing together" as a subtopic will make it 
 easier to reach this url through google. It has tips really very useful but 
 rarely discussed else where.
-    - Mention :h /... for help on a search topic. 
+    - Mention `:h /...` for help on a search topic. 
     - Should link to a discussion on what "word" means (:help 'iskeyword' 
-      simplified), perhaps mentioning \k and \w (and confess that "Finding a whole 
-      word" is really "Finding a whole identifier"). 
+      simplified), perhaps mentioning `\k` and `\w` (and confess that "Finding a 
+      whole word" is really "Finding a whole identifier"). 
 
 
 I'm a little worried about this tip. I like it best when Vim tips have a 

@@ -135,7 +135,7 @@ EASTER EGGS                                              *vwt-305-easter-eggs*
     - :help |UserGettingBored| 
     - :help |spoon| 
     - :help |showmatch| (read the note) 
-    - :Ni! 
+    - `:Ni!` 
     - :help |bar| 
 
 
@@ -186,7 +186,7 @@ EXECUTE COMMAND FROM BUFFER CONTENTS *vwt-305-execute-command-from-buffer-conten
 
 GET OUTPUT FROM SHELL COMMANDS        *vwt-305-get-output-from-shell-commands*
 
-These use external programs – ls, grep, date, sort, … (see :help |:sort| to 
+These use external programs – `ls, grep, date, sort, …` (see :help |:sort| to 
 learn how to use Vim's built-in sort).
 
 >
@@ -370,17 +370,17 @@ GLOBAL COMMAND                                        *vwt-305-global-command*
     :v/./.,/./-1join : compress empty lines
 <
 
-Between lines with marks a and b (inclusive), append each line starting with 
-"Error" to a file:
+Between lines with marks `a` and `b` (inclusive), append each line starting 
+with "Error" to a file:
 
 >
     :'a,'b g/^Error/ .w >> errors.txt
 <
 
-Delete all lines containing "green" but not "red" or "pink". Command :g/^/ 
-matches every line; the current line is copied into variable x; if any part of 
-x matches (case sensitive) "green" and not "red" and not "pink", the line is 
-deleted. Replace # with ? for case insensitive.
+Delete all lines containing "green" but not "red" or "pink". Command `:g/^/` 
+matches every line; the current line is copied into variable `x`; if any part 
+of `x` matches (case sensitive) "green" and not "red" and not "pink", the line 
+is deleted. Replace `#` with `?` for case insensitive.
 
 >
     :g/^/let x=getline('.') | if x=~#'green' && x!~#'red' && x!~#'pink' | d | endif
@@ -431,7 +431,7 @@ PREVIEW IN WEB BROWSER                        *vwt-305-preview-in-web-browser*
 
 COMMENTS                                                    *vwt-305-comments*
 
-The Buffer Explorer scripts mentioned above (\be \bs) rely on the popular 
+The Buffer Explorer scripts mentioned above (`\be` `\bs`) rely on the popular 
 script bufexplorer.vim [https://www.vim.org/scripts/script.php?script_id=42].
 
 Have recently started to appreciate taglist.vim (the most popular Vim script) 
@@ -441,13 +441,13 @@ subroutines/functions as it shows which function/sub you're in etc script#273
 
 VIM TRAPS                                                  *vwt-305-vim-traps*
 
-In regular expressions you must backslash + (match 1 or more).
+In regular expressions you must backslash `+` (match 1 or more).
 
 >
     /fred\+/ : matches fred/freddy but not free
 <
 
-\v (very magic) reduces backslashing
+`\v` (very magic) reduces backslashing
 
 >
     /codes\(\n\|\s\)*where : normal regexp
@@ -501,7 +501,7 @@ TODO move following to other CTRL-R tips
     <c-r>/
 <
 
-Searching over multiple lines: \_ includes newline
+Searching over multiple lines: `\_` includes newline
 
 >
     /<!--\_p\{-}-->    : search for multiple line comments
@@ -538,8 +538,8 @@ Try one of these
     :%!cat -n
 <
 
-To simply display how many lines are in the current buffer, type Ctrl-g (or g 
-then Ctrl-g for more information).
+To simply display how many lines are in the current buffer, type Ctrl-g (or 
+`g` then Ctrl-g for more information).
 
 >
     :%s/^\(.*\)\n\(\1\n\)*/\1\r/
@@ -679,13 +679,13 @@ My thoughts on comments by DG12 above and on my talk:
       rather overwhelming; see VimTip1611 |vwt-1611| for an example. 
     - Re the style of the tip: The quirky comments are often not directly helpful 
       but they worked well for me when I first read this tip (at vim.org) several 
-      years ago. For example ":set ignorecase : you nearly always want this" alerts 
-      readers that they should find out what the command means and consider using 
-      it. If every point were clarified, the tip would be far too long and hard to 
-      read. Currently the tip is useful because it provides a subjective overview of 
-      what people should look for in Vim. 
+      years ago. For example "`:set ignorecase : you nearly always want this`" 
+      alerts readers that they should find out what the command means and consider 
+      using it. If every point were clarified, the tip would be far too long and 
+      hard to read. Currently the tip is useful because it provides a subjective 
+      overview of what people should look for in Vim. 
     - Re the case sensitive point above: While a/A is a good example, it's not 
-      needed as an additional example. I think the ce is to show a complete change 
+      needed as an additional example. I think the `ce` is to show a complete change 
       command. It might be a good idea to replace the c/C/ce with a/A which makes 
       the point. Actually, even better might be j/J because the two actions are 
       totally different. 

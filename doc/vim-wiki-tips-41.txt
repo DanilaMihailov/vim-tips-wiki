@@ -77,8 +77,8 @@ The following map
     map ZZ :close<CR>:b afiedt.buf<CR>:xit<CR>
 <
 
-will let the ZZ function close the second window and save the afiedt.buf file 
-and then exit (if the user has no other dirty buffers).
+will let the `ZZ` function close the second window and save the afiedt.buf 
+file and then exit (if the user has no other dirty buffers).
 
 ==============================================================================
 

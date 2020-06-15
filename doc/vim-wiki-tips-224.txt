@@ -14,15 +14,15 @@ settings that affect indentation.
 
 BASIC COMMANDS                                        *vwt-224-basic-commands*
 
-In normal mode, type >> to indent the current line, or << to unindent. Each 
-command can be used with a count. The operators > and < do the same for 
-motions, text objects and visual selections. For all commands, pressing . 
+In normal mode, type >> to indent the current line, or `<<` to unindent. Each 
+command can be used with a count. The operators > and `<` do the same for 
+motions, text objects and visual selections. For all commands, pressing `.` 
 repeats the operation.
 
 For example, typing 5>>.. shifts five lines to the right, and then repeats 
 the operation twice so that the five lines are shifted three times.
 
-In insert mode, Ctrl-T indents the current line, and Ctrl-D unindents.
+In insert mode, `Ctrl-T` indents the current line, and `Ctrl-D` unindents.
 
 When indenting or unindenting, lines are shifted one 'shiftwidth' to the 
 right or left.
@@ -31,34 +31,36 @@ BASIC EXAMPLES                                        *vwt-224-basic-examples*
 
 To adjust the indent on three lines:
     - Put the cursor anywhere in the first line. 
-    - Press V then jj to visually select the three lines. 
-    - Press > to indent (shift text one 'shiftwidth' to the right), or press < to 
-      shift left. 
-    - Press . to repeat the indent, or u to undo if you have shifted too far. 
-    - Type gv if you want to reselect the lines (not needed). 
+    - Press `V` then `jj` to visually select the three lines. 
+    - Press > to indent (shift text one '`shiftwidth`' to the right), or press `<` 
+      to shift left. 
+    - Press `.` to repeat the indent, or `u` to undo if you have shifted too far. 
+    - Type `gv` if you want to reselect the lines (not needed). 
 
 
 Alternatively, if you know that you want to adjust three lines, you can 
 simply:
-    - Type 3>> to shift right or 3<< to shift left. 
+    - Type 3>> to shift right or `3<<` to shift left. 
 
 
 Or:
-    - Type >2j to shift right or <2j to shift left. 
+    - Type >2j to shift right or `<2j` to shift left. 
 
 
-As mentioned above, the > and < commands combine with arbitrary Vim movements 
-and text objects. For example, >} to indent from the cursor to the next blank 
-line, or <aB to un-indent the current C-like {...} "block" structure. See 
-indent a code block [https://vim.fandom.com/wiki/Indent_a_code_block].
+As mentioned above, the > and `<` commands combine with arbitrary Vim 
+movements and text objects. For example, >} to indent from the cursor to the 
+next blank line, or `<aB` to un-indent the current C-like {...} "block" 
+structure. See indent a code block 
+[https://vim.fandom.com/wiki/Indent_a_code_block].
 
 MORE COMMANDS                                          *vwt-224-more-commands*
 
-In normal mode, type == to automatically indent the current line according to 
-your indentation settings |vwt-83|. This command can be used with a count. The 
-= command does the same, but for motions, text objects and visual selections.
+In normal mode, type `==` to automatically indent the current line according 
+to your indentation settings |vwt-83|. This command can be used with a count. 
+The `=` command does the same, but for motions, text objects and visual 
+selections.
 
-To reindent an entire buffer, use gg=G.
+To reindent an entire buffer, use `gg=G`.
 
 To reindent many files, the argument list can be used:
 
@@ -75,40 +77,40 @@ Or use the buffer list (caution, every buffer will be affected):
     :wall
 <
 
-In insert mode, 0 Ctrl-D removes all indentation on the current line, and ^ 
-Ctrl-D does the same, but restores the original level of indentation for this 
-line on the next line. When using 'cindent' or file type based indentation, 
-Ctrl-F reindents the current line, like == in normal mode.
+In insert mode, `0 Ctrl-D` removes all indentation on the current line, and 
+`^ Ctrl-D` does the same, but restores the original level of indentation for 
+this line on the next line. When using 'cindent' or file type based 
+indentation, `Ctrl-F` reindents the current line, like `==` in normal mode.
 
-The :> and :< commands take a range, and additional > or < can be used. For 
-example, :12,20>>> indents lines 12 to 20 inclusive three times (adding three 
-times 'shiftwidth' of indentation to the specified lines).
+The :> and `:<` commands take a range, and additional > or `<` can be used. 
+For example, :12,20>>> indents lines 12 to 20 inclusive three times (adding 
+three times 'shiftwidth' of indentation to the specified lines).
 
 MORE EXAMPLES                                          *vwt-224-more-examples*
 
 To set the indent on three lines to 12 spaces (or an equivalent mixture of 
-tabs/spaces, depending on 'expandtab'):
+tabs/spaces, depending on '`expandtab`'):
     - Put the cursor anywhere in the first line. 
-    - Press V then jj to visually select the three lines. 
-    - Type :le 12 then press Enter (abbreviation for :left 12). 
+    - Press `V` then `jj` to visually select the three lines. 
+    - Type `:le 12` then press Enter (abbreviation for `:left 12`). 
 
 
-To remove all indents in a selected region, type :le then press Enter.
+To remove all indents in a selected region, type `:le` then press Enter.
 
 To apply automatic indentation (this requires suitable indent rules for your 
 file type):
-    - Type == to indent the current line. 
-    - Type a number then == to indent that many lines, starting from the cursor. 
-    - Press V then move the cursor to select a range of lines, then press = to 
+    - Type `==` to indent the current line. 
+    - Type a number then `==` to indent that many lines, starting from the cursor. 
+    - Press `V` then move the cursor to select a range of lines, then press `=` to 
       indent the selection. 
 
 
 MAPPINGS                                                    *vwt-224-mappings*
 
 If you select some lines then press > to indent the lines, the selection is 
-removed. The indentation can be repeated on the same range using ., but if you 
-still want to retain the visual selection after having pressed > or <, you can 
-use these mappings
+removed. The indentation can be repeated on the same range using `.`, but if 
+you still want to retain the visual selection after having pressed > or `<`, 
+you can use these mappings
 
 >
     vnoremap > >gv
@@ -129,11 +131,11 @@ Tab or Shift-Tab to adjust the indent on selected lines.
     vnoremap <S-Tab> <gv
 <
 
-An alternative for anyone using :behave mswin, is to select lines by holding 
-down Shift and pressing the cursor down or up arrow keys. However, in select 
-mode, if you press >, the selected text will be replaced with '>'. Instead, 
-you can use Tab to increase the indent, and Shift-Tab to decrease it, with 
-these mappings:
+An alternative for anyone using `:behave mswin`, is to select lines by 
+holding down Shift and pressing the cursor down or up arrow keys. However, in 
+select mode, if you press >, the selected text will be replaced with '>'. 
+Instead, you can use Tab to increase the indent, and Shift-Tab to decrease it, 
+with these mappings:
 
 >
     vnoremap <Tab> >
@@ -151,7 +153,7 @@ Tab or Shift-Tab:
 <
 
 SEE ALSO                                                    *vwt-224-see-also*
-    - 597 Indent a code block |vwt-597| indenting a code block ({...}) 
+    - 597 Indent a code block |vwt-597| indenting a code block (`{...}`) 
 
 
 REFERENCES                                                *vwt-224-references*
@@ -163,8 +165,8 @@ REFERENCES                                                *vwt-224-references*
 
 COMMENTS                                                    *vwt-224-comments*
 
-Where :wall is used, should mention :set hidden. We should have a tip on that 
-so we can just link to it. JohnBeckett 
+Where `:wall` is used, should mention `:set hidden`. We should have a tip on 
+that so we can just link to it. JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] 04:33, June 28, 2012 (UTC)
 
 in Vi :set ts=4 sw=4 will set the tab space to 4

@@ -20,7 +20,7 @@ The first map (F11) open a temp file in a split and write the output in it
 
 I use the second (F12) to do it if I have already a split with the result.
 
-I do a set autowrite, but I am sure we can use the same property of :he 
+I do a set autowrite, but I am sure we can use the same property of `:he` 
 command (a buffer in read only without needing to save it).
 
 COMMENTS                                                   *vwt-1388-comments*

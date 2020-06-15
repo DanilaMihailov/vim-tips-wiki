@@ -8,7 +8,8 @@ created 2002 · complexity basic · author TVIM · version 6.0
 
 I use this function to let me know if my cursor is on a TAB column.
 
-The t* on the ruler means I am not. But t3 means the cursor is on tablevel 3
+The `t*` on the ruler means I am not. But `t3` means the cursor is on 
+tablevel 3
 
 >
     ~vimrc ----------------------- My Ruler ------------------------ r4,c13,t3

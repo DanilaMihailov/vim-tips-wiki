@@ -6,7 +6,7 @@ created 2006 · complexity basic · author Tianmiao Hu · version 5.7
 
 ==============================================================================
 
-This tip allows you to use the Tab key to switch windows created by the :sp 
+This tip allows you to use the Tab key to switch windows created by the `:sp` 
 command. It also sets the current file path to that of the file in the window 
 that gains the focus.
 
@@ -17,8 +17,8 @@ Add the following two entries to your vimrc or gvimrc file:
     map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
 <
 
-When you use :sp to create multiple windows, you can press the Tab key to 
-switch between the windows (hit Esc first if in insert mode). If you use :e 
+When you use `:sp` to create multiple windows, you can press the Tab key to 
+switch between the windows (hit Esc first if in insert mode). If you use `:e` 
 and hit the Tab key, you will get the files under the same directory as that 
 of the file in the currently focused window.
 

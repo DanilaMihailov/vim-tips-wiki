@@ -13,38 +13,39 @@ While searching, you may want to operate on the text found by a search.
 Typically, you want to copy a search hit, or change it (delete the hit, and 
 enter insert mode so you can type in new text). Often one of the standard 
 commands can be used (for example, if you searched for a complete word, the 
-command cw may be sufficient to change it).
+command `cw` may be sufficient to change it).
 
-A more general approach comes from using a text object. From Vim 7.4, gn can 
-be used. In earlier versions of Vim, //e can be used to repeat the last search 
-(because no new search pattern was entered), with the e search offset to move 
-the cursor to the end of the search hit. :help |search-offset|
+A more general approach comes from using a text object. From Vim 7.4, `gn` 
+can be used. In earlier versions of Vim, `//e` can be used to repeat the last 
+search (because no new search pattern was entered), with the `e` search offset 
+to move the cursor to the end of the search hit. :help |search-offset|
 
 VIM 7.4 AND LATER                                 *vwt-1597-vim-7.4-and-later*
     - TODO: Finish! 
 
 
-After searching, typing n searches forward from the current position to find 
-the next match. Typing gn does the same thing, and selects the match. Using 
-gn, the current match is found if the cursor is at a search hit.
+After searching, typing `n` searches forward from the current position to 
+find the next match. Typing `gn` does the same thing, and selects the match. 
+Using `gn`, the current match is found if the cursor is at a search hit.
 
-If an operator is pending, typing gn operates on the selected match. For 
-example, dgn would delete the next match, and cgn would change the next match. 
-After moving the cursor, for example by pressing n to search again, use . to 
-repeat the last operation.
+If an operator is pending, typing `gn` operates on the selected match. For 
+example, `dgn` would delete the next match, and `cgn` would change the next 
+match. After moving the cursor, for example by pressing `n` to search again, 
+use `.` to repeat the last operation.
 
 A SEARCH TEXT OBJECT FOR OLDER VIM 7.3 AND EARLIER *vwt-1597-a-search-text-object-for-older-vim-7.3-and-earlier*
 
-By defining the mappings below for s, after searching you can:
-    - Type ys to copy the search hit. 
-    - Type "+ys to copy the hit to the clipboard. 
-    - Type cs to change the hit. 
-    - Type gUs to convert the hit to uppercase. 
-    - Type vs to visually select the hit. If you type another s you will extend the 
-      selection to the end of the next hit. 
+By defining the mappings below for `s`, after searching you can:
+    - Type `ys` to copy the search hit. 
+    - Type `"+ys` to copy the hit to the clipboard. 
+    - Type `cs` to change the hit. 
+    - Type `gUs` to convert the hit to uppercase. 
+    - Type `vs` to visually select the hit. If you type another `s` you will extend 
+      the selection to the end of the next hit. 
 
 
-For example, search for 'File' and change it to 'Data' (cs = change search):
+For example, search for 'File' and change it to 'Data' (`cs` = change 
+search):
 
 >
     /File
@@ -52,7 +53,8 @@ For example, search for 'File' and change it to 'Data' (cs = change search):
     " Sample to search: GetFileDir GetFileId GetFilePos MyFile BackupFile
 <
 
-Then press n to find the next occurrence and press . to repeat the change.
+Then press `n` to find the next occurrence and press `.` to repeat the 
+change.
 
 Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 
@@ -66,21 +68,22 @@ Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 EXPLANATION                                             *vwt-1597-explanation*
 
 This tip implements a simple search text object identified as "s". When in 
-visual mode, s is mapped to find the end of the last search pattern (//e). 
-When in operator-pending mode (for example, after pressing y in normal mode), 
-s is mapped to normal-mode vs which starts visual mode (assuming v has not 
-been mapped) and invokes the s visual-mode mapping.
+visual mode, `s` is mapped to find the end of the last search pattern (`//e`). 
+When in operator-pending mode (for example, after pressing `y` in normal 
+mode), `s` is mapped to normal-mode `vs` which starts visual mode (assuming 
+`v` has not been mapped) and invokes the `s` visual-mode mapping.
 
 The <C-r>= evaluates the following expression which tests the 'selection' 
 option. If exclusive selection is used, the result is '+1', otherwise the 
-result is an empty string. Accordingly, the visual-mode map becomes //e+1 or 
-//e. :help |search-offset|
+result is an empty string. Accordingly, the visual-mode map becomes `//e+1` or 
+`//e`. :help |search-offset|
 
 The visual-mode mapping continues with :<C-u> to enter the command line while 
-removing the visual range automatically inserted by Vim. The histdel function 
-removes the last (-1) item from the search history ('//e+1' or '//e'). The let 
-statement assigns the previous search item to @/ (the search register) so 
-pressing n or N will search for the next or previous instance.
+removing the visual range automatically inserted by Vim. The `histdel` 
+function removes the last (`-1`) item from the search history ('//e+1' or 
+'//e'). The `let` statement assigns the previous search item to `@/` (the 
+search register) so pressing `n` or `N` will search for the next or previous 
+instance.
 
 In :help |todo| we see a plan for a future version of Vim:
 
@@ -90,23 +93,23 @@ This tip prefers the simple "s" for a search hit, with no attempt to
 implement "a" and "i" text objects. Instead, "s" selects from the current 
 position to the end of the next search hit.
 
-The default for visual mode in Vim is that you can press c or s to change a 
-selected area. Using the mapping suggested in this tip, you would no longer be 
-able to press s to change a visual area (use c instead).
+The default for visual mode in Vim is that you can press `c` or `s` to change 
+a selected area. Using the mapping suggested in this tip, you would no longer 
+be able to press `s` to change a visual area (use `c` instead).
 
 LIMITATIONS                                             *vwt-1597-limitations*
 
 The tip can be helpful to reduce distractions while editing because you can 
-always press ys to yank the hit, or cs to change it (you don't have to think 
-about an alternative method). However, the tip has several limitations:
-    - Pressing . to repeat a change will change the same number of characters that 
-      were previously changed (so you can only repeat a change when the search hit 
-      is a fixed length). 
+always press `ys` to yank the hit, or `cs` to change it (you don't have to 
+think about an alternative method). However, the tip has several limitations:
+    - Pressing `.` to repeat a change will change the same number of characters 
+      that were previously changed (so you can only repeat a change when the search 
+      hit is a fixed length). 
     - The text object fails when the search hit is a single character, and when 
       search wraps around the end of the buffer. 
-    - Suppose you use :set selection=exclusive and search for 'abc'. If you find 
-      'abc' at the end of a line, operations such as ys or cs will include the line 
-      break. 
+    - Suppose you use `:set selection=exclusive` and search for 'abc'. If you find 
+      'abc' at the end of a line, operations such as `ys` or `cs` will include the 
+      line break. 
 
 
 SEE ALSO                                                   *vwt-1597-see-also*

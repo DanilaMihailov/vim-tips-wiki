@@ -26,7 +26,7 @@ contains lots of cursor shape #define definitions, like
     .
 <
 
-Now :set mouseshape=n:62 will set the shape of the mouseptr to heart in 
+Now `:set mouseshape=n:62` will set the shape of the mouseptr to heart in 
 normal mode.
 
 COMMENTS                                                    *vwt-262-comments*
@@ -36,7 +36,7 @@ Not available for Windows.
 ==============================================================================
 
 Actually, only certain built-in cursors are available in Windows. Pencil 
-doesn't work, but others do. See :help mouseshape
+doesn't work, but others do. See `:help mouseshape`
 
 ==============================================================================
 

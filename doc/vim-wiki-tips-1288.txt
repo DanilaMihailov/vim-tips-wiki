@@ -23,7 +23,7 @@ is:
     - If you want your file to be always interpreted by Vim as Latin1 and never as 
       UTF-8, place in it a line with a number of "upper-ASCII" bytes in it (i.e. 
       bytes in the range 128-255), then save the file after making sure that 
-      'fileencoding' is set to Latin1, e.g. by doing ":setlocal fenc=latin1". In a 
+      'fileencoding' is set to Latin1, e.g. by doing "`:setlocal fenc=latin1`". In a 
       program source file or a shell script, the line can be a comment; in a text 
       file, it can be "fancy underlining". The following will do (for example): > # 
       zim: set fenc=latin1 nomod : ÷÷÷÷÷÷ < 
@@ -33,9 +33,9 @@ Place it where you would a modeline. Notice that with the letter v instead of
 z in column 3 it would be a modeline; but the problem with setting the 
 'fileencoding' by means of a modeline is that the latter's action happens only 
 after the file has been read. This line will make the "typical" 
-'fileencodings' heuristics (as set, e.g., by ":set 
-fileencodings=ucs-bom,utf-8,latin1") to give a "negative" result for UTF-8, so 
-that Vim's automatic mechanisms will recognise the file as Latin1.
+'fileencodings' heuristics (as set, e.g., by "`:set 
+fileencodings=ucs-bom,utf-8,latin1`") to give a "negative" result for UTF-8, 
+so that Vim's automatic mechanisms will recognise the file as Latin1.
 
 See also Working with Unicode 
 [https://vim.fandom.com/wiki/Working_with_Unicode].

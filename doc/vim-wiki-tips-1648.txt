@@ -16,7 +16,7 @@ separate workspaces.
 The following autocommands store the current mode when leaving a tab into a 
 tab-local variable. On entry into the tab, the mode is restored. Place these 
 autocmds in your vimrc [https://vim.fandom.com/wiki/Vimrc] or a .vim file in 
-~/.vim/plugin/ (or $HOME/vimfiles/plugin on Windows).
+`~/.vim/plugin/` (or `$HOME/vimfiles/plugin` on Windows).
 
 >
     augroup tabInsertMode

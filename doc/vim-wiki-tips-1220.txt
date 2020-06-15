@@ -38,11 +38,11 @@ most shells use for text editing can be found in the readline man page
 [https://www.gnu.org/software/bash/manual/bashref.html#Readline-Interaction].
 
 When customizing your Vi-style kemappings, be mindful of which editing mode 
-your keymap applies to. In your ~/.inputrc, a line with set keymap vi-command 
-means that mappings below that line apply to command mode; a line with set 
-keymap vi-insert means that mappings below that line apply to insert mode. See 
-a sample .inputrc |vwt-1220-well-formed-example-inputrc| for an example of 
-this.
+your keymap applies to. In your ~/.inputrc, a line with `set keymap 
+vi-command` means that mappings below that line apply to command mode; a line 
+with `set keymap vi-insert` means that mappings below that line apply to 
+insert mode. See a sample .inputrc |vwt-1220-well-formed-example-inputrc| for 
+an example of this.
 
 COMMENTS                                                   *vwt-1220-comments*
 

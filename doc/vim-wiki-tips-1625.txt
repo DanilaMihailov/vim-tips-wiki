@@ -54,10 +54,10 @@ as the sort key (the "xxxx" line is not part of the data):
     00004710001*031072721001
 <
 
-Visually select the string 1*01 in the first line, under "xxxx", then press y 
-to copy the text. Now you can press F9 to group lines that match at the same 
-column position. Each time you press F9, a blank line is inserted before the 
-next line that does not match the current pattern. The following shows the 
+Visually select the string `1*01` in the first line, under "xxxx", then press 
+`y` to copy the text. Now you can press F9 to group lines that match at the 
+same column position. Each time you press F9, a blank line is inserted before 
+the next line that does not match the current pattern. The following shows the 
 text after pressing F9 twice:
 
 >
@@ -75,16 +75,16 @@ text after pressing F9 twice:
 
 EXPLANATION                                             *vwt-1625-explanation*
 
-The function assumes that the unnamed register (@@ or @") holds a copy of the 
-text that you want matched. Only the length of the text is used. Each time 
+The function assumes that the unnamed register (`@@` or `@"`) holds a copy of 
+the text that you want matched. Only the length of the text is used. Each time 
 that the function is called, it builds a search pattern using the current 
 position of the cursor and the length of the text in the unnamed register. 
-Special characters (\.*$^~[) are escaped, and so can be used in the pattern. 
-In the above example, the text is "1*01". The search pattern created is 
-\%11c\(1\*01\)\@! which consists of:
-    - \%11c match at byte 11 
-    - \(1\*01\) grouped and escaped pattern 
-    - \@! match if the preceding does not match 
+Special characters (`\.*$^~[`) are escaped, and so can be used in the pattern. 
+In the above example, the text is "`1*01`". The search pattern created is 
+`\%11c\(1\*01\)\@!` which consists of:
+    - `\%11c` match at byte 11 
+    - `\(1\*01\)` grouped and escaped pattern 
+    - `\@!` match if the preceding does not match 
 
 
 COMMENTS                                                   *vwt-1625-comments*

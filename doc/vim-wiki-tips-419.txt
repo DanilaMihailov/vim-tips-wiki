@@ -13,7 +13,7 @@ runtime, and encounters problems with hash literals. Until this is fixed, if
 the syntax folding bugs bother you, you can use one of the alternate methods 
 listed below the main tip.
 
-The $VIMRUNTIME/syntax/perl.vim file provided with Vim has a configurable 
+The `$VIMRUNTIME/syntax/perl.vim` file provided with Vim has a configurable 
 option 
 [https://vim.fandom.com/wiki/Check_your_syntax_files_for_configurable_options] 
 that allows folding in Perl programs. To enable folding in files with "perl" 
@@ -24,7 +24,7 @@ filetype, put the following line in your vimrc
     let perl_fold = 1
 <
 
-The Vim 7.2 perl.vim has some bugs. A patch is available 
+The Vim 7.2 `perl.vim` has some bugs. A patch is available 
 [http://groups.google.com/group/vim_dev/browse_thread/thread/e2a54d22c728d04b].
 
 ALTERNATIVES                                            *vwt-419-alternatives*
@@ -103,15 +103,15 @@ REFERENCES                                                *vwt-419-references*
 
 COMMENTS                                                    *vwt-419-comments*
 
-When let perl_fold = 1 is used, the fold method (:set fdm?) will be "syntax", 
-and you will not be able to use manual or marker folds. If wanted, you can 
-change the fold method, for example, :set foldmethod=manual.
+When `let perl_fold = 1` is used, the fold method (`:set fdm?`) will be 
+"syntax", and you will not be able to use manual or marker folds. If wanted, 
+you can change the fold method, for example, `:set foldmethod=manual`.
 
-In other words, if you want vim to autofold perl subroutines, use let 
-perl_fold = 1 in your .vimrc. This automatically set foldmethod=syntax when 
-you load a perl file, but if not, you can manually set foldmethod=syntax or 
-put this command in a file in $HOME/.vim/after/syntax called perl.vim (create 
-this directory and file if it does not yet exist).
+In other words, if you want vim to autofold perl subroutines, use `let 
+perl_fold = 1` in your .vimrc. This automatically `set foldmethod=syntax` when 
+you load a perl file, but if not, you can manually `set foldmethod=syntax` or 
+put this command in a file in `$HOME/.vim/after/syntax` called `perl.vim` 
+(create this directory and file if it does not yet exist).
 
 ==============================================================================
 

@@ -8,11 +8,11 @@ created
 
 ==============================================================================
 
-In the Vim command line (after pressing :), you can use file name completion 
-after a command that expects a file name to be entered. For example, if you 
-type :e my then press Tab, the "my" will be expanded to the next file name 
-beginning with "my". This tip shows how to navigate directories by easily 
-removing components from the file name.
+In the Vim command line (after pressing `:`), you can use file name 
+completion after a command that expects a file name to be entered. For 
+example, if you type `:e my` then press Tab, the "`my`" will be expanded to 
+the next file name beginning with "my". This tip shows how to navigate 
+directories by easily removing components from the file name.
 
 REMOVING THE LAST PATH COMPONENT   *vwt-1594-removing-the-last-path-component*
 
@@ -52,7 +52,7 @@ to use the following script.
 <
 
 Then you can press Ctrl-T to remove the last path component. It uses 
-'isfname', and stops at characters not included, except escaped spaces. At 
+'`isfname`', and stops at characters not included, except escaped spaces. At 
 least one character is always removed.
 
 ==============================================================================
@@ -95,8 +95,8 @@ REFERENCES                                               *vwt-1594-references*
 
 RELATED PLUGINS                                     *vwt-1594-related-plugins*
     - CmdlineSpecialEdits.vim 
-      [https://www.vim.org/scripts/script.php?script_id=5865] has a CTRL-BS mapping 
-      that has been inspired by this Wiki page 
+      [https://www.vim.org/scripts/script.php?script_id=5865] has a `CTRL-BS` 
+      mapping that has been inspired by this Wiki page 
 
 
 COMMENTS                                                   *vwt-1594-comments*

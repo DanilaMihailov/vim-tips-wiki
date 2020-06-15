@@ -9,11 +9,11 @@ created 2004 · complexity intermediate · author hari_vim · version 5.7
 Problem: When you modify a file and write contents to a different file, Vim 
 resets the 'modified' flag, which is a Vi compatible behavior. For those who 
 don't want the 'modified' flag reset, the suggested alternative is to use 
-:saveas command instead of :write command, but this changes the name of the 
-current buffer rather than what is wanted. So I have cooked up the following 
-solution which seems to work for regular files, but it is not a fool proof 
-mechanism. The problem is plugins like netrw that catch the event that is 
-triggered when you try to write contents to a different file, and the below 
+`:saveas` command instead of `:write` command, but this changes the name of 
+the current buffer rather than what is wanted. So I have cooked up the 
+following solution which seems to work for regular files, but it is not a fool 
+proof mechanism. The problem is plugins like netrw that catch the event that 
+is triggered when you try to write contents to a different file, and the below 
 solution also uses the same mechanism, so it would end up getting triggered 
 unexpectedly (actually, netrw might work just fine, but you would get ugly 
 error messages in addition).
@@ -30,8 +30,8 @@ installing this solution and see what other autocommands exist, other than
 those that are for netrw. You will have to then tweek the code that returns 
 early from the BufWrite() function.
 
-Put the below code in your vimrc and your :write will work as expected (i.e. 
-as described above).
+Put the below code in your vimrc and your `:write` will work as expected 
+(i.e. as described above).
 
 >
     function! SetBufWriteAuEnabled(enabled)

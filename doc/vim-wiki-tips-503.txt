@@ -13,8 +13,8 @@ emulator for Windows. It is commonly used as an SSH client to connect to a
 Unix-based server using the secure shell protocol. Console Vim (not gvim) can 
 be run on the server, using PuTTY as the terminal.
 
-PuTTY acts as an xterm. Check your settings or just echo $TERM at the command 
-prompt on most Unix systems to verify the xterm type.
+PuTTY acts as an xterm. Check your settings or just `echo $TERM` at the 
+command prompt on most Unix systems to verify the xterm type.
 
 USING THE NUMERIC KEYPAD                    *vwt-503-using-the-numeric-keypad*
 
@@ -27,7 +27,7 @@ These confusing things happen when PuTTY is in "application keypad mode".
 PuTTY can be configured so that keys on the numeric keypad (including 
 NumLock) will send an escape sequence ("application keypad mode"), or will 
 behave as a standard number pad (when NumLock is on, send the characters 
-[0-9/*-+.]; otherwise, send the codes for the cursor movement keys).
+`[0-9/*-+.]`; otherwise, send the codes for the cursor movement keys).
 
 For use in Vim, you want to disable application keypad mode:
     - Run PuTTY Configuration. 
@@ -62,7 +62,7 @@ The original tip was a confused suggestion to define certain mappings so that
 Vim recognizes the escape sequences generated when keys on the numeric keypad 
 are pressed, if the keypad is set to "application keypad mode".
 
-For example, in application keypad mode, pressing the 1 key on the numeric 
+For example, in application keypad mode, pressing the `1` key on the numeric 
 keypad causes PuTTY to send the escape sequence <Esc>Oq (three byes). Pressing 
 the NumLock key similarly generates an escape sequence.
 

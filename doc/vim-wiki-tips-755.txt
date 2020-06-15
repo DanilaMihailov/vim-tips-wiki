@@ -8,7 +8,7 @@ created 2004 · complexity intermediate · author Raj Kiran Grandhi · version
 ==============================================================================
 
 You can use an expression as the replacement string in the substitute command 
-(:s). When the replacement string starts with \= it is evaluated as an 
+(`:s`). When the replacement string starts with \= it is evaluated as an 
 expression. This opens whole new avenue of interesting possiblities. Here are 
 a few examples:
     - Number all the lines in a file (insert line number followed by a tab): 
@@ -31,7 +31,7 @@ a few examples:
 Note: The above command does not work for the first paragraph in the file if there is no blank line above it.
     - Create a file skeleton with dynamic content 
       [https://vim.fandom.com/wiki/Use_eval_to_create_dynamic_templates] by using 
-      eval() in the expression. 
+      `eval()` in the expression. 
 
 
 REFERENCES                                                *vwt-755-references*
@@ -47,11 +47,11 @@ You can also substitute inside substitute!
     :%s#.*#\='cp '.submatch(0).' all/'.substitute(submatch(0),'/','_','g')#
 <
 
-The substitute uses # (not a slash) as the delimiter because / appears in the 
-replacement text. The search pattern (.*) is submatch(0).
+The substitute uses `#` (not a slash) as the delimiter because `/` appears in 
+the replacement text. The search pattern (`.*`) is `submatch(0)`.
 
-The replacement expression inserts "cp " and "all/" and changes any "/" to 
-"_", for example changing line:
+The replacement expression inserts "`cp `" and "`all/`" and changes any "`/`" 
+to "`_`", for example changing line:
 
 >
     sub1/sub2/file1.html

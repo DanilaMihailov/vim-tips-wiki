@@ -6,20 +6,20 @@ created 2006 · complexity intermediate · author Yakov Lerner · version n/a
 
 ==============================================================================
 
-You can use :command to define your own commands, but user-defined commands 
+You can use `:command` to define your own commands, but user-defined commands 
 must start with an uppercase letter to avoid confusion with built-in commands.
 
-This tip shows how to replace a built-in command using :cabbrev to 
+This tip shows how to replace a built-in command using `:cabbrev` to 
 automatically replace the existing command when it is typed.
 
 For example, you may want to change the behavior of a built-in command like 
-:e. Or, you may make a common typo, like using :w1 instead of :w!. For 
+`:e`. Or, you may make a common typo, like using `:w1` instead of `:w!`. For 
 whatever reason, if you want to change the behavior of a built-in command, you 
-can't just use :command to override it, because user-defined commands must 
+can't just use `:command` to override it, because user-defined commands must 
 begin with a capital letter.
 
-Suppose you have a user-defined :E command that you want to use to override 
-the default :e command. You could do the following:
+Suppose you have a user-defined `:E` command that you want to use to override 
+the default `:e` command. You could do the following:
 
 >
     :cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
@@ -44,11 +44,11 @@ whatever command you want:
 <
 
 This not only creates the function, but also provides the (lowercase!) 
-command :ccab to define such abbreviations "on the fly".
+command `:ccab` to define such abbreviations "on the fly".
 
-Note that because of the use of <f-args>, you will need to escape ("\ "), or 
-use <Space>, to include literal spaces in your expansion. This is explained in 
-:help |<f-args>|.
+Note that because of the use of <f-args>, you will need to escape (`"\ "`), 
+or use <Space>, to include literal spaces in your expansion. This is explained 
+in :help |<f-args>|.
 
 WARNING: the abbreviation commands work only if "set paste" is NOT set 
 before. (see ":help paste" for more information.
@@ -99,7 +99,7 @@ COMMENTS                                                   *vwt-1285-comments*
 USING <EXPR> (VIM 7)                           *vwt-1285-using-<expr>-(vim-7)*
 
 With Vim 7 ("or later"), you can use :cabbrev <expr> — here is an example, 
-replacing the :h command to open the help window at the bottom of the Vim 
+replacing the `:h` command to open the help window at the bottom of the Vim 
 screen:
 
 >
@@ -108,8 +108,8 @@ screen:
 
 See also :help |:map-<expr>|
 
-getcmdpos() will usually be 2 because the cursor is on the space after :h (I 
-tested it with getcmdpos() == 1 and that doesn't work). -- Tonymec 
+`getcmdpos()` will usually be 2 because the cursor is on the space after `:h` 
+(I tested it with `getcmdpos() == 1` and that doesn't work). -- Tonymec 
 [https://vim.fandom.com/wiki/User:Tonymec] 07:03, 12 May 2008 (UTC)
 
 In this example, you can do ::h or : h (from normal mode) to call the built-in :help command (bypassing the abbreviation).

@@ -16,30 +16,30 @@ created 2003 · complexity basic · version 6.0
 
 ==============================================================================
 
-Register % contains the name of the current file, and register # contains the 
-name of the alternate file. These registers allow the name of the current or 
-alternate files to be displayed or inserted. The name, or full path, or 
+Register `%` contains the name of the current file, and register `#` contains 
+the name of the alternate file. These registers allow the name of the current 
+or alternate files to be displayed or inserted. The name, or full path, or 
 directory containing the file can be used.
 
-For example, in directory /abc the command vim def/my.txt would edit file 
-/abc/def/my.txt. The following commands could be entered to display the 
+For example, in directory `/abc` the command `vim def/my.txt` would edit file 
+`/abc/def/my.txt`. The following commands could be entered to display the 
 information shown.
 
-For more info run :help expand
+For more info run `:help expand`
 
 If all that is wanted is to display the name of the current file, type Ctrl-G 
-(or press 1 then Ctrl-G for the full path).
+(or press `1` then Ctrl-G for the full path).
 
-When using @%, the name is displayed relative to the current directory.
+When using `@%`, the name is displayed relative to the current directory.
 
-In insert mode, type Ctrl-R then % to insert the name of the current file.
+In insert mode, type Ctrl-R then `%` to insert the name of the current file.
 
-In command mode (after typing a colon), type Ctrl-R then % to insert the name 
-of the current file. The inserted name can then be edited to create a similar 
-name.
+In command mode (after typing a colon), type Ctrl-R then `%` to insert the 
+name of the current file. The inserted name can then be edited to create a 
+similar name.
 
-In normal mode, type "%p to put the name of the current file after the cursor 
-(or "%P to insert the name before the cursor).
+In normal mode, type `"%p` to put the name of the current file after the 
+cursor (or `"%P` to insert the name before the cursor).
 
 The following commands insert lines consisting of the full path of the 
 current and alternate files into the buffer:

@@ -141,7 +141,7 @@ on a window I want to receive all printed data.
 Then <F5> in any buffer executes the buffer contents in Python, output goes 
 to the window selected.
 
-To redirect output back just do sys.stdout = sys._stdout
+To redirect output back just do `sys.stdout = sys._stdout`
 
 This does not require python support in vim. Select lines using V and then 
 press F5.

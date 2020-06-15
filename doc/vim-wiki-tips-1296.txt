@@ -74,7 +74,7 @@ c_stl.vim (http://hermitte.free.fr/vim/ressources/vimfiles/ftplugin/c/
 [http://hermitte.free.fr/vim/ressources/vimfiles/ftplugin/c/]).
 
 However the search is very slow and time consuming when we try to guess the 
-current function when there is no current function. I guess using :normal [[ 
+current function when there is no current function. I guess using `:normal [[` 
 could have been more effective.
 
 Using the preview windows instead of the statusline could be an option to 

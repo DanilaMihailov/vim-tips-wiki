@@ -6,10 +6,10 @@ created 2006 · complexity intermediate · author Salman Halim · version 6.0
 
 ==============================================================================
 
-The :windo, :bufdo, :argdo and :tabdo commands are great. However, they have 
-one side-effect that I don't like: they change the current window/buffer/tab 
-and make it the last one. Toward that end, I have the following commands 
-defined in my environment:
+The `:windo`, `:bufdo`, `:argdo` and `:tabdo` commands are great. However, 
+they have one side-effect that I don't like: they change the current 
+window/buffer/tab and make it the last one. Toward that end, I have the 
+following commands defined in my environment:
 
 >
     " Just like windo, but restore the current window when done.
@@ -32,8 +32,8 @@ defined in my environment:
     com! -nargs=+ -complete=command Bufdo call BufDo(<q-args>)
 <
 
-Using them is no different from using the standard :windo or :bufdo, except 
-that when you're done, you're right back where you were.
+Using them is no different from using the standard `:windo` or `:bufdo`, 
+except that when you're done, you're right back where you were.
 
 Examples:
 

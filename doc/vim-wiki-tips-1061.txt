@@ -29,9 +29,9 @@ stepping through the wrapped lines by <Home> or <End> one by one. It also
 solves the "<Home> for one character on a line" insert mode problem, and is 
 Replace mode friendly.
 
-Of course, cursor positioning can be achieved via vanilla Vim way: using 0, 
-^, g0, g$, g_, etc, but it's easier and faster when two keys take care of all 
-of the functions. Especially over wrapped lines.
+Of course, cursor positioning can be achieved via vanilla Vim way: using `0`, 
+`^`, `g0`, `g$`, `g_`, etc, but it's easier and faster when two keys take care 
+of all of the functions. Especially over wrapped lines.
 
 >
     "place in vimrc
@@ -102,8 +102,8 @@ character's length to move cursor rightward, instead of move by 1 byte.
 Reason: under a multi-byte character, move cursor 1 byte further might have 
 no effect.
 
-For example, use yl and byteidx() to get the length (this overwrites current 
-used register)
+For example, use `yl` and `byteidx()` to get the length (this overwrites 
+current used register)
 
 >
     function SmartEnd(mode)

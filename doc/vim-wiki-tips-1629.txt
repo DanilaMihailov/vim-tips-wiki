@@ -20,8 +20,8 @@ screen shows how the icon will appear while the text is edited).
 PROCEDURE                                                 *vwt-1629-procedure*
 
 As a simple example, an icon for a Swedish flag will be created. Make a file 
-called flag.txt containing the following (the letters following "data" define 
-the colors, other lines are ignored; B = blue and Y = yellow):
+called `flag.txt` containing the following (the letters following "data" 
+define the colors, other lines are ignored; `B` = blue and `Y` = yellow):
 
 >
     Sample data for a 16x10 flag of Sweden.
@@ -38,7 +38,7 @@ the colors, other lines are ignored; B = blue and Y = yellow):
     data     B B B B B Y Y B B B B B B B B B
 <
 
-Make a file called append-colors.vim containing this Vim script:
+Make a file called `append-colors.vim` containing this Vim script:
 
 >
     " Basic colors from $VIMRUNTIME/rgb.txt
@@ -90,9 +90,9 @@ In Vim, enter the following commands to generate the output file:
     :w flag.ppm
 <
 
-The above commands creates file flag.ppm by translating the letters in 
-flag.txt to the color code numbers defined in the colors dictionary in the 
-script. The script reads the file into a list called data, then filters the 
+The above commands creates file `flag.ppm` by translating the letters in 
+`flag.txt` to the color code numbers defined in the `colors` dictionary in the 
+script. The script reads the file into a list called `data`, then filters the 
 list, keeping only the lines that start with "data" followed by a space or a 
 tab character. Each element in the list (a data line) is then split into a 
 list of whitespace-separated words, but the first word ("data") is omitted. 
@@ -100,7 +100,7 @@ The width and height of the icon are then determined from the number of
 columns and rows in the data. Then the ppm output data is appended to the 
 current buffer.
 
-With the Netpbm tools installed, you can create an icon file (say flag.ico) 
+With the Netpbm tools installed, you can create an icon file (say `flag.ico`) 
 using:
 
 >
@@ -109,7 +109,7 @@ using:
 
 WYSIWYG EDITING                                     *vwt-1629-wysiwyg-editing*
 
-Edit file flag.txt and enter the following commands:
+Edit file `flag.txt` and enter the following commands:
 
 >
     :syntax clear
@@ -119,11 +119,11 @@ Edit file flag.txt and enter the following commands:
     :highlight Blue   guibg=#006FFD guifg=#006FFD
 <
 
-That will highlight " Y" (space then Y) in yellow, and " B" (space then B) in 
-blue. The colors are solid (foreground = background).
+That will highlight "` Y`" (space then `Y`) in yellow, and "` B`" (space then 
+`B`) in blue. The colors are solid (foreground = background).
 
 An easy way to enter the commands would be to save the above lines in file 
-flag-syntax.vim, then edit flag.txt and enter the command:
+`flag-syntax.vim`, then edit `flag.txt` and enter the command:
 
 >
     :so flag-syntax.vim
@@ -138,7 +138,7 @@ To clear the highlighting, enter:
 WYSIWYG EDITING WITH FULL-FEATURED SYNTAX FILE *vwt-1629-wysiwyg-editing-with-full-featured-syntax-file*
 
 An alternative to the above simple syntax commands would be to source the 
-following syntax script while editing flag.txt:
+following syntax script while editing `flag.txt`:
 
 >
     if version < 600

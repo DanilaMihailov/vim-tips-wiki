@@ -63,7 +63,7 @@ Explanation:
 IF HAS('CSCOPE')                                   *vwt-1638-if-has('cscope')*
 
 If Vim hasn't got support for cscope, it's no use trying to use that support, 
-so we bracket this whole snippet in this if statement to avoid unnecessary 
+so we bracket this whole snippet in this `if` statement to avoid unnecessary 
 errors.
 
 SET CSCOPETAG CSCOPEVERBOSE             *vwt-1638-set-cscopetag-cscopeverbose*
@@ -105,15 +105,15 @@ sometimes). In Vim 7.0 or higher, this is easily done as follows:
 
 CS ADD                                                       *vwt-1638-cs-add*
 
-We define a command :Cscope which will try to open the cscope database for 
+We define a command `:Cscope` which will try to open the cscope database for 
 the Vim source, and tell cscope that the relative paths in it are relative to 
 the src directory containing the database itself (this assumes that the 
 $VIMSRC variable has been set to the top directory of the Vim source.
 
 USING CSCOPE COMMANDS                         *vwt-1638-using-cscope-commands*
 
-This is the simplest: if you've forgotten the fine points, :cs help (or, with 
-the above abbreviations, :csh) will tell you.
+This is the simplest: if you've forgotten the fine points, `:cs help` (or, 
+with the above abbreviations, `:csh`) will tell you.
 
 GENERATING THE DATABASE                     *vwt-1638-generating-the-database*
 
@@ -122,7 +122,7 @@ database applying to them. You could set up commands in Vim to generate one
 (or more), or you can set up a script to do it outside of Vim. Another nice 
 option would be to generate a new database from your makefile, to allow you to 
 easily use all the same files that get compiled into your project. For 
-instance, the following patch to the Vim src/Makefile adds a few targets 
+instance, the following patch to the Vim `src/Makefile` adds a few targets 
 related to generating a cscope database for the Vim source (and the "usual" 
 include files, which cscope is clever enough to find):
 
@@ -160,7 +160,7 @@ COMMENTS                                                   *vwt-1638-comments*
 
 If you rebuild the cscope database while Vim has a cscope connection open, 
 the new database won't be used until either (a) you kill and re-add the 
-database, or (b) you use :cs reset --Tonymec 
+database, or (b) you use `:cs reset` --Tonymec 
 [https://vim.fandom.com/wiki/User:Tonymec] 04:40, November 25, 2009 (UTC)
 
  vim:tw=78:et:ft=help:norl:

@@ -10,8 +10,8 @@ This tip is supposed to provide an easy way to synchronize the current
 directory between a Vim session and a shell. The most naive approach is to 
 simply build a command for changing to the current directory in Vim, and then 
 paste and execute that command within your shell. This is the approach we take 
-here. The following command line places a string of the form cd "<current 
-directory" in the paste register (@+):
+here. The following command line places a string of the form `cd "<current 
+directory"` in the paste register (@+):
 
 >
     let @+="cd \"" . escape(getcwd(), "\"") . "\""

@@ -21,10 +21,10 @@ characters are interpreted as commands because you are actually in normal
 mode. To help avoid that problem, you can specify that the cursor color and 
 blink rate change when entering insert mode.
 
-Using gvim with the defaults, the cursor shape is a block when in n-v-c modes 
-(normal mode, or visual selection mode, or command mode while entering a colon 
-command), and the shape changes to a vertical bar when in i (insert) mode. The 
-color and blink rates do not change.
+Using gvim with the defaults, the cursor shape is a block when in `n-v-c` 
+modes (normal mode, or visual selection mode, or command mode while entering a 
+colon command), and the shape changes to a vertical bar when in `i` (insert) 
+mode. The color and blink rates do not change.
 
 Here is an example for gvim showing how to customize the cursor properties 
 (see :help 'guicursor'):
@@ -38,20 +38,20 @@ Here is an example for gvim showing how to customize the cursor properties
     set guicursor+=i:blinkwait10
 <
 
-Line 1 defines the color highlighting used for n-v-c modes (set in line 3), 
+Line 1 defines the color highlighting used for `n-v-c` modes (set in line 3), 
 and line 2 defines a different color for insert mode (set in line 4). Line 5 
-disables blinking (blinkon value 0) for n-v-c modes, and line 6 increases the 
-default blink rate for insert mode. Line 4 also sets the cursor shape to a 
-100% sized vertical bar for insert mode (the default is ver25, a 25% vertical 
-bar. When using ver100 vim doesn't take the guifg parameter. It is better to 
-use block instead).
+disables blinking (`blinkon` value `0`) for `n-v-c` modes, and line 6 
+increases the default blink rate for insert mode. Line 4 also sets the cursor 
+shape to a 100% sized vertical bar for insert mode (the default is `ver25`, a 
+25% vertical bar. When using ver100 vim doesn't take the guifg parameter. It 
+is better to use block instead).
 
 It is possible to change the cursor color and style in the terminal if it 
 understands the following escape sequences. Not all terminals support this, 
-but xterm, rxvt and Terminator do(must use nightly version for Terminator, as 
-stable does not support cursor shape escape codes). Recent versions of 
+but `xterm`, `rxvt` and Terminator do(must use nightly version for Terminator, 
+as stable does not support cursor shape escape codes). Recent versions of 
 gnome-terminal support the sequence to change color, but not the one to 
-restore the color to the default. Add the following to ~/.vimrc:
+restore the color to the default. Add the following to `~/.vimrc`:
 
 >
     if &term =~ "xterm\\|rxvt"
@@ -110,8 +110,8 @@ DISABLING CURSOR BLINKING                  *vwt-746-disabling-cursor-blinking*
 
 The 'guicursor' option can be used to set the cursor properties when working 
 in a GUI (gvim). The following commands illustrate how to disable blinking for 
-all modes (the "a" specifies all modes, and the 0 value for blinkon disables 
-blinking):
+all modes (the "`a`" specifies all modes, and the `0` value for `blinkon` 
+disables blinking):
 
 >
     " Disable all blinking:
@@ -122,8 +122,8 @@ blinking):
     :set guicursor&
 <
 
-You can also enter a command to directly set guicursor to disable blinking 
-for the n-v-c modes. Type the following:
+You can also enter a command to directly set `guicursor` to disable blinking 
+for the `n-v-c` modes. Type the following:
 
 >
     :set guicursor=
@@ -131,21 +131,21 @@ for the n-v-c modes. Type the following:
 
 then press the Tab key (see :help 'wildchar') to have the current value of 
 'guicursor' displayed in the command line. You should see something like this 
-(the ... indicates text omitted from this example):
+(the `...` indicates text omitted from this example):
 
 >
     :set guicursor=n-v-c:block-Cursor/lCursor,...
 <
 
-After the first colon, add "blinkon0-" so it reads:
+After the first colon, add "`blinkon0-`" so it reads:
 
 >
     :set guicursor=n-v-c:blinkon0-block-Cursor/lCursor,...
 <
 
-Alternatively, you can use the :let command with the &guicursor variable to 
-set the 'guicursor' option. The following command inserts the "blinkon0-" 
-using a substitute (in the replacement, & represents the original text, that 
+Alternatively, you can use the `:let` command with the `&guicursor` variable 
+to set the 'guicursor' option. The following command inserts the "`blinkon0-`" 
+using a substitute (in the replacement, `&` represents the original text, that 
 is, 'n-v-c:'):
 
 >

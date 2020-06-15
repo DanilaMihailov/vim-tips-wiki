@@ -14,8 +14,8 @@ manager.
 
 DESKTOP ENTRY                                         *vwt-1552-desktop-entry*
 
-In the gvim.desktop desktop file (/usr/share/applications/ for most GNU/Linux 
-systems) look for the "Exec" line. It will probably be like this:
+In the `gvim.desktop` desktop file (`/usr/share/applications/` for most 
+GNU/Linux systems) look for the "Exec" line. It will probably be like this:
 
 >
     Exec=gvim -f %F
@@ -38,7 +38,7 @@ update.
 
 ALIAS                                                         *vwt-1552-alias*
 
-You can of course also use an alias:
+You can of course also use an `alias`:
 
 >
     % alias gvim='gvim -p --remote-tab-silent'

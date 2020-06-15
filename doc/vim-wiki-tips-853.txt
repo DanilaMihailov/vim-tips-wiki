@@ -9,8 +9,8 @@ created 2005 · complexity basic · author Anders Thøgersen · version 5.7
 I sometimes find it useful to take a backup of the file I am currently 
 editing before continuing to edit the file. That's what this function is for.
 
-Put this into your vimrc and press \ba while in normal mode, and the current 
-file will be backed up.
+Put this into your vimrc and press `\ba` while in normal mode, and the 
+current file will be backed up.
 
 >
     "A mapping to make a backup of the current file.

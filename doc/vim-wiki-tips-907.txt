@@ -41,8 +41,8 @@ The first line of the file contains the following modeline:
 <
 
 Explanation:
-    - noswapfile keeps others from sniffing in the swapfile. 
-    - bufhidden=wipe erases all session information when the file is left. 
+    - `noswapfile` keeps others from sniffing in the swapfile. 
+    - `bufhidden=wipe` erases all session information when the file is left. 
     - The fold commands fold as described above. 
 
 
@@ -54,7 +54,7 @@ Password Safe [http://passwordsafe.sourceforge.net/].
 
 ==============================================================================
 
-You could use foldmethod=indent instead.
+You could use `foldmethod=indent` instead.
 
 ==============================================================================
 
@@ -68,7 +68,7 @@ Some other settings may help for privacy:
 
 ==============================================================================
 
-Consider using foldclose=all so that an open fold will automatically close 
+Consider using `foldclose=all` so that an open fold will automatically close 
 after you leave it.
 
 ==============================================================================
@@ -87,12 +87,12 @@ Vim.
      nofetchall nokeep norewrite fetchlimit 100
 <
 
-fdo=insert will make it harder to accidentally open the fold with anything 
+`fdo=insert` will make it harder to accidentally open the fold with anything 
 other than zo or i.
 
-fdl=1 will fold only the auth, user and password lines.
+`fdl=1` will fold only the auth, user and password lines.
 
-fcl=all will autoclose the folds on and deeper than the fdl parameter when 
+`fcl=all` will autoclose the folds on and deeper than the fdl parameter when 
 leaving them.
 
 The user and password lines will be folded once extra and seperating the user 

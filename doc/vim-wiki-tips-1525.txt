@@ -9,7 +9,7 @@ created
 ==============================================================================
 
 If you use Vim to write LaTeX documents, you probably have been frustrated by 
-the fact that the gqap command doesn't respect equations and other 
+the fact that the `gqap` command doesn't respect equations and other 
 environments. It takes something like
 
 >
@@ -30,7 +30,7 @@ and turns it into
     an equilateral triangle.
 <
 
-The following mappings help the gq command understand what delimits 
+The following mappings help the `gq` command understand what delimits 
 paragraphs in LaTeX source files:
 
 >
@@ -38,7 +38,7 @@ paragraphs in LaTeX source files:
     omap lp ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>//-1<CR>.<CR>
 <
 
-With these, you can use \gq or gqlp ("gq LaTeX paragraph") to format 
+With these, you can use `\gq` or `gqlp` ("gq LaTeX paragraph") to format 
 paragraphs in your LaTeX files. Lines that begin with some whitespace, then a 
 backslash, then "begin", "end", or "label" (along with blank lines) are 
 considered to delimit paragraphs and won't be changed, just the text between 

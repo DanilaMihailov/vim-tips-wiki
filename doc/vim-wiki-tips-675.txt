@@ -79,11 +79,12 @@ Now you know what is wrong (from my personal point of view) with just typing
     - Additionally: 
 
 
-For a more practical reason to include set t_Co=0 than just "to beat it into 
-submission," consider that, without this line, vim not only uses color for 
-some error messages, but also for control characters (e.g. tabs and line 
-endings under set list, or characters made visible via ^V). If the colors are 
-hard to read on a given terminal, the ability to turn them off can be crucial.
+For a more practical reason to include `set t_Co=0` than just "to beat it 
+into submission," consider that, without this line, vim not only uses color 
+for some error messages, but also for control characters (e.g. tabs and line 
+endings under `set list`, or characters made visible via `^V`). If the colors 
+are hard to read on a given terminal, the ability to turn them off can be 
+crucial.
 
 ==============================================================================
     - An alternative viewpoint: 

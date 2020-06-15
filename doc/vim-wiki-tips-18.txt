@@ -26,10 +26,10 @@ path, you can simply set up a mapping to filter your content through it.
     :vmap ,x :!tidy -q -i --show-errors 0<CR>
 <
 
-This means, from visual mode, you can simply press ,x and Vim will filter 
-your content through tidy. This will call tidy in quiet mode (-q) and instruct 
-it to indent the lines (-i). Errors won't be shown (--show-errors 0), since 
-the lines should not be lost.
+This means, from visual mode, you can simply press `,x` and Vim will filter 
+your content through tidy. This will call tidy in quiet mode (`-q`) and 
+instruct it to indent the lines (`-i`). Errors won't be shown (`--show-errors 
+0`), since the lines should not be lost.
 
 Alternatively, you can also create a |:command| that calls tidy:
 
@@ -60,10 +60,10 @@ from HTMLTidy in your |quickfix| list.
     :setlocal  makeprg=tidy\ -quiet\ -e\ %
 <
 
-At this point you can use make to clean up the full file or you can use = to 
-clean up sections. Vim also ships with a tidy compiler plugin, that set's the 
-'makeprg' automatically for you and also sets the 'errorformat' setting for 
-you. To make this work, simply type: :compiler tidy
+At this point you can use `make` to clean up the full file or you can use `=` 
+to clean up sections. Vim also ships with a tidy compiler plugin, that set's 
+the 'makeprg' automatically for you and also sets the 'errorformat' setting 
+for you. To make this work, simply type: `:compiler tidy`
 
 SETTING UP TIDY USING A FILETYPE PLUGIN *vwt-18-setting-up-tidy-using-a-filetype-plugin*
 
@@ -78,7 +78,7 @@ place it into the directory ~/.vim/ftplugin/ (Unix) or $VIM/vimfiles/ftplugin
 
 If you set up commands and mappings using filetype plugins, you should make 
 those buffer-local (e.g. only available for buffers of that filetype. Use the 
-|<buffer>| argument for mappings and the -buffer argument for commands ( 
+|<buffer>| argument for mappings and the `-buffer` argument for commands ( 
 |command-buffer|).
 
 REFERENCES                                                 *vwt-18-references*

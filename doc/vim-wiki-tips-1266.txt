@@ -23,7 +23,7 @@ Now try these to help understand further:
     let @a = "a" . "\x0a" . "b"
 <
 
-and put it into the buffer using "ap or :put a
+and put it into the buffer using `"ap` or `:put a`
 
 You should see:
 
@@ -73,7 +73,7 @@ A useful function in this context:
 
 ==============================================================================
 
-Another question: Why does s/\r/\r/ change <CR> to <NL>?
+Another question: Why does `s/\r/\r/` change <CR> to <NL>?
 
 This is because Ex commands (as opposed to function calls) are trying to be 
 extra smart about linebreaks. In this case:

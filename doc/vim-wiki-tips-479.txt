@@ -11,8 +11,8 @@ substitute command and requires no typing.
 
 For example, to change badName(...) to goodName(...) (with the mappings 
 below):
-    - Put the cursor anywhere on goodName and type: gy 
-    - Move the cursor to badName and type: gp 
+    - Put the cursor anywhere on goodName and type: `gy` 
+    - Move the cursor to badName and type: `gp` 
 
 
 If there are more than one badNames, type *N before typing go, then n gp to 
@@ -43,7 +43,7 @@ Try this
     noremap gp heli x<Esc>b"bPldwxbyw
 <
 
-and you can use gp for both words with and without spaces.
+and you can use `gp` for both words with and without spaces.
 
 ==============================================================================
 

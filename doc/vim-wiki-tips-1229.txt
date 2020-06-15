@@ -17,7 +17,7 @@ So, it is reasonable to make a mapping:
     noremap <silent><buffer> <F9> :exec 'source '.bufname('%')<CR>
 <
 
-You may to place this line into file {runtimepath}/ftplugin/vim.vim, to use 
+You may to place this line into file `{runtimepath}/ftplugin/vim.vim`, to use 
 this mapping for Vim files only.
 
 COMMENTS                                                   *vwt-1229-comments*

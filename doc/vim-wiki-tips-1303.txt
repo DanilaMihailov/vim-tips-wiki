@@ -11,18 +11,18 @@ or command-line.
 
 IN NORMAL AND VISUAL MODES               *vwt-1303-in-normal-and-visual-modes*
 
-In normal and visual modes, "xp pastes the contents of the register x.
+In normal and visual modes, `"xp` pastes the contents of the register `x`.
 
-This works with special registers as well: "+p (or "*p) pastes the contents 
-of the clipboard, "/p pastes the last search, and ":p pastes the last command. 
-For example, you might want to save a complex search and replace (:%s///g) 
-that you have just used, which you can do by pasting with ":p.
+This works with special registers as well: `"+p` (or `"*p`) pastes the 
+contents of the clipboard, `"/p` pastes the last search, and `":p` pastes the 
+last command. For example, you might want to save a complex search and replace 
+(`:%s///g`) that you have just used, which you can do by pasting with `":p`.
 
 IN INSERT AND COMMAND-LINE MODES   *vwt-1303-in-insert-and-command-line-modes*
 
 In insert and command-line modes, you can use <C-R> to paste the contents of 
 a register (:help |i_CTRL-R|). In particular, <C-R>" pastes from the default 
-(unnamed) register, which is analogous to doing p in normal mode.
+(unnamed) register, which is analogous to doing `p` in normal mode.
 
 Note that because Vim faithfully translates the contents of the clipboard to 
 a buffer in insert and command-line modes, using <C-R>+ is susceptible to 
@@ -58,30 +58,30 @@ For the second mapping, see :help |i_CTRL-R_CTRL-O|.
 The third mapping will temporarily switch to normal mode without moving the 
 cursor, and then paste. It first uses <C-g>u to break the undo sequence so 
 that the pasting can be undone. Then <C-\><C-o> temporarily switches to normal 
-mode without moving the cursor. It then accesses the + register and uses gP 
-instead of the usual P to paste so that the cursor is positioned after what is 
-pasted (just like the default <C-R>+). Note that because the clipboard is 
-pasted in "one move" instead of being translated character-by-character (the 
-default behavior), formatting options such as textwidth are not obeyed (use 
-something like gqip to fix the formatting; see :help |gq|).
+mode without moving the cursor. It then accesses the `+` register and uses 
+`gP` instead of the usual `P` to paste so that the cursor is positioned after 
+what is pasted (just like the default <C-R>+). Note that because the clipboard 
+is pasted in "one move" instead of being translated character-by-character 
+(the default behavior), formatting options such as `textwidth` are not obeyed 
+(use something like `gqip` to fix the formatting; see :help |gq|).
 
 The fourth mapping employs the strategy used in paste.vim 
 [https://github.com/vim/vim/blob/8aba95097305b77d56adce507793e331e895a601/runtime/autoload/paste.vim#L32-L34] 
-(when virtualedit is unavailable). This mapping forces Vim to paste 
+(when `virtualedit` is unavailable). This mapping forces Vim to paste 
 characterwise (:help |characterwise-register|) even if the register contains 
 linewise text. This is useful if you always want Vim to start pasting where 
-the cursor was on the line. Select some lines using V, then yank with "+y. Now 
-enter insert mode in the middle of a line. The behavior of the first mapping 
-would be to jump to the previous line and insert the lines there (thus not 
-changing the current line), whereas in most other text editors the text is 
+the cursor was on the line. Select some lines using `V`, then yank with `"+y`. 
+Now enter insert mode in the middle of a line. The behavior of the first 
+mapping would be to jump to the previous line and insert the lines there (thus 
+not changing the current line), whereas in most other text editors the text is 
 pasted in the middle of the current line (since most text editors don't 
 distinguish between linewise and characterwise operations).
 
 The fifth mapping is essentially from mswin.vim 
 [https://github.com/vim/vim/blob/6c35beaa11d38fc0c37a3d209295772313b12003/runtime/mswin.vim#L47]. 
-If Vim was compiled with virtualedit, it takes advantage of this to paste 
+If Vim was compiled with `virtualedit`, it takes advantage of this to paste 
 linewise and blockwise text in a more Vim-like manner. If Vim is not compiled 
-with virtualedit, it falls back to the behavior of the previous mapping.
+with `virtualedit`, it falls back to the behavior of the previous mapping.
 
 Even with the above mappings, the default behavior can still be retrieved by 
 waiting a moment after typing <C-R> (so that Vim gives up on trying to use the 
@@ -94,15 +94,15 @@ REFERENCES                                               *vwt-1303-references*
 COMMENTS                                                   *vwt-1303-comments*
 
 This illustrates the hijacking point. Executing the following puts some text 
-in the a register.
+in the `a` register.
 
 >
     :let @a = "abc\<Esc>:echo 'gotcha'\<CR>"
 <
 
-After that, pressing i to enter insert mode, then typing Ctrl-R a inserts 
+After that, pressing `i` to enter insert mode, then typing Ctrl-R `a` inserts 
 "abc" but then executes the echo command. The Vim procedure to insert the keys 
-literally is to press Ctrl-R twice. That is, type Ctrl-R Ctrl-R a which will 
+literally is to press Ctrl-R twice. That is, type Ctrl-R Ctrl-R `a` which will 
 insert the escape and newline (carriage return) characters into the text. 
 :help |i_CTRL-R_CTRL-R| JohnBeckett 
 [https://vim.fandom.com/wiki/User:JohnBeckett] (talk 

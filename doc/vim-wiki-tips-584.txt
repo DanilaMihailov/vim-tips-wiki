@@ -14,7 +14,7 @@ http://www.nicemice.net/par/ [http://www.nicemice.net/par/]
 To use:
 
 Either :set equalprg=par and format using the magic '=', or assign to a key 
-combination by putting the following in your vimrc (-j is to justify lines):
+combination by putting the following in your vimrc (`-j` is to justify lines):
 
 >
     :set formatprg=par\ -w60

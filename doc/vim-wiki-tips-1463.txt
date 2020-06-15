@@ -15,32 +15,34 @@ a key to move the current line, or a block of selected lines, up or down.
 
 CUT AND PASTE                                         *vwt-1463-cut-and-paste*
 
-Cut the line that you want to move by typing dd, or visually select some 
-lines (press V then move the cursor) and type d to cut the selected block.
+Cut the line that you want to move by typing `dd`, or visually select some 
+lines (press `V` then move the cursor) and type `d` to cut the selected block.
 
-Then move the cursor, and paste the text at the new position (press p to 
-paste after the line with the cursor, or P to paste before).
+Then move the cursor, and paste the text at the new position (press `p` to 
+paste after the line with the cursor, or `P` to paste before).
 
 You can cut several lines, or blocks of text, by appending to a register 
 using an uppercase letter, for example:
-    - Move to the first line you wish to move; type "add to delete it to register 
-      a. 
-    - Move to another line; type "Add to delete it and append to the same register. 
-    - Move to another line; type "Add to delete it and append to the same register. 
-      - or type "." for the same effect 
-    - Select a range of lines vith V; type "Ad to delete the entire range and 
+    - Move to the first line you wish to move; type `"add` to delete it to register 
+      `a`. 
+    - Move to another line; type `"Add` to delete it and append to the same 
+      register. 
+    - Move to another line; type `"Add` to delete it and append to the same 
+      register. - or type "." for the same effect 
+    - Select a range of lines vith V; type `"Ad` to delete the entire range and 
       append it to the same register. 
     - Continue in this fashion. 
     - Move to the wanted destination. 
-    - Press "ap to paste after the line with the cursor, or "aP to paste before. 
+    - Press `"ap` to paste after the line with the cursor, or `"aP` to paste 
+      before. 
 
 
 MOVE COMMAND                                           *vwt-1463-move-command*
 
-You can move a line, or a block of lines, with the :m command. Examples:
+You can move a line, or a block of lines, with the `:m` command. Examples:
 
-For clarity, a space is shown after the :m commands above, but that space is 
-not required.
+For clarity, a space is shown after the `:m` commands above, but that space 
+is not required.
 
 To move a block of lines, use the same command but visually select the lines 
 before entering the move command. You can also use arbitrary ranges 
@@ -64,11 +66,11 @@ complete):
     line 4
 <
 
-Move the cursor to "line 1" and type dd to delete the line. Go to "line 2" 
-and press . to repeat (delete another line). Repeat this on "line 3", and so 
+Move the cursor to "line 1" and type `dd` to delete the line. Go to "line 2" 
+and press `.` to repeat (delete another line). Repeat this on "line 3", and so 
 on, until everything has been deleted in order.
 
-Now type "1P to paste the contents of register 1 before the cursor.
+Now type `"1P` to paste the contents of register 1 before the cursor.
 
 Repeat with the dot command, eight times:
 
@@ -79,8 +81,8 @@ Repeat with the dot command, eight times:
 The first dot command pastes register 2, and the next pastes register 3, and 
 so on. The result is that all the lines are pasted, in the correct order.
 
-You have to press . eight times (using a count like 8. will insert the same 
-line eight times). See :help |redo-register|
+You have to press `.` eight times (using a count like `8.` will insert the 
+same line eight times). See :help |redo-register|
 
 MAPPINGS TO MOVE LINES                       *vwt-1463-mappings-to-move-lines*
 
@@ -101,27 +103,27 @@ selected block of lines.
 In normal mode or in insert mode, press Alt-j to move the current line down, 
 or press Alt-k to move the current line up.
 
-After visually selecting a block of lines (for example, by pressing V then 
+After visually selecting a block of lines (for example, by pressing `V` then 
 moving the cursor down), press Alt-j to move the whole block down, or press 
 Alt-k to move the block up.
 
 EXPLANATION                                             *vwt-1463-explanation*
 
-The command :m .+1 (which can be abbreviated to :m+) moves the current line 
-to after line number .+1 (current line number + 1). That is, the current line 
-is moved down one line.
+The command `:m .+1` (which can be abbreviated to `:m+`) moves the current 
+line to after line number `.+1` (current line number + 1). That is, the 
+current line is moved down one line.
 
-The command :m .-2 (which can be abbreviated to :m-2) moves the current line 
-to after line number .-2 (current line number − 2). That is, the current line 
-is moved up one line.
+The command `:m .-2` (which can be abbreviated to `:m-2`) moves the current 
+line to after line number `.-2` (current line number − 2). That is, the 
+current line is moved up one line.
 
 After visually selecting some lines, entering :m '>+1 moves the selected 
 lines to after line number '>+1 (one line after the last selected line; '> is 
 a mark assigned by Vim to identify the selection end). That is, the block of 
 selected lines is moved down one line.
 
-The == re-indents the line to suit its new position. For the visual-mode 
-mappings, gv reselects the last visual block and = re-indents that block.
+The `==` re-indents the line to suit its new position. For the visual-mode 
+mappings, `gv` reselects the last visual block and `=` re-indents that block.
 
 SEE ALSO                                                   *vwt-1463-see-also*
     - Transposing |vwt-191| enhanced mappings (better at maintaining cursor 

@@ -41,7 +41,7 @@ Include each file that is part of your plugin as a SOURCE line. (This example
 is from the specky [https://www.vim.org/scripts/script.php?script_id=2286] 
 plugin.)
 
-The 'vim -s build.vim' command loads Vim directives from a file. Here's the 
+The '`vim -s build.vim`' command loads Vim directives from a file. Here's the 
 file I use to create the Vimball.
 
 >
@@ -63,11 +63,11 @@ a packaged up Vimball that is ready for distribution.
 
 COMMENTS                                                   *vwt-1601-comments*
 
-Since all the commands in build.vim are ex-commands, you could source it with 
--S rather than -s, and dispense with the colons at the start of all lines. I 
-would move the last command (to close Vim) out of the script and to a -cq! 
-argument at the end of the command line though, to make the script easier to 
-run from within a running Vim.
+Since all the commands in `build.vim` are ex-commands, you could source it 
+with `-S` rather than `-s`, and dispense with the colons at the start of all 
+lines. I would move the last command (to close Vim) out of the script and to a 
+`-cq!` argument at the end of the command line though, to make the script 
+easier to run from within a running Vim.
     - :help |-s| 
     - :help |-S| 
 
@@ -77,7 +77,7 @@ run from within a running Vim.
 
 ==============================================================================
 
-If the ${SOURCE} variable uses any substitution (anything more complicated 
+If the `${SOURCE}` variable uses any substitution (anything more complicated 
 than one file per line, in fact), the version of build.vim given above won't 
 work. The Makefile can take care of the substitutions itself with this 
 alternate build.vim:
@@ -89,8 +89,8 @@ alternate build.vim:
     :qa!
 <
 
-(Note that ^V and ^M are the escape sequences created by pressing <ctrl>-V 
-<ctrl>-V and <ctrl>-V <ctrl>-M.)
+(Note that `^V` and `^M` are the escape sequences created by pressing 
+<ctrl>-V <ctrl>-V and <ctrl>-V <ctrl>-M.)
 
 The Makefile should then use
 

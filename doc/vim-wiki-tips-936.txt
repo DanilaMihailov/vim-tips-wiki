@@ -47,7 +47,7 @@ in-between-characters.
 After jumping to marker '^, mark it as marker 'e and get back to normal mode 
 <Esc>.
 
-gi
+`gi`
 
 Returns to insert mode with last INSERT cursor position. "i" instead of "gi" 
 would work here too.

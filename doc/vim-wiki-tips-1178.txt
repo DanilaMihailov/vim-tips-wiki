@@ -45,17 +45,17 @@ you can easily insert a link looking like this:
     <a href="URL" target="TARGET">PAGE TITLE</a>
 <
 
-You are prompted to enter the URL and TARGET. The script automatically 
-determines PAGE TITLE by reading the HTML source from the website at URL.
+You are prompted to enter the `URL` and `TARGET`. The script automatically 
+determines `PAGE TITLE` by reading the HTML source from the website at URL.
 
 When you are prompted to enter text, the normal command line shortcuts are 
-available. For example, press Ctrl-R then + to insert the contents of the 
+available. For example, press Ctrl-R then `+` to insert the contents of the 
 clipboard, or press the Up arrow key to scroll through the input history.
 
-Assuming the default backslash leader key, you would type \al to add a link. 
-You are prompted to enter the URL, and the target; if no target is entered, 
-the link will not include a target field. The link is inserted after the line 
-containing the cursor.
+Assuming the default backslash leader key, you would type `\al` to add a 
+link. You are prompted to enter the URL, and the target; if no target is 
+entered, the link will not include a target field. The link is inserted after 
+the line containing the cursor.
 
 >
     " Prompt user to enter URL and optional TARGET.
@@ -86,23 +86,23 @@ containing the cursor.
 ALTERNATIVE TOOLS                                 *vwt-1178-alternative-tools*
 
 The script above includes this line which assumes you have wget 
-[http://en.wikipedia.org/wiki/Wget] installed (-q is quiet, and -O - outputs 
-to stdout):
+[http://en.wikipedia.org/wiki/Wget] installed (`-q` is quiet, and `-O -` 
+outputs to stdout):
 
 >
     let html = system('wget -q -O - ' . shellescape(url))
 <
 
-An alternative to wget would be to use the following if you have curl 
-[http://en.wikipedia.org/wiki/cURL] (-s is silent):
+An alternative to `wget` would be to use the following if you have curl 
+[http://en.wikipedia.org/wiki/cURL] (`-s` is silent):
 
 >
     let html = system('curl -s ' . shellescape(url))
 <
 
 Or use the following if you have lynx 
-[http://en.wikipedia.org/wiki/Lynx_(web_browser)] (-source outputs the source 
-rather than a text rendering of the html):
+[http://en.wikipedia.org/wiki/Lynx_(web_browser)] (`-source` outputs the 
+source rather than a text rendering of the html):
 
 >
     let html = system('lynx -source ' . shellescape(url))

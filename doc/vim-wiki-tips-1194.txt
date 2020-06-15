@@ -6,8 +6,8 @@ created 2006 · complexity basic · author Ethan Mallove · version 6.0
 
 ==============================================================================
 
-I think it makes more sense for ]z and [z to navigate to the next/previous 
-open fold, so I added the following to my vimrc:
+I think it makes more sense for `]z` and `[z` to navigate to the 
+next/previous open fold, so I added the following to my vimrc:
 
 >
     function! GoToOpenFold(direction)

@@ -10,7 +10,7 @@ created 2005 · complexity intermediate · author Amir Salihefendic · version
 I have made some mappings that make directory browsing faster from the 
 command line.
 
-Here is the usage of $c:
+Here is the usage of `$c`:
 
 Imagine you are editing "~/Desktop/project/view/core/admin/MenuEdit.tmpl" and 
 the cwd (current working directory) is "~/Desktop/project".
@@ -18,10 +18,10 @@ the cwd (current working directory) is "~/Desktop/project".
 Now imagine that you need to edit something else in the MenuEdit directory 
 (admin dir), but you don't want to change the cwd.
 
-Then you go to the Vim commandline and press $c, and it will transform to "e 
-~/Desktop/project/view/core/admin/".
+Then you go to the Vim commandline and press `$c`, and it will transform to 
+"e ~/Desktop/project/view/core/admin/".
 
-That is, the $c expands to "e " + the directory of the current file.
+That is, the `$c` expands to "e " + the directory of the current file.
 
 I also found out that I sometimes needed to go to a parent directory from the 
 commandline and I found it really tiring to use backspace.
