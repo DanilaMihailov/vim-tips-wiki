@@ -1,5 +1,5 @@
 # Vim Wiki Tips
-All tips are downloaded from [VimWiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki), parsed and formatted to look and work like native Vim help files. You can use `:helpgrep` to search tips. Use `Ctrl-]` to jump tags.
+All tips are downloaded from [VimWiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki), parsed and formatted to look and work like native Vim help files. You can use `:helpgrep` to search tips. Use `Ctrl-]` to jump tags. All tips numbered and tagged in format `vwt-N` where `N` is number of tip. Try `:help vwt-1`.
 
 ![Screenshot](https://github.com/DanilaMihailov/vim-wiki-tips/blob/master/screenshots/preview.png?raw=true)
 
