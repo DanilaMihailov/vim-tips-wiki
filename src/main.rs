@@ -9,7 +9,6 @@ use urlencoding::decode;
 #[derive(Debug)]
 struct WikiEntry<'a> {
     n: u32,
-    url: String,
     title: String,
     categories: Vec<String>,
     nodes: Vec<Node<'a>>,
@@ -160,7 +159,7 @@ impl<'a> WikiEntry<'a> {
         return result;
     }
 
-    fn parse(document: &'a Document) -> Self {
+    fn parse(document: &'a Document, n: u32) -> Self {
         let title = document
             .find(Class("page-header__title"))
             .next()
@@ -177,9 +176,8 @@ impl<'a> WikiEntry<'a> {
             .collect::<Vec<String>>();
 
         let mut entry = WikiEntry {
-            n: 1,
+            n,
             nodes: vec![],
-            url: "https://vim.fandom.com/wiki/VimTip1".to_owned(),
             title,
             categories,
         };
@@ -195,28 +193,32 @@ impl<'a> WikiEntry<'a> {
 
         return entry;
     }
+
+    async fn make_tip(n: u32) -> Result<(), Box<dyn std::error::Error>> {
+        let mut original = std::fs::read_to_string(format!("originals/vim-wiki-tips-{}.html", n));
+
+        if original.is_err() {
+            println!("File not found, downloading it");
+            let resp = reqwest::get(&format!("https://vim.fandom.com/wiki/VimTip{}", n)).await?;
+            println!("{:#?}", resp);
+
+            let text = resp.text().await?;
+            original = Ok(text.clone());
+            let mut origin_file = File::create(format!("originals/vim-wiki-tips-{}.html", n))?;
+            origin_file.write_all(&text.into_bytes())?;
+        }
+
+        let document = Document::from(original.unwrap().as_str());
+        let entry = WikiEntry::parse(&document, n);
+        let result = entry.to_vim_help();
+        let mut file = File::create(format!("doc/{}", entry.file_name()))?;
+        file.write_all(&result.into_bytes())?;
+
+        Ok(())
+    }
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut original = std::fs::read_to_string("originals/vim-wiki-tips-1.html");
-
-    if original.is_err() {
-        println!("File not found, downloading it");
-        let resp = reqwest::get("https://vim.fandom.com/wiki/VimTip1").await?;
-        println!("{:#?}", resp);
-
-        let text = resp.text().await?;
-        original = Ok(text.clone());
-        let mut origin_file = File::create("originals/vim-wiki-tips-1.html")?;
-        origin_file.write_all(&text.into_bytes())?;
-    }
-
-    let document = Document::from(original.unwrap().as_str());
-    let entry = WikiEntry::parse(&document);
-    let result = entry.to_vim_help();
-    let mut file = File::create(format!("doc/{}", entry.file_name()))?;
-    file.write_all(&result.into_bytes())?;
-
-    Ok(())
+    WikiEntry::make_tip(1).await
 }
