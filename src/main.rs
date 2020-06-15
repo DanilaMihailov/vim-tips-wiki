@@ -220,5 +220,5 @@ impl<'a> WikiEntry<'a> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    WikiEntry::make_tip(1).await
+    WikiEntry::make_tip(2).await
 }
