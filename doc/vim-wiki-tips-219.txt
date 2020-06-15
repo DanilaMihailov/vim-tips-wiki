@@ -25,7 +25,7 @@ bash:
 If you use vanilla sh or ksh or even cmd.exe, you can probably do the same - 
 add a note if you have ideas.
 
-COMMENTS  *vwt-219-comments*
+COMMENTS                                                    *vwt-219-comments*
 
 The '|&' before the 'tee' doesn't work on Bash version 3.00.15(1)-release. I 
 had to take out '&' for it to run.

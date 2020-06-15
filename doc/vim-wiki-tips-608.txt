@@ -88,7 +88,7 @@ will give:
     \setlength{\textwidth}{387
 <
 
-COMMENTS  *vwt-608-comments*
+COMMENTS                                                    *vwt-608-comments*
 
 I tried to modify your script to execute a range of lines, but the :command's 
 -range option did not seem to propagate into vim.current.range.It always just 

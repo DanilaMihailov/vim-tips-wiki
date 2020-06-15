@@ -28,7 +28,7 @@ Explanation:
       current file path by ":cd %:p:h", and clears the ":cd %:p:h" at : prompt. 
 
 
-COMMENTS  *vwt-1226-comments*
+COMMENTS                                                   *vwt-1226-comments*
 
 The "autochdir" isn't "compiled in" in some some distributions (like Fedora).
 

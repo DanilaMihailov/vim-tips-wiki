@@ -24,6 +24,6 @@ and repeatedly press <F5>. Alternatively, this regular expression can be used:
     :map <F5> %s,//\(.*\),/*\1 */,
 <
 
-COMMENTS  *vwt-1010-comments*
+COMMENTS                                                   *vwt-1010-comments*
 
  vim:tw=78:et:ft=help:norl:

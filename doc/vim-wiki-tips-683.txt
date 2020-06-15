@@ -9,9 +9,9 @@ created 2004 · complexity intermediate · author Jon Heiner · version 6.0
 On Windows systems, there are several ways to integrate Vim with Microsoft 
 Visual Studio.
 
-INTEGRATION OF VIM WITH VISUAL STUDIO 2003 AND LATER  *vwt-683-integration-of-vim-with-visual-studio-2003-and-later*
+INTEGRATION OF VIM WITH VISUAL STUDIO 2003 AND LATER *vwt-683-integration-of-vim-with-visual-studio-2003-and-later*
 
-CONTROL VISUAL STUDIO FROM VIM  *vwt-683-control-visual-studio-from-vim*
+CONTROL VISUAL STUDIO FROM VIM        *vwt-683-control-visual-studio-from-vim*
 
 Script visual_studio.vim 
 [https://www.vim.org/scripts/script.php?script_id=864] includes features:
@@ -31,7 +31,7 @@ http://code.google.com/p/vim-visual-studio/issues/detail?id=2
 http://stackoverflow.com/a/20017920/1390430 
 [http://stackoverflow.com/a/20017920/1390430].
 
-MAKING VISUAL STUDIO'S EDITOR WORK LIKE VIM  *vwt-683-making-visual-studio's-editor-work-like-vim*
+MAKING VISUAL STUDIO'S EDITOR WORK LIKE VIM *vwt-683-making-visual-studio's-editor-work-like-vim*
 
 ViEmu for Visual Studio [http://www.viemu.com/] is commercial software that 
 emulates Vim editing commands within Visual Studio (Vim is not used).
@@ -43,7 +43,7 @@ is an open source Vim emulator (code at https://github.com/jaredpar/VsVim
 of Visual Studio 2010, 2012, 2013 and 2015 excluding Express Edition, and as 
 with viemu does not use Vim.
 
-VIM AS AN EXTERNAL TOOL  *vwt-683-vim-as-an-external-tool*
+VIM AS AN EXTERNAL TOOL                      *vwt-683-vim-as-an-external-tool*
 
 If you like Vim and use MS Visual Studio .NET for debugging and want a 
 lightweight way to open the file you're currently debugging in VS in Vim, you 
@@ -144,7 +144,7 @@ you are currently editing, but doesn't transfer line or column postition.
 See also Using DDE to open the current Vim file in Visual Studio 
 [https://vim.fandom.com/wiki/Using_DDE_to_open_the_current_Vim_file_in_Visual_Studio].
 
-USE VIM INSTEAD OF VISUAL STUDIO'S EDITOR  *vwt-683-use-vim-instead-of-visual-studio's-editor*
+USE VIM INSTEAD OF VISUAL STUDIO'S EDITOR *vwt-683-use-vim-instead-of-visual-studio's-editor*
 
 This is not the same as Embedding vim in Visual Studio 
 [https://vim.fandom.com/wiki/Embedding_vim_in_Visual_Studio].
@@ -166,7 +166,7 @@ yes you still have VS.Net open the file in its own editor.
 Of course if you want to reverse changes simply remove gvim from the list of 
 editors; but why would you want to do that?
 
-WINDOW SIZE  *vwt-683-window-size*
+WINDOW SIZE                                              *vwt-683-window-size*
 
 VS.net opens the window in the middle of the screen and at the location and 
 size of the its "source pane". How can I adjust where and of what size is the 
@@ -182,7 +182,7 @@ You can restrict this to files of a certain type by adding the above lines to
 a .vim file in your ftplugin directory. (For example in 
 ~/.vim/ftplugin/cpp.vim for c++ files in visual studio.)
 
-EDITING IN A SINGLE VIM  *vwt-683-editing-in-a-single-vim*
+EDITING IN A SINGLE VIM                      *vwt-683-editing-in-a-single-vim*
 
 If VS.Net insists on opening each file in a new vim window, you may be able 
 to force it to open each file in the same window by using a batch file instead 
@@ -192,7 +192,7 @@ of gvim to use vim's server-client functionality. Try this:
     pathtovim\gvim.exe --servername VimStudio --remote-silent %*
 <
 
-INTEGRATION OF VIM WITH PRE-2003 VERSIONS OF VISUAL STUDIO  *vwt-683-integration-of-vim-with-pre-2003-versions-of-visual-studio*
+INTEGRATION OF VIM WITH PRE-2003 VERSIONS OF VISUAL STUDIO *vwt-683-integration-of-vim-with-pre-2003-versions-of-visual-studio*
     - VisVim for Visual Studio 
       [https://vim.fandom.com/wiki/VisVim_for_Visual_Studio] 
     - Using DDE to open the current Vim file in Visual Studio 
@@ -201,25 +201,25 @@ INTEGRATION OF VIM WITH PRE-2003 VERSIONS OF VISUAL STUDIO  *vwt-683-integration
       [https://vim.fandom.com/wiki/Embedding_vim_in_Visual_Studio] 
 
 
-COMPILING FROM VIM  *vwt-683-compiling-from-vim*
+COMPILING FROM VIM                                *vwt-683-compiling-from-vim*
 
 If you use nmake, you can use compiler msvc to set Vim's errorformat and 
 makeprg for Visual C++. Use compiler cs for C#.
 
-SEE ALSO  *vwt-683-see-also*
+SEE ALSO                                                    *vwt-683-see-also*
     - Use Vim like an IDE [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE] 
     - 345 Quickfix and Visual Studio and cygwin |vwt-345| 
     - 719 Use Python to build project in Visual Studio |vwt-719| 
 
 
-REFERENCES  *vwt-683-references*
+REFERENCES                                                *vwt-683-references*
     - :help |--servername| 
     - :help |--remote| 
     - Visual Studio: Arguments for External Tools 
       [http://msdn.microsoft.com/en-us/library/ekbzk5f8(v=VS.100).aspx] 
 
 
-COMMENTS  *vwt-683-comments*
+COMMENTS                                                    *vwt-683-comments*
 
 A note: On VS 2015, the definition of External tool didn't work for me using 
 the recommended ItemFileName, had to use instead ItemPath

@@ -29,7 +29,7 @@ Basically it toggles two settings:
 strpart() is used for toggling; "sr" is choosing for no good reason; "_" can 
 be any char; <BS><Right> is needed to toggle this action.
 
-COMMENTS  *vwt-441-comments*
+COMMENTS                                                    *vwt-441-comments*
 
 A better toggle command, which doesn't just abuse the sr setting for a toggle 
 switch would be:

@@ -53,7 +53,7 @@ This isn't perfect -- in particular, you occasionally have to tell Vim to
 redraw with ctrl-L to get rid of gnupg crud -- but it works pretty well for 
 me.
 
-COMMENTS  *vwt-651-comments*
+COMMENTS                                                    *vwt-651-comments*
 
 One should be aware of leaving pieces of the plaintext inside registers in 
 .viminfo file.

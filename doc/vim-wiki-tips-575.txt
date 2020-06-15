@@ -13,7 +13,7 @@ created October 4, 2003 · complexity basic · author mosh · version 6.0
     :amenu Mo1.Format.JoinBackSlashLines :%s,\\\n,,gc
 <
 
-COMMENTS  *vwt-575-comments*
+COMMENTS                                                    *vwt-575-comments*
 
 As far as chopping lines goes, look at man fmt. Note that fmt chops lines to 
 72 (or is it 75?) by default. You can also set it using fmt flag.

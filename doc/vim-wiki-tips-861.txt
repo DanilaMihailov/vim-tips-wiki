@@ -19,7 +19,7 @@ To do this, we will use the same registry location as used for Windows file
 associations [https://vim.fandom.com/wiki/Windows_file_associations] to create 
 a specialized custom action available for Folders.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
-ORIGINAL TIP  *vwt-861-original-tip*
+ORIGINAL TIP                                            *vwt-861-original-tip*
 
 >
     REGEDIT4
@@ -41,7 +41,7 @@ This command will open a new buffer with path set:
 
 
 
-FROM 200911  *vwt-861-from-200911*
+FROM 200911                                              *vwt-861-from-200911*
 
 Find or create registry key HKEY_CLASSES_ROOT\Folder\shell\Open Vim 
 here\command and change the default value to (using the correct path for your 
@@ -67,7 +67,7 @@ HKEY_CURRENT_USER the user does not need administrative privileges.
     @="\"C:\\Program Files\\Vim\\vim72\\gvim.exe\" ."
 <
 
-COMMENTS  *vwt-861-comments*
+COMMENTS                                                    *vwt-861-comments*
 
 TO DO
     - Work out what the difference between the procedures is, and probably merge 

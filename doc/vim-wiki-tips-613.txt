@@ -13,7 +13,7 @@ last edited file in csh. In bash, do it like so:
     alias lvim='vim -c "normal '\''0"'
 <
 
-COMMENTS  *vwt-613-comments*
+COMMENTS                                                    *vwt-613-comments*
 
 With this in vimrc [https://vim.fandom.com/wiki/Vimrc], invoking Vim without 
 arguments will open the last file (it will get the last file and position from 

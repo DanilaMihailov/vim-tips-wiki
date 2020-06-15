@@ -27,7 +27,7 @@ the .vimrc to accomplish this:
 This simply maps normal mode p to what ]p normally does. While ctrl+p now 
 performs just p without the indenting functionality.
 
-CORRECTING BAD INDENT WHILE PASTING  *vwt-272-correcting-bad-indent-while-pasting*
+CORRECTING BAD INDENT WHILE PASTING *vwt-272-correcting-bad-indent-while-pasting*
 
 Unfortunately, the ]p command will only adjust indent to match the current 
 line, it will not re-indent the pasted text to correct it according to your 
@@ -43,7 +43,7 @@ This takes advantage of the fact that a paste operation will place the cursor
 at the beginning of the inserted text, and uses the = operator to indent 
 [https://vim.fandom.com/wiki/Indenting_source_code] the entire inserted text.
 
-REFERENCES  *vwt-272-references*
+REFERENCES                                                *vwt-272-references*
     - :help |:nnoremap| 
     - :hel |p| 
     - :help |=| 
@@ -51,11 +51,11 @@ REFERENCES  *vwt-272-references*
     - :help |]p| 
 
 
-RELATED PLUGINS  *vwt-272-related-plugins*
+RELATED PLUGINS                                      *vwt-272-related-plugins*
     - vim-pasta [https://github.com/sickill/vim-pasta] allows for pasting with 
       automatic adjusting of indentation to destination context. 
 
 
-COMMENTS  *vwt-272-comments*
+COMMENTS                                                    *vwt-272-comments*
 
  vim:tw=78:et:ft=help:norl:

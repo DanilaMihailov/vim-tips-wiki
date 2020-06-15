@@ -14,7 +14,7 @@ This tip shows several ways to highlight unwanted whitespace. In addition,
 the tip explains how to use the listchars option (abbreviated to lcs) to 
 indicate when characters are not displayed on long lines.
 
-HIGHLIGHTING WITH A SEARCH  *vwt-396-highlighting-with-a-search*
+HIGHLIGHTING WITH A SEARCH                *vwt-396-highlighting-with-a-search*
 
 For occasional use, you can simply search using a suitable pattern to 
 highlight what you want. The following examples assume you use search 
@@ -34,7 +34,7 @@ highlighting |vwt-14| (:set hlsearch).
     / \+\ze\t
 <
 
-HIGHLIGHTING WITH THE MATCH COMMAND  *vwt-396-highlighting-with-the-match-command*
+HIGHLIGHTING WITH THE MATCH COMMAND *vwt-396-highlighting-with-the-match-command*
 
 The :match command specifies the name of a highlight group and a pattern. Any 
 text matching the pattern will be displayed in the foreground and background 
@@ -144,7 +144,7 @@ list of precisely what you need.
     autocmd BufWinLeave * call clearmatches()
 <
 
-HIGHLIGHTING WITH THE SYNTAX COMMAND  *vwt-396-highlighting-with-the-syntax-command*
+HIGHLIGHTING WITH THE SYNTAX COMMAND *vwt-396-highlighting-with-the-syntax-command*
 
 Using the :match command is easy, but you may want to keep it for another 
 purpose. An alternative is to use syntax highlighting. :help |syntax|
@@ -162,7 +162,7 @@ with a :highlight command, as shown earlier.
 If you want the above command to also work if the match is nested in some 
 other syntax group, append containedin=ALL to the end.
 
-USING THE LIST AND LISTCHARS OPTIONS  *vwt-396-using-the-list-and-listchars-options*
+USING THE LIST AND LISTCHARS OPTIONS *vwt-396-using-the-list-and-listchars-options*
 
 In Vim, 'list' is a boolean option that defaults to off. If 'list' is on, 
 whitespace characters are made visible. The 'listchars' option can be used to 
@@ -202,7 +202,7 @@ The listchars option uses the "NonText" highlighting group for "eol",
 "extends" and "precedes", and the "SpecialKey" highlighting group for "nbsp", 
 "tab" and "trail". :help 'listchars'
 
-USING SYNTAX SPACE ERRORS  *vwt-396-using-syntax-space-errors*
+USING SYNTAX SPACE ERRORS                  *vwt-396-using-syntax-space-errors*
 
 Vim has several syntax files that support the display of "space errors". For 
 example, for the C programming language (:set filetype=c), you could put the 
@@ -243,7 +243,7 @@ The command :hi cSpaceError will show "xxx" in that color.
 
 
 
-SHOWING LONG LINES  *vwt-396-showing-long-lines*
+SHOWING LONG LINES                                *vwt-396-showing-long-lines*
 
 By default, lines longer than the screen width are not wrapped, and you can 
 horizontally scroll the text, for example by moving the cursor to the end of a 
@@ -260,7 +260,7 @@ not displayed, for example:
     :set list listchars=tab:>-,trail:.,precedes:<,extends:>
 <
 
-RESOLVING PERFORMANCE PROBLEMS  *vwt-396-resolving-performance-problems*
+RESOLVING PERFORMANCE PROBLEMS        *vwt-396-resolving-performance-problems*
 
 It seems that vim does not handle sucessive calls of the match command 
 gracefully. Since BufWinEnter commands are executed every time a buffer is 
@@ -286,7 +286,7 @@ to make sure clearmatches() is an available function (apparently available in
     endif
 <
 
-SEE ALSO  *vwt-396-see-also*
+SEE ALSO                                                    *vwt-396-see-also*
     - Highlight some whitespace characters |vwt-1274| a script to toggle specified 
       highlighting 
     - Converting tabs to spaces |vwt-12| to convert tabs to spaces or vice versa 
@@ -296,7 +296,7 @@ SEE ALSO  *vwt-396-see-also*
       plugin for attractive display of tabs, returns and trailing spaces 
 
 
-RELATED SCRIPTS  *vwt-396-related-scripts*
+RELATED SCRIPTS                                      *vwt-396-related-scripts*
     - The ShowTrailingWhitespace 
       [https://www.vim.org/scripts/script.php?script_id=3966] plugin highlights 
       without affecting syntax or :match command, and comes with exceptions for 
@@ -316,7 +316,7 @@ RELATED SCRIPTS  *vwt-396-related-scripts*
       plugin can show whitespace errors (also mixed indent) in the sign column. 
 
 
-COMMENTS  *vwt-396-comments*
+COMMENTS                                                    *vwt-396-comments*
 
 If you want to leave :match available for other uses and still have the match 
 change when you enter or leave Insert mode, then you can use the following 

@@ -12,7 +12,7 @@ This tip explains how :retab converts tabs to spaces, or spaces to tabs, and
 provides a "super retab" command to convert only the whitespace used for 
 indentation in programs.
 
-STANDARD RETAB  *vwt-1592-standard-retab*
+STANDARD RETAB                                       *vwt-1592-standard-retab*
 
 You can set the 'expandtab' (abbreviated to 'et') option so each tab that you 
 type is converted to an equivalent number of spaces. And you can use the 
@@ -35,7 +35,7 @@ sequences, even those that might be in a "quoted string like this".
 This tip shows how to convert only the indents at the left margin. Any spaces 
 or tabs after the first non-white character are not affected.
 
-SUPER RETAB  *vwt-1592-super-retab*
+SUPER RETAB                                             *vwt-1592-super-retab*
 
 Use the following command to define a new SuperRetab command. You could enter 
 this in Vim, or put it in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
@@ -77,7 +77,7 @@ selected text:
          }
 <
 
-ALTERNATIVE  *vwt-1592-alternative*
+ALTERNATIVE                                             *vwt-1592-alternative*
 
 An alternative super retab procedure is to use the following two commands:
 
@@ -104,7 +104,7 @@ Examples:
     :'<,'>Tab2Space
 <
 
-SCRIPT  *vwt-1592-script*
+SCRIPT                                                       *vwt-1592-script*
 
 A more elaborate solution is to use the following script which provides these 
 features:
@@ -155,7 +155,7 @@ column. By default, the 'tabstop' setting is used.
     command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
 <
 
-SEE ALSO  *vwt-1592-see-also*
+SEE ALSO                                                   *vwt-1592-see-also*
     - Converting tabs to spaces 
       [https://vim.fandom.com/wiki/Converting_tabs_to_spaces] 
     - Highlight unwanted spaces 
@@ -165,6 +165,6 @@ SEE ALSO  *vwt-1592-see-also*
     - Indenting source code [https://vim.fandom.com/wiki/Indenting_source_code] 
 
 
-COMMENTS  *vwt-1592-comments*
+COMMENTS                                                   *vwt-1592-comments*
 
  vim:tw=78:et:ft=help:norl:

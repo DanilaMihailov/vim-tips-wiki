@@ -6,7 +6,7 @@ created 2001 · complexity basic · author Yegappan · version 5.7
 
 ==============================================================================
 
-SETTINGS  *vwt-12-settings*
+SETTINGS                                                     *vwt-12-settings*
 
 To insert space characters whenever the tab key is pressed, set the 
 'expandtab' option:
@@ -62,7 +62,7 @@ or as a oneliner:
 
 Add the above settings to your vimrc [https://vim.fandom.com/wiki/Vimrc].
 
-ADJUSTING INDENT  *vwt-12-adjusting-indent*
+ADJUSTING INDENT                                     *vwt-12-adjusting-indent*
 
 Since tabs effectively group spaces together, you may be tempted to work with 
 tabs rather than spaces and change individual lines selectively. To easily 
@@ -77,12 +77,12 @@ indent/de-indent lines or visual selections. And you can set the 'softtabstop'
 option to cause <Tab> and <BS> to insert and delete the correct number of 
 spaces.
 
-SEE ALSO  *vwt-12-see-also*
+SEE ALSO                                                     *vwt-12-see-also*
     - Super retab |vwt-1592| to change only indents (whitespace at left margin) 
     - Highlight unwanted spaces |vwt-396| to display unwanted whitespace 
 
 
-REFERENCES  *vwt-12-references*
+REFERENCES                                                 *vwt-12-references*
     - :help 'tabstop' 
     - :help 'shiftwidth' 
     - :help 'expandtab' 
@@ -90,7 +90,7 @@ REFERENCES  *vwt-12-references*
     - :help 'softtabstop' 
 
 
-COMMENTS  *vwt-12-comments*
+COMMENTS                                                     *vwt-12-comments*
 
 To turn off expandtab for editing makefiles, put the following in your vimrc:
 

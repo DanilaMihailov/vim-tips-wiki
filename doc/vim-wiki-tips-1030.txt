@@ -58,7 +58,7 @@ Same for svn instead of cvs:
     com! DiffSVN call s:DiffWithSVNCheckedOut()
 <
 
-COMMENTS  *vwt-1030-comments*
+COMMENTS                                                   *vwt-1030-comments*
 
 The following suggestion should work, but will only show you the output of 
 the "diff" command on your system. It will NOT use Vim's excellent diff mode, 

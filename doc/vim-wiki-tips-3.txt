@@ -27,13 +27,13 @@ To setup your classpath environment either launch gvim from a shell that has
 your classpath/path setup or use the "let" command to configure it in your 
 vimrc.
 
-REFERENCES  *vwt-3-references*
+REFERENCES                                                  *vwt-3-references*
     - :help |quickfix| 
     - :help 'efm' 
     - :help 'makeprg' 
 
 
-COMMENTS  *vwt-3-comments*
+COMMENTS                                                      *vwt-3-comments*
 
 You also may want to try using ant as your makeprg as follows:
 

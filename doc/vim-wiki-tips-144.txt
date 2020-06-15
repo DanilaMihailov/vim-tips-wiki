@@ -27,7 +27,7 @@ mode and type text. To stop recording, again press q while in normal mode.
 To playback your keystrokes, press @ followed by the letter previously 
 chosen. Typing @@ repeats the last playback.
 
-SEE ALSO  *vwt-144-see-also*
+SEE ALSO                                                    *vwt-144-see-also*
     - A way to record recursive macros 
       [https://vim.fandom.com/wiki/Recursive_repeats_for_quick_editing_of_structured_text] 
     - Easy playback of recorded keys 
@@ -35,7 +35,7 @@ SEE ALSO  *vwt-144-see-also*
       [https://vim.fandom.com/wiki/Macros] 
 
 
-COMMENTS  *vwt-144-comments*
+COMMENTS                                                    *vwt-144-comments*
 
 To delete a recording just record nothing over it. For example, qxq erases 
 whatever was recorded to register x.

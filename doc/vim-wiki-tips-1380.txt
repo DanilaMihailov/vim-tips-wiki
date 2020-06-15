@@ -30,7 +30,7 @@ when you move the cursor within the current line, or down or up by one line.
     let g:last_pos = 0
 <
 
-COMMENTS  *vwt-1380-comments*
+COMMENTS                                                   *vwt-1380-comments*
 
 TO DO
     - Should use autogroup and remove old autocmd when source again. 

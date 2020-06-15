@@ -24,7 +24,7 @@ Here is the method I propose for Linux users. Open two Vim or gvim windows,
 the left one for job launching and the right one for listing editing. 
 Extensions to vimrc are given afterwards.
 
-JOB LAUNCHING  *vwt-1652-job-launching*
+JOB LAUNCHING                                         *vwt-1652-job-launching*
 
 Prepare a self-launching script, with such a canvas:
 
@@ -42,7 +42,7 @@ Prepare a self-launching script, with such a canvas:
 When ready to launch, press the F7 key. Occasionally you may see the NNNN 
 unique number displayed and remember it.
 
-LISTING EDITING  *vwt-1652-listing-editing*
+LISTING EDITING                                     *vwt-1652-listing-editing*
 
 When you know the listing file has been returned, press F12 to edit the most 
 recent file of a good pattern. You may choose explicitly a pattern or keep the 
@@ -64,7 +64,7 @@ To remember keys to be used. I have chosen F12 key because it's the last one
 hidden among the other keys. Ctrl-E: E like execute. Ctrl-^ can be used to 
 switch to the previous (alternate) file.
 
-ADDITIONS TO VIMRC  *vwt-1652-additions-to-vimrc*
+ADDITIONS TO VIMRC                               *vwt-1652-additions-to-vimrc*
 
 >
     " Prevents, by default, modification of listing files.
@@ -90,7 +90,7 @@ ADDITIONS TO VIMRC  *vwt-1652-additions-to-vimrc*
     endfunction
 <
 
-GENERALIZATION  *vwt-1652-generalization*
+GENERALIZATION                                       *vwt-1652-generalization*
 
 Launching and editing parts may be used independently for whatever you want.
 
@@ -102,6 +102,6 @@ when you want.
 Windows users may have to change the shell_cmd definition in order to have 
 complete use of the method.
 
-COMMENTS  *vwt-1652-comments*
+COMMENTS                                                   *vwt-1652-comments*
 
  vim:tw=78:et:ft=help:norl:

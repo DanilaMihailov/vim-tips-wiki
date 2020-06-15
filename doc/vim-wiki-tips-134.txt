@@ -16,7 +16,7 @@ created October 12, 2001 · complexity basic · author Eric Lee · version 6.0
 
 ==============================================================================WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
-VIEW SOURCE  *vwt-134-view-source*
+VIEW SOURCE                                              *vwt-134-view-source*
 
 On a Windows system, you can configure Internet Explorer 6.0 to use Vim to 
 "View Source".Add the following to the registry. Change the path to the 
@@ -39,7 +39,7 @@ Thanks to Josh Poley at Microsoft
 [http://blogs.msdn.com/joshpoley/archive/2008/07/07/custom-view-source-application-on-ie.aspx] 
 for this information!
 
-HTML EDITOR  *vwt-134-html-editor*
+HTML EDITOR                                              *vwt-134-html-editor*
 
 On a Windows system, you can configure Internet Explorer to use Vim as an 
 HTML Editor.
@@ -106,7 +106,7 @@ http://msdn2.microsoft.com/en-us/library/Aa753633.aspx
     [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor]
 <
 
-COMMENTS  *vwt-134-comments*
+COMMENTS                                                    *vwt-134-comments*
 
 IE requires an editor that can open files with embedded spaces. See VimTip118 
 |vwt-118| which deals with defaulting the syntax to html and eating extra 

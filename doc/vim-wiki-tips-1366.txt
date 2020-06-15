@@ -6,7 +6,7 @@ created 2006 · complexity intermediate · author Cory · version 6.0
 
 ==============================================================================
 
-FIRST METHOD  *vwt-1366-first-method*
+FIRST METHOD                                           *vwt-1366-first-method*
 
 Add this to your vimrc so you can type :PrettyXML and automatically 
 pretty-format XML. Requires the command 'xmllint' in your PATH.
@@ -46,7 +46,7 @@ badly-formatted XML documents, not to save them.
     command! PrettyXML call DoPrettyXML()
 <This tool can be used to verify or to make XML Formatting online. XML Formatter [https://jsonformatter.org/xml-formatter]
 
-SECOND METHOD  *vwt-1366-second-method*
+SECOND METHOD                                         *vwt-1366-second-method*
 
 This method requires only python3!
 
@@ -57,7 +57,7 @@ Add this to your vimrc and type :FormatXML or =.
     nnoremap = :FormatXML<Cr>
 <
 
-COMMENTS  *vwt-1366-comments*
+COMMENTS                                                   *vwt-1366-comments*
 
 I tried it on emblemsample.xml 
 [http://www.hab.de/bibliothek/wdb/emblematica/emblemsample.xml]. Buffer was 

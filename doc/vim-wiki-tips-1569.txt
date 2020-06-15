@@ -36,7 +36,7 @@ the autocmds:
     let g:screen_size_by_vim_instance = 1
 <
 
-VERSION 1 (VIM 7 AND ABOVE)  *vwt-1569-version-1-(vim-7-and-above)*
+VERSION 1 (VIM 7 AND ABOVE)             *vwt-1569-version-1-(vim-7-and-above)*
 
 This version uses Vim's readfile() and writefile() functions to access the 
 file used to save the size/position. That in addition to the use of the 
@@ -102,7 +102,7 @@ split() function makes this version unusable in Vim 6.x.
     endif
 <
 
-VERSION 2 (VIM 6 AND ABOVE)  *vwt-1569-version-2-(vim-6-and-above)*
+VERSION 2 (VIM 6 AND ABOVE)             *vwt-1569-version-2-(vim-6-and-above)*
 
 Here is an alternative script which uses a regular Vim buffer to manipulate 
 the vimsize file instead of Vim 7's readfile() and writefile() functions.
@@ -181,7 +181,7 @@ the vimsize file instead of Vim 7's readfile() and writefile() functions.
     endif
 <
 
-COMMENTS  *vwt-1569-comments*
+COMMENTS                                                   *vwt-1569-comments*
 
 Feel free to add comments here for script improvements.
 

@@ -11,11 +11,11 @@ detects the type of file when the file is created or opened. The type can be
 detected from the file name (for example, file sample.c has file type c), or 
 from the file contents.
 
-OVERVIEW  *vwt-130-overview*
+OVERVIEW                                                    *vwt-130-overview*
 
 For an overview of file type plugins see :help |ftplugins|.
 
-DISABLING DEFAULT FTPLUGINS  *vwt-130-disabling-default-ftplugins*
+DISABLING DEFAULT FTPLUGINS              *vwt-130-disabling-default-ftplugins*
 
 If you want to disable all ftplugins, or disable a particular default 
 ftplugin, see :help |:filetype| and :help |ftplugin-overrule|.
@@ -31,7 +31,7 @@ the line
 to your vimrc [https://vim.fandom.com/wiki/Vimrc], before the :filetype 
 plugin on line.
 
-SETTING A DEFAULT FILETYPE  *vwt-130-setting-a-default-filetype*
+SETTING A DEFAULT FILETYPE                *vwt-130-setting-a-default-filetype*
 
 When you edit a blank buffer (for example, just after starting Vim, or as a 
 result of the :new command), the buffer will have no filetype so there will be 
@@ -78,7 +78,7 @@ Why the need to use a global variable, and not set the filetype immediately,
 is to my understanding, because the buffer hasn't been fully created when the 
 autocmd is triggered.
 
-SEE ALSO  *vwt-130-see-also*
+SEE ALSO                                                    *vwt-130-see-also*
     - 180 Reload your filetype/syntax plugin |vwt-180| 
     - 215 Edit configuration files for a filetype |vwt-215| 
     - 410 Allow Inform header files to be distinguished from C headers |vwt-410| 
@@ -89,7 +89,7 @@ SEE ALSO  *vwt-130-see-also*
     - 1606 Filetype.vim |vwt-1606| 
 
 
-COMMENTS  *vwt-130-comments*
+COMMENTS                                                    *vwt-130-comments*
 
 TO DO
     - Write an introduction (not much detail). 

@@ -13,7 +13,7 @@ open. The following mapping allows you to do this easily with Ctrl-\.
     :map <C-\> :sp<CR><C-]><C-w>_
 <
 
-COMMENTS  *vwt-457-comments*
+COMMENTS                                                    *vwt-457-comments*
 
 This creates a new window of maximal size and the original window shrinks to 
 one line. To have the windows be of equal size, just eliminate the "<C-w>_" at 

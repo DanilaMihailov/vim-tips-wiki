@@ -48,11 +48,11 @@ cursor:
       //comment may insert // on the next line). 
 
 
-SEE ALSO  *vwt-1066-see-also*
+SEE ALSO                                                   *vwt-1066-see-also*
     - Remove unwanted empty lines |vwt-72| to delete all blank lines. 
 
 
-ALTERNATIVE  *vwt-1066-alternative*
+ALTERNATIVE                                             *vwt-1066-alternative*
 
 TO DO Following is from the original tip. Decide whether this is useful. If 
 not, delete it.
@@ -120,7 +120,7 @@ don't want it:
     nnoremap <a-[> :<CR>mzO<Esc>`z:<CR>
 <
 
-COMMENTS  *vwt-1066-comments*
+COMMENTS                                                   *vwt-1066-comments*
 
 It does not work for me... it works like if I didn't configure anything
 

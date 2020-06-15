@@ -26,14 +26,14 @@ undo-able with u; it creates a new change to reverse previous changes.
 U is seldom useful in practice, but is often accidentally pressed instead of 
 u, so it is good to know about.
 
-UNDO TREE  *vwt-39-undo-tree*
+UNDO TREE                                                   *vwt-39-undo-tree*
 
 Note that unlike most programs which maintain a linear undo history, Vim 
 maintains an undo tree containing every edit made to a buffer. To learn how to 
 use Vim's undo tree, see the separate article on using undo branches 
 [https://vim.fandom.com/wiki/Using_undo_branches].
 
-UNDO STACK  *vwt-39-undo-stack*
+UNDO STACK                                                 *vwt-39-undo-stack*
 
 Note that a single Insert session (invoked by pressing i) is considered as 
 one entry in the undo stack. That is, if you entered 10 lines in a single 
@@ -41,7 +41,7 @@ Insert session, then pressed Esc, invoking undo will delete those 10 lines (as
 opposed to undoing only the the previous line, which is usually the case in 
 most code editors).
 
-SEE ALSO  *vwt-39-see-also*
+SEE ALSO                                                     *vwt-39-see-also*
     - Recover from accidental Ctrl-U 
       [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U], which explains 
       what constitutes a change which can be undone. 
@@ -49,12 +49,12 @@ SEE ALSO  *vwt-39-see-also*
       explains Vim's unique and very powerful undo tree. 
 
 
-REFERENCES  *vwt-39-references*
+REFERENCES                                                 *vwt-39-references*
     - :help |undo| 
     - :help |U| 
 
 
-COMMENTS  *vwt-39-comments*
+COMMENTS                                                     *vwt-39-comments*
 
 >
     :nnoremap U :echo " < < ===== C H E C K   C A P S   L O C K ===== > > "<CR>

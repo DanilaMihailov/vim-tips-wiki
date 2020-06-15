@@ -47,14 +47,14 @@ Here is an example from complex math:
     5050
 <
 
-REFERENCES  *vwt-1235-references*
+REFERENCES                                               *vwt-1235-references*
     - http://docs.python.org/lib/module-cmath.html 
       [http://docs.python.org/lib/module-cmath.html] 
     - http://mathworld.wolfram.com/EulerFormula.html 
       [http://mathworld.wolfram.com/EulerFormula.html] 
 
 
-DLL  *vwt-1235-dll*
+DLL                                                             *vwt-1235-dll*
 
 These days, Vim Python support in Windows is usually via a dll, installed 
 separately from Vim: :version shows +python/dyn. Go to http://python.org/ 
@@ -64,7 +64,7 @@ To check whether you have Python software that Vim can use (either statically
 linked or dynamically findable), do :echo has('python') — 0 (zero) means "no", 
 anything else (normally 1) means "yes".
 
-COMMENTS  *vwt-1235-comments*
+COMMENTS                                                   *vwt-1235-comments*
 
 If your Vim (7.2 or later) is compiled with |+float|, you can do scientific 
 calculations in Vim even without Python.

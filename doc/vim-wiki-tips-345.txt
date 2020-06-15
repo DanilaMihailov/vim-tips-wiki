@@ -61,7 +61,7 @@ vcvars32.bat in the Visual Studio VC98/bin directory for guidelines.
 you'll automatically start a Visual Studio build and you'll be able to step 
 through compiler errors via the :cp and :cn commands.
 
-COMMENTS  *vwt-345-comments*
+COMMENTS                                                    *vwt-345-comments*
 
 You should look at the errorformat option (:help |errorformat|). This may 
 solve your problem without Perl.

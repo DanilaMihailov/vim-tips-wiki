@@ -26,7 +26,7 @@ a better way, I'd love to know.
 One problem with this approach is that if the shell command fails, or doesn't 
 really change the file, then you won't be notified the next time it changes.
 
-COMMENTS  *vwt-595-comments*
+COMMENTS                                                    *vwt-595-comments*
 
 Untested, but this sounds like it would work/is what you are after.
     - :help 'autoread' 

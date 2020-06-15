@@ -25,13 +25,13 @@ I make sure that all shortcuts and registry entries reference gvim as
 C:\Program Files\Vim\current\gvim.exe, and I can then easily move the current 
 link around to switch versions.
 
-SEE ALSO  *vwt-1189-see-also*
+SEE ALSO                                                   *vwt-1189-see-also*
     - 848 Installing several releases in parallel, even with matchit |vwt-848| 
 
 
 Tip 848 applies to any OS: it relies on naming one version the "default" and having it in the PATH; other versions must be invoked with an explicit path.
 
-COMMENTS  *vwt-1189-comments*
+COMMENTS                                                   *vwt-1189-comments*
 
 Look for "Windows Server 2003 Resource Kit Tools". There is a Linkd.exe.
 

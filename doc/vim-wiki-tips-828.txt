@@ -40,7 +40,7 @@ You may alternatively use the oneliner:
     :g/^/exe "norm! 100A" | call cursor(getline('.'), 79) | norm d$
 <
 
-COMMENTS  *vwt-828-comments*
+COMMENTS                                                    *vwt-828-comments*
 
 Try using 'virtualedit', as in :set ve+=block
 

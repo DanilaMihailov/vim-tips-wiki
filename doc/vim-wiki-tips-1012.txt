@@ -14,6 +14,6 @@ encoded in quoted printable. Mentioning this in my vimrc helps:
     vnoremap <Leader>Q :s/=\(\x\x\<BAR>\n\)/\=submatch(1)=='\n'?'':nr2char('0x'.submatch(1))/ge<CR>
 <
 
-COMMENTS  *vwt-1012-comments*
+COMMENTS                                                   *vwt-1012-comments*
 
  vim:tw=78:et:ft=help:norl:

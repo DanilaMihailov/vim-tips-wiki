@@ -37,7 +37,7 @@ that Vim acts normally for future file attribute changes.
 
 Now you can type :Xbit to make the file executable.
 
-COMMENTS  *vwt-212-comments*
+COMMENTS                                                    *vwt-212-comments*
 
 Using Max's idea, I came up with this code to toggle the read-only state of a 
 file on Windows.

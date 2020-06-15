@@ -17,14 +17,14 @@ By contrast, the :w command always writes the current buffer to its file (use
 Warning: If you enter :qa!, Vim will discard all changes without asking "are 
 you sure?".
 
-SEE ALSO  *vwt-652-see-also*
+SEE ALSO                                                    *vwt-652-see-also*
     - Tutorial [https://vim.fandom.com/wiki/Tutorial] 
 
 
-REFERENCES  *vwt-652-references*
+REFERENCES                                                *vwt-652-references*
     - :help |window-exit| 
 
 
-COMMENTS  *vwt-652-comments*
+COMMENTS                                                    *vwt-652-comments*
 
  vim:tw=78:et:ft=help:norl:

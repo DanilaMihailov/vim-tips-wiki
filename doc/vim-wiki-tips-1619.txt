@@ -27,7 +27,7 @@ the GUI are defined by RGB, and colors in a terminal are defined by color
 indices. Furthermore, the indices for ctermfg and ctermbg depend on the number 
 of colors that the terminal supports.
 
-SOLUTION 1: THE GUICOLORSCHEME PLUGIN  *vwt-1619-solution-1:-the-guicolorscheme-plugin*
+SOLUTION 1: THE GUICOLORSCHEME PLUGIN *vwt-1619-solution-1:-the-guicolorscheme-plugin*
 
 The guicolorscheme [https://www.vim.org/scripts/script.php?script_id=1809] 
 plugin can be used to conveniently load a color scheme designed for the GUI 
@@ -61,7 +61,7 @@ because it defines colors for the GUI:
     endif
 <
 
-SOLUTION 2: THE CSAPPROX PLUGIN  *vwt-1619-solution-2:-the-csapprox-plugin*
+SOLUTION 2: THE CSAPPROX PLUGIN     *vwt-1619-solution-2:-the-csapprox-plugin*
 
 The CSApprox [https://www.vim.org/scripts/script.php?script_id=2390] plugin 
 also allows loading colors from the GUI into a color terminal. Internally, it 
@@ -80,7 +80,7 @@ and to configure the CSApprox plugin:
     colorscheme rastafari
 <
 
-PUTTING IT ALL TOGETHER  *vwt-1619-putting-it-all-together*
+PUTTING IT ALL TOGETHER                     *vwt-1619-putting-it-all-together*
 
 Both plugins guicolorscheme and CSApprox aim to achieve the same goal but 
 they do it in very different ways which have their pros and cons:
@@ -145,11 +145,11 @@ to use guicolorscheme:
     endif
 <
 
-OTHER PLUGINS  *vwt-1619-other-plugins*
+OTHER PLUGINS                                         *vwt-1619-other-plugins*
     - colorsupport.vim [https://www.vim.org/scripts/script.php?script_id=2682] 
 
 
-COMMENTS  *vwt-1619-comments*
+COMMENTS                                                   *vwt-1619-comments*
 
 Global plugins are loaded by Vim without user intervention, and they can 
 reside in $VIM/vimfiles/plugin/ just as well as in ~/.vim/plugin/. To load the 
@@ -185,7 +185,7 @@ installed) on 88/256-color cterms — Tonymec
 
 ==============================================================================
 
-ANOTHER WAY TO SET T_CO : THE  OPTION  *vwt-1619-another-way-to-set-t_co :-the--option*
+ANOTHER WAY TO SET T_CO : THE  OPTION *vwt-1619-another-way-to-set-t_co :-the--option*
 
 The above vimtip relies on commenting or uncommenting lines of Vim code 
 depending on how many colours your terminal can display. But what if you may 

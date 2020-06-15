@@ -9,7 +9,7 @@ created 2001 · complexity basic · version 6.0
 When searching in Vim, you enter a search pattern. This tip provides a 
 tutorial introduction to using search patterns.
 
-FINDING A WHOLE WORD  *vwt-188-finding-a-whole-word*
+FINDING A WHOLE WORD                            *vwt-188-finding-a-whole-word*
 
 In a program, you may want to search for an identifier named i. However, 
 entering the search /i will find every hit, including the "i" in words like 
@@ -32,7 +32,7 @@ inserts \< and \> automatically (see searching |vwt-1|).
 The pattern \<i finds all words that start with "i", while i\> finds all 
 words that end with "i".
 
-FINDING DUPLICATE WORDS  *vwt-188-finding-duplicate-words*
+FINDING DUPLICATE WORDS                      *vwt-188-finding-duplicate-words*
 
 Sometimes words are accidentally duplicated in text (like this this). The 
 following pattern finds repeated words that are separated by whitespace 
@@ -49,7 +49,7 @@ tab, while \_s matches space or tab or newline (end-of-line character).
 Finally, the pattern looks for \1 which is the whole word that was found in 
 the escaped parentheses.
 
-FINDING THIS OR THAT  *vwt-188-finding-this-or-that*
+FINDING THIS OR THAT                            *vwt-188-finding-this-or-that*
 
 A search pattern can use \| to search for something or something else. For 
 example, to search for all occurrences of "red" or "green" or "blue", enter 
@@ -146,7 +146,7 @@ either order, use one of the following patterns:
     \(\<red\>.*\<blue\>\)\|\(\<blue\>.*\<red\>\)
 <
 
-FINDING TRAILING ZEROES  *vwt-188-finding-trailing-zeroes*
+FINDING TRAILING ZEROES                      *vwt-188-finding-trailing-zeroes*
 
 The following pattern finds redundant trailing zeroes in numbers:
 
@@ -174,12 +174,12 @@ before the trailing zeroes consists of a decimal point (\.), then one or more
 decimal digits (\d\+). The escaped parentheses \(...\) make an "atom" from 
 what is enclosed by the parentheses.
 
-REFERENCES  *vwt-188-references*
+REFERENCES                                                *vwt-188-references*
     - :help |pattern| 
     - :help |/\&| 
 
 
-COMMENTS  *vwt-188-comments*
+COMMENTS                                                    *vwt-188-comments*
 
 TO DO "finding two words appearing together" as a subtopic will make it 
 easier to reach this url through google. It has tips really very useful but 

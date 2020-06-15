@@ -78,12 +78,12 @@ My mapping for them:
     nnoremap <A-,> :call MoveToPrevTab()<CR>
 <
 
-RELATED PLUGINS  *vwt-1554-related-plugins*
+RELATED PLUGINS                                     *vwt-1554-related-plugins*
     - Tabmerge [https://www.vim.org/scripts/script.php?script_id=1961] will merge 
       all the windows of one tab into another 
 
 
-COMMENTS  *vwt-1554-comments*
+COMMENTS                                                   *vwt-1554-comments*
 
 If you prefer vertically-split windows, you can add <C-w>H to the mappings to 
 make the moved buffer vertical. My mappings look like this:map <C-m> :call 

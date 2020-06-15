@@ -94,7 +94,7 @@ of the functions. Especially over wrapped lines.
     endfunction
 <
 
-COMMENTS  *vwt-1061-comments*
+COMMENTS                                                   *vwt-1061-comments*
 
 To make SmartEnd work properly with multi-byte characters, use current 
 character's length to move cursor rightward, instead of move by 1 byte.

@@ -59,7 +59,7 @@ Then add these lines into your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     QDBUS_COMMAND="qdbus org.kde.konsole-$KONSOLE_PID $KONSOLE_DBUS_SESSION"
 <
 
-COMMENTS  *vwt-451-comments*
+COMMENTS                                                    *vwt-451-comments*
 
 Dan thanks for the vim help, however I do not use konsole.So I modified my 
 .tcshrc with this:

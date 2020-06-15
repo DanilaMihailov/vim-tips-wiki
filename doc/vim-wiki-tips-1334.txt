@@ -22,7 +22,7 @@ the cursor up). This is what the relevant part of my vimrc file looks like:
     map k <Down>
 <
 
-COMMENTS  *vwt-1334-comments*
+COMMENTS                                                   *vwt-1334-comments*
     - The above example does the job, but hides some functionality. For example, 
       you won't be able do delete "inner word" text object with 'diw' combination, 
       because 'di' will act like 'd<Up>' thus deleting one row before cursor. The 

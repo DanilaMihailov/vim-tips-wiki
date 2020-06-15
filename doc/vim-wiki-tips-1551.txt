@@ -67,7 +67,7 @@ I used the following script:
     com OpenIPython :!konsole -e screen -S ipython_vim ipython
 <
 
-WINDOWS  *vwt-1551-windows*
+WINDOWS                                                     *vwt-1551-windows*
 
 Find ipythonrc.ini and in this file find this line:
 
@@ -95,7 +95,7 @@ After doing these modifications, restart IPython and type:
 
 and gvim will start.
 
-COMMENTS  *vwt-1551-comments*
+COMMENTS                                                   *vwt-1551-comments*
 
 I tried this on Windows, and when I type %edit in IPython it opens Notepad 
 and not gvim.

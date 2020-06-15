@@ -83,7 +83,7 @@ DOS-style lined endings out of 12000 lines."
     autocmd BufReadPost * if exists('b:reload_dos') | unlet b:reload_dos | endif
 <
 
-CAVEATS  *vwt-1662-caveats*
+CAVEATS                                                     *vwt-1662-caveats*
     - It is not trivial to make this work alongside plugins which also reload the 
       buffer. See comments below. 
     - If you use a plugin which relies on byte counts within a file (like eclim 
@@ -92,7 +92,7 @@ CAVEATS  *vwt-1662-caveats*
       can easily fail. 
 
 
-COMMENTS  *vwt-1662-comments*
+COMMENTS                                                   *vwt-1662-comments*
 
 To set the 'fileformat' to whatever will change the fewer lines, replace the 
 echomsg command in the above snippet by the following:

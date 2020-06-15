@@ -15,7 +15,7 @@ created
 
 ==============================================================================
 
-WHY REMAP J?  *vwt-1553-why-remap-j?*
+WHY REMAP J?                                           *vwt-1553-why-remap-j?*
 
 When editing code with comments in it (C code, Vim script, Python, or 
 whatever) and you want to join two comment lines together, you may notice some 
@@ -48,7 +48,7 @@ this:
 Luckily, Vim allows you to remap J to override the default functionality. But 
 how to do it?
 
-VISUAL MODE MAPPING  *vwt-1553-visual-mode-mapping*
+VISUAL MODE MAPPING                             *vwt-1553-visual-mode-mapping*
 
 Visual mode is easy. We know what text is selected by using '< and '>, and we 
 know the comment leader, so we can simply apply a :s command to remove the 
@@ -79,7 +79,7 @@ changed after using J. This can be fixed by saving and restoring the @/
 register using 'let' with a temporary variable, as seen later in this document 
 |vwt-1553-tying-it-all-together|.
 
-NORMAL MODE MAPPING  *vwt-1553-normal-mode-mapping*
+NORMAL MODE MAPPING                             *vwt-1553-normal-mode-mapping*
 
 Unfortunately, normal mode is not nearly as easy as visual mode. The 
 difficulty occurs because J in normal mode can take a count of the number of 
@@ -151,7 +151,7 @@ In this mapping, we again use <C-U> to remove the count that automatically
 gets added to the beginning of an ex command given a count, and we then pass 
 this count to our function using v:count.
 
-TYING IT ALL TOGETHER  *vwt-1553-tying-it-all-together*
+TYING IT ALL TOGETHER                         *vwt-1553-tying-it-all-together*
 
 Now, we can individually map J in normal and visual mode to do what we want. 
 But it would be nice to be able to do it more simply! This function allows a 
@@ -188,7 +188,7 @@ $HOME/vimfiles/ftplugin/vim.vim:
 
 Note the use of \\| to allow matches on both \ and ".
 
-LIMITATIONS  *vwt-1553-limitations*
+LIMITATIONS                                             *vwt-1553-limitations*
 
 If you join a comment line to a non-comment line with a J command innormal 
 mode, you will change something this...
@@ -229,7 +229,7 @@ with this:
 The problem will still occur when the comment leader occurs in non-comment 
 text, but it should be far less common.
 
-REFERENCES  *vwt-1553-references*
+REFERENCES                                               *vwt-1553-references*
     - :help |/\%#| 
     - :help |v:count| 
     - :help |v:errmsg| 
@@ -237,6 +237,6 @@ REFERENCES  *vwt-1553-references*
     - :help |:map-<silent>| 
 
 
-COMMENTS  *vwt-1553-comments*
+COMMENTS                                                   *vwt-1553-comments*
 
  vim:tw=78:et:ft=help:norl:

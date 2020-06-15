@@ -25,7 +25,7 @@ any text from these mappings, you can always type CTRL-V before the second
 character in the mapping (:help |i_CTRL-V|), or wait for the mapping to time 
 out first.
 
-QUICK MOVEMENTS  *vwt-1646-quick-movements*
+QUICK MOVEMENTS                                     *vwt-1646-quick-movements*
 
 >
     inoremap II <Esc>I
@@ -39,7 +39,7 @@ Those mappings stay in insert mode.
     - OO start editing on a new line above the current line 
 
 
-LINE MODIFICATIONS  *vwt-1646-line-modifications*
+LINE MODIFICATIONS                               *vwt-1646-line-modifications*
 
 >
     inoremap CC <Esc>C
@@ -53,6 +53,6 @@ LINE MODIFICATIONS  *vwt-1646-line-modifications*
     - UU undo 
 
 
-COMMENTS  *vwt-1646-comments*
+COMMENTS                                                   *vwt-1646-comments*
 
  vim:tw=78:et:ft=help:norl:

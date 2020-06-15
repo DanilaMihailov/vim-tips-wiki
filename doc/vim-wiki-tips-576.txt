@@ -21,7 +21,7 @@ Screenshot
 
 [https://vignette.wikia.nocookie.net/vim/images/f/fb/CJK.png/revision/latest?cb=20080421014626]
 
-HOW TO  *vwt-576-how-to*
+HOW TO                                                        *vwt-576-how-to*
 
 For this to work, you will need:
 
@@ -54,7 +54,7 @@ define the function. Enter :new and type :call GenerateUnicode(0x9900,0x9fff)
     endfunction
 <
 
-SEE ALSO  *vwt-576-see-also*
+SEE ALSO                                                    *vwt-576-see-also*
     - Entering special characters 
       [https://vim.fandom.com/wiki/Entering_special_characters] 
     - List of Unicode characters (Wikipedia) 
@@ -63,6 +63,6 @@ SEE ALSO  *vwt-576-see-also*
       [http://www.unicode.org/charts/] 
 
 
-COMMENTS  *vwt-576-comments*
+COMMENTS                                                    *vwt-576-comments*
 
  vim:tw=78:et:ft=help:norl:

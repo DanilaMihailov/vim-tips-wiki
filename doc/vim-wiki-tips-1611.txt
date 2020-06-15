@@ -14,7 +14,7 @@ buffer. For most commands, the default range is the current line. For example:
     - :%s/old/new/g changes all lines 
 
 
-EXAMPLES  *vwt-1611-examples*
+EXAMPLES                                                   *vwt-1611-examples*
 
 A range can be specified using line numbers or special characters, as in 
 these examples:
@@ -34,13 +34,13 @@ enter a count value (type 6), then enter the colon command with no range (type
     :.,.+5s/old/new/g
 <
 
-DEFAULT RANGE  *vwt-1611-default-range*
+DEFAULT RANGE                                         *vwt-1611-default-range*
 
 For most commands, the default range is . (the current line, for example, 
 :s/// substitutes in the current line). However, for :g// and :w the default 
 is % (all lines).
 
-SELECTIONS  *vwt-1611-selections*
+SELECTIONS                                               *vwt-1611-selections*
 
 A command like :123,145s/old/new/g substitutes in lines 123 to 145 inclusive, 
 but what if you're not sure what the line numbers are? One method is to use 
@@ -64,7 +64,7 @@ For example, you might type vip to visually select "inner paragraph" (the
 paragraph holding the cursor). Then type :s/old/new/g to substitute in all 
 lines in the selected paragraph.
 
-DELETING, COPYING AND MOVING  *vwt-1611-deleting,-copying-and-moving*
+DELETING, COPYING AND MOVING           *vwt-1611-deleting,-copying-and-moving*
 
 Ranges work with Ex commands (those typed after a colon, for example, :w). As 
 well as the commands we've seen so far, it's handy to know how to use :d 
@@ -74,7 +74,7 @@ The line numbers in a command are those before the command executes. In the
 earlier example which moved lines 21..25 to after 30, the "30" refers to the 
 line number before the move occurred.
 
-RANGES WITH MARKS AND SEARCHES  *vwt-1611-ranges-with-marks-and-searches*
+RANGES WITH MARKS AND SEARCHES       *vwt-1611-ranges-with-marks-and-searches*
 
 In a range, a line number can be given as:
     - A mark (for example, 'x is the line containing mark x). 
@@ -124,7 +124,7 @@ The last line in each block is where endfunction first occurs (at the left margi
 
 Even more tricks are available; see :help |cmdline-ranges|. Summary:
 
-COMMENTS  *vwt-1611-comments*
+COMMENTS                                                   *vwt-1611-comments*
 
 I find this counter-intuitive to define a range with commas. Examples : 21,25
 

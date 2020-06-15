@@ -71,7 +71,7 @@ in your gvimrc to keep the quickfix window at a user specified height:
     endfunction
 <
 
-COMMENTS  *vwt-806-comments*
+COMMENTS                                                    *vwt-806-comments*
 
 Shouldn't you be save/restoring those global values:
 

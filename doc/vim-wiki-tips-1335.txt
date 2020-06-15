@@ -12,7 +12,7 @@ in argument list), or :bufdo (all buffers), or :tabdo (all tabs), or :windo
 [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] for the 
 common requirement to perform a substitute multiple times.
 
-BUFDO  *vwt-1335-bufdo*
+BUFDO                                                         *vwt-1335-bufdo*
 
 You may want to perform the same operation on each buffer. For example, you 
 may have recorded a macro [https://vim.fandom.com/wiki/Macros] to register a 
@@ -68,7 +68,7 @@ of the | w. Initially I tried:
 but that didn't work as the "| w" part was interpreted as a normal command, 
 so that's where the exe command comes from.
 
-RESTORING POSITION  *vwt-1335-restoring-position*
+RESTORING POSITION                               *vwt-1335-restoring-position*
 
 The commands bufdo, windo and tabdo are great for operating on all buffers or 
 windows or tabs. However, the commands finish in a different place from where 
@@ -127,15 +127,15 @@ along with the current window or buffer:
     com! -nargs=+ -complete=command Windo call WinDo(<q-args>)
 <
 
-REFERENCES  *vwt-1335-references*
+REFERENCES                                               *vwt-1335-references*
     - :help |:windo| 
     - :help |:bufdo| 
     - :help |:tabdo| 
 
 
-COMMENTS  *vwt-1335-comments*
+COMMENTS                                                   *vwt-1335-comments*
 
-TODO  *vwt-1335-todo*
+TODO                                                           *vwt-1335-todo*
     - Tip 382 Search and replace in multiple buffers 
       [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] give 
       advice re using argdo as well as bufdo 
@@ -188,7 +188,7 @@ It seems to work for me, though for some reason the current buffer jumps the cur
 Very strange, I just tried it again and there was no problem. Must have been a blunder or some temporary config glitch. Thanks. I'm getting converted to argdo, and I'm planning a rewrite featuring argdo, and mentioning the others. JohnBeckett 10:37, August 13, 2011 (UTC)
 Yeah, I almost never used the arglist until I discovered :args and :argl. Now I use it almost exclusively when doing batch edits. Although, I normally use :next and :wnext rather than :argdo. Fritzophrenic 15:33, August 15, 2011 (UTC)
 
-TIP TITLES  *vwt-1335-tip-titles*
+TIP TITLES                                               *vwt-1335-tip-titles*
 
 These tips should handle the basics for argdo/bufdo/tabdo/windo (redirects 
 bufdo [https://vim.fandom.com/wiki/Bufdo], tabdo 

@@ -17,7 +17,7 @@ significant editing has occurred. An alternative to manual tag generation is
 to use a plugin like vim-gutentags. This tip provides an overview of creating 
 and using tags files (for the details, see :help |tagsrch.txt|).
 
-USING TAGS  *vwt-453-using-tags*
+USING TAGS                                                *vwt-453-using-tags*
 
 Jumping to a tag
     - You can use the 'tag' ex command. For example, the command ':tag <tagname>' 
@@ -207,7 +207,7 @@ get the telnet prompt. There are two ways to avoid this problem:
 
 Help: telnet-CTRL-]
 
-TOOLS TO CREATE A TAGS FILE  *vwt-453-tools-to-create-a-tags-file*
+TOOLS TO CREATE A TAGS FILE              *vwt-453-tools-to-create-a-tags-file*
 
 Often Exuberant Ctags (or other ctags program) is used to create the required 
 tags file. However, many other custom scripts or tools are used for the 
@@ -250,7 +250,7 @@ require something else. :help |ctags|
     - Ruby: Ripper-tags [https://github.com/tmm1/ripper-tags] 
 
 
-EXTENDING EXUBERANT CTAGS  *vwt-453-extending-exuberant-ctags*
+EXTENDING EXUBERANT CTAGS                  *vwt-453-extending-exuberant-ctags*
 
 Following is an example of defining a language for Exuberant Ctags. IDL 
 (Interactive Data Language) procedures and functions are supported by putting 
@@ -267,7 +267,7 @@ Other examples, including for LaTeX, are in the documentation
 [http://vim-taglist.sourceforge.net/extend.html] for the taglist 
 [https://www.vim.org/scripts/script.php?script_id=273] plugin.
 
-CREATING A TAGS FILE USING CTAGS  *vwt-453-creating-a-tags-file-using-ctags*
+CREATING A TAGS FILE USING CTAGS    *vwt-453-creating-a-tags-file-using-ctags*
 
 You may need the current version of Exuberant Ctags for these commands.
 
@@ -289,7 +289,7 @@ Generate a tags file for all files listed in file flist:
     $ ctags -L flist
 <
 
-CONFIGURING VIM  *vwt-453-configuring-vim*
+CONFIGURING VIM                                      *vwt-453-configuring-vim*
 
 Vim needs to be told where to look for your tags files, using the 'tags' 
 option. :help 'tags' :help |tags-option|
@@ -325,7 +325,7 @@ either locates the 'tags' file or reaches the root directory. :help
     :set tags=./tags;
 <
 
-PLUGINS  *vwt-453-plugins*
+PLUGINS                                                      *vwt-453-plugins*
     - taglist [https://www.vim.org/scripts/script.php?script_id=273] source code 
       browser plugin; uses ctags to display a list of tags for the current file in a 
       menu 
@@ -343,7 +343,7 @@ PLUGINS  *vwt-453-plugins*
       plugin that manages your tag file out of the box 
 
 
-SEE ALSO  *vwt-453-see-also*
+SEE ALSO                                                    *vwt-453-see-also*
     - 79 Use grep to get a clickable list of function names |vwt-79| 
     - 404 Tags for Mixed Assembly and C |vwt-404| 
     - 558 Using TagList for ANT build files |vwt-558| 
@@ -358,7 +358,7 @@ SEE ALSO  *vwt-453-see-also*
       [http://stackoverflow.com/questions/680291/global-go-to-definition-in-vim-for-ruby] 
 
 
-COMMENTS  *vwt-453-comments*
+COMMENTS                                                    *vwt-453-comments*
 
 TO DO
     - too wordy, let's make it more concise 

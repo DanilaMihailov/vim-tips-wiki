@@ -15,7 +15,7 @@ Using one of the following snippets in your vimrc
 directory tree. An alternative would be to set the working directory to the 
 current file |vwt-64|.
 
-USING A COMMAND LINE ABBREVIATION  *vwt-2-using-a-command-line-abbreviation*
+USING A COMMAND LINE ABBREVIATION    *vwt-2-using-a-command-line-abbreviation*
 
 This method uses a command line abbreviation so %% expands to the full path 
 of the directory that contains the current file.
@@ -41,7 +41,7 @@ Note that you have to type a non-keyword character after %% in order to
 expand the abbreviation. For example, after typing :e %%, you could expand the 
 abbreviation by typing / or by pressing Enter or Ctrl-].
 
-USING A MAPPING  *vwt-2-using-a-mapping*
+USING A MAPPING                                        *vwt-2-using-a-mapping*
 
 While editing file /some/path/myfile.txt, this method allows you to type \e 
 (assuming the default backslash leader) to enter :e /some/path/ on the command 
@@ -55,12 +55,12 @@ browse the directory.
 This method is less versatile than the command line abbreviation above 
 |vwt-2-using-a-command-line-abbreviation|.
 
-REFERENCES  *vwt-2-references*
+REFERENCES                                                  *vwt-2-references*
     - :help |cmdline-special| % on command line is replaced with current file name 
     - :help |expand()| 
     - :help |filename-modifiers| explanation of '%:p:h' 
 
 
-COMMENTS  *vwt-2-comments*
+COMMENTS                                                      *vwt-2-comments*
 
  vim:tw=78:et:ft=help:norl:

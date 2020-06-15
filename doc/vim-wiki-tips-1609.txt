@@ -30,7 +30,7 @@ or to printer by just issuing:
     :hardcopy
 <
 
-COMMENTS  *vwt-1609-comments*
+COMMENTS                                                   *vwt-1609-comments*
 
 So far this could be considered a bit insecure, as the filename isn't escaped 
 at all. Probably fnameescape or something like that should be used.

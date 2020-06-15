@@ -31,7 +31,7 @@ scroll down or Ctrl-K to scroll up, in normal and visual modes.
     vnoremap <C-K> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-U>")<CR>
 <
 
-COMMENTS  *vwt-105-comments*
+COMMENTS                                                    *vwt-105-comments*
 
 For PageDown and PageUp, see the comments in Page up/down and keep cursor 
 position |vwt-320|.

@@ -48,7 +48,7 @@ All set, now whenever you are editing a file of those you have defined in
 your filetype.vim script, you can just go into Visual mode, highlight what you 
 want to comment out, and type "co". Simple.
 
-RELATED PLUGINS  *vwt-355-related-plugins*
+RELATED PLUGINS                                      *vwt-355-related-plugins*
     - EnhancedCommentify: script#23 
       [https://www.vim.org/scripts/script.php?script_id=23] 
     - The NERD Commenter: script#1218 
@@ -58,7 +58,7 @@ RELATED PLUGINS  *vwt-355-related-plugins*
       [https://www.vim.org/scripts/script.php?script_id=4] 
 
 
-COMMENTS  *vwt-355-comments*
+COMMENTS                                                    *vwt-355-comments*
 
 I was used to using 'boxes' as an external filter to comment/decomment, but 
 pushing to the program and back is more 'expensive' then using a simple 

@@ -16,7 +16,7 @@ version 7.3. This tip describes how to handle the fact that you may have
 registered Vim as the editor to be used with various applications, and now the 
 path to the executable needs to be changed in multiple locations.
 
-STANDARD PROCEDURE  *vwt-1670-standard-procedure*
+STANDARD PROCEDURE                               *vwt-1670-standard-procedure*
 
 The Vim Windows installer offers an option to create a batch file in a 
 directory in the PATH so that batch file can be used to invoke Vim. Just use 
@@ -25,13 +25,13 @@ modify this file only (or the installer can do it).
 
 Problems:
 
-OVERWRITE OLD VERSION  *vwt-1670-overwrite-old-version*
+OVERWRITE OLD VERSION                         *vwt-1670-overwrite-old-version*
 
 Install the new version of Vim on top of the old one.
 
 Problems:
 
-DIRECTORY LINK  *vwt-1670-directory-link*
+DIRECTORY LINK                                       *vwt-1670-directory-link*
 
 When installing Vim on an NTFS file system (pretty much all new computers), 
 do the following:
@@ -41,7 +41,7 @@ When a new version of Vim arrives, do the following:
 That way, all Vim settings throughout the system should pick up the new Vim 
 version.
 
-COMMENTS  *vwt-1670-comments*
+COMMENTS                                                   *vwt-1670-comments*
 
 The easiest way I've found to handle a Vim version upgrade (and also, 
 incidentally, to enable a quick setup on any new system), is to create a .bat 

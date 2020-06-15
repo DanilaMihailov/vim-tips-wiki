@@ -90,12 +90,12 @@ tag, or the next matching tag.
     onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
 <
 
-SCRIPT  *vwt-103-script*
+SCRIPT                                                        *vwt-103-script*
 
 This functionality has now been packaged and wrapped up in a script, 
 IndentWise [https://github.com/jeetsukumaran/vim-indentwise], which 
 incorporates many enhancements and improvements.
 
-COMMENTS  *vwt-103-comments*
+COMMENTS                                                    *vwt-103-comments*
 
  vim:tw=78:et:ft=help:norl:

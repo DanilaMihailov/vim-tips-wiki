@@ -11,7 +11,7 @@ assignments are lined up. This tip provides a script that defaults to aligning
 "=", but which can align using a search pattern. The script may not work 
 correctly when tab characters are present.
 
-EXAMPLES  *vwt-894-examples*
+EXAMPLES                                                    *vwt-894-examples*
 
 For example, consider the lines:
 
@@ -48,7 +48,7 @@ both results in:
     const *char GetString (unsigned int index);
 <
 
-SCRIPT  *vwt-894-script*
+SCRIPT                                                        *vwt-894-script*
 
 Save the following in a file, say, align.vim. Enter the command :so align.vim 
 to source the script.
@@ -81,7 +81,7 @@ to source the script.
     endfunction
 <
 
-RELATED TIPS  *vwt-894-related-tips*
+RELATED TIPS                                            *vwt-894-related-tips*
 
 TO DO
     - We have a number of tips which use the terms "align", "justify", "format" in 
@@ -113,7 +113,7 @@ Invoke an external text formatting tool
     - 584 Par text reformatter |vwt-584| 
 
 
-COMMENTS  *vwt-894-comments*
+COMMENTS                                                    *vwt-894-comments*
 
 See Align text plugin |vwt-139| which describes the Align 
 [https://www.vim.org/scripts/script.php?script_id=294] plugin. Separators are 
@@ -121,7 +121,7 @@ regular expression patterns, and one may restrict Align to operate only on
 lines which satisfy (or don't satisfy) a regular expression pattern 
 (:AlignCtrl g pattern or :AlignCtrl v pattern).
 
-ALTERNATIVE SCRIPT  *vwt-894-alternative-script*
+ALTERNATIVE SCRIPT                                *vwt-894-alternative-script*
 
 TO DO
     - Examine following. Is it worth keeping? 

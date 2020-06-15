@@ -8,7 +8,7 @@ created 2005 · complexity basic · version 6.0
 
 Here are some suggestions that may help when editing PHP files.
 
-MOVE TO NEXT VARIABLE ON CURRENT LINE  *vwt-1541-move-to-next-variable-on-current-line*
+MOVE TO NEXT VARIABLE ON CURRENT LINE *vwt-1541-move-to-next-variable-on-current-line*
 
 PHP variables start with '$', for example, $var. In normal mode, type f$ to 
 jump forwards to the next variable; repeat by pressing ; (next, in same 
@@ -24,7 +24,7 @@ next variable, or H to jump to the previous variable:
     noremap H F$
 <
 
-FIX 4 INSTEAD OF $  *vwt-1541-fix-4-instead-of-$*
+FIX 4 INSTEAD OF $                               *vwt-1541-fix-4-instead-of-$*
 
 It's easy to press 4 instead of $, resulting in code like this:
 
@@ -47,7 +47,7 @@ Here is an alternative that returns the cursor to its initial position:
     inoremap <Leader>4 <Esc>m`F4r$``a
 <
 
-ABBREVIATIONS TO INSERT DEBUG CODE  *vwt-1541-abbreviations-to-insert-debug-code*
+ABBREVIATIONS TO INSERT DEBUG CODE *vwt-1541-abbreviations-to-insert-debug-code*
 
 The following abbreviations provide an easy way to enter debug code. In 
 insert mode, type phpb then the name of a variable to be displayed.
@@ -72,7 +72,7 @@ This displays all defined variables:
     iab phpallv print_r(get_defined_vars());
 <
 
-REPLACE ASSOCIATIVE WITH OBJECT STYLE NOTATION  *vwt-1541-replace-associative-with-object-style-notation*
+REPLACE ASSOCIATIVE WITH OBJECT STYLE NOTATION *vwt-1541-replace-associative-with-object-style-notation*
 
 The substitute command presented below looks for each PHP array reference 
 like:
@@ -95,12 +95,12 @@ Command:
 
 In the above, the c flag prompts for confirmation of each change.
 
-SEE ALSO  *vwt-1541-see-also*
+SEE ALSO                                                   *vwt-1541-see-also*
     - php.vim (html enhanced) 
       [https://www.vim.org/scripts/script.php?script_id=604] combination of the php 
       and html indent files 
 
 
-COMMENTS  *vwt-1541-comments*
+COMMENTS                                                   *vwt-1541-comments*
 
  vim:tw=78:et:ft=help:norl:

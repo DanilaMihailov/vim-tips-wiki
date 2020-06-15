@@ -88,7 +88,7 @@ The final product should look something like this:
     augroup END
 <
 
-RELATED PLUGINS  *vwt-375-related-plugins*
+RELATED PLUGINS                                      *vwt-375-related-plugins*
 
 These plugins provide similar capabilities, if you want a ready-made 
 solution.
@@ -97,7 +97,7 @@ solution.
     - script#1160 [https://www.vim.org/scripts/script.php?script_id=1160] 
 
 
-RELATED TIPS  *vwt-375-related-tips*
+RELATED TIPS                                            *vwt-375-related-tips*
 
 These tips all relate to creating file skeletons. You may find their methods 
 more suited to your taste, or some nice features to combine with this one.
@@ -113,7 +113,7 @@ more suited to your taste, or some nice features to combine with this one.
       [https://vim.fandom.com/wiki/Auto_insert_Java_class_template_when_editing_a_new_Java_file] 
 
 
-BACKWARDS COMPATIBILITY  *vwt-375-backwards-compatibility*
+BACKWARDS COMPATIBILITY                      *vwt-375-backwards-compatibility*
 
 Note that this tip takes advantage of the eval() function defined in Vim7. If 
 you are using an earlier version, you may need to hack something together to 
@@ -135,7 +135,7 @@ replace it, such as the following:
           \unlet reptxt
 <
 
-COMMENTS  *vwt-375-comments*
+COMMENTS                                                    *vwt-375-comments*
 
 This is quite like the first version of mu-template Gergely Kontra wrote.
 

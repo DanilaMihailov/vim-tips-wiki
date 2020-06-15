@@ -39,7 +39,7 @@ data:
     nmap <C-v> :r ~/.vbuf<CR>       "paste the contents of the buffer file
 <
 
-COMMENTS  *vwt-1268-comments*
+COMMENTS                                                   *vwt-1268-comments*
 
 Registers are stored in the viminfo file. Isn't this a more functional 
 approach? See :help |viminfo|, :help |21.3|.

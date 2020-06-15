@@ -18,12 +18,12 @@ It requires X windows (but works in terminal version of Vim there too) or MS
 Windows and built-in client-server mechanism. If there are several instances 
 of vim already running, you may choose to which you talk using --servername
 
-REFERENCES  *vwt-197-references*
+REFERENCES                                                *vwt-197-references*
     - :help |--remote| 
     - :help |--servername| 
 
 
-COMMENTS  *vwt-197-comments*
+COMMENTS                                                    *vwt-197-comments*
 
 Just wanted to add to this that there are built-in functions available that 
 let you do the same thing from within running Vim session. It is cool, if you 

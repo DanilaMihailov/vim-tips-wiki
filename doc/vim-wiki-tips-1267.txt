@@ -49,7 +49,7 @@ If you have very large functions, or small terminal, you may add
     echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))[:winwidth('%')-3]
 <
 
-COMMENTS  *vwt-1267-comments*
+COMMENTS                                                   *vwt-1267-comments*
 
 >
     :call cursor(line,col)

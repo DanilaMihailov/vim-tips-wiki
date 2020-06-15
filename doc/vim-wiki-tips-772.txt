@@ -13,7 +13,7 @@ replace decimal with hex. Handling percent-encoded text is also discussed, and
 there are links |vwt-772-see-also| to tips showing how to edit a binary file 
 in hex.
 
-COMMANDS  *vwt-772-commands*
+COMMANDS                                                    *vwt-772-commands*
 
 Occasional conversions can be performed by entering commands. In Vim, put the 
 cursor on 0x12345 and type :echo then Space Ctrl-R Ctrl-W Enter. That will 
@@ -39,7 +39,7 @@ to a string converts the string to a number.
 
 The following convert decimal numbers to hex strings.
 
-COPYING A HEX NUMBER AS DECIMAL  *vwt-772-copying-a-hex-number-as-decimal*
+COPYING A HEX NUMBER AS DECIMAL      *vwt-772-copying-a-hex-number-as-decimal*
 
 With the following mapping, you can put the cursor on a hex number and press 
 \h (assuming the default backslash leader) to yank the value of the hex number 
@@ -59,7 +59,7 @@ string:
     nnoremap \p :if exists('Value')<Bar>normal i<C-R>=Value<CR><Esc><Bar>:endif<CR>
 <
 
-USER COMMANDS  *vwt-772-user-commands*
+USER COMMANDS                                          *vwt-772-user-commands*
 
 Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] to define 
 user commands to convert between hex and decimal. You can convert a number 
@@ -119,7 +119,7 @@ This version handles up to 32-bit long integers. An extended version of this
 script that works for arbitrary sized integers is available as a plugin on 
 Github [https://github.com/rr-/vim-hexdec].
 
-CONVERTING STRINGS  *vwt-772-converting-strings*
+CONVERTING STRINGS                                *vwt-772-converting-strings*
 
 Following are some methods for working with percent-encoded text, and for 
 showing ASCII characters in hex.
@@ -139,7 +139,7 @@ showing ASCII characters in hex.
     endfunction
 <
 
-GENERAL FUNCTIONS  *vwt-772-general-functions*
+GENERAL FUNCTIONS                                  *vwt-772-general-functions*
 
 A script could use the following functions for conversions between decimal 
 and hex.
@@ -189,7 +189,7 @@ cursor):
 Numbers containing character A-F or prefixed with '0x', 'h' or '#' are 
 treated as hexadecimal values:
 
-USING EXTERNAL PROGRAMS  *vwt-772-using-external-programs*
+USING EXTERNAL PROGRAMS                      *vwt-772-using-external-programs*
 
 TO DO
     - Fix or delete this section. 
@@ -220,7 +220,7 @@ that the selected text is in the * register).
     vmenu 1.220 PopUp.hex&2nr <Esc>:exec '!echo "ibase=16;'.toupper(@*).'" \| bc -l -q '<CR>
 <
 
-SEE ALSO  *vwt-772-see-also*
+SEE ALSO                                                    *vwt-772-see-also*
     - Hex dump |vwt-1613| editing or displaying binary files in hex 
     - Improved hex editing |vwt-1518| automating some of the procedures to edit 
       binary files in hex 
@@ -238,6 +238,6 @@ SEE ALSO  *vwt-772-see-also*
       to another number system with source code written in C# 
 
 
-COMMENTS  *vwt-772-comments*
+COMMENTS                                                    *vwt-772-comments*
 
  vim:tw=78:et:ft=help:norl:

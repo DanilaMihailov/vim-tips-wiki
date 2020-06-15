@@ -24,7 +24,7 @@ automatically.
 This makes go open a new line under the cursor and removes inserted chars, 
 while gO opens a new line above the cursor and removes inserted chars.
 
-COMMENTS  *vwt-350-comments*
+COMMENTS                                                    *vwt-350-comments*
 
 It should be noted that the go mapping presented above will interfere with 
 Vim's default go (Go to {count} byte in the buffer :help |go|) command.

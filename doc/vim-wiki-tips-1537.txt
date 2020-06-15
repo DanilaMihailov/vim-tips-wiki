@@ -11,7 +11,7 @@ doesn't force you to click on a tab every time you want to look at another
 file, but if you don't know how to easily find the buffer you want, it can be 
 just as frustrating.
 
-TERMINOLOGY  *vwt-1537-terminology*
+TERMINOLOGY                                             *vwt-1537-terminology*
 
 Some of the terms used in this tip are briefly explained below. For more 
 details see the buffer FAQ |vwt-135| and :help |windows-intro|.
@@ -31,19 +31,19 @@ details see the buffer FAQ |vwt-135| and :help |windows-intro|.
       for buffers not containing the contents of a file, it can be any string. 
 
 
-LISTING BUFFERS  *vwt-1537-listing-buffers*
+LISTING BUFFERS                                     *vwt-1537-listing-buffers*
 
 The :buffers command lists the current buffers. There are two alternate names 
 for this command :ls and :files. By default, only listed buffers will be 
 displayed. Unlisted buffers can be included by appending !, for example :ls!.
 
-SWITCHING TO ANOTHER BUFFER  *vwt-1537-switching-to-another-buffer*
+SWITCHING TO ANOTHER BUFFER             *vwt-1537-switching-to-another-buffer*
 
 The command to switch to another buffer is :buffer, which is often 
 abbreviated as :b, :bu or :buf. :buffer can be given either the name or the 
 number of the buffer to edit.
 
-SWITCHING BY NAME  *vwt-1537-switching-by-name*
+SWITCHING BY NAME                                 *vwt-1537-switching-by-name*
 
 When using the buffer name as the argument to :buffer, you don't have to 
 specify the entire name. However, if more than one buffer matches the given 
@@ -105,7 +105,7 @@ select one of the matching buffers by buffer number.
     command! -nargs=1 Bs :call BufSel("<args>")
 <
 
-SWITCHING BY NUMBER  *vwt-1537-switching-by-number*
+SWITCHING BY NUMBER                             *vwt-1537-switching-by-number*
 
 If you know the number of the buffer you want to switch to, you can pass that 
 as the argument to :buffer, for example :buffer 5 will switch to buffer number 
@@ -134,7 +134,7 @@ This can be used in the above map to allow the user to view the current
 buffers and then either enter the number you wish to switch to, or if it isn't 
 yet loaded, delete the # and enter the path to the file.
 
-SWITCHING TO THE PREVIOUSLY EDITED BUFFER  *vwt-1537-switching-to-the-previously-edited-buffer*
+SWITCHING TO THE PREVIOUSLY EDITED BUFFER *vwt-1537-switching-to-the-previously-edited-buffer*
 
 Often the buffer that you want to edit is the buffer that you have just left. 
 Vim provides a couple of convenient commands to switch back to the previous 
@@ -143,7 +143,7 @@ buffer. These are <C-^> (or <C-6>) and :b#.
 Both of these technically edit the alternate file, although this is usually 
 the previously edited buffer.
 
-LEAVING MODIFIED BUFFERS  *vwt-1537-leaving-modified-buffers*
+LEAVING MODIFIED BUFFERS                   *vwt-1537-leaving-modified-buffers*
 
 If Vim is running with its default settings, or in vi compatible mode, the 
 :buffer command will not abandon the buffer until any changes have been 
@@ -164,9 +164,9 @@ written. There are a few ways this can be changed:
       is hidden. 
 
 
-CONVENIENTLY ACCESSING BUFFERS  *vwt-1537-conveniently-accessing-buffers*
+CONVENIENTLY ACCESSING BUFFERS       *vwt-1537-conveniently-accessing-buffers*
 
-BUILT-IN FEATURES  *vwt-1537-built-in-features*
+BUILT-IN FEATURES                                 *vwt-1537-built-in-features*
 
 In gvim, you can use the Buffers menu to conveniently access buffers (tear 
 off the menu to make an always-visible list).
@@ -199,7 +199,7 @@ Try this example to see how powerful the wildmenu is.
     :b j*c<Tab>    " offers jet.c jetcar.c jetcar.h
 <
 
-PLUGINS  *vwt-1537-plugins*
+PLUGINS                                                     *vwt-1537-plugins*
 
 You may want to install the BufExplorer 
 [https://www.vim.org/scripts/script.php?script_id=42] script, and place the 
@@ -215,7 +215,7 @@ through the buffers.
     nnoremap <silent> <S-F12> :bp<CR>
 <
 
-MAPPINGS FOR BUFFER NUMBER  *vwt-1537-mappings-for-buffer-number*
+MAPPINGS FOR BUFFER NUMBER               *vwt-1537-mappings-for-buffer-number*
 
 If you know the buffer numbers, the following mappings are useful. For 
 example, typing \1 (assuming the default backslash leader) will switch to 
@@ -256,7 +256,7 @@ to 99). For example, typing 12gb would jump to buffer 12.
     endwhile
 <
 
-SCRIPTS  *vwt-1537-scripts*
+SCRIPTS                                                     *vwt-1537-scripts*
 
 Some scripts for buffer switching are listed below, in order by the script 
 id. You can search Vim Scripts [http://www.vim.org/scripts/index.php] for 
@@ -325,12 +325,12 @@ id. You can search Vim Scripts [http://www.vim.org/scripts/index.php] for
       between mru, buffers, files in project tree, user-defined menus and many more 
 
 
-SEE ALSO  *vwt-1537-see-also*
+SEE ALSO                                                   *vwt-1537-see-also*
     - Cycle through buffers including hidden buffers |vwt-873| to cycle through 
       existing buffers, in order by buffer number 
 
 
-REFERENCES  *vwt-1537-references*
+REFERENCES                                               *vwt-1537-references*
     - Vim buffer FAQ |vwt-135| 
     - :help |buffers| 
     - :help |buffer| 
@@ -340,7 +340,7 @@ REFERENCES  *vwt-1537-references*
     - :help |alternate-file| 
 
 
-COMMENTS  *vwt-1537-comments*
+COMMENTS                                                   *vwt-1537-comments*
 
 I suggest changing all mappings starting with , to start with <Leader> 
 instead. I know that this is more confusing, but I strongly dislike seeing a 

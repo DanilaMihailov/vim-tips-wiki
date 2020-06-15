@@ -40,7 +40,7 @@ When editing HTML file, visually highlight text and press {Leader} w, enter
 tag name (where {Leader} defaults to the '\' key, but you can override with a 
 :let mapleader = command :help |mapleader|).
 
-COMMENTS  *vwt-1495-comments*
+COMMENTS                                                   *vwt-1495-comments*
 
 Another option is to use the xml.vim 
 [https://www.vim.org/scripts/script.php?script_id=1397] plugin. Save it as 

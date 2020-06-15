@@ -13,7 +13,7 @@ newlines before or after specified strings, both manually and using a script
 to define a command so, for example, :%LineBreakAt <p> </p> would add a 
 newline after <p> and </p> tags in an HTML file.
 
-USING SEARCH AND REPLACE  *vwt-671-using-search-and-replace*
+USING SEARCH AND REPLACE                    *vwt-671-using-search-and-replace*
 
 Suppose you want to insert a line break before each parenthesis and comma 
 ('(', ',', ')') in a line. To do that, enter these commands:
@@ -37,7 +37,7 @@ inserts the search hit (see search and replace
 
 Use :%s//\r&/g if you want to replace all occurrences in all lines.
 
-A MORE ELABORATE WAY  *vwt-671-a-more-elaborate-way*
+A MORE ELABORATE WAY                            *vwt-671-a-more-elaborate-way*
 
 Another way to break a long line such as someMethod(arg1, arg2, arg3); and to 
 auto-ident.
@@ -76,7 +76,7 @@ key 'gob' in normal mode:
     nnoremap gob  :s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal ==<CR>
 <
 
-USING A SCRIPT  *vwt-671-using-a-script*
+USING A SCRIPT                                        *vwt-671-using-a-script*
 
 The following script defines a user command to automate the insertion of line 
 breaks. Save the script in a file called linebreakat.vim.
@@ -135,7 +135,7 @@ starting with 't' and ending with 'e'), using :%LineBreakAt! (with no
 arguments) will insert a newline before each of the search hits, and using 
 :%LineBreakAt will insert a newline after each of the search hits.
 
-EXPLANATION  *vwt-671-explanation*
+EXPLANATION                                              *vwt-671-explanation*
 
 The :command line defines a user command (LineBreakAt) that calls a function 
 with the same name. The first argument to the function (bang) will be '!' if 
@@ -169,13 +169,13 @@ lines (by default, the current line; otherwise, as specified). The g flag
 (global) replaces all occurrences on each specified line, and the e flag 
 prevents an error message being displayed if no matches are found.
 
-REFERENCES  *vwt-671-references*
+REFERENCES                                                *vwt-671-references*
     - :help |:command| 
     - :help |:substitute| 
     - :help |:function| 
     - :help |map()| 
 
 
-COMMENTS  *vwt-671-comments*
+COMMENTS                                                    *vwt-671-comments*
 
  vim:tw=78:et:ft=help:norl:

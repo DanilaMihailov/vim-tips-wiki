@@ -75,12 +75,12 @@ variable b:ws_flags determines what is highlighted (see "default" below).
     highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 <
 
-SEE ALSO  *vwt-1274-see-also*
+SEE ALSO                                                   *vwt-1274-see-also*
     - Highlight unwanted spaces |vwt-396| other methods to display unwanted 
       whitespace 
 
 
-COMMENTS  *vwt-1274-comments*
+COMMENTS                                                   *vwt-1274-comments*
 
 The original tip had a script with quite a nice toggle, but it highlighted 
 all tabs as well as trailing whitespace. That didn't seem any better than 

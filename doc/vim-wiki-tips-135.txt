@@ -416,7 +416,7 @@ keyword "<buffer>" in the :abbreviate command. For example,
 
 :help |abbreviate-local|
 
-COMMENTS  *vwt-135-comments*
+COMMENTS                                                    *vwt-135-comments*
 
 How does one execute a command in a new buffer? For example, execute :tj from 
 the function you're on, in a new buffer window? This is very useful if you 

@@ -15,7 +15,7 @@ command is shown to allow searching for text while treating all special search
 characters as just text (so you can easily search for text like a*b or ^ab 
 without needing to enter a\*b or \^ab).
 
-REVERSE SEARCHING  *vwt-1672-reverse-searching*
+REVERSE SEARCHING                                 *vwt-1672-reverse-searching*
 
 If searching backwards with "?", any slashes in the pattern need not be 
 escaped. After searching backwards, you can press n to continue searching in 
@@ -31,7 +31,7 @@ the previous pattern:
 Now, pressing n will search forwards for the next occurrence, and N will 
 search backwards.
 
-SEARCHING FOR SLASH AS NORMAL TEXT  *vwt-1672-searching-for-slash-as-normal-text*
+SEARCHING FOR SLASH AS NORMAL TEXT *vwt-1672-searching-for-slash-as-normal-text*
 
 The following alternative commands allow searching for text which includes a 
 slash, with no need to escape each slash in the command. Other special 
@@ -68,7 +68,7 @@ is used in a / command (where a search pattern is terminated by an unescaped
 slash). Since the command performs an actual search, the pattern is placed in 
 the search history [https://vim.fandom.com/wiki/Using_command-line_history].
 
-SEARCHING FOR ALL CHARACTERS AS NORMAL TEXT  *vwt-1672-searching-for-all-characters-as-normal-text*
+SEARCHING FOR ALL CHARACTERS AS NORMAL TEXT *vwt-1672-searching-for-all-characters-as-normal-text*
 
 Place the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 
@@ -96,7 +96,7 @@ This alternative sets the search register and searches for that text:
 For example, with the last alternative, the command :SS ^abc/def\[ghi\] would 
 find text ^abc/def\[ghi\] (the same text that was entered).
 
-MANUALLY ASSIGNING THE SEARCH  *vwt-1672-manually-assigning-the-search*
+MANUALLY ASSIGNING THE SEARCH         *vwt-1672-manually-assigning-the-search*
 
 If you have copied a path like /abc/def/ghi/ into the clipboard, you can 
 search for that text with these commands:
@@ -105,7 +105,7 @@ If the path has been copied into the default yank register, use this:
 
 Or, just set the text directly:
 
-SUBSTITUTING WITH ALTERNATIVE DELIMITERS  *vwt-1672-substituting-with-alternative-delimiters*
+SUBSTITUTING WITH ALTERNATIVE DELIMITERS *vwt-1672-substituting-with-alternative-delimiters*
 
 The :substitute command accepts any punctuation character to delimit the 
 search pattern, not just /. For example, assuming the path being searched for 
@@ -120,7 +120,7 @@ current line, and n means the pattern is counten with no change occurring.
 After entering the command, press n to search forwards or N to search 
 backwards.
 
-SEE ALSO  *vwt-1672-see-also*
+SEE ALSO                                                   *vwt-1672-see-also*
     - Searching [https://vim.fandom.com/wiki/Searching] how to search 
     - Search patterns [https://vim.fandom.com/wiki/Search_patterns] regex 
       information and examples 
@@ -129,6 +129,6 @@ SEE ALSO  *vwt-1672-see-also*
       selected text; finds targets on multiple lines 
 
 
-COMMENTS  *vwt-1672-comments*
+COMMENTS                                                   *vwt-1672-comments*
 
  vim:tw=78:et:ft=help:norl:

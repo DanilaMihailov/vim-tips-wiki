@@ -41,16 +41,16 @@ files. For example, to trigger only on .c files:
     autocmd BufWinEnter *.c{@@/*,} <command>
 <
 
-REFERENCES  *vwt-364-references*
+REFERENCES                                                *vwt-364-references*
     - :help |new-filetype| 
 
 
-SEE ALSO  *vwt-364-see-also*
+SEE ALSO                                                    *vwt-364-see-also*
 
 script#15 [https://www.vim.org/scripts/script.php?script_id=15] combines well 
 with this tip.
 
-COMMENTS  *vwt-364-comments*
+COMMENTS                                                    *vwt-364-comments*
 
 This used to work great, but when I upgraded my version of Vim, for some 
 reason file detection stopped working. I did the following to fix it. I don't 

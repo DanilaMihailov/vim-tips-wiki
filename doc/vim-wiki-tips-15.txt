@@ -16,10 +16,10 @@ To display the status line always, set the following option in your vimrc
 The advantage of having the status line displayed always is, you can see the 
 current mode, file name, file status, ruler, etc.
 
-REFERENCES  *vwt-15-references*
+REFERENCES                                                 *vwt-15-references*
     - :help 'laststatus' 
 
 
-COMMENTS  *vwt-15-comments*
+COMMENTS                                                     *vwt-15-comments*
 
  vim:tw=78:et:ft=help:norl:

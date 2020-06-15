@@ -19,7 +19,7 @@ Some of the procedures here change the way keys behave for all applications.
 It may be better to use other methods to avoid the escape key |vwt-285| in 
 Vim.
 
-REGISTRY  *vwt-353-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+REGISTRY                                                    *vwt-353-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
 Before trying the following, you should run regedit.exe and inspect the 
 relevant registry keys, and export them for a backup. Make sure you know how 
@@ -55,7 +55,7 @@ To restore the keyboard, run regedit.exe and delete the "Scancode Map" entry
 from HKEY_CURRENT_USER (and log off/on), or from HKEY_LOCAL_MACHINE (and 
 reboot), depending on which section of the registry you changed.
 
-USE THE CAPS LOCK KEY AS CTRL  *vwt-353-use-the-caps-lock-key-as-ctrl*
+USE THE CAPS LOCK KEY AS CTRL          *vwt-353-use-the-caps-lock-key-as-ctrl*
 
 Particularly while touch typing, it can be useful to remap the keyboard so 
 that pressing CapsLock is the same as pressing Ctrl. This change makes it easy 
@@ -81,14 +81,14 @@ to swap CapsLock and LeftCtrl:
     "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,3a,00,1d,00,1d,00,3a,00,00,00,00,00
 <
 
-UTILITIES  *vwt-353-utilities*
+UTILITIES                                                  *vwt-353-utilities*
 
 As an alternative to changing the registry, there are various utilities that 
 can remap keys. Many of these can be run by a non-administrator, and can apply 
 mappings only when wanted (for example, when running Vim). They do not require 
 log off/on or reboot to apply changes, unless specified otherwise.
 
-KEYTWEAK  *vwt-353-keytweak*
+KEYTWEAK                                                    *vwt-353-keytweak*
 
 KeyTweak [http://www.bleepingcomputer.com/download/keytweak/] is a free 
 keyboard remapper for Windows NT/2000/XP/Vista/Win 7. It automates the 
@@ -96,7 +96,7 @@ registry trick above (it makes use of Microsoft's Scancode Map registry key)
 to remap your keyboard. This app requires you to reboot before changes take 
 effect.
 
-SHARPKEYS  *vwt-353-sharpkeys*
+SHARPKEYS                                                  *vwt-353-sharpkeys*
 
 This tool is a free keyboard mapper, but requires rebooting the machine for 
 the key mapping to take effect. The interface is fairly simple to use, and 
@@ -107,7 +107,7 @@ accidentally changing something in the registry.
 https://github.com/randyrants/sharpkeys/releases 
 [https://github.com/randyrants/sharpkeys/releases]
 
-DUAL KEY REMAP  *vwt-353-dual-key-remap*
+DUAL KEY REMAP                                        *vwt-353-dual-key-remap*
 
 Dual Key Remap [https://github.com/ililim/dual-key-remap] is an open source 
 project that enables mapping CapsLock to both Escape and Ctrl simultaneously. 
@@ -117,7 +117,7 @@ in combination with other keys. It's an alternative to some of the AutoHotkey
 solutions described below, and avoids leaked or stuck keystrokes. The mapping 
 is not permanent and lasts as long as Dual Key Remap is running.
 
-UNCAP  *vwt-353-uncap*
+UNCAP                                                          *vwt-353-uncap*
 
 Uncap [https://github.com/susam/uncap#readme] is an open source project to 
 map CapsLock to Escape, or any key to any key. It is a single-file executable 
@@ -127,7 +127,7 @@ not permanent: they last only as long as Uncap is running.
 If Uncap is run without any arguments, it maps CapsLock to Escape while 
 leaving Escape unchanged. Run uncap 0x1b:0x14 to swap CapsLock and Escape.
 
-AUTOHOTKEY  *vwt-353-autohotkey*
+AUTOHOTKEY                                                *vwt-353-autohotkey*
 
 AutoHotkey [http://www.autohotkey.com/] is an open source project to automate 
 sending keys and mouse clicks. It can remap keys, and provides a powerful 
@@ -379,7 +379,7 @@ alone, but does not modify CapsLock in any way)
     return
 <
 
-HOTKEYZ  *vwt-353-hotkeyz*
+HOTKEYZ                                                      *vwt-353-hotkeyz*
 
 HotKeyz [http://www.skynergy.com/hotkeyz.html] (freeware) is useful for 
 assigning keyboard shortcuts to run frequently used applications using the 
@@ -393,9 +393,9 @@ for example Notepad, you will start typing in uppercase and can't change it
 anymore. You have then to exit the application, turn the CapsLock status off 
 and re-open the program. This is still easier than rebooting.
 
-EXPLANATIONS  *vwt-353-explanations*
+EXPLANATIONS                                            *vwt-353-explanations*
 
-REGISTRY SCANCODES  *vwt-353-registry-scancodes*
+REGISTRY SCANCODES                                *vwt-353-registry-scancodes*
 
 The format used for "Scancode Map" in the registry is described below (from 
 Scan Code Mapper for Windows 
@@ -433,14 +433,14 @@ For example, the line
 consists of one mapping (01,00,3a,00) which replaces the scancode 0x003a with 
 0x0001. That means that pressing CapsLock (0x3a) will generate Escape (0x01).
 
-SEE ALSO  *vwt-353-see-also*
+SEE ALSO                                                    *vwt-353-see-also*
     - Discussion page 
       [https://vim.fandom.com/wiki/Talk:Map_caps_lock_to_escape_in_Windows] for more 
       details and alternatives 
     - Avoid the escape key |vwt-285| for Vim methods to make pressing Esc easier 
 
 
-COMMENTS  *vwt-353-comments*
+COMMENTS                                                    *vwt-353-comments*
 
 What is the "Explanations" section trying to explain? I didn't look in detail 
 (this is a big article) but it doesn't seem to apply directly to the methods 

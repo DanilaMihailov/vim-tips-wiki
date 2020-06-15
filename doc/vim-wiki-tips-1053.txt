@@ -15,6 +15,6 @@ adjust latin1 to your encoding.
     vnoremap ,l may`a:exe "!dict -P - $(echo " . @" . "\| recode latin1..utf-8)"<CR>
 <
 
-COMMENTS  *vwt-1053-comments*
+COMMENTS                                                   *vwt-1053-comments*
 
  vim:tw=78:et:ft=help:norl:

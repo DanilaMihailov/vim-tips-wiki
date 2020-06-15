@@ -9,7 +9,7 @@ created 2004 · complexity intermediate · author Chris X Edwards · version 6.0
 This tip shows how to underline text document headings with, for example, a 
 dashed line.
 
-USING A MAPPING  *vwt-724-using-a-mapping*
+USING A MAPPING                                      *vwt-724-using-a-mapping*
 
 Starting with a line of text like:
 
@@ -44,7 +44,7 @@ mode:
     <F5>yykP
 <
 
-USING SUBSTITUTE  *vwt-724-using-substitute*
+USING SUBSTITUTE                                    *vwt-724-using-substitute*
 
 You can use the global and substitute commands (:help |:g|, :help |:s|) to 
 underline all headings matching a pattern. For example, the following adds a 
@@ -57,7 +57,7 @@ row of dashes under each line that starts with "Chapter":
 It works by finding each matching line, then copying it (:help |:t|), then 
 substituting each character (.) in the line.
 
-USING A FUNCTION  *vwt-724-using-a-function*
+USING A FUNCTION                                    *vwt-724-using-a-function*
 
 The following code (for your vimrc [https://vim.fandom.com/wiki/Vimrc]) 
 defines a user command to underline the current line. Examples:
@@ -72,19 +72,19 @@ defines a user command to underline the current line. Examples:
     command! -nargs=? Underline call s:Underline(<q-args>)
 <
 
-RELATED PLUGINS  *vwt-724-related-plugins*
+RELATED PLUGINS                                      *vwt-724-related-plugins*
 
 As an alternative, you could use a plugin:
     - extline [https://www.vim.org/scripts/script.php?script_id=4739] : Plugin for 
       extending lines (e.g., underlined titles) 
 
 
-SEE ALSO  *vwt-724-see-also*
+SEE ALSO                                                    *vwt-724-see-also*
     - Create underlines, overlines, and strikethroughs using combining characters 
       [https://vim.fandom.com/wiki/Create_underlines,_overlines,_and_strikethroughs_using_combining_characters] 
 
 
-COMMENTS  *vwt-724-comments*
+COMMENTS                                                    *vwt-724-comments*
 
 yypVr- also works well. Great tip for Markdown and WikiTex users.Linktohack 
 [https://vim.fandom.com/wiki/User:Linktohack] 15:37, February 3, 2012 (UTC)

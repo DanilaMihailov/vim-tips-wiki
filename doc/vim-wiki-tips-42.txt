@@ -29,14 +29,14 @@ The marks for recently-edited files are saved (provided the 'viminfo' option
 has the ' parameter), so marks from previous sessions can be used when editing 
 in the future. :help 'viminfo'
 
-SETTING MARKS  *vwt-42-setting-marks*
+SETTING MARKS                                           *vwt-42-setting-marks*
 
 To set a mark, type m followed by a letter. For example, ma sets mark a at 
 the current position (line and column). If you set mark a, any mark in the 
 current file that was previously identified as a is removed. If you set mark 
 A, any previous mark A (in any file) is removed.
 
-USING MARKS  *vwt-42-using-marks*
+USING MARKS                                               *vwt-42-using-marks*
 
 To jump to a mark enter an apostrophe (') or backtick (`) followed by a 
 letter. Using an apostrophe jumps to the beginning of the line holding the 
@@ -59,14 +59,14 @@ It is possible to navigate between lowercase marks:
 The above commands take a count. For example, 5]` jumps to the fifth mark 
 after the cursor.
 
-SPECIAL MARKS  *vwt-42-special-marks*
+SPECIAL MARKS                                           *vwt-42-special-marks*
 
 Vim has some special marks which it sets automatically. Here are some of the 
 most useful:
 
 See the full list at :help '[ and following.
 
-DELETING MARKS  *vwt-42-deleting-marks*
+DELETING MARKS                                         *vwt-42-deleting-marks*
 
 If you delete a line containing a mark, the mark is also deleted.
 
@@ -75,7 +75,7 @@ If you wipeout a buffer (command :bw), all marks for the buffer are deleted.
 The :delmarks command (abbreviated as :delm) may be used to delete specified 
 marks.
 
-SEE ALSO  *vwt-42-see-also*
+SEE ALSO                                                     *vwt-42-see-also*
     - showmarks [https://www.vim.org/scripts/script.php?script_id=152] plugin to 
       put a sign in the left margin for each mark; works poorly and interferes with 
       other commands in Vim 7 (updated version working in 7.4 here: [1] 
@@ -84,11 +84,11 @@ SEE ALSO  *vwt-42-see-also*
       another showmarks plugin which works without problems in Vim 7 
 
 
-REFERENCES  *vwt-42-references*
+REFERENCES                                                 *vwt-42-references*
     - :help |mark-motions| 
 
 
-COMMENTS  *vwt-42-comments*
+COMMENTS                                                     *vwt-42-comments*
 
 The :delmarks command requires Vim 7.0. On previous versions, a kludge to 
 remove all marks is to enter the command :%!cat (on Unix-based systems), or 

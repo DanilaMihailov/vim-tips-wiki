@@ -13,7 +13,7 @@ provides syntax highlighting to show the different elements of files that you
 use. In this tutorial, all file names matching a particular extension will use 
 the highlighting rules defined with the syntax commands shown below.
 
-EXAMPLE: CELESTIA STAR CATALOGS  *vwt-1561-example:-celestia-star-catalogs*
+EXAMPLE: CELESTIA STAR CATALOGS     *vwt-1561-example:-celestia-star-catalogs*
 
 This tutorial creates a syntax file for Celestia star catalogs. Celestia 
 [http://www.shatters.net/celestia/] is a great program for anyone who likes 
@@ -41,9 +41,9 @@ with a number (the HIP number), the string, and the block containing the
 attributes. Celestia gets more complicated than this because you can have 
 multiple stars going around a barycenter, but we will only cover stars.
 
-SYNTAX FILES  *vwt-1561-syntax-files*
+SYNTAX FILES                                           *vwt-1561-syntax-files*
 
-BUILD A SYNTAX FILE  *vwt-1561-build-a-syntax-file*
+BUILD A SYNTAX FILE                             *vwt-1561-build-a-syntax-file*
 
 First, create a new file named cel.vim with the following contents (see below 
 |vwt-1561-install-the-syntax-file| for its location):
@@ -64,7 +64,7 @@ syntax files, we start with a comment flower box. The test if
 exists("b:current_syntax") ... checks whether an earlier file has defined a 
 syntax already. If so, the script exits with finish.
 
-KEYWORD, MATCH AND REGION ELEMENTS  *vwt-1561-keyword,-match-and-region-elements*
+KEYWORD, MATCH AND REGION ELEMENTS *vwt-1561-keyword,-match-and-region-elements*
 
 There are three major syntax elements, and commands to describe those 
 elements. In order to syntax highlight, we must be able to describe what to 
@@ -287,7 +287,7 @@ syntax element when contained by celComment.
     syn keyword celBlockCmd SpectralType nextgroup=celDesc
 <
 
-TELLING VIM HOW TO HIGHLIGHT + FINAL TOUCHES  *vwt-1561-telling-vim-how-to-highlight-+-final-touches*
+TELLING VIM HOW TO HIGHLIGHT + FINAL TOUCHES *vwt-1561-telling-vim-how-to-highlight-+-final-touches*
 
 We can now take the syntax elements and use the hi def link command to tell 
 Vim how to highlight them.
@@ -324,7 +324,7 @@ highlighting, and celHip will use Type highlighting.
 
 You can view more options in Vim with :help |syntax|
 
-INSTALL THE SYNTAX FILE  *vwt-1561-install-the-syntax-file*
+INSTALL THE SYNTAX FILE                     *vwt-1561-install-the-syntax-file*
 
 Save the file, then install it by copying the file to ~/.vim/syntax/cel.vim 
 on Unix-based systems, or to $HOME/vimfiles/syntax/cel.vim on Windows systems.
@@ -371,7 +371,7 @@ upgrade Vim. Do not use a directory containing the files distributed with Vim
 because that will be overwritten during an upgrade (in particular, do not use 
 the $VIMRUNTIME directory).
 
-MAKE VIM RECOGNIZE THE FILETYPE  *vwt-1561-make-vim-recognize-the-filetype*
+MAKE VIM RECOGNIZE THE FILETYPE     *vwt-1561-make-vim-recognize-the-filetype*
 
 Now we have to make sure Vim knows how to interpret your file. There are a 
 few methods to add filetype detection for files of this new type. See :help 
@@ -413,7 +413,7 @@ to determine whether to set the filetype with |:setfiletype|.Add filetype detect
     au BufRead,BufNewFile *.stc set filetype=cel
 <
 
-SEE ALSO  *vwt-1561-see-also*
+SEE ALSO                                                   *vwt-1561-see-also*
     - Syntax folding of Vim scripts 
       [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] for an example of 
       adding to an existing syntax instead of creating your own as this tip 
@@ -424,13 +424,13 @@ SEE ALSO  *vwt-1561-see-also*
       ssc syntax file 
 
 
-COMMENTS  *vwt-1561-comments*
+COMMENTS                                                   *vwt-1561-comments*
 
 TO DO
     - Is Ctrl-F9 something to do with Cream? 
 
 
-DIRECTORIES  *vwt-1561-directories*
+DIRECTORIES                                             *vwt-1561-directories*
 
 I have removed the following advice for MacVim on Mac OS (but will keep this 
 for a while as an explanation):
@@ -445,7 +445,7 @@ because updating Vim may (and one day will) cause your changes to be lost.
 JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 08:55, June 6, 2010 
 (UTC)
 
-TOHTML  *vwt-1561-tohtml*
+TOHTML                                                       *vwt-1561-tohtml*
 
 It would be nice to have a resulting TOhtml dump in this article
 

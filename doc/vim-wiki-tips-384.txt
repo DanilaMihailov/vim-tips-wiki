@@ -10,7 +10,7 @@ Switching between source and header files is a frequent operation, and so
 many ways to do it have been suggested. This article tries to list them all, 
 and also list their advantages and disadvantages.
 
-SCRIPT CURTINEINCSW.VIM  *vwt-384-script-curtineincsw.vim*
+SCRIPT CURTINEINCSW.VIM                      *vwt-384-script-curtineincsw.vim*
 
 A vim script that does this can be found here: script#5545 
 [https://www.vim.org/scripts/script.php?script_id=5545], and is called 
@@ -29,7 +29,7 @@ Pros
     - Caches file, so you can switch back quickly 
 
 
-SCRIPT A.VIM  *vwt-384-script-a.vim*
+SCRIPT A.VIM                                            *vwt-384-script-a.vim*
 
 A vim script that does this can be found here: script#31 
 [https://www.vim.org/scripts/script.php?script_id=31], and is called a.vim.
@@ -54,7 +54,7 @@ Remarks
       no longer the case. 
 
 
-SCRIPT FSWITCH.VIM  *vwt-384-script-fswitch.vim*
+SCRIPT FSWITCH.VIM                                *vwt-384-script-fswitch.vim*
 
 Another vim script that does this can be found here: script#2590 
 [https://www.vim.org/scripts/script.php?script_id=2590], and is called 
@@ -70,7 +70,7 @@ Pros
     - Heavily documented 
 
 
-SCRIPT ALTERNATE-LITE  *vwt-384-script-alternate-lite*
+SCRIPT ALTERNATE-LITE                          *vwt-384-script-alternate-lite*
 
 Another script meant to be a simplification of Michael Sharpe's alternate.vim 
 plugin can found here: https://github.com/LucHermitte/alternate-lite 
@@ -100,7 +100,7 @@ Cons
     - A few features from original a.vim have been removed (:IH & co) 
 
 
-USING CTAGS  *vwt-384-using-ctags*
+USING CTAGS                                              *vwt-384-using-ctags*
 
 ctags files can be used to find a file very quickly. Just add the 
 "--extra=+f" option in the ctags line.You may then open new files manually 
@@ -115,7 +115,7 @@ Cons
     - ctags files need to be generated 
 
 
-BY MODIFYING FTPLUGINS  *vwt-384-by-modifying-ftplugins*
+BY MODIFYING FTPLUGINS                        *vwt-384-by-modifying-ftplugins*
 
 This was the original suggestion for this article.
 
@@ -192,7 +192,7 @@ Vim path automatically
 [https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file#Add_file_directory_to_Vim_path] 
 when you edit them.
 
-SINGLE LINE SOLUTION  *vwt-384-single-line-solution*
+SINGLE LINE SOLUTION                            *vwt-384-single-line-solution*
 
 Pros
     - Only takes one line in .vimrc, and so is very quick to set up 
@@ -219,7 +219,7 @@ replacement statements.
 For more explanation on how this function operates, see :help 
 |filename-modifiers|.
 
-A SHORT FUNCTION  *vwt-384-a-short-function*
+A SHORT FUNCTION                                    *vwt-384-a-short-function*
 
 Pros
     - Still short enough to put into vimrc. 
@@ -266,7 +266,7 @@ buffers before opening the file.
     endfun
 <
 
-MANUAL SWITCHING  *vwt-384-manual-switching*
+MANUAL SWITCHING                                    *vwt-384-manual-switching*
 
 Pro: No need af changing anything - works with every Vim
 
@@ -299,7 +299,7 @@ Pressing <Leader>oc opens a file matching the current file, but with a .c
 extension. Pressing <Leader>oC does the same for .cpp, and <Leader>oh does the 
 same for .h.
 
-COMMENTS  *vwt-384-comments*
+COMMENTS                                                    *vwt-384-comments*
 
 The Single line solution can also easily be made to split the window 
 horizontally:

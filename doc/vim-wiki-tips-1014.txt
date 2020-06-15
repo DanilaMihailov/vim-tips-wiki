@@ -13,7 +13,7 @@ indent level or more as the current line.
     :exe "normal V" | let temp_var=indent(line(".")) | while indent(line(".")+1) >= temp_var | exe "normal j" | endwhile
 <
 
-COMMENTS  *vwt-1014-comments*
+COMMENTS                                                   *vwt-1014-comments*
 
 A slight modification, to select the area above the cursor position as well, 
 and the whole thing wrapped in a function (and nmapped to <Space>):

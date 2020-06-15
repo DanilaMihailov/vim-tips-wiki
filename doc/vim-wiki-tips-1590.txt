@@ -20,11 +20,11 @@ unchanged. The Vim command (in vimrc [https://vim.fandom.com/wiki/Vimrc]) is:
     set backupcopy=auto,breakhardlink
 <
 
-REFERENCES  *vwt-1590-references*
+REFERENCES                                               *vwt-1590-references*
     - :help 'backup' 
     - :help 'backupcopy' 
 
 
-COMMENTS  *vwt-1590-comments*
+COMMENTS                                                   *vwt-1590-comments*
 
  vim:tw=78:et:ft=help:norl:

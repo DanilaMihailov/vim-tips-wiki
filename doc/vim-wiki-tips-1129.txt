@@ -34,11 +34,11 @@ examples:
     rxvt --meta8
 <
 
-SEE ALSO  *vwt-1129-see-also*
+SEE ALSO                                                   *vwt-1129-see-also*
     - Fix meta-keys that break out of Insert mode |vwt-738| 
 
 
-URXVT  *vwt-1129-urxvt*
+URXVT                                                         *vwt-1129-urxvt*
 
 Put this in your session initialization script (~/.{xsession, xinitrc}, 
 etc.):
@@ -93,7 +93,7 @@ etc.):
 This is only one of several possible approaches to mapping <Meta> 
 combinations in vim using URxvt. See below for more.
 
-COMMENTS  *vwt-1129-comments*
+COMMENTS                                                   *vwt-1129-comments*
 
 Also, these are the settings I use in my /etc/inputrc:
 

@@ -24,11 +24,11 @@ tacked %h to my titlestring giving:
     :set title titlestring=VIM\ -\ %F\ %h "make sure that the window caption setting is turned on and set caption to Vim 5.x style
 <
 
-REFERENCES  *vwt-87-references*
+REFERENCES                                                 *vwt-87-references*
     - :help 'titlestring' 
     - :help 'statusline' 
 
 
-COMMENTS  *vwt-87-comments*
+COMMENTS                                                     *vwt-87-comments*
 
  vim:tw=78:et:ft=help:norl:

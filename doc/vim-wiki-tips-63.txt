@@ -75,7 +75,7 @@ is, perhaps, more straightforward. As another example:
 To do this, use ctrl-v and motion to select the defs, then apply the 
 substitute::B s/def/DEF/
 
-COMMENTS  *vwt-63-comments*
+COMMENTS                                                     *vwt-63-comments*
 
 The def => DEF example is ill-chosen. If the variables are perfectly aligned, 
 you can simply select all the 'def' variables and use S to replace the 

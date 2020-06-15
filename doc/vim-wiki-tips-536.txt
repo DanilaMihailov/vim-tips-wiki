@@ -23,7 +23,7 @@ following causes the quickfix window to close automatically.
     endfunction
 <
 
-COMMENTS  *vwt-536-comments*
+COMMENTS                                                    *vwt-536-comments*
 
 The quit! should be changed to tabclose to be safe.
 

@@ -36,7 +36,7 @@ all up, one after the other.
 The things I have noticed are that this causes 'sp' to be expanded to 'Sp' 
 everywhere, even in search patterns. Also, prepending 'vert' doesn't work.
 
-COMMENTS  *vwt-146-comments*
+COMMENTS                                                    *vwt-146-comments*
 
 This is great! It saves the effort of typing multiple :sp under vim. I have 
 two suggestions.
@@ -108,7 +108,7 @@ This tip is superseded by :argadd:
       :all
 <
 
-STARTING IN SPLITS  *vwt-146-starting-in-splits*
+STARTING IN SPLITS                                *vwt-146-starting-in-splits*
 
 If you want to start vim with several files in a splitted window, just type
 

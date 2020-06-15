@@ -12,7 +12,7 @@ and flashing in both terminal Vim and GUI Vim (gvim). See below
 |vwt-663-disable-beep-and-flash-with-an-autocmd| if you just want the 
 solution.
 
-SETTINGS  *vwt-663-settings*
+SETTINGS                                                    *vwt-663-settings*
 
 The 'errorbells' (abbreviated as 'eb') option is off by default. If it is on 
 (that is, if :set errorbells is used), Vim will either beep or flash its 
@@ -40,7 +40,7 @@ occur. That is achieved by entering the command :set vb t_vb= after the GUI
 has started—see method 1 |vwt-663-disable-beep-and-flash-with-an-autocmd| or 
 method 2 |vwt-663-disable-beep-and-flash-with-gvimrc| below.
 
-DEMONSTRATION  *vwt-663-demonstration*
+DEMONSTRATION                                          *vwt-663-demonstration*
 
 A demonstration is useful to show how the options work. Start Vim with no 
 initializations from vimrc or gvimrc, but using 'nocompatible' mode:
@@ -81,7 +81,7 @@ no flash). The t_vb option controls how Vim flashes the screen (on both Unix
 and Windows systems, for both terminal and gui Vim). If the option is empty, 
 Vim does not flash the screen.
 
-DISABLE BEEP AND FLASH WITH AN AUTOCMD  *vwt-663-disable-beep-and-flash-with-an-autocmd*
+DISABLE BEEP AND FLASH WITH AN AUTOCMD *vwt-663-disable-beep-and-flash-with-an-autocmd*
 
 To disable beeping (aka "bell") and window flashing, put the following in 
 your vimrc [https://vim.fandom.com/wiki/Vimrc]. This works on Unix and Windows 
@@ -109,7 +109,7 @@ with the +autocmd feature. To avoid that possibility, use:
     endif
 <
 
-DISABLE BEEP AND FLASH WITH GVIMRC  *vwt-663-disable-beep-and-flash-with-gvimrc*
+DISABLE BEEP AND FLASH WITH GVIMRC *vwt-663-disable-beep-and-flash-with-gvimrc*
 
 Another method to disable beeping and flashing is to put a command into your 
 vimrc to handle terminal Vim, and another command into your gvimrc to handle 
@@ -130,7 +130,7 @@ Put the following in gvimrc:
 The gvimrc file is in the same directory as vimrc; see vimrc 
 [https://vim.fandom.com/wiki/Vimrc] for the proper file name.
 
-COMMENTS  *vwt-663-comments*
+COMMENTS                                                    *vwt-663-comments*
 
 Superb. Worked well for me.
 

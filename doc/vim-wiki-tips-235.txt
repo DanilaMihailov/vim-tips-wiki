@@ -39,16 +39,16 @@ consecutive keyword characters) before and after that match. :help |/\%#|
 
 The match uses the Todo highlight group.
 
-SEE ALSO  *vwt-235-see-also*
+SEE ALSO                                                    *vwt-235-see-also*
     - Highlight current line |vwt-769| 
     - Highlight cursor line after cursor jump |vwt-1380| 
     - Keep your cursor centered vertically on the screen |vwt-182| 
 
 
-REFERENCES  *vwt-235-references*
+REFERENCES                                                *vwt-235-references*
     - :help |:match| 
 
 
-COMMENTS  *vwt-235-comments*
+COMMENTS                                                    *vwt-235-comments*
 
  vim:tw=78:et:ft=help:norl:

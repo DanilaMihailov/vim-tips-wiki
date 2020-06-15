@@ -19,7 +19,7 @@ some editors, Vim cannot show a line at this width.
 You can also wrap long lines |vwt-38|, or show < > flags when characters are 
 not displayed |vwt-396#HighlightLongLines| on long lines.
 
-SEARCHING  *vwt-1523-searching*
+SEARCHING                                                 *vwt-1523-searching*
 
 A quick method to find long lines is a search like the following. If you use 
 search highlighting |vwt-14| (:set hlsearch), this will highlight all text 
@@ -29,7 +29,7 @@ after virtual column 80 (after tabs are expanded).
     /\%>80v.\+
 <
 
-MATCHING  *vwt-1523-matching*
+MATCHING                                                   *vwt-1523-matching*
 
 A simple command will highlight any text after virtual column 80:
 
@@ -48,7 +48,7 @@ thus is more suited to being placed in your .vimrc and left on all the time.
     :2mat ErrorMsg '\%81v.'
 <
 
-REPLACING  *vwt-1523-replacing*
+REPLACING                                                 *vwt-1523-replacing*
 
 Command to replace line text >80 chars from the previous word boundary to 
 '...':
@@ -59,7 +59,7 @@ Command to replace line text >80 chars from the previous word boundary to
 
 Credit to Accolade from #vim on Freenode.
 
-AUTOMATIC MATCHING  *vwt-1523-automatic-matching*
+AUTOMATIC MATCHING                               *vwt-1523-automatic-matching*
 
 If you want to be warned whenever text exceeds 80 columns you can use 
 matching. In Vim 7.2 this is easy to achieve with the following commands (the 
@@ -101,7 +101,7 @@ defined for this window:
     :call clearmatches()
 <
 
-AUTOMATIC MATCHING (FOR VIM BEFORE VERSION 7.1.40)  *vwt-1523-automatic-matching-(for-vim-before-version-7.1.40)*
+AUTOMATIC MATCHING (FOR VIM BEFORE VERSION 7.1.40) *vwt-1523-automatic-matching-(for-vim-before-version-7.1.40)*
 
 For earlier versions of Vim, the following is a close approximation:
 
@@ -133,7 +133,7 @@ syntax highlighting with:
     :syntax clear
 <
 
-TOGGLE MATCHING BASED ON TEXTWIDTH  *vwt-1523-toggle-matching-based-on-textwidth*
+TOGGLE MATCHING BASED ON TEXTWIDTH *vwt-1523-toggle-matching-based-on-textwidth*
 
 If you don't like to always highlight long lines, but you want a fast way to 
 check your line length, you can define a mapping to toggle highlighting 
@@ -152,7 +152,7 @@ on/off. This also allows you to easily define the highlight in terms of the
           \ endif<CR>
 <
 
-EXPLANATION  *vwt-1523-explanation*
+EXPLANATION                                             *vwt-1523-explanation*
 
 The search pattern \%>80v.\+ checks for a match at each position. If the 
 position being tested is at a virtual column above 80, the text at that 
@@ -169,13 +169,13 @@ inclusive. The pattern checks for a match at each position: \%<81v. matches
 any character at a virtual column below 81; \%>77v causes the match to fail 
 unless the virtual column of the next character is above 77.
 
-REFERENCES  *vwt-1523-references*
+REFERENCES                                               *vwt-1523-references*
     - :help |matchadd()| 
     - :help |:match| 
     - :help |/\%v| 
 
 
-COMMENTS  *vwt-1523-comments*
+COMMENTS                                                   *vwt-1523-comments*
 
 Textwidth-based matching can be made automatic using the OptionSet autocmd 
 event introduced in Vim 7.4.786 

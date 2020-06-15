@@ -13,7 +13,7 @@ commercial refactoring tools there is much (not all!) Vim can do too.
 
 I give you three examples, all in C#.
 
-EXAMPLE 1: THE EXTRACT METHOD REFACTORING  *vwt-589-example-1:-the-extract-method-refactoring*
+EXAMPLE 1: THE EXTRACT METHOD REFACTORING *vwt-589-example-1:-the-extract-method-refactoring*
 
 Sphagetti code example:
 
@@ -130,7 +130,7 @@ Here is the Vim code:
     endfunction
 <
 
-EXAMPLE 2: THE SELF ENCAPSULATE FIELD REFACTORING  *vwt-589-example-2:-the-self-encapsulate-field-refactoring*
+EXAMPLE 2: THE SELF ENCAPSULATE FIELD REFACTORING *vwt-589-example-2:-the-self-encapsulate-field-refactoring*
 
 I have heard a programmer who just uses Visual Studio (nothing against Visual 
 Studio, it's a great tool!) say: "I do not use properties. It's too much 
@@ -176,7 +176,7 @@ the file in Vim for refactoring. I have made a menu entry in Visual Studio
 that loads the actual file I am writing in Vim (cf. Vim as an External Tool 
 [https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio#Vim_as_an_External_Tool]).
 
-EXAMPLE 3: THE REPLACE CONDITIONAL WITH POLYMORPHISM REFACTORING  *vwt-589-example-3:-the-replace-conditional-with-polymorphism-refactoring*
+EXAMPLE 3: THE REPLACE CONDITIONAL WITH POLYMORPHISM REFACTORING *vwt-589-example-3:-the-replace-conditional-with-polymorphism-refactoring*
 
 Imagine a switch and you want to replace it with an abstract class and some 
 concrete classes which inherit from this parent class.
@@ -260,7 +260,7 @@ Here are my mappings and the underlying funtion.
     endfunction
 <
 
-COMMENTS  *vwt-589-comments*
+COMMENTS                                                    *vwt-589-comments*
 
 These are amazing! I never thought of doing this, but I have to say your tips 
 are quite amazing! I have begun to use hints 1 and 2 religiously, especially 

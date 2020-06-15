@@ -36,11 +36,11 @@ the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     au BufEnter /* call LoadCscope()
 <
 
-SEE ALSO  *vwt-1668-see-also*
+SEE ALSO                                                   *vwt-1668-see-also*
     - Cscope [https://vim.fandom.com/wiki/Cscope] 
 
 
-COMMENTS  *vwt-1668-comments*
+COMMENTS                                                   *vwt-1668-comments*
 
 If somebody use gVim in the windows(like me use Winxp), a modified script for 
 the _vimrc script maybe helpful as follow:

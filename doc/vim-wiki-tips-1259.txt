@@ -24,7 +24,7 @@ For impatient people, just place the following in a file named
 If you open a jar file in Vim, you will be able to browse it. If that does 
 not work, update to a recent version of Vim with zipPlugin installed.
 
-COMMENTS  *vwt-1259-comments*
+COMMENTS                                                   *vwt-1259-comments*
 
 From :help |zip-extension| a .jar file can be unzipped with the following in 
 vimrc [https://vim.fandom.com/wiki/Vimrc].

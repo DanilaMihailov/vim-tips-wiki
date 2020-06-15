@@ -9,7 +9,7 @@ created 2001 · complexity basic · author Raymond Li · version 6.0
 With this tip, you can select some text, then press a key to search for the 
 next occurrence of the text. Two alternative methods are presented.
 
-SIMPLE  *vwt-171-simple*
+SIMPLE                                                        *vwt-171-simple*
 
 Nothing is needed if you want to search for the word under the cursor, just 
 press * [https://vim.fandom.com/wiki/Searching].
@@ -33,7 +33,7 @@ and <CR> represents carriage return (Enter). The search uses \V (:help |/\V|)
 for "very no-magic" mode, and escape() (:help |escape()|) to escape / and \ 
 characters (the only ones that aren't literals with \V).
 
-ADVANCED  *vwt-171-advanced*
+ADVANCED                                                    *vwt-171-advanced*
 
 The following is a more advanced implementation, with more robust 
 functionality than the above map.
@@ -118,7 +118,7 @@ $HOME/vimfiles/plugin/vsearch.vim (Windows) with contents:
     let &cpo = s:save_cpo | unlet s:save_cpo
 <
 
-EXPLANATION  *vwt-171-explanation*
+EXPLANATION                                              *vwt-171-explanation*
 
 The first suggested mapping was:
 
@@ -168,7 +168,7 @@ gV allows the mappings to work in --SELECT-- mode as well as --VISUAL--.
 Without gV, searching for text in select mode would not move the cursor 
 because the selection is automatically reselected after the mapping.
 
-READABLE EQUIVALENT  *vwt-171-readable-equivalent*
+READABLE EQUIVALENT                              *vwt-171-readable-equivalent*
 
 The principle is to get selection in to use it in search. There are multiple 
 ways to get visually selected text. Here is a simple one, which does not 
@@ -198,7 +198,7 @@ distinguish between v and V selections.
         \ )<Cr>n
 <
 
-PASTE MATCHING TEXT OF LAST SEARCH  *vwt-171-paste-matching-text-of-last-search*
+PASTE MATCHING TEXT OF LAST SEARCH *vwt-171-paste-matching-text-of-last-search*
 
 When using ^r/ in INSERT mode what one most of the time wants is to paste the 
 matched text not the regex used to search the text. Example: after using * on 
@@ -242,11 +242,11 @@ gi command to start again from where you left off. For example:
 Here, ygn is as before, but gi is used to go back to insert mode in the same 
 place you left off, then <C-R>0 inserts the copied text.
 
-SEE ALSO  *vwt-171-see-also*
+SEE ALSO                                                    *vwt-171-see-also*
     - visualstar.vim [https://vim.fandom.com/wiki/Script:2944] 
 
 
-COMMENTS  *vwt-171-comments*
+COMMENTS                                                    *vwt-171-comments*
 
 TO DO Tips related to visual searching (need to merge):
     - 1011 Mappings and commands for visual mode |vwt-1011| 

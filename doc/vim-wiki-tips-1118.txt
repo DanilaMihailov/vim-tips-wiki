@@ -35,7 +35,7 @@ The pattern /^\s*$/ is used to find blank lines, including those consisting
 of only whitespace (\s). The second pattern (//) is empty, so the first 
 pattern is repeated (search for next blank line).
 
-COMMENTS  *vwt-1118-comments*
+COMMENTS                                                   *vwt-1118-comments*
 
 For the address part you can use '}. '{ and '} find paragraph boundaries.
 

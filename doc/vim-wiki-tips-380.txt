@@ -26,7 +26,7 @@ It doesn't work at the first stop after attaching to a process. This is
 probably for the best though as this stop is typically in a system call with 
 no source code.
 
-ALTERNATE IMPLEMENTATION  *vwt-380-alternate-implementation*
+ALTERNATE IMPLEMENTATION                    *vwt-380-alternate-implementation*
 
 In order to use console Vim with similar functionality, you can simply write 
 a Vim command to a file, then source the command with Vim.
@@ -91,7 +91,7 @@ Now, Ctrl-D will open the current dbx file and line (mnemonic: d for debug).
 With only this, you can have a pretty good debugging setup with just vim and 
 dbx.
 
-SENDING COMMANDS TO DBX FROM VIM  *vwt-380-sending-commands-to-dbx-from-vim*
+SENDING COMMANDS TO DBX FROM VIM    *vwt-380-sending-commands-to-dbx-from-vim*
 
 If you wish to use Vim to execute dbx commands too, the easiest way I have 
 found is to create an alias to source a file, then put the commands I want 
@@ -120,7 +120,7 @@ The alias would look like
 
 It should go in your ~/.dbxrc file.
 
-COMMENTS  *vwt-380-comments*
+COMMENTS                                                    *vwt-380-comments*
 
 I think "when stop ........" should to executed in dbx after loading the 
 program/Attaching a debugger to the process. Then only it works.

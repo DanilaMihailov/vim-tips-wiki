@@ -12,7 +12,7 @@ This tip describes how to configure syntax highlighting and folding for
 MoinMoin files. It is quite useful with editmoin [http://labix.org/editmoin] 
 (a tool allowing use of Vim to edit MoinMoin wiki pages).
 
-SYNTAX HIGHLIGHTING  *vwt-1565-syntax-highlighting*
+SYNTAX HIGHLIGHTING                             *vwt-1565-syntax-highlighting*
 
 Install the moin.vim script 
 [https://www.vim.org/scripts/script.php?script_id=1459] by copying the file 
@@ -31,7 +31,7 @@ to use by entering commands like the following in Vim:
     :echo expand('$HOME/vimfiles/syntax/moin.vim')
 <
 
-FOLDING  *vwt-1565-folding*
+FOLDING                                                     *vwt-1565-folding*
 
 This will allow you to fold wiki sections that start with a header like 
 ==section== or ===subsection===, etc. It is done through expression folding, 
@@ -77,7 +77,7 @@ Note: if you use non-ASCII characters in your file, you'll need to be sure to
 set an appropriate set of encoding options 
 [https://vim.fandom.com/wiki/Working_with_Unicode].
 
-FILE TYPE DETECTION  *vwt-1565-file-type-detection*
+FILE TYPE DETECTION                             *vwt-1565-file-type-detection*
 
 It is necessary to tell Vim to associate MoinMoin files with the moin 
 filetype so you don't need to manually enter :setlocal filetype=moin when 
@@ -89,7 +89,7 @@ files with extension .moin as MoinMoin files.
     au! BufNewFile,BufRead *.moin setf moin
 <
 
-COMMENTS  *vwt-1565-comments*
+COMMENTS                                                   *vwt-1565-comments*
 
 Check out Voom, a python-based Vim add-on that puts folding capabilities on 
 steroids:script#2657 [https://www.vim.org/scripts/script.php?script_id=2657]

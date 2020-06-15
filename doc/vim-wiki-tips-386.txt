@@ -17,7 +17,7 @@ If you want to change the selected text, press c instead of d or y in step 4.
 In a visual selection, pressing c performs a change by deleting the selected 
 text and entering insert mode so you can type the new text.
 
-PASTING OVER A BLOCK OF TEXT  *vwt-386-pasting-over-a-block-of-text*
+PASTING OVER A BLOCK OF TEXT            *vwt-386-pasting-over-a-block-of-text*
 
 You can copy a block of text by pressing Ctrl-v (or Ctrl-q if you use Ctrl-v 
 for paste), then moving the cursor to select, and pressing y to yank. Now you 
@@ -38,12 +38,12 @@ visual selection, such as a yank, delete, or change operation. It will not
 work after visually selecting an area and leaving visual mode without taking 
 any actions.
 
-SEE ALSO  *vwt-386-see-also*
+SEE ALSO                                                    *vwt-386-see-also*
     - Visual selection [https://vim.fandom.com/wiki/Visual_selection] 
     - Copy, cut and paste [https://vim.fandom.com/wiki/Copy,_cut_and_paste] 
 
 
-COMMENTS  *vwt-386-comments*
+COMMENTS                                                    *vwt-386-comments*
 
 
 

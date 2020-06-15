@@ -45,7 +45,7 @@ subversion commands follow:
     svn co svn://localhost/trunk/configuration/vim/vimfiles .vim
 <
 
-COMMENTS  *vwt-1505-comments*
+COMMENTS                                                   *vwt-1505-comments*
 
 I think it would be even more useful to set up the new .vimrc created to call 
 the "update" command of the appropriate version control software before 

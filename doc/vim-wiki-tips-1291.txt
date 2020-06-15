@@ -15,7 +15,7 @@ http://www.fighterz.net/trig/desert.gif
 
 You can change the colors using a registry export I made, or do it manually.
 
-REGISTRY FILE  *vwt-1291-registry-file*
+REGISTRY FILE                                         *vwt-1291-registry-file*
 
 The registry file is at http://www.fighterz.net/trig/putty_desert.reg 
 [http://www.fighterz.net/trig/putty_desert.reg] (contents are below).
@@ -23,7 +23,7 @@ The registry file is at http://www.fighterz.net/trig/putty_desert.reg
 Running this registry file will create a PuTTY session called "vim desert 
 theme prototype" for you to edit.
 
-MANUALLY  *vwt-1291-manually*
+MANUALLY                                                   *vwt-1291-manually*
 
 In your PuTTY Configuration --> Window --> Colours, Change the following 
 values:
@@ -51,7 +51,7 @@ or red; I chose yellow in the registry file).
 PUTTY version: This was tested on PuTTY 0.58, and will probably work with 
 other versions.
 
-REGISTRY FILE CONTENTS  *vwt-1291-registry-file-contents*
+REGISTRY FILE CONTENTS                       *vwt-1291-registry-file-contents*
 
 Create file putty_desert.reg with the following contents:
 
@@ -246,7 +246,7 @@ Create file putty_desert.reg with the following contents:
     "ShadowBoldOffset"=dword:00000001
 <
 
-COMMENTS  *vwt-1291-comments*
+COMMENTS                                                   *vwt-1291-comments*
 
 Link to desert.vim script#105 
 [https://www.vim.org/scripts/script.php?script_id=105].

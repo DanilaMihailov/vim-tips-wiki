@@ -14,7 +14,7 @@ backslash leader key, the operators are:
     - \C to uncomment lines 
 
 
-USAGE  *vwt-1570-usage*
+USAGE                                                         *vwt-1570-usage*
 
 For example, put the cursor anywhere in the def block in the following Python 
 code:
@@ -54,7 +54,7 @@ Examples:
     - Vjjj\c comment visually-selected lines 
 
 
-SCRIPT  *vwt-1570-script*
+SCRIPT                                                       *vwt-1570-script*
 
 Here's the code. It only handles linewise comments.
 
@@ -101,7 +101,7 @@ Here's the code. It only handles linewise comments.
     vnoremap <Leader>C <Esc>:call CommentMark(0,'<','>')<CR>
 <
 
-EXPLANATION  *vwt-1570-explanation*
+EXPLANATION                                             *vwt-1570-explanation*
 
 A custom operator can be defined using visual-mode maps (to apply the 
 operator to a selection), and using the operatorfunc (opfunc) option (to apply 
@@ -119,16 +119,16 @@ can define the buffer-local variable comment, for example:
     :let b:comment='#---'
 <
 
-SEE ALSO  *vwt-1570-see-also*
+SEE ALSO                                                   *vwt-1570-see-also*
     - Creating new text objects |vwt-1555| 
     - Operator pending mode maps |vwt-1516#Operator_pending_mode_maps| 
     - Easy (un)commenting out of source code |vwt-271| 
 
 
-REFERENCES  *vwt-1570-references*
+REFERENCES                                               *vwt-1570-references*
     - :help 'opfunc' 
 
 
-COMMENTS  *vwt-1570-comments*
+COMMENTS                                                   *vwt-1570-comments*
 
  vim:tw=78:et:ft=help:norl:

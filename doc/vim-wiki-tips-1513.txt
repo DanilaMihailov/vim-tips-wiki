@@ -23,7 +23,7 @@ lowercase as well (multiple attributes supported), use this command:
     :%s/\(<[^>]*\)\@<=\<\(\a*\)\ze=['"]/\L\2/g
 <
 
-COMMENTS  *vwt-1513-comments*
+COMMENTS                                                   *vwt-1513-comments*
 
 This should work as well:
 

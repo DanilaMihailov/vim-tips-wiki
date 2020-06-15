@@ -6,7 +6,7 @@ created 2006 · complexity intermediate · author Matt Zyzik · version n/a
 
 ==============================================================================
 
-COMPLETION MENU  *vwt-1386-completion-menu*
+COMPLETION MENU                                     *vwt-1386-completion-menu*
 
 The completion menu is controlled by completeopt. You can set multiple values 
 to combine behaviours.
@@ -15,7 +15,7 @@ Your completion options may be full text from files (see :help 'complete'),
 Omni completion [https://vim.fandom.com/wiki/Omni_completion], or a custom 
 complete function (see :help |complete-functions|).
 
-COMPLETION OPTIONS  *vwt-1386-completion-options*
+COMPLETION OPTIONS                               *vwt-1386-completion-options*
 
 In most IDEs, you normally type some code, press <C-Space> for a completion 
 popup menu, type some more characters to select the menu item you want, then 
@@ -80,23 +80,23 @@ first.
                 \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 <
 
-COMPLETE AS YOU TYPE  *vwt-1386-complete-as-you-type*
+COMPLETE AS YOU TYPE                           *vwt-1386-complete-as-you-type*
 
 The AutoComplPop [https://www.vim.org/scripts/script.php?script_id=1879] 
 plugin automatically opens popup menu for completions as you type.
 
-COMPLETION WITH TAB  *vwt-1386-completion-with-tab*
+COMPLETION WITH TAB                             *vwt-1386-completion-with-tab*
 
 You can map Tab to start completions, but there's also the SuperTab 
 [https://www.vim.org/scripts/script.php?script_id=1643] plugin that does some 
 extra context completion and allows you to use Tab to advance through your 
 completion options.
 
-REFERENCES  *vwt-1386-references*
+REFERENCES                                               *vwt-1386-references*
     - :help 'completeopt'. 
 
 
-COMMENTS  *vwt-1386-comments*
+COMMENTS                                                   *vwt-1386-comments*
 
 TO DO
     - Merge with VimTip1228 |vwt-1228|? 

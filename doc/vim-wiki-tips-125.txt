@@ -49,7 +49,7 @@ Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
      endfunction
 <
 
-COMMENTS  *vwt-125-comments*
+COMMENTS                                                    *vwt-125-comments*
 
 Thanks for the cool script. I had some problems getting it working, but I've 
 bodged it for now. Don't know if you're interested, but I've made a few 
@@ -187,7 +187,7 @@ if-else)
 
 [3] The "..." is added only if the length of the stringis > 30.
 
-=  *vwt-125-=*
+=                                                                  *vwt-125-=*
 
 >
     " curlyC.vim

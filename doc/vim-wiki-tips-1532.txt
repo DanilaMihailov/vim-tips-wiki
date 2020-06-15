@@ -32,7 +32,7 @@ That is,
     etc
 <
 
-GENERIC CAUSES  *vwt-1532-generic-causes*
+GENERIC CAUSES                                       *vwt-1532-generic-causes*
 
 To correct this problem you may need to change your environment variable for 
 $TMP or $TEMP, to somewhere you have write access. You can do this in a couple 
@@ -62,7 +62,7 @@ in an external command, such as any of the characters ^&|<>() or space
 characters, you will probably need to escape them with the shellescape() 
 function before passing them to an external command.
 
-E303  *vwt-1532-e303*
+E303                                                           *vwt-1532-e303*
 
 A common cause for the specific E303 error on recent versions of Windows, is 
 that Microsoft at some point moved the default value of %TEMP% and %TMP% to 
@@ -77,7 +77,7 @@ See http://code.google.com/p/vim/issues/detail?id=28
 [http://code.google.com/p/vim/issues/detail?id=28] for current status of this 
 issue.
 
-COMMENTS  *vwt-1532-comments*
+COMMENTS                                                   *vwt-1532-comments*
 
 TO DO
     - This tip needs reworking. A reader could get the impression that the only 

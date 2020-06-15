@@ -33,7 +33,7 @@ your vimrc
     autocmd bufWritePost c:/aaa/xp normal ggVG"*y
 <
 
-COMMENTS  *vwt-623-comments*
+COMMENTS                                                    *vwt-623-comments*
 
 Similarly to autocmd bufWritePost you can also get Vim to automatically 
 perform commands on entering or leaving a file(s)

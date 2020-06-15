@@ -19,7 +19,7 @@ You can:
     - Specify a delimiter other than comma. 
 
 
-HIGHLIGHTING A COLUMN  *vwt-667-highlighting-a-column*
+HIGHLIGHTING A COLUMN                          *vwt-667-highlighting-a-column*
 
 It's easy to find a column in csv text if you source the following script. 
 Enter a command like :Csv 23 to highlight column 23.
@@ -44,7 +44,7 @@ Enter a command like :Csv 23 to highlight column 23.
     command! -nargs=1 Csv :call CSVH(<args>)
 <
 
-HIGHLIGHTING THE HEADER ROW  *vwt-667-highlighting-the-header-row*
+HIGHLIGHTING THE HEADER ROW              *vwt-667-highlighting-the-header-row*
 
 If the first row is a header row, you can highlight the header fields by 
 putting the following lines in the file syntax/csv.vim (see syntax 
@@ -56,7 +56,7 @@ type detection (see Usage below |vwt-667-usage|).
     highlight def link csvHeading Type
 <
 
-VIEWING CSV FIELDS  *vwt-667-viewing-csv-fields*
+VIEWING CSV FIELDS                                *vwt-667-viewing-csv-fields*
 
 The following commands can be entered to convert csv text to columns for easy 
 viewing. Work on a temporary copy of your data because these commands will 
@@ -84,13 +84,13 @@ its own line:
 
 In the replace text of a substitute, \r substitutes a newline.
 
-NAVIGATING IN CSV TEXT  *vwt-667-navigating-in-csv-text*
+NAVIGATING IN CSV TEXT                        *vwt-667-navigating-in-csv-text*
 
 The simple script given above does not provide easy navigation, and it 
 assumes that commas are only used as delimiters. The following code has more 
 features, and it is presented as a plugin due to its length.
 
-FEATURES  *vwt-667-features*
+FEATURES                                                    *vwt-667-features*
     - Fields are generally correctly highlighted, according to the CSV 
       specification [http://tools.ietf.org/html/rfc4180]: quotes, commas inside 
       quotes, quote inside quotes are all correctly processed. 
@@ -203,7 +203,7 @@ work-around below |vwt-667-working-with-multi-character-delimiters|)
     :5,12Sort! 3 f   " reverse sort lines in range using column 3 floats
 <
 
-USAGE  *vwt-667-usage*
+USAGE                                                          *vwt-667-usage*
 
 Put a .csv rule in filetype.vim [https://vim.fandom.com/wiki/Filetype.vim]
 
@@ -233,7 +233,7 @@ This command switches highlighting on:
     :set ft=csv
 <
 
-THE CODE  *vwt-667-the-code*
+THE CODE                                                    *vwt-667-the-code*
 
 This is the ftplugin csv.vim script:
 
@@ -671,7 +671,7 @@ This is the ftplugin csv.vim script:
     augroup END
 <
 
-EXPLANATION OF THE REGULAR EXPRESSION  *vwt-667-explanation-of-the-regular-expression*
+EXPLANATION OF THE REGULAR EXPRESSION *vwt-667-explanation-of-the-regular-expression*
 
 The above code is fairly easy to understand, except perhaps for the regular 
 expressions. The following regex (inspired by RegExLib 1520 
@@ -703,7 +703,7 @@ It is explained as follows:
     17. \)
 <
 
-WORKING WITH MULTI-CHARACTER DELIMITERS  *vwt-667-working-with-multi-character-delimiters*
+WORKING WITH MULTI-CHARACTER DELIMITERS *vwt-667-working-with-multi-character-delimiters*
 
 The delimiter can only be one character. This causes the code to fail with 
 delimiters of more than one character, notably if there is a space after each 
@@ -721,7 +721,7 @@ isn't ", ", modify the code accordingly.)
     autocmd BufWinEnter *.csv set buftype=nowrite | :%s/, /,/g
 <
 
-WORKING WITH EXCEL XLS FILES  *vwt-667-working-with-excel-xls-files*
+WORKING WITH EXCEL XLS FILES            *vwt-667-working-with-excel-xls-files*
 
 One can use the xls2csv Perl script [http://search.cpan.org/perldoc?xls2csv] 
 to convert Excel files to CSV, and then view/edit with Vim. You may put the 
@@ -736,7 +736,7 @@ following code in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
 It will view the XLS file in readonly mode as a CSV file by first converting 
 on-the-fly.
 
-COMMENTS  *vwt-667-comments*
+COMMENTS                                                    *vwt-667-comments*
 
 Note
     - Add any problem reports or quick comments below. 

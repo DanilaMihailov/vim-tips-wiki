@@ -30,12 +30,12 @@ You could complete the substitute command, to read, for example:
 Type <C-r><C-w> to paste the word under the cursor into the command line, or 
 <C-r><C-a> to paste the WORD.
 
-REFERENCES  *vwt-490-references*
+REFERENCES                                                *vwt-490-references*
     - :help |c_CTRL-R| 
     - :help |i_CTRL-R| 
     - :help |WORD| 
 
 
-COMMENTS  *vwt-490-comments*
+COMMENTS                                                    *vwt-490-comments*
 
  vim:tw=78:et:ft=help:norl:

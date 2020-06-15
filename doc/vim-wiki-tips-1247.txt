@@ -11,7 +11,7 @@ the proper :tabclose to close a tab in a session, quitting the entire session
 instead. A few methods can be used to remap the :tabclose command to a more 
 memoriable command as outlined below.
 
-REMAP :TABCLOSE TO QA  *vwt-1247-remap :tabclose-to-qa*
+REMAP :TABCLOSE TO QA                         *vwt-1247-remap :tabclose-to-qa*
 
 This method requires the plugin cmdalias.vim plugin 
 [https://www.vim.org/scripts/script.php?script_id=746]. This plugin will allow 
@@ -58,7 +58,7 @@ plugin needs to be loaded before the functions defined in the plugin can be
 used. Since plugins are loaded after the .vimrc, VimEnter allows the plugin to 
 load before the function is called.
 
-FIREFOX TAB CLOSE  *vwt-1247-firefox-tab-close*
+FIREFOX TAB CLOSE                                 *vwt-1247-firefox-tab-close*
 
 Some users find it easier to map tab commands to the Firefox key-stroke 
 patterns (Ctrl + T = New Tab, Ctrl + F4 = Close Tab). To do so, add the 
@@ -72,13 +72,13 @@ following to your vimrc:
     endif
 <
 
-SEE ALSO  *vwt-1247-see-also*
+SEE ALSO                                                   *vwt-1247-see-also*
     - Replace a builtin command using cabbrev 
       [https://vim.fandom.com/wiki/Replace_a_builtin_command_using_cabbrev] tells 
       you how to accomplish something similar to cmdalias.vim 
       [https://www.vim.org/scripts/script.php?script_id=746] without the plugin 
 
 
-COMMENTS  *vwt-1247-comments*
+COMMENTS                                                   *vwt-1247-comments*
 
  vim:tw=78:et:ft=help:norl:

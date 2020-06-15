@@ -57,7 +57,7 @@ Note that secondary windows open on the same buffer in the same tab page will
 not be protected, since foldmethod is a window-local option. Probably a 
 |:windo| command could also solve the issue in this case if desired.
 
-COMMENTS  *vwt-1651-comments*
+COMMENTS                                                   *vwt-1651-comments*
 
 With the above workaround, the slowdown is only deferred to the switch out of 
 insert mode, which can be considerable as well, for example when using syntax 

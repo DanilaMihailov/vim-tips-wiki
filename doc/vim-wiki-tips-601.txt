@@ -14,7 +14,7 @@ is written to generate a tags file for a custom requirement. This tip shows
 that such a program can allow Vim to jump to a particular line and column in 
 order to position the cursor on the wanted character.
 
-TAGS FORMAT  *vwt-601-tags-format*
+TAGS FORMAT                                              *vwt-601-tags-format*
 
 A tags file can be created with lines like the following (each line consists 
 of three fields, separated by tab characters, although spaces are used for 
@@ -29,7 +29,7 @@ These define two tags: tag first refers to file one.txt at line 12, column 34
 (where 1 is the first line and the first column). The last field is a search 
 pattern where \%12l identifies line 12 and \%34c identifies column 34.
 
-EXAMPLE  *vwt-601-example*
+EXAMPLE                                                      *vwt-601-example*
 
 Usually a language like Python would be used to generate a tags file, but Vim 
 script can do the job, although more slowly. To illustrate the process, the 
@@ -90,7 +90,7 @@ beginning of a word; \h is [A-Za-z_]; \w is [0-9A-Za-z_].
 
 The while 1 loop exits when no match occurs (p1 < 0).
 
-COMMENTS  *vwt-601-comments*
+COMMENTS                                                    *vwt-601-comments*
 
 For R, the format:
 

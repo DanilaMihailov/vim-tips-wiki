@@ -47,7 +47,7 @@ Example: If you have c:\root\Foo.cpp and c:\root\FooBar.cpp and you gave
 c:\root to find tool above, then doing :tj Foo<tab> will give you completion 
 for Foo.cpp and FooBar.cpp.
 
-COMMENTS  *vwt-1088-comments*
+COMMENTS                                                   *vwt-1088-comments*
 
 ctags does the same:
 

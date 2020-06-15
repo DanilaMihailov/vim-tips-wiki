@@ -14,7 +14,7 @@ substitute may be executed multiple times using :argdo (all files in argument
 list), or :bufdo (all buffers), or :tabdo (all tabs), :windo (all windows in 
 the current tab), or :cdo (all files listed in the quickfix list).
 
-ALL BUFFERS  *vwt-382-all-buffers*
+ALL BUFFERS                                              *vwt-382-all-buffers*
 
 The following performs a search and replace in all buffers (all those listed 
 with the :ls command):
@@ -52,14 +52,14 @@ files with bufdo!:
     :bufdo! %s/pattern/replace/ge
 < 
 
-ALL WINDOWS  *vwt-382-all-windows*
+ALL WINDOWS                                              *vwt-382-all-windows*
 
 If you are not dealing with a lot of files, it can be useful to display each 
 wanted file in its own window, then operate on each window. For example, after 
 opening multiple files with a shell command like gvim *.c, you could choose 
 which files you wanted to operate on like this:
 
-ALL FILES IN A TREE  *vwt-382-all-files-in-a-tree*
+ALL FILES IN A TREE                              *vwt-382-all-files-in-a-tree*
 
 Suppose all *.cpp and *.h files in the current directory need to be changed 
 (not subdirectories). One approach is to use the argument list (arglist):
@@ -71,7 +71,7 @@ directories):
 In the above, a forward slash was used in **/*.cpp. That works on all systems 
 (Unix and Windows). If wanted, a backslash can be used on Windows systems.
 
-REPLACING CURRENT WORD  *vwt-382-replacing-current-word*
+REPLACING CURRENT WORD                        *vwt-382-replacing-current-word*
 
 A common requirement is to replace the word under the cursor in a number of 
 files. Rather than automating the process, it is best to use Vim's procedures. 
@@ -113,7 +113,7 @@ contain special characters. If the cursor is on the word old_text, the search
 pattern will be \<old_text\> so that only instances of the whole word are 
 found.
 
-COMMENTS  *vwt-382-comments*
+COMMENTS                                                    *vwt-382-comments*
 
 Thank you so much. It was very very helpful and saved so much of my time.
 

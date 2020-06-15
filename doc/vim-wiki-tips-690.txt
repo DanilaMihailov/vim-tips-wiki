@@ -29,12 +29,12 @@ If you need to do this often, you can map a key to do it for you:
     nnoremap <F12> :e ++enc=utf-8<CR>
 <
 
-REFERENCES  *vwt-690-references*
+REFERENCES                                                *vwt-690-references*
     - :help |:edit| 
     - :help |++enc| 
 
 
-COMMENTS  *vwt-690-comments*
+COMMENTS                                                    *vwt-690-comments*
 
 In order for this tip to work, must be set to some value which allows both 
 charsets to be represented in memory. For instance to UTF-8, which is the 

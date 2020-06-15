@@ -23,7 +23,7 @@ tells Vim not to save the buffer, and places the cursor at the top. Since the
 buffer won't be saved, you may quit using :wqa when you're finished writing 
 the commit message.
 
-COMMENTS  *vwt-1282-comments*
+COMMENTS                                                   *vwt-1282-comments*
 
 See script#90 [https://www.vim.org/scripts/script.php?script_id=90] for VCS 
 integration with Vim.

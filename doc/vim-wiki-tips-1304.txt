@@ -23,7 +23,7 @@ thus making it imposible to just back to the end of the object and kill the
 closing tag. For large blocks of text using the visual select causes a 
 momentary flicker, but for smaller chunks of content it is not visible.
 
-COMMENTS  *vwt-1304-comments*
+COMMENTS                                                   *vwt-1304-comments*
 
 You could also use 'a>' blocks for that:
 

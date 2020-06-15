@@ -17,7 +17,7 @@ command so entering :S hello world finds "hello" followed by "world" separated
 by spaces or tabs or newlines, and :S! hello world allows any non-word 
 characters, including newlines, between the words.
 
-PATTERNS INCLUDING END-OF-LINE  *vwt-242-patterns-including-end-of-line*
+PATTERNS INCLUDING END-OF-LINE        *vwt-242-patterns-including-end-of-line*
 
 The search /^abcd finds abcd at the beginning of a line, and /abcd$ finds 
 abcd at the end of a line. However, in /abcd^efgh and /abcd$efgh the ^ and $ 
@@ -61,7 +61,7 @@ Finds abcdefgh or abcd followed by any characters then efgh.
 Finds a block of 0 to 18 lines enclosed by abcd and efgh.
 limiting the number of lines is important, replacing this by a star will cause vim to consume 100% CPU.
 
-SEARCHING FOR MULTILINE HTML COMMENTS  *vwt-242-searching-for-multiline-html-comments*
+SEARCHING FOR MULTILINE HTML COMMENTS *vwt-242-searching-for-multiline-html-comments*
 
 It is common for comments in HTML documents to span several lines:
 
@@ -88,7 +88,7 @@ may be slower (:help |:syn-sync|):
     :syntax sync fromstart
 <
 
-SEARCHING OVER MULTIPLE LINES  *vwt-242-searching-over-multiple-lines*
+SEARCHING OVER MULTIPLE LINES          *vwt-242-searching-over-multiple-lines*
 
 A pattern can find any specified characters, for example, [aeiou] matches 'a' 
 or 'e' or 'i' or 'o' or 'u'. In addition, Vim defines several character 
@@ -113,7 +113,7 @@ The above pattern (which is equivalent to hello\_A*world) matches
 "helloworld", and "hello? ... world", and similar strings, even if "hello" is 
 on one line and "world" is on a following line.
 
-SEARCHING OVER MULTIPLE LINES WITH A USER COMMAND  *vwt-242-searching-over-multiple-lines-with-a-user-command*
+SEARCHING OVER MULTIPLE LINES WITH A USER COMMAND *vwt-242-searching-over-multiple-lines-with-a-user-command*
 
 The script below defines the command :S that will search for a phrase, even 
 when the words are on different lines. Examples:
@@ -142,7 +142,7 @@ file searchmultiline.vim in your plugin directory):
     command! -bang -nargs=* -complete=tag S call SearchMultiLine(<bang>0, <f-args>)|normal! /<C-R>/<CR>
 <
 
-SEE ALSO  *vwt-242-see-also*
+SEE ALSO                                                    *vwt-242-see-also*
     - Searching [https://vim.fandom.com/wiki/Searching] how to search 
     - Search patterns [https://vim.fandom.com/wiki/Search_patterns] regex 
       information and examples 
@@ -151,10 +151,10 @@ SEE ALSO  *vwt-242-see-also*
       selected text; finds targets on multiple lines 
 
 
-REFERENCES  *vwt-242-references*
+REFERENCES                                                *vwt-242-references*
     - :help |pattern| 
 
 
-COMMENTS  *vwt-242-comments*
+COMMENTS                                                    *vwt-242-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -10,7 +10,7 @@ VisVim only works for old versions of Visual Studio. For using vim with
 modern versions of Visual Studio, see Integrate gvim with Visual Studio 
 [https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio].
 
-VISVIM FOR VISUAL STUDIO 5.0 AND 6.0  *vwt-946-visvim-for-visual-studio-5.0-and-6.0*
+VISVIM FOR VISUAL STUDIO 5.0 AND 6.0 *vwt-946-visvim-for-visual-studio-5.0-and-6.0*
     - The OLE version of gvim can be used as the editor in Visual Studio 5.0 and 
       6.0. This is called VisVim. :help |VisVim| 
     - The source code for Vim includes directory src/VisVim which allows building 
@@ -52,7 +52,7 @@ settings:
 Naturally, when you save a file in vim and then switch to VS.NET, VS.NET will 
 detect that you changed the file and ask to reload it. And vice-versa.
 
-NEW IMPLEMENTATION OF VISVIM  *vwt-946-new-implementation-of-visvim*
+NEW IMPLEMENTATION OF VISVIM            *vwt-946-new-implementation-of-visvim*
 
 These links are broken.
 
@@ -73,7 +73,7 @@ which works for VS.NET, please post the link here.
 
 Read README_VisVim.txt in a directory tree of your Vim for help.
 
-COMMENTS  *vwt-946-comments*
+COMMENTS                                                    *vwt-946-comments*
 
 I just noticed that it did install in VS 2003, but not in VS 2005. Any 
 direction would be appreciated.

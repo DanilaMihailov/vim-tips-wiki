@@ -139,7 +139,7 @@ your .vimrc):
     endfunction
 <
 
-NOTES  *vwt-434-notes*
+NOTES                                                          *vwt-434-notes*
 
 1. The strftime() function is not portable. You might need to change the 
 format specifier for your system. For example, on a Unix-like system, the 
@@ -202,7 +202,7 @@ thro' the quickfix window.
 
 8. You can define more such skeletons for other extentions.
 
-COMMENTS  *vwt-434-comments*
+COMMENTS                                                    *vwt-434-comments*
 
 If you liked this tip and code C/C++, I am pretty sure you would love C/C++ 
 IDE [https://www.vim.org/scripts/script.php?script_id=213]. It offers this 

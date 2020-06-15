@@ -31,7 +31,7 @@ The -f option is very important so Vim does not fork.
 You might also go to Compose tab and select Automatically launch an external 
 editor.
 
-COMMENTS  *vwt-590-comments*
+COMMENTS                                                    *vwt-590-comments*
 
 Are you sure about the "-f" flag ? So far, I've never seen this flag do 
 anything under Windows. That's why I use mutt compiled for cygwin with the 

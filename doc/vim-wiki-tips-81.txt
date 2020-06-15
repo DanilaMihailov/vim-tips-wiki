@@ -34,7 +34,7 @@ text "12x10" then press s followed by Ctrl-K *X to change the text to "12×10".
 If you need to substitute three lines of text, type 3S. Vim deletes the three 
 lines and enters insert mode, waiting for the subsitution text.
 
-COMMENTS  *vwt-81-comments*
+COMMENTS                                                     *vwt-81-comments*
 
 Of course, if you're lazy like me and you don't want to count that there are 
 7 characters that you want to replace, you could use the c command and use a 

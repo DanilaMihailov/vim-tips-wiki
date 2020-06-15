@@ -14,7 +14,7 @@ type :e my then press Tab, the "my" will be expanded to the next file name
 beginning with "my". This tip shows how to navigate directories by easily 
 removing components from the file name.
 
-REMOVING THE LAST PATH COMPONENT  *vwt-1594-removing-the-last-path-component*
+REMOVING THE LAST PATH COMPONENT   *vwt-1594-removing-the-last-path-component*
 
 In the command line, when a file name is expected, you can press Tab or 
 Shift-Tab for the next or previous file name. After starting file name 
@@ -86,19 +86,19 @@ removal only left of the cursor.
     cnoremap <C-BS> <C-\>e(<SID>RemoveLastPathComponent())<CR>
 <
 
-REFERENCES  *vwt-1594-references*
+REFERENCES                                               *vwt-1594-references*
     - :help |c_CTRL-N| 
     - :help |c_CTRL-P| 
     - :help |compl-filename| 
     - :help 'isfname' 
 
 
-RELATED PLUGINS  *vwt-1594-related-plugins*
+RELATED PLUGINS                                     *vwt-1594-related-plugins*
     - CmdlineSpecialEdits.vim 
       [https://www.vim.org/scripts/script.php?script_id=5865] has a CTRL-BS mapping 
       that has been inspired by this Wiki page 
 
 
-COMMENTS  *vwt-1594-comments*
+COMMENTS                                                   *vwt-1594-comments*
 
  vim:tw=78:et:ft=help:norl:

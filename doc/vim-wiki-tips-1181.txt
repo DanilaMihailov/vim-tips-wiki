@@ -25,11 +25,11 @@ Add to your vimrc:
     C:\>vim -d \path\to\vimfiles\colors\primitive.vim scp://user@my.host/path/to/.vim/colors/primitive.vim
 <
 
-REFERENCES  *vwt-1181-references*
+REFERENCES                                               *vwt-1181-references*
     - :help |scp| 
 
 
-COMMENTS  *vwt-1181-comments*
+COMMENTS                                                   *vwt-1181-comments*
 
 This doesn't seem to work for me because pscp seems to put the remote host 
 'foo@bar.com:/dir' in single quotes. Then the command line fails.

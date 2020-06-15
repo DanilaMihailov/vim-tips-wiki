@@ -30,7 +30,7 @@ pattern matching):
     :G <pattern> -- '*.c'
 <
 
-ADDITIONS  *vwt-1262-additions*
+ADDITIONS                                                 *vwt-1262-additions*
 
 The following addition will run git grep on the word under the cursor when 
 Ctrl+X G is pressed.
@@ -43,6 +43,6 @@ Ctrl+X G is pressed.
     nmap <C-x>G :call GitGrepWord()<CR>
 <
 
-COMMENTS  *vwt-1262-comments*
+COMMENTS                                                   *vwt-1262-comments*
 
  vim:tw=78:et:ft=help:norl:

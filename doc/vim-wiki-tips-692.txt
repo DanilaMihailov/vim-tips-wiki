@@ -17,7 +17,7 @@ press ctrl-b
     map <C-B> :!php -l %<CR>
 <
 
-COMMENTS  *vwt-692-comments*
+COMMENTS                                                    *vwt-692-comments*
     - phpErrorMarker.vim [https://www.vim.org/scripts/script.php?script_id=2794] 
       plugin implementing this tip 
     - checksyntax.vim [https://www.vim.org/scripts/script.php?script_id=1431] A 

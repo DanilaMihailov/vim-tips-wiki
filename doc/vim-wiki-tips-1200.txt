@@ -12,7 +12,7 @@ Open php.net's documentation with the word underneath the cursor
     noremap gd ! open [http://php.net/<cword><CR> http://php.net/<cword><CR>];
 <
 
-COMMENTS  *vwt-1200-comments*
+COMMENTS                                                   *vwt-1200-comments*
 
 I couldn't find a way to open the php manual in an already-open window except 
 by compiling Firefox myself. Instead I had to go with re-launching the browser 

@@ -49,7 +49,7 @@ current and alternate files into the buffer:
     :put =expand('#:p')
 <
 
-SEE ALSO  *vwt-530-see-also*
+SEE ALSO                                                    *vwt-530-see-also*
 
 Need to merge/clean.
     - 193 Insert current filename |vwt-193| 
@@ -58,13 +58,13 @@ Need to merge/clean.
     - 891 Copy parts of filename to clipboard |vwt-891| 
 
 
-REFERENCES  *vwt-530-references*
+REFERENCES                                                *vwt-530-references*
     - :help |registers| 
     - :help |expand()| 
     - :help |cmdline-special| 
 
 
-COMMENTS  *vwt-530-comments*
+COMMENTS                                                    *vwt-530-comments*
 
 If you need to insert other file names (say the *.h name in an #include), you 
 can do C-X+C-F for filename completion.

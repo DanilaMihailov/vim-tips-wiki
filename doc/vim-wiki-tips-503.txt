@@ -16,7 +16,7 @@ be run on the server, using PuTTY as the terminal.
 PuTTY acts as an xterm. Check your settings or just echo $TERM at the command 
 prompt on most Unix systems to verify the xterm type.
 
-USING THE NUMERIC KEYPAD  *vwt-503-using-the-numeric-keypad*
+USING THE NUMERIC KEYPAD                    *vwt-503-using-the-numeric-keypad*
 
 Why do letters show up when I try to enter numbers from the keypad? Why 
 doesn't the numpad work as expected? Why does the NumLock key bring up 
@@ -46,14 +46,14 @@ keypad (including NumLock), causes an escape sequence
 following characters will cause many confusing things to occur in your Vim 
 session.
 
-SEE ALSO  *vwt-503-see-also*
+SEE ALSO                                                    *vwt-503-see-also*
     - Invert the number row keys for faster typing 
       [https://vim.fandom.com/wiki/Invert_the_number_row_keys_for_faster_typing] 
     - VimLock mode to enter numbers 
       [https://vim.fandom.com/wiki/VimLock_mode_to_enter_numbers] 
 
 
-COMMENTS  *vwt-503-comments*
+COMMENTS                                                    *vwt-503-comments*
 
 May rename this tip so any information relevant to using PuTTY can be placed 
 here.

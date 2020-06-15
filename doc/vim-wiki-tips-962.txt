@@ -76,7 +76,7 @@ I have these line in my vimrc file:
     execute expand('set backupdir=' . g:this_backup_dir)
 <
 
-COMMENTS  *vwt-962-comments*
+COMMENTS                                                    *vwt-962-comments*
 
 Found first bug: Error occurs when you open a file with a space in either the 
 directory or the filename.

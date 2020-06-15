@@ -11,7 +11,7 @@ pattern you last searched for. Or, just type g/pattern/ to display all lines
 containing pattern. This tip shows how to capture the result (the list of all 
 lines that contain the pattern).
 
-USER COMMAND  *vwt-1063-user-command*
+USER COMMAND                                           *vwt-1063-user-command*
 
 The following addition for your vimrc [https://vim.fandom.com/wiki/Vimrc] 
 defines the :Filter command:
@@ -36,7 +36,7 @@ blank line in the scratch buffer (put! a). When :g/pattern/ is used, all
 following text is taken as a command to be executed on matching lines. Since 
 only y A is wanted, the execute command is used as it stops at the bar.
 
-REDIRECTING OUTPUT  *vwt-1063-redirecting-output*
+REDIRECTING OUTPUT                               *vwt-1063-redirecting-output*
 
 This mapping shows an alternative method using redirection. Put the following 
 in your vimrc [https://vim.fandom.com/wiki/Vimrc]. Then, when you are 
@@ -65,12 +65,12 @@ temporary copy of matches for several different patterns.
     nnoremap <silent> <F4> :redir >>matches.tmp<CR>:g//<CR>:redir END<CR>:new matches.tmp<CR>
 <
 
-SEE ALSO  *vwt-1063-see-also*
+SEE ALSO                                                   *vwt-1063-see-also*
     - Power of g |vwt-227| for more on the :g// command 
     - Copy the search results into clipboard |vwt-478| for other methods to capture 
       search hits 
 
 
-COMMENTS  *vwt-1063-comments*
+COMMENTS                                                   *vwt-1063-comments*
 
  vim:tw=78:et:ft=help:norl:

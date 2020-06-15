@@ -91,7 +91,7 @@ $VIM/vimfiles/plugin/matchit.vim:
     close
 <
 
-REFERENCES  *vwt-848-references*
+REFERENCES                                                *vwt-848-references*
     - :help |$VIM| 
     - :help |$VIMRUNTIME| 
     - :help |v:version| 
@@ -99,14 +99,14 @@ REFERENCES  *vwt-848-references*
     - :help |:helptags| 
 
 
-SIMILAR TIP  *vwt-848-similar-tip*
+SIMILAR TIP                                              *vwt-848-similar-tip*
     - Maintain multiple versions of gvim in Windows 
       [https://vim.fandom.com/wiki/Maintain_multiple_versions_of_gvim_in_Windows] 
 
 
 The philosophy is different: the present tip applies to any OS: it relies on naming one version the "default" and having it in the PATH; other versions must be invoked with an explicit path. The tip named above is only for recent versions of Windows, naming an alternative to Unix's long-established soft links, and tells you how to change the default between a number of installed versions.
 
-COMMENTS  *vwt-848-comments*
+COMMENTS                                                    *vwt-848-comments*
 
 Actually, the current matchit plugin and help for 6.3 and 7.0aa are 
 identical, so if that's the ones you have, there is no need for "fancy 

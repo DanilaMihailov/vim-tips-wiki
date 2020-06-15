@@ -9,7 +9,7 @@ created 2001 · complexity basic · version 6.0
 TODO Outline what is needed in vimrc to enable syntax folding with standard 
 filetype plugin, and what this tip does.
 
-USING MARKERS TO SPECIFY FOLDS  *vwt-304-using-markers-to-specify-folds*
+USING MARKERS TO SPECIFY FOLDS        *vwt-304-using-markers-to-specify-folds*
 
 The fold-method marker can be used to set folds in Java source. Define a 
 marker and place it inside HTML comments <!-- xx -->. This way, it does not 
@@ -56,7 +56,7 @@ Try the following to fold on /* */ if editing source that is overcommented:
     autocmd FileType java :set fmr=/**,*/ fdm=marker fdc=1
 <
 
-FROM 201110 SYNTAX FOLD FOR JAVA [HTTPS://VIM.FANDOM.COM/WIKI/SYNTAX_FOLD_FOR_JAVA]  *vwt-304-from-201110-syntax-fold-for-java-[https://vim.fandom.com/wiki/syntax_fold_for_java]*
+FROM 201110 SYNTAX FOLD FOR JAVA [HTTPS://VIM.FANDOM.COM/WIKI/SYNTAX_FOLD_FOR_JAVA] *vwt-304-from-201110-syntax-fold-for-java-[https://vim.fandom.com/wiki/syntax_fold_for_java]*
 
 TODO: Make this the main tip.
 
@@ -69,7 +69,7 @@ Java code in a more appealing way. Note, however, that it depends on good
 indentation style to work. If your file is poorly indented, the folding will 
 not be correct.
 
-SYNTAX FILE  *vwt-304-syntax-file*
+SYNTAX FILE                                              *vwt-304-syntax-file*
 
 The following will fold all methods in a Java program. The enum syn region is 
 not perfect, but it's workable. Annotations are included in the fold, which 
@@ -112,7 +112,7 @@ I've had more luck with this:
 
 --August 3, 2015
 
-FROM 304 FOLD BRACES AND JAVADOC [HTTPS://VIM.FANDOM.COM/WIKI/FOLD_BRACES_AND_JAVADOC]  *vwt-304-from-304-fold-braces-and-javadoc-[https://vim.fandom.com/wiki/fold_braces_and_javadoc]*
+FROM 304 FOLD BRACES AND JAVADOC [HTTPS://VIM.FANDOM.COM/WIKI/FOLD_BRACES_AND_JAVADOC] *vwt-304-from-304-fold-braces-and-javadoc-[https://vim.fandom.com/wiki/fold_braces_and_javadoc]*
 
 If you would like to have javadoc folded together with areas in braces try:
 
@@ -158,7 +158,7 @@ Notably the \n in the start of foldImports and the redefinition of
 javaExternal (so that import will match) seem quite nasty. If you have a 
 better solution for this, please share them here.
 
-COPY FROM 1150 JAVA/C/C++ FOLDING [HTTPS://VIM.FANDOM.COM/WIKI/JAVA/C/C%2B%2B_FOLDING]  *vwt-304-copy-from-1150-java/c/c++-folding-[https://vim.fandom.com/wiki/java/c/c%2b%2b_folding]*
+COPY FROM 1150 JAVA/C/C++ FOLDING [HTTPS://VIM.FANDOM.COM/WIKI/JAVA/C/C%2B%2B_FOLDING] *vwt-304-copy-from-1150-java/c/c++-folding-[https://vim.fandom.com/wiki/java/c/c%2b%2b_folding]*
 
 Here are some functions I use to fold Java code. They are probably easily 
 applicable to C/C++ code also:
@@ -361,11 +361,11 @@ it possible, because its a bit more bruteforce.
     nmap <space> :call ToggleFold()<CR>"
 <
 
-SEE ALSO  *vwt-304-see-also*
+SEE ALSO                                                    *vwt-304-see-also*
     - Customize text for closed folds 
       [https://vim.fandom.com/wiki/Customize_text_for_closed_folds] 
 
 
-COMMENTS  *vwt-304-comments*
+COMMENTS                                                    *vwt-304-comments*
 
  vim:tw=78:et:ft=help:norl:

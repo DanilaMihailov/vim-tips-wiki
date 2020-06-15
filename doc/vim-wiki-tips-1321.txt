@@ -23,11 +23,11 @@ beneath your vimruntime path.
 
 It works even if the cursor is not on the "#region" keyword.
 
-REFERENCES  *vwt-1321-references*
+REFERENCES                                               *vwt-1321-references*
     - :help 'matchpairs' 
 
 
-COMMENTS  *vwt-1321-comments*
+COMMENTS                                                   *vwt-1321-comments*
 
 And copy the "matchit.vim" file from your macros folder to plugin folder for 
 it to automatically load everytime a window opens.

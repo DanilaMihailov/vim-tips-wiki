@@ -18,7 +18,7 @@ can read the other two parts from the following pages:
 
 
 
-USING MAPS IN VIM PLUGINS AND SCRIPTS  *vwt-1556-using-maps-in-vim-plugins-and-scripts*
+USING MAPS IN VIM PLUGINS AND SCRIPTS *vwt-1556-using-maps-in-vim-plugins-and-scripts*
 
 A Vim plugin or script can define new key maps to let the user invoke the 
 commands and functions provided by the plugin. A Vim plugin can also invoke 
@@ -63,7 +63,7 @@ advisable not to alter user Vim option settings, register contents and marks.
 Otherwise, the user will be surprised to see that some options are changed 
 after invoking a plugin provided map.
 
-MAP LEADER  *vwt-1556-map-leader*
+MAP LEADER                                               *vwt-1556-map-leader*
 
 If the key maps provided by all the Vim plugins start with a same key, then 
 it is easier for a user to distinguish between their own key maps and the ones 
@@ -108,7 +108,7 @@ The 'mapleader' and 'maplocalleader' variables allow the user to choose
 different keys as starting keys for global mappings and buffer-local mappings 
 defined by Vim plugins.
 
-SCRIPT MAPS  *vwt-1556-script-maps*
+SCRIPT MAPS                                             *vwt-1556-script-maps*
 
 If you want to use recursive maps in your map command, but want to use only 
 those keys mapped in your script or plugin, then you can use the <script> 
@@ -129,7 +129,7 @@ If you use the <script> attribute with a ":noremap" command, then the
 still scanned for script-local key mappings. But the maps defined outside of 
 the script are not used.
 
-UNIQUE MAPS  *vwt-1556-unique-maps*
+UNIQUE MAPS                                             *vwt-1556-unique-maps*
 
 If you want to make sure that the mapped key is unique and doesn't interfere 
 with other existing mappings, use the <unique> map attribute. This attribute 
@@ -143,7 +143,7 @@ with the <unique> attribute will fail if the specified key is already mapped.
 The above command will fail, if the user already has a mapping for the "\s" 
 key sequence.
 
-USE OF <PLUG>  *vwt-1556-use-of-<plug>*
+USE OF <PLUG>                                         *vwt-1556-use-of-<plug>*
 
 If you are developing a Vim plugin or script and you want to provide the user 
 with the flexibility of assigning their own key map to invoke a function 
@@ -171,12 +171,12 @@ as shown below:
 
 
 
-MAP RELATED FUNCTIONS  *vwt-1556-map-related-functions*
+MAP RELATED FUNCTIONS                         *vwt-1556-map-related-functions*
 
 Vim provides built-in functions to check whether a key sequence is mapped or 
 notand to get the mapped key sequence.
 
-MAPARG()  *vwt-1556-maparg()*
+MAPARG()                                                   *vwt-1556-maparg()*
 
 To get the {rhs} of a map command from a script or plugin, use the maparg() 
 function. For example, consider the following commands:
@@ -207,7 +207,7 @@ lose the existing map (if any) for <Tab>. Then you can do the following:
 The above command maps <Tab> to invoke the == command and then invoke the 
 existing map for <Tab> in normal mode.
 
-MAPCHECK()  *vwt-1556-mapcheck()*
+MAPCHECK()                                               *vwt-1556-mapcheck()*
 
 To check whether a map is defined for a key sequence, you can use the 
 mapcheck() function. Example:
@@ -216,7 +216,7 @@ mapcheck() function. Example:
     :echo mapcheck(';g', 'n')
 <
 
-MODE()  *vwt-1556-mode()*
+MODE()                                                       *vwt-1556-mode()*
 
 In a map command, you can use the mode() Vim function to get the current 
 editing mode. But this function returns 'n' (normal) or 'c (command-line) in 
@@ -232,7 +232,7 @@ modes in the function, then you can do the following:
     :vnoremap _g :<C-U>call Somefunc('v')<CR>
 <
 
-HASMAPTO()  *vwt-1556-hasmapto()*
+HASMAPTO()                                               *vwt-1556-hasmapto()*
 
 To check whether a map is defined for a particular key sequence, you can use 
 the hasmapto() function. Note that this function checks for the key sequence 
@@ -256,7 +256,7 @@ you to check whether a map definition exists in a particular mode.
     endif
 <
 
-COMMENTS  *vwt-1556-comments*
+COMMENTS                                                   *vwt-1556-comments*
 
 Great series, thanks! One question: Suppose I have a plugin that remaps <C-\> 
 and another plugin that calls <C-\><C-o> to execute a normal mode command in 

@@ -112,7 +112,7 @@ If you want to combine several statements in a single line, use '|'.
 
 ';' is required in C, and optional in bash for each statement in a line.
 
-REFERENCES  *vwt-32-references*
+REFERENCES                                                 *vwt-32-references*
     - :help |:function| 
     - :help |a:1| 
     - :help |expression| 
@@ -127,6 +127,6 @@ See also
       [https://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/VimL_Script_language] 
 
 
-COMMENTS  *vwt-32-comments*
+COMMENTS                                                     *vwt-32-comments*
 
  vim:tw=78:et:ft=help:norl:

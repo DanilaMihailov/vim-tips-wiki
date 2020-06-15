@@ -81,13 +81,13 @@ from, instead of after it is written to, but I am not sure how to do that now.
 Also, the split window between sqlplus.log and afiedt.buf would be nice to 
 have.
 
-REFERENCES  *vwt-1092-references*
+REFERENCES                                               *vwt-1092-references*
     - :help |:function| 
     - :help |:au| 
     - :help |BufWrite| 
     - :help |gui-fork| 
 
 
-COMMENTS  *vwt-1092-comments*
+COMMENTS                                                   *vwt-1092-comments*
 
  vim:tw=78:et:ft=help:norl:

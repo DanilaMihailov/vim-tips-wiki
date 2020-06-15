@@ -48,7 +48,7 @@ use commands:
     :%s/\(\s\+\)\(\S\+\)/<td>\2<\/td>/g
 <
 
-COMMENTS  *vwt-1319-comments*
+COMMENTS                                                   *vwt-1319-comments*
 
 >
     :%s,\(\d\+\),<td>\1</td>,g

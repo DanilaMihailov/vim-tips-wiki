@@ -17,12 +17,12 @@ Here's a technique. Place the cursor on the character, then:
     /<C-R><C-R>" # pull unnamed buffer contents onto search (that's two presses of Control-R)
 <
 
-REFERENCES  *vwt-791-references*
+REFERENCES                                                *vwt-791-references*
     - :help |ga| 
     - :help |c_CTRL-R| 
 
 
-COMMENTS  *vwt-791-comments*
+COMMENTS                                                    *vwt-791-comments*
 
 See file format [https://vim.fandom.com/wiki/File_format] for more details if 
 the character in question is a Carriage Return (^M or \r).
@@ -37,7 +37,7 @@ For cleaning up win/dos text files for *nix, there's dos2unix (aka fromdos).
 
 ==============================================================================
 
-SEE ALSO:  *vwt-791-see-also:*
+SEE ALSO:                                                  *vwt-791-see-also:*
     - :help |i_CTRL-V_digit| (which applies also on the command-line, 
       notwithstanding its i_ initial) about additional ways to enter a character by 
       its hex value (below 0x100: by its hex, decimal, or octal value) 

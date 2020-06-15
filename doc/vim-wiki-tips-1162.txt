@@ -16,9 +16,9 @@ workarounds; this tip needs updating to reflect the new method.
 This tip discusses methods to automatically add closing characters (such as 
 adding "}" after typing "{").
 
-A SIMPLE SOLUTION  *vwt-1162-a-simple-solution*
+A SIMPLE SOLUTION                                 *vwt-1162-a-simple-solution*
 
-BASIC PAIR COMPLETION  *vwt-1162-basic-pair-completion*
+BASIC PAIR COMPLETION                         *vwt-1162-basic-pair-completion*
 
 Using the following mappings, when you type an open brace, a closing brace is 
 automatically inserted on the same line after the cursor. If you quickly press 
@@ -41,7 +41,7 @@ after using these mappings and inserting more text between the braces,
 pressing u will only undo the text inserted between the braces. Similarly, 
 pressing . (repeat) will only insert the same text.
 
-SKIPPING OVER THE CLOSING CHARACTER  *vwt-1162-skipping-over-the-closing-character*
+SKIPPING OVER THE CLOSING CHARACTER *vwt-1162-skipping-over-the-closing-character*
 
 Similar mappings for other "paired" characters can be made from the above 
 with trivial modifications, but characters like brackets and parentheses which 
@@ -75,9 +75,9 @@ single quotes instead of only one.
 Note that like the insertion of the closing character, skipping the closing 
 character in this way will break your undo sequence.
 
-EXPANDING THE SIMPLE SOLUTION  *vwt-1162-expanding-the-simple-solution*
+EXPANDING THE SIMPLE SOLUTION         *vwt-1162-expanding-the-simple-solution*
 
-MORE ON UNDO/REDO/REPEAT  *vwt-1162-more-on-undo/redo/repeat*
+MORE ON UNDO/REDO/REPEAT                   *vwt-1162-more-on-undo/redo/repeat*
 
 Without interrupting the undo/redo/repeat sequence, there is not an easy way 
 to move the cursor in insert mode or to insert text without moving the cursor. 
@@ -133,7 +133,7 @@ undo sequence, you should consider one of the plugins |vwt-1162-plugins| which
 has implemented this already, but you will also need to stick with Vim 7.3 or 
 earlier.
 
-ADD THE CLOSING BRACE ONLY AT THE END OF THE LINE  *vwt-1162-add-the-closing-brace-only-at-the-end-of-the-line*
+ADD THE CLOSING BRACE ONLY AT THE END OF THE LINE *vwt-1162-add-the-closing-brace-only-at-the-end-of-the-line*
 
 Automatically inserting closing braces can be confusing when editing text. 
 The following function inserts the closing brace only when the cursor is at 
@@ -155,7 +155,7 @@ your way, although that might be a question of personal preference.
     inoremap <expr> [ ConditionalPairMap('[', ']')
 <
 
-MANAGING PAIRED CHARACTER SEQUENCES  *vwt-1162-managing-paired-character-sequences*
+MANAGING PAIRED CHARACTER SEQUENCES *vwt-1162-managing-paired-character-sequences*
 
 For adding multiple-character pairs such as C-style comments, you may want to 
 find another way to prevent the mapping from taking effect, such as typing the 
@@ -182,12 +182,12 @@ files. For example, this quote-completer for GNU M4 might live in
     inoremap `'     `'
 <
 
-MORE ADVANCED SOLUTIONS  *vwt-1162-more-advanced-solutions*
+MORE ADVANCED SOLUTIONS                     *vwt-1162-more-advanced-solutions*
 
 If you want something more complex and configurable, there are a number of 
 different scripts that accomplish this task.
 
-PLUGINS  *vwt-1162-plugins*
+PLUGINS                                                     *vwt-1162-plugins*
 
 The auto-insertion of matching brackets is provided by these plugins:
     - delimitMate by Israel Chauca Fuentes 
@@ -239,7 +239,7 @@ The auto-insertion of matching brackets is provided by these plugins:
       insert-mode command will still break the undo sequence. 
 
 
-REPLACECURLY SCRIPT  *vwt-1162-replacecurly-script*
+REPLACECURLY SCRIPT                             *vwt-1162-replacecurly-script*
 
 This script operates only on braces, but is smarter about detecting when it 
 should act. It will not take effect when editing comments, strings and lines 
@@ -270,7 +270,7 @@ string[] myArray = new string[] {"a", "b"}.)
     vmap <Leader>{} <Esc>o{<Esc>ddgv>gvdp
 <
 
-BACKWARDS-COMPATIBLE CLOSING BRACE SKIP  *vwt-1162-backwards-compatible-closing-brace-skip*
+BACKWARDS-COMPATIBLE CLOSING BRACE SKIP *vwt-1162-backwards-compatible-closing-brace-skip*
 
 If you need a solution for inserting a closing brace automatically in a 
 pre-7.0 Vim, you can slightly modify the <expr> mapping given above 
@@ -285,13 +285,13 @@ Note that we needed to treat the "\<Right>" text differently so that it is
 expanded when the expression register is evaluated instead of when the mapping 
 is executed.
 
-SEE ALSO  *vwt-1162-see-also*
+SEE ALSO                                                   *vwt-1162-see-also*
     - Auto closing an HTML tag 
       [https://vim.fandom.com/wiki/Auto_closing_an_HTML_tag] using omni completion 
       to auto complete tags 
 
 
-COMMENTS  *vwt-1162-comments*
+COMMENTS                                                   *vwt-1162-comments*
 
 20150813: Tested on Debian Unstable with Vim 7.4.712 -> Works perfect!
 

@@ -9,7 +9,7 @@ created 2006 · complexity basic · author Mark Woodward · version 5.7
 It is possible to paste the contents of any register into the current buffer 
 or command-line.
 
-IN NORMAL AND VISUAL MODES  *vwt-1303-in-normal-and-visual-modes*
+IN NORMAL AND VISUAL MODES               *vwt-1303-in-normal-and-visual-modes*
 
 In normal and visual modes, "xp pastes the contents of the register x.
 
@@ -18,7 +18,7 @@ of the clipboard, "/p pastes the last search, and ":p pastes the last command.
 For example, you might want to save a complex search and replace (:%s///g) 
 that you have just used, which you can do by pasting with ":p.
 
-IN INSERT AND COMMAND-LINE MODES  *vwt-1303-in-insert-and-command-line-modes*
+IN INSERT AND COMMAND-LINE MODES   *vwt-1303-in-insert-and-command-line-modes*
 
 In insert and command-line modes, you can use <C-R> to paste the contents of 
 a register (:help |i_CTRL-R|). In particular, <C-R>" pastes from the default 
@@ -87,11 +87,11 @@ Even with the above mappings, the default behavior can still be retrieved by
 waiting a moment after typing <C-R> (so that Vim gives up on trying to use the 
 custom mapping).
 
-REFERENCES  *vwt-1303-references*
+REFERENCES                                               *vwt-1303-references*
     - :help |c_CTRL-R| 
 
 
-COMMENTS  *vwt-1303-comments*
+COMMENTS                                                   *vwt-1303-comments*
 
 This illustrates the hijacking point. Executing the following puts some text 
 in the a register.

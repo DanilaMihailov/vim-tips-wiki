@@ -77,7 +77,7 @@ maps, etc) using the following commands:
     :xmap         - visual mode maps only
 <
 
-NOTES  *vwt-1522-notes*
+NOTES                                                         *vwt-1522-notes*
 
 Additional information is available to a Vim script. For example, :help 
 |tabpagebuflist()| shows how to list all buffers in all tabs.
@@ -86,6 +86,6 @@ A script called bugreport.vim is provided with Vim. When run, the script
 produces a file with information about Vim's environment. To see the script, 
 use the command :view $VIMRUNTIME/bugreport.vim in Vim.
 
-COMMENTS  *vwt-1522-comments*
+COMMENTS                                                   *vwt-1522-comments*
 
  vim:tw=78:et:ft=help:norl:

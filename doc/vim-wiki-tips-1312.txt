@@ -56,11 +56,11 @@ colorscheme that supports 256 colors like desert256
 [https://www.vim.org/scripts/script.php?script_id=3062], or gardener 
 [https://www.vim.org/scripts/script.php?script_id=1348].
 
-REFERENCES  *vwt-1312-references*
+REFERENCES                                               *vwt-1312-references*
     - :help |xterm-color| 
 
 
-SEE ALSO  *vwt-1312-see-also*
+SEE ALSO                                                   *vwt-1312-see-also*
     - colorschemedegrade script 
       [http://www.cs.drexel.edu/~mjw452/colorschemedegrade.tar.gz], converts any 
       GUI-only colorscheme to 256 colors; GUI version of VIM is required. 
@@ -69,7 +69,7 @@ SEE ALSO  *vwt-1312-see-also*
       to list available color names and numbers 
 
 
-COMMENTS  *vwt-1312-comments*
+COMMENTS                                                   *vwt-1312-comments*
 
 Setting $TERM in the shell profile is generally a bad idea, since you may 
 wish to use different terminals. It is preferable to add it to .Xdefaults (or 

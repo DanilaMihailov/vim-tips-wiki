@@ -40,7 +40,7 @@ that Vim's automatic mechanisms will recognise the file as Latin1.
 See also Working with Unicode 
 [https://vim.fandom.com/wiki/Working_with_Unicode].
 
-COMMENTS  *vwt-1288-comments*
+COMMENTS                                                   *vwt-1288-comments*
 
 If the purpose is to ensure the loader fails to match it UTF-8, why not just 
 put something like #£ in the file. Why bother with the pseudo-modeline?

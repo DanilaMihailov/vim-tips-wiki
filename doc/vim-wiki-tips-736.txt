@@ -39,7 +39,7 @@ time. This is a function that is called each time the statusline is drawn. It
 passes in the value of the variable fileformat, used locally in the function 
 above via the a:var variable.
 
-REFERENCES  *vwt-736-references*
+REFERENCES                                                *vwt-736-references*
     - Change end-of-line format for dos-mac-unix |vwt-26| 
     - Show fileencoding and bomb in the status line |vwt-735| 
     - :help 'statusline' 
@@ -51,7 +51,7 @@ A wiki page that speaks to Vim's auto-detection of fileformat is located at
 http://www.vi-improved.org/wiki/index.php/FileFormat 
 [http://www.vi-improved.org/wiki/index.php/FileFormat]
 
-COMMENTS  *vwt-736-comments*
+COMMENTS                                                    *vwt-736-comments*
 
 I use a more neutral function since I move back and forth between Linux and 
 Win32. I keep the same vimrc, and this function adapts to the system I'm 
@@ -122,7 +122,7 @@ simulate 'ruler':
 
 ==============================================================================
 
-COMMENTS FROM TIP 26  *vwt-736-comments-from-tip-26*
+COMMENTS FROM TIP 26                            *vwt-736-comments-from-tip-26*
 
 The following comments were originally from Change end-of-line format for 
 dos-mac-unix 

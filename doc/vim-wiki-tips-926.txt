@@ -47,7 +47,7 @@ Other web browsers may work too.
     print sort @mytaglist;
 <
 
-COMMENTS  *vwt-926-comments*That's how I changed it to use Firefox and close the HTML itself. Although I don't like it that much as now always when I edit an HTML file it will be closed right away... 
+COMMENTS                                                    *vwt-926-comments*That's how I changed it to use Firefox and close the HTML itself. Although I don't like it that much as now always when I edit an HTML file it will be closed right away... 
 
 >
     autocmd FileType html :silent execute '!start C:\Programme\Mozilla Firefox\firefox.exe "%:p" ' | bd

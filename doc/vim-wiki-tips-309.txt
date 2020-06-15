@@ -44,7 +44,7 @@ editing. Vim provides little feedback as to the success or failure of what
 you're trying to do remotely. Nonetheless, it's clearly a useful feature to 
 have available.
 
-COMMENTS  *vwt-309-comments*
+COMMENTS                                                    *vwt-309-comments*
 
 To get better feedback you can use the :redir command to redirect messages to 
 a file, like this:

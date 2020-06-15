@@ -17,7 +17,7 @@ create an icon using a tool such as Netpbm
 provided that highlight the source text file to give WYSIWYG editing (the 
 screen shows how the icon will appear while the text is edited).
 
-PROCEDURE  *vwt-1629-procedure*
+PROCEDURE                                                 *vwt-1629-procedure*
 
 As a simple example, an icon for a Swedish flag will be created. Make a file 
 called flag.txt containing the following (the letters following "data" define 
@@ -107,7 +107,7 @@ using:
     ppmtowinicon -output=flag.ico flag.ppm
 <
 
-WYSIWYG EDITING  *vwt-1629-wysiwyg-editing*
+WYSIWYG EDITING                                     *vwt-1629-wysiwyg-editing*
 
 Edit file flag.txt and enter the following commands:
 
@@ -135,7 +135,7 @@ To clear the highlighting, enter:
     :syntax clear
 <
 
-WYSIWYG EDITING WITH FULL-FEATURED SYNTAX FILE  *vwt-1629-wysiwyg-editing-with-full-featured-syntax-file*
+WYSIWYG EDITING WITH FULL-FEATURED SYNTAX FILE *vwt-1629-wysiwyg-editing-with-full-featured-syntax-file*
 
 An alternative to the above simple syntax commands would be to source the 
 following syntax script while editing flag.txt:
@@ -205,12 +205,12 @@ following syntax script while editing flag.txt:
     let b:current_syntax = "ppm"
 <
 
-SEE ALSO  *vwt-1629-see-also*
+SEE ALSO                                                   *vwt-1629-see-also*
     - Larger example 
       [http://www.aswedeingermany.de/50MetaInformation/50Favicon.html] using a bash 
       script, with screen shots 
 
 
-COMMENTS  *vwt-1629-comments*
+COMMENTS                                                   *vwt-1629-comments*
 
  vim:tw=78:et:ft=help:norl:

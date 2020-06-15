@@ -19,7 +19,7 @@ You'll also find relevant information at:
     - :help <Char> |&lt;Char&gt;| 
 
 
-HOW TO NAME THE FILE AND WHERE TO PLACE IT  *vwt-619-how-to-name-the-file-and-where-to-place-it*
+HOW TO NAME THE FILE AND WHERE TO PLACE IT *vwt-619-how-to-name-the-file-and-where-to-place-it*
 
 Keymaps reside in the "keymap" subdirectory of the directories named in 
 'runtimepath'. Their names are of one of the forms:
@@ -38,11 +38,11 @@ directory named earlier than $VIMRUNTIME in 'runtimepath', so yours will be
 found first (but in the latter case you won't be able to use the default 
 keymap of the same name). Create the needed directory if it doesn't exist yet.
 
-WHAT A KEYMAP CONSISTS OF  *vwt-619-what-a-keymap-consists-of*
+WHAT A KEYMAP CONSISTS OF                  *vwt-619-what-a-keymap-consists-of*
 
 A keymap consists of three parts:
 
-FIRST PART OF A KEYMAP: THE VIM SCRIPT  *vwt-619-first-part-of-a-keymap:-the-vim-script*
+FIRST PART OF A KEYMAP: THE VIM SCRIPT *vwt-619-first-part-of-a-keymap:-the-vim-script*
 
 This may contain any Ex-commands and Vim comments germane to the use of the 
 keymap. In particular, the following Ex-commands are useful:
@@ -75,13 +75,13 @@ windows of a single Vim instance, but not different language cursor colors,
 unless you set up an autocommand to change the lCursor highlight at the 
 WinEnter event. (How to make that work is outside the scope of this HowTo.)
 
-SECOND PART: THE LOADKEYMAP |:LOADKEYMAP| COMMAND  *vwt-619-second-part:-the-loadkeymap-|:loadkeymap|-command*
+SECOND PART: THE LOADKEYMAP |:LOADKEYMAP| COMMAND *vwt-619-second-part:-the-loadkeymap-|:loadkeymap|-command*
 
 This is just to tell Vim that whatever comes after, to the end of the file, 
 is a series of language-mappings, in a special format which will be described 
 hereafter.
 
-THIRD PART: THE MAPPINGS THEMSELVES  *vwt-619-third-part:-the-mappings-themselves*
+THIRD PART: THE MAPPINGS THEMSELVES *vwt-619-third-part:-the-mappings-themselves*
 
 Each key mapping line consists of three parts; the optional third one may 
 contain spaces but not the first two:
@@ -125,6 +125,6 @@ may also be used, but of course only as far as the target permits: e.g. in
 The [comment] is the easiest: it's for the human reader of the keymap, not 
 for Vim.
 
-COMMENTS  *vwt-619-comments*
+COMMENTS                                                    *vwt-619-comments*
 
  vim:tw=78:et:ft=help:norl:

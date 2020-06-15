@@ -28,7 +28,7 @@ Then, if you open again the file with tabstop=2, the file will look as before
 but it will be smaller. If you open the file with tabstop=4, the code vill 
 have a more indented look, and so on...
 
-COMMENTS  *vwt-247-comments*
+COMMENTS                                                    *vwt-247-comments*
 
 But what if you have two spaces somewhere in your code where it belongs 
 (like, in a textstring or so)? I think you'd better unindent by removing all 

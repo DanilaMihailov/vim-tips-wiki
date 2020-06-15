@@ -20,7 +20,7 @@ Once the file is reloaded, your edits prior to the reload are lost (you
 cannot undo past the reload). Following is an alternative procedure so you can 
 reload and keep your undo list.
 
-RELOAD  *vwt-1627-reload*
+RELOAD                                                       *vwt-1627-reload*
 
 The following line (which you could add to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]) defines a :Reload command that replaces 
@@ -43,7 +43,7 @@ command fails for some reason (for example, if you forgot that you are editing
 a new file or a new buffer with no file), you will be left with a blank 
 screen. You should be able to paste the deleted text by pressing p.
 
-COMMENTS  *vwt-1627-comments*
+COMMENTS                                                   *vwt-1627-comments*
 
 After :Reload, the buffer will be marked as modified. If wanted, the command 
 :set nomodified could be added.

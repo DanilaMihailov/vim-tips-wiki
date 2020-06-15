@@ -32,21 +32,21 @@ capabilities will differ. It is probably better to use the built-in Vim sort
 unless you are looking for a specific feature of the external sort (or using 
 an old Vim without the :sort command).
 
-EXAMPLES  *vwt-1166-examples*
+EXAMPLES                                                   *vwt-1166-examples*
 
-SORT IN REVERSE  *vwt-1166-sort-in-reverse*
+SORT IN REVERSE                                     *vwt-1166-sort-in-reverse*
 
 >
     :%sort!
 <
 
-SORT, REMOVING DUPLICATE LINES  *vwt-1166-sort,-removing-duplicate-lines*
+SORT, REMOVING DUPLICATE LINES       *vwt-1166-sort,-removing-duplicate-lines*
 
 >
     :%sort u
 <
 
-SORT USING THE EXTERNAL UNIX SORT UTILITY, RESPECTING MONTH-NAME ORDER  *vwt-1166-sort-using-the-external-unix-sort-utility,-respecting-month-name-order*
+SORT USING THE EXTERNAL UNIX SORT UTILITY, RESPECTING MONTH-NAME ORDER *vwt-1166-sort-using-the-external-unix-sort-utility,-respecting-month-name-order*
 
 >
     :%!sort -M
@@ -54,7 +54,7 @@ SORT USING THE EXTERNAL UNIX SORT UTILITY, RESPECTING MONTH-NAME ORDER  *vwt-116
 
 ("respecting month-name order" means January < February < ... < December)
 
-NUMERIC SORT  *vwt-1166-numeric-sort*
+NUMERIC SORT                                           *vwt-1166-numeric-sort*
 
 >
     :sort n
@@ -62,13 +62,13 @@ NUMERIC SORT  *vwt-1166-numeric-sort*
 
 (this way, 100 doesn't precede 20 in the sort)
 
-SORT SUBSECTIONS INDEPENDENTLY, IN THIS EXAMPLE SORT NUMBERS BETWEEN START AND END MARKERS  *vwt-1166-sort-subsections-independently,-in-this-example-sort-numbers-between-start-and-end-markers*
+SORT SUBSECTIONS INDEPENDENTLY, IN THIS EXAMPLE SORT NUMBERS BETWEEN START AND END MARKERS *vwt-1166-sort-subsections-independently,-in-this-example-sort-numbers-between-start-and-end-markers*
 
 >
     :g/start/+1,/end/-1 sort n
 <
 
-SORT ONLY SPECIFIC LINES USING RANGES  *vwt-1166-sort-only-specific-lines-using-ranges*
+SORT ONLY SPECIFIC LINES USING RANGES *vwt-1166-sort-only-specific-lines-using-ranges*
 
 sort lines 296 to 349, inclusive
 
@@ -76,7 +76,7 @@ sort lines 296 to 349, inclusive
     :296,349sort
 <
 
-SORT BY PATTERN  *vwt-1166-sort-by-pattern*
+SORT BY PATTERN                                     *vwt-1166-sort-by-pattern*
 
 When working with Javascript ES6, it may be useful to sort your imports
 
@@ -120,7 +120,7 @@ When working with Javascript ES6, it may be useful to sort your imports
     :{range}sort /\/[A-z]/ r
 <
 
-SEE ALSO  *vwt-1166-see-also*
+SEE ALSO                                                   *vwt-1166-see-also*
     - 374 Use filter commands to process text |vwt-374| 
     - 588 How to sort using visual blocks |vwt-588| 
     - 758 Search and sort by selection |vwt-758| 
@@ -134,11 +134,11 @@ SEE ALSO  *vwt-1166-see-also*
       lines 
 
 
-REFERENCES  *vwt-1166-references*
+REFERENCES                                               *vwt-1166-references*
     - :help |:sort| 
 
 
-COMMENTS  *vwt-1166-comments*
+COMMENTS                                                   *vwt-1166-comments*
 
 TO DO
     - Probably need some general :sort command info. 

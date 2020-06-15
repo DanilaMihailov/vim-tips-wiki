@@ -36,7 +36,7 @@ Here are the mappings. You could put these in your vimrc:
     :noremap <Leader>C :%s:/\*\(.\{-\}\)\s*\*/://\1:<CR>
 <
 
-COMMENTS  *vwt-35-comments*
+COMMENTS                                                     *vwt-35-comments*
 
 I tested, and even though the "dodgy" comment said it didn't work, it did 
 work on my setup with no modifications. If you have any problems using this 

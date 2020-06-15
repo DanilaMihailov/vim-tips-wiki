@@ -124,7 +124,7 @@ This function works well in the following testcase:
     }
 <
 
-COMMENTS  *vwt-1454-comments*
+COMMENTS                                                   *vwt-1454-comments*
 
 I again had some problems with scrolling. This time, side-to-side scrolling 
 in diff mode (specifically no line wrap). When the text was scrolled left, 

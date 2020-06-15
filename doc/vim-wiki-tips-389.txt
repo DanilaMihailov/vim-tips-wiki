@@ -34,14 +34,14 @@ With :folddoopen, each unfolded line is marked. Then the command
 no range (it operates on the current line), and it has the e flag so no error 
 is shown if a line does not contain 'old'.
 
-REFERENCES  *vwt-389-references*
+REFERENCES                                                *vwt-389-references*
     - :help |folding| 
     - :help 'foldopen' 
     - :help |:folddoopen| 
     - :help |:folddoclosed| 
 
 
-COMMENTS  *vwt-389-comments*
+COMMENTS                                                    *vwt-389-comments*
 
 I'm seeing some weird messages from Vim 7.2 when using the above to 
 s/old/new/ in text with several closed folds. The command works, but it shows 

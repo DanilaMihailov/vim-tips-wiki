@@ -27,7 +27,7 @@ open fold, so I added the following to my vimrc:
     nmap [z :cal GoToOpenFold("prev")
 <
 
-COMMENTS  *vwt-1194-comments*
+COMMENTS                                                   *vwt-1194-comments*
 
 Add the normal command "zj/zk" if you'd prefer to have the mapping jump out 
 of the current open fold and into the next open fold.

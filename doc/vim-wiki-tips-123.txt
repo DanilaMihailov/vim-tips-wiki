@@ -50,12 +50,12 @@ case, the last two mappings should be:
     :nnoremap GR :grep "\<<cword>\>" %:p:h/*<CR>
 <
 
-SEE ALSO  *vwt-123-see-also*
+SEE ALSO                                                    *vwt-123-see-also*
     - Find in files within Vim 
       [https://vim.fandom.com/wiki/Find_in_files_within_Vim] 
 
 
-COMMENTS  *vwt-123-comments*
+COMMENTS                                                    *vwt-123-comments*
 
 It would be nice if this tip also metion how to browse through the returned 
 locations.

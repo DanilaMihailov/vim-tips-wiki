@@ -19,7 +19,7 @@ physical line. Any leading or trailing whitespace is ignored: the cursor moves
 to the middle of the text between the first and last non-whitespace 
 characters.
 
-CODE  *vwt-1671-code*
+CODE                                                           *vwt-1671-code*
 
 >
     function! s:Gm()
@@ -33,11 +33,11 @@ CODE  *vwt-1671-code*
     onoremap <silent> gm :call <SID>Gm()<CR>
 <
 
-REFERENCES  *vwt-1671-references*
+REFERENCES                                               *vwt-1671-references*
     - :help |gm| 
 
 
-COMMENTS  *vwt-1671-comments*
+COMMENTS                                                   *vwt-1671-comments*
 
 I have removed the following from the tip because I can't make it do anything 
 useful. If an explanation or fix is available, please restore it.

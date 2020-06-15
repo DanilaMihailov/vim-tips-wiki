@@ -13,7 +13,7 @@ quickfix list, for instance when a header file is shared by multiple projects.
 This tip shows how to sort the quickfix list by file name and line number, and 
 remove duplicates.
 
-SCRIPT  *vwt-1639-script*
+SCRIPT                                                       *vwt-1639-script*
 
 Create file ~/.vim/plugin/quickfix.vim (Unix) or 
 $HOME/vimfiles/plugin/quickfix.vim (Windows) containing the script below, then 
@@ -46,7 +46,7 @@ will be sorted by file name and line number, and duplicates will be removed.
     autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 <
 
-ORIGINAL SCRIPT  *vwt-1639-original-script*
+ORIGINAL SCRIPT                                     *vwt-1639-original-script*
 
 TO DO
     - Following is the original code. I am fairly confident that the version shown 
@@ -91,7 +91,7 @@ As far as I can remember I had problems with duplicated entries in my quickfix l
     au QuickfixCmdPost * call SortUniqQFList()
 <
 
-COMMENTS  *vwt-1639-comments*
+COMMENTS                                                   *vwt-1639-comments*
 
 Possibly bufname() could be omitted from each expression like 
 bufname(a:i1.bufnr) because buffer names are unique, except that more than one 

@@ -49,13 +49,13 @@ code and runtime files from Mercurial
 [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial] and 
 compile the executables yourself.
 
-REFERENCES  *vwt-714-references*
+REFERENCES                                                *vwt-714-references*
     - :help |$VIM| 
     - :help |$VIMRUNTIME| 
     - :help 'runtimepath' 
 
 
-COMMENTS  *vwt-714-comments*
+COMMENTS                                                    *vwt-714-comments*
 
 Maybe–on w2k or newer–you should better use a junction point here.
 

@@ -15,7 +15,7 @@ Lowercase "HellO" to "hello" with gu then a movement.
 Alternatively, you can visually select text then press ~ to toggle case, or U 
 to convert to uppercase, or u to convert to lowercase.
 
-EXAMPLES  *vwt-49-examples*
+EXAMPLES                                                     *vwt-49-examples*
 
 ~
  Toggle case of the character under the cursor, or all visually-selected characters.
@@ -56,7 +56,7 @@ u
 guu
  Change the current line to lowercase (same as Vu).
 
-TITLE CASE  *vwt-49-title-case*
+TITLE CASE                                                 *vwt-49-title-case*
 
 The :s substitute command can change case (see :help |s/\u|).
 
@@ -90,7 +90,7 @@ magic) to reduce the need to escape characters.
     :s#\v(\w)(\S*)#\u\1\L\2#g
 <
 
-TWIDDLE CASE  *vwt-49-twiddle-case*
+TWIDDLE CASE                                             *vwt-49-twiddle-case*
 
 With the following (for example, in vimrc 
 [https://vim.fandom.com/wiki/Vimrc]), you can visually select text then press 
@@ -111,12 +111,12 @@ Keep pressing ~ until you get the case you want.
     vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 <
 
-REFERENCES  *vwt-49-references*
+REFERENCES                                                 *vwt-49-references*
     - :help |case| 
     - :help 'tildeop' 
 
 
-COMMENTS  *vwt-49-comments*
+COMMENTS                                                     *vwt-49-comments*
 
 The following will skip single-letter words and words that aren't in 
 uppercase. It also accounts for non-english latin characters.

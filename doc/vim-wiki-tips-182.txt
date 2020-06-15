@@ -11,7 +11,7 @@ keep the cursor line near the middle of the screen (vertically centered within
 the window). This tip introduces the scrolloff option, and shows another 
 possible technique using the zz command.
 
-SCROLLOFF OPTION  *vwt-182-scrolloff-option*
+SCROLLOFF OPTION                                    *vwt-182-scrolloff-option*
 
 The 'scrolloff' (scroll offset) option determines the number of context lines 
 you would like to see above and below the cursor. The following command 
@@ -26,7 +26,7 @@ The above command can be abbreviated as :set so=5. Entering :set so=0
 restores the default behavior so the cursor can be moved to any line in the 
 window without scrolling.
 
-CENTERING WITH SCROLLOFF  *vwt-182-centering-with-scrolloff*
+CENTERING WITH SCROLLOFF                    *vwt-182-centering-with-scrolloff*
 
 Setting 'scrolloff' to a large value causes the cursor to stay in the middle 
 line when possible:
@@ -54,7 +54,7 @@ In an expression, &scrolloff refers to the value of the 'scrolloff' option.
 The :let command assigns a value to 'scrolloff'; that value is 999-0 if 
 'scrolloff' was 0, and is 999-999 if 'scrolloff' was 999.
 
-CENTERING AUTOMATICALLY WITH AUTOCMDS  *vwt-182-centering-automatically-with-autocmds*
+CENTERING AUTOMATICALLY WITH AUTOCMDS *vwt-182-centering-automatically-with-autocmds*
 
 Setting scrolloff to 999 can have undesired consequences, however. 
 Forexample, a script that processes text at the end of your file cancause 
@@ -128,7 +128,7 @@ with GVIM 64-bit, version 8.0.271). Furthermore, autocmddetection fails when
 you resize the active window without resizing the GUI;leave and reenter that 
 window or do <leader>zz twice to get the right value.
 
-MAPPING WANTED KEYS  *vwt-182-mapping-wanted-keys*
+MAPPING WANTED KEYS                              *vwt-182-mapping-wanted-keys*
 
 An alternative to setting 'scrolloff' would be to remap some commands so that 
 they vertically center the cursor, for example, when moving down or up with j 
@@ -139,16 +139,16 @@ and k. Remap the commands like this:
     :nnoremap k kzz
 <
 
-SEE ALSO  *vwt-182-see-also*
+SEE ALSO                                                    *vwt-182-see-also*
     - Make search results appear in the middle of the screen 
       [https://vim.fandom.com/wiki/Make_search_results_appear_in_the_middle_of_the_screen] 
 
 
-REFERENCES  *vwt-182-references*
+REFERENCES                                                *vwt-182-references*
     - :help 'scrolloff' 
     - :help |zz| 
 
 
-COMMENTS  *vwt-182-comments*
+COMMENTS                                                    *vwt-182-comments*
 
  vim:tw=78:et:ft=help:norl:

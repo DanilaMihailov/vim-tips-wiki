@@ -19,7 +19,7 @@ October 8, 2010 · complexity basic · version 7.0
 This tip shows how to easily jump to the next or previous method in a C++ 
 program using a simple regular expression.
 
-JUMP TO NEXT/PREVIOUS METHOD  *vwt-1666-jump-to-next/previous-method*
+JUMP TO NEXT/PREVIOUS METHOD           *vwt-1666-jump-to-next/previous-method*
 
 Put these lines in your vimrc [https://vim.fandom.com/wiki/Vimrc] and you can 
 press Alt-Shift-J (or Alt-Shift-K) to jump to the next (or previous) method in 
@@ -39,12 +39,12 @@ This only works if the format of the method is:
     type classname::methodname(args)
 <
 
-SEE ALSO  *vwt-1666-see-also*
+SEE ALSO                                                   *vwt-1666-see-also*
     - Highlighting of method names in the definition 
       [https://vim.fandom.com/wiki/Highlighting_of_method_names_in_the_definition] 
       for a syntax-file addition to emphasize method names 
 
 
-COMMENTS  *vwt-1666-comments*
+COMMENTS                                                   *vwt-1666-comments*
 
  vim:tw=78:et:ft=help:norl:

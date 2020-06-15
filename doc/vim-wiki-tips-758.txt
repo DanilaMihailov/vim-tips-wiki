@@ -23,7 +23,7 @@ vmap:
 I used M-x as a delimiter and very non magic \M modifier to avoid errors on 
 subtrings like 'c:/xyz/*.*'
 
-COMMENTS  *vwt-758-comments*
+COMMENTS                                                    *vwt-758-comments*
 
 The tip as given assumes that the selection is automatically copied to the 
 clipboard. The following maps are more compatible, but modify the unnamed 

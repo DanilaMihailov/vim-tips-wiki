@@ -14,7 +14,7 @@ using Google Closure [http://code.google.com/closure/]. The compiled results
 are saved to a different file, for example, filename.js saves as both 
 filename.js and filename.min.js.
 
-THE REGULAR WAY  *vwt-1657-the-regular-way*
+THE REGULAR WAY                                     *vwt-1657-the-regular-way*
     - Edit .js file 
     - Save .js file 
     - Link it in .html file 
@@ -26,7 +26,7 @@ THE REGULAR WAY  *vwt-1657-the-regular-way*
     - Become frustrated because the compiled version is still linked in .html file 
 
 
-USING THIS TIP  *vwt-1657-using-this-tip*
+USING THIS TIP                                       *vwt-1657-using-this-tip*
     - Edit .js file 
     - Save .js file 
     - Link compiled version in .html 
@@ -35,7 +35,7 @@ USING THIS TIP  *vwt-1657-using-this-tip*
     - Test (because it's automatically compiled!) 
 
 
-AUTO COMPILE  *vwt-1657-auto-compile*
+AUTO COMPILE                                           *vwt-1657-auto-compile*
 
 Add this to your vimrc [https://vim.fandom.com/wiki/Vimrc], while changing 
 the path in "cpa" to suit your system:
@@ -56,7 +56,7 @@ the path in "cpa" to suit your system:
 
 
 
-ALTERNATIVE USING  |:COMPILER|  *vwt-1657-alternative-using--|:compiler|*
+ALTERNATIVE USING  |:COMPILER|       *vwt-1657-alternative-using--|:compiler|*
 
 This procedure defines a closure compiler plugin that may be used rather than 
 the above.
@@ -79,7 +79,7 @@ Put the following in .vim/compiler/closure.vim:
     CompilerSet errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
 <
 
-USING THIS TIP  *vwt-1657-using-this-tip*
+USING THIS TIP                                       *vwt-1657-using-this-tip*
     - Edit .js file 
     - Set compiler: :compiler closure 
     - Save .js file 
@@ -111,7 +111,7 @@ Then the process is:
     - Test (because it's automatically compiled!) 
 
 
-COMMENTS  *vwt-1657-comments*
+COMMENTS                                                   *vwt-1657-comments*
     - Could be expanded to other file types. 
 
 

@@ -11,7 +11,7 @@ This tip show a simple mapping to manually make a link from a URL and a page
 title. An alternative uses a script to automatically read the title by getting 
 and parsing the HTML source from the website identified by the URL.
 
-MANUALLY MAKING A LINK  *vwt-1178-manually-making-a-link*
+MANUALLY MAKING A LINK                       *vwt-1178-manually-making-a-link*
 
 Suppose you have some lines like this:
 
@@ -36,7 +36,7 @@ The mapping for your vimrc [https://vim.fandom.com/wiki/Vimrc] is:
     map <F7> <Esc>I<a href="<Esc>A"><Esc>gJA</a><Esc>
 <
 
-AUTOMATICALLY DETERMINING THE TITLE  *vwt-1178-automatically-determining-the-title*
+AUTOMATICALLY DETERMINING THE TITLE *vwt-1178-automatically-determining-the-title*
 
 With the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc], 
 you can easily insert a link looking like this:
@@ -83,7 +83,7 @@ containing the cursor.
     endfunction
 <
 
-ALTERNATIVE TOOLS  *vwt-1178-alternative-tools*
+ALTERNATIVE TOOLS                                 *vwt-1178-alternative-tools*
 
 The script above includes this line which assumes you have wget 
 [http://en.wikipedia.org/wiki/Wget] installed (-q is quiet, and -O - outputs 
@@ -108,6 +108,6 @@ rather than a text rendering of the html):
     let html = system('lynx -source ' . shellescape(url))
 <
 
-COMMENTS  *vwt-1178-comments*
+COMMENTS                                                   *vwt-1178-comments*
 
  vim:tw=78:et:ft=help:norl:

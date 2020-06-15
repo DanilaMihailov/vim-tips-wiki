@@ -25,12 +25,12 @@ reset, but I supopse you can simply set encoding back to latin1.
 
 cp437 is the code page for the OEM charset.
 
-REFERENCES  *vwt-779-references*
+REFERENCES                                                *vwt-779-references*
     - :help 'encoding' 
     - :help 'fileencoding' 
 
 
-COMMENTS  *vwt-779-comments*
+COMMENTS                                                    *vwt-779-comments*
 
 Did the same to transform UNICODE (UTF-8) to Latim-1 (ISO-8859-1) and it 
 worked.

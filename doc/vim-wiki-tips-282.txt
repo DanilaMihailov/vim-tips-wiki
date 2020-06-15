@@ -10,9 +10,9 @@ When searching with /, it would sometimes be nice to fold everything except
 for matches to your search. The following code does this, providing two levels 
 of folding to allow you to show some context around each search match as well.
 
-LINE-BASED METHOD  *vwt-282-line-based-method*
+LINE-BASED METHOD                                  *vwt-282-line-based-method*
 
-USING A '/' SEARCH AND KEY MAPPING  *vwt-282-using-a-'/'-search-and-key-mapping*
+USING A '/' SEARCH AND KEY MAPPING *vwt-282-using-a-'/'-search-and-key-mapping*
 
 Add the following to your vimrc [https://vim.fandom.com/wiki/Vimrc] to 
 provide a mapping to fold on an already-performed search:
@@ -28,7 +28,7 @@ provide a mapping to fold on an already-performed search:
 First search for a pattern, then fold everything else with \zUse zr to 
 display more context, or zm to display less context.
 
-USING A USER-DEFINED COMMAND  *vwt-282-using-a-user-defined-command*
+USING A USER-DEFINED COMMAND            *vwt-282-using-a-user-defined-command*
 
 If you want to search and fold with a single command, either add the 
 following as well:
@@ -48,7 +48,7 @@ CTRL-M (carriage return) character. Type :Folds[earch] <search string>[ENTER]
 to use this command. Use zr to display more context, use zm to display less 
 context as before.
 
-CUSTOMIZING  *vwt-282-customizing*
+CUSTOMIZING                                              *vwt-282-customizing*
 
 To add a second level of context, you could add this to the end of foldexpr:
 
@@ -65,7 +65,7 @@ If no context is desired at all, you can do the following instead:
     foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum)=~@/)\\|\\|(getline(v:lnum)=~@/)?0:1
 <
 
-SEARCH METHOD  *vwt-282-search-method*
+SEARCH METHOD                                          *vwt-282-search-method*
 
 The line-based method has a major drawback: matches that depend on surround 
 lines for lookahead or lookbehind will not match. To solve that, use real 
@@ -123,7 +123,7 @@ searching in the foldexpr, inside a function, as follows:
     endfun
 <
 
-USES  *vwt-282-uses*
+USES                                                            *vwt-282-uses*
 
 Aside from the possible convenience of seeing only the search terms and their 
 immediate context, this method of folding can be used for practical purposes 
@@ -146,21 +146,21 @@ for at least some syntax-based folding, using :set foldmethod=syntax. Other
 languages such as Java do not currently have this functionality built in, so 
 keep this idea around just in case you need it!
 
-RELATED PLUGINS  *vwt-282-related-plugins*
+RELATED PLUGINS                                      *vwt-282-related-plugins*
     - script#158 [https://www.vim.org/scripts/script.php?script_id=158] 
     - script#318 [https://www.vim.org/scripts/script.php?script_id=318] 
     - script#2521 [https://www.vim.org/scripts/script.php?script_id=2521] 
     - script#2302 [https://www.vim.org/scripts/script.php?script_id=2302] 
 
 
-SEE ALSO  *vwt-282-see-also*
+SEE ALSO                                                    *vwt-282-see-also*
     - Toggle a fold with a single keystroke |vwt-108| press space bar in normal 
       mode to toggle fold 
     - Delete all lines containing a pattern |vwt-213| to delete matching or 
       non-matching lines, rather than folding them 
 
 
-COMMENTS  *vwt-282-comments*
+COMMENTS                                                    *vwt-282-comments*
 
 TO DO
     - Explain better how the foldexpr string works. Convert it into a function? An 
@@ -193,7 +193,7 @@ TO DO
       explanation, though. Maybe build up to the final expression gradually. 
 
 
-SIMPLE FOLDING  *vwt-282-simple-folding*
+SIMPLE FOLDING                                        *vwt-282-simple-folding*
 
 After executing the following, you can search for a pattern then press F8 to 
 fold misses.

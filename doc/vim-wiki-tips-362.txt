@@ -18,7 +18,7 @@ Therefore in matchit.cfm I need to add CF in following line and NOT CFM
     au FileType html,jsp,php,cf if !exists("b:match_words") |
 <
 
-COMMENTS  *vwt-362-comments*
+COMMENTS                                                    *vwt-362-comments*
 
 I meant edit matchit.vim (not matchit.cfm)
 

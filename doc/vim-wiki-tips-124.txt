@@ -22,7 +22,7 @@ snapshot:
     4 tree
 <
 
-DESCRIPTION  *vwt-124-description*
+DESCRIPTION                                              *vwt-124-description*
 
 This provides a command and a function. They both can be called with or 
 without a range. In addition, they can be called with or without arguments. 
@@ -37,7 +37,7 @@ number your selected lines sequentially. The start can be anumber, ., $, or,
     - arg2 Text to append after numbers. The default is a space. 
 
 
-EXAMPLES  *vwt-124-examples*
+EXAMPLES                                                    *vwt-124-examples*
 
 To provide your functionality:
 
@@ -90,7 +90,7 @@ every number):
     endfunction
 <
 
-COMMENTS  *vwt-124-comments*
+COMMENTS                                                    *vwt-124-comments*
 
 There is now a plugin nlist.vim 
 [https://www.vim.org/scripts/script.php?script_id=101] that does this. The 

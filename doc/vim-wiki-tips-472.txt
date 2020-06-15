@@ -36,7 +36,7 @@ Examples of use:
     map <silent> <F9> :call ToggleFlag("guioptions","T")<CR>
 <
 
-COMMENTS  *vwt-472-comments*
+COMMENTS                                                    *vwt-472-comments*
 
 The following might be more flexible (I think it should work for any 
 flag-style option).

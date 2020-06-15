@@ -26,7 +26,7 @@ full path to each file or directory.
 This tip is of primary relevance to windows/dos users but the ideas outlined 
 might be useful to users of other systems.
 
-DESIRED RESULT  *vwt-1669-desired-result*
+DESIRED RESULT                                       *vwt-1669-desired-result*
 
 Turn this:
 
@@ -65,7 +65,7 @@ into this:
     C:\WINNT\AppPatch\aclayers.dll
 <
 
-GETTING THE DIRECTORY LISTING  *vwt-1669-getting-the-directory-listing*
+GETTING THE DIRECTORY LISTING         *vwt-1669-getting-the-directory-listing*
 
 To get a dos directory listing of your c drive try typing:
 
@@ -132,7 +132,7 @@ on a directory listing using:
     :so reformat.vim
 <
 
-SEARCHING THE RESULT  *vwt-1669-searching-the-result*
+SEARCHING THE RESULT                           *vwt-1669-searching-the-result*
 
 Now if you want to see only doc files you can do:
 
@@ -148,7 +148,7 @@ Or you want to show all the folders which contain .vim files:
     :sort u
 <
 
-FURTHER PROCESSING  *vwt-1669-further-processing*
+FURTHER PROCESSING                               *vwt-1669-further-processing*
 
 To take this one step further we can now convert this filtered directory 
 listing into a batch file to operate on each line.
@@ -177,7 +177,7 @@ Of course don't run this unless you are **absolutely sure** the commands do
 what you want. There are some edge cases that will cause the reformatting code 
 to trip up if you have strange characters in your filenames.
 
-COMMENTS  *vwt-1669-comments*
+COMMENTS                                                   *vwt-1669-comments*
 
 On Unix you can use find /some/directory | vim -. Windows users could install 
 GnuWin [http://gnuwin32.sourceforge.net/packages/findutils.htm] to obtain a 

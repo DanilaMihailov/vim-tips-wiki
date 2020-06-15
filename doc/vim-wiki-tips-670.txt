@@ -18,7 +18,7 @@ comes how I do it with Vim:
     :global:^./help/:if (match(getline(line(".")), '^./help/de/') == -1) | delete | endif
 <
 
-COMMENTS  *vwt-670-comments*
+COMMENTS                                                    *vwt-670-comments*
 
 Would this also do it?
 

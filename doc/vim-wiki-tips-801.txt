@@ -14,7 +14,7 @@ overview.
 This tip concerns folding lines in the quickfix window. See here |vwt-76| for 
 how to fold the current buffer based on the content of the quickfix list.
 
-FOLDING OUTPUT FROM MAKE  *vwt-801-folding-output-from-make*
+FOLDING OUTPUT FROM MAKE                    *vwt-801-folding-output-from-make*
 
 When using make on a large software project with multiple directories, the 
 quickfix window can be quite long. Use the following in your vimrc 
@@ -32,7 +32,7 @@ zq switches back to the original.
     au BufReadPost quickfix normal zq
 <
 
-FOLDING OUTPUT FROM VIMGREP  *vwt-801-folding-output-from-vimgrep*
+FOLDING OUTPUT FROM VIMGREP              *vwt-801-folding-output-from-vimgrep*
 
 You may search files with a command like :vimgrep /pattern/ *.c, then open 
 the quickfix window with :cwindow. The following script will fold all the 
@@ -57,7 +57,7 @@ processes the backslashes with the result that the pattern used by matchstr()
 is '^[^|]\+' (that is, the file path/name consisting of one or more characters 
 that are not '|', at the start of the line).
 
-FOLDING BY DIRECTORY INSTEAD OF FILENAME  *vwt-801-folding-by-directory-instead-of-filename*
+FOLDING BY DIRECTORY INSTEAD OF FILENAME *vwt-801-folding-by-directory-instead-of-filename*
 
 If folding by file still creates too many results, you may prefer to fold by 
 directory name instead. Replace the foldexpr above with this one:
@@ -76,7 +76,7 @@ You may also like to customise the way that folded lines are displayed:
     setlocal foldtext=matchstr(substitute(getline(v:foldstart),'\|.*','',''),'^.*/').'\ ['.(v:foldend-v:foldstart+1).'\ lines]'
 <
 
-AVOID FOLDING WHEN THERE ARE FEW RESULTS  *vwt-801-avoid-folding-when-there-are-few-results*
+AVOID FOLDING WHEN THERE ARE FEW RESULTS *vwt-801-avoid-folding-when-there-are-few-results*
 
 As several commands that populate the quickfix list are only concerned about 
 a single file, or may yield only a few results, you can optionally add the 
@@ -95,23 +95,23 @@ following enhancement:
 This will initially open all the folds if there is only one fold, or if there 
 are fewer than 25 lines in the quickfix window.
 
-SEE ALSO  *vwt-801-see-also*
+SEE ALSO                                                    *vwt-801-see-also*
     - Folding with Regular Expression |vwt-282| fold misses from a search 
     - Find in files within Vim |vwt-1543| using vimgrep to search files 
 
 
-REFERENCES  *vwt-801-references*
+REFERENCES                                                *vwt-801-references*
     - :help |quickfix| 
     - :help |:copen| 
 
 
-COMMENTS  *vwt-801-comments*
+COMMENTS                                                    *vwt-801-comments*
 
 The "Folding output from vimgrep" section was inspired by messages from David 
 Fishburn and Gary Johnson on vim_use, and was implemented here by JohnBeckett. 
 Directory folding was added by JoeyTwiddle.
 
-ADD FOLDING NOT BASED ON FILE/DIRECTORY?  *vwt-801-add-folding-not-based-on-file/directory?*
+ADD FOLDING NOT BASED ON FILE/DIRECTORY? *vwt-801-add-folding-not-based-on-file/directory?*
 
 I'm using the following, based on the 'vimgrep' portion for grep searches, 
 and folding away based on whether the line is a hit for an error or warning 
@@ -186,7 +186,7 @@ can we generalize this one and include it here?
 --Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 16:10, 
 February 10, 2012 (UTC)
 
-ALSO FOLD UP THE || OVERFLOW LINES IN QUICKFIX WINDOW  *vwt-801-also-fold-up-the-||-overflow-lines-in-quickfix-window*
+ALSO FOLD UP THE || OVERFLOW LINES IN QUICKFIX WINDOW *vwt-801-also-fold-up-the-||-overflow-lines-in-quickfix-window*
 
 I loved folding by file or folder in the quickfix, but got very annoyed by 
 the || lines which appear when very long lines overflow. To gather these into 

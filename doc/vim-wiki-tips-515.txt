@@ -12,7 +12,7 @@ In addition, a user command is provided to list loaded scripts in a scratch
 buffer which you can search and edit (convenient for use of gf 
 [https://vim.fandom.com/wiki/Open_file_under_cursor] to edit scripts).
 
-LISTING LOADED SCRIPTS  *vwt-515-listing-loaded-scripts*
+LISTING LOADED SCRIPTS                        *vwt-515-listing-loaded-scripts*
 
 To see the file names of all scripts loaded (sourced) by Vim, including those 
 loaded implicitly at startup, enter:
@@ -36,7 +36,7 @@ files (but not the location of system/personal plugins):
     vim --version
 <
 
-LISTING TO A SCRATCH BUFFER  *vwt-515-listing-to-a-scratch-buffer*
+LISTING TO A SCRATCH BUFFER              *vwt-515-listing-to-a-scratch-buffer*
 
 The following code (for your vimrc [https://vim.fandom.com/wiki/Vimrc]) 
 defines the :Scriptnames user command to list loaded scripts in a scratch 
@@ -111,12 +111,12 @@ in a scratch buffer:
     command! -nargs=+ Scratch call <sid>Scratch(<f-args>)
 <
 
-REFERENCES  *vwt-515-references*
+REFERENCES                                                *vwt-515-references*
     - :help |startup| 
     - :help |:scriptnames| 
 
 
-COMMENTS  *vwt-515-comments*
+COMMENTS                                                    *vwt-515-comments*
 
 The Headlights [https://www.vim.org/scripts/script.php?script_id=3455] plugin 
 (for gvim or MacVim) creates menus for installed plugins along with their 

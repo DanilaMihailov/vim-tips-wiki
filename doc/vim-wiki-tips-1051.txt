@@ -31,7 +31,7 @@ To open a file in a new buffer instead of opening a new window every time:
 When working in Vim, I recomend you use the minibuffer explorer: 
 minibufexpl.vim : Elegant buffer explorer - takes very little screen space
 
-COMMENTS  *vwt-1051-comments*
+COMMENTS                                                   *vwt-1051-comments*
 
 Except the hidden buffers don't show up. Try editing a directory, quickly it 
 will get lost and not be visible in the buffer list. Example:

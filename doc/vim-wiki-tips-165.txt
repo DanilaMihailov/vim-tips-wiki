@@ -17,7 +17,7 @@ buffer.
 The script below defines the :Bclose command that deletes a buffer, while 
 keeping the current window layout (no windows are closed).
 
-USAGE  *vwt-165-usage*
+USAGE                                                          *vwt-165-usage*
 
 The :Bclose command deletes a buffer without changing the window layout. For 
 each window where the buffer is currently displayed:
@@ -51,7 +51,7 @@ closed if it is displayed more than once:
     :let bclose_multiple = 0
 <
 
-SCRIPT  *vwt-165-script*
+SCRIPT                                                        *vwt-165-script*
 
 Create file ~/.vim/plugin/bclose.vim (Unix) or 
 $HOME/vimfiles/plugin/bclose.vim (Windows) containing the script below, then 
@@ -132,7 +132,7 @@ restart Vim.
     nnoremap <silent> <Leader>bd :Bclose<CR>
 <
 
-ALTERNATIVE SCRIPT  *vwt-165-alternative-script*
+ALTERNATIVE SCRIPT                                *vwt-165-alternative-script*
 
 Below, I have a new, more complicated version of above script. The below 
 script will actually create a scratch buffer if there are no listed buffers 
@@ -220,7 +220,7 @@ script.
     "nmap <C-W>! <Plug>Kwbd
 <
 
-SEE ALSO  *vwt-165-see-also*
+SEE ALSO                                                    *vwt-165-see-also*
     - Bbye [https://github.com/moll/vim-bbye] Delete buffers and close files in Vim 
       without messing up your window layout. Rewritten Bclose.vim to handle multiple 
       windows. Comes with warranty! 
@@ -234,7 +234,7 @@ SEE ALSO  *vwt-165-see-also*
       provides this capability with a simple user interface 
 
 
-COMMENTS  *vwt-165-comments*
+COMMENTS                                                    *vwt-165-comments*
 
 For getting asked what should be done, when a file has been modified I use 
 normally :confirm :bd. So I changed the script in 2lines to achieve this:

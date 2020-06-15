@@ -30,11 +30,11 @@ of the full path name (file name and extension, after omitting any path), and
 To use this, while in insert mode, type ,f followed by a space or the escape 
 key to insert the name of the current file.
 
-SEE ALSO  *vwt-1048-see-also*
+SEE ALSO                                                   *vwt-1048-see-also*
     - :help |filename-modifiers| information on filename modifiers 
 
 
-COMMENTS  *vwt-1048-comments*
+COMMENTS                                                   *vwt-1048-comments*
 
 Rather than vimrc, the mapping should be in a file in a filetype plugin 
 directory. Then, using <buffer> would be useful (the abbreviation would only 

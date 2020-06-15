@@ -48,7 +48,7 @@ clipboard (or do whatever you want).
     endfunction
 <
 
-RELATED SCRIPTS  *vwt-1370-related-scripts*
+RELATED SCRIPTS                                     *vwt-1370-related-scripts*
     - CaptureClipboard [https://www.vim.org/scripts/script.php?script_id=3246] 
       contains a greatly enhanced plugin that is based on this tip. It offers 
       feedback on the number of captures, trimming of white space, append as well as 
@@ -56,7 +56,7 @@ RELATED SCRIPTS  *vwt-1370-related-scripts*
       configurable defaults. 
 
 
-COMMENTS  *vwt-1370-comments*
+COMMENTS                                                   *vwt-1370-comments*
 
 >
     " to automatically save modified buffer, and simplify your function.

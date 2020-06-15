@@ -40,7 +40,7 @@ should be last line just above the '#endif /* MACRO_TESTING */' and press ;;
     map ;; mz'aO<Esc>i#if defined(<C-r>")<Esc>'zo<Esc>i#endif /* <C-r>" */<Esc>
 <
 
-COMMENTS  *vwt-249-comments*
+COMMENTS                                                    *vwt-249-comments*
 
 You could also modify this just a bit and make it a vmap, that way you 
 wouldn't need to mark the beginning of the line set (though not vi 

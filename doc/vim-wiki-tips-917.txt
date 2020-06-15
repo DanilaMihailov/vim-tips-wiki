@@ -77,7 +77,7 @@ the first word, but still take the eol?
     imap <C-Del> _<Esc>mzew<BS>i<Del><Esc>v`z"_c
 <
 
-COMMENTS  *vwt-917-comments*
+COMMENTS                                                    *vwt-917-comments*
 
 What is the point of this? Vim's power lies in its modality. If you don't use 
 Vim's modes, there are lots of editors out there that are better for your use. 

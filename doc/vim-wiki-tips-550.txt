@@ -22,9 +22,9 @@ xterm(-color),VT100 remote terminals; (t)csh shells.
 Note that :set term=cons25 causes printing of garbage characters when the 
 session is local. Vi 7.4, Debian Jessie.
 
-COMMENTS  *vwt-550-comments*
+COMMENTS                                                    *vwt-550-comments*
 
-EASY SOLUTION  *vwt-550-easy-solution*
+EASY SOLUTION                                          *vwt-550-easy-solution*
 
 >
     set nocompatible
@@ -38,7 +38,7 @@ or
 
 It also fixes the "backspace won't delete" problem that some people have.
 
-SOLUTION 1  *vwt-550-solution-1*
+SOLUTION 1                                                *vwt-550-solution-1*
 
 Try this mapping, worked on gvim v7.2
 
@@ -54,7 +54,7 @@ for you.
 
 Note: ^[ is one symbol, try to enter it using <Ctrl-V>ESC or <Ctrl-V><Ctrl-[>
 
-SOLUTION 2  *vwt-550-solution-2*
+SOLUTION 2                                                *vwt-550-solution-2*
 
 This works for Ubuntu on windows. This doesn't really work very well for me 
 on SunOS -- I have the same problem but :set term=cons25 just gives me OC 
@@ -83,7 +83,7 @@ so it ends up looking something like
 And in addition, set term=ansi makes syntax color off in vim (afair FreeBSD 
 with color xterm).
 
-SOLUTION 3  *vwt-550-solution-3*
+SOLUTION 3                                                *vwt-550-solution-3*
 
 So are we to be left with no good freebsd / bash solution?
 
@@ -98,7 +98,7 @@ did nothing for me... and the no environment option is not a good one.
 
 set mouse=a at least allows me to move in insert mode.
 
-SOLUTION 4  *vwt-550-solution-4*
+SOLUTION 4                                                *vwt-550-solution-4*
 
 I had the same problem a few days ago. I figured out that i didnt have the 
 ~.vimrc file. So, i went to /usr/local/share/vim/vim58 and copied the 
@@ -113,7 +113,7 @@ as I introduced .vimrc
 
 This also works on a Synology NAS.
 
-SOLUTION 5  *vwt-550-solution-5*
+SOLUTION 5                                                *vwt-550-solution-5*
 
 After experiencing this issue on FreeBSD 6 and 7 I found the clue as to why 
 arrow keys would display A B C D when in insert mode - buried within :help 
@@ -171,7 +171,7 @@ type vi.
 Slightly different path for me, but confirmed it works on sunOS 10, also 
 fixed my backspace issue, setup the colors, and search highlights.
 
-SOLUTION 6  *vwt-550-solution-6*
+SOLUTION 6                                                *vwt-550-solution-6*
 
 I have a similar problem but slightly different. After a very recent update 
 of my system including vim71 the left and right arrow keys started to play up. 
@@ -190,12 +190,12 @@ display, when not editing). So I am stuck with 'word jumping arrow keys'.
 
 I had the same problem, but solved it in a better way by "se term=linux" in my .vimrc. That way, I don't lose my syntax highlighting, function keys, etc, and still managed to stop the "word jumping" arrow keys.
 
-SOLUTION 7  *vwt-550-solution-7*
+SOLUTION 7                                                *vwt-550-solution-7*
 
 I had the same problem using Mandriva 2010. The solution was to install 
 vim-common from the urpmi repository.
 
-SOLUTION 8  *vwt-550-solution-8*
+SOLUTION 8                                                *vwt-550-solution-8*
 
 I had the arrow keys switching from normal mode to insert mode when I was 
 using vim in the terminal: E.g. pressing "up" would do the same as <Esc>OA, 
@@ -203,7 +203,7 @@ where <Esc> had no effect, O would switch to insert mode, and A would enter
 the letter "A". The reason was that I in my .vimrc I had mapped <Esc> in 
 normal mode to do funky stuff. Removing the mapping fixed it.
 
-SOLUTION 9  *vwt-550-solution-9*
+SOLUTION 9                                                *vwt-550-solution-9*
 
 On my default Ubuntu install, vi meant actual vi, but I was used to vim where 
 this problem didn't occur.
@@ -213,7 +213,7 @@ My solution was apt-get install vim.
 Also by default on Ubuntu 10.10 you can use vim-tiny and that takes care of 
 the odd characters.
 
-SOLUTION 10  *vwt-550-solution-10*
+SOLUTION 10                                              *vwt-550-solution-10*
 
 On my Gentoo and Debian installs, this problem was caused by the autoclose 
 plugin and using the workarounds above didn't help.The only solution for me 
@@ -258,7 +258,7 @@ to
     AutoCloseOff
 <
 
-SOLUTION 11  *vwt-550-solution-11*
+SOLUTION 11                                              *vwt-550-solution-11*
 
 I had this problem with a client's server config. Because I didn't have much 
 power or permission to change things, and time was tight, I simply did the 
@@ -270,7 +270,7 @@ following and resolved the problem.
 
 If you ever have that kind of situation, give that a shot.
 
-SOLUTION 12  *vwt-550-solution-12*
+SOLUTION 12                                              *vwt-550-solution-12*
 
 I had this problem when I would ssh into a debian squeeze server. My solution 
 was an alias on the server:
@@ -279,7 +279,7 @@ was an alias on the server:
     alias vim='vim.tiny'
 <
 
-SOLUTION 13  *vwt-550-solution-13*
+SOLUTION 13                                              *vwt-550-solution-13*
 
 If you are using putty in windows, try to disable application cursor keys 
 mode:
@@ -291,7 +291,7 @@ mode:
 If ":echo $TERM" outputs "xterm-256color," and you are using putty in 
 windows, make sure the above is unchecked or it will cause the issue.
 
-SOLUTION 14  *vwt-550-solution-14*
+SOLUTION 14                                              *vwt-550-solution-14*
 
 I had this problem with a remote target, where I made a cross build for. For 
 me it was sufficient to put an empty .vimrc file in my home.
@@ -300,7 +300,7 @@ me it was sufficient to put an empty .vimrc file in my home.
     touch ~/.vimrc
 <
 
-SOLUTION 15  *vwt-550-solution-15*
+SOLUTION 15                                              *vwt-550-solution-15*
 
 I'm using ubuntu and the latest version of Vim from the apt repository with 
 xubuntu's default terminal, which is xTerm IIRC.
@@ -321,7 +321,7 @@ other solutions on this page may completely lock out the ability to use escape
 characters, such as in the context of changing the cursor color depending on 
 which mode you are in. Using imap is def. the least invasive solution.
 
-CHECK WHETHER A PLUGIN IS CAUSING THIS BEHAVIOR  *vwt-550-check-whether-a-plugin-is-causing-this-behavior*
+CHECK WHETHER A PLUGIN IS CAUSING THIS BEHAVIOR *vwt-550-check-whether-a-plugin-is-causing-this-behavior*
 
 This behavior can also be caused by a defective plugin. If you are using 
 Pathogen [https://github.com/tpope/vim-pathogen] for managing your bundles 
@@ -333,7 +333,7 @@ list variable "pathogen_disabled" (StackOverflow tip
     let g:pathogen_disabled = ['delimitMate']
 <
 
-SOLUTION 16  *vwt-550-solution-16*
+SOLUTION 16                                              *vwt-550-solution-16*
 
 If you are using Cygwin or Cygwin64 Terminal, the "set nocompatible" in a 
 .vimrc does not always work.
@@ -354,23 +354,23 @@ then add the line:
 
 Exit Vim and the terminal.
 
-SOLUTION 17  *vwt-550-solution-17*
+SOLUTION 17                                              *vwt-550-solution-17*
 
 I tried all suggestions from this page, but the only thing that worked for me 
 (Debian server, connected with "Konsole" from other linux), was to uninstall 
 the vim-tiny package and to install the vim package.
 
-SOLUTION 18  *vwt-550-solution-18*
+SOLUTION 18                                              *vwt-550-solution-18*
 
 Having "set noesckeys" in my ~/.vimrc set caused the problem to me with Vim 
 7.4 on Gnome Terminal on Debian.
 
-SOLUTION 19 FOR TERMINAL.APP IN MAC=  *vwt-550-solution-19-for-terminal.app-in-mac=*
+SOLUTION 19 FOR TERMINAL.APP IN MAC= *vwt-550-solution-19-for-terminal.app-in-mac=*
 
 Had issue with Up/Down in cscope/vim. Enable VT mode in Terminal Preferences 
 " Allow VT100 application keypad mode
 
-SOLUTION 20  *vwt-550-solution-20*
+SOLUTION 20                                              *vwt-550-solution-20*
 
 Add the following mappings in your .vimrc for whatever terms to disable arrow 
 keys in normal and insert mode. It works for me.
@@ -386,7 +386,7 @@ keys in normal and insert mode. It works for me.
     inoremap <silent> <ESC>OD <Nop>
 <
 
-SOLUTION 21  *vwt-550-solution-21*
+SOLUTION 21                                              *vwt-550-solution-21*
 
 In my case, having autoclose prevented this behavior. Thing is, I didn't want 
 to have autoclose, and disabling/removing autoclose caused me to have A B C D 
@@ -403,7 +403,7 @@ was fixed (and I was able to remove autoclose):
     endif
 <
 
-SOLUTION 22  *vwt-550-solution-22*
+SOLUTION 22                                              *vwt-550-solution-22*
 
 If you're using bash the best is to set the term to xterm which works great 
 and doesn't leave the text on the screen after you exit Vim. To do so add this 
@@ -413,7 +413,7 @@ line to ~/.vimrc
     set term=xterm
 <
 
-SOLUTION 23  *vwt-550-solution-23*
+SOLUTION 23                                              *vwt-550-solution-23*
 
 Use Sublime Text instead since this very page is an obvious example as to why 
 this is a terrible text editor. I mean, Jesus Christ... why is any of this 
@@ -426,7 +426,7 @@ This page is referring to using Vim inside a terminal window. Can Sublime Text e
 
 --Fritzophrenic (talk) 14:56, June 2, 2016 (UTC)
 
-SOLUTION 24  *vwt-550-solution-24*
+SOLUTION 24                                              *vwt-550-solution-24*
 
 These key mapping worked for me by emulating the arrow key notions
 
@@ -475,7 +475,7 @@ correct scrolling has proven to be a pipe dream for me, but it would mean a
 lot to me if someone could come up with a mapping/handling approach that 
 didn't disable non-printing sequences, but pushed them out of WASD land.
 
-SOLUTION 25  *vwt-550-solution-25*
+SOLUTION 25                                              *vwt-550-solution-25*
 
 Realise there are interactions with VIM, the environment variable TERM, and 
 terminal multiplexing (aka TMUX) and zone in on the source of the problem.

@@ -15,12 +15,12 @@ ShowBlockName (and it's pretty fast):
     map <silent> z[ [[k:call ShowLine()<CR>``
 <
 
-REFERENCES  *vwt-405-references*
+REFERENCES                                                *vwt-405-references*
     - :help |[[| 
     - :help |``| 
 
 
-COMMENTS  *vwt-405-comments*
+COMMENTS                                                    *vwt-405-comments*
 
 ShowLine() is not built in to Vim.
 

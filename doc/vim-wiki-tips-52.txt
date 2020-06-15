@@ -26,12 +26,12 @@ following to toggle scrollbind on or off:
 When you scroll a window which has 'scrollbind' set, all other 'scrollbind' 
 windows are scrolled the same amount, if possible.
 
-REFERENCES  *vwt-52-references*
+REFERENCES                                                 *vwt-52-references*
     - :help |scroll-binding| 
     - :help 'scrollbind' 
 
 
-COMMENTS  *vwt-52-comments*
+COMMENTS                                                     *vwt-52-comments*
 
 ...and, if your scrollbound windows ever get out of sync, in gvim it's 
 possible to adjust them, as follows: scrolling the window (by any means) will 

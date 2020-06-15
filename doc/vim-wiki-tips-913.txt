@@ -30,7 +30,7 @@ Once you execute the command, watch out for the "SUCCEEDED" status for
 confirmation. This only removes the file on the filesystem, so if you want, 
 you can explicitly delete/wipeout the vim buffer too.
 
-COMMENTS  *vwt-913-comments*
+COMMENTS                                                    *vwt-913-comments*
 
 To expand slightly, I use the following to delete the current buffer -- this 
 is smart enough to not delete help buffers:

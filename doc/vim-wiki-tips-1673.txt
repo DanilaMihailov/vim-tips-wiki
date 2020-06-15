@@ -23,7 +23,7 @@ when installing:
     - Microsoft Visual Studio. 
 
 
-PYTHON INTERFACE  *vwt-1673-python-interface*
+PYTHON INTERFACE                                   *vwt-1673-python-interface*
 
 This tip shows how to build Vim with or without a Python interface. Python is 
 optional, and not needed for normal Vim.
@@ -46,7 +46,7 @@ to build Vim, the resulting Vim executable can be run on a system with no
 Python (Vim would work, but attempting to use the Python interface would 
 fail).
 
-REQUIRED TOOLS  *vwt-1673-required-tools*
+REQUIRED TOOLS                                       *vwt-1673-required-tools*
 
 The following tools may be installed to download and build the Vim source.
 
@@ -89,7 +89,7 @@ administrator, run setup and perform these steps:
       Help menu, "Register Product" to register within 30 days. 
 
 
-REQUIRED DIRECTORIES AND FILES  *vwt-1673-required-directories-and-files*
+REQUIRED DIRECTORIES AND FILES       *vwt-1673-required-directories-and-files*
 
 The following directories will be used as examples:
 
@@ -169,7 +169,7 @@ Create file \myname\bin\vimcopy.cmd with contents as follows:
     xcopy %SRC%\src\*.exe %DST%\* /D /Y %*
 <
 
-VIM SOURCE AND RUNTIME FILES  *vwt-1673-vim-source-and-runtime-files*
+VIM SOURCE AND RUNTIME FILES           *vwt-1673-vim-source-and-runtime-files*
 
 The following sets build as the current directory, then downloads the entire 
 Vim source and runtime files to a tree under the vim subdirectory (created by 
@@ -197,7 +197,7 @@ discard your changes.
     hg update -C
 <
 
-BUILDING VIM  *vwt-1673-building-vim*
+BUILDING VIM                                           *vwt-1673-building-vim*
 
 After the initial clone (hg clone) or update (hg pull -u), the executable Vim 
 programs can be built with the following.
@@ -240,7 +240,7 @@ the following.
     nmake -f Make_mvc.mak clean
 <
 
-CONFIGURING VIM  *vwt-1673-configuring-vim*
+CONFIGURING VIM                                     *vwt-1673-configuring-vim*
 
 Vim is usually configured with a vimrc [https://vim.fandom.com/wiki/Vimrc] 
 file and with runtime files set by the user (in addition to the runtime files 
@@ -313,7 +313,7 @@ the file (~ is the same as $HOME):
 The effect of this example is that, when editing *.py files, the 'expandtab' 
 option will be set, so spaces will be inserted when the Tab key is pressed.
 
-INSTALLING VIM  *vwt-1673-installing-vim*
+INSTALLING VIM                                       *vwt-1673-installing-vim*
 
 After building, copy the executables and runtime files to overwrite the 
 current Vim installation (or to create it). This can be run from any 
@@ -367,7 +367,7 @@ generate a sample vimrc file which is not recommended. The option to add an
 entry to the popup (context) menu only works when performed by an 
 administrator.
 
-DIFF PROGRAM  *vwt-1673-diff-program*
+DIFF PROGRAM                                           *vwt-1673-diff-program*
 
 Vim can display the differences between files, providing a diff program is 
 available. Windows users should download the setup program for "Complete 
@@ -386,7 +386,7 @@ If you have run the Vim install.exe program and used it to generate a sample
 vimrc file, it will include set diffexpr=MyDiff() which is not wanted: remove 
 that line (and the MyDiff function) from vimrc.
 
-COMMENTS  *vwt-1673-comments*
+COMMENTS                                                   *vwt-1673-comments*
 
 TO DO
     - Show a HUGE or BIG build example to show how it's done. 

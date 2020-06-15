@@ -33,7 +33,7 @@ preprocessor gates automatically, when a new header file is created:
     autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 <
 
-COMMENTS  *vwt-514-comments*
+COMMENTS                                                    *vwt-514-comments*
 
 Here's my variation.
 
@@ -146,7 +146,7 @@ For more information, see:
 http://stackoverflow.com/questions/228783/what-are-the-rules-about-using-an-underscore-in-a-c-identifier 
 [http://stackoverflow.com/questions/228783/what-are-the-rules-about-using-an-underscore-in-a-c-identifier]
 
-SIMPLISTIC  *vwt-514-simplistic*
+SIMPLISTIC                                                *vwt-514-simplistic*
 
 >
     function g:MyAddGuard(s)<br>

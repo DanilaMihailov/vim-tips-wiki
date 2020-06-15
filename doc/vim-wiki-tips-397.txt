@@ -30,7 +30,7 @@ Just create file $VIMRUNTIME/ftplugin/help.vim with following contens:
     nnoremap <buffer><BS> <c-T>
 <
 
-COMMENTS  *vwt-397-comments*
+COMMENTS                                                    *vwt-397-comments*
 
 You can adapt this to also use it with the man page file type, so you can hit 
 return on a ref to another man page etc.

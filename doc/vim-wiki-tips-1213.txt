@@ -51,7 +51,7 @@ containing the following:
     setlocal indentkeys+=<>>
 <
 
-COMMENTS  *vwt-1213-comments*
+COMMENTS                                                   *vwt-1213-comments*
 
 I personally think it's more straightforward to just :set ft=html while 
 you're editing HTML blocks.

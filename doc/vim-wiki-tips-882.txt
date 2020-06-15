@@ -9,7 +9,7 @@ created 2005 · complexity basic · author David S · version 6.0
 Vim's help is remarkably helpful, but in order to use it effectively you need 
 to spend a few minutes learning how it is organised.
 
-GETTING STARTED  *vwt-882-getting-started*
+GETTING STARTED                                      *vwt-882-getting-started*
 
 Try these examples:
     - Enter :help to browse help. Scroll down the help page to see the quickref and 
@@ -66,7 +66,7 @@ which will list out all the matches in a separate window. Read up on these comma
 Each week (or more often if you prefer), read a new section from the :help 
 page to learn something new!
 
-CONTEXT  *vwt-882-context*
+CONTEXT                                                      *vwt-882-context*
 
 Each help topic has a context:
 
@@ -75,7 +75,7 @@ example, to see all help topics containing "ctrl-r", type :h ctrl-r then press
 Ctrl-D. The following examples show the help for pressing various keys in 
 different contexts.
 
-SIMPLIFY HELP NAVIGATION  *vwt-882-simplify-help-navigation*
+SIMPLIFY HELP NAVIGATION                    *vwt-882-simplify-help-navigation*
 
 The following mappings simplify navigation when viewing help:
     - Press Enter to jump to the subject (topic) under the cursor. 
@@ -109,7 +109,7 @@ results of |quickfix| commands such as (among others) :helpgrep
     :nnoremap <S-F4>  :clast<CR>
 <
 
-REFERENCES  *vwt-882-references*
+REFERENCES                                                *vwt-882-references*
     - :help |help.txt| 
     - |:help| 
     - :help |:helpgrep| 
@@ -117,7 +117,7 @@ REFERENCES  *vwt-882-references*
     - :help |quickref.txt| 
 
 
-SEE ALSO  *vwt-882-see-also*
+SEE ALSO                                                    *vwt-882-see-also*
     - Remember to search this wiki (see 'search' in the sidebar)! 
     - Search the FAQ and other guides on our documentation page 
       [https://vim.fandom.com/wiki/Vim_documentation] 
@@ -125,7 +125,7 @@ SEE ALSO  *vwt-882-see-also*
       [http://www.vim.org/maillist.php] 
 
 
-COMMENTS  *vwt-882-comments*
+COMMENTS                                                    *vwt-882-comments*
 
 Also see the wildmenu. My settings:
 

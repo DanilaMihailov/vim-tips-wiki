@@ -13,7 +13,7 @@ command which prints the contents of the clipboard | gvim -")
 Pressing that key now captures the contents of the clipboard in a new Vim 
 window.
 
-COMMENTS  *vwt-771-comments*
+COMMENTS                                                    *vwt-771-comments*
 
 I don't have xclip. I just click middle mouse button to paste clipboard, also 
 in Windows gvim.

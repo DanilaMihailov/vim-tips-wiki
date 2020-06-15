@@ -15,7 +15,7 @@ fails, whether the failure is a compilation error or a junit test failure. If
 you use bash on a linux box, you shouldn't have to change very much to get 
 everything to work.
 
-SET UP BUILD SCRIPT  *vwt-325-set-up-build-script*
+SET UP BUILD SCRIPT                              *vwt-325-set-up-build-script*
 
 Add the following script to your path (I use /usr/local/bin/):
 
@@ -56,7 +56,7 @@ screen).
     p
 <
 
-SET UP MAKEPRG  *vwt-325-set-up-makeprg*
+SET UP MAKEPRG                                        *vwt-325-set-up-makeprg*
 
 Add the following lines to your vimrc:
 
@@ -65,7 +65,7 @@ Add the following lines to your vimrc:
     autocmd BufNewFile,BufRead ?:/work/*.java set makeprg=mymake
 <
 
-SET UP SHELL OPTIONS  *vwt-325-set-up-shell-options*
+SET UP SHELL OPTIONS                            *vwt-325-set-up-shell-options*
 
 Add the following lines to your vimrc:
 
@@ -82,7 +82,7 @@ Add the following lines to your vimrc:
 Also to use this environment in Win32 gvim, you must recompile vimrun so that 
 gvim invokes the shell via bash, not via cmd.exe.
 
-SET UP PATH FORMATTING OPTIONS  *vwt-325-set-up-path-formatting-options*
+SET UP PATH FORMATTING OPTIONS        *vwt-325-set-up-path-formatting-options*
 
 Add the following lines to your vimrc:
 
@@ -91,7 +91,7 @@ Add the following lines to your vimrc:
     set isfname+=\
 <
 
-SET UP YOUR ERRORFORMAT  *vwt-325-set-up-your-errorformat*
+SET UP YOUR ERRORFORMAT                      *vwt-325-set-up-your-errorformat*
 
 Add the following lines to your vimrc:
 
@@ -178,7 +178,7 @@ Here is an annotated version:
     \%-G%.%#
 <
 
-SET UP KEY MAPPINGS  *vwt-325-set-up-key-mappings*
+SET UP KEY MAPPINGS                              *vwt-325-set-up-key-mappings*
 
 Add the following lines to your vimrc:
 
@@ -190,7 +190,7 @@ Add the following lines to your vimrc:
 
 This allows for quick error navigation.
 
-NOTES  *vwt-325-notes*
+NOTES                                                          *vwt-325-notes*
 
 Vim treats the "Entering: /work/src/..." messages in a weird way. If there 
 are any actual errors, then these error lines are ignored by the :cnext and 
@@ -206,6 +206,6 @@ live with it.
 The upshot of it all is that if you see an error like "Entering:", chances 
 are that your build succeeded and all the tests ran without a problem.
 
-COMMENTS  *vwt-325-comments*
+COMMENTS                                                    *vwt-325-comments*
 
  vim:tw=78:et:ft=help:norl:

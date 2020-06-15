@@ -22,7 +22,7 @@ example:
 Some mappings might not work in terminal versions of Vim (especially 
 mappings, that use the Alt key or a combination of Ctrl and Shift).
 
-FIREFOX LIKE NAVIGATION  *vwt-1221-firefox-like-navigation*
+FIREFOX LIKE NAVIGATION                     *vwt-1221-firefox-like-navigation*
 
 >
     " Tab navigation like Firefox.
@@ -49,7 +49,7 @@ mappings like this:
 Note, that those keys are only mapped in normal mode, because in insert and 
 visual mode they already have a function.
 
-VIM NAVIGATION  *vwt-1221-vim-navigation*
+VIM NAVIGATION                                       *vwt-1221-vim-navigation*
 
 >
     nnoremap th  :tabfirst<CR>
@@ -71,7 +71,7 @@ known |h| |j| |k| |l| navigation keys in normal mode that move the cursor
 left, down, up or right. tj moves to the next tab, tk moves to the previous 
 tabpage while th and tl move to the leftmost/rightmost tabpage.
 
-GNOME-TERMINAL NAVIGATION  *vwt-1221-gnome-terminal-navigation*
+GNOME-TERMINAL NAVIGATION                 *vwt-1221-gnome-terminal-navigation*
 
 For something like gnome-terminal tab-related key shortcuts:
 
@@ -81,7 +81,7 @@ For something like gnome-terminal tab-related key shortcuts:
     :inoremap <C-S-w> <Esc>:tabclose<CR>
 <
 
-OPEN FILES ALWAYS IN NEW TABS  *vwt-1221-open-files-always-in-new-tabs*
+OPEN FILES ALWAYS IN NEW TABS         *vwt-1221-open-files-always-in-new-tabs*
 
 If you like to open all command line arguments in a new tabpage, use this 
 snippet (but remember, that the 'tabpagemax' setting still applies).
@@ -96,7 +96,7 @@ created (e.g. when using , the current buffer will remain visible in the
 current tabpage and the file foobar will be opened in a new tabpage and Vim 
 goes to that tabpage.)
 
-USE <A-FN> TO GO TO THE NTH TABPAGE  *vwt-1221-use-<a-fn>-to-go-to-the-nth-tabpage*
+USE <A-FN> TO GO TO THE NTH TABPAGE *vwt-1221-use-<a-fn>-to-go-to-the-nth-tabpage*
 
 You can use ngt to move to the nth tabpage. A handy alternative is to map the 
 first 10 numbers to the Alt-F keys:
@@ -114,7 +114,7 @@ first 10 numbers to the Alt-F keys:
     nnoremap <A-F0> 10gt
 <
 
-OTHER CUSTOMIZATION  *vwt-1221-other-customization*
+OTHER CUSTOMIZATION                             *vwt-1221-other-customization*
 
 Use H and L to move to the previous/next tabpage.
 
@@ -126,6 +126,6 @@ Use H and L to move to the previous/next tabpage.
 That way you can hold down the Shift key while you scroll left and right 
 through the tabs with h and l.
 
-COMMENTS  *vwt-1221-comments*
+COMMENTS                                                   *vwt-1221-comments*
 
  vim:tw=78:et:ft=help:norl:

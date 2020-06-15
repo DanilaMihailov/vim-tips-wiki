@@ -10,7 +10,7 @@ This tip shows how to use Vim to view an html file, or a web page, in a web
 browser. If wanted, a text-based web browser can be used to read the text from 
 an html page into a scratch buffer in Vim.
 
-VIEWING TEXT FROM AN HTML FILE OR A URL  *vwt-256-viewing-text-from-an-html-file-or-a-url*
+VIEWING TEXT FROM AN HTML FILE OR A URL *vwt-256-viewing-text-from-an-html-file-or-a-url*
 
 A text-based web browser such as elinks [http://en.wikipedia.org/wiki/Elinks] 
 can extract a formatted view of the text from an html file or a web page. The 
@@ -45,7 +45,7 @@ can:
       type \h to preview the file or web page in Vim. 
 
 
-FROM 256 OPENING CURRENT VIM FILE IN YOUR WINDOWS BROWSER [HTTPS://VIM.FANDOM.COM/WIKI/OPENING_CURRENT_VIM_FILE_IN_YOUR_WINDOWS_BROWSER]  *vwt-256-from-256-opening-current-vim-file-in-your-windows-browser-[https://vim.fandom.com/wiki/opening_current_vim_file_in_your_windows_browser]*
+FROM 256 OPENING CURRENT VIM FILE IN YOUR WINDOWS BROWSER [HTTPS://VIM.FANDOM.COM/WIKI/OPENING_CURRENT_VIM_FILE_IN_YOUR_WINDOWS_BROWSER] *vwt-256-from-256-opening-current-vim-file-in-your-windows-browser-[https://vim.fandom.com/wiki/opening_current_vim_file_in_your_windows_browser]*
     - TODO: Finish cleaning following notes. 
 
 
@@ -107,7 +107,7 @@ second opens the file under the cursor:
     nnoremap <F8> :silent !xdg-open <cfile> &<CR>
 <
 
-FROM 587 PREVIEW CURRENT FILE IN MOZILLA THROUGH LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_FILE_IN_MOZILLA_THROUGH_LOCALHOST]  *vwt-256-from-587-preview-current-file-in-mozilla-through-localhost-[https://vim.fandom.com/wiki/preview_current_file_in_mozilla_through_localhost]*
+FROM 587 PREVIEW CURRENT FILE IN MOZILLA THROUGH LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_FILE_IN_MOZILLA_THROUGH_LOCALHOST] *vwt-256-from-587-preview-current-file-in-mozilla-through-localhost-[https://vim.fandom.com/wiki/preview_current_file_in_mozilla_through_localhost]*
 
 When editing an HTML file on Windows, enter the following to save the current 
 file and open it in your default browser:
@@ -143,7 +143,7 @@ A Linux version of the above mapping would use a program like xdg-open:
     nnoremap <F5> :silent update<Bar>silent !xdg-open %:p &<CR>
 <
 
-FROM 684 PREVIEW CURRENT HTML IN BROWSER ON MAC OS X [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_MAC_OS_X]  *vwt-256-from-684-preview-current-html-in-browser-on-mac-os-x-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_mac_os_x]*
+FROM 684 PREVIEW CURRENT HTML IN BROWSER ON MAC OS X [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_MAC_OS_X] *vwt-256-from-684-preview-current-html-in-browser-on-mac-os-x-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_mac_os_x]*
     - TODO: Clean following. 
 
 
@@ -197,7 +197,7 @@ it through localhost (TODO see %:p:s?pat?sub? below for Vim procedure):
     nnoremap <F5> :update<Bar>!open -a Google\ Chrome `echo http://localhost/${PWD\#*/*/*/*/*/}/%`<CR>
 <
 
-FROM 1015 PREVIEW FILE ON LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_FILE_ON_LOCALHOST]  *vwt-256-from-1015-preview-file-on-localhost-[https://vim.fandom.com/wiki/preview_file_on_localhost]*
+FROM 1015 PREVIEW FILE ON LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_FILE_ON_LOCALHOST] *vwt-256-from-1015-preview-file-on-localhost-[https://vim.fandom.com/wiki/preview_file_on_localhost]*
 
 Using this mapping will save the current file (if changed), then preview it 
 on localhost. For example, if you are editing file 
@@ -218,7 +218,7 @@ next slash (/). If the file being edited is my.html in directory
 /var/www/html/one/two, the pattern matches /var/www/html/ (the first 
 occurrence of four slashes, with any characters between).
 
-FROM 201110 PREVIEW CURRENT HTML IN BROWSER ON LINUX [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_LINUX]  *vwt-256-from-201110-preview-current-html-in-browser-on-linux-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_linux]*
+FROM 201110 PREVIEW CURRENT HTML IN BROWSER ON LINUX [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_LINUX] *vwt-256-from-201110-preview-current-html-in-browser-on-linux-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_linux]*
 
 This mapping allows you to use a browser to preview the HTML file currently 
 being edited.
@@ -231,11 +231,11 @@ If necessary, the current file is saved, then Firefox is used to open the
 file. Replace "firefox" with the name of another browser if wanted, such as 
 "chromium-browser".
 
-OPEN AN HTML FILE IN A BROWSER  *vwt-256-open-an-html-file-in-a-browser*
+OPEN AN HTML FILE IN A BROWSER        *vwt-256-open-an-html-file-in-a-browser*
 
 TODO: Put a link somewhere in this tip to the result of merging all the stuff on opening HTML files.
 
-SEE ALSO  *vwt-256-see-also*
+SEE ALSO                                                    *vwt-256-see-also*
 
 Open web browser to display URL under cursor
     - 306 Open a web-browser with the URL in the current line |vwt-306| 
@@ -281,7 +281,7 @@ Other
     - 1356 Open PDF files |vwt-1356| 
 
 
-COMMENTS  *vwt-256-comments*
+COMMENTS                                                    *vwt-256-comments*
 
 I have removed the "Related plugins" section as the only plugin listed is 
 obsolete and relies on Perl to do what can be done in plain Vim. JohnBeckett 

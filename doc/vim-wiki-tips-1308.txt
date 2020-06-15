@@ -11,7 +11,7 @@ This tip is deprecated for the following reasons:
 
 the functionality in the conceal patch has been included in Vim 7.3
 
-INTRODUCTION  *vwt-1308-introduction*
+INTRODUCTION                                           *vwt-1308-introduction*
 
 The conceal patch by Vince Negri allows one to "conceal" parts of lines 
 (in-line folding). One can make those parts completely invisible or replace 
@@ -52,7 +52,7 @@ document with different highlighting. The other, related feature, cursorbind,
 is similar to scrollbind and allows two or more windows to remain in sync as 
 one of them scrolls (useful for diff-ing documents).
 
-WHERE TO GET IT  *vwt-1308-where-to-get-it*
+WHERE TO GET IT                                     *vwt-1308-where-to-get-it*
 
 The conceal patch is not officially supported by Vim (to change this, vote 
 [http://www.vim.org/sponsor/vote_results.php] for the patch). No pre-compiled 
@@ -69,14 +69,14 @@ Also see Vince Negri's description of the patch
 [http://vince.negri.googlepages.com/concealownsyntaxforvim], showing its use 
 for abbreviating a LaTeX document.
 
-INSTALLING THE PATCH ON UNIX/LINUX  *vwt-1308-installing-the-patch-on-unix/linux*
+INSTALLING THE PATCH ON UNIX/LINUX *vwt-1308-installing-the-patch-on-unix/linux*
 
 Currently, the patch is only available for Vim 6.4.10 and 7.0.35.I personally 
 have had trouble building 7.0.35 on Ubuntu Gutsy (see Appendix C 
 |vwt-1308-appendix-c:-compile-errors|), though 6.4.10 compiles fine. If you 
 have trouble building one of the versions, try the other.
 
-VIM 6.4.10 SOURCE FILES  *vwt-1308-vim-6.4.10-source-files*
+VIM 6.4.10 SOURCE FILES                     *vwt-1308-vim-6.4.10-source-files*
 
 If installing Vim 6.4.10, you will need this source file:[Required] 
 ftp://ftp.vim.org/pub/vim/unix/vim-6.4.tar.bz2 
@@ -99,7 +99,7 @@ conceal patch:[Required]
 http://vince.negri.googlepages.com/conceal-ownsyntax-v64.diff 
 [http://vince.negri.googlepages.com/conceal-ownsyntax-v64.diff]
 
-VIM 7.0.35 SOURCE FILES  *vwt-1308-vim-7.0.35-source-files*
+VIM 7.0.35 SOURCE FILES                     *vwt-1308-vim-7.0.35-source-files*
 
 For Vim 7.0.35, here is the source file along with the extras and language 
 sources:[Required] ftp://ftp.vim.org/pub/vim/unix/vim-7.0.tar.bz2 
@@ -118,7 +118,7 @@ conceal patch:[Required]
 http://vince.negri.googlepages.com/conceal-ownsyntax.diff 
 [http://vince.negri.googlepages.com/conceal-ownsyntax.diff]
 
-PATCHING AND BUILDING  *vwt-1308-patching-and-building*
+PATCHING AND BUILDING                         *vwt-1308-patching-and-building*
 
 In order to build Vim, several development packages and libraries will need 
 to be installed. On Ubuntu systems make sure you at least have the 
@@ -283,7 +283,7 @@ For more information on patching and building Vim, see: Vim: Compiling How-To
 [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm] and Compiling 
 gVim on Ubuntu/Debian [http://www.blog.deepinit.com/?p=6].
 
-USING CONCEAL  *vwt-1308-using-conceal*
+USING CONCEAL                                         *vwt-1308-using-conceal*
 
 Here's a quick look at how to use the features available in the conceal 
 patch.First, let's make a syntax file.
@@ -410,7 +410,7 @@ source a separate syntax file in each window.
 For the complete details, see the conceal documentation in Vim help (Appendix 
 B |vwt-1308-appendix-b:-vim-help-documentation-for-conceal|).
 
-APPENDIX A: SCRIPTS TO DOWNLOAD SOURCES AND BUILD VIM  *vwt-1308-appendix-a:-scripts-to-download-sources-and-build-vim*
+APPENDIX A: SCRIPTS TO DOWNLOAD SOURCES AND BUILD VIM *vwt-1308-appendix-a:-scripts-to-download-sources-and-build-vim*
 
 Here are two sets of scripts that summarize and automate the install process 
 described above. I don't recommend running these scripts the first time you 
@@ -436,7 +436,7 @@ the go script to build.
     ./go_vim_conceal_64.sh
 <
 
-SCRIPTS FOR VIM 6.4.10  *vwt-1308-scripts-for-vim-6.4.10*
+SCRIPTS FOR VIM 6.4.10                       *vwt-1308-scripts-for-vim-6.4.10*
 
 >
     #!/bin/bash
@@ -494,7 +494,7 @@ SCRIPTS FOR VIM 6.4.10  *vwt-1308-scripts-for-vim-6.4.10*
     sudo ln -s ~/.build/vim64/src/vim /usr/bin/gcvim
 <
 
-SCRIPTS FOR VIM 7.0.35  *vwt-1308-scripts-for-vim-7.0.35*
+SCRIPTS FOR VIM 7.0.35                       *vwt-1308-scripts-for-vim-7.0.35*
 
 >
     #!/bin/bash
@@ -564,12 +564,12 @@ SCRIPTS FOR VIM 7.0.35  *vwt-1308-scripts-for-vim-7.0.35*
     sudo ln -s ~/.build/vim70/src/vim /usr/bin/gcvim
 <
 
-APPENDIX B: VIM HELP DOCUMENTATION FOR CONCEAL  *vwt-1308-appendix-b:-vim-help-documentation-for-conceal*
+APPENDIX B: VIM HELP DOCUMENTATION FOR CONCEAL *vwt-1308-appendix-b:-vim-help-documentation-for-conceal*
 
 Provided here for reference is the documentation that comes with the Vim 
 6.4.10 conceal patch, taken from the help files.
 
-OPTIONS.TXT  *vwt-1308-options.txt*
+OPTIONS.TXT                                             *vwt-1308-options.txt*
 
 >
     'conceallevel' 'conc'		*'conceallevel'* *'conc'*
@@ -650,7 +650,7 @@ OPTIONS.TXT  *vwt-1308-options.txt*
             <--- cut --->
 <
 
-SYNTAX.TXT  *vwt-1308-syntax.txt*
+SYNTAX.TXT                                               *vwt-1308-syntax.txt*
 
 >
     16. Window-local syntax				*:ownsyntax*
@@ -749,7 +749,7 @@ SYNTAX.TXT  *vwt-1308-syntax.txt*
             <--- cut --->
 <
 
-EVAL.TXT  *vwt-1308-eval.txt*
+EVAL.TXT                                                   *vwt-1308-eval.txt*
 
 >
     *window-variable* *w:var*
@@ -764,7 +764,7 @@ EVAL.TXT  *vwt-1308-eval.txt*
     		should set b:current_syntax or w:current_syntax.
 <
 
-APPENDIX C: COMPILE ERRORS  *vwt-1308-appendix-c:-compile-errors*
+APPENDIX C: COMPILE ERRORS               *vwt-1308-appendix-c:-compile-errors*
 
 I personally have not been able to compile Vim 7.0.35 with the conceal patch 
 on Ubuntu Gutsy.All the patches work and configure runs fine, but make gives 
@@ -787,7 +787,7 @@ This error doesn't happen when compiling Vim 6.4.10 on the same system. Can
 someone resolve the cause of this error?If anyone has success compiling Vim 
 7.0.35 on Ubuntu Gutsy, please post your findings.
 
-APPENDIX D: REQUEST FOR MORE INFORMATION  *vwt-1308-appendix-d:-request-for-more-information*
+APPENDIX D: REQUEST FOR MORE INFORMATION *vwt-1308-appendix-d:-request-for-more-information*
 
 Please post your findings to these issues:
     - What development packages are required on other distros besides Ubuntu? 
@@ -799,6 +799,6 @@ Please post your findings to these issues:
       them here. 
 
 
-COMMENTS  *vwt-1308-comments*
+COMMENTS                                                   *vwt-1308-comments*
 
  vim:tw=78:et:ft=help:norl:

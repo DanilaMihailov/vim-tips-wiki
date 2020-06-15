@@ -12,7 +12,7 @@ Editing HTML in Vim is a lot nicer if you can see updates in Firefox without
 needing to remove your hands from the keyboard. With MozRepl and a little 
 vimrc script, you can do just that!
 
-THE BAD OLD WAY  *vwt-1656-the-bad-old-way*
+THE BAD OLD WAY                                     *vwt-1656-the-bad-old-way*
 
 You are probably all too familiar with this annoying mini-workflow:
     - Edit your HTML/CSS file. 
@@ -23,7 +23,7 @@ You are probably all too familiar with this annoying mini-workflow:
     - Do it again and again, wincing a little bit each time. 
 
 
-THE JOYFUL NEW VIM + MOZREPL WAY  *vwt-1656-the-joyful-new-vim-+-mozrepl-way*
+THE JOYFUL NEW VIM + MOZREPL WAY   *vwt-1656-the-joyful-new-vim-+-mozrepl-way*
 
 With the little vimrc [https://vim.fandom.com/wiki/Vimrc] + MozRepl 
 [http://wiki.github.com/bard/mozrepl/] hack shown below, all you need to do 
@@ -36,14 +36,14 @@ is:
 This integration is no where near as fancy as the Emacs MozRepl binding, but 
 this one feature makes it super useful.
 
-VIM + MOZREPL  *vwt-1656-vim-+-mozrepl*
+VIM + MOZREPL                                         *vwt-1656-vim-+-mozrepl*
 
 When editing an .html,.css, or .gtpl file, make Firefox refresh after the 
 buffer is saved, preserving the current scroll offset.
 
-REQUIRES  *vwt-1656-requires*
+REQUIRES                                                   *vwt-1656-requires*
 
-HOW IT WORKS  *vwt-1656-how-it-works*
+HOW IT WORKS                                           *vwt-1656-how-it-works*
 
 I use echo + netcat (nc) to send a dopey little MosRepl script (see below) to 
 Firefox. All the output is tossed away (2>&1 > /dev/null) because MozRepl is 
@@ -61,7 +61,7 @@ See also:
       [http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html] 
 
 
-CODE FOR VIMRC  *vwt-1656-code-for-vimrc*
+CODE FOR VIMRC                                       *vwt-1656-code-for-vimrc*
 
 >
     autocmd BufWriteCmd *.html,*.css,*.gtpl :call Refresh_firefox()
@@ -80,7 +80,7 @@ CODE FOR VIMRC  *vwt-1656-code-for-vimrc*
 
 - added "-w 1" flag to netcat to solve occasional hung connections
 
-A FEW ADDITIONS  *vwt-1656-a-few-additions*
+A FEW ADDITIONS                                     *vwt-1656-a-few-additions*
 
 To put in vimrc [https://vim.fandom.com/wiki/Vimrc]:
 
@@ -104,7 +104,7 @@ Now, when working on local html files, if you switch files often then just
 press <leader>ml and the file is shown in Firefox. Also, <leader>mh will bring 
 you to ex mode where you can type in a URL and go there in Firefox etc.
 
-SCROLLING  *vwt-1656-scrolling*
+SCROLLING                                                 *vwt-1656-scrolling*
 
 I use these commands to scroll up and down:
 
@@ -120,7 +120,7 @@ I use these commands to scroll up and down:
     endfunction
 <
 
-NEXT AND PREVIOUS TAB  *vwt-1656-next-and-previous-tab*
+NEXT AND PREVIOUS TAB                         *vwt-1656-next-and-previous-tab*
 
 Here are commands for next and previous tab in Firefox.
 
@@ -136,12 +136,12 @@ Here are commands for next and previous tab in Firefox.
     endfunction
 <
 
-SEE ALSO  *vwt-1656-see-also*
+SEE ALSO                                                   *vwt-1656-see-also*
     - original Vim+MozRepl posting 
       [http://groups.google.com/group/mozlab/browse_thread/thread/749ad1250bf8ef81] 
 
 
-COMMENTS  *vwt-1656-comments*
+COMMENTS                                                   *vwt-1656-comments*
 
 Excellent! Needed something to replace LiveReload on my Linux workstation at 
 work. This did the trick. Thanks.

@@ -19,7 +19,7 @@ TO DO
     - Every font should have a screenshot and note if it is free or commercial. 
 
 
-PROGGY  *vwt-914-proggy*
+PROGGY                                                        *vwt-914-proggy*
 
 Proggy Clean font from http://www.dafont.com/proggy-clean.font 
 [http://www.dafont.com/proggy-clean.font]
@@ -45,7 +45,7 @@ If you use ProggyCleanTT in gvim and the top of the font looks like garbage,
 with missing pieces, it is because you have the new freetype hinting turned 
 on. Proggy is not hinted properly.
 
-NEEP  *vwt-914-neep*
+NEEP                                                            *vwt-914-neep*
 
 I prefer the Neep programming font created by Jim Knoble. Get the 
 jmk-x11-fonts package from http://nikolas.us.to/jmkfonts/ 
@@ -72,7 +72,7 @@ Ubuntu:
     fc-cache -f -v
 <
 
-ZEVV-PEEP  *vwt-914-zevv-peep*
+ZEVV-PEEP                                                  *vwt-914-zevv-peep*
 
 I've been using Neep, but the characters are too small on a new laptop with a 
 high resolution screen (1920x1200 at 15.4"). Zevv-peep is a variation on Neep 
@@ -88,7 +88,7 @@ Design considerations
 
 [https://vignette.wikia.nocookie.net/vim/images/6/67/Neepfont.png/revision/latest?cb=20071119192812]
 
-BITSTREAM VERA (TRUE TYPE)  *vwt-914-bitstream-vera-(true-type)*
+BITSTREAM VERA (TRUE TYPE)                *vwt-914-bitstream-vera-(true-type)*
 
 Free from http://www.gnome.org/fonts/ [http://www.gnome.org/fonts/]
 
@@ -107,7 +107,7 @@ Bitstream Vera Sans Mono at 11 point (Mac OS X):
 DejaVu Sans Mono looks identical to Bitstream Vera Sans Mono, and has more 
 international characters. See the comments section for links.
 
-GOHU  *vwt-914-gohu*
+GOHU                                                            *vwt-914-gohu*
 
 Gohu is a free (under WTFPL) pixmap font available in PCF and BDF. It is 
 extremely legible and unambiguous in both 11 and 14 px sizes.
@@ -123,7 +123,7 @@ Website: http://font.gohu.org/ [http://font.gohu.org/]
 Mirror: http://demus.co/files/gohufont-2.0p0.tgz 
 [http://demus.co/files/gohufont-2.0p0.tgz]
 
-UW TTYP0  *vwt-914-uw-ttyp0*
+UW TTYP0                                                    *vwt-914-uw-ttyp0*
 
 UW ttyp0 is a free bitmap font family with about 3000 Unicode characters, 
 including a number of stylistic variants that can be selected at installation 
@@ -146,7 +146,7 @@ data-image-name="Ttyp0-mixed.png" width="605" height="256" >
 Website: http://people.mpi-inf.mpg.de/~uwe/misc/uw-ttyp0/ 
 [http://people.mpi-inf.mpg.de/~uwe/misc/uw-ttyp0/]
 
-ADOBE SOURCE CODE PRO  *vwt-914-adobe-source-code-pro*
+ADOBE SOURCE CODE PRO                          *vwt-914-adobe-source-code-pro*
 
 Source Sans is a set of monospaced OpenType fonts that have been designed to 
 work well coding environments. This family of fonts is a complementary design 
@@ -155,7 +155,7 @@ to the Source Sans family.Open Font License 1.1 (OFL 1.1)
 http://sourceforge.net/projects/sourcecodepro.adobe/ 
 [http://sourceforge.net/projects/sourcecodepro.adobe/]
 
-CREEP  *vwt-914-creep*
+CREEP                                                          *vwt-914-creep*
 
 Creep is a free font based on the proggy tiny fonts but even smaller (4x9 
 pixels).Since it is created using gbdfed, currently only BDF format is 
@@ -171,7 +171,7 @@ width="671" height="87" >
 Get it at: https://github.com/romeovs/creep 
 [https://github.com/romeovs/creep]
 
-OPENDYSLEXIC MONO  *vwt-914-opendyslexic-mono*
+OPENDYSLEXIC MONO                                  *vwt-914-opendyslexic-mono*
 
 From the Web site:After a very short time getting used to the unusual appearance of this typeface, I found it extremely easy to read even at smaller sizes. I also felt like reading went more quickly and with less effort.
 
@@ -181,7 +181,7 @@ OpenDyslexic is available in the repositories of Ubuntu, Debian Sid, Fedora,
 Arch, and Mageia, and for download at http://opendyslexic.org/ 
 [http://opendyslexic.org/]
 
-OTHER  *vwt-914-other*
+OTHER                                                          *vwt-914-other*
     - Envy Code R from 
       http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released 
       [http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released] 
@@ -220,7 +220,7 @@ OTHER  *vwt-914-other*
       [http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252] 
 
 
-SEE ALSO  *vwt-914-see-also*
+SEE ALSO                                                    *vwt-914-see-also*
     - 158 Using Computer Modern TT as a gvim font under Windows |vwt-158| 
     - 414 Change guifont to see more of your file |vwt-414| 
     - 484 Console-like fonts for Windows GVim |vwt-484| 
@@ -231,7 +231,7 @@ SEE ALSO  *vwt-914-see-also*
       [http://www.slant.co/topics/67/~what-are-the-best-programming-fonts%7C] 
 
 
-COMMENTS  *vwt-914-comments*
+COMMENTS                                                    *vwt-914-comments*
 
 I don't like any of these fonts on hires screens. They are too small on a 
 1600x1200 panel. Normally I use Lucida Console 12 pt.

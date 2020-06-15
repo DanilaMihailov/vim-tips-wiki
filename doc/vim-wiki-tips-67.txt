@@ -11,7 +11,7 @@ pressing ga in command mode or :as / :ascii on the command line . This
 displays the value of the current character in decimal, hex and octal. (Think 
 "get ascii.")
 
-SEEING ASCII/UNICODE VALUES IN THE STATUS LINE  *vwt-67-seeing-ascii/unicode-values-in-the-status-line*
+SEEING ASCII/UNICODE VALUES IN THE STATUS LINE *vwt-67-seeing-ascii/unicode-values-in-the-status-line*
 
 You can also add options to the statusline option to show theASCII/Unicode 
 value of the character under the cursor.
@@ -24,7 +24,7 @@ It's the %b\ 0x%B that does the trick. Note that you may need to :set
 laststatus=2 so that the status line is visible in edit sessions with only one 
 window showing.
 
-RELATED SCRIPTS  *vwt-67-related-scripts*
+RELATED SCRIPTS                                       *vwt-67-related-scripts*
     - The characterize plugin 
       [https://www.vim.org/scripts/script.php?script_id=4410] overrides the ga 
       command to provide even more useful information for Unicode characters, such 
@@ -36,13 +36,13 @@ RELATED SCRIPTS  *vwt-67-related-scripts*
       entity name. This also works correctly for combined chars. 
 
 
-REFERENCES  *vwt-67-references*
+REFERENCES                                                 *vwt-67-references*
     - :help |ga| 
     - :help |g8| 
     - :help 'statusline' 
     - :help 'laststatus' 
 
 
-COMMENTS  *vwt-67-comments*
+COMMENTS                                                     *vwt-67-comments*
 
  vim:tw=78:et:ft=help:norl:

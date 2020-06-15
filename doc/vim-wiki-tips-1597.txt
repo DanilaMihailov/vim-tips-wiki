@@ -20,7 +20,7 @@ be used. In earlier versions of Vim, //e can be used to repeat the last search
 (because no new search pattern was entered), with the e search offset to move 
 the cursor to the end of the search hit. :help |search-offset|
 
-VIM 7.4 AND LATER  *vwt-1597-vim-7.4-and-later*
+VIM 7.4 AND LATER                                 *vwt-1597-vim-7.4-and-later*
     - TODO: Finish! 
 
 
@@ -33,7 +33,7 @@ example, dgn would delete the next match, and cgn would change the next match.
 After moving the cursor, for example by pressing n to search again, use . to 
 repeat the last operation.
 
-A SEARCH TEXT OBJECT FOR OLDER VIM 7.3 AND EARLIER  *vwt-1597-a-search-text-object-for-older-vim-7.3-and-earlier*
+A SEARCH TEXT OBJECT FOR OLDER VIM 7.3 AND EARLIER *vwt-1597-a-search-text-object-for-older-vim-7.3-and-earlier*
 
 By defining the mappings below for s, after searching you can:
     - Type ys to copy the search hit. 
@@ -63,7 +63,7 @@ Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     omap s :normal vs<CR>
 <
 
-EXPLANATION  *vwt-1597-explanation*
+EXPLANATION                                             *vwt-1597-explanation*
 
 This tip implements a simple search text object identified as "s". When in 
 visual mode, s is mapped to find the end of the last search pattern (//e). 
@@ -94,7 +94,7 @@ The default for visual mode in Vim is that you can press c or s to change a
 selected area. Using the mapping suggested in this tip, you would no longer be 
 able to press s to change a visual area (use c instead).
 
-LIMITATIONS  *vwt-1597-limitations*
+LIMITATIONS                                             *vwt-1597-limitations*
 
 The tip can be helpful to reduce distractions while editing because you can 
 always press ys to yank the hit, or cs to change it (you don't have to think 
@@ -109,17 +109,17 @@ about an alternative method). However, the tip has several limitations:
       break. 
 
 
-SEE ALSO  *vwt-1597-see-also*
+SEE ALSO                                                   *vwt-1597-see-also*
     - Copy the search results into clipboard |vwt-478| 
 
 
-REFERENCES  *vwt-1597-references*
+REFERENCES                                               *vwt-1597-references*
     - :help |gn| 
     - :help |text-objects| 
     - :help |:map-modes| 
 
 
-COMMENTS  *vwt-1597-comments*
+COMMENTS                                                   *vwt-1597-comments*
 
 Vim 7.4 introduces gn to visually select the search hit. HaiFengK 
 [https://vim.fandom.com/wiki/User:HaiFengK] 16:13, April 18, 2017 (UTC)

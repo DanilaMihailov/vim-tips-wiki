@@ -56,7 +56,7 @@ You have to substitute ^M with CTRL_V CTRL_M or delete it.
     20nmenu Editieren.Sonderzeichen.noitamalcxe\ ¡ a<C-R>=nr2char(161)<CR><Esc>
 <
 
-COMMENTS  *vwt-236-comments*
+COMMENTS                                                    *vwt-236-comments*
 
 You can insert lines (if you know the length) e.g. by typing '40'<select 
 special char from menu> in normal mode.

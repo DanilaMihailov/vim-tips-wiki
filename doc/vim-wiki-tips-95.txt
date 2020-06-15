@@ -63,16 +63,16 @@ interested in, this is quite problematic when we execute a sequence of several
 commands. Since version 7.4-2008, Vim provides an execute() function that'll 
 simplify things and avoid side-effects.
 
-REFERENCES  *vwt-95-references*
+REFERENCES                                                 *vwt-95-references*
     - :help |:redir| 
     - :help |execute()| 
 
 
-RELATED SCRIPTS  *vwt-95-related-scripts*
+RELATED SCRIPTS                                       *vwt-95-related-scripts*
     - Decho [https://www.vim.org/scripts/script.php?script_id=120] 
 
 
-COMMENTS  *vwt-95-comments*
+COMMENTS                                                     *vwt-95-comments*
 
 This may be obvious to experts, but it took me a very long time to figure it 
 out, because Google searches on terms like 'pipe', 'buffer', 'shell', etc 

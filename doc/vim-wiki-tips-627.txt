@@ -14,7 +14,7 @@ different options. They all work with the quickfix feature of Vim (:help
 |quickfix|), so before using this tip you need to be familiar with the basics 
 of quickfix operation.
 
-VIM-LATEX PLUGIN  *vwt-627-vim-latex-plugin*
+VIM-LATEX PLUGIN                                    *vwt-627-vim-latex-plugin*
 
 The Vim-LaTeX plugin sets up make, makeprog, and errorformat for compiling 
 single latex files on any system. See the vim-latex documentation 
@@ -37,7 +37,7 @@ Note that Vim-LaTeX should be downloaded from its web page
 [https://www.vim.org/scripts/script.php?script_id=475] is outdated and will 
 not be updated.
 
-AUTOMATIC LATEX PLUGIN  *vwt-627-automatic-latex-plugin*
+AUTOMATIC LATEX PLUGIN                        *vwt-627-automatic-latex-plugin*
 
 The AutomaticLaTeX Plugin [http://atp-vim.sf.net] has a built-in solution for 
 compiling LaTeX files when they are changed (using CursorHold and CursorHoldI 
@@ -58,7 +58,7 @@ long list of features see the web page [1]
 videos [http://atp-vim.sourceforge.net/videos.shtml] which advertise some nice 
 features.
 
-OTHER PLUGINS  *vwt-627-other-plugins*
+OTHER PLUGINS                                          *vwt-627-other-plugins*
 
 Automatic LaTeX Plugin [http://atp-vim.sf.net] and Vim-LaTeX 
 [http://vim-latex.sf.net] are fully flagged plugins, if you prefer a smaller 
@@ -81,7 +81,7 @@ compilation"
       [https://www.vim.org/scripts/script.php?script_id=920] 
 
 
-RUBBER PLUS MAKE  *vwt-627-rubber-plus-make*
+RUBBER PLUS MAKE                                    *vwt-627-rubber-plus-make*
 
 Rubber [https://launchpad.net/rubber] (sudo apt-get install rubber) is a 
 wonderful tool for compiling latex files. It knows how many times to compile, 
@@ -140,7 +140,7 @@ makefile for the project. Mine normally start out like:
 and from here you can add more targets, creating figures, etc. Anything make 
 can do, you can insert it here.
 
-MANUAL SETUP  *vwt-627-manual-setup*
+MANUAL SETUP                                            *vwt-627-manual-setup*
 
 I strongly suggest you use one of the above options, but it is possible to 
 set makeprg and errorformat directly and use the built in tex compiler.
@@ -156,7 +156,7 @@ While it is possible to grep the output to filter the output from pdflatex,
 using rubber is a much better option since it knows all about filtering and 
 compiling more than once.
 
-COMMENTS  *vwt-627-comments*
+COMMENTS                                                    *vwt-627-comments*
 
 In the #Manual setup |vwt-627-manual-setup| section, what's wrong with the 
 default makeprg and errorformat set up by the "compiler tex" command? This 

@@ -27,12 +27,12 @@ can do this with the following command:
      " -------------------- (kdd deletes the # line; put comments in templates).
 <
 
-NOTES  *vwt-624-notes*
+NOTES                                                          *vwt-624-notes*
     - The filenames are not embedded in comments because they could be easily 
       overlooked later. 
     - refile stands for reference file 
 
 
-COMMENTS  *vwt-624-comments*
+COMMENTS                                                    *vwt-624-comments*
 
  vim:tw=78:et:ft=help:norl:

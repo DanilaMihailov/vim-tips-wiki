@@ -12,7 +12,7 @@ buffers such as directory listings).
 For suggestions on how to switch to any other buffer see Easier buffer 
 switching [https://vim.fandom.com/wiki/Easier_buffer_switching].
 
-CYCLING THROUGH LISTED BUFFERS  *vwt-873-cycling-through-listed-buffers*
+CYCLING THROUGH LISTED BUFFERS        *vwt-873-cycling-through-listed-buffers*
 
 The commands :bnext and :bprevious will switch to the next or previous buffer 
 in the buffer list. So a couple of useful maps for cycling through your 
@@ -43,7 +43,7 @@ The buffer you are currently editing will be shown with a '#'. From there you
 should be able to get an idea of how far you have to go to the desired buffer 
 and then use the first set of maps to quickly navigate to it.
 
-INCLUDING UNLISTED BUFFERS IN THE CYCLE  *vwt-873-including-unlisted-buffers-in-the-cycle*
+INCLUDING UNLISTED BUFFERS IN THE CYCLE *vwt-873-including-unlisted-buffers-in-the-cycle*
 
 The :bnext and :bprevious commands skip unlisted buffers, which can prove 
 frustrating when buffers have been opened to view directory listings, or when 
@@ -112,7 +112,7 @@ bufexists(), and checking its filetype with getbufvar().
     nnoremap <silent> <C-p> :call SwitchToNextBuffer(-1)<CR>
 <
 
-LEAVING MODIFIED BUFFERS  *vwt-873-leaving-modified-buffers*
+LEAVING MODIFIED BUFFERS                    *vwt-873-leaving-modified-buffers*
 
 If Vim is running with its default settings, or in vi compatible mode, the 
 commands :bnext, :bprevious and :buffer won't abandon the buffer until any 
@@ -125,7 +125,7 @@ changes have been written. There are a few ways this can be changed.
       :set autowriteall) will automatically save the changes made to the buffer. 
 
 
-REFERENCES  *vwt-873-references*
+REFERENCES                                                *vwt-873-references*
     - :help |:bnext| 
     - :help |:bprevious| 
     - :help |:bdelete| 
@@ -136,7 +136,7 @@ REFERENCES  *vwt-873-references*
     - :help 'autowriteall' 
 
 
-COMMENTS  *vwt-873-comments*
+COMMENTS                                                    *vwt-873-comments*
 
 The following is a tweaked version of code from a proposed new tip 
 [https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200910#Easier_buffer_switching_with_buffer_listing] 

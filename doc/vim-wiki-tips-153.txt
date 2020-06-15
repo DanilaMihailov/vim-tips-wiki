@@ -16,7 +16,7 @@ version 5.7
 
 ==============================================================================
 
-AUTOMATIC BRACKET SETTING  *vwt-153-automatic-bracket-setting*
+AUTOMATIC BRACKET SETTING                  *vwt-153-automatic-bracket-setting*
 
 To automatically insert a closing parenthesis when typing an opening 
 parenthesis you can insert the following simple mapping to your vimrc:
@@ -32,7 +32,7 @@ You can apply this and the following tips, of course, with the kind of
 parenthesis/bracket character you want to, i.e. (, {, [, < ..... and, pretty 
 useful as well, quotation marks ",',.... (to be continued)
 
-FURTHER IMPROVEMENT OF PARENTHESIS/BRACKET EXPANDING  *vwt-153-further-improvement-of-parenthesis/bracket-expanding*
+FURTHER IMPROVEMENT OF PARENTHESIS/BRACKET EXPANDING *vwt-153-further-improvement-of-parenthesis/bracket-expanding*
 
 If you are ready with filling the parenthesis/brackets, you likely want to 
 "escape" from the brackets again to continue coding.
@@ -61,7 +61,7 @@ A much more simple solution that handles nested braces or quotes correctly:
     :inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a
 <
 
-LATE BRACKETING OF TEXT  *vwt-153-late-bracketing-of-text*
+LATE BRACKETING OF TEXT                      *vwt-153-late-bracketing-of-text*
 
 Occasionally I later want already written text parts to put in parenthesis.
 
@@ -84,13 +84,13 @@ word i just typed, for newsgroup articles.
     :imap _* <Esc>bi*<Esc>ea*<Space>
 <
 
-CONCLUSION  *vwt-153-conclusion*
+CONCLUSION                                                *vwt-153-conclusion*
 
 Since I use these macros, I never caused a syntax error because of missing 
 brackets, and furthermore I can quickly insert parenthesis and qutotes into 
 code- and non-code files.
 
-COMMENTS  *vwt-153-comments*
+COMMENTS                                                    *vwt-153-comments*
 
 Led me to create this mapping:
 

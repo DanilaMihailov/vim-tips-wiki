@@ -47,7 +47,7 @@ For an 8-color display:
     endif
 <
 
-ALTERNATIVE  *vwt-1576-alternative*
+ALTERNATIVE                                             *vwt-1576-alternative*
 
 With the settings below, using :runtime syntax/colortest.vim shows all 23 
 colors as distinctly unique.
@@ -77,12 +77,12 @@ Settings in vimrc:
     endif
 <
 
-SEE ALSO  *vwt-1576-see-also*
+SEE ALSO                                                   *vwt-1576-see-also*
     - Color highlighting on telnet |vwt-25| 
     - Desert color scheme with Vim in PuTTY |vwt-1291| 
 
 
-COMMENTS  *vwt-1576-comments*
+COMMENTS                                                   *vwt-1576-comments*
 
 It is relatively easy to change the TERM setting PuTTY uses to set it to send 
 it as "xterm-256color" (or install the full set of terminfo files and set it 

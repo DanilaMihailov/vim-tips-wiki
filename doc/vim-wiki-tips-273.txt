@@ -49,7 +49,7 @@ may need to call Vim and set the filetype specifically like set editor="vim -c
 Now, when your quoted email is displayed in Vim, there are a few ways to fix 
 the quoted text, all relying on the |gq| operator:
 
-FORMAT VISUAL SELECTION  *vwt-273-format-visual-selection*
+FORMAT VISUAL SELECTION                      *vwt-273-format-visual-selection*
     - Move cursor to first line of broken paragraph. 
     - Press 'V' and move to the last line of the paragraph you want to fix. 
     - Press 'g' and then 'q'. The marked text will wrap around to your specified 
@@ -57,24 +57,24 @@ FORMAT VISUAL SELECTION  *vwt-273-format-visual-selection*
       lines. 
 
 
-MOVEMENT-BASED FORMAT  *vwt-273-movement-based-format*
+MOVEMENT-BASED FORMAT                          *vwt-273-movement-based-format*
     - Move cursor to the first line (possibly by pressing { to jump to the top of 
       the paragraph). 
     - Type gq} to format from the cursor to the end of the paragraph, gqq to format 
       just the current line, gq4j to format 4 lines, etc. 
 
 
-FORMAT A TEXT OBJECT  *vwt-273-format-a-text-object*
+FORMAT A TEXT OBJECT                            *vwt-273-format-a-text-object*
     - From anywhere in the paragraph, type gqip or gqap 
 
 
-QUOTE THE TEXT  *vwt-273-quote-the-text*
+QUOTE THE TEXT                                        *vwt-273-quote-the-text*
     - From visual mode simply press \q (assuming your default Leader key is '\' see 
       :help |<LocalLeader>|) and the visually selected text will be preceeded by a 
       '> ' using the Mapping provided in the default filetype plugin. 
 
 
-REFERENCES  *vwt-273-references*
+REFERENCES                                                *vwt-273-references*
     - :help |gq| 
     - :help |object-motions| 
     - :help |text-objects| 
@@ -82,11 +82,11 @@ REFERENCES  *vwt-273-references*
     - :help |ip| 
 
 
-RELATED PLUGINS  *vwt-273-related-plugins*
+RELATED PLUGINS                                      *vwt-273-related-plugins*
     - Brian Medley's email ftplugin 
       [https://www.vim.org/scripts/script.php?script_id=99] 
 
 
-COMMENTS  *vwt-273-comments*
+COMMENTS                                                    *vwt-273-comments*
 
  vim:tw=78:et:ft=help:norl:

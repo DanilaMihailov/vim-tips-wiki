@@ -37,7 +37,7 @@ automatically updated. So if you press / (in normal mode instead of visual
 mode) and press the up arrow, you will see your previous search which can be 
 easily modified.
 
-COMMENTS  *vwt-796-comments*
+COMMENTS                                                    *vwt-796-comments*
 
 A much simpler version is to: make your visual selection and then hit <ESC> 
 (returning to normal mode). Then prepend \%V to your search, like this:

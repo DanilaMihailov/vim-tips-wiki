@@ -25,7 +25,7 @@ that text for you automatically:
       \ exe "normal Opublic class " . expand('%:t:r') . "\n{\n}\<Esc>1G"
 <
 
-COMMENTS  *vwt-378-comments*
+COMMENTS                                                    *vwt-378-comments*
 
 This autocommand generated multiple 'public class..{}' entries sometimes. I 
 have no idea why.

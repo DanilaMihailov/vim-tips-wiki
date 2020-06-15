@@ -14,7 +14,7 @@ although some scripts remap these keys to perform other functions.
 These keys work with a count. For example, pressing 5 then Ctrl-A will 
 increment the following number five times (add 5).
 
-NUMBER FORMATS  *vwt-30-number-formats*
+NUMBER FORMATS                                         *vwt-30-number-formats*
 
 The 'nrformats' option defaults to "octal,hex" which means that increment and 
 decrement work on octal and hex numbers, as well as decimal. If 'nrformats' 
@@ -26,7 +26,7 @@ An octal number starts with 0, and a hex number starts with 0x or 0X. Decimal
 numbers can be preceded with a sign (any + is ignored, while - makes the 
 number negative).
 
-ALTERNATIVE MAPPING  *vwt-30-alternative-mapping*
+ALTERNATIVE MAPPING                               *vwt-30-alternative-mapping*
 
 On Windows, your vimrc [https://vim.fandom.com/wiki/Vimrc] file may source 
 mswin.vim or another script that maps Ctrl-A to Select All. To view and then 
@@ -47,7 +47,7 @@ both):
     :nnoremap <A-x> <C-x>
 <
 
-ENHANCED INCREMENT/DECREMENT  *vwt-30-enhanced-increment/decrement*
+ENHANCED INCREMENT/DECREMENT             *vwt-30-enhanced-increment/decrement*
 
 The following script enhances Ctrl-A and Ctrl-X so that they operate on the 
 next number, even if that number is not on the current line (they search for 
@@ -84,13 +84,13 @@ the last character of the number, and if that character is a letter (for
 example, 0x12AB), repeating the operation will find and operate on the next 
 number because the script starts by searching for a digit 0..9.
 
-ENHANCED WITH NEXTVAL PLUGIN  *vwt-30-enhanced-with-nextval-plugin*
+ENHANCED WITH NEXTVAL PLUGIN             *vwt-30-enhanced-with-nextval-plugin*
 
 You can extend the functionality with a plugin. Nextval 
 [http://www.vim.org/scripts/script.php?script_id=4536] can increment/decrement 
 integer (in several variants), float, hex and boolean.
 
-MAKING A LIST  *vwt-30-making-a-list*
+MAKING A LIST                                           *vwt-30-making-a-list*
 
 There are several ways to make a list of increasing numbers 
 [https://vim.fandom.com/wiki/Making_a_list_of_numbers]. One simple method is 
@@ -127,17 +127,17 @@ following items (the new item will be 103, so the old 103 has to be
 incremented, as does 104, and so on. That can be done using :.,$g/^\d/exe 
 "normal! \<C-a>" (see here [https://vim.fandom.com/wiki/Power_of_g]).
 
-SEE ALSO  *vwt-30-see-also*
+SEE ALSO                                                     *vwt-30-see-also*
     - Making a list of numbers 
       [https://vim.fandom.com/wiki/Making_a_list_of_numbers] 
 
 
-REFERENCES  *vwt-30-references*
+REFERENCES                                                 *vwt-30-references*
     - :help |CTRL-A| 
     - :help 'nrformats' 
 
 
-COMMENTS  *vwt-30-comments*
+COMMENTS                                                     *vwt-30-comments*
 
 If you use Vim under screen, press Ctrl-A and then hit a. Screen then sends 
 on a translation of Ctrl-A to the underlying program, Vim.

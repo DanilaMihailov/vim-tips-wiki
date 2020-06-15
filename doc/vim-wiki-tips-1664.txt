@@ -14,7 +14,7 @@ by adding what follows into your vimrc file.When you hit F4, vim will get the
 image name and path mentioned in the "src" field of the <img> tag and will use 
 perl to do this job for you.
 
-COPY AND INSERT IMAGE SIZE INTO HTML CODE BY PRESSING A KEY  *vwt-1664-copy-and-insert-image-size-into-html-code-by-pressing-a-key*
+COPY AND INSERT IMAGE SIZE INTO HTML CODE BY PRESSING A KEY *vwt-1664-copy-and-insert-image-size-into-html-code-by-pressing-a-key*
 
 First step is to make sure you have Perl installed and the Perl module 
 Image::Size. Then all you need is to add this to your vimrc 
@@ -39,7 +39,7 @@ Image::Size. Then all you need is to add this to your vimrc
     nnoremap <F4> :call PerlImageSize()<CR>
 <
 
-COMMENTS  *vwt-1664-comments*
+COMMENTS                                                   *vwt-1664-comments*
 
 TO DO
     - Another mysterious tip. What image? What does it do? What is the $ N 2w 

@@ -28,7 +28,7 @@ writing the file and going to the next, then executing itself (@q), ending the
 macro and then executing itself. This way one script could be used to edit all 
 300 of my files.
 
-COMMENTS  *vwt-452-comments*
+COMMENTS                                                    *vwt-452-comments*
 
 Once the files have been loaded, why not just execute a bufdo? It'll execute 
 the same command (:g/pattern/d in this case) in all buffers.

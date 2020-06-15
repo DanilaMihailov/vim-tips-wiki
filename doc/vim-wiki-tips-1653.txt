@@ -18,9 +18,9 @@ make: in case of doubt, try replacing make by gmake everywhere.
 Also take a look at the Mercurial instructions from vim.org 
 [http://www.vim.org/mercurial.php].
 
-FIRST TIME ONLY: CREATING YOUR REPOSITORY  *vwt-1653-first-time-only:-creating-your-repository*
+FIRST TIME ONLY: CREATING YOUR REPOSITORY *vwt-1653-first-time-only:-creating-your-repository*
 
-MAKE SURE THAT MERCURIAL AND PYTHON ARE INSTALLED ON YOUR SYSTEM  *vwt-1653-make-sure-that-mercurial-and-python-are-installed-on-your-system*
+MAKE SURE THAT MERCURIAL AND PYTHON ARE INSTALLED ON YOUR SYSTEM *vwt-1653-make-sure-that-mercurial-and-python-are-installed-on-your-system*
 
 For example, check there is a program named hg and another named python in 
 your PATH. If you haven't got Mercurial, install it, either (if available) by 
@@ -35,7 +35,7 @@ GUI), there are options available such as TortoiseHg
 easy-to-use GUI front-end. On Windows, the installer even includes Python and 
 a command-line hg tool, so that you get everything you need in one package.
 
-INSTALL A COPY OF BRAM'S LATEST SOURCE, RUNTIME AND ANCILLARY FILES  *vwt-1653-install-a-copy-of-bram's-latest-source,-runtime-and-ancillary-files*
+INSTALL A COPY OF BRAM'S LATEST SOURCE, RUNTIME AND ANCILLARY FILES *vwt-1653-install-a-copy-of-bram's-latest-source,-runtime-and-ancillary-files*
 
 1. Set up a directory head "for building" and cd to it, e.g. (on Linux)
 
@@ -56,7 +56,7 @@ can be useful to keep a running log. The important part starts with hg and
 ends immediately before the right parenthesis. Similarly for other hg commands 
 below.
 
-SIMPLE CASE: GETTING NEW PATCHES  *vwt-1653-simple-case:-getting-new-patches*
+SIMPLE CASE: GETTING NEW PATCHES   *vwt-1653-simple-case:-getting-new-patches*
 
 This applies if all of the following are true:
     - You have no local changes to the Vim source, ancillary and runtime files 
@@ -75,9 +75,9 @@ to the Vim source is:
     (date && hg pull -u) 2>&1 |tee -a ../hg-vim.log
 <
 
-COMPLEX CASE: YOU HAVE LOCAL CHANGES AND/OR COMPILE SEVERAL VIM VERSIONS  *vwt-1653-complex-case:-you-have-local-changes-and/or-compile-several-vim-versions*
+COMPLEX CASE: YOU HAVE LOCAL CHANGES AND/OR COMPILE SEVERAL VIM VERSIONS *vwt-1653-complex-case:-you-have-local-changes-and/or-compile-several-vim-versions*
 
-ENABLE THE FETCH EXTENSION  *vwt-1653-enable-the-fetch-extension*
+ENABLE THE FETCH EXTENSION               *vwt-1653-enable-the-fetch-extension*
 
 Add the following to the .hg/hgrc file in your repository (it was created by 
 the clone process, with Bram's repository as the default remote source):
@@ -90,7 +90,7 @@ the clone process, with Bram's repository as the default remote source):
 No need to add anything after the equal sign, this extension comes packed 
 with Mercurial (but disabled by default)
 
-PATCH YOUR .HGIGNORE FILE  *vwt-1653-patch-your-.hgignore-file*
+PATCH YOUR .HGIGNORE FILE                 *vwt-1653-patch-your-.hgignore-file*
 
 It is found at the top level of your repository. This step is unnecessary if 
 you have neither additional help files nor additional Vim versions and you 
@@ -136,7 +136,7 @@ Then commit this change:
     (date && hg commit -m 'Ignore shadow directories and help tag changes') 2>&1 |tee -a ../hg-vim.log
 <
 
-CREATE SHADOW DIRECTORIES  *vwt-1653-create-shadow-directories*
+CREATE SHADOW DIRECTORIES                 *vwt-1653-create-shadow-directories*
 
 If you want to compile more than one version of Vim, create shadow 
 directories to avoid conflicts between them. We create them with names 
@@ -152,7 +152,7 @@ them. Here is an example:
 The -e command-line switch is necessary so that make won't override our 
 SHADOWDIR names with the default which is just shadow
 
-APPLY YOUR LOCAL CHANGES AND COMMIT THEM  *vwt-1653-apply-your-local-changes-and-commit-them*
+APPLY YOUR LOCAL CHANGES AND COMMIT THEM *vwt-1653-apply-your-local-changes-and-commit-them*
 
 You do this by editing the sources in the src directory. The case where you 
 want to compile different versions of Vim with not only different 
@@ -185,7 +185,7 @@ Then, commit your local changes with
     (date && hg commit -m 'Local source changes') 2>&1 |tee -a ../hg-vim.log
 <
 
-GET ANY NEW OFFICIAL PATCHES AND MERGE THEM WITH YOUR LOCAL ONES  *vwt-1653-get-any-new-official-patches-and-merge-them-with-your-local-ones*
+GET ANY NEW OFFICIAL PATCHES AND MERGE THEM WITH YOUR LOCAL ONES *vwt-1653-get-any-new-official-patches-and-merge-them-with-your-local-ones*
 
 >
     cd ~/.build/hg/vim
@@ -201,15 +201,15 @@ Before compiling, you may want to check any files listed as "merged"
 (possibly with the help of the hg diff function) to make sure that the changes 
 are what you would expect.
 
-SEE ALSO  *vwt-1653-see-also*
+SEE ALSO                                                   *vwt-1653-see-also*
 
-MANPAGES  *vwt-1653-manpages*
+MANPAGES                                                   *vwt-1653-manpages*
     - man hg 
     - man hgrc 
     - man hgignore 
 
 
-THE MERCURIAL ONLINE HELP  *vwt-1653-the-mercurial-online-help*
+THE MERCURIAL ONLINE HELP                 *vwt-1653-the-mercurial-online-help*
 
 In my experience, second only to the Vim help itself. It includes the whole 
 contents of the manpages |vwt-1653-manpages|, and more.
@@ -222,11 +222,11 @@ extensions).
 
 Note: The full text of the help is only obtained with -v or --verbose, or when the [ui] section of your hgrc (or, on Windows, Mercurial.ini) contains the line verbose=1
 
-IN THIS WIKI  *vwt-1653-in-this-wiki*
+IN THIS WIKI                                           *vwt-1653-in-this-wiki*
     - Category:Building Vim [https://vim.fandom.com/wiki/Category:Building_Vim] 
 
 
-EXTERNAL LINKS  *vwt-1653-external-links*
+EXTERNAL LINKS                                       *vwt-1653-external-links*
     - The Mercurial site [http://mercurial.selenic.com/] 
     - The Mercurial Guide [http://mercurial.selenic.com/guide/] 
     - The Mercurial mailing list [http://selenic.com/mailman/listinfo/mercurial] 
@@ -236,9 +236,9 @@ EXTERNAL LINKS  *vwt-1653-external-links*
       [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm] 
 
 
-COMMENTS  *vwt-1653-comments*
+COMMENTS                                                   *vwt-1653-comments*
 
-KNOWN BUG: LOGGING AND INTERACTIVE MERGE  *vwt-1653-known-bug:-logging-and-interactive-merge*
+KNOWN BUG: LOGGING AND INTERACTIVE MERGE *vwt-1653-known-bug:-logging-and-interactive-merge*
 
 A problem which I haven't solved about the above method of keeping a running 
 log, is that is doesn't mesh well with Mercurial's "interactive merge tool": 
@@ -292,7 +292,7 @@ Example (for the shell on Unix-like systems):
 — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] (talk 
 [https://vim.fandom.com/wiki/User_talk:Tonymec]) 02:56, July 16, 2012 (UTC)
 
-USEFUL COMMANDS TO GET INFORMATION  *vwt-1653-useful-commands-to-get-information*
+USEFUL COMMANDS TO GET INFORMATION *vwt-1653-useful-commands-to-get-information*
     - hg -v help 
     - hg -v help |less 
 
@@ -343,7 +343,7 @@ Notes:
 — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 09:43, May 24, 2010 
 (UTC)
 
-CHANGING BRANCHES  *vwt-1653-changing-branches*
+CHANGING BRANCHES                                 *vwt-1653-changing-branches*
 
 Changing branches, or going to a "tagged" revision, are two of the functions 
 of the hg update command (which has up as an alias) — in general, its function 

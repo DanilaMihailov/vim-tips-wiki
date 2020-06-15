@@ -37,7 +37,7 @@ This tip explains how Windows users can overcome problems running diff from
 within Vim. In addition, some of the options available when invoking diff are 
 explained.
 
-RECOMMENDED SOLUTION  *vwt-715-recommended-solution*
+RECOMMENDED SOLUTION                            *vwt-715-recommended-solution*
 
 The best solution for Windows users is to download the GnuWin32 diff 
 [http://gnuwin32.sourceforge.net/packages/diffutils.htm] package and install 
@@ -83,7 +83,7 @@ valid TEMP or TMP environment variables that point to an existing directory
 where you are able to write files. For more information, see the tip on 
 handling temp environment errors |vwt-1532|.
 
-DIFF OPTIONS  *vwt-715-diff-options*
+DIFF OPTIONS                                            *vwt-715-diff-options*
 
 Some people vertically align variables and comments by adding or removing 
 whitespace. However, those trivial changes may clutter the output from diff 
@@ -98,7 +98,7 @@ You can issue this command while viewing a diff (you may also need
 :diffupdate to update the display), or you can add the command to your vimrc 
 so it is always in effect. :help 'diffopt'
 
-VIM DISTRIBUTION FROM CREAM  *vwt-715-vim-distribution-from-cream*
+VIM DISTRIBUTION FROM CREAM              *vwt-715-vim-distribution-from-cream*
 
 Where to download Vim [https://vim.fandom.com/wiki/Where_to_download_Vim] 
 mentions that Cream's "standard" Vim is a good place to download a fully 
@@ -171,7 +171,7 @@ the current directory or directories of the PATH will be used):
 
 After this change (and restarting Vim), diff works correctly.
 
-OTHER SOLUTIONS  *vwt-715-other-solutions*
+OTHER SOLUTIONS                                      *vwt-715-other-solutions*
 
 If you need to use the MyDiff() function, another proposal that worked with 
 Vim 6.4 is shown below (it should probably use $VIMRUNTIME as above).
@@ -198,7 +198,7 @@ Vim 6.4 is shown below (it should probably use $VIMRUNTIME as above).
     endif
 <
 
-COMMENTS  *vwt-715-comments*
+COMMENTS                                                    *vwt-715-comments*
 
 TO DO
     - Need ideas for a better name for this tip. 

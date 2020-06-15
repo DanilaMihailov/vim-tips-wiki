@@ -14,7 +14,7 @@ current word without searching. That can be useful when examining unfamiliar
 source code: just move the cursor to a variable, and all occurrences of the 
 variable will be highlighted.
 
-SCRIPT  *vwt-572-script*
+SCRIPT                                                        *vwt-572-script*
 
 Put the following code in your vimrc [https://vim.fandom.com/wiki/Vimrc], or 
 create file ~/.vim/plugin/autohighlight.vim (Unix) or 
@@ -69,9 +69,9 @@ be highlighted with hlsearch:
     endfunction
 <
 
-COMMENTS  *vwt-572-comments*
+COMMENTS                                                    *vwt-572-comments*
 
-ESCAPING  *vwt-572-escaping*
+ESCAPING                                                    *vwt-572-escaping*
 
 A recent edit (here 
 [https://vim.fandom.com/index.php?title=Auto_highlight_current_word_when_idle&diff=29630&oldid=27148]) 
@@ -83,7 +83,7 @@ needs escaping. Thoughts? JohnBeckett
 
 I note that <cword> works depending on the 'isk' setting, which for some filetypes (very notably, help files) could contain a backslash. I note that the backslash is the only character escaped in the addition. Since we are using the "very no magic" \V modifier, this is really the only character that could possibly need escaping. I think we should keep it, but explain why. --Fritzophrenic 15:30, March 3, 2011 (UTC)
 
-LOAD AT STARTUP  *vwt-572-load-at-startup*
+LOAD AT STARTUP                                      *vwt-572-load-at-startup*
 
 How can I load this at startup without a mapping?
 

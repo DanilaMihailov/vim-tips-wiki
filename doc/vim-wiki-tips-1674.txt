@@ -15,7 +15,7 @@ random function (although the current time can be used as a crude form of
 "random" that is adequate for some purposes, see here 
 [https://vim.fandom.com/wiki/Switch_color_schemes]).
 
-USING BASH  *vwt-1674-using-bash*
+USING BASH                                               *vwt-1674-using-bash*
 
 The bash shell provides the RANDOM environment variable that gives a random 
 integer from 0 to 32767 inclusive, on many Linux systems. Since 0G jumps to 
@@ -28,7 +28,7 @@ random line in the buffer:
     :command! RandomLine execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
 <
 
-USING URANDOM  *vwt-1674-using-urandom*
+USING URANDOM                                         *vwt-1674-using-urandom*
 
 On Linux, random bytes can be read from /dev/urandom. The following takes 
 three such bytes (-N3) which results in a random integer from 0 to 16,777,215 
@@ -50,7 +50,7 @@ not start with a digit). The od (octal dump) utility reads 3 bytes from
 urandom and outputs the text equivalent of a 4 byte unsigned integer (-tu4) 
 with no lines marked and no addresses (-vAn).
 
-USING RUBY  *vwt-1674-using-ruby*
+USING RUBY                                               *vwt-1674-using-ruby*
 
 The following variation requires Ruby and a Vim compiled with support for 
 Ruby.
@@ -80,12 +80,12 @@ Usage examples:
       each section starts with a header having "=" as the first character. 
 
 
-PLUGINS  *vwt-1674-plugins*
+PLUGINS                                                     *vwt-1674-plugins*
 
 One can utilize Dr. Chip's random number generator 
 [http://www.drchip.org/astronaut/vim/index.html#RNDM].
 
-COMMENTS  *vwt-1674-comments*
+COMMENTS                                                   *vwt-1674-comments*
 
 It would be nice if someone could provide a clue why jumping to a random line 
 might be useful. I can imagine wanting a program to fetch a random line from a 

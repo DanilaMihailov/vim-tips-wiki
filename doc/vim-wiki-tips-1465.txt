@@ -26,7 +26,7 @@ c for change
 
 both can be applied to a word by suffixing it with w.
 
-SECTION 1  *vwt-1465-section-1*
+SECTION 1                                                 *vwt-1465-section-1*
 
 man setenv
 
@@ -56,7 +56,7 @@ ZZ Save and quit.
 
 :q! end the editor session.
 
-SECTION 2  *vwt-1465-section-2*
+SECTION 2                                                 *vwt-1465-section-2*
 
 ^D Scrolls Down in a file. D stands for Down.
 
@@ -126,7 +126,7 @@ SPACE Advance by one position.
 
 view instead of vi will set readonly option to the file being edited.
 
-SECTION 3  *vwt-1465-section-3*
+SECTION 3                                                 *vwt-1465-section-3*
 
 i stands for insert
 
@@ -183,7 +183,7 @@ u undo command to reverse the change. u also undoes a u.
 U restores the current line to the state before you started changing it. u 
 does only a single character.
 
-SECTION 4  *vwt-1465-section-4*
+SECTION 4                                                 *vwt-1465-section-4*
 
 fx finds the next x character in the current line.
 
@@ -240,7 +240,7 @@ nYP Number of lines to duplicate.
 
 :e edit another file.
 
-SECTION 5  *vwt-1465-section-5*
+SECTION 5                                                 *vwt-1465-section-5*
 
 :q! quits editor without saving.
 
@@ -271,7 +271,7 @@ z. will place the line under the cursor to the middle of the window.
 
 z- will place the line under the cursor at the end of the window.
 
-SECTION 6  *vwt-1465-section-6*
+SECTION 6                                                 *vwt-1465-section-6*
 
 set slow
 
@@ -335,7 +335,7 @@ rather than command mode.
 
 :ab cs Computer Science
 
-SECTION 7  *vwt-1465-section-7*
+SECTION 7                                                 *vwt-1465-section-7*
 
 5a+-----ESC
 
@@ -406,7 +406,7 @@ Seven habits of effective text editing http://www.moolenaar.net/habits.html
 
 Vim site www.vim.org
 
-COMMENTS  *vwt-1465-comments*
+COMMENTS                                                   *vwt-1465-comments*
 
 I am tempted to put a dodgy template on this tip. There are better ways to 
 get Vim info (and some of the above is bad information for anyone with Vim 7.0 

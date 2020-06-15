@@ -7,7 +7,7 @@ version 5.7
 
 ==============================================================================
 
-INSERTING AN EMPTY LINE  *vwt-604-inserting-an-empty-line*
+INSERTING AN EMPTY LINE                      *vwt-604-inserting-an-empty-line*
 
 With the following map, you can press Enter in normal mode to insert an empty 
 line.
@@ -25,7 +25,7 @@ Here is an alternative:
     nmap ,O O<Esc>j
 <
 
-INSERTING A SPACE  *vwt-604-inserting-a-space*
+INSERTING A SPACE                                  *vwt-604-inserting-a-space*
 
 If you manually align text (declarations, ascii tables, trailing comments), 
 you'll find this simple mapping useful.
@@ -47,6 +47,6 @@ For example, suppose we want foo to be aligned with bar:
 Move the cursor just after 'int'. Press Space until 'foo' is aligned with 
 'bar'.
 
-COMMENTS  *vwt-604-comments*
+COMMENTS                                                    *vwt-604-comments*
 
  vim:tw=78:et:ft=help:norl:

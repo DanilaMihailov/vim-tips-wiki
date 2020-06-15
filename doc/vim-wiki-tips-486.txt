@@ -11,7 +11,7 @@ program, for example, that allows you to quickly see all occurrences of a
 variable). This tip shows how search highlighting is controlled, and has a 
 method to highlight searches without moving.
 
-HIGHLIGHTING SEARCH MATCHES  *vwt-486-highlighting-search-matches*
+HIGHLIGHTING SEARCH MATCHES              *vwt-486-highlighting-search-matches*
 
 To highlight all search matches, set the following option:
 
@@ -74,7 +74,7 @@ want Vim to start with no search highlighting:
     :set viminfo^=h
 <
 
-HIGHLIGHT MATCHES WITHOUT MOVING  *vwt-486-highlight-matches-without-moving*
+HIGHLIGHT MATCHES WITHOUT MOVING    *vwt-486-highlight-matches-without-moving*
 
 It can be useful to highlight the word under the cursor like *, but without 
 jumping to the next match. Then you can see the search highlights on the 
@@ -159,14 +159,14 @@ uses a regular expression for the match so that the current setting of
 'ignorecase' is fused (when set, highlighting a word like "example" will also 
 highlight "Example").
 
-SEE ALSO  *vwt-486-see-also*
+SEE ALSO                                                    *vwt-486-see-also*
     - Searching |vwt-1| 
     - Search for visually selected text |vwt-171| 
     - Highlight multiple words |vwt-1572| 
     - Auto highlight current word when idle |vwt-572| 
 
 
-REFERENCES  *vwt-486-references*
+REFERENCES                                                *vwt-486-references*
     - :help 'hlsearch' option to control search highlighting 
     - :help |:nohlsearch| command to temporarily remove search highlighting 
     - :help 'viminfo' include h to disable the effect of 'hlsearch' 
@@ -175,7 +175,7 @@ REFERENCES  *vwt-486-references*
     - :help |:match| you can highlight more than the search pattern 
 
 
-COMMENTS  *vwt-486-comments*
+COMMENTS                                                    *vwt-486-comments*
 
 I like this no-flicker find/highlight a lot. I used this one but wished it 
 put my cword into search history so /<Up> would recall it.

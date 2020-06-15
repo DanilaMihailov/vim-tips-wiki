@@ -10,7 +10,7 @@ Often a file contains the name of a second file, and you would like to open
 the second file. Do that by putting the cursor on the file name and typing gf. 
 This tip explains the details of gf.
 
-GO TO FILE  *vwt-299-go-to-file*
+GO TO FILE                                                *vwt-299-go-to-file*
 
 The following commands open the file name under the cursor:
 
@@ -39,7 +39,7 @@ third, etc.
 
 You can return to the previous buffer using Ctrl-^ or Ctrl-o.
 
-FILE NAME AND LINE NUMBER  *vwt-299-file-name-and-line-number*
+FILE NAME AND LINE NUMBER                  *vwt-299-file-name-and-line-number*
 
 Instead of just a file name, you may have a name followed by a line number. 
 For example, global.h:123 indicates line 123 in file global.h. Instead of a 
@@ -70,7 +70,7 @@ global.h:123, as an argument to Vim. When you open file:line, the script
 checks if file exists and line is a number. If so, Vim opens file at the 
 correct line line number.
 
-NAMES CONTAINING SPACES  *vwt-299-names-containing-spaces*
+NAMES CONTAINING SPACES                      *vwt-299-names-containing-spaces*
 
 With default settings, Vim regards spaces as delimiters (not part of a file 
 name). That means you cannot type gf to open a file if the name contains a 
@@ -97,7 +97,7 @@ select the name with the mouse, then type gf. Before typing gf, check that you
 are in visual mode (if the status line shows --SELECT--, switch to visual mode 
 by pressing Ctrl-g).
 
-ADJUSTING ISFNAME  *vwt-299-adjusting-isfname*
+ADJUSTING ISFNAME                                  *vwt-299-adjusting-isfname*
 
 To have a space (ASCII 32) considered as a valid character for a file name, 
 add the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
@@ -121,7 +121,7 @@ in the value. Alternately, use forward slashes:
     :set path+=C:/DOCUME~1/MYUSER~1/MYDOCU~1
 <
 
-USING AN ENVIRONMENT VARIABLE  *vwt-299-using-an-environment-variable*
+USING AN ENVIRONMENT VARIABLE          *vwt-299-using-an-environment-variable*
 
 If you commonly use names with no spaces, but the files are in a directory 
 with spaces, you may like to use the following approach. First, you can use 
@@ -153,13 +153,13 @@ all systems. On Windows, you could use backslashes instead, and you can mix
 back and forward slashes (for example, using backslashes in $mydir and forward 
 slashes in $mydir/abc.txt).
 
-USING SELECTION  *vwt-299-using-selection*
+USING SELECTION                                      *vwt-299-using-selection*
 
 Just select the path and then usegf or <c-w>f or <c-w>gf
 
 (This may need Vim 7.2+. Older versions haven't been tested yet.)
 
-OPEN OR CREATE PATH AND FILE  *vwt-299-open-or-create-path-and-file*
+OPEN OR CREATE PATH AND FILE            *vwt-299-open-or-create-path-and-file*
 
 A plugin [https://www.vim.org/scripts/script.php?script_id=5822] can be 
 install to create an non inexistant directory and/or file.
@@ -169,14 +169,14 @@ Default keymap is <leader>e.
 Works with suffixesadd options as gf to open file without extension like in 
 Javascript import.
 
-SEE ALSO  *vwt-299-see-also*
+SEE ALSO                                                    *vwt-299-see-also*
     - 384 Easily switch between source and header file |vwt-384| 
     - 1546 Automatically add Python paths to Vim path |vwt-1546| 
     - Jump to tab if the destination is already open in another tab 
       [https://stackoverflow.com/q/54338556] 
 
 
-REFERENCES  *vwt-299-references*
+REFERENCES                                                *vwt-299-references*
     - :help |gf| 
     - :help |v_gf| 
     - :help |CTRL-W_F| 
@@ -187,7 +187,7 @@ REFERENCES  *vwt-299-references*
     - :help 'isfname' characters considered part of path/file name 
 
 
-COMMENTS  *vwt-299-comments*
+COMMENTS                                                    *vwt-299-comments*
 
 TO DO
     - Need brief explanation 'isfname'. 
@@ -251,7 +251,7 @@ which can be automated by the following visual mapping,
 
 The above is fine but it just clutters this tip. It might be somewhere else with a see also from here. JohnBeckett 09:38, January 7, 2010 (UTC)
 
-FOLLOWING RELATIVE LINKS IN HTML SOURCE  *vwt-299-following-relative-links-in-html-source*
+FOLLOWING RELATIVE LINKS IN HTML SOURCE *vwt-299-following-relative-links-in-html-source*
 
 We might want to use gF in an HTML file which we have opened directly from 
 the web with netrw. For example, on the following src attribute:

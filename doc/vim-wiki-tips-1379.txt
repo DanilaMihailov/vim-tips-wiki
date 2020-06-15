@@ -30,7 +30,7 @@ scripts (since it modifies &updatetime). For your internal consumption only.
     au CursorHold * if PersistentEcho!=''|echo PersistentEcho|let PersistentEcho=''|endif
 <
 
-COMMENTS  *vwt-1379-comments*
+COMMENTS                                                   *vwt-1379-comments*
 
 Would :echom by definition be a persistent echo?
 

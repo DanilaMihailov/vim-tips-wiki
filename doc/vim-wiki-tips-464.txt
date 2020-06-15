@@ -10,7 +10,7 @@ A good way to search and replace the word under the cursor is shown here
 [https://vim.fandom.com/wiki/Search_and_replace#substitute_last_search]. This 
 tip simplifies such operations.
 
-MANUAL PROCEDURE  *vwt-464-manual-procedure*
+MANUAL PROCEDURE                                    *vwt-464-manual-procedure*
 
 If you only have a few occurrences to change, you might prefer a manual 
 technique which does not require a mapping. If all foo words need to be 
@@ -23,7 +23,7 @@ changed to bar:
     - Repeat last step. 
 
 
-MAPPING  *vwt-464-mapping*
+MAPPING                                                      *vwt-464-mapping*
 
 With this mapping in your vimrc [https://vim.fandom.com/wiki/Vimrc], you can 
 easily enter a command to substitute all occurrences of the word under the 
@@ -51,7 +51,7 @@ entered:
     :nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 <
 
-SIMILAR CHANGES  *vwt-464-similar-changes*
+SIMILAR CHANGES                                      *vwt-464-similar-changes*
 
 Sometimes similar changes to several words are needed. For example, you might 
 need < before each word, and > after (this specific example is probably best 
@@ -80,19 +80,19 @@ press F8 again.
     :nnoremap <expr> <F8> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>'
 <
 
-REFERENCES  *vwt-464-references*
+REFERENCES                                                *vwt-464-references*
     - :help |c_CTRL-R| 
     - :help |c_CTRL-R_CTRL-W| 
     - :help |cursor-position| 
     - :help |mapleader| 
 
 
-SEE ALSO  *vwt-464-see-also*
+SEE ALSO                                                    *vwt-464-see-also*
     - Search and replace |vwt-31| (comprehensive "see also" list) 
     - Keystroke Saving Substituting and Searching |vwt-159| 
     - Substitute last search |vwt-1501| 
 
 
-COMMENTS  *vwt-464-comments*
+COMMENTS                                                    *vwt-464-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -40,7 +40,7 @@ selection with the answer:
     vnoremap <Leader>mr "aygvrXgv"by:r !perl -e '$x = <C-R>a; print $x'<CR>0"cyWddk:s/<C-R>b/<C-R>c/<CR>
 <
 
-COMMENTS  *vwt-987-comments*
+COMMENTS                                                    *vwt-987-comments*
 
 Or you could use :perldo instead of shelling out.
 

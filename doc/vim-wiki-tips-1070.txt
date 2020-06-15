@@ -27,7 +27,7 @@ Problems I tried hard to get the cursor location to act the same for the
 multiply and divide as the built in add and subtract, but there are a few 
 conditions where it doesn't. It also clobbers your last search in the process.
 
-COMMENTS  *vwt-1070-comments*
+COMMENTS                                                   *vwt-1070-comments*
 
 Using submatch(0), you wouldn't need the grouping parentheses.
 

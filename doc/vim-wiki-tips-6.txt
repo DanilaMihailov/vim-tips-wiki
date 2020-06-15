@@ -6,7 +6,7 @@ created 2001 · complexity basic · author Yegappan · version 6.0
 
 ==============================================================================
 
-% KEY  *vwt-6-%-key*
+% KEY                                                            *vwt-6-%-key*
 
 The % key can be used for the following :
     - To jump to a matching opening or closing parenthesis, square bracket or a 
@@ -28,7 +28,7 @@ This way, whenever you type % you jump to the matching object, and you
 visually select all the text in between. It's useful for indenting a C/C++ 
 method/class: go to opening/closing brace, and type =%
 
-SHOWMATCH  *vwt-6-showmatch*
+SHOWMATCH                                                    *vwt-6-showmatch*
 
 The showmatch option is also useful: it can reduce the need for %, the cursor 
 will briefly jump to the matching brace when you insert one.
@@ -50,7 +50,7 @@ can use a mapping like:
     inoremap ) )<Left><c-o>%<c-o>:sleep 500m<CR><c-o>%<c-o>a
 <
 
-MATCHIT  *vwt-6-matchit*
+MATCHIT                                                        *vwt-6-matchit*
 
 The matchit.vim script allows you to configure % to match more than just 
 single characters. You can match words and even regular expressions. Also, 
@@ -74,7 +74,7 @@ fi in shell scripts.
 See :help |matchit-install| for more information on installing matchit. After 
 installation you can use :help matchit for usage information.
 
-SEE ALSO  *vwt-6-see-also*
+SEE ALSO                                                      *vwt-6-see-also*
     - :help |%| 
     - :help 'matchpairs' 
     - :help 'showmatch' 
@@ -85,7 +85,7 @@ SEE ALSO  *vwt-6-see-also*
       [https://www.vim.org/scripts/script.php?script_id=290] 
 
 
-COMMENTS  *vwt-6-comments*
+COMMENTS                                                      *vwt-6-comments*
 
 You can select a block delimited by braces using any the following:
     - With the cursor on a brace, type v% to select to the matching brace. 

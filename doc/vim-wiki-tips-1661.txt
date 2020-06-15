@@ -28,7 +28,7 @@ blank lines, but you would then need to enter commands to position the cursor
 and start insert mode. While easy to do, that process can break your train of 
 thought.
 
-SCRIPT  *vwt-1661-script*
+SCRIPT                                                       *vwt-1661-script*
 
 Create file ~/.vim/plugin/insertmultiple.vim (Unix) or 
 $HOME/vimfiles/plugin/insertmultiple.vim (Windows) containing the script 
@@ -54,6 +54,6 @@ below, then restart Vim. Alternatively, add the script to your vimrc
     nnoremap <Leader>O :<C-u>call OpenLines(v:count, -1)<CR>S
 <
 
-COMMENTS  *vwt-1661-comments*
+COMMENTS                                                   *vwt-1661-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -13,6 +13,6 @@ following mapping.
     :map zs :exe "sav $TMP/" . expand("%:t") . strftime("-%Y-%m-%d_%H%M%S")<CR>
 <
 
-COMMENTS  *vwt-567-comments*
+COMMENTS                                                    *vwt-567-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -10,7 +10,7 @@ created 2005 · complexity basic · author tlgrok
 GNU Screen [http://www.gnu.org/software/screen/] is a terminal multiplexer. 
 This tip deals with Screen and Vim integration.
 
-GETTING THE ESC KEY TO WORK  *vwt-965-getting-the-esc-key-to-work*
+GETTING THE ESC KEY TO WORK              *vwt-965-getting-the-esc-key-to-work*
 
 If you use Vim under Screen, you might find that the Esc key doesn't work. To 
 fix this, add the following to your .screenrc:
@@ -22,7 +22,7 @@ fix this, add the following to your .screenrc:
 This may be necessary so Screen will wait no more than 5 milliseconds between 
 characters when detecting an input sequence.
 
-FIXING OTHER KEYS  *vwt-965-fixing-other-keys*
+FIXING OTHER KEYS                                  *vwt-965-fixing-other-keys*
 
 You might find that certain keys, such as <Home> and <End>, don't work 
 properly. To fix this, you need to add something like this to your .vimrc:
@@ -49,7 +49,7 @@ mode (not in your .vimrc), and pressing Home:
     :map <Home> :echo "It works!"<CR>
 <
 
-CHANGING VIM'S IDEA OF THE TERMINAL  *vwt-965-changing-vim's-idea-of-the-terminal*
+CHANGING VIM'S IDEA OF THE TERMINAL *vwt-965-changing-vim's-idea-of-the-terminal*
 
 In addition to the Esc key, you might find that all sorts of other things 
 don't work the way they should. This is because, by default, Screen sets the 
@@ -60,7 +60,7 @@ are two (or three) ways to fix this:
 gnome-terminal, but you should obviously replace "xterm" with the terminal you 
 use if this is not the case.)
 
-1ST ALTERNATIVE: MODIFY YOUR .SCREENRC  *vwt-965-1st-alternative:-modify-your-.screenrc*
+1ST ALTERNATIVE: MODIFY YOUR .SCREENRC *vwt-965-1st-alternative:-modify-your-.screenrc*
 
 Add the following line to your .screenrc:
 
@@ -78,7 +78,7 @@ You could also use the following :
 
 This will fix so the colours will look the same as in vim outside screen.
 
-2ND ALTERNATIVE: MODIFY YOUR .VIMRC  *vwt-965-2nd-alternative:-modify-your-.vimrc*
+2ND ALTERNATIVE: MODIFY YOUR .VIMRC *vwt-965-2nd-alternative:-modify-your-.vimrc*
 
 The very simplest thing to do is to add the following lines to your .vimrc:
 
@@ -105,7 +105,7 @@ ideas), use the following alternative:
     endfunction
 <
 
-SCREEN-AWARE COMMANDS  *vwt-965-screen-aware-commands*
+SCREEN-AWARE COMMANDS                          *vwt-965-screen-aware-commands*
 
 If you decided you'd like there to be a g:GNU_Screen_used variable, you may 
 use it in all sorts of ways.
@@ -131,7 +131,7 @@ use the following alternative:
     endfunction
 <
 
-COMMENTS  *vwt-965-comments*
+COMMENTS                                                    *vwt-965-comments*
 
 The "Fixing some keys" bits (besides being poorly titled; feel free to 
 change) is not so good. It works, but it's a hack, and there's bound to be a 

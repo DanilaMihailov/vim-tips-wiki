@@ -18,7 +18,7 @@ See Avoid the escape key [https://vim.fandom.com/wiki/Avoid_the_escape_key]
 for tips on using Vim to map keys to avoid the need to press Esc to exit from 
 insert mode.
 
-DETAILS  *vwt-342-details*
+DETAILS                                                      *vwt-342-details*
 
 If you want to completely swap the Caps Lock and Escape keys, you have to 
 replace the "Lock" on Caps Lock. Drop this file in your home directory:
@@ -41,7 +41,7 @@ and you'll be twice as efficient in Vim. Who needs caps lock anyway? The
 swapping lasts for the duration of the X session, so you can put it in a 
 .xinitrc or similar startup file.
 
-COMMENTS  *vwt-342-comments*
+COMMENTS                                                    *vwt-342-comments*
 
 If you want to use the capslock as escape on the console as opposed to just 
 in X, try:
@@ -99,7 +99,7 @@ keymappings:the key between z/y and left shift (doesn't exist on us keyboards)
 is superfluous when using an american keymap.=> the best place to put escape 
 and you can leave control on capslock!
 
-COMMENTS FROM TIP 1083 (NOW REMOVED)  *vwt-342-comments-from-tip-1083-(now-removed)*
+COMMENTS FROM TIP 1083 (NOW REMOVED) *vwt-342-comments-from-tip-1083-(now-removed)*
 
 In Linux, you can change the keyboard-layout using a tool called xmodmap.
 
@@ -167,7 +167,7 @@ have to leave the home row.
 For Mac OS X, you can change this via the "Modifier Keys" button on the 
 "Keyboard" section of the "Keyboard & Mouse" preference pane.
 
-COMMENTS FROM TIP 75 (FOR WINDOWS)  *vwt-342-comments-from-tip-75-(for-windows)*
+COMMENTS FROM TIP 75 (FOR WINDOWS) *vwt-342-comments-from-tip-75-(for-windows)*
 
 Here's how to map the caps lock key to a control under X windows, at least 
 under xfree86-3.x and 4.x:Add a file named ".Xkbmap" in your home directory 
@@ -177,7 +177,7 @@ with this content:
     -option ctrl:nocaps
 <
 
-XMODMAP COMMENTS FROM TIP 285  *vwt-342-xmodmap-comments-from-tip-285*
+XMODMAP COMMENTS FROM TIP 285          *vwt-342-xmodmap-comments-from-tip-285*
 
 I changed my CapsLock key to Escape under XFree86 with the following lines in 
 my ~/.Xmodmap:
@@ -341,7 +341,7 @@ executed the command:
 Now it WORKS! I've put the above command to my .bushrc to do it 
 automatically.
 
-COMMENT FROM TIP 327 (NOW REMOVED)  *vwt-342-comment-from-tip-327-(now-removed)*
+COMMENT FROM TIP 327 (NOW REMOVED) *vwt-342-comment-from-tip-327-(now-removed)*
 
 To avoid moving your hand to find the Ctrl key, remap the Ctrl key. On any 
 modern Unix using X do:
@@ -377,7 +377,7 @@ equivalent file. Red Hat Linux and Fedora will execute by default .Xkbmap and
 file, and only -option ctrl:swapcaps in .Xkbmap. Of course you need only one 
 of these two files.
 
-FROM TIP 342 (NOW REMOVED)  *vwt-342-from-tip-342-(now-removed)*
+FROM TIP 342 (NOW REMOVED)                *vwt-342-from-tip-342-(now-removed)*
 
 Tired of hunting down <Esc> at upper-left of your keyboard, while using a 
 keyboard with useless Windows keys?
@@ -439,7 +439,7 @@ Yes, if you are using KDE3. Just go into the control panel under keyboard and
 choose to make the CapsLock another control key. Then you can use capslock-[ 
 the way it was originally intended to be used in Vim.
 
-FROM TIP 775 (NOW REMOVED)  *vwt-342-from-tip-775-(now-removed)*
+FROM TIP 775 (NOW REMOVED)                *vwt-342-from-tip-775-(now-removed)*
 
 I don't like mapping Caps_Lock to Escape as is done in this tip. I don't want 
 an easier way to hit Escape, I want to prevent unexpected things from 
@@ -465,7 +465,7 @@ very good place to do Ctrl-W or Ctrl-X Ctrl-L etc.
 That's basically how the Happy Hacking keyboard is implemented too, and it's 
 a joy on a normal keyboard.
 
-FROM TIP 377 (NOW REMOVED)  *vwt-342-from-tip-377-(now-removed)*
+FROM TIP 377 (NOW REMOVED)                *vwt-342-from-tip-377-(now-removed)*
 
 I have collected most of the special key scancodes on the Microsoft Natural 
 Multimedia Keyboard. This might be helpful for those of you that do lots of 

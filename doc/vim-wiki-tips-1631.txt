@@ -11,7 +11,7 @@ created
 Tips relating to the Clojure [http://en.wikipedia.org/wiki/Clojure] language 
 will be given here.
 
-COMMENTING AND UNCOMMENTING  *vwt-1631-commenting-and-uncommenting*
+COMMENTING AND UNCOMMENTING             *vwt-1631-commenting-and-uncommenting*
 
 The comment leader for Clojure is the ; character. This snippet allows easy 
 commenting and uncommenting of lines.
@@ -35,12 +35,12 @@ otherwise (comment). You could make this more restrictive by only adding the
 mapping for files of the Clojure filetype, or by adding it to 
 ~/.vim/after/ftplugin/clojure.vim.
 
-REFERENCES  *vwt-1631-references*
+REFERENCES                                               *vwt-1631-references*
     - :help |filetype| 
     - :help |after-directory| 
 
 
-COMMENTS  *vwt-1631-comments*
+COMMENTS                                                   *vwt-1631-comments*
 
 TO DO
     - May need some information similar to VimTip1565 |vwt-1565| for making Clojure 

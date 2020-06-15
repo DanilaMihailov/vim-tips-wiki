@@ -6,7 +6,7 @@ created 2005 · complexity intermediate · author Bertram Scharpf · version 6.0
 
 ==============================================================================
 
-SIMPLE COMMANDS TO REMOVE UNWANTED WHITESPACE  *vwt-878-simple-commands-to-remove-unwanted-whitespace*
+SIMPLE COMMANDS TO REMOVE UNWANTED WHITESPACE *vwt-878-simple-commands-to-remove-unwanted-whitespace*
 
 In a search, \s finds whitespace (a space or a tab), and \+ finds one or more 
 occurrences.
@@ -43,7 +43,7 @@ the required flag.
 See Highlighting whitespaces at end of line |vwt-396| to display, rather than 
 delete, unwanted whitespace.
 
-DISPLAY OR REMOVE UNWANTED WHITESPACE WITH A SCRIPT  *vwt-878-display-or-remove-unwanted-whitespace-with-a-script*
+DISPLAY OR REMOVE UNWANTED WHITESPACE WITH A SCRIPT *vwt-878-display-or-remove-unwanted-whitespace-with-a-script*
 
 The following is a more elaborate procedure that can display or remove 
 unwanted whitespace. Here, "unwanted" means any spaces before a tab character, 
@@ -92,7 +92,7 @@ whitespace.
 However, this has minor side-effects, such as influencing undo history and 
 sometimes changing scroll position.
 
-AUTOMATICALLY REMOVING ALL TRAILING WHITESPACE  *vwt-878-automatically-removing-all-trailing-whitespace*
+AUTOMATICALLY REMOVING ALL TRAILING WHITESPACE *vwt-878-automatically-removing-all-trailing-whitespace*
 
 One way to make sure to remove all trailing whitespace in a file is to set an 
 autocmd in your .vimrc file. Every time the user issues a :w command, Vim will 
@@ -136,11 +136,11 @@ certain file types only.
     autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
 <
 
-SEE ALSO  *vwt-878-see-also*
+SEE ALSO                                                    *vwt-878-see-also*
     - :help |:autocmd| - Additional information on autocmd 
 
 
-RELATED SCRIPTS  *vwt-878-related-scripts*
+RELATED SCRIPTS                                      *vwt-878-related-scripts*
     - The DeleteTrailingWhitespace 
       [https://www.vim.org/scripts/script.php?script_id=3967] plugin offers a 
       eponymous command, and can remove trailing whitespace automatically when the 
@@ -157,7 +157,7 @@ RELATED SCRIPTS  *vwt-878-related-scripts*
       modified lines on save. 
 
 
-COMMENTS  *vwt-878-comments*
+COMMENTS                                                    *vwt-878-comments*
 
 Here's what I use in my .vimrc:
 
@@ -305,7 +305,7 @@ number of chars in the current line fixes it.
     autocmd BufWritePre * call StripTrailingWhitespace()
 <
 
-REMOVE SPACE BUT SAVE CURSOR POSITION  *vwt-878-remove-space-but-save-cursor-position*
+REMOVE SPACE BUT SAVE CURSOR POSITION *vwt-878-remove-space-but-save-cursor-position*
 
 I didn't like how I had to use marks to get back to where I was after 
 changing whitespace - it would always leave my cursor at the last change 

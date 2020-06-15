@@ -48,7 +48,7 @@ each mode. For example:
     hi statusline guibg=green
 <
 
-REFERENCES  *vwt-1287-references*
+REFERENCES                                               *vwt-1287-references*
     - :help |InsertEnter| 
     - :help |InsertChange| 
     - :help |InsertLeave| 
@@ -57,12 +57,12 @@ REFERENCES  *vwt-1287-references*
     - :help |hl-StatusLine| 
 
 
-SEE ALSO  *vwt-1287-see-also*
+SEE ALSO                                                   *vwt-1287-see-also*
     - :help 'showmode' for another way to indicate mode 
     - :help |hl-ModeMsg| if you want to change the color of the above 
 
 
-RELATED PLUGINS  *vwt-1287-related-plugins*
+RELATED PLUGINS                                     *vwt-1287-related-plugins*
     - There is the SmartusLine [https://github.com/molok/vim-smartusline] plugin 
       that kind-of does what is explained in this page. 
     - The StatusLineHighlight 
@@ -74,7 +74,7 @@ RELATED PLUGINS  *vwt-1287-related-plugins*
       the current mode along with much more information in the statusline area. 
 
 
-COMMENTS  *vwt-1287-comments*
+COMMENTS                                                   *vwt-1287-comments*
 
 This works when I enter insert mode for the first time and changes the 
 colours properly when i leave insert mode, however after that the colour of 

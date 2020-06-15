@@ -121,12 +121,12 @@ script's functions can access) or b:varname (a variable that anything
 associated with the buffer your application is running with can access) 
 instead of using global variables.
 
-REFERENCES  *vwt-147-references*
+REFERENCES                                                *vwt-147-references*
     - :help |plugin| 
     - :help |write-plugin| 
     - :help |plugin-details| 
 
 
-COMMENTS  *vwt-147-comments*
+COMMENTS                                                    *vwt-147-comments*
 
  vim:tw=78:et:ft=help:norl:

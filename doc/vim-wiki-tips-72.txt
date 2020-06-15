@@ -45,7 +45,7 @@ Another solution is to join consecutive lines found between non-blank lines.
     :v/\S/,/\S/-j
 <
 
-HANDLING IDEOGRAPHIC SPACE  *vwt-72-handling-ideographic-space*
+HANDLING IDEOGRAPHIC SPACE                 *vwt-72-handling-ideographic-space*
 
 In CJK languages (Chinese, Japanese, Korean), the Unicode character 
 IDEOGRAPHIC SPACE may be used. If you have 'encoding' utf-8 (and do not have 
@@ -73,7 +73,7 @@ yank the character. Then, enter the above :g command, but instead of '#' type
 Ctrl-R " (Control-R then double-quote, which will insert the contents of the 
 unnamed register containing the yanked character).
 
-SEE ALSO  *vwt-72-see-also*
+SEE ALSO                                                     *vwt-72-see-also*
     - Power of g |vwt-227| Some advanced techniques to condense multiple blank 
       lines 
     - Search across multiple lines |vwt-242| Searching across multiple lines 
@@ -83,6 +83,6 @@ SEE ALSO  *vwt-72-see-also*
     - Fold away empty lines |vwt-399| To temporarily hide multiple blank lines 
 
 
-COMMENTS  *vwt-72-comments*
+COMMENTS                                                     *vwt-72-comments*
 
  vim:tw=78:et:ft=help:norl:

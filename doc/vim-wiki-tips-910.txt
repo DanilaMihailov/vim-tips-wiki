@@ -65,7 +65,7 @@ Of course this is only of use if you have one major directory on one major
 server. If you have data on multiple servers, this script won't help, since 
 you always have to specify the server and the corresponding directories.
 
-COMMENTS  *vwt-910-comments*
+COMMENTS                                                    *vwt-910-comments*
 
 Use netrw (distributed with Vim) for this type of operation. See :help 
 |netrw|.

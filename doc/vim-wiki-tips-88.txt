@@ -6,7 +6,7 @@ created 2001 · complexity basic · author Leif Wickland · version 6.0
 
 ==============================================================================
 
-TO SET THE INITIAL SIZE OF THE VIM WINDOW  *vwt-88-to-set-the-initial-size-of-the-vim-window*
+TO SET THE INITIAL SIZE OF THE VIM WINDOW *vwt-88-to-set-the-initial-size-of-the-vim-window*
 
 Place the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] to 
 control the initial size of the Vim or gvim window (change the numbers to what 
@@ -42,7 +42,7 @@ systems support -geometry as shown in the following example. :help |-geometry|
     gvim -geometry 97x46+1913+145
 <
 
-TO MAXIMIZE THE INITIAL GVIM WINDOW USING WMCTRL (X SERVER)  *vwt-88-to-maximize-the-initial-gvim-window-using-wmctrl-(x-server)*
+TO MAXIMIZE THE INITIAL GVIM WINDOW USING WMCTRL (X SERVER) *vwt-88-to-maximize-the-initial-gvim-window-using-wmctrl-(x-server)*
 
 Instead of running gvim directly, you can run the following simple script:
 
@@ -70,7 +70,7 @@ and/or for fullscreen.
 If you want to have this as the default whenever you call gvim, you can, 
 e.g., save this script as /usr/local/bin/gvim .
 
-TO MAXIMIZE THE INITIAL VIM WINDOW UNDER WINDOWS  *vwt-88-to-maximize-the-initial-vim-window-under-windows*
+TO MAXIMIZE THE INITIAL VIM WINDOW UNDER WINDOWS *vwt-88-to-maximize-the-initial-vim-window-under-windows*
 
 On some Windows systems, pressing Win-Up (Windows key and the Up cursor key) 
 maximizes the window, and Win-Down restores it.
@@ -121,7 +121,7 @@ or as PowerShell function that accepts file argument
     }
 <
 
-TO MAXIMIZE THE INITIAL VIM WINDOW UNDER SAWFISH  *vwt-88-to-maximize-the-initial-vim-window-under-sawfish*
+TO MAXIMIZE THE INITIAL VIM WINDOW UNDER SAWFISH *vwt-88-to-maximize-the-initial-vim-window-under-sawfish*
 
 You can configure Sawfish [//sawfish.fandom.com/wiki/Main_Page] to 
 automatically maximize gvim on startup:
@@ -132,7 +132,7 @@ automatically maximize gvim on startup:
     - Select the "Maximized" checkbox and click "OK". 
 
 
-COMMENTS  *vwt-88-comments*
+COMMENTS                                                     *vwt-88-comments*
 
 TODO Following are related tips. Should merge some of these.
     - 427 Fast window resizing with plus/minus keys |vwt-427| 
@@ -144,7 +144,7 @@ TODO Following are related tips. Should merge some of these.
     - 1110 Toggle gvim window size |vwt-1110| 
 
 
-EDIT JUNE 9, 2014  *vwt-88-edit-june-9,-2014*
+EDIT JUNE 9, 2014                                   *vwt-88-edit-june-9,-2014*
 
 An edit put simalt ~x in the "more sophisticated" script, but that is already 
 in the tip so I removed it. JohnBeckett 

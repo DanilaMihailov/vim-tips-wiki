@@ -15,12 +15,12 @@ for almost all systems). See where to download Vim
 [https://vim.fandom.com/wiki/Where_to_download_Vim] if you want to download 
 the Vim program to run on your system, without building it yourself.
 
-ANY PLATFORM  *vwt-376-any-platform*
+ANY PLATFORM                                            *vwt-376-any-platform*
 
 It is easy to build Vim from the source code. In general, it takes four 
 steps:
 
-BUILDING VIM ON UBUNTU  *vwt-376-building-vim-on-ubuntu*
+BUILDING VIM ON UBUNTU                        *vwt-376-building-vim-on-ubuntu*
 
 You need the required development packages on Ubuntu to build the GUI:
 
@@ -47,7 +47,7 @@ Commands to build and install GUI Vim:
     $ sudo make install
 <
 
-BUILDING VIM .DEBS ON UBUNTU/DEBIAN (OUTDATED)  *vwt-376-building-vim-.debs-on-ubuntu/debian-(outdated)*
+BUILDING VIM .DEBS ON UBUNTU/DEBIAN (OUTDATED) *vwt-376-building-vim-.debs-on-ubuntu/debian-(outdated)*
 
 Commands to get started and build the first time.
 
@@ -73,7 +73,7 @@ And to update Vim .debs
     $ cd ..
 <
 
-BUILDING VIM ON WINDOWS  *vwt-376-building-vim-on-windows*
+BUILDING VIM ON WINDOWS                      *vwt-376-building-vim-on-windows*
 
 There are a couple options for a compiler on Windows. Vim ships with 
 makefiles for Cygwin, MinGW, and Visual Studio. Visual Studio express is free 
@@ -116,7 +116,7 @@ This will put Vim into a spot everybody can use it, and give you options to
 create default _vimrc, user config areas, .bat files for command-line use, 
 "edit with Vim" context menu, etc.
 
-MISCELLANEOUS  *vwt-376-miscellaneous*
+MISCELLANEOUS                                          *vwt-376-miscellaneous*
 
 In Vim, the command :version includes "Compiled by user@host" (the user and 
 computer host names are provided by the operating system).
@@ -129,7 +129,7 @@ you want that if you are using Perlbrew?) you must disable Perlbrew before
 building with $ perlbrew off and build with system perl, which hopefully isn't 
 too outdated. As of early 2016 Ubuntu is at 5.18 which isn't all that bad!
 
-USING PATCHES  *vwt-376-using-patches*
+USING PATCHES                                          *vwt-376-using-patches*
 
 Following works but is obsolete; see above for information on using Mercurial.
 The following applies to Unix-based systems, and Windows.
@@ -158,7 +158,7 @@ Build (compile and link).
 
 Install.
 
-SEE ALSO  *vwt-376-see-also*
+SEE ALSO                                                    *vwt-376-see-also*
 
 Tips, some of which need updating
     - Building vim with color on HP-UX 
@@ -178,7 +178,7 @@ External sites with how-to information on building Vim
     - on Unix/Linux [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm] 
 
 
-COMMENTS  *vwt-376-comments*
+COMMENTS                                                    *vwt-376-comments*
 
 TO DO
     - Where to get other stuff included in the standard installation, like 

@@ -43,7 +43,7 @@ To make it the default merge tool across all your repos
     git config --global merge.tool vimdiff
 <
 
-SEE ALSO  *vwt-1614-see-also*
+SEE ALSO                                                   *vwt-1614-see-also*
     - Git Grep [https://vim.fandom.com/wiki/Git_grep] 
 
     - Always start on first line of git commit message 
@@ -53,6 +53,6 @@ SEE ALSO  *vwt-1614-see-also*
       and Git by Amjith Ramanujam [http://amjith.blogspot.com/] 
 
 
-COMMENTS  *vwt-1614-comments*
+COMMENTS                                                   *vwt-1614-comments*
 
  vim:tw=78:et:ft=help:norl:

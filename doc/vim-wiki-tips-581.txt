@@ -10,7 +10,7 @@ created October 8, 2003 · complexity basic · author maxiangjiang · version
 This is the feature I have dreamed for months, please refer to 
 http://mozex.mozdev.org [http://mozex.mozdev.org]
 
-COMMENTS  *vwt-581-comments*
+COMMENTS                                                    *vwt-581-comments*
 
 The current version 1.07 does not work quite as it sounds.
 
@@ -138,7 +138,7 @@ as follows:
     c:\cygwin\bin\bash.exe "c:\home\me\bin\screenvim" %t
 <
 
-FROM OLD TIP 1283  *vwt-581-from-old-tip-1283*
+FROM OLD TIP 1283                                  *vwt-581-from-old-tip-1283*
 
 I'm just trying to shamelessly drag your attention to http://mozex.mozdev.org 
 [http://mozex.mozdev.org] again. I adopted mozex plugin and I'm continuing 
@@ -147,7 +147,7 @@ mozilla based browser should be fixed. And there's much more new things (start
 external editor by hotkey, nice configuration dialog, utf-8 editing and more). 
 Just be sure to install latest development version.
 
-COMMENTS  *vwt-581-comments*
+COMMENTS                                                    *vwt-581-comments*
 
 Vim starts up fine for me, when hitting the hotkey. But when I close it 
 again, the text is not taken to the input box.

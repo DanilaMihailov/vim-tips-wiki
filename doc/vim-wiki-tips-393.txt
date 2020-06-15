@@ -18,7 +18,7 @@ and the commands below will work.
 
 Note: +perl/dyn doesn't seem to be necessary.
 
-COMMENTS  *vwt-393-comments*
+COMMENTS                                                    *vwt-393-comments*
 
 Or if you have ruby compiled in (look for +ruby in :ver output), you can use 
 the following:
@@ -118,7 +118,7 @@ with unicode are solved (I hope so) by "use encoding" statement.
 I found the above did not work for me, and played around with it until I got 
 something working (2018):
 
-A WAY TO CALL PERL DIRECTLY FOR SUBSTITUTION  *vwt-393-a-way-to-call-perl-directly-for-substitution*
+A WAY TO CALL PERL DIRECTLY FOR SUBSTITUTION *vwt-393-a-way-to-call-perl-directly-for-substitution*
 
 >
     " Use local perl to handle substitution
@@ -152,7 +152,7 @@ build this! (I could only test on linux, btw) --Peter Kay
 
 The way to do this is with a filter :help !. Use filter commands to process text#Simple filter example has an example. JohnBeckett (talk) 07:39, January 19, 2018 (UTC)
 
-EREGEX.VIM  *vwt-393-eregex.vim*
+EREGEX.VIM                                                *vwt-393-eregex.vim*
 
 There is a plugin eregex.vim 
 [https://www.vim.org/scripts/script.php?script_id=3282] doing the notation 

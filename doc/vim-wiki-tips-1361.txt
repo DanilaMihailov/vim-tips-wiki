@@ -11,7 +11,7 @@ example, in a C++ file, if you insert a blank line after a comment line
 beginning with //, Vim may automatically insert // at the start of the new 
 line. This tip explains how auto commenting can be disabled.
 
-DISABLING TEMPORARILY FOR THE CURRENT SESSION  *vwt-1361-disabling-temporarily-for-the-current-session*
+DISABLING TEMPORARILY FOR THE CURRENT SESSION *vwt-1361-disabling-temporarily-for-the-current-session*
 
 To disable it just once for the current session:
 
@@ -19,7 +19,7 @@ To disable it just once for the current session:
     :set formatoptions-=cro
 <
 
-DISABLING IN GENERAL  *vwt-1361-disabling-in-general*
+DISABLING IN GENERAL                           *vwt-1361-disabling-in-general*
 
 To disable for all files and sessions, use this:
 
@@ -39,7 +39,7 @@ Use this command to check your format options:
     :set formatoptions?
 <
 
-C++ SINGLE-LINE COMMENTS  *vwt-1361-c++-single-line-comments*
+C++ SINGLE-LINE COMMENTS                   *vwt-1361-c++-single-line-comments*
 
 Many C++ and C programs use //-style single line comments, like this:
 
@@ -85,7 +85,7 @@ This auto command will be executed after the c or cpp file types are set. The
 command performs the same modification to the 'comments' option as before, but 
 uses the shortcut of placing the two operations in a single command.
 
-OVERRIDING FORMAT OPTIONS SET BY FILETYPE PLUGIN  *vwt-1361-overriding-format-options-set-by-filetype-plugin*
+OVERRIDING FORMAT OPTIONS SET BY FILETYPE PLUGIN *vwt-1361-overriding-format-options-set-by-filetype-plugin*
 
 If you have enabled file type plugins 
 [https://vim.fandom.com/wiki/File_type_plugins], you may notice that your 
@@ -104,13 +104,13 @@ The perl.vim file should be in this directory (which you may need to create):
 ~/.vim/after/ftplugin on Unix-based systems; or $HOME/vimfiles/after/ftplugin 
 on Windows systems.
 
-REFERENCES  *vwt-1361-references*
+REFERENCES                                               *vwt-1361-references*
     - :help 'formatoptions' 
     - :help |fo-table| 
     - :help |format-comments| 
 
 
-COMMENTS  *vwt-1361-comments*
+COMMENTS                                                   *vwt-1361-comments*
 
 This leaves the cursor on the next line in the fourth position. Any 
 suggestions on how to leave the cursor in the first position of the next line?

@@ -10,7 +10,7 @@ There are several ways to deal with HTML entities so that text can be edited,
 for example, while it contains a simple ampersand (&) rather than its HTML 
 entity (&amp;).
 
-SIMPLE SEARCH AND REPLACE  *vwt-1005-simple-search-and-replace*
+SIMPLE SEARCH AND REPLACE                 *vwt-1005-simple-search-and-replace*
 
 This code allows you to easily escape or unescape HTML entities: Change (<, 
 >, &) to (&lt;, &gt;, &amp;), or the reverse.
@@ -58,7 +58,7 @@ escape, for example:
     :%Entities 1
 <
 
-AUTOMAGIC ESCAPING  *vwt-1005-automagic-escaping*
+AUTOMAGIC ESCAPING                               *vwt-1005-automagic-escaping*
 
 A script is available (unicodeswitch 
 [https://www.vim.org/scripts/script.php?script_id=909]) that automagically 
@@ -68,7 +68,7 @@ Java unicodes, but there is also a setting for HTML codes.
 
 The script is for &nnn style encoding, not the HTML entities.
 
-PERL HTML::ENTITIES  *vwt-1005-perl-html::entities*
+PERL HTML::ENTITIES                             *vwt-1005-perl-html::entities*
 
 Note: Vim needs to compiled with the "perl" feature enabled for this to work.
 
@@ -103,7 +103,7 @@ need Perl [http://www.perl.org/] and HTML-Parser
 
 To convert a line, put the cursor in the line and type \h or \H.
 
-RUBY HTMLENCODE  *vwt-1005-ruby-htmlencode*
+RUBY HTMLENCODE                                     *vwt-1005-ruby-htmlencode*
 
 Note: Vim needs to be compiled with the "ruby" feature enabled for this to 
 work.
@@ -121,7 +121,7 @@ The following is a simpler alternative using Ruby.
     nnoremap <Leader>h :call HTMLEncode()<CR>
 <
 
-LANGUAGE SPECIFIC HTML-ENTITIES  *vwt-1005-language-specific-html-entities*
+LANGUAGE SPECIFIC HTML-ENTITIES     *vwt-1005-language-specific-html-entities*
 
 To change, for example, Norwegian special characters, there is no need to 
 select text and not check all the text since it is never part of code-syntax. 
@@ -144,12 +144,12 @@ other languages.
 
 Add it to your ~/.vimrc or ~/.vim/ftplugin/html.vim.
 
-SEE ALSO  *vwt-1005-see-also*
+SEE ALSO                                                   *vwt-1005-see-also*
     - Quick reference and decode/encode tool [http://www.html-entities.org/] 
     - Html escape tool [http://puzzlersworld.com/misc/html_escape_tool.html] 
 
 
-COMMENTS  *vwt-1005-comments*
+COMMENTS                                                   *vwt-1005-comments*
 
 Can check it with:
 

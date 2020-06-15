@@ -19,7 +19,7 @@ return to the original tab.
     noremap <silent><C-S-w> :if tabpagenr() != tabpagenr('$')<CR>:tabclose<CR>:if tabpagenr() > 1<CR>:tabprev<CR>:endif<CR>:else<CR>:tabclose<CR>:endif<CR>
 <
 
-COMMENTS  *vwt-1333-comments*
+COMMENTS                                                   *vwt-1333-comments*
 
 The following accomplishes the same as above, but if a tab is not being 
 closed, will just call the :q command.

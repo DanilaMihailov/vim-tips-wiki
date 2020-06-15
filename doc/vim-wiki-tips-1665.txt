@@ -29,7 +29,7 @@ Vim completions for zsh. For example, if you type 'vim -o somefile.sh -t' then
 press the Tab key, it will not provide completions. It must be 'vim -t' then 
 Tab to work.
 
-COMPLETING CTAGS WITH ZSH  *vwt-1665-completing-ctags-with-zsh*
+COMPLETING CTAGS WITH ZSH                 *vwt-1665-completing-ctags-with-zsh*
 
 Add the following to your ~/.zshrc file:
 
@@ -51,7 +51,7 @@ Then start a new shell or source your rc file:
     source ~/.zshrc
 <
 
-WHAT IT DOES  *vwt-1665-what-it-does*
+WHAT IT DOES                                           *vwt-1665-what-it-does*
 
 Once you start a new shell or source your rc file, you can do
 
@@ -69,12 +69,12 @@ directories:
 
 I find this really useful when I'm jumping into a quick bug fix.
 
-SEE ALSO  *vwt-1665-see-also*
+SEE ALSO                                                   *vwt-1665-see-also*
     - Using bash completion with ctags and Vim 
       [https://vim.fandom.com/wiki/Using_bash_completion_with_ctags_and_Vim] 
 
 
-COMMENTS  *vwt-1665-comments*
+COMMENTS                                                   *vwt-1665-comments*
     - Cool! How would I do this using the new compsys (compdef?) instead of the old 
       compctl? 
 

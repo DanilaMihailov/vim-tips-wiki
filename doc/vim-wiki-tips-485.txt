@@ -27,7 +27,7 @@ word under the cursor. To use it add the following to your vimrc
     map K :call ReadMan()<CR>
 <
 
-OPEN A PAGE FROM A PARTICULAR SECTION IN A NEW TERMINAL  *vwt-485-open-a-page-from-a-particular-section-in-a-new-terminal*
+OPEN A PAGE FROM A PARTICULAR SECTION IN A NEW TERMINAL *vwt-485-open-a-page-from-a-particular-section-in-a-new-terminal*
 
 You might like to be able to hit a key to launch a man page from a certain 
 man section for the word under the cursor:
@@ -50,14 +50,14 @@ syntax-highlighting pager
 using vim as a man-page viewer under Unix 
 [https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix].
 
-REFERENCES  *vwt-485-references*
+REFERENCES                                                *vwt-485-references*
     - :help |windows| 
     - :help |:wincmd| 
 
 
 The col command may differ on your version of Unix, see col(1) for details.
 
-COMMENTS  *vwt-485-comments*
+COMMENTS                                                    *vwt-485-comments*
 
 Addendum:
 

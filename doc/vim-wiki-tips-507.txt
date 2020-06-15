@@ -31,7 +31,7 @@ can change F8 and F9 to keys of your choice.
     augroup END
 <
 
-COMMENTS  *vwt-507-comments*
+COMMENTS                                                    *vwt-507-comments*
 
 Window resizing can also be done at window-manager level, so that it will 
 work for all applications. In my case .fluxbox/keys contains:

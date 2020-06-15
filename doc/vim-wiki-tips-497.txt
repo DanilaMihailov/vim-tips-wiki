@@ -12,7 +12,7 @@ one or more other locations. This tip describes how this operation is
 performed using standard Vim techniques, and with some tricks that may make it 
 easier.
 
-HOW TO COPY/PASTE  *vwt-497-how-to-copy/paste*
+HOW TO COPY/PASTE                                  *vwt-497-how-to-copy/paste*
 
 For simplicity, this shows how to copy a word and paste it over other words. 
 However, the visual selection could be varied to use any text.
@@ -31,7 +31,7 @@ Typing viw selects the current word, then pressing p pastes the unnamed
 register over the visual selection. The visual selection that was just 
 replaced is then stored in the default unnamed register.
 
-MAPPING FOR PASTE  *vwt-497-mapping-for-paste*
+MAPPING FOR PASTE                                  *vwt-497-mapping-for-paste*
 
 As seen in the examples above, if you want to paste the same text a second 
 time, you must use the "0 register, as in viw"0p. A workaround is to remap the 
@@ -61,7 +61,7 @@ as:
 
 And then the workflow would be: yiw, move, viw,p, move again, viw,p, etc
 
-ALTERNATIVE MAPPING FOR PASTE  *vwt-497-alternative-mapping-for-paste*
+ALTERNATIVE MAPPING FOR PASTE          *vwt-497-alternative-mapping-for-paste*
 
 The mapping xnoremap p "_dP changes the behavior of p when pasting over 
 selected text which is at the end of a line.That occurs because when text at 
@@ -90,7 +90,7 @@ when using unnamedplus (:set clipboard=unnamedplus :help 'clipboard'), or
 
 to restore both unnamed and unnamedplus.
 
-USING A TEXT OBJECT  *vwt-497-using-a-text-object*
+USING A TEXT OBJECT                              *vwt-497-using-a-text-object*
 
 Instead of using copy/paste, it is often better to use a text object command 
 such as ciw to change the inner word. This method has the advantage of being 
@@ -111,7 +111,7 @@ This process works with any selected text, although it works best if:
 Typing yiw (yank inner word) is an example of a characterwise copy, while yy 
 (yank current line) is an example of a linewise copy.
 
-STAMPING  *vwt-497-stamping*
+STAMPING                                                    *vwt-497-stamping*
 
 With this mapping, you can press S to replace the current word with the last 
 yanked text. You can repeat the operation to replace words at different 
@@ -153,7 +153,7 @@ text, use:
     vnoremap S "_dP
 <
 
-SUBSTITUTE  *vwt-497-substitute*
+SUBSTITUTE                                                *vwt-497-substitute*
 
 To replace the last searched text with the last yanked text in the entire 
 buffer, use:
@@ -164,7 +164,7 @@ buffer, use:
 
 See search and replace [https://vim.fandom.com/wiki/Search_and_replace].
 
-FROM TIP 1011  *vwt-497-from-tip-1011*
+FROM TIP 1011                                          *vwt-497-from-tip-1011*
 
 For those who use visual mode, here are some commands and mappings that may 
 be useful:
@@ -209,11 +209,11 @@ One key <F7> does everything. Good for inter-window copying and pasting.
     autocmd FocusGained * let @z=@+
 <
 
-SEE ALSO  *vwt-497-see-also*
+SEE ALSO                                                    *vwt-497-see-also*
     - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change] 
 
 
-RELATED PLUGINS  *vwt-497-related-plugins*
+RELATED PLUGINS                                      *vwt-497-related-plugins*
     - ReplaceWithRegister [https://www.vim.org/scripts/script.php?script_id=2703] 
       plugin to replace text covered by a motion, entire line(s) or the current 
       selection with the contents of a register; more versatile and covers corner 
@@ -231,12 +231,12 @@ RELATED PLUGINS  *vwt-497-related-plugins*
       mapped to the m key for 'move'). 
 
 
-REFERENCES  *vwt-497-references*
+REFERENCES                                                *vwt-497-references*
     - :help |registers| 
     - :help |v_p| 
 
 
-COMMENTS  *vwt-497-comments*
+COMMENTS                                                    *vwt-497-comments*
 
 TO DO
     - Prune out any misguided information. 

@@ -38,18 +38,18 @@ replace the original List, do this:
     let theList = SortUnique( theList )
 <
 
-REFERENCES  *vwt-1148-references*
+REFERENCES                                               *vwt-1148-references*
     - :help |sort()|, 
     - :help |List|, 
     - :help |:sort| 
 
 
-SEE ALSO  *vwt-1148-see-also*
+SEE ALSO                                                   *vwt-1148-see-also*
     - Uniq - Removing duplicate lines |vwt-648| remove duplicate lines (not items 
       in a List) 
 
 
-COMMENTS  *vwt-1148-comments*
+COMMENTS                                                   *vwt-1148-comments*
 
 This implementation loose the initial type of the list elements when it 
 transforms them into strings.Is see two possible corrections:

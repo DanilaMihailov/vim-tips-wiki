@@ -13,7 +13,7 @@ column, assuming that the lines have already been sorted so that lines with
 the same pattern occur consecutively. Applying this tip will insert a blank 
 line after each group of matching lines.
 
-CODE  *vwt-1625-code*
+CODE                                                           *vwt-1625-code*
 
 The following code defines a function and a mapping to call the function:
 
@@ -37,7 +37,7 @@ The following code defines a function and a mapping to call the function:
     endfunction
 <
 
-EXAMPLE  *vwt-1625-example*
+EXAMPLE                                                     *vwt-1625-example*
 
 Assume you have sorted some lines using the four characters under the "xxxx" 
 as the sort key (the "xxxx" line is not part of the data):
@@ -73,7 +73,7 @@ text after pressing F9 twice:
     00004710001*031072721001
 <
 
-EXPLANATION  *vwt-1625-explanation*
+EXPLANATION                                             *vwt-1625-explanation*
 
 The function assumes that the unnamed register (@@ or @") holds a copy of the 
 text that you want matched. Only the length of the text is used. Each time 
@@ -87,6 +87,6 @@ In the above example, the text is "1*01". The search pattern created is
     - \@! match if the preceding does not match 
 
 
-COMMENTS  *vwt-1625-comments*
+COMMENTS                                                   *vwt-1625-comments*
 
  vim:tw=78:et:ft=help:norl:

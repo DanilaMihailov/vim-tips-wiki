@@ -14,7 +14,7 @@ offers word completion choices that may include struct and class members,
 system functions, and more. A similar feature in Microsoft Visual Studio is 
 known as IntelliSense.
 
-OVERVIEW  *vwt-1591-overview*
+OVERVIEW                                                   *vwt-1591-overview*
 
 Omni completion is not usually enabled by default. To turn on omni 
 completion, add the following to your vimrc 
@@ -39,13 +39,13 @@ should be used. Windows users need to install a recent version of Exuberant
 Ctags [http://ctags.sourceforge.net/] (Ctags 5.7, released September 2007, or 
 newer, is recommended). :help |ft-c-omni|
 
-USING OMNI COMPLETION  *vwt-1591-using-omni-completion*
+USING OMNI COMPLETION                         *vwt-1591-using-omni-completion*
 
 To use omni completion, type <C-X><C-O> while open in Insert mode.If matching 
 names are found, a pop-up menu opens which can be navigated using the <C-N> 
 and <C-P> keys.
 
-RELATED TIPS  *vwt-1591-related-tips*
+RELATED TIPS                                           *vwt-1591-related-tips*
 
 TO DO
     - This is to be an overview of omnicompletion, with links to more detailed tips 
@@ -80,6 +80,6 @@ Insenvim [http://insenvim.sourceforge.net/]
     - 835 Have Intellisense search current directory |vwt-835| 
 
 
-COMMENTS  *vwt-1591-comments*
+COMMENTS                                                   *vwt-1591-comments*
 
  vim:tw=78:et:ft=help:norl:

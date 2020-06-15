@@ -105,7 +105,7 @@ Now start some gtk2.x application and play with those keys.
 For scrolling I used 5 lines because window size can't be calculated. 
 Increase or decrease scroll jump as you like.
 
-COMMENTS  *vwt-970-comments*
+COMMENTS                                                    *vwt-970-comments*
 
 Instead of /usr/share/themes you can use ~/.themes
 
@@ -144,7 +144,7 @@ Another three keys I've always wanted…
 
 ==============================================================================
 
-PORT TO GTK-3.0  *vwt-970-port-to-gtk-3.0*
+PORT TO GTK-3.0                                      *vwt-970-port-to-gtk-3.0*
 
 >
     0x255@SonicTorment:~$ cat ~/.themes/Vi/gtk-3.0/gtk-keys.css

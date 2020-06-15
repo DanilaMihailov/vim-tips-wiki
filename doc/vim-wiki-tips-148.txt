@@ -16,7 +16,7 @@ it.
 I will have to learn to add hotletters to my menus now so that the mouse can 
 take a break.
 
-COMMENTS  *vwt-148-comments*
+COMMENTS                                                    *vwt-148-comments*
 
 I suspect you're referring to the tearoff capability of the gui menus. your 
 'guioptions' must include a 't' in the value for them to be enabled. they are 

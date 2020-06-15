@@ -32,7 +32,7 @@ I mapped F-5 to :Make, and made it go back to the main window:
     map <F5> :Make<CR><C-w><Up>
 <
 
-COMMENTS  *vwt-476-comments*
+COMMENTS                                                    *vwt-476-comments*
 
 I prefer to make a compiler plugin, then use a ftplugin to set a default 
 compiler, i.e.:

@@ -18,7 +18,7 @@ Note: Most features from this tip were incorporated in the AsyncCommand
 define how to launch and display results from your own asynchronous commands 
 (before Vim 8.0).
 
-RUNNING EXTERNAL COMMANDS  *vwt-986-running-external-commands*
+RUNNING EXTERNAL COMMANDS                  *vwt-986-running-external-commands*
 
 Under Windows, Vim provides two commands for running external programs: ! and 
 !start. The first suspends Vim, runs the program, waits for a keypress, then 
@@ -47,7 +47,7 @@ compiled program corresponding to the current source file:
     :nnoremap <silent> <F5> :!start cmd /c "%:p:r:s,$,.exe," & pause<CR>
 <
 
-EXPLANATION  *vwt-986-explanation*
+EXPLANATION                                              *vwt-986-explanation*
 
 Under Windows, if the command begins with "!start ", Vim creates a process to 
 run the program without invoking a shell, so the "Hit any key to close this 
@@ -86,7 +86,7 @@ program like Calculator, you can simply enter:
     :!start calc
 <
 
-SOME NOTES ON CMD.EXE QUOTING  *vwt-986-some-notes-on-cmd.exe-quoting*
+SOME NOTES ON CMD.EXE QUOTING          *vwt-986-some-notes-on-cmd.exe-quoting*
 
 Microsoft's cmd.exe shell behaves in very unexpected ways regarding quoting. 
 For example, the following will not work:
@@ -149,7 +149,7 @@ for details:
       [http://groups.google.com/group/vim_dev/browse_thread/thread/2b5a9657fd242a6a] 
 
 
-!START VS. WINDOWS START COMMAND  *vwt-986-!start-vs.-windows-start-command*
+!START VS. WINDOWS START COMMAND    *vwt-986-!start-vs.-windows-start-command*
 
 The following mapping launches the currently edited file with the external 
 application that is associated with it, using the file type's default handler. 
@@ -161,7 +161,7 @@ in your default browser.
     :nmap <Leader>x :silent ! start "1" "%:p"<CR>
 <
 
-EXPLANATION  *vwt-986-explanation*
+EXPLANATION                                              *vwt-986-explanation*
 
 In the Vim command, ':silent' avoids the Hit-Enter prompt, ':p' makes this 
 launch independent from the CWD, the surrounding "" make it handle spaces. The 
@@ -171,7 +171,7 @@ with the type of file. The "1" is the optional "title" argument to 'start';
 without this dummy, 'start' will take the passed file as the title, because it 
 is enclosed in double quotes.
 
-GETTING RESULTS BACK INTO VIM  *vwt-986-getting-results-back-into-vim*
+GETTING RESULTS BACK INTO VIM          *vwt-986-getting-results-back-into-vim*
 
 In many cases, you may want to run a process in a shell, but then do 
 something with the results in Vim. Normally you could just do this with the 
@@ -198,7 +198,7 @@ first sending it through an asynchronous shell.
     endfunction
 <
 
-EXPLANATION  *vwt-986-explanation*
+EXPLANATION                                              *vwt-986-explanation*
 
 This command and associated functions work by invoking an asynchronous 
 external process that writes to a temporary file that is then passed back to 
@@ -229,7 +229,7 @@ One final thing to note is the final call to the |delete()| function in our
 processing function. This is important, otherwise every time we invoke our 
 command, we will leave behind the temporary file.
 
-EXTENDED EXAMPLE: ASYNCHRONOUS GREP  *vwt-986-extended-example:-asynchronous-grep*
+EXTENDED EXAMPLE: ASYNCHRONOUS GREP *vwt-986-extended-example:-asynchronous-grep*
 
 Here is an extended example of getting the asynchronous process to 
 communicate back to Vim. The following will perform a grep (well, a findstr) 
@@ -302,7 +302,7 @@ this.
     endif
 <
 
-SEE ALSO  *vwt-986-see-also*
+SEE ALSO                                                    *vwt-986-see-also*
     - Avoiding the "Hit ENTER to continue" prompts |vwt-16| 
     - asyncrun.vim [http://www.vim.org/scripts/script.php?script_id=5431] is a pure 
       VimScript implementation for vim 8.0 to run background shell commands and 
@@ -319,7 +319,7 @@ SEE ALSO  *vwt-986-see-also*
       library, but supports all major operating systems 
 
 
-COMMENTS  *vwt-986-comments*
+COMMENTS                                                    *vwt-986-comments*
 
 TO DO
     - Ask on vim_use for some async execution techniques for Unix-based systems 

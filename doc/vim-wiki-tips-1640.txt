@@ -105,13 +105,13 @@ question. Again, this will only work in GUI Vim.
     set guitabtooltip=%{GuiTabToolTip()}
 <
 
-REFERENCES  *vwt-1640-references*
+REFERENCES                                               *vwt-1640-references*
     - :help 'guitablabel' 
     - :help |setting-guitablabel| 
     - :help 'guitabtooltip' 
 
 
-COMMENTS  *vwt-1640-comments*
+COMMENTS                                                   *vwt-1640-comments*
 
 The tip could be tweaked to use the 'tabline' option for terminal Vim.
 

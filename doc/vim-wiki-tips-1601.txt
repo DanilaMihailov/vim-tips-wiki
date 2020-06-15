@@ -61,7 +61,7 @@ change anything else.
 In this fashion, as you update your code, you can just type "make", and have 
 a packaged up Vimball that is ready for distribution.
 
-COMMENTS  *vwt-1601-comments*
+COMMENTS                                                   *vwt-1601-comments*
 
 Since all the commands in build.vim are ex-commands, you could source it with 
 -S rather than -s, and dispense with the colons at the start of all lines. I 
@@ -206,7 +206,7 @@ how to do this on a per-user basis without admin rights.
 --terminatorul [https://vim.fandom.com/wiki/User:Terminatorul] 05:28, Sep 13, 
 2012 (UTC)
 
-ALTERNATIVE TOOLS TO CREATE VIMBALLS  *vwt-1601-alternative-tools-to-create-vimballs*
+ALTERNATIVE TOOLS TO CREATE VIMBALLS *vwt-1601-alternative-tools-to-create-vimballs*
     - mkvimball [http://www.drchip.org/astronaut/src/index.html#MKVIMBALL]: Written 
       in C (by the creator of vimball.vim Charles E Campbell) 
     - vimball.rb [https://github.com/tomtom/vimball.rb]: Written in ruby 

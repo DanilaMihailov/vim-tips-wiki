@@ -54,16 +54,16 @@ If you want to know more about the commands used, use :help, for example:
     - :help |:diffthis| 
 
 
-SEE ALSO  *vwt-1517-see-also*
+SEE ALSO                                                   *vwt-1517-see-also*
     - :help |:DiffOrig|, 
     - Christian Brabandt's recovery 
       [https://www.vim.org/scripts/script.php?script_id=3068] plugin has a very good 
       solution for recovering and diffing swapfile. 
 
 
-COMMENTS  *vwt-1517-comments*
+COMMENTS                                                   *vwt-1517-comments*
 
-LOSING SWAPFILES  *vwt-1517-losing-swapfiles*
+LOSING SWAPFILES                                   *vwt-1517-losing-swapfiles*
 
 After recovering a file from a swapfile and deleting the swapfile you will 
 usually use swapname .swo (or similar). If something goes wrong again, vim 
@@ -80,7 +80,7 @@ safe.
 
 
 
-AUTOMATICALLY DELETING REDUNDANT SWAPFILES WITH A SHELLSCRIPT  *vwt-1517-automatically-deleting-redundant-swapfiles-with-a-shellscript*
+AUTOMATICALLY DELETING REDUNDANT SWAPFILES WITH A SHELLSCRIPT *vwt-1517-automatically-deleting-redundant-swapfiles-with-a-shellscript*
 
 This is a useful trick, but it would be better if it was automated. Also in 
 the situation where the recovered swapfile turns out to be identical to the 
@@ -98,7 +98,7 @@ with swapfiles, before starting Vim:
 
 
 
-QUICK COMPARISON WITH A LITTLE PLUGIN  *vwt-1517-quick-comparison-with-a-little-plugin*
+QUICK COMPARISON WITH A LITTLE PLUGIN *vwt-1517-quick-comparison-with-a-little-plugin*
 
 Instead of steps 2-8 above, I do a quick comparison with:
 
@@ -135,14 +135,14 @@ When the swap prompt comes and you're not sure what to do, simply hit r and
 then run :DiffSwap, which will initiate a vim diff of the file on disk and 
 swapfile.
 
-FEATURE REQUEST  *vwt-1517-feature-request*
+FEATURE REQUEST                                     *vwt-1517-feature-request*
 
 For goodness sake, if the swapfile is identical to the file on disk, then Vim 
 should just automatically drop it for us, and not give us a prompt at all...
 
 
 
-BASH FUNCTION TO HELP HANDLE SWAP FILES  *vwt-1517-bash-function-to-help-handle-swap-files*
+BASH FUNCTION TO HELP HANDLE SWAP FILES *vwt-1517-bash-function-to-help-handle-swap-files*
 
 I sometimes get lots of swap files when my laptop loses power whlie vim is 
 open. Using the above tips I created a bash function to help. It checks to see 

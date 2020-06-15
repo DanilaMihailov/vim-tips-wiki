@@ -21,7 +21,7 @@ cursor on the name of the variable and use the gd command in the normal mode.
 To jump to the declaration of a global variable in a C program, position the 
 cursor on the name of the variable and use the gD command in the normal mode.
 
-COMMENTS  *vwt-8-comments*
+COMMENTS                                                      *vwt-8-comments*
 
 This works in Java, Perl and a number of other languages as well.However 
 sometimes gD does not find the definition of a function but a mere call to it. 

@@ -7,13 +7,13 @@ created 2004 · complexity basic · author Tony Mechelynck
 
 ==============================================================================
 
-PROBLEM  *vwt-680-problem*
+PROBLEM                                                      *vwt-680-problem*
 
 I want to run Vim with 'verbose' set, but then it gives a lot of "file not 
 found" messages at startup and closedown. I'd like to avoid those messages, 
 while still seeing where an option was set whenever I interrogate its value.
 
-SOLUTION  *vwt-680-solution*
+SOLUTION                                                    *vwt-680-solution*
 
 Instead of setting 'verbose' in your vimrc, use autocommands, as follows (for 
 instance)
@@ -30,20 +30,20 @@ instance)
     endif
 <
 
-NOTES  *vwt-680-notes*
+NOTES                                                          *vwt-680-notes*
     - The idea of the "if" statement is to avoid interfering with a -V argument 
       which might be set in the command-line for debugging. 
     - The command-line is widened to at least two lines to avoid Hit-Enter prompts 
       on ":set option?" ":edit existing/filename" etc. 
 
 
-REFERENCES  *vwt-680-references*
+REFERENCES                                                *vwt-680-references*
     - :help 'verbose' 
     - :help |:set| 
     - :help |:set-verbose| 
 
 
-COMMENTS  *vwt-680-comments*
+COMMENTS                                                    *vwt-680-comments*
 
 The problem with always having verbose=1 becomes apparent when one does a 
 :help or anything -- you get 'file not found' messages about indentation files 

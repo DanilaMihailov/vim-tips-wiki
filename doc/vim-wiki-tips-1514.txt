@@ -22,7 +22,7 @@ Vim includes file syntax/dosini.vim for syntax highlighting. This tip shows
 two enhancements: Folding sections, and correct highlighting when 
 heredoc-style parameters are used.
 
-FOLDING SECTIONS  *vwt-1514-folding-sections*
+FOLDING SECTIONS                                   *vwt-1514-folding-sections*
 
 You can enable folding of dosini sections by placing a script in file 
 ~/.vim/after/syntax/dosini.vim on Unix-based systems, or in file 
@@ -37,7 +37,7 @@ The script should contain:
     setlocal foldlevel=20
 <
 
-HEREDOC HIGHLIGHTING  *vwt-1514-heredoc-highlighting*
+HEREDOC HIGHLIGHTING                           *vwt-1514-heredoc-highlighting*
 
 Some ini parsers suppport heredoc-style parameter settings, for example:
 
@@ -76,10 +76,10 @@ $HOME/vimfiles/after/syntax/dosini.vim (Windows), containing lines:
     syn region dosiniHereDoc matchgroup=dosiniStringStartEnd start=+<<\s*''+           end=+^$+    contains=@dosiniInterpSQ,dosiniNotEmptyLine
 <
 
-REFERENCES  *vwt-1514-references*
+REFERENCES                                               *vwt-1514-references*
     - :help |folding| 
 
 
-COMMENTS  *vwt-1514-comments*
+COMMENTS                                                   *vwt-1514-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -64,7 +64,7 @@ next occurrence of that word. If you now type \F a new window will open with a
 list of all lines that contain the word you searched for. Press Escape to 
 close the window.
 
-ALTERNATIVE PROCEDURES  *vwt-1557-alternative-procedures*
+ALTERNATIVE PROCEDURES                       *vwt-1557-alternative-procedures*
 
 A simple procedure to list all lines matching a pattern is:
 
@@ -82,7 +82,7 @@ only the search hits. You could then press u to undo the changes.
     :v/pattern/d
 <
 
-SEE ALSO  *vwt-1557-see-also*
+SEE ALSO                                                   *vwt-1557-see-also*
     - Folding with Regular Expression 
       [https://vim.fandom.com/wiki/Folding_with_Regular_Expression] to fold away 
       lines without a search pattern rather than modifying it or using a scratch 
@@ -99,6 +99,6 @@ SEE ALSO  *vwt-1557-see-also*
       PP to highlight matches displayed with :g//PP 
 
 
-COMMENTS  *vwt-1557-comments*
+COMMENTS                                                   *vwt-1557-comments*
 
  vim:tw=78:et:ft=help:norl:

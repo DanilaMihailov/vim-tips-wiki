@@ -47,7 +47,7 @@ your favorite vim trick for that:
     au BufEnter afiedt.buf call VimSQL()
 <
 
-SETTING YOUR EDITOR IN ORACLE  *vwt-41-setting-your-editor-in-oracle*
+SETTING YOUR EDITOR IN ORACLE           *vwt-41-setting-your-editor-in-oracle*
 
 If running Windows simply open up the SQLPlus command line and enter
 
@@ -65,7 +65,7 @@ to vim simply enter
 Now when you use the built-in edit command it will open gVim instead of 
 Notepad.
 
-COMMENTS  *vwt-41-comments*
+COMMENTS                                                     *vwt-41-comments*
 
 TO DO
     - Decide what author means by pressing '5K' and explain in tip. 

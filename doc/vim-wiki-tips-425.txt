@@ -44,7 +44,7 @@ file:
     autocmd BufNewFile,BufRead *.meals set syntax=json
 <
 
-COMMENTS  *vwt-425-comments*
+COMMENTS                                                    *vwt-425-comments*
 
 You can also let vim determine the filetype by examining the file contents 
 with getline(),see :help |new-filetype-scripts|

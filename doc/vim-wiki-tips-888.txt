@@ -39,7 +39,7 @@ Customizations
     com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent ".escape(<q-args>,'\')
 <
 
-ALTERNATIVE  *vwt-888-alternative*
+ALTERNATIVE                                              *vwt-888-alternative*
 
 If you put the following code in your vimrc, you can simply do :Etabs file 
 list, :Ewindows file list (horizontal windows), or :Evwindows file list 
@@ -67,7 +67,7 @@ using one of these to replace the :edit command |vwt-1285|!
     endfunction
 <
 
-ALTERNATIVE 2  *vwt-888-alternative-2*
+ALTERNATIVE 2                                          *vwt-888-alternative-2*
 
 I added this command to my vimrc [https://vim.fandom.com/wiki/Vimrc] to open 
 a list of globbed files in tab pages. For example, the command :Tabe *.py 
@@ -91,13 +91,13 @@ the current tab page shows the first file added.
     endfunction
 <
 
-REFERENCES  *vwt-888-references*
+REFERENCES                                                *vwt-888-references*
     - :help |--remote-silent| 
     - :help |--remote-tab-silent| 
     - :help |--servername| 
 
 
-COMMENTS  *vwt-888-comments*
+COMMENTS                                                    *vwt-888-comments*
 
 TO DO
     - Use fnameescape(), especially in the method that uses the shell. 

@@ -26,6 +26,6 @@ non-virtualedit mode:
     :nnoremap <silent>x x:call Redefine_x_ForVirtualEdit()<CR>
 <
 
-COMMENTS  *vwt-734-comments*
+COMMENTS                                                    *vwt-734-comments*
 
  vim:tw=78:et:ft=help:norl:

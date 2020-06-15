@@ -10,7 +10,7 @@ When opening a number of files into buffers a user may want to switch quickly
 through the open buffers. The following methods will allow the user to map key 
 combinations to buffers for easier access.
 
-METHOD 1  *vwt-967-method-1*
+METHOD 1                                                    *vwt-967-method-1*
 
 Use Alt-X to quickly switch between buffers, where X is the buffer number 1 
 to 9.
@@ -29,7 +29,7 @@ In your .vimrc add:
 Note this is somewhat similar to the built-in |CTRL-^| command, which can 
 take a count to jump to a specific buffer number.
 
-METHOD 2  *vwt-967-method-2*
+METHOD 2                                                    *vwt-967-method-2*
 
 Use <ALT><Left> and <ALT><Right> to cycle through buffers.
 
@@ -41,11 +41,11 @@ In your .vimrc add:
     :nmap <M-Right> :bnext<CR>
 <
 
-SEE ALSO  *vwt-967-see-also*
+SEE ALSO                                                    *vwt-967-see-also*
     - script#159 [https://www.vim.org/scripts/script.php?script_id=159] - The 
       minibufexpl script 
 
 
-COMMENTS  *vwt-967-comments*
+COMMENTS                                                    *vwt-967-comments*
 
  vim:tw=78:et:ft=help:norl:

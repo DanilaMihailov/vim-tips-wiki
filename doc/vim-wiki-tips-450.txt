@@ -12,7 +12,7 @@ would be nice if I can instruct my editor to take me back to the exact session
 (see :help sessions) for each of these projects - open the required files and 
 buffers, window layout etc.
 
-SOLUTION  *vwt-450-solution*
+SOLUTION                                                    *vwt-450-solution*
 
 1. Append the following code to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] or save the file in $HOME/.vim/plugin
@@ -39,7 +39,7 @@ PROJ1.vim to see the effect.
 
 6. Repeat with other projects.
 
-NOTE  *vwt-450-note*
+NOTE                                                            *vwt-450-note*
 
 You don't have to :SetSession everytime you open gvim as in step 5. Only 
 once.
@@ -85,7 +85,7 @@ choose LastSession.vim)
     com -nargs=0 UnsetSession :let g:SessionFileName = ""
 <
 
-COMMENTS  *vwt-450-comments*
+COMMENTS                                                    *vwt-450-comments*
 
 Nice tip, but I had to change the code a lot before I got it to work. Perhaps 
 your setup (or platform) is somehow different from mine.
@@ -221,7 +221,7 @@ GUI or non-GUI. It's just a quick hack.
 
 ==============================================================================
 
-ALTERNATIVE: SESSION.VIM PLUG-IN  *vwt-450-alternative:-session.vim-plug-in*
+ALTERNATIVE: SESSION.VIM PLUG-IN    *vwt-450-alternative:-session.vim-plug-in*
 
 The session.vim plug-in [http://peterodding.com/code/vim/session/] 
 (script#3150 [https://www.vim.org/scripts/script.php?script_id=3150]) extends 
@@ -239,7 +239,7 @@ Here's another, session.vim on github
 
 ==============================================================================
 
-ALTERNATIVE: GITSESSION.VIM PLUG-IN  *vwt-450-alternative:-gitsession.vim-plug-in*
+ALTERNATIVE: GITSESSION.VIM PLUG-IN *vwt-450-alternative:-gitsession.vim-plug-in*
 
 I wrote another session plugin based on git projects and branches called 
 gitsessions.vim [https://github.com/wting/gitsessions.vim].

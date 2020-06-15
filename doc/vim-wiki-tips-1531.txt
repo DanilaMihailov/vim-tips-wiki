@@ -19,7 +19,7 @@ times, and so on:
     and     26
 <
 
-USING A DICTIONARY  *vwt-1531-using-a-dictionary*
+USING A DICTIONARY                               *vwt-1531-using-a-dictionary*
 
 Procedure:
     - In Vim, copy the code shown below, then enter :@" to execute it (or put the 
@@ -52,7 +52,7 @@ A new window will open with a scratch buffer showing the word frequencies.
 
 
 
-MOST FREQUENT WORDS FIRST  *vwt-1531-most-frequent-words-first*
+MOST FREQUENT WORDS FIRST                 *vwt-1531-most-frequent-words-first*
 
 Putting the code below in your .vimrc and entering :WordFrequency will show 
 you the most frequent words first. For example:
@@ -145,7 +145,7 @@ Code:
     command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
 <
 
-USING COMMANDS  *vwt-1531-using-commands*
+USING COMMANDS                                       *vwt-1531-using-commands*
 
 The following alternative demonstrates the amazing power of Ex commands. This 
 process replaces the current buffer with a word frequency table, so you should 
@@ -186,7 +186,7 @@ Possible mods:
       Tab character 
 
 
-COMMENTS  *vwt-1531-comments*
+COMMENTS                                                   *vwt-1531-comments*
 
 You may also be interested in Ditto, a Vim plugin that highlights the most 
 frequent words in each sentence, paragraph or file: 

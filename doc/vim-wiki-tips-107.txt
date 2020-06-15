@@ -42,7 +42,7 @@ Add the following lines to your gvimrc file:
     31vmenu C/C++.transform\ enum2String :s#[ ]*\\(\\w\\+\\)#/* \\1 */ "\\1"#<CR>o}<Esc>:noh<CR>
 <
 
-COMMENTS  *vwt-107-comments*
+COMMENTS                                                    *vwt-107-comments*
 
 Another similar way of doing this, is to define a function in your .vimrc 
 file

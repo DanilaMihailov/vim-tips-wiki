@@ -15,7 +15,7 @@ Using maven with quickfix is pretty simple, just add:
 
 to your vimrc. I use the jar:install goal but java:compile will suffice.
 
-COMMENTS  *vwt-1042-comments*
+COMMENTS                                                   *vwt-1042-comments*
 
 Consider :help |write-compiler-plugin|.
 

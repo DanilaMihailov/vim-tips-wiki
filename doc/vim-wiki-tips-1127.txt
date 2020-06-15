@@ -45,7 +45,7 @@ created February 10, 2006 · complexity basic · author Marc Weber · version
     PrepareMap("\a")
 <
 
-COMMENTS  *vwt-1127-comments*
+COMMENTS                                                   *vwt-1127-comments*
 
 Recordings can do much more (encompassing other modes) than handle :cmd-line 
 executions. They can also be repeated. See :help |complex-repeat|.

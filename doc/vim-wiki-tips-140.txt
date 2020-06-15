@@ -12,7 +12,7 @@ available if the Vim :version command shows the +perl or +perl/dyn
 configuration options. This tip shows how to access embedded Perl scripts from 
 Vim.
 
-DEFINING A PERL FUNCTION EFFICIENTLY  *vwt-140-defining-a-perl-function-efficiently*
+DEFINING A PERL FUNCTION EFFICIENTLY *vwt-140-defining-a-perl-function-efficiently*
 
 Never embed complex Perl command in the body of a Vim function as this will 
 be recompiled and evaled each time for a tremendous loss of time. Instead do 
@@ -31,7 +31,7 @@ it like this:
     endfunction
 <
 
-PASSING VALUES BETWEEN VIM AND PERL  *vwt-140-passing-values-between-vim-and-perl*
+PASSING VALUES BETWEEN VIM AND PERL *vwt-140-passing-values-between-vim-and-perl*
 
 To pass a computed argument to your Perl sub use the Vim :execute command:
 
@@ -77,7 +77,7 @@ To be able to return something from Perl:
     endfunction
 <
 
-DEBUGGING EMBEDDED PERL  *vwt-140-debugging-embedded-perl*
+DEBUGGING EMBEDDED PERL                      *vwt-140-debugging-embedded-perl*
 
 It may be hard to debug your Perl sub since the output of the Perl compiler 
 is lost in the middle of nowhere, and the debugger is not available.
@@ -147,7 +147,7 @@ debugger, for example:
 Then you can copy your other Perl code in a separate file and add a use VIM; 
 at the top, and you are set to debug.
 
-COMMENTS  *vwt-140-comments*
+COMMENTS                                                    *vwt-140-comments*
 
 For an example of the techniques described see script#100 
 [https://www.vim.org/scripts/script.php?script_id=100].

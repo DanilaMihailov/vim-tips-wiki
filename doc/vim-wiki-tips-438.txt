@@ -6,7 +6,7 @@ created 2003 · complexity intermediate · author Chris Smith · version 5.7
 
 ==============================================================================
 
-VISUAL SELECTION BASICS  *vwt-438-visual-selection-basics*
+VISUAL SELECTION BASICS                      *vwt-438-visual-selection-basics*
 
 You can visually select text, then operate on the selection.
 
@@ -31,7 +31,7 @@ marks defining the beginning and end of the block persist even when the
 selection highlight has been removed, so gv is not necessary to repeat a 
 command.
 
-EX COMMANDS  *vwt-438-ex-commands*
+EX COMMANDS                                              *vwt-438-ex-commands*
 
 When text is visually selected, press : to enter a command. The command line 
 will automatically enter the range:
@@ -50,7 +50,7 @@ in all lines of the last visual selection. The command will appear as:
 To repeat an Ex command over a previously selected block, use the : history. 
 That is, press : then <Up>, then edit a previous command.
 
-SUBSTITUTING IN A VISUAL SELECTION  *vwt-438-substituting-in-a-visual-selection*
+SUBSTITUTING IN A VISUAL SELECTION *vwt-438-substituting-in-a-visual-selection*
 
 The substitute command (:s) applies to whole lines, however the \%V atom will 
 restrict a pattern so that it matches only inside the visual selection. This 
@@ -119,7 +119,7 @@ The result is:
 The vis.vim plugin |vwt-63| is another approach to apply substitutes to a 
 selected region.
 
-SEARCHING WITH / AND ?  *vwt-438-searching-with-/-and ?*
+SEARCHING WITH / AND ?                        *vwt-438-searching-with-/-and ?*
 
 In visual mode, / and ? will update the visual selection just like any other 
 cursor-movement command (that is, when in visual mode, searching will extend 
@@ -169,7 +169,7 @@ between marks a and b.
 See Search keywords in C function |vwt-1530| which uses this technique to 
 search within a function in a C program.
 
-REFERENCES  *vwt-438-references*
+REFERENCES                                                *vwt-438-references*
     - :help :' 
     - :help |history| 
     - :help |/\%V| 
@@ -177,7 +177,7 @@ REFERENCES  *vwt-438-references*
     - :help /\%<'m 
 
 
-COMMENTS  *vwt-438-comments*
+COMMENTS                                                    *vwt-438-comments*
 
 Thanks for the tips. Very Helpful.
 

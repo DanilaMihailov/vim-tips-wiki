@@ -102,7 +102,7 @@ by accident, so I remapped those as well:
     noremap! <M-Right> <Nop>
 <
 
-REFERENCES  *vwt-1168-references*
+REFERENCES                                               *vwt-1168-references*
     - script#517 [https://www.vim.org/scripts/script.php?script_id=517] 
     - TVO (The Vim Outliner): http://bike-nomad.com/vim/vimoutliner.html 
       [http://bike-nomad.com/vim/vimoutliner.html] 
@@ -112,7 +112,7 @@ REFERENCES  *vwt-1168-references*
       [https://www.vim.org/scripts/script.php?script_id=3780] 
 
 
-COMMENTS  *vwt-1168-comments*
+COMMENTS                                                   *vwt-1168-comments*
 
 I use tabs as well as spaces and I also want a blank newline to stop folds, 
 so I modified the foldexpr:

@@ -55,7 +55,7 @@ After "par 59":
     /* States of America.                            */
 <
 
-UNICODE  *vwt-584-unicode*
+UNICODE                                                      *vwt-584-unicode*
 
 Note that 'par' doesn't handle Unicode correctly. There is a patch which adds 
 multibyte support 
@@ -74,11 +74,11 @@ can represent the document. If the document is written in greek it is
 iso-8859-7 if it is east europe iso-8859-2 etc. Replace <options> with the par 
 options you wish to use.
 
-SEE ALSO  *vwt-584-see-also*
+SEE ALSO                                                    *vwt-584-see-also*
     - 
     - Format a code block [https://vim.fandom.com/wiki/Format_a_code_block] 
 
 
-COMMENTS  *vwt-584-comments*
+COMMENTS                                                    *vwt-584-comments*
 
  vim:tw=78:et:ft=help:norl:

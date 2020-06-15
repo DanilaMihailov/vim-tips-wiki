@@ -9,7 +9,7 @@ created 2002 · complexity intermediate · author zzapper · version 7.0
 Here is a necessarily cryptic list of the Best Vim Tips. There is an updated 
 version [http://www.rayninfo.co.uk/vimtips.html] and a .
 
-BASIC USE  *vwt-201-basic-use*
+BASIC USE                                                  *vwt-201-basic-use*
 
 >
     <Esc> is the escape key or use <ctrl>[  sometimes written as  <C-[>
@@ -36,7 +36,7 @@ BASIC USE  *vwt-201-basic-use*
     <Tab>       : use tab completion to scroll through commands that start with what you typed
 <
 
-STILL BASIC  *vwt-201-still-basic*
+STILL BASIC                                              *vwt-201-still-basic*
 
 >
     COPY PASTE  (for CUTting lines use dd as described above)
@@ -60,7 +60,7 @@ STILL BASIC  *vwt-201-still-basic*
        ce       : change to end of word (a complete change command)
 <
 
-REALLY USEFUL  *vwt-201-really-useful*
+REALLY USEFUL                                          *vwt-201-really-useful*
 
 >
     www.vim.org   : Visit frequently
@@ -78,7 +78,7 @@ REALLY USEFUL  *vwt-201-really-useful*
         (plus use TAB for Help completion)
 <
 
-MAKE IT EASY TO UPDATE/RELOAD VIMRC [HTTPS://VIM.FANDOM.COM/WIKI/VIMRC]  *vwt-201-make-it-easy-to-update/reload-vimrc-[https://vim.fandom.com/wiki/vimrc]*
+MAKE IT EASY TO UPDATE/RELOAD VIMRC [HTTPS://VIM.FANDOM.COM/WIKI/VIMRC] *vwt-201-make-it-easy-to-update/reload-vimrc-[https://vim.fandom.com/wiki/vimrc]*
 
 >
     " source $MYVIMRC reloads the saved $MYVIMRC
@@ -90,14 +90,14 @@ MAKE IT EASY TO UPDATE/RELOAD VIMRC [HTTPS://VIM.FANDOM.COM/WIKI/VIMRC]  *vwt-20
     " <Leader> is \ by default, so those commands can be invoked by doing \v and \s
 <
 
-VISUAL MODE MAPPINGS  *vwt-201-visual-mode-mappings*
+VISUAL MODE MAPPINGS                            *vwt-201-visual-mode-mappings*
 
 >
     :vmap sb "zdi<b><C-R>z</b><Esc> : wrap <b></b> around visually selected text
     :vmap st "zdi<?= <C-R>z ?><Esc> : wrap <?= ?> around visually selected text
 <
 
-EXPLORING  *vwt-201-exploring*
+EXPLORING                                                  *vwt-201-exploring*
 
 >
     :Ex     : file explorer note capital Ex
@@ -106,7 +106,7 @@ EXPLORING  *vwt-201-exploring*
     :cd ..  : move to parent directory
 <
 
-GREAT  *vwt-201-great*
+GREAT                                                          *vwt-201-great*
 
 >
     guu     : lowercase line
@@ -127,7 +127,7 @@ GREAT  *vwt-201-great*
 If you use Ctrl-V for paste, you will probably need to unmap CTRL-A |vwt-30| 
 first.
 
-EASTER EGGS  *vwt-201-easter-eggs*
+EASTER EGGS                                              *vwt-201-easter-eggs*
     - :help |42| 
     - :help |holy-grail| 
     - :help! 
@@ -139,7 +139,7 @@ EASTER EGGS  *vwt-201-easter-eggs*
     - :help |bar| 
 
 
-MARKERS AND MOVING ABOUT  *vwt-201-markers-and-moving-about*
+MARKERS AND MOVING ABOUT                    *vwt-201-markers-and-moving-about*
 
 >
     '.       : jump to last modification line (SUPER)
@@ -150,7 +150,7 @@ MARKERS AND MOVING ABOUT  *vwt-201-markers-and-moving-about*
     :history : list of all your commands
 <
 
-ABBREVIATIONS AND MAPS  *vwt-201-abbreviations-and-maps*
+ABBREVIATIONS AND MAPS                        *vwt-201-abbreviations-and-maps*
 
 >
     :map <F7>  :'a,'bw file            " Write the lines from mark a to mark b to 'file'
@@ -161,7 +161,7 @@ ABBREVIATIONS AND MAPS  *vwt-201-abbreviations-and-maps*
     :map \                             " list maps beginning with \
 <
 
-FOR USE IN MAPS  *vwt-201-for-use-in-maps*
+FOR USE IN MAPS                                      *vwt-201-for-use-in-maps*
 
 >
     <CR>     : carriage Return for maps
@@ -170,21 +170,21 @@ FOR USE IN MAPS  *vwt-201-for-use-in-maps*
     <Bar>    : | pipe
 <
 
-LIST REGISTERS  *vwt-201-list-registers*
+LIST REGISTERS                                        *vwt-201-list-registers*
 
 >
     :reg     : display contents of all registers
     "1p      : paste from register 1
 <
 
-EXECUTE COMMAND FROM BUFFER CONTENTS  *vwt-201-execute-command-from-buffer-contents*
+EXECUTE COMMAND FROM BUFFER CONTENTS *vwt-201-execute-command-from-buffer-contents*
 
 >
     "ayy@a   : execute the Vim command in the current line
     yy@"     : same
 <
 
-GET OUTPUT FROM SHELL COMMANDS  *vwt-201-get-output-from-shell-commands*
+GET OUTPUT FROM SHELL COMMANDS        *vwt-201-get-output-from-shell-commands*
 
 These use external programs – ls, grep, date, sort, … (see :help |:sort| to 
 learn how to use Vim's built-in sort).
@@ -217,7 +217,7 @@ learn how to use Vim's built-in sort).
     !grep word         : keep only lines containing 'word' in the selected range.
 <
 
-MULTIPLE FILES  *vwt-201-multiple-files*
+MULTIPLE FILES                                        *vwt-201-multiple-files*
 
 >
     :wn           : write file and move to next (SUPER)
@@ -239,7 +239,7 @@ MULTIPLE FILES  *vwt-201-multiple-files*
     :tabm n       : move tab to position n (0=leftmost position)
 <
 
-RECORDING  *vwt-201-recording*
+RECORDING                                                  *vwt-201-recording*
 
 >
     qa            : record keystrokes to register a
@@ -257,7 +257,7 @@ RECORDING  *vwt-201-recording*
     :normal @a
 <
 
-VIMRC ESSENTIALS  *vwt-201-vimrc-essentials*
+VIMRC ESSENTIALS                                    *vwt-201-vimrc-essentials*
 
 >
     :set incsearch : jumps to search word as you type (annoying but excellent)
@@ -265,7 +265,7 @@ VIMRC ESSENTIALS  *vwt-201-vimrc-essentials*
     :syntax on : display syntactical elements by color based on filetype ( extension )
 <
 
-LAUNCHING PROGRAMS UNDER WINDOWS  *vwt-201-launching-programs-under-windows*
+LAUNCHING PROGRAMS UNDER WINDOWS    *vwt-201-launching-programs-under-windows*
 
 There are a number of options to run applications on the Windows platform.
 
@@ -292,7 +292,7 @@ Or, for example, you can launch Internet Explorer directly:
     :nmap <Leader>i :update<CR>:!start c:\progra~1\intern~1\iexplore.exe <cWORD><CR>
 <
 
-FTP FROM VIM  *vwt-201-ftp-from-vim*
+FTP FROM VIM                                            *vwt-201-ftp-from-vim*
 
 >
     cmap <Leader>r :Nread ftp://209.51.134.122/public_html/index.html
@@ -302,7 +302,7 @@ FTP FROM VIM  *vwt-201-ftp-from-vim*
     let g:netrw_ftpmode="ascii"
 <
 
-APPENDING TO REGISTERS  *vwt-201-appending-to-registers*
+APPENDING TO REGISTERS                        *vwt-201-appending-to-registers*
 
 >
     # yank 5 lines into "a" then add a further 5
@@ -312,7 +312,7 @@ APPENDING TO REGISTERS  *vwt-201-appending-to-registers*
     [I : show lines matching word under cursor <cword>
 <
 
-CONVENTIONAL SHIFTING  *vwt-201-conventional-shifting*
+CONVENTIONAL SHIFTING                          *vwt-201-conventional-shifting*
 
 >
     :'a,'b>>
@@ -321,7 +321,7 @@ CONVENTIONAL SHIFTING  *vwt-201-conventional-shifting*
     :vnoremap > >gv
 <
 
-SEARCHING  *vwt-201-searching*
+SEARCHING                                                  *vwt-201-searching*
 
 >
     /^fred.*joe.*bill  : line beginning with fred, followed by joe then bill
@@ -332,7 +332,7 @@ SEARCHING  *vwt-201-searching*
     /fred\|joe         : fred OR joe
 <
 
-SUBSTITUTION  *vwt-201-substitution*
+SUBSTITUTION                                            *vwt-201-substitution*
 
 >
     :%s/fred/joe/igc           : general substitute command
@@ -359,7 +359,7 @@ a character and press 'ga' to see a character's hex value.
     :%s/\%x01/^/g
 <
 
-GLOBAL COMMAND  *vwt-201-global-command*
+GLOBAL COMMAND                                        *vwt-201-global-command*
 
 >
     :g/one\|two/     : list lines containing "one" or "two"
@@ -386,7 +386,7 @@ deleted. Replace # with ? for case insensitive.
     :g/^/let x=getline('.') | if x=~#'green' && x!~#'red' && x!~#'pink' | d | endif
 <
 
-PASTE REGISTER *  *vwt-201-paste-register-**
+PASTE REGISTER *                                    *vwt-201-paste-register-**
 
 >
     :redir @* : redirect commands to paste
@@ -395,14 +395,14 @@ PASTE REGISTER *  *vwt-201-paste-register-**
     "*p       : insert paste buffer
 <
 
-FORMATTING TEXT  *vwt-201-formatting-text*
+FORMATTING TEXT                                      *vwt-201-formatting-text*
 
 >
     gq<CR>
     gqap (a is motion p paragraph (visual mode))
 <
 
-OPERATE COMMAND OVER MULTIPLE FILES  *vwt-201-operate-command-over-multiple-files*
+OPERATE COMMAND OVER MULTIPLE FILES *vwt-201-operate-command-over-multiple-files*
 
 >
     :argdo %s/foo/bar/
@@ -411,7 +411,7 @@ OPERATE COMMAND OVER MULTIPLE FILES  *vwt-201-operate-command-over-multiple-file
     :tabdo %s/foo/bar/
 <
 
-COMMAND LINE TRICKS  *vwt-201-command-line-tricks*
+COMMAND LINE TRICKS                              *vwt-201-command-line-tricks*
 
 >
     gvim -h
@@ -421,7 +421,7 @@ COMMAND LINE TRICKS  *vwt-201-command-line-tricks*
     gvim.exe -c "/$1" $(grep -isl "$1" *) &
 <
 
-PREVIEW IN WEB BROWSER  *vwt-201-preview-in-web-browser*
+PREVIEW IN WEB BROWSER                        *vwt-201-preview-in-web-browser*
 
 >
     #add this to your .vimrc:
@@ -429,7 +429,7 @@ PREVIEW IN WEB BROWSER  *vwt-201-preview-in-web-browser*
     #if you are using windows, you will need to adjust your PATH to include the path to your browser.
 <
 
-COMMENTS  *vwt-201-comments*
+COMMENTS                                                    *vwt-201-comments*
 
 The Buffer Explorer scripts mentioned above (\be \bs) rely on the popular 
 script bufexplorer.vim [https://www.vim.org/scripts/script.php?script_id=42].
@@ -439,7 +439,7 @@ it really comes into it's own with very long programs containting lots of
 subroutines/functions as it shows which function/sub you're in etc script#273 
 [https://www.vim.org/scripts/script.php?script_id=273].
 
-VIM TRAPS  *vwt-201-vim-traps*
+VIM TRAPS                                                  *vwt-201-vim-traps*
 
 In regular expressions you must backslash + (match 1 or more).
 
@@ -454,7 +454,7 @@ In regular expressions you must backslash + (match 1 or more).
     /\vcodes(\n|\s)*where  : very magic
 <
 
-MORE TIPS  *vwt-201-more-tips*
+MORE TIPS                                                  *vwt-201-more-tips*
 
 Pulling objects onto command/search line (SUPER)
 
@@ -545,7 +545,7 @@ then Ctrl-g for more information).
     :%s/^\(.*\)\n\(\1\n\)*/\1\r/
 <
 
-MORE, UNFORMATTED TIPS  *vwt-201-more,-unformatted-tips*
+MORE, UNFORMATTED TIPS                        *vwt-201-more,-unformatted-tips*
 
 TODO Might delete some of these if covered in other tips.
 
@@ -627,7 +627,7 @@ The mappings to wrap visual selections in text clobbers a buffer. I use:
 
 ==============================================================================
 
-COMMENTS  *vwt-201-comments*
+COMMENTS                                                    *vwt-201-comments*
 
 What was the point of changing <Esc> into <esc> and <Tab> into <tab>? The 
 capitalized form is what's used in Vim's help, and it's what should be used 

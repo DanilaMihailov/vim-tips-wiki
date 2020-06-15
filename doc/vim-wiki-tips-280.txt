@@ -124,7 +124,7 @@ following to ~/.vim/after/ftplugin/python.vim
     setlocal makeprg=${HOME}/bin/alltests.py
 <
 
-REFERENCES  *vwt-280-references*
+REFERENCES                                                *vwt-280-references*
     - :help 'efm' 
     - :help 'makeprg' 
     - :help |compiler-pyunit| 
@@ -132,7 +132,7 @@ REFERENCES  *vwt-280-references*
     - http://c2.com/cgi/wiki?PythonUnit [http://c2.com/cgi/wiki?PythonUnit] 
 
 
-COMMENTS  *vwt-280-comments*
+COMMENTS                                                    *vwt-280-comments*
 
 The following abbreviations are useful when writing unit tests in Python.
 

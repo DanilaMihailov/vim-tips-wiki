@@ -13,7 +13,7 @@ enter to come back to Vim.
 
 See also Using vim as a man-page viewer under Unix |vwt-167|.
 
-COMMENTS  *vwt-606-comments*
+COMMENTS                                                    *vwt-606-comments*
 
 You can call runtime ftplugin/man.vim (distributed with Vim) to enable Vim 
 built-in manpage viewer, with ability of hyperlinking via the tags mechanism.

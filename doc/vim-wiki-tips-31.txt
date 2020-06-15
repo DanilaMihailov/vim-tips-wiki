@@ -13,7 +13,7 @@ the :s command due to its command line history |vwt-45| and ability to insert
 text (for example, the word under the cursor) into the search or replace 
 fields.
 
-BASIC SEARCH AND REPLACE  *vwt-31-basic-search-and-replace*
+BASIC SEARCH AND REPLACE                     *vwt-31-basic-search-and-replace*
 
 The :substitute command searches for a text pattern |vwt-188|, and replaces 
 it with a text string. There are many options, but these are what you probably 
@@ -71,7 +71,7 @@ Search highlight group. If you do use search highlighting, you should make
 sure that these two highlight groups are visually distinct or you won't be 
 able to easily tell which match Vim is prompting you to substitute.
 
-DETAILS  *vwt-31-details*
+DETAILS                                                       *vwt-31-details*
 
 Search range:
 
@@ -108,7 +108,7 @@ Use:
 
 :s/Copyright \zs2007\ze All Rights Reserved/2008/
 
-USING THE CURRENT WORD OR REGISTERS  *vwt-31-using-the-current-word-or-registers*
+USING THE CURRENT WORD OR REGISTERS *vwt-31-using-the-current-word-or-registers*
 
 
 
@@ -166,7 +166,7 @@ Same as above, using register 0 which contains the text from the most recent yan
 See Paste registers in search or colon commands instead of using the 
 clipboard |vwt-490|.
 
-ADDITIONAL EXAMPLES  *vwt-31-additional-examples*
+ADDITIONAL EXAMPLES                               *vwt-31-additional-examples*
 
 :%s/foo/bar/
 On each line, replace the first occurrence of "foo" with "bar".
@@ -213,7 +213,7 @@ Note: With a recent enough Vim (version 7.3.627 or higher), you can simplify thi
 :%s/\<foo\(\a*\)\>/\=add(list, submatch(1))/gn
 This has the advantage, that the buffer won't be marked modified and no extra undo state is created. The expression in the replacement part is executed in the sandbox and not allowed to modify the buffer.
 
-SPECIAL CASES  *vwt-31-special-cases*
+SPECIAL CASES                                           *vwt-31-special-cases*
 
 For substituting patterns with corresponding case-sensitive text, Michael 
 Geddes's keepcase [https://www.vim.org/scripts/script.php?script_id=6] plugin 
@@ -232,7 +232,7 @@ to complain about offset differences.
 
 Note Should try to make the expression more compact, but don't know how without having the possibility of modifying unwanted lines.
 
-SEE ALSO: USING SUBSTITUTE  *vwt-31-see-also:-using-substitute*
+SEE ALSO: USING SUBSTITUTE                 *vwt-31-see-also:-using-substitute*
     - 63 Applying substitutes to a visual block |vwt-63| 
     - 81 Substitute characters and lines easily |vwt-81| 
     - 159 Keystroke Saving Substituting and Searching |vwt-159| 
@@ -251,11 +251,11 @@ SEE ALSO: USING SUBSTITUTE  *vwt-31-see-also:-using-substitute*
     - 1501 Substitute last search |vwt-1501| 
 
 
-SEE ALSO: SUBSTITUTE IN BUFFERS/FILES  *vwt-31-see-also:-substitute-in-buffers/files*
+SEE ALSO: SUBSTITUTE IN BUFFERS/FILES *vwt-31-see-also:-substitute-in-buffers/files*
     - 382 Search and replace in multiple buffers |vwt-382| 
 
 
-REFERENCES  *vwt-31-references*
+REFERENCES                                                 *vwt-31-references*
     - :help |:substitute| 
     - :help |cmdline-ranges| 
     - :help |pattern| 
@@ -263,7 +263,7 @@ REFERENCES  *vwt-31-references*
     - :help |registers| 
 
 
-COMMENTS  *vwt-31-comments*
+COMMENTS                                                     *vwt-31-comments*
 
 TO DO The large "see also" section may be useful to readers. We need to merge 
 some of the related tips (but don't make the result too complex). I included 

@@ -12,7 +12,7 @@ Here is how to open files in new tabs, instead of new instances of gvim,
 under Unix. It works even when you mouse click to open files in a file 
 manager.
 
-DESKTOP ENTRY  *vwt-1552-desktop-entry*
+DESKTOP ENTRY                                         *vwt-1552-desktop-entry*
 
 In the gvim.desktop desktop file (/usr/share/applications/ for most GNU/Linux 
 systems) look for the "Exec" line. It will probably be like this:
@@ -36,7 +36,7 @@ Note: Be aware that the desktop file is changed when you install a new
 version of gvim, so you may need to repeat the following change after an 
 update.
 
-ALIAS  *vwt-1552-alias*
+ALIAS                                                         *vwt-1552-alias*
 
 You can of course also use an alias:
 
@@ -47,7 +47,7 @@ You can of course also use an alias:
 Most GUI programs don't read aliases, but it is useful if you start gvim from 
 the shell.
 
-AUTOMATIC DESKTOP IDENTIFICATION USING SHELL SCRIPT  *vwt-1552-automatic-desktop-identification-using-shell-script*
+AUTOMATIC DESKTOP IDENTIFICATION USING SHELL SCRIPT *vwt-1552-automatic-desktop-identification-using-shell-script*
 
 If you want to automatically open into the gvim window on the current 
 desktop, use the following bash script:
@@ -82,10 +82,10 @@ desktop, the script does nothing.
 
 
 
-SEE ALSO  *vwt-1552-see-also*
+SEE ALSO                                                   *vwt-1552-see-also*
     - Launch files in new tabs under Windows |vwt-1440| 
 
 
-COMMENTS  *vwt-1552-comments*
+COMMENTS                                                   *vwt-1552-comments*
 
  vim:tw=78:et:ft=help:norl:

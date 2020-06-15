@@ -17,7 +17,7 @@ PuTTY settings in order for the Backspace key to work properly in Vim. The
 Linux keyboard is not the default. If one does not do this, Vim always is sent 
 the Delete key command when pressing on the Backspace.
 
-COMMENTS  *vwt-495-comments*
+COMMENTS                                                    *vwt-495-comments*
 
 If you use dtelnet (dave's telnet) to RH 7.3, and 8.0, same problem appears, 
 not only in Vim, but throughout the session. Choosing term=linux from the menu 

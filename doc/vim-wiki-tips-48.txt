@@ -87,18 +87,18 @@ mx  Set mark x at the current cursor position.
 
 42|  Jump to the 42nd column of the current line.
 
-G;  *vwt-48-g;*
+G;                                                                 *vwt-48-g;*
 
 Jump to the place of last edit. Can be quite helpful while debugging or 
 editing files.
 
 
 
-REFERENCES  *vwt-48-references*
+REFERENCES                                                 *vwt-48-references*
     - :help |motion.txt| 
     - :help |search-commands| 
 
 
-COMMENTS  *vwt-48-comments*
+COMMENTS                                                     *vwt-48-comments*
 
  vim:tw=78:et:ft=help:norl:

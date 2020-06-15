@@ -43,7 +43,7 @@ I could say:
     /\<for\>[ ^I\n]\{-0,}([ ^I\n]\{-0,}.*;[ ^I\n]\{-0,}.*MAX_INT.*;[ ^I\n]\{-0,}.*[ ^I\n]\{-0,})
 <
 
-COMMENTS  *vwt-1320-comments*
+COMMENTS                                                   *vwt-1320-comments*
 
 Another possibility using \_, which adds newline matching to various 
 patterns:

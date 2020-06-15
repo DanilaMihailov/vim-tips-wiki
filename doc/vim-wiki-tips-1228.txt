@@ -53,7 +53,7 @@ The following option inserts only the longest common text of the matches.
     set completeopt+=longest
 <
 
-COMMENTS  *vwt-1228-comments*
+COMMENTS                                                   *vwt-1228-comments*
 
 Fixed mappings. Replaced original <C-r> mappings with the <expr> mappings in the comments. Merged the comments with the tip, and removed some that didn't belong.
 I think the name of this tip should be changed to something more suitable.

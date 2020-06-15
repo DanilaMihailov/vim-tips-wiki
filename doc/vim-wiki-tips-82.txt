@@ -59,7 +59,7 @@ dependency on this function), I just use:
 If there is a buffer or global variable set, it uses that; otherwise, it 
 defaults to protected scope.
 
-COMMENTS  *vwt-82-comments*
+COMMENTS                                                     *vwt-82-comments*
 
 I have a similar function in a library-plugin (implemented as an autoload 
 plugin) for Vim 7. The difference is that I always force the script author to 

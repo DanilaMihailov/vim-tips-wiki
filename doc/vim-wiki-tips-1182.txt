@@ -17,7 +17,7 @@ To return to the explorer window, press Ctrl-^ (usually Ctrl-6).
 You can also "edit" a directory to explore that directory. For example, :e .. 
 lists files in the parent directory.
 
-OTHER APPROACHES  *vwt-1182-other-approaches*
+OTHER APPROACHES                                   *vwt-1182-other-approaches*
 
 In normal mode, type :e then press Space and Ctrl-D. That will list file 
 names in the current directory. You can type a name and press Enter to edit 
@@ -32,19 +32,19 @@ Another possibility is to use a mapping like this:
     map <F2> :!ls<CR>:e
 <
 
-SEE ALSO  *vwt-1182-see-also*
+SEE ALSO                                                   *vwt-1182-see-also*
     - Set working directory to the current file 
       [https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file] - :e 
       /home/user temporarily sets the directory that Vim is in 
 
 
-REFERENCES  *vwt-1182-references*
+REFERENCES                                               *vwt-1182-references*
     - :help |:Explore| 
     - :help |:Sexplore| 
     - :help |CTRL-^| 
 
 
-COMMENTS  *vwt-1182-comments*
+COMMENTS                                                   *vwt-1182-comments*
 
 I wonder if there is a way to navigate the files with case being insensitive 
 after you press Ctrl-D

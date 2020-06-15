@@ -46,7 +46,7 @@ like this shell command:
     echo -ne 'atdt,<number>;h0\r' >/dev/ttyS0
 <
 
-COMMENTS  *vwt-872-comments*
+COMMENTS                                                    *vwt-872-comments*
 
 Not many people will have a modem (or the required dial script) to try this 
 tip, but there are some useful ideas that might be useful for other 

@@ -31,6 +31,6 @@ and issue the appropriate command (:Decode64 or :DecodeQP).
      \| perl use MIME::QuotedPrint (); my $foo=VIM::Eval(foo); my ($r, $c)=$curwin->Cursor(); $curbuf->Append($r-1, split '\n', MIME::QuotedPrint::decode_qp($foo));
 <
 
-COMMENTS  *vwt-1032-comments*
+COMMENTS                                                   *vwt-1032-comments*
 
  vim:tw=78:et:ft=help:norl:

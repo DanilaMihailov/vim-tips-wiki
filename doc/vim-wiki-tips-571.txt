@@ -53,13 +53,13 @@ That said, here is a very simple solution:
     unlet local_vimrc local_tags local_path current_path path_parts
 <
 
-REFERENCES  *vwt-571-references*
+REFERENCES                                                *vwt-571-references*
     - :help |file-searching| 
     - :help |vimrc-intro| 
     - :help |tags| 
 
 
-COMMENTS  *vwt-571-comments*
+COMMENTS                                                    *vwt-571-comments*
 
 There's a simpler way to do this for tags:
 

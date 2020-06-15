@@ -80,7 +80,7 @@ Here it is:
     inoremap <buffer> ( <C-R>=PreviewFunctionSignature()<LF>
 <
 
-COMMENTS  *vwt-277-comments*
+COMMENTS                                                    *vwt-277-comments*
 
 There is an error in PreviewWord function. You have to replace line 12 with 
 this:

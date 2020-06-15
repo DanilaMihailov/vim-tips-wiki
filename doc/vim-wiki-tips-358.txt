@@ -29,7 +29,7 @@ Note that if you are using Vim over SSH or in certain color-limited terminals
 you may need to tell Vim to use 256 color mode in order to have the color 
 schemes display with greater accuracy by using the command :set t_Co=256 .
 
-SWITCHING COLORS  *vwt-358-switching-colors*
+SWITCHING COLORS                                    *vwt-358-switching-colors*
 
 The script shown below defines these key mappings:
     - Press F8 to use the next color scheme. 
@@ -63,7 +63,7 @@ for example:
     let nowcolors = 'breeze earth less aqua gothic'
 <
 
-SCRIPT  *vwt-358-script*
+SCRIPT                                                        *vwt-358-script*
     - Create and save file setcolors.vim containing the script below. 
     - In Vim, use the command :source setcolors.vim to execute the script so you 
       can experiment with its features. 
@@ -194,7 +194,7 @@ SCRIPT  *vwt-358-script*
     endfunction
 <
 
-SCROLLING THE COLOR SCHEMES  *vwt-358-scrolling-the-color-schemes*
+SCROLLING THE COLOR SCHEMES              *vwt-358-scrolling-the-color-schemes*
 
 You may want to impress your colleagues by having Vim change the color scheme 
 periodically. The following might be your first attempt:
@@ -215,12 +215,12 @@ following command (press Ctrl-C to finish).
     :while 1|sleep 10|call NextColor(1)|endwhile
 <
 
-REFERENCES  *vwt-358-references*
+REFERENCES                                                *vwt-358-references*
     - :help |:colorscheme| 
     - :help |g:colors_name| 
 
 
-COMMENTS  *vwt-358-comments*
+COMMENTS                                                    *vwt-358-comments*
 
 It's kind of weird that s:mycolors is set initially to something different 
 than "my" or "all". You can't get that list back after using the script.

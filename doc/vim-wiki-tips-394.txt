@@ -13,7 +13,7 @@ TO DO
       which should be merged to this tip). 
 
 
-ORIGINAL TIP  *vwt-394-original-tip*
+ORIGINAL TIP                                            *vwt-394-original-tip*
 
 To check the meaning of the word under the cursor, right click mouse, and 
 choose Dic. Either IE or mozilla will be opened and dictionary service offered 
@@ -33,7 +33,7 @@ To open Internet Explorer:
     nme <silent> PopUp.&Dic :sil! !start iexplore -nohome "[http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=<cword>"<CR> http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=<cword>"<CR>];
 <
 
-ROUGH MERGE IN FROM TIP 833  *vwt-394-rough-merge-in-from-tip-833*
+ROUGH MERGE IN FROM TIP 833              *vwt-394-rough-merge-in-from-tip-833*
 
 TO DO
     - Following is the contents from tip 833 (now removed). 
@@ -88,7 +88,7 @@ Now put this program somewhere in your PATH, saved as "ghref":
       main(sys.argv[1:])
 <
 
-ROUGH MERGE IN FROM TIP 1157  *vwt-394-rough-merge-in-from-tip-1157*
+ROUGH MERGE IN FROM TIP 1157            *vwt-394-rough-merge-in-from-tip-1157*
 
 TO DO
     - Following is the contents from tip 1157 (now removed; 1157 redirects to 
@@ -146,7 +146,7 @@ Menu:
     vmenu 9998.94 &Websearch.&Vim.&Scripts "gy:silent! exec '!Start C:\Archivos de programa\Mozilla Firefox\firefox "www.vim.org/scripts/script_search_results.php?keywords='@g'&script_type=&order_by=creation_date&direction=descending&search=search"'<CR><Esc>
 <
 
-COMMENTS  *vwt-394-comments*
+COMMENTS                                                    *vwt-394-comments*
 
 Although ':sil! !start notepad' works on my system (XP Pro), ':sil! !start 
 iexplore' does not. I used this instead:
@@ -231,7 +231,7 @@ leave out the script and just call it directly, etc.
 If you use console vim, I'm sure that you could bind it to a key command with 
 map instead of "amenu [menuitem]". But I've never tried.
 
-RELATED SCRIPTS  *vwt-394-related-scripts*
+RELATED SCRIPTS                                      *vwt-394-related-scripts*
     - script#2528 [https://www.vim.org/scripts/script.php?script_id=2528] thesaurus 
       suggestion script 
 

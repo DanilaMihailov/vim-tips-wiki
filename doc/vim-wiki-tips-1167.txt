@@ -63,7 +63,7 @@ Putting the above in your vimrc keeps track of the cursor position when in
 INSERT mode. When exiting INSERT mode, it will move the cursor ahead one 
 column if the cursor position has changed after leaving insert.
 
-COMMENTS  *vwt-1167-comments*
+COMMENTS                                                   *vwt-1167-comments*
 
 The way it's suggested in the tip, it breaks the immensely useful 
 Visual-block Insert mode (:h v_b_i). This seems to not break anything (except 
@@ -106,7 +106,7 @@ symmetric in that sense.
 
 ==============================================================================
 
-EXIT INSERT MODE WITHOUT MOVING CURSOR -- THIS WORKS:  *vwt-1167-exit-insert-mode-without-moving-cursor----this-works:*
+EXIT INSERT MODE WITHOUT MOVING CURSOR -- THIS WORKS: *vwt-1167-exit-insert-mode-without-moving-cursor----this-works:*
 
 The solutions above (and those found on similar pages) do not work on my 
 terminal (Yakuake). Specifically, mapping Esc to <Esc>`^ causes strange 

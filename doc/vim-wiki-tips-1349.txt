@@ -44,7 +44,7 @@ Add the following lines to your vimrc.
     command! -nargs=+ MyCalc :echo MyCalc("<args>")
 <
 
-USAGE  *vwt-1349-usage*
+USAGE                                                         *vwt-1349-usage*
 
 As a visual block calculator
 
@@ -110,7 +110,7 @@ As a command line calculator
 You will get "22.63" in the command line. This usage mode is similar to 
 VimTip1235 |vwt-1235|, but doesn't need embedded python.
 
-REQUIREMENTS  *vwt-1349-requirements*
+REQUIREMENTS                                           *vwt-1349-requirements*
 
 It uses Dr.Chip's visual block plugin vis.vim 
 [https://www.vim.org/scripts/script.php?script_id=1195], and the Unix/Linux 
@@ -122,13 +122,13 @@ You can easily replace 'bc' by your favorite calculator program.
 The precision of the calculator is controlled by the variable 
 g:MyCalcPresition.
 
-REFERENCES  *vwt-1349-references*
+REFERENCES                                               *vwt-1349-references*
     - :help |{{{id}}}| 
     - :help |submatch()| 
     - :help |system()| 
 
 
-COMMENTS  *vwt-1349-comments*
+COMMENTS                                                   *vwt-1349-comments*
 
 With this map you can add a block of expressions, and the result will appear 
 in the command line:

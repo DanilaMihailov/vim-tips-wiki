@@ -60,7 +60,7 @@ send an Esc followed by a key id. (The reason that hitting Esc in Vim does not
 always give an immediate response is that Vim first waits a little to see if a 
 key id is following the Esc.)
 
-COMMENTS  *vwt-803-comments*
+COMMENTS                                                    *vwt-803-comments*
 
 This would also work.
 

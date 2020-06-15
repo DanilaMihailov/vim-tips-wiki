@@ -20,14 +20,14 @@ This is done by putting the appropriate combining character after each
 printable character in the text. To create these effects easily, you can add 
 the following commands to your vimrc [https://vim.fandom.com/wiki/Vimrc].
 
-`SET UP UNICODE`  *vwt-1660-`set-up-unicode`*
+`SET UP UNICODE`                                   *vwt-1660-`set-up-unicode`*
 
 Unicode needs to be enabled so Vim will render combining characters properly. 
 See Working with Unicode [https://vim.fandom.com/wiki/Working_with_Unicode]. 
 Specifically, the 'fileencoding' and 'encoding' options should be set to a 
 Unicode encoding such as utf-8.
 
-DEFINE COMMANDS  *vwt-1660-define-commands*
+DEFINE COMMANDS                                     *vwt-1660-define-commands*
 
 >
     " modify selected text using combining diacritics
@@ -59,7 +59,7 @@ typed:
     vnoremap OO :Overline<CR>
 <
 
-EXPLANATION  *vwt-1660-explanation*
+EXPLANATION                                             *vwt-1660-explanation*
     - The commands add a combining character after each non-control character 
       within the selected area in the given range. 
     - If you invoke the commands while the selection is still active, the range 
@@ -80,7 +80,7 @@ To reverse adding a combining character see
 https://stackoverflow.com/questions/46141062/removing-unicode-combine-character-vim 
 [https://stackoverflow.com/questions/46141062/removing-unicode-combine-character-vim]
 
-COMMENTS  *vwt-1660-comments*
+COMMENTS                                                   *vwt-1660-comments*
 
 The original script did not operate on the last selected character on my 
 system. For example, selecting "xyz" and entering :Overline would overline xy 

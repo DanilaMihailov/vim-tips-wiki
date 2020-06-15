@@ -21,7 +21,7 @@ next item.
 
 For more information, see :help |ins-completion|.
 
-EXAMPLE  *vwt-295-example*
+EXAMPLE                                                      *vwt-295-example*
 
 For example, suppose the following text is entered:
 
@@ -42,6 +42,6 @@ third line. Press <C-P> to complete the word using the previous occurrence
 that starts with "f"—that will insert "first". If you then press <C-X><C-P> 
 the following word will also be inserted (the result will be "first line").
 
-COMMENTS  *vwt-295-comments*
+COMMENTS                                                    *vwt-295-comments*
 
  vim:tw=78:et:ft=help:norl:

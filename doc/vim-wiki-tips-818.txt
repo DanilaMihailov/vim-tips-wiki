@@ -28,7 +28,7 @@ Create a .bat file containing the following and put it in your path:
 Add this .bat file as the diff utility under 
 TortoiseCVS->Preferences->Tools->External Diff Application.
 
-COMMENTS  *vwt-818-comments*
+COMMENTS                                                    *vwt-818-comments*
 
 You don't have to create a .bat file to do this. Just enter "C:\Program 
 Files\Vim63\GVim.exe" as "Diff application".

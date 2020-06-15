@@ -20,7 +20,7 @@ The change list for each file is saved between edits (provided the 'viminfo'
 option has the ' parameter), so you can see where changes occurred from 
 previous editing sessions. :help 'viminfo'
 
-USING A CHANGE LIST  *vwt-1300-using-a-change-list*
+USING A CHANGE LIST                             *vwt-1300-using-a-change-list*
 
 You can go back, then forward, to visit the locations where changes occurred:
     - Type g; to jump back to the position of the previous (older) change. 
@@ -57,7 +57,7 @@ Given the above, you could press:
 
 In the example, line 93 no longer exists (the change location is invalid).
 
-CAPTURING LIST OF CHANGE LOCATIONS  *vwt-1300-capturing-list-of-change-locations*
+CAPTURING LIST OF CHANGE LOCATIONS *vwt-1300-capturing-list-of-change-locations*
 
 You may want a record of the recent locations where changes occurred in the 
 current buffer. As an example, the following commands redirect the output of 
@@ -73,18 +73,18 @@ temporarily switched off to avoid the "-- More --" prompt.
     :e c.txt
 <
 
-SEE ALSO  *vwt-1300-see-also*
+SEE ALSO                                                   *vwt-1300-see-also*
     - Using marks |vwt-42| to manually record marks that you can return to 
     - Jumping to previously visited locations |vwt-10| the jump list records where 
       jumps occurred 
 
 
-REFERENCES  *vwt-1300-references*
+REFERENCES                                               *vwt-1300-references*
     - :help |changelist| 
     - :help |:changes| 
 
 
-COMMENTS  *vwt-1300-comments*
+COMMENTS                                                   *vwt-1300-comments*
 
 Vim 7 also has undo branching: you can make changes, undo some of them, make 
 different changes, and then have both trees of changes maintained, allowing 

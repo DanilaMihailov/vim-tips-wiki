@@ -65,7 +65,7 @@ and the <Esc> is an actual escape i hit to exit insert mode. then, i simply
 select (visually) the other lines (only two in case -- admittedly not an 
 overly useful example) and just hit `.
 
-COMMENTS  *vwt-84-comments*
+COMMENTS                                                     *vwt-84-comments*
 
 i found that a few plugin scripts that i use regularly depended on ` having 
 default functionality, so i switched the ` key to ~ for my use (i couldn't be 

@@ -31,13 +31,13 @@ And the following change in filetype.vim
     au BufNewFile,BufRead *.en setf en
 <
 
-REFERENCES  *vwt-1381-references*
+REFERENCES                                               *vwt-1381-references*
     - :help |hightlight| 
     - :help |syntax| 
     - :help |usr_44.txt| 
 
 
-COMMENTS  *vwt-1381-comments*
+COMMENTS                                                   *vwt-1381-comments*
     - A simple syncolor.vim alternative is here 
       [https://vim.fandom.com/wiki/User:Donald_j_axel/syncolor]. 
     - A list of tips related to highlighting is here |vwt-24|. 

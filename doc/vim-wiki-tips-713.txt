@@ -43,7 +43,7 @@ the mapp command used is 'vmap <buffer>' (a buffer-specific visual mode
 mapping). Note that the last argument is optional (and wasn't there in the 
 last example).
 
-COMMENTS  *vwt-713-comments*
+COMMENTS                                                    *vwt-713-comments*
 
 I'm not sure I understand this. Isn't this what the vimrc and gvimrc files 
 are for?Put any gui specific maps in gvimrc, others in vimrc?

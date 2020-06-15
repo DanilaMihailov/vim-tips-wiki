@@ -11,7 +11,7 @@ to insert line numbers into a file, or into just a section. Also, the option
 to print with line numbers is given (Vim can print lines with numbers, and 
 does not need the numbers in the file).
 
-USING VIM  *vwt-65-using-vim*
+USING VIM                                                   *vwt-65-using-vim*
 
 The :s [https://vim.fandom.com/wiki/Search_and_replace] command can be used 
 to insert line numbers before each line:
@@ -65,7 +65,7 @@ that enter:
     :let i = 1
 <
 
-USING NL  *vwt-65-using-nl*
+USING NL                                                     *vwt-65-using-nl*
 
 On Unix based systems, the number lines utility can be used to insert numbers 
 by filtering the whole buffer:
@@ -90,7 +90,7 @@ selected. Then type :!nl -ba. You will see (the '<,'> is inserted by Vim):
     :'<,'>!nl -s '. ' -w 2
 <
 
-PRINTING WITH LINE NUMBERS  *vwt-65-printing-with-line-numbers*
+PRINTING WITH LINE NUMBERS                 *vwt-65-printing-with-line-numbers*
 
 There is no need to insert line numbers if all that is wanted is to have 
 lines numbered in a printout. Instead, use the following command to tell Vim 
@@ -100,7 +100,7 @@ to insert line numbers on printing (change y to n to turn this off):
     :set printoptions=number:y
 <
 
-COMMENTS  *vwt-65-comments*
+COMMENTS                                                     *vwt-65-comments*
 
 Insert line numbers with a Perl filter |vwt-569| is another method.
 

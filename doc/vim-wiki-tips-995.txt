@@ -38,7 +38,7 @@ Add this to your vimrc file:
 So each time you use META-n, line numbers will be toggled and the appropriate 
 number of columns will be added or removed from your vim window.
 
-COMMENTS  *vwt-995-comments*
+COMMENTS                                                    *vwt-995-comments*
 
 As of Vim 7.0, it's possible to change the line number column width using the 
 numberwidth option. Of course, it doesn't really make sense now to always 

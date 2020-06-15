@@ -31,7 +31,7 @@ footnote in the text.
     nmap KK maG$?\[[0-9]*\]<CR>yt]G$i<End><CR><Esc>p<C-a>i<End>]<Esc>`aP<C-a><Right>i]<Esc>maG$i<End><End>
 <
 
-COMMENTS  *vwt-332-comments*
+COMMENTS                                                    *vwt-332-comments*
 
 For information I just added a worthwhile special case:we do not add the 
 footnotes at the end of the document, but on the line before a "--".

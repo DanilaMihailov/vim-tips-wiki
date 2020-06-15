@@ -45,7 +45,7 @@ description of other predefined text objects.
     nnoremap ya' :call JHStringObject('y',"'",'a')<CR>
 <
 
-COMMENTS  *vwt-901-comments*
+COMMENTS                                                    *vwt-901-comments*
 
 I think the tips must begin with a problem definition, not a defintion of the 
 solution. Usually, we look for a tip that is solving a problem we faced. By 

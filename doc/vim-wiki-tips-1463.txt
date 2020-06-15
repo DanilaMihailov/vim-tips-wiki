@@ -13,7 +13,7 @@ is then presented |vwt-1463-reordering-up-to-nine-lines| (useful for
 reordering up to nine lines), and there is a set of mappings so you can press 
 a key to move the current line, or a block of selected lines, up or down.
 
-CUT AND PASTE  *vwt-1463-cut-and-paste*
+CUT AND PASTE                                         *vwt-1463-cut-and-paste*
 
 Cut the line that you want to move by typing dd, or visually select some 
 lines (press V then move the cursor) and type d to cut the selected block.
@@ -35,7 +35,7 @@ using an uppercase letter, for example:
     - Press "ap to paste after the line with the cursor, or "aP to paste before. 
 
 
-MOVE COMMAND  *vwt-1463-move-command*
+MOVE COMMAND                                           *vwt-1463-move-command*
 
 You can move a line, or a block of lines, with the :m command. Examples:
 
@@ -46,7 +46,7 @@ To move a block of lines, use the same command but visually select the lines
 before entering the move command. You can also use arbitrary ranges 
 [https://vim.fandom.com/wiki/Ranges] with the move command. Examples:
 
-REORDERING UP TO NINE LINES  *vwt-1463-reordering-up-to-nine-lines*
+REORDERING UP TO NINE LINES             *vwt-1463-reordering-up-to-nine-lines*
 
 The following example lines can be moved to a different order by deleting 
 each line in turn (starting with the line that will be first when the move is 
@@ -82,7 +82,7 @@ so on. The result is that all the lines are pasted, in the correct order.
 You have to press . eight times (using a count like 8. will insert the same 
 line eight times). See :help |redo-register|
 
-MAPPINGS TO MOVE LINES  *vwt-1463-mappings-to-move-lines*
+MAPPINGS TO MOVE LINES                       *vwt-1463-mappings-to-move-lines*
 
 The following mappings in your vimrc [https://vim.fandom.com/wiki/Vimrc] 
 provide a quick way to move lines of text up or down. The mappings work in 
@@ -105,7 +105,7 @@ After visually selecting a block of lines (for example, by pressing V then
 moving the cursor down), press Alt-j to move the whole block down, or press 
 Alt-k to move the block up.
 
-EXPLANATION  *vwt-1463-explanation*
+EXPLANATION                                             *vwt-1463-explanation*
 
 The command :m .+1 (which can be abbreviated to :m+) moves the current line 
 to after line number .+1 (current line number + 1). That is, the current line 
@@ -123,7 +123,7 @@ selected lines is moved down one line.
 The == re-indents the line to suit its new position. For the visual-mode 
 mappings, gv reselects the last visual block and = re-indents that block.
 
-SEE ALSO  *vwt-1463-see-also*
+SEE ALSO                                                   *vwt-1463-see-also*
     - Transposing |vwt-191| enhanced mappings (better at maintaining cursor 
       position?) 
     - Cut or copy lines without counting the lines |vwt-344| (needs to be fixed) 
@@ -133,6 +133,6 @@ SEE ALSO  *vwt-1463-see-also*
       [https://stackoverflow.com/questions/7501092/can-i-map-alt-key-in-vim/15399297#15399297] 
 
 
-COMMENTS  *vwt-1463-comments*
+COMMENTS                                                   *vwt-1463-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -14,7 +14,7 @@ It may help to automatically change the color scheme to clearly identify
 where you are (which file, or which Vim, or which directory) to avoid 
 accidentally changing the wrong file.
 
-WHICH FILE  *vwt-1378-which-file*
+WHICH FILE                                               *vwt-1378-which-file*
 
 When using one instance of Vim to edit multiple files it can be easy to 
 switch to Vim from another application then start typing in the current buffer 
@@ -38,7 +38,7 @@ Inside ftplugin/java.vim, for example, you might have let
 b:colors_name=morning, causing all java files to have a distinguishing color 
 scheme.
 
-WHICH DIRECTORY  *vwt-1378-which-directory*
+WHICH DIRECTORY                                     *vwt-1378-which-directory*
 
 When editing files in two different directories, for example when copying 
 code from one file to another, changing the color scheme helps to quickly 
@@ -53,7 +53,7 @@ Register |registers| @% contains the name of the current file.
 The procedure does not work well for split windows (it might be better to use 
 BufWinEnter instead of BufEnter?).
 
-WHICH INSTANCE  *vwt-1378-which-instance*
+WHICH INSTANCE                                       *vwt-1378-which-instance*
 
 On some systems using focus-follows-mouse 
 [http://en.wikipedia.org/wiki/Focus_(computing)], it can be convenient to have 
@@ -68,7 +68,7 @@ are dark. That makes it easy to be sure you are typing in the right window.
     :autocmd FocusGained * :colorscheme default
 <
 
-COMMENTS  *vwt-1378-comments*
+COMMENTS                                                   *vwt-1378-comments*
 
 Proposed variant for Which file |vwt-1378-which-file|, to be pasted in the 
 vimrc or as a global |plugin|:

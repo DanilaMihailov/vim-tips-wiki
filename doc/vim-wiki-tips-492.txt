@@ -36,7 +36,7 @@ Pressing Enter will execute that script.
 For the reverse operation (get a diff for the current buffer), see VimTip1030 
 |vwt-1030|.
 
-COMMENTS  *vwt-492-comments*
+COMMENTS                                                    *vwt-492-comments*
 
 Some time ago I wrote ftplugin which does exactly that. It can jump exactly 
 to the place where you have been looking at the diff. It supports unified 

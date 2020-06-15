@@ -13,7 +13,7 @@ the file with temporary privileges.
 
 Of course, this tip has to be used with caution, as it gets you more power.
 
-SUGGESTION 1  *vwt-975-suggestion-1*
+SUGGESTION 1                                            *vwt-975-suggestion-1*
 
 If you find you do not have permission to perform :w, use the following:
 
@@ -34,7 +34,7 @@ Or, if you know about the problem beforehand:
     sudo -e path_to_file
 <
 
-SUGGESTION 2  *vwt-975-suggestion-2*
+SUGGESTION 2                                            *vwt-975-suggestion-2*
 
 The following function saves the current file to a temporary file, then 
 copies the new file to replace the original. It preserves the modes of the 
@@ -55,7 +55,7 @@ original file, though it is being rewriten.
 Warning There is no check for symlinks. A symlink would be removed and 
 replaced by a file with the symlink's modes, which are 777.
 
-SUGGESTION 3  *vwt-975-suggestion-3*
+SUGGESTION 3                                            *vwt-975-suggestion-3*
 
 Here is a mapping to save to a /tmp file, then overwrite the working file.
 
@@ -68,7 +68,7 @@ history (undo will not work, although it does keep a backup).
 
 Note that a backup is made, even when 'nobackup' is set.
 
-COMMENTS  *vwt-975-comments*
+COMMENTS                                                    *vwt-975-comments*
 
 Use script#729 [https://www.vim.org/scripts/script.php?script_id=729] which 
 has had more testing or use script#2709 

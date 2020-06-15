@@ -12,7 +12,7 @@ pdf. You need to install xpdf [http://www.foolabs.com/xpdf/] (available on all
 major platforms) as it provides the pdftotext utility to read the text from a 
 pdf file.
 
-PROCEDURE  *vwt-1356-procedure*
+PROCEDURE                                                 *vwt-1356-procedure*
 
 Put one of the following mappings in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]:
@@ -35,14 +35,14 @@ from a pdf document into the buffer.
     :Rpdf example.pdf
 <
 
-SEE ALSO  *vwt-1356-see-also*
+SEE ALSO                                                   *vwt-1356-see-also*
     - View and diff MS Word files |vwt-790| Uses a similar concept to open Word 
       documents. 
     - Working with CSV files |vwt-667| Uses a similar concept to open Excel 
       spreadsheets. 
 
 
-COMMENTS  *vwt-1356-comments*
+COMMENTS                                                   *vwt-1356-comments*
 
 You could create a ftdetect plugin and put instruction in it so you can just 
 :edit filename.pdf and it'll set options for it. :help |new-filetype|

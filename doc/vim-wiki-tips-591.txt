@@ -88,7 +88,7 @@ Of course you can separate your functions in different plugins (one for the
 mapping, one for the functions...You can use prefix to classify your functions 
 and use the autocompletion more efficiently.
 
-REFERENCES  *vwt-591-references*
+REFERENCES                                                *vwt-591-references*
     - General considerations on plugin: :help |plugins| 
     - How to create a user-command and how to use the parameters (-range, -nargs, 
       -complete...): :help |user-commands| 
@@ -97,7 +97,7 @@ REFERENCES  *vwt-591-references*
     - How to define a function: :help |user-functions| 
 
 
-COMMENTS  *vwt-591-comments*
+COMMENTS                                                    *vwt-591-comments*
 
 I definitively agree that plugins are a must -- AFAIK, ftplugins are the 
 major improvment of Vim over Vi.

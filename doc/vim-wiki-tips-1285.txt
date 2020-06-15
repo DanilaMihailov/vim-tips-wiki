@@ -57,7 +57,7 @@ Example to avoid w1 typo:
 
 cabbrev w1 <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w!' : 'w1')<CR>
 
-SCRIPTS  *vwt-1285-scripts*
+SCRIPTS                                                     *vwt-1285-scripts*
     - cmdalias [https://www.vim.org/scripts/script.php?script_id=746] Create 
       aliases for Vim commands. 
     - altercmd [https://www.vim.org/scripts/script.php?script_id=2675] Alter 
@@ -68,7 +68,7 @@ SCRIPTS  *vwt-1285-scripts*
       aliases to vim command. 
 
 
-SEE ALSO  *vwt-1285-see-also*
+SEE ALSO                                                   *vwt-1285-see-also*
 
 These are all good candidates for this technique (or use it already):
     - Find in files within Vim 
@@ -87,16 +87,16 @@ This plugin does the same thing (possibly in the same way):
     - script#746 [https://www.vim.org/scripts/script.php?script_id=746] 
 
 
-REFERENCES  *vwt-1285-references*
+REFERENCES                                               *vwt-1285-references*
     - :help |:cabbrev| 
     - :help |:command| 
     - :help |getcmdpos()| 
     - :help |getcmdtype()| 
 
 
-COMMENTS  *vwt-1285-comments*
+COMMENTS                                                   *vwt-1285-comments*
 
-USING <EXPR> (VIM 7)  *vwt-1285-using-<expr>-(vim-7)*
+USING <EXPR> (VIM 7)                           *vwt-1285-using-<expr>-(vim-7)*
 
 With Vim 7 ("or later"), you can use :cabbrev <expr> — here is an example, 
 replacing the :h command to open the help window at the bottom of the Vim 

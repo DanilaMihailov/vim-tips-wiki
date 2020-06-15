@@ -13,7 +13,7 @@ This mapping expands an existing abbreviation:
     map <C-X><C-X> diw:exe "normal i".@"<CR>
 <
 
-COMMENTS  *vwt-649-comments*
+COMMENTS                                                    *vwt-649-comments*
 
 That won't work if the abbreviation is the last word on the line. Try:
 

@@ -12,7 +12,7 @@ text on a line). This tip shows how it's done.
 See Indenting source code |vwt-83| for related information, including 
 settings that affect indentation.
 
-BASIC COMMANDS  *vwt-224-basic-commands*
+BASIC COMMANDS                                        *vwt-224-basic-commands*
 
 In normal mode, type >> to indent the current line, or << to unindent. Each 
 command can be used with a count. The operators > and < do the same for 
@@ -27,7 +27,7 @@ In insert mode, Ctrl-T indents the current line, and Ctrl-D unindents.
 When indenting or unindenting, lines are shifted one 'shiftwidth' to the 
 right or left.
 
-BASIC EXAMPLES  *vwt-224-basic-examples*
+BASIC EXAMPLES                                        *vwt-224-basic-examples*
 
 To adjust the indent on three lines:
     - Put the cursor anywhere in the first line. 
@@ -52,7 +52,7 @@ and text objects. For example, >} to indent from the cursor to the next blank
 line, or <aB to un-indent the current C-like {...} "block" structure. See 
 indent a code block [https://vim.fandom.com/wiki/Indent_a_code_block].
 
-MORE COMMANDS  *vwt-224-more-commands*
+MORE COMMANDS                                          *vwt-224-more-commands*
 
 In normal mode, type == to automatically indent the current line according to 
 your indentation settings |vwt-83|. This command can be used with a count. The 
@@ -84,7 +84,7 @@ The :> and :< commands take a range, and additional > or < can be used. For
 example, :12,20>>> indents lines 12 to 20 inclusive three times (adding three 
 times 'shiftwidth' of indentation to the specified lines).
 
-MORE EXAMPLES  *vwt-224-more-examples*
+MORE EXAMPLES                                          *vwt-224-more-examples*
 
 To set the indent on three lines to 12 spaces (or an equivalent mixture of 
 tabs/spaces, depending on 'expandtab'):
@@ -103,7 +103,7 @@ file type):
       indent the selection. 
 
 
-MAPPINGS  *vwt-224-mappings*
+MAPPINGS                                                    *vwt-224-mappings*
 
 If you select some lines then press > to indent the lines, the selection is 
 removed. The indentation can be repeated on the same range using ., but if you 
@@ -150,18 +150,18 @@ Tab or Shift-Tab:
     vnoremap <S-Tab> <gV
 <
 
-SEE ALSO  *vwt-224-see-also*
+SEE ALSO                                                    *vwt-224-see-also*
     - 597 Indent a code block |vwt-597| indenting a code block ({...}) 
 
 
-REFERENCES  *vwt-224-references*
+REFERENCES                                                *vwt-224-references*
     - :help |gv| 
     - :help |blockwise-visual| 
     - :help |v_b_I| 
     - :help |=| 
 
 
-COMMENTS  *vwt-224-comments*
+COMMENTS                                                    *vwt-224-comments*
 
 Where :wall is used, should mention :set hidden. We should have a tip on that 
 so we can just link to it. JohnBeckett 

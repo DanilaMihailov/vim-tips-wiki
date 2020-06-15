@@ -37,16 +37,16 @@ Also you can remap Ctrl-x Ctrl-o to Ctrl-Space using:
     :imap <C-Space> <C-X><C-O>
 <
 
-SEE ALSO  *vwt-1634-see-also*
+SEE ALSO                                                   *vwt-1634-see-also*
     - Automatically append closing characters 
       [https://vim.fandom.com/wiki/Automatically_append_closing_characters] 
 
 
-REFERENCES  *vwt-1634-references*
+REFERENCES                                               *vwt-1634-references*
     - :help |ins-completion| 
 
 
-COMMENTS  *vwt-1634-comments*
+COMMENTS                                                   *vwt-1634-comments*
 
 This autocmd and insert mode mappings will cause > to auto-complete the tag 
 in insert mode, ><CR> to auto-complete and put your cursor on an indented new 

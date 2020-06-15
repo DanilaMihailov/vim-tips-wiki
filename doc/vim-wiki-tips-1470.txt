@@ -14,7 +14,7 @@ line: line number, hex value under cursor, total lines, %position in file.
     set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,bytval=0x%B,%n%Y%)\%P
 <
 
-COMMENTS  *vwt-1470-comments*
+COMMENTS                                                   *vwt-1470-comments*
 
 >
     set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}

@@ -9,7 +9,7 @@ created 2002 · complexity intermediate · author Arun Easi · version 6.0
 The global command :g is very useful. Here are some examples showing the 
 power of :g.
 
-BRIEF EXPLANATION OF :G  *vwt-227-brief-explanation-of-:g*
+BRIEF EXPLANATION OF :G                      *vwt-227-brief-explanation-of-:g*
 
 >
     :[range]g/pattern/cmd
@@ -20,7 +20,7 @@ command cmd for each line matching pattern (an Ex command is one starting with
 a colon such as :d for delete). Before executing cmd, "." is set to the 
 current line.
 
-EXAMPLES  *vwt-227-examples*
+EXAMPLES                                                    *vwt-227-examples*
 
 Display context (5 lines) for all occurrences of a pattern.
 
@@ -122,7 +122,7 @@ Add text to the end of a line that begins with a certain string.
     :g/^pattern/s/$/mytext
 <
 
-DELETING MANY LINES  *vwt-227-deleting-many-lines*
+DELETING MANY LINES                              *vwt-227-deleting-many-lines*
 
 The command :g/pattern/d performs :d on all lines matching the pattern, see 
 :help |:delete|. When a line is deleted, it is first copied to a 
@@ -138,7 +138,7 @@ Fast delete of all lines matching a pattern.
     :g/pattern/d _
 <
 
-NOTES  *vwt-227-notes*
+NOTES                                                          *vwt-227-notes*
 
 Some explanation of commands commonly used with :g
 
@@ -160,14 +160,14 @@ include the colon.
     :help :k   "example
 <
 
-REFERENCES  *vwt-227-references*
+REFERENCES                                                *vwt-227-references*
     - :help |ex-cmd-index| provides a list of Ex commands. 
     - :help |10.4| is the section of the user manual discussing the :global 
       command. 
     - :help |multi-repeat| talks about both the :g and :v commands. 
 
 
-COMMENTS  *vwt-227-comments*
+COMMENTS                                                    *vwt-227-comments*
 
 Over a range defined by marks a and b, operate on each line containing 
 pattern. The operation is to replace each pattern2 with string.

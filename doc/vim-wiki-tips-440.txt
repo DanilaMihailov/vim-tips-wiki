@@ -17,7 +17,7 @@ characters are broken (a newline is automatically inserted):
     :setl tw=60
 <
 
-FORMATTING A PARAGRAPH  *vwt-440-formatting-a-paragraph*
+FORMATTING A PARAGRAPH                        *vwt-440-formatting-a-paragraph*
 
 You may edit a paragraph consisting of several lines. When finished editing, 
 some lines may be shorter than required. To fix this, in normal mode, type 
@@ -33,7 +33,7 @@ An example setting for formatoptions (fo) is:
     :setl fo=aw2tq
 <
 
-COMMENTS  *vwt-440-comments*
+COMMENTS                                                    *vwt-440-comments*
 
 TO DO
     - Explain what above fo does, and how to configure so paragraphs do not have 

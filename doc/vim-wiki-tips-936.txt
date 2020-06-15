@@ -22,7 +22,7 @@ To use, hit <F2> in insert mode and type the end character.
     endfunction
 <
 
-COMMENTS  *vwt-936-comments*
+COMMENTS                                                    *vwt-936-comments*
 
 The goal is to first record the INSERT cursor position (A), insert the end 
 character (B) and then come back to the recorded cursor position (C). The 

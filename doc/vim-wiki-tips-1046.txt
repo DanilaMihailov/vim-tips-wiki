@@ -16,7 +16,7 @@ It deletes from the cursor position backwards in the file until it finds the
 first non-whitespace character, and then changes the match end offset to avoid 
 deleting that non-whitespace char.
 
-COMMENTS  *vwt-1046-comments*
+COMMENTS                                                   *vwt-1046-comments*
 
 Can you make one that will delete (or backspace) in tab-space chunks?
 

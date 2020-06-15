@@ -21,11 +21,11 @@ expression ask for confirmation:
     iabbrev <expr> for <SID>Ask('for', "for () {\n}", 2)
 <
 
-REFERENCES  *vwt-650-references*
+REFERENCES                                                *vwt-650-references*
     - :help |:iabbrev| 
     - :help |:map-expression| 
 
 
-COMMENTS  *vwt-650-comments*
+COMMENTS                                                    *vwt-650-comments*
 
  vim:tw=78:et:ft=help:norl:

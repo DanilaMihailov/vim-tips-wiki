@@ -6,7 +6,7 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-NORMAL-MODE COMMANDS  *vwt-470-normal-mode-commands*
+NORMAL-MODE COMMANDS                            *vwt-470-normal-mode-commands*
 
 Swap the current character (the character under the cursor) with the next:
 
@@ -53,7 +53,7 @@ mappings below to more intelligently move words. However, for many more
 complex swaps, several plugins |vwt-470-related-plugins| are available which 
 often do a better job.
 
-MAPPINGS  *vwt-470-mappings*
+MAPPINGS                                                    *vwt-470-mappings*
 
 See moving lines up or down 
 [https://vim.fandom.com/wiki/Moving_lines_up_or_down] for the best method to 
@@ -105,7 +105,7 @@ For ISO/IEC_8859-1 Latin-1 Supplement characters, substitute all \w instances
 with [0-9A-Za-zÀ-ÖØ-öø-ÿ_] and all \_W instances with 
 \_[^0-9A-Za-zÀ-ÖØ-öø-ÿ_].
 
-VISUAL-MODE SWAPPING  *vwt-470-visual-mode-swapping*
+VISUAL-MODE SWAPPING                            *vwt-470-visual-mode-swapping*
 
 To use this mapping: first, delete some text (using a command such as daw or 
 dt in normal mode, or x in visual mode). Then, use visual mode to select some 
@@ -115,7 +115,7 @@ other text, and press Ctrl-X. The two pieces of text should then be swapped.
     :vnoremap <C-X> <Esc>`.``gvP``P
 <
 
-RELATED PLUGINS  *vwt-470-related-plugins*
+RELATED PLUGINS                                      *vwt-470-related-plugins*
     - vim-exchange [https://github.com/tommcdo/vim-exchange] Easy text 
       exchange/swap operator 
     - Visual Mode Based Swapping 
@@ -136,15 +136,15 @@ RELATED PLUGINS  *vwt-470-related-plugins*
       variation on the topic that avoids side effects like polluting registers 
 
 
-SEE ALSO  *vwt-470-see-also*
+SEE ALSO                                                    *vwt-470-see-also*
     - Moving lines up or down |vwt-646| mappings to move lines up/down, with 
       re-indenting 
     - Transposing |vwt-191| script to move current or selected lines up/down 
 
 
-COMMENTS  *vwt-470-comments*
+COMMENTS                                                    *vwt-470-comments*
 
-SWAP ALL LINES IN A VISUAL SELECTED BLOCK  *vwt-470-swap-all-lines-in-a-visual-selected-block*
+SWAP ALL LINES IN A VISUAL SELECTED BLOCK *vwt-470-swap-all-lines-in-a-visual-selected-block*
 
 When working with arrays I sometimes realize that I have to do things inthe 
 opposite order. To easily change this I created this small function:

@@ -13,7 +13,7 @@ the problem.
 See how to stop auto indenting |vwt-330| for automatic indentation issues 
 while you are typing.
 
-BACKGROUND  *vwt-906-background*
+BACKGROUND                                                *vwt-906-background*
 
 If you use Vim commands to paste text, nothing unexpected occurs. The problem 
 only arises when pasting from another application, and only when you are not 
@@ -26,7 +26,7 @@ typed by the user. After each line ending, Vim may move the cursor so the next
 line starts with the same indent as the last. However, that will change the 
 indentation already in the pasted text.
 
-PASTE TOGGLE  *vwt-906-paste-toggle*
+PASTE TOGGLE                                            *vwt-906-paste-toggle*
 
 Vim provides the 'paste' option to aid in pasting text unmodified from other 
 applications. You can set it manually like:
@@ -73,18 +73,18 @@ the 'paste' option, and will then show the value of that option. The second
 line allows you to press F2 when in insert mode, to toggle 'paste' on and off. 
 The third line enables displaying whether 'paste' is turned on in insert mode.
 
-REFERENCES  *vwt-906-references*
+REFERENCES                                                *vwt-906-references*
     - :help 'paste' 
     - :help 'pastetoggle' 
 
 
-COMMENTS  *vwt-906-comments*
+COMMENTS                                                    *vwt-906-comments*
 
 For VIM running in recent terminals, you can use the excellent 
 vim-bracketed-paste [https://github.com/ConradIrwin/vim-bracketed-paste] 
 plugin which automatically sets 'paste' option when, well, pasting.
 
-OLD COMMENTS  *vwt-906-old-comments*
+OLD COMMENTS                                            *vwt-906-old-comments*
     - Thanks for your fix Spiiph, and please check what I changed. I think the 
       following is now attended to, and all these old comments can be deleted after 
       a few days. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:39, 

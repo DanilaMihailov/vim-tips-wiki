@@ -16,7 +16,7 @@ automatically scroll text into view, so that search hits always have some
 This tip describes 'scrolloff', and shows some mappings to vertically center 
 search hits automatically. There is also a script with more features.
 
-SCROLLOFF OPTION  *vwt-528-scrolloff-option*
+SCROLLOFF OPTION                                    *vwt-528-scrolloff-option*
 
 The 'scrolloff' (scroll offset) option determines the minimum number of 
 screen lines that you would like above and below the cursor. By default, 
@@ -38,7 +38,7 @@ near the beginning or the end of the buffer).
 
 Entering :set so=999 will keep the cursor vertically centered |vwt-182|.
 
-SIMPLE MAPPINGS  *vwt-528-simple-mappings*
+SIMPLE MAPPINGS                                      *vwt-528-simple-mappings*
 
 Following are some useful mappings to make search results appear in the 
 middle of the screen:
@@ -52,7 +52,7 @@ middle of the screen:
     :nnoremap g# g#zz
 <
 
-SCRIPT  *vwt-528-script*
+SCRIPT                                                        *vwt-528-script*
 
 An alternative to the simple mappings is to use a script that can cycle 
 between different states (only n and N are mapped):
@@ -97,7 +97,7 @@ press F4 to cycle the behavior of n and N:
     endfunction
 <
 
-CENTERING :SUBSTITUTE MATCHES  *vwt-528-centering-:substitute-matches*
+CENTERING :SUBSTITUTE MATCHES          *vwt-528-centering-:substitute-matches*
 
 If you'd like to have the substitute command center matches during 
 confirmation, you can wrap the command and fiddle with scrolloff. For example, 
@@ -110,13 +110,13 @@ keeping each match centered as you work your way through the file:
      noremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 <
 
-SEE ALSO  *vwt-528-see-also*
+SEE ALSO                                                    *vwt-528-see-also*
     - Searching [https://vim.fandom.com/wiki/Searching] for basic search 
       information 
     - Keep cursor vertically centered |vwt-182| to keep the cursor line in the 
       middle 
 
 
-COMMENTS  *vwt-528-comments*
+COMMENTS                                                    *vwt-528-comments*
 
  vim:tw=78:et:ft=help:norl:

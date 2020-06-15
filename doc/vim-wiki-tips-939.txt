@@ -16,7 +16,7 @@ doesn't require any other change. Now when either Vim in cygwin or Vim/GVim in
 Windows loads, they both use the same config files. This assumes that your 
 config files can work under either environment as mine do.
 
-COMMENTS  *vwt-939-comments*
+COMMENTS                                                    *vwt-939-comments*
 
 Another option (if for some reason you don't want to change your Windows HOME 
 var) is to create a vimrc file in your Windows home with the following lines:

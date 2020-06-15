@@ -16,7 +16,7 @@ This tip assumes you are using the Project.vim plugin and the GNU Make build
 system. GNU Make will search for source file changes and will rebuild tags 
 when a file is opened from the project window.
 
-RELATED PLUGINS  *vwt-1618-related-plugins*
+RELATED PLUGINS                                     *vwt-1618-related-plugins*
     - the Indexer [https://www.vim.org/scripts/script.php?script_id=3221] plugin 
       already provides painless automatic tags generation for entire projects, and 
       keeps tags up-to-date. It can work as add-on for the Project.vim 
@@ -24,7 +24,7 @@ RELATED PLUGINS  *vwt-1618-related-plugins*
       a better option if you're looking for a ready-made solution. 
 
 
-PREREQUISITES  *vwt-1618-prerequisites*
+PREREQUISITES                                         *vwt-1618-prerequisites*
     - Project.vim [https://www.vim.org/scripts/script.php?script_id=69] plugin to 
       set up a list of frequently-accessed files for easy navigation. 
     - GNU Make [http://www.gnu.org/software/make/] tool to control the generation 
@@ -48,7 +48,7 @@ typing full path:
     PARTICULAR PURPOSE.
 <
 
-PROJECT LAYOUT  *vwt-1618-project-layout*
+PROJECT LAYOUT                                       *vwt-1618-project-layout*
 
 Let's assume the following directory structure.
 
@@ -148,6 +148,6 @@ Alternatively, you could update tags on file closing:
       ...
 <
 
-COMMENTS  *vwt-1618-comments*
+COMMENTS                                                   *vwt-1618-comments*
 
  vim:tw=78:et:ft=help:norl:

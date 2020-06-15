@@ -35,7 +35,7 @@ commands (tab next, and tab previous).
     nnoremap <C-S-Tab> :tabp<CR>
 <
 
-REFERENCES  *vwt-195-references*
+REFERENCES                                                *vwt-195-references*
     - Easier_buffer_switching [https://vim.fandom.com/wiki/Easier_buffer_switching] 
       - I highly recommend the <F5> mapping followed by completion with <Ctrl-N> or 
       <Tab>. 
@@ -46,6 +46,6 @@ REFERENCES  *vwt-195-references*
     - :help |:tabprevious| 
 
 
-COMMENTS  *vwt-195-comments*
+COMMENTS                                                    *vwt-195-comments*
 
  vim:tw=78:et:ft=help:norl:

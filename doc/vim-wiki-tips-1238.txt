@@ -33,7 +33,7 @@ when the autoread option is enabled.
     autocmd BufReadPost * call UpdateModifiable()
 <
 
-COMMENTS  *vwt-1238-comments*
+COMMENTS                                                   *vwt-1238-comments*
 
 Why is the b:setmodifiable variable needed?
 

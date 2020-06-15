@@ -20,7 +20,7 @@ Solution: Set the master file to read only, and change its color scheme.
 Non-modifiable is better than :set ro as nomodifiable won't even let you 
 start changing stuff, whereas :set ro will only warn you once.
 
-COMMENTS  *vwt-426-comments*
+COMMENTS                                                    *vwt-426-comments*
 
 You can permanently protect a file by setting a suitable modeline :help 
 |modeline|.

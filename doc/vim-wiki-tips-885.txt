@@ -73,7 +73,7 @@ switch between several different status lines.
 This tip should be useful if you need more information than is able to be fit 
 in a single statusline.
 
-COMMENTS  *vwt-885-comments*
+COMMENTS                                                    *vwt-885-comments*
 
 If you don't like highlighting on the status line, here is a simpler version 
 (it's just s/%[12]\?\*//g)

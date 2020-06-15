@@ -32,7 +32,7 @@ FuzzyFinder [https://www.vim.org/scripts/script.php?script_id=1984],
 LustyExplorer [https://www.vim.org/scripts/script.php?script_id=1890] or 
 BufExplorer [https://www.vim.org/scripts/script.php?script_id=42].
 
-OPENING AND CLOSING TABS  *vwt-1242-opening-and-closing-tabs*
+OPENING AND CLOSING TABS                   *vwt-1242-opening-and-closing-tabs*
 
 When starting Vim, the -p option opens each specified file in a separate tab 
 (up to the value of the 'tabpagemax' option). Examples:
@@ -96,7 +96,7 @@ the file is displayed in a new tab.
 In gvim, you can right click the tab label bar for a popup menu with Close, 
 New Tab, and Open Tab... items.
 
-NAVIGATION  *vwt-1242-navigation*
+NAVIGATION                                               *vwt-1242-navigation*
 
 >
     :tabs         list all tabs including their displayed windows
@@ -133,7 +133,7 @@ Jumping to a specific tab with {i}gt is easier if you set up your tabline to
 show the tab number 
 [https://vim.fandom.com/wiki/Show_tab_number_in_your_tab_line].
 
-SWITCHING TO ANOTHER BUFFER  *vwt-1242-switching-to-another-buffer*
+SWITCHING TO ANOTHER BUFFER             *vwt-1242-switching-to-another-buffer*
 
 By default, when switching to another buffer, the current buffer is hidden 
 and its window is used to display the requested buffer. However, some commands 
@@ -164,7 +164,7 @@ number.
 Note, that this option affects more than just the commands mapped above. 
 Particularly, it affects the quickfix window. See the help for details.
 
-SHORTCUTS  *vwt-1242-shortcuts*
+SHORTCUTS                                                 *vwt-1242-shortcuts*
 
 Here are some ideas for entries you may want to add to your vimrc 
 [https://vim.fandom.com/wiki/Vimrc].
@@ -196,14 +196,14 @@ cannot accidentally change it.
     cabbrev tabv tab sview +setlocal\ nomodifiable
 <
 
-SEE ALSO  *vwt-1242-see-also*
+SEE ALSO                                                   *vwt-1242-see-also*
     - We have many tips about using tab pages 
       [https://vim.fandom.com/wiki/Category:Tabs] 
 
 
 
 
-FIXING TIPS ON TAB PAGES  *vwt-1242-fixing-tips-on-tab-pages*
+FIXING TIPS ON TAB PAGES                   *vwt-1242-fixing-tips-on-tab-pages*
 
 This section is a temporary area to plan merging/fixing existing tips on tab pages.
 
@@ -232,6 +232,6 @@ Miscellaneous
       previous tab 
 
 
-COMMENTS  *vwt-1242-comments*
+COMMENTS                                                   *vwt-1242-comments*
 
  vim:tw=78:et:ft=help:norl:

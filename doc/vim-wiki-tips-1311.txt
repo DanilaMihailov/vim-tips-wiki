@@ -23,7 +23,7 @@ The following steps will give you my setup; they assume that you use the
 standard installation directory for Vim, but if you're changing that, you 
 probably also know how to tweak my directions for your needs.
 
-STEPS  *vwt-1311-steps*
+STEPS                                                         *vwt-1311-steps*
 
 1. Download and install ROX filer (http://rox.sourceforge.net 
 [http://rox.sourceforge.net]). Optional, but highly recommended; ROX is clean, 
@@ -58,6 +58,6 @@ will start up that has Python support compiled in. Anytime you launch a text
 file from ROX that isn't a Python source file, you'll get a copy of gvim that 
 doesn't have Python support compiled in (which should let it start up faster).
 
-COMMENTS  *vwt-1311-comments*
+COMMENTS                                                   *vwt-1311-comments*
 
  vim:tw=78:et:ft=help:norl:

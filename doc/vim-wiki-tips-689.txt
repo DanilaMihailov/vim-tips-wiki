@@ -9,7 +9,7 @@ created 2004 · complexity basic · author Hans fugal · version 6.0
 It's easy to count the total number of words, or the number of occurrences of 
 a particular word, and more.
 
-COUNTING NUMBER OF WORDS  *vwt-689-counting-number-of-words*
+COUNTING NUMBER OF WORDS                    *vwt-689-counting-number-of-words*
 
 To count the number of words in the current buffer, press g then Ctrl-g.
 
@@ -42,7 +42,7 @@ use the command:
 The above writes the current buffer to the standard input of the external wc 
 program. :help |:write_c|
 
-LIVE WORD COUNT  *vwt-689-live-word-count*
+LIVE WORD COUNT                                      *vwt-689-live-word-count*
 
 To get a live word count to show up in the vim status bar is a little 
 tricky,but you only need to do this once.
@@ -60,7 +60,7 @@ example, people using Vim to edit raw HTML pages may want to tweak the
 definitionso only words actually displayed by a web browser are counted as 
 words,but none of the formatting tags count as a word.
 
-COUNTING NUMBER OF PRINTED WORDS IN A LATEX DOCUMENT  *vwt-689-counting-number-of-printed-words-in-a-latex-document*
+COUNTING NUMBER OF PRINTED WORDS IN A LATEX DOCUMENT *vwt-689-counting-number-of-printed-words-in-a-latex-document*
 
 If you LaTeX and you need a printed word count (for a journal paper, etc.), 
 wc's output isn't directly useful, since its count includes all markup and 
@@ -114,7 +114,7 @@ A quick way to list all occurrences of the word under the cursor it to type
 [I (which displays each line containing the current keyword, in this file and 
 in included files when using a language such as C). :help |[I|
 
-RELATED PLUGINS  *vwt-689-related-plugins*
+RELATED PLUGINS                                      *vwt-689-related-plugins*
 
 The WC plugin [https://www.vim.org/scripts/script.php?script_id=1191] counts 
 words according to "Strunk & White" rules, for fiction, novel, or journalism 
@@ -134,10 +134,10 @@ number of occurrences above, below and on the current line, for example:
     :144,172 7 matches in this fold for /let/
 <
 
-REFERENCES  *vwt-689-references*
+REFERENCES                                                *vwt-689-references*
     - :help |12.5| 
 
 
-COMMENTS  *vwt-689-comments*
+COMMENTS                                                    *vwt-689-comments*
 
  vim:tw=78:et:ft=help:norl:

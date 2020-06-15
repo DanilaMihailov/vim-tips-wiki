@@ -18,7 +18,7 @@ The jump list is saved between edits (provided the 'viminfo' option has the '
 parameter), so you can see where jumps occurred from previous editing 
 sessions. :help 'viminfo'
 
-USING A JUMP LIST  *vwt-10-using-a-jump-list*
+USING A JUMP LIST                                   *vwt-10-using-a-jump-list*
 
 Like a web browser, you can go back, then forward:
     - Press Ctrl-O to jump back to the previous (older) location. 
@@ -62,7 +62,7 @@ In the example above:
       invalid). 
 
 
-USING A SCRIPT TO SELECT A JUMP IN THE LIST  *vwt-10-using-a-script-to-select-a-jump-in-the-list*
+USING A SCRIPT TO SELECT A JUMP IN THE LIST *vwt-10-using-a-script-to-select-a-jump-in-the-list*
 
 Using this vimrc [https://vim.fandom.com/wiki/Vimrc] function, you can enter 
 the number of a jump to go to the desired jump:
@@ -100,19 +100,19 @@ You can also have a mapping for it, for example:
     nmap <Leader>j :call GotoJump()<CR>
 <
 
-SEE ALSO  *vwt-10-see-also*
+SEE ALSO                                                     *vwt-10-see-also*
     - Using marks |vwt-42| to manually record marks that you can return to 
     - List changes to the current file |vwt-1300| the change list records where 
       changes occurred 
 
 
-REFERENCES  *vwt-10-references*
+REFERENCES                                                 *vwt-10-references*
     - :help |jump-motions| 
     - :help |jumplist| 
     - :help |:jumps| 
 
 
-COMMENTS  *vwt-10-comments*
+COMMENTS                                                     *vwt-10-comments*
 
 You can also use g; and g, to move backward and forward in your edit 
 locations.

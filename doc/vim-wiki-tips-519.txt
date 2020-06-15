@@ -22,7 +22,7 @@ and make sure, your .vimrc contains
 The indent keyword is optional. Include it only, if your Vim should also 
 source filetype specific indent scripts (if they exist).
 
-THE FOLDING SCRIPT  *vwt-519-the-folding-script*
+THE FOLDING SCRIPT                                *vwt-519-the-folding-script*
 
 The folding script considers lines starting with '#Region' as beginning of 
 folded regions and lines starting with '#End Region' as end markers for those 

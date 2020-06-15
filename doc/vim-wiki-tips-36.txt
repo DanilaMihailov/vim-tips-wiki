@@ -22,19 +22,19 @@ or later, this is simple:
     :nnoremap <F1> :exe ":!info ".shellescape(expand('<cword>'), 1)
 <
 
-REFERENCES  *vwt-36-references*
+REFERENCES                                                 *vwt-36-references*
     - :help |<F1>| 
     - :help |:nnoremap| 
     - :help |shellescape()| 
 
 
-SEE ALSO  *vwt-36-see-also*
+SEE ALSO                                                     *vwt-36-see-also*
     - Info browsing within Vim 
       [https://www.vim.org/scripts/script.php?script_id=21] 
     - VimTip167 |vwt-167| 
 
 
-COMMENTS  *vwt-36-comments*
+COMMENTS                                                     *vwt-36-comments*
 
 Far better to use Info browsing within Vim 
 [https://www.vim.org/scripts/script.php?script_id=21].

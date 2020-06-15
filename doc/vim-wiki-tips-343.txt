@@ -42,15 +42,15 @@ certain options for files over a certain size (in this example, 10mb).
       endif
 <
 
-SEE ALSO  *vwt-343-see-also*
+SEE ALSO                                                    *vwt-343-see-also*
     - Edit large files quickly 
       [https://www.vim.org/scripts/script.php?script_id=1506] plugin to handle many 
       of the above changes and more 
 
 
-COMMENTS  *vwt-343-comments*
+COMMENTS                                                    *vwt-343-comments*
 
-IMPROVEMENT PROPOSAL  *vwt-343-improvement-proposal*
+IMPROVEMENT PROPOSAL                            *vwt-343-improvement-proposal*
 
 I changed the code a bit here and the final result is the following. 
 Differences are:

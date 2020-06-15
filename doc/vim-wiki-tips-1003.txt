@@ -53,7 +53,7 @@ we did with PHPFile above:
 Note: If the above commands are entered in a batch file, the percent sign 
 must be escaped (replace "%1" with "%%1").
 
-HOW IT WORKS  *vwt-1003-how-it-works*
+HOW IT WORKS                                           *vwt-1003-how-it-works*
 
 Both the ftype and assoc commands work by creating entries in a specific 
 registry location which Windows will check for various actions taken on a 
@@ -70,7 +70,7 @@ another registry entry, in HKEY_CLASSES_ROOT\sourcecode\Shell\Open\command
 with (Default) value of "C:\Program Files\Vim\vim72\gvim.exe" "%1". This entry 
 could do with more inspection.
 
-ASSOCIATING VIM WITH OTHER ACTIONS  *vwt-1003-associating-vim-with-other-actions*
+ASSOCIATING VIM WITH OTHER ACTIONS *vwt-1003-associating-vim-with-other-actions*
 
 Consider the .html file extension. For most users, it would not make sense to 
 open a .html file in Vim when double-clicking the file. Most users would want 
@@ -101,7 +101,7 @@ entry to open gvim on a directory
 load configuration files, or source scripts 
 [https://vim.fandom.com/wiki/Vim-sessions_under_Windows].
 
-USER-SPECIFIC FILE ASSOCIATIONS  *vwt-1003-user-specific-file-associations*
+USER-SPECIFIC FILE ASSOCIATIONS     *vwt-1003-user-specific-file-associations*
 
 Unfortunately, all of the methods mentioned above apply your file 
 associations in an area of the registry used by every user account in your 
@@ -120,7 +120,7 @@ registry area. For an example, we will associate the ".c" extension to the
 [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows]. It 
 should be easy to adjust this as desired.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
-STEP 1: ASSOCIATE THE FILE EXTENSION WITH A FILE TYPE  *vwt-1003-step-1:-associate-the-file-extension-with-a-file-type*
+STEP 1: ASSOCIATE THE FILE EXTENSION WITH A FILE TYPE *vwt-1003-step-1:-associate-the-file-extension-with-a-file-type*
 
 To do this, you need only create a registry key with the name of the file 
 extension desired and a default value of the filetype you want to associate 
@@ -129,7 +129,7 @@ HKEY_CURRENT_USER\Software\Classes\.c (using regedit or the command-line "reg
 add" command |vwt-1003-scripting-the-additions|). In regedit, you can see a 
 (Default) value for this key after creating it. Set the value to sourcecode.
 
-STEP 2: ASSOCIATE THE FILETYPE WITH GVIM  *vwt-1003-step-2:-associate-the-filetype-with-gvim*
+STEP 2: ASSOCIATE THE FILETYPE WITH GVIM *vwt-1003-step-2:-associate-the-filetype-with-gvim*
 
 The next step is to tell Windows what to do with your new filetype, just like 
 the ftype command.
@@ -146,7 +146,7 @@ Just as we explained above, you can specify other actions
 double-click, simply by replacing "open" with the appropriate action in the 
 registry key path.
 
-SCRIPTING THE ADDITIONS  *vwt-1003-scripting-the-additions*
+SCRIPTING THE ADDITIONS                     *vwt-1003-scripting-the-additions*
 
 Windows does provide a command-line utility for editing the registry: reg 
 add. You can use this tool from a CMD prompt, but it is probably more useful 
@@ -164,7 +164,7 @@ up the file association given in our example above:
     reg add HKCU\SOFTWARE\Classes\sourcecode\shell\open\command /v "" /t REG_SZ /d "\"C:\Program Files\Vim\vim72\gvim.exe\" --remote-tab-silent \"%%1\"" /f
 <
 
-SEE ALSO  *vwt-1003-see-also*
+SEE ALSO                                                   *vwt-1003-see-also*
     - Launch files in new tabs under Windows#Using File Associations 
       [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows#Using_File_Associations] 
       demonstrating clever use of the --remote family of command-line options as 
@@ -173,7 +173,7 @@ SEE ALSO  *vwt-1003-see-also*
       a file, but do something else with it in Vim. 
 
 
-COMMENTS  *vwt-1003-comments*
+COMMENTS                                                   *vwt-1003-comments*
 
 TO DO
     - For user-specific associations, should also mention creating and merging a 

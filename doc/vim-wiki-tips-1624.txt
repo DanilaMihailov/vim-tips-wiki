@@ -28,14 +28,14 @@ This works
 
 :exe winnr('$') - 1 'wincmd w'
 
-REFERENCES  *vwt-1624-references*
+REFERENCES                                               *vwt-1624-references*
 
 :help CTRL-W_w
 :help :wincmd
 :help :execute
 :help winnr()
 
-COMMENTS  *vwt-1624-comments*
+COMMENTS                                                   *vwt-1624-comments*
 
 I'd like to see a use case for this, that merits its becoming a proper tip. 
 It's a good observation, though. (Spiiph 

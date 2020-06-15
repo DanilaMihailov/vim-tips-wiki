@@ -10,7 +10,7 @@ The omni complete [https://vim.fandom.com/wiki/Omni_completion] feature in
 Vim is great. Here are some suggestions for working with the popup completion 
 menu.
 
-SETTING THE COLOR  *vwt-1486-setting-the-color*
+SETTING THE COLOR                                 *vwt-1486-setting-the-color*
 
 Try the following command to improve the color of the popup menu (add to your 
 vimrc [https://vim.fandom.com/wiki/Vimrc] if you always want this choice):
@@ -35,7 +35,7 @@ Better still would be to use a color scheme that is designed with the
 completion menu in mind. For example, marklar.vim Dark colorscheme based on 
 green chalkboard [https://www.vim.org/scripts/script.php?script_id=1483].
 
-USING SUPERTAB  *vwt-1486-using-supertab*
+USING SUPERTAB                                       *vwt-1486-using-supertab*
 
 The SuperTab [https://www.vim.org/scripts/script.php?script_id=1643] plugin 
 can be used to avoid needing to press Ctrl-X then Ctrl-O to invoke the popup 
@@ -53,10 +53,10 @@ completion mode to use and should play well with OmniCompletion:
     let g:SuperTabDefaultCompletionType = "context"
 <
 
-REFERENCES  *vwt-1486-references*
+REFERENCES                                               *vwt-1486-references*
     - :help |:highlight| 
 
 
-COMMENTS  *vwt-1486-comments*
+COMMENTS                                                   *vwt-1486-comments*
 
  vim:tw=78:et:ft=help:norl:

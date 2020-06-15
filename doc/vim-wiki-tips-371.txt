@@ -40,11 +40,11 @@ left behind,then place the following file in in your vimrc
     set viminfo='0,\"0,\/0,:0,f0
 <
 
-REFERENCES  *vwt-371-references*
+REFERENCES                                                *vwt-371-references*
     - :help |:X| 
 
 
-COMMENTS  *vwt-371-comments*
+COMMENTS                                                    *vwt-371-comments*
 
 There are a lot of other vim settings to make sure you leave no trace behind 
 like swapfiles, backupfiles, etc.

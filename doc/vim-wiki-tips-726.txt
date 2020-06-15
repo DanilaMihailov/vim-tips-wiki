@@ -12,7 +12,7 @@ closing a tab, exiting the buffer, or changing to a different program. There
 are a number options are available to complete this task. The options 
 presented below have various drawbacks.
 
-METHOD 1  *vwt-726-method-1*
+METHOD 1                                                    *vwt-726-method-1*
 
 By adding the following to your vimrc file this method will rot13 encode your 
 text when you hit the F3 key. This encoding can be reversed by using the F3 
@@ -25,7 +25,7 @@ key again or undoing with u.
 The drawback to this method is that it works best with the English character 
 set a-z and A-Z.
 
-METHOD 2  *vwt-726-method-2*
+METHOD 2                                                    *vwt-726-method-2*
 
 This method also rot13s your buffer when typing \r after adding the following 
 to the vimrc file:
@@ -38,7 +38,7 @@ As with all rot13, this works best with the English character set a-z and
 A-Z. To reverse, simple hit \r again because rot13 is a symmetrical algorithm, 
 the characters will return to normal. Or as mentioned before, simply hit u.
 
-METHOD 3  *vwt-726-method-3*
+METHOD 3                                                    *vwt-726-method-3*
 
 By adding the following to the vimrc file a user will be able to rot13 the 
 text on only the visible screen when using the F3 key. This will also restore 
@@ -53,7 +53,7 @@ the reversing of the rot13 by hitting F3 a second time may not completely
 reverse the changes. In this case hitting "u" will undo the changes 
 appropriately.
 
-COMMENTS  *vwt-726-comments*
+COMMENTS                                                    *vwt-726-comments*
 
 I would also :se rl! to make punctuations
 

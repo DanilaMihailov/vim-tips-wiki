@@ -28,12 +28,12 @@ window to split (there isn't a way to force a tab, but CTRL-W T right
 afterwards will do that for you easily). If you hold down SHIFT, it will set 
 Vim's working directory to that of the file.
 
-REFERENCES  *vwt-1600-references*
+REFERENCES                                               *vwt-1600-references*
     - :help |:drop| 
     - :help |drag-n-drop| 
 
 
-COMMENTS  *vwt-1600-comments*
+COMMENTS                                                   *vwt-1600-comments*
 
 You can use :command! -nargs=1 -complete=file O tab drop <args> to open the 
 file or jump to it using :O FILENAME.

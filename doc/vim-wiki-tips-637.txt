@@ -36,7 +36,7 @@ long. This means if you accidentally leave Vim in insert mode after a lengthy
 insertion, the mapping given at the beginning of the tip will only undo and 
 execute the last inserted text.
 
-REFERENCES  *vwt-637-references*
+REFERENCES                                                *vwt-637-references*
     - :help |@| 
     - :help |quote.| 
     - :help |CursorHoldI| 
@@ -44,6 +44,6 @@ REFERENCES  *vwt-637-references*
     - :help |ins-special-special| 
 
 
-COMMENTS  *vwt-637-comments*
+COMMENTS                                                    *vwt-637-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -22,7 +22,7 @@ of defaults that "everyone can agree on". In addition, some distributions
 provide their own defaults; for instance, Debian-based distros load 
 debian.vim.
 
-REQUIREMENTS  *vwt-1628-requirements*
+REQUIREMENTS                                           *vwt-1628-requirements*
 
 The code in this example .vimrc requires a full featured Vim. While it is 
 possible to insert checks to omit some settings for Vim binaries with fewer 
@@ -32,7 +32,7 @@ If your Vim does not support some of the options and features suggested here,
 you will have to install a Vim package with a larger feature set, or upgrade 
 to a newer version [https://vim.fandom.com/wiki/Download] of Vim.
 
-EXAMPLE VIMRC  *vwt-1628-example-vimrc*
+EXAMPLE VIMRC                                         *vwt-1628-example-vimrc*
 
 This is a minimal but feature rich vimrc intended for new and intermediate 
 Vim users. It is important to understand the options and features mentioned 
@@ -200,7 +200,7 @@ here in order that Vim is used efficiently.
     "------------------------------------------------------------
 <
 
-COMMENTS  *vwt-1628-comments*
+COMMENTS                                                   *vwt-1628-comments*
     - Vim Options [http://apps.brrm.ru/vim-options/] - a Mac app to edit vimrc 
       options. 
     - Also see the |:options| command for a similar built-in editable list of 

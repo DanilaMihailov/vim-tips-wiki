@@ -13,7 +13,7 @@ all unquoted attributes with their quoted version.
     map <F9> :%s/\([^&^?]\)\(\<[[:alnum:]-]\{-}\)=\([[:alnum:]-#%]\+\)/\1\2="\3"/g<CR>
 <
 
-COMMENTS  *vwt-662-comments*
+COMMENTS                                                    *vwt-662-comments*
 
 I use this regex and abbreviate it to "reg1".
 

@@ -86,7 +86,7 @@ Tested on GNU find 4.1.7, grep 2.5, bash 2.05a, vim 6.3.
 
 For older grep remove '--colour=always' option from 'f' function or upgrade.
 
-COMMENTS  *vwt-1190-comments*
+COMMENTS                                                   *vwt-1190-comments*
 
 Frequently in /etc/profile for bash 'v' aliased to 'vdir' (by eval 
 '/bin/dircolors -b'), which conflict later with out 'v' function. So in order 

@@ -59,7 +59,7 @@ following registry file:
     @="C:\\Program Files (x86)\\Vim\\vim72\\gvim.exe \"%1\""
 <
 
-CAN'T MAKE VIM THE DEFAULT PROGRAM FOR EDITING FILES?  *vwt-1542-can't-make-vim-the-default-program-for-editing-files?*
+CAN'T MAKE VIM THE DEFAULT PROGRAM FOR EDITING FILES? *vwt-1542-can't-make-vim-the-default-program-for-editing-files?*
 
 If you have previously installed Vim to a different location then changed 
 that location (e.g. upgraded) you won't be able to associate files with the 
@@ -89,7 +89,7 @@ have the following default value:
 
 
 
-DOWNLOAD AND INSTALL  *vwt-1542-download-and-install*
+DOWNLOAD AND INSTALL                           *vwt-1542-download-and-install*
 
 Download and Install gVim 7.1(I used the one from [4] 
 [https://sourceforge.net/project/showfiles.php?group_id=43866&package_id=39721])
@@ -111,16 +111,16 @@ Copy the following files into C:\vim\vim71\
       [https://www.vim.org/scripts/script.php?script_id=1720]) 
 
 
-CONFIGURE AROUND VISTA  *vwt-1542-configure-around-vista*
+CONFIGURE AROUND VISTA                       *vwt-1542-configure-around-vista*
 
 If you want the "Edit with vim" Shell Extension in Windows Explorer:
     - Run C:\vim\vim71\install.exe 
     - Choose no when asked if you want to uninstall, then enter "d 14" 
 
 
-TROUBLESHOOTING  *vwt-1542-troubleshooting*
+TROUBLESHOOTING                                     *vwt-1542-troubleshooting*
 
-SHELL EXTENSION  *vwt-1542-shell-extension*
+SHELL EXTENSION                                     *vwt-1542-shell-extension*
 
 If you get a gvim not in your path error with the "Edit with vim" shell ext, 
 make sure you do not have gvim.exe set to run as Administrator, as that will 
@@ -129,7 +129,7 @@ the 'Compatibility' tab. Make sure 'Run this program as administrator' is
 unchecked, then click on 'Show settings for all users' and again make sure 
 'Run this program as administrator' is unchecked.
 
-VIRTUALSTORE  *vwt-1542-virtualstore*
+VIRTUALSTORE                                           *vwt-1542-virtualstore*
 
 Windows Vista and newer creates a VirtualStore under %USERPROFILE% (often ~ 
 in Vim) to support applications that attempt to open protected files for 
@@ -155,7 +155,7 @@ problem that can occur is available. It would be useful to document how
 modifications under $VIM may occur, and the effect of deleting the 
 VirtualStore files.
 
-COMMENTS  *vwt-1542-comments*
+COMMENTS                                                   *vwt-1542-comments*
 
 TO DO Several people have reported that they had no problem installing and 
 using Vim on Vista. The users concerned did not perform any of the steps from 

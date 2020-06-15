@@ -255,11 +255,11 @@ You can put it in your vimrc or just use it as a reference when in doubt.
     hi x255_Grey93 ctermfg=255 guifg=#eeeeee "rgb=238,238,238
 <
 
-REFERENCES  *vwt-1384-references*
+REFERENCES                                               *vwt-1384-references*
     - :help |:highlight| 
 
 
-SEE ALSO  *vwt-1384-see-also*
+SEE ALSO                                                   *vwt-1384-see-also*
     - There are plugins that provide more reliable ways to use GUI color settings 
       in a terminal 
       [https://vim.fandom.com/wiki/Using_GUI_color_settings_in_a_terminal]. 
@@ -268,7 +268,7 @@ SEE ALSO  *vwt-1384-see-also*
       /etc/X11/rgb.txt - /usr/share/vim/vim72/rgb.txt 
 
 
-COMMENTS  *vwt-1384-comments*
+COMMENTS                                                   *vwt-1384-comments*
 
 Here's a shorter script that displays a sample of all 256 cterm colors, by 
 appending to the current buffer:

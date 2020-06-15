@@ -39,12 +39,12 @@ Append to the Existing Path.
     :let $PATH .= ':/foo:/bar'
 <
 
-REFERENCES  *vwt-1589-references*
+REFERENCES                                               *vwt-1589-references*
     - :help |expr-env| 
     - :help |expression-syntax| 
     - :help |{{{id}}}| 
 
 
-COMMENTS  *vwt-1589-comments*
+COMMENTS                                                   *vwt-1589-comments*
 
  vim:tw=78:et:ft=help:norl:

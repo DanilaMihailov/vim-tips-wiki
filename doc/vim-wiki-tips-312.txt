@@ -19,7 +19,7 @@ would press y instead of d:
     - y stands for yank in Vim, which in other editors is usually called copy 
 
 
-COPYING AND CUTTING IN NORMAL MODE  *vwt-312-copying-and-cutting-in-normal-mode*
+COPYING AND CUTTING IN NORMAL MODE *vwt-312-copying-and-cutting-in-normal-mode*
 
 In normal mode, one can copy (yank) with y{motion}, where {motion} is a Vim 
 motion. For example, yw copies to the beginning of the next word. Other 
@@ -46,7 +46,7 @@ the above commands to copy into the register {register}. See pasting registers
 [https://vim.fandom.com/wiki/Pasting_registers] for more information on 
 register syntax.
 
-PASTING IN NORMAL MODE  *vwt-312-pasting-in-normal-mode*
+PASTING IN NORMAL MODE                        *vwt-312-pasting-in-normal-mode*
 
 In normal mode, one can use p to paste after the cursor, or P to paste before 
 the cursor.
@@ -58,7 +58,7 @@ To select a register from which to paste, one can use "{register}p to paste
 from the register {register}. See pasting registers 
 [https://vim.fandom.com/wiki/Pasting_registers].
 
-PASTING IN INSERT MODE  *vwt-312-pasting-in-insert-mode*
+PASTING IN INSERT MODE                        *vwt-312-pasting-in-insert-mode*
 
 The contents of a register can be pasted while in insert mode: type Ctrl-r 
 then a character that identifies the register. For example, Ctrl-r then " 
@@ -66,7 +66,7 @@ pastes from the default register, and Ctrl-r then 0 pastes from register zero
 which holds the text that was most recently yanked (copied). See pasting 
 registers [https://vim.fandom.com/wiki/Pasting_registers].
 
-COPYING AND CUTTING IN COMMAND-LINE MODE  *vwt-312-copying-and-cutting-in-command-line-mode*
+COPYING AND CUTTING IN COMMAND-LINE MODE *vwt-312-copying-and-cutting-in-command-line-mode*
 
 Command-line mode occurs after typing : to enter a command. By default, while 
 in the command line, typing Ctrl-f opens the command-line window where 
@@ -74,7 +74,7 @@ commands can be edited using normal mode. For example, part of one command can
 be copied then pasted into another command. See using command-line history 
 [https://vim.fandom.com/wiki/Using_command-line_history].
 
-PASTING IN COMMAND-LINE MODE  *vwt-312-pasting-in-command-line-mode*
+PASTING IN COMMAND-LINE MODE            *vwt-312-pasting-in-command-line-mode*
 
 There are two approaches to pasting in command-line mode. The first is to 
 open the command-line window with Ctrl-f, then use normal-mode commands to 
@@ -85,7 +85,7 @@ The second approach is to type Ctrl-r then a character to paste the contents
 of the register identified by the character. See Pasting in insert mode 
 |vwt-312-pasting-in-insert-mode| above.
 
-COPY, CUT, AND PASTE FROM THE SYSTEM CLIPBOARD  *vwt-312-copy,-cut,-and-paste-from-the-system-clipboard*
+COPY, CUT, AND PASTE FROM THE SYSTEM CLIPBOARD *vwt-312-copy,-cut,-and-paste-from-the-system-clipboard*
 
 Main article: Accessing the system clipboard 
 [https://vim.fandom.com/wiki/Accessing_the_system_clipboard]
@@ -107,7 +107,7 @@ command such as xclip as an intermediary. See Accessing the system clipboard
 [https://vim.fandom.com/wiki/Accessing_the_system_clipboard] for detailed 
 information.
 
-MULTIPLE COPYING  *vwt-312-multiple-copying*
+MULTIPLE COPYING                                    *vwt-312-multiple-copying*
 
 Main article: Pasting registers 
 [https://vim.fandom.com/wiki/Pasting_registers].
@@ -125,7 +125,7 @@ text could be pasted: type "ap to paste "hello" or "bp to paste "world". These
 commands paste the text after the cursor. Alternatively, type "aP or "bP to 
 paste before the cursor.
 
-WINDOWS CLIPBOARD  *vwt-312-windows-clipboard*
+WINDOWS CLIPBOARD                                  *vwt-312-windows-clipboard*
 
 When using Vim under Windows, the clipboard can be accessed with the 
 following:
@@ -133,7 +133,7 @@ following:
     - In step 6, press Shift+Insert to paste. 
 
 
-DIFFERENT INSTANCES  *vwt-312-different-instances*
+DIFFERENT INSTANCES                              *vwt-312-different-instances*
 
 How does one copy and paste between two instances of Vim on different Linux 
 consoles?
@@ -151,7 +151,7 @@ After copying text, open a new buffer for a new file:
     - Read the dummy file :r ~/dummy 
 
 
-INCREASING THE BUFFER SIZE  *vwt-312-increasing-the-buffer-size*
+INCREASING THE BUFFER SIZE                *vwt-312-increasing-the-buffer-size*
 
 By default, only the first 50 lines in a register are saved, and a register 
 is not saved if it contains more than 10 kilobytes. :help 'viminfo'
@@ -174,7 +174,7 @@ second line sets:
     :set viminfo='100,<100,s20,h
 <
 
-SEE ALSO  *vwt-312-see-also*
+SEE ALSO                                                    *vwt-312-see-also*
     - Quick yank and paste |vwt-356| 
     - Cut/copy and paste using visual selection 
       [https://vim.fandom.com/wiki/Cut/copy_and_paste_using_visual_selection] 
@@ -184,6 +184,6 @@ SEE ALSO  *vwt-312-see-also*
       [https://vim.fandom.com/wiki/Accessing_the_system_clipboard] 
 
 
-COMMENTS  *vwt-312-comments*
+COMMENTS                                                    *vwt-312-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -59,7 +59,7 @@ To use this script, put the following code into
     command! SmallerFont call SmallerFont()
 <
 
-RELATED PLUGINS  *vwt-760-related-plugins*
+RELATED PLUGINS                                      *vwt-760-related-plugins*
 
 As an alternative, you could use one of these plugins which work with fonts 
 on Unix and Windows systems:
@@ -71,7 +71,7 @@ on Unix and Windows systems:
       for adjusting GUI font size via "font size" mode single-key shortcuts 
 
 
-MAPPING SOLUTION  *vwt-760-mapping-solution*
+MAPPING SOLUTION                                    *vwt-760-mapping-solution*
 
 Another alternative is to use the following mappings which use a clever 
 substitute (no functions are required). This example works using gvim under 
@@ -129,11 +129,11 @@ you can add 'g' to the last argument of the substitute command above to
      \ 'g')<CR>
 <
 
-REFERENCES  *vwt-760-references*
+REFERENCES                                                *vwt-760-references*
     - :help |sub-replace-expression| 
     - :help |eval()| 
 
 
-COMMENTS  *vwt-760-comments*
+COMMENTS                                                    *vwt-760-comments*
 
  vim:tw=78:et:ft=help:norl:

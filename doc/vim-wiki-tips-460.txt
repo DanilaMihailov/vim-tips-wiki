@@ -29,11 +29,11 @@ I was wondering how to do this in Vim. Turns out it is simple.
     :set listchars=tab:>-     " > is shown at the beginning, - throughout
 <
 
-REFERENCES  *vwt-460-references*
+REFERENCES                                                *vwt-460-references*
     - :help 'listchars' 
 
 
-COMMENTS  *vwt-460-comments*
+COMMENTS                                                    *vwt-460-comments*
 
 In order to tweak the colors
 

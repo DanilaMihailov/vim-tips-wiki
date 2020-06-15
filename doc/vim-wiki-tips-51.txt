@@ -6,7 +6,7 @@ created 2001 · complexity basic · version 6.0
 
 ==============================================================================
 
-DIGRAPHS  *vwt-51-digraphs*
+DIGRAPHS                                                     *vwt-51-digraphs*
 
 To enter "special" characters such as the euro or copyright symbols, or 
 diacritical marks such as the German umlaut or accent grave, digraphs can be 
@@ -46,7 +46,7 @@ The first two characters in each column are the characters you have to type
 toenter the digraph.In the middle of each column is the resulting 
 character.The decimal number is the normal Unicode number of the character.
 
-BY CHARACTER VALUE  *vwt-51-by-character-value*
+BY CHARACTER VALUE                                 *vwt-51-by-character-value*
 
 It is also possible to enter any character (which can be displayed in your 
 current 'encoding'), even a character for which no digraph is defined, if you 
@@ -70,7 +70,7 @@ you use Ctrl-V to paste, in which case you should hit Ctrl-Q instead):
       Unicode characters. 
 
 
-COMBINING CHARACTERS  *vwt-51-combining-characters*
+COMBINING CHARACTERS                             *vwt-51-combining-characters*
 
 Vim knows how to work with combining characters 
 [http://en.wikipedia.org/wiki/Combining_character] as well as more traditional 
@@ -92,7 +92,7 @@ See :help |mbyte-combining| for details.
 Note that both the |ga| and |g8| commands will show you the combining 
 characters used for a given character.
 
-SEE ALSO  *vwt-51-see-also*
+SEE ALSO                                                     *vwt-51-see-also*
     - :help |digraph-table| 
     - :help |digraph.txt| 
     - :help |digraphs-changed| Vim 6.0 and later use the RFC1345 
@@ -104,6 +104,6 @@ SEE ALSO  *vwt-51-see-also*
       [https://www.vim.org/scripts/script.php?script_id=2822] 
 
 
-COMMENTS  *vwt-51-comments*
+COMMENTS                                                     *vwt-51-comments*
 
  vim:tw=78:et:ft=help:norl:

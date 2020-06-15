@@ -33,7 +33,7 @@ Multiple commands can be separated by a |.
     endfunction
 <
 
-COMMENTS  *vwt-1164-comments*
+COMMENTS                                                   *vwt-1164-comments*
 
 What is it intended for? Wouldn't it be more reliable to use build-in 
 profiling functionality for tuning purposes?
@@ -69,7 +69,7 @@ Here's the function I use:
     endfunction
 <
 
-TIMING A SEARCH  *vwt-1164-timing-a-search*
+TIMING A SEARCH                                     *vwt-1164-timing-a-search*
 
 The following has been moved here from VimTip516; it needs a clean up.
 

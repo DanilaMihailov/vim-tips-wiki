@@ -9,7 +9,7 @@ created 2006 · complexity basic · author Matt Zyzik · version 6.0
 This tip has some suggestions for operating on blocks of source code, 
 particularly using text objects such as iB (inner block, same as i{ or i}).
 
-FORMATTING A FUNCTION  *vwt-1130-formatting-a-function*
+FORMATTING A FUNCTION                         *vwt-1130-formatting-a-function*
 
 Here are some basic formatting commands:
 
@@ -21,7 +21,7 @@ vi{ visually selects the inner code block around the cursor.
 
 You can format the entire buffer with gg=G.
 
-SELECTING A FUNCTION  *vwt-1130-selecting-a-function*
+SELECTING A FUNCTION                           *vwt-1130-selecting-a-function*
 
 A C function may start with a comment followed by the function header, then a 
 body in braces. Assuming the cursor is on the first line of the comment before 
@@ -40,18 +40,18 @@ move the cursor down to select any blank lines.
 Having selected the function, you could press x to delete it, or y to copy 
 it.
 
-SEE ALSO  *vwt-1130-see-also*
+SEE ALSO                                                   *vwt-1130-see-also*
     - 597 Indent a code block |vwt-597| (consider merging) 
     - Run Vim command on current C/C++/Java function |vwt-945| 
     - textobj-function [https://www.vim.org/scripts/script.php?script_id=2619] 
       plugin to make a function a text object 
 
 
-REFERENCES  *vwt-1130-references*
+REFERENCES                                               *vwt-1130-references*
     - :help |text-objects| 
 
 
-COMMENTS  *vwt-1130-comments*
+COMMENTS                                                   *vwt-1130-comments*
 
 TO DO
     - Change theme of whole tip to be working with code blocks via text objects (an 

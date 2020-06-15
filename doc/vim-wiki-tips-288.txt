@@ -56,7 +56,7 @@ This will create the first getter/setter and then move up to the next
 variable. A user can continue typing jgs until all the getters/setters have 
 been generated.
 
-PLUGINS  *vwt-288-plugins*
+PLUGINS                                                      *vwt-288-plugins*
     - The java_getset.vim [https://www.vim.org/scripts/script.php?script_id=490] 
       script makes it dead simple to auto generate getters and setters, plus its 
       easy to install and configure. 
@@ -64,7 +64,7 @@ PLUGINS  *vwt-288-plugins*
       and setters among other refactorings (and languages) 
 
 
-COMMENTS  *vwt-288-comments*
+COMMENTS                                                    *vwt-288-comments*
 
 This is a great idea, but this implementation is a little lacking. When I 
 first used it, it put my getters and setters in comments (since it searchers 

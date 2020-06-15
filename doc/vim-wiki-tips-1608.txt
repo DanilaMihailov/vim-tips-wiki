@@ -22,7 +22,7 @@ empty this is a good workaround for C++ files:
 
 The following procedure provides C++ completion.
 
-REQUIRED SETUP  *vwt-1608-required-setup*
+REQUIRED SETUP                                       *vwt-1608-required-setup*
 
 1. Install OmniCppComplete 
 [https://www.vim.org/scripts/script.php?script_id=1520]. See its 
@@ -75,7 +75,7 @@ doc/omnicppcomplete.txt file for information.
 
 
 
-USING OMNI COMPLETION  *vwt-1608-using-omni-completion*
+USING OMNI COMPLETION                         *vwt-1608-using-omni-completion*
 
 When everything is set up properly you can use the code completion. Make sure 
 the 'filetype' of your file is set to cpp. You can check this by doing :set 
@@ -106,19 +106,19 @@ As you can see this is a really nice feature which is especially handy when
 you use an external library which you don't know very well. Simply create the 
 tags as described above and browse through the suggestions.
 
-ADDITIONAL INFORMATION  *vwt-1608-additional-information*
+ADDITIONAL INFORMATION                       *vwt-1608-additional-information*
 
 It is nice to have the headers of the used libs really on your system so the 
 preview window has something to show. So don't delete the headers after 
 creating the tag files.
 
-REFERENCES  *vwt-1608-references*
+REFERENCES                                               *vwt-1608-references*
     - :help |new-omni-completion| 
     - :help 'omnifunc' 
     - :help |complete-functions| 
 
 
-COMMENTS  *vwt-1608-comments*
+COMMENTS                                                   *vwt-1608-comments*
 
 If you want completion to work for local variables in your code, you have to 
 add the '+l' (letter "l" from local) option to the c++-kinds argument, as in:

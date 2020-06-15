@@ -83,12 +83,12 @@ Entering a count will select (count - 1) outer indent, according to the
 (4*shiftwidth) indent, performing 'v2ii' will select lines of indent >= 
 (3*shiftwidth).Try it to see what it's like.
 
-SEE ALSO  *vwt-1269-see-also*
+SEE ALSO                                                   *vwt-1269-see-also*
     - textobj-indent Text objects for indented blocks of lines 
       [https://www.vim.org/scripts/script.php?script_id=2484] 
 
 
-COMMENTS  *vwt-1269-comments*
+COMMENTS                                                   *vwt-1269-comments*
 
 I'm not sure why you chose to have blank lines delimit the selected region. I 
 like to use a lot of blank lines in my code so I changed the function so that 

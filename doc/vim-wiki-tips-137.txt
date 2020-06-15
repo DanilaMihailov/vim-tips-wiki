@@ -19,10 +19,10 @@ This causes the left and right arrow keys, as well as h and l, to wrap when
 used at beginning or end of lines. ( < > are the cursor keys used in normal 
 and visual mode, and [ ] are the cursor keys in insert mode).
 
-REFERENCES  *vwt-137-references*
+REFERENCES                                                *vwt-137-references*
     - :help 'whichwrap' 
 
 
-COMMENTS  *vwt-137-comments*
+COMMENTS                                                    *vwt-137-comments*
 
  vim:tw=78:et:ft=help:norl:

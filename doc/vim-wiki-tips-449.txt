@@ -15,6 +15,6 @@ the following to the .vimrc file:
     au BufRead,BufNewFile *.for let b:fortran_fixed_source=1
 <
 
-COMMENTS  *vwt-449-comments*
+COMMENTS                                                    *vwt-449-comments*
 
  vim:tw=78:et:ft=help:norl:

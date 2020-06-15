@@ -13,7 +13,7 @@ and Internet Explorer.
 Alternatively (no script required), FireFox users can easily edit text with 
 gvim by installing an add-on (see below |vwt-805-firefox|).
 
-SCRIPT SETUP  *vwt-805-script-setup*
+SCRIPT SETUP                                            *vwt-805-script-setup*
 
 Download the following scripts and place them in your Vim plugin directory:
     - clipbrd.vim [https://www.vim.org/scripts/script.php?script_id=1014] 
@@ -39,7 +39,7 @@ like "Ctrl-Alt-V".
     oShell.SendKeys"^{Home}"
 <
 
-SCRIPT USAGE  *vwt-805-script-usage*
+SCRIPT USAGE                                            *vwt-805-script-usage*
 
 When you want to use Vim to edit some text in an application such as an email 
 client or web browser, move your cursor to the text area and hit Ctrl-Alt-V. 
@@ -47,7 +47,7 @@ The current text will be copied into gvim where it can be edited. When
 finished editing, type :wq and answer "Y" to update register "*". Your edited 
 text should now appear in the text area.
 
-FIREFOX  *vwt-805-firefox*
+FIREFOX                                                      *vwt-805-firefox*
 
 The script in this tip is not needed if you want to edit text from the 
 FireFox web browser. After installing the excellent It's all text! 
@@ -66,7 +66,7 @@ vimperator, however, have moved to their own fork of vimperator which is
 highly recommended: Pentadactyl 
 [https://addons.mozilla.org/en-US/firefox/addon/pentadactyl/].
 
-COMMENTS  *vwt-805-comments*
+COMMENTS                                                    *vwt-805-comments*
 
 I had some trouble getting it working.
 

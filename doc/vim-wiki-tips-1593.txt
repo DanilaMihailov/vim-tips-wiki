@@ -19,7 +19,7 @@ could put the following lines in your vimrc
     :inoremap <C-v> <C-o>"+P<C-o>=']
 <
 
-EXAMPLE  *vwt-1593-example*
+EXAMPLE                                                     *vwt-1593-example*
 
 Copy the following three lines to the clipboard (for example, you could use 
 your web browser to copy the lines from this tip).
@@ -50,7 +50,7 @@ The above mapping will insert the clipboard and indent it, with result:
     }
 <
 
-EXPLANATION  *vwt-1593-explanation*
+EXPLANATION                                             *vwt-1593-explanation*
 
 The command "+P pastes the system clipboard before the cursor position. The 
 pasted text becomes the "last change" which sets mark '[ to the beginning of 
@@ -62,13 +62,13 @@ for the language of the current buffer, if your syntax rules have defined an
 indent expression. In insert mode, Ctrl-o (<c-o>) executes one normal-mode 
 command, then returns to insert mode.
 
-REFERENCES  *vwt-1593-references*
+REFERENCES                                               *vwt-1593-references*
     - :help |P| 
     - :help '] 
     - :help |=| 
     - :help |i_CTRL-O| 
 
 
-COMMENTS  *vwt-1593-comments*
+COMMENTS                                                   *vwt-1593-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -24,7 +24,7 @@ the compiler to the filetype which was determined by the file type scripts. If
 there's no compiler for the filetype you're editing it just fails silently and 
 does not show the list of available compilers
 
-COMMENTS  *vwt-1052-comments*
+COMMENTS                                                   *vwt-1052-comments*
 
 Editing the ftplugin file is a bad idea. This file may change with future 
 updates of Vim. But, there are ways to do this properly. You can add a file to 

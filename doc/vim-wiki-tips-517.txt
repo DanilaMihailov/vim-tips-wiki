@@ -44,6 +44,6 @@ BufferEnter, the following macro.
     au BufEnter *.groff nmap <F4> ?\(^\.[A-Za-z]\{2\}\\|^$\)<CR>jV/\(^\.[A-Za-z]\{2\}\\|^$\)<CR>kgq
 <
 
-COMMENTS  *vwt-517-comments*
+COMMENTS                                                    *vwt-517-comments*
 
  vim:tw=78:et:ft=help:norl:

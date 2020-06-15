@@ -17,12 +17,12 @@ For many Vim customizations (eg tabstop setting, BufEnter autocmd) you can do :v
 You're seeing unexpected maps or abbreviations. Why?
 You can use most define commands (:map, :abbreviate, :function, :autocmd, ...) on their own to list all defined maps, abbreviations, ... Or you can use them with the lhs of the definition to list all matching definitions. Some (like map and abbreviate) will allow partial matches. Add verbose in front and you can see where each item is defined.
 
-NARROWING DOWN THE PROBLEM  *vwt-244-narrowing-down-the-problem*
+NARROWING DOWN THE PROBLEM                *vwt-244-narrowing-down-the-problem*
 
 If you're encountering something strange, you can try turning off 
 customizations to determine where the strangeness is coming from.
 
-USE DEFAULT VIM SETTINGS  *vwt-244-use-default-vim-settings*
+USE DEFAULT VIM SETTINGS                    *vwt-244-use-default-vim-settings*
 
 >
     gvim -u NONE -U NONE
@@ -33,7 +33,7 @@ Issue still occurs: likely happens in a default Vim install. May be a bug.
 Issue is fixed: it's an installed config setting or plugin. Try disabling 
 plugins.
 
-DISABLE ALL PLUGINS  *vwt-244-disable-all-plugins*
+DISABLE ALL PLUGINS                              *vwt-244-disable-all-plugins*
 
 >
     gvim --noplugin
@@ -69,7 +69,7 @@ only starts after the GUI is up. Put a gui command in your .vimrc to fix this;
 it will start the debugging right after that command, and let you step through 
 .vimrc.
 
-OTHER NOTES  *vwt-244-other-notes*
+OTHER NOTES                                              *vwt-244-other-notes*
 
 Some Vim distributions may include custom settings for Vim (such as 
 debian.vim or Cream's settings) that may make your results different from 
@@ -83,16 +83,16 @@ I'm not sure. You can easily stash up all of your vimfiles:
     mv .*vim* ~/bak
 <
 
-REFERENCES  *vwt-244-references*
+REFERENCES                                                *vwt-244-references*
     - :help |:verbose| 
     - :help |-u| 
     - :help |-U| 
     - :help |--noplugin| 
 
 
-COMMENTS  *vwt-244-comments*
+COMMENTS                                                    *vwt-244-comments*
 
-EXTRA  *vwt-244-extra*
+EXTRA                                                          *vwt-244-extra*
 
 >
     :ab              " list abbreviations

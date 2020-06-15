@@ -67,7 +67,7 @@ appropriate tags file:
     au BufWritePost *.py,*.ptl call WritePythonTags()
 <
 
-COMMENTS  *vwt-1004-comments*
+COMMENTS                                                   *vwt-1004-comments*
 
 See script#1343 [https://www.vim.org/scripts/script.php?script_id=1343] to 
 automatically update tags files upon saving.

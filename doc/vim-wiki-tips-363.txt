@@ -27,7 +27,7 @@ will not load any plugins in $VIMRUNTIME/plugin directory, this will again
 speed up the starting and is very useful especially when running vim from a 
 Disk mounted over NFS.
 
-COMMENTS  *vwt-363-comments*
+COMMENTS                                                    *vwt-363-comments*
 
 This is great! I alway use vim via telnet on remote machines but it always 
 tried to connect to my XServer. Up to now, I always made something like 'unset 

@@ -15,7 +15,7 @@ indent options so Vim adapts to the style of the program you are working on.
 The procedures are oriented towards working on Python programs but may be 
 useful for other languages.
 
-INDENTCONSISTENCYCOP  *vwt-1231-indentconsistencycop*
+INDENTCONSISTENCYCOP                           *vwt-1231-indentconsistencycop*
 
 The IndentConsistencyCop 
 [https://www.vim.org/scripts/script.php?script_id=1690] plugin warns if 
@@ -27,14 +27,14 @@ IndentConsistencyCopAutoCmds
 [https://www.vim.org/scripts/script.php?script_id=1691] add-on plugin) 
 automatically for certain filetypes.
 
-INDENT FINDER  *vwt-1231-indent-finder*
+INDENT FINDER                                         *vwt-1231-indent-finder*
 
 The Indent Finder [https://www.vim.org/scripts/script.php?script_id=513] 
 plugin sets the correct indentation for each file that you edit. It uses a 
 Python script that determines what indent style was used, then adjusts your 
 settings so that new modifications use the same style.
 
-VINDECT  *vwt-1231-vindect*
+VINDECT                                                     *vwt-1231-vindect*
 
 Vindect [http://freshmeat.net/projects/vindect/] is a Python script to detect 
 the indent options required for editing a Python program. In Vim, output from 
@@ -90,12 +90,12 @@ opened.
     endif
 <
 
-DETECTINDENT  *vwt-1231-detectindent*
+DETECTINDENT                                           *vwt-1231-detectindent*
 
 The DetectIndent [https://www.vim.org/scripts/script.php?script_id=1171] 
 plugin is another alternative.
 
-VIM SCRIPT  *vwt-1231-vim-script*
+VIM SCRIPT                                               *vwt-1231-vim-script*
 
 The following script can only choose between two sets of fixed options. One 
 set is used if tabs are detected; otherwise another set is used (for space 
@@ -153,7 +153,7 @@ command to call that function when a Python file is opened.
     endfunction
 <
 
-COMMENTS  *vwt-1231-comments*
+COMMENTS                                                   *vwt-1231-comments*
 
 Re configuration of vindent: It may be possible to avoid a hard coded path to 
 vindect.py by using :exec with expand('<sfile>') and filenamemodify().

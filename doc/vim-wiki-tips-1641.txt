@@ -13,7 +13,7 @@ Vim can be used to detect the file encoding used in a particular file (for
 example, utf-8, utf-16le, or latin1). This tip shows an alias to invoke Vim 
 with suitable arguments to check the encoding used for a specified file.
 
-BASH SHELL ALIAS  *vwt-1641-bash-shell-alias*
+BASH SHELL ALIAS                                   *vwt-1641-bash-shell-alias*
 
 Here is a simple alias for the Bash shell 
 [http://en.wikipedia.org/wiki/Bash_(Unix_shell)] to display what Vim thinks is 
@@ -38,7 +38,7 @@ Usage examples:
     Press ENTER or type command to continue
 <
 
-EXPLANATION  *vwt-1641-explanation*
+EXPLANATION                                             *vwt-1641-explanation*
 
 When an existing file is read, Vim tries to interpret the bytes in the file 
 as characters using each encoding specified in the 'fileencodings' option. The 
@@ -57,12 +57,12 @@ When the 'encoding' option is set to a Unicode value such as utf-8, the
 default for 'fileencodings' is "ucs-bom,utf-8,default,latin1" which will 
 check, in order:
 
-SEE ALSO  *vwt-1641-see-also*
+SEE ALSO                                                   *vwt-1641-see-also*
     - Working with Unicode |vwt-246| 
     - Detect encoding from the charset specified in HTML files |vwt-1074| 
     - Forcing UTF-8 Vim to read Latin1 as Latin1 |vwt-1288| 
 
 
-COMMENTS  *vwt-1641-comments*
+COMMENTS                                                   *vwt-1641-comments*
 
  vim:tw=78:et:ft=help:norl:

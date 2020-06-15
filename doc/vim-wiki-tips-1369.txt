@@ -90,7 +90,7 @@ transparent to the user.
     endfunction
 <
 
-RELATED SCRIPTS  *vwt-1369-related-scripts*
+RELATED SCRIPTS                                     *vwt-1369-related-scripts*
     - The PreserveNoEOL plugin 
       [https://www.vim.org/scripts/script.php?script_id=4550] uses the above pure 
       Vimscript implementation to automatically preserve no EOL on all or certain 
@@ -99,7 +99,7 @@ RELATED SCRIPTS  *vwt-1369-related-scripts*
       the save, which is probably more robust. 
 
 
-COMMENTS  *vwt-1369-comments*
+COMMENTS                                                   *vwt-1369-comments*
 
 Thanks Fritzophrenic for looking into this so quickly! Yes, your updated script works for me (for all three fileformats). It seems that the switch from the :substitute to :normal did it.
 Regarding the :undojoin error: I think this is caused by a user undo operation immediately before the :write command. There's little one can do about it; how about suppressing the error via :silent! undojoin, so that we still get the benefit of :undojoin in most cases, and never cause an error?! -- Inkarkat 12:49, November 17, 2011 (UTC)

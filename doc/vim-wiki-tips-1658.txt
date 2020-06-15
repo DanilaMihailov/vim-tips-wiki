@@ -11,7 +11,7 @@ July 1, 2010 · complexity basic · version 7.0
 This tip describes how to install Vim on Solaris 10 
 [http://en.wikipedia.org/wiki/Solaris_(operating_system)].
 
-FOR SPARC BASED SYSTEMS  *vwt-1658-for-sparc-based-systems*
+FOR SPARC BASED SYSTEMS                     *vwt-1658-for-sparc-based-systems*
 
 Some package binaries are required.
 
@@ -110,7 +110,7 @@ Download following vim 7.2 binaries
        # export LD_LIBRARY_PATH=`cat /tmp/vim/ld_path_file`
 <
 
-FOR X86 BASED SYSTEMS  *vwt-1658-for-x86-based-systems*
+FOR X86 BASED SYSTEMS                         *vwt-1658-for-x86-based-systems*
 
 Some package binaries are required.
 
@@ -239,7 +239,7 @@ Download following vim 7.2 binaries
     set nobackup
 <
 
-COMMENTS  *vwt-1658-comments*
+COMMENTS                                                   *vwt-1658-comments*
 
 This seems really complicated. Doesn't Vim have a nice "make install" command 
 in Solaris? And why is the LD_LIBRARY_PATH stuff needed? I put this in the 

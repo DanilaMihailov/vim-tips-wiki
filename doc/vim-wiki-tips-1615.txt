@@ -17,7 +17,7 @@ columns wide. This tip can then be used to split the screen to show two
 windows, with the 'scrollbind' option set so that scrolling one window also 
 scrolls the other window.
 
-MAPPING  *vwt-1615-mapping*
+MAPPING                                                     *vwt-1615-mapping*
 
 Enter the following command (or put in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc]):
@@ -56,14 +56,14 @@ Problems
     - Register z is changed. 
 
 
-SEE ALSO  *vwt-1615-see-also*
+SEE ALSO                                                   *vwt-1615-see-also*
     - vim_use discussion 
       [http://groups.google.com/group/vim_use/browse_thread/thread/64c46a0f0c573003/942231124a5163f4] 
     - MPage [http://www.drchip.org/astronaut/vim/index.html#MPAGE] plugin that 
       supports multiple windows (two or more) with sequential text 
 
 
-COMMENTS  *vwt-1615-comments*
+COMMENTS                                                   *vwt-1615-comments*
 
 I put this into a function:
 

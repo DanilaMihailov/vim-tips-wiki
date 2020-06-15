@@ -20,7 +20,7 @@ huge plugin with tons of features you never use, but need more power than the
 static initial text given by the example in the :help documents, or if you 
 just like doing things yourself, then read on.
 
-DYNAMIC CONTENT FROM STATIC FILES  *vwt-1567-dynamic-content-from-static-files*
+DYNAMIC CONTENT FROM STATIC FILES *vwt-1567-dynamic-content-from-static-files*
 
 The first idea one might have to allow dynamic template content could be to 
 define autocmds that would replace specific pre-defined tags like [:DATE:] or 
@@ -88,7 +88,7 @@ The final product should look something like this:
     augroup END
 <
 
-RELATED PLUGINS  *vwt-1567-related-plugins*
+RELATED PLUGINS                                     *vwt-1567-related-plugins*
 
 These plugins provide similar capabilities, if you want a ready-made 
 solution.
@@ -97,7 +97,7 @@ solution.
     - script#1160 [https://www.vim.org/scripts/script.php?script_id=1160] 
 
 
-RELATED TIPS  *vwt-1567-related-tips*
+RELATED TIPS                                           *vwt-1567-related-tips*
 
 These tips all relate to creating file skeletons. You may find their methods 
 more suited to your taste, or some nice features to combine with this one.
@@ -113,7 +113,7 @@ more suited to your taste, or some nice features to combine with this one.
       [https://vim.fandom.com/wiki/Auto_insert_Java_class_template_when_editing_a_new_Java_file] 
 
 
-BACKWARDS COMPATIBILITY  *vwt-1567-backwards-compatibility*
+BACKWARDS COMPATIBILITY                     *vwt-1567-backwards-compatibility*
 
 Note that this tip takes advantage of the eval() function defined in Vim7. If 
 you are using an earlier version, you may need to hack something together to 
@@ -135,7 +135,7 @@ replace it, such as the following:
           \unlet reptxt
 <
 
-COMMENTS  *vwt-1567-comments*
+COMMENTS                                                   *vwt-1567-comments*
 
 This is quite like the first version of mu-template Gergely Kontra wrote.
 

@@ -18,14 +18,14 @@ To jump to the beginning of a parenthesis use the [( command.
 
 To jump to the end of a parenthesis use the ]) command.
 
-REFERENCES  *vwt-7-references*
+REFERENCES                                                  *vwt-7-references*
     - :help |[{| 
     - :help |]}| 
     - :help |[(| 
     - :help |])| 
 
 
-COMMENTS  *vwt-7-comments*
+COMMENTS                                                      *vwt-7-comments*
 
 Related to these motion commands are [[ and ]]
     - [[ : sections backward or to the previous '{' in the first column. 

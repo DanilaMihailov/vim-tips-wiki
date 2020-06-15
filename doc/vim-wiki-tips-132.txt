@@ -42,7 +42,7 @@ window by making all of the other windows 1-line high. And <c-=> which makes
 all window sizes the same. The script just makes it easier to toggle. For info 
 on <Leader> see :help |mapleader|.
 
-ROLODEX VIM  *vwt-132-rolodex-vim*
+ROLODEX VIM                                              *vwt-132-rolodex-vim*
 
 A similar effect is achieved with the settings commonly known as "Rolodex 
 Vim" or "the poor man's tabs", invented by Tonymec 
@@ -77,7 +77,7 @@ See:
     - :help 'hh' 
 
 
-ROLODEX VIM ON A PER TAB BASIS  *vwt-132-rolodex-vim-on-a-per-tab-basis*
+ROLODEX VIM ON A PER TAB BASIS        *vwt-132-rolodex-vim-on-a-per-tab-basis*
 
 This code allows you to turn the settings on and off quickly by pressing F2. 
 They are remembered on a per-tab basis so you can have it turned on just for 

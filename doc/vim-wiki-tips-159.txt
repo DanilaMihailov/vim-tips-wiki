@@ -7,7 +7,7 @@ version 5.7
 
 ==============================================================================
 
-SAVING KEYSTROKES FOR COMMON SUBSTITUTING AND SEARCHING  *vwt-159-saving-keystrokes-for-common-substituting-and-searching*
+SAVING KEYSTROKES FOR COMMON SUBSTITUTING AND SEARCHING *vwt-159-saving-keystrokes-for-common-substituting-and-searching*
 
 a) Searching:
 
@@ -37,7 +37,7 @@ complete it, you only have to enter
 Remark: I mapped it to <F4> (cause of tribute to the <F4> of the good old 
 Norton Commander editor). You may map it where you want to.
 
-SEARCHING FOR RESP. SUBSTITUTING OF THE CURRENT WORD UNDER THE CURSOR  *vwt-159-searching-for-resp.-substituting-of-the-current-word-under-the-cursor*
+SEARCHING FOR RESP. SUBSTITUTING OF THE CURRENT WORD UNDER THE CURSOR *vwt-159-searching-for-resp.-substituting-of-the-current-word-under-the-cursor*
 
 a) Searching:
 
@@ -66,7 +66,7 @@ I mapped it to Shift-<F4>. You may map it to the keystroke you want.
 
 Explanation: CTRL-r+CTRL-w expands to the word under the cursor.
 
-SEARCHING AND SUBSTITUTING FOR AN ARBITRARY VISUALLY SELECTED PART OF TEXT  *vwt-159-searching-and-substituting-for-an-arbitrary-visually-selected-part-of-text*
+SEARCHING AND SUBSTITUTING FOR AN ARBITRARY VISUALLY SELECTED PART OF TEXT *vwt-159-searching-and-substituting-for-an-arbitrary-visually-selected-part-of-text*
 
 If you want to look or substitute (for) an arbitrary pattern (which already 
 exists at least once in your text), the following 2 mappings do it for you.
@@ -113,13 +113,13 @@ me. If you run into problems, you should check for additional regexp chars in
 your text, and try to escape them by adding them to the escape() function 
 parameter.
 
-CONCLUSION  *vwt-159-conclusion*
+CONCLUSION                                                *vwt-159-conclusion*
 
 With the appropriate mappings in your vimrc you can save keystrokes when 
 Searching or Substituting and avoid typing errors. That way, you can take 
 lunch sooner.
 
-COMMENTS  *vwt-159-comments*
+COMMENTS                                                    *vwt-159-comments*
 
 Great to find escape()
 

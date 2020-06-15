@@ -7,7 +7,7 @@ created August 27, 2003 · complexity advanced · author Vangelis E. · version
 
 ==============================================================================
 
-MESSAGE TRANSLATION  *vwt-546-message-translation*
+MESSAGE TRANSLATION                              *vwt-546-message-translation*
 
 The program used for internationalizing sources is the GNU 'gettext' utility. 
 It is discussed in detail by its creators so we won't go intoit here.
@@ -53,7 +53,7 @@ Quote
 
 End quote
 
-STEP #1  *vwt-546-step-#1*
+STEP #1                                                      *vwt-546-step-#1*
 
 Get the most recent of the vim sources 
 (vim-6.1-src1.tar.gz,vim-6.1-src2.tar.gz) from http://www.vim.org/download.php 
@@ -100,7 +100,7 @@ sources, i.e. create the 'tags' file:
     etags src/*/*.*
 <
 
-STEP #2  *vwt-546-step-#2*
+STEP #2                                                      *vwt-546-step-#2*
 
 The command-line options we'll use are fully described in the gettext 
 manpage.
@@ -190,7 +190,7 @@ old translations which will be taken over to the newly created file as long as
 they still match. However, it is recommended that, after a new vim_src### 
 release, we actually start over. Just in case!
 
-STEP #3  *vwt-546-step-#3*
+STEP #3                                                      *vwt-546-step-#3*
 
 Next step is simplicity itself--assuming all messages have already been 
 translated in vim.po. We'll only use one option out of several that the 
@@ -208,7 +208,7 @@ For hints on internationalizing Vim see the previous VimTip (VimTip#).
     msgfmt --output-file=vim.mo vim.po
 <
 
-STEP #4  *vwt-546-step-#4*
+STEP #4                                                      *vwt-546-step-#4*
 
 Installing the vim.mo file requires that a directory in $VIMRUNTIME$ (i.e. 
 currently /path/to/vim61) exists or is created express for the language you'll 
@@ -227,7 +227,7 @@ We do:
     cp /path/to/vim_tmp/vim.mo /path/to/vim61/lang/el/LC_MESSAGES
 <
 
-STEP #5  *vwt-546-step-#5*
+STEP #5                                                      *vwt-546-step-#5*
 
 Vim detects the system's local language settings when starting and--if 
 supported--loads it automatically; else you'll have to change default message 
@@ -245,7 +245,7 @@ language from within Vim using:
     Not an editor command: HELP
 <
 
-SUMMARY  *vwt-546-summary*
+SUMMARY                                                      *vwt-546-summary*
     - Download and unpack the vim sources in a temporary directory. 
     - Use GNU 'gettext' to get your template (untranslated) file. 
     - Translate all entries in the template in your language. 
@@ -255,9 +255,9 @@ SUMMARY  *vwt-546-summary*
     - Test Vim and use it with your newly installed language. 
 
 
-MENU TRANSLATION  *vwt-546-menu-translation*
+MENU TRANSLATION                                    *vwt-546-menu-translation*
 
-BASICS  *vwt-546-basics*
+BASICS                                                        *vwt-546-basics*
 
 For Latin-based languages, menu translation is fairly painless. Open a 
 'menu_xx_xx.latin1.vim' and use it as a template to create the menu after 
@@ -277,7 +277,7 @@ in at least one of the following encodings:
 Consult old MS-DOS (v.5 or 6.2) online help for codepage and/or country 
 setting details.
 
-HOW-TO  *vwt-546-how-to*
+HOW-TO                                                        *vwt-546-how-to*
 
 To create the menu file, we use one or several word processors that supports 
 one or several of the encodings for the language we intend to support. If we 
@@ -357,7 +357,7 @@ left-most part of the file is saved along with the rest.
 We can repeat the same (painstaking, yet menus are short) process with utf-8 
 encoding, MS-Windows codepage, and any other encoding we need to support.
 
-ENCODINGS  *vwt-546-encodings*
+ENCODINGS                                                  *vwt-546-encodings*
 
 To create the language encodings files for Vim in any language, we first jot 
 down the full specification of the encodings in the most common OS' for the 
@@ -390,6 +390,6 @@ See Vim goes Greek |vwt-545| for an example.
 
 Vangelis Eustratiusvangelise at lynxx dot org
 
-COMMENTS  *vwt-546-comments*
+COMMENTS                                                    *vwt-546-comments*
 
  vim:tw=78:et:ft=help:norl:

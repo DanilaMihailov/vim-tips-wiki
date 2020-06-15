@@ -15,7 +15,7 @@ mode, I mapped the semicolon key to do the same thing.
 
 This overwrites the original mapping of repeating the last f or t command.
 
-COMMENTS  *vwt-1111-comments*
+COMMENTS                                                   *vwt-1111-comments*
 
 You can do the following to regain the functionality of ;
 
@@ -53,7 +53,7 @@ it's a command I'm trying to execute from the command-line. The delay is only
 a problem if I hit the ; and hit nothing else after it. If I hit ;s, for 
 example (the start of :sp), there is no delay.
 
-CAVEATS  *vwt-1111-caveats*
+CAVEATS                                                     *vwt-1111-caveats*
 
 When you run a command like :ls that leaves output on the screen while 
 waiting for you to enter another command, using semi-colon instead of colon 

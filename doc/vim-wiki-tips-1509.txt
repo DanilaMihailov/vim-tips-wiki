@@ -24,7 +24,7 @@ connections and finally, the newly created "cscope.out" database is added by
 
 There are two limitations in this key mapping:
 
-ALTERNATE VERSION  *vwt-1509-alternate-version*
+ALTERNATE VERSION                                 *vwt-1509-alternate-version*
 
 Related to limitation #2 above, it's not actually necessary to kill the 
 cscope connection. The command cs reset can accomplish this purpose, if 
@@ -41,11 +41,11 @@ Note that this assumes that there already exists a connection to the
 cscope.out file (which is the case if you tell Vim to automatically init the 
 cscope connection at startup).
 
-WITH PYTHON SCRIPT  *vwt-1509-with-python-script*
+WITH PYTHON SCRIPT                               *vwt-1509-with-python-script*
 
 cscope-manager [https://github.com/susu9/cscope-manager]
 
-COMMENTS  *vwt-1509-comments*
+COMMENTS                                                   *vwt-1509-comments*
 
 How do you do it in Windows. How to tell windows cmd shell to change 
 directory to the project folder and build cscope DB there?

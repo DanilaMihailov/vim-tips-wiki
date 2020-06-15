@@ -16,7 +16,7 @@ updates when using X11 over a remote connection. It is also possible to hide
 specific menus or buttons |vwt-259-hiding-buttons-on-the-toolbar| rather than 
 the entire GUI widget if you just want to simplify the contents of the widget.
 
-REMOVING A WIDGET  *vwt-259-removing-a-widget*
+REMOVING A WIDGET                                  *vwt-259-removing-a-widget*
 
 If you do not want to see a widget, put whichever of the following you like 
 in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
@@ -43,7 +43,7 @@ not source the menu script (:help 'go-M' has more information):
     :set guioptions-=M
 <
 
-TOGGLING THE DISPLAY OF A WIDGET  *vwt-259-toggling-the-display-of-a-widget*
+TOGGLING THE DISPLAY OF A WIDGET    *vwt-259-toggling-the-display-of-a-widget*
 
 The following mappings provide toggles to show or hide a widget. For example, 
 press Ctrl-F1 to display the menu bar (if it is currently hidden), or to hide 
@@ -56,7 +56,7 @@ Ctrl-F3 toggles the right-hand scrollbar.
     nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 <
 
-HIDING BUTTONS ON THE TOOLBAR  *vwt-259-hiding-buttons-on-the-toolbar*
+HIDING BUTTONS ON THE TOOLBAR          *vwt-259-hiding-buttons-on-the-toolbar*
 
 You can hide some of the default gvim ToolBar buttons by adding lines like 
 the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
@@ -70,11 +70,11 @@ See :help |builtin-tools| for a list of available buttons. The names may be
 different if your language is not English. To find the actual names, type 
 :aunmenu ToolBar. then press Ctrl-D.
 
-REFERENCES  *vwt-259-references*
+REFERENCES                                                *vwt-259-references*
     - :help 'guioptions' 
 
 
-COMMENTS  *vwt-259-comments*
+COMMENTS                                                    *vwt-259-comments*
 
 About #Hiding buttons on the toolbar |vwt-259-hiding-buttons-on-the-toolbar| 
 above: :aunmenu ToolBar.<Ctrl-D> shows the button names in scrambled order. To 
@@ -90,7 +90,7 @@ separator" name on the command line), <Esc> to cancel, <Enter> to remove that
 toolbar button (Careful here). --Tonymec 
 [https://vim.fandom.com/wiki/User:Tonymec] 18:12, 8 August 2009 (UTC)
 
-RELATED PLUGINS  *vwt-259-related-plugins*
+RELATED PLUGINS                                      *vwt-259-related-plugins*
     - shymenu [https://www.vim.org/scripts/script.php?script_id=2437] Allows users 
       to temporarily show the menu by pressing a menu's accelerator key. 
 

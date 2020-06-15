@@ -56,7 +56,7 @@ Using RunHandlers I can now dynamically overload <Esc> to call this function
 Adding more handlers should be easy enough. In this case, CloseScratch is 
 tried first, and if that fails DefaultEsc is called.
 
-COMMENTS  *vwt-1558-comments*
+COMMENTS                                                   *vwt-1558-comments*
 
 Try using :silent or <silent> rather than an empty echo to make the bottom 
 line clear.

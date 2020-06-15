@@ -12,7 +12,7 @@ editing a Python program enables folding [https://vim.fandom.com/wiki/Folding]
 based on the indent level, and that may be all that is needed. However, this 
 tip provides the extra feature of folding def and class regions.
 
-MODIFYING PYTHON.VIM  *vwt-741-modifying-python.vim*
+MODIFYING PYTHON.VIM                            *vwt-741-modifying-python.vim*
 
 Unfortunately, the Python syntax file provided with Vim does not contain 
 folding information. You can however create a custom Python syntax script that 
@@ -74,22 +74,22 @@ If the settings from this file do not work, you need to set up the filetype
 settings in your vimrc [https://vim.fandom.com/wiki/Vimrc] (see :help 
 |:filetype-plugin-on|).
 
-DRAWBACK  *vwt-741-drawback*
+DRAWBACK                                                    *vwt-741-drawback*
 
 The changed syntax script removes the syntax highlighting for keywords class 
 and def.
 
-SEE ALSO  *vwt-741-see-also*
+SEE ALSO                                                    *vwt-741-see-also*
     - Syntax folding of Vim scripts 
       [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] contains a 
       complete but complex example on how to syntax fold Vim scripts 
 
 
-PLUGINS  *vwt-741-plugins*
+PLUGINS                                                      *vwt-741-plugins*
     - jpythonfold [https://www.vim.org/scripts/script.php?script_id=2527] 
     - python_fold [https://www.vim.org/scripts/script.php?script_id=515] 
 
 
-COMMENTS  *vwt-741-comments*
+COMMENTS                                                    *vwt-741-comments*
 
  vim:tw=78:et:ft=help:norl:

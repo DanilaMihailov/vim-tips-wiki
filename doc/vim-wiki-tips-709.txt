@@ -19,7 +19,7 @@ automagically set on save if the file begins with '#!/usr/bin/' or '#!/bin'.
     autocmd BufWritePost * call MySetExecutableIfScript(getline(1), expand("%:p"))
 <
 
-COMMENTS  *vwt-709-comments*
+COMMENTS                                                    *vwt-709-comments*
 
 WARNING: autocommands with constructs like 'if condition | clause | endif' 
 are problematic for me, and apparently for others given the comments below. 

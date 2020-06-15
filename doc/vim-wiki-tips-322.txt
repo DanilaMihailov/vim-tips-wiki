@@ -14,7 +14,7 @@ are triple percent signs (%%%) where the user wants to enter custom text. The
 ;; command is mapped to find the next %%% and allow the user to change them to 
 the custom text.
 
-CODE  *vwt-322-code*
+CODE                                                            *vwt-322-code*
 
 In this tips code block below, all template mappings are insert-mode only, 
 while the "skip to next placeholder" (mapped as ;;) is both insert and normal 
@@ -37,7 +37,7 @@ functionality which will move the cursor to the next %%% section:
     :nmap <buffer> ;; /%%%<CR>c3l
 <
 
-USAGE  *vwt-322-usage*
+USAGE                                                          *vwt-322-usage*
 
 Whenever a C++ for block is needed type ";fo" and the following code will be 
 placed in the file. The "_" signifies where the cursor will be in insert mode.
@@ -68,13 +68,13 @@ removing the "%%%" and putting Vim into insert mode.
     }
 <
 
-SEE ALSO  *vwt-322-see-also*
+SEE ALSO                                                    *vwt-322-see-also*
     - script#222 [https://www.vim.org/scripts/script.php?script_id=222] - 
       Mu-Template, a script which has support for placeholders in templates. 
     - script#336 [https://www.vim.org/scripts/script.php?script_id=336] - A script 
       which defines C/C++ abbreviations with placeholders. 
 
 
-COMMENTS  *vwt-322-comments*
+COMMENTS                                                    *vwt-322-comments*
 
  vim:tw=78:et:ft=help:norl:

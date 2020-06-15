@@ -17,7 +17,7 @@ style for files under a directory path, try adding this to your vimrc
     autocmd BufRead,BufNewFile ~/.pyblosxom/data/* set syntax=html
 <
 
-COMMENTS  *vwt-742-comments*
+COMMENTS                                                    *vwt-742-comments*
 
 As an aside, another way to go about this would be a user command that gives 
 you a skeleton entry, saved and named (for instance current time/date stamp) 

@@ -13,7 +13,7 @@ in my vimrc on Windows:
     au BufReadCmd file:///* exe "bd!|edit ".substitute(expand("<afile>"),"file:/*","","")
 <
 
-COMMENTS  *vwt-691-comments*
+COMMENTS                                                    *vwt-691-comments*
 
 How about extending it for http://x.y [http://x.y]
 

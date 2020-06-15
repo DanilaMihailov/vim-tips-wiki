@@ -35,12 +35,12 @@ Add the following to your vimrc file:
     :command! SetDiffEnviron call SetDiffEnviron()
 <
 
-REFERENCES  *vwt-1343-references*
+REFERENCES                                               *vwt-1343-references*
     - :help |:diffthis| 
     - :help |:diffoff| 
 
 
-COMMENTS  *vwt-1343-comments*
+COMMENTS                                                   *vwt-1343-comments*
 
 How does this differ from the :diffthis command?
 

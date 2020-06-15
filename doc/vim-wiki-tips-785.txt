@@ -35,7 +35,7 @@ spaces for every tab) and a mapping to <F9> to toggle the settings:
     nmap <F9> mz:execute TabToggle()<CR>'z
 <
 
-COMMENTS  *vwt-785-comments*
+COMMENTS                                                    *vwt-785-comments*
 
 I like this function for the same reasons, however, I encountered an error 
 with the implementation of it which required me to make a few minor changes. 

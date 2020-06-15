@@ -13,7 +13,7 @@ embedded in the file. Insert one of the following in a vimrc
 [https://vim.fandom.com/wiki/Vimrc] file to automatically update this 
 copyright notice in ALL FILES when writing them.
 
-SIMPLE COPYRIGHT NOTICES  *vwt-1521-simple-copyright-notices*
+SIMPLE COPYRIGHT NOTICES                   *vwt-1521-simple-copyright-notices*
 
 >
     " Automatically update copyright notice with current year
@@ -48,7 +48,7 @@ This script will "jump" to the copyright notice whenever it gets updated. If
 this is not desired, you can put in a command before the g#s# to create a mark 
 and a command after it to jump back to the mark.
 
-REFERENCES  *vwt-1521-references*
+REFERENCES                                               *vwt-1521-references*
     - :help |:g| 
     - :help |:s| 
     - :help |strftime()| 
@@ -57,7 +57,7 @@ REFERENCES  *vwt-1521-references*
     - :help |`| 
 
 
-MORE COMPLEX NOTICES  *vwt-1521-more-complex-notices*
+MORE COMPLEX NOTICES                           *vwt-1521-more-complex-notices*
 
 The above works great for simple copyrights with just a range of years, but 
 if you need more precise/correct ones (that skip years something was not 
@@ -90,7 +90,7 @@ what to replace the guts with, instead of the g#s## command above:
 This makes two passes, one to update years that it needs a comma for, the 
 next to update years it can use a hyphen for.
 
-FIRST PASS (NEEDS A COMMA)  *vwt-1521-first-pass-(needs-a-comma)*
+FIRST PASS (NEEDS A COMMA)               *vwt-1521-first-pass-(needs-a-comma)*
 
 Summary: Replace all lines with a copyright notice, that do NOT end in the 
 previous or current year, with a comma and the current year.
@@ -128,7 +128,7 @@ previous or current year, with a comma and the current year.
       the second pass... 
 
 
-SECOND PASS (CAN USE A HYPHEN)  *vwt-1521-second-pass-(can-use-a-hyphen)*
+SECOND PASS (CAN USE A HYPHEN)       *vwt-1521-second-pass-(can-use-a-hyphen)*
 
 Summary: Replace all remaining lines with a copyright notice, that do NOT end 
 in the current year (i.e. they end in the previous year), with a hyphen and 
@@ -162,7 +162,7 @@ the current year.
       whenever your copyright notice is up-to-date. 
 
 
-REFERENCES  *vwt-1521-references*
+REFERENCES                                               *vwt-1521-references*
     - :help |/branch| 
     - :help |/\zs| 
     - :help |/\ze| 
@@ -170,7 +170,7 @@ REFERENCES  *vwt-1521-references*
     - :help |/\@!| 
 
 
-TAKE-AWAY LESSONS  *vwt-1521-take-away-lessons*
+TAKE-AWAY LESSONS                                 *vwt-1521-take-away-lessons*
     - Use the 'g' command or \zs and \ze atoms to carefully limit your 's' commands 
       to certain lines, and to simplify your replacement text for 's' commands. 
     - Use \%(\) for grouping whenever you don't need the group for a back-reference 
@@ -185,11 +185,11 @@ TAKE-AWAY LESSONS  *vwt-1521-take-away-lessons*
       are not possible otherwise. 
 
 
-SEE ALSO  *vwt-1521-see-also*
+SEE ALSO                                                   *vwt-1521-see-also*
     - Tip 97 Insert current date or time |vwt-97| 
 
 
-RELATED PLUGINS  *vwt-1521-related-plugins*
+RELATED PLUGINS                                     *vwt-1521-related-plugins*
     - ferallastchange.vim [https://www.vim.org/scripts/script.php?script_id=680] is 
       an old plugin that searches for a prefix and then updates the timestamp in a 
       certain format. 
@@ -208,6 +208,6 @@ RELATED PLUGINS  *vwt-1521-related-plugins*
       notices, or applies any other substitution before each file save. 
 
 
-COMMENTS  *vwt-1521-comments*
+COMMENTS                                                   *vwt-1521-comments*
 
  vim:tw=78:et:ft=help:norl:

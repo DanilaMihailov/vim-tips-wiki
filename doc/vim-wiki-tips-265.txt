@@ -10,7 +10,7 @@ You can get fast access to read Vim's help by writing a small script. This
 can be particularly helpful if you have written your own documentation using 
 Vim's help file type.
 
-SUGGESTION 1  *vwt-265-suggestion-1*
+SUGGESTION 1                                            *vwt-265-suggestion-1*
 
 >
     #!/bin/bash
@@ -23,7 +23,7 @@ Now name it, for example, vih and from the command line:
     $ vih makeprg
 <
 
-SUGGESTION 2  *vwt-265-suggestion-2*
+SUGGESTION 2                                            *vwt-265-suggestion-2*
 
 Make an alias or shortcut to the command:
 
@@ -34,7 +34,7 @@ Make an alias or shortcut to the command:
 This will open gvim, jump to your help text in help mode and close all the 
 rest. You only see your help text, just what you wanted to read.
 
-FROM 200904 TIP (NOW REMOVED)  *vwt-265-from-200904-tip-(now-removed)*
+FROM 200904 TIP (NOW REMOVED)          *vwt-265-from-200904-tip-(now-removed)*
 
 Sometimes you may want to start Vim to look at a specific help page. I have 
 these two functions in my ~/.bashrc for this purpose.
@@ -72,7 +72,7 @@ TO DO
 
 view -u '$VIMRUNTIME/vimrc_example.vim' -c "help $1" -c only
 
-SEE ALSO  *vwt-265-see-also*
+SEE ALSO                                                    *vwt-265-see-also*
 
 These tips attempt to deal with making your own help text:
     - 482 Keep a to-do memo file with links as in Vim help |vwt-482| 
@@ -88,6 +88,6 @@ These tips relate to using vim -c:
     - 1338 See man pages by gview |vwt-1338| 
 
 
-COMMENTS  *vwt-265-comments*
+COMMENTS                                                    *vwt-265-comments*
 
  vim:tw=78:et:ft=help:norl:

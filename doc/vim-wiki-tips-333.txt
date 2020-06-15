@@ -37,7 +37,7 @@ file. It also handles folding markers.
     endfunction
 <
 
-COMMENTS  *vwt-333-comments*
+COMMENTS                                                    *vwt-333-comments*
 
 It seems to me that the default folds set up by the C syntax file work great! 
 Just setting foldmethod=syntax should do the trick. This allows folding of 

@@ -40,7 +40,7 @@ be handy for your own quick and dirty scripts.
 
 Note: let a.="abc" means let a=a."abc" (Vim 7).
 
-COMMENTS  *vwt-1133-comments*
+COMMENTS                                                   *vwt-1133-comments*
 
 For one thing, as you point out, not everybody will have this function 
 defined, which would defeat the purpose of the exercise. For another, here is 

@@ -27,12 +27,12 @@ This is an errorformat for the Intel icc7 compiler:
     set errorformat=%E%f(%l):\ %m,%-C,%-C%p,%Z
 <
 
-REFERENCES  *vwt-518-references*
+REFERENCES                                                *vwt-518-references*
     - :help 'errorformat' 
     - :help |:make| 
     - :help |quickfix| 
 
 
-COMMENTS  *vwt-518-comments*
+COMMENTS                                                    *vwt-518-comments*
 
  vim:tw=78:et:ft=help:norl:

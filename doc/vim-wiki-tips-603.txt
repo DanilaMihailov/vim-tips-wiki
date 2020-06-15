@@ -34,7 +34,7 @@ appear in gvim.
     endif
 <
 
-COMMENTS  *vwt-603-comments*
+COMMENTS                                                    *vwt-603-comments*
 
 Script breaks if the file has any spaces or . in the filename.Also the header 
 part ie part before :amenu confuses Vim Script Interpretor.Environment: WinNT, 

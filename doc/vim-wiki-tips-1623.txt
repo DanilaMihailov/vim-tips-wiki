@@ -18,7 +18,7 @@ Using Vim under Cygwin, it is difficult to access the Windows clipboard
 As a result, you cannot easily use the clipboard to copy text between Cygwin 
 Vim and a native Windows application. This tip shows some workarounds.
 
-COPY TO WINDOWS CLIPBOARD  *vwt-1623-copy-to-windows-clipboard*
+COPY TO WINDOWS CLIPBOARD                 *vwt-1623-copy-to-windows-clipboard*
 
 Using this function:
 
@@ -65,7 +65,7 @@ with a range:
     com! -nargs=0 -range=% Putclip call Putclip('c', <line1>, <line2>)
 <
 
-COPY USING `/DEV/CLIPBOARD` EXCLUSIVELY  *vwt-1623-copy-using-`/dev/clipboard`-exclusively*
+COPY USING `/DEV/CLIPBOARD` EXCLUSIVELY *vwt-1623-copy-using-`/dev/clipboard`-exclusively*
 
 You can eliminate the hassle of a vimscript if you choose, by selecting the 
 text in visual mode, then entering the following...
@@ -80,7 +80,7 @@ above. I like how explicit this is within the Cygwin environment.
 Note: The syntax above is `w !` NOT `w!` which do different things. Remember 
 to include the space.
 
-PASTE FROM WINDOWS CLIPBOARD  *vwt-1623-paste-from-windows-clipboard*
+PASTE FROM WINDOWS CLIPBOARD           *vwt-1623-paste-from-windows-clipboard*
 
 The easiest way to do this is to press SHIFT-INSERT in insert mode.
 
@@ -113,12 +113,12 @@ And a simple mapping, such as:
 You can use the normal paste options (for example, \p to paste the clipboard 
 contents, assuming the default backslash leader key).
 
-SEE ALSO  *vwt-1623-see-also*
+SEE ALSO                                                   *vwt-1623-see-also*
     - fakeclip [https://www.vim.org/scripts/script.php?script_id=2098] plugin 
       allowing use of "*p, "*yy and more on Cygwin 
 
 
-COMMENTS  *vwt-1623-comments*
+COMMENTS                                                   *vwt-1623-comments*
 
 How can we make a "cut" version of copy? I don't know enough about writing 
 functions. Blindly changing "y" to "d" just resulting in it deleting one 

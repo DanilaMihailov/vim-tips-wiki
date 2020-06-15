@@ -20,13 +20,13 @@ To enable automatic scrolling:
 Press <F8> to start auto scrolling. Adjust the speed in the sleep argument. 
 Press Ctrl-C to stop scrolling.
 
-REFERENCES  *vwt-1198-references*
+REFERENCES                                               *vwt-1198-references*
     - :help |CTRL-E| 
     - :help |:sleep| 
     - :help |:redraw| 
 
 
-COMMENTS  *vwt-1198-comments*
+COMMENTS                                                   *vwt-1198-comments*
 
 This would be a great feature if added to Vim itself. Imagine a key, such as 
 SHIFT-K, which when pressed starts scrolling the text upwards. Pressing it 

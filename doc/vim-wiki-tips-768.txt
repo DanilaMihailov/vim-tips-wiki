@@ -35,13 +35,13 @@ filename with the extension changed to '.txt'.
     :ChgExt .txt
 <
 
-REFERENCES  *vwt-768-references*
+REFERENCES                                                *vwt-768-references*
     - :help |:command| 
     - :help |expand()| 
     - :help |<q-args>| 
 
 
-COMMENTS  *vwt-768-comments*
+COMMENTS                                                    *vwt-768-comments*
 
 >
     :w %:p.txt will save the file with .txt added after the existing extension.

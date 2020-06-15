@@ -15,7 +15,7 @@ has been used. The file type determines whether any plugins for scripts,
 indenting rules, or syntax highlighting are loaded. See file type plugins 
 [https://vim.fandom.com/wiki/File_type_plugins] for an overview.
 
-FILE STRUCTURE  *vwt-1606-file-structure*
+FILE STRUCTURE                                       *vwt-1606-file-structure*
 
 Custom filetype.vim files should always have the following structure:
 
@@ -45,7 +45,7 @@ because did_load_filetypes will be set before the after files are used. Using
 the suffixes _userafter and _systemafter as appropriate will prevent one from 
 interfering with the other.
 
-FILE CONTENTS  *vwt-1606-file-contents*
+FILE CONTENTS                                         *vwt-1606-file-contents*
 
 Between augroup filetypedetect and augroup END there will be one or more 
 autocmd statements that may assign a filetype when the BufNewFile and BufRead 
@@ -90,7 +90,7 @@ btm filetype.
     endfunction
 <
 
-FILE LOCATIONS  *vwt-1606-file-locations*
+FILE LOCATIONS                                       *vwt-1606-file-locations*
 
 The file filetype.vim is read from directories in the runtime path. The first 
 match which executes :setf will set the filetype for the file Vim is creating 
@@ -130,7 +130,7 @@ defined; or is set by joining variables HOMEDRIVE and HOMEPATH, if they are
 defined. At command prompt (not in Vim), enter set H to display the 
 environment variables that begin with 'H'.
 
-EXAMPLE  *vwt-1606-example*
+EXAMPLE                                                     *vwt-1606-example*
 
 When using our CSV tip [https://vim.fandom.com/wiki/Working_with_CSV_files], 
 it is necessary to specify that *.csv files have the csv file type. To do 
@@ -165,7 +165,7 @@ enable all the features available for a particular file type.
     :syntax on
 <
 
-REFERENCES  *vwt-1606-references*
+REFERENCES                                               *vwt-1606-references*
     - :help |filetype| 
     - :help |new-filetype| 
     - :help 'filetype' 
@@ -173,7 +173,7 @@ REFERENCES  *vwt-1606-references*
     - :help 'runtimepath' 
 
 
-COMMENTS  *vwt-1606-comments*
+COMMENTS                                                   *vwt-1606-comments*
     - Possibly mention the "ftdetect" directory. :help |ftdetect| 
 
 

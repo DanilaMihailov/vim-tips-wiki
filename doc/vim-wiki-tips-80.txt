@@ -7,13 +7,13 @@ created 2001 · complexity intermediate · author Charles E Campbell · version
 
 ==============================================================================
 
-PLUGINS  *vwt-80-plugins*
+PLUGINS                                                       *vwt-80-plugins*
     - The vim-lastplace [https://github.com/farmergreg/vim-lastplace] plugin will 
       open your files at the last edit position. It is smart enough to handle commit 
       messages correctly too! 
 
 
-DOING IT MANUALLY  *vwt-80-doing-it-manually*
+DOING IT MANUALLY                                   *vwt-80-doing-it-manually*
 
 Here is something for your vimrc [https://vim.fandom.com/wiki/Vimrc] which 
 will allow you to restore your cursor position in a file over several editing 
@@ -59,7 +59,7 @@ This tip is an improved version of the example given for :help
 |last-position-jump|. It fixes a problem where the cursor position will not be 
 restored if the file only has a single line.
 
-PARTIAL FOLDLEVEL RESTORE  *vwt-80-partial-foldlevel-restore*
+PARTIAL FOLDLEVEL RESTORE                   *vwt-80-partial-foldlevel-restore*
 
 The following will unfold like :help |zv|, except that when the cursor 
 matches the start of a new folding level, it will unfold just so that the 
@@ -103,7 +103,7 @@ Finish by modifying the previously added augroup:
     augroup END
 <
 
-ADDITIONAL INFORMATION  *vwt-80-additional-information*
+ADDITIONAL INFORMATION                         *vwt-80-additional-information*
     - Help for viminfo is at: :help |viminfo|. 
     - Part of this tip has made its way into the manual: :help 
       |last-position-jump|. 
@@ -112,7 +112,7 @@ ADDITIONAL INFORMATION  *vwt-80-additional-information*
       last-position-jump that also works for easy Vim 
 
 
-COMMENTS  *vwt-80-comments*
+COMMENTS                                                     *vwt-80-comments*
 
 TO DO
     - It looks like `:mkview` and `:loadview` are much better solutions to this 

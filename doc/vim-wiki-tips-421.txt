@@ -12,7 +12,7 @@ it easy to locate the cursor when scrolling through a large file, and
 highlighting the column can help to check horizontal alignment of text in 
 different lines.
 
-HIGHLIGHTING THAT MOVES WITH THE CURSOR  *vwt-421-highlighting-that-moves-with-the-cursor*
+HIGHLIGHTING THAT MOVES WITH THE CURSOR *vwt-421-highlighting-that-moves-with-the-cursor*
 
 Simply putting :set cursorline in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] will highlight the current line in every 
@@ -53,7 +53,7 @@ WinLeave above.
 Note that setting the 'cursorline' or 'cursorcolumn' options can cause Vim to 
 respond slowly, especially for large files or files with long lines.
 
-HIGHLIGHTING THAT STAYS AFTER CURSOR MOVES  *vwt-421-highlighting-that-stays-after-cursor-moves*
+HIGHLIGHTING THAT STAYS AFTER CURSOR MOVES *vwt-421-highlighting-that-stays-after-cursor-moves*
 
 To highlight the current line, and have the highlighting stay where it is 
 when the cursor is moved, use this mapping:
@@ -75,7 +75,7 @@ mapping:
     :nnoremap <silent> <Leader>c :execute 'match Search /\%'.virtcol('.').'v/'<CR>
 <
 
-REFERENCES  *vwt-421-references*
+REFERENCES                                                *vwt-421-references*
     - :help |:match| 
     - :help 'cursorcolumn' 
     - :help 'cursorline' 
@@ -83,11 +83,11 @@ REFERENCES  *vwt-421-references*
     - :help |WinEnter| 
 
 
-SEE ALSO  *vwt-421-see-also*
+SEE ALSO                                                    *vwt-421-see-also*
     - Highlight current word to find cursor |vwt-235| 
 
 
-RELATED PLUGINS  *vwt-421-related-plugins*
+RELATED PLUGINS                                      *vwt-421-related-plugins*
     - script#555 [https://www.vim.org/scripts/script.php?script_id=555] 
     - script#319 [https://www.vim.org/scripts/script.php?script_id=319] 
     - CursorLineCurrentWindow 
@@ -97,7 +97,7 @@ RELATED PLUGINS  *vwt-421-related-plugins*
       window. 
 
 
-COMMENTS  *vwt-421-comments*
+COMMENTS                                                    *vwt-421-comments*
 
 It is possible to highlight the entire line permanently (mapped to key \l):
 

@@ -15,7 +15,7 @@ It relies on an external program, AutoHotKey [http://www.autohotkey.com], and
 has been tested on Windows. It could be adapted to Linux using xmodmap 
 [http://www.xfree86.org/4.2.0/xmodmap.1.html] or similar utilities.
 
-THE PROBLEM  *vwt-1519-the-problem*
+THE PROBLEM                                             *vwt-1519-the-problem*
 
 While most modern programming languages are edited in mixed case, there are 
 occasions, such as writing DISCLAIMER OF LIABILITY blurbs in EULAs or editing 
@@ -26,7 +26,7 @@ vi (and therefore, Vim) and Caps Lock do not go well together, because
 letters are commands and case sensitive. Setting CapsLock will make vi(m) 
 behave in very strange ways in command mode.
 
-THE SOLUTION  *vwt-1519-the-solution*
+THE SOLUTION                                           *vwt-1519-the-solution*
 
 A partial solution of mine was to create, in my vimrc, a couple of Vim 
 commands/functions called Caps and Mixed which set case on input only:
@@ -106,7 +106,7 @@ I've tested this solution under Windows 2000, but it should run in most other
 versions of Windows too. The AHK documentation mentioned some caveats 
 concerning W95 and WinME.
 
-COMMENTS  *vwt-1519-comments*
+COMMENTS                                                   *vwt-1519-comments*
 
 TO DO
     - If it's really necessary to have 26 mappings, you could probably have one map 

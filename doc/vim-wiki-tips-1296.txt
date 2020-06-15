@@ -67,7 +67,7 @@ easily follow it)
     map \func :let name = FunctionName()<CR> :echo name<CR>
 <
 
-COMMENTS  *vwt-1296-comments*
+COMMENTS                                                   *vwt-1296-comments*
 
 I implemented another way to look for the name of the current function in 
 c_stl.vim (http://hermitte.free.fr/vim/ressources/vimfiles/ftplugin/c/ 
@@ -148,7 +148,7 @@ Test case: Try place at "hihi" and "hoho" and call the function
     }
 <
 
-ALTERNATIVE METHOD  *vwt-1296-alternative-method*
+ALTERNATIVE METHOD                               *vwt-1296-alternative-method*
 
 I took the best ideas from both current versions of the code above and with 
 quite a bit of help on Stack Overflow and the VIM mailing list somehow managed 

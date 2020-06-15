@@ -33,7 +33,7 @@ TO DO
     - 1511 In line copy and paste to system clipboard |vwt-1511| Mac OS X? 
 
 
-CONTENT FROM VIMTIP356 (THIS TIP)  *vwt-1528-content-from-vimtip356-(this-tip)*
+CONTENT FROM VIMTIP356 (THIS TIP) *vwt-1528-content-from-vimtip356-(this-tip)*
 
 Since I didn't want to interfere with the standard Vim mappings I removed all 
 the <C-c>, <C-v>, etc. mappings found in the default vimrc. But quickly 
@@ -47,7 +47,7 @@ simple, but it works like a charm.
     nmap <C-c> "ayiw
 <
 
-COMMENTS  *vwt-1528-comments*
+COMMENTS                                                   *vwt-1528-comments*
 
 I found the insertion mapping faulty: its behavior depended on whether I was 
 at the end of the line. The following work well for me:
@@ -60,7 +60,7 @@ at the end of the line. The following work well for me:
     imap <C-p> <Esc>"ppa
 <
 
-CONTENT FROM TIP 1387 (NOW REMOVED; CONTENT TO BE MERGED HERE)  *vwt-1528-content-from-tip-1387-(now-removed;-content-to-be-merged-here)*
+CONTENT FROM TIP 1387 (NOW REMOVED; CONTENT TO BE MERGED HERE) *vwt-1528-content-from-tip-1387-(now-removed;-content-to-be-merged-here)*
 
 Having replaced Notepad with gvim, these are my preferred editing shortcuts:
 
@@ -72,14 +72,14 @@ Having replaced Notepad with gvim, these are my preferred editing shortcuts:
     nmap <C-a> ggVG
 <
 
-COMMENTS  *vwt-1528-comments*
+COMMENTS                                                   *vwt-1528-comments*
 
 Have you seen vim70/mswin.vim, it comes with Vim 7.0 (and prior versions). It 
 sets up a bunch of behavior that makes Vim work nice with Windows. Just source 
 it in your vimrc. It's worth reading through for some ideas if you don't want 
 to use the entire thing.
 
-CONTENT FROM TIP 1528 (NOW REMOVED; CONTENT TO BE MERGED HERE)  *vwt-1528-content-from-tip-1528-(now-removed;-content-to-be-merged-here)*
+CONTENT FROM TIP 1528 (NOW REMOVED; CONTENT TO BE MERGED HERE) *vwt-1528-content-from-tip-1528-(now-removed;-content-to-be-merged-here)*
 
 Easy copy and paste in Vim:
 
@@ -106,7 +106,7 @@ To make interaction with other applications more intuitive, see
 Easy_pasting_to_Windows_applications 
 [https://vim.fandom.com/wiki/Easy_pasting_to_Windows_applications].
 
-TODO  *vwt-1528-todo*
+TODO                                                           *vwt-1528-todo*
 
 Need to state whether this is for a particular operating system. Does it work 
 with the system clipboard? If not, is it useful?
@@ -121,7 +121,7 @@ recommended keys.
 If wanting the mswin.vim key mappings, is there a reason to use this tip 
 rather than mswin.vim?
 
-CONTENT FROM TIP 866 (NOW REMOVED; CONTENT TO BE MERGED HERE)  *vwt-1528-content-from-tip-866-(now-removed;-content-to-be-merged-here)*
+CONTENT FROM TIP 866 (NOW REMOVED; CONTENT TO BE MERGED HERE) *vwt-1528-content-from-tip-866-(now-removed;-content-to-be-merged-here)*
 
 >
     "<Ctrl-X> -- cut (goto visual mode and cut)
@@ -142,7 +142,7 @@ CONTENT FROM TIP 866 (NOW REMOVED; CONTENT TO BE MERGED HERE)  *vwt-1528-content
     vmap <C-V> "-cx<Esc>\\paste\\"_x
 <
 
-COMMENTS  *vwt-1528-comments*
+COMMENTS                                                   *vwt-1528-comments*
 
 What's wrong with the default? In Vim 7.1, see the files distributed with 
 Vim:

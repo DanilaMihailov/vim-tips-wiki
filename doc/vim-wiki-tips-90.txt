@@ -72,9 +72,9 @@ encryption. However, if you use the wrong password on decryption, and then
 SAVE the gibberish file which results, Vim will still write the file, 
 corrupting your data; so be careful!
 
-SOLUTIONS WITH EXTERNAL PROGRAMS  *vwt-90-solutions-with-external-programs*
+SOLUTIONS WITH EXTERNAL PROGRAMS     *vwt-90-solutions-with-external-programs*
 
-PGP  *vwt-90-pgp*
+PGP                                                               *vwt-90-pgp*
 
 Here are some autocommands tested with pgp version 2.6.2. The pgp call for 
 writing uses PGP's "conventional" cryptography; to use its public key 
@@ -89,7 +89,7 @@ cryptography, use pgp -fe userid instead.
     augroup END
 <
 
-GPG  *vwt-90-gpg*
+GPG                                                               *vwt-90-gpg*
 
 Here is a set of autocommands that allows you to work on GPG-encrypted files 
 as though they were ordinary text files. Be aware that Vim uses temporary 
@@ -150,7 +150,7 @@ that actually do the GPG encryption/decryption to:
     autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg.sh --default-recipient-self -ae
 <
 
-CCRYPT  *vwt-90-ccrypt*Here is a working autocmd set for ccrypt: note that it uses the environment variable, which can be dangerous on older multi-user systems (see man ccrypt, also lookup scrypt, bcrypt on google).
+CCRYPT                                                         *vwt-90-ccrypt*Here is a working autocmd set for ccrypt: note that it uses the environment variable, which can be dangerous on older multi-user systems (see man ccrypt, also lookup scrypt, bcrypt on google).
 
 >
     augroup CPT
@@ -179,6 +179,6 @@ To create a test.cpt file, do this:
 
 That will create a file test.cpt, which you can then open in Vim.
 
-COMMENTS  *vwt-90-comments*
+COMMENTS                                                     *vwt-90-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -41,7 +41,7 @@ resets all user-defined options previously set by SetOption.
      \ | unlet s:tmlargs
 <
 
-EXAMPLES  *vwt-1456-examples*
+EXAMPLES                                                   *vwt-1456-examples*
 
 Add and remove specific options
 
@@ -103,7 +103,7 @@ In order to monitor the options setting, I display changed values in
     endfunction
 <
 
-COMMENTS  *vwt-1456-comments*
+COMMENTS                                                   *vwt-1456-comments*
 
 Here is a slightly modified version:
 

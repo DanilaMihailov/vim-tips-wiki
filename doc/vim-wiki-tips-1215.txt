@@ -66,11 +66,11 @@ In Gvim and vim in terminals with mouse support, it is also possible to use
 the mouse to resize a window. Simply grab the statusline at the window border 
 and drag it into the desired direction.
 
-SEE ALSO  *vwt-1215-see-also*
+SEE ALSO                                                   *vwt-1215-see-also*
     - VimTip427 |vwt-427| 
 
 
-PLUGINS  *vwt-1215-plugins*
+PLUGINS                                                     *vwt-1215-plugins*
 
 The following plugins allow to define submodes, that make it possible to use 
 e.g. Ctrl-W + to increase the window size and keep on increasing as long as 
@@ -83,6 +83,6 @@ you keep '+' pressed:
       [https://www.vim.org/scripts/script.php?script_id=4199] 
 
 
-COMMENTS  *vwt-1215-comments*
+COMMENTS                                                   *vwt-1215-comments*
 
  vim:tw=78:et:ft=help:norl:

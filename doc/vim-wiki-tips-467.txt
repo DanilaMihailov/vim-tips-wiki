@@ -23,7 +23,7 @@ The following examples capture the output of the shell's date command. This
 is just an example: it is better to use Vim's strftime() function to get the 
 date or time [https://vim.fandom.com/wiki/Insert_current_date_or_time].
 
-USING :READ  *vwt-467-using :read*
+USING :READ                                              *vwt-467-using :read*
 
 The :read command can insert a file or the result from running an external 
 program into the current buffer. To run a program, preface the shell command 
@@ -61,7 +61,7 @@ window:
     :R find -mtime -8 | xargs grep vim
 <
 
-USING SYSTEM()  *vwt-467-using-system()*
+USING SYSTEM()                                        *vwt-467-using-system()*
 
 If you don't want the command output on a line by itself, or if you don't 
 want it inserted, you can use the |system()| function. For example, to put the 
@@ -114,7 +114,7 @@ character), concatenated with the strftime() result. The final Esc exits from
 insert mode. The initial m' sets the previous context mark, and the final `` 
 jumps to that location to restore the cursor position after the append.
 
-USING A FILTER COMMAND  *vwt-467-using-a-filter-command*
+USING A FILTER COMMAND                        *vwt-467-using-a-filter-command*
 
 A filter is a program which reads text from standard input, then processes 
 the text, and sends the result to standard output. In Vim, a range of lines 
@@ -155,7 +155,7 @@ See this example
 [https://vim.fandom.com/wiki/Use_filter_commands_to_process_text#Simple_filter_example] 
 using Python, and see :help |filter|.
 
-USING A FILTER TO REPLACE A COMMAND WITH ITS OUTPUT  *vwt-467-using-a-filter-to-replace-a-command-with-its-output*
+USING A FILTER TO REPLACE A COMMAND WITH ITS OUTPUT *vwt-467-using-a-filter-to-replace-a-command-with-its-output*
 
 You can use this feature to replace a command with its output. For example on 
 Windows if the buffer contains
@@ -175,7 +175,7 @@ The same method can be used on Unix with appropriate changes (for bash you
 would issue the command %!bash, and in this example the ping command would be 
 ping -c 1).
 
-USING BACKTICKS  *vwt-467-using-backticks*
+USING BACKTICKS                                      *vwt-467-using-backticks*
 
 Above it is mentioned that using system() is like using backtick expansion in 
 many shells. It should be noted that Vim actually does support real backticks 
@@ -207,7 +207,7 @@ you can use:
     :e `=filename_in_var`
 <
 
-SEE ALSO  *vwt-467-see-also*
+SEE ALSO                                                    *vwt-467-see-also*
     - Display output of shell commands in new window |vwt-1599| 
     - script#4224 [https://www.vim.org/scripts/script.php?script_id=4224] offers a 
       way to execute a command cmd using ":echo system(cmd)", but tipping ":! cmd" 
@@ -215,7 +215,7 @@ SEE ALSO  *vwt-467-see-also*
       and you don't leave vim. 
 
 
-COMMENTS  *vwt-467-comments*
+COMMENTS                                                    *vwt-467-comments*
 
 Comment from old tip which should be mentioned somewhere:
 

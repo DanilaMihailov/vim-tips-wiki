@@ -12,7 +12,7 @@ skeleton in the source file.
 
 There are multiple ways to grant similar functionality in Vim.
 
-SIMPLE METHOD  *vwt-335-simple-method*
+SIMPLE METHOD                                          *vwt-335-simple-method*
 
 >
     " Copy function declaration from a header file into the implementation file.
@@ -26,7 +26,7 @@ cursor on the line in the header file that declares the function you wish to
 copy. Then go to your source file and hit F6 (in normal mode) with the cursor 
 where you want to insert the function implementation.
 
-METHOD WITH NAMESPACES  *vwt-335-method-with-namespaces*
+METHOD WITH NAMESPACES                        *vwt-335-method-with-namespaces*
 
 The above tip does not support namespaces. The script below builds upon the 
 above idea to implement namespace support, along with more portable and 
@@ -87,7 +87,7 @@ the cursor on the line in the header file that declares the function you wish
 to copy. Then, go to your source file and hit F6 (in normal mode) with the 
 cursor where you want to insert the function implementation.
 
-COMMENTS  *vwt-335-comments*
+COMMENTS                                                    *vwt-335-comments*
 
 The tip seems to work in most cases (single line Member functions all(?) seem 
 to work, anything else well, doesn't).

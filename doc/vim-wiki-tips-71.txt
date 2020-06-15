@@ -27,12 +27,12 @@ or in insert mode:
     <Ctrl-R>+
 <
 
-REFERENCES  *vwt-71-references*
+REFERENCES                                                 *vwt-71-references*
     - :help |gui-selections| 
     - :help |x11-selection| 
 
 
-COMMENTS  *vwt-71-comments*
+COMMENTS                                                     *vwt-71-comments*
 
 In gvim, for the "copy to clipboard" command, Ctrl+C works just as well on 
 highlighted text as "+y.This works for both text in the edit buffer and 

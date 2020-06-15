@@ -16,7 +16,7 @@ Use this vmap to enclose a block with fold markers:
     vmap <Leader>fold mz:<Esc>'<O// {{{<Esc>'>o// }}}<Esc>`z?{{{<CR>A<Space>
 <
 
-COMMENTS  *vwt-475-comments*
+COMMENTS                                                    *vwt-475-comments*
 
 Prefer the zf command, in combination with foldmethod=marker. See :help |zf|.
 

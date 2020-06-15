@@ -15,7 +15,7 @@ selections on one line:
     vnoremap ;rv c<C-O>:set revins<CR><C-R>"<Esc>:set norevins<CR>
 <
 
-COMMENTS  *vwt-223-comments*
+COMMENTS                                                    *vwt-223-comments*
 
 Interesting idea, but it will only work for those whose Vim has the 
 +rightleft option. For those who don't have such a Vim, use "ma" to (mark a) 

@@ -20,7 +20,7 @@ installer or using install.exe when you build Vim yourself
 [https://vim.fandom.com/wiki/Building_Vim#Building_Vim_on_Windows], should 
 automatically set this up regardless of whether you use 32-bit or 64-bit Vim.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
-USING GVIMEXT.DLL (AS THE INSTALLER DOES)  *vwt-1068-using-gvimext.dll-(as-the-installer-does)*
+USING GVIMEXT.DLL (AS THE INSTALLER DOES) *vwt-1068-using-gvimext.dll-(as-the-installer-does)*
 
 Using gvim under Windows, if you move your Vim folder, you will find that 
 "Edit with Vim" is missing from the context menu when you right click a file 
@@ -72,7 +72,7 @@ Note: the vim80 directory should be changed to the installed vim version.
 These are the registry locations used by the Vim installer and install.exe 
 program.
 
-USING GVIM.EXE DIRECTLY (ALTERNATE METHOD)  *vwt-1068-using-gvim.exe-directly-(alternate-method)*
+USING GVIM.EXE DIRECTLY (ALTERNATE METHOD) *vwt-1068-using-gvim.exe-directly-(alternate-method)*
 
 To add "Edit with Vim" to the Windows File Explorer context menu without any 
 dependency on the DLL:
@@ -100,12 +100,12 @@ takes advantage of the same Windows features used by file associations
 [https://vim.fandom.com/wiki/Windows_file_associations] to set up a global 
 context menu entry for the Vim executable.
 
-SEE ALSO  *vwt-1068-see-also*
+SEE ALSO                                                   *vwt-1068-see-also*
     - Right click in Windows Explorer to open gvim in explorer mode |vwt-861| 
     - Windows file associations 
       [https://vim.fandom.com/wiki/Windows_file_associations] 
 
 
-COMMENTS  *vwt-1068-comments*
+COMMENTS                                                   *vwt-1068-comments*
 
  vim:tw=78:et:ft=help:norl:

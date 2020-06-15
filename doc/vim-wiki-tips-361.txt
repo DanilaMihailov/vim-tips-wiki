@@ -30,7 +30,7 @@ It works perfectly well with Vim or gvim on one side and xdvi on the other
 side, even with multiple couple (vim, xdvi). It works also fine with kdvi but 
 can be a little less "smooth".
 
-WITH XDVI  *vwt-361-with-xdvi*
+WITH XDVI                                                  *vwt-361-with-xdvi*
 
 It's very simple. In your .vimrc file, add at the end:
 
@@ -61,7 +61,7 @@ Also, for things to work I must, in order, 1) Open my tex file with gvim, 2)
 Open my dvi file with the command \ld 3) reverse-search using Ctrl + 
 left-mouse-click.
 
-WITH KDVI  *vwt-361-with-kdvi*
+WITH KDVI                                                  *vwt-361-with-kdvi*
 
 If you run it on gnu/linux, I've made a little script to do the work for you 
 (for use with Vim): install_fsearch_kdvi.sh 
@@ -116,7 +116,7 @@ Here is the install script:
     exit 0
 <
 
-WINDOWS TIP  *vwt-361-windows-tip*
+WINDOWS TIP                                              *vwt-361-windows-tip*
 
 If you use the MikTeX distribution on Win32, you can play the same game with 
 Vim and yap. I use the following with Vim 6.0 and (old) MikTeX 1.20b.
@@ -206,7 +206,7 @@ well now with Vim].
 
 ==============================================================================
 
-PROBLEM SOLVING  *vwt-361-problem-solving*
+PROBLEM SOLVING                                      *vwt-361-problem-solving*
 
 This part has been partly reviewed, other contributors welcome.
 
@@ -223,7 +223,7 @@ If you do not have the LaTeX package srctex, try compiling your file with:
 
 which works for me.
 
-XDVI  *vwt-361-xdvi*
+XDVI                                                            *vwt-361-xdvi*
 
 Forward and reverse search only works for quite recent xdvi versions (>= 
 22.38), (or recent Unix/Linux versions), xdvi can interact with any editor 
@@ -331,7 +331,7 @@ To fix this tip I used:
 
 ==============================================================================
 
-KDVI  *vwt-361-kdvi*
+KDVI                                                            *vwt-361-kdvi*
 
 For kdvi the command should read:
 
@@ -341,6 +341,6 @@ For kdvi the command should read:
 
 where l is the linenumber and name is the filename.
 
-COMMENTS  *vwt-361-comments*
+COMMENTS                                                    *vwt-361-comments*
 
  vim:tw=78:et:ft=help:norl:

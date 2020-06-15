@@ -28,7 +28,7 @@ insert mode:
     au InsertLeave * let &updatetime=updaterestore
 <
 
-REFERENCES  *vwt-1540-references*
+REFERENCES                                               *vwt-1540-references*
     - :help |:stopinsert| 
     - :help |CursorHoldI| 
     - :help |InsertEnter| 
@@ -36,7 +36,7 @@ REFERENCES  *vwt-1540-references*
     - :help 'updatetime' 
 
 
-COMMENTS  *vwt-1540-comments*
+COMMENTS                                                   *vwt-1540-comments*
 
 This is the greatest vim tip of all time. Setting the timeout to a couple of 
 seconds forces you to use vim very efficiently.

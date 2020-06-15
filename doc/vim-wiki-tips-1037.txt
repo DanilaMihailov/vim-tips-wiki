@@ -25,7 +25,7 @@ associations, it is very easy to do this!
 Note that some of the methods discussed below suggest modifying your Windows 
 Registry.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
-LAUNCHING SESSION FILES  *vwt-1037-launching-session-files*
+LAUNCHING SESSION FILES                     *vwt-1037-launching-session-files*
 
 A session file is a script created by Vim in order to save the current 
 editing session (window layout, buffer file names, mappings, and more). You 
@@ -48,7 +48,7 @@ script. You could do that at command prompt as in this example:
 It is also possible to define a file association so that double clicking 
 projectname.vis in Windows Explorer opens the session.
 
-USING CONSOLE UTILITIES  *vwt-1037-using-console-utilities*
+USING CONSOLE UTILITIES                     *vwt-1037-using-console-utilities*
 
 The easiest way to set up a new file association is to enter the following 
 commands at the command prompt. You need to do this as an administrator 
@@ -60,7 +60,7 @@ your gvim is installed.
     ftype vimsession="C:\Program Files\Vim\vim72\gvim.exe" -S "%1"
 <
 
-USING THE REGISTRY  *vwt-1037-using-the-registry*
+USING THE REGISTRY                               *vwt-1037-using-the-registry*
 
 The following alternative does not require administrative privilege because 
 it applies the file association only for the current user 
@@ -81,7 +81,7 @@ Change the path to where your gvim is installed.
     @="C:\\Program Files\\Vim\\vim72\\gvim.exe -S \"%1\""
 <
 
-USING THE _VIMRC  *vwt-1037-using-the-_vimrc*
+USING THE _VIMRC                                   *vwt-1037-using-the-_vimrc*
 
 Another option might be to add the following into _vimrc (or _gvimrc):
 
@@ -92,7 +92,7 @@ Another option might be to add the following into _vimrc (or _gvimrc):
 It tells gvim to source the Session.vim file. It first loads Session.vim, so 
 it is not optimal, but rather simple solution.
 
-RUNNING VIM SCRIPTS  *vwt-1037-running-vim-scripts*
+RUNNING VIM SCRIPTS                             *vwt-1037-running-vim-scripts*
 
 TO DO
     - use ftype and assoc commands 
@@ -110,14 +110,14 @@ TO DO
     @="C:\\Program Files\\Vim\\vim72\\gvim.exe -c \"try|source %1|q|endtry\""
 <
 
-OPENING PROJECT.VIM PROJECT FILES  *vwt-1037-opening-project.vim-project-files*
+OPENING PROJECT.VIM PROJECT FILES *vwt-1037-opening-project.vim-project-files*
 
 If you use the project.vim 
 [https://www.vim.org/scripts/script.php?script_id=69] plugin on Windows XP, it 
 is useful to associate .vimprojects files with Vim so they can be opened with 
 a double-click in Explorer.
 
-USING CONSOLE UTILITIES  *vwt-1037-using-console-utilities*
+USING CONSOLE UTILITIES                     *vwt-1037-using-console-utilities*
 
 The easiest way to set up a new file association is to enter the following 
 commands, as an administrator, at the command prompt:
@@ -127,7 +127,7 @@ commands, as an administrator, at the command prompt:
     ftype vimproj="C:\Program Files\Vim\vim72\gvim.exe" -c ":Project %1"
 <
 
-USING THE REGISTRY  *vwt-1037-using-the-registry*
+USING THE REGISTRY                               *vwt-1037-using-the-registry*
 
 Alternatively, you can use the following .reg file to associate .vimprojects 
 to open a project file in Vim. This will also set up an icon for the project 
@@ -149,11 +149,11 @@ file to make it obvious that it opens in Vim.
     @="C:\\Program Files\\Vim\\vim72\\gvim.exe -c \":Project %1\""
 <
 
-REFERENCES  *vwt-1037-references*
+REFERENCES                                               *vwt-1037-references*
     - :help |-S| 
 
 
-COMMENTS  *vwt-1037-comments*
+COMMENTS                                                   *vwt-1037-comments*
     - TO DO 
 
 

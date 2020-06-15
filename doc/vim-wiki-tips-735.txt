@@ -28,12 +28,12 @@ Now here it is:
     endif
 <
 
-REFERENCES  *vwt-735-references*
+REFERENCES                                                *vwt-735-references*
     - :help 'statusline' 
     - :help |expr1| 
 
 
-COMMENTS  *vwt-735-comments*
+COMMENTS                                                    *vwt-735-comments*
 
 Cool, but what if I have only one file open, that means I have no statusline 
 but only the ruler?This script does not show me the enc then. Joachim

@@ -42,7 +42,7 @@ defined variable for a non line-oriented editor, which is technically the
 correct role for Vim. Many notable programs on Unix support these variables, 
 though obviously there are a few that for various reasons do not.
 
-COMMENTS  *vwt-175-comments*
+COMMENTS                                                    *vwt-175-comments*
 
 Note that if you built Vim manually rather installed your distribution's 
 package, it may not show up in the list presented by update-alternatives, you 

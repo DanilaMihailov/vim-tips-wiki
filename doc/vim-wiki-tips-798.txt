@@ -39,14 +39,14 @@ You can also use marks to return to where you started the search:
 Or just set a mark (press mm), do the search, then return to the mark by 
 pressing `m
 
-REFERENCES  *vwt-798-references*
+REFERENCES                                                *vwt-798-references*
     - :help |mapleader| 
     - :help |:<cword>| 
     - :help |<Bar>| 
     - :help |:split| 
 
 
-COMMENTS  *vwt-798-comments*
+COMMENTS                                                    *vwt-798-comments*
 
 Is this in some way better than CTRL-W * and CTRL-W # mappings in our short 
 mappings [https://vim.fandom.com/wiki/Short_mappings_for_common_tasks#Search] 

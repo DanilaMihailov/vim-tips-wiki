@@ -68,11 +68,11 @@ require a function call to accomplish, but the concept is the same. Map an
 appropriate visual mapping, and if possible, use it to simplify the operator 
 mapping.
 
-SEE ALSO  *vwt-1555-see-also*
+SEE ALSO                                                   *vwt-1555-see-also*
     - Mapping keys in Vim tutorial |vwt-1516| 
 
 
-RELATED SCRIPTS  *vwt-1555-related-scripts*
+RELATED SCRIPTS                                     *vwt-1555-related-scripts*
     - textobj-user [https://www.vim.org/scripts/script.php?script_id=2100] is a 
       library that assists in writing text objects. With a patch to the Vim source, 
       it can even handle things such as :help |o_v|. 
@@ -81,7 +81,7 @@ RELATED SCRIPTS  *vwt-1555-related-scripts*
       specify the begin and end patterns. 
 
 
-COMMENTS  *vwt-1555-comments*
+COMMENTS                                                   *vwt-1555-comments*
 
 TO DO
 

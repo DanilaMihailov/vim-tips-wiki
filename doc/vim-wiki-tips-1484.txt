@@ -38,7 +38,7 @@ To overcome this, put the following code in your vimrc.
     nmap <C-]> :call SPLITAG()<CR>z.
 <
 
-COMMENTS  *vwt-1484-comments*
+COMMENTS                                                   *vwt-1484-comments*
 
 To use this tip for 'gf' it should be sufficient to replace
 

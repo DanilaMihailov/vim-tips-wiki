@@ -11,7 +11,7 @@ March 28, 2009 · complexity basic · author Weltensegler · version 7.0
 To change the shape of the cursor in different modes, you can add the 
 following into your vimrc:
 
-FOR TERMINAL ON MACOS  *vwt-1622-for-terminal-on-macos*
+FOR TERMINAL ON MACOS                         *vwt-1622-for-terminal-on-macos*
 
 >
     "Mode Settings
@@ -30,7 +30,7 @@ FOR TERMINAL ON MACOS  *vwt-1622-for-terminal-on-macos*
     "  6 -> solid vertical bar
 <
 
-FOR ITERM2 ON OS X  *vwt-1622-for-iterm2-on-os-x*
+FOR ITERM2 ON OS X                               *vwt-1622-for-iterm2-on-os-x*
 
 >
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -38,7 +38,7 @@ FOR ITERM2 ON OS X  *vwt-1622-for-iterm2-on-os-x*
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 <
 
-FOR TMUX RUNNING IN ITERM2 ON OS X  *vwt-1622-for-tmux-running-in-iterm2-on-os-x*
+FOR TMUX RUNNING IN ITERM2 ON OS X *vwt-1622-for-tmux-running-in-iterm2-on-os-x*
 
 >
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -50,7 +50,7 @@ In theory, the escape sequence could be used for tmux in any terminal.
 
 NOTE: These do not work with the default terminal.
 
-FOR KONSOLE IN KDE4  *vwt-1622-for-konsole-in-kde4*
+FOR KONSOLE IN KDE4                             *vwt-1622-for-konsole-in-kde4*
 
 >
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -60,7 +60,7 @@ FOR KONSOLE IN KDE4  *vwt-1622-for-konsole-in-kde4*
 
 This works with multiple tabs and windows.
 
-FOR VTE COMPATIBLE TERMINALS (URXVT, ST, XTERM, GNOME-TERMINAL 3.X, KONSOLE KDE5 AND OTHERS) AND WSLTTY  *vwt-1622-for-vte-compatible-terminals-(urxvt,-st,-xterm,-gnome-terminal-3.x,-konsole-kde5-and-others)-and-wsltty*
+FOR VTE COMPATIBLE TERMINALS (URXVT, ST, XTERM, GNOME-TERMINAL 3.X, KONSOLE KDE5 AND OTHERS) AND WSLTTY *vwt-1622-for-vte-compatible-terminals-(urxvt,-st,-xterm,-gnome-terminal-3.x,-konsole-kde5-and-others)-and-wsltty*
 
 >
     let &t_SI = "\<Esc>[6 q"
@@ -71,7 +71,7 @@ FOR VTE COMPATIBLE TERMINALS (URXVT, ST, XTERM, GNOME-TERMINAL 3.X, KONSOLE KDE5
 Set IBeam shape in insert mode, underline shape in replace mode and block 
 shape in normal mode.
 
-FOR THE GNOME-TERMINAL (VERSION 2.26)  *vwt-1622-for-the-gnome-terminal-(version-2.26)*This makes your cursor change in all open terminals. Upgrade your terminal and use the version above instead.
+FOR THE GNOME-TERMINAL (VERSION 2.26) *vwt-1622-for-the-gnome-terminal-(version-2.26)*This makes your cursor change in all open terminals. Upgrade your terminal and use the version above instead.
 
 >
     if has("autocmd")
@@ -81,7 +81,7 @@ FOR THE GNOME-TERMINAL (VERSION 2.26)  *vwt-1622-for-the-gnome-terminal-(version
     endif
 <
 
-FOR THE GNOME-TERMINAL (VERSION 3.X)  *vwt-1622-for-the-gnome-terminal-(version-3.x)*
+FOR THE GNOME-TERMINAL (VERSION 3.X) *vwt-1622-for-the-gnome-terminal-(version-3.x)*
 
 First make a script gnome-terminal-cursor-shape.sh
 
@@ -110,7 +110,7 @@ Make it executable & put it in /usr/local/binNext, add this to .vimrc
 If you use more than one profile in gnome-terminal, you might have to adapt 
 this to your profiles.
 
-FOR THE GNOME-TERMINAL (VERSION ≥3.16)  *vwt-1622-for-the-gnome-terminal-(version-≥3.16)*
+FOR THE GNOME-TERMINAL (VERSION ≥3.16) *vwt-1622-for-the-gnome-terminal-(version-≥3.16)*
 
 This method has the advantage compared to the method above that it influences 
 the given tab only, and not all the tabs that use the given profile. Add the 
@@ -145,7 +145,7 @@ decrement all the 3 numbers above 2,4,6 by one each.
     endif
 <
 
-FOR XFCE-TERMINAL  *vwt-1622-for-xfce-terminal*
+FOR XFCE-TERMINAL                                 *vwt-1622-for-xfce-terminal*
 
 >
     if has("autocmd")
@@ -155,11 +155,11 @@ FOR XFCE-TERMINAL  *vwt-1622-for-xfce-terminal*
     endif
 <    
 
-SEE ALSO  *vwt-1622-see-also*
+SEE ALSO                                                   *vwt-1622-see-also*
     - Configuring the cursor [https://vim.fandom.com/wiki/Configuring_the_cursor] 
 
 
-COMMENTS  *vwt-1622-comments*
+COMMENTS                                                   *vwt-1622-comments*
 
 VTE compatible terminals includes mate-terminal 1.18.1.
 

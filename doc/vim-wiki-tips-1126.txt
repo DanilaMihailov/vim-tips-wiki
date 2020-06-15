@@ -29,9 +29,9 @@ This will make a title like hostname[vim(filename)], but that's only my
 personal preference. That way, you can easily keep track on which window in 
 your screen you have which file opened.
 
-COMMENTS  *vwt-1126-comments*
+COMMENTS                                                   *vwt-1126-comments*
 
-AUTOCMD  *vwt-1126-autocmd*
+AUTOCMD                                                     *vwt-1126-autocmd*
 
 Just found this on a website. Using:
 
@@ -53,7 +53,7 @@ I use:
 By placing the expand expression inside a %{} pair, it is reevaluated 
 automatically and doesn't require an autocommand around it.
 
-THANKS FOR FLYING VIM  *vwt-1126-thanks-for-flying-vim*
+THANKS FOR FLYING VIM                         *vwt-1126-thanks-for-flying-vim*
 
 I tried it, and after editing a mail within mutt, the screen title keeps 
 saying 'Thanks for flying Vim' instead of being reset to 'mutt'. Any ideas to 
@@ -130,7 +130,7 @@ configure this in a similar way. (there are examples in the screen manual).
 The characters in shelltitle before the pipe sign need to fit the end of your 
 shell prompt, which is "] " in my case.
 
-ESCAPING SPECIAL CHARACTERS  *vwt-1126-escaping-special-characters*
+ESCAPING SPECIAL CHARACTERS             *vwt-1126-escaping-special-characters*
 
 File names can contain characters such as escape, which is very badly handled 
 by my Vim. (The title gets printed, garbled, and doesn't end up in the 

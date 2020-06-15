@@ -24,7 +24,7 @@ suggestions involve more than avoiding escape; topics also discussed include
 using the CapsLock key for Ctrl, and avoiding irritations from accidental use 
 of CapsLock.
 
-AVOIDING THE ESC KEY  *vwt-770-avoiding-the-esc-key*
+AVOIDING THE ESC KEY                            *vwt-770-avoiding-the-esc-key*
 
 If you have an American English keyboard, pressing Ctrl-[ (control plus left 
 square bracket) is equivalent to pressing Esc. This provides an easy way to 
@@ -34,7 +34,7 @@ If you have a keyboard where the bracket is already mapped to Alt
 Gr-something (like the spanish keyboard), press Ctrl-c to quit insert mode 
 (however, Ctrl-c does not expand abbreviations). :help |i_CTRL-C|
 
-USE ALT/META IN A TERMINAL  *vwt-770-use-alt/meta-in-a-terminal*
+USE ALT/META IN A TERMINAL                *vwt-770-use-alt/meta-in-a-terminal*
 
 Alt keys [http://en.wikipedia.org/wiki/Alt_key] appear on most PC keyboards. 
 Meta keys [http://en.wikipedia.org/wiki/Meta_key] were used on some old 
@@ -64,7 +64,7 @@ combination with any normal mode key, e.g.
 Thus using vim via a terminal gives you these short cut powers on any stock 
 standard system without the need to edit each systems vim mappings.
 
-MAPPINGS  *vwt-770-mappings*
+MAPPINGS                                                    *vwt-770-mappings*
 
 It can be convenient to use a mapping so that pressing a key, or sequence of 
 keys, generates Escape. The :imap command is used to create the mapping so 
@@ -98,7 +98,7 @@ For a better solution without visual distraction, you can consider using
 https://github.com/zhou13/vim-easyescape/ 
 [https://github.com/zhou13/vim-easyescape/].
 
-ALTERNATIVE MAPPINGS  *vwt-770-alternative-mappings*
+ALTERNATIVE MAPPINGS                            *vwt-770-alternative-mappings*
 
 Here are some alternative suggestions:
 
@@ -142,7 +142,7 @@ Here are some alternative suggestions:
     :imap <M-Space> <Esc>
 <
 
-USING THE TAB KEY  *vwt-770-using-the-tab-key*
+USING THE TAB KEY                                  *vwt-770-using-the-tab-key*
 
 If using MacVim under Mac OS X, see below for a working procedure.
 
@@ -220,7 +220,7 @@ Escape to MacVim. To do this, add the following to your private.xml file:
       </item>
 <
 
-USING THE ENTER KEY  *vwt-770-using-the-enter-key*
+USING THE ENTER KEY                              *vwt-770-using-the-enter-key*
 
 It's very easy to exit insert mode using the Enter key:
 
@@ -287,7 +287,7 @@ Enter). Calling the function toggles the insert-mode mapping for Enter: if it
 is mapped, it is unmapped; otherwise it is mapped to <Esc>`^ (generate Escape 
 then go to the ^ mark).
 
-TOGGLING INSERT MODE  *vwt-770-toggling-insert-mode*
+TOGGLING INSERT MODE                            *vwt-770-toggling-insert-mode*
 
 Press Ctrl-Space to start and to stop insert mode (the same suggestion using 
 Shift-Space is above |vwt-770-alternative-mappings|):
@@ -341,7 +341,7 @@ The / is easy to type, but did you mean to use <Leader>? Also, why toggle
     inoremap <Leader>i <Esc>
 <
 
-AUTOMATICALLY EXIT INSERT MODE WHEN YOU USE UP OR DOWN ARROWS  *vwt-770-automatically-exit-insert-mode-when-you-use-up-or-down-arrows*
+AUTOMATICALLY EXIT INSERT MODE WHEN YOU USE UP OR DOWN ARROWS *vwt-770-automatically-exit-insert-mode-when-you-use-up-or-down-arrows*
 
 Many people recommend exiting Insert mode if you use the up or down arrow to 
 move to another line. To do so, it is recommended that you add two lines to 
@@ -386,7 +386,7 @@ This would allow me to enter Insert Mode and make any necessary changes
 within 3 lines up or down from where I started Insert mode. If I move further, 
 it automatically returns to Normal mode.
 
-IMPROVING THE ESC KEY  *vwt-770-improving-the-esc-key*
+IMPROVING THE ESC KEY                          *vwt-770-improving-the-esc-key*
 
 You may not find attempts to replace the Esc key satisfactory. However, if 
 you don't like the cursor moving left when you exit from insert mode, you may 
@@ -400,7 +400,7 @@ The above trick means that the cursor will not move if you press i to enter
 insert mode, then press Esc to exit. However, pressing a (append) then Esc 
 will move the cursor, so this "improvement" may not satisfy you.
 
-COMMAND-LINE MODE  *vwt-770-command-line-mode*
+COMMAND-LINE MODE                                  *vwt-770-command-line-mode*
 
 If you want to map another key to Esc in command-line mode, if you attempt a 
 mapping like
@@ -417,7 +417,7 @@ to <C-c> instead.
     cmap <C-space> <C-c>
 <
 
-MAPPING PROBLEMS  *vwt-770-mapping-problems*
+MAPPING PROBLEMS                                    *vwt-770-mapping-problems*
 
 Vim runs on many different hardware and software platforms. Therefore some 
 key sequences may not be available. For example, you may be able to map 
@@ -430,7 +430,7 @@ For Shift-Space in terminal Vim, I used "URxvt.keysym.S-space: \033" in
 To test your system, enter insert mode then press Ctrl-K followed by the key 
 of interest (for example, press Ctrl-K then Shift-Space). :help |i_CTRL-K|
 
-RELATED TIPS  *vwt-770-related-tips*
+RELATED TIPS                                            *vwt-770-related-tips*
 
 The following advises using <C-o> instead of <Esc> in insert mode mappings.
     - 459 Use Ctrl-O instead of Esc in insert mode mappings |vwt-459| 
@@ -443,7 +443,7 @@ not type in uppercase after exiting insert mode).
     - 1519 Making CapsLock work in Vim |vwt-1519| 
 
 
-COMMENTS  *vwt-770-comments*
+COMMENTS                                                    *vwt-770-comments*
 
 Use META + <next action>
 

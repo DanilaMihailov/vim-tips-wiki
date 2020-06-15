@@ -25,11 +25,11 @@ with). Given the following, typing 42,a will echo FOO: 42:
     map ,a :<C-U>FooCmd(v:count)<CR>
 <
 
-REFERENCES  *vwt-787-references*
+REFERENCES                                                *vwt-787-references*
     - :help |v:count| 
 
 
-COMMENTS  *vwt-787-comments*
+COMMENTS                                                    *vwt-787-comments*
 
 It's simpler if you use ":call", then you don't need to use "command". I have 
 something like the following in my vimrc.

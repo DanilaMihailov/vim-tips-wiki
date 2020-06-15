@@ -62,7 +62,7 @@ with newline separators. I usually split() any such strings I find into a list
 for easier manipulation. This sidesteps all the usual pitfalls trying to 
 handle line breaks manually as embedded characters.
 
-COMMENTS  *vwt-1266-comments*
+COMMENTS                                                   *vwt-1266-comments*
 
 A useful function in this context:
 

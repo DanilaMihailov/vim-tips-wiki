@@ -44,7 +44,7 @@ the file path:
     autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
 <
 
-RELATED PLUGINS  *vwt-1649-related-plugins*
+RELATED PLUGINS                                     *vwt-1649-related-plugins*
 
 Many plugins allow this capability and many other project-related features. 
 Just a few of them are listed here:
@@ -53,7 +53,7 @@ Just a few of them are listed here:
     - project plugin [https://www.vim.org/scripts/script.php?script_id=69] 
 
 
-COMMENTS  *vwt-1649-comments*
+COMMENTS                                                   *vwt-1649-comments*
 
 Alternatively, if you tend to start Vim from the root of my "project" 
 directory, you can simply add following into .vimrc:

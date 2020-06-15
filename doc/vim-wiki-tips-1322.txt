@@ -36,7 +36,7 @@ key.
 Then in insert mode, the key sequence backslash f p will insert the current 
 working directory.
 
-COMMENTS  *vwt-1322-comments*
+COMMENTS                                                   *vwt-1322-comments*
 
 Maybe I'm missing something, but this is what ":r!pwd" is usually used for. 
 Simply r(ead)ing the output of a command doesn't replace a visually selected 

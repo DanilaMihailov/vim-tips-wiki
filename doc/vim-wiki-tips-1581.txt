@@ -12,7 +12,7 @@ it. Following are some simple tutorial guides for getting started. Please
 ignore anyone who provides advice on how to configure Vim to operate like 
 Notepad!
 
-VIM TUTOR  *vwt-1581-vim-tutor*
+VIM TUTOR                                                 *vwt-1581-vim-tutor*
 
 Vim ships with its own tutorial. We highly recommended it! Follow the steps 
 at :help |tutor|. If you're in a hurry, you can probably get by with some 
@@ -26,13 +26,13 @@ are Vim tutorials created by other users
 [https://vim.fandom.com/wiki/Vim_documentation#Vim_references.2C_tutorials.2C_guides] 
 that you may want to try.
 
-LAUNCHING VIM  *vwt-1581-launching-vim*
+LAUNCHING VIM                                         *vwt-1581-launching-vim*
 
 In order to launch Vim, open a terminal, and type the command vim.You can 
 also open a file by specifying a name: vim foo.txt. If foo.txt exists, it will 
 be edited. Otherwise it will be created.
 
-INSERTING TEXT  *vwt-1581-inserting-text*
+INSERTING TEXT                                       *vwt-1581-inserting-text*
 
 By default, when Vim starts, you cannot simply type to enter text because Vim 
 starts in normal mode (sometimes called command mode). While confusing for new 
@@ -74,7 +74,7 @@ repeats the last operation). If you had used I (instead of A), the "hello"
 would have been inserted at the start of the line, and pressing . would repeat 
 that operation.
 
-SAVING AND QUITTING  *vwt-1581-saving-and-quitting*
+SAVING AND QUITTING                             *vwt-1581-saving-and-quitting*
 
 Save the current file by entering :w (which always writes the file even if it 
 has not changed), or :update (which only writes the file if it has changed). 
@@ -108,7 +108,7 @@ However, it is easy to have buffers that are not associated with a file.
 Examples are starting Vim with no argument (which gives an empty buffer with 
 no file name), or entering :new to create a new buffer within Vim.
 
-MOVEMENT AND MORE  *vwt-1581-movement-and-more*
+MOVEMENT AND MORE                                 *vwt-1581-movement-and-more*
     - Hands on the home row asdf hjkl. 
     - hjkl move in normal mode: h is left and moves left; l is right and moves 
       right; j looks like a down arrow and moves down; k moves up. 
@@ -149,7 +149,7 @@ MOVEMENT AND MORE  *vwt-1581-movement-and-more*
       PREVIOUS parens. 
 
 
-FIND AND TILL  *vwt-1581-find-and-till*
+FIND AND TILL                                         *vwt-1581-find-and-till*
 
 It's rewarding to become familiar with the 'find' and 'till' commands.
     - Jump to a character in the same line: fx to find the next 'x' in the line, 
@@ -183,7 +183,7 @@ Type dt( to delete from the cursor till '(', with result:
 Type . to repeat, with result:
 (on one line).
 
-SEE ALSO  *vwt-1581-see-also*
+SEE ALSO                                                   *vwt-1581-see-also*
     - New to Vim [https://vim.fandom.com/wiki/New_to_Vim] 
     - Quick tips [https://vim.fandom.com/wiki/Quick_tips] 
     - All the right moves [https://vim.fandom.com/wiki/All_the_right_moves] 
@@ -196,7 +196,7 @@ SEE ALSO  *vwt-1581-see-also*
       courses ranked by developers 
 
 
-COMMENTS  *vwt-1581-comments*
+COMMENTS                                                   *vwt-1581-comments*
 
 Even though the above does not allude to it, Vim does support mouse clicks, 
 arrow keys, and even menus — as a kind of afterthoughts, not part of Vim's 

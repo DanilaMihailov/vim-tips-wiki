@@ -43,7 +43,7 @@ Make
     :noremap <F1> :update<CR>:make<CR><C-W>j<Esc>:cw 3<CR><C-W>p
 <
 
-COMMENTS  *vwt-822-comments*
+COMMENTS                                                    *vwt-822-comments*
 
 The JavaImp plugin [https://www.vim.org/scripts/script.php?script_id=325] is 
 also a very good solution to this problem.

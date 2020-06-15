@@ -48,12 +48,12 @@ directory etc.)
     nmap \xl :silent !start rundll32 url.dll,FileProtocolHandler %:p:h/<cWORD> <CR>
 <
 
-REFERENCES  *vwt-628-references*
+REFERENCES                                                *vwt-628-references*
     - :help |filename-modifiers| 
     - :help |<cWORD>| 
 
 
-COMMENTS  *vwt-628-comments*
+COMMENTS                                                    *vwt-628-comments*
 
 Executing a directory works, but this is not a good usage of the mapping -- 
 since it is better to edit a directory. See :help |netrw-explore|

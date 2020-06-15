@@ -42,7 +42,7 @@ The next time I press F7 the window will be closed and replaced.
     imap <silent> <S-F7> <Esc><S-F7>a
 <
 
-COMMENTS  *vwt-1244-comments*
+COMMENTS                                                   *vwt-1244-comments*
 
 Here is a horizontal version. In this example the windows aren't recreated, 
 which means the dimensions stay the same for the current tab.

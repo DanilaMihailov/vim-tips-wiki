@@ -34,7 +34,7 @@ a command, you can:
     - Press Ctrl-c twice to close the command-line window (cancel). 
 
 
-DETAILS  *vwt-928-details*
+DETAILS                                                      *vwt-928-details*
 
 Suppose you search for "horse", then for "Hello", then for "helium", then for 
 "habit".
@@ -64,7 +64,7 @@ If you always want to use the command editing window, try these mappings:
     nnoremap ? q?i
 <
 
-KEEPING THE WINDOW OPEN  *vwt-928-keeping-the-window-open*
+KEEPING THE WINDOW OPEN                      *vwt-928-keeping-the-window-open*
 
 Executing a command closes the window but sometimes you want it to remain 
 open.
@@ -82,7 +82,7 @@ when the window closes).
 g:CmdWindowLineMark=line(".")<CR><CR>q::execute "normal 
 ".g:CmdWindowLineMark."G"<CR>
 
-REFERENCES  *vwt-928-references*
+REFERENCES                                                *vwt-928-references*
     - :help |history| 
     - :help |Cmdline| 
     - :help |cmdwin| 
@@ -90,7 +90,7 @@ REFERENCES  *vwt-928-references*
     - :help 'history' option controls number of history items stored in viminfo 
 
 
-COMMENTS  *vwt-928-comments*
+COMMENTS                                                    *vwt-928-comments*
 
 TO DO
     - Fix Enhanced command window |vwt-681| (or delete it if not helpful). If keep, 

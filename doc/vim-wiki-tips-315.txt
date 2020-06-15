@@ -10,7 +10,7 @@ With "smart home", pressing the Home key moves the cursor to the first
 nonblank character on the line, or, if already at that position, to the start 
 of the line.
 
-SIMPLE MAPPINGS  *vwt-315-simple-mappings*
+SIMPLE MAPPINGS                                      *vwt-315-simple-mappings*
 
 The following lines (in your vimrc [https://vim.fandom.com/wiki/Vimrc]) 
 implement smart home for normal, visual, operator pending, and insert modes.
@@ -45,7 +45,7 @@ The simple mappings have two deficiencies:
       the screen line may be wanted. 
 
 
-MORE FEATURES  *vwt-315-more-features*
+MORE FEATURES                                          *vwt-315-more-features*
 
 If lines are not wrapped, the following operates in the same manner as the 
 above simple mappings, except that it works correctly on a line which consists 
@@ -74,14 +74,14 @@ will move to the start of the line.
     imap <silent> <Home> <C-O><Home>
 <
 
-SEE ALSO  *vwt-315-see-also*
+SEE ALSO                                                    *vwt-315-see-also*
     - homeLikeVC++.vim 
       [https://github.com/LucHermitte/lh-cpp/blob/master/plugin/homeLikeVC%2B%2B.vim] 
       provides smart Home and smart End using @= rather than <expr>, which should 
       work on versions prior to Vim 7 
 
 
-COMMENTS  *vwt-315-comments*
+COMMENTS                                                    *vwt-315-comments*
 
 The following provides smart Home and smart End and should work properly in 
 normal mode, visual mode, insert mode, select mode, and operator-pending mode:

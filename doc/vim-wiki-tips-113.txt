@@ -27,6 +27,6 @@ http://www.tgries.de/agrep/index.html [http://www.tgries.de/agrep/index.html]
     imap <S-F12> <Esc>b"*yw<Esc>:! c:/bin/agrep -ih <C-R>* "c:/dict/an-cs.txt"<CR>dwi <C-R>*
 <
 
-COMMENTS  *vwt-113-comments*
+COMMENTS                                                    *vwt-113-comments*
 
  vim:tw=78:et:ft=help:norl:

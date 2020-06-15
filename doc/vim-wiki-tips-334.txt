@@ -40,7 +40,7 @@ macros):
     endif
 <
 
-COMMENTS  *vwt-334-comments*
+COMMENTS                                                    *vwt-334-comments*
 
 Regarding sourcing stuff inside the runtime directory such as the macros 
 stuff, look at the :runtime command -- it doesn't require error checking 

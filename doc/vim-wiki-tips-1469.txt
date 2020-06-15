@@ -27,13 +27,13 @@ Notes
     - It only changes the 'iskeyword' value for that buffer, not globally. 
 
 
-REFERENCES  *vwt-1469-references*
+REFERENCES                                               *vwt-1469-references*
     - :help |:autocommand| 
     - :help 'isk' 
     - :help |file-pattern| 
 
 
-COMMENTS  *vwt-1469-comments*
+COMMENTS                                                   *vwt-1469-comments*
 
 Shouldn't those word character settings rather be put into the appropriate 
 filetype plugin?

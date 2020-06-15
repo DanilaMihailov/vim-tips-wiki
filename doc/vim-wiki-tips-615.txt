@@ -13,7 +13,7 @@ You can move to the next word in normal mode using w
 You can move to the previous word in insert mode using <shift> <left arrow 
 key>
 
-COMMENTS  *vwt-615-comments*
+COMMENTS                                                    *vwt-615-comments*
 
 This is true when not using :behave mswin. <C-Left> and <C-Right> will work 
 in either case.

@@ -27,10 +27,10 @@ To close windows from the popup menu add these lines to your .gvimrc
     :amenu PopUp.Close.\ Other :confirm only<CR>
 <
 
-REFERENCES  *vwt-261-references*
+REFERENCES                                                *vwt-261-references*
     - :help 'mousemodel' 
 
 
-COMMENTS  *vwt-261-comments*
+COMMENTS                                                    *vwt-261-comments*
 
  vim:tw=78:et:ft=help:norl:

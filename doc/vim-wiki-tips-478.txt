@@ -16,7 +16,7 @@ all matching lines.
 Copying or deleting search matches is easy when simple search patterns are 
 used. The techniques shown here also work with multiline matches.
 
-SEARCH WITHIN A FILE  *vwt-478-search-within-a-file*
+SEARCH WITHIN A FILE                            *vwt-478-search-within-a-file*
 
 To search, press / then type what you want to find, or press * to search for 
 the current word |vwt-1|.
@@ -52,7 +52,7 @@ Another approach is to put the cursor on a word of interest, then type [I to
 list occurrences 
 [https://vim.fandom.com/wiki/Displaying_a_variable/macro_definition].
 
-COPY OR DELETE MATCHING LINES  *vwt-478-copy-or-delete-matching-lines*
+COPY OR DELETE MATCHING LINES          *vwt-478-copy-or-delete-matching-lines*
 
 Matching lines can be copied to the clipboard, so they can be pasted into 
 another application.
@@ -111,7 +111,7 @@ any kind of match.
     command! -nargs=? -range=% DeleteLines k'|<line1>,<line2>call DeleteLines(<q-args>)
 <
 
-COPY MATCHES  *vwt-478-copy-matches*
+COPY MATCHES                                            *vwt-478-copy-matches*
 
 The simple script shown here copies only the text that matches search hits. 
 It works with multiline matches. With the s///n option no changes will be made 
@@ -154,7 +154,7 @@ A2...2Z and A3...3Z and A4...4Z):
     More A4 kkk lll4Z
 <
 
-COPY MATCHES OR LINES  *vwt-478-copy-matches-or-lines*
+COPY MATCHES OR LINES                          *vwt-478-copy-matches-or-lines*
 
 The script in this section provides more features. It works with multiline 
 matches, and provides a CopyMatches command to copy only matching text, as 
@@ -305,7 +305,7 @@ then restart Vim.
     command! -bang -nargs=? -range=% CopyLines call s:CopyMatches(<bang>0, <line1>, <line2>, <q-args>, 1)
 <
 
-GETMATCHES() ALTERNATIVE  *vwt-478-getmatches()-alternative*
+GETMATCHES() ALTERNATIVE                    *vwt-478-getmatches()-alternative*
 
 The following shows an alternative method to copy matches. This script is 
 less useful than others in this tip as it does not handle multiline matches. 
@@ -344,7 +344,7 @@ function. In addition, it does not involve changes to the current buffer.
     endfunction
 <
 
-SEE ALSO  *vwt-478-see-also*
+SEE ALSO                                                    *vwt-478-see-also*
     - Redirect g search output |vwt-1063| to redirect g// output to a new window or 
       a file 
     - Filter buffer on a search result |vwt-1557| to create a scratch buffer with 
@@ -353,7 +353,7 @@ SEE ALSO  *vwt-478-see-also*
     - Folding with Regular Expression |vwt-282| to fold away non-matching lines 
 
 
-RELATED PLUGINS  *vwt-478-related-plugins*
+RELATED PLUGINS                                      *vwt-478-related-plugins*
     - ExtractMatches [https://www.vim.org/scripts/script.php?script_id=4795] 
       provides a toolbox of commands to copy all (or only unique first) search 
       matches / matches of a passed pattern / entire lines matching, to a register, 
@@ -362,7 +362,7 @@ RELATED PLUGINS  *vwt-478-related-plugins*
       :[range]Yankitute[register]/{pattern}/[string]/[flags]/[join] command. 
 
 
-COMMENTS  *vwt-478-comments*
+COMMENTS                                                    *vwt-478-comments*
 
 Just after my last major update to this tip (a week ago), I found a note 
 pointing to a vim_use thread 

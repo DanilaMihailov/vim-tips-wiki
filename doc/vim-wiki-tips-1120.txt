@@ -22,7 +22,7 @@ This way, only the current line will change, from cursor to the end of line.
 Usually you're entering the string at the end of line, so you'll have no 
 changes in syntax at all.
 
-COMMENTS  *vwt-1120-comments*
+COMMENTS                                                   *vwt-1120-comments*
 
 But then you lose the ability to see when you've forgotten to close a quote, 
 etc.

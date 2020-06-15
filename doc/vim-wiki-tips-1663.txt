@@ -27,7 +27,7 @@ The second column describes the state of the buffer. The different states are
 explained at :help |:ls|. The third column is the file name associated with 
 the buffer.
 
-OVERVIEW  *vwt-1663-overview*
+OVERVIEW                                                   *vwt-1663-overview*
 
 The image shows a session of Vim created with these steps:
 
@@ -38,7 +38,7 @@ buffer for file example.txt. This label results from the default setting of
 [https://vim.fandom.com/wiki/Show_tab_number_in_your_tab_line] for an example 
 of changing the default.
 
-WORKING WITH BUFFERS  *vwt-1663-working-with-buffers*
+WORKING WITH BUFFERS                           *vwt-1663-working-with-buffers*
 
 The commands :bnext and :bprev allow changing between buffers, but are not 
 convenient. They can be shortened to :bn and :bp respectively.
@@ -58,7 +58,7 @@ other buffer matches "ex". If the command fails (because more than one buffer
 matches), press : then Up arrow to recall the command, then press Tab to 
 choose the wanted name.
 
-JUMPING AROUND  *vwt-1663-jumping-around*
+JUMPING AROUND                                       *vwt-1663-jumping-around*
 
 Vim keeps a history of all the jumps you make in your buffers. You can go to 
 any place you jumped from with the Ctrl-O and Ctrl-I command (normal mode). 
@@ -68,7 +68,7 @@ To toggle between the current and the last buffer use the Ctrl-^ (normal
 mode) command (on most keyboards, hold down Ctrl and press the 6 key on the 
 main keyboard).
 
-SPLITS  *vwt-1663-splits*
+SPLITS                                                       *vwt-1663-splits*
 
 You can use :split and :vsplit to divide the current area into two windows 
 with the same buffer. If you supply an argument then one of the new windows is 
@@ -78,7 +78,7 @@ To gain more control over how the splits are created, you can combine the
 :vertical, :leftabove and :rightbelow commands. Also of use are the the :sfind 
 and :sb commands.
 
-EXAMPLES  *vwt-1663-examples*
+EXAMPLES                                                   *vwt-1663-examples*
 
 :vertical sb 3
 Create a vertical split and show buffer number 3 in the window to the left.
@@ -89,11 +89,11 @@ Create a vertical split and read file.txt into the buffer in the right window.
 :rightbelow sfind file.txt
 Create a horizontal split and read file.txt into the buffer in the bottom window.
 
-NAVIGATING SPLITS  *vwt-1663-navigating-splits*
+NAVIGATING SPLITS                                 *vwt-1663-navigating-splits*
 
 Use Ctrl-W followed by one of the hjkl movement keys.
 
-MANAGING BUFFERS  *vwt-1663-managing-buffers*
+MANAGING BUFFERS                                   *vwt-1663-managing-buffers*
 
 Buffers are a convenient way to manage multiple files within a project in 
 Vim. If you are managing multiple projects, consider opening a separate Vim 
@@ -110,11 +110,11 @@ use the above commands. Enter :ls to list the buffers, then (while the list is
 still displayed), enter a command like :b12 to display buffer 12 (no space is 
 needed).
 
-SEE ALSO  *vwt-1663-see-also*
+SEE ALSO                                                   *vwt-1663-see-also*
     - Easier buffer switching [https://vim.fandom.com/wiki/Easier_buffer_switching] 
     - Vim buffer FAQ [https://vim.fandom.com/wiki/Vim_buffer_FAQ] 
 
 
-COMMENTS  *vwt-1663-comments*
+COMMENTS                                                   *vwt-1663-comments*
 
  vim:tw=78:et:ft=help:norl:

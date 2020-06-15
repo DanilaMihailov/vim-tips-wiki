@@ -9,7 +9,7 @@ created 2001 · complexity advanced · author scrott · version 6.0
 If you are working with HTML, you can use Vim to clean up the formating of 
 the HTML code. This tips show how to do it.
 
-USING TIDY FOR CLEANING UP YOUR CODE  *vwt-18-using-tidy-for-cleaning-up-your-code*
+USING TIDY FOR CLEANING UP YOUR CODE *vwt-18-using-tidy-for-cleaning-up-your-code*
 
 You need to install html tidy [http://tidy.sourceforge.net/] on your system 
 first. Tidy is a tool to fix invalid HTML content and improve the layout of 
@@ -17,7 +17,7 @@ the resulting markup. There is also Jtidy
 [http://sourceforge.net/projects/jtidy/], a Java implementation of Tidy 
 available. This can also be used for cleaning up your HTML.
 
-USING TIDY FOR HTML FILES  *vwt-18-using-tidy-for-html-files*
+USING TIDY FOR HTML FILES                   *vwt-18-using-tidy-for-html-files*
 
 When you have tidy for your platform installed and it is available from your 
 path, you can simply set up a mapping to filter your content through it.
@@ -38,7 +38,7 @@ Alternatively, you can also create a |:command| that calls tidy:
     :command Txml  :%!tidy -q -i --show-errors 0 -xml
 <
 
-AUTOMATIC FORMATTING OF XML FILES  *vwt-18-automatic-formatting-of-xml-files*
+AUTOMATIC FORMATTING OF XML FILES   *vwt-18-automatic-formatting-of-xml-files*
 
 You can also use tidy to format xml files
 
@@ -49,7 +49,7 @@ You can also use tidy to format xml files
 This sets up a FileType autocommand, that will clean up your source using 
 tidy, whenever Vim set's the Filetype to xml.
 
-USING BUILT-IN COMMANDS  *vwt-18-using-built-in-commands*
+USING BUILT-IN COMMANDS                       *vwt-18-using-built-in-commands*
 
 Using Vim's 'equalprg' option, you can use the |=| operator to reformat using 
 HTMLTidy. Or, you can use the 'makeprg' option to just show the suggestions 
@@ -65,7 +65,7 @@ clean up sections. Vim also ships with a tidy compiler plugin, that set's the
 'makeprg' automatically for you and also sets the 'errorformat' setting for 
 you. To make this work, simply type: :compiler tidy
 
-SETTING UP TIDY USING A FILETYPE PLUGIN  *vwt-18-setting-up-tidy-using-a-filetype-plugin*
+SETTING UP TIDY USING A FILETYPE PLUGIN *vwt-18-setting-up-tidy-using-a-filetype-plugin*
 
 All those options, mappings and commands can be set up automatically for 
 html/xml files automatically, if you use filetype plugins.
@@ -81,14 +81,14 @@ those buffer-local (e.g. only available for buffers of that filetype. Use the
 |<buffer>| argument for mappings and the -buffer argument for commands ( 
 |command-buffer|).
 
-REFERENCES  *vwt-18-references*
+REFERENCES                                                 *vwt-18-references*
     - :help |=| 
     - :help 'equalprg' 
     - :help 'makeprg' 
     - :help 'errorformat' 
 
 
-COMMENTS  *vwt-18-comments*
+COMMENTS                                                     *vwt-18-comments*
 
 If you are using tidy under Windows, you need to set your shellpipe=2> or 
 else Vim won't see the output from tidy. Apparently these Unix tools write 

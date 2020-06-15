@@ -34,9 +34,9 @@ manipulation, filtering input, preprocessing text and templating-like tasks.
     command -range Pyer python PyExecReplace(<f-line1>,<f-line2>)
 <
 
-SOME EXAMPLES OF USE  *vwt-609-some-examples-of-use*
+SOME EXAMPLES OF USE                            *vwt-609-some-examples-of-use*
 
-SIMPLE  *vwt-609-simple*
+SIMPLE                                                        *vwt-609-simple*
 
 >
     print 2 + 2
@@ -48,7 +48,7 @@ SIMPLE  *vwt-609-simple*
 
 With the cursor on the 'print' line, that line is replaced with 4.
 
-FILTER  *vwt-609-filter*
+FILTER                                                        *vwt-609-filter*
 
 >
     for line in vim.current.buffer:
@@ -62,7 +62,7 @@ FILTER  *vwt-609-filter*
 
 Filters out lines beginning with a tab in the current buffer.
 
-INSERTING TIME  *vwt-609-inserting-time*
+INSERTING TIME                                        *vwt-609-inserting-time*
 
 >
     import time
@@ -75,7 +75,7 @@ INSERTING TIME  *vwt-609-inserting-time*
 
 Replaces line with date/time.
 
-GETTING WEB CONTENT WITHOUT TAGS  *vwt-609-getting-web-content-without-tags*
+GETTING WEB CONTENT WITHOUT TAGS    *vwt-609-getting-web-content-without-tags*
 
 >
     import urllib2,htmllib,formatter
@@ -89,7 +89,7 @@ GETTING WEB CONTENT WITHOUT TAGS  *vwt-609-getting-web-content-without-tags*
 
 Inserts the web page text, but not the html tags, for a given site.
 
-COMMENTS  *vwt-609-comments*
+COMMENTS                                                    *vwt-609-comments*
 
 I use the following:
 
@@ -160,7 +160,7 @@ PAUSE (tested in windows)
     noremap <F5> <ESC>:w<CR>:silent execute "!python %"<CR><CR>
 <
 
-RUN PYTHON SAMPLES FROM VIM  *vwt-609-run-python-samples-from-vim*
+RUN PYTHON SAMPLES FROM VIM              *vwt-609-run-python-samples-from-vim*
 
 >
     ----

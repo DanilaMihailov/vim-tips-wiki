@@ -26,7 +26,7 @@ For a single word you can use vw (or viw):
      \:let @"=old_reg<CR>
 <
 
-COMMENTS  *vwt-712-comments*
+COMMENTS                                                    *vwt-712-comments*
 
 If your Vim has +rightleft (check vim --version), the following visual mode 
 map does the job:

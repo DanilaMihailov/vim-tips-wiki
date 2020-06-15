@@ -74,7 +74,7 @@ other keywords will become some kind of tricky.
 But since the functions don't do any syntax checking by themself, it won't be 
 difficult to apply them to any other language.
 
-COMMENTS  *vwt-912-comments*
+COMMENTS                                                    *vwt-912-comments*
 
 Abbreviations have been obsoleted by completion from dictionaries and tags in 
 Vim. Then map <Tab> to do completion.

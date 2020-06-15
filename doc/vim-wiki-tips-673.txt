@@ -21,7 +21,7 @@ I find myself typing :wq in insert-mode many times. Add this to your vimrc.
     iab wq <BS><Esc>:call WQHelper()<CR>
 <
 
-COMMENTS  *vwt-673-comments*
+COMMENTS                                                    *vwt-673-comments*
 
 what does it do?
 

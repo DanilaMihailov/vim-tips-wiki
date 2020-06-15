@@ -56,11 +56,11 @@ them to the top:
     command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 <
 
-SEE ALSO  *vwt-813-see-also*
+SEE ALSO                                                    *vwt-813-see-also*
     - Power of g [https://vim.fandom.com/wiki/Power_of_g] 
 
 
-COMMENTS  *vwt-813-comments*
+COMMENTS                                                    *vwt-813-comments*
 
 OK I give up. Why would you want to do this?
 

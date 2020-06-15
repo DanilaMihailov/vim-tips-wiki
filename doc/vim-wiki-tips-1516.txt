@@ -19,7 +19,7 @@ can read the other two parts of this tutorial from the following pages:
 
 
 
-INTRODUCTION  *vwt-1516-introduction*
+INTRODUCTION                                           *vwt-1516-introduction*
 
 Key mapping refers to creating a shortcut for repeating a sequence of keys or 
 commands. You can map keys to execute frequently used key sequences or to 
@@ -74,7 +74,7 @@ The above steps are explained in more detail in the following sections.
 
 
 
-CREATING KEYMAPS  *vwt-1516-creating-keymaps*
+CREATING KEYMAPS                                   *vwt-1516-creating-keymaps*
 
 To map a sequence of keys to execute another sequence of keys, use the ':map' 
 command.
@@ -100,7 +100,7 @@ insert and command-line mode.
 A better alternative than using the 'map' and 'map!' commands is to use 
 mode-specific map commands which are described in later sections.
 
-STORING THE KEY MAPS  *vwt-1516-storing-the-key-maps*
+STORING THE KEY MAPS                           *vwt-1516-storing-the-key-maps*
 
 If you want to map a key for only one Vim session temporarily, then you don't 
 need to save the map command in a file. When you quit that Vim instance, the 
@@ -117,7 +117,7 @@ plugins are stored in the plugin or script file itself.
 When adding the map commands to a file, there is no need to prefix the 
 commands with the ':' character.
 
-LISTING KEY MAPS  *vwt-1516-listing-key-maps*
+LISTING KEY MAPS                                   *vwt-1516-listing-key-maps*
 
 You can display a list of existing key maps using the following commands 
 without any arguments:
@@ -209,7 +209,7 @@ file:
     :redir END
 <
 
-REMOVING A KEYMAP  *vwt-1516-removing-a-keymap*
+REMOVING A KEYMAP                                 *vwt-1516-removing-a-keymap*
 
 To permanently remove a map, you first need to locate the place where it is 
 defined by using the ':verbose map {lhs}' command (replace {lhs} with the 
@@ -296,7 +296,7 @@ command. The mode-specific map clear commands are listed below:
     omapclear - Clear all operating pending mode maps
 <
 
-MODE-SPECIFIC MAPS  *vwt-1516-mode-specific-maps*
+MODE-SPECIFIC MAPS                               *vwt-1516-mode-specific-maps*
 
 Vim supports creating keymaps that work only in specific editing modes. You 
 can create keymaps that work only in normal, insert, visual, select, command 
@@ -319,7 +319,7 @@ Note that the language specific mappings defined using the ':lmap' and
 ':lnoremap' commands are not discussed here. For more information about this 
 refer to the Vim help.
 
-NORMAL MODE MAPS  *vwt-1516-normal-mode-maps*
+NORMAL MODE MAPS                                   *vwt-1516-normal-mode-maps*
 
 To map keys that work only in the normal mode, use the ':nmap' or ':nnoremap' 
 command. The 'n' in ':nmap' and ':nnoremap' denotes normal mode.
@@ -393,7 +393,7 @@ following two map commands provide the same functionality:
     :nnoremap ,s :grep <C-R><C-W> *<CR>
 <
 
-INSERT MODE MAPS  *vwt-1516-insert-mode-maps*
+INSERT MODE MAPS                                   *vwt-1516-insert-mode-maps*
 
 To map keys that work only in the insert and replace modes, use the 'imap' or 
 'inoremap' command.
@@ -529,7 +529,7 @@ mode map. For more information about abbreviations refer to the Vim help.
 
 Note that if the 'paste' option is set, then insert mode maps are disabled.
 
-VISUAL MODE MAPS  *vwt-1516-visual-mode-maps*
+VISUAL MODE MAPS                                   *vwt-1516-visual-mode-maps*
 
 To map keys that work only in visual mode, use the ':vmap' or ':vnoremap' 
 commands. These maps are invoked when you press the mapped keys after visually 
@@ -654,7 +654,7 @@ and ":vnoremap" commands also apply to the ":xmap" and ":xnoremap" commands.
 To create a map that works only in Select mode and not in Visual mode use the 
 ":smap" and ":snoremap" commands.
 
-COMMAND-LINE MODE MAPS  *vwt-1516-command-line-mode-maps*
+COMMAND-LINE MODE MAPS                       *vwt-1516-command-line-mode-maps*
 
 To map keys to work only in the command-line mode, use the "cmap" or 
 ":cnoremap" commands.
@@ -731,7 +731,7 @@ characters used in the Vim Ex commands.
 Note that if the 'paste' option is set, then command-line mode maps are 
 disabled.
 
-OPERATOR PENDING MODE MAPS  *vwt-1516-operator-pending-mode-maps*
+OPERATOR PENDING MODE MAPS               *vwt-1516-operator-pending-mode-maps*
 
 You can create maps that work only when waiting for a motion command from an 
 operator command. For example, the yank command 'y' yanks the text that is 
@@ -759,7 +759,7 @@ map, you can start visual mode and select the desired range of characters. One
 disadvantage in starting visual mode is that the previous visual region will 
 be lost.
 
-MAPPING MOUSE EVENTS  *vwt-1516-mapping-mouse-events*
+MAPPING MOUSE EVENTS                           *vwt-1516-mapping-mouse-events*
 
 You can map mouse events similar to mapping keys to perform some action. 
 Thefollowing mouse events can be mapped:
@@ -847,7 +847,7 @@ the following mappings to disable the pasting with the middle mouse button:
 
 
 
-NESTED (RECURSIVE) MAPS  *vwt-1516-nested-(recursive)-maps*
+NESTED (RECURSIVE) MAPS                     *vwt-1516-nested-(recursive)-maps*
 
 When executing a mapped key sequence, if the {lhs} is not a prefix of the 
 {rhs}, then Vim scans and recursively replaces any mapped keys in the {rhs} of 
@@ -961,7 +961,7 @@ To read the second part of this tutorial, visit the Mapping keys in Vim -
 Tutorial (Part_2) 
 [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)] page.
 
-COMMENTS  *vwt-1516-comments*
+COMMENTS                                                   *vwt-1516-comments*
 
 It would be nice to have links to the official documentation (see 
 Template:Help [https://vim.fandom.com/wiki/Template:Help]).

@@ -28,7 +28,7 @@ your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
 <
 
-COMMENTS  *vwt-955-comments*
+COMMENTS                                                    *vwt-955-comments*
 
 TO DO
     - Decide what to do with above SwitchPSCStyle function (is it worth keeping?). 

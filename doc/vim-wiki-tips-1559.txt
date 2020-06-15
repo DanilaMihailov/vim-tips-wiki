@@ -32,10 +32,10 @@ example:
 This way, other plugins that utilize my plugin can verify the version, and 
 provide useful error messages or handle things as needed.
 
-REFERENCES  *vwt-1559-references*
+REFERENCES                                               *vwt-1559-references*
     - :help |write-plugin| 
 
 
-COMMENTS  *vwt-1559-comments*
+COMMENTS                                                   *vwt-1559-comments*
 
  vim:tw=78:et:ft=help:norl:

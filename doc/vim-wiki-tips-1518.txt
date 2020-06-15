@@ -20,7 +20,7 @@ adding a mapping and command to easily toggle back and forth between hex and
 non-hex mode, and automating tasks like converting back from the hex-filtered 
 form before saving a file.
 
-EASILY ENTER AND LEAVE HEX MODE  *vwt-1518-easily-enter-and-leave-hex-mode*
+EASILY ENTER AND LEAVE HEX MODE     *vwt-1518-easily-enter-and-leave-hex-mode*
 
 Placing the following code in your vimrc [https://vim.fandom.com/wiki/Vimrc] 
 will provide a :Hexmode ex command to toggle xxd hex mode on or off. It will 
@@ -83,7 +83,7 @@ between <C-H> and <BS>.
     endfunction
 <
 
-AUTOMATICALLY HANDLE HEX MODE  *vwt-1518-automatically-handle-hex-mode*
+AUTOMATICALLY HANDLE HEX MODE         *vwt-1518-automatically-handle-hex-mode*
 
 It would be nice if the user did not need to remember to convert back from 
 hex before saving changes to a binary file. Also, certain files are almost 
@@ -171,7 +171,7 @@ earlier whenever a file is opened in binary mode, and will automatically
 (locally) set binary mode for .bin and .hex files (so .bin and .hex files will 
 automatically open in hex mode always).
 
-OTHER ENHANCEMENTS  *vwt-1518-other-enhancements*
+OTHER ENHANCEMENTS                               *vwt-1518-other-enhancements*
 
 You may need to take steps to avoid the "Hit ENTER to continue prompt 
 [https://vim.fandom.com/wiki/Avoiding_the_%22Hit_ENTER_to_continue%22_prompts] 
@@ -192,7 +192,7 @@ after the file finishes loading.
       binary" --servername HEXVIM --remote-tab-silent <files> 
 
 
-REFERENCES  *vwt-1518-references*
+REFERENCES                                               *vwt-1518-references*
     - :help |hex-editing| 
     - :help |:autocmd| 
     - :help |internal-variables| 
@@ -201,7 +201,7 @@ REFERENCES  *vwt-1518-references*
       [https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let] 
 
 
-COMMENTS  *vwt-1518-comments*
+COMMENTS                                                   *vwt-1518-comments*
 
 script#666 [https://www.vim.org/scripts/script.php?script_id=666] provides 
 similar (and extended) capability, though I have never used it and can't vouch 

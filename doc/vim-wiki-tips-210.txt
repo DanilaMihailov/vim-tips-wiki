@@ -10,7 +10,7 @@ This tip shows techniques to compile or to run make for the file in the
 current buffer. This is useful to list any compile errors in the quickfix 
 window.
 
-COMPILE WITH GCC  *vwt-210-compile-with-gcc*
+COMPILE WITH GCC                                    *vwt-210-compile-with-gcc*
 
 If you use
 
@@ -32,7 +32,7 @@ following command to compile the current file (you need to save it first):
 When using other compilers, like Sun cc, you can adapt the tip to suit your 
 compiler.
 
-INVOKING MAKE  *vwt-210-invoking-make*
+INVOKING MAKE                                          *vwt-210-invoking-make*
 
 The following allows you to press F7 (in normal mode) to invoke make to 
 compile the file in the current buffer. If modified, the file is first saved.
@@ -52,7 +52,7 @@ compile the file in the current buffer. If modified, the file is first saved.
     nnoremap <F7> :update<CR>:call Make()<CR>
 <
 
-COMMENTS  *vwt-210-comments*
+COMMENTS                                                    *vwt-210-comments*
 
 TO DO
     - I've done a pretty quick clean up. Would someone please reply here with news 

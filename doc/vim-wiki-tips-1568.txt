@@ -62,7 +62,7 @@ could reload the buffer if the mode has changed).
 Based on discussion on the vim_use mailing list 
 [http://groups.google.com/group/vim_use/browse_thread/thread/64785ff585431733/b2ff93351b09eee8].
 
-REFERENCES  *vwt-1568-references*
+REFERENCES                                               *vwt-1568-references*
 
 Basis of this tip:
     - :help |FileChangedShell| 
@@ -76,13 +76,13 @@ Used in this tip:
     - :help |:echomsg| 
 
 
-SEE ALSO  *vwt-1568-see-also*
+SEE ALSO                                                   *vwt-1568-see-also*
     - Suppressing file changed warnings in a specific buffer 
       [https://vim.fandom.com/wiki/Suppressing_file_changed_warnings_in_a_specific_buffer] 
     - Setting file attributes without reloading a buffer 
       [https://vim.fandom.com/wiki/Setting_file_attributes_without_reloading_a_buffer] 
 
 
-COMMENTS  *vwt-1568-comments*
+COMMENTS                                                   *vwt-1568-comments*
 
  vim:tw=78:et:ft=help:norl:

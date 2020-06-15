@@ -21,12 +21,12 @@ then a new line, then press Enter.
     nmap p$ :inoremap <lt>CR> <lt>CR><lt>Esc>:iunmap <lt>lt>CR><lt>CR><CR> c$
 <
 
-SEE ALSO  *vwt-1009-see-also*
+SEE ALSO                                                   *vwt-1009-see-also*
     - :help |c| 
     - :help |movement| 
     - :help |text-objects| 
 
 
-COMMENTS  *vwt-1009-comments*
+COMMENTS                                                   *vwt-1009-comments*
 
  vim:tw=78:et:ft=help:norl:

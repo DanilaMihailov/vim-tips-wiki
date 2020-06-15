@@ -23,7 +23,7 @@ To add the word "brown" you would put your cursor on the f in fox and type
 ",w" (or whatever you decide is a good mapping). Type the word brown. As soon 
 as you hit space you are out of insert mode.
 
-COMMENTS  *vwt-348-comments*
+COMMENTS                                                    *vwt-348-comments*
 
 Unless I missed something, this doesn't save any keystrokes. Without this, I 
 would use two keystrokes "i" to enter insert mode and ESC to exit. Here I 

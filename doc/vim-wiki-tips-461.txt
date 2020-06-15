@@ -10,7 +10,7 @@ This tip shows some techniques for accessing information when editing a Perl
 program. See also Perldoc function and module keyboard mappings |vwt-614| 
 (which should be merged to here).
 
-OPEN A PERL MODULE  *vwt-461-open-a-perl-module*
+OPEN A PERL MODULE                                *vwt-461-open-a-perl-module*
 
 You may want to open the source code of a system Perl module that's 
 installed. Here's one way to do that:
@@ -31,7 +31,7 @@ corresponding source file in a new buffer:
     endfunction
 <
 
-VIEW PERLDOC INFORMATION  *vwt-461-view-perldoc-information*
+VIEW PERLDOC INFORMATION                    *vwt-461-view-perldoc-information*
 
 If you use the K command in Perl files, it will try to invoke 'man' on Perl 
 keywords/functions. But this does not make much sense. It is more useful to 
@@ -44,11 +44,11 @@ redirect K to use 'perldoc -f' in a Perl file. Add this to your vimrc
 
 and K will lookup Perl function names using 'perlfoc -f' for you.
 
-SEE ALSO  *vwt-461-see-also*
+SEE ALSO                                                    *vwt-461-see-also*
 
 Online documentation for word under cursor |vwt-1354|
 
-COMMENTS  *vwt-461-comments*
+COMMENTS                                                    *vwt-461-comments*
 
 TO DO
     - Cleanup this and VimTip614 |vwt-614|, and merge 614 to here. 

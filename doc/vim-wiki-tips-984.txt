@@ -54,7 +54,7 @@ xclip which is only for X11 and seems to be completely unnecessary for Vim
 using the * register), and VimTip960 |vwt-960| (misses the point but the 
 comments mention it a few times).
 
-USING THE CLIPBOARD AS THE DEFAULT REGISTER  *vwt-984-using-the-clipboard-as-the-default-register*
+USING THE CLIPBOARD AS THE DEFAULT REGISTER *vwt-984-using-the-clipboard-as-the-default-register*
 
 VimTip21 |vwt-21| is spot on but the title suggests it's for MS Windows only. 
 It also mentions that we can change out settings so the "anonymous" register 
@@ -79,7 +79,7 @@ including: VimTip432 |vwt-432|, VimTip891 |vwt-891|, VimTip600 |vwt-600| (most
 of the fuss is resolving forward slashes and backslashes for MS Windows 
 paths).
 
-CHECKING FOR X11-CLIPBOARD SUPPORT IN TERMINAL  *vwt-984-checking-for-x11-clipboard-support-in-terminal*
+CHECKING FOR X11-CLIPBOARD SUPPORT IN TERMINAL *vwt-984-checking-for-x11-clipboard-support-in-terminal*
 
 Getting Vim to work with the X11 clipboard can be a struggle if you want to 
 run Vim in a terminal. In this case, you will have to check for X11 clipboard 
@@ -114,12 +114,12 @@ adding this line to /etc/portage/package.use:
     app-editors/vim X
 <
 
-SEE ALSO  *vwt-984-see-also*
+SEE ALSO                                                    *vwt-984-see-also*
     - Using the Windows clipboard in Cygwin Vim 
       [https://vim.fandom.com/wiki/Using_the_Windows_clipboard_in_Cygwin_Vim] 
 
 
-COMMENTS  *vwt-984-comments*
+COMMENTS                                                    *vwt-984-comments*
 
 Key maps to emulate the "system clipboard" shortcuts would be:
 
@@ -251,7 +251,7 @@ P.S. How do I get an automatically-generated signature?
 
 Edited 21:30, April 13, 2020 (UTC): changed <C-V> imap.
 
-SIMPLE WORKAROUND FOR X CLIPBOARDS  *vwt-984-simple-workaround-for-x-clipboards*
+SIMPLE WORKAROUND FOR X CLIPBOARDS *vwt-984-simple-workaround-for-x-clipboards*
 
 There is a convenient workaround to create a few commands for pasting/copying 
 selections into/out of various X11 clipboards with `xsel`.
@@ -293,7 +293,7 @@ represents a buffer.
     v = "X11 Secondary Selection"
 <
 
-DISPLAY ENVIRONMENT VARIABLE ON LINUX SYSTEMS  *vwt-984-display-environment-variable-on-linux-systems*
+DISPLAY ENVIRONMENT VARIABLE ON LINUX SYSTEMS *vwt-984-display-environment-variable-on-linux-systems*
 
 Make sure your DISPLAY environment variable is set appropriately - otherwise 
 vim can not connect to your x-session to access the clipboard.
@@ -312,7 +312,7 @@ which should output something like:
 
 ==============================================================================
 
-WORKAROUND USING X11 MINIMUM PACKAGES (UNDER LINUX)  *vwt-984-workaround-using-x11-minimum-packages-(under-linux)*
+WORKAROUND USING X11 MINIMUM PACKAGES (UNDER LINUX) *vwt-984-workaround-using-x11-minimum-packages-(under-linux)*
 
 If nothing work and you would like to copy from vim (under xterm) to leafpad, 
 you may use this add-on to your ~/.vimrc
@@ -330,7 +330,7 @@ Press F9, and it will copy to the x11 clipboard.
 
 I hope that it may help you.
 
-WORKAROUNDS FOR XTERM  *vwt-984-workarounds-for-xterm*
+WORKAROUNDS FOR XTERM                          *vwt-984-workarounds-for-xterm*
 
 If :version shows "+xterm_clipboard", but using the clipboard still does not 
 work, try using other system tools as a workaround. For example, you can 

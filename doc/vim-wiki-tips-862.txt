@@ -35,13 +35,13 @@ Starting with a "vertical list", entering the command:
 
 will change the windows to a "horizontal list".
 
-RELATED PLUGINS  *vwt-862-related-plugins*
+RELATED PLUGINS                                      *vwt-862-related-plugins*
     - twl.vim [http://www.drchip.org/astronaut/vim/index.html#TWL] implements :TWL 
       (toggle window layout) which detects which type of window layout you currently 
       have (vertical or horizontal), and applies the correct command to toggle the 
       layout. 
 
 
-COMMENTS  *vwt-862-comments*
+COMMENTS                                                    *vwt-862-comments*
 
  vim:tw=78:et:ft=help:norl:

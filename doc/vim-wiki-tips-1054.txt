@@ -64,7 +64,7 @@ undo list. The <CR> one took me a long time to figure out. The way it is done
 in the above code is the only way I know that doesn't mess up indentation. 
 ^O^[ automatically screws up indentation.
 
-COMMENTS  *vwt-1054-comments*
+COMMENTS                                                   *vwt-1054-comments*
 
 You can use <c-g>u to break the undo chain:
 

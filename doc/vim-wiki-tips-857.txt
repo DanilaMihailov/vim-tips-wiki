@@ -12,7 +12,7 @@ be useful would be including C code snippets in a text file, or including Vim
 script inside <pre> sections on a web page or wiki entry. Vim allows you to do 
 this!
 
-SKETCH  *vwt-857-sketch*
+SKETCH                                                        *vwt-857-sketch*
 
 Try the following, in a new text file:
 
@@ -36,7 +36,7 @@ Now type in the following text:
 Now you have text between and highlighted as C++, though filetype is not 
 'cpp'.
 
-EXTENDED VERSION  *vwt-857-extended-version*
+EXTENDED VERSION                                    *vwt-857-extended-version*
 
 Here is a more useful version, which should work on any file, even those with 
 a pre-existing syntax (i.e. not just text files):
@@ -90,7 +90,7 @@ This will allow you to fold snippet sections if you :set foldmethod=marker.
 Setting up these function calls in your after/syntax directory will allow you 
 to automatically allow such snippet sections in every file of a given type.
 
-NOTES  *vwt-857-notes*
+NOTES                                                          *vwt-857-notes*
     - If highlighting gets out of sync, try executing :syn sync fromstart to fix 
       it. 
     - If you want this highlighting within other syntax items (like strings), you 
@@ -98,18 +98,18 @@ NOTES  *vwt-857-notes*
       and/or containedin. :help |:syn-contains| :help |:syn-containedin| 
 
 
-REFERENCES  *vwt-857-references*
+REFERENCES                                                *vwt-857-references*
     - :help |:syn-include| 
 
 
-RELATED PLUGINS  *vwt-857-related-plugins*
+RELATED PLUGINS                                      *vwt-857-related-plugins*
     - SyntaxRange [https://www.vim.org/scripts/script.php?script_id=4168] uses the 
       mechanism from this page to define and commands, which allow for quick, 
       interactive application, as well as functions for finer control and use in 
       custom mappings or syntax tweaks. 
 
 
-COMMENTS  *vwt-857-comments*
+COMMENTS                                                    *vwt-857-comments*
 
 Hi, nice tip, I was trying this, and once I do the C formatting between my 
 "BEGIN" and "END" sections, I want the BEGIN and END keywords to be 
@@ -128,14 +128,14 @@ Is this also possible for indentation? Lets say C inside of an XML file?
 It is not as direct as it is for syntax rules, but it can be done. Basically, it involves overriding the filetype indent rules with your own function that returns the usual filetype's indentexpr except within the markers you choose. See the comments of the notes on restoring indentation of tips in Ipkiss's user subpage for an example, using Vim script indent rules within a wikipedia file type. We don't currently have a tip proper on this subject; perhaps we should. --Fritzophrenic 14:28, April 13, 2010 (UTC)
 Thanks. I'll give it a try. If I can manage to do it, I will try to post a tip on it. I have however not the slightest bit of experience with this. :-)
 
-CONTAINEDIN EXAMPLE REQUESTED  *vwt-857-containedin-example-requested*
+CONTAINEDIN EXAMPLE REQUESTED          *vwt-857-containedin-example-requested*
 
 An example on how to use containedin would be most useful. I am attempting to 
 use this tip in a reStructuredText file (vim syntax file: rst.vim). I have 
 identified the parent syntax item is rstLiteralBlock, what do I modify in the 
 tip to make it work when containedin this block?
 
-DOESN'T WORK ON A FILE THAT ALREADY HAS HIGHLIGHTING?  *vwt-857-doesn't-work-on-a-file-that-already-has-highlighting?*
+DOESN'T WORK ON A FILE THAT ALREADY HAS HIGHLIGHTING? *vwt-857-doesn't-work-on-a-file-that-already-has-highlighting?*
 
 All of the above code, including the TextEnableCodeSnip function, works 
 perfectly on a brand new, plain text document. That is, I can embed 
@@ -153,7 +153,7 @@ http://stackoverflow.com/questions/4829666/vim-syntax-highlighting-of-html-neste
 I know little about this topic, but I do know that the method explained here works for me. Fritzophrenic will probably notice this discussion in a couple of days and might comment further. The place to ask would be the vim_use mailing list, which is confusingly called vim@vim.org here. JohnBeckett 06:54, March 3, 2011 (UTC)
 "Out of the box", this tip will often not work on a file which already has highlighting. You will need to tweak the "contains" rules in the syntax file or "containedin" rules in the setup given in this tip, to enable placing the begin/end markers inside the appropriate syntax group of whichever language you are editing. I do note that the yaml post on stackoverflow which you mention has a possible solution posted, of simply placing the begin group on a line by itself. --Fritzophrenic 15:45, March 3, 2011 (UTC)
 
-BUG?  *vwt-857-bug?*
+BUG?                                                            *vwt-857-bug?*
 
 As far as I can tell, this does not work in Vim 7. I.e., the initial minimal 
 example with @begin=cpp@ does not work. Does anybody know how to do this in 

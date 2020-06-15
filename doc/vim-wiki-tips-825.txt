@@ -41,7 +41,7 @@ Uses gnu-grep on PC/Unix to search vim \<regexp\> in files/trees. Based on
     endfunction
 <
 
-COMMENTS  *vwt-825-comments*
+COMMENTS                                                    *vwt-825-comments*
 
 Wouldn't it be helpful to constrain the files to be grepped? E.g. only *.c 
 and *.h files when editing C source?

@@ -11,7 +11,7 @@ If wanted, Vim can automatically set its global current directory to match the
 location of the current file, or each window can have its own local current 
 directory.
 
-VIM COMMANDS  *vwt-64-vim-commands*
+VIM COMMANDS                                             *vwt-64-vim-commands*
 
 The present working directory can be displayed in Vim with:
 
@@ -37,7 +37,7 @@ directory):
 In these commands, % gives the name of the current file, %:p gives its full 
 path, and %:p:h gives its directory (the "head" of the full path).
 
-AUTOMATICALLY CHANGE THE CURRENT DIRECTORY  *vwt-64-automatically-change-the-current-directory*
+AUTOMATICALLY CHANGE THE CURRENT DIRECTORY *vwt-64-automatically-change-the-current-directory*
 
 Sometimes it is helpful if your working directory is always the same as the 
 file you are editing. To achieve this, put the following in your vimrc:
@@ -74,16 +74,16 @@ place. For example, to not change directory if the file is in /tmp:
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 <
 
-CAVEATS  *vwt-64-caveats*
+CAVEATS                                                       *vwt-64-caveats*
     - Either of these automatic methods will make loading and saving sessions work 
       incorrectly. 
     - Problems with 'autochdir' and netrw have been reported in the past, though 
       they are fixed now. 
 
 
-ALTERNATIVES  *vwt-64-alternatives*
+ALTERNATIVES                                             *vwt-64-alternatives*
 
-MAPPING OR COMMAND FOR QUICK DIRECTORY CHANGE  *vwt-64-mapping-or-command-for-quick-directory-change*
+MAPPING OR COMMAND FOR QUICK DIRECTORY CHANGE *vwt-64-mapping-or-command-for-quick-directory-change*
 
 Rather than automatically change the working directory, you can use a mapping 
 or a user command to easily change directory to the file being edited. The 
@@ -109,7 +109,7 @@ to enter :CDC to change directory (it also displays the new directory):
     command CDC cd %:p:h
 <
 
-ADD FILE DIRECTORY TO VIM PATH  *vwt-64-add-file-directory-to-vim-path*
+ADD FILE DIRECTORY TO VIM PATH         *vwt-64-add-file-directory-to-vim-path*
 
 If your main purpose in setting the working directory is to easily open files 
 in a project, another approach is to add the directory to the path so that you 
@@ -146,7 +146,7 @@ Using this version, after searching the entire path for a file, searching for
 files in the same directory is much faster, because that directory will be the 
 first item in the search path.
 
-SEE ALSO  *vwt-64-see-also*
+SEE ALSO                                                     *vwt-64-see-also*
     - Easy edit of files in the same directory 
       [https://vim.fandom.com/wiki/Easy_edit_of_files_in_the_same_directory] how to 
       edit a file without needing to change to its directory 
@@ -154,7 +154,7 @@ SEE ALSO  *vwt-64-see-also*
       [https://vim.fandom.com/wiki/Project_browsing_using_find] 
 
 
-REFERENCES  *vwt-64-references*
+REFERENCES                                                 *vwt-64-references*
     - :help |filename-modifiers| information about %:p:h 
     - :help 'autochdir' 
     - :help |:autocmd| 
@@ -164,7 +164,7 @@ REFERENCES  *vwt-64-references*
     - :help 'path' 
 
 
-COMMENTS  *vwt-64-comments*
+COMMENTS                                                     *vwt-64-comments*
 
 This was added by an anonymous user, to the Caveats section above:
     - Files outside of the local directory cannot be opened from the command line 

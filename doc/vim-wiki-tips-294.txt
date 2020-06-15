@@ -50,7 +50,7 @@ terminal itself. You may try to use an alias for this:
     stty -ixon
 < in your .bashrc or terminal to disable flow control for that terminal completely (not just for vim).
 
-COMMENTS  *vwt-294-comments*
+COMMENTS                                                    *vwt-294-comments*
 
 Recommend an imap for the same functionality so one can hit ctrl-s without 
 having to make sure one isn't in insert mode:

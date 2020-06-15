@@ -12,7 +12,7 @@ normal-mode commands. This can occur with non-GUI Vim under some terminal
 emulators – those which generate escape sequences for Meta-characters. The 
 actually generated escape-sequences are <Esc>a .. <Esc>z.
 
-SOLUTION  *vwt-738-solution*
+SOLUTION                                                    *vwt-738-solution*
 
 You must manually configure Vim to recognize these escape-sequences as 
 Meta-characters, see below. Terminal emulators which are known to generate 
@@ -53,11 +53,11 @@ break mouse support (and possibly other things), and the latter doesn't play
 nicely when exiting insert mode and attempting to perform a leader-bound 
 command.
 
-SEE ALSO  *vwt-738-see-also*
+SEE ALSO                                                    *vwt-738-see-also*
     - Get Alt key to work in terminal |vwt-1129| 
 
 
-COMMENTS  *vwt-738-comments*
+COMMENTS                                                    *vwt-738-comments*
 
 Suggested fix does not work in PuTTY on Windows XP, using Vim 6.1.5.
 

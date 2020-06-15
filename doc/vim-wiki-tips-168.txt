@@ -12,7 +12,7 @@ everything, type in "/." and all characters will be highlighted and therefore
 the old colouring is lost. To regain the normal highlighting you can search 
 for a non-existent sequence, like "/foo".
 
-COMMENTS  *vwt-168-comments*
+COMMENTS                                                    *vwt-168-comments*
 
 This requires search highlighting to be turned on, see VimTip14 |vwt-14| (or 
 just type :set hlsearch). It should also work with 5.7

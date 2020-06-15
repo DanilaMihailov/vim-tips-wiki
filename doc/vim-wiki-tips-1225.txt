@@ -11,7 +11,7 @@ separate window for each new file. Here's how to make Vim behave that way
 under Microsoft Windows. (For split windows instead of tabs, see gvimt script 
 below)
 
-USING FILE ASSOCIATIONS [HTTPS://VIM.FANDOM.COM/WIKI/WINDOWS_FILE_ASSOCIATIONS]  *vwt-1225-using-file-associations-[https://vim.fandom.com/wiki/windows_file_associations]*
+USING FILE ASSOCIATIONS [HTTPS://VIM.FANDOM.COM/WIKI/WINDOWS_FILE_ASSOCIATIONS] *vwt-1225-using-file-associations-[https://vim.fandom.com/wiki/windows_file_associations]*
 
 To automatically open a file in a Vim tab with a double-click or other "Open" 
 action, you need to set up file associations 
@@ -38,7 +38,7 @@ To make Vim the editor for all text file types (as defined by MS Windows) try
     ftype txtfile="C:\Program Files\Vim\vim72\gvim.exe" --remote-tab-silent "%1"
 <
 
-USING THE WINDOWS SEND TO MENU  *vwt-1225-using-the-windows-send-to-menu*
+USING THE WINDOWS SEND TO MENU       *vwt-1225-using-the-windows-send-to-menu*
 
 Obviously you can't enter file associations for every file you'll ever open 
 in Vim. To provide an "open in tabs" capability for files without an 
@@ -49,7 +49,7 @@ In Windows Explorer, right-click one or more files, and select Send To, gvim
 in the context menu. You can repeat this to open other files in new tabs in 
 the same Vim instance.
 
-USING DIFFERENT GVIM INSTANCES FOR DIFFERENT FILE TYPES  *vwt-1225-using-different-gvim-instances-for-different-file-types*
+USING DIFFERENT GVIM INSTANCES FOR DIFFERENT FILE TYPES *vwt-1225-using-different-gvim-instances-for-different-file-types*
 
 If wanted, you can define file associations so that certain file types are 
 opened in one instance of gvim, while others are opened in a different 
@@ -78,7 +78,7 @@ filetypes, more of which (such as .log) can be added with assoc as shown.To see 
     :r !assoc
 <
 
-USING THE REGISTRY  *vwt-1225-using-the-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+USING THE REGISTRY                               *vwt-1225-using-the-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
 
 Save the following in a .reg text file:
 
@@ -120,7 +120,7 @@ Files\Vim\Vim73\gvim.exe -p --remote-tab-silent "%1" should do it when opening
 from command prompt or using context menu's Open With->Vim (and checking 
 'Always use the selected program...')
 
-USING AN AUTO COMMAND  *vwt-1225-using-an-auto-command*
+USING AN AUTO COMMAND                         *vwt-1225-using-an-auto-command*
 
 Another solution is to use autocmd:
 
@@ -150,7 +150,7 @@ are selected (using Ctrl key) and right-click options menu opens:
 The benefit of this approach is that there is no need to play withthe 
 registry files.
 
-GVIMT - SCRIPT TO OPEN NEW FILES IN GVIM IN NEW TABS, SPLITS OR VERTICAL SPLIT  *vwt-1225-gvimt---script-to-open-new-files-in-gvim-in-new-tabs,-splits-or-vertical-split*
+GVIMT - SCRIPT TO OPEN NEW FILES IN GVIM IN NEW TABS, SPLITS OR VERTICAL SPLIT *vwt-1225-gvimt---script-to-open-new-files-in-gvim-in-new-tabs,-splits-or-vertical-split*
 
 http://www.vim.org/scripts/script.php?script_id=4214 
 [http://www.vim.org/scripts/script.php?script_id=4214]
@@ -178,7 +178,7 @@ the techniques above.
     gvim --remote-send ":split filename<CR>"
 <
 
-SEE ALSO  *vwt-1225-see-also*
+SEE ALSO                                                   *vwt-1225-see-also*
     - :help |clientserver| 
     - :help |--servername| 
     - Associate files with no extension to Vim under Windows 
@@ -189,7 +189,7 @@ SEE ALSO  *vwt-1225-see-also*
       [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix] 
 
 
-COMMENTS  *vwt-1225-comments*
+COMMENTS                                                   *vwt-1225-comments*
 
 Windows 7 (and Vista too, I believe) has per-user associations that override 
 the global associations. This seems to be a bit messy, ftype/assoc had no 
@@ -206,7 +206,7 @@ If you're on a multi-user system, you might consider using the registry keys I j
 An annonymous user added the following below #Using file associations 
 |vwt-1225-using-file-associations|:
 
-USING THE WINDOWS OPEN OR DOUBLE-CLICK TO OPEN FILES IN GVIM TABS  *vwt-1225-using-the-windows-open-or-double-click-to-open-files-in-gvim-tabs*
+USING THE WINDOWS OPEN OR DOUBLE-CLICK TO OPEN FILES IN GVIM TABS *vwt-1225-using-the-windows-open-or-double-click-to-open-files-in-gvim-tabs*
 
 To provide an "open in tabs" capability for files without an association on 
 Double-Click or Open menu one need to edit registry as follows:

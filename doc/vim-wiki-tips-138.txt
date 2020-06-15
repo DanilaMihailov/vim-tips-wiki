@@ -25,7 +25,7 @@ The working is as follows, mark the current line with a, jump to the previous
 to the mark a, echo the value of register x, which is the wanted function 
 name.
 
-COMMENTS  *vwt-138-comments*
+COMMENTS                                                    *vwt-138-comments*
 
 Using Vim 6.0 (running on a terminal emulator) I found this to be quite 
 useful, but ugly, since the function name is being displayed 2 lines above the 

@@ -46,7 +46,7 @@ to enable editing of GPG encrypted files (but see the Comments
     augroup END
 <
 
-RELATED PLUGINS  *vwt-1583-related-plugins*
+RELATED PLUGINS                                     *vwt-1583-related-plugins*
     - gnupg.vim : transparent editing of gpg encrypted files 
       [https://www.vim.org/scripts/script.php?script_id=3645] 
     - tGpg : encrypting files with gpg 
@@ -55,15 +55,15 @@ RELATED PLUGINS  *vwt-1583-related-plugins*
       [https://www.vim.org/scripts/script.php?script_id=2012] 
 
 
-SEE ALSO  *vwt-1583-see-also*
+SEE ALSO                                                   *vwt-1583-see-also*
     - Encryption [https://vim.fandom.com/wiki/Encryption] 
     - viencrypt: shell script to edit encrypted files 
       [http://github.com/ptarjan/viencrypt] 
 
 
-COMMENTS  *vwt-1583-comments*
+COMMENTS                                                   *vwt-1583-comments*
 
-AN IMPROVED VERSION  *vwt-1583-an-improved-version*
+AN IMPROVED VERSION                             *vwt-1583-an-improved-version*
 
 It is a bad idea to change 'shell' and 'cmdheight', however temporary, in 
 tips like these, because it distracts the user from the important parts of the 

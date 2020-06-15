@@ -18,7 +18,7 @@ you expect.
 
 This tip discusses the issues and how problems can be avoided.
 
-SIMPLE SOLUTION  *vwt-644-simple-solution*
+SIMPLE SOLUTION                                      *vwt-644-simple-solution*
 
 In your ~/.vimrc file, remove
 
@@ -34,7 +34,7 @@ and add
     set indentkeys-=0#
 <
 
-USING FILETYPE INDENTATION  *vwt-644-using-filetype-indentation*
+USING FILETYPE INDENTATION                *vwt-644-using-filetype-indentation*
 
 In general, the 'smartindent' option should not be set (typing :set si? 
 should show "nosmartindent"). 'smartindent' is deprecated in favor of 
@@ -48,7 +48,7 @@ keep the indent of the previous line.
 
 With this advice, you should avoid the '#' problem.
 
-USING SMARTINDENT  *vwt-644-using-smartindent*
+USING SMARTINDENT                                  *vwt-644-using-smartindent*
 
 If you need to set 'smartindent' you will find that inserting '#' at the 
 start of a line will cause any indent to be removed (that is, any leading 
@@ -63,7 +63,7 @@ Another consequence of setting 'smartindent' is that the operator > will not
 indent a line starting with '#', and the operator = will remove indents from 
 any lines starting with '#'. If that is a concern, do not set 'smartindent'.
 
-ADJUSTING CINKEYS OR INDENTKEYS  *vwt-644-adjusting-cinkeys-or-indentkeys*
+ADJUSTING CINKEYS OR INDENTKEYS      *vwt-644-adjusting-cinkeys-or-indentkeys*
 
 When 'equalprg' has its default empty value, the = operator adjusts 
 indentation. For example, typing == re-indents the current line. The 
@@ -82,12 +82,12 @@ For example:
     set indentkeys-=0#
 <
 
-TO BE MOVED ELSEWHERE  *vwt-644-to-be-moved-elsewhere*
+TO BE MOVED ELSEWHERE                          *vwt-644-to-be-moved-elsewhere*
 
 I moved the following to here (a mistake). I'll think it over and will move 
 it elsewhere, perhaps VimTip224 |vwt-224|.
 
-INSERTING TEXT IN A BLANK LINE  *vwt-644-inserting-text-in-a-blank-line*
+INSERTING TEXT IN A BLANK LINE        *vwt-644-inserting-text-in-a-blank-line*
 
 Here is how to insert text into a blank line, while having the text correctly 
 indented:
@@ -105,7 +105,7 @@ Also, in insert mode, pressing Ctrl-F will re-indent the current line. :help
 
 In my opinion, this belongs to a tip a Tip concerning "How do I avoid Vim removing indentation" where the message should be (loud and clear) "Don't! Learn to use how to start editing a blank line with the appropriate indent instead. (Using S or cc.) (Spiiph 23:34, September 1, 2009 (UTC))
 
-ROUGH MERGE IN FROM 1019 (NOW REMOVED)  *vwt-644-rough-merge-in-from-1019-(now-removed)*
+ROUGH MERGE IN FROM 1019 (NOW REMOVED) *vwt-644-rough-merge-in-from-1019-(now-removed)*
 
 The help for autoindent says:
 
@@ -141,7 +141,7 @@ feature of if / while / for statements (at least in Java)
 
 You can press Ctrl-R_ to make sure indent would not be deleted.
 
-ROUGH MERGE IN FROM 1327 (NOW REMOVED)  *vwt-644-rough-merge-in-from-1327-(now-removed)*
+ROUGH MERGE IN FROM 1327 (NOW REMOVED) *vwt-644-rough-merge-in-from-1327-(now-removed)*
 
 The default behavior of the 'autoindent' option is as follow:
 
@@ -187,13 +187,13 @@ better than the other, since they both require the same number of keystrokes.
 
 How does that interfere with Vim (correctly) deleting whitespace on empty lines? This tip is generally misguided, since most users who think they need it, really need to learn to use S :help S. That, and turn :filetype indent on, which removes the need to type <Tab> in the above code. (Spiiph 09:05, 15 August 2009 (UTC))
 
-REFERENCES  *vwt-644-references*
+REFERENCES                                                *vwt-644-references*
     - :help 'smartindent' 
     - :help |:filetype| 
     - :help |30.3| 
 
 
-COMMENTS  *vwt-644-comments*
+COMMENTS                                                    *vwt-644-comments*
 
 Thoughts wanted
     - I moved the "hash" tips to here and I think that section is fairly ok. 

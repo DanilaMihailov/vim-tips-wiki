@@ -45,11 +45,11 @@ less dangerous because we unlet the stored fileencoding value, so that we only
 issue the e! command if this is the first time BufWinEnter fired after reading 
 the file.
 
-SEE ALSO  *vwt-911-see-also*
+SEE ALSO                                                    *vwt-911-see-also*
     - Detect encoding from the charset specified in HTML files 
       [https://vim.fandom.com/wiki/Detect_encoding_from_the_charset_specified_in_HTML_files] 
 
 
-COMMENTS  *vwt-911-comments*
+COMMENTS                                                    *vwt-911-comments*
 
  vim:tw=78:et:ft=help:norl:

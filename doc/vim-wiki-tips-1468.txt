@@ -14,17 +14,17 @@ location. To update the pdf viewer to a page containing the current location
 in Vim, see Open pdf to the current location in a LaTeX file 
 [https://vim.fandom.com/wiki/Open_pdf_to_the_current_location_in_a_LaTeX_file].
 
-LINUX  *vwt-1468-linux*
+LINUX                                                         *vwt-1468-linux*
 
 TO DO There are some instructions here 
 [http://jlebl.wordpress.com/2011/01/13/vim-evince-and-forward-and-backward-latex-synctex-search/], 
 but they should be copied into this page.
 
-WINDOWS  *vwt-1468-windows*
+WINDOWS                                                     *vwt-1468-windows*
 
 TO DO Find how to do this on Windows.
 
-MAC  *vwt-1468-mac*
+MAC                                                             *vwt-1468-mac*
 
 Mac OS has a package called pdfsync and a supporting viewer (I strongly 
 recommend PDFView) can be configured to run a custom script when the user 
@@ -33,7 +33,7 @@ command-clicks inside the document.
 To enable backwards search, install and configure the gvim-pdfsync 
 [https://www.vim.org/scripts/script.php?script_id=1951] plugin.
 
-PLUGINS  *vwt-1468-plugins*
+PLUGINS                                                     *vwt-1468-plugins*
     - Automatic LaTeX plugin [http://atp-vim.sf.net] has forward and backward 
       search which works for quite a few viewers: xpdf (v3.03), evince, okular, 
       xdvi, open (on MacOs). Unfortunatelly, the plugin doesn't officially support 

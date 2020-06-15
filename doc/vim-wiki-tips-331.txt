@@ -20,7 +20,7 @@ but some notable distributions of Vim disable this option in the system vimrc
 for security. In addition, it is off by default when editing as root. See 
 :help 'modeline' for more information.
 
-EXAMPLES  *vwt-331-examples*
+EXAMPLES                                                    *vwt-331-examples*
 
 For example, in a particular file you may want each tab character that you 
 type to be expanded to spaces. To achieve this, put the following modeline 
@@ -58,7 +58,7 @@ is invalid:
     /* vim: noai:ts=4:sw=4 */
 <
 
-ADDING A MODELINE  *vwt-331-adding-a-modeline*
+ADDING A MODELINE                                  *vwt-331-adding-a-modeline*
 
 With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] and the 
 default leader key, you could type \ml to add a modeline based on your current 
@@ -96,7 +96,7 @@ Choosing the menu item would insert two modelines like this:
     vim60:fdm=marker
 <
 
-ENABLING MODELINES  *vwt-331-enabling-modelines*
+ENABLING MODELINES                                *vwt-331-enabling-modelines*
 
 Vim executes a modeline only if all of the following apply:
     - 'modeline' is set to "modeline" (not "nomodeline") 
@@ -120,7 +120,7 @@ reasons. To enable modelines, edit your vimrc file (for example, in Vim enter
     set modelines=5
 <
 
-SECURITY  *vwt-331-security*
+SECURITY                                                    *vwt-331-security*
 
 TO DO
     - Need note on security implications of modelines and reference to 
@@ -129,14 +129,14 @@ TO DO
     - Google "vim modeline vulnerability" (without quotes) for information. 
 
 
-REFERENCES  *vwt-331-references*
+REFERENCES                                                *vwt-331-references*
     - :help |auto-setting| 
     - :help |modeline| 
     - :help 'modeline' determines whether to look for modelines 
     - :help 'modelines' number of lines checked to find each modeline 
 
 
-COMMENTS  *vwt-331-comments*
+COMMENTS                                                    *vwt-331-comments*
 
 This mechanism can be extended to 'let' – see script#83 
 [https://www.vim.org/scripts/script.php?script_id=83].

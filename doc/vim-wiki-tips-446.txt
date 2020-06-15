@@ -15,7 +15,7 @@ buffer.
     map <F9> :!psql -d yourdb < % <BAR> less
 <
 
-COMMENTS  *vwt-446-comments*
+COMMENTS                                                    *vwt-446-comments*
 
 You could also consider use the database extension plugin for Vim, which 
 provides a lot of features for Postgress. script#356 

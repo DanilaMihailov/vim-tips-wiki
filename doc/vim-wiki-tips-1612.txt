@@ -14,7 +14,7 @@ user input via an input loop, such as in a game. In one application, Vim was
 used as a front end for a media player, where the song information had to be 
 updated and other actions taken when a song finished.
 
-FAKING A TIMER  *vwt-1612-faking-a-timer*
+FAKING A TIMER                                       *vwt-1612-faking-a-timer*
 
 Since there is no timer function in Vim < version 8, a trick is needed: the 
 CursorHold autocommand that re-triggers itself. In the following, feedkeys() 
@@ -34,7 +34,7 @@ Do not set the value too low.
 
 
 
-COMMENTS  *vwt-1612-comments*
+COMMENTS                                                   *vwt-1612-comments*
     - The trick with K_IGNORE does not work anymore after version 7.2.025 
       (Oct-2008). You need to use different sequence of keys. Ref: 
       http://groups.google.com/group/vim_use/browse_thread/thread/8c535e5cf2b35f63/e40998ff7f2d909b?lnk=gst&q=yakov#e40998ff7f2d909b 

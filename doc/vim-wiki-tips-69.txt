@@ -24,7 +24,7 @@ to join more lines.
 Or, you might use insert mode to type "hello ". Press Esc for normal mode, 
 then move the cursor, and press . to insert "hello " again.
 
-COPY A WORD TO MULTIPLE LOCATIONS  *vwt-69-copy-a-word-to-multiple-locations*
+COPY A WORD TO MULTIPLE LOCATIONS   *vwt-69-copy-a-word-to-multiple-locations*
 
 Type yiw to copy the current word. Move the cursor to a new location, then 
 type ciw<C-R>0<Esc> to change the word, replacing it with the copied text. 
@@ -33,7 +33,7 @@ After moving the cursor to a new location, press . to repeat the operation
 See replace a word with yanked text 
 [https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text].
 
-COPY A LINE TO MULTIPLE LOCATIONS  *vwt-69-copy-a-line-to-multiple-locations*
+COPY A LINE TO MULTIPLE LOCATIONS   *vwt-69-copy-a-line-to-multiple-locations*
 
 Move the cursor to the wanted line and press Y to copy it. Move the cursor to 
 a new location, then press p to paste the line after the current line, or P to 
@@ -58,7 +58,7 @@ line ending) and starts an insert operation. In insert mode, pressing Ctrl-R
 inserts the contents of a register. Register 0 (zero) contains the text that 
 was copied with y$.
 
-SEE ALSO  *vwt-69-see-also*
+SEE ALSO                                                     *vwt-69-see-also*
     - Using command-line history |vwt-45| 
     - Repeat command on each line in visual block |vwt-84| 
     - Recording keys for repeated jobs |vwt-144| 
@@ -67,11 +67,11 @@ SEE ALSO  *vwt-69-see-also*
     - Repeat last command and put cursor at start of change |vwt-1142| 
 
 
-REFERENCES  *vwt-69-references*
+REFERENCES                                                 *vwt-69-references*
     - :help |single-repeat| 
 
 
-COMMENTS  *vwt-69-comments*
+COMMENTS                                                     *vwt-69-comments*
     - plugin repeat.vim [https://vim.fandom.com/wiki/Script:2136] (repeat.vim 
       [https://www.vim.org/scripts/script.php?script_id=2136]) to repeat your own 
       complex mappings and functions; see comments in script header for use 

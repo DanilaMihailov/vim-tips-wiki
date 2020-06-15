@@ -16,7 +16,7 @@ allowing you to save the undo information in a file which is restored the next
 time you edit the same file. This tip provides an overview of how undo 
 branches can be used.
 
-WHAT ARE UNDO BRANCHES?  *vwt-1643-what-are-undo-branches?*
+WHAT ARE UNDO BRANCHES?                     *vwt-1643-what-are-undo-branches?*
 
 Vim 7.0 and later support undo branches. This feature prevents the loss of 
 changes, even if you switch back to an earlier state of your text and start 
@@ -80,7 +80,7 @@ the ex-commands above also provide the ability to easily revisit the state of
 the buffer exactly as it was the last time it was saved to a file (or 2 saves 
 ago, 3 saves ago, etc.) using, for example, :earlier 1f.
 
-EXAMPLE  *vwt-1643-example*
+EXAMPLE                                                     *vwt-1643-example*
 
 Suppose you start a new change.
 
@@ -154,7 +154,7 @@ will put your buffer back at:
 
 1
 
-UNDOLEVELS OPTION  *vwt-1643-undolevels-option*
+UNDOLEVELS OPTION                                 *vwt-1643-undolevels-option*
 
 The number of changes that are remembered is controlled by the 'undolevels' 
 option. This is a global option that defines how many changes for each buffer 
@@ -162,13 +162,13 @@ will be remembered and that you can travel back. So if you set it to 25, you
 can at most undo 25 changes. If you set it to -1 you will not be able to undo 
 any changes!
 
-PLUGINS  *vwt-1643-plugins*
+PLUGINS                                                     *vwt-1643-plugins*
 
 Using only the built-in commands, it can be difficult to navigate the undo 
 tree to find your desired state. There are several plugins available to make 
 this easier.
 
-MUNDO  *vwt-1643-mundo*
+MUNDO                                                         *vwt-1643-mundo*
 
 The Mundo [http://simnalamburt.github.io/vim-mundo/dist/] plugin requires a 
 Python [http://www.python.org] installation and a Vim built with Python 
@@ -185,7 +185,7 @@ The Mundo plugin is a community fork of Gundo
 [https://bitbucket.org/sjl/gundo.vim]. Mundo has been forked from the Gundo to 
 continue development.
 
-HISTWIN  *vwt-1643-histwin*
+HISTWIN                                                     *vwt-1643-histwin*
 
 The histwin [https://www.vim.org/scripts/script.php?script_id=2932] plugin 
 provides an easy way to jump back to previous branches in your history.
@@ -203,7 +203,7 @@ beginning.
 After installing the plugin, read its help on configuration and usage by 
 entering :help histwin.txt.
 
-OTHERS  *vwt-1643-others*
+OTHERS                                                       *vwt-1643-others*
     - undotree [https://www.vim.org/scripts/script.php?script_id=4177] offers a 
       tree view similar to Mundo implemented in pure vimscript. This plugin 
       additionally offers in-text highlighting of changes, automatic updating of the 
@@ -212,7 +212,7 @@ OTHERS  *vwt-1643-others*
       [https://www.vim.org/scripts/script.php?script_id=2141] 
 
 
-PERSISTENT UNDO  *vwt-1643-persistent-undo*
+PERSISTENT UNDO                                     *vwt-1643-persistent-undo*
 
 The persistent undo feature is now officially available with Vim 7.3.Before 
 Vim 7.3 (or when Vim 7.3 is compiled without support for persistent undo) 
@@ -257,7 +257,7 @@ However, note that if a file is modified externally without Vim, Vim will not
 be able to read the undo history back when you start editing the file again 
 and the undo tree information will be lost. There is no way to get it back.
 
-REFERENCES  *vwt-1643-references*
+REFERENCES                                               *vwt-1643-references*
     - :help |usr_32.txt| 
     - :help |undo-branches| 
     - :help |g+| 
@@ -266,13 +266,13 @@ REFERENCES  *vwt-1643-references*
     - :help 'ul' 
 
 
-SEE ALSO  *vwt-1643-see-also*
+SEE ALSO                                                   *vwt-1643-see-also*
     - Undo and Redo [https://vim.fandom.com/wiki/Undo_and_Redo] 
     - Recover from accidental Ctrl-U 
       [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U] 
 
 
-COMMENTS  *vwt-1643-comments*
+COMMENTS                                                   *vwt-1643-comments*
 
 The persistent undo section says,
 

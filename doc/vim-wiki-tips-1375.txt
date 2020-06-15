@@ -78,14 +78,14 @@ Here is the original logic for historical reference:
 Alternatively a user can :set scrolloff=999 which keeps the current line 
 vertically centered.
 
-SEE ALSO  *vwt-1375-see-also*
+SEE ALSO                                                   *vwt-1375-see-also*
     - :help 'nosol' 
     - VimTip80 |vwt-80| 
     - :help 'viminfo' 
     - :help |last-position-jump| 
 
 
-COMMENTS  *vwt-1375-comments*
+COMMENTS                                                   *vwt-1375-comments*
 
 Removed stale b:winview to avoid bugs as the one 
 [https://github.com/garbas/vim-snipmate/issues/161] reported in snipmate. - 

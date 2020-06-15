@@ -14,7 +14,7 @@ color. In the GUI (gvim), the cursor can be fully customized. For example, the
 cursor color can be changed when entering insert mode to clarify whether you 
 are in normal or insert mode.
 
-CHANGING THE CURSOR COLOR IN INSERT MODE  *vwt-746-changing-the-cursor-color-in-insert-mode*
+CHANGING THE CURSOR COLOR IN INSERT MODE *vwt-746-changing-the-cursor-color-in-insert-mode*
 
 You may start typing, thinking you are in insert mode, but find that the 
 characters are interpreted as commands because you are actually in normal 
@@ -106,7 +106,7 @@ The first two lines change the cursor to ibeam/block as it enters/leaves
 insert mode, the last 2 lines ensure the terminal cursor is independent of vim 
 cursor setting.
 
-DISABLING CURSOR BLINKING  *vwt-746-disabling-cursor-blinking*
+DISABLING CURSOR BLINKING                  *vwt-746-disabling-cursor-blinking*
 
 The 'guicursor' option can be used to set the cursor properties when working 
 in a GUI (gvim). The following commands illustrate how to disable blinking for 
@@ -152,12 +152,12 @@ is, 'n-v-c:'):
     let &guicursor = substitute(&guicursor, 'n-v-c:', '&blinkon0-', '')
 <
 
-SEE ALSO  *vwt-746-see-also*
+SEE ALSO                                                    *vwt-746-see-also*
     - Change cursor shape in different modes 
       [https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes] 
 
 
-COMMENTS  *vwt-746-comments*
+COMMENTS                                                    *vwt-746-comments*
 
 In KDE 4.7 Konsole terminal emulator this works for changing cursor color 
 background:

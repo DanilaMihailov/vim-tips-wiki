@@ -48,7 +48,7 @@ can call find with the -regex or -iregex flags instead (if supported).
 
 The function uses some standard Unix-like utilities: find, file, sed.
 
-RELATED PLUGINS  *vwt-799-related-plugins*
+RELATED PLUGINS                                      *vwt-799-related-plugins*
     - FuzzyFinder [https://www.vim.org/scripts/script.php?script_id=1984] (requires 
       L9 plugin [https://www.vim.org/scripts/script.php?script_id=3252]) 
     - Ctrl-P [http://kien.github.io/ctrlp.vim/] (temporarily expands the 
@@ -59,12 +59,12 @@ RELATED PLUGINS  *vwt-799-related-plugins*
       Python support, splits open a temporary window, never locks up Vim) 
 
 
-SEE ALSO  *vwt-799-see-also*
+SEE ALSO                                                    *vwt-799-see-also*
     - Find files in subdirectories 
       [https://vim.fandom.com/wiki/Find_files_in_subdirectories] 
 
 
-COMMENTS  *vwt-799-comments*
+COMMENTS                                                    *vwt-799-comments*
 
 I use this little script. If we find an exact match (wc -l = 1), i open the 
 file in vim. If I find more than one matches, open a list of the files. Then I 

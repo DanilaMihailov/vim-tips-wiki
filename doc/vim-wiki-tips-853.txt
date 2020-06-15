@@ -22,7 +22,7 @@ file will be backed up.
     nnoremap <Leader>ba :<C-U>call WriteBackup()<CR>
 <
 
-SEE ALSO  *vwt-853-see-also*
+SEE ALSO                                                    *vwt-853-see-also*
     - 
     - Quick save to a temporary file before more edits 
       [https://vim.fandom.com/wiki/Quick_save_to_a_temporary_file_before_more_edits] 
@@ -32,12 +32,12 @@ SEE ALSO  *vwt-853-see-also*
       (VimTip892) (Automatic incremental backup ...) 
 
 
-RELATED PLUGINS  *vwt-853-related-plugins*
+RELATED PLUGINS                                      *vwt-853-related-plugins*
     - WriteBackup [https://www.vim.org/scripts/script.php?script_id=1828] writes up 
       to 26 backups (format ) with a custom command. 
 
 
-COMMENTS  *vwt-853-comments*
+COMMENTS                                                    *vwt-853-comments*
     - Is it not better to escape filenames? 
     - Also, I think it is better if this backup operation doesn't modify the 
       buffers' modified flag and 

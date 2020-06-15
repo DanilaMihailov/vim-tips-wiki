@@ -24,7 +24,7 @@ available from http://sourceforge.net/projects/cream/files/
 find this tip useful if you want to compile your own Vim on Windows if, for 
 example, you need Vim for a different version of Python.
 
-PREREQUISITES  *vwt-1650-prerequisites*
+PREREQUISITES                                         *vwt-1650-prerequisites*
     - Vim version 7.3.x or 7.4.x is already installed. We only want to replace 
       files gvim.exe and vim.exe. 
     - Python 2.x and Python 3.x are installed. Let's assume Python 2.7 is installed 
@@ -35,7 +35,7 @@ PREREQUISITES  *vwt-1650-prerequisites*
     - These instructions are for compiling 32-bit Vim. Python must be 32-bit. 
 
 
-STEP 1: INSTALL MINGW TOOLS [HTTP://WWW.MINGW.ORG/]  *vwt-1650-step-1:-install-mingw-tools-[http://www.mingw.org/]*
+STEP 1: INSTALL MINGW TOOLS [HTTP://WWW.MINGW.ORG/] *vwt-1650-step-1:-install-mingw-tools-[http://www.mingw.org/]*
 
 Download and run automated MinGW installer from 
 https://sourceforge.net/project/showfiles.php?group_id=2435 
@@ -49,7 +49,7 @@ TDM-GCC project: http://tdm-gcc.tdragon.net/ [http://tdm-gcc.tdragon.net/]
 
 Let's assume MingW is installed in E:\MinGW.
 
-STEP 2: DOWNLOAD VIM SOURCE FILES  *vwt-1650-step-2:-download-vim-source-files*
+STEP 2: DOWNLOAD VIM SOURCE FILES *vwt-1650-step-2:-download-vim-source-files*
     - Get Vim source files from one of the links below. The source version should 
       match your currently installed Vim version. - 
       https://github.com/b4winckler/vim [https://github.com/b4winckler/vim] This is 
@@ -65,7 +65,7 @@ STEP 2: DOWNLOAD VIM SOURCE FILES  *vwt-1650-step-2:-download-vim-source-files*
       E:\devel\vim_sources\vim-7-4-050. 
 
 
-STEP 3 (OPTIONAL): APPLY PATCHES  *vwt-1650-step-3-(optional):-apply-patches*
+STEP 3 (OPTIONAL): APPLY PATCHES   *vwt-1650-step-3-(optional):-apply-patches*
 
 If you need to apply a patch, obtain Windows port of GNU patch (patch.exe) 
 from http://gnuwin32.sourceforge.net/packages/patch.htm 
@@ -83,7 +83,7 @@ Apply the patch:
     patch.exe -p0 < path_to_patch_file > path_to_logfile
 <
 
-STEP 4: BUILD GVIM.EXE AND VIM.EXE  *vwt-1650-step-4:-build-gvim.exe-and-vim.exe*
+STEP 4: BUILD GVIM.EXE AND VIM.EXE *vwt-1650-step-4:-build-gvim.exe-and-vim.exe*
 
 Create a batch file build_vim.bat with the following content. It will build 
 gvim.exe and vim.exe with Python 2.7 and Python 3.3 support, HUGE feature set, 
@@ -148,7 +148,7 @@ them into the folder of the batch file. The build process can take a few
 minutes. A log file will also be created. Any errors will appear in the 
 console window.
 
-STEP 5: REPLACE GVIM.EXE AND VIM.EXE WITH NEW FILES  *vwt-1650-step-5:-replace-gvim.exe-and-vim.exe-with-new-files*
+STEP 5: REPLACE GVIM.EXE AND VIM.EXE WITH NEW FILES *vwt-1650-step-5:-replace-gvim.exe-and-vim.exe-with-new-files*
 
 Shut down all instances of Vim. Navigate to Vim program folder: 
 C:\Programs\Vim\vim73 or similar. Back up the original gvim.exe and vim.exe: 
@@ -166,7 +166,7 @@ copies). Start Vim and see if it works:
     :py3 import sys; print(sys.version)
 <
 
-COMMENTS  *vwt-1650-comments*
+COMMENTS                                                   *vwt-1650-comments*
 
 This is a very ambitious tip! Following are some initial thoughts:
     - Our starting point for a "building Vim" tip is Build Vim with your name 

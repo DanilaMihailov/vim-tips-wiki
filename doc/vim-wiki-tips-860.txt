@@ -36,7 +36,7 @@ recent visual selection [https://vim.fandom.com/wiki/Visual_selection].
     :'<,'>s/pattern//gn
 <
 
-WORD UNDER CURSOR  *vwt-860-word-under-cursor*
+WORD UNDER CURSOR                                  *vwt-860-word-under-cursor*
 
 To count the number of occurrences of the last used search pattern, you can 
 leave out the pattern entirely:
@@ -62,7 +62,7 @@ it started, then :%s///gn does the counting we want. Of course this also works
 with any choice of command instead of ,*, and you can even overwrite the 
 meaning of * with nnoremap * *<C-O>:%s///gn<CR> (see :help map)
 
-COMMENTS  *vwt-860-comments*
+COMMENTS                                                    *vwt-860-comments*
 
 ...you just became my personal hero...))
 

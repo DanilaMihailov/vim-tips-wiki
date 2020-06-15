@@ -31,7 +31,7 @@ The space between "!" and "start" is needed to avoid a "command not found"
 error. The space causes Vim to send the start command to the cmd.exe shell. 
 Start is a cmd command, not a separate program.
 
-COMMENTS  *vwt-1377-comments*
+COMMENTS                                                   *vwt-1377-comments*
 
 Is there any reason that you don't search msdn directly? Something like:
 

@@ -64,7 +64,7 @@ Now the version control tools can be used like this from Vim:
     :Hg annotate %
 <
 
-ENHANCED SCRIPT  *vwt-1599-enhanced-script*
+ENHANCED SCRIPT                                     *vwt-1599-enhanced-script*
 
 TO DO
     - I think the original script (above) has some problems: - fnameescape() should 
@@ -104,7 +104,7 @@ TO DO
     endfunction
 <
 
-SEE ALSO  *vwt-1599-see-also*
+SEE ALSO                                                   *vwt-1599-see-also*
     - Append output of an external command |vwt-467| 
     - The AsyncCommand plugin 
       [https://www.vim.org/scripts/script.php?script_id=3431] provides the 
@@ -112,7 +112,7 @@ SEE ALSO  *vwt-1599-see-also*
       output in a split when the command completes. 
 
 
-COMMENTS  *vwt-1599-comments*
+COMMENTS                                                   *vwt-1599-comments*
 
 Following is refactored text that was posted on talk page.
 
@@ -136,7 +136,7 @@ Jearsh [https://vim.fandom.com/wiki/User:Jearsh] 06:28, February 13, 2010
 
 More on this concept is at Replace a builtin command using cabbrev. JohnBeckett 02:41, February 18, 2010 (UTC)
 
-ANOTHER ENHANCED SCRIPT  *vwt-1599-another-enhanced-script*
+ANOTHER ENHANCED SCRIPT                     *vwt-1599-another-enhanced-script*
 
 >
     function! s:ExecuteInShell(command)
@@ -171,7 +171,7 @@ Last version available at
 https://svn.mageekbox.net/repositories/vim/trunk/.vimrc 
 [https://svn.mageekbox.net/repositories/vim/trunk/.vimrc].
 
-ANOTHER ENHANCED SCRIPT FOR VERTICAL SPLIT  *vwt-1599-another-enhanced-script-for-vertical-split*
+ANOTHER ENHANCED SCRIPT FOR VERTICAL SPLIT *vwt-1599-another-enhanced-script-for-vertical-split*
 
 I wanted the window to split vertically, so did these small changes to the 
 above script
@@ -195,7 +195,7 @@ above script
 
 Usage: :Shell ls -al
 
-ANOTHER WAY  *vwt-1599-another-way*
+ANOTHER WAY                                             *vwt-1599-another-way*
 
 I do this:
 
@@ -206,7 +206,7 @@ I do this:
 You have to use # where you would normally use %, but other than that this 
 should work well. -- YEARtheDRAGON June 29, 2016
 
-YET ANOTHER WAY  *vwt-1599-yet-another-way*
+YET ANOTHER WAY                                     *vwt-1599-yet-another-way*
 
 I use a slightly different syntax to open in a split in the current window.
 

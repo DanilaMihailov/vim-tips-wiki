@@ -7,7 +7,7 @@ created 2002 · complexity basic · author Tony Mechelynck
 
 ==============================================================================
 
-WHAT TO DO  *vwt-246-what-to-do*
+WHAT TO DO                                                *vwt-246-what-to-do*
     - One thing you should always do first is check the help |vwt-246-references|. 
 
     - The following is an example. Modify it to suit your work environment. 
@@ -27,7 +27,7 @@ WHAT TO DO  *vwt-246-what-to-do*
     endif
 <
 
-WHAT THE ABOVE DOES  *vwt-246-what-the-above-does*
+WHAT THE ABOVE DOES                              *vwt-246-what-the-above-does*
     - has("multi_byte") checks if you have the right options compiled-in. If you 
       haven't got what it takes, it's no use trying to use Unicode. 
 
@@ -66,7 +66,7 @@ The nice thing about 'bomb' is that when Vim reads a file, and the file has a BO
       want it to be used. 
 
 
-ADDITIONAL REMARKS  *vwt-246-additional-remarks*
+ADDITIONAL REMARKS                                *vwt-246-additional-remarks*
     - In "replace" mode, one utf character (one or more data bytes) replaces one 
       utf character (which need not use the same number of bytes). 
 
@@ -105,7 +105,7 @@ ADDITIONAL REMARKS  *vwt-246-additional-remarks*
       [https://vim.fandom.com/wiki/Show_fileencoding_and_bomb_in_the_status_line] 
 
 
-REFERENCES  *vwt-246-references*
+REFERENCES                                                *vwt-246-references*
     - :help |utf8| 
     - :help |encoding-values| 
     - :help 'encoding' 
@@ -120,20 +120,20 @@ REFERENCES  *vwt-246-references*
     - :help |i_CTRL-V_digit| 
 
 
-RELATED PLUGINS  *vwt-246-related-plugins*
+RELATED PLUGINS                                      *vwt-246-related-plugins*
     - Switching to Unicode in an orderly manner 
       [https://www.vim.org/scripts/script.php?script_id=789] 
     - Unicode Completion Plugin 
       [https://www.vim.org/scripts/script.php?script_id=2822] 
 
 
-SEE ALSO  *vwt-246-see-also*
+SEE ALSO                                                    *vwt-246-see-also*
     - Forcing file encoding at load time |vwt-690| 
     - Entering special characters 
       [https://vim.fandom.com/wiki/Entering_special_characters] 
 
 
-COMMENTS  *vwt-246-comments*
+COMMENTS                                                    *vwt-246-comments*
 
 If you happen to (like me) use Ctrl+V for paste (mswin behaviour), and want 
 to insert Unicode chars, you can do so with: Ctrl+Shft+u <unicode><enter>, for 

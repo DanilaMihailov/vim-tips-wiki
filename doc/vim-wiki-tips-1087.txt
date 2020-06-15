@@ -56,7 +56,7 @@ type CTRL-O (<C-O>) to jump to the definition, and type `k can jump back.
 
 .cs, .pas, .c, .sql filetype is supported with this trick.
 
-RELATED PLUGINS  *vwt-1087-related-plugins*
+RELATED PLUGINS                                     *vwt-1087-related-plugins*
     - Taglist [https://www.vim.org/scripts/script.php?script_id=273] not only 
       highlights the current function in a sidebar, but allows you to jump to the 
       various tags in this sidebar 
@@ -64,7 +64,7 @@ RELATED PLUGINS  *vwt-1087-related-plugins*
       several languages, doesn't rely on tags. 
 
 
-COMMENTS  *vwt-1087-comments*
+COMMENTS                                                   *vwt-1087-comments*
 
 There is an alternative method to jump to the function definition. See if you 
 like this:

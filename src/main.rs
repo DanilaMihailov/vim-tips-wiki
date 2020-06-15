@@ -75,7 +75,11 @@ impl<'a> WikiEntry<'a> {
                 let inner = inner.trim().to_uppercase().replace("\"", "");
                 let tag =
                     self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
-                format!("\n\n{}  *{}*", inner, tag)
+                let mut len = inner.chars().count() + tag.chars().count() + 2;
+                if len > 77 {
+                    len = 77;
+                };
+                format!("\n\n{}{}*{}*", inner, " ".repeat(78 - len), tag)
             }
             Some("li") | Some("div") | Some("b") | Some("i") | Some("span") => {
                 if node.attr("id") == Some("delete") {
@@ -248,7 +252,11 @@ impl<'a> WikiEntry<'a> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     (1..=1678).into_par_iter().for_each(|n| {
         let mut rt = Runtime::new().unwrap();
-        rt.block_on(WikiEntry::make_tip(n as u32));
+        let res = rt.block_on(WikiEntry::make_tip(n as u32));
+        match res {
+            Err(e) => eprintln!("{:#?}", e),
+            _ => (),
+        }
     });
     Ok(())
 }

@@ -9,7 +9,7 @@ created 2004 · complexity intermediate · author Eric Boucher · version 6.0
 It can be useful to specify in a search or a substitution what you do not 
 want to have. Here is how to do that:
 
-USING THE :V COMMAND  *vwt-220-using-the :v-command*
+USING THE :V COMMAND                            *vwt-220-using-the :v-command*
 
 The traditional approach to find lines not matching a pattern is using the :v 
 |:g| command:
@@ -31,7 +31,7 @@ lines there:
 You are now editing a clone of your original file with all lines not matching 
 "warning" removed and you can edit it at will.
 
-SEARCHING WITH /  *vwt-220-searching-with-/*
+SEARCHING WITH /                                    *vwt-220-searching-with-/*
 
 >
     /^\(\(The_Regular_Expression\)\@!.\)*$
@@ -175,7 +175,7 @@ occurrence of 'VIM' in a file (this one is tricky):
 It finds the word 'VIM' where there is no word 'VIM' after it until the end 
 of the file!
 
-REFERENCES  *vwt-220-references*
+REFERENCES                                                *vwt-220-references*
     - :help |/\@=| 
     - :help |/\@!| 
     - :help |/\@<=| 
@@ -188,6 +188,6 @@ REFERENCES  *vwt-220-references*
     - :help |:g| 
 
 
-COMMENTS  *vwt-220-comments*
+COMMENTS                                                    *vwt-220-comments*
 
  vim:tw=78:et:ft=help:norl:

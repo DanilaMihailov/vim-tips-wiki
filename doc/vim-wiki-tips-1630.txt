@@ -16,7 +16,7 @@ so differently from the tabs in other editors. Here are some quick ideas, no
 scripts required, that can get you started using tab pages to their full 
 potential.
 
-FULL-PAGE REFERENCE DOCUMENTS  *vwt-1630-full-page-reference-documents*
+FULL-PAGE REFERENCE DOCUMENTS         *vwt-1630-full-page-reference-documents*
 
 By simply prefacing a :help command with the :tab modifier, you can have 
 multiple full-page Vim help topics, each in its own conveniently-labeled tab 
@@ -30,7 +30,7 @@ tab for quick and easy access. This is useful when you need to refer to a
 document, but you do not want it taking up screen real estate next to the text 
 you are currently working on.
 
-QUICK CHANGES OUTSIDE NORMAL WORKFLOW  *vwt-1630-quick-changes-outside-normal-workflow*
+QUICK CHANGES OUTSIDE NORMAL WORKFLOW *vwt-1630-quick-changes-outside-normal-workflow*
 
 Tabs are great places to work on small tasks that fall outside your normal 
 workflow. Open a new tab page for vimrc [https://vim.fandom.com/wiki/Vimrc] 
@@ -39,7 +39,7 @@ etc., and you can very quickly switch back to what you were working on before,
 without messing up your window layout or anything else. Just close the tab, 
 and you're automatically back to whatever you were working on.
 
-ALTERNATE VIEWS OF A FILE  *vwt-1630-alternate-views-of-a-file*
+ALTERNATE VIEWS OF A FILE                 *vwt-1630-alternate-views-of-a-file*
 
 If you are working in a buffer with most folds open, you can keep a second 
 tab page showing the buffer with all folds closed for an "at a glance 
@@ -58,7 +58,7 @@ regular working view clean and uncluttered, but quickly flip over to the
 information-overloaded version when needed. This idea works for the settings 
 in :help |option-summary| that are labeled 'local to window'.
 
-SEPARATE 'DIFF' VIEWS  *vwt-1630-separate-'diff'-views*
+SEPARATE 'DIFF' VIEWS                         *vwt-1630-separate-'diff'-views*
 
 Along the same lines as the "x-ray" tab above, you can take advantage of the 
 fact that a 'diff' view of two or more buffers is local to the tab page. 
@@ -80,7 +80,7 @@ You don't even need to close any other diffs you may have in progress to do
 this. Using tab pages, you can have multiple diff tabs open at once, alongside 
 tabs for normal editing.
 
-REDIRECTED COMMAND OUTPUT  *vwt-1630-redirected-command-output*
+REDIRECTED COMMAND OUTPUT                 *vwt-1630-redirected-command-output*
 
 Sometimes, you may want to use the output from an ex command, instead of just 
 viewing it in the status area. Using the |:redir| command, you can run a 
@@ -95,7 +95,7 @@ easier. Just open a new tab with :tabnew, then use the |:r!| command to read
 in the external command. If you find yourself doing this a lot, you can use a 
 script [https://vim.fandom.com/wiki/Capture_ex_command_output].
 
-MINI-SESSIONS  *vwt-1630-mini-sessions*
+MINI-SESSIONS                                         *vwt-1630-mini-sessions*
 
 If you remove 'tabpages' from 'sessionoptions', then |:mksession| will only 
 pay attention to the current tab page. This makes it easy to use tab pages as 
@@ -104,7 +104,7 @@ window layout you like, then run :mksession some-project.vim to save the
 current tab page as a session. To work on that set of files again, open a new 
 tab page and :source the appropriate session file.
 
-REPEAT A COMMAND ON A SELECTION OF BUFFERS  *vwt-1630-repeat-a-command-on-a-selection-of-buffers*
+REPEAT A COMMAND ON A SELECTION OF BUFFERS *vwt-1630-repeat-a-command-on-a-selection-of-buffers*
 
 It is easy to run a command on all files you have loaded (though not 
 necessarily visible) in Vim, using |:bufdo|. It is possible, using |:argdo| to 
@@ -131,7 +131,7 @@ a result, and the |:cnfile| command repeatedly (potentially by using |@:| with
 a count) to open every file selected by your |:make|, |:grep|, or other 
 command.
 
-MORE IDEAS  *vwt-1630-more-ideas*
+MORE IDEAS                                               *vwt-1630-more-ideas*
 
 There are plenty more creative things you can do with Vim's tab pages. If you 
 don't try to limit yourself to one-file-per-tab and one-tab-per-file, you will 
@@ -139,7 +139,7 @@ only be limited by our own imagination. Take a look at the other tips in the
 Tabs category [https://vim.fandom.com/wiki/Category:Tabs] for more ideas and 
 some helpful scripts.
 
-COMMENTS  *vwt-1630-comments*
+COMMENTS                                                   *vwt-1630-comments*
 
 TO DO
     - Link to related tips, e.g. a "sessions" tip, if we have one. 

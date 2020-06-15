@@ -42,7 +42,7 @@ I just searched for useful colour schemes for 8, 16 and 256 colors in the
 console. The most are not useful as they do often end with, for example, red 
 foreground on red background or such. But this is another problem.
 
-COMMENTS  *vwt-1261-comments*
+COMMENTS                                                   *vwt-1261-comments*
 
 You ought to make it simple: In vimrc: if $TERM =~ /xterm_color256/and set 
 TERM in your bashrc: export TERM=xterm_color256

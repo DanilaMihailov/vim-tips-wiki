@@ -33,7 +33,7 @@ In visual mode, ,y is yank and save.
     map <silent> ,P :sview ~/reg.txt<CR>"zdddG:q!<CR>:call setreg('"', @", @z)<CR>P
 <
 
-COMMENTS  *vwt-829-comments*
+COMMENTS                                                    *vwt-829-comments*
 
 You can use the selection and drop registers to copy between sessions.
 

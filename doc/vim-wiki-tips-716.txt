@@ -10,7 +10,7 @@ See Integrate gvim with Visual Studio
 [https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio] to use vim 
 with Visual Studio without embedding.
 
-USING VIM AS AN INTERNAL (MDI) WINDOW  *vwt-716-using-vim-as-an-internal-(mdi)-window*
+USING VIM AS AN INTERNAL (MDI) WINDOW *vwt-716-using-vim-as-an-internal-(mdi)-window*
 
 The -P option allows you to launch gVim inside an application supporting MDI 
 windows (such as Microsoft Visual C++). This option is somewhat buggy still, 
@@ -53,7 +53,7 @@ Notes:
       this up for Visual C# 2010 Express). 
 
 
-REFERENCES  *vwt-716-references*
+REFERENCES                                                *vwt-716-references*
     - :help |-P| 
     - :help |--servername| 
     - :help |--remote| 
@@ -61,6 +61,6 @@ REFERENCES  *vwt-716-references*
       [http://msdn2.microsoft.com/en-us/library/ekbzk5f8(VS.80).aspx] 
 
 
-COMMENTS  *vwt-716-comments*
+COMMENTS                                                    *vwt-716-comments*
 
  vim:tw=78:et:ft=help:norl:

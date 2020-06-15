@@ -59,11 +59,11 @@ return v, and the result of the mapping expression will be `[v`] (the same as
 the first mapping given above). However, if you type 3Y to copy three lines, 
 the result will be `[V`] (linewise).
 
-REFERENCES  *vwt-759-references*
+REFERENCES                                                *vwt-759-references*
     - :help |:map-expression| 
 
 
-COMMENTS  *vwt-759-comments*
+COMMENTS                                                    *vwt-759-comments*
 
 An anonymous user mentioned the `[ and `] not working as documented in the 
 Vim help, making this mapping fail. Probably that user has a plugin or mapping 

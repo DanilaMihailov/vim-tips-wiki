@@ -12,7 +12,7 @@ The coding style for one project may use CamelCase for variables, while
 another may use under_scores. Here are some Vim procedures to switch between 
 CamelCase and under_score variable names.
 
-CONVERTING PHP VARIABLES  *vwt-1602-converting-php-variables*
+CONVERTING PHP VARIABLES                   *vwt-1602-converting-php-variables*
 
 This is a simple procedure to change variables names from 
 $this_variable_style to $thisVariableStyle.
@@ -55,7 +55,7 @@ The following command is equivalent to the above:
     :%s/\v%(\$%(\k+))@<=_(\k)/\u\1/g
 <
 
-CHANGE UNDER_SCORES TO CAMELCASE  *vwt-1602-change-under_scores-to-camelcase*
+CHANGE UNDER_SCORES TO CAMELCASE   *vwt-1602-change-under_scores-to-camelcase*
 
 The following shows two substitute commands for converting names with 
 underscores to camel case. The first command converts the beginning character 
@@ -96,14 +96,14 @@ Alternate command:
 It looks for any places with an underscore followed by a lower case letter 
 and replaces that with an upper case letter.
 
-CHANGE UNDER_SCORES TO CAMELCASE  *vwt-1602-change-under_scores-to-camelcase*
+CHANGE UNDER_SCORES TO CAMELCASE   *vwt-1602-change-under_scores-to-camelcase*
 
 >
     " Convert each NAME_LIKE_THIS to NameLikeThis in the current line.
     :s#_*\(\u\)\(\u*\)#\1\L\2#g
 <
 
-CHANGE CAMELCASE TO UNDER_SCORES  *vwt-1602-change-camelcase-to-under_scores*
+CHANGE CAMELCASE TO UNDER_SCORES   *vwt-1602-change-camelcase-to-under_scores*
 
 The following shows two substitute commands for converting camel case names 
 to names with underscores. The first command is slightly simpler but fails if 
@@ -133,7 +133,7 @@ buffer would be:
 Be sure to run a diff to verify that the substitute has changed what you 
 want.
 
-SEE ALSO  *vwt-1602-see-also*
+SEE ALSO                                                   *vwt-1602-see-also*
     - Tim Pope's Abolish [https://www.vim.org/scripts/script.php?script_id=1545] 
       plugin includes mappings for case conversion of the word under the cursor, 
       such as crs and crc to convert to snake case or camel case. 
@@ -150,7 +150,7 @@ SEE ALSO  *vwt-1602-see-also*
       occurrences of the pattern to getter names, after user confirmation. 
 
 
-COMMENTS  *vwt-1602-comments*
+COMMENTS                                                   *vwt-1602-comments*
 
 If during your formatting you messed up reserved function definitions e.g. 
 you changed __init__ to _Init__, you can run

@@ -28,15 +28,15 @@ to always delete the previous word:
     :set backspace=indent,eol,start
 <
 
-REFERENCES  *vwt-189-references*
+REFERENCES                                                *vwt-189-references*
     - :help |i_CTRL-W| 
 
 
-SEE ALSO  *vwt-189-see-also*
+SEE ALSO                                                    *vwt-189-see-also*
     - :help |i_CTRL-U| 
 
 
-COMMENTS  *vwt-189-comments*
+COMMENTS                                                    *vwt-189-comments*
 
 Mapping Ctrl-Backspace does not work in terminal Vim. Following is a 
 workaround.

@@ -170,7 +170,7 @@ Put the above code in your vimrc and call the function, here it is shown with
 entries for 1000 days. Of course, if you do not use correct arguments matching 
 an existing day, all output will be mess.
 
-COMMENTS  *vwt-560-comments*
+COMMENTS                                                    *vwt-560-comments*
 
 The computation of the leap years is a little careless; the code will regard 
 year 2100 as a leapyear, which it is not.

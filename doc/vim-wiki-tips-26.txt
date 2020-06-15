@@ -26,7 +26,7 @@ or hex 0D.
 LF is linefeed (move cursor down), which is Ctrl-J or ^J or hex 0A. 
 Sometimes, LF is written as NL (newline).
 
-FILE FORMAT OPTIONS  *vwt-26-file-format-options*
+FILE FORMAT OPTIONS                               *vwt-26-file-format-options*
 
 The 'fileformat' option is local to each buffer. It is set by Vim when a file 
 is read, or can be specified in a command telling Vim how to read a file. In 
@@ -58,7 +58,7 @@ adequate). However, the above command may indicate that the option was set in
 your vimrc [https://vim.fandom.com/wiki/Vimrc] because that file probably 
 contains set nocompatible which sets many options.
 
-FILE FORMAT DETECTION  *vwt-26-file-format-detection*
+FILE FORMAT DETECTION                           *vwt-26-file-format-detection*
 
 The 'fileformats' option ('ffs') has these defaults:
 
@@ -79,7 +79,7 @@ the unix format.
       and will display as ^M), and the buffer 'ff' option will be unix. 
 
 
-CONVERTING THE CURRENT FILE  *vwt-26-converting-the-current-file*
+CONVERTING THE CURRENT FILE               *vwt-26-converting-the-current-file*
 
 A common problem is that you open a file and see ^M at the end of many lines. 
 Entering :set ff? will probably show that the file was read as unix: the 
@@ -107,7 +107,7 @@ all lines end with CRLF only:
 
 Notes A
 
-CONVERTING CLEAN FILES  *vwt-26-converting-clean-files*
+CONVERTING CLEAN FILES                         *vwt-26-converting-clean-files*
 
 When working with "clean" files (where every line has the same line ending), 
 Vim's default settings provide reliable file format detection, and conversion 
@@ -129,7 +129,7 @@ can convert the unix files to dos:
 
 Notes B
 
-CONVERTING MIXED FILES  *vwt-26-converting-mixed-files*
+CONVERTING MIXED FILES                         *vwt-26-converting-mixed-files*
 
 When working with "mixed" files (where some lines have one kind of 
 terminator, while other lines have a different terminator), reliable 
@@ -148,7 +148,7 @@ endings:
 
 Notes C
 
-REMOVING UNWANTED CR OR LF CHARACTERS  *vwt-26-removing-unwanted-cr-or-lf-characters*
+REMOVING UNWANTED CR OR LF CHARACTERS *vwt-26-removing-unwanted-cr-or-lf-characters*
 
 First ensure you have read the file with the appropriate file format. For 
 example, use :e ++ff=dos to remove all CRLF and LF-only line terminators, or 
@@ -205,7 +205,7 @@ with a line break:
     %s/\r/\r/ge
 <
 
-TERMINATOR AFTER LAST LINE  *vwt-26-terminator-after-last-line*
+TERMINATOR AFTER LAST LINE                 *vwt-26-terminator-after-last-line*
 
 Every line in a text file should have a terminator (for example, a dos file 
 should end with CRLF). When reading a file, Vim accepts the last line as a 
@@ -228,7 +228,7 @@ a dos file, Vim accepts any Ctrl-Z bytes within the file as normal characters
 (these will appear in the buffer as ^Z), however if Ctrl-Z is the last byte in 
 the file, it is omitted.
 
-HOW FILE FORMAT CONVERSION WORKS  *vwt-26-how-file-format-conversion-works*
+HOW FILE FORMAT CONVERSION WORKS     *vwt-26-how-file-format-conversion-works*
 
 Understanding the principles involved in converting file formats can help 
 avoid mistakes.
@@ -263,7 +263,7 @@ regarded as a line. However, if a CR is encountered (without a following LF),
 the CR will be regarded as a normal character and will be copied into the 
 buffer where it will be displayed as ^M (Ctrl-M, the code for CR).
 
-RESULTS OF INCORRECT FILE FORMAT DETECTION  *vwt-26-results-of-incorrect-file-format-detection*
+RESULTS OF INCORRECT FILE FORMAT DETECTION *vwt-26-results-of-incorrect-file-format-detection*
 
 Suppose a file contains two lines:
 
@@ -309,7 +309,7 @@ File has mac line endings; file read with ff=unix or ff=dos:
     Line 1^MLine 2^M
 <
 
-VIM SCRIPT PROBLEMS  *vwt-26-vim-script-problems*
+VIM SCRIPT PROBLEMS                               *vwt-26-vim-script-problems*
 
 Under Unix, you may find that a Vim script does not work because you have 
 downloaded a script that contains CR characters. Each CR displays as ^M and 
@@ -321,7 +321,7 @@ script after starting Vim (for example, :source ~/.vim/plugin/script.vim) to
 see if errors including ^M are shown. To fix, you need to convert the file to 
 unix format.
 
-PITFALLS  *vwt-26-pitfalls*
+PITFALLS                                                     *vwt-26-pitfalls*
 
 Some suggestions for working with file formats suffer from pitfalls that are 
 described here.
@@ -359,7 +359,7 @@ ff=unix will not flag a unix file as modified, so the +wqa command (same as
 :xa) will not save that file. If :w is used to write the buffer, nothing 
 useful will be achieved because the CR characters will be written to the file.
 
-OTHER APPROACHES  *vwt-26-other-approaches*
+OTHER APPROACHES                                     *vwt-26-other-approaches*
 
 You may find a discussion of other techniques for handling line endings 
 elsewhere. Some drawbacks of other procedures are mentioned here.
@@ -397,7 +397,7 @@ general, it is a misguided approach because the characters are hidden, but
 present, which will inevitably cause trouble when editing. In addition, it is 
 much better to correctly handle the problem rather than temporarily hide it.
 
-TOOLS  *vwt-26-tools*
+TOOLS                                                           *vwt-26-tools*
 
 Several tools are available to convert files from one type of line ending to 
 another. These need to be run at the command line, and are not related to Vim.
@@ -412,7 +412,7 @@ Many other conversion tools are available. For example, flip
 [https://ccrma.stanford.edu/~craig/utility/flip/] can convert files between 
 dos/mac/unix formats, and versions for each platform are available.
 
-SEE ALSO  *vwt-26-see-also*
+SEE ALSO                                                     *vwt-26-see-also*
     - Display file format in the status line |vwt-736| show an alert if a 
       non-native file format is used 
     - Automatically reload files with mixed line-endings in DOS fileformat 
@@ -420,6 +420,6 @@ SEE ALSO  *vwt-26-see-also*
       to load files in the correct format with no user intervention 
 
 
-COMMENTS  *vwt-26-comments*
+COMMENTS                                                     *vwt-26-comments*
 
  vim:tw=78:et:ft=help:norl:

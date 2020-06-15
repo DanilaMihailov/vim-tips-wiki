@@ -24,7 +24,7 @@ This "Caps Lock" does not apply in normal mode. It only applies when:
     - Typing in the input() line. 
 
 
-USING LANGUAGE MAPPINGS  *vwt-1183-using-language-mappings*
+USING LANGUAGE MAPPINGS                     *vwt-1183-using-language-mappings*
 
 To use Ctrl-^ to toggle "Caps Lock", place the following in your vimrc 
 [https://vim.fandom.com/wiki/Vimrc] (or just yank the lines in Vim, then type 
@@ -52,7 +52,7 @@ option between 0 and 1, which automatically enables or disables your language
 maps. A related option, 'imsearch', controls the mappings while entering a 
 search pattern.
 
-USING A KEYMAP [HTTPS://VIM.FANDOM.COM/WIKI/HOW_TO_MAKE_A_KEYMAP]  *vwt-1183-using-a-keymap-[https://vim.fandom.com/wiki/how_to_make_a_keymap]*
+USING A KEYMAP [HTTPS://VIM.FANDOM.COM/WIKI/HOW_TO_MAKE_A_KEYMAP] *vwt-1183-using-a-keymap-[https://vim.fandom.com/wiki/how_to_make_a_keymap]*
 
 An alternative procedure that also causes Ctrl-^ to toggle "Caps Lock", is to 
 use a keymap (this is not a mapping; see :help |mbyte-keymap|).
@@ -113,12 +113,12 @@ changes when "Caps Lock" is on:
 Using the keymap procedure, the effect of pressing Ctrl-^ is buffer local (so 
 "Caps Lock" may be on in one buffer and off in another).
 
-REFERENCES  *vwt-1183-references*
+REFERENCES                                               *vwt-1183-references*
     - :help |language-mapping| 
     - :help |i_CTRL-^| 
 
 
-COMMENTS  *vwt-1183-comments*
+COMMENTS                                                   *vwt-1183-comments*
 
 Status line information:
 

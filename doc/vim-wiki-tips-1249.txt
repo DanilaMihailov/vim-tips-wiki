@@ -47,7 +47,7 @@ keystrokes 5 times.
 If you'd still like to access Ex-mode like it was with the default "Q", use 
 "gQ" instead. It has more features than the original Ex-mode.
 
-REFERENCES  *vwt-1249-references*
+REFERENCES                                               *vwt-1249-references*
     - VimTip144 |vwt-144| 
     - :help |complex-repeat| 
     - :help |registers| 
@@ -55,7 +55,7 @@ REFERENCES  *vwt-1249-references*
     - :help |gQ| 
 
 
-COMMENTS  *vwt-1249-comments*
+COMMENTS                                                   *vwt-1249-comments*
 
 I do the same thing except I map @a, @b and @c to the function keys F2, F3 
 and F4. This way it's even less keystrokes plus you can have three macros at 

@@ -16,7 +16,7 @@ You can read the other two parts from the following pages:
       [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)] 
 
 
-FINDING UNUSED KEYS  *vwt-1526-finding-unused-keys*
+FINDING UNUSED KEYS                             *vwt-1526-finding-unused-keys*
 
 Further information: Unused keys
 
@@ -82,7 +82,7 @@ will obseve a delay when you enter a single "j" or "k" or "l" or "h".
 
 
 
-KEY NOTATION  *vwt-1526-key-notation*
+KEY NOTATION                                           *vwt-1526-key-notation*
 
 When defining a map command, you can enter printable characters like 'a', 
 'V', etc. literally. You can enter non-printable control characters (like 
@@ -251,7 +251,7 @@ special keys.
 
 
 
-MAPS WITH THE SAME PREFIX  *vwt-1526-maps-with-the-same-prefix*
+MAPS WITH THE SAME PREFIX                 *vwt-1526-maps-with-the-same-prefix*
 
 If more than one mapped key sequence starts with the same subsequence of keys 
 then when invoking the map you will notice a delay. For example, the ";" 
@@ -289,7 +289,7 @@ key sequence with a frequently used Vim command like j, k, l, etc.
 
 
 
-MAP COMMENTS  *vwt-1526-map-comments*
+MAP COMMENTS                                           *vwt-1526-map-comments*
 
 You cannot add a Vim comment in the same line as the map command. The comment 
 will be included in the map command and executed when the key sequence is 
@@ -308,7 +308,7 @@ You can add the comment before the line that defines the map:
     :map <F2> :ls<CR>
 <
 
-SUPPLYING A COUNT TO A MAP  *vwt-1526-supplying-a-count-to-a-map*
+SUPPLYING A COUNT TO A MAP               *vwt-1526-supplying-a-count-to-a-map*
 
 To repeat a normal mode Vim command, you can specify a count before the 
 command. For example, to move the cursor 3 lines up, you can use the '3k' 
@@ -436,7 +436,7 @@ Example:
 
 
 
-USING MULTIPLE EX COMMANDS IN A MAP  *vwt-1526-using-multiple-ex-commands-in-a-map*
+USING MULTIPLE EX COMMANDS IN A MAP *vwt-1526-using-multiple-ex-commands-in-a-map*
 
 You can specify multiple Ex commands separated by "|" (bar) in the Ex command 
 line (":"). The "|" is used as the command separator. For example,
@@ -495,7 +495,7 @@ separately as shown below:
 Ex commands invoked from a map are not added to the command history. You 
 can't recall the individual commands invoked by a map from the command-line.
 
-USING SPACE CHARACTERS IN A MAP  *vwt-1526-using-space-characters-in-a-map*
+USING SPACE CHARACTERS IN A MAP     *vwt-1526-using-space-characters-in-a-map*
 
 If you want to use a space character in the {lhs} of a map command, then you 
 have to use <Space> or escape the space character with CTRL-V (need to use two 
@@ -535,7 +535,7 @@ these kinds of errors, by looking at the output of the ":map" command. In the
 ":map" output, the space character at the end of the {rhs} in a map will be 
 shown as "<Space>".
 
-DISABLING KEY AND MOUSE EVENTS  *vwt-1526-disabling-key-and-mouse-events*
+DISABLING KEY AND MOUSE EVENTS       *vwt-1526-disabling-key-and-mouse-events*
 
 You can disable key and mouse events by mapping them to the special string 
 "<Nop>". For example, to disable the <F4> key in normal mode, you can use the 
@@ -564,7 +564,7 @@ command:
     :imap <MiddleMouse> <Nop>
 <
 
-ERROR IN MAPPED KEY SEQUENCES  *vwt-1526-error-in-mapped-key-sequences*
+ERROR IN MAPPED KEY SEQUENCES         *vwt-1526-error-in-mapped-key-sequences*
 
 When executing the key sequences in a key map, if Vim encounters an error, 
 then the map will be aborted and the remaining key sequences will not be 
@@ -591,7 +591,7 @@ execute them using the ":exec" command:
     nmap <F5> :exec 'normal w'<Bar>exec 'normal b~'<CR>
 <
 
-MAPS AND 'CPOPTIONS' OPTION  *vwt-1526-maps-and-'cpoptions'-option*
+MAPS AND 'CPOPTIONS' OPTION             *vwt-1526-maps-and-'cpoptions'-option*
 
 The 'cpoptions' Vim option contains many flags that control the compatibility 
 level of Vim with the Vi behavior. To get the current value of the 'cpoptions' 
@@ -692,7 +692,7 @@ If the '<' flag is present in 'cpoptions', then the above map commands will
 not work as the special key codes <M-Right>, <M-Left> and <C-W> will not be 
 recognized.
 
-MAPS AND 'PASTE' OPTION  *vwt-1526-maps-and-'paste'-option*
+MAPS AND 'PASTE' OPTION                     *vwt-1526-maps-and-'paste'-option*
 
 While pasting text into a Vim buffer, to disable automatic indentation and 
 interpreting mapped key sequences in the inserted text, you can set the 
@@ -700,14 +700,14 @@ interpreting mapped key sequences in the inserted text, you can set the
 ignored. By default, the 'paste' option is disabled. If your mapped keys are 
 not working in a buffer, check whether the 'paste' option is set.
 
-MAP ATTRIBUTES  *vwt-1526-map-attributes*
+MAP ATTRIBUTES                                       *vwt-1526-map-attributes*
 
 You can modify the behavior of a key map by specifying several attributes in 
 the map command. The supported attributes are <buffer>, <silent>, <special>, 
 <script>, <expr>, and <unique>.You can specify one or more of these attributes 
 in a map command immediately after the map command name.
 
-BUFFER-LOCAL MAPS  *vwt-1526-buffer-local-maps*
+BUFFER-LOCAL MAPS                                 *vwt-1526-buffer-local-maps*
 
 When you create a map, the mapped key can be used in all the Vim buffers. To 
 create a map that is applicable only to specific buffers, use the <buffer> 
@@ -745,7 +745,7 @@ mode in the above command.
 
 
 
-SILENT MAPS  *vwt-1526-silent-maps*
+SILENT MAPS                                             *vwt-1526-silent-maps*
 
 When a map is invoked, the sequence of keys executed is displayed on the 
 screen. If an Ex command is invoked by the map, then you can see the Ex 
@@ -766,7 +766,7 @@ will be visible even though <silent> attribute is specified for the map
 command. For example, in the above command, the current directory displayed by 
 the ":pwd" command will be visible.
 
-EXPRESSION MAPS  *vwt-1526-expression-maps*
+EXPRESSION MAPS                                     *vwt-1526-expression-maps*
 
 For simple maps, the action to be carried out for a key sequence can be 
 defined without using a Vim function. But for complex maps, it is simpler to 
@@ -791,7 +791,7 @@ action other than executing the function.
 
 The <expr> attribute can be used with all the mode specific map commands.
 
-SPECIAL CHARACTERS IN MAPS  *vwt-1526-special-characters-in-maps*
+SPECIAL CHARACTERS IN MAPS               *vwt-1526-special-characters-in-maps*
 
 To use non-printable characters using the <> notation like <F5> in a map 
 command, the '<' flag should not be present in the 'cpoptions' option. For 
@@ -818,6 +818,6 @@ To read the third part of this tutorial, visit the Mapping keys in Vim -
 Tutorial (Part_3) 
 [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)] page.
 
-COMMENTS  *vwt-1526-comments*
+COMMENTS                                                   *vwt-1526-comments*
 
  vim:tw=78:et:ft=help:norl:

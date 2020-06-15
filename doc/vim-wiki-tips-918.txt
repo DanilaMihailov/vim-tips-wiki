@@ -9,7 +9,7 @@ created 2005 · complexity basic · version 6.0
 This tip presents different methods showing how to insert a list of 
 increasing numbers.
 
-MAKING A LIST  *vwt-918-making-a-list*
+MAKING A LIST                                          *vwt-918-making-a-list*
 
 It is easy to insert a list of ascending numbers, for example, this command 
 inserts five lines after the current line:
@@ -96,7 +96,7 @@ setreg() function:
 As setreg returns 0 rather than a useful value, the replacement expression 
 (\=) calls setreg by adding it to register a.
 
-USING A FUNCTION  *vwt-918-using-a-function*
+USING A FUNCTION                                    *vwt-918-using-a-function*
 
 Put the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc] or 
 in a file in your plugin directory.
@@ -127,7 +127,7 @@ with a number that increases by 5, starting at 100 (the numbers will be 100,
     :let i=100 | :%s/abc/\=Inc(5)/g
 <
 
-INCREMENTING SELECTED NUMBERS  *vwt-918-incrementing-selected-numbers*
+INCREMENTING SELECTED NUMBERS          *vwt-918-incrementing-selected-numbers*
 
 In Vim 8, the first number in a selection can be incremented by pressing 
 Ctrl-A. If the selection covers several lines, the first number in the 
@@ -170,7 +170,7 @@ Vim 7 and earlier need a script or a macro
 [https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers#Making_a_list] 
 to create a sequence.
 
-SEE ALSO  *vwt-918-see-also*
+SEE ALSO                                                    *vwt-918-see-also*
     - Increasing or decreasing numbers 
       [https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers] 
     - Generating a column of increasing numbers 
@@ -182,6 +182,6 @@ SEE ALSO  *vwt-918-see-also*
       and Ctrl-X to operate on a visual selection 
 
 
-COMMENTS  *vwt-918-comments*
+COMMENTS                                                    *vwt-918-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -24,9 +24,9 @@ documents. Please note that xmllint only adds and removes structural space. It
 does not remove space from regular text nodes (as doing so would be 
 incorrect).
 
-COMMENTS  *vwt-349-comments*
+COMMENTS                                                    *vwt-349-comments*
 
-XMLLINT AS A MAP  *vwt-349-xmllint-as-a-map*
+XMLLINT AS A MAP                                    *vwt-349-xmllint-as-a-map*
 
 If you don't want the XML file to be automatically formatted as soon as you 
 edit it, you can create a map by putting the following command in your vimrc 
@@ -39,7 +39,7 @@ edit it, you can create a map by putting the following command in your vimrc
 When you are in command mode and press @@x, Vim will run all of the lines in 
 the current file through the xmllint command.
 
-XMLLINT AS A FILTER  *vwt-349-xmllint-as-a-filter*
+XMLLINT AS A FILTER                              *vwt-349-xmllint-as-a-filter*
 
 Q: How can make it as a filter?
 
@@ -107,7 +107,7 @@ Alone-on-line end-of-comment closing-tags may get badly indented though.
 
 ==============================================================================
 
-XMLLINT ON WINDOWS  *vwt-349-xmllint-on-windows*
+XMLLINT ON WINDOWS                                *vwt-349-xmllint-on-windows*
 
 Download xmllint for Windows 
 [http://code.google.com/p/xmllint/downloads/list]Use the following command, 
@@ -149,7 +149,7 @@ For instructions see the Windows section under:
 
 ==============================================================================
 
-ALTERNATIVES TO XMLLINT  *vwt-349-alternatives-to-xmllint*
+ALTERNATIVES TO XMLLINT                      *vwt-349-alternatives-to-xmllint*
 
 Seriously consider using Vim's built-in search and replace functionality. See 
 this Pretty-formatting_XML [https://vim.fandom.com/wiki/Pretty-formatting_XML] 
@@ -180,7 +180,7 @@ I have this in my .vimrc
 
 ==============================================================================
 
-UTF-8 FORMAT  *vwt-349-utf-8-format*
+UTF-8 FORMAT                                            *vwt-349-utf-8-format*
 
 Q: One problem with "xmllint --format" is that it turns non-ASCII UTF-8 
 characters into numeric references. This isn't a problem if you're taking the 
@@ -210,7 +210,7 @@ very simple solution to the problem:
 
 ==============================================================================
 
-CHANGING TAB/IDENT WIDTH  *vwt-349-changing-tab/ident-width*
+CHANGING TAB/IDENT WIDTH                    *vwt-349-changing-tab/ident-width*
 
 Q:. Any ideas on how to use xmllint, but change the tab/indent width? It 
 seems to filter, on windows, with 2 spaces for a tab.

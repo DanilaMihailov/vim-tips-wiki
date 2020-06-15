@@ -13,7 +13,7 @@ executable (that is, a program you can run). Alternatively, you can download
 the Vim source and build your own Vim 
 [https://vim.fandom.com/wiki/Building_Vim].
 
-WINDOWS  *vwt-46-windows*
+WINDOWS                                                       *vwt-46-windows*
 
 Which version of Vim should I use?
     - I want the newest Vim builds, I could live with relatively untested features. 
@@ -72,7 +72,7 @@ Getting 32-bit Vim into a 64-bit "Edit with Vim" context menu entry is tricky.
       = 7.2 with patches 1–245). 
 
 
-VIM WITHOUT CREAM PROBLEMS  *vwt-46-vim-without-cream-problems*
+VIM WITHOUT CREAM PROBLEMS                 *vwt-46-vim-without-cream-problems*
 
 "Vim without Cream", as described above, is the best Vim for 32-bit Windows 
 (without compiling it yourself). This section documents known problems.
@@ -88,12 +88,12 @@ VIM WITHOUT CREAM PROBLEMS  *vwt-46-vim-without-cream-problems*
       "Vim" to expand the list of files. 
 
 
-MACINTOSH  *vwt-46-macintosh*
+MACINTOSH                                                   *vwt-46-macintosh*
 
 See the versions at http://www.vim.org/download.php#mac 
 [http://www.vim.org/download.php#mac]
 
-LINUX/UNIX  *vwt-46-linux/unix*
+LINUX/UNIX                                                 *vwt-46-linux/unix*
 
 Linux distributions by default often include a stripped-down version of Vim 
 without scripting or GUI (aliased to command vi or vim). Use your 
@@ -120,6 +120,6 @@ may not have the right Vim features. You may get a better result by
 downloading the source and building your own Vim because it is very easy to 
 build your own Vim [https://vim.fandom.com/wiki/Building_Vim].
 
-COMMENTS  *vwt-46-comments*
+COMMENTS                                                     *vwt-46-comments*
 
  vim:tw=78:et:ft=help:norl:

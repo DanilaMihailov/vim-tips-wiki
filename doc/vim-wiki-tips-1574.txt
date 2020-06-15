@@ -100,7 +100,7 @@ indentexpr to its own function, which adjusts the cursor position and
 variables as if you were inserting directly after the last non-blank line, not 
 after the blank line, and then evaluates the original indentexpr.
 
-COMMENTS  *vwt-1574-comments*
+COMMENTS                                                   *vwt-1574-comments*
 
 See :help prevnonblank(). It should greatly simplify your method.
 

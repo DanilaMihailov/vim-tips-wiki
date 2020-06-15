@@ -10,7 +10,7 @@ There are a variety of ways to insert a date/time stamp. You can even have
 Vim automatically update an existing 'last modified' date/time when writing 
 the file.
 
-USING STRFTIME()  *vwt-97-using-strftime()*
+USING STRFTIME()                                     *vwt-97-using-strftime()*
 
 Vim's internal strftime() function (:help |strftime()|) returns a date/time 
 string formatted in a way you specify with a format string. Most systems 
@@ -76,7 +76,7 @@ The specification for the format string itself depends on the implementation
 of strftime() on your platform. For details, Unix users may refer to the 
 strftime(3) man page, by running 'man 3 strftime'.
 
-SOME STRFTIME() FORMAT STRING EXAMPLES  *vwt-97-some-strftime()-format-string-examples*
+SOME STRFTIME() FORMAT STRING EXAMPLES *vwt-97-some-strftime()-format-string-examples*
 
 >
     Format String              Example output
@@ -100,7 +100,7 @@ SOME STRFTIME() FORMAT STRING EXAMPLES  *vwt-97-some-strftime()-format-string-ex
     %FT%T%z                    2007-08-29T02:37:13-0400
 <
 
-USING EXTERNAL TOOLS  *vwt-97-using-external-tools*
+USING EXTERNAL TOOLS                             *vwt-97-using-external-tools*
 
 On Unix-based systems, enter the following in Vim to read the output from 
 running the date utility, inserting the result after the current line:
@@ -125,7 +125,7 @@ replacing it with the output of date.
     !!date /t
 <
 
-AUTOMATICALLY UPDATE TIMESTAMPS  *vwt-97-automatically-update-timestamps*
+AUTOMATICALLY UPDATE TIMESTAMPS       *vwt-97-automatically-update-timestamps*
 
 You might want to automatically update existing time stamps when writing a 
 file.
@@ -165,7 +165,7 @@ keepjumps excludes timestamp position from jump list, which is a false
 positive in this context. Calling histdel removes timestamp search pattern 
 from search history.
 
-UPDATING TIMESTAMPS IN XML FILES  *vwt-97-updating-timestamps-in-xml-files*
+UPDATING TIMESTAMPS IN XML FILES     *vwt-97-updating-timestamps-in-xml-files*
 
 An XML file may contain a line like the following (the value is a date/time 
 given as the number of milliseconds past the epoch 
@@ -197,7 +197,7 @@ to multiple buffers
 [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers], for example, 
 entering :bufdo UpdateTimestamps would update all tags in all buffers.
 
-UPDATING A DNS SOA SERIAL NUMBER  *vwt-97-updating-a-dns-soa-serial-number*
+UPDATING A DNS SOA SERIAL NUMBER     *vwt-97-updating-a-dns-soa-serial-number*
 
 When manually editing a zone file for a DNS name server, the serial number in 
 the SOA record needs to be updated. Often a ten-digit number is used, 
@@ -223,10 +223,10 @@ by \> (end word). The ce changes to the end of the word (deleting the number
 to the unnamed register), then inserts (Ctrl-r) the value of register = (which 
 evaluates the following expression).
 
-SEE ALSO  *vwt-97-see-also*
+SEE ALSO                                                     *vwt-97-see-also*
     - Automatically Update Copyright Notice in Files |vwt-1521| 
 
 
-COMMENTS  *vwt-97-comments*
+COMMENTS                                                     *vwt-97-comments*
 
  vim:tw=78:et:ft=help:norl:

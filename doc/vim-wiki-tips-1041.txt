@@ -7,7 +7,7 @@ created November 7, 2005 · complexity intermediate · author Amir Salihefendic
 
 ==============================================================================
 
-THE VIM CODE  *vwt-1041-the-vim-code*
+THE VIM CODE                                           *vwt-1041-the-vim-code*
 
 >
     "You can use <c-j> to goto the next <++> - it is pretty smart.
@@ -37,7 +37,7 @@ THE VIM CODE  *vwt-1041-the-vim-code*
     imap <C-q> <C-]>
 <
 
-EXPLANATION  *vwt-1041-explanation*
+EXPLANATION                                             *vwt-1041-explanation*
 
 If you in a Javascript document type cfun<C-q> then this will be unfolded to 
 (| is the cursor position).
@@ -56,7 +56,7 @@ This approach makes it very fast to create new functions, if-else statements
 etc. It reduces the movement and you get pretty addicted to these snippets. 
 It's very easy to create similar snippets for other languages.
 
-REQUIREMENT  *vwt-1041-requirement*
+REQUIREMENT                                             *vwt-1041-requirement*
 
 I have used the modified version of imaps.vim.
 
@@ -64,13 +64,13 @@ The modified version of imaps.vim is found in the LaTeX-Suite package and it
 can be downloaded from my own site (http://amix.dk/vim/imaps.vim 
 [http://amix.dk/vim/imaps.vim]). This script gives the needed functionality.
 
-MY VIMRC  *vwt-1041-my-vimrc*
+MY VIMRC                                                   *vwt-1041-my-vimrc*
 
 I have also uploaded my very good documented vimrc (about 800 lines). Check 
 it out at http://www.amix.dk/vim/vimrc.html 
 [http://www.amix.dk/vim/vimrc.html]
 
-COMMENTS  *vwt-1041-comments*
+COMMENTS                                                   *vwt-1041-comments*
 
 Here is one for Java:
 

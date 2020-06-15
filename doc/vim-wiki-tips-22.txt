@@ -12,7 +12,7 @@ other editors. A one-letter difference can make Vim do something entirely
 different than what you intended. While it is normally easy enough to just the 
 mistake, it can be better to avoid the mistake entirely.
 
-NORMAL AND INSERT MODES  *vwt-22-normal-and-insert-modes*
+NORMAL AND INSERT MODES                       *vwt-22-normal-and-insert-modes*
 
 If you find yourself making a typo very frequently in a normal-mode command, 
 and accidentally enter a command you almost never use, it is very easy to 
@@ -72,7 +72,7 @@ would expand on these mappings like this:
     inoremap <S-right> <ESC>gh
 <
 
-COMMAND-LINE MODE  *vwt-22-command-line-mode*
+COMMAND-LINE MODE                                   *vwt-22-command-line-mode*
 
 Use cabbrev to correct command typos that you commonly make.
 
@@ -100,7 +100,7 @@ triggers in the first column
 [https://vim.fandom.com/wiki/Replace_a_builtin_command_using_cabbrev] of the 
 command line.
 
-COMMENTS  *vwt-22-comments*
+COMMENTS                                                     *vwt-22-comments*
 
 ja lubię
 

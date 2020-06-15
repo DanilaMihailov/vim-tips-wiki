@@ -45,13 +45,13 @@ To insert the relative path of the directory the file is in use:
     :inoremap <Leader>fn <C-R>=expand("%:p:h:t")<CR>
 <
 
-REFERENCES  *vwt-193-references*
+REFERENCES                                                *vwt-193-references*
     - :help |expand()| 
     - :help |:inoremap| 
     - :help |i_CTRL-R| 
 
 
-COMMENTS  *vwt-193-comments*
+COMMENTS                                                    *vwt-193-comments*
 
 I often use <C-R>% when in insert mode. It does the same thing, except you 
 also get your file extension.

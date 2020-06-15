@@ -44,13 +44,13 @@ that has strictly smaller indent and dedents the current one to that level.
     " imap <C-d> <Left><Right><C-o>:call DedentToPrevious()<CR>
 <
 
-TIPS FOR IMPROVEMENT  *vwt-1566-tips-for-improvement*If you are feeling adventurous, you could make a modified version that takes over the backspace key. I'd recommend using 
+TIPS FOR IMPROVEMENT                           *vwt-1566-tips-for-improvement*If you are feeling adventurous, you could make a modified version that takes over the backspace key. I'd recommend using 
 
 >
     vim.current.window.cursor
 < to detect if the cursor is right between the indent whitespace and line contents (if any) and only use the above behavior in that case. All other cursor positions would need to have the normal backspace behavior.
 
-COMMENTS  *vwt-1566-comments*
+COMMENTS                                                   *vwt-1566-comments*
 
 There is now a plugin, SofterTabstop 
 [https://github.com/orbisvicis/SofterTabstop] that takes over the backspace 

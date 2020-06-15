@@ -92,7 +92,7 @@ case you should add a command like the following to your vimrc:
     filetype plugin indent on
 <
 
-COMMENTS  *vwt-1510-comments*
+COMMENTS                                                   *vwt-1510-comments*
 
 A minor point: It's "recommended" to keep 'tabstop' at 8 when using 
 'expandtab', since that will ensure that the text or code looks the same way 

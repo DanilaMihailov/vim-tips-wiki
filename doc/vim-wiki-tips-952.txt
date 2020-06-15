@@ -27,7 +27,7 @@ new command. In normal mode you can always use directly so this is not needed,
 if you enter Ex mode through command (:help |gQ|), you can use this to quickly 
 redraw the screen.
 
-GETVIMCMDOUTPUT() FROM GENUTILS.VIM  *vwt-952-getvimcmdoutput()-from-genutils.vim*
+GETVIMCMDOUTPUT() FROM GENUTILS.VIM *vwt-952-getvimcmdoutput()-from-genutils.vim*
 
 
 
@@ -57,6 +57,6 @@ GETVIMCMDOUTPUT() FROM GENUTILS.VIM  *vwt-952-getvimcmdoutput()-from-genutils.vi
     let Exe=function('GetVimCmdOutput')
 <
 
-COMMENTS  *vwt-952-comments*
+COMMENTS                                                    *vwt-952-comments*
 
  vim:tw=78:et:ft=help:norl:

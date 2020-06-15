@@ -37,13 +37,13 @@ Go to definition of local variable (first occurrence of keyword in current funct
 gD
 Go to definition of global variable (first occurrence of keyword in current file).
 
-SEE ALSO  *vwt-9-see-also*
+SEE ALSO                                                      *vwt-9-see-also*
     - List lines with keyword and prompt for jump |vwt-563| 
     - List lines with current search pattern highlighted |vwt-1141| 
     - Search visually |vwt-1151| 
 
 
-REFERENCES  *vwt-9-references*
+REFERENCES                                                  *vwt-9-references*
     - :help |[i| 
     - :help |[d| 
     - :help |[I| 
@@ -51,7 +51,7 @@ REFERENCES  *vwt-9-references*
     - :help |gd| 
 
 
-SEARCH IN FILES  *vwt-9-search-in-files*
+SEARCH IN FILES                                        *vwt-9-search-in-files*
 
 Use :grep or :vimgrep to search for a pattern in files. See Find in files 
 within Vim |vwt-1543|.
@@ -66,7 +66,7 @@ You can omit <CR> for manual changing the file pattern before searching.
 If you have configured set grepprg=mygrep\ -n then you can use quickfix mode 
 for jumping to the found locations.
 
-COMMENTS  *vwt-9-comments*
+COMMENTS                                                      *vwt-9-comments*
 
 TO DO
     - Have merged information from other tips to here. See if any more cleaning up 

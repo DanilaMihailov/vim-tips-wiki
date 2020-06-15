@@ -35,14 +35,14 @@ convenient.
 
 This is an expansion of Using Vim as calculator |vwt-73|.
 
-REFERENCES  *vwt-524-references*
+REFERENCES                                                *vwt-524-references*
     - :help |c_CTRL-R| 
     - :help |i_CTRL-R| 
     - :help 'timeoutlen' 
     - :help 'ttimeoutlen' 
 
 
-COMMENTS  *vwt-524-comments*
+COMMENTS                                                    *vwt-524-comments*
 
 To get the behavior like i_CTRL-r in normal mode, use @=. For example, in 
 normal mode, @='dd'<CR> will delete the current line just as if you had 

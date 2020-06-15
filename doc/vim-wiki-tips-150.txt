@@ -29,14 +29,14 @@ Example: Put cursor on topmost zero, select column with Ctrl-v, then enter :I
     vector[0] = 1;       vector[4] = 1;
 <
 
-SEE ALSO  *vwt-150-see-also*
+SEE ALSO                                                    *vwt-150-see-also*
     - Increasing or decreasing numbers 
       [https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers] 
     - Making a list of numbers 
       [https://vim.fandom.com/wiki/Making_a_list_of_numbers] 
 
 
-COMMENTS  *vwt-150-comments*
+COMMENTS                                                    *vwt-150-comments*
 
 The vis.vim script at Visual Block Commands 
 [http://www.drchip.org/astronaut/vim/index.html#VIS] can apply a substitute to 

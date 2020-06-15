@@ -17,11 +17,11 @@ same time, you can do the following:
     :%s/&#\([0-9]*\);/\=nr2char(submatch(1))/g
 <
 
-REFERENCES  *vwt-1245-references*
+REFERENCES                                               *vwt-1245-references*
     - :help |nr2char()| 
     - :help |submatch()| 
 
 
-COMMENTS  *vwt-1245-comments*
+COMMENTS                                                   *vwt-1245-comments*
 
  vim:tw=78:et:ft=help:norl:

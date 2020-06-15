@@ -41,7 +41,7 @@ Add the following to vimrc:
 Now you can edit scheme code in an unsaved vim buffer and hit ",g" to see 
 what it does. Or ",p" for python code.
 
-COMMENTS  *vwt-944-comments*
+COMMENTS                                                    *vwt-944-comments*
 
 Edit the last line in the script to read:
 

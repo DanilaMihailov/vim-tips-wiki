@@ -136,7 +136,7 @@ That's all the modifications -- and now gdbvim will show the output of gdb
 inside a vim. (Errors from gdb won't show up in the console but still go to 
 the terminal.)
 
-COMMENTS  *vwt-357-comments*
+COMMENTS                                                    *vwt-357-comments*
 
 In the preceding, the second argument to Gdb_Console(stuff, set_prompt) is 
 not used. The purpose of the second argument was to try to provide the user 

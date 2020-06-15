@@ -17,7 +17,7 @@ If this tip is too complex for you, and you're using gvim on only one of
 Windows, GTK2 or MacOSX (and on no other platform), then see Change font 
 [https://vim.fandom.com/wiki/Change_font].
 
-BACKGROUND  *vwt-632-background*
+BACKGROUND                                                *vwt-632-background*
 
 1. There are five possible formats for the 'guifont' option: GTK+2/3, kvim 
 (obsolete), Photon, other-X11 and other. Each version of the GUI accepts only 
@@ -41,7 +41,7 @@ Change what you want to change, write it down so you can later enter it in
 your vimrc if you find out that you like it, then press Enter to accept the 
 new result.
 
-HOW TO PROCEED  *vwt-632-how-to-proceed*
+HOW TO PROCEED                                        *vwt-632-how-to-proceed*
     - The default value for 'guifont' is the null string. However, a default or 
       system vimrc may already have set some value. If what you see is "almost" what 
       you want, use method 3 above. If the current value is empty, you will have to 
@@ -78,7 +78,7 @@ with this, change the "set" statements as needed, and put it in your vimrc.
     endif
 <
 
-COMMENTS  *vwt-632-comments*
+COMMENTS                                                    *vwt-632-comments*
 
 For kvim (i.e. when has("gui_kde") is TRUE), there are several positional 
 parameters separated by slashes. Internal spaces must, as always, be 

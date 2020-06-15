@@ -54,7 +54,7 @@ Then define the appropriate mappings:
 The trick here is the use of the <c-r>= in insert mode to be able to call 
 your function without leaving insert mode. See :help |i_CTRL-R|.
 
-COMMENTS  *vwt-102-comments*
+COMMENTS                                                    *vwt-102-comments*
 
 TO DO
     - Clean up! This is a nice tip... 
@@ -393,7 +393,7 @@ use omni-completion if available, then it should be followings.
 
 ==============================================================================
 
-AVOID FLICKER BY USING AN EXPR MAPPING  *vwt-102-avoid-flicker-by-using-an-expr-mapping*
+AVOID FLICKER BY USING AN EXPR MAPPING *vwt-102-avoid-flicker-by-using-an-expr-mapping*
 
 All of the above techniques using <C-R>=...<CR> cause flicker in my xterm, 
 caused by 3 or 4 full screen redraws. This can be very slow when dealing with 

@@ -53,6 +53,6 @@ line containing "Error".
     :g/^Error/execute '.-1,.+1w '.line('.').'.txt'
 <
 
-COMMENTS  *vwt-1059-comments*
+COMMENTS                                                   *vwt-1059-comments*
 
  vim:tw=78:et:ft=help:norl:

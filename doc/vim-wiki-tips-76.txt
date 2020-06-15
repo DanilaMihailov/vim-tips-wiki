@@ -15,7 +15,7 @@ current buffer that have no errors (when using :make), or that do not match
 the search pattern (when using :grep). See here |vwt-801| to fold lines in the 
 quickfix list.
 
-FOLD AWAY MISSES  *vwt-76-fold-away-misses*
+FOLD AWAY MISSES                                     *vwt-76-fold-away-misses*
 
 The following script can be used to fold away lines with no errors/matches.
 
@@ -78,6 +78,6 @@ Usage
     command! -bar -count=99999 FoldLMisses call s:FoldMisses(getloclist(0), <count>)
 <
 
-COMMENTS  *vwt-76-comments*
+COMMENTS                                                     *vwt-76-comments*
 
  vim:tw=78:et:ft=help:norl:

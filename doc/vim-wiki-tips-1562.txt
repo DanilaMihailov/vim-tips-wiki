@@ -42,13 +42,13 @@ To see what it's changing, you could modify the command like this:
     :nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| reg "ab<CR>
 <
 
-REFERENCES  *vwt-1562-references*
+REFERENCES                                               *vwt-1562-references*
     - :help |:let| 
     - :help |:reg| 
     - :help |registers| 
     - :help |map_bar| 
 
 
-COMMENTS  *vwt-1562-comments*
+COMMENTS                                                   *vwt-1562-comments*
 
  vim:tw=78:et:ft=help:norl:

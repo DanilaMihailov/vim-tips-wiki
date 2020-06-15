@@ -16,7 +16,7 @@ files. Anyway, this all works fine, but every time I do any extensive edits to
 a Perl/batch file, I have to set cindent and syntax=perl or it drives me 
 crazy.
 
-FILETYPE.VIM  *vwt-638-filetype.vim*
+FILETYPE.VIM                                            *vwt-638-filetype.vim*
 
 To make one change that will apply to any scripts created by pl2bat, edit 
 your user (~/.vim) or machine ($VIMRUNTIME/vimfiles) version of filetype.vim 
@@ -32,7 +32,7 @@ predefined rules for .bat extensions will run.
 
 See :help |new-filetype| (section C).
 
-MODELINE  *vwt-638-modeline*
+MODELINE                                                    *vwt-638-modeline*
 
 You can specify the following text as the first line of the converted file 
 (by manual edit or changing the pl2bat generation) to contain the following to 

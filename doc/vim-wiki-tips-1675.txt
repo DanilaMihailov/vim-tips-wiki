@@ -17,7 +17,7 @@ Instead of changing the tools, it is common to remove the diacritical signs
 (e.g. replace á with a, and ç with c). This tip provides a script to do the 
 necessary substitutions in a single step.
 
-SCRIPT  *vwt-1675-script*
+SCRIPT                                                       *vwt-1675-script*
 
 Create file ~/.vim/plugin/diacritics.vim (Unix) or 
 $HOME/vimfiles/plugin/diacritics.vim (Windows) containing one of the scripts 
@@ -81,11 +81,11 @@ command completion, or press the up arrow for command history):
 
 See ranges [https://vim.fandom.com/wiki/Ranges] for more information.
 
-REFERENCES  *vwt-1675-references*
+REFERENCES                                               *vwt-1675-references*
     - :help |/collection| 
 
 
-COMMENTS  *vwt-1675-comments*
+COMMENTS                                                   *vwt-1675-comments*
 
 Sorry for being away for so long.
 

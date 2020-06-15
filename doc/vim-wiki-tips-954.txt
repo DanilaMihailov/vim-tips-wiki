@@ -30,7 +30,7 @@ write a script named gvims
     fi
 <
 
-COMMENTS  *vwt-954-comments*
+COMMENTS                                                    *vwt-954-comments*
 
 I'd recommend you to check v:this_session before saving the session. If you 
 edit many files within single session, the way your tip works will depend on 
@@ -133,7 +133,7 @@ This entry let the cursor go to the 6th line.
 
 ==============================================================================
 
-ALTERNATIVE: SESSION.VIM PLUG-IN  *vwt-954-alternative:-session.vim-plug-in*
+ALTERNATIVE: SESSION.VIM PLUG-IN    *vwt-954-alternative:-session.vim-plug-in*
 
 The session.vim plug-in [http://peterodding.com/code/vim/session/] 
 (script#3150 [https://www.vim.org/scripts/script.php?script_id=3150]) extends 

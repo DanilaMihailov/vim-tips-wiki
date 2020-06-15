@@ -15,12 +15,12 @@ You can also simply press <C-V> before whatever character (usually <space>)
 that you type that will expand the abbreviation. This will insert the 
 character literally without expanding the abbreviation.
 
-REFERENCES  *vwt-352-references*
+REFERENCES                                                *vwt-352-references*
     - :help 'paste' 
     - :help 'pastetoggle' 
 
 
-COMMENTS  *vwt-352-comments*
+COMMENTS                                                    *vwt-352-comments*
 
 Does anybody have a better way to disable cabbrev's? The Vim docs (a little 
 above help abbreviate-local) say pressing <C-v> twice somewhere within the 

@@ -15,7 +15,7 @@ reverse the process to write an updated binary file. It is possible to
 automate the hex conversion [https://vim.fandom.com/wiki/Improved_Hex_editing] 
 but knowing how it works will give you a more versatile tool.
 
-DUMPING A BINARY FILE AS HEX  *vwt-1613-dumping-a-binary-file-as-hex*
+DUMPING A BINARY FILE AS HEX           *vwt-1613-dumping-a-binary-file-as-hex*
 
 You can read a hex dump from a binary file into the current buffer. The 
 following command inserts a hex dump of the file sample.bin after the line 
@@ -44,7 +44,7 @@ You can read the xxd usage text into the current Vim buffer with:
     :r !xxd --help
 <
 
-GENERATING C SOURCE FOR A BINARY FILE  *vwt-1613-generating-c-source-for-a-binary-file*
+GENERATING C SOURCE FOR A BINARY FILE *vwt-1613-generating-c-source-for-a-binary-file*
 
 In a C program, you may want an array that holds data equivalent to the 
 contents of a binary file. The following command reads a dump of file 
@@ -65,7 +65,7 @@ Using the same binary file as earlier, the result would be:
     unsigned int sample_bin_len = 32;
 <
 
-EDITING BINARY FILES  *vwt-1613-editing-binary-files*
+EDITING BINARY FILES                           *vwt-1613-editing-binary-files*
 
 Use the -b option to set binary mode before editing a binary file, for 
 example:
@@ -102,14 +102,14 @@ command:
 The above command reverses the hex dump by converting the hex bytes to binary 
 (the printable text in the right column is ignored).
 
-SEE ALSO  *vwt-1613-see-also*
+SEE ALSO                                                   *vwt-1613-see-also*
     - Improved hex editing |vwt-1518| 
 
 
-REFERENCES  *vwt-1613-references*
+REFERENCES                                               *vwt-1613-references*
     - :help |23.4| 
 
 
-COMMENTS  *vwt-1613-comments*
+COMMENTS                                                   *vwt-1613-comments*
 
  vim:tw=78:et:ft=help:norl:

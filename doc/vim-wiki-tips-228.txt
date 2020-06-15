@@ -36,13 +36,13 @@ grunt work out of replying to mails.
 The autocmd only maps F8 when using mails, this is handy if you use F8 for 
 other things as I do.
 
-REFERENCES  *vwt-228-references*
+REFERENCES                                                *vwt-228-references*
     - :help |:autocmd| 
     - :help |:map| 
     - :help |:g| 
 
 
-COMMENTS  *vwt-228-comments*
+COMMENTS                                                    *vwt-228-comments*
 
 Why not just put the mapping in the ftplugin/mail.vim file?
 

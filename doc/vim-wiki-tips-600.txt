@@ -34,7 +34,7 @@ This maps the following keys:
 You can then simply paste the name into another document using the regular 
 paste command.
 
-COPYING TO THE GNOME CLIPBOARD  *vwt-600-copying-to-the-gnome-clipboard*
+COPYING TO THE GNOME CLIPBOARD        *vwt-600-copying-to-the-gnome-clipboard*
 
 Under linux, the script above will copy the file path or filename to X Server 
 clipboard (accessed by pressing the middle mouse button). To copy text to the 
@@ -60,14 +60,14 @@ This uses the + register instead of the * register.
 
 Note: this may work with KDE and XCFE as well, I simply haven't tested (yet).
 
-REFERENCES  *vwt-600-references*
+REFERENCES                                                *vwt-600-references*
     - :help |expand()| 
     - :help |filename-modifiers| 
     - :help |quotestar| 
     - :help 'clipboard' 
 
 
-COMMENTS  *vwt-600-comments*
+COMMENTS                                                    *vwt-600-comments*
 
 I find it useful to have mappings both for copying the (full) path of the 
 current file to the system clipboard and to the Vim unnamed register, as well 

@@ -43,7 +43,7 @@ this opens up possibilities for many different things, because Vim allows you
 to map real commands into the abbreviations, instead of just vanilla text like 
 in jEdit.
 
-COMMENTS  *vwt-593-comments*
+COMMENTS                                                    *vwt-593-comments*
 
 Word of warning: I gave a dangerous example. abbreviations expand on any word 
 break, so don't use just for as your abbreviation name. Use something that 

@@ -11,9 +11,9 @@ September 6, 2011 · complexity basic · author Raimondi · version 7.0
 Sometimes a basic feature of Vim does not work as expected. The following 
 instructions can help eliminate possible sources of the problem.
 
-GENERAL TROUBLESHOOTING  *vwt-1676-general-troubleshooting*
+GENERAL TROUBLESHOOTING                     *vwt-1676-general-troubleshooting*
 
-CHECK VIM WITHOUT CUSTOMIZATIONS  *vwt-1676-check-vim-without-customizations*
+CHECK VIM WITHOUT CUSTOMIZATIONS   *vwt-1676-check-vim-without-customizations*
 
 Run the following command from your terminal and see if the problem persists 
 (if wanted, replace "vim" with "gvim"):
@@ -31,7 +31,7 @@ highlighting, etc. that are needed to troubleshoot the problem.
       |vwt-1676-check-vim-with-just-your-.vimrc|. 
 
 
-VERIFY REQUIRED FEATURES  *vwt-1676-verify-required-features*
+VERIFY REQUIRED FEATURES                   *vwt-1676-verify-required-features*
 
 Check the feature you need was enabled when Vim was built. Use the :version 
 command to see if that feature is enabled.
@@ -42,7 +42,7 @@ command to see if that feature is enabled.
       was linked with Vim. 
 
 
-CHECK VIM WITH JUST YOUR .VIMRC  *vwt-1676-check-vim-with-just-your-.vimrc*
+CHECK VIM WITH JUST YOUR .VIMRC     *vwt-1676-check-vim-with-just-your-.vimrc*
 
 Run Vim with following arguments and see if the problem disappears:
 
@@ -55,7 +55,7 @@ Run Vim with following arguments and see if the problem disappears:
       |vwt-1676-check-vim-with-just-your-plugins|. 
 
 
-CHECK VIM WITH JUST YOUR PLUGINS  *vwt-1676-check-vim-with-just-your-plugins*
+CHECK VIM WITH JUST YOUR PLUGINS   *vwt-1676-check-vim-with-just-your-plugins*
 
 Back to your terminal and run Vim like this:
 
@@ -69,14 +69,14 @@ Back to your terminal and run Vim like this:
       being set. 
 
 
-SPECIFIC TROUBLESHOOTING  *vwt-1676-specific-troubleshooting*
+SPECIFIC TROUBLESHOOTING                   *vwt-1676-specific-troubleshooting*
 
-PLUGINS  *vwt-1676-plugins*
+PLUGINS                                                     *vwt-1676-plugins*
 
 If you have no idea which plugin(s) might be causing the problem, use a 
 binary search method to isolate the errant plugin(s).
 
-VIMRC  *vwt-1676-vimrc*
+VIMRC                                                         *vwt-1676-vimrc*
 
 The VimLint [https://github.com/dahu/VimLint] plugin was designed to help 
 identify erroneous vimrc settings.
@@ -115,7 +115,7 @@ identify erroneous vimrc settings.
     - Ensure :echo $TERM is correct. Check TermSettings for your terminal type. 
 
 
-MAPPINGS  *vwt-1676-mappings*
+MAPPINGS                                                   *vwt-1676-mappings*
 
 A custom mapping may not work because it was overwritten by a plugin. The 
 following command will tell you if aa is mapped to something and, if so, where 
@@ -128,7 +128,7 @@ the mapping was created.
 Use the appropriate :map command for the mapping you are testing, see :help 
 :map-modes for more details.
 
-OPTIONS  *vwt-1676-options*
+OPTIONS                                                     *vwt-1676-options*
 
 Many plugins change options when they are sourced, filetype is set, etc. So, 
 you might find yourself wondering why an option is not set as you expect. From 
@@ -145,7 +145,7 @@ query causes the value to be displayed; omitting it might set the option).
 For local options that inherit its value, that command would not specify 
 where the value was set. What to do in this case?
 
-COMMENTS  *vwt-1676-comments*
+COMMENTS                                                   *vwt-1676-comments*
 
 Should explain the use of the -i flag, and also mention that the viminfo file 
 can be the cause of issues (especially slowness in loading apparently).

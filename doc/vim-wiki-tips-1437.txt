@@ -26,7 +26,7 @@ because Vim uses almost the entire keyboard for built-in functionality, so you
 will need to carefully choose commands which you do not use or provide 
 alternate methods to reach the functionality you are replacing.
 
-CAVEATS  *vwt-1437-caveats*
+CAVEATS                                                     *vwt-1437-caveats*
     - This potentially interferes with any normal-mode mappings you may have in 
       your vimrc [https://vim.fandom.com/wiki/Vimrc]. 
     - This won't change multi-key shortcuts like <c-v>, even in normal mode. 
@@ -50,7 +50,7 @@ CAVEATS  *vwt-1437-caveats*
       find a character and "," to move forward a word, etc.). 
 
 
-DVORAK TO QWERTY  *vwt-1437-dvorak-to-qwerty*
+DVORAK TO QWERTY                                   *vwt-1437-dvorak-to-qwerty*
 
 >
     set langmap='q,\\,w,.e,pr,yt,fy,gu,ci,ro,lp,/[,=],aa,os,ed,uf,ig,dh,hj,tk,nl,s\\;,-',\\;z,qx,jc,kv,xb,bn,mm,w\\,,v.,z/,[-,]=,\"Q,<W,>E,PR,YT,FY,GU,CI,RO,LP,?{,+},AA,OS,ED,UF,IG,DH,HJ,TK,NL,S:,_\",:Z,QX,JC,KV,XB,BN,MM,W<,V>,Z?
@@ -60,7 +60,7 @@ Another perfectly fine approach is to use this keymap:
 http://www.alge.no/vim/howto/dvorak.html 
 [http://www.alge.no/vim/howto/dvorak.html]
 
-DVORAK.FR TO AZERTY  *vwt-1437-dvorak.fr-to-azerty*
+DVORAK.FR TO AZERTY                             *vwt-1437-dvorak.fr-to-azerty*
 
 Here is a mapping for dvorak.fr to azerty :
 
@@ -68,7 +68,7 @@ Here is a mapping for dvorak.fr to azerty :
     set langmap=:a,àz,ée,gr,.t,hy,vu,ci,mo,kp,è^,z$,oq,as,ud,ef,bg,fh,sj,tk,nl,dm,wù,ù*,ç<,'w,qx,\\,c,iv,yb,xn,r\\,,p:,j!,l;;,?A,ÀZ,ÉE,GR,.T,HY,VU,CI,MO,KP,È¨,Z£,OQ,AS,UD,EF,BG,FH,SJ,TK,NL,DM,W%,Ù*,Ç>,'W,QX,\\;C,IV,YB,XN,RG,L.,P/,J§,/&,+é,*',=(,(è,`_,)ç,"à,[),]=,°{,+},\\\\-,-\"
 <
 
-COMMENTS  *vwt-1437-comments*
+COMMENTS                                                   *vwt-1437-comments*
 
 This is a really bad idea in my opinion. Using two different keyboard 
 layoutsat the same time is confusing and will prevent you from really 

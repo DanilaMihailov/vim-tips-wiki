@@ -42,7 +42,7 @@ Since compilers and other programs generate messages according to their own
 rules, there are a multitude of error formats that could be useful. Some are 
 listed here.
 
-FLEX  *vwt-1575-flex*
+FLEX                                                           *vwt-1575-flex*
 
 The free alternative to LEX, a lexical parser generator. Error messages are 
 like: "somefile.l", line 15: rule cannot be matched.
@@ -51,7 +51,7 @@ like: "somefile.l", line 15: rule cannot be matched.
     set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m
 <
 
-BISON  *vwt-1575-bison*
+BISON                                                         *vwt-1575-bison*
 
 The GNU bison parser generator (similar to YACC) generates a couple of 
 different types of errors. They start with the file name, then a colon. If 
@@ -65,7 +65,7 @@ column range) follows, and then a colon, space, and the error message.
     set errorformat+=%f:\ %m
 <
 
-TEXAS INSTRUMENTS CL2000 COMPILER  *vwt-1575-texas-instruments-cl2000-compiler*
+TEXAS INSTRUMENTS CL2000 COMPILER *vwt-1575-texas-instruments-cl2000-compiler*
 
 This is the C-compiler and linker that's used for some Texas Instruments DSP 
 microprocessors. Error format is like "file.c", line 17: some error message.
@@ -74,7 +74,7 @@ microprocessors. Error format is like "file.c", line 17: some error message.
     set errorformat=\"%f\"\\,\ line\ %l:\ %m
 <
 
-ESLINT  *vwt-1575-eslint*
+ESLINT                                                       *vwt-1575-eslint*
 
 This common linting utility for Javascript has a few output formats. The 
 compact format outputs a structure similar to the following:
@@ -91,7 +91,7 @@ This can be effectively parsed with this 'errorformat' setting:
     set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 <
 
-MINGW  *vwt-1575-mingw*
+MINGW                                                         *vwt-1575-mingw*
 
 The mingw Windows port of the gcc c-compiler/linker from the FSF.
 
@@ -99,7 +99,7 @@ The mingw Windows port of the gcc c-compiler/linker from the FSF.
     set errorformat+=%f:%l:\ %m
 <
 
-GFORTRAN  *vwt-1575-gfortran*
+GFORTRAN                                                   *vwt-1575-gfortran*
 
 A suitable 'errorformat' for gfortran is:
 
@@ -153,7 +153,7 @@ Where hello-world.f90 is:
     end program
 <
 
-MODELSIM VLOG/VCOM FOR VERILOG/VHDL  *vwt-1575-modelsim-vlog/vcom-for-verilog/vhdl*
+MODELSIM VLOG/VCOM FOR VERILOG/VHDL *vwt-1575-modelsim-vlog/vcom-for-verilog/vhdl*
 
 A simulation tool for Verilog/VHDL. Error messages look like:** Error: 
 /pathto/somefile.v(115): near \"source text\": syntax error message.
@@ -169,7 +169,7 @@ messages.
     set errorformat=\*\*\ %tRROR:\ %f(%l):\ %m,\*\*\ %tRROR:\ %m,\*\*\ %tARNING:\ %m,\*\*\ %tOTE:\ %m,%tRROR:\ %f(%l):\ %m,%tARNING\[%*[0-9]\]:\ %f(%l):\ %m,%tRROR:\ %m,%tARNING\[%*[0-9]\]:\ %m
 <
 
-ZILOG  *vwt-1575-zilog*
+ZILOG                                                         *vwt-1575-zilog*
 
 Code for the Zilog eZ80 [http://en.wikipedia.org/wiki/Zilog_eZ80] 
 microprocessor can be built from Vim after installing ZDS. Create a makefile 
@@ -197,7 +197,7 @@ above).
 
 Todo: Should investigate use of :let errorformat=... with \t to avoid need to use literal tab characters.
 
-CMAKE  *vwt-1575-cmake*
+CMAKE                                                         *vwt-1575-cmake*
 
 >
     " CMake Parser
@@ -211,19 +211,19 @@ CMAKE  *vwt-1575-cmake*
     let &efm .= ',%C' . ' %m'
 <
 
-SEE ALSO  *vwt-1575-see-also*
+SEE ALSO                                                   *vwt-1575-see-also*
     - Errorformat for icc7 |vwt-518| 
     - Errorformat for Intel ifort |vwt-682| 
     - Errorformat for java/ant/junit/cygwin/bash |vwt-325| 
     - Errorformat and makeprg |vwt-476| 
 
 
-REFERENCES  *vwt-1575-references*
+REFERENCES                                               *vwt-1575-references*
     - :help 'errorformat' 
     - :help 'makeef' 
 
 
-COMMENTS  *vwt-1575-comments*
+COMMENTS                                                   *vwt-1575-comments*
 
 TO DO
     - Clean up tips in Category:Compiler 

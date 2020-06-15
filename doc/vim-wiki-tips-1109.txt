@@ -63,7 +63,7 @@ Example:
     endfunction
 <
 
-COMMENTS  *vwt-1109-comments*
+COMMENTS                                                   *vwt-1109-comments*
 
 Benji Fisher's functions (foo.vim?) contain a Mark() function that returns an 
 ex command that, when executed, restores the cursor and screen positions. An 

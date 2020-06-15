@@ -33,7 +33,7 @@ In a simpler scenario all tag searches using the / character are case
 insensitive, so even when used without a regular expression, / can help you 
 find the tag you're looking for.
 
-COMMENTS  *vwt-1018-comments*
+COMMENTS                                                   *vwt-1018-comments*
 
 I should point out that if you have ignorecase (ic) set, then the tags family 
 of commands all do tag lookup in a case insensitive manner, so using / without 

@@ -19,7 +19,7 @@ with two-digit hexadecimal numbers (from 00 to ff) in the format #rrggbb.
 See also file $VIMRUNTIME/syntax/colortest.vim provided with Vim. :help 
 |colortest.vim|
 
-COLOR NUMBERS AND NAMES FOR GVIM  *vwt-634-color-numbers-and-names-for-gvim*
+COLOR NUMBERS AND NAMES FOR GVIM    *vwt-634-color-numbers-and-names-for-gvim*
 
 Copy the following script into gvim. Save the file, then enter :so % to 
 source the script. The script creates a scratch buffer with the named colors 
@@ -71,7 +71,7 @@ in rgb.txt, and displays each color name using a background color of the name.
     nohlsearch
 <
 
-COMPACT LIST OF COLOR NAMES FOR GVIM  *vwt-634-compact-list-of-color-names-for-gvim*
+COMPACT LIST OF COLOR NAMES FOR GVIM *vwt-634-compact-list-of-color-names-for-gvim*
 
 Copy the following script into gvim. Save the file (must have filetype 'vim', 
 for example, file colors.vim), then enter :so % to source the script. 
@@ -188,7 +188,7 @@ script.
     " END_COLOR_LIST
 <
 
-COLOR NUMBERS FOR XTERM AND GVIM  *vwt-634-color-numbers-for-xterm-and-gvim*
+COLOR NUMBERS FOR XTERM AND GVIM    *vwt-634-color-numbers-for-xterm-and-gvim*
 
 Copy the following script into Vim, save the file, then enter :so % to source 
 the script. Enter one of the following commands to create a color test script, 
@@ -240,7 +240,7 @@ and to execute that script:
     command! GvimColorTest call GvimColorTest('gvim-color-test.tmp')
 <
 
-COMMENTS  *vwt-634-comments*
+COMMENTS                                                    *vwt-634-comments*
 
 TO DO
     - Any suggestions for a better title for this tip? 

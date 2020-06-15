@@ -38,7 +38,7 @@ Others (on "Mountain Lion" and "Sierra") reported success with this instead:
     set term=xterm-256color
 <
 
-COMMENTS  *vwt-283-comments*
+COMMENTS                                                    *vwt-283-comments*
 
 The following worked great on OSX 10.10.3 Yosemite, and OSX 10.12.4 Sierra. I 
 tested it with .py, .html and .php. Thanks!set term=builtin_ansi Worked like a charm on OS X 10.9 Mavericks, Thanks.

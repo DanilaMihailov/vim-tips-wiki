@@ -16,7 +16,7 @@ In Vim, check that you have the blockwise-operators feature (I, A, and more)
 by entering the :version command. The output should include +visualextra. 
 :help |+visualextra|
 
-INSERT  *vwt-194-insert*
+INSERT                                                        *vwt-194-insert*
 
 For example, suppose you have some Vim script:
 
@@ -50,7 +50,7 @@ you had typed the characters. For example, if one of the characters is Ctrl-H
 If you want to actually insert all characters, including special codes such as 
 Ctrl-H, you need to press Ctrl-R twice (Ctrl-R Ctrl-R ").
 
-APPEND  *vwt-194-append*
+APPEND                                                        *vwt-194-append*
 
 In a visual block, you can insert text in each line before the selection with 
 I, and you can append text in each line after the selection with A. If you use 
@@ -83,7 +83,7 @@ The result is:
     The third. Hello world.
 <
 
-SEARCH AND REPLACE  *vwt-194-search-and-replace*
+SEARCH AND REPLACE                                *vwt-194-search-and-replace*
 
 The substitute command can be used to insert (or replace) text. Some 
 examples:
@@ -95,20 +95,20 @@ visual selection. See Search and replace
 a range |[range]| immediately after the colon, for instance :.-5,$s/ etc. to 
 substitute from 5 lines above the cursor to the end of the file.
 
-SEE ALSO  *vwt-194-see-also*
+SEE ALSO                                                    *vwt-194-see-also*
     - Macros [https://vim.fandom.com/wiki/Macros] 
     - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change] 
     - Search and replace in a visual selection 
       [https://vim.fandom.com/wiki/Search_and_replace_in_a_visual_selection] 
 
 
-REFERENCES  *vwt-194-references*
+REFERENCES                                                *vwt-194-references*
     - :help |v_b_A| 
     - :help |v_b_I| 
     - :help |i_CTRL-R| 
     - :help |i_CTRL-R_CTRL-R| 
 
 
-COMMENTS  *vwt-194-comments*
+COMMENTS                                                    *vwt-194-comments*
 
  vim:tw=78:et:ft=help:norl:

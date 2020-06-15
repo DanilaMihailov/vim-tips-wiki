@@ -18,7 +18,7 @@ dim text unless its been made bold).
 
 Read more about it at :help |highlight-ctermfg|.
 
-COMMENTS  *vwt-126-comments*
+COMMENTS                                                    *vwt-126-comments*
 
 This works ok, but a more portable (and more predictable) way is to use the 
 dark color names. i.e. use DarkBlue instead of Blue, Gray instead of White, 
@@ -36,7 +36,7 @@ If you are using a recent xterm try putting this in your .vimrc:
 And you will get the non-bolded versions of those colors (which means you 
 have 16 colors to work with).
 
-HOW MANY COLORS DOES MY XTERM SUPPORT?  *vwt-126-how-many-colors-does-my-xterm-support?*
+HOW MANY COLORS DOES MY XTERM SUPPORT? *vwt-126-how-many-colors-does-my-xterm-support?*
 
 You can find out how many colors your xterm has by running
 

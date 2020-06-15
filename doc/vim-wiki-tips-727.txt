@@ -38,7 +38,7 @@ In short this just mean that I call the Noma_workaround() function to
 determine if I can set the fileencoding or if that will give an error. In that 
 case I jsut set the other options.
 
-COMMENTS  *vwt-727-comments*
+COMMENTS                                                    *vwt-727-comments*
 
 Your Noma_workaround will almost never set 'filencoding' to latin1 because
 

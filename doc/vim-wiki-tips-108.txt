@@ -15,7 +15,7 @@ Typically, each function is regarded as a fold that can be opened or closed.
 With all folds closed, you see only the first line of each function for an 
 overview of the program.
 
-FOLDING METHODS  *vwt-108-folding-methods*
+FOLDING METHODS                                      *vwt-108-folding-methods*
 
 To activate folding in your text, you will need to set the 'foldmethod' 
 option.
@@ -33,7 +33,7 @@ are:
       set in diff mode) 
 
 
-MANUAL FOLDING  *vwt-108-manual-folding*
+MANUAL FOLDING                                        *vwt-108-manual-folding*
 
 Normally it is best to use an automatic folding method, but manual folding is 
 simple and can be useful for dealing with small folds.
@@ -59,7 +59,7 @@ can be folded by running :,+3fo.
 Use zd to delete the fold at the cursor (no text is deleted, just the fold 
 markers); zD is used to recursively delete folds at the cursor.
 
-INDENT FOLDING  *vwt-108-indent-folding*
+INDENT FOLDING                                        *vwt-108-indent-folding*
 
 As noted above, with 'foldmethod' set to indent, lines with the same level of 
 indentation will be folded together. Note this means text like this:
@@ -85,7 +85,7 @@ folds you want displayed will show a sidebar, in which you can see which lines
 in the file can be folded, or are already folded, with a '+' (closed) or '-' 
 (open) indicator.
 
-SYNTAX FOLDING  *vwt-108-syntax-folding*
+SYNTAX FOLDING                                        *vwt-108-syntax-folding*
 
 Try :setlocal foldmethod=syntax. Many syntax files define folding based on 
 the language syntax, although you may need to enable it by setting syntax file 
@@ -96,7 +96,7 @@ Note that this particular fold method especially may define too many folds
 for your liking. You can change this using the 'foldnestmax' option, by 
 setting it to a value low enough for your liking.
 
-INDENT FOLDING WITH MANUAL FOLDS  *vwt-108-indent-folding-with-manual-folds*
+INDENT FOLDING WITH MANUAL FOLDS    *vwt-108-indent-folding-with-manual-folds*
 
 If you like the convenience of having Vim define folds automatically by 
 indent level, but would also like to create folds manually, you can get both 
@@ -115,7 +115,7 @@ to manually create folds while editing. It's executed after the modeline is
 read, so it won't change the fold method if the modeline set the fold method 
 to something else like 'marker' or 'syntax'.
 
-FOLDING BY EXPRESSION  *vwt-108-folding-by-expression*
+FOLDING BY EXPRESSION                          *vwt-108-folding-by-expression*
 
 This is the most complicated, but also the most powerful fold method. You can 
 use it to fold in pretty much any way you desire. For example, you could fold 
@@ -123,7 +123,7 @@ away text not matching a regular expression
 [https://vim.fandom.com/wiki/Folding_with_Regular_Expression]. See :help 
 'foldexpr' for details.
 
-FOLDING WITH MARKERS  *vwt-108-folding-with-markers*
+FOLDING WITH MARKERS                            *vwt-108-folding-with-markers*
 
 Setting foldmethod to "marker" is similar to manual folding, because you can 
 use zf and zd to add/remove folds, and all folds are defined manually. 
@@ -142,7 +142,7 @@ for this would be to use a modeline
 [https://vim.fandom.com/wiki/Modeline_magic], so that most Vim users will get 
 your intended settings by default when they edit the file.
 
-DIFF FOLDING  *vwt-108-diff-folding*
+DIFF FOLDING                                            *vwt-108-diff-folding*
 
 This foldmethod should never be set manually without very good reason. It is 
 the default fold method when using Vim in diff mode. Simply running any of the 
@@ -154,7 +154,7 @@ number of lines to leave unfolded, using the 'diffopt' option.
 If you want folding in diff/patch files, see Folding for diff files 
 [https://vim.fandom.com/wiki/Folding_for_diff_files] instead.
 
-OPENING AND CLOSING FOLDS  *vwt-108-opening-and-closing-folds*
+OPENING AND CLOSING FOLDS                  *vwt-108-opening-and-closing-folds*
 
 The command zc will close a fold (if the cursor is in an open fold), and zo 
 will open a fold (if the cursor is in a closed fold). It's easier to just use 
@@ -173,7 +173,7 @@ folds.
 The command zm gives more folding by closing one more level of folds 
 throughout the whole buffer. Use zM to close all folds.
 
-MAPPINGS TO TOGGLE FOLDS  *vwt-108-mappings-to-toggle-folds*
+MAPPINGS TO TOGGLE FOLDS                    *vwt-108-mappings-to-toggle-folds*
 
 With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc], you can 
 toggle folds open/closed by pressing F9. In addition, if you have :set 
@@ -205,13 +205,13 @@ the result is 'za' (toggle fold); otherwise it is "\<Space>", which evaluates
 back to the default behaviour of the <Space> key (move forward by one 
 character). :help |expr1|
 
-SAVING FOLDS BEFORE CLOSING VIM  *vwt-108-saving-folds-before-closing-vim*
+SAVING FOLDS BEFORE CLOSING VIM      *vwt-108-saving-folds-before-closing-vim*
 
 Vim provides a good mechanism called view. You can use it to save a fold. See 
 Make views automatic |vwt-991|. You may also want to use plugin 
 restore_view.vim [https://www.vim.org/scripts/script.php?script_id=4021].
 
-COMMANDS OVER FOLDS  *vwt-108-commands-over-folds*
+COMMANDS OVER FOLDS                              *vwt-108-commands-over-folds*
 
 Folds can be created using one of the methods described above. Then, all the 
 folds can be closed using zM. Now, commands can be executed on each line that 
@@ -220,7 +220,7 @@ results.
 
 Todo: Explain how a command stored in a register can be executed this way. Ctrl-r, followed by the register name does not appear to execute the set of keystrokes for each line that is folded?
 
-SEE ALSO  *vwt-108-see-also*
+SEE ALSO                                                    *vwt-108-see-also*
     - Syntax folding of Vim scripts 
       [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] discusses folding 
       for files in the Vim script [https://vim.fandom.com/wiki/Category:VimL] 
@@ -232,7 +232,7 @@ SEE ALSO  *vwt-108-see-also*
       includes information about folding in DOS-style .ini files 
 
 
-REFERENCES  *vwt-108-references*
+REFERENCES                                                *vwt-108-references*
     - :help |folding| 
     - :help |zc| 
     - :help |zo| 
@@ -241,6 +241,6 @@ REFERENCES  *vwt-108-references*
     - :help |:syn-fold| 
 
 
-COMMENTS  *vwt-108-comments*
+COMMENTS                                                    *vwt-108-comments*
 
  vim:tw=78:et:ft=help:norl:

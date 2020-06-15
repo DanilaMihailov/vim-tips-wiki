@@ -15,7 +15,7 @@ If you use Vim in a terminal, you may find that pasting from another
 application changes the indents in the pasted text. See Toggle auto-indenting 
 for code paste |vwt-906| to deal with that problem.
 
-DISABLING FILE TYPE BASED INDENTATION FOR A SPECIFIC FILE TYPE  *vwt-1124-disabling-file-type-based-indentation-for-a-specific-file-type*
+DISABLING FILE TYPE BASED INDENTATION FOR A SPECIFIC FILE TYPE *vwt-1124-disabling-file-type-based-indentation-for-a-specific-file-type*
 
 You may like auto indenting in C programs, but dislike it when editing html 
 files. You can disable auto indentation for particular files types; the 
@@ -43,7 +43,7 @@ the value of the ft (filetype) option for the current buffer:
     :set ft?
 <
 
-DISABLING FILE TYPE BASED INDENTATION FOR ALL FILE TYPES  *vwt-1124-disabling-file-type-based-indentation-for-all-file-types*
+DISABLING FILE TYPE BASED INDENTATION FOR ALL FILE TYPES *vwt-1124-disabling-file-type-based-indentation-for-all-file-types*
 
 The auto indentation provided for most languages is very helpful, and you 
 should consider trying it. However, it's easy to disable all auto indents if 
@@ -75,7 +75,7 @@ bottom of your vimrc to disable filetype based indentation:
     filetype indent off
 <
 
-DISABLING AUTO INDENT FOR THE CURRENT FILE  *vwt-1124-disabling-auto-indent-for-the-current-file*
+DISABLING AUTO INDENT FOR THE CURRENT FILE *vwt-1124-disabling-auto-indent-for-the-current-file*
 
 To see the current indenting settings, and where they were set, enter:
 
@@ -106,7 +106,7 @@ Here is a mapping so you can press F8 to disable auto indenting:
     :nnoremap <F8> :setl noai nocin nosi inde=<CR>
 <
 
-COMMENTS  *vwt-1124-comments*
+COMMENTS                                                   *vwt-1124-comments*
 
 You may have disabled auto indenting in HTML files, but you would like auto 
 indenting of your embedded PHP code. When wanted, enter the following to 
@@ -134,7 +134,7 @@ Insert a non commented line despite formatoptions
 
 --Fritzophrenic (talk) 18:23, January 17, 2013 (UTC)
 
-DISABLING AUTO INDENT TEMPORARILY TO PASTE  *vwt-1124-disabling-auto-indent-temporarily-to-paste*
+DISABLING AUTO INDENT TEMPORARILY TO PASTE *vwt-1124-disabling-auto-indent-temporarily-to-paste*
 
 Sometimes you only need to paste some snippet of code, that already has 
 indentation, so you can disable it only during the paste operation:
@@ -151,7 +151,7 @@ then
 
 The introduction at the top mentions "See Toggle auto-indenting for code paste" and that tip has the correct way to do this. You don't need the above set commands. JohnBeckett (talk) 11:30, February 8, 2013 (UTC)
 
-GLOBALLY DISABLE AUTO-INDENTATION BY DISABLING THE FILE  *vwt-1124-globally-disable-auto-indentation-by-disabling-the-file*
+GLOBALLY DISABLE AUTO-INDENTATION BY DISABLING THE FILE *vwt-1124-globally-disable-auto-indentation-by-disabling-the-file*
 
 >
     cd /usr/share/vim/vim80

@@ -61,7 +61,7 @@ Replace all instances of normal! jv%zf with normal! f{v%zf.
 To hide more functions, add more if-endif blocks substituting sub foo_ with 
 the names of the functions you want to hide.
 
-COMMENTS  *vwt-916-comments*
+COMMENTS                                                    *vwt-916-comments*
 
 You might find it easier to manage if you do something like:
 

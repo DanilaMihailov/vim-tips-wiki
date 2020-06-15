@@ -60,7 +60,7 @@ Ctrl-F11: maximize/restore height and width
     imap <C-F11> <C-O><C-F11>
 <
 
-COMMENTS  *vwt-1110-comments*
+COMMENTS                                                   *vwt-1110-comments*
 
 The problem with something like lines=999 or columns=999 is that on some 
 platforms (many Unix systems), the window is allowed to be arbitrarily large: 

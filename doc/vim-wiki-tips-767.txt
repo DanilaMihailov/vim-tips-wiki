@@ -52,12 +52,12 @@ instead of | like this:
     map <F6> <ESC>:echo "test" <bar> :echo "test2"
 <
 
-REFERENCES  *vwt-767-references*
+REFERENCES                                                *vwt-767-references*
     - :help |:\bar| 
     - :help |:execute| 
 
 
-COMMENTS  *vwt-767-comments*
+COMMENTS                                                    *vwt-767-comments*
 
 what about the range? how can you specify one range, and then have a list of 
 commands executed on that one range?

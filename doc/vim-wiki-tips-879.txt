@@ -14,7 +14,7 @@ autocmd in your vimrc:
     autocmd! bufwritepost .vimrc source %
 <
 
-COMMENTS  *vwt-879-comments*
+COMMENTS                                                    *vwt-879-comments*
 
 I did this and it seems to work. However I get a lot of errors (E174) saying 
 command already exists for each line in my vimrc.

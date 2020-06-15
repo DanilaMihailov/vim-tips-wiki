@@ -12,7 +12,7 @@ standard syntax files to suit a personal preference. Do not change any of the
 files distributed with Vim because such updates will be lost when Vim is 
 updated. Instead, use the techniques discussed here.
 
-DOCUMENTATION  *vwt-24-documentation*
+DOCUMENTATION                                           *vwt-24-documentation*
 
 Here are some pointers to the Vim documentation on syntax highlighting.
     - I want *.foo files to be highlighted like HTML files: :help |new-filetype| 
@@ -24,7 +24,7 @@ Here are some pointers to the Vim documentation on syntax highlighting.
       |mysyntaxfile| 
 
 
-PYTHON TRIPLE-QUOTED COMMENTS  *vwt-24-python-triple-quoted-comments*
+PYTHON TRIPLE-QUOTED COMMENTS           *vwt-24-python-triple-quoted-comments*
 
 In Vim 7.3 the file vim73/syntax/python.vim provides syntax highlighting for 
 Python files. That file (correctly) treats """...""" as a string and 
@@ -46,14 +46,14 @@ directories and the file.
           \ contains=pythonEscape,pythonTodo,@Spell
 <
 
-COMMENTS  *vwt-24-comments*
+COMMENTS                                                     *vwt-24-comments*
 
 This tip is vaguely related:
     - 1120 Remove annoyance with syntax highlighting when starting a string 
       |vwt-1120| 
 
 
-CHANGING SYNCOLOR.VIM  *vwt-24-changing-syncolor.vim*
+CHANGING SYNCOLOR.VIM                           *vwt-24-changing-syncolor.vim*
 
 It is possible to replace Vim's syncolor.vim file to customise syntax 
 highlighting. :help |syncolor| See Highlight special filetype docs 

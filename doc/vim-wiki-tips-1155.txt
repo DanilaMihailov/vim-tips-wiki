@@ -75,7 +75,7 @@ command-line history and change the 'set' to 'Set' and forget it.
     com! -nargs=+ -complete=option Set call Set( <f-args> )
 <
 
-COMMENTS  *vwt-1155-comments*
+COMMENTS                                                   *vwt-1155-comments*
 
 If I'm reading that right, it can't correctly preseve multiple spaces on the 
 original line. That may sometimes be a problem. Multiple consecutive spaces, I 

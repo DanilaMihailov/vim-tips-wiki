@@ -20,7 +20,7 @@ This tip discusses indenting using tabs and spaces, including methods to
 allow tabstop adjustment, while maintaining textual alignment. See indenting 
 source code |vwt-83| for background information on indenting.
 
-SPACES OR TABS?  *vwt-1626-spaces-or-tabs?*
+SPACES OR TABS?                                     *vwt-1626-spaces-or-tabs?*
 
 Programs use whitespace (spaces or tabs) for two purposes:
     - To indent blocks of code (for example, to show the code that is in a loop). 
@@ -82,7 +82,7 @@ This illustrates that using tabs for indentation and spaces for alignment
 keeps the alignment unchanged when the tabstop is altered (for lines with the 
 same indent).
 
-USING TABS FOR INDENTATION  *vwt-1626-using-tabs-for-indentation*
+USING TABS FOR INDENTATION               *vwt-1626-using-tabs-for-indentation*
 
 If you want to use only tabs for indentation (not spaces), enter the 
 following command (replace 4 with your preferred column width for each indent 
@@ -110,7 +110,7 @@ is not a multiple of tabstop.
 If you want the commands to affect only the current buffer, replace set with 
 setlocal (abbreviated as setl). More information is here |vwt-83|.
 
-SMART TABS  *vwt-1626-smart-tabs*
+SMART TABS                                               *vwt-1626-smart-tabs*
 
 The settings above use hard tabs as far as possible. To use tabs in a more 
 "semantic" way – i.e., the number of tabs equals the indentation level – 
@@ -131,7 +131,7 @@ whichever is appropriate: smart tabs for Emacs
 [http://www.emacswiki.org/emacs/SmartTabs], and IntelliJ IDEA 
 [http://www.jetbrains.com/idea/] has a built-in "smart tabs" option.
 
-CONTINUATION LINES  *vwt-1626-continuation-lines*
+CONTINUATION LINES                               *vwt-1626-continuation-lines*
 
 When expressions span multiple lines, you may want to line up the beginning 
 of those lines with the beginning of the expression in the first line:
@@ -166,11 +166,11 @@ the third and fourth lines), while spaces will be used for alignment:
 
 That makes the alignment of "x" and "y" independent of tabstop.
 
-SEE ALSO  *vwt-1626-see-also*
+SEE ALSO                                                   *vwt-1626-see-also*
     - Super retab |vwt-1592| to convert leading spaces to tabs 
 
 
-COMMENTS  *vwt-1626-comments*
+COMMENTS                                                   *vwt-1626-comments*
 
 This edit 
 [https://vim.fandom.com/index.php?title=Indent_with_tabs,_align_with_spaces&diff=26650&oldid=26649] 

@@ -12,11 +12,11 @@ It is useful to save time, for instance, when in one gvim window you are
 editing some source files and in other windows you are compiling/debugging the 
 same source. Especially useful with window AutoRaise feature.
 
-HOWTO  *vwt-1160-howto*
+HOWTO                                                         *vwt-1160-howto*
 
 Several ways to do this have been suggested:
 
-ALWAYS AUTOSAVE EVERYTHING  *vwt-1160-always-autosave-everything*
+ALWAYS AUTOSAVE EVERYTHING               *vwt-1160-always-autosave-everything*
 
 Put the following into your vimrc [https://vim.fandom.com/wiki/Vimrc]
 
@@ -24,7 +24,7 @@ Put the following into your vimrc [https://vim.fandom.com/wiki/Vimrc]
     :au FocusLost * :wa
 <
 
-IGNORE WARNINGS FROM UNTITLED BUFFERS  *vwt-1160-ignore-warnings-from-untitled-buffers*
+IGNORE WARNINGS FROM UNTITLED BUFFERS *vwt-1160-ignore-warnings-from-untitled-buffers*
 
 The above command will complain if you have untitled buffers open. The 
 command below will cause those warnings to be ignored.
@@ -38,7 +38,7 @@ mean any of your untitled buffers, buffers for read-only files, etc. will not
 be saved just from losing focus, and you will not be notified of this. You 
 will need to remember to save them manually.
 
-SELECTIVELY SAVE A SPECIFIC FILE  *vwt-1160-selectively-save-a-specific-file*
+SELECTIVELY SAVE A SPECIFIC FILE   *vwt-1160-selectively-save-a-specific-file*
 
 Enable it with
 
@@ -53,7 +53,7 @@ Enable it with
 then whenever the mouse leaves the gvim window, the edited file will be saved 
 to disk.
 
-SAVE ON BUFFER SWITCH  *vwt-1160-save-on-buffer-switch*
+SAVE ON BUFFER SWITCH                         *vwt-1160-save-on-buffer-switch*
 
 This is not exactly "when focus is lost", but maybe you were looking for 
 this:
@@ -71,7 +71,7 @@ or
 This will save the file when you switch buffers, make it etc. See the 
 appropriate :help pages for the exact details.
 
-COMMENTS  *vwt-1160-comments*
+COMMENTS                                                   *vwt-1160-comments*
 
 TO DO
     - Have we got a tip on recovery? If so, add a "see also" to that tip. 

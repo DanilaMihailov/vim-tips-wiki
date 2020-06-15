@@ -8,7 +8,7 @@ created
 
 ==============================================================================
 
-BASIC USE  *vwt-1543-basic-use*
+BASIC USE                                                 *vwt-1543-basic-use*
 
 A useful feature in many text editors is the ability to search for regular 
 expressions in multiple files. Vim has this feature, but it is a little hard 
@@ -58,9 +58,9 @@ the current directory, use:
     :lw
 <
 
-TIPS AND TRICKS  *vwt-1543-tips-and-tricks*
+TIPS AND TRICKS                                     *vwt-1543-tips-and-tricks*
 
-OLD SEARCH RESULTS  *vwt-1543-old-search-results*
+OLD SEARCH RESULTS                               *vwt-1543-old-search-results*
 
 If you would like to view the results of a previous search, the :colder (or 
 :lolder) and :cnewer (or :lnewer) commands will allow you to do this without 
@@ -71,7 +71,7 @@ typing the search again.
     - :help |:lnewer| 
 
 
-RECURSIVE SEARCH  *vwt-1543-recursive-search*
+RECURSIVE SEARCH                                   *vwt-1543-recursive-search*
 
 You can use ** in the file pattern to search recursively. For example, to 
 search for all lines containing "dostuff()" in all .c files in the parent 
@@ -89,7 +89,7 @@ this will not, for example:
     :vimgrep /dostuff()/j ..\**\*.c
 <
 
-PATH SEPARATORS  *vwt-1543-path-separators*
+PATH SEPARATORS                                     *vwt-1543-path-separators*
 
 In the Windows version of Vim, backslash ('\') characters can be used as path 
 separators, but forward slashes also work, and using '/' allows file paths in 
@@ -97,7 +97,7 @@ these searches to work in Vim under any operating system. This is especially
 useful if your vimrc file is used on multiple platforms, and you want to write 
 mappings for common searches as below.
 
-DOTFILES  *vwt-1543-dotfiles*
+DOTFILES                                                   *vwt-1543-dotfiles*
 
 The * wildcard will not match dotfiles, e.g. ".bashrc". To include dotfiles 
 in a search, you can do something like the following to search dotfiles in the 
@@ -107,7 +107,7 @@ current working directory:
     :vimgrep /pattern/ ./.*
 <
 
-MAPPINGS  *vwt-1543-mappings*
+MAPPINGS                                                   *vwt-1543-mappings*
 
 You can use a mapping, command, or abbreviation for common searches, like a 
 search for a word under the cursor in all files of the same type in the 
@@ -152,7 +152,7 @@ whenever you try to edit a .vim file for example, the cabbrev will be expanded
 when you press Enter. You could avoid this by moving the cursor to somewhere 
 else in the line before pressing enter.
 
-DISABLING AUTOCMDS FOR FAST SEARCHES  *vwt-1543-disabling-autocmds-for-fast-searches*
+DISABLING AUTOCMDS FOR FAST SEARCHES *vwt-1543-disabling-autocmds-for-fast-searches*
 
 Using vimgrep to search hundreds of files can be slow. A search taking only a 
 few seconds using an external grep program might take nearly a minute with 
@@ -184,7 +184,7 @@ Note that autocmds must be enabled in order for vimgrep to work for remote or
 archived files, since Vim's editing of such files depends on plugins using 
 autocmds.
 
-USING EXTERNAL PROGRAMS FOR FAST SEARCHES  *vwt-1543-using-external-programs-for-fast-searches*
+USING EXTERNAL PROGRAMS FOR FAST SEARCHES *vwt-1543-using-external-programs-for-fast-searches*
 
 If you want to speed up searching in files, and you don't need the power of 
 Vim's regular expressions or its ability to detect file encodings, you can use 
@@ -225,7 +225,7 @@ as "*~" – all files ending in a '~' character – the search can be made much
 faster by virtue of only searching files of interest. See the man pages for 
 grep on your system for details of the other options.
 
-ALTERNATE SETUP WITH HOTLINKED WINDOW INSTEAD OF SCROLLING LIST  *vwt-1543-alternate-setup-with-hotlinked-window-instead-of-scrolling-list*
+ALTERNATE SETUP WITH HOTLINKED WINDOW INSTEAD OF SCROLLING LIST *vwt-1543-alternate-setup-with-hotlinked-window-instead-of-scrolling-list*
 
 You might rather get the grep results in their own (hot linked) buffer, 
 instead ofin the whole-screen scrolling list that comes up by default. This 
@@ -240,7 +240,7 @@ May be useful (use ':MyGrep pattern files' or make a binding to use it).
 Note also that replacing 'grep' with 'lgrep' and 'copen' with 'lopen'will do 
 about the same thing with the location list instead of thequickfix list.
 
-RELATED PLUGINS  *vwt-1543-related-plugins*
+RELATED PLUGINS                                     *vwt-1543-related-plugins*
     - trag.vim: A wrapper for vimgrep that facilitates regexp building and project 
       handling [https://www.vim.org/scripts/script.php?script_id=2033] 
     - EasyGrep: Makes vimgrep easier with mappings and configurable options, and 
@@ -250,7 +250,7 @@ RELATED PLUGINS  *vwt-1543-related-plugins*
       [https://www.vim.org/scripts/script.php?script_id=3646] 
 
 
-SEE ALSO  *vwt-1543-see-also*
+SEE ALSO                                                   *vwt-1543-see-also*
     - Tip 1234: Find files in subdirectories |vwt-1234|, for when the contents of a 
       file are not known, but the file name or part of the file name is. 
     - Tip 1008: Toggle to open or close the quickfix window |vwt-1008|, for a quick 
@@ -260,7 +260,7 @@ SEE ALSO  *vwt-1543-see-also*
       [https://vim.fandom.com/wiki/Execute_external_programs_asynchronously_under_Windows#Extended_example:_asynchronous_grep] 
 
 
-REFERENCES  *vwt-1543-references*
+REFERENCES                                               *vwt-1543-references*
     - :help |:grep| 
     - :help |:vimgrep| 
     - :help |quickfix| 
@@ -271,7 +271,7 @@ REFERENCES  *vwt-1543-references*
     - :help |abbreviations| 
 
 
-COMMENTS  *vwt-1543-comments*
+COMMENTS                                                   *vwt-1543-comments*
 
 I enjoy using the GNU id-utils (http://www.gnu.org/software/idutils/ 
 [http://www.gnu.org/software/idutils/]).Searches with the id-utils are 

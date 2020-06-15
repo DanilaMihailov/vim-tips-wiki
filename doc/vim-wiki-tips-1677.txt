@@ -11,7 +11,7 @@ September 8, 2011 · complexity basic · version 7.0
 What to do if Vim's menu bar disappears due to a bug in GNOME 
 [http://en.wikipedia.org/wiki/GNOME], so that gvim cannot display its menu?
 
-CHANGING GUIOPTIONS  *vwt-1677-changing-guioptions*
+CHANGING GUIOPTIONS                             *vwt-1677-changing-guioptions*
 
 The standard method for displaying or hiding the menu bar is to use these 
 commands in gvim:
@@ -25,7 +25,7 @@ it. A test to see if this is the issue is to open gvim as root (with sudo
 gvim), then see if the menu can be enabled and disabled using the above 
 commands.
 
-SOLUTION  *vwt-1677-solution*
+SOLUTION                                                   *vwt-1677-solution*
 
 Open a terminal and enter the command:
 
@@ -43,7 +43,7 @@ That is, delete the file under your home directory where Gnome keeps its
 settings for Vim. It will be recreated when you run gvim again. With luck, the 
 menu will be displayed again.
 
-COMMENTS  *vwt-1677-comments*
+COMMENTS                                                   *vwt-1677-comments*
 
 Deleting the file ~/.gnome2/Vim worked, but the problem recurs. Examining 
 this file shows that the problem is that the toolbar and the menubar are 
@@ -81,7 +81,7 @@ On Ubuntu Xenial, using the vim-gtk3 package rather than vim-gnome solves the
 problem. This is due to a recent version of compiz causing issues with unity 
 -- 5 Apr 2018
 
-ON UBUNTU  *vwt-1677-on-ubuntu*
+ON UBUNTU                                                 *vwt-1677-on-ubuntu*
     - If you are using Unity and want GVim's menu bar attached to the window, start 
       GVim with the terminal command: 
 

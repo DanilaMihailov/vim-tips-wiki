@@ -25,11 +25,11 @@ these lines to your gvimrc:
     amenu 1.200 PopUp.&mark.list\ bookmarks :sign list<CR>
 <
 
-REFERENCES  *vwt-395-references*
+REFERENCES                                                *vwt-395-references*
     - :help |:sign| 
 
 
-COMMENTS  *vwt-395-comments*
+COMMENTS                                                    *vwt-395-comments*
 
 1. We need to add <silent> on the map to make it work smoothly.
 

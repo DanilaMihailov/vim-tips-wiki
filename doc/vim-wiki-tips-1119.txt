@@ -11,7 +11,7 @@ stopped using IDEs. One major reason is that Vim can do all the major things I
 need from IDEs (tabs, file trees, grepping, syntax highlighting, indentation, 
 completion, "quickfixing", etc).
 
-VIM PLUGINS  *vwt-1119-vim-plugins*
+VIM PLUGINS                                             *vwt-1119-vim-plugins*
 
 Still Vim needs plugins to do some IDE-like things that aren't built in. Here 
 are some Vim scripts that make Vim more like an IDE.
@@ -26,7 +26,7 @@ Note: You can use pathogen
 [https://www.vim.org/scripts/script.php?script_id=2332] to isolate your 
 plugins and make it easier to experiment with new plugins.
 
-PROJECT/FILETREE BROWSING  *vwt-1119-project/filetree-browsing*
+PROJECT/FILETREE BROWSING                 *vwt-1119-project/filetree-browsing*
     - NERDTree [https://www.vim.org/scripts/script.php?script_id=1658] is a tree 
       explorer plugin for navigating the filesystem. 
     - vtreeexplorer [https://www.vim.org/scripts/script.php?script_id=184] is a 
@@ -49,7 +49,7 @@ PROJECT/FILETREE BROWSING  *vwt-1119-project/filetree-browsing*
       provides granular project configuration using "projections". 
 
 
-BUFFER/FILE BROWSING  *vwt-1119-buffer/file-browsing*
+BUFFER/FILE BROWSING                           *vwt-1119-buffer/file-browsing*
     - bufexplorer [https://www.vim.org/scripts/script.php?script_id=42] lets you 
       navigate through open buffers 
     - minibufexpl [https://www.vim.org/scripts/script.php?script_id=159] Elegant 
@@ -67,7 +67,7 @@ BUFFER/FILE BROWSING  *vwt-1119-buffer/file-browsing*
       previous. 
 
 
-CODE BROWSING  *vwt-1119-code-browsing*
+CODE BROWSING                                         *vwt-1119-code-browsing*
     - taglist [https://www.vim.org/scripts/script.php?script_id=273] gives you an 
       outline of the source you're viewing 
     - Tagbar [https://www.vim.org/scripts/script.php?script_id=3465] similar to 
@@ -90,7 +90,7 @@ See also Browsing programs with tags
 [https://vim.fandom.com/wiki/Browsing_programs_with_tags] and Cscope 
 [https://vim.fandom.com/wiki/Cscope].
 
-WRITING CODE  *vwt-1119-writing-code*
+WRITING CODE                                           *vwt-1119-writing-code*
     - A plethora of code snippet/template plugins 
       [https://vim.fandom.com/wiki/Category:Automated_Text_Insertion#Related_scripts] 
       are available, many offering TextMate 
@@ -107,7 +107,7 @@ See also Omni completion [https://vim.fandom.com/wiki/Omni_completion] and
 Make Vim completion popup menu work just like in an IDE 
 [https://vim.fandom.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE].
 
-VIM FUNCTIONALITY  *vwt-1119-vim-functionality*
+VIM FUNCTIONALITY                                 *vwt-1119-vim-functionality*
     - matchit [https://www.vim.org/scripts/script.php?script_id=39] improves % 
       matching 
     - bufkill [https://www.vim.org/scripts/script.php?script_id=1147] allows you to 
@@ -120,7 +120,7 @@ VIM FUNCTIONALITY  *vwt-1119-vim-functionality*
       easier to delete/change/add parentheses/quotes/XML-tags/much more. 
 
 
-COMPILATION  *vwt-1119-compilation*
+COMPILATION                                             *vwt-1119-compilation*
     - vim-dispatch [https://github.com/tpope/vim-dispatch] allows you to 
       asynchronously run shell commands. When running a compiler, the quickfix 
       window will be populated with any potential errors. 
@@ -135,7 +135,7 @@ COMPILATION  *vwt-1119-compilation*
     - (list to be completed) 
 
 
-IDE INTEGRATION  *vwt-1119-ide-integration*
+IDE INTEGRATION                                     *vwt-1119-ide-integration*
 
 You may want to use your IDE for some tasks like debugging, so some 
 integration between Vim and the IDE can be helpful.
@@ -144,7 +144,7 @@ integration between Vim and the IDE can be helpful.
     - Eclim [http://eclim.org/] brings Eclipse functionality to the Vim editor. 
 
 
-SOURCE CONTROL INTEGRATION  *vwt-1119-source-control-integration*
+SOURCE CONTROL INTEGRATION               *vwt-1119-source-control-integration*
 
 There are many Vim plugins for different source control management systems. 
 Here are a few.
@@ -164,7 +164,7 @@ Here are a few.
 See also Category:VersionControl 
 [https://vim.fandom.com/wiki/Category:VersionControl]
 
-DEBUGGING  *vwt-1119-debugging*
+DEBUGGING                                                 *vwt-1119-debugging*
 
 There are several projects to add debugging functionality to vim
     - Bundled terminal debugger plugin 
@@ -189,7 +189,7 @@ There are several projects to add debugging functionality to vim
       controls Ruby breakpoints for byebug (works with ruby >=2.0) 
 
 
-REFACTORING  *vwt-1119-refactoring*
+REFACTORING                                             *vwt-1119-refactoring*
     - Vim as a refactoring tool and some examples in C sharp 
       [https://vim.fandom.com/wiki/Vim_as_a_refactoring_tool_and_some_examples_in_C_sharp] 
     - refactor plugin [https://www.vim.org/scripts/script.php?script_id=2087] 
@@ -197,7 +197,7 @@ REFACTORING  *vwt-1119-refactoring*
     - lh-refactor plugin [https://github.com/LucHermitte/vim-refactor] 
 
 
-COMMENTS  *vwt-1119-comments*
+COMMENTS                                                   *vwt-1119-comments*
 
 When using Visual Studio, see ViEmu [http://www.ngedit.com/viemu.html].
 
@@ -225,7 +225,7 @@ follows:
     ctags --exclude=.svn --exclude=target -R .
 <
 
-PRECONFIGURED VIM AS IDE  *vwt-1119-preconfigured-vim-as-ide*
+PRECONFIGURED VIM AS IDE                   *vwt-1119-preconfigured-vim-as-ide*
 
 You can find preconfigure VIM as IDE environment created by Damian Ziobro on 
 GitHub:

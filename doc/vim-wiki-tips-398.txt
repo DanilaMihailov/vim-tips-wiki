@@ -28,7 +28,7 @@ In Vim, the word "macro" may refer to:
       .vim – see :help |script|). 
 
 
-RECORDING A MACRO  *vwt-398-recording-a-macro*
+RECORDING A MACRO                                  *vwt-398-recording-a-macro*
 
 Each register is identified by a letter a to z.
 
@@ -46,7 +46,7 @@ To execute the macro <number> times (once by default), type:
 
 So, the complete process looks like:
 
-EXAMPLE  *vwt-398-example*
+EXAMPLE                                                      *vwt-398-example*
 
 Given some data like the following:
 
@@ -93,7 +93,7 @@ third line. Type 2@@ to finish. The 2 means that what follows is performed
 twice, and the @@ plays back the last used macro. Instead of 2@@, you could 
 type @d or @@ twice.
 
-RUNNING A MACRO  *vwt-398-running-a-macro*
+RUNNING A MACRO                                      *vwt-398-running-a-macro*
 
 Use this mapping as a convenient way to play a macro recorded to register q:
 
@@ -112,14 +112,14 @@ run the macro on each line in a visual selection in a single operation:
     - Type :normal @q to run the macro from register q on each line. 
 
 
-VIEWING A MACRO  *vwt-398-viewing-a-macro*
+VIEWING A MACRO                                      *vwt-398-viewing-a-macro*
 
 You can use the :registers command to view the current contents of any or all 
 register values in Vim. For example, use :reg to view all registers, or :reg a 
 to view only what you have recorded into register a. Typing :reg abx will show 
 the contents of registers a, b, and x.
 
-SAVING A MACRO  *vwt-398-saving-a-macro*
+SAVING A MACRO                                        *vwt-398-saving-a-macro*
 
 There are two primary ways of saving a macro for later use.
 
@@ -188,7 +188,7 @@ on vim_dev about unexpected behavior of the :let command
 [http://groups.google.com/group/vim_use/browse_thread/thread/fa96cad79cdfaadb/c6e94a82f9867326] 
 for details.
 
-APPENDING TO A MACRO  *vwt-398-appending-to-a-macro*
+APPENDING TO A MACRO                            *vwt-398-appending-to-a-macro*
 
 If you have recorded a macro that is almost right, but you need to add a few 
 commands to it, you can easily append the commands to an existing macro 
@@ -198,12 +198,12 @@ letter with a capital letter.
 For example, if you recorded into register a using qa...q, you could add to 
 the macro (without replacing it) using qA...q.
 
-EDITING A MACRO  *vwt-398-editing-a-macro*
+EDITING A MACRO                                      *vwt-398-editing-a-macro*
 
 Suppose that you have recorded a macro in register a and you would like to 
 edit the macro. There are multiple ways to accomplish this.
 
-VISUAL MODE ON THE COMMAND LINE  *vwt-398-visual-mode-on-the-command-line*
+VISUAL MODE ON THE COMMAND LINE      *vwt-398-visual-mode-on-the-command-line*
 
 The procedure is explained above |vwt-398-saving-a-macro|, but here is a 
 summary of the steps:
@@ -214,9 +214,9 @@ The above allows you to edit the macro in Vim's command line. An alternative
 would be to save the macro to a file as shown with the let @a='0fa' example 
 above, then edit the file.
 
-NORMAL/INSERT MODE IN A BUFFER  *vwt-398-normal/insert-mode-in-a-buffer*
+NORMAL/INSERT MODE IN A BUFFER        *vwt-398-normal/insert-mode-in-a-buffer*
 
-SEE ALSO  *vwt-398-see-also*
+SEE ALSO                                                    *vwt-398-see-also*
     - Record a recursive macro 
       [https://vim.fandom.com/wiki/Record_a_recursive_macro] 
     - Reversing order of blocks of text 
@@ -235,7 +235,7 @@ SEE ALSO  *vwt-398-see-also*
       adds some extra functionality to macros 
 
 
-REFERENCES  *vwt-398-references*
+REFERENCES                                                *vwt-398-references*
     - :help |registers| 
     - :help |recording| 
     - :help |:registers| 
@@ -243,7 +243,7 @@ REFERENCES  *vwt-398-references*
     - :help |i_CTRL-R_CTRL-R| 
 
 
-COMMENTS  *vwt-398-comments*
+COMMENTS                                                    *vwt-398-comments*
 
 When doing complex edits I often end up using macros that call macros that 
 call other macros, etc. A neat way to save a macro set like that is to open a 

@@ -33,7 +33,7 @@ List all abbreviations. A flag is shown in the first column: 'i' means the abbre
 Note: To avoid expansion in insert mode, type Ctrl-V after the last character 
 of the abbreviation (on Windows, type Ctrl-Q instead of Ctrl-V).
 
-ROUGH MERGE IN FROM 992 (NOW REMOVED)  *vwt-43-rough-merge-in-from-992-(now-removed)*
+ROUGH MERGE IN FROM 992 (NOW REMOVED) *vwt-43-rough-merge-in-from-992-(now-removed)*
 
 The 'helpgrep' command is very useful for searching through all the files 
 located in the .vim/doc directory. This command is especially useful if your 
@@ -52,7 +52,7 @@ The following abbreviation provides faster access to 'helpgrep'.
 This allows me to type :H uganda to search for the word 'uganda' in all of 
 the help files.
 
-ROUGH MERGE IN OF COMMENTS FROM 4  *vwt-43-rough-merge-in-of-comments-from-4*
+ROUGH MERGE IN OF COMMENTS FROM 4   *vwt-43-rough-merge-in-of-comments-from-4*
 
 I have found myself performing a lot of Ctrl-P/Ctr-N commands on the same 
 strings, and when this happens, I generally add an abbreviation, which saves 
@@ -135,7 +135,7 @@ Here are some useful abbreviations for Java code:
 
 ==============================================================================
 
-AUTOMATICALLY ADD ABBREVIATIONS IN A FILE  *vwt-43-automatically-add-abbreviations-in-a-file*
+AUTOMATICALLY ADD ABBREVIATIONS IN A FILE *vwt-43-automatically-add-abbreviations-in-a-file*
 
 If you wish to enter your abbreviations automatically in a file, without the 
 need to open it, then use the following function :
@@ -173,7 +173,7 @@ download the file located here
 and to copy it in the relevant directory. Then, select a word or an expression 
 in visual mode, and push Shift+F8.
 
-SEE ALSO  *vwt-43-see-also*
+SEE ALSO                                                     *vwt-43-see-also*
     - Any word completion |vwt-4| automatic completion of words 
     - 267 Selectively displaying abbreviations |vwt-267| 
     - 352 Disabling cabbrev |vwt-352| 
@@ -192,10 +192,10 @@ SEE ALSO  *vwt-43-see-also*
     - 1382 Auto spelling correction using abbreviations |vwt-1382| 
 
 
-REFERENCES  *vwt-43-references*
+REFERENCES                                                 *vwt-43-references*
     - :help |abbreviations| 
 
 
-COMMENTS  *vwt-43-comments*
+COMMENTS                                                     *vwt-43-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -12,7 +12,7 @@ This is a syntax file for the Perl EP3 pre-processor
 [http://search.cpan.org/~mykl/Text-EP3-1.10/lib/Text/EP3.pm] which will render 
 the Perl parts as Perl and the rest as Verilog.
 
-EP3.VIM  *vwt-1659-ep3.vim*
+EP3.VIM                                                     *vwt-1659-ep3.vim*
 
 >
     " Vim syntax file
@@ -52,7 +52,7 @@ EP3.VIM  *vwt-1659-ep3.vim*
     let b:current_syntax = "ep3"
 <
 
-COMMENTS  *vwt-1659-comments*
+COMMENTS                                                   *vwt-1659-comments*
 
 TO DO
     - Tell people how to use it. 

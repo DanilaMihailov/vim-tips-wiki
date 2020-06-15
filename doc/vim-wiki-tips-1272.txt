@@ -19,7 +19,7 @@ mapping something like Ctrl-Shift-F2 needs some extra work. It may seem
 daunting to deal with archaic terminal keycodes at first, but once you 
 understand what is going on in the right context, it is quite simple.
 
-1A. KEYCODES  *vwt-1272-1a.-keycodes*
+1A. KEYCODES                                           *vwt-1272-1a.-keycodes*
 
 There are two types of keycodes: terminal keycodes and Vim keycodes. Terminal 
 keycodes look something like
@@ -52,7 +52,7 @@ platforms. Vim can act upon its own keycodes, and leave the assignment of
 terminal keycodes to autodetection (or to manual setup by the user, which is 
 what this guide is for).
 
-1B. LIST OF USABLE KEYCODES  *vwt-1272-1b.-list-of-usable-keycodes*
+1B. LIST OF USABLE KEYCODES             *vwt-1272-1b.-list-of-usable-keycodes*
 
 To obtain a list of terminal keycodes, look it up in the manual for that 
 terminal.
@@ -83,7 +83,7 @@ We can also set these Vim keycodes:
 
 Be careful when setting these keycodes. See section 3a.
 
-1C. SETTING VIM KEYCODES  *vwt-1272-1c.-setting-vim-keycodes*
+1C. SETTING VIM KEYCODES                   *vwt-1272-1c.-setting-vim-keycodes*
 
 Vim keycodes look a lot like the keystrokes we would define in a mapping. 
 They are easy to read, quite intuitive, and are almost treated the same by 
@@ -107,7 +107,7 @@ the keystroke should work in terminal Vim. Shift-Down_arrow should now work,
 but the Ctrl-Shift-Down_arrow keycode can not be set in the same way. For this 
 we need mappings (see section 2b).
 
-1D. ENTERING LITERAL CHARACTERS & TERMINAL CODES  *vwt-1272-1d.-entering-literal-characters-&-terminal-codes*
+1D. ENTERING LITERAL CHARACTERS & TERMINAL CODES *vwt-1272-1d.-entering-literal-characters-&-terminal-codes*
 
 Either in the :command line, or in insert mode:
 
@@ -145,13 +145,13 @@ with ascii information of the character under the cursor.
 
 See :help |i_ctrl-v|, :help |ga|.
 
-2A. MAPPINGS  *vwt-1272-2a.-mappings*
+2A. MAPPINGS                                           *vwt-1272-2a.-mappings*
 
 The function of mappings in Vim is to map a set of keystrokes to another set 
 of keystrokes. For more information, see :help |key-mapping|, :help 
 |map-modes|.
 
-2B. MAPPING FAST KEYCODES  *vwt-1272-2b.-mapping-fast-keycodes*
+2B. MAPPING FAST KEYCODES                 *vwt-1272-2b.-mapping-fast-keycodes*
 
 As mentioned in section 1c, the Ctrl-Shift-Down_arrow keycode cannot be set 
 in the same way as the Shift-Down_arrow keycode because it is not a listed Vim 
@@ -207,7 +207,7 @@ as <xF1> to <xF4>, respectively. Therefore, you cannot use those keycodes.
 
 See :help 'timeout', :help 'timeoutlen', :help 'ttimeoutlen'.
 
-2C. LAYING IT OUT IN VIMRC  *vwt-1272-2c.-laying-it-out-in-vimrc*
+2C. LAYING IT OUT IN VIMRC               *vwt-1272-2c.-laying-it-out-in-vimrc*
 
 Here is an example of how to set up the keycodes in a vimrc file. It is 
 highly recommended that you start Vim without any startup scripts that may 
@@ -281,7 +281,7 @@ rxvt)
     " ...
 <
 
-3A. TROUBLESHOOTING I  *vwt-1272-3a.-troubleshooting-i*
+3A. TROUBLESHOOTING I                         *vwt-1272-3a.-troubleshooting-i*
 
 You only need to employ unused Vim keycodes either when(a) there are no 
 available Vim keycodes that match the terminal keycode, and(b) the terminal 
@@ -324,7 +324,7 @@ For an rxvt terminal, merely doing
 will not make Alt-j, Alt-u and Alt-6 work. Reason unknown. Need to assign to 
 unused Vim keycodes.
 
-3B. TROUBLESHOOTING II  *vwt-1272-3b.-troubleshooting-ii*
+3B. TROUBLESHOOTING II                       *vwt-1272-3b.-troubleshooting-ii*
 
 Sometimes, performing
 
@@ -365,6 +365,6 @@ To give some perspective, here are the actual terminal keycodes for rxvt:
     <A-S-F1> = ^[^[[23~
 <
 
-COMMENTS  *vwt-1272-comments*
+COMMENTS                                                   *vwt-1272-comments*
 
  vim:tw=78:et:ft=help:norl:

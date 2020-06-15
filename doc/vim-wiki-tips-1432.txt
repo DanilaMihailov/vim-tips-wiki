@@ -11,7 +11,7 @@ TO DO
     - Decide what should be removed. 
 
 
-UPDATE  *vwt-1432-update*
+UPDATE                                                       *vwt-1432-update*
 
 A much better method to get this feature is to install the FuzzyFinder 
 [https://www.vim.org/scripts/script.php?script_id=1984] plugin. Use the 
@@ -31,7 +31,7 @@ or
     map <Leader>t :FufFile **/<CR>
 <
 
-ORIGINAL TIP  *vwt-1432-original-tip*
+ORIGINAL TIP                                           *vwt-1432-original-tip*
 
 This adds capabilities similar to the cmd-t file search feature in TextMate. 
 It uses the Find function from VimTip1234 |vwt-1234|, modified to search 
@@ -101,7 +101,7 @@ The function is:
     command! -nargs=1 Find :call Find("<args>")
 <
 
-COMMENTS  *vwt-1432-comments*
+COMMENTS                                                   *vwt-1432-comments*
 
 searchInRuntime.vim [https://www.vim.org/scripts/script.php?script_id=229] 
 and script#1581 [https://www.vim.org/scripts/script.php?script_id=1581] offer 

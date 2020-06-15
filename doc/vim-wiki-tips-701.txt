@@ -39,7 +39,7 @@ Tip: if you need to beautify several lines, tear off the menu.
 Of course, being simple regexes, these little helpers can be fooled pretty 
 easily by complicated code, but they should work for 90% of your code.
 
-COMMENTS  *vwt-701-comments*
+COMMENTS                                                    *vwt-701-comments*
 
 Do it automatically if you are only reading code (the file won't be mark 
 modified):

@@ -6,7 +6,7 @@ created 2004 · complexity intermediate · author Michael Geddes · version 7.0
 
 ==============================================================================
 
-USING BUILTINS  *vwt-648-using-builtins*
+USING BUILTINS                                        *vwt-648-using-builtins*
 
 The following command will sort all lines and remove duplicates (keeping 
 unique lines):
@@ -15,7 +15,7 @@ unique lines):
     :sort u
 <
 
-USING ALTERNATIVES  *vwt-648-using-alternatives*
+USING ALTERNATIVES                                *vwt-648-using-alternatives*
 
 If you need more control, here are some alternatives.
 
@@ -52,7 +52,7 @@ version included after), and deletes all but the first line:
     g/\v%(^\1>.*\n)@<=(\k+).*$/d
 <
 
-SEE ALSO  *vwt-648-see-also*
+SEE ALSO                                                    *vwt-648-see-also*
     - Unique sorting |vwt-1148| script to 'sort unique' a List (not text lines) 
     - system_utils.vim 
       [http://code.google.com/p/lh-vim/source/browse/system-tools/trunk/plugin/system_utils.vim] 
@@ -60,7 +60,7 @@ SEE ALSO  *vwt-648-see-also*
     - Sort lines |vwt-1166| how to sort lines 
 
 
-COMMENTS  *vwt-648-comments*
+COMMENTS                                                    *vwt-648-comments*
 
 Here are some more Vim-native ways for removing duplicate lines. This time 
 they don't have to be adjacent. Line order is preserved.

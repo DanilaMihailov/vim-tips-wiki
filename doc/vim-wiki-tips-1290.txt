@@ -22,7 +22,7 @@ That assumption was correct and a single command fixed the problem:
 Now the arrowkeys worked again. I guess that all of the builtin term types 
 will work and even some others. Mine was set to xterm which did not work.
 
-COMMENTS  *vwt-1290-comments*
+COMMENTS                                                   *vwt-1290-comments*
 
 I have almost the same problem... By the upgrade was to 7.1, and the effect 
 was that for xterm's left and right arrows would jump from word to word!!!

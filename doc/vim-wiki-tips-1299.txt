@@ -37,7 +37,7 @@ your vimrc [https://vim.fandom.com/wiki/Vimrc]:
     autocmd BufWritePost *.cpp,*.h,*.c call UpdateTags()
 <
 
-COMMENTS  *vwt-1299-comments*
+COMMENTS                                                   *vwt-1299-comments*
 
 To run a command in the background you may try script script#1582 
 [https://www.vim.org/scripts/script.php?script_id=1582].

@@ -15,7 +15,7 @@ correct alignment to edit code.
     inoremap <buffer> #en X<BS><Esc>?#if<CR>"zy0^Og0"zpDa#endif<CR>X<BS><Esc>?#end?-1<CR>^"zy0^O0"zpDa
 <
 
-COMMENTS  *vwt-251-comments*
+COMMENTS                                                    *vwt-251-comments*
 
 This tip is currently at -1/1 - I'm not sure why, since I use it a lot. In 
 any case, here's an updated version that handles nested #if blocks.

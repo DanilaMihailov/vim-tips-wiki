@@ -6,7 +6,7 @@ created 2003 · complexity basic · version 6.0
 
 ==============================================================================
 
-WHAT IS VIMRC?  *vwt-626-what-is-vimrc?*
+WHAT IS VIMRC?                                        *vwt-626-what-is-vimrc?*
 
 The vimrc file contains optional runtime configuration settings to initialize 
 Vim when it starts. On Unix based systems, the file is named .vimrc, while on 
@@ -29,7 +29,7 @@ To customize Vim for editing a specific file, or a specific type of file, you
 can use modelines [https://vim.fandom.com/wiki/Modeline_magic], or auto 
 commands, or filetype plugins. :help |auto-setting| :help |filetype|
 
-LOCATION OF VIMRC  *vwt-626-location-of-vimrc*
+LOCATION OF VIMRC                                  *vwt-626-location-of-vimrc*
 
 In Vim, your home directory is specified with $HOME. On Unix systems, this is 
 your ~ directory. On Windows systems, the best way to find the value of $HOME 
@@ -80,7 +80,7 @@ check. The most notable being that a gvimrc file is sourced when using the
 in the vimrc inside a "gui_running" check will not be applied since the vimrc 
 is only sourced when Vim initially starts.
 
-PER-DIRECTORY VIMRC  *vwt-626-per-directory-vimrc*
+PER-DIRECTORY VIMRC                              *vwt-626-per-directory-vimrc*
 
 Vim can be configured so that, when starting, it reads commands from a vimrc 
 file in the current directory, after reading the primary vimrc. This is 
@@ -96,7 +96,7 @@ setting this option to when Vim is started from known "safe" directory trees:
     endif
 <
 
-OPENING VIMRC  *vwt-626-opening-vimrc*
+OPENING VIMRC                                          *vwt-626-opening-vimrc*
 
 If Vim finds your vimrc file during startup, Vim will set the MYVIMRC 
 environment variable to the full path of the vimrc file. Similarly, if your 
@@ -117,7 +117,7 @@ edit your vimrc file. If $MYVIMRC does not exist, "Startup Settings" will
 create a new file using the "user vimrc file" path shown by the :version 
 command.
 
-SOURCING VIMRC  *vwt-626-sourcing-vimrc*
+SOURCING VIMRC                                        *vwt-626-sourcing-vimrc*
 
 After you have saved changes to your vimrc file, you can see the results by 
 exiting from Vim, then starting Vim again.
@@ -151,7 +151,7 @@ examples that will work correctly when re-sourced:
     augroup END
 <
 
-RECOVERING FROM ERRORS  *vwt-626-recovering-from-errors*
+RECOVERING FROM ERRORS                        *vwt-626-recovering-from-errors*
 
 Some errors in your vimrc may prevent Vim from starting successfully. A 
 reliable way to handle that would be to rename your vimrc file, then edit the 
@@ -169,7 +169,7 @@ any vimrc file (-u), and does not read any gvimrc file (-U).
 You could now use the :version command to show the vimrc path, then enter a 
 command to edit that file.
 
-COMMENTS  *vwt-626-comments*
+COMMENTS                                                    *vwt-626-comments*
 
 TO DO
     - What else is needed to explain what vimrc is, and how to use it, for a 

@@ -84,7 +84,7 @@ On Windows machines that have Cygwin support, /dev/clipboard can be used in
 place of xclip to gain access to the clipboard, should users find the "+ and 
 "* registers don't work.
 
-COMMENTS  *vwt-1511-comments*
+COMMENTS                                                   *vwt-1511-comments*
 
 TO DO
     - Explain the point of this tip. Why is it necessary to avoid using the 
@@ -112,7 +112,7 @@ The very page referenced by the dodgy section notes that the builtin mechanism d
 On a system where you see a problem, please run Vim and enter :version and note whether it shows +clipboard (support for clipboard has been compiled into Vim), or -clipboard (clipboard not supported). See :help +clipboard.
 The "builtin mechanism doesn't work with OS X" is an old comment, and it probably refers to an obsolete tip. I don't use a Mac, but I asked Björn Winckler (who maintains MacVim), and two years ago he said that the clipboard works with Vim on OS X ("the pasteboard is fully supported in both GUI and terminal mode ... The '+' and '*' registers are one and the same and by default you can use <D-x>/<D-c>/<D-v> to cut/copy/paste just like in any other Mac app"). I believe that any Vim in the last few years that has been compiled to support the clipboard, will support it (although Ctrl-C needs a mapping; I hope to cleanup these copy/paste tips and explain how to map Ctrl-C etc without requiring other Notepad-like features). I suspect this tip is a workaround for someone who is not using the correct version of Vim. JohnBeckett 10:53, May 20, 2011 (UTC)
 
-COPIED FROM TALK PAGE WHICH WILL BE DELETED  *vwt-1511-copied-from-talk-page-which-will-be-deleted*
+COPIED FROM TALK PAGE WHICH WILL BE DELETED *vwt-1511-copied-from-talk-page-which-will-be-deleted*
 
 This page is very useful for Linux. As far as I know, this is only an issue 
 in linux, and possibly Mac OS X.

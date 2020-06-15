@@ -24,11 +24,11 @@ In my case this is 73. Now set the 'printheader' option:
     +1 - Vim uses integer math and everything rounds down.
 <
 
-REFERENCES  *vwt-533-references*
+REFERENCES                                                *vwt-533-references*
     - :help 'statusline' 
 
 
-COMMENTS  *vwt-533-comments*
+COMMENTS                                                    *vwt-533-comments*
 
 I forgot about case when total number of lines is multiplication of lines per 
 page. Here is an improved version. Number of lines per page was put in 

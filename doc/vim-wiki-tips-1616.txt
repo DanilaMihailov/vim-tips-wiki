@@ -11,7 +11,7 @@ created
 This tip shows how to obtain input from the user from within a script. 
 Examples showing Vim script and Python are given.
 
-OVERVIEW  *vwt-1616-overview*
+OVERVIEW                                                   *vwt-1616-overview*
 
 Vim provides the function input() that can display a prompt for the user, 
 then wait for the user to type some input. To avoid problems with Vim's 
@@ -32,7 +32,7 @@ If your are asking the user to confirm a choice, use instead the command
 (Note: confirm() is only supported when compiled with dialog support). For 
 more details see the help reference.
 
-VIM EXAMPLE  *vwt-1616-vim-example*
+VIM EXAMPLE                                             *vwt-1616-vim-example*
 
 Save the following in a file called, say, vimdemo.vim:
 
@@ -63,7 +63,7 @@ The function gets the current line to a variable, prompts the user to enter a
 name, then appends the entered name to the current line. This is only a simple 
 demonstration, and is not intended to do anything useful.
 
-PYTHON EXAMPLE  *vwt-1616-python-example*
+PYTHON EXAMPLE                                       *vwt-1616-python-example*
 
 Save the following in a file called, say, pydemo.vim:
 
@@ -101,12 +101,12 @@ That defines a Python function demo() which you can call with:
 The Python example does the same as the Vim example: it prompts you to enter 
 a name, then appends that name to the current line.
 
-REFERENCES  *vwt-1616-references*
+REFERENCES                                               *vwt-1616-references*
     - :help |input()| 
     - :help |confirm()| 
     - :help |python| 
 
 
-COMMENTS  *vwt-1616-comments*
+COMMENTS                                                   *vwt-1616-comments*
 
  vim:tw=78:et:ft=help:norl:

@@ -35,7 +35,7 @@ the swap file warning is a nuisance. Cured with:
     auto SwapExists * call AskVims()
 <
 
-COMMENTS  *vwt-1260-comments*
+COMMENTS                                                   *vwt-1260-comments*
 
 Vim 7's distribution contains a file in the runtime/macros directory called 
 editExisting.vim that does this already.

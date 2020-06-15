@@ -8,7 +8,7 @@ created
 
 ==============================================================================
 
-SETTING REGISTERS  *vwt-1520-setting-registers*
+SETTING REGISTERS                                 *vwt-1520-setting-registers*
 
 It isn't immediately obvious, but let can be used for far more than setting 
 variables. It can also be used, for example, to set a register.
@@ -49,7 +49,7 @@ a word and press @a to execute the commands: yaw (yank a word), P (paste), `[
 That duplicates the initial word, and is an example of how a macro can be 
 placed in a register.
 
-SETTING OPTIONS  *vwt-1520-setting-options*
+SETTING OPTIONS                                     *vwt-1520-setting-options*
 
 let can also be used to set options, which can be useful in a script.
 
@@ -63,7 +63,7 @@ it later:
     let &readonly=oldro
 <
 
-REFERENCES  *vwt-1520-references*
+REFERENCES                                               *vwt-1520-references*
     - :help |:let-option| 
     - :help |:let-register| 
     - :help |:let| 
@@ -71,6 +71,6 @@ REFERENCES  *vwt-1520-references*
       including its type. 
 
 
-COMMENTS  *vwt-1520-comments*
+COMMENTS                                                   *vwt-1520-comments*
 
  vim:tw=78:et:ft=help:norl:

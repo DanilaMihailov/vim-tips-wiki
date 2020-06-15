@@ -26,12 +26,12 @@ created September 30, 2003 · complexity basic · author mohsin · version 6.0
     :set dictionary="/usr/dict/words"
 <
 
-REFERENCES  *vwt-566-references*
+REFERENCES                                                *vwt-566-references*
     - :help |ins-completion| 
     - :help |i_CTRL-X_CTRL-K| 
 
 
-COMMENTS  *vwt-566-comments*
+COMMENTS                                                    *vwt-566-comments*
 
 Even easier than <Tab> is to have words completed automatically. There are 
 some drawbacks to this, but the word_complete.vim 

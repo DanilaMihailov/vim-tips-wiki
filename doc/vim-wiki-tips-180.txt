@@ -16,7 +16,7 @@ sample file.
 This will force Vim to reload all buffer-specific files, including your 
 plugin.
 
-COMMENTS  *vwt-180-comments*
+COMMENTS                                                    *vwt-180-comments*
 
 This tip really oversimplifies the issue.
 
@@ -74,7 +74,7 @@ have to restart as the previous note mentioned.
 
 ==============================================================================
 
-ALTERNATIVE: RELOAD.VIM PLUG-IN  *vwt-180-alternative:-reload.vim-plug-in*
+ALTERNATIVE: RELOAD.VIM PLUG-IN      *vwt-180-alternative:-reload.vim-plug-in*
 
 The reload.vim plug-in [http://peterodding.com/code/vim/reload/] (script#3148 
 [https://www.vim.org/scripts/script.php?script_id=3148]) performs automatic 

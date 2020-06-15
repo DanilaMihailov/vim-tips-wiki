@@ -37,7 +37,7 @@ typing:
 
 :s/<Ctrl-R>/
 
-PERMANENT VERY MAGIC MODE  *vwt-1237-permanent-very-magic-mode*
+PERMANENT VERY MAGIC MODE                 *vwt-1237-permanent-very-magic-mode*
 
 Vim does not have an option to use "very magic" by default (whereas :set 
 ignorecase will always ignore case 
@@ -59,10 +59,10 @@ search-history behavior (see the StackOverflow link). An alternative solution
 is to use this plugin: http://www.vim.org/scripts/script.php?script_id=4849 
 [http://www.vim.org/scripts/script.php?script_id=4849]
 
-REFERENCES  *vwt-1237-references*
+REFERENCES                                               *vwt-1237-references*
     - :help |/magic| 
 
 
-COMMENTS  *vwt-1237-comments*
+COMMENTS                                                   *vwt-1237-comments*
 
  vim:tw=78:et:ft=help:norl:

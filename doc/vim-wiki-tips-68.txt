@@ -16,7 +16,7 @@ TO DO
     - Need to reword and clarify what each is talking about. 
 
 
-BACKSPACE KEY WON'T MOVE FROM CURRENT LINE  *vwt-68-backspace-key-won't-move-from-current-line*
+BACKSPACE KEY WON'T MOVE FROM CURRENT LINE *vwt-68-backspace-key-won't-move-from-current-line*
 
 Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete 
 over line breaks, or automatically-inserted indentation, or the place where 
@@ -34,7 +34,7 @@ Alternately, add this to your .vimrc:
 
 See :help 'backspace'
 
-STRANGE CHARACTERS ARE INSERTED  *vwt-68-strange-characters-are-inserted*
+STRANGE CHARACTERS ARE INSERTED       *vwt-68-strange-characters-are-inserted*
 
 Backspace just puts weird characters in my file.
 
@@ -52,7 +52,7 @@ putting this your .bashrc:
     stty erase '^?'
 <
 
-DELETE KEY PROBLEMS  *vwt-68-delete-key-problems*
+DELETE KEY PROBLEMS                               *vwt-68-delete-key-problems*
 
 From :help |:fixdel| (please read all):
 
@@ -66,7 +66,7 @@ Ctrl-Backspace will emit the other. So, if you don't want to spend the time to
 fix your settings, you might be able to work around your problems using 
 ctrl+backspace instead of backspace.
 
-CHECKING FOR BAD MAPPINGS  *vwt-68-checking-for-bad-mappings*
+CHECKING FOR BAD MAPPINGS                   *vwt-68-checking-for-bad-mappings*
 
 Your backspace key may be broken due to a bad mapping which has been loaded 
 into Vim. This may be unintentional; Vim sees CTRL-H as a backspace (because 
@@ -115,11 +115,11 @@ And add put this mapping into your .vimrc:
     inoremap <BS> <c-r>=Backspace()<CR>
 <
 
-SEE ALSO  *vwt-68-see-also*
+SEE ALSO                                                     *vwt-68-see-also*
     - Fix broken arrow key navigation in insert mode |vwt-1290| cursor key problems 
 
 
-COMMENTS  *vwt-68-comments*
+COMMENTS                                                     *vwt-68-comments*
 
 Might want to add following info somewhere in tip:
 

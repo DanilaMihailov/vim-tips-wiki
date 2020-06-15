@@ -17,7 +17,7 @@ mkdir that accepts -p switch).
     au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
 <
 
-COMMENTS  *vwt-1529-comments*
+COMMENTS                                                   *vwt-1529-comments*
 
 TO DO This tip is rather dodgy for those of us who sometimes make mistakes. I 
 don't think it should automatically create possibly several directories as a 

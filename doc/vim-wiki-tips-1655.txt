@@ -13,7 +13,7 @@ alternative to using gvim. Because most graphical terminals accept a "command
 string" that is executed when they start running, the technique shown here is 
 easily generalized to other terminal types.
 
-VIM-GNOME  *vwt-1655-vim-gnome*
+VIM-GNOME                                                 *vwt-1655-vim-gnome*
 
 Many applications can be configured with an external pop-up editor, but 
 require "popping up" to be the editor's default mode (for example, File Roller 
@@ -37,12 +37,12 @@ like vim-gnome myfile.txt +42 to edit myfile.txt and jump to line 42.
 Now you can use vim-gnome everywhere that you could have used gvim, or any 
 other pop-up editor.
 
-SEE ALSO  *vwt-1655-see-also*
+SEE ALSO                                                   *vwt-1655-see-also*
     - Set Vim as your default editor for Unix 
       [https://vim.fandom.com/wiki/Set_Vim_as_your_default_editor_for_Unix] 
 
 
-COMMENTS  *vwt-1655-comments*
+COMMENTS                                                   *vwt-1655-comments*
 
 To have the gnome-terminal not close when exiting vim, try this:
 

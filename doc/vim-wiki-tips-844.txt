@@ -19,12 +19,12 @@ place double quotes around the word. To remove quotes press wq.
     nnoremap wq :silent! normal mpeld bhd `ph<CR>
 <
 
-SEE ALSO  *vwt-844-see-also*
+SEE ALSO                                                    *vwt-844-see-also*
     - surround.vim [https://www.vim.org/scripts/script.php?script_id=1697] plugin 
       to surround text with brackets, quotes; much more 
 
 
-COMMENTS  *vwt-844-comments*
+COMMENTS                                                    *vwt-844-comments*
 
 The tip doesn't work for single character words, but this does:
 

@@ -40,11 +40,11 @@ such.
 
 Don't forget to change your other scripts to use <c-l> rather than <Esc>.
 
-REFERENCES  *vwt-297-references*
+REFERENCES                                                *vwt-297-references*
     - :help |insert| 
 
 
-COMMENTS  *vwt-297-comments*
+COMMENTS                                                    *vwt-297-comments*
 
 I think a better approach would be to use <C-L> to come to Command Mode from 
 Insert Mode.The script would then be as simple as:

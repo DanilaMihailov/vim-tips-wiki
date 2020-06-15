@@ -18,7 +18,7 @@ the files you are diff'ing. This autocmd will take care of doing that for you.
     autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 <
 
-COMMENTS  *vwt-149-comments*
+COMMENTS                                                    *vwt-149-comments*
 
 A more aggressive auto-diffupdate 
 [http://groups.google.com/group/vim_use/browse_thread/thread/64d65c0400010e01] 

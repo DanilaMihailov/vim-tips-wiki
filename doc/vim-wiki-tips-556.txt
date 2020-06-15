@@ -11,7 +11,7 @@ The recommended location for the commands in this snippet is
 ~/.vim/after/ftplugin/python.vim, or $HOME\vimfiles\after\ftplugin\python.vim 
 on Windows.
 
-USING A SHELL (SIMPLE)  *vwt-556-using-a-shell-(simple)*
+USING A SHELL (SIMPLE)                        *vwt-556-using-a-shell-(simple)*
 
 To access Python documentation for the word under the cursor using, this 
 mapping can be used
@@ -53,7 +53,7 @@ this way
 
 It is not recommended to permanently add . to 'iskeyword'.
 
-USING THE PREVIEW WINDOW OR A SCRATCH BUFFER  *vwt-556-using-the-preview-window-or-a-scratch-buffer*
+USING THE PREVIEW WINDOW OR A SCRATCH BUFFER *vwt-556-using-the-preview-window-or-a-scratch-buffer*
 
 This snippet allows you to use the command :Pyhelp <string> to preview Python 
 documentation in the preview window. It also remaps K in the same manner as 
@@ -124,12 +124,12 @@ the ShowPydoc function to
     endfunction
 <
 
-SEE ALSO  *vwt-556-see-also*
+SEE ALSO                                                    *vwt-556-see-also*
     - script#910 [https://www.vim.org/scripts/script.php?script_id=910] 
     - script#1112 [https://www.vim.org/scripts/script.php?script_id=1112] 
 
 
-REFERENCES  *vwt-556-references*
+REFERENCES                                                *vwt-556-references*
     - :help |after-directory| 
     - :help |:map| 
     - :help |:map-<buffer>| 
@@ -141,7 +141,7 @@ REFERENCES  *vwt-556-references*
     - :help 'buftype' 
 
 
-COMMENTS  *vwt-556-comments*
+COMMENTS                                                    *vwt-556-comments*
 
 For an alternative approach to the same problem, try the pyref.vim plug-in 
 [http://peterodding.com/code/vim/pyref/] (script#3104 

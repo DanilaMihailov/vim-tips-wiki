@@ -9,7 +9,7 @@ created 2001 · complexity basic · author Brian Medley · version 7.0
 This tip explains how to use the dictionary completion facilities provided by 
 Vim. This is useful when using Vim to type code or text such as an email.
 
-DICTIONARY COMPLETION  *vwt-91-dictionary-completion*
+DICTIONARY COMPLETION                           *vwt-91-dictionary-completion*
 
 Dictionary completion is one of many search facilities provided by Insert 
 mode completion. It allows the user to get a list of keywords, based off of 
@@ -67,7 +67,7 @@ With this mapping, when in insert mode, press F12 to complete the current
 word from your dictionaries. Press Ctrl-N for the next word or Ctrl-P for the 
 previous word.
 
-FILETYPE-SPECIFIC DICTIONARIES  *vwt-91-filetype-specific-dictionaries*
+FILETYPE-SPECIFIC DICTIONARIES         *vwt-91-filetype-specific-dictionaries*
 
 You can also use filetype-specific dictionaries. If the user would like to 
 automatically load a word file from their ~/.vim/words/ directory for the 
@@ -81,14 +81,14 @@ into the .vimrc file:
 This allows you to create ~/.vim/words/tex.txt for inserting jargon while 
 composing a thesis in latex or ~/.vim/words/r.txt for statistics jargon in R.
 
-SIMILAR USE CASES  *vwt-91-similar-use-cases*
+SIMILAR USE CASES                                   *vwt-91-similar-use-cases*
 
-COMPLETION FOR JAVA/PERL/PHP/ETC KEYWORDS  *vwt-91-completion-for-java/perl/php/etc-keywords*
+COMPLETION FOR JAVA/PERL/PHP/ETC KEYWORDS *vwt-91-completion-for-java/perl/php/etc-keywords*
 
 Instead of a dictionary, see Completion using a syntax file 
 [https://vim.fandom.com/wiki/Completion_using_a_syntax_file].
 
-COMPLETION FOR TAGS  *vwt-91-completion-for-tags*
+COMPLETION FOR TAGS                               *vwt-91-completion-for-tags*
 
 Tag files can be also searched for completion by adding "]" or "t" (the 
 default) to your "complete" setting.
@@ -99,7 +99,7 @@ default) to your "complete" setting.
 
 Invoke completion with Ctrl-N.
 
-REFERENCES  *vwt-91-references*
+REFERENCES                                                 *vwt-91-references*
     - :help |ins-completion| 
     - :help |compl-dictionary| 
     - :help 'complete' 
@@ -107,7 +107,7 @@ REFERENCES  *vwt-91-references*
     - :help |:set+=| 
 
 
-COMMENTS  *vwt-91-comments*
+COMMENTS                                                     *vwt-91-comments*
 
 Most distributions of Linux come with wordlists, but Windows does not. You 
 can find word lists from the scowl archives: http://wordlist.sourceforge.net 

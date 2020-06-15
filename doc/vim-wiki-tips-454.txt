@@ -16,7 +16,7 @@ having Vim always rescan the buffer from the start. Often the syntax file (for
 example, $VIMRUNTIME/syntax/python.vim) uses :syntax sync to specify the 
 synchronization method to be used for a particular file type.
 
-HIGHLIGHT FROM START OF FILE  *vwt-454-highlight-from-start-of-file*
+HIGHLIGHT FROM START OF FILE            *vwt-454-highlight-from-start-of-file*
 
 For the most accurate but slowest result, set the syntax synchronization 
 method to fromstart. This can be done with an autocmd in your vimrc 
@@ -26,7 +26,7 @@ method to fromstart. This can be done with an autocmd in your vimrc
     autocmd BufEnter * :syntax sync fromstart
 <
 
-SEARCH BACKWARDS FOR A HIGHLIGHT STARTING POINT  *vwt-454-search-backwards-for-a-highlight-starting-point*
+SEARCH BACKWARDS FOR A HIGHLIGHT STARTING POINT *vwt-454-search-backwards-for-a-highlight-starting-point*
 
 For languages that supports C-style comments (e.g. C, C++, javascript and 
 more) it may be desirable to set the synchronization method to ccomment. This 
@@ -56,7 +56,7 @@ region, search backwards for <script and start highlighting from there.
     autocmd FileType html syn sync match htmlHighlight groupthere javaScript "<script"
 <
 
-HIGHLIGHT FROM AN AMOUNT BACKWARDS  *vwt-454-highlight-from-an-amount-backwards*
+HIGHLIGHT FROM AN AMOUNT BACKWARDS *vwt-454-highlight-from-an-amount-backwards*
 
 Vim supports highlighting synchronization by searching a variable amount 
 backwards from the current position for a recognized syntax state. An example 
@@ -94,7 +94,7 @@ faster results with something like:
     syntax sync minlines=200
 <
 
-USING A MAPPING TO FIX WHEN BROKEN  *vwt-454-using-a-mapping-to-fix-when-broken*
+USING A MAPPING TO FIX WHEN BROKEN *vwt-454-using-a-mapping-to-fix-when-broken*
 
 The procedures discussed above attempt to ensure that syntax highlighting is 
 always correct, at the cost of slower performance. Another procedure is to 
@@ -115,13 +115,13 @@ If wanted, mappings can be defined to make entering the command easier:
 Now you can press F12 to clean up most syntax highlighting problems. 
 Sometimes, pressing Ctrl-L to redraw the screen helps.
 
-REFERENCES  *vwt-454-references*
+REFERENCES                                                *vwt-454-references*
     - :help |:syn-sync| 
     - Search for 'sync' in your favorite syntax file in the $VIMRUNTIME/syntax 
       directory (use :echo expand('$VIMRUNTIME/syntax') to see its location). 
 
 
-COMMENTS  *vwt-454-comments*
+COMMENTS                                                    *vwt-454-comments*
 
 I have tweaked the wording, but haven't considered the content much. The 
 autocmd is a bit extreme (applying to all files). It's not clear why the 

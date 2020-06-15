@@ -55,7 +55,7 @@ Paste the code above into a file, save the file, then enter the command :so %
 (source current file). Then put the cursor on a word in any file and press \j 
 to list occurrences, and jump to the selected occurrence.
 
-REFERENCES  *vwt-563-references*
+REFERENCES                                                *vwt-563-references*
     - :help |[I| 
     - :help |[_CTRL-I| 
     - :help |:ilist| 
@@ -63,7 +63,7 @@ REFERENCES  *vwt-563-references*
     - Displaying a variable/macro definition |vwt-9| 
 
 
-COMMENTS  *vwt-563-comments*
+COMMENTS                                                    *vwt-563-comments*
 
 If you would prefer to modify [I to prompt for a number to jump to the 
 following map does so:

@@ -18,7 +18,7 @@ mapping like:
 This automatically goes to the next file if the pattern doesn't occur in the 
 current.
 
-COMMENTS  *vwt-961-comments*
+COMMENTS                                                    *vwt-961-comments*
 
 You can use BufGrep function. It greps for the relevant search string in all 
 the opened buffers- the search result is available in a quick fox window.
