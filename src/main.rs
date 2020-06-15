@@ -173,12 +173,20 @@ impl<'a> WikiEntry<'a> {
 
     fn to_vim_help(&self) -> String {
         let mut result = String::new();
+        let fname = self.file_name();
+        let tag = self.short_prefix("");
+
+        let mut len = fname.chars().count() + 4 + self.title.chars().count() + tag.chars().count();
+        if len > 77 {
+            len = 77;
+        };
 
         // add first row
         result.push_str(&format!(
-            "*{}*   {} *{}*\n\n",
+            "*{}*   {}{}*{}*\n\n",
             self.file_name(),
             self.title,
+            " ".repeat(78 - len),
             self.short_prefix("")
         ));
 
