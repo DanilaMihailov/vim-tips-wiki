@@ -1,8 +1,9 @@
+use rayon::prelude::*;
 use regex::Regex;
 use select::document::Document;
 use select::node::Node;
 use select::predicate::{Attr, Class};
-use tokio::fs::File;
+use tokio::runtime::Runtime;
 use urlencoding::decode;
 
 #[derive(Debug)]
@@ -229,10 +230,11 @@ impl<'a> WikiEntry<'a> {
         Ok(())
     }
 }
-#[tokio::main(core_threads = 16)]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    for n in 1..15 {
-        WikiEntry::make_tip(n).await?;
-    }
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    (1..50).into_par_iter().for_each(|n| {
+        let mut rt = Runtime::new().unwrap();
+        rt.block_on(WikiEntry::make_tip(n as u32));
+    });
     Ok(())
 }
