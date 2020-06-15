@@ -66,7 +66,7 @@ impl<'a> WikiEntry<'a> {
                 for child in node.children() {
                     inner.push_str(&self.parse_node(child));
                 }
-                let inner = inner.trim().to_uppercase();
+                let inner = inner.trim().to_uppercase().replace("\"", "");
                 let tag =
                     self.short_prefix(&format!("-{}", inner.to_lowercase().replace(" ", "-")));
                 format!("\n\n{}  *{}*", inner, tag)

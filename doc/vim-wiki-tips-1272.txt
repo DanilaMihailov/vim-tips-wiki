@@ -151,7 +151,7 @@ The function of mappings in Vim is to map a set of keystrokes to another set
 of keystrokes. For more information, see :help |key-mapping|, :help 
 |map-modes|.
 
-2B. MAPPING "FAST" KEYCODES  *vwt-1272-2b.-mapping-"fast"-keycodes*
+2B. MAPPING FAST KEYCODES  *vwt-1272-2b.-mapping-fast-keycodes*
 
 As mentioned in section 1c, the Ctrl-Shift-Down_arrow keycode cannot be set 
 in the same way as the Shift-Down_arrow keycode because it is not a listed Vim 

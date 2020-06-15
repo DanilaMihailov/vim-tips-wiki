@@ -62,7 +62,7 @@ NUMERIC SORT  *vwt-1166-numeric-sort*
 
 (this way, 100 doesn't precede 20 in the sort)
 
-SORT SUBSECTIONS INDEPENDENTLY, IN THIS EXAMPLE SORT NUMBERS BETWEEN "START" AND "END" MARKERS  *vwt-1166-sort-subsections-independently,-in-this-example-sort-numbers-between-"start"-and-"end"-markers*
+SORT SUBSECTIONS INDEPENDENTLY, IN THIS EXAMPLE SORT NUMBERS BETWEEN START AND END MARKERS  *vwt-1166-sort-subsections-independently,-in-this-example-sort-numbers-between-start-and-end-markers*
 
 >
     :g/start/+1,/end/-1 sort n

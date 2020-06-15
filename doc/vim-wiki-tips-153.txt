@@ -16,7 +16,7 @@ version 5.7
 
 ==============================================================================
 
-"AUTOMATIC" BRACKET SETTING  *vwt-153-"automatic"-bracket-setting*
+AUTOMATIC BRACKET SETTING  *vwt-153-automatic-bracket-setting*
 
 To automatically insert a closing parenthesis when typing an opening 
 parenthesis you can insert the following simple mapping to your vimrc:
@@ -61,7 +61,7 @@ A much more simple solution that handles nested braces or quotes correctly:
     :inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a
 <
 
-"LATE" BRACKETING OF TEXT  *vwt-153-"late"-bracketing-of-text*
+LATE BRACKETING OF TEXT  *vwt-153-late-bracketing-of-text*
 
 Occasionally I later want already written text parts to put in parenthesis.
 
