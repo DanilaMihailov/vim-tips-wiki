@@ -1,10 +1,7 @@
 # Vim Wiki Tips
+All tips are downloaded from [VimWiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki), parsed and formatted to look and work like native Vim help files. You can use `:helpgrep` to search tips. Use `Ctrl-]` to jump tags.
 
 ![Screenshot](https://github.com/DanilaMihailov/vim-wiki-tips/blob/master/screenshots/preview.png?raw=true)
-
-* All tips locally available 
-* Searchable with `:helpgrep`
-* Working tags allow jumping with `Ctrl-]`
 
 ## Installation
 
@@ -15,8 +12,10 @@
 
 2. Install with `:PlugInstall`.
 
+Or use your favorite plugin manager
+
 ## TODO
-* fix summary navigation
-* use categories
-* add index of all tips
-* add :RandomWikiTip command
+- [ ] fix summary navigation
+- [ ] use categories
+- [ ] add index of all tips
+- [ ] add :RandomWikiTip command
