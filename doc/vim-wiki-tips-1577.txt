@@ -146,3 +146,5 @@ the next line and perform the macro on the remainder of the file with
 :.,$normal @q. Since this doesn't use recursion, it's much faster -- 
 especially noticeable on large files (though, of course, it still won't be as 
 fast as a regex or a specialized external command).
+
+ vim:tw=78:et:ft=help:norl:

@@ -108,3 +108,5 @@ Another variant of function ReloadFile:
 
 It does not move cursor position, adds only one change that could be undone 
 and does not modify any registers.
+
+ vim:tw=78:et:ft=help:norl:

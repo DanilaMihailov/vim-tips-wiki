@@ -53,3 +53,5 @@ directory to the project folder and build cscope DB there?
 The directory change is easy, just use the "cd" command just like on Unix (but with backslash separators). The harder part is getting a list of files. You might be able to use dir /b /s *.c and the same for *.h, or you could use Vim to create the list of files using glob() or globpath(). Other than that, cscope itself works in pretty much the same way no matter what system you're on. --Fritzophrenic (talk) 15:46, July 2, 2013 (UTC)
 But, how to pass the current working directory information to "cd", and then how to run cscope from that directory ?
 Just like for any other external command. Actually from within Vim, you can just use Vim's built-in :cd command to get to the directory you want. Or use :lcd. Then use :!path\to\cscope.exe to run cscope from that directory. If you must, you can use the cmd.exe cd command instead, like :!cd some\path & path\to\cscope.exe. If you need Vim's current directory, you can use getcwd(). --Fritzophrenic (talk) 19:54, July 3, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -137,3 +137,5 @@ First, Vim does not automatically indent anything unless you tell it to, with a 
 Your FileType autocmd should work fine, assuming you have automatic filetype detection turned on, and should also render the following setlocal and set commands unnecessary. You say it has no effect. What do you try (step by step) to see that it has no effect? What do you see? What do you expect to see?
 Something to check to point you in the right direction, if the option is not getting set as you expect, is to see where it was last set. Use ":verbose set comments?" for this.
 Fritzophrenic 16:50, January 18, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -86,3 +86,5 @@ Use single quotes instead of double quotes to avoid need for extra backslashes:
 BTW, matchstr(expand("%:p:h"), '^.*[/\\]src[/\\]\zs.*') is simpler.
 
 ==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -299,3 +299,5 @@ the same location as below.
     nnoremap <C-p> :call OpenPhpFunction('<c-r><c-w>')<CR>:wincmd p<CR>
     vnoremap <C-p> :call OpenPhpFunction('<c-r><c-w>')<CR>:wincmd p<CR>
 <
+
+ vim:tw=78:et:ft=help:norl:

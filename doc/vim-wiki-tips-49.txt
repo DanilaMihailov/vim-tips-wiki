@@ -130,3 +130,5 @@ uppercase. It also accounts for non-english latin characters.
 5, 2012 (UTC)
 
 Nice, thanks. I added \C to your command above to make the search case sensitive (it won't skip lowercase words if 'ignorecase' is set, unless \C is present). JohnBeckett 09:58, April 6, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

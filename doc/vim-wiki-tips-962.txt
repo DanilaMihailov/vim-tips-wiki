@@ -134,3 +134,5 @@ pretty good.
         autocmd BufWritePre,FileWritePre * let &l:backupext = '~' . strftime('%F') . '~'
     augroup END
 <
+
+ vim:tw=78:et:ft=help:norl:

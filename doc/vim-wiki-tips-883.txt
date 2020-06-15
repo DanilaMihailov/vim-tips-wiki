@@ -128,3 +128,5 @@ Can be even easier (tested in 4.9): Open gvim, use said way to change the
 window specific settings, but instead of setting Position and Size in the Size 
 & Position tab, toggle the last checkbox, Obey geometry restrictions, set this 
 to force and No, and it will maximize properly.
+
+ vim:tw=78:et:ft=help:norl:

@@ -227,3 +227,5 @@ I haven't changed anything yet because I'm not 100% sure.
 Under what circumstances does the global value not get used for you? Setting the global value will have no effect on *existing* files you edit in Vim, but it should set the value for any *new* files you *create* in Vim. Existing files will have 'bomb' set (locally) depending on whether the file on-disk had a BOM or not. To set 'bomb' on existing files which didn't have a BOM already, you'll need to override the local value as you indicate. This option works as expected for me as far as I can tell. --Fritzophrenic (talk) 12:09, October 11, 2016 (UTC)
 
 ==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

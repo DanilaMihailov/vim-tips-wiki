@@ -195,3 +195,5 @@ folded is displayed, so it cleans up the fold display significantly.
       let preamble = printf("[%d lines folded]:", numlines_folded)
       return printf("%-20s%s", preamble, substitute(charline, '^\s*', '', ''))
 <
+
+ vim:tw=78:et:ft=help:norl:

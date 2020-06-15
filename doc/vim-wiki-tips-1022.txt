@@ -198,3 +198,5 @@ fold misses.
     :set foldexpr=getline(v:lnum)!~@/
     :nnoremap <F8> :set foldmethod=expr<CR><Bar>zM
 <
+
+ vim:tw=78:et:ft=help:norl:

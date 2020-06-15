@@ -260,3 +260,5 @@ To auto escape certain characters (e.g. slash and backslash), one can use:
 >
     vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>
 <
+
+ vim:tw=78:et:ft=help:norl:

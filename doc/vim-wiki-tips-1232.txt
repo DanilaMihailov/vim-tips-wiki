@@ -46,3 +46,5 @@ Use an optional count argument, to specify how many iterations should be
 made, e.g. :100Timer :call funcFoobar() will call the function 100 times.
 
 COMMENTS  *vwt-1232-comments*
+
+ vim:tw=78:et:ft=help:norl:

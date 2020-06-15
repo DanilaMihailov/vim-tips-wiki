@@ -44,3 +44,6 @@ COMMENTS  *vwt-1648-comments*
 TO DO
     -  Should probably add logic of some sort for other modes (command-line, replace, visual, etc.). Currently only properly handles insert and normal modes. –Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 03:59, February 14, 2011 (UTC)
     -  Is this the same thing? Maybe incorporate it: http://stackoverflow.com/questions/22389934/how-can-i-keep-modes-local-to-a-tab [http://stackoverflow.com/questions/22389934/how-can-i-keep-modes-local-to-a-tab]
+
+
+ vim:tw=78:et:ft=help:norl:

@@ -799,3 +799,5 @@ C-style un-escaping:
     csv2tsv -e < file.csv > file.tsv
     tsv2csv -e < file.tsv > file.csv
 <
+
+ vim:tw=78:et:ft=help:norl:

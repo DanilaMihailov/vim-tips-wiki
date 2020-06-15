@@ -179,3 +179,5 @@ I DO get syntax highligting in a plaintext file using the exact example code giv
 however, the c highlight does not end where it ought to, it continues on to the end of the buffer. Hopefully I will find some time to look into this soon. --Fritzophrenic 15:45, March 3, 2011 (UTC)
 
 The problem seems to be specific to the braces, at least in my case -- C code without the braces works fine.
+
+ vim:tw=78:et:ft=help:norl:

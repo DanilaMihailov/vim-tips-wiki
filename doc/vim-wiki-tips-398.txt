@@ -262,3 +262,5 @@ I use BufEnter to map CTRL+/ to a command to comment out the selected lines when
 
 -- Michael S. Meeks 14:11, October 9, 2013 (UTC)
 That looks like it could be done better with a FileType autocmd and a buffer-local mapping. See :help :map-<buffer>. The question was asked about macros recorded into a register, however, not about mappings via a :map type of command. --Fritzophrenic (talk) 21:39, October 9, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

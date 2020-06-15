@@ -109,3 +109,5 @@ The benchmark function used was:
       return c.' matches in '.(localtime()-t).'s for '.a:re
     endfunction
 <
+
+ vim:tw=78:et:ft=help:norl:

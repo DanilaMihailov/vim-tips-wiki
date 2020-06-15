@@ -44,3 +44,5 @@ COMMENTS  *vwt-1356-comments*
 
 You could create a ftdetect plugin and put instruction in it so you can just 
 :edit filename.pdf and it'll set options for it. :help |new-filetype|
+
+ vim:tw=78:et:ft=help:norl:

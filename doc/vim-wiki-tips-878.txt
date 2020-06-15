@@ -313,3 +313,5 @@ location. Here's a quick fix for that:
         \ :call setpos('.', _save_pos)<Bar>
         \ :unlet _save_pos<CR><CR>
 <
+
+ vim:tw=78:et:ft=help:norl:

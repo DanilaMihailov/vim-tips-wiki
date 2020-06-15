@@ -42,3 +42,5 @@ If you want to keep the cursor centered vertically, you can also set
 scrolloff to a large value (such as 50). This won't work if you want the 
 cursor closer to the edge, but it has the benefit that it works with all 
 movement commands.
+
+ vim:tw=78:et:ft=help:norl:

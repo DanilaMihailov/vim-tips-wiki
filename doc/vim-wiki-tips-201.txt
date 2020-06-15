@@ -704,3 +704,5 @@ DG12 [https://vim.fandom.com/wiki/User:DG12] 01:58, December 7, 2009 (UTC)
 
 It is impossible to learn everything about Vim in a short period. This tip is definitely quirky and subjective, however, many people (long before this wiki was created) have found the tip to be very helpful as a source of ideas rather than as a detailed manual. Perhaps the lead should make that clear, although it will be clear after reading for a minute or two. Yes, we should add links. The "help for help" should link to VimTip882 although that tip needs to be fixed! When I first read this page, I did not understand it either, but I referred to it many times while learning Vim.
 The "help for help" stuff is correct, although unclear. The ":h ctrl<C-D>" item is saying to type :h ctrl then press Ctrl-D. The ":h CTRL-R" item is saying that the page of help will show you what Ctrl-R does in normal mode, whereas ":h i_CTRL-R" shows what Ctrl-R does in insert mode, etc. That should be explained at 882. JohnBeckett 04:18, December 7, 2009 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

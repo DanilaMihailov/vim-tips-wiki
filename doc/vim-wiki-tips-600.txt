@@ -83,3 +83,5 @@ I've never felt the need to copy the short file name to the clipboard, since
 in most cases the full path will work the same or better.
 
 The short file name (without the path) needs :t expand("%:t")
+
+ vim:tw=78:et:ft=help:norl:

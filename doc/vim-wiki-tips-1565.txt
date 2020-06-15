@@ -95,3 +95,5 @@ content will always and only be in MoinMoin, I'd recommend using txt2tags
 highlighting and tag completion available for that as well.
 
 Am I missing something? Voom seems to have almost nothing to do with folding, it generates an outline in a separate buffer by grabbing the content of the current buffer and removing everything but the lines with fold markers. And regardless of what your "master source" is, whether your MoinMoin is hand-written or auto-generated, it's often useful to apply folding to it. --Fritzophrenic 16:30, November 28, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

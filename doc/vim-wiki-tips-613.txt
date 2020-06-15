@@ -84,3 +84,5 @@ You are right. This works better.
     autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
         \ execute "source " . $HOME . "/.vim/Session.vim"
 <
+
+ vim:tw=78:et:ft=help:norl:

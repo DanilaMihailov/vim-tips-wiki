@@ -60,3 +60,5 @@ This allows putting a file `.vimlocal` in a project root directory, where one
 can set additional options or override defaults from .vimrc. Thanks to 
 `!silent`, it will be simply ignored if there is no `.vimlocal` file in the 
 directory you start vim from.
+
+ vim:tw=78:et:ft=help:norl:

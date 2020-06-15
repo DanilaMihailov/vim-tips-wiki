@@ -82,3 +82,5 @@ You can also achieve this with easytags
 >
     autocmd BufWritePost * exe ":UpdateTags"
 <
+
+ vim:tw=78:et:ft=help:norl:

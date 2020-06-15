@@ -102,3 +102,5 @@ don't see any documentation of this, and a little experimenting shows that
 block-selection. --February 11, 2014
 
 The mouse can be used if options are set correctly. For example, after :set mousemodel=extend, you can left-click to set an initial position, then hold down Alt and right-click at another position to select a visual block (:help mouse-overview). Another method that is convenient for occasional use is to use :set mousemodel=popup then left-click to set an initial position, then hold down Shift and left-click at another position. That gives a character-wise selection. Then type Ctrl-V (or Ctrl-Q if Ctrl-V is mapped to paste) to change to block-wise. JohnBeckett (talk) 07:16, February 11, 2014 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

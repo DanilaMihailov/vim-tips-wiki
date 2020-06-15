@@ -507,3 +507,5 @@ Which would find all .tpl files in public_html
     endfunction
     command! -nargs=* Find :call Find(<f-args>)
 <
+
+ vim:tw=78:et:ft=help:norl:

@@ -215,3 +215,5 @@ your .vimrc file:
 >
     au FileType xml exe ":silent 1,$!XMLLINT_INDENT='    ' xmllint --format --recover - 2>/dev/null"
 <
+
+ vim:tw=78:et:ft=help:norl:

@@ -89,3 +89,5 @@ make the moved buffer vertical. My mappings look like this:map <C-m> :call
 MoveToNextTab()<CR><C-w>Hmap <C-n> :call MoveToPrevTab()<CR><C-w>H
 
 Alternately, replace the sp lines withvert topleft split
+
+ vim:tw=78:et:ft=help:norl:

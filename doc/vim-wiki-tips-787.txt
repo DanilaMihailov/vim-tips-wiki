@@ -49,3 +49,5 @@ something like the following in my vimrc.
           execute "set columns +=" . a:amount
        endfunction
 <
+
+ vim:tw=78:et:ft=help:norl:

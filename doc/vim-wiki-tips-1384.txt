@@ -331,3 +331,5 @@ a list in YAML format where first item contains color that is used when you set 
 where “colors.yaml” is a file where colors will be saved to and 256 is a 
 number of colors your terminal supports. Documentation is here 
 [http://vimpluginloader.sourceforge.net/doc/format.txt.html#format-o-ColorFile].
+
+ vim:tw=78:et:ft=help:norl:

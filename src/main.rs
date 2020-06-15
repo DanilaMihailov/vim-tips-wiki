@@ -162,6 +162,8 @@ impl<'a> WikiEntry<'a> {
             result.push_str(&self.parse_node(*node));
         }
 
+        result.push_str(&format!("\n\n{}", " vim:tw=78:et:ft=help:norl:"));
+
         return result;
     }
 

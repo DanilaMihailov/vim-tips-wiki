@@ -60,3 +60,5 @@ curlies inside a comment.
 <
 
 ==============================================================================The advantage is the following.  Say you want to go to the beginning of the block that the cursor is in.  between the cursor position and the beginning of the block, there may be several blocks at the same level as the cursor, so [{ will skip them, but ?{ won't.  This is even more useful if you want to go to the beginning of a block multiple levels above the cursor position, because there could be a lot more blocks that you want to skip.
+
+ vim:tw=78:et:ft=help:norl:

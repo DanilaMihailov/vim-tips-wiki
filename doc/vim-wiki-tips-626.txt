@@ -231,3 +231,5 @@ You can use
 < to overwrite the existing file if you like. However once you do this your original .vimrc file is gone so you may want to back up any existing .vimrc before you try this.
 
 Using :mkvimrc to create .vimrc isn't a terribly good idea, since it saves mappings and abbreviations setup by plugins. It can be useful to copy currently set options to .vimrc however. (Spiiph 14:51, 27 July 2009 (UTC))
+
+ vim:tw=78:et:ft=help:norl:

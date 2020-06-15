@@ -82,3 +82,5 @@ And, if you want to maintain the cursor position in the new tab:
 No code is needed. To open the current window in a new tab with the cursor in the same place, enter :tab sp which splits the current window into a new tab. To close the current window, press Ctrl-W then c. That will close the newly opened tab. JohnBeckett (talk) 08:14, August 19, 2015 (UTC)
 
 ==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

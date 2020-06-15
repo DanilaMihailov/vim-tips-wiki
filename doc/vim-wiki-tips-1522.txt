@@ -87,3 +87,5 @@ produces a file with information about Vim's environment. To see the script,
 use the command :view $VIMRUNTIME/bugreport.vim in Vim.
 
 COMMENTS  *vwt-1522-comments*
+
+ vim:tw=78:et:ft=help:norl:

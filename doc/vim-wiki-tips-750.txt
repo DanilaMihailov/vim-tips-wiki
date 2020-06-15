@@ -88,3 +88,5 @@ yypVr- also works well. Great tip for Markdown and WikiTex users.Linktohack
 [https://vim.fandom.com/wiki/User:Linktohack] 15:37, February 3, 2012 (UTC)
 
 Thanks. There is a subtle feature about the method in the tip. If you have the default 'virtualedit' setting (""), and if there is a tab in the line, using Vr- replaces each tab with a single dash, while the method in the tip uses the correct number of dashes depending on the width of the tab. JohnBeckett 06:50, February 4, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

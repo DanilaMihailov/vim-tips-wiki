@@ -418,3 +418,5 @@ However there is one disadvantage: It may be easier for other plugins to
 replay a <C-R>=...<CR> mapping than an <expr> mapping. (For example, modified 
 versions of UltiSnips which fall back to the original <Tab> mapping when 
 UltiSnips has no snippet to complete.)
+
+ vim:tw=78:et:ft=help:norl:

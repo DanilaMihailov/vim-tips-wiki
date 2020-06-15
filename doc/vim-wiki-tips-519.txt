@@ -45,3 +45,5 @@ folds:
     
     setl foldenable foldmethod=expr foldexpr=VBFold(v:lnum) foldtext=VBFoldText()
 <
+
+ vim:tw=78:et:ft=help:norl:

@@ -100,3 +100,6 @@ TO DO
 
 
     -  The cmdwin would be very useful to use as an interpreter to debug and quickly craft things (with the above trick to keep it open). Since however I can't see my :echo results, it is almost useless for that purpose. I think it's because the wincmd redraws the screen when it reappears, still I wonder if there is a workaround?
+
+
+ vim:tw=78:et:ft=help:norl:

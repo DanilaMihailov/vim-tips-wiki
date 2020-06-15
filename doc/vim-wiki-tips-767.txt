@@ -70,3 +70,5 @@ How do I do multiple commands if the previous one failed?
 This will work for the :s command. For other commands, see below. Fritzophrenic (talk) 16:08, January 13, 2016 (UTC)
 
 Try using silent! to suppress errors. Example: :exe "norm! yaw" | exe "silent! norm! b" | exe "norm! P" --Fritzophrenic (talk)
+
+ vim:tw=78:et:ft=help:norl:

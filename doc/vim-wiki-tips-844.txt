@@ -89,3 +89,5 @@ Surround current word or visually selected text with double quotes:
     nnoremap <Leader>" ciw"<C-r>""<Esc>
     vnoremap <Leader>" c"<C-r>""<Esc>
 <
+
+ vim:tw=78:et:ft=help:norl:

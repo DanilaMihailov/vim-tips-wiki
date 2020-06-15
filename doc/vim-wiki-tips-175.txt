@@ -51,3 +51,5 @@ will need to add it:
 >
     sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100
 <
+
+ vim:tw=78:et:ft=help:norl:

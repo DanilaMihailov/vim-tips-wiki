@@ -60,3 +60,5 @@ Sure you can, but why? Remapping <C-l> to <Left>, etc. seems to make more sense,
 Anonymous comment: Also with <Left>, <Right>, etc. It is possible to use this binding elsewhere (for example in completion candidates list instead of <C-n> and <C-p>), which might be useful.
 
 I don't understand why you would map <C-L> to <Left>, rather than to <Right>. Why not be consistent with normal mode hjkl movements? Although <C-h> deletes backwards -- too useful an action to sacrifice, imo.
+
+ vim:tw=78:et:ft=help:norl:

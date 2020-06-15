@@ -101,3 +101,5 @@ Arkanus: I don't know, but adding the imap plugin isn't enough, I got a
 get the complete snippetNevermind i've figured it out; you need to add "set 
 laststatus=2" to your .vimrc I don't know why, but without it the thing 
 doesn't work
+
+ vim:tw=78:et:ft=help:norl:

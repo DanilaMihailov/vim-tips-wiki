@@ -191,3 +191,5 @@ and re-enable them when closing the buffer. Many people have lots of plugins
 installed which can make opening buffers somewhat expensive (and therefore 
 unnecessary time delay). Using the Vim 7 readfile() and writefile() functions 
 avoid this overhead.
+
+ vim:tw=78:et:ft=help:norl:

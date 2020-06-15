@@ -52,3 +52,5 @@ buffers. I'm opening 2 buffers: the right panel is empty, the left panel:
 FileExplorer. I'm on the left. Type ":e /home/user". Then press "-" (go to up 
 directory). Oops! FileExplorer switching me onto the right panel! :-( What is 
 it?
+
+ vim:tw=78:et:ft=help:norl:

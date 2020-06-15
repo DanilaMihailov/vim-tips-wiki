@@ -42,3 +42,5 @@ It's a good observation, though. (Spiiph
 [https://vim.fandom.com/wiki/User:Spiiph] 23:55, 28 July 2009 (UTC))
 
 If you have no more than a handful of split-windows, you don't need this tip because you can tell at a glance the number of the wanted window (unless, of course, you want to go to the nth-from-last window from a mapping or a script). But if you have a lot of windows (in my current gvim session there are 21, opened "Rolodex style" with :set wh=9999 wmh=0), you'd need a better counting-at-a-glance ability than most people have, even to be able to type the right number at the keyboard. But we can, for instance, create the following to always go to the second-last window by hitting F12:	:map	<F12>	:exe winnr('$') - 1 'wincmd w'<CR>--Tonymec 02:55, 5 August 2009 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -102,3 +102,5 @@ Change "%" to "." to work only on the current line, may remove "g" if all
 your 8x spaces are at line beginnings.
 
 It would be better to use the :retab command. See Super retab. JohnBeckett 07:56, June 22, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -118,3 +118,5 @@ vim checks only after all autocmds have been executed what foldmethod to
 use...
 
 Hmm. You can try a BufWinEnter instead of Syntax for the setl fdm=manual. Or, instead of setting it directly, you could create (during a Syntax autocmd) a CursorHold/CursorMoved/InsertEnter autocmd which sets the foldmethod to manual and removes itself. This is a bit of a hack but should work. If neither of these methods work, or you need help creating them, I'd ask on #vim on Freenode, or on the vim_use mailing list. See Asking questions. --Fritzophrenic 21:40, January 23, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

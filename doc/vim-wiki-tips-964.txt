@@ -96,3 +96,5 @@ I ran this: In client # ssh -X root@IP > vim file > yanked > in this local
 machine paste, but only pasted the local machine data, not the server's data?
 
 Maybe the server needs a restart?
+
+ vim:tw=78:et:ft=help:norl:

@@ -67,3 +67,5 @@ When you run a command like :ls that leaves output on the screen while
 waiting for you to enter another command, using semi-colon instead of colon 
 will cause the output of :ls to be hidden as soon as you start entering the 
 new command. There may be a fix for this, but I haven't found one yet.
+
+ vim:tw=78:et:ft=help:norl:

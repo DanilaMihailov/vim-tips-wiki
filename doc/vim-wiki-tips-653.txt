@@ -83,3 +83,5 @@ Or just use ^= instead of += to prepend the new option:
 >
     autocmd Filetype c,cpp set comments^=:///
 <
+
+ vim:tw=78:et:ft=help:norl:

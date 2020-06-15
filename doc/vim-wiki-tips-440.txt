@@ -84,3 +84,5 @@ use gq followed by a movement over the area you want to re-format, e.g. 3j or
 
 Automatic text wrapping and re-formatting with gq can work on comments lines 
 also, provided the value of the 'comments' option is set correctly.
+
+ vim:tw=78:et:ft=help:norl:

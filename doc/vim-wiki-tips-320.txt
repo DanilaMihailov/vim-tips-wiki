@@ -198,3 +198,5 @@ even with long lines that wrap:
       nmap <silent> <PageDown>:call <SID>scrollUP(-2)<CR>
       nmap <silent> <PageUp>  :call <SID>scrollDN(-2)<CR>
 <
+
+ vim:tw=78:et:ft=help:norl:

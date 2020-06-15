@@ -162,3 +162,5 @@ My vim didn't have +clipboard. I added it with "brew install vim" then added
 an alias to my bash profile (~/.bash_profile):
 
 alias vim="/usr/local/bin/vim"
+
+ vim:tw=78:et:ft=help:norl:

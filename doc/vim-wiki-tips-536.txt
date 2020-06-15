@@ -30,3 +30,5 @@ The quit! should be changed to tabclose to be safe.
 I don't think your concern is correct. The quit! would close the current buffer and discard any changes for that buffer. However, the command does not attempt to close any other buffer, so unsaved work in other tabs will be retained (Vim will not terminate).
 Is the ! needed? I think you have to go to a fair bit of trouble to make a change to a quickfix window, so a plain quit would suffice and be a tiny bit safer.
 Rather than use winbufnr(2), I think the test could be if winnr('$') < 2. JohnBeckett 07:00, May 10, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

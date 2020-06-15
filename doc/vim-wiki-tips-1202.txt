@@ -316,3 +316,5 @@ I have modified the save/load functions to be tied to the servername:
 I wrote another session plugin from the comments here that autosaves/loads 
 based on the git projects and branches called gitsessions.vim 
 [https://github.com/wting/gitsessions.vim].
+
+ vim:tw=78:et:ft=help:norl:

@@ -81,3 +81,5 @@ A simpler way to do the page count arithmetic:
 >
     :set printheader=%<%f%h%m=Page\ %N\ of %{(line('$')+72)/73}
 <
+
+ vim:tw=78:et:ft=help:norl:

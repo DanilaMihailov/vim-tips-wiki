@@ -56,3 +56,5 @@ You ought to make it simple: In vimrc: if $TERM =~ /xterm_color256/and set
 TERM in your bashrc: export TERM=xterm_color256
 
 ==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

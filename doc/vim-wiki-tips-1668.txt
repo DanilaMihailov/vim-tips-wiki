@@ -67,3 +67,5 @@ the _vimrc script maybe helpful as follow:
 
 The last statement "Command LoadCscope call LoadCscope()" means that we can 
 use command :LoadCscope to call the function LoadCscope for convinence.
+
+ vim:tw=78:et:ft=help:norl:

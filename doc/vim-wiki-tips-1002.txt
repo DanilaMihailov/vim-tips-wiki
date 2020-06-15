@@ -83,3 +83,5 @@ OK I give up. Why would you want to do this?
 9. I create network objects and config to apply in the order it must be created. If it needs to be removed later the order of removal is the reverse. For large lists of objects and ACLs that were temporary this works great!
 
 10. I was making a list of links for a playlist. I wanted to manually copy them off the web page, but I only wanted some from the latest ones published. So I had the links listed in reverse chronological order, last ones on top, copied them in the order I saw them in a file using vim. Of course, I wanted them in chronological order. So I just reversed the file. Doing it manually for a file with 27 lines would be a pain in the ass or I would need to be lucky with the software I want parsing the list so that it allows parsing it in reverse, or I'd have to write a shell script. But with this tip, I'm done in a second. 18:25, September 30, 2019 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

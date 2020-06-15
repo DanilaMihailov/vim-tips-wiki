@@ -115,3 +115,5 @@ to save files with syntax errors. Mildly hacky but it seems to work just fine.
       call delete(tmpfile)
     endfunction
 <
+
+ vim:tw=78:et:ft=help:norl:

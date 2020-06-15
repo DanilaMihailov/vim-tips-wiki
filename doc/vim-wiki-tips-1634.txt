@@ -89,3 +89,5 @@ with :inoremap <lt>/ </<C-x><C-o><Esc>==gi so the new tag properly indents
 itself. == re-indents the current line (also moving the cursor), and gi 
 returns the cursor to its location before the re-indent and enters insert 
 mode. (September 2, 2017)
+
+ vim:tw=78:et:ft=help:norl:

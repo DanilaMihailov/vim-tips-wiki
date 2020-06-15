@@ -186,3 +186,5 @@ So I discovered and tried histadd and it worked!?!
 nnoremap <F8> :let curwd='\\\<<C-R>=expand("<cword>")<CR>\\\>'<CR> :let @/=curwd<CR>:call histadd("search", curwd)<CR>:set hls<CR>
 
 Thank you so much for the hint.
+
+ vim:tw=78:et:ft=help:norl:

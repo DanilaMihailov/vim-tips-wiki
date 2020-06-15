@@ -56,3 +56,5 @@ kill the previous WORD. There is a way to make it more readline-ish:
     inoremap <C-w> <C-\><C-o>dB
     inoremap <C-BS> <C-\><C-o>db
 <
+
+ vim:tw=78:et:ft=help:norl:

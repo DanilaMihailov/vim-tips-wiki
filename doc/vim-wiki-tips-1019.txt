@@ -223,3 +223,6 @@ Pasting is a different matter altoghether. Let it be dealt with elsewhere. Basic
 Pasting with indentation does not belong here. See comment above. (Spiiph 23:41, September 1, 2009 (UTC))
 As for pasting within Vim, I normally use ]p or ]P to get the correct indent, and normally there is no re-indentation required. This should be mentioned wherever we end up with the "pasting with indent" stuff. --Fritzophrenic 14:34, November 9, 2010 (UTC)
     - For me :inoremap # X<BS># didn't work. I had to do :inoremap # XX<left>#<del><left><bs><right>
+
+
+ vim:tw=78:et:ft=help:norl:

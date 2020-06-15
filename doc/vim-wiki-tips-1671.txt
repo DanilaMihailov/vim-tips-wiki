@@ -52,3 +52,5 @@ JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 08:22, March 31,
 
 onoremap makes sense, xmap doesn't work, because visual mode is exited. One could possibly get around it by using an <expr> mapping.Chrisbra (talk) 09:53, July 1, 2013 (UTC)
 Thanks, but I think I meant that we should give an example of where the onoremap does something useful. For example, I just tried it again with a long line that was wrapped over several screen lines. Typing gm went to the middle of the physical line, but going back to the same starting position and typing vgm does not select the text that the first command moved over. Instead, the gm goes to the middle of the screen line. JohnBeckett (talk) 11:09, July 2, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

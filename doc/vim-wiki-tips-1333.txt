@@ -34,3 +34,5 @@ closed, will just call the :q command.
     endfunction
     map <C-x> :call CloseSomething()<CR>
 <
+
+ vim:tw=78:et:ft=help:norl:

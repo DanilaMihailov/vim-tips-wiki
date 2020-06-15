@@ -123,3 +123,5 @@ On debian 6 based system, I found a /etc/vim/vimrc.local file had syntax on
 and this was overriding what I had in VIMINIT environment variable. My 
 solution was to comment out "syntax on" in the /etc/vim/vimrc.local file. The 
 previous two sentences was written 3/5/2014 re: vim 7.2.
+
+ vim:tw=78:et:ft=help:norl:

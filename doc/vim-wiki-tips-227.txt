@@ -340,3 +340,5 @@ Another way to collapse empty lines, including whitespace, is:
 \_s matches whitespace (space and tab) including end of line, \+ matches 1 or 
 more of those, as many as possible, \r inserts carriage return specific to 
 file format (unix-dos-mac).
+
+ vim:tw=78:et:ft=help:norl:

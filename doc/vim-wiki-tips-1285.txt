@@ -116,3 +116,5 @@ lieu of filename 42 lines, 42 characters written.
     command Write :silent w | :echo 'Saved'  
     cabbrev w <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Write' : 'w')<CR>
 <
+
+ vim:tw=78:et:ft=help:norl:

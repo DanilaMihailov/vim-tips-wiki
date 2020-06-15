@@ -85,3 +85,5 @@ Curiously, this works perfectly when done by hand in the command prompt.
 I have read that that line-difference is meant for 2 different files. 
 However, we are using the same file, but in two different windows. Then, how 
 do I keep that line difference valid between the windows on_scroll?
+
+ vim:tw=78:et:ft=help:norl:

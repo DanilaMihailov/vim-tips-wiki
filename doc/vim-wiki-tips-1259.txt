@@ -40,3 +40,5 @@ vimrc [https://vim.fandom.com/wiki/Vimrc].
 >
     au BufReadCmd *.jar call zip#Browse(expand("<amatch>"))
 <
+
+ vim:tw=78:et:ft=help:norl:

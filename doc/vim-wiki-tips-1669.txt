@@ -297,3 +297,5 @@ comments, please add them below. JohnBeckett
 Looks pretty interesting, though it probably needs some implementation comments. I'm not so sure about the Enter mapping. It could be useful but I'm worried if we present it without a way to do the same thing in netrw people will just use it without ever knowing about builtin features. I'm pretty sure it's possible to filter the netrw window for a certain file name pattern. I do know it's possible to set it up so you have a tree view instead of a single directory at a time. Something to look into. --Fritzophrenic 13:39, September 2, 2010 (UTC)
 
 Very useful John. --MisterW 23:34, September 2, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

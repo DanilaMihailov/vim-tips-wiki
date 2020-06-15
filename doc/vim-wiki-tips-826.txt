@@ -62,3 +62,5 @@ The vim-php-manual help files above where not recognized with :helptags, the
 produced tags file only had 3 lines in it. Solution was to create my own files 
 like suggested above. But i had to uncomment line 206 and comment out 207 in 
 parser2.php to get help files in correct vim format.
+
+ vim:tw=78:et:ft=help:norl:

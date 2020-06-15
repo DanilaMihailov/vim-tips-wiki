@@ -219,3 +219,5 @@ inhttp://vim.wikia.com/index.php?title=Get_Alt_key_to_work_in_terminal&oldid=231
 2009 (UTC)
 
 gvim recognizes A-j and terminal vim doesn't; be careful ^[j is the same as escape, j - you shouldn't be using escape in the normal mode too much though
+
+ vim:tw=78:et:ft=help:norl:

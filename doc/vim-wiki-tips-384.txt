@@ -318,3 +318,5 @@ show the original C program and the header file.
 Pro: No need of changing anything – works with every Vim.
 
 Con: Doesn't work backwards (from file.h to file.cpp).
+
+ vim:tw=78:et:ft=help:norl:

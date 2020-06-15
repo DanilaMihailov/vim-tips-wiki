@@ -79,3 +79,5 @@ sample code wont cover case when xprop returns locale with 'utf' part in
 lower case.propv !~ "WM_LOCALE_NAME .*[Uu][Tt][Ff].*8"covers both
 
 ==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -137,3 +137,5 @@ map <C-c> "+y<CR>
 Restart our shell and we are good. Now whenever we are in Visual Mode, we can 
 Ctrl+c to grab what we want and paste it into another application or another 
 editor in a convenient and intuitive manner.
+
+ vim:tw=78:et:ft=help:norl:

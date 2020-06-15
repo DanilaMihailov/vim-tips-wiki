@@ -239,3 +239,5 @@ If you are using the function in a loop over swap files, you can use the
 script like so: vim-process-swap -s $swapfile and you won't need to pass the 
 real filename. Note that when using the -s flag that it isn't possible to 
 specify a recoveryfile name or location.
+
+ vim:tw=78:et:ft=help:norl:

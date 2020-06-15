@@ -107,3 +107,5 @@ buffers), be sure to use "up[date]", not "w[rite]", i.e ":au FocusLost *
 write writes always, and that might lead to unwelcome side-effects — most 
 notably, encrypted files will get corrupted if focuslost happens while 
 password input is active.
+
+ vim:tw=78:et:ft=help:norl:

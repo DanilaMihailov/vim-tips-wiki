@@ -39,3 +39,5 @@ Cool, but what if I have only one file open, that means I have no statusline
 but only the ruler?This script does not show me the enc then. Joachim
 
 Use :set laststatus=2 to always show the statusline. :help 'laststatus' JohnBeckett 22:06, March 16, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

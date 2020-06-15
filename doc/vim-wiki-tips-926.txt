@@ -85,3 +85,5 @@ qtdir/doc/html/.vimrc.
 I also found the perl script doesn't work. But we can just use exuberant 
 ctagsto generate the tags file for Qt html doc (run ctags under Qt's html 
 docdirectory) and put that tags file in Vim.
+
+ vim:tw=78:et:ft=help:norl:

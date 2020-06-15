@@ -211,3 +211,5 @@ example of which is script#2769
     # for end of pipe/less with syntax highlighting, vi - is better:
     cat /etc/samba/smb.conf | vi -
 <
+
+ vim:tw=78:et:ft=help:norl:

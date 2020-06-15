@@ -83,3 +83,5 @@ PAR is a lot better at this kind of thing: http://www.nicemice.net/par/
 PAR is a useful tool, but is not specific to format=flowed, and so can be 
 over-zealous in some cases. For example, it doesn't recognized the -- 
 separator between email body and signature, and wraps it into the signature.
+
+ vim:tw=78:et:ft=help:norl:

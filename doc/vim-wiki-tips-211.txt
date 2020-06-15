@@ -286,3 +286,5 @@ will iterate backgrounds
      map <S-F8>      :call SwitchColor(-1)<CR>
     imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
 <
+
+ vim:tw=78:et:ft=help:norl:

@@ -58,3 +58,5 @@ suprising work around, but if it works, it works.
 
 After setting filetype=html4 on my file with a bunch of HTML and a bunch of Javascript that was getting highlighted poorly, I tried 'set filetype=html' which worked well. I don't really know the details on what happened, but its worth a try. YMMV.
 Dschnau10 November 1 2012
+
+ vim:tw=78:et:ft=help:norl:
