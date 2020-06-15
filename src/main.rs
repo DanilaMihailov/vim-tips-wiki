@@ -2,8 +2,7 @@ use regex::Regex;
 use select::document::Document;
 use select::node::Node;
 use select::predicate::{Attr, Class};
-use std::fs::File;
-use std::io::Write;
+use tokio::fs::File;
 use urlencoding::decode;
 
 #[derive(Debug)]
@@ -94,7 +93,13 @@ impl<'a> WikiEntry<'a> {
     }
 
     fn parse_link(&self, a_node: Node) -> String {
-        let href = a_node.attr("href").unwrap();
+        let href = a_node.attr("href");
+
+        if href.is_none() {
+            return String::new();
+        }
+
+        let href = href.unwrap();
 
         // link to current page, replace with tag vwt-1-link
         if href.starts_with("#") {
@@ -195,30 +200,39 @@ impl<'a> WikiEntry<'a> {
     }
 
     async fn make_tip(n: u32) -> Result<(), Box<dyn std::error::Error>> {
-        let mut original = std::fs::read_to_string(format!("originals/vim-wiki-tips-{}.html", n));
+        println!("Making tip {}", n);
+        let mut original =
+            tokio::fs::read_to_string(format!("originals/vim-wiki-tips-{}.html", n)).await;
 
         if original.is_err() {
-            println!("File not found, downloading it");
+            println!("File not found, downloading it ({})", n);
             let resp = reqwest::get(&format!("https://vim.fandom.com/wiki/VimTip{}", n)).await?;
-            println!("{:#?}", resp);
 
             let text = resp.text().await?;
             original = Ok(text.clone());
-            let mut origin_file = File::create(format!("originals/vim-wiki-tips-{}.html", n))?;
-            origin_file.write_all(&text.into_bytes())?;
+            tokio::fs::write(
+                format!("originals/vim-wiki-tips-{}.html", n),
+                &text.into_bytes(),
+            )
+            .await?;
         }
 
+        println!("Parsing tip {}", n);
         let document = Document::from(original.unwrap().as_str());
         let entry = WikiEntry::parse(&document, n);
         let result = entry.to_vim_help();
-        let mut file = File::create(format!("doc/{}", entry.file_name()))?;
-        file.write_all(&result.into_bytes())?;
+
+        tokio::fs::write(format!("doc/{}", entry.file_name()), &result.into_bytes()).await?;
+
+        println!("Done tip {}", n);
 
         Ok(())
     }
 }
-
-#[tokio::main]
+#[tokio::main(core_threads = 16)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    WikiEntry::make_tip(2).await
+    for n in 1..15 {
+        WikiEntry::make_tip(n).await?;
+    }
+    Ok(())
 }
