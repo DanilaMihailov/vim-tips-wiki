@@ -1,0 +1,55 @@
+*vim-wiki-tips-495.txt*   Backspace key using puTTY to RH9 box *vwt-495*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 495 [https://vim.fandom.com/wiki/Backspace_key_using_puTTY_to_RH9_box]   Previous |vwt-494| Next |vwt-498|
+
+created 2003 · complexity basic · author Tom Kompare · version 6.0
+
+==============================================================================
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+Most likely, backspace problems are actually caused by user settings 
+[https://vim.fandom.com/wiki/Backspace_and_delete_problems]. We should 
+emphasize this in the tip text. But, sometimes there is really an underlying 
+problem. The solution below worked at one point...it probably still applies.
+
+I connect to a RedHat9 server via the free software PuTTY from a Windows 
+computer. On the shell (tcsh), the Backspace key was working as it should, but 
+in Vim it was not. No matter what I did in vimrc 
+[https://vim.fandom.com/wiki/Vimrc], it always acted like a Delete key. Very 
+annoying.
+
+I've discovered that one must use the keyboard setting of "linux" in the 
+PuTTY settings in order for the Backspace key to work properly in Vim. The 
+Linux keyboard is not the default. If one does not do this, Vim always is sent 
+the Delete key command when pressing on the Backspace.
+
+COMMENTS  *vwt-495-comments*
+
+If you use dtelnet (dave's telnet) to RH 7.3, and 8.0, same problem appears, 
+not only in Vim, but throughout the session. Choosing term=linux from the menu 
+helps you there also.
+
+==============================================================================
+
+The key thing here is changing the string that PuTTY sends to 'linux' from 
+the default of 'xterm'. Doing this magically made everything work as it 
+should.
+
+==============================================================================
+
+I also had to change the PuTTY setting "The Backspace Key" to "Control-H" 
+from "Control-?"
+
+==============================================================================

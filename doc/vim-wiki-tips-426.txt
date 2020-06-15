@@ -1,0 +1,38 @@
+*vim-wiki-tips-426.txt*   Protecting a file from accidental changes *vwt-426*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 426 [https://vim.fandom.com/wiki/Protecting_a_file_from_accidental_changes]   Previous |vwt-425| Next |vwt-427|
+
+created 2003 · complexity basic · author zzapper · version 5.7
+
+==============================================================================
+
+A common programmimg situation, you are comparing two versions of the same 
+file. One is the "reference file" which you don't want to update. However they 
+look so similar that you can get confused.
+
+Solution: Set the master file to read only, and change its color scheme.
+
+>
+    :set nomodifiable
+    :colorscheme peachpuff
+<
+
+Non-modifiable is better than :set ro as nomodifiable won't even let you 
+start changing stuff, whereas :set ro will only warn you once.
+
+COMMENTS  *vwt-426-comments*
+
+You can permanently protect a file by setting a suitable modeline :help 
+|modeline|.
+
+>
+    // vim:noma
+<

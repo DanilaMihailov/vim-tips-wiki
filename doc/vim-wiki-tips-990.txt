@@ -1,0 +1,70 @@
+*vim-wiki-tips-990.txt*   Repeat last colon command *vwt-990*
+
+Tip 990 [https://vim.fandom.com/wiki/Repeat_last_colon_command]   Previous |vwt-989| Next |vwt-991|
+
+created 2005 · complexity basic · author klausenhausen · version 5.7
+
+==============================================================================
+
+The last command entered with ':' can be repeated with @: and further repeats 
+can be done with @@
+
+This is useful for commands like :bnext or :cNext.
+
+COMMENTS  *vwt-990-comments*
+
+I scroll through the previous commands with cursor up/down after pressing 
+':'.
+
+You still can edit the command or just press Enter.
+
+==============================================================================
+
+This Tip becomes super useful with something like the following:
+
+>
+    :%s/\<pig\>/cow/gie|:update|:next
+<
+
+This facilitates the modification of a series of files.
+
+Note you need the 'e' of the gie
+    - g=do as many times as occurs in line
+    - i=ignore case
+    - e=don't break command if no search string found
+
+
+==============================================================================
+
+Using
+
+>
+    q:k<CR>
+<
+
+is somewhat better than
+
+>
+    :<Up><CR>
+<
+
+key since you don't have to move your fingers out of home rows in the 
+keyboard.
+
+MERGE TIP?  *vwt-990-merge-tip?*
+
+I think it would make sense to merge this tip with Repeating a substitute 
+from current cursor position 
+[https://vim.fandom.com/wiki/Repeating_a_substitute_from_current_cursor_position] 
+or Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change]. 
+--Anthony Geoghegan [https://vim.fandom.com/wiki/User:Anthony_Geoghegan] (talk 
+[https://vim.fandom.com/wiki/User_talk:Anthony_Geoghegan]) 11:02, August 19, 
+2015 (UTC)
+
+Yes, that looks desirable. Unless there is reason to do otherwise, we merge to the lowest tip number because it was the first. That's tip 44 Repeat last change, and any useful content should be copied to there with an edit summary saying where it came from (preferably a link to the source tip). Then the other two pages can be made into redirects and I will fix any navigation issues...eventually. JohnBeckett (talk) 10:25, August 20, 2015 (UTC)
+
+MULTIPLE TIMES  *vwt-990-multiple-times*Use 
+
+>
+    10@@
+< to repeat the previous command 10 times. Change "10" to what ever number you want. --98.245.128.84 [https://vim.fandom.com/wiki/Special:Contributions/98.245.128.84] 07:48, May 9, 2019 (UTC)

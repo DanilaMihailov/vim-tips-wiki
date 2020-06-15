@@ -1,0 +1,97 @@
+*vim-wiki-tips-371.txt*   Encrypt a file without leaving traces *vwt-371*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 371 [https://vim.fandom.com/wiki/Encrypt_a_file_without_leaving_traces]   Previous |vwt-369| Next |vwt-374|
+
+created 2002 · complexity basic · author Prakash Patil · version 6.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+Encryption in Vim has improved drastically since this tip was written, with a 
+blowfish (and blowfish2) cryptmethod, and encryption of some of the supporting 
+files. This renders many of the comments obsolete, but also the tip needs 
+updating for the new options to make sure you're using good secure values.
+
+I was desperately looking for a simple way to encrypt files.
+
+I find this very useful. Despite all the user permissions you set, it's easy 
+for someone/admin to do sudo and read your personal files..Many work 
+environments provide users the permission to sudo or become super user.
+
+Vim lets you encrypt file within the edit session.
+
+>
+    :X
+<
+
+Will prompt for encryption key. Enter the encryption key and REMEMBER to save 
+it using :w. That will encrypt the file.
+
+If you don't want to leave behind traces of your edits, note the following.
+
+By default, once you finish your vim session, ~/.viminfo will be written with 
+the files you edited (marks), commands you entered and possibly what you wrote 
+(the registers you copied or pasted...). If you don't want such trace to be 
+left behind,then place the following file in in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    set viminfo='0,\"0,\/0,:0,f0
+<
+
+REFERENCES  *vwt-371-references*
+    - :help  |:X|
+
+
+COMMENTS  *vwt-371-comments*
+
+There are a lot of other vim settings to make sure you leave no trace behind 
+like swapfiles, backupfiles, etc.
+
+I once investigated these settings and set up a gvimrc file for editing files 
+containing e. g. a collection of 'secret' information like passwords, ident 
+numbers, etc.. I copied this encrypted file, gvimrc, and the program files 
+(gvim.exe) on a 3.5" Floppy, which makes you 'autarkic'.
+
+I'm trying hard not to forget copying the settings to the Vim tips.
+
+Does anybody know how 'safe' is gvim encryption?
+
+==============================================================================
+
+From Vim help files.
+
+The algorithm used is breakable. A 4 character key in about one hour, a 6 
+character key in one day (on a Pentium 133 PC). This requires that you know 
+some text that must appear in the file. An expert can break it for any key. 
+When the text has been decrypted, this also means that the key can be 
+revealed, and other files encrypted with the same key can be decrypted.
+
+==============================================================================
+
+I am using these settings in a gvimrc on a disc (containing gvim.exe and 
+vimrun.exe) for keeping secrets secret:
+
+>
+    " Einträge für Editieren von Paßwortgeschützten Dateien (':X'):
+    " keine Swap- oder temp files verwenden:
+    set noswapfile
+    set nobackup
+    set nowritebackup
+    " kein info file mit history eintraegen:
+    set viminfo=
+<
+
+Of course the RAM and the swapfile of Windows still may be read in plain 
+ASCII / hex by spies.
+
+==============================================================================

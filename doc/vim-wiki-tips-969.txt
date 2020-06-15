@@ -1,0 +1,109 @@
+*vim-wiki-tips-969.txt*   Highlight simple Python syntax errors *vwt-969*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 969 [https://vim.fandom.com/wiki/Highlight_simple_Python_syntax_errors]   Previous |vwt-968| Next |vwt-970|
+
+created August 10, 2005 · complexity basic · author Jon Marshall · version 
+6.0
+
+==============================================================================
+
+If you want simple syntax errors highlighted in Python (such as if statements 
+with a missing colon at the end) then do the following:
+
+>
+    syn match pythonError "^\s*def\s\+\w\+(.*)\s*$" display
+    syn match pythonError "^\s*class\s\+\w\+(.*)\s*$" display
+    syn match pythonError "^\s*for\s.*[^:]$" display
+    syn match pythonError "^\s*except\s*$" display
+    syn match pythonError "^\s*finally\s*$" display
+    syn match pythonError "^\s*try\s*$" display
+    syn match pythonError "^\s*else\s*$" display
+    syn match pythonError "^\s*else\s*[^:].*" display
+    syn match pythonError "^\s*if\s.*[^\:]$" display
+    syn match pythonError "^\s*except\s.*[^\:]$" display
+    syn match pythonError "^\s*while\s.*[^\:]$" display
+    syn match pythonError "^\s*return\s.*:$" display
+    syn match pythonError "&&" display
+    syn match pythonError "||" display
+    syn match pythonError "[;]$" display
+    syn keyword pythonError do
+<
+
+COMMENTS  *vwt-969-comments*
+
+It is a bit too simplistic unfortunately.
+
+Constructions like these will be labeled red on the if line:
+
+>
+    if (field_name == 'summary'
+      and oldChange['field'] == ticketChange['field']):
+<
+
+==============================================================================
+
+And so it should highlight that line as there is a syntax error!
+
+Point taken about it being simplistic, hence the 'simple' in the title. I 
+find that
+    - Such constructs occur relatively infrequently.
+    - You can avoid by placing a superfluous '\' at the end of the line:
+
+
+>
+    if (foo \
+      and bar)
+<
+
+Not ideal, but I find that I omit the trailing colon so often that I prefer 
+the odd false positive.
+
+==============================================================================
+
+I also think it's really too simple.
+
+I'm using list comprehension and generator quite often. And than constructs 
+like the following appears regularly. (Yes it's taken from one of my current 
+programs)
+
+>
+    lMax = sum(sum(self.getComp(id1, id2, user) * self.getWeight(id2, user)
+    for id2 in items) / self.getWeight(id1, user)
+    for id1 in items)
+<
+
+But nevertheless I've simplified it a bit.
+
+>
+    syn match pythonError "^\s*\(class\|def\|for\|while\|try\|except\|finally\|if\|elif\|else\)[^\:]*$" display
+    syn match pythonError "^\s*\(class\|def\|for\|while\|try\|except\|finally\|if\|elif\|else\)$" display
+    syn match pythonError "&&" display
+    syn match pythonError "||" display
+    syn match pythonError "[;]$" display
+    syn keyword pythonError do
+<
+
+Unfortunately it doesn't work when the line contains no leading spaces.
+
+==============================================================================
+
+I prefer this version of 'if':
+
+>
+    syn match pythonError "^\s*\(if\|elif\)[^:]*$" display
+<
+
+It works with one-line expressions like "if 1: do_something()".
+
+Apart from that, works well for me as I keep forgetting the ":" often. 
+Exactly what I was looking for.
+
+==============================================================================

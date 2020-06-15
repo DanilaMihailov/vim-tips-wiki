@@ -1,0 +1,32 @@
+*vim-wiki-tips-649.txt*   Expand existing abbreviation *vwt-649*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 649 [https://vim.fandom.com/wiki/Expand_existing_abbreviation]   Previous |vwt-648| Next |vwt-650|
+
+created February 4, 2004 · complexity basic · author Yakov Lerner · version 
+6.0
+
+==============================================================================
+
+This mapping expands an existing abbreviation:
+
+>
+    map <C-X><C-X> diw:exe "normal i".@"<CR>
+<
+
+COMMENTS  *vwt-649-comments*
+
+That won't work if the abbreviation is the last word on the line. Try:
+
+>
+    :nno <C-X><C-X> ciw@<Esc>"_s<C-R>"<Esc>b
+<
+
+==============================================================================

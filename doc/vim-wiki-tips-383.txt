@@ -1,0 +1,63 @@
+*vim-wiki-tips-383.txt*   Jump to a function from where it is called *vwt-383*
+
+Tip 383 [https://vim.fandom.com/wiki/Jump_to_a_function_from_where_it_is_called]   Previous |vwt-382| Next |vwt-384|
+
+created 2002 · complexity basic · author zzapper · version 6.0
+
+==============================================================================
+
+When writing/debugging code you often want to jump from where a 
+subroutine/function is called to where it actually is . Hitting the "*" key is 
+frustrating if the sub/func is called many times. The following mapping solves 
+the problem. (Notice how it can be altered for other languages)
+
+>
+    nmap gx yiw/^\(sub\<Bar>function\)\s\+<C-R>"<CR>
+<
+
+Instructions: Place cursor over called function (normal mode) and type gx
+
+HOW IT WORKS  *vwt-383-how-it-works*
+
+yiw  Yank inner work to un-named register
+
+/^\(sub\<Bar>function\)\s\+  search for sub or function followed by 1 or more spaces
+
+<C-R>"  Retrieve un-named register
+
+<CR>  Start Search
+
+Information also included in VimTip305 |vwt-305|.
+
+REFERENCES  *vwt-383-references*
+    - :help  |tags-and-searches|
+    - :help  |g]|
+
+
+COMMENTS  *vwt-383-comments*
+
+What language is this supposed to work in? Basic??
+
+Probably perl, which also uses sub for functions
+
+==============================================================================
+
+I suggest to modify mapping:nmap gx 
+mryiw/^\(sub\<Bar>function\)\s\+<C-R>"<CR>
+
+thus allowing reverse jump by typing `r
+
+==============================================================================
+
+I think this would be much better accomplished using Vim's excellent Ctags 
+interface. :help |ctags|. Exuberant Ctags has support for Perl. 
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 20:03, 18 
+February 2009 (UTC)
+
+To use ctags:
+
+>
+    ctags  -R -n --fields=+i+K+S+l+m+a --exclude=src/react/conf-srch/node_modules
+<
+
+then in vim :tag <<the_sub_name_to_jum_to>>

@@ -1,0 +1,69 @@
+*vim-wiki-tips-66.txt*   Transfer text between two Vim instances *vwt-66*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 66 [https://vim.fandom.com/wiki/Transfer_text_between_two_Vim_instances]   Previous |vwt-64| Next |vwt-67|
+
+created 2001 · complexity basic · author Douglas Potts · version 5.7
+
+==============================================================================
+
+This one is a one of my favorites from Dr. Chip, and I haven't seen it come 
+across Vim tips yet.
+
+Can use either visual, or marking to denote the text.
+
+>
+    " transfer/read and write one block of text between vim sessions
+    " Usage:
+    " 'from' session:
+    " ma
+    " move to end-of-block
+    " xw
+    "
+    " 'to' session:
+    " move to where I want block inserted
+    " xr
+    "
+    if has("unix")
+      nmap xr :r $HOME/.vimxfer<CR>
+      nmap xw :'a,.w! $HOME/.vimxfer<CR>
+      vmap xr c<Esc>:r $HOME/.vimxfer<CR>
+      vmap xw :w! $HOME/.vimxfer<CR>
+    else
+      nmap xr :r c:/.vimxfer<CR>
+      nmap xw :'a,.w! c:/.vimxfer<CR>
+      vmap xr c<Esc>:r c:/.vimxfer<CR>
+      vmap xw :w! c:/.vimxfer<CR>
+    endif
+<
+
+COMMENTS  *vwt-66-comments*
+
+See also VimTip71 |vwt-71|.
+
+==============================================================================
+
+Here is much simple version. Tested on Unix only.
+
+>
+    "Copy and paste between different Vim sessions
+    nmap _Y :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
+    vmap _Y :w! ~/.vi_tmp<CR>
+    nmap _P :r ~/.vi_tmp<CR>
+<
+
+Select your text, press _Y to copy the selected text or it will copy the 
+whole file, then in another (or even the same) Vim session press _P to paste
+
+==============================================================================
+
+VimTip21 |vwt-21| seems to solve all of these issues.
+
+==============================================================================

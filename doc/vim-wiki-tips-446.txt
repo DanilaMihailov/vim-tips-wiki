@@ -1,0 +1,48 @@
+*vim-wiki-tips-446.txt*   Quick and dirty Postgres query *vwt-446*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 446 [https://vim.fandom.com/wiki/Quick_and_dirty_Postgres_query]   Previous |vwt-445| Next |vwt-449|
+
+created March 23, 2003 · complexity basic · author Shawn Deleurme · version 
+5.7
+
+==============================================================================
+
+Here is a simple and useful mapping for anyone who can't stand developing 
+queries on the psql prompt or messing around with the single \e psql edit 
+buffer.
+
+>
+    map <F9> :!psql -d yourdb < % <BAR> less
+<
+
+COMMENTS  *vwt-446-comments*
+
+You could also consider use the database extension plugin for Vim, which 
+provides a lot of features for Postgress. script#356 
+[https://www.vim.org/scripts/script.php?script_id=356] db_ext.vim
+
+==============================================================================
+
+One other way of using vim with the \e command in psql is to set the 
+PSQL_EDITOR environment variable. On a redhat system you'd do the following:
+
+>
+    export PSQL_EDITOR=vim
+<
+
+==============================================================================
+
+When using old versions of psql the buffer does not have the .sql extension. 
+If you want syntax highlighting use:
+
+>
+    export PSQL_EDITOR='vim +"set syntax=sql" '
+<

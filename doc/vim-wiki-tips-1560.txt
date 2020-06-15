@@ -1,0 +1,231 @@
+*vim-wiki-tips-1560.txt*   Using bash completion with ctags and Vim *vwt-1560*
+
+Tip 1560 [https://vim.fandom.com/wiki/Using_bash_completion_with_ctags_and_Vim]   Previous |vwt-1559| Next |vwt-1561|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Using_bash_completion_with_ctags_and_Vim] 
+2008 · complexity basic · author Seanhodges · version 7.0
+
+==============================================================================
+
+Add the following to your ~/.bash_completion file (create it if it does not 
+exist):
+
+>
+    _vim_ctags() {
+        local cur prev
+    
+        COMPREPLY=()
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        prev="${COMP_WORDS[COMP_CWORD-1]}"
+    
+        case "${prev}" in
+            -t)
+                # Avoid the complaint message when no tags file exists
+                if [ ! -r ./tags ]
+                then
+                    return
+                fi
+    
+                # Escape slashes to avoid confusing awk
+                cur=${cur////\\/}
+    
+                COMPREPLY=( $(compgen -W "`awk -v ORS=" "  "/^${cur}/ { print \\$1 }" tags`" ) )
+                ;;
+            *)
+                # Perform usual completion mode
+                ;;
+        esac
+    }
+    
+    # Files matching this pattern are excluded
+    excludelist='*.@(o|O|so|SO|so.!(conf)|SO.!(CONF)|a|A|rpm|RPM|deb|DEB|gif|GIF|jp?(e)g|JP?(E)G|mp3|MP3|mp?(e)g|MP?(E)G|avi|AVI|asf|ASF|ogg|OGG|class|CLASS)'
+    
+    complete -F _vim_ctags -f -X "${excludelist}" vi vim gvim rvim view rview rgvim rgview gview
+<
+
+Once you restart your bash session (or create a new one) you can type:
+
+>
+    ~$ vim -t MyC<tab key>
+<
+
+and it will auto-complete the tag the same way it does for files and 
+directories:
+
+>
+    MyClass MyClassFactory
+    ~$ vim -t MyC
+<
+
+I find this really useful when I'm jumping into a quick bug fix.
+
+COMMENTS  *vwt-1560-comments*
+
+I've added a similar tip for ZSH 
+[https://vim.fandom.com/wiki/Using_ZSH_completion_with_ctags_and_Vim].
+
+==============================================================================
+
+I was very excited to see this, but I was very annoyed that it expected a 
+tags file in the current directory. I keep a tags file at the root of each 
+project, and vim -t is smart enough to find the correct tags file, so I wanted 
+bash completion to be just as smart.
+
+So, I modified the file a bit. It will now look for a tags file in the 
+current directory, and then keep looking in parent directories until it finds 
+one. (note: changed `pwd` to $PWD)
+
+>
+    _vim_ctags() {
+      local cur prev
+    
+      COMPREPLY=()
+      cur="${COMP_WORDS[COMP_CWORD]}"
+      prev="${COMP_WORDS[COMP_CWORD-1]}"
+    
+      case "${prev}" in
+        -t)
+          while [ "${PWD}" != "/" ]; do
+            if [ -r ./tags ]; then
+              # Escape slashes to avoid confusing awk
+              cur=${cur////\\/}
+    
+              COMPREPLY=( $(compgen -W "`awk -v ORS=" "  "/^${cur}/ { print \\$1 }" tags`" ) )
+              return
+            fi
+    
+            cd ..
+          done
+    
+          return
+          ;;
+        *)
+          # Perform usual completion mode
+          ;;
+      esac
+    }
+    
+    # Files matching this pattern are excluded
+    excludelist='*.@(o|O|so|SO|so.!(conf)|SO.!(CONF)|a|A|rpm|RPM|deb|DEB|gif|GIF|jp?(e)g|JP?(E)G|mp3|MP3|mp?(e)g|MP?(E)G|avi|AVI|asf|ASF|ogg|OGG|class|CLASS)'
+    
+    complete -F _vim_ctags -f -X "${excludelist}" vi vim gvim rvim view rview rgvim rgview gview
+<
+
+==============================================================================
+
+Thanks for posting this.
+
+Here is how I modified the completion function with tags-file search for my 
+own .bashrc. I basically rewrote most of it, partly just for stylistic 
+preference, but also to make some improvements:
+    - the upward directory search doesn't change the current directory, which is typically not a good idea in a shell function
+    - it uses grep instead of awk. grep is most likely faster, and the invocation is simpler
+
+
+>
+    _vim_ctags() {
+    	local cur prev
+    
+    	cur=${COMP_WORDS[COMP_CWORD]}
+    	prev=${COMP_WORDS[COMP_CWORD-1]}
+    
+    	[[ $prev = -t ]] || return
+    
+    	local tagsdir=$PWD
+    	while [[ "$tagsdir" && ! -f "$tagsdir/tags" ]]; do
+    		tagsdir=${tagsdir%/*}
+    	done
+    	[[ -f "$tagsdir/tags" ]] || return
+    
+    	COMPREPLY=( $(grep -o "^$cur[^	]*" "$tagsdir/tags" ) )
+    }
+<
+
+I haven't done extensive testing on it, but it works for me so far.
+
+Note that there is an invisible tab character inside the grep pattern. 
+--February 22, 2013
+
+==============================================================================
+
+This completion function has been really helpful, but I found it to be 
+frustratingly slow on a project with several hundred files. The linear search 
+using grep took several seconds per search. The only tool I was able to find 
+that performs binary searches of tags files was Vim itself, so I modified the 
+_vim() functions above as follows. Tag completion is now incredibly fast.
+
+>
+    _vim_search() {
+        ex -N -u NONE -i NONE -c 'let &tags="'$2'"' -c 'echo "\\n"' -c 'for tag in taglist("^".escape("'$1'","."))|echo tag["name"]|endfor' -cq |
+        tr -s '\r' '\n' |
+        sed -n '/^[a-zA-Z_]/p'
+    }
+    
+    _vim() {
+        local cur prev
+    
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        prev=${COMP_WORDS[COMP_CWORD-1]}
+    
+        case "${prev}" in
+            -t)
+                local tagsdir=$PWD
+                while [[ "$tagsdir" && ! -f "$tagsdir/tags" ]]; do
+                    tagsdir=${tagsdir%/*}
+                done
+                [[ -f "$tagsdir/tags" ]] || return
+    
+                COMPREPLY=( $(_vim_search "$cur" "$tagsdir/tags" ) )
+                return
+                ;;
+            *)
+                # Perform usual completion mode
+                ;;
+        esac
+    }
+<
+
+The _vim_search() function is a bit of a hack. The stdout of ex included a 
+number of escape sequences that I couldn't get rid of by any value of $TERM 
+that I tried and the lines were terminated by carriage returns rather than 
+newlines. I fixed both problems by using tr to convert all carriage returns to 
+newlines and by using sed to get rid of anything not a tag name, which I 
+decided would be anything not beginning with an alphabetic character or an 
+underscore.
+
+January 8, 2013 -- I discovered that the ex command above was writing my 
+~/.viminfo file with default values and truncating my command history to 20, 
+so I added "-i NONE".
+
+October 31, 2017 -- Few more versions available now:
+
+>
+    _vim_ctags() {
+        COMPREPLY=()
+    
+        local cur="${COMP_WORDS[COMP_CWORD]}"
+        local prev="${COMP_WORDS[COMP_CWORD-1]}"
+        local dir="$PWD"
+    
+        [ "$prev" = -t ] || return
+    
+        while [ -n "$dir" -a "$dir" != '/' -a ! -f "$dir/tags" ]; do
+            dir=${dir%/*}
+        done
+        [ -f "$dir/tags" ] || return
+    
+        COMPREPLY=( $(grep -o "^$cur[^[:space:]]*" "$dir/tags") )
+    #   For awk fans instead of grep:
+    #   awk -vcur="$cur" 'substr($1, 0, length(cur)) == cur { print $1 }' "$dir/tags"
+    }
+    
+    # Files matching this pattern are excluded
+    excludelist='*.@(o|O|so|SO|so.!(conf)|SO.!(CONF)|a|A|rpm|RPM|deb|DEB|gif|GIF|jp?(e)g|JP?(E)G|mp3|MP3|mp?(e)g|MP?(E)G|avi|AVI|asf|ASF|ogg|OGG|class|CLASS)'
+    
+    complete -F _vim_ctags -f -X "${excludelist}" vi vim gvim rvim view rview rgvim rgview gview
+<
+
+jno [https://vim.fandom.com/wiki/User:Jn0] (talk 
+[https://vim.fandom.com/wiki/User_talk:Jn0]) 15:56, October 31, 2017 (UTC)

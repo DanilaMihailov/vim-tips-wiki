@@ -1,0 +1,49 @@
+*vim-wiki-tips-698.txt*   Mbox archive emails *vwt-698*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 698 [https://vim.fandom.com/wiki/Mbox_archive_emails]   Previous |vwt-697| Next |vwt-699|
+
+created April 12, 2004 · complexity intermediate · author Paul Jolly · 
+version 5.7
+
+==============================================================================
+
+First see: http://www.vim.org/maillist.php#help 
+[http://www.vim.org/maillist.php#help]
+
+Follow the instructions to get hold of the archive messages you need. For 
+example, I sent an email to the following address to retrieve mails 43413 to 
+43512:
+
+>
+    vim-get.43413_43512@vim.org
+<
+
+They will be returned as individual attachments to a single mail, one reply 
+per request.
+
+Save all the attachments in a new temporary directory, say /tmp/temp.
+
+Download the following script: 
+http://kmail.kde.org/unsupported/xfmail2mbox.sh 
+[http://kmail.kde.org/unsupported/xfmail2mbox.sh]
+
+Run the script, passing the aforementioned directory as an argument:
+
+>
+    $ xfmail2mbox /tmp/temp
+<
+
+where $ indicates a shell command.
+
+This will create a file called /tmp/temp.mbox, an mbox format file of emails 
+found in /tmp/temp
+
+COMMENTS  *vwt-698-comments*

@@ -1,0 +1,80 @@
+*vim-wiki-tips-1016.txt*   Moving through camel case words *vwt-1016*
+
+Tip 1016 [https://vim.fandom.com/wiki/Moving_through_camel_case_words]   Previous |vwt-1014| Next |vwt-1017|
+
+created 2005 · complexity basic · author Anthony Van Ham, Gerald Lai · 
+version 6.0
+
+==============================================================================
+
+Some programs use CamelCaseWords (or camelCaseWords). The following maps 
+allow you to move word by word, for example, from the 'C' of Camel, to the 'C' 
+of Case, to the 'W' of Words. Some alternate versions are given, starting with 
+something simple and more easily understood.
+
+SIMPLE MOVE  *vwt-1016-simple-move*
+
+>
+    nnoremap <C-Left> :call search('\<\<Bar>\u', 'bW')<CR>
+    nnoremap <C-Right> :call search('\<\<Bar>\u', 'W')<CR>
+    inoremap <C-Left> <C-o>:call search('\<\<Bar>\u', 'bW')<CR>
+    inoremap <C-Right> <C-o>:call search('\<\<Bar>\u', 'W')<CR>
+<
+
+BETTER HANDLING OF ALL-UPPERCASE WORDS  *vwt-1016-better-handling-of-all-uppercase-words*
+
+Here is a more thorough version. It does not go through a CAPITALIZED word 
+one character at a time.
+
+>
+    nnoremap <silent><C-Left> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+    nnoremap <silent><C-Right> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+    inoremap <silent><C-Left> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+    inoremap <silent><C-Right> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+<
+
+ENHANCED VERSION  *vwt-1016-enhanced-version*
+
+With the following, the cursor will stop at:
+    - The beginning of a word.
+    - The beginning of a run of camel characters.
+    - A camel character followed by a run of non-camel characters.
+    - The start and end of the file.
+
+
+>
+    " Use one of the following to define the camel characters.
+    " Stop on capital letters.
+    let g:camelchar = "A-Z"
+    " Also stop on numbers.
+    let g:camelchar = "A-Z0-9"
+    " Include '.' for class member, ',' for separator, ';' end-statement,
+    " and <[< bracket starts and "'` quotes.
+    let g:camelchar = "A-Z0-9.,;:{([`'\""
+    nnoremap <silent><C-Left> :<C-u>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>
+    nnoremap <silent><C-Right> :<C-u>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
+    inoremap <silent><C-Left> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>
+    inoremap <silent><C-Right> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
+    vnoremap <silent><C-Left> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
+    vnoremap <silent><C-Right> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
+<
+
+ALTERNATIVES  *vwt-1016-alternatives*
+
+The camelcasemotion [https://www.vim.org/scripts/script.php?script_id=1905] 
+script is based on this tip, but much refined and enhanced. It can move 
+through both CamelCase and underscore_notation words. It provides configurable 
+mappings for normal mode, operator-pending mode and visual mode, plus a 
+corresponding "inner" text object. -- Inkarkat 
+[https://vim.fandom.com/wiki/User:Inkarkat] 12:12, 5 April 2009 (UTC)
+
+A challenger appears: https://github.com/chaoren/vim-wordmotion 
+[https://github.com/chaoren/vim-wordmotion]. Fewer bugs and better tested than 
+camelcasemotion.
+
+COMMENTS  *vwt-1016-comments*
+
+This is nice but what I am looking for is motions that work with other 
+commands like v,y,d,c etc.
+
+Try adapting them to use :onoremap for operator-pending mode. --Fritzophrenic (talk) 21:27, April 19, 2016 (UTC)

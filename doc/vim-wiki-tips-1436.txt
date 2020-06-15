@@ -1,0 +1,71 @@
+*vim-wiki-tips-1436.txt*   Wrap function calls in a print statement *vwt-1436*
+
+
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+This is only useful in junk programs with simple functions. Also, it shows 
+the return value, not "what it's printing out".Tip 1436 [https://vim.fandom.com/wiki/Wrap_function_calls_in_a_print_statement]   Previous |vwt-1435| Next |vwt-1437|
+
+created 2006 · complexity advanced · author Peter Jenkins · version 5.7
+
+==============================================================================
+
+warning: i couldn't get this to work except by entering the commands, maybe 
+there is a way to get the let statement to work but for me it has problems 
+with the quotes. I couldn't figure out a way to properly escape them.
+
+have you ever had a function in C: doSomething(a, b, c); and you want to see 
+what it's printing out? this wraps that function so the output looks like 
+this:
+
+>
+    doSomething(a,b,c): 37
+<
+
+c for it looks like printf("doSomething(a,b,c): \"%s\"\n", 
+doSomething(a,b,c));
+
+kind of a pain to type often. i also try to make it so the cursor ends up 
+over the s so that you can replace it with d, etc for printing things other 
+than strings. again, this works if you type in the commands as they are 
+depicted, but not with the let statement. if you want to do it by hand, do 
+something like qt (to assign it to "t"). then type what's in between the 
+quotes, starting with 0.
+
+>
+    :let @a = "0f(byt;iprintf("^[pa: "~@kb\"%s\"\n", ^[$i)^[?%^Ml^]"
+<
+
+COMMENTS  *vwt-1436-comments*
+
+You should use a debugger for this sort of operation.
+
+==============================================================================
+
+In fact, you can define
+
+>
+    #define hcffl printf("\n= [ %s : %s : %d ] =", \
+     __FILE__,__FUNCTION__,__LINE__ \
+     ); fflush(stdout);
+<
+
+then, add
+
+>
+    hcffl;
+<
+
+every where you need, and
+
+>
+    #define hcffl ;
+<
+
+to remove all these printf when make release version.
+
+==============================================================================

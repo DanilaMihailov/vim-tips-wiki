@@ -1,0 +1,84 @@
+*vim-wiki-tips-552.txt*   Replace buffer list when switching *vwt-552*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 552 [https://vim.fandom.com/wiki/Replace_buffer_list_when_switching]   Previous |vwt-551| Next |vwt-554|
+
+created 2003 · complexity basic · author Mark Stosberg · version 5.7
+
+==============================================================================
+
+I use Vim's session file feature a lot to switch between projects. Preserving 
+all that context is nice. Usually my process goes like this:
+
+1. Save the current session:
+
+>
+    :mks! ~/v/project1.vim
+<
+
+2. Quit vim
+
+>
+    :xa
+<
+
+3. Restart with a different session file:
+
+>
+    vim -S ~/v/project2.vim
+<
+
+I was exiting and re-opening vim because if I just loaded the second project 
+file, a list of both project buffers would appear in my buffer list. That was 
+not what I wanted -- I wanted to replace the first buffer list completely wtih 
+the second.
+
+There is a simple way to do this. At the top of a session file, add this:
+
+>
+    1,999bdelete
+<
+
+That will delete the first 999 existing buffers, effectively allowing any new 
+buffer definitions in the rest of the session file to replace what is 
+currently there. Now you can switch directly to a new session without exiting. 
+Just use:
+
+>
+    :so ~/v/project2.vim
+<
+
+COMMENTS  *vwt-552-comments*
+
+Use %bdelete instead of 1,999bdelete.
+
+==============================================================================
+
+That won't always work.
+
+%bdelete only deletes as many buffers as there are lines in the current 
+buffer.
+
+==============================================================================
+
+How about this:
+
+>
+    :execute "1," . bufnr("$") . "bdelete"
+<
+
+That should delete all the buffers. When I say delete, it will only unlist 
+them. The check this execute the above command then run this command.
+
+>
+    :ls!
+<
+
+==============================================================================

@@ -1,0 +1,125 @@
+*vim-wiki-tips-766.txt*   Yank last line and trim to the cursor *vwt-766*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 766 [https://vim.fandom.com/wiki/Yank_last_line_and_trim_to_the_cursor]   Previous |vwt-763| Next |vwt-767|
+
+created 2004 · complexity intermediate · author Levin Du · version 6.0
+
+==============================================================================
+
+I often come across lines like these:
+
+>
+    p_ST->localconnectionOption->typeofService = 0;
+    p_ST->localconnectionOption->gain = 0;
+    p_ST->localconnectionOption->r_reservation = 0
+    p_ST->localconnectionOption->r_re
+<
+
+Though Vim has completion mode, it's a wasting time of repeately typing 
+'p_ST->local<C-N>->...'. So I write this mapping:
+
+>
+    :inoremap <c-f> <Esc>:let g:saved_col=virtcol(".")<CR>ddkYp:exe "normal ".(g:saved_col+1)."\|"<CR>C
+<
+
+Take above lines for example. First, I type one line (with autoindent turn 
+on, the cursor position is shown as "|" after finishing the line with Return):
+
+>
+    p_ST->localconnectionOption->typeofService = 0;
+    |
+<
+
+then I use <Tab> and <Space> to move the cursor to the right place:
+
+>
+    p_ST->localconnectionOption->typeofService = 0;
+                                                       |
+<
+
+and press <Ctrl>-f, can you see the magic? It turns out to:
+
+>
+    p_ST->localconnectionOption->typeofService = 0;
+    p_ST->localconnectionOption->|
+<
+
+COMMENTS  *vwt-766-comments*
+
+Here's an alternative mapping.
+
+>
+    ino <silent> <c-f> <c-o>:exe "norm! kly0jPD"<CR>
+<
+
+==============================================================================
+
+I want to recommend <C-X><C-L> - line completion. Not exactly the same as 
+this, but useful in similar situations. After a line completion, you can use 
+<C-P> and <C-N> as usual for previous and next match.
+
+See :help |ins-completion|.
+
+==============================================================================
+
+What about <C-X><C-N>? I just discovered this recently as something between 
+"whole-line completion" <C-X><C-L> and "word completion" <C-N>. It works like 
+<C-N> completion, but it's more like "complete more".
+
+So from the previous example:
+
+>
+    p_ST->localconnectionOption->typeofService = 0;
+<
+
+type:
+
+>
+    p_<C-N>
+<
+
+you get:
+
+>
+    p_ST
+<
+
+type:
+
+>
+    <C-X><C-N>
+<
+
+you get:
+
+>
+    p_ST->localconnectionOption
+<
+
+type:
+
+>
+    <C-X><C-N>
+<
+
+you get:
+
+>
+    p_ST->localconnectionOption->typeofService
+<
+
+No spacing/tabbing and scripting necessary!
+
+==============================================================================
+
+It is worth to mention CTRL-y (and CTRL-e) and the wordwise CTRL-y tip on 
+this occasion - http://vim.wikia.com/wiki/Wordwise_Ctrl-Y_in_insert_mode 
+[https://vim.fandom.com/wiki/Wordwise_Ctrl-Y_in_insert_mode].

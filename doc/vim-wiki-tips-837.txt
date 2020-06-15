@@ -1,0 +1,84 @@
+*vim-wiki-tips-837.txt*   Load files from list of filenames in a text file *vwt-837*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 837 [https://vim.fandom.com/wiki/Load_files_from_list_of_filenames_in_a_text_file]   Previous |vwt-835| Next |vwt-840|
+
+created December 21, 2004 · complexity basic · author Wim Rijnders · version 
+5.7
+
+==============================================================================
+
+Following is a big timesaver if you need to open lots of files.
+
+Assume you have a text file containing filenames with or without paths 
+(created by for instance 'grep -Erl "^" * > files.txt'). Following opens all 
+these files in the same vim.
+
+Assuming that only this text file is opened:
+
+Set the cursor on the first line. In normal mode, type:
+
+>
+    q0gf:rew<CR><DOWN-ARROW>q
+<
+
+This loads the file on the first line, and creates macro '0'.
+
+Check the number of lines with <CTRL-g> and subtract one for the first line. 
+Type this value, then:
+
+>
+    @0
+<
+
+This loads the remaining files.
+
+COMMENTS  *vwt-837-comments*
+
+How about:
+
+>
+    bash> gvim $(grep -l *.* string)
+<
+
+Or
+
+>
+    bash> grep -n *.* string > list
+    bash> vim -q list .. you can visit each file:line with :cnext, :cprev
+<
+
+Or
+
+>
+    bash> find . -name *.* | xargs grep -l string | vim -
+<
+
+No macro, it is all builtin.
+
+==============================================================================
+
+Returning to original tip: "Assume you have a text file containing filenames 
+with or without paths". Very easy and elegant way to run through these files 
+is the following (supposing there is no spaces around filenames):
+
+Open the file then enter:
+
+>
+    :setlocal efm=%f
+    :execute 'cfile '.expand('%')
+<
+
+Last command may be replaced with typing :cfile <c-r>%<CR>
+
+Now you may navigate through these files using copen, cnext, cNext, cfirst, 
+clast.
+
+==============================================================================

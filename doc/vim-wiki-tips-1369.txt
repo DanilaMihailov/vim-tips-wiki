@@ -1,0 +1,108 @@
+*vim-wiki-tips-1369.txt*   Preserve missing end-of-line at end of text files *vwt-1369*
+
+Tip 1369 [https://vim.fandom.com/wiki/Preserve_missing_end-of-line_at_end_of_text_files]   Previous |vwt-1366| Next |vwt-1370|
+
+created 2006 · complexity basic · author Yakov Lerner · version 6
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+Vim 7.4.785 [https://github.com/vim/vim/releases/tag/v7.4.785] adds the 
+'fixeol' option that can be disabled to automatically preserve any missing EOL 
+at the end of the file. This script becomes uneccessary for Vim 7.4.785 and 
+later.
+
+This script causes Vim to 'preserve' a missing end-of-line at the end of a 
+text file when you save it, if it was missing when the file was read. If the 
+file was read with EOL at the end, it will be saved with one. If it was read 
+without one, it will be saved without one. Some (arguably broken) Windows apps 
+like this missing EOL, so this might be useful for Windows.
+
+This works for all three line ending styles which Vim recognizes: DOS 
+(Windows), Unix, and traditional Mac.
+
+The script relies on Vim's recognition of a missing line ending, saved in the 
+'eol' option value. Even though 'eol' is set properly, it only has any effects 
+when 'binary' is also set. So, the core of the script simply sets 'binary' 
+temporarily. Unfortunately, when 'binary' is set, the file is always written 
+with Unix-format line endings. So the rest of the script manually adds the 
+correct line endings for the current format, and removes them again after 
+writing.
+
+|:undojoin| is used to keep these temporary line ending transformations 
+transparent to the user.
+
+>
+    " Preserve noeol (missing trailing eol) when saving file. In order
+    " to do this we need to temporarily 'set binary' for the duration of
+    " file writing, and for DOS line endings, add the CRs manually.
+    " For Mac line endings, also must join everything to one line since it doesn't
+    " use a LF character anywhere and 'binary' writes everything as if it were Unix.
+     
+    " This works because 'eol' is set properly no matter what file format is used,
+    " even if it is only used when 'binary' is set.
+     
+    augroup automatic_noeol
+      au!
+      au BufWritePre  * call <SID>TempSetBinaryForNoeol()
+      au BufWritePost * call <SID>TempRestoreBinaryForNoeol()
+    augroup END
+     
+    function! s:TempSetBinaryForNoeol()
+      let s:save_binary = &binary
+      if ! &eol && ! &binary
+        let s:save_view = winsaveview()
+        setlocal binary
+        if &ff == "dos" || &ff == "mac"
+          if line('$') > 1
+            undojoin | exec "silent 1,$-1normal! A\<C-V>\<C-M>"
+          endif
+        endif
+        if &ff == "mac"
+          undojoin | %join!
+          " mac format does not use a \n anywhere, so we don't add one when writing
+          " in binary (which uses unix format always). However, inside the outer
+          " if statement, we already know that 'noeol' is set, so no special logic
+          " is needed.
+        endif
+      endif
+    endfunction
+     
+    function! s:TempRestoreBinaryForNoeol()
+      if ! &eol && ! s:save_binary
+        if &ff == "dos"
+          if line('$') > 1
+            " Sometimes undojoin gives errors here, even when it shouldn't.
+            " Suppress them for now...if you can figure out and fix them instead,
+            " please update http://vim.wikia.com/wiki/VimTip1369
+            silent! undojoin | silent 1,$-1s/\r$//e
+          endif
+        elseif &ff == "mac"
+          " Sometimes undojoin gives errors here, even when it shouldn't.
+          " Suppress them for now...if you can figure out and fix them instead,
+          " please update http://vim.wikia.com/wiki/VimTip1369
+          silent! undojoin | silent %s/\r/\r/ge
+        endif
+        setlocal nobinary
+        call winrestview(s:save_view)
+      endif
+    endfunction
+<
+
+RELATED SCRIPTS  *vwt-1369-related-scripts*
+    -  The PreserveNoEOL plugin [https://www.vim.org/scripts/script.php?script_id=4550] uses the above pure Vimscript implementation to automatically preserve no EOL on all or certain opened files, but it also comes with alternative strategies that use postprocessing in Python or Perl to remove the trailing EOL character after the save, which is probably more robust.
+
+
+COMMENTS  *vwt-1369-comments*
+
+Thanks Fritzophrenic for looking into this so quickly! Yes, your updated script works for me (for all three fileformats). It seems that the switch from the :substitute to :normal did it.
+Regarding the :undojoin error: I think this is caused by a user undo operation immediately before the :write command. There's little one can do about it; how about suppressing the error via :silent! undojoin, so that we still get the benefit of :undojoin in most cases, and never cause an error?! -- Inkarkat 12:49, November 17, 2011 (UTC)
+You're welcome! I really don't know why that was needed. I took your suggestion for suppressing errors and updated the tip with the new script. The odd thing was, I wasn't doing any undo operation prior to the write. The sequence was:
+
+Open the file without an eol
+Modify a line in the file (by using <C-A> to increment a number on the line)
+Save the file, get an error
+
+So, I've added code comments in case anybody figures it out down the road.
+--Fritzophrenic 18:10, November 17, 2011 (UTC)

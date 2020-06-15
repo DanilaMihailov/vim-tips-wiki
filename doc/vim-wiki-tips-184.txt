@@ -1,0 +1,143 @@
+*vim-wiki-tips-184.txt*   How to obscure text instantaneously *vwt-184*
+
+Tip 184 [https://vim.fandom.com/wiki/How_to_obscure_text_instantaneously]   Previous |vwt-182| Next |vwt-185|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+Various users would like to be able to obscure the text and code in their 
+buffer quickly when another person comes too near to their screen without 
+closing a tab, exiting the buffer, or changing to a different program. There 
+are a number options are available to complete this task. The options 
+presented below have various drawbacks.
+
+METHOD 1  *vwt-184-method-1*
+
+By adding the following to your vimrc file this method will rot13 encode your 
+text when you hit the F3 key. This encoding can be reversed by using the F3 
+key again or undoing with u.
+
+>
+    map <F3> ggg?G
+<
+
+The drawback to this method is that it works best with the English character 
+set a-z and A-Z.
+
+METHOD 2  *vwt-184-method-2*
+
+This method also rot13s your buffer when typing \r after adding the following 
+to the vimrc file:
+
+>
+    noremap <Leader>r ggg?G``
+<
+
+As with all rot13, this works best with the English character set a-z and 
+A-Z. To reverse, simple hit \r again because rot13 is a symmetrical algorithm, 
+the characters will return to normal. Or as mentioned before, simply hit u.
+
+METHOD 3  *vwt-184-method-3*
+
+By adding the following to the vimrc file a user will be able to rot13 the 
+text on only the visible screen when using the F3 key. This will also restore 
+the cursor position when F3 is used to restore the text.
+
+>
+    map <F3> mzHVLg?`z
+<
+
+The drawback to this method is if the line numbers have changed on the screen 
+the reversing of the rot13 by hitting F3 a second time may not completely 
+reverse the changes. In this case hitting "u" will undo the changes 
+appropriately.
+
+COMMENTS  *vwt-184-comments*
+
+I would also :se rl! to make punctuations
+
+==============================================================================
+
+Or may be
+
+>
+    map <F3> ggdG
+<
+
+and then use u to restore text? ;-)
+
+==============================================================================
+
+Why change file at all?
+
+>
+    map <F3> Gz<CR>
+<
+
+It will keep the last line on the screen though, and if the document is short 
+Gz will leave the whole text on the screen
+
+==============================================================================
+
+There is no need to enter visual mode. You can just use ggg?G to rot13 the 
+whole file. If you're a fast typist, maybe you won't even need a mapping with 
+this easy key sequence.
+
+==============================================================================
+
+If you have multitasking and job control, you can just suspend the editor 
+with ^Z (or whatever susp is set to). If you have a terminal that supports it, 
+^L may also be a fast way to clear the terminal. Then you can type something 
+like ps -ef or jobs or ls or pwd or whatever spinal reflex commands that make 
+it look like you're busy with the shell.
+
+==============================================================================
+
+>
+    :se rl
+<
+
+Or
+
+>
+    :nn K :se rightleft<CR>
+<
+
+==============================================================================
+
+Some other options:-
+
+(1)
+
+>
+    ZZ - to save changes and exit VIM
+<
+
+(2)
+
+>
+    :%d " to blank the VIM window by deleting all lines and then press
+    u - to restore all of the deleted lines
+<
+
+(3) Don't edit things when you should be doing something else -- like 
+working. ;-)
+
+==============================================================================
+
+What about mapping the key to the following?
+
+>
+    :new | only (assumes 'hidden' is set or buffer is not modified)
+<
+
+or
+
+>
+    :tabnew
+<
+
+That's pretty quick and the file's left un-affected
+
+==============================================================================

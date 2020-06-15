@@ -1,0 +1,52 @@
+*vim-wiki-tips-911.txt*   How to make fileencoding work in the modeline *vwt-911*
+
+Tip 911 [https://vim.fandom.com/wiki/How_to_make_fileencoding_work_in_the_modeline]   Previous |vwt-910| Next |vwt-912|
+
+created 2005 · complexity intermediate · author Wu Yongwei · version 6.0
+
+==============================================================================
+
+Currently fileencoding does not work well in a modeline. When Vim sees the 
+fileencoding setting, the file has already been read, so setting 
+'fileencoding' in a modeline normally has no effect until you write the file. 
+That will cause even more trouble as, for example, if the default encoding is 
+latin1 and the modeline has fileencoding=utf-8, then the resulting file will 
+be a utf-8 file converted as latin1 to utf-8 again.
+
+Vim does as best as it can to detect your encoding, if you place its name in 
+your 'fileencodings' option. However, Vim cannot distinguish between multiple 
+8-bit encodings, so only the first one of those will be used. You can install 
+a plugin like AutoFenc [https://www.vim.org/scripts/script.php?script_id=2721] 
+to automatically detect the correct encoding in many cases where 
+'fileencodings' fails, but you can also just add a few lines to your .vimrc 
+[https://vim.fandom.com/wiki/Vimrc] to allow modelines to work as intended:
+
+>
+    function! CheckFileEncoding()
+      if exists('b:fenc_at_read') && &fileencoding != b:fenc_at_read
+        exec 'e! ++enc=' . &fileencoding
+        unlet b:fenc_at_read
+      endif
+    endfunction
+    au BufRead     *.txt let b:fenc_at_read=&fileencoding
+    au BufWinEnter *.txt call CheckFileEncoding()
+<
+
+Change the "*.txt" part if wanted. See Working with Unicode 
+[https://vim.fandom.com/wiki/Working_with_Unicode] if your Vim is not yet 
+configured for working with multiple encodings.
+
+This script will store off the fileencoding which Vim detects after reading 
+the file, but before processing modelines, and then compare it to the 
+fileencoding after processing modelines. If they differ, it will re-read the 
+file with the new fileencoding value. For this step :e! must be used, because 
+when the fileencoding changes the buffer is marked as modified. This is made 
+less dangerous because we unlet the stored fileencoding value, so that we only 
+issue the e! command if this is the first time BufWinEnter fired after reading 
+the file.
+
+SEE ALSO  *vwt-911-see-also*
+    -  Detect encoding from the charset specified in HTML files [https://vim.fandom.com/wiki/Detect_encoding_from_the_charset_specified_in_HTML_files]
+
+
+COMMENTS  *vwt-911-comments*

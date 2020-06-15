@@ -1,0 +1,102 @@
+*vim-wiki-tips-928.txt*   Using command-line history *vwt-928*
+
+Tip 45 [https://vim.fandom.com/wiki/Using_command-line_history]   Previous |vwt-44| Next |vwt-47|
+
+created 2001 · complexity basic · version 5.7
+
+==============================================================================
+
+When you press : to enter a command, or / to start a search, you often want 
+to edit a previous command or search. That can be done using the up and down 
+arrow keys to scroll through the history. Then you can edit a previous line. 
+help |:|
+
+For example, type :s and then press the up arrow key. The last command that 
+starts with exactly what you typed will be displayed. Scroll through the 
+history by pressing up or down. There is a history for commands, and another 
+for searches (and more :help |history|). You can list the entire history using 
+the :history command (:help |:history|). The command :his lists the command 
+history, and :his / lists the search history.
+
+In many situations, a better solution is the command-line window which you 
+can open in two ways:
+    - Type q: for commands, or q/ for searches; or
+    - Type : or / to start entering a command or search, then press the 'cedit' key (default is Ctrl-f :help 'cedit').
+
+
+The advantage of the command-line window is that you can use all Vim's 
+editing power, including searching with '/' in normal mode, or using 
+whole-line completion (:help |compl-whole-line|) in insert mode. After editing 
+a command, you can:
+    - Press Enter to execute the current line (and close the command-line window); or
+    - Press Ctrl-c twice to close the command-line window (cancel).
+
+
+DETAILS  *vwt-928-details*
+
+Suppose you search for "horse", then for "Hello", then for "helium", then for 
+"habit".
+
+If you type /h and repeatedly press up arrow, you will see /habit, then 
+/helium, then /horse ("Hello" is skipped because the history navigation is 
+case-sensitive and "Hello" does not start with a lowercase "h").
+
+Register : holds the last command, and / holds the last search. Therefore ":p 
+will paste the last command, and "/p will paste the last search.
+
+Type @: to repeat the last command.
+
+You may have used several commands (for example, :%s/old/new/g) on the 
+current buffer, and now find you would like to repeat those commands on 
+another buffer. Type q: to enter the command window, then select and yank the 
+commands you want. Press Ctrl-c twice to close the command window. If wanted, 
+you can paste the commands into a buffer, then edit and save them. Later, you 
+can source the file containing the commands, or you can yank the commands, 
+then type :@"<CR> to execute the yanked commands on the current buffer.
+
+If you always want to use the command editing window, try these mappings:
+
+>
+    nnoremap : q:i
+    nnoremap / q/i
+    nnoremap ? q?i
+<
+
+KEEPING THE WINDOW OPEN  *vwt-928-keeping-the-window-open*
+
+Executing a command closes the window but sometimes you want it to remain 
+open.
+
+Under :help |q:| we find a suggestion to map a key such as F5 to execute the 
+current line, then re-open the command window::autocmd CmdwinEnter * nnoremap 
+<buffer> <F5> <CR>q:
+
+This can be expanded to put us back on the same line in the command window, 
+which is useful when repeating a whole series of commands. We use a global 
+variable to remember which line we were on (buffer-local variables are lost 
+when the window closes).
+
+:autocmd CmdwinEnter * nnoremap <buffer> <F5> :let 
+g:CmdWindowLineMark=line(".")<CR><CR>q::execute "normal 
+".g:CmdWindowLineMark."G"<CR>
+
+REFERENCES  *vwt-928-references*
+    - :help  |history|
+    - :help  |Cmdline|
+    - :help  |cmdwin|
+    - :help 'cmdwinheight' option controls initial height of command-line window
+    - :help 'history' option controls number of history items stored in viminfo
+
+
+COMMENTS  *vwt-928-comments*
+
+TO DO
+    - Fix Enhanced command window |vwt-681| (or delete it if not helpful). If keep, add it as a "see also" here.
+
+    - The standard way to close the command-line window is with :q, or <C-W>q, or any of the standard "close this window" commands --- not with double Ctrl-C.
+
+    -  What is the history file called? Where is it stored?
+    -  The command window is not associated with a file at all. It is populated at startup from the .viminfo file, however. That may be worth mentioning somewhere...and the option to disable this.
+
+
+    -  The cmdwin would be very useful to use as an interpreter to debug and quickly craft things (with the above trick to keep it open). Since however I can't see my :echo results, it is almost useless for that purpose. I think it's because the wincmd redraws the screen when it reappears, still I wonder if there is a workaround?

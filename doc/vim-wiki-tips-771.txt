@@ -1,0 +1,58 @@
+*vim-wiki-tips-771.txt*   Paste from the clipboard into a new vim *vwt-771*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 771 [https://vim.fandom.com/wiki/Paste_from_the_clipboard_into_a_new_vim]   Previous |vwt-769| Next |vwt-773|
+
+created August 17, 2004 · complexity basic · author Peter Wilson · version 
+5.7
+
+==============================================================================
+
+Bind a keystroke to "xclip -o | gvim -" ( or "xcb -p 0 | gvim -" or "any 
+command which prints the contents of the clipboard | gvim -")
+
+Pressing that key now captures the contents of the clipboard in a new Vim 
+window.
+
+COMMENTS  *vwt-771-comments*
+
+I don't have xclip. I just click middle mouse button to paste clipboard, also 
+in Windows gvim.
+
+For scripting you could also paste the clipboard register: "*p
+
+==============================================================================
+
+You can also do
+
+>
+    gvim.exe -c 'normal "*p'
+<
+
+or to a named file
+
+>
+    gvim.exe -c 'normal ggdG"*p' file.txt
+<
+
+from VimTip305 |vwt-305|
+
+Put the paste code into a windows batch or Unix Script.
+
+==============================================================================
+
+This seems complicated. Simply use commands:
+
+>
+    :new
+    "*p
+<
+
+==============================================================================

@@ -1,0 +1,80 @@
+*vim-wiki-tips-390.txt*   Combining vimdiff with cvs diff *vwt-390*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 390 [https://vim.fandom.com/wiki/Combining_vimdiff_with_cvs_diff]   Previous |vwt-389| Next |vwt-391|
+
+created December 18, 2002 · complexity basic · author Jens Finkhäuser · 
+version 6.0
+
+==============================================================================
+
+I like using vim's diff mode for comparing different revisions of source code 
+files. usually older versions do not live in the directory structure with the 
+current versions, but in a cvs repository. the command below, CVSdiff, can 
+compare the current file to any given revision number in the cvs repository. 
+please note that in case a revision number does not exist, empty files will be 
+displayed, as the below script does not do any error checking (yep, i'm lazy, 
+and this works for me). a vertical split is performed on the current file and 
+its given previous revision.
+
+>
+    command -nargs=1 CVSdiff silent call CVSdiff("%", "<args>")
+    function! CVSdiff(filename, cvsversion)
+      " append a:filename to keep extension and therefore highlighting mode
+      let patchname = tempname() . a:filename
+      let tempname = tempname() . a:filename
+      let newname = tempname() . a:filename
+      execute "!cvs diff -a -r " . a:cvsversion . " " . a:filename . " > " . patch
+      execute "!cp " . a:filename . " " . tempname
+      execute "!patch -R -o " . newname . " " . tempname . " < " . patchname
+      execute "vertical diffsplit " . newname
+      call delete(patchname)
+      call delete(tempname)
+      call delete(newname)
+    endfunction
+<
+
+COMMENTS  *vwt-390-comments*
+
+See script#58 [https://www.vim.org/scripts/script.php?script_id=58]. It is 
+very useful.
+
+==============================================================================
+
+I use script#90 [https://www.vim.org/scripts/script.php?script_id=90] 
+(cvscommand.vim).
+
+==============================================================================
+
+There is a little error of this tip, and I believe it is just a typo.
+
+line 7:
+
+>
+    execute "!cvs diff -a -r " . a:cvsversion . " " . a:filename . " > " . patch
+<
+
+'patch' should be corrected to 'patchname'.
+
+==============================================================================
+
+I've written a shellscript "cvsvimdiff", it is available 
+here:http://www.bononia.it/~zack/myprograms.en.html 
+[http://www.bononia.it/~zack/myprograms.en.html]Direct link to the 
+script:http://www.bononia.it/~zack/stuff/cvsvimdiff 
+[http://www.bononia.it/~zack/stuff/cvsvimdiff]
+
+It can be used as you use "cvs diff", but it spawns a vimdiff process to 
+examine the differences.
+
+Same idea of this tip, but I find it more handy since you usually need to 
+review diffs during a shell session, just after "cvs update".
+
+==============================================================================

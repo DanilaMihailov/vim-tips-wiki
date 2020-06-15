@@ -1,0 +1,801 @@
+*vim-wiki-tips-667.txt*   Working with CSV files *vwt-667*
+
+Tip 667 [https://vim.fandom.com/wiki/Working_with_CSV_files]   Previous |vwt-662| Next |vwt-669|
+
+created 2004 · complexity intermediate · version 7.0
+
+==============================================================================
+
+CSV files (comma-separated values) are often used to save tables of data in 
+plain text. Following are some useful techniques for working with CSV files. 
+You can:
+    - Highlight all text in any column.
+    - View fields (convert csv text to columns or separate lines).
+    - Navigate using the HJKL keys to go left, down, up, right by cell (hjkl work as normal).
+    - Search for text in a specific column.
+    - Sort lines by column.
+    - Delete a column.
+    - Specify a delimiter other than comma.
+
+
+HIGHLIGHTING A COLUMN  *vwt-667-highlighting-a-column*
+
+It's easy to find a column in csv text if you source the following script. 
+Enter a command like :Csv 23 to highlight column 23.
+
+>
+    " Highlight a column in csv text.
+    " :Csv 1    " highlight first column
+    " :Csv 12   " highlight twelfth column
+    " :Csv 0    " switch off highlight
+    function! CSVH(colnr)
+      if a:colnr > 1
+        let n = a:colnr - 1
+        execute 'match Keyword /^\([^,]*,\)\{'.n.'}\zs[^,]*/'
+        execute 'normal! 0'.n.'f,'
+      elseif a:colnr == 1
+        match Keyword /^[^,]*/
+        normal! 0
+      else
+        match
+      endif
+    endfunction
+    command! -nargs=1 Csv :call CSVH(<args>)
+<
+
+HIGHLIGHTING THE HEADER ROW  *vwt-667-highlighting-the-header-row*
+
+If the first row is a header row, you can highlight the header fields by 
+putting the following lines in the file syntax/csv.vim (see syntax 
+highlighting for moin |vwt-1565#Syntax_highlighting|). This requires csv file 
+type detection (see Usage below |vwt-667-usage|).
+
+>
+    syntax match csvHeading /\%1l\%(\%("\zs\%([^"]\|""\)*\ze"\)\|\%(\zs[^,"]*\ze\)\)/
+    highlight def link csvHeading Type
+<
+
+VIEWING CSV FIELDS  *vwt-667-viewing-csv-fields*
+
+The following commands can be entered to convert csv text to columns for easy 
+viewing. Work on a temporary copy of your data because these commands will 
+damage it!
+
+>
+    " Convert csv text to columns (press u to undo).
+    " Warning: This deletes ',' and crops wide columns.
+    :let width = 20
+    :let fill = repeat(' ', width)
+    :%s/\([^,]*\),\=/\=strpart(submatch(1).fill, 0, width)/ge
+    :%s/\s\+$//ge
+<
+
+Alternatively, you can change each comma to a newline to put each field on 
+its own line:
+
+>
+    " Change CSV fields on current line to a list of separate items.
+    :s/,/\r/g
+     
+    " Same, for all lines.
+    :%s/,/\r/g
+<
+
+In the replace text of a substitute, \r substitutes a newline.
+
+NAVIGATING IN CSV TEXT  *vwt-667-navigating-in-csv-text*
+
+The simple script given above does not provide easy navigation, and it 
+assumes that commas are only used as delimiters. The following code has more 
+features, and it is presented as a plugin due to its length.
+
+FEATURES  *vwt-667-features*
+    - Fields are generally correctly highlighted, according to the CSV specification [http://tools.ietf.org/html/rfc4180]: quotes, commas inside quotes, quote inside quotes are all correctly processed.
+    - (However it does not handle quoted fields that begin with a space before the quote, i.e. where the delimiter is ", " so for this see work-around below |vwt-667-working-with-multi-character-delimiters|)
+    - It does not go beyond the last column (from a count of the columns in the first and last three lines).
+    - HJKL go left, down, up, right by "cell". Focus is set to the first character of the cell.
+    - space highlight the cell the focus is on
+    - 0 and $ highlight the first and last cell. Focus is set to the first character of the cell.
+    - Ctrl-f, Ctrl-b page forward and back, while staying in the same column.
+    - \J is Join :help  |J| and \K is Keyword :help  |K| (assuming the default \ local leader key :help  |maplocalleader|).
+    - The column number and heading are displayed when moving around. The headings are taken from a specified line, by default, the first line.
+    - Search within column. The command 
+
+>
+    :SC n=str
+< will search for str in the n-th column. If "n=" is omitted, the search is within the currently highlighted column. For example: 
+
+>
+    :SC 2=john  " search for john in the 2nd column only
+<
+
+>
+    :SC john    " search for john in the currently highlighted column
+< Case sensitivity is the same as for / (toggle with :set ic! ic? see :help 'ignorecase'). After the search, the @/ variable is set. So, for example, after :SC 2=john, one can use g//d to delete all lines whose second field contains john.
+    - Copy column. The command 
+
+>
+    :CC n x
+< will copy (yank) the n-th column to register x. If n is omitted, then the current highlighted column is copied. If x is omitted, the unnamed register is used. Examples:
+
+
+>
+    :CC              " copy current column to unnamed register
+    :CC 12           " copy column 12 to unnamed register
+    :CC a            " copy current column to register a
+    :CC 12 a         " copy column 12 to register a
+<
+    - Delete column. The command 
+
+>
+    :DC n
+< will delete the n-th column. If n is omitted, then the current highlighted column is deleted.
+    - Change the headings line. By default the first line is assumed to contain column headings, but you can change the line used with the HL command. Note that the headings line is a fixed line number; it does not update if that line is moved, for example if you delete or insert lines above it. Also, the headings line value will be reset to 1 (the default) if you reload the buffer, for example, with the :e! command.
+
+
+>
+    :HL 3            " set the third line of the buffer to contain the column headings
+    :HL              " set the line currently under the cursor to contain the column headings
+    :HL 0            " turn off the headings line
+<
+    - Specify a character to be used as the delimiter (',' is the default).
+
+
+>
+    :Delimiter       " show delimiter
+    :Delimiter ;     " set delimiter to ';'
+    :Delimiter \t    " set delimiter to the tab character
+<
+
+Delimiters can only be one character. For multi-character delimiters see the 
+work-around below |vwt-667-working-with-multi-character-delimiters|)
+    - Change the default delimiter (you could put one of the following examples in your vimrc [https://vim.fandom.com/wiki/Vimrc]):
+
+
+>
+    :let g:csv_delimiter = ";"
+    :let g:csv_delimiter = "\t"
+<
+    - Sort lines by column. This works like the :sort command except that the specified field is used for sorting. The heading line and lines above it in the buffer are not included, unless you explicitly specify a range that starts on or before the heading line.  To sort all lines, explicitly specify the range, or turn off the headings line. Some examples follow.
+
+
+>
+    " Assuming the heading line is line 1, the default
+    
+    :Sort            " sort by the current column excluding line 1
+    :Sort 3          " sort by column 3 excluding line 1
+    :Sort! 3         " same, reverse order
+    :5,12Sort! 3     " same, but sort only lines 5 to 12 inclusive
+    :Sort n          " numeric sort by the current column
+    :Sort 3 n        " same, by column 3
+    :Sort 3 x        " same, hex numbers
+    :Sort i u        " ignore case; omit duplicate lines (keep unique)
+    :Sort iu         " same
+    :Sort 3 iu       " same, by column 3
+    
+                     " Assuming the heading line is line 5
+    
+    :Sort            " sort only lines 6 to end of buffer
+    :%Sort           " sort the whole buffer, including heading line
+    :5,$Sort         " sort lines 5 to end of buffer, including heading line
+    :4,$Sort         " sort lines 4 to end of buffer, including heading line
+    :1,6Sort         " sort lines 1 to 6, including heading line
+    
+                     " Assuming the heading line is line 0 (disabled)
+    
+    :Sort            " sort the whole buffer
+    
+    " The n and x options use integers ("12.9" is 12, overflow is ignored).
+    " Use the f option for floating point (:version must show +float).
+    " Non-numbers sort before numbers.
+    :Sort f          " sort using floats in current column
+    :Sort 3 f        " same, by column 3
+    :5,12Sort! 3 f   " reverse sort lines in range using column 3 floats
+<
+
+USAGE  *vwt-667-usage*
+
+Put a .csv rule in filetype.vim [https://vim.fandom.com/wiki/Filetype.vim]
+
+>
+    au! BufNewFile,BufRead *.csv setf csv
+<
+
+Create file ~/.vim/ftplugin/csv.vim (Unix) or $HOME/vimfiles/ftplugin/csv.vim 
+(Windows) containing the script below.
+
+Open a file (named anything.csv) that contains fields separated by commas. 
+Use H J K L 0 $ to move from cell to cell.
+
+If you open a *.csv file, the current column will be highlighted. Conversely, 
+you may open a file with csv data, yet the file is not named *.csv, so 
+highlighting will not occur.
+
+You can switch highlighting off by setting the filetype option to nothing:
+
+>
+    :set ft=
+<
+
+This command switches highlighting on:
+
+>
+    :set ft=csv
+<
+
+THE CODE  *vwt-667-the-code*
+
+This is the ftplugin csv.vim script:
+
+>
+    " Filetype plugin for editing CSV files.
+    " Version 2011-11-02 from http://vim.wikia.com/wiki/csv
+    if v:version < 700 || exists('b:did_ftplugin')
+      finish
+    endif
+    let b:did_ftplugin = 1
+     
+    " Return number of characters (not bytes) in string.
+    function! s:CharLen(str)
+      return strlen(substitute(a:str, '.', 'x', 'g'))
+    endfunction
+     
+    " Display a warning message.
+    function! s:Warn(msg)
+      echohl WarningMsg
+      echo a:msg
+      echohl NONE
+    endfunction
+     
+    " --- Highlighting a column {{{
+    " Highlight a column in csv text.
+    " :Csv 1    " highlight first column
+    " :Csv 12   " highlight twelfth column
+    " :Csv 0    " switch off highlight
+    function! CSVH(colnr)
+      if a:colnr > 1
+        let n = a:colnr - 1
+        execute 'match Keyword /^\([^,]*,\)\{'.n.'}\zs[^,]*/'
+        execute 'normal! 0'.n.'f,'
+      elseif a:colnr == 1
+        match Keyword /^[^,]*/
+        normal! 0
+      else
+        match
+      endif
+    endfunction
+    command! -nargs=1 Csv :call CSVH(<args>)
+     
+    "}}}
+    " Set or show column delimiter.
+    " Accept '\t' (2 characters: backslash, t) as the tab character.
+    function! s:Delimiter(delim)
+      if !empty(a:delim)
+        let want = a:delim == '\t' ? "\t" : a:delim
+        if s:CharLen(want) != 1
+          call s:Warn('Delimiter must be a single character')
+          return
+        endif
+        let b:csv_delimiter = want
+      endif
+      let b:changed_done = -1
+      let b:csv_column = 1
+      silent call s:Highlight(b:csv_column)
+      echo printf('Delimiter = "%s"', b:csv_delimiter == "\t" ? '\t' : strtrans(b:csv_delimiter))
+    endfunction
+    command! -buffer -nargs=? Delimiter call s:Delimiter('<args>')
+     
+    " Get string containing delimiter (default ',') specified for current buffer.
+    " A command like ':let g:csv_delimiter = ";"' changes the default.
+    " Script assumes 'magic' option is in effect, so some special processing
+    " is needed for some delimiters like '~' and '*'.
+    " An alternative would be to use '\V' in patterns, but that would be tricky
+    " given that the "search" patterns are combined with user-entered patterns.
+    function! s:GetStr(id)
+      if !exists('b:csv_delimiter') || empty(b:csv_delimiter)
+        if exists('g:csv_delimiter') && !empty(g:csv_delimiter)
+          let b:csv_delimiter = g:csv_delimiter
+        else
+          let b:csv_delimiter = ','
+        endif
+      endif
+      if !exists('b:csv_str')
+        let b:csv_str = {'delim': ''}
+      endif
+      if b:csv_str['delim'] !=# b:csv_delimiter
+        " Define strings using delimiter ',' then substitute if required.
+        let b:csv_str['delim'] = ','
+        let b:csv_str['numco'] = '\%(\%("\%([^"]\|""\)*"\)\|\%([^,"]*\)\)'
+        let b:csv_str['expr1'] = '\%(\%("\zs\%([^"]\|""\)*\ze"\)\|\%(\zs[^,"]*\ze\)\)'
+        let b:csv_str['expr2'] = '\%(\%(\zs"\%([^"]\|""\)*",\?\ze\)\|\%(\zs[^,"]*,\?\ze\)\)'
+        let b:csv_str['expr3'] = '^\%(\%(\%("\%([^"]\|""\)*"\)\|\%([^,"]*\)\),\)\{'
+        let b:csv_str['delco'] = ',$'
+        let b:csv_str['sear1'] = '^\%(\%("\%([^,]\|""\)*\zs'
+        let b:csv_str['sear2'] = '\ze\%([^,]\|""\)*"\)\|\%([^,"]*\zs'
+        let b:csv_str['sear3'] = '\ze[^,"]*\)\)'
+        let b:csv_str['sear4'] = '^\%(\%(\%("\%([^"]\|""\)*"\)\|\%([^,"]*\)\),\)\{'
+        let b:csv_str['sear5'] = '}\%(\%("\%([^,]\|""\)*\zs'
+        if b:csv_delimiter != ','
+          let d1 = b:csv_delimiter  " d1 replaces ',' in '[...]'
+          let d2 = d1               " d2 replaces ',' not in '[...]'
+          if d1 == '&'
+            let d1 = '\&'           " '&' after substitute()
+            let d2 = '\&'           " '&'
+          elseif d1 == '['
+            let d1 = '\['           " '['
+            let d2 = '\\['          " '\['
+          elseif d1 == '\'
+            let d1 = '\\'           " '\'
+            let d2 = '\\\\'         " '\\'
+          elseif stridx('.*$^~', d1) >= 0
+            let d2 = '\\'.d1        " '\'.d1
+          endif
+          for key in keys(b:csv_str)
+            if key == 'delim'
+              let b:csv_str[key] = b:csv_delimiter
+            else
+              let replace = substitute(b:csv_str[key], '\[[^]]*\zs,', d1, 'g')
+              let b:csv_str[key] = substitute(replace, ',', d2, 'g')
+            endif
+          endfor
+        endif
+      endif
+      return b:csv_str[a:id]
+    endfunction
+     
+    " Get the number of columns
+    " Optionally takes one parameter, a specified line number
+    function! s:GetNumCols(...)
+      let b:csv_max_col = 1
+      " if a line number was provided we will examine that ...
+      if a:0 == 1
+          let rg_cols_to_check = a:000
+       " ... else we will default to the maximum of number in first and last three
+       " lines; at least one of them should contain typical csv data
+      else
+          let rg_cols_to_check = [1, 2, 3, line('$')-2, line('$')-1, line('$')]
+      endif
+     
+      for l in rg_cols_to_check
+        " Determine number of columns by counting the (unescaped) delimiters.
+        " Note: The regexp may also return unbalanced ", so filter out anything
+        " which isn't a delimiter in the second pass.
+        let c = s:CharLen(substitute(substitute(getline(l), s:GetStr('numco'), '', 'g'), '"', '', 'g')) + 1
+        if b:csv_max_col < c
+          let b:csv_max_col = c
+        endif
+      endfor
+      if b:csv_max_col <= 1
+        let b:csv_max_col = 999
+        call s:Warn('No delimiter-separated columns were detected')
+      endif
+      return b:csv_max_col
+    endfunction
+     
+    " Return regex to find the n-th column.
+    function! s:GetExpr(colnr, ...)
+      if a:0 == 0  " field only
+        let field = s:GetStr('expr1')
+      else  " field with quotes (if present) and trailing delimiter (if present)
+        let field = s:GetStr('expr2')
+      endif
+      if a:colnr > 1
+        return s:GetStr('expr3') . (a:colnr - 1) . '}' . field
+      else
+        return '^' . field
+      endif
+    endfunction
+     
+    " Default column header line is the first line
+    let b:csv_heading_line_number=1
+     
+    " Extract and echo the column header on the status line.
+    function! s:PrintColumnInfo(colnr)
+      let colHeading = substitute(matchstr(getline(b:csv_heading_line_number), s:GetExpr(a:colnr)),
+        \ '^\s*\(.*\)\s*$', '\1', '')
+      let info = 'Column ' . a:colnr
+      if empty(colHeading)
+        echo info
+      else
+        echon info . ': '
+        echohl Type
+        " Limit length to avoid "Hit ENTER" prompt.
+        echon strpart(colHeading, 0, (&columns / 2)) . (len(colHeading) > (&columns / 2) ? '...' : '')
+        echohl NONE
+      endif
+    endfunction
+     
+    " Change csv_heading_line_number to specified line.
+    " If no line is specified, use the current line.
+    function! s:SetHeadinglineNumber(linenr)
+      if empty(a:linenr)
+        let b:csv_heading_line_number = line('.')
+      else
+        let b:csv_heading_line_number = a:linenr
+      endif
+      " Update the displayed column name to use the new heading line
+      call s:PrintColumnInfo(b:csv_column)
+      " Update the maximum number of columns based on heading
+      " line
+      call s:GetNumCols(b:csv_heading_line_number)
+    endfunction
+    command! -buffer -nargs=? HL call s:SetHeadinglineNumber('<args>')
+     
+    " Highlight n-th column (if n > 0).
+    " Remove previous highlight match (ignore error if none).
+    " matchadd() priority -1 means 'hlsearch' will override the match.
+    function! s:Highlight(colnr)
+      silent! call matchdelete(b:csv_match)
+      if a:colnr > 0
+        if exists('*matchadd')
+          let b:csv_match = matchadd('Keyword', s:GetExpr(a:colnr), -1)
+        else
+          execute '2match Keyword /' . s:GetExpr(a:colnr) . '/'
+        endif
+        if b:changed_done != b:changedtick
+          let b:changed_done = b:changedtick
+          call s:GetNumCols()
+        endif
+        call s:Focus_Column(a:colnr)
+      endif
+    endfunction
+     
+    " Focus the cursor on the n-th column of the current line.
+    function! s:Focus_Column(colnr)
+      normal! 0
+      call search(s:GetExpr(a:colnr), '', line('.'))
+      call s:PrintColumnInfo(a:colnr)
+    endfunction
+     
+    " Highlight next column.
+    function! s:HighlightNextColumn()
+      if b:csv_column < b:csv_max_col
+        let b:csv_column += 1
+      endif
+      call s:Highlight(b:csv_column)
+    endfunction
+     
+    " Highlight previous column.
+    function! s:HighlightPrevColumn()
+      if b:csv_column > 1
+        let b:csv_column -= 1
+      endif
+      call s:Highlight(b:csv_column)
+    endfunction
+     
+    " Highlight the column the cursor is on
+    function! s:Focus_Cursor()
+      let b:csv_column = s:CharLen(substitute(substitute(getline(".")[:col(".")-1], s:GetStr('numco'), '', 'g'), '"', '', 'g')) + 1
+      call s:Highlight(b:csv_column)
+    endfunction
+    " Wrapping would distort the column-based layout.
+    " Lines must not be broken when typed.
+    setlocal nowrap textwidth=0
+    " Undo the stuff we changed.
+    let b:undo_ftplugin = "setlocal wrap< textwidth<"
+        \ . "|if exists('*matchdelete')|call matchdelete(b:csv_match)|else|2match none|endif"
+        \ . "|sil! exe 'nunmap <buffer> H'"
+        \ . "|sil! exe 'nunmap <buffer> L'"
+        \ . "|sil! exe 'nunmap <buffer> J'"
+        \ . "|sil! exe 'nunmap <buffer> K'"
+        \ . "|sil! exe 'nunmap <buffer> <C-f>'"
+        \ . "|sil! exe 'nunmap <buffer> <C-b>'"
+        \ . "|sil! exe 'nunmap <buffer> 0'"
+        \ . "|sil! exe 'nunmap <buffer> $'"
+        \ . "|sil exe 'augroup csv' . bufnr('')"
+        \ . "|sil exe 'au!'"
+        \ . "|sil exe 'augroup END'"
+     
+    let b:changed_done = -1
+    " Highlight the first column, but not if reloading or resetting filetype.
+    if !exists('b:csv_column')
+      let b:csv_column = 1
+    endif
+    " Following highlights column and calls GetNumCols() if set filetype manually
+    " (BufEnter will also do it if filetype is set during load).
+    silent call s:Highlight(b:csv_column)
+     
+    " Return Float value of field in line selected by regex, or the String field.
+    function! s:GetValue(line, regex)
+      let field = matchstr(a:line, a:regex)
+      let val = str2float(field)
+      if val == 0 && match(field, '^0*\.\?0*$') < 0
+        return field
+      endif
+      return val
+    endfunction
+     
+    " Compare lines based on the floating point values in the specified column.
+    " This uses string compare 'ignorecase' option if neither field is a float.
+    function! s:CompareLines(line1, line2)
+      let val1 = s:GetValue(a:line1, b:csv_sort_regex)
+      let val2 = s:GetValue(a:line2, b:csv_sort_regex)
+      if type(val1) != type(val2)
+        let val1 = type(val1)
+        let val2 = type(val2)
+      endif
+      let ascending = val1 > val2 ? 1 : val1 < val2 ? -1 : 0
+      return b:csv_sort_ascending ? ascending : -ascending
+    endfunction
+     
+    " Sort the n-th column, the highlighted one by default.
+    " If range_given is non-zero we use line1 and line2,
+    " otherwise they are ignored.  Range_given is given the
+    " value of <count> below
+    " Column number is first optional arg; following are flags for :sort.
+    function! s:SortColumn(bang, range_given, line1, line2, ...) range
+      let colnr = b:csv_column
+      let args = copy(a:000)
+      if len(args) > 0 && args[0] =~ '^\d\+$'
+        let colnr = str2nr(args[0])
+        unlet args[0]
+      endif
+      if colnr < 1 || colnr > b:csv_max_col
+        call s:Warn('Column number out of range')
+      endif
+     
+      "First check that the headings line is a valid line
+      if b:csv_heading_line_number >= line('$')
+        call s:Warn('No lines to sort - specified heading line ['.b:csv_heading_line_number.
+          \ '] is at or beyond end of file')
+        return 1
+      endif
+     
+      "Work out the first line to start sorting at.
+      "If they explicitly passed a range, use it
+      "else use from line after heading line to $
+      "(if they turned off the heading line with HL 0,
+      " this will cover the whole buffer)
+      if a:range_given
+        let first = a:line1
+        let last = a:line2
+      else
+        let first = b:csv_heading_line_number + 1
+        let last = line('$')
+      endif
+     
+      let flags = join(args)
+      if flags == 'f'
+        let b:csv_sort_ascending = empty(a:bang)
+        let b:csv_sort_regex = s:GetExpr(colnr)
+        call setline(first, sort(getline(first, last), function('s:CompareLines')))
+      else
+        let cmd = first.','.last.'sort'.a:bang
+        execute cmd 'r'.flags '/'.escape(s:GetExpr(colnr), '/').'/'
+      endif
+    endfunction
+    command! -bang -buffer -nargs=* -range=0 Sort call s:SortColumn('<bang>', <count>, <line1>, <line2>, <f-args>)
+     
+    " Copy an entire column into a register.
+    " Column number can be omitted (default is the current column).
+    " Register is a-z, or A-Z (append), or omitted for the unnamed register.
+    " Example: ':CC 12 b' copies column 12 into register b.
+    function! s:CopyColumn(args)
+      let l = matchlist(a:args, '^\(\d*\)\s*\(\a\)\?$')
+      if len(l) < 3
+        call s:Warn('Invalid arguments (need column_number register)')
+        return
+      endif
+      let col = empty(l[1]) ? b:csv_column : str2nr(l[1])
+      let reg = empty(l[2]) ? '@' : l[2]
+      if col < 1 || col > b:csv_max_col
+        call s:Warn('Column number out of range')
+        return
+      endif
+      let matchcol = s:GetExpr(col)
+      let cells = []
+      for lnum in range(1, line('$'))
+        call add(cells, matchstr(getline(lnum), matchcol))
+      endfor
+      execute 'let @'.reg.' = join(cells, "\n")."\n"'
+    endfunction
+    command! -buffer -nargs=* CC call s:CopyColumn('<args>')
+     
+    " Delete the n-th column, the highlighted one by default.
+    function! s:DeleteColumn(colnr)
+      if empty(a:colnr)
+        let col = b:csv_column
+      else
+        let col = str2nr(a:colnr)
+      endif
+      if col < 1 || col > b:csv_max_col
+        call s:Warn('Column number out of range')
+      endif
+      execute '%s/'.escape(s:GetExpr(col, 1), '/').'//'
+      if col == b:csv_max_col
+        execute 'silent %s/'.escape(s:GetStr('delco'), '/').'//e'
+      endif
+      let b:csv_max_col -= 1
+      if b:csv_column > b:csv_max_col
+        call s:HighlightPrevColumn()
+      endif
+    endfunction
+    command! -buffer -nargs=? DC call s:DeleteColumn('<args>')
+     
+    " Search the n-th column. Argument in n=regex form where n is the column
+    " number, and regex is the expression to use. If "n=" is omitted, then
+    " use the current highlighted column.
+    function! s:SearchColumn(args)
+      let [colstr, target] = matchlist(a:args, '\%(\([1-9][0-9]*\)=\)\?\(.*\)')[1:2]
+      if empty(colstr)
+        let col = b:csv_column
+      else
+        let col = str2nr(colstr)
+      endif
+      if col < 1 || col > b:csv_max_col
+        call s:Warn('Column number out of range')
+      endif
+      if col == 1
+        let @/ = s:GetStr('sear1').target.s:GetStr('sear2').target.s:GetStr('sear3')
+      else
+        let @/ = s:GetStr('sear4').(col-1).s:GetStr('sear5').target.s:GetStr('sear2').target.s:GetStr('sear3')
+      endif
+    endfunction
+    " Use :SC n=string<CR> to search for string in the n-th column
+    command! -buffer -nargs=1 SC execute s:SearchColumn('<args>')|normal! n
+     
+    nnoremap <silent> <buffer> <space> :call <SID>Focus_Cursor()<CR>
+    nnoremap <silent> <buffer> H :call <SID>HighlightPrevColumn()<CR>
+    nnoremap <silent> <buffer> L :call <SID>HighlightNextColumn()<CR>
+    nnoremap <silent> <buffer> J <Down>:call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> K <Up>:call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> <C-f> <PageDown>:call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> <C-b> <PageUp>:call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> <C-d> <C-d>:call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> <C-u> <C-u>:call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> 0 :let b:csv_column=1<CR>:call <SID>Highlight(b:csv_column)<CR>
+    nnoremap <silent> <buffer> $ :let b:csv_column=b:csv_max_col<CR>:call <SID>Highlight(b:csv_column)<CR>
+    nnoremap <silent> <buffer> gm :call <SID>Focus_Column(b:csv_column)<CR>
+    nnoremap <silent> <buffer> <LocalLeader>J J
+    nnoremap <silent> <buffer> <LocalLeader>K K
+     
+    " The column highlighting is window-local, not buffer-local, so it can persist
+    " even when the filetype is undone or the buffer changed.
+    execute 'augroup csv' . bufnr('')
+      autocmd!
+      " These events only highlight in the current window.
+      " Note: Highlighting gets slightly confused if the same buffer is present in
+      " two split windows next to each other, because then the events aren't fired.
+      autocmd BufLeave <buffer> silent call s:Highlight(0)
+      autocmd BufEnter <buffer> silent call s:Highlight(b:csv_column)
+    augroup END
+<
+
+EXPLANATION OF THE REGULAR EXPRESSION  *vwt-667-explanation-of-the-regular-expression*
+
+The above code is fairly easy to understand, except perhaps for the regular 
+expressions. The following regex (inspired by RegExLib 1520 
+[http://regexlib.com/REDetails.aspx?regexp_id=1520]) is used several times:
+
+>
+    \%(\%("\zs\%([^"]\|""\)*\ze"\)\|\%(\zs[^,"]*\ze\)\)
+<
+
+It is explained as follows:
+
+>
+    1.  \%(                 # unbackref'ed grouping for one CSV field
+    2.     \%(              # first possibility of a field
+    3.        "             # starts and ends with "
+    4.        \zs           # beginning of matched string
+    5.        \%(
+    6.           [^"]\|""   # anything not ", or a "" (escaped quote)
+    7.        \)*
+    8.        \ze           # end of matched string
+    9.        "
+    10.    \)               # end first possibility of field
+    11.   \|                # or
+    12.    \%(              # second possibility
+    13.       \zs
+    14.       [^,"]*        # anything but " and comma
+    15.       \ze
+    16.    \)
+    17. \)
+<
+
+WORKING WITH MULTI-CHARACTER DELIMITERS  *vwt-667-working-with-multi-character-delimiters*
+
+The delimiter can only be one character. This causes the code to fail with 
+delimiters of more than one character, notably if there is a space after each 
+comma (i.e. you want to set delimiter to ", ").
+
+As a workaround you can put this code into your vimrc 
+[https://vim.fandom.com/wiki/Vimrc], the idea is to temporarily replace the 
+multi-character delimiter with a comma. The file will be read-only but you can 
+save changes to a new name. Changes will be silently abandoned if you just 
+close the file. Notice it will change all values that look like the delimiter, 
+even within quoted fields where they are not delimiters. (If your delimiter 
+isn't ", ", modify the code accordingly.)
+
+>
+    autocmd BufWinEnter *.csv set buftype=nowrite | :%s/, /,/g
+<
+
+WORKING WITH EXCEL XLS FILES  *vwt-667-working-with-excel-xls-files*
+
+One can use the xls2csv Perl script [http://search.cpan.org/perldoc?xls2csv] 
+to convert Excel files to CSV, and then view/edit with Vim. You may put the 
+following code in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    autocmd BufReadPre *.xls set ro | setf csv
+    autocmd BufReadPost *.xls silent! %!xls2csv -q -x "%" -c -
+    autocmd BufReadPost *.xls redraw
+<
+
+It will view the XLS file in readonly mode as a CSV file by first converting 
+on-the-fly.
+
+COMMENTS  *vwt-667-comments*
+
+Note
+    - Add any problem reports or quick comments below.
+    - See the discussion page [https://vim.fandom.com/wiki/Talk:Working_with_CSV_files] for extended discussions and more information.
+    - See update [https://vim.fandom.com/wiki/Talk:Working_with_CSV_files#Update_February_2010] for information on improved custom delimiters and a "copy column" command.
+    - There is a filetype [https://www.vim.org/scripts/script.php?script_id=2830] plugin available, that implements most of the commands mentioned here and also adds some syntax highlighting and some more extra commands, including multi-character delimiters.
+    - A copy of the script listed on this wiki page can be found on github [https://github.com/dsummersl/wikia-csv]
+    -  quick comment: (2013-01-31) I changed csv.vim as follows since I often have wrapmargin set to a positive number in, for instance, markdown files.
+    -  There's also exist rainbow_csv plugin for highlighting csv columns in different colors. It can be found on github: rainbow_csv [https://github.com/mechatroner/rainbow_csv]
+
+
+>
+    218c218
+    < setlocal nowrap textwidth=0
+    ---
+    > setlocal nowrap textwidth=0 wrapmargin=0
+    220c220
+    < let b:undo_ftplugin = "setlocal wrap< textwidth<"
+    ---
+    > let b:undo_ftplugin = "setlocal wrap< textwidth< wrapmargin<"
+<
+
+==============================================================================
+
+Addon 
+readingshttp://acg.github.io/2013/03/29/turn-vim-into-excel-tips-for-tabular-data-editing.html 
+[http://acg.github.io/2013/03/29/turn-vim-into-excel-tips-for-tabular-data-editing.html]
+    - Tall Spreadsheets: Always-Visible Column Names Above
+
+
+We want those column names to always be visible, ... splitting the current 
+window in two ... upper for the headers... lower for data:
+
+>
+    :sp
+    :0
+    1 CTRL-W _
+    CTRL-W j
+<
+    - bounded horizontal scrolling of the two windows
+
+
+>
+    :set scrollopt=hor
+    :set scrollbind
+    CTRL-W k
+    :set scrollbind
+    CTRL-W j
+<
+    - No wrap
+
+
+>
+    :set nowrap
+    CTRL-W k
+    :set nowrap
+    CTRL-W j
+<
+    - CSV adn TSV (tab separated)
+
+
+https://gist.github.com/acg/5312217 
+[https://gist.github.com/acg/5312217]https://gist.github.com/acg/5312238 
+[https://gist.github.com/acg/5312238]
+
+Converting CSV to TSV, with C-style escaping:Converting TSV back to CSV, with 
+C-style un-escaping:
+
+>
+    csv2tsv -e < file.csv > file.tsv
+    tsv2csv -e < file.tsv > file.csv
+<

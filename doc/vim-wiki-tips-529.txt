@@ -1,0 +1,104 @@
+*vim-wiki-tips-529.txt*   Make Shift-Tab work *vwt-529*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 529 [https://vim.fandom.com/wiki/Make_Shift-Tab_work]   Previous |vwt-528| Next |vwt-530|
+
+created 2003 · complexity intermediate · author Geoff Hubbard · version 5.7
+
+==============================================================================
+
+Shift-Tab is a useful key combination to be able to use.
+
+I wanted to use it for tab completion: Smart mapping for tab completion 
+|vwt-102|. Many people also use it for unindenting: Shifting blocks visually 
+|vwt-224|.
+
+But Shift-Tab seemed not to work on my system (Slackware 8.1) but I managed 
+to find a solution, and a workaround.
+
+Diagnosis:
+
+Make sure you are getting something from the keypress.Go into insert mode and 
+press <control-v> then <tab>You should get a tab.and press <control-v> then 
+<shift-tab>You should get ^[[Z
+
+If this happens, it is good, you can skip the next part of the diagnosis.
+
+Diagnosis Part 2:
+
+If you get nothing when you do <control-v> then <shift-tab> go to a command 
+line prompt (#) and type:
+
+>
+    # xmodmap -pke | grep 'Tab'
+<
+
+It should either show:
+
+>
+    keycode 23 = Tab
+    or
+    keycode 23 = Tab ISO_Left_Tab
+<
+
+Now, which one is the 'right' one seems to depend on what terminal program 
+you are using its various settings.(I need to use the 'ISO_Left_Tab' one with 
+'xterm' but the 'Tab' one with Eterm)I suggest you try changing to the mapping 
+to the other one and test what you get from the keypresses again. If it 
+doesn't work, you can just change it back.
+
+To change the mapping:
+
+>
+    # xmodmap -e 'keycode 23 = Tab ISO_Left_Tab'
+    or
+    # xmodmap -e 'keycode 23 = Tab'
+<
+
+If changing the xmodmap setting worked, you'll probably need to put it 
+somewhere where it will load on X startup or login.(.xinitrc or .bashrc or 
+somewhere else depending on your system config.)If it didn't work see the 
+other things to try below.
+
+Interpreting shift-tab correctly:
+
+Once you have the shift-tab key combo generating the correct string ^[[Z you 
+just need to make sure that is then interpreted by Vim as <s-tab>
+
+As of version 6.2 Vim does this, so upgrading to 6.2 would be good. If you 
+cannot upgrade for whatever reason try this workaround:
+
+>
+    :map <Esc>[Z <s-tab>
+    :ounmap <Esc>[Z
+<
+
+This will map the key you get when you press shift tab to <s-tab> which you 
+can then use in other maps/scripts I suggest adding these lines (minus the 
+leading : of course) to your .vimrc
+
+A more robust version of the above is to directly tell Vim what escape 
+sequence is used for <S-Tab>. This can be done by setting the t_kB option 
+appropriately:
+
+>
+    :exe 'set t_kB=' . nr2char(27) . '[Z'
+<
+
+Other things to try:
+
+If none of the above worked, here are some other things to investigate.
+
+Make sure your window manager is not eating the keystrokes. You don't have it 
+mapped there to change desktop, or switch between windows or something do you? 
+Use 'xev' to check that shift-tab is registering as a keypress and what it is 
+returning.
+
+COMMENTS  *vwt-529-comments*

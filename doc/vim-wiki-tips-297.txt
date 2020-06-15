@@ -1,0 +1,131 @@
+*vim-wiki-tips-297.txt*   Start in insert mode without losing your escape key *vwt-297*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 297 [https://vim.fandom.com/wiki/Start_in_insert_mode_without_losing_your_escape_key]   Previous |vwt-295| Next |vwt-298|
+
+created August 3, 2002 · complexity basic · author atkinss · version 5.7
+
+==============================================================================
+
+There are two parts to this, each is fairly simple.
+
+First, I want to start in insert mode. Well "set im!" in my vimrc did the 
+job, but I lost the escape key.
+
+Second, I have found that often times, when I'm in command mode, I hit escape 
+trying to get back into insert mode. I am always rewarded with a beep, telling 
+me once again I made that mistake.
+
+So I mapped esc in command mode to set insert mode (":set im") and I mapped 
+esc in insert mode to unset insert mode (<c-o>:set im) Well then I realized if 
+you hit "i" in command mode, escape woulding work the first time. So here's 
+the code to add to your vimrc:
+
+>
+    " Start in insert mode and
+    " set escape to switch to
+    " command mode or back to
+    " insert.
+    set im!
+    map <Esc> :set im!<CR><c-o>:echo <CR>
+    map i :set im!<CR><c-o>:echo <CR>
+    map! <Esc> <c-o>:set im!<CR>:echo <CR>
+    map a :set im<CR><c-o>l<c-o>:echo <CR>
+    map A :set im<CR><c-o>$<c-o>:echo <CR>
+    map o :set im<CR><c-o>$<c-o>:echo <CR><CR>
+    map O :set im<CR><c-o>^<c-o>:echo <CR><CR><c-o>k
+<
+
+I found that I needed all of these so that scripts would work correctly and 
+such.
+
+Don't forget to change your other scripts to use <c-l> rather than <Esc>.
+
+REFERENCES  *vwt-297-references*
+    - :help  |insert|
+
+
+COMMENTS  *vwt-297-comments*
+
+I think a better approach would be to use <C-L> to come to Command Mode from 
+Insert Mode.The script would then be as simple as:
+
+>
+    se im
+    imap <Esc> <C-L>
+<
+
+==============================================================================
+
+>
+    vim -c 'startinsert'
+<
+
+==============================================================================
+
+This works for perfectly me (thank you).By far, the simplest and easiest 
+method - with no configuration changes.
+
+>
+    * for insert mode:  vim -c start
+      * for append mode:  vim -c start\!
+<
+
+Using version 7.0.66 of vim
+
+Just using
+
+>
+    vim -c start
+<
+
+on the command line works perfectly well; no configuration changes are 
+necessary. If you want it to do this all the time, you can add
+
+>
+    alias vim='vim -c start'
+<
+
+to your .bashrc.
+
+==============================================================================
+
+To prevent conficts with insert mode and explorer, help, quickfix, etc type 
+of buffers...I've looking for this behaviour in insert mode a long, long time:
+
+>
+    au BufWinEnter * set noinsertmode
+    au BufWinEnter *.php,*.js,*.inc,*.css,*.html,*.htm set insertmode | imap <buffer> <Esc> <C-l>
+<
+
+This only uses insert mode in my coding-type files, etc. Also uses 
+specifically for this buffers the <Esc> map to <C-l>Also find thins maps 
+usefull with set insertmode:
+
+>
+    imap <M-up> <C-o><MouseDown>
+    imap <M-down> <C-o><MouseUp>
+    imap <C-up> <C-o>{
+    imap <C-down> <C-o>}
+<
+
+Hope is useful for anybody missing it like me. (I'm deleting my last comment 
+for this info)
+
+--Rkg [https://vim.fandom.com/wiki/User:Rkg] 13:09, April 21, 2010 (UTC)
+
+==============================================================================
+
+An alternative to all the above:
+
+edit your .vimrc file to include ":start" at the beginning. Good luck 
+everyone!
+
+~mscyber07

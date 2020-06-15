@@ -1,0 +1,148 @@
+*vim-wiki-tips-1156.txt*   View Source from Internet Explorer in gvim *vwt-1156*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip118 |vwt-118|
+    - VimTip134 |vwt-134|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1156 [https://vim.fandom.com/wiki/View_Source_from_Internet_Explorer_in_gvim]   Previous |vwt-1155| Next |vwt-1158|
+
+created 2006 · complexity basic · author anand · version 5.7
+
+==============================================================================
+
+It turns out that Internet Explorer executes "Notepad %1" when a user invokes 
+View Source by right clicking etc.
+
+So just drop a "Notepad.bat" on your desktop, to execute your choicest 
+scripts, which in this case would be:
+
+>
+    gvim %1
+<
+
+Above will start gvim with the source. The file notepad.bat has to be on your 
+desktop.
+
+COMMENTS  *vwt-1156-comments*
+
+Or, you can set the following registry key:
+
+HKLM\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name 
+(yes, this is the _key_ name)
+
+Set the default value to the path and executable to vim, i.e. 
+f:\pkg\vim\vim63\gvim.exe
+
+==============================================================================
+
+For both the notepad.bat and registery suggestion, how would one ensure that 
+-- when an instance of gvim (or vim) is already open -- that instance is used 
+rather than a new gvim launched?
+
+==============================================================================
+
+To Start all IE view sources files in same instance of gvim use following in 
+Notepad.bat (or registry?)
+
+>
+    gvim --servername IEFILES --remote-silent %1
+<
+
+help/docs on servername and remote-silent will provide further info.
+
+==============================================================================
+
+OK, but how would one write the following logic in notepad.bat:
+
+>
+    1) Let var_name = "IEFILES"
+    
+    2.a) See if (one or more instances of) gvim is already running.
+    2.b) If so, figure out the name of any one instance of gvim; suppose it turns out to be "RUNNING_GVIM".
+    2.c) Set var_name = "RUNNING_GVIM"
+    
+    3) Issue the command:
+    
+    gvim --servername var_name --remote-silent %1
+<
+
+==============================================================================
+
+I'd also like to suggest adding the command line parameter "+set syn=html" so 
+that highlighting works even for poorly written HTML.
+
+I've found the "ViewSourceWith" Firefox extension to be one of the greatest 
+tools in my arsenal. https://addons.mozilla.org/firefox/394/ 
+[https://addons.mozilla.org/firefox/394/]
+
+To sum all this up: (assuming default install path for vim7)
+
+1. In Firefox, install https://addons.mozilla.org/firefox/394/ 
+[https://addons.mozilla.org/firefox/394/]
+
+2. Configure ViewSourceWith to use:
+
+>
+    Editor Path: C:\Program Files\Vim\vim70\gvim.exe
+    Description: gvim
+    Parameters: --servername "VIEW SOURCE" --remote-silent "+set syn=html" $f
+    Shortcut: Shift+Ctrl+U
+<
+
+3. Create the file: C:\Program Files\Vim\vim70\ievim.bat with the following 
+contents:
+
+>
+    "C:\\Program Files\\Vim\\vim70\\gvim.exe" --servername "VIEW SOURCE" --remote-silent "+set syn=html" %1
+<
+
+4. Create the file: C:\Program 
+Files\Vim\vim70\use_gvim_bat_file_for_IE_source_viewer.reg (filename is not 
+important but the extension is) with the following content:
+
+>
+    Windows Registry Editor Version 5.00
+    
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name]
+    @="C:\\Program Files\\Vim\\vim70\\ievim.bat"
+<
+
+5. Open the reg file you just created and choose "yes" to putting the 
+contents of the file into the registry.
+
+Now both Firefox and IE will open page sources into the same gvim session 
+WITH SYNTAX HIGHLIGHTING! The only caveat to this is that if IE is the first 
+to launch the new gvim using the bat file, the cmd.exe window for the bat file 
+stays open. You can simply close it yourself though. Once the gvim session 
+named "VIEW SOURCE" is open, IE will not cause the cmd.exe window to stay open 
+again.
+
+I think this is awesome for someone like me who only uses Windows to see how 
+the browsers treat my code. I still get that warm and vimmy feeling.
+
+==============================================================================
+
+The .bat file method is stupid, and the registry key didn't work for me in 
+IE8, but I found this, which does work:
+
+http://www.wiredprairie.us/blog/index.php/archives/741 
+[http://www.wiredprairie.us/blog/index.php/archives/741]
+
+also:
+
+http://www.winhelponline.com/blog/default-view-source-editor-changed-in-ie8/ 
+[http://www.winhelponline.com/blog/default-view-source-editor-changed-in-ie8/]

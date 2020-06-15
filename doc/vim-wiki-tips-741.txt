@@ -1,0 +1,90 @@
+*vim-wiki-tips-741.txt*   Syntax folding of Python files *vwt-741*
+
+Tip 741 [https://vim.fandom.com/wiki/Syntax_folding_of_Python_files]   Previous |vwt-739| Next |vwt-742|
+
+created 2004 · complexity intermediate · author Lee Chun Kin · version 6.0
+
+==============================================================================
+
+The default files provided with Vim do not provide a way to fold Python 
+programs, however entering the command :setlocal foldmethod=indent while 
+editing a Python program enables folding [https://vim.fandom.com/wiki/Folding] 
+based on the indent level, and that may be all that is needed. However, this 
+tip provides the extra feature of folding def and class regions.
+
+MODIFYING PYTHON.VIM  *vwt-741-modifying-python.vim*
+
+Unfortunately, the Python syntax file provided with Vim does not contain 
+folding information. You can however create a custom Python syntax script that 
+folds def and class regions.
+
+To make this work, copy file python.vim provided with Vim, and modify the 
+copy. In Vim, the file that needs to be copied is 
+$VIMRUNTIME/syntax/python.vim, and the directory $VIMRUNTIME can be determined 
+by entering the following command in Vim: :echo $VIMRUNTIME
+
+For example, on a Unix system the source file might be 
+/usr/share/vim/vim73/syntax/python.vim, while on a Windows system it might be 
+C:\Program Files\Vim\Vim73\syntax\python.vim.
+
+The python.vim file should be copied to the following directory (you need to 
+create any directories that are not present on your system):
+    - ~/.vim/after/syntax on Unix-based systems; or
+    - $HOME/vimfiles/after/syntax on Windows systems (use :echo $HOME to determine your $HOME directory)
+
+
+Open the copied file in Vim and change it like this:
+
+Find the line that looks like:
+
+>
+    syn keyword pythonStatement     nextgroup=pythonFunction skipwhite
+<
+
+and delete it. And also find these lines:
+
+>
+    if version < 600
+      syntax clear
+    elseif exists("b:current_syntax")
+      finish
+    endif
+<
+
+and change them to:
+
+>
+    syntax clear
+<
+
+Additionally, you should create file after/ftplugin/python.vim which sets up 
+folding for Python files. In that file, write:
+
+>
+    setlocal foldmethod=syntax
+    setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')
+<
+
+This will enable syntax folding for Python scripts. Additional settings for 
+Python files can also be in after/ftplugin/python.vim (see indenting source 
+code [https://vim.fandom.com/wiki/Indenting_source_code] for an example).
+
+If the settings from this file do not work, you need to set up the filetype 
+settings in your vimrc [https://vim.fandom.com/wiki/Vimrc] (see :help 
+|:filetype-plugin-on|).
+
+DRAWBACK  *vwt-741-drawback*
+
+The changed syntax script removes the syntax highlighting for keywords class 
+and def.
+
+SEE ALSO  *vwt-741-see-also*
+    - Syntax folding of Vim scripts [https://vim.fandom.com/wiki/Syntax_folding_of_Vim_scripts] contains a complete but complex example on how to syntax fold Vim scripts
+
+
+PLUGINS  *vwt-741-plugins*
+    - jpythonfold [https://www.vim.org/scripts/script.php?script_id=2527]
+    - python_fold [https://www.vim.org/scripts/script.php?script_id=515]
+
+
+COMMENTS  *vwt-741-comments*

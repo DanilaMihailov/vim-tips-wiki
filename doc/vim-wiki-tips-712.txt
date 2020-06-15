@@ -1,0 +1,52 @@
+*vim-wiki-tips-712.txt*   Reverse letters *vwt-712*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 712 [https://vim.fandom.com/wiki/Reverse_letters]   Previous |vwt-711| Next |vwt-713|
+
+created 2004 · complexity basic · author David Fishburn · version 5.7
+
+==============================================================================
+
+Simply enable visual mode (v), highlight the characters you want inverted, 
+and hit \is.
+
+For a single word you can use vw (or viw):
+
+>
+    viw\is
+<
+
+>
+    vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
+     \:let old_reg=@"<CR>
+     \gv"ay
+     \:let @a=substitute(@a, '.\(.*\)\@=',
+     \ '\=@a[strlen(submatch(1))]', 'g')<CR>
+     \gvc<C-R>a<Esc>
+     \:let @a=old_reg_a<CR>
+     \:let @"=old_reg<CR>
+<
+
+COMMENTS  *vwt-712-comments*
+
+If your Vim has +rightleft (check vim --version), the following visual mode 
+map does the job:
+
+>
+    vmap <Leader>fR c<C-O>:set ri<CR><C-R>"<Esc>:set nori<CR>
+<
+
+A map that reverses the sequence of lines (again, visual mode):
+
+>
+    vmap <Leader>fr :<c-u>set lz<CR>'>o<Esc>'<O<Esc>V'>j:<c-u>'<+1,'>-1g/^/m '<<CR>'dd:set nolz<CR>
+<
+
+==============================================================================

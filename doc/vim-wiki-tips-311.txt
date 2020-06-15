@@ -1,0 +1,65 @@
+*vim-wiki-tips-311.txt*   Open the folder containing the currently open file *vwt-311*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip493 |vwt-493|
+    - VimTip1336 |vwt-1336|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 311 [https://vim.fandom.com/wiki/Open_the_folder_containing_the_currently_open_file]   Previous |vwt-309| Next |vwt-312|
+
+created August 13, 2002 · complexity basic · author Thomas R. Kimpton · 
+version 7.4
+
+==============================================================================
+
+Occasionally, on Windows, I have files open in gvim, that the folder for that 
+file is not open for browsing.
+
+The easy way to browse a file's directory without leaving Vim, is to use one 
+of the built-in Netrw commands to open the current file's directory:
+    -  :help  |:Explore|
+    -  :help  |netrw-:Explore|
+    -  :help  |netrw-:Sexplore|
+    -  :help  |netrw-:Vexplore|
+    -  :help  |netrw-:Hexplore|
+    -  :help  |netrw-:Texplore|
+
+
+Netrw or some of its replacements (like NERDtree 
+[https://www.vim.org/scripts/script.php?script_id=1658]) also allow simply 
+editing a directory name to bring up a directory browser, for example with 
+:new %:p:h.
+
+If you prefer the Windows Explorer GUI, this key map opens the folder that 
+contains the currently open file, checking first to prevent trying to open the 
+folder of an unnamed buffer.
+
+>
+    if has("win32")
+      " Open the folder containing the currently open file. Escape properly for Windows cmd shell.
+      nnoremap <silent> <C-F5> :if expand("%:p:h") != "" \| exec "!start explorer.exe" shellescape(expand("%:p:h")) \| endif<CR>
+    endif
+<
+
+If you have Vim 7.4.191 or higher, the mapping can be shortened to:
+
+>
+    nnoremap <silent> <C-F5> :if expand("%:p:h") != "" \| exec "!start explorer.exe" expand("%:p:h:S") \| endif<CR>
+<
+
+Note, if you are using the 'shellslash' option, you will need to temporarily 
+toggle it off in your mapping before using shellescape().
+
+COMMENTS  *vwt-311-comments*
+
+If you prefer to use full Explorer windows (with folder pane etc), modify as 
+follows:
+
+>
+    !start explorer.exe %:p:h,/e<CR>:endif<CR><CR>
+<

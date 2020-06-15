@@ -1,0 +1,105 @@
+*vim-wiki-tips-362.txt*   ColdFusion and matchit *vwt-362*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 362 [https://vim.fandom.com/wiki/ColdFusion_and_matchit]   Previous |vwt-357| Next |vwt-363|
+
+created November 7, 2002 · complexity basic · author zzapper · version 5.7
+
+==============================================================================
+
+I couldn't get any tags to match in Coldfusion files *.cfm either HTML 
+Javascript or ColdFusion tags themselves <cfif ..> ... </cfif>
+
+Much pain was gone thru before I realised that the Syntax File for ColdFusion 
+(/syntax/cf.vim) was called cf and not cfm
+
+Therefore in matchit.cfm I need to add CF in following line and NOT CFM
+
+>
+    au FileType html,jsp,php,cf if !exists("b:match_words") |
+<
+
+COMMENTS  *vwt-362-comments*
+
+I meant edit matchit.vim (not matchit.cfm)
+
+==============================================================================
+
+Ok, Where is this supposed to go exactly? I'm a little confused.
+
+==============================================================================
+
+this is a fairly complex topic and I can't outdo the included docs; It's not 
+as quick to set up as really any other of vims powerful features that I have 
+used before, but its very worthwhile though, if you ask me. Note that it's 
+still quite easy, but usually vim has all the work done for you already with a 
+full install.
+
+Start with
+
+>
+    :h matchit-install
+<
+
+Then follow its instructions to install matchit and get the help loaded for 
+it for the rest of the info.
+
+That is a very general guide for dealing with just about any language, but if 
+you're doing coldfusion, I will add one more shortcut for you. You'll probably 
+want to start with this, in ~/.vim/ftplugin/cf.vim (or 
+vimfiles\ftplugin\cf.vim )
+
+>
+    " Only do this when not done yet for this buffer
+    if exists("b:did_ftplugin")
+      finish
+    endif
+    
+    " Don't load another plugin for this buffer
+    let b:did_ftplugin = 1
+    
+    if exists("loaded_matchit")
+        let b:match_words = '<cfif\>.\{-}>\|<cfif\>.\{-}$:'
+                \ . '<cfelseif\>.\{-}>\|<cfelseif\>.\{-}$:'
+                \ . '<cfelse\>.\{-}>\|<cfelse\>.\{-}$:'
+                \ . '<\/cfif>,'
+            \ . '<cfloop\>.\{-}>\|<cfloop\>.\{-}$:'
+                \ . '<\/cfloop\>.\{-}>,'
+            \ . '<cfoutput\>.\{-}>\|<cfoutput\>.\{-}$:'
+                \ . '<\/cfoutput\>.\{-}>,'
+            \ . '<cftimer\>.\{-}>\|<cftimer\>.\{-}$:'
+                \ . '<\/cftimer\>.\{-}>,'
+            \ . '<!---:--->,'
+            \ . '<cfquery\>.\{-}>\|<cfquery\>.\{-}$:<\/cfquery\>.\{-}>,'
+            \ . '<cfscript>:<\/cfscript>'
+        " Since we are counting things outside of comments only,
+        " It is important we account comments accurately or match_words
+        " will be wrong and therefore useless
+        syntax sync fromstart
+    
+    endif " exists("loaded_matchit")
+<
+
+Don't forget
+
+>
+    filetype plugin on
+<
+
+in your main vimrc, or that will not be processed.
+
+==============================================================================
+
+For the benefit of Googlers, I am going to mention that the point of this tip 
+is to help people configure vim so that one can use the % (percent sign) to 
+jump from word to word, using matched pairs like those mentioned above while 
+writing coldfusion cfm files.
+
+==============================================================================

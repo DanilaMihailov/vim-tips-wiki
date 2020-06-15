@@ -1,0 +1,57 @@
+*vim-wiki-tips-1018.txt*   Look up tags using regular expressions *vwt-1018*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1018 [https://vim.fandom.com/wiki/Look_up_tags_using_regular_expressions]   Previous |vwt-1017| Next |vwt-1020|
+
+created 2005 · complexity intermediate · author Craig Emery · version 6.0
+
+==============================================================================
+
+I use tags a lot. I usually have one tag file per subsystem and I add and 
+remove them from my tags variable when my "focus" changes.
+
+Anyway, one circumstance that I find myself in some times is that I know a 
+function exists and I have a good idea what it's called but can't remember the 
+exact name.
+
+Scenario: find the event handler function.
+
+Ambiguity: Is it handleEvent, HandleEvent, handle_the_event?
+
+Solution: Use regular expressions and command completion to guess.
+
+>
+    :tj /handle.*event<C-D>
+<
+
+When using the tag family of commands you can search through tags when the 
+first character of the keyword you give to the command is /
+
+When used in conjunction with command-line completion (using CTRL-D) you get 
+"instant" feedback on whether your regular expression was close enough.
+
+In a simpler scenario all tag searches using the / character are case 
+insensitive, so even when used without a regular expression, / can help you 
+find the tag you're looking for.
+
+COMMENTS  *vwt-1018-comments*
+
+I should point out that if you have ignorecase (ic) set, then the tags family 
+of commands all do tag lookup in a case insensitive manner, so using / without 
+a regular expression is really just a one-off short-cut to dong a tags lookup 
+whilst ignoring case. It really just saves you setting ic and then unsetting 
+it afterwards.
+
+==============================================================================
+
+Or you can use /\cregexp for searching (adding \c after / makes the search 
+case insensitive).
+
+==============================================================================

@@ -1,0 +1,72 @@
+*vim-wiki-tips-1667.txt*   Combine quickfix steps *vwt-1667*
+
+Tip 1667 [https://vim.fandom.com/wiki/Combine_quickfix_steps]   Previous |vwt-1666| Next |vwt-1668|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201011#Combine_quickfix_steps] 
+November 19, 2010 · complexity basic · author Jjmurre · version 7.0
+
+==============================================================================
+
+Various packages are available to check source code for style compliance or 
+to identify errors such as using a variable before a value is assigned to it. 
+For Python code, two such packages are pyflakes 
+[http://pypi.python.org/pypi/pyflakes] and pep8 
+[http://pypi.python.org/pypi/pep8]. It is convenient to configure Vim's :make 
+command to invoke one of the programs and display any errors in the quickfix 
+window. This tip shows how to run :make multiple times and combine the errors 
+into one quickfix list.
+
+After sourcing the following code, edit a Python file and type :Pycheck to 
+check the code with both pyflakes and pep8 (each of these needs to be 
+installed).
+
+>
+    " Do make with different makeprg settings.
+    " Error lists from each makeprg are combined into one quickfix list.
+    command! Pycheck call DoMake('pyflakes', 'pep8')
+    function! DoMake(...)
+      update  " save any changes because makeprg checks the file on disk
+      let savemp = &makeprg
+      let qflist = []
+      for prg in a:000
+        let &makeprg = prg . ' %'
+        silent make!
+        let qflist += getqflist()
+      endfor
+      if empty(qflist)
+        cclose
+      else
+        call setqflist(qflist)
+        copen
+        cfirst
+      endif
+      let &makeprg = savemp
+    endfunction
+<
+
+The script defines a user command (Pycheck) that invokes the DoMake function, 
+specifying the names of the programs to be run to check the current file. Any 
+changes to the file are saved. Each program name provided (there can be any 
+number) is used to set the 'makeprg' option, then :make! is run to invoke the 
+program and set the quickfix list from the results. The ! option avoids 
+jumping to the first error, if any (later, the script jumps to the first error 
+for the first program, if applicable), while silent prevents the display of 
+normal messages that result from running :make in order to avoid the "Press 
+Enter" prompt.
+
+The quickfix list from each run of :make is appended to qflist (a variable 
+initialised to [] or an empty list). When finished, qflist holds all quickfix 
+messages resulting from running each of the programs. If the list is empty, 
+the quickfix window is closed (if it was currently open from a previous run). 
+Otherwise, the list is used to set Vim's quickfix list, and the quickfix 
+window is opened and the first error displayed.
+
+SEE ALSO  *vwt-1667-see-also*
+    - VimTip76 |vwt-76|
+    - VimTip203 |vwt-203|
+    - VimTip692 |vwt-692|
+    - VimTip1639 |vwt-1639|
+
+
+COMMENTS  *vwt-1667-comments*

@@ -1,0 +1,60 @@
+*vim-wiki-tips-1486.txt*   Omni completion popup menu *vwt-1486*
+
+Tip 1486 [https://vim.fandom.com/wiki/Omni_completion_popup_menu]   Previous |vwt-1484| Next |vwt-1490|
+
+created January 23, 2007 · complexity basic · author RedBeard0531 · version 7
+
+==============================================================================
+
+The omni complete [https://vim.fandom.com/wiki/Omni_completion] feature in 
+Vim is great. Here are some suggestions for working with the popup completion 
+menu.
+
+SETTING THE COLOR  *vwt-1486-setting-the-color*
+
+Try the following command to improve the color of the popup menu (add to your 
+vimrc [https://vim.fandom.com/wiki/Vimrc] if you always want this choice):
+
+>
+    :highlight Pmenu guibg=brown gui=bold
+<
+
+In console Vim, you might want a command like this:
+
+>
+    :highlight Pmenu ctermbg=238 gui=bold
+<
+
+To see how different color schemes look, try (see view all colors |vwt-634|):
+
+>
+    :runtime syntax/colortest.vim
+<
+
+Better still would be to use a color scheme that is designed with the 
+completion menu in mind. For example, marklar.vim Dark colorscheme based on 
+green chalkboard [https://www.vim.org/scripts/script.php?script_id=1483].
+
+USING SUPERTAB  *vwt-1486-using-supertab*
+
+The SuperTab [https://www.vim.org/scripts/script.php?script_id=1643] plugin 
+can be used to avoid needing to press Ctrl-X then Ctrl-O to invoke the popup 
+completion menu. With SuperTab installed, the following setting means you can 
+just press Tab instead.
+
+>
+    let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+<
+
+You may also try the context value, which lets SuperTab decide which 
+completion mode to use and should play well with OmniCompletion:
+
+>
+    let g:SuperTabDefaultCompletionType = "context"
+<
+
+REFERENCES  *vwt-1486-references*
+    - :help  |:highlight|
+
+
+COMMENTS  *vwt-1486-comments*

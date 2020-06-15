@@ -1,0 +1,89 @@
+*vim-wiki-tips-1587.txt*   Change font *vwt-1587*
+
+Tip 1587 [https://vim.fandom.com/wiki/Change_font]   Previous |vwt-1586| Next |vwt-1588|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Change_font] 
+February 16, 2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+In gvim, you can change the font using the Edit menu, Select Font. An 
+alternative is to enter the command:
+
+>
+    :set guifont=*
+<
+
+Once you have a font you like, you want to make it the default in the future. 
+Do
+
+>
+    :set guifont?
+<
+
+and Vim will display something like
+
+>
+    guifont=Lucida_Console:h11
+<
+
+Alternatively, enter the following to insert the current font setting into 
+the buffer:
+
+>
+    :put =&guifont
+<
+
+Now put a line in your vimrc [https://vim.fandom.com/wiki/Vimrc] to set 
+guifont to this value, like this:
+
+>
+    if has('gui_running')
+      set guifont=Lucida_Console:h11
+    endif
+<
+
+If there is a space in the font name, such as
+
+>
+    guifont=Monospace 10
+<
+
+it is necessary to escape the space
+
+>
+    set guifont=Monospace\ 10
+<
+
+The following example shows how vimrc can include settings for more than one 
+operating system, on the assumption that the vimrc file is the same on more 
+than one system. The example also shows how 'guioptions', a color scheme, and 
+the window size can be set.
+
+>
+    if has('gui_running')
+      set guioptions-=T  " no toolbar
+      colorscheme elflord
+      set lines=60 columns=108 linespace=0
+      if has('gui_win32')
+        set guifont=DejaVu_Sans_Mono:h10:cANSI
+      else
+        set guifont=DejaVu\ Sans\ Mono\ 10
+      endif
+    endif
+<
+
+CONSOLE VIM  *vwt-1587-console-vim*
+
+Console Vim uses whatever font the console/terminal is using. Changing the 
+font in your terminal is done differently depending on your system and the 
+terminal in use. Consult the documentation or manpages for your terminal, or 
+do a web search for how to change the font in your chosen terminal. Vim cannot 
+use a different font than the rest of the terminal.
+
+SEE ALSO  *vwt-1587-see-also*
+    - Setting the font in the GUI |vwt-632| details
+
+
+COMMENTS  *vwt-1587-comments*

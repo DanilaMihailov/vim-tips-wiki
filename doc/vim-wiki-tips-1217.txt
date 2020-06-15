@@ -1,0 +1,51 @@
+*vim-wiki-tips-1217.txt*   Get a shell command for changing to the current directory *vwt-1217*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1217 [https://vim.fandom.com/wiki/Get_a_shell_command_for_changing_to_the_current_directory]   Previous |vwt-1215| Next |vwt-1218|
+
+created 2006 · complexity basic · author John L. Clark · version 6.0
+
+==============================================================================
+
+This tip is supposed to provide an easy way to synchronize the current 
+directory between a Vim session and a shell. The most naive approach is to 
+simply build a command for changing to the current directory in Vim, and then 
+paste and execute that command within your shell. This is the approach we take 
+here. The following command line places a string of the form cd "<current 
+directory" in the paste register (@+):
+
+>
+    let @+="cd \"" . escape(getcwd(), "\"") . "\""
+<
+
+Here, we escape any double-quote characters in the path name because quotes 
+are used in the string itself as argument delimiters. You could then map this 
+to a key sequence or use it in other ways. I've chosen to make it the 
+definition for a command, as follows:
+
+>
+    com Scd let @+="cd \"" . escape(getcwd(), "\"") . "\""
+<
+
+"Scd" could stand for "Save current directory" or "Shell cd". Of course, you 
+could use a different name entirely. If you wanted to generate a 'cd' command 
+for the directory of the current file, instead of the current working 
+directory, you could use 'expand("%:p:h")' instead of 'getcwd()' in the above 
+expressions, as mentioned in VimTip64 |vwt-64|. I like to keep the two actions 
+separate, so I have another command for quickly changing to the directory of 
+the current file:
+
+>
+    com Fcd cd %:p:h
+<
+
+Where "Fcd" could stand for "File current directory".
+
+COMMENTS  *vwt-1217-comments*

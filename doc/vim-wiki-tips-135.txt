@@ -1,0 +1,442 @@
+*vim-wiki-tips-135.txt*   Vim buffer FAQ *vwt-135*
+
+Tip 135 [https://vim.fandom.com/wiki/Vim_buffer_FAQ]   Previous |vwt-134| Next |vwt-137|
+
+created 2001 · complexity basic · author Yegappan · version 6.0
+
+==============================================================================
+
+Vim provides various commands and options to support editing multiple 
+buffers. This document covers some of the questions asked about using multiple 
+buffers with Vim. You can get more detailed information about Vim buffer 
+support using the :help |windows.txt| command in Vim. You can also use the 
+help keywords mentioned in this document to read more about a particular 
+command or option. To read more about a particular command or option use the 
+":help <helpkeyword>" command (replace helpkeyword with the command or option 
+name).
+
+See easier buffer switching |vwt-686| if all you want is information on 
+switching between buffers.
+
+What is a Vim buffer?
+
+A buffer is a file loaded into memory for editing. All opened files are 
+associated with a buffer. There are also buffers not associated with any file.
+
+:help |windows-intro|
+
+How do I identify a buffer?
+
+Vim buffers are identified using a name and a number. The name of the buffer 
+is the name of the file associated with that buffer. The buffer number is a 
+unique sequential number assigned by Vim. This buffer number will not change 
+in a single Vim session.
+
+:help |buffers|
+
+How do I create a buffer?
+
+When you open a file using any of the Vim commands, a buffer is automatically 
+created. For example, if you use :edit file to edit a file, a new buffer is 
+automatically created. An empty buffer can be created by entering :enew or 
+:new or :vnew.
+
+How do I add a new buffer for a file to the buffer list without opening the 
+file?
+
+You can add a new buffer for a file without opening it, using the ":badd" 
+command. For example,
+
+>
+    :badd f1.txt
+    :badd f2.txt
+<
+
+The above commands will add two new buffers for the files f1.txt and f2.txt 
+to the buffer list.
+
+:help |:badd|
+
+How do I get a list of all the existing buffers?
+
+You can get a list of all the existing buffers using the ":buffers" or ":ls" 
+or ":files" command. This list is called the 'buffer list'.
+
+To display all the buffers including unlisted buffers, use the ":buffers!" or 
+":ls!" or ":files!" command.
+    - :help  |:buffers|
+    - :help  |:ls|
+    - :help  |:files|
+
+
+How do I delete a buffer?
+
+You can delete a buffer using the ":bdelete" command. You can use either the 
+buffer name or the buffer number to specify a buffer. For example,
+
+>
+    :bdelete f1.txt
+    :bdelete 4
+<
+
+The above commands will delete the buffer named "f1.txt" and the fourth 
+buffer in the buffer list. The ":bdelete" command will remove the buffer from 
+the buffer list.
+
+When a buffer is deleted, the buffer becomes an unlisted-buffer and is no 
+longer included in the buffer list. But the buffer name and other information 
+associated with the buffer is still remembered. To completely delete the 
+buffer, use the ":bwipeout" command. This command will remove the buffer 
+completely (i.e. the buffer will not become a unlisted buffer).
+    - :help  |:bdelete|
+    - :help  |:bwipeout|
+
+
+How do I delete multiple buffers?
+
+You can delete multiple buffers in several ways:
+    -  Pass a range argument to the ":bdelete" command. For example, the following command deletes the buffers 3, 4 and 5.
+
+
+>
+    :3,5bdelete
+<
+    -  Pass multiple buffer names to the ":bdelete" command. For example, the following command deletes buffers buf1.txt, buf2.c and buf3.h.
+
+
+>
+    :bdelete buf1.txt buf2.c buf3.h
+<
+
+In this example, after typing ":bdelete buf", you can press <Ctrl-A> to 
+expand all the buffer names starting with 'buf'.
+    - :help  |:bdelete|
+    - :help  |:bwipeout|
+
+
+How do I remove a buffer from a window?
+
+You can remove a buffer displayed in a window in several ways:
+
+:help |:bunload|
+
+How do I edit an existing buffer from the buffer list?
+
+You can edit or jump to a buffer in the buffer list in several ways:
+    - :help  |:buffer|
+    - :help  |:sbuffer|
+    - :help  |CTRL-W_^|
+    - :help  |CTRL-^|
+
+
+How do I browse through all the available buffers?
+
+You can browse through the buffers in the buffer list in several ways:
+    - :help  |:bfirst|
+    - :help  |:brewind|
+    - :help  |:sbfirst|
+    - :help  |:sbrewind|
+    - :help  |:bnext|
+    - :help  |:sbnext|
+    - :help  |:bprevious|
+    - :help  |:bNext|
+    - :help  |:sbprevious|
+    - :help  |:sbNext|
+    - :help  |:blast|
+    - :help  |:sblast|
+
+
+How do I open all the buffers in the buffer list?
+
+You can open all the buffers present in the buffer list using the ":ball" or 
+":sball" commands.
+    - :help  |:ball|
+    - :help  |:sball|
+
+
+How do I open all the loaded buffers?
+
+You can open all the loaded buffers in the buffer list using the ":unhide" or 
+":sunhide" commands. Each buffer will be loaded in a separate new window.
+    - :help  |:unhide|
+    - :help  |:sunhide|
+
+
+How do I open the next modified buffer?
+
+You can open the next or a specific modified buffer using the ":bmodified" 
+command. You can open the next or a specific modified buffer in a new window 
+using the ":sbmodified" command.
+    - :help  |:bmodified|
+    - :help  |:sbmodified|
+
+
+Is there a simpler way for using the buffers under gvim (GUI Vim)?
+
+Yes, use the 'Buffers' menu to list all the buffers. You can select a buffer 
+name to edit the buffer. You can also delete a buffer or browse the buffer 
+list. Click the dashed line at the top of the menu to tear it off so you can 
+always see a list of the buffers.
+
+:help |buffers-menu|
+
+Is there a Vim script that simplifies using buffers with Vim?
+
+Yes, try the Buffer Explorer 
+[https://www.vim.org/scripts/script.php?script_id=42], minibufexpl 
+[https://github.com/fholgado/minibufexpl.vim] or bufmru 
+[https://www.vim.org/scripts/script.php?script_id=2346] plugins.
+
+Is it possible to save and restore the buffer list across Vim sessions?
+
+Yes. To save and restore the buffer list across Vim session, include the '%' 
+flag in the 'viminfo' option. Note that if Vim is invoked with a filename 
+argument, then the buffer list will not be restored from the last session. To 
+use buffer lists across sessions, invoke Vim without passing filename 
+arguments.
+    - :help 'viminfo'
+    - :help  |viminfo|
+
+
+We can save different buffer list for different folders, by setting a local 
+'viminfo' file.
+
+http://www.vim.org/scripts/script.php?script_id=441 
+[http://www.vim.org/scripts/script.php?script_id=441]
+
+The point is to overwrite the global setting by calling local setting after 
+the 'viminfo' setting, for example.
+
+>
+    set viminfo='1025,f1,%1024
+    call SetLocalOptions(".")
+<
+
+How do I remove all the entries from the buffer list?
+
+You can remove all the entries in the buffer list by starting Vim with a file 
+argument. You can also manually remove all the buffers using the ":bdelete" 
+command.
+
+What is a hidden buffer?
+
+A hidden buffer is a buffer with some unsaved modifications and is not 
+displayed in a window. Hidden buffers are useful, if you want to edit multiple 
+buffers without saving the modifications made to a buffer while loading other 
+buffers.
+    - :help  |buffer-!|
+    - :help 'hidden'
+    - :help  |hidden-buffer|
+    - :help  |buffer-hidden|
+
+
+How do I load buffers in a window, which currently has a buffer with unsaved 
+modifications?
+
+By setting the option 'hidden', you can load a buffer in a window that 
+currently has a modified buffer. Vim will remember your modifications to the 
+buffer. When you quit Vim, you will be asked to save the modified buffers. It 
+is important to note that, if you have the 'hidden' option set, and you quit 
+Vim forcibly, for example using ":quit!", then you will lose all your 
+modifications to the hidden buffers.
+
+:help 'hidden'
+
+Is it possible to unload or delete a buffer when it becomes hidden?
+
+By setting the 'bufhidden' option to either 'hide' or 'unload' or 'delete', 
+you can control what happens to a buffer when it becomes hidden. When 
+'bufhidden' is set to 'delete', the buffer is deleted when it becomes hidden. 
+When 'bufhidden' is set to 'unload', the buffer is unloaded when it becomes 
+hidden. When 'bufhidden' is set to 'hide', the buffer is hidden.
+
+:help 'bufhidden'
+
+How do I execute a command on all the buffers in the buffer list?
+
+You can use the ":bufdo" command to execute a command on all the buffers 
+[https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers] in the buffer 
+list.
+
+:help |:bufdo|
+
+When I open an existing buffer from the buffer list, if the buffer is already 
+displayed in one of the existing windows, I want Vim to jump to that window 
+instead of creating a new window for this buffer. How do I do this?
+
+When opening a buffer using one of the split open buffer commands (:sbuffer, 
+:sbnext), Vim will open the specified buffer in a new window. If the buffer is 
+already opened in one of the existing windows, then you will have two windows 
+containing the same buffer. You can change this behavior by setting the 
+'switchbuf' option to 'useopen'. With this setting, if a buffer is already 
+opened in one of the windows, Vim will jump to that window, instead of 
+creating a new window.
+
+:help 'switchbuf'
+
+What information is stored as part of a buffer?
+
+Every buffer in the buffer list contains information about the last cursor 
+position, marks, jump list, etc.
+
+What is the difference between deleting a buffer and unloading a buffer?
+
+When a buffer is unloaded, it is not removed from the buffer list. Only the 
+file contents associated with the buffer are removed from memory. When a 
+buffer is deleted, it is unloaded and removed from the buffer list. A deleted 
+buffer becomes an 'unlisted' buffer.
+    - :help  |:bunload|
+    - :help  |:bdelete|
+    - :help  |:bwipeout|
+    - :help  |unlisted-buffer|
+
+
+Is it possible to configure Vim, by setting some option, to re-use the number 
+of a deleted buffer for a new buffer?
+
+No. Vim will not re-use the buffer number of a deleted buffer for a new 
+buffer. Vim will always assign the next sequential number for a new buffer. 
+The buffer number assignment is implemented this way, so that you can always 
+jump to a buffer using the same buffer number. One method to achieve buffer 
+number reordering is to restart Vim. If you restart Vim, it will re-assign 
+numbers sequentially to all the buffers in the buffer list (assuming you have 
+properly set 'viminfo' to save and restore the buffer list across Vim 
+sessions).
+
+:help |buffers|
+
+How is a scratch (temporary) buffer created?
+
+In any buffer (for example, after entering :new to create a new buffer), 
+enter the following options to change the current buffer to a scratch buffer:
+
+>
+    :setlocal buftype=nofile
+    :setlocal bufhidden=hide
+    :setlocal noswapfile
+<
+
+This creates a temporary buffer which is not associated with a file, which 
+does not have an associated swap file, and which will be hidden when its 
+window is closed. On exit, Vim discards any text in a scratch buffer without 
+warning.
+
+Also you can use scratch.vim 
+[https://www.vim.org/scripts/script.php?script_id=664] for creating a scratch 
+buffer.
+    - :help  |special-buffers|
+    - :help 'buftype'
+
+
+How do I prevent a buffer from being added to the buffer list?
+
+You can prevent a buffer from being added to the buffer list by resetting the 
+'buflisted' option.
+
+>
+    :set nobuflisted
+<
+
+:help 'buflisted'
+
+How do I determine whether a buffer is modified or not?
+
+There are several ways to find out whether a buffer is modified or not. The 
+simplest way is to look at the status line or the title bar. If the displayed 
+string contains a '+' character, then the buffer is modified. Another way is 
+to check whether the 'modified' option is set or not. If 'modified' is set, 
+then the buffer is modified. To check the value of modified, use
+
+>
+    :set modified?
+<
+
+You can also explicitly set the 'modified' option to mark the buffer as 
+modified like this:
+
+>
+    :set modified
+<
+
+:help 'modified'
+
+How can I prevent modifications to a buffer?
+
+You can prevent any modification to a buffer by re-setting the 'modifiable' 
+option. To reset this option, use
+
+>
+    :set nomodifiable
+<
+
+To again allow modifications to the buffer, use:
+
+>
+    :set modifiable
+<
+
+:help 'modifiable'
+
+How do I set options specific to the current buffer?
+
+You can set Vim options which are specific to a buffer using the "setlocal" 
+command. For example,
+
+>
+    :setlocal textwidth=70
+<
+
+This will set the 'textwidth' option to 70 only for the current buffer. All 
+other buffers will have the default or the previous 'textwidth' value.
+    - :help 'setlocal'
+    - :help  |local-options|
+
+
+How do I define mappings specific to the current buffer?
+
+You can define mappings specific to the current buffer by using the keyword 
+"<buffer>" in the map command. For example,
+
+>
+    :map <buffer> ,w /[.,;]<CR>
+<
+
+:help |map-local|
+
+How do I define abbreviations specific to the current buffer?
+
+You can define abbreviations specific to the current buffer by using the 
+keyword "<buffer>" in the :abbreviate command. For example,
+
+>
+    :abb <buffer> FF for (i = 0; i < ; ++i)
+<
+
+:help |abbreviate-local|
+
+COMMENTS  *vwt-135-comments*
+
+How does one execute a command in a new buffer? For example, execute :tj from 
+the function you're on, in a new buffer window? This is very useful if you 
+don't want to close the buffer you're on, but want to open a new buffer where 
+the code is located.
+
+You're confusing the terminology. What you're really asking for is not a new buffer, but a new window. You can get a new window in many ways. See :help opening-window for the basic commands. In addition, there are many commands (like :tj) that also have a duplicate command that automatically splits the window first (like :stj). --Fritzophrenic 19:36, September 3, 2010 (UTC)
+
+How can one take all open buffers and merge content into a single Buffer? I 
+will try a small script to walk through the bufferlist yank'ing the data to a 
+single buffer but if anyone has a neater way... then thanks in advance. 
+--Chumbawumba69 [https://vim.fandom.com/wiki/User:Chumbawumba69] 06:22, 
+October 5, 2011 (UTC) (sorry if answered but could not find)
+
+I don't think such an answer would belong in an FAQ, but you can probably accomplish this using the Bufdo command, combined with :yank. --Fritzophrenic 17:39, October 5, 2011 (UTC)
+
+Try uppercase register to keep appending conent like "Ayy and then put "ap. Try also articles on the wiki about the global command Power_of_g
+
+Regarding the section on "creating" a scratch buffer, do those commands 
+actually create a buffer, or do they simply transform an existing buffer into 
+a scratch buffer? (I believe it's the latter.) --Joe Sewell 
+[https://vim.fandom.com/wiki/User:Joe_Sewell] (talk 
+[https://vim.fandom.com/wiki/User_talk:Joe_Sewell]) 19:59, April 8, 2014 (UTC)
+
+Yes, you're right. I edited the section to clarify. JohnBeckett (talk) 11:50, April 9, 2014 (UTC)

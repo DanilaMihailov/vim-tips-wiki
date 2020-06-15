@@ -1,0 +1,527 @@
+*vim-wiki-tips-118.txt*   Use gvim to view page source in Internet Explorer *vwt-118*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip134 |vwt-134|
+    - VimTip1156 |vwt-1156|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 118 [https://vim.fandom.com/wiki/Use_gvim_to_view_page_source_in_Internet_Explorer]   Previous |vwt-117| Next |vwt-119|
+
+created September 16, 2001 · complexity basic · author Freddy Vulto · version 
+5.7
+
+==============================================================================
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+It seems like the easiest solution here is to use a shortcut as suggested 
+originally in the comments instead of a script (though you still need to edit 
+your registry). Copied below, some experimentation will be needed as to 
+whether any of the scripting solutions are really needed. Also, recent 
+versions of Vim auto-detect HTML by reading the doctype so manually setting 
+filetype should not be needed.
+
+You can avoid VBScript and EXEs by using a shortcut to Vim. This is 
+especially useful on corporate computers where, for security reasons, 
+scripting may be disabled.
+
+>
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name]
+    @="C:\\Program Files\\vim\\vim62\\gvim_ie.lnk"
+<
+
+This method was tested using Vim 6.2 on Win2K and Vim 6.1 on Win98. Also 
+using Vim 7.3 on WinXP.
+
+==============================================================================
+
+Within the registry, you can specify the source editor to be used by Internet 
+Explorer when View|Source is selected. Unfortunately, you can't specify a 
+quoted filename argument here, i.e. "%1". The editor specified is supposed to 
+handle filenames which contain spaces. This will cause problems for Vim 
+because Vim treats each space as an argument separator. If an unquoted 
+filename contains spaces, Vim treats the filename as multiple arguments and 
+will open multiple files instead of one. To workaround this problem a quoted 
+filename has to be passed to Vim. This can be done by creating the following 
+Visual Basic Script file gVim.vbs:
+
+>
+    'gVim.vbs
+    'function: Start gvim, combining multiple arguments to single file argument.
+    'changes: 20010905: Quoted 'oWShell.Run' filename argument, allowing spaces.
+    ' 20010518: Created.
+    'author: Freddy Vulto
+    option explicit
+    dim oWShell, sArg, sFile
+    set oWShell = CreateObject("wscript.shell")
+    
+    ' Loop through arguments
+    for each sArg in wscript.arguments
+      sFile = sFile & sArg & " "
+    next
+    sFile = Trim(sFile)
+    
+    ' Run Vim with file argument and additional arguments:
+    ' -R: View file readonly
+    ' -c "set syntax=html": Use HTML syntax-highlighting
+    oWShell.Run _
+    """d:\program files\vim\vim60\gvim.exe """ & _
+     "-R """ & sFile & """ " & _
+     "-c ""set syntax=html""" & _
+     "-c ""set filetype=html"""
+    
+    ' Destroy script object
+    set oWShell = NOTHING
+<
+
+The source editor now can be specified by adding the following key to the 
+registry:
+
+>
+    HKEY_LOCAL_MACHINE
+      Software
+        Microsoft
+          Internet Explorer
+            View Source Editor
+              Editor Name (Default) = D:\Programs\Vim\gvim.vbs
+<
+
+
+
+COMMENTS  *vwt-118-comments*
+
+1. Copy the script into a file named gvim.vbs. A good place to put it is the 
+root of your Vim tree (e.g., c:\program files\vim\).
+
+2. Change the path in gvim.vbs to point to your copy of gvim.
+
+3. Save the following as a file named gvim.ie.vbs.reg (or something like 
+that):
+
+>
+    REGEDIT4
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name]
+    @="c:\\Program Files\\vim\\gvim.vbs"
+<
+
+4. Change the path in gvim.ie.vbs.reg to point to your copy of gvim.
+
+5. Double click on the file gvim.ie.vbs.reg, or if you're already editing it 
+in vim, execute the command line
+
+!start regedit "c:\program files\vim\gvim.ie.vbs.reg"
+
+Of course, you can produce the file name by hitting control-r %.
+
+==============================================================================
+
+I added the registry entry for my Internet Explorer 6 and it works, although 
+I only used Editorname=gvim.exe. So it looks like that IE 6 automatically puts 
+quotes around filenames (and Vim therefore can read \winnt\temporary internet 
+files\... without any issues).
+
+Or am I missing something?
+
+==============================================================================
+
+I added this by just specifying gvim.exe and it works on filenames with 
+spaces on IE6.
+
+==============================================================================
+
+For people who hates VB scripts or does not want to have an extra .vbs 
+file,Look at: http://radio.weblogs.com/0100529/WinXp/#ie_editor 
+[http://radio.weblogs.com/0100529/WinXp/#ie_editor]
+
+>
+    1. Open regedit, go to HKEY_LOCAL_MACHINE
+    2. Expand the key "Software"
+    3. Expand the key "Microsoft "
+    4. Expand the key "Internet Explorer"
+    5. Create key "View Source Editor" under "Internet Explorer"
+    6. Create key "Editor Name" under "View Source Editor"
+    7. Change the default value of key "Editor Name" to something named
+       after the view you wish to use, in this example "vi.exe"
+    8. Close things up and expand HKEY_CLASSES_ROOT
+    9. Expand the key "applications"
+    10. Create a new subkey under "applications" with the same name from above. Ex "vi.exe"
+    11. Create a new subkey under the key created in the last step called shell.
+    12. Create a new subkey under shell called open.
+    13. Create a new subkey under edit called command.
+    14. Change the default value under the key command to the full path to
+        your editor in quotes plus "%1" (with the quotes) Ex: "c:\vi\vi.exe" "%1"
+<
+
+==============================================================================
+
+An alternative (quick and dirty) solution is to rename notepad.exe (e.g. to 
+_notepad.exe), and create a batch file called notepad.bat that runs Vim 
+instead. It works for me!
+
+==============================================================================
+
+Just to take this great tip one step farther. Here's how I added syntax 
+highlighting to my source code.
+
+" Open html files from Internet Explorer with certain commandsautocmd BufRead 
+*\ runtime! syntax/html.vim
+
+==============================================================================
+
+Here's how I added syntax colouring to the sourcecode.
+
+Create a file scripts.vim in your user directory with the following code in. 
+See :help |filetype| for more details. This also allows you to start creating 
+an html file and type :filetype detect to get syntax highlighting as well. I'm 
+sure the detection code can be improved, but it works for a first pass!
+
+>
+    if did_filetype()
+      finish
+    endif
+    "Automatic detection of html files.
+    let s:line1 = getline(1)
+    let s:line2 = getline(2)
+    if s:line1 =~ '^<html*' || s:line2 =~ '^<html*'
+      set ft=html
+    endif
+<
+
+==============================================================================
+
+Instead of using regedit to change "View Source Editor" directly, we can also 
+use TweakUI for Windows XP (one of the "Powertoys for Windows XP").
+
+Navigate to "Internet Explorer->View Source". Click "Change Program".
+
+It changes the registry for you. (Exactly the same effect as using regedit.)
+
+==============================================================================
+
+When I set this up, I had to create the keys for the View Source Editor, and 
+its subkey "Editor Name".
+
+In regedit:
+
+Right away I was able to View Source with VIM. If you have tried to View 
+Source before making these changes, I suspect you would have to restart IE or 
+even reboot.
+
+==============================================================================
+
+I'm running Win98SE. I've made all the here to mentioned changes to my VB 
+script and to _vimrc file and my syntax highlighting still does not work:I 
+added this to my _vimrc file.
+
+>
+    " Only do this part when compiled with support for autocommands.
+    if has("autocmd")
+     autocmd BufRead *\[[0-9]] runtime! syntax/html.vim
+    endif
+<
+
+And I'm using the VB script here:
+
+>
+    option explicit
+    dim oWShell, sArg, sFile
+    
+    ' Create script object
+    set oWShell = CreateObject("wscript.shell")
+    ' Loop through arguments
+    for each sArg in wscript.arguments
+     sFile = sFile & sArg & " "
+    next
+    sFile = Trim(sFile)
+    ' Run Vim with file argument. Additional arguments:
+    ' -R: View file readonly
+    ' -c "set syntax=html": Use HTML syntax-highlighting
+    ' NOTE: Use "-c ""set ft=html""" to make it work for Vim v6.
+    oWShell.Run _
+     """C:\Vim\Vim62\gvim.exe """ & _
+     "-R """ & sFile & """ " & _
+     "-c ""set syntax=html""" & _
+     "-c ""set filetype=html"""
+    
+    ' Destroy script object
+    set oWShell = NOTHING
+<
+
+This is all straight from this page. I was wondering if anyone else was 
+having problems getting the syntax highlighting working under Win98SE.
+
+==============================================================================
+
+Here's the latest update of gVim.vbs:
+
+>
+    '--- gVim.vbs -------------------------------------------------------------------------------------
+    'function: Start gvim, combining multiple arguments to single file argument.
+    ' This file is meant to be called from the Internet Explorer {View | Source} menu by
+    ' adding the following keys to the registry:
+    '
+    ' HKEY_LOCAL_MACHINE
+    ' |- Software
+    ' |- Microsoft
+    ' |- Internet Explorer
+    ' | |- View Source Editor
+    ' | |- Editor Name (Default) = "C:\Program Files\Vim\gvim.vbs"
+    ' |
+    ' |- Windows
+    ' |- CurrentVersion
+    ' |- App Paths
+    ' |- gvim.exe (Default) = "C:\Program Files\Vim\Vim62\gvim.exe"
+    '
+    'author: Freddy Vulto
+    option explicit
+    dim oWShell
+    dim oFileSystem
+    dim sArg
+    dim sPathFileArgs
+    dim sPathFileSource
+    dim sPathIeCache
+    dim sPathToVim
+    dim sVimArgs
+    
+    ' Collect arguments into 'sPathFile' variable, separated by spaces
+    set oWShell = CreateObject("wscript.shell")
+    for each sArg in wscript.arguments
+     sPathFileArgs = sPathFileArgs & sArg & " "
+    next
+    sPathFileArgs = Trim(sPathFileArgs)
+    sPathFileSource = sPathFileArgs
+    
+    ' Is extension ext missing from file specification (dir\dir\file.ext)?
+    if (InStrRev(sPathFileArgs, ".") < (InStrRev(sPathFileArgs, "\"))) then
+     ' Yes, filename is missing an extension;
+     ' Does file reside in IE cache?
+     sPathIeCache = oWShell.RegRead( _
+     "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\Cache")
+     if (InStr(sPathFileArgs, sPathIeCache) = 1) then
+     ' Yes, file resides in IE cache;
+     ' Rename '<file>' to '<file>.htm' so Vim can detect if its HTML or XHTML (see function
+     ' 'FTCheck_html()' in 'filetype.vim')
+     set oFileSystem = CreateObject("Scripting.FileSystemObject")
+     sPathFileSource = sPathFileArgs & ".htm"
+     if (oFileSystem.FileExists(sPathFileSource)) then
+     oFileSystem.DeleteFile(sPathFileSource)
+     end if
+     oFileSystem.MoveFile sPathFileArgs, sPathFileSource
+     set oFileSystem = NOTHING
+     else
+     ' No, file doesn't reside in IE cache;
+     ' Better not rename file: assume file is HTML
+     sVimArgs = sVimArgs & " -c ""set syntax=html"" -c ""set filetype=html"""
+     end if
+    end if
+    
+    ' Run Vim with file argument. Additional arguments:
+    ' -R: View file readonly
+    sPathToVim = oWShell.RegRead( _
+     "HKLM\Software\Microsoft\Windows\CurrentVersion\App Paths\gvim.exe\")
+    oWShell.Run sPathToVim & " -R """ & sPathFileSource & """" & sVimArgs
+    
+    ' Destroy script object
+    set oWShell = NOTHING
+<
+
+==============================================================================
+
+There seems to be an additional problem if one wants to use e.g. the 
+--remote-silent option so that the file opens in an existing gvim session. I 
+have the impression that the [-R -c "set ft=html" --remote-files] sequnce does 
+not seem to work: the filetype remains unset, and the file is noreadonly. I 
+adapted the script so that it first runs gvim --remote-silent to pass the file 
+to the current gvim session, and that I use gvim --remote-send to switch to 
+readonly and an additional gvim --remote-send to set the filetype. (Didn't 
+work if both commands were sent together). Works like a breeze. Here's the 
+script as I use it now:
+
+>
+    '--- gVim.vbs -----------------------------------------------------------------
+    'function: Start gvim, combining multiple arguments to single file argument.
+    'changes: 20010905: Quoted 'oWShell.Run' filename argument, allowing spaces.
+    ' 20010518: Created.
+    'author: Freddy Vulto
+    'updated to work with remote vim session
+    
+    ' Making variable declaration mandatory
+    option explicit
+    
+    dim oWShell, sArg, sFile
+    
+    ' Create script object
+    set oWShell = CreateObject("wscript.shell")
+    ' Loop through arguments
+    for each sArg in wscript.arguments
+     ' Add argument to filename
+     sFile = sFile & sArg & " "
+    next
+    ' Remove excess space
+    sFile = Trim(sFile)
+    ' Run Vim with file argument. Additional arguments:
+    ' -R: View file readonly
+    ' -c "set syntax=html": Use HTML syntax-highlighting
+    ' NOTE: Use "-c ""set ft=html""" to make it work for Vim v6.
+    oWShell.Run _
+    """gvim.exe """ & _
+    "--remote-silent " & _
+    """" & sFile & """"
+    
+    oWShell.Run _
+    """gvim.exe """ & _
+    "--remote-send " & _
+    """:se ro<CR>"""
+    
+    ' I have no need to set the syntax separately
+    ' This could be uncommented if need be
+    'oWShell.Run _
+    '"""gvim.exe """ & _
+    '"--remote-send " & _
+    '""":se syntax=html<CR>"""
+    
+    oWShell.Run _
+    """gvim.exe """ & _
+    "--remote-send " & _
+    """:se ft=html<CR>"""
+    
+    ' Destroy script object
+    set oWShell = NOTHING
+<
+
+==============================================================================
+
+Folks... The space before the last quote is critical... Otherwise, the 
+arguments get jumbled like so:
+
+>
+    -c "set syntax=html"-c "set etc..."
+     ^^
+     +---> NOT good!
+<
+
+==============================================================================
+
+It works on Winnt 4 with IE 5.5.
+
+viewsource.reg
+
+>
+    REGEDIT4
+    
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name]
+    @="D:\\ViewSource.bat"
+<
+
+D:\ViewSource.bat
+
+>
+    D:\vim\vim62\gvim.exe -M -c "set syntax=html" -c "set ft=html" "%1 %2 %3 %4 %5 %6 %7 %8 %9"
+<
+
+==============================================================================
+
+The following version of viewsource.bat will work even better because it 
+won't leave the DOS window open. Also, for reasons unknown, the multiple file 
+names problem doesn't occur, however it did with the version in the previous 
+note. Leave viewsource.reg as described there; works fine with Windows XP and 
+IE 6.
+
+>
+    start c:\whereever\gvim.exe -M -c "set syntax=html" -c "set ft=html" -- %1
+<
+
+==============================================================================
+
+More on the batchfile option...
+
+If your Vim is installed in a directory with spaces (e.g., c:\Program 
+files\Vim\Vim63\gvim.exe), either of the following will work:
+
+>
+    start "" "c:\Program files\Vim\Vim63\gvim.exe" -M -c "set syn=html" -c "set ft=html" %1
+<
+
+OR
+
+>
+    start c:\Progra~1\Vim\Vim63\gvim.exe -M -c "set syn=html" -c "set ft=html" %1
+<
+
+The "" in the first is necessary because otherwise "start" will think 
+"c:\...\gvim.exe" is the title of the window.
+
+==============================================================================
+
+I extended a previous poster's script.vim addition. Just add the following 
+code (between BEGINCODE and ENDCODE) to the bottom of your scripts.vim file 
+(mine was at:"C:\Program Files\Vim\vim63") and the script will be run to check 
+any file that Vim loads for a line (within the first 3 non-whitespace lines) 
+that starts with "<html". This means you don't need the .vbs script, and you 
+still get syntax highlighting.
+
+>
+    "Automatic detection of html files.
+    
+    let s:lineNum = 1
+    let s:line1 = getline(s:lineNum)
+    while s:lineNum < 20 && s:line1 =~ '^\s*$'
+     let s:lineNum = s:lineNum + 1
+     let s:line1 = getline(s:lineNum)
+    endwhile
+    let s:line2 = getline(s:lineNum+1)
+    let s:line3 = getline(s:lineNum+2)
+    
+    if s:line1 =~ '^\s*<html*' || s:line2 =~ '^\s*<html*' || s:line3 =~ '^\s*<html*'
+     set ft=html
+    endif
+<
+
+==============================================================================
+
+For Mozilla Firefox, Davide Ficano has written a "ViewSourceWith" extension. 
+Just follow the link below in Firefox, and click on "Install 
+now":https://addons.mozilla.org/extensions/moreinfo.php?application=firefox&id=394 
+[https://addons.mozilla.org/extensions/moreinfo.php?application=firefox&id=394]
+
+Once installed use:Tools -> ExtensionsA window popsup with your installed 
+extension listed. Select "ViewSourceWith" and click "Options".Under "Editor 
+list" click "New" and enter the full path to gvim.exe under "Editor path", and 
+hey presto!
+
+==============================================================================
+
+With reference to the note above about checking for "<html" in the first 
+three lines:I tried this out and found it didn't always work because "<html" 
+isn't always at the start of the line.I changed my version to search 
+for:^.*<html*instead of:^\s*<html*and now we're all happy.
+
+==============================================================================
+
+This has always worked for me:
+
+Put this in a batch
+
+>
+    gvim %1 -c "so $VIMRUNTIME\syntax\html.vim"
+<
+
+And change the registry to point to that batch, as in the main tip.
+
+==============================================================================

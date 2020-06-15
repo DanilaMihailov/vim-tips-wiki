@@ -1,0 +1,66 @@
+*vim-wiki-tips-1573.txt*   Showing syntax highlight group in statusline *vwt-1573*
+
+Tip 1573 [https://vim.fandom.com/wiki/Showing_syntax_highlight_group_in_statusline]   Previous |vwt-1572| Next |vwt-1574|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200806#Showing_syntax_highlight_group_in_statusline] 
+June 22, 2008 · complexity basic · author Dominiko · version 7.0
+
+==============================================================================
+
+You can show the syntax highlight group where the cursor is located in your 
+statusbar. This is especially useful when tweaking a color theme.
+
+First define a function which returns the highlight group syntax under the 
+cursor:
+
+>
+    function! SyntaxItem()
+      return synIDattr(synID(line("."),col("."),1),"name")
+    endfunction
+<
+
+Then insert into your statusline a call to function SyntaxItem:
+
+>
+    set statusline+=%{SyntaxItem()}
+<
+
+Here is a complete example showing the syntax highlight group among other 
+things:
+
+>
+    if has('statusline')
+      set statusline=%#Question#                   " set highlighting
+      set statusline+=%-2.2n\                      " buffer number
+      set statusline+=%#WarningMsg#                " set highlighting
+      set statusline+=%f\                          " file name
+      set statusline+=%#Question#                  " set highlighting
+      set statusline+=%h%m%r%w\                    " flags
+      set statusline+=%{strlen(&ft)?&ft:'none'},   " file type
+      set statusline+=%{(&fenc==\"\"?&enc:&fenc)}, " encoding
+      set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
+      set statusline+=%{&fileformat},              " file format
+      set statusline+=%{&spelllang},               " language of spelling checker
+      set statusline+=%{SyntaxItem()}              " syntax highlight group under cursor
+      set statusline+=%=                           " ident to the right
+      set statusline+=0x%-8B\                      " character code under cursor
+      set statusline+=%-7.(%l,%c%V%)\ %<%P         " cursor position/offset
+    endif
+<
+
+Here is a screenshot [http://dominique.pelle.free.fr/pic/rastafari.vim.png] 
+example.
+
+SEE ALSO  *vwt-1573-see-also*
+    - Identify the syntax highlighting group used at the cursor |vwt-99|
+
+
+REFERENCES  *vwt-1573-references*
+    - :help 'statusline'
+    - :help  |synIDattr|
+
+
+COMMENTS  *vwt-1573-comments*
+
+Does not seem to work for standard groups like trailing characters, etc.

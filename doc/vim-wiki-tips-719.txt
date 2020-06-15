@@ -1,0 +1,39 @@
+*vim-wiki-tips-719.txt*   Use Python to build project in Visual Studio *vwt-719*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 719 [https://vim.fandom.com/wiki/Use_Python_to_build_project_in_Visual_Studio]   Previous |vwt-718| Next |vwt-725|
+
+created 2004 · complexity intermediate · author Jens Berlips · version 6.0
+
+==============================================================================
+
+See also Integrate gvim with Visual Studio 
+[https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio].
+
+This tip's functionality is also provided by visual_studio.vim: script#864 
+[https://www.vim.org/scripts/script.php?script_id=864].
+
+If you want to rebuild the entire project in Visual Studio 6++:
+
+>
+    function! RebuildAllVC()
+    python << EOF
+    import win32com.client
+    obj = win32com.client.GetActiveObject('MSDev.Application')
+    obj.RebuildAll()
+    EOF
+    endfunction
+<
+
+There are a lot more things you can do, check out MSDN 
+[http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcug98/html/_asug_application_object.asp]; 
+the application in that link is the "obj" in the code.
+
+COMMENTS  *vwt-719-comments*

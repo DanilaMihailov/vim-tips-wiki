@@ -1,0 +1,52 @@
+*vim-wiki-tips-1546.txt*   Automatically add Python paths to Vim path *vwt-1546*
+
+Tip 1546 [https://vim.fandom.com/wiki/Automatically_add_Python_paths_to_Vim_path]   Previous |vwt-1545| Next |vwt-1547|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Automatically_add_Python_paths_to_Vim_path] 
+2008 · complexity basic · author Legner · version 7.0
+
+==============================================================================
+
+You can use gf (goto file) in Python source code to open an imported Python 
+file.
+
+Put the following in a script in:
+    - ~/.vim/after/ftplugin/python.vim    (on Unix systems)
+    - $HOME/vimfiles/after/ftplugin/python.vim    (on Windows systems)
+
+
+>
+    python << EOF
+    import os
+    import sys
+    import vim
+    for p in sys.path:
+        # Add each directory in sys.path, if it exists.
+        if os.path.isdir(p):
+            # Command 'set' needs backslash before each space.
+            vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
+    EOF
+<
+
+This allows you to use gf or Ctrl-W Ctrl-F to open the file under the cursor. 
+It works pretty well. particularly for imports of the form:
+
+>
+    import abc.def.module
+<
+
+But not so well with:
+
+>
+    from abc.def import module
+<
+
+REFERENCES  *vwt-1546-references*
+    - :help  |python|
+    - :help  |gf|
+    - :help  |CTRL-W_CTRL-F|
+    - :help  |after-directory|
+
+
+COMMENTS  *vwt-1546-comments*

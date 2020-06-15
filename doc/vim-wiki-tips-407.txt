@@ -1,0 +1,102 @@
+*vim-wiki-tips-407.txt*   Automatically generate PHPdoc comments *vwt-407*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 407 [https://vim.fandom.com/wiki/Automatically_generate_PHPdoc_comments]   Previous |vwt-406| Next |vwt-408|
+
+created 2003 · complexity intermediate · author Klaus Horsten · version 6.0
+
+==============================================================================
+
+Use JCommenter.vim for php-scripts:
+
+jcommenter.vim [https://www.vim.org/scripts/script.php?script_id=20] : A 
+script for automatically generating JavaDoc comments
+
+PHPdoc is an imitation of JAVAdoc. The syntax between the two languages is 
+very close, see the examples below:
+
+EXAMPLE 1  *vwt-407-example-1*
+
+A PHP function.
+
+>
+    function serialize_it($something) {
+      $person = serialize($something);
+      return $person;
+    }
+<
+
+Put the cursor on the first line and type :call JCommentWriter()<CR>
+
+You get:
+
+>
+    /**
+     *
+     *
+     * @param $something
+     * @return
+     */
+    function serialize_it($something) {
+      $personen = serialize($something);
+      return $personen;
+    }
+<
+
+
+
+EXAMPLE 2  *vwt-407-example-2*
+
+A PHP class.
+
+>
+    class submenu {
+     ...
+    }
+<
+
+Put the cursor on the first line and type :call JCommentWriter()<CR>
+
+You get:
+
+>
+    /**
+     *
+     *
+     * @author
+     * @version
+     */
+    class submenu {
+     ...
+    }
+<
+
+EXAMPLE 3  *vwt-407-example-3*
+
+For a class-variable you get:
+
+>
+    /**
+     *
+     */
+    var $urls;
+<
+
+NOTE  *vwt-407-note*
+
+It does not work if you have = like in
+
+>
+    function serialize_it($something = ) {}
+<
+
+But I think jscript.vim can be adapted for the use with PHP.
+
+COMMENTS  *vwt-407-comments*

@@ -1,0 +1,76 @@
+*vim-wiki-tips-1131.txt*   Format only long lines *vwt-1131*
+
+Tip 1131 [https://vim.fandom.com/wiki/Format_only_long_lines]   Previous |vwt-1130| Next |vwt-1132|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+In Vim, you may want to format long lines, that is, wrap long lines so the 
+longest is, say, 80 characters.
+
+The standard approach is to set the local 'textwidth' option, then use gq to 
+format the wanted lines.
+
+>
+    :setl tw=80
+    gggqG
+<
+
+In the above, gggqG is gg (go to the first line) then gq (format) to G (the 
+last line).
+
+That works, but it also joins consecutive short lines together although it 
+does not join lines that are separated with an empty line. For example, this 
+text:
+
+>
+    hello
+    world
+    
+    final
+<
+
+would be formatted to:
+
+>
+    hello world
+    
+    final
+<
+
+To wrap long lines without affecting short lines, use:
+
+>
+    :g/./ normal gqq
+<
+
+The g command [https://vim.fandom.com/wiki/Power_of_g] executes normal gqq on 
+each line matching . (any line with at least one character). The normal-mode 
+gqq command then formats that line.
+
+An alternative would be to use the par text reformatter 
+[https://vim.fandom.com/wiki/Par_text_reformatter]. The following replaces 
+each line that is 80 or more characters with the result of running par. If the 
+buffer contains 1000 long lines, this will call par 1000 times.
+
+>
+    :g/.\{80,\}/ .!par w70
+<
+
+This need arises when you copy/paste a programming snippet into Vim, and you 
+want to leave the indented code alone, but format the long explanation.
+
+SEE ALSO  *vwt-1131-see-also*
+    - 347 Format paragraph without changing the cursor position |vwt-347|
+    - 440 Automatic formatting of paragraphs |vwt-440|
+    - 850 Automatic word wrapping |vwt-850|
+    - 989 Word wrap without line breaks |vwt-989|
+
+
+COMMENTS  *vwt-1131-comments*
+
+How is this better than gq with a line width of 80?
+
+This IS better than gq with a line width of 80 because it prevents short lines without empty line between them from being concatenated! --February 3, 2016
+See :help 'formatprg'. You could probably get the best of both worlds. --Fritzophrenic (talk)

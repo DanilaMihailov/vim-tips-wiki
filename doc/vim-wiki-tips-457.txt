@@ -1,0 +1,41 @@
+*vim-wiki-tips-457.txt*   Follow tag in new window *vwt-457*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 457 [https://vim.fandom.com/wiki/Follow_tag_in_new_window]   Previous |vwt-452| Next |vwt-458|
+
+created 2003 · complexity basic · author PopEsc · version 6.0
+
+==============================================================================
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+this feature is built-in with the CTRL_] and CTRL_} commands
+
+If you use tags, you might want to follow a tag, but leave the current window 
+open. The following mapping allows you to do this easily with Ctrl-\.
+
+>
+    :map <C-\> :sp<CR><C-]><C-w>_
+<
+
+COMMENTS  *vwt-457-comments*
+
+This creates a new window of maximal size and the original window shrinks to 
+one line. To have the windows be of equal size, just eliminate the "<C-w>_" at 
+the end.
+
+==============================================================================
+
+Just use 'CTRL-W ]'.
+
+==============================================================================

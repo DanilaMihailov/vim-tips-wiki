@@ -1,0 +1,114 @@
+*vim-wiki-tips-507.txt*   Quick window resizing *vwt-507*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 507 [https://vim.fandom.com/wiki/Quick_window_resizing]   Previous |vwt-506| Next |vwt-509|
+
+created July 10, 2003 · complexity basic · author Tom Slee · version 5.7
+
+==============================================================================
+
+These key mappings (placed in your vimrc) let you use the F8 and F9 keys to 
+make a window wider or taller. The shift key reverses the effect, and the Ctrl 
+and Alt modifiers go to a choice of standard settings. Mappings to change the 
+font size.(which work slightly differently) are also included. Obviously you 
+can change F8 and F9 to keys of your choice.
+
+>
+    " Window size appearance
+    augroup guiappearance
+      au!
+      set guifont=Andale_Mono:h12
+      :map <F7> :set guifont=Andale_Mono:h12<CR>
+      :map <S-F7> :set guifont=Andale_Mono:h10<CR>
+      :map <C-F7> :set guifont=Andale_Mono:h14<CR>
+      :map <F9> :set lines+=5<CR>
+      :map <S-F9> :set lines-=5<CR>
+      :map <C-F9> :set lines=60<CR>
+      :map <M-F9> :set lines=30<CR>
+      :map <F8> :set columns+=10<CR>
+      :map <S-F8> :set columns-=10<CR>
+      :map <C-F8> :set columns=132<CR>
+      :map <M-F8> :set columns=80<CR>
+    augroup END
+<
+
+COMMENTS  *vwt-507-comments*
+
+Window resizing can also be done at window-manager level, so that it will 
+work for all applications. In my case .fluxbox/keys contains:
+
+>
+    # window sizing
+    Mod4 m :MaximizeWindow
+    Mod1 Mod4 h :HorizontalDecrement
+    Mod1 Mod4 j :VerticalIncrement
+    Mod1 Mod4 k :VerticalDecrement
+    Mod1 Mod4 l :HorizontalIncrement
+    
+    # window movement
+    Mod4 h :BigNudgeLeft
+    Mod4 j :BigNudgeDown
+    Mod4 k :BigNudgeUp
+    Mod4 l :BigNudgeRight
+<
+
+As you can see, I used the familiar vim movement keys.
+
+I mapped mod4 to the windows-key on my keyboard. To achieve this, you will 
+need to put the following lines in ~/.Xmodmap:
+
+>
+    ! alt keys (explicitly configured, without this section meta doesn't work)
+    keycode 64 = Alt_L
+    add mod1 = Alt_L
+    keycode 113 = Alt_R
+    add mod1 = Alt_R
+    
+    ! ms flag keys
+    keycode 115 = Meta_L
+    keycode 116 = Meta_R
+    add mod4 = Meta_L
+    add mod4 = Meta_R
+<
+
+==============================================================================
+
+There is an amazingly intutitive script replacement, called "mouse".Although 
+I wouldn't use it for each cursor movement,I would definitely use it in this 
+particular case, rather than keys bound by some scripts.
+
+==============================================================================
+
+Addition: I use <Ctrl> plus Cursor Keys to resize the current window relative 
+to the neighbour window of a splitted screen.
+
+>
+    ' resize horzontal split window
+    nmap <C-Left> <C-W>-<C-W>-
+    nmap <C-Right> <C-W>+<C-W>+
+    ' resize vertical split window
+    nmap <C-Up> <C-W>><C-W>>
+    nmap <C-Down> <C-W><<C-W><
+<
+
+==============================================================================
+
+This one resizes intuitively the window into the correct direction (Don't be 
+confused by decreasing in all cases). Disadvantage: The cursor changes the 
+window.
+
+>
+    if bufwinnr(1)
+      noremap <silent> <C-H> :vertical resize -3<CR>
+      noremap <silent> <C-L> :vertical resize -3<CR>
+      noremap <silent> <C-J> :resize -3<CR>
+      noremap <silent> <C-K> :resize -3<CR>
+    endif
+<

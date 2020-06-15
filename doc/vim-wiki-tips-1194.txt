@@ -1,0 +1,63 @@
+*vim-wiki-tips-1194.txt*   Navigate to the next open fold *vwt-1194*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1194 [https://vim.fandom.com/wiki/Navigate_to_the_next_open_fold]   Previous |vwt-1193| Next |vwt-1195|
+
+created 2006 · complexity basic · author Ethan Mallove · version 6.0
+
+==============================================================================
+
+I think it makes more sense for ]z and [z to navigate to the next/previous 
+open fold, so I added the following to my vimrc:
+
+>
+    function! GoToOpenFold(direction)
+      let start = line('.')
+      if (a:direction == "next")
+        while (foldclosed(start) != -1)
+          let start = start + 1
+        endwhile
+      else
+        while (foldclosed(start) != -1)
+          let start = start - 1
+        endwhile
+      endif
+      call cursor(start, 0)
+    endfunction
+    nmap ]z :cal GoToOpenFold("next")
+    nmap [z :cal GoToOpenFold("prev")
+<
+
+COMMENTS  *vwt-1194-comments*
+
+Add the normal command "zj/zk" if you'd prefer to have the mapping jump out 
+of the current open fold and into the next open fold.
+
+>
+    " set ]z and [z go to find open folds
+    function! GoToOpenFold(direction)
+      if (a:direction == "next")
+        normal zj
+        let start = line('.')
+        while foldclosed(start) != -1
+          let start = start + 1
+        endwhile
+      else
+        normal zk
+        let start = line('.')
+        while foldclosed(start) != -1
+          let start = start - 1
+        endwhile
+      endif
+      call cursor(start, 0)
+    endfunction
+<
+
+==============================================================================

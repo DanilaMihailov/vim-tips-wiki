@@ -1,0 +1,42 @@
+*vim-wiki-tips-1596.txt*   Using elinks with netrw *vwt-1596*
+
+Tip 1596 [https://vim.fandom.com/wiki/Using_elinks_with_netrw]   Previous |vwt-1595| Next |vwt-1597|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200807#Using_elinks_with_netrw] 
+July 25, 2008 · complexity basic · author Emallove · version 7.0
+
+==============================================================================
+
+The Vim Netrw plugin allows one to view the contents of an http hyperlink via 
+CTRL-W_CTRL-F. Netrw checks the user's system (in this order) for curl, wget, 
+and fetch. Text browsers such as elinks and links are better alternatives to 
+HTTP clients like curl because they have a -dump option which strips out the 
+HTML tags and formats tables for improved ASCII viewing. Getting these 
+text-based web browsers working with Netrw requires a simple wrapper script to 
+format the arguments in the order that Netrw provides them:
+
+>
+    $ agent tempfile url
+<
+
+Here is a sample wrapper script for elinks (in a file named elinks-for-vim).
+
+>
+    #!/bin/sh
+    tempfile=`echo $* | awk '{print $1}'`
+    url=`echo $* | awk '{print $2}'`
+    elinks -dump $url > $tempfile
+<
+
+Then, add this line to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    let g:netrw_http_cmd = "elinks-for-vim"
+<
+
+SEE ALSO  *vwt-1596-see-also*
+    - Preview HTML files quickly |vwt-127|
+
+
+COMMENTS  *vwt-1596-comments*

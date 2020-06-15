@@ -1,0 +1,73 @@
+*vim-wiki-tips-1320.txt*   Search for a C-style for statement *vwt-1320*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1320 [https://vim.fandom.com/wiki/Search_for_a_C-style_for_statement]   Previous |vwt-1319| Next |vwt-1321|
+
+created 2006 · complexity intermediate · author QBerrt · version 5.7
+
+==============================================================================
+
+Q: How to do a search that will find both of the following examples?
+
+>
+    for (
+      int i=0;
+      i<3;
+      i++
+    )
+<
+
+and
+
+>
+    for ( int i=0; i<3; i++)
+<
+
+A: Use this pattern
+
+>
+    \<for\>[ ^I\n]\{-0,}([ ^I\n]\{-0,}.*;[ ^I\n]\{-0,}.*;[ ^I\n]\{-0,}.*[ ^I\n]\{-0,})
+<
+
+Explanation:
+    - \<for\> //Match the word "for"
+    - [ ^I\n]\{-0,} //Match any whitespace (space " ", tab "^I", newline "\n") 0 or more times with a non-greedy search (the negative makes it non-greedy)
+
+
+Why go to all this trouble instead of searching for \<for\>?
+
+Let's say I wanted to find all places where I do a for loop against MAX_INT. 
+I could say:
+
+>
+    /\<for\>[ ^I\n]\{-0,}([ ^I\n]\{-0,}.*;[ ^I\n]\{-0,}.*MAX_INT.*;[ ^I\n]\{-0,}.*[ ^I\n]\{-0,})
+<
+
+COMMENTS  *vwt-1320-comments*
+
+Another possibility using \_, which adds newline matching to various 
+patterns:
+
+>
+    \<for\>\_s*(\_s*.\{-};\_s*.\{-};\_s.\{-}\_s*)
+<
+
+May or may not satisfy your requirement exactly, but works for the given 
+examples.
+
+==============================================================================
+
+This may suffice as well for the first 2 examples:
+
+>
+    \<for\>\_s*(\(\_s*.*;\)\{2}\_s.*\_s*)
+<
+
+==============================================================================

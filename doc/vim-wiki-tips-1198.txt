@@ -1,0 +1,43 @@
+*vim-wiki-tips-1198.txt*   Automatic scrolling of text *vwt-1198*
+
+Tip 1198 [https://vim.fandom.com/wiki/Automatic_scrolling_of_text]   Previous |vwt-1197| Next |vwt-1199|
+
+created 2006 · complexity basic · version 5.7
+
+==============================================================================
+
+Many times you would be happy with the text scrolling automatically at a 
+convenient speed. This helps in places where the text is for reading only 
+(like an ebook), where our only interaction will be scrolling the text. I 
+believe, this might help in speed-reading habits also.
+
+To enable automatic scrolling:
+
+>
+    :map <F8> <C-E>:sleep 3500m<CR>j<F8>
+<
+
+Press <F8> to start auto scrolling. Adjust the speed in the sleep argument. 
+Press Ctrl-C to stop scrolling.
+
+REFERENCES  *vwt-1198-references*
+    - :help  |CTRL-E|
+    - :help  |:sleep|
+    - :help  |:redraw|
+
+
+COMMENTS  *vwt-1198-comments*
+
+This would be a great feature if added to Vim itself. Imagine a key, such as 
+SHIFT-K, which when pressed starts scrolling the text upwards. Pressing it 
+again, increases the speed. Pressing SPACE stops the scrolling. A SHIFT-J 
+would do the reverse, that is scroll downwards.
+
+==============================================================================
+
+I couldn't see any reason for the ^[ so I deleted it. If anyone can think of 
+why the original was map <F8> <C-E>:sleep 3500m<CR>^[j<F8> please say so (^[ 
+is <Esc>).
+
+Of course Shift-K and Shift-J (K and J) have useful meanings already, so you 
+would probably want to use different keys.

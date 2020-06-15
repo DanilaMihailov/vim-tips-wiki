@@ -1,0 +1,83 @@
+*vim-wiki-tips-1215.txt*   Resize splits more quickly *vwt-1215*
+
+Tip 1215 [https://vim.fandom.com/wiki/Resize_splits_more_quickly]   Previous |vwt-1213| Next |vwt-1217|
+
+created April 26, 2006 · complexity basic · author Robert & Bill · version 
+7.0
+
+==============================================================================
+
+This tip is about how to resize Windows |usr_08.txt| efficiently.
+
+You can use the :resize command or its shortcut :res to change the height of 
+the window. To change the height to 60 rows, use:
+
+>
+    :resize 60
+<
+
+You can also change the height in increments. To change the height by 
+increments of 5, use:
+
+>
+    :res +5
+    :res -5
+<
+
+You can use :vertical resize to change the width of the current window. To 
+change the width to 80 columns, use:
+
+>
+    :vertical resize 80
+<
+
+You can also change the width in increments. To change the width by 
+increments of 5, use:
+
+>
+    :vertical resize +5
+    :vertical resize -5
+<
+
+For a split window: You can use Ctrl-w + and Ctrl-w - to resize the height of 
+the current window by a single row. For a vsplit window: You can use Ctrl-w > 
+and Ctrl-w < to resize the width of the current window by a single column. 
+Additionally, these key combinations accept a count prefix so that you can 
+change the window size in larger steps. [e.g. Ctrl-w 10 + increases the window 
+size by 10 lines]
+
+To resize all windows to equal dimensions based on their splits, you can use 
+Ctrl-w =.
+
+To increase a window to its maximum height, use Ctrl-w _.
+
+To increase a window to its maximum width, use Ctrl-w |.
+
+To resize in different steps, you can create maps that will adjust the window 
+size differently. For example to increase the window size by a factor of 1.5 
+and decrease the window size by 0.67, you can map this:
+
+>
+    nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+    nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+<
+
+In Gvim and vim in terminals with mouse support, it is also possible to use 
+the mouse to resize a window. Simply grab the statusline at the window border 
+and drag it into the desired direction.
+
+SEE ALSO  *vwt-1215-see-also*
+    - VimTip427 |vwt-427|
+
+
+PLUGINS  *vwt-1215-plugins*
+
+The following plugins allow to define submodes, that make it possible to use 
+e.g. Ctrl-W + to increase the window size and keep on increasing as long as 
+you keep '+' pressed:
+    -  Andy Wokulas tinymode plugin [https://www.vim.org/scripts/script.php?script_id=2223]
+    -  Kana Natsunos submode plugin [https://www.vim.org/scripts/script.php?script_id=2467]
+    -  Tom Links tiny keymaps [https://www.vim.org/scripts/script.php?script_id=4199]
+
+
+COMMENTS  *vwt-1215-comments*

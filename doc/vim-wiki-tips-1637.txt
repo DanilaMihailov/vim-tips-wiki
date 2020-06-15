@@ -1,0 +1,72 @@
+*vim-wiki-tips-1637.txt*   Synchronize configuration to many computers *vwt-1637*
+
+Tip 1637 [https://vim.fandom.com/wiki/Synchronize_configuration_to_many_computers]   Previous |vwt-1636| Next |vwt-1638|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200910#Synchronize_configuration_to_many_computers] 
+2009 · complexity basic · version 7.0
+
+==============================================================================
+
+Here is how to synchronize your Vim configuration files over many computers 
+(your Windows and Linux PCs, your MacBook, your office PC, etc.). Choose one 
+of the following approaches and tools:
+
+DROPBOX  *vwt-1637-dropbox*
+
+You can use a Dropbox [http://www.getdropbox.com] account to synchronize your 
+configuration files (vimrc or any files) to different computers.
+
+Just move the config files into your ~/Dropbox/ directory (automatically 
+created by installation of Dropbox software) and create new config files at 
+the original location, containing:
+
+>
+    source ~/Dropbox/<configfilename>
+<
+
+Now, each change of the config files inside your Dropbox folder will be 
+synchronized to all other computers immediately.
+
+UNISON  *vwt-1637-unison*
+
+The Unison File Synchronizer [http://www.cis.upenn.edu/~bcpierce/unison/] 
+runs on and across Unix and Windows and is free (source code under GNU 
+license). It detects changes on each system, and prompts for synchronization 
+direction, offers merges, etc. Thus, you can edit your configuration on any 
+system and reconcile any conflicts.
+
+If you only have one master system where you make edits, and just want to 
+push or pull updates to/from clients, the simpler rsync 
+[http://samba.anu.edu.au/rsync/] tool may be sufficient.
+
+One helpful Vim setting in a mixed-OS environment is to use .vim for Vim user 
+settings also for Windows systems (Vim automatically picks up a .vimrc config 
+file instead of _vimrc by default). The following snippet in .vimrc will do 
+the trick, and thus allow you to synchronize without directory renaming:
+
+>
+    " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+    " across (heterogeneous) systems easier.
+    if has('win32') || has('win64')
+      set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+    endif
+<
+
+VERSION CONTROL SYSTEM  *vwt-1637-version-control-system*
+
+Some people have put (parts of) their home directory under version control, 
+using a version control system like Subversion [http://subversion.tigris.org/] 
+or Git [http://git-scm.com/]. Many have also blogged about it, so search the 
+web for instructions and reports.With such a setup, you get a (centralized or 
+distributed, depending on the system being used) versioned history of your Vim 
+configuration, and can use the commands of the version control system (like 
+checkout and commit) to update it.
+
+COMMENTS  *vwt-1637-comments*
+
+Amazing. Some brief info on what "synchronize" means would be good (is there 
+are a master? is each machine a master? what if conflicts? what if a machine 
+is off?). After setup, does the user have to take some specific action apart 
+from modifying one of the specified files? JohnBot 
+[https://vim.fandom.com/wiki/User:JohnBot] 03:38, October 25, 2009 (UTC)

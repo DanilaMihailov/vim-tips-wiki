@@ -1,0 +1,226 @@
+*vim-wiki-tips-139.txt*   Align text plugin *vwt-139*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+
+
+
+
+This tip is very similar to the following:
+    - VimTip893 |vwt-893|
+    - VimTip894 |vwt-894|
+    - VimTip570 |vwt-570|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 139 [https://vim.fandom.com/wiki/Align_text_plugin]   Previous |vwt-138| Next |vwt-140|
+
+created 2001 · complexity basic · author Charles E. Campbell, Jr. · version 
+6.0
+
+==============================================================================
+
+Check out DrChip's Alignment Tool 
+[http://www.drchip.org/astronaut/vim/align.html] to see some examples of text 
+alignment. The alignment is done with the Align.vim and AlignMaps.vim plugins; 
+you can get them from either script 294 
+[https://www.vim.org/scripts/script.php?script_id=294] or from here 
+[http://www.drchip.org/astronaut/vim/index.html#ALIGN]. Among many other 
+things, this pair of plugins lets you:
+    - align C language statements on their = += -= /= etc symbols
+    - align C language declararations: separate columns for types, *[, variable names, initializations (=), and comments (// or /* .. */)
+    - align C/C++ language comments (//, /* .. */)
+    - align C/C++ language (ansi) function argument lists
+    - align LaTeX tables on their && separators
+    - align HTML tables with </TD><TD> separators
+    - align on several characters: < ? : | @ ; (or modify them to handle whatever alignment characters you want)
+
+
+The align plugin also supports:
+    - cyclic left, right, and centering justification
+    - cyclic or equivalent multiple regular-expression separators
+    - improved initial white space control
+    - specifiable separator padding
+    - visual range specified alignment, including via visual-block
+    - an Align.txt help file is available
+
+
+COMMENTS  *vwt-139-comments*
+
+Check on script#177 [https://www.vim.org/scripts/script.php?script_id=177] -- 
+that's Gergely Kontra's MyJustify.vim.I also found Peppe's script at 
+http://rastasoft.org/configs/justify.vim 
+[http://rastasoft.org/configs/justify.vim]Align.vim isn't a textwidth 
+justification script, as no doubt you've noticed.
+
+==============================================================================
+
+I don't think you should include cecutil.vim with plugins, since cecutil is 
+available separately. It could lead to someone installing a newer cecutil, and 
+overwriting it with whatever version is in the latest Align package.
+
+==============================================================================
+
+For # style comments (TCL, perl, shell) , the following maps "\a#" to align 
+them based on the rightmost "#". It also removes extraneous whitespace after 
+the "#".
+
+>
+    map <silent> <Leader>a# \WS:'a,.s/#\([ \t]*\)\(.*\)$/###@@# \2/e<CR>'zk<Leader>tldW@:'y,'zs/^\(\s*\) @@/\1/e<CR>:'y,'zs/ @@ //eg<CR>:'y,'zs/###//eg<CR>\WE
+    vmap <silent> <Leader>a# :<BS><BS><BS><CR>ma'><Leader>a#
+<
+
+It uses special character sequences "@@" and "###" so if these occur 
+naturally in your code, globally replace them with something less common.
+
+==============================================================================
+
+I really don't like breaking out Excel for every little table that I make. So 
+I wanted a simple way to make column aligned text. Align was it.
+
+I did not want visible delimiters in my little tables, so I made a small 
+addition to the AlignMaps.vim file that I have found quite useful. I added a 
+new macro that treats two or more spaces as a delimiter for column definition. 
+So I can just highlight text like this:
+
+>
+    _who_  _what_  _where_
+    Fred  ate  kitchen
+    Joe  read a boring detective novel  bathroom
+<
+
+then I highlight and invoke macro (bound to a key of course) and get:
+
+>
+    _who_  _what_                         _where_
+    Fred   ate                            kitchen
+    Joe    read a boring detective novel  bathroom
+<
+
+The two or more spaces idea means that you can use spaces in column text.
+
+Anyway, the modified macro really just a hack to the existing Align 'tsp' 
+macro:
+
+>
+    map <silent> <Leader>tss \WS:'a,.s/^\(\s*\)\(.*\)/\=submatch(1).substitute(submatch(2),'\s\s\+','@','g')/<CR>:AlignCtrl mIp0P0=l @<CR>:'a,.Align<CR>:'y+1,'z-1s/@/ /g<CR>\WE
+<
+
+May be that there is a more elegant way to get the same result, but I'm 
+pretty happy with the way this one works... I use it all the time.
+
+==============================================================================
+
+I agree that there are advantages in keeping cecutil separate from Align (and 
+other plugins, too). Unfortunately, that means that a large number of 
+potential users would get immediately frustrated. I've been including cecutil 
+with the plugins because of feedback.
+
+If the Align/AlignMaps plugins don't work for you, or you're otherwise having 
+problems, I suggest sending a message about it to me! Often its a matter of 
+some settings the user has/doesn't have set that I don't/do have set. Its 
+helpful to include a copy of your .vimrc so I can figure out what settings are 
+involved. Please also tell me what o/s you're using, and whether you're using 
+Vim or gvim. I generally can't fix it if I can't replicate the problem.
+
+==============================================================================
+
+About \WS and \WE -- I've made :call AlignWrapperStart() and :call 
+AlignWrapperEnd() globally available. Calls to these functions can be made 
+from outside the AlignMaps.vim script (v33). For the \tss map:
+
+>
+    map <silent> <Leader>tss :call AlignWrapperStart()<CR>
+     \:'a,.s/^\(\s*\)\(.*\)/\=submatch(1).substitute(submatch(2),'\s\s\+','@','g')/<CR>
+     \:AlignCtrl mIp0P0=l @<CR>
+     \:'a,.Align<CR>
+     \:silent 'y+1,'z-1s/@/ /g<CR>
+     \:call AlignWrapperEnd()<CR>
+<
+
+==============================================================================
+
+When Align gives me the following:
+
+>
+    define('GRAY'    , "#A0A0A0");
+    define('DGRAY'   , "#808080");
+    define('LGRAY'   , "#C0C0C0");
+<
+
+Sometimes I would rather have:
+
+>
+    define('GRAY',     "#A0A0A0");
+    define('DGRAY',    "#808080");
+    define('LGRAY',    "#C0C0C0");
+<
+
+(Note the space *after* the separator.)
+
+Right now I select the text and do:
+
+>
+    :'<,'>g/./norm Elr,f,r
+<
+
+I thought maybe this AlignCtrl setting would give me the behavior I'm looking 
+for, but no luck.
+
+>
+    :cal AlignCtrl('<')
+<
+
+Is there an an AlignCtrl command for what I want?
+
+==============================================================================
+
+Look at: :help alignmaps -- the AlignMaps includes a bunch of maps which do 
+various jobs which depend upon Align.
+
+==============================================================================
+
+The <Leader>t= mapping doesn't work right in some cases: I got following 
+error message (or similar):
+
+>
+    Error on execution of "function <SNR>8_Equals":
+    Line 15:
+    E121: Undefined variable: norm
+    E15: unvalid expression: norm "'zk<Leader>t@"
+<
+
+This message is obviously correct. It occurs when the filetype is "c" or 
+"cpp". Changing the offending line to
+
+>
+    exe "norm 'zk<Leader>t@"
+<
+
+doesn't help (other error).
+
+My version of align ist 39 (Mar 06, 2008).
+
+What to do?
+
+Thanks,
+
+Thomi
+
+==============================================================================
+
+\tsq, an unadvertised part of the alignment package will do alignment using 
+spaces but ignore spaces between quotes. This is very useful for languages 
+like TCL where you sometimes have groups of quoted text strings that you'd 
+like to align
+
+>
+    { "opt1" "a few words of description" "string" }
+    { "opt2" " some different words"      "string  }
+<

@@ -1,0 +1,159 @@
+*vim-wiki-tips-425.txt*   Forcing Syntax Coloring for files with odd extensions *vwt-425*
+
+Tip 425 [https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions]   Previous |vwt-419| Next |vwt-426|
+
+created 2003 · complexity basic · author zzapper · version 6.0
+
+==============================================================================
+
+If you are editing a file containing PHP script (for example) but the file 
+doesn't have the extension .php, you can force the desired syntax coloring 
+with
+
+>
+    :set syntax=php
+<
+
+similarly
+
+>
+    :set syntax=perl
+    :set syntax=html
+<
+
+Alternatively if the extension causes an undesired coloring, switch off 
+coloring with
+
+>
+    :set syntax=off
+<
+
+look in the directory */vim/vim61/ftplugin / for supported languages 
+(ftplugin == FileType Plugin).
+
+You probably don't want to set the syntax every time you open a file with an 
+extension vim doesn't recognize, though, so here's an example of how to set 
+the syntax automatically in such cases. Say you have a JSON file you designed 
+for storing information about your meals to monitor your health whose 
+extension is ".meals". Vim doesn't know this extension, so by default the 
+syntax is set to off. To have the json syntax automatically set whenever you 
+open a file with the .meals extension, add the following line to your .vimrc 
+file:
+
+>
+    autocmd BufNewFile,BufRead *.meals set syntax=json
+<
+
+COMMENTS  *vwt-425-comments*
+
+You can also let vim determine the filetype by examining the file contents 
+with getline(),see :help |new-filetype-scripts|
+
+==============================================================================
+
+I got these detections by content in my $VIM/vimfiles/ftplugin/filetype.vim:
+
+>
+    " IAR option files for compiler/linker
+    if getline(1) =~ '-!'
+      set ft=xcl
+      " c/cpp in any file containing c/cpp comment in line 1 or 2
+    elseif ((getline(1) =~ '\/\*') || (getline(1)=~ '\/\/') || (getline(2) =~ '\/\*') || (getline(2)=~ '\/\/'))
+      set ft=c
+      " dosbatch in any file containing comment in line 1, 2 or 3
+    elseif ((getline(1) =~ '^rem') || (getline(2)=~ '^rem') || (getline(3)=~ '^rem'))
+      set ft=dosbatch
+    endif
+<
+
+This already worked in vim5.x using script file, see ':h myscriptsfile'
+
+==============================================================================
+
+You mean vim/vim61/syntax. The ftplugin files contain such things as useful 
+mappings for editing certain filetypes, not syntax colouring.
+
+==============================================================================
+
+Something that is also very useful for PHP programmers: Sometimes, when you 
+are at a particular place in a file, the Vim buffer "forgets" what the 
+highlighting should be, PHP or HTML. First, try refreshing the window using 
+Ctrl-L. If this does not work, then try changing php_minlines. This can be 
+done by the following line in your .vimrc file.
+
+>
+    let php_minlines=500
+<
+
+The default is 100 lines.
+
+==============================================================================
+
+>
+    fun! SetSyn(name)
+<
+
+can be found in synmenu.vim in ($VIM/vim62 on win2k); and after some initial 
+handling, runs:
+
+>
+    exe "set syn=" . name
+<
+
+On Win2k, the current all-in-one installer puts the default filtype.vim in 
+$VIM/vim62. My augmentation of filetype.vim (with the same name) is under 
+$VIM/vimfiles. Check out
+    - :help  |runtime|
+    - :help 'runtimepath'
+
+
+to understand the search order. I have a number of syntax highlighting files 
+under $VIM/vimfiles/syntax, only a couple of ftplugins under 
+$VIM/vimfiles/ftplugin (typically for key mapings), and one indent file under 
+$VIM/vimfiles/indent. But, any special handling for filetype detection goes in 
+the filetype.vim.
+
+==============================================================================
+
+Using ':setf perl' also works well, and is fewer characters.
+
+==============================================================================
+
+Include this autocommand to .vimrc, if you do NOT want to override a previous 
+filetype detection, but only set a filetype if the filetype was not detected 
+at all:
+
+>
+    augroup filetypedetect
+        au BufRead,BufNewFile *.foo setfiletype php
+        " associate *.foo with php filetype
+    augroup END
+<
+
+To override any filetype which was already detected, use this instead (note 
+the 'set filetype=' syntax):
+
+>
+    augroup filetypedetect
+        au BufRead,BufNewFile *.module set filetype=php
+    augroup END
+<
+
+e.g.: Vim 7.3 detects example.pc as filetype 'proc' but has no syntax 
+highlighting for Pro C. Override it so that it highlights as C.
+
+>
+    augroup filetypedetect
+        au BufRead,BufNewFile *.pc set filetype=c
+    augroup END
+<
+
+==============================================================================
+
+For individual files, auto-setting is very useful :help |auto-setting|. If 
+the 'modeline' option is on, you can simply add a comment to the beginning or 
+end of the file:
+
+>
+    # vi:syntax=diff
+<

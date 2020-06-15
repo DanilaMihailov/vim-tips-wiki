@@ -1,0 +1,71 @@
+*vim-wiki-tips-413.txt*   Drag and drop file names into the Vim command line *vwt-413*
+
+Tip 413 [https://vim.fandom.com/wiki/Drag_and_drop_file_names_into_the_Vim_command_line]   Previous |vwt-411| Next |vwt-414|
+
+created 2003 · complexity basic · author Thomas Ramming · version 6.0
+
+==============================================================================
+
+You can open files in Vim by drag&drop of selected file names from Windows 
+Explorer.
+
+This also works by dropping into the Vim command line, so for example, you 
+can type :split then type a space, then drag&drop a selected file to Vim 
+window and press Enter.
+
+The complete path and filename is transferred to commandline and the file is 
+opened in a new Vim buffer/window.
+
+COMMENTS  *vwt-413-comments*
+
+This also works in an X-Windows environment, such as Linux uses.
+
+>
+    :edit (drag file on to gvim window) (press Enter)
+<
+
+==============================================================================
+
+In X, you don't even need to type ":edit" first. Just grab a file from your 
+file manager (like Rox) and drag/drop it into Vim.
+
+==============================================================================
+
+I was looking for a way to drag-and-drop multiple files onto a 'gvimdiff' 
+icon (I made one of those from the Gnome gvim icon) for diff editing. However 
+it appears that Gnome wants to launch gvimdiff separately for each file rather 
+than passing them all as arguments to gvimdiff. If I come up with a way I will 
+post here. -- 15:27, 7 October 2008 (UTC)
+
+==============================================================================
+
+Also, (in X) you can drag-and-drop a file onto a running GVim. It will not 
+split the window, but it will replace the file in the window. The replaced 
+file will be one of the buffers you can switch to. (I think it might be a good 
+idea for the default behavior in gvim to split for a new file in this case.) 
+-- 15:27, 7 October 2008 (UTC)
+
+==============================================================================
+
+Good news is that if you hold down CTRL key while drag'n'dropping you do get 
+a split !!!Works at least with Win32 version-- 11:19, 2 January 2009
+
+==============================================================================
+
+TO DO
+    - This is our only drag-and-drop tip, so it needs a little more information.
+    - Probably rename tip and make it more general. Perhaps "Drag and drop".
+    - Incorporate information from :help  |drag-n-drop| which includes:
+    - Can drag and drop one or more files into the Vim window.
+    - Can also drag a directory to explore the directory (or to change to the directory if Shift is held down).
+    - If the cursor is in the command line, the names of the dropped files and directories are inserted.
+    - Otherwise, the files are opened.
+    - If hold down Shift, Vim changes to the directory of the first dropped file.
+    - If hold down Ctrl, the file is opened in a new split.
+
+
+
+--JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:09, 3 January 
+2009 (UTC)
+
+==============================================================================

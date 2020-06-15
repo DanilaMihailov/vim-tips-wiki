@@ -1,0 +1,36 @@
+*vim-wiki-tips-502.txt*   View character class *vwt-502*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 502 [https://vim.fandom.com/wiki/View_character_class]   Previous |vwt-498| Next |vwt-503|
+
+created July 2, 2003 · complexity intermediate · author beo · version 6.0
+
+==============================================================================
+
+This one shows the definition of a predefined character class. ([:alpha:], 
+[:graph:] etc.) The cursor is assumed to point to the name of the character 
+class one wants to examine. Press "cc".
+
+>
+    fun! s:Show()
+      norm! viwy
+      echo 'class [:' . @" . ':]' . "\n"
+      let pat = '[[:' . @" . ':]]'
+      let i = 0
+      while i < 256
+        let ch = nr2char(i)
+        if ch =~ pat | echon ch . '(' . i . ')' . "\t" | endif
+        let i = i + 1
+      endwhile
+    endfun
+    nn cc :call <SID>Show()<Cr>
+<
+
+COMMENTS  *vwt-502-comments*

@@ -1,0 +1,108 @@
+*vim-wiki-tips-996.txt*   Fast jump to line that matches a regular expression *vwt-996*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 996 [https://vim.fandom.com/wiki/Fast_jump_to_line_that_matches_a_regular_expression]   Previous |vwt-995| Next |vwt-997|
+
+created 2005 · complexity basic · author Ivan Tishchenko · version 5.7
+
+==============================================================================
+
+I often use the following sequence of commands (g/pattern/# lists each line 
+containing pattern, with line numbers):
+
+>
+    :g/pattern/#
+    [Here I look through the list and choose the line I want.]
+    [For example, if the line number is 123, I enter:]
+    :123
+<
+
+I do it so often, that I decided to write the following command. It does the 
+following.
+
+>
+    :[range]GJ[ump][!]/pattern/
+<
+
+Syntax is exactly as in :global except that you must NOT specify any commands 
+after /pattern/. You may also use some other delimiter in place of "/", for 
+example, ",".
+
+It prints out numbered list of lines matching the /pattern/ (or not matching, 
+if you add '!'). Then it allows you to enter the number of line you need and 
+moves cursor to that line.
+
+Here is the command.
+
+>
+    command! -nargs=* -bang -range=% GJump <line1>,<line2>call GJump('<bang>',<q-args>)
+    function! GJump(bang, rex) range abort
+      let lines = ''
+      let i=1
+      exe a:firstline ',' a:lastline 'g'.a:bang.a:rex.'echo substitute(strpart(i+1000000,1),"^0\\|\\(0\\@<=0\\)"," ","g") getline(".")|let i=i+1|let lines=lines.(line(".")+1000000)'
+      if i==1
+        return
+      endif
+      while 1
+        let nmr = input('Type in selected number, or press Enter to exit: ')
+        if nmr == ""
+          return
+        endif
+        let nmr = nmr+0 " Make string be number.
+        if nmr>0 && nmr<i
+          break
+        endif
+      endwhile
+      let nmr = strpart(lines,(nmr-1)*7,7)
+      let nmr = nmr-1000000
+      silent exe nmr
+    endfunction
+<
+
+COMMENTS  *vwt-996-comments*
+
+This duplicates behavior of the :ilist command, though I think your approach 
+saves a keystroke or two.
+
+>
+    :ilist /public
+<
+
+The above will display every line that matches the pattern 'public' (all 
+public methods, for example). The matching line's linenumber will be to the 
+left of the displayed line. You can then type ':<linenumber><CR>' to go to the 
+appropriate line.
+
+You can abbreviate :ilist to :il so you could enter :il /public.
+
+==============================================================================
+
+However, :ilist searches the current file, and also all included files. This 
+is not what I want, and is too slow.
+
+Also, the tip makes selecting the wanted line a lot easier.
+
+==============================================================================
+
+To put the output of :g/<re>/p or any Ex-command into a register, do the 
+following:
+
+>
+    :redir @a> | exe '<Ex-cmd that you want to capture output goes here>' | redir END
+<
+
+Now the output of the command is in register "a". Place in buffer where you 
+want it with "ap.
+
+The reason for wrapping the command in quotes and exe-ing it is because some 
+commands, like :global, see the following | as part of the command, so the 
+redirection doesn't behave properly. :help |:redir| :help |:bar|
+
+==============================================================================

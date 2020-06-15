@@ -1,0 +1,103 @@
+*vim-wiki-tips-1266.txt*   Newlines and nulls in Vim script *vwt-1266*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1266 [https://vim.fandom.com/wiki/Newlines_and_nulls_in_Vim_script]   Previous |vwt-1265| Next |vwt-1267|
+
+created 2006 · complexity intermediate · author Eric Arnold · version 5.7
+
+==============================================================================
+
+There is often a question as to why newlines aren't doing what the user 
+expects inside Vim script.
+
+When \n is stored in a Vim variable/register/etc, it is stored as a NULL, and 
+then translated back to a real newline under circumstances such as "put".
+
+Try inserting a newline in insert mode, i.e. ^V^J (or ^Q^J if you're using 
+the mswin behavior). You will see a <00> show up.
+
+Now try these to help understand further:
+
+>
+    let @a = "a" . "\n" . "b"
+    or
+    let @a = "a" . "\x0a" . "b"
+<
+
+and put it into the buffer using "ap or :put a
+
+You should see:
+
+>
+    a
+    b
+<
+
+"put" is especially smart about translating the newlines from NULLs back to 
+0x0a. Now do:
+
+>
+    call setline(".", @a)
+    or
+    call append("$", @a)
+<
+
+You should see:
+
+>
+    a<00>b
+<
+
+It's not a happy reality, since NULLs and newlines cannot cooexist in Vim 
+script strings in various circumstances.
+
+In Vim 7 you have the option of giving a list to setline() and append(), 
+which solves the line break ambiguity:
+
+>
+    call setline(".", [ 'a', 'b' ] )
+<
+
+I'm now using lists everywhere I can, in preference to concatenated strings 
+with newline separators. I usually split() any such strings I find into a list 
+for easier manipulation. This sidesteps all the usual pitfalls trying to 
+handle line breaks manually as embedded characters.
+
+COMMENTS  *vwt-1266-comments*
+
+A useful function in this context:
+
+>
+    :echo strtrans(@a)
+    a^@b
+<
+
+==============================================================================
+
+Another question: Why does s/\r/\r/ change <CR> to <NL>?
+
+This is because Ex commands (as opposed to function calls) are trying to be 
+extra smart about linebreaks. In this case:
+
+>
+    let @a = substitute( "a\rb", '\r', '\r', 'g' )
+    call setline( "$", @a )
+    a<0d>b
+<
+
+You can see that Vim is still storing the carriage return, but is getting 
+translated on the back end, in this case by the s/\r/\r/ command. I think the 
+\r case is treated specially by the Ex s/ command, since :put a doesn't put 
+'a' and 'b' on different lines.
+
+The moral of the story is: find out what works, and remember it, because 
+trying to apply universal rules won't work.
+
+==============================================================================

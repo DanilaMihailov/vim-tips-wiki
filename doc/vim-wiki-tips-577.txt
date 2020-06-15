@@ -1,0 +1,36 @@
+*vim-wiki-tips-577.txt*   Access vim@vim.org using Newsgroup Reader *vwt-577*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 577 [https://vim.fandom.com/wiki/Access_vim@vim.org_using_Newsgroup_Reader]   Previous |vwt-576| Next |vwt-579|
+
+created 2003 · complexity basic · author Pan Shizhu · version 6.0
+
+==============================================================================
+
+For some reason one may not prefer mailling lists over usenet newsgroups 
+(like me).
+
+IMHO Newsgroup reader is a lot more versatile and easy to use. So, find a 
+newsgroup equivalent for vim@vim.org is improtant for newsgreoup users. 
+Unfortunately, the comp.editors on USENET is not as active as vim@vim.org.
+
+The non-official news server news.gmane.org, have a mirror to vim@vim.org, 
+named gmane.editors.vim, the maillist vim@vim.org and newsgroup 
+gmane.editors.vim seemed to be syncronised together.
+
+To access the gmane news, just new an account with the NNTP server 
+news.gmane.org, then find the newsgroup gmane.editors.vim, then you can enjoy 
+vim@vim.org with your favorate news reader program, and without messing up 
+mailling list messages with your private e-mail client (which is what the 
+newsgroup designed for).
+
+I think gmane.editors.vim should be highly recommended for newsgroup users.
+
+COMMENTS  *vwt-577-comments*

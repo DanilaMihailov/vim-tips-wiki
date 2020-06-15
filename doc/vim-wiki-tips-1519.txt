@@ -1,0 +1,118 @@
+*vim-wiki-tips-1519.txt*   Making CapsLock work in Vim *vwt-1519*
+
+Tip 1519 [https://vim.fandom.com/wiki/Making_CapsLock_work_in_Vim]   Previous |vwt-1518| Next |vwt-1520|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Making_CapsLock_work_in_Vim] 
+2007 · complexity intermediate · author Carl Smotricz · version 6.3
+
+==============================================================================
+
+This tip describes how to make Caps Lock work "normally" in Vim without 
+interfering with command mode.
+
+It relies on an external program, AutoHotKey [http://www.autohotkey.com], and 
+has been tested on Windows. It could be adapted to Linux using xmodmap 
+[http://www.xfree86.org/4.2.0/xmodmap.1.html] or similar utilities.
+
+THE PROBLEM  *vwt-1519-the-problem*
+
+While most modern programming languages are edited in mixed case, there are 
+occasions, such as writing DISCLAIMER OF LIABILITY blurbs in EULAs or editing 
+legacy FORTRAN or COBOL code, where a correctly working Caps Lock would be a 
+boon.
+
+vi (and therefore, Vim) and Caps Lock do not go well together, because 
+letters are commands and case sensitive. Setting CapsLock will make vi(m) 
+behave in very strange ways in command mode.
+
+THE SOLUTION  *vwt-1519-the-solution*
+
+A partial solution of mine was to create, in my vimrc, a couple of Vim 
+commands/functions called Caps and Mixed which set case on input only:
+
+>
+    command -nargs=0 Caps :call s:Caps()
+    command -nargs=0 Mixed :call s:Mixed()
+    function s:Caps()
+      im a A
+      im b B
+      im c C
+      --snip--
+      im z Z
+      echo "CAPS ON"
+      hi LineNr term=underline ctermfg=3 guifg=Red3 guibg=#cccccc
+    endfunction
+    
+    function s:Mixed()
+      im a a
+      im b b
+      im c c
+      --snip--
+      im z z
+      echo "Caps Off"
+      hi LineNr term=underline ctermfg=3 guifg=Red3 guibg=#99dddd
+    endfunction
+<
+
+Elsewhere, I mapped F5 and F6 to set up caps or mixed, respectively:
+
+>
+    map <F5> :Caps<CR>
+    map <F6> :Mixed<CR>
+<
+
+This is a Vim-only solution requiring no outside help.
+
+To remind myself of the current state of capslocking, I change the color of 
+the line number prefix area. Since I always have line numbers on when editing 
+FORTRAN, and since I rarely change my color scheme, this works satisfactorily 
+for me. Other folks may want to set up other indicators, or dispense with them 
+altogether.
+
+Over the course of some weeks, I managed to partially train myself to hit F6 
+when typing literal text or comments, and F5 for "normal" code, which needs to 
+be all upper case. But it doesn't feel right to use these (hard to reach) keys 
+in Vim and Caps Lock elsewhere. I didn't find a solution in Vim, so I use the 
+freeware utility AutoHotKey [http://www.autohotkey.com] to help. Here's the 
+script:
+
+>
+    State = 0
+    $CapsLock::CapsFunc(State)
+    
+    CapsFunc(ByRef State)
+    {
+       if (not WinActive(ahk_class Vim)) {
+          Send {CapsLock}
+       } else if (State == 0) {
+          Send {F6}
+          State = 1
+       } else {
+          Send {F5}
+          State = 0
+       }
+    }
+<
+
+AutoHotKey provides a script compiler which allowed me to turn this script 
+into a .EXE file of 200K.
+
+The special remapping of the CapsLock key happens only within programs having 
+Window Class "vim" (in other words, in gvim), so Caps Lock works as usual in 
+other programs.
+
+I've tested this solution under Windows 2000, but it should run in most other 
+versions of Windows too. The AHK documentation mentioned some caveats 
+concerning W95 and WinME.
+
+COMMENTS  *vwt-1519-comments*
+
+TO DO
+    - If it's really necessary to have 26 mappings, you could probably have one map command repeated in a loop (using execute).
+    - Shouldn't the "Mixed" function just unmap the keys rather than mapping them again? What does Vim do with imap a a?).
+    - Is there a Vim-only solution that allows use of CapsLock via the CapsLock key without using an external program, but also keeps CapsLock off in normal mode?
+    - Improve the title (there is no particular fault with CapsLock in Vim). Perhaps rename to "Disable caps lock in normal mode".
+
+
+==============================================================================

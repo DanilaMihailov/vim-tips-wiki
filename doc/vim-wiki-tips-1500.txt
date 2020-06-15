@@ -1,0 +1,47 @@
+*vim-wiki-tips-1500.txt*   Open files in same window under Mac OS X *vwt-1500*
+
+Tip 1500 [https://vim.fandom.com/wiki/Open_files_in_same_window_under_Mac_OS_X]   Previous |vwt-1499| Next |vwt-1501|
+
+created February 1, 2007 · complexity intermediate · version 6.0
+
+==============================================================================
+
+This tip shows you how to open files from the command line in the same window 
+(Vim instance), using applescript. The applescript is specific to Vim.app.
+
+Create a file called gvim.scpt (for example) with the following applescript 
+code:
+
+>
+    on run argv
+       tell application "Vim"
+          repeat with n from 1 to (count of argv)
+             set theUnixPath to item n of argv
+             set theMacPath to (POSIX file theUnixPath) as string
+             open file theMacPath
+          end repeat
+          activate
+       end tell
+    end run
+<
+
+This applescript tells a running Vim.app to open each argument in a new 
+buffer. The script can be invoked with the 'osascript' command ('man 
+osascript' for details): a good way to do this is to create a shell script 
+somewhere in your path:
+
+>
+    #!/bin/sh
+    osascript /path/to/gvim.scpt $*
+<
+
+What this doesn't do yet: Create the files automatically if they do not 
+exist. In fact the script will fail and complain if you pass the name of a 
+file that doesn't exist, and any following files also won't be opened.
+
+COMMENTS  *vwt-1500-comments*
+
+see this page for doing this with the new mac vim 
+[http://groups.google.com/group/vim_mac/browse_thread/thread/50e31732f2f83610/ab70ba5be5edc205#ab70ba5be5edc205]
+
+==============================================================================

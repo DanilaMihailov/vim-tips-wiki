@@ -1,0 +1,100 @@
+*vim-wiki-tips-124.txt*   Number a group of lines *vwt-124*
+
+Tip 124 [https://vim.fandom.com/wiki/Number_a_group_of_lines]   Previous |vwt-123| Next |vwt-125|
+
+created October 1, 2001 · complexity basic · author Brian Medley · version 
+5.7
+
+==============================================================================
+
+Below is a way to number a set of lines. Here is an example before and after 
+snapshot:
+
+>
+    apple
+    bob
+    pear
+    tree
+    
+    1 apple
+    2 bob
+    3 pear
+    4 tree
+<
+
+DESCRIPTION  *vwt-124-description*
+
+This provides a command and a function. They both can be called with or 
+without a range. In addition, they can be called with or without arguments. 
+Without a range they operate on the current line.
+
+There are two supported arguments. They are described below:
+    -  arg1 the number to start at. The default is one. This will
+
+
+number your selected lines sequentially. The start can be anumber, ., $, or, 
+'x (like getline).
+    -  arg2 Text to append after numbers. The default is a space.
+
+
+EXAMPLES  *vwt-124-examples*
+
+To provide your functionality:
+
+>
+    :%Nlist 20
+    :%call Nlist(20)
+<
+
+To make a list start at 1:
+
+>
+    :'<,'>Nlist
+    :'<,'>call Nlist()
+<
+
+To number the whole buffer (with it's actual line number):
+
+>
+    :%Nlist
+    :%call Nlist()
+<
+
+To number a subset of lines with their line number (and put a '] ' infront of 
+every number):
+
+>
+    :'<,'>Nlist . ]\
+    :'<,'>call Nlist(".", "] ")
+    
+    command! -nargs=* -range Nlist <line1>,<line2>call Nlist(<f-args>)
+<
+
+>
+    function! Nlist(...) range
+      if 2 == a:0
+        let start = a:1
+        let append = a:2
+      elseif 1 == a:0
+        let start = a:1
+        let append = " "
+      else
+        let start = 1
+        let append = " "
+      endif
+      " try to work like getline (i.e. allow the user to pass in . $ or 'x)
+      if 0 == (start + 0)
+        let start = line(start)
+      endif
+      exe a:firstline . "," . a:lastline . 's/^/\=line(".")-a:firstline+start.append/'
+    endfunction
+<
+
+COMMENTS  *vwt-124-comments*
+
+There is now a plugin nlist.vim 
+[https://www.vim.org/scripts/script.php?script_id=101] that does this. The 
+plugin also handles justifying the numbers. I probably should have waited and 
+not made this tip.
+
+==============================================================================

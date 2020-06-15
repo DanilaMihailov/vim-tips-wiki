@@ -1,0 +1,25 @@
+*vim-wiki-tips-742.txt*   Change filetype based on directory path *vwt-742*
+
+Tip 742 [https://vim.fandom.com/wiki/Change_filetype_based_on_directory_path]   Previous |vwt-741| Next |vwt-743|
+
+created 2004 · complexity basic · author Michael Pyne · version 6.0
+
+==============================================================================
+
+I recently installed pyblosxom to do blogging, using Vim to edit blog posts. 
+Pyblosxom automatically transforms .txt files under a certain path into HTML, 
+RSS, or whatever else is appropriate. These .txt files will probably contain 
+HTML, so if you would like to tell Vim to use a different syntax highlighting 
+style for files under a directory path, try adding this to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    autocmd BufRead,BufNewFile ~/.pyblosxom/data/* set syntax=html
+<
+
+COMMENTS  *vwt-742-comments*
+
+As an aside, another way to go about this would be a user command that gives 
+you a skeleton entry, saved and named (for instance current time/date stamp) 
+as you desire with your cursor placed where you want. File format, patch mode 
+and other such options can be set as desired as well.

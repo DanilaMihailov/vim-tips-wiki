@@ -1,0 +1,166 @@
+*vim-wiki-tips-965.txt*   GNU Screen integration *vwt-965*
+
+Tip 965 [https://vim.fandom.com/wiki/GNU_Screen_integration]   Previous |vwt-964| Next |vwt-966|
+
+created 2005 · complexity basic · author tlgrok 
+[https://vim.fandom.com/wiki/User:Tlgrok] · version 6.0
+
+==============================================================================
+
+GNU Screen [http://www.gnu.org/software/screen/] is a terminal multiplexer. 
+This tip deals with Screen and Vim integration.
+
+GETTING THE ESC KEY TO WORK  *vwt-965-getting-the-esc-key-to-work*
+
+If you use Vim under Screen, you might find that the Esc key doesn't work. To 
+fix this, add the following to your .screenrc:
+
+>
+    maptimeout 5
+<
+
+This may be necessary so Screen will wait no more than 5 milliseconds between 
+characters when detecting an input sequence.
+
+FIXING OTHER KEYS  *vwt-965-fixing-other-keys*
+
+You might find that certain keys, such as <Home> and <End>, don't work 
+properly. To fix this, you need to add something like this to your .vimrc:
+
+>
+    " Fix keycodes
+    map ^[[1~ <Home>
+    map ^[[4~ <End>
+    imap ^[[1~ <Home>
+    imap ^[[4~ <End>
+<
+
+To get the correct key code (the "^[[1~" bit) for your terminal, press Ctrl-v 
+while in Insert mode, and then the required key. Note that you cannot simply 
+copy and paste the above text: you must use Ctrl-v. ("^[" is not a character 
+sequence; it is Vim's on-screen representation of a non-printable character.) 
+Also note that Ctrl-v might be mapped to something else in your configuration. 
+See :help |i_CTRL-V|.
+
+You can check whether your mapping works by entering the following in Normal 
+mode (not in your .vimrc), and pressing Home:
+
+>
+    :map <Home> :echo "It works!"<CR>
+<
+
+CHANGING VIM'S IDEA OF THE TERMINAL  *vwt-965-changing-vim's-idea-of-the-terminal*
+
+In addition to the Esc key, you might find that all sorts of other things 
+don't work the way they should. This is because, by default, Screen sets the 
+$TERM environmental variable to "screen", which Vim does not recognize. There 
+are two (or three) ways to fix this:
+
+(I'm going to assume you're using an xterm-compatible terminal, such as 
+gnome-terminal, but you should obviously replace "xterm" with the terminal you 
+use if this is not the case.)
+
+1ST ALTERNATIVE: MODIFY YOUR .SCREENRC  *vwt-965-1st-alternative:-modify-your-.screenrc*
+
+Add the following line to your .screenrc:
+
+>
+    term xterm
+<
+
+Note: This changes the $TERM variable, so it affects more than Vim.
+
+You could also use the following :
+
+>
+    term screen-256color
+<
+
+This will fix so the colours will look the same as in vim outside screen.
+
+2ND ALTERNATIVE: MODIFY YOUR .VIMRC  *vwt-965-2nd-alternative:-modify-your-.vimrc*
+
+The very simplest thing to do is to add the following lines to your .vimrc:
+
+>
+    if match($TERM, "screen")!=-1
+      set term=xterm
+    endif
+<
+
+If you want different behaviors whenever you're running Screen (see below for 
+ideas), use the following alternative:
+
+>
+    if match($TERM, "screen")!=-1
+      set term=xterm
+      let g:GNU_Screen_used = 1
+    else
+      let g:GNU_Screen_used = 0
+    endif
+    
+    " Screen-ify an external command.
+    function InScreen(command)
+      return g:GNU_Screen_used ? 'screen '.a:command : a:command
+    endfunction
+<
+
+SCREEN-AWARE COMMANDS  *vwt-965-screen-aware-commands*
+
+If you decided you'd like there to be a g:GNU_Screen_used variable, you may 
+use it in all sorts of ways.
+
+Say, for instance, you've defined a command to play a music file under your 
+cursor:
+
+>
+    let s:music_player = 'mplayer'
+    function PlayTune()
+      exe '!'.s:music_player.' "'.expand('<cfile>').'"'
+    endfunction
+<
+
+If you're using Screen, you may well want mplayer to open in a different 
+terminal window (but open normally if Screen is not in use). To achieve this, 
+use the following alternative:
+
+>
+    let s:music_player = InScreen('mplayer')
+    function PlayTune()
+      exe '!'.s:music_player.' "'.expand('<cfile>').'"'
+    endfunction
+<
+
+COMMENTS  *vwt-965-comments*
+
+The "Fixing some keys" bits (besides being poorly titled; feel free to 
+change) is not so good. It works, but it's a hack, and there's bound to be a 
+way to fix this at the source - that is, in Screen's own configuration. If 
+anybody reads this and knows how to do this, please contribute. tlgrok 
+[https://vim.fandom.com/wiki/User:Tlgrok] 20:36, 21 January 2009 (UTC)
+
+==============================================================================
+
+Could you please give an example of the exact control character for the first 
+map example. I am on screen on Mac OS X. I tried C-v <HOME> but HOME already 
+pages to top of screen's buffer.
+
+I have moved your question from the middle of the tip to the Comments 
+section, as above. I have not tried the scenario described in this tip, and if 
+you really need help you might have to try the mailing list (click "Community 
+portal" in the sidebar). However I can say vaguely what the tip is attempting.
+
+You could type map ^[[1~ <Home> in the following way:
+    - Type "map " then Ctrl-v then press the Home key (do all that while in insert mode). When you press the Home key you will see something like "^[[1~".
+    - Then type " <Home>" and press Enter. You do not press the Home key. Type the characters exactly as shown.
+
+
+When you type the following, enter it in normal mode, exactly as shown (do 
+not press the Home key):
+
+>
+    :map <Home> :echo "It works!"<CR>
+<
+
+Now pressing the Home key should show the message. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 10:48, December 30, 2009 (UTC)

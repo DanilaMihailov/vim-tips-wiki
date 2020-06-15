@@ -1,0 +1,68 @@
+*vim-wiki-tips-952.txt*   Refresh screen while typing a command *vwt-952*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 952 [https://vim.fandom.com/wiki/Refresh_screen_while_typing_a_command]   Previous |vwt-950| Next |vwt-954|
+
+created 2005 · complexity basic · author hari_vim · version 6.0
+
+==============================================================================
+
+If you are using command line completion while showing matches ( etc.), often 
+the display scrolls in such a way that at least part of the text in the 
+buffers is not visible anymore. If you want to redraw the screen, you have the 
+option of switching to the command-window, which will refresh the screen 
+anyway, but the following shows a way to redraw the screen without needing to 
+do that.
+
+Install the genutils.vim script#197 
+[https://www.vim.org/scripts/script.php?script_id=197] plugin or just copy 
+paste the GetVimCmdOutput() function into your vimrc, and create the following 
+cmap:
+
+>
+    cnoremap <C-X><C-L> <C-R>=GetVimCmdOutput('redraw')<CR>
+<
+
+You can now type anytime on the command-line even in the middle of typing a 
+new command. In normal mode you can always use directly so this is not needed, 
+if you enter Ex mode through command (:help |gQ|), you can use this to quickly 
+redraw the screen.
+
+GETVIMCMDOUTPUT() FROM GENUTILS.VIM  *vwt-952-getvimcmdoutput()-from-genutils.vim*
+
+
+
+>
+    " function wrapper for :execute (an Ex command that runs Ex commands)
+    " adapted from genutils.vim 2.5 ( http://www.vim.org/scripts/script.php?script_id=197 )
+    function! GetVimCmdOutput(cmd)
+      let v:errmsg = ''
+      let output = ''
+      let _shortmess = &shortmess
+      try
+        set shortmess=
+        redir => output
+        silent exec a:cmd
+      catch /.*/
+        let v:errmsg = substitute(v:exception, '^[^:]\+:', '', '')
+      finally
+        redir END
+        let &shortmess = _shortmess
+        if v:errmsg != ''
+          let output = ''
+        endif
+      endtry
+      return output
+    endfunction
+    " shorthand Exe()
+    let Exe=function('GetVimCmdOutput')
+<
+
+COMMENTS  *vwt-952-comments*

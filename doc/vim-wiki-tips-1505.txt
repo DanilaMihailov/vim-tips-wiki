@@ -1,0 +1,63 @@
+*vim-wiki-tips-1505.txt*   Version Control for Vimfiles *vwt-1505*
+
+Tip 1505 [https://vim.fandom.com/wiki/Version_Control_for_Vimfiles]   Previous |vwt-1504| Next |vwt-1506|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Version_Control_for_Vimfiles] 
+June 6, 2007 · complexity intermediate · author A. S. Budden · version 7.0
+
+==============================================================================
+
+If you use Vim on multiple computers/operating systems or have a copy of Vim 
+installed on a USB stick, you may find it advantageous to put your 
+vimfiles/.vim directory into a version control system such as subversion or 
+Git. This will enable you to keep all of the various copies synchronised with 
+the same plugins and settings etc.
+
+To help with this, it is useful to move the vimrc into the vimfiles directory 
+so that it can be synchronised at the same time as the various plugins. Move 
+your .vimrc or _vimrc into the vimfiles directory and rename it to vimrc. Do 
+the same with .gvimrc if you have one. Create a new .vimrc (or _vimrc) in an 
+appropriate place (e.g. the home directory on Linux or the "vim" directory in 
+Windows) containing the following:
+
+>
+    " Load the first file named 'vimrc' found in runtimepath
+    runtime vimrc
+<
+
+If you use gvimrc, use a similar format with "vimrc" replaced with "gvimrc". 
+You may also want to keep a reference copy in the subversion repository so 
+that you can access it when checking out a new 'working copy'.
+
+As a very brief (and possibly unnecessary) example of use, some useful 
+subversion commands follow:
+
+>
+    # Change to the .vim directory
+    cd ~/.vim
+    # Import into subversion (assumes that the vimrc modifications have been done)
+    svn import -m "Initial import" svn://localhost/trunk/configuration/vim/vimfiles
+    # Remove the static version
+    cd ~
+    mv .vim dotvimbackup
+    # Checkout a working copy, renaming it to .vim to suit the Linux version
+    svn co svn://localhost/trunk/configuration/vim/vimfiles .vim
+<
+
+COMMENTS  *vwt-1505-comments*
+
+I think it would be even more useful to set up the new .vimrc created to call 
+the "update" command of the appropriate version control software before 
+sourcing the moved vimrc copy. That way you REALLY always have the latest 
+version.
+
+I don't think anyone would be patient enough to wait for svn/cvs/whatever update before editing any file
+
+==============================================================================
+
+i started using git to track my $VIMRUNTIME days ago, and it is such a joy to 
+see people are doing the same as well here.I do a lot of comments and 
+modification in the repo, knowing that it will be obvious even after ages.
+
+Planning to push the repo to github...

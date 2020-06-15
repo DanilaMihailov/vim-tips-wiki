@@ -1,0 +1,63 @@
+*vim-wiki-tips-203.txt*   Automatically open the quickfix window on :make *vwt-203*
+
+Tip 203 [https://vim.fandom.com/wiki/Automatically_open_the_quickfix_window_on_:make]   Previous |vwt-202| Next |vwt-205|
+
+created 2002 · complexity basic · author Padraic Renaghan · version 6.0
+
+==============================================================================
+
+ORIGINAL IDEA  *vwt-203-original-idea*
+
+Put the following into your vimrc, then use :Make instead of :make.
+
+>
+    " Command Make will call make and then cwindow which
+    " opens a 3 line error window if any errors are found.
+    " If no errors, it closes any open cwindow.
+    :command -nargs=* Make make <args> | cwindow 3
+<
+
+Try this mapping so you can just press \j to make your program:
+
+>
+    :map <Leader>j :Make<CR>
+<
+
+You can use the new :Make command as an extension point for other 
+customizations, too.
+
+AUTOMATICALLY OPEN THE QUICKFIX WINDOW ON :MAKE  *vwt-203-automatically-open-the-quickfix-window-on :make*
+
+Starting with Vim 7, there's no need for an additional :Make command; 
+autocmds can be used to hook into the execution of the quickfix command, and 
+open the quickfix window automatically:
+
+>
+    " Automatically open, but do not go to (if there are errors) the quickfix /
+    " location list window, or close it when is has become empty.
+    "
+    " Note: Must allow nesting of autocmds to enable any customizations for quickfix
+    " buffers.
+    " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+    " (but not if it's already open). However, as part of the autocmd, this doesn't
+    " seem to happen.
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
+<
+
+Note that the quickfix window will also automatically close in case the 
+quickfix list becomes empty.If instead you always want to open the quickfix 
+window, replace the cwindow with copen.
+
+RELATED  *vwt-203-related*
+    - Automatically fitting a quickfix window height [https://vim.fandom.com/wiki/Automatically_fitting_a_quickfix_window_height]
+
+
+COMMENTS  *vwt-203-comments*
+
+>
+    :cc      see the current error
+    :cn      next error
+    :cp      previous error
+    :clist   list all errors
+<

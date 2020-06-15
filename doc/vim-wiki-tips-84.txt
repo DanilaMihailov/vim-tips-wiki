@@ -1,0 +1,98 @@
+*vim-wiki-tips-84.txt*   Repeat command on each line in visual block *vwt-84*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 84 [https://vim.fandom.com/wiki/Repeat_command_on_each_line_in_visual_block]   Previous |vwt-83| Next |vwt-85|
+
+created June 29, 2001 · complexity basic · author Salman Halim · version 5.7
+
+==============================================================================
+
+One of the things i do a lot in Vim is to make a change to the beginning or 
+end of the line (such as adding the text '// remove' at the end of java debug 
+code). a quick way of doing this is to use a to append the text to the end of 
+the first line and then move down one, hit . (repeat last edit), move down, 
+hit . etc. etc. the following mapping allows one to simply highlight the 
+region in question and hit . -- it will automatically execute the . once on 
+each line:
+
+>
+    " allow the . to execute once for each line of a visual selection
+    vnoremap . :normal .<CR>
+<
+
+Another thing i do a lot is to record a quick macro in the "a" register and 
+then play it back a number of times. while @@ can be used to repeat the last 
+register used, my recorded macros sometimes use other registers so @@ doesn't 
+necessarily give me the same results as @a. also, i have mapped ' to ` because 
+i like to go to the precise location of my marks -- always -- and never to the 
+beginning of the line. this leaves my ` key unused. so:
+
+>
+    " make ` execute the contents of the a register
+    nnoremap ` @a
+<
+
+then, in keeping with the visual . above, i did the same for the ` -- is 
+thexecutes @a once on each highlighed line.
+
+>
+    vnoremap ` :normal @a<CR>
+<
+
+as an example, say i have the following lines of java code:
+
+>
+    public String m_asdf;
+    public String m_lkhj;
+    public int m_hjkhjkh;
+<
+
+and, for some reason, i need to get the following:
+
+>
+    "asdf"
+     "lkhj"
+     "hjkhjkh"
+<
+
+I record the following into a:
+
+>
+    ^cf_"<Esc>$r"
+<
+
+the ^ is because my java code is indented and i don't want to go to column 0 
+and the <Esc> is an actual escape i hit to exit insert mode. then, i simply 
+select (visually) the other lines (only two in case -- admittedly not an 
+overly useful example) and just hit `.
+
+COMMENTS  *vwt-84-comments*
+
+i found that a few plugin scripts that i use regularly depended on ` having 
+default functionality, so i switched the ` key to ~ for my use (i couldn't be 
+bothered to change all the scripts to use noremap instead of just map).
+
+==============================================================================
+
+as a side note, i have the following mapping in my vimrc:
+
+>
+    noremap v ~
+<
+
+since i find the v easier to hit than the tilde anyway -- and i don't have 
+any plugins that fiddle about with the case of my text so i don't break 
+anything this way.
+
+==============================================================================
+
+If action is just inserting at a given column, also see VimTip194 |vwt-194|
+
+==============================================================================

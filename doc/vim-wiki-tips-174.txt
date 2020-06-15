@@ -1,0 +1,51 @@
+*vim-wiki-tips-174.txt*   Footnotes *vwt-174*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip332 |vwt-332|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 174 [https://vim.fandom.com/wiki/Footnotes]   Previous |vwt-173| Next |vwt-175|
+
+created 2001 · complexity basic · author Klaus Fischer · version 6.0
+
+==============================================================================
+
+>
+    ab (1 [1]<Esc>:/^--\s/-1/<CR>o<insert><CR>Footnotes:<CR>----------<CR>[1]
+    ab (2 [2]<Esc>:/^Footnotes\:/+2/<CR>o<insert>[2]
+    ab (3 [3]<Esc>:/^Footnotes\:/+3/<CR>o<insert>[3]
+    ab (4 [4]<Esc>:/^Footnotes\:/+4/<CR>o<insert>[4]
+    ab (5 [5]<Esc>:/^Footnotes\:/+5/<CR>o<insert>[5]
+<
+
+COMMENTS  *vwt-174-comments*
+
+Although I can tell what these does, I imagine that much of the intended 
+audience ('basic' tips users) can't just tell by looking. Perhaps some 
+annotation is in order.
+
+==============================================================================
+
+This tip is useless without any explanation. So what do these do anyway?
+
+==============================================================================
+
+Let me point you guys to this script 
+[https://www.vim.org/scripts/script.php?script_id=431] that you can simply 
+drop in your .vim/plugin directory and straight away use "\f" to start a note 
+and "\r" to end a note.
+
+==============================================================================

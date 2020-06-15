@@ -1,0 +1,99 @@
+*vim-wiki-tips-523.txt*   Folding functions with the prototype included *vwt-523*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 523 [https://vim.fandom.com/wiki/Folding_functions_with_the_prototype_included]   Previous |vwt-522| Next |vwt-524|
+
+created August 2, 2003 · complexity intermediate · author Matt Perry · 
+version 6.0
+
+==============================================================================
+
+The built-in syntax based folding [https://vim.fandom.com/wiki/Folding] of 
+C/C++ files is good enough for most users, but it will only fold functions 
+from the "{" to the "}". A user may want to fold the prototype as well. Using 
+foldexpr allows this.
+
+>
+    function FoldBrace()
+      if getline(v:lnum+1)[0] == '{'
+        return '>1'
+      endif
+      if getline(v:lnum)[0] == '}'
+        return '<1'
+      endif
+      return foldlevel(v:lnum-1)
+    endfunction
+    set foldexpr=FoldBrace()
+    set foldmethod=expr
+<
+
+Note that this will only work if you put the braces on lines by themselves in 
+the very first column, for example:
+
+>
+    void func()
+      {
+        ....
+      }
+<
+
+COMMENTS  *vwt-523-comments*
+
+TO DO
+    - Merge in comments below, it looks like there's an improved version of the script, should test
+    - Address some shortcomings? This is actually a very difficult problem, Perl syntax tries to do it and fails.
+    - Maybe use the syntax items in the fold expression for help
+
+
+==============================================================================
+
+Johannes Zellner started to define a fold(ing?) plugin for C and C++. I've 
+tried to enhanced it a little, but unfortunately, it is still imperfect.
+
+See http://hermitte.free.fr/vim/ressources/vimfiles/fold/c-fold.vim 
+[http://hermitte.free.fr/vim/ressources/vimfiles/fold/c-fold.vim]
+
+--Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] 13:39, 7 June 
+2007 (UTC), August 2, 2003 18:34
+
+==============================================================================
+
+That certainly is more featureful than my version. But I prefer to use 
+foldnestmax=1 - I find it annoying to have more than 1 fold level.
+
+I've modified my fold function to work if the { is on the same line as the 
+function, ie:
+
+>
+    void bla() {
+    }
+<
+
+I'd like to be able to use v:foldstart in my fold function so I can check 
+that the } has the same indent as the line containing the {. That way I could 
+match braces that aren't in the first column. But this is good enough for my 
+purposes.
+
+>
+    function FoldBrace()
+      if getline(v:lnum+1)[0] == '{'
+        return 1
+      endif
+      if getline(v:lnum) =~ '{'
+        return 1
+      endif
+      if getline(v:lnum)[0] =~ '}'
+        return '<1'
+      endif
+      return -1
+    endfunction
+<
+
+==============================================================================

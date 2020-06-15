@@ -1,0 +1,28 @@
+*vim-wiki-tips-313.txt*   Printing using kprinter *vwt-313*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 313 [https://vim.fandom.com/wiki/Printing_using_kprinter]   Previous |vwt-312| Next |vwt-315|
+
+created August 14, 2002 · complexity basic · author tom regner · version 6.0
+
+==============================================================================
+
+Just add
+
+>
+    set printexpr=system('kprinter'\ .\ '\ '\ .\ v:fname_in)\ .\ delete(v:fname_in)\ +\ v:shell_error
+<
+
+to your vimrc [https://vim.fandom.com/wiki/Vimrc]; further on all your 
+printing will be piped through the nice and consistent print-dialog of kde.
+
+Gnome users can replace kprinter with gtklp
+
+COMMENTS  *vwt-313-comments*

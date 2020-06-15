@@ -1,0 +1,224 @@
+*vim-wiki-tips-801.txt*   Fold quickfix list on directory or file names *vwt-801*
+
+Tip 801 [https://vim.fandom.com/wiki/Fold_quickfix_list_on_directory_or_file_names]   Previous |vwt-800| Next |vwt-802|
+
+created 2004 · complexity basic · author Jonas Lööf · version 6.0
+
+==============================================================================
+
+The quickfix window is often used to process the results of using make to 
+build a program, or using vimgrep (or grep) to search files. When the quickfix 
+list is long, it can be helpful to fold related lines together to help show an 
+overview.
+
+This tip concerns folding lines in the quickfix window. See here |vwt-76| for 
+how to fold the current buffer based on the content of the quickfix list.
+
+FOLDING OUTPUT FROM MAKE  *vwt-801-folding-output-from-make*
+
+When using make on a large software project with multiple directories, the 
+quickfix window can be quite long. Use the following in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] to automatically fold on each 
+subdirectory, and open folds containing errors (the string "error:"). 
+Additionally, zw opens also the folds containing the string "warning:", while 
+zq switches back to the original.
+
+>
+    " Folding of (gnu)make output.
+    au BufReadPost quickfix setlocal foldmethod=marker
+    au BufReadPost quickfix setlocal foldmarker=Entering\ directory,Leaving\ directory
+    au BufReadPost quickfix map <buffer> <silent> zq zM:g/error:/normal zv<CR>
+    au BufReadPost quickfix map <buffer> <silent> zw zq:g/warning:/normal zv<CR>
+    au BufReadPost quickfix normal zq
+<
+
+FOLDING OUTPUT FROM VIMGREP  *vwt-801-folding-output-from-vimgrep*
+
+You may search files with a command like :vimgrep /pattern/ *.c, then open 
+the quickfix window with :cwindow. The following script will fold all the 
+search hits for one file into a single line.
+
+Put the following in file ~/.vim/ftplugin/qf_fold.vim (Unix) or 
+$HOME/vimfiles/ftplugin/qf_fold.vim (Windows):
+
+>
+    setlocal foldlevel=0
+    setlocal foldmethod=expr
+    setlocal foldexpr=matchstr(getline(v:lnum),'^[^\|]\\+')==#matchstr(getline(v:lnum+1),'^[^\|]\\+')?1:'<1'
+<
+
+The fold expression compares the file name of the current line with that on 
+the next line. If they are the same, the lines are part of a fold (level 1). 
+If the next line is for a different file, the current line is the end of a 
+fold.
+
+In the setlocal command, the string '^[^\|]\\+' is used. That command 
+processes the backslashes with the result that the pattern used by matchstr() 
+is '^[^|]\+' (that is, the file path/name consisting of one or more characters 
+that are not '|', at the start of the line).
+
+FOLDING BY DIRECTORY INSTEAD OF FILENAME  *vwt-801-folding-by-directory-instead-of-filename*
+
+If folding by file still creates too many results, you may prefer to fold by 
+directory name instead. Replace the foldexpr above with this one:
+
+>
+    setlocal foldexpr=matchstr(substitute(getline(v:lnum),'\|.*','',''),'^.*/')==#matchstr(substitute(getline(v:lnum+1),'\|.*','',''),'^.*/')?1:'<1'
+<
+
+In this expression, first everything after the first '|' is discarded with 
+the calls to substitute(), and then everything up to the last '/' is compared 
+using matchstr(). (This creates only one level of folding, not a tree.)
+
+You may also like to customise the way that folded lines are displayed:
+
+>
+    setlocal foldtext=matchstr(substitute(getline(v:foldstart),'\|.*','',''),'^.*/').'\ ['.(v:foldend-v:foldstart+1).'\ lines]'
+<
+
+AVOID FOLDING WHEN THERE ARE FEW RESULTS  *vwt-801-avoid-folding-when-there-are-few-results*
+
+As several commands that populate the quickfix list are only concerned about 
+a single file, or may yield only a few results, you can optionally add the 
+following enhancement:
+
+>
+    if foldclosedend(1) == line('$') || line("$") < 25
+      " When all matches come from a single file, do not close that single fold;
+      " the user probably is interested in the contents.  Likewise if few results.
+      setlocal foldlevel=1
+    else
+      setlocal foldlevel=0
+    endif
+<
+
+This will initially open all the folds if there is only one fold, or if there 
+are fewer than 25 lines in the quickfix window.
+
+SEE ALSO  *vwt-801-see-also*
+    - Folding with Regular Expression |vwt-282| fold misses from a search
+    - Find in files within Vim |vwt-1543| using vimgrep to search files
+
+
+REFERENCES  *vwt-801-references*
+    - :help  |quickfix|
+    - :help  |:copen|
+
+
+COMMENTS  *vwt-801-comments*
+
+The "Folding output from vimgrep" section was inspired by messages from David 
+Fishburn and Gary Johnson on vim_use, and was implemented here by JohnBeckett. 
+Directory folding was added by JoeyTwiddle.
+
+ADD FOLDING NOT BASED ON FILE/DIRECTORY?  *vwt-801-add-folding-not-based-on-file/directory?*
+
+I'm using the following, based on the 'vimgrep' portion for grep searches, 
+and folding away based on whether the line is a hit for an error or warning 
+otherwise (with context):
+
+In ~/vimfiles/after/ftplugin/qf.vim:
+
+>
+    " set up folding of quickfix list based on command
+    setlocal foldlevel=0
+    setlocal foldmethod=expr
+    setlocal foldexpr=QfFoldByType(v:lnum)
+     
+    " for some reason w:quickfix_title is not set until after the filetype plugin
+    " runs, so decide which folding to use in the function itself instead
+    function! QfFoldByType(lnum)
+      if exists('w:quickfix_title') && w:quickfix_title =~? 'grep'
+        return QfFoldFiles(a:lnum)
+      else
+        return QfFoldWarningsAndErrors(a:lnum)
+      endif
+    endfun
+     
+    function! QfFoldFiles(lnum)
+      return matchstr(getline(a:lnum),'^[^|]\+')==#matchstr(getline(a:lnum+1),'^[^|]\+')?1:'<1'
+    endfun
+     
+    function! QfFoldWarningsAndErrors(lnum)
+      if v:version >= 700
+        let contextlines=getline(a:lnum-2, a:lnum+2)
+      else
+        " Vim before 7.0 had no List data type and getline() only gets a single line
+        " but luckily the match() function can give a result for either arrays or
+        " strings, with -1 meaning 'no match' in either case.
+        let contextlines=""
+        let aline = a:lnum-2
+        while aline <= a:lnum+2 && aline <= line('$')
+          if aline >= 1
+            let contextlines=contextlines."\n".getline(aline)
+          endif
+          let aline = aline + 1
+        endwhile
+      endif
+      let thisline=getline(a:lnum)
+      if thisline =~? '\%(^\|\n\)\f\+|[^|]*\%(warning\|error\)[^|]*|'
+        return 0
+      elseif match(contextlines, '\%(^\|\n\)\f\+|[^|]*\%(warning\|error\)[^|]*|') >= 0
+        return 1
+      else
+        return 2
+      endif
+    endfun
+<
+
+In ~/.vimrc:
+
+>
+    augroup QUICKFIX_TITLE_VAR_HACK
+        au!
+        " force refresh of foldexpr for quickfix in case it depends on
+        " w:quickfix_title which for unknown reasons is not set until after the
+        " filetype plugin loads
+        au BufWinEnter * if &buftype==#'quickfix' | let &foldexpr=&foldexpr | endif
+      augroup END
+<
+
+This is very useful for me but doesn't really fit in the current tip, because 
+(1) it doesn't include the existing 'make output' portion, and (2) includes 
+folding not based on file or directory names. Should this go into a new tip or 
+can we generalize this one and include it here?
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 16:10, 
+February 10, 2012 (UTC)
+
+ALSO FOLD UP THE || OVERFLOW LINES IN QUICKFIX WINDOW  *vwt-801-also-fold-up-the-||-overflow-lines-in-quickfix-window*
+
+I loved folding by file or folder in the quickfix, but got very annoyed by 
+the || lines which appear when very long lines overflow. To gather these into 
+the fold that precedes them, I replaced the calls to getline() with a custom 
+function g:GetLastNonWrappedQFLine(). First I defined it as follows:
+
+>
+    function! g:GetLastNonWrappedQFLine(startline)
+    	let curline = a:startline
+    	while curline >= 1
+    		let line = getline(curline)
+    		if line[0:2] != '|| '
+    			return line
+    		endif
+    		let curline -= 1
+    	endwhile
+    	return ''
+    endfunction
+<
+
+Then it can be employed to fold by file:
+
+>
+    setlocal foldexpr=matchstr(g:GetLastNonWrappedQFLine(v:lnum),'^[^\|]\\+')==#matchstr(g:GetLastNonWrappedQFLine(v:lnum+1),'^[^\|]\\+')?1:'<1'
+<
+
+or to fold by folder:
+
+>
+    setlocal foldexpr=matchstr(substitute(g:GetLastNonWrappedQFLine(v:lnum),'\|.*','',''),'^.*/')==#matchstr(substitute(g:GetLastNonWrappedQFLine(v:lnum+1),'\|.*','',''),'^.*/')?1:'<1'
+<
+
+--JoeyTwiddle [https://vim.fandom.com/wiki/User:JoeyTwiddle] (talk 
+[https://vim.fandom.com/wiki/User_talk:JoeyTwiddle]) 13:44, August 24, 2013 
+(UTC)

@@ -1,0 +1,44 @@
+*vim-wiki-tips-463.txt*   Speed up developing XSLT files *vwt-463*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 463 [https://vim.fandom.com/wiki/Speed_up_developing_XSLT_files]   Previous |vwt-462| Next |vwt-464|
+
+created April 23, 2003 · complexity basic · author Steven Spears · version 
+6.0
+
+==============================================================================
+
+I recently added these mapping to speed up typing XSLT elements. I added 
+these to my copy of the xmledit script 
+[https://www.vim.org/scripts/script.php?script_id=301].
+
+>
+    imap <Leader>pi <?xml version="1.0" ?>^M
+    imap <Leader>ap <xsl:apply-templates/>
+    imap <Leader>ap`s <xsl:apply-templates select=""/>^[F"i
+    imap <Leader>ap`sm <xsl:apply-templates select="" mode=""/>^[3F"i
+    imap <Leader>at <xsl:attribute name="">^[F"i
+    imap <Leader>el <xsl:element name="">^[F"i
+    imap <Leader>if <xsl:if test="">>^[kf"a
+    imap <Leader>im <xsl:import href=""/>^[F"i
+    imap <Leader>in <xsl:include href=""/>^[F"i
+    imap <Leader>ou <xsl:output method=""/>^[F"i
+    imap <Leader>pa <xsl:param name=""/>^[F"i
+    imap <Leader>pa`ns <xsl:param name="" select=""/>^[3F"i
+    imap <Leader>st <xsl:stylesheet version="1.0" xmlns:xsl="[http://www.w3.org/1999/XSL/Transform">> http://www.w3.org/1999/XSL/Transform">>];
+    imap <Leader>te <xsl:template match="">>^[kf"a
+    imap <Leader>te`n <xsl:template name="">>^[kf"a
+    imap <Leader>te`mm <xsl:template match="" mode="">>^[kf"a
+    imap <Leader>va <xsl:value-of select=""/>^[F"i
+    imap <Leader>wi <xsl:with-param name=""/>^[F"i
+    imap <Leader>wi`ns <xsl:with-param name="" select=""/>^[3F"
+<
+
+COMMENTS  *vwt-463-comments*

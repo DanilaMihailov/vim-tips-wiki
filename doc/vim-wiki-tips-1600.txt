@@ -1,0 +1,80 @@
+*vim-wiki-tips-1600.txt*   Edit a file or jump to it if already open *vwt-1600*
+
+Tip 1600 [https://vim.fandom.com/wiki/Edit_a_file_or_jump_to_it_if_already_open]   Previous |vwt-1599| Next |vwt-1601|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200808#Edit_a_file_or_jump_to_it_if_already_open] 
+2008 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+When using most tabbed editors, if you open a file for editing, and the file 
+is already open in another tab, the editor will simply jump to that tab. There 
+are very good reasons that Vim does not act this way, which are too numerous 
+to go into detail about here – suffice it to say that there are many excellent 
+features in Vim that would not be possible if it acted like "most tabbed 
+editors". Nevertheless, it would be nice if Vim had this functionality when 
+the user wishes to use it.
+
+It turns out, Vim does have this functionality, but it is hard to find.
+
+The :drop command will edit a new file, or jump to the window containing it 
+if it already exists. Using :tab with it (i.e. :tab drop {file}) will open the 
+file in a new tab if it isn't already open.
+
+Dragging and dropping a file into gvim automatically invokes the :drop 
+command. If you hold down the CTRL key while doing this, it will force a 
+window to split (there isn't a way to force a tab, but CTRL-W T right 
+afterwards will do that for you easily). If you hold down SHIFT, it will set 
+Vim's working directory to that of the file.
+
+REFERENCES  *vwt-1600-references*
+    - :help  |:drop|
+    - :help  |drag-n-drop|
+
+
+COMMENTS  *vwt-1600-comments*
+
+You can use :command! -nargs=1 -complete=file O tab drop <args> to open the 
+file or jump to it using :O FILENAME.
+
+Here is a powershell script I use to run gvim for me. If the file is already 
+open in another window, it opens that instead; otherwise, it just open it 
+normally:
+
+>
+    function Show-Process($Process, [Switch]$Maximize)
+    {
+      $sig = '
+        [DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+        [DllImport("user32.dll")] public static extern int SetForegroundWindow(IntPtr hwnd);
+      '
+      
+    
+      if ($Maximize) { $Mode = 3 } else { $Mode = 4 }
+      $type = Add-Type -MemberDefinition $sig -Name WindowAPI -PassThru
+      $hwnd = $process.MainWindowHandle
+      $null = $type::ShowWindowAsync($hwnd, $Mode)
+      $null = $type::SetForegroundWindow($hwnd) 
+    }
+    
+    function Find-File {
+        [cmdletbinding()]
+            param (
+                [Parameter(ValueFromPipeline=$true)]
+                [string]$File
+            )
+        $b = $(gci -Attributes Hidden | where { $_.Name -match "^\.$File\.sw" })
+        if ($b) {
+            $openWindow = $(Get-Process | `
+                Where-Object { $_.MainWindowTitle -match "^$File .* - GVIM$" })
+            if ($openWindow) {
+                Show-Process $openWindow
+            } else {
+                gvim $File
+            }
+        } else {
+            gvim $File
+        }
+    }
+<

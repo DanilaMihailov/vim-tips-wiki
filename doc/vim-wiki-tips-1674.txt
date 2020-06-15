@@ -1,0 +1,97 @@
+*vim-wiki-tips-1674.txt*   Jump to a random line *vwt-1674*
+
+Tip 1674 [https://vim.fandom.com/wiki/Jump_to_a_random_line]   Previous |vwt-1673| Next |vwt-1675|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201108#Jump_to_a_random_line] 
+August 31, 2011 · complexity basic · author Udslk · version 7.0
+
+==============================================================================
+
+For test data aggregation work, it may be desirable to jump to a random line 
+in the current buffer. Here are some techniques for doing that. These rely on 
+an external program to generate the random number, as Vim has no built-in 
+random function (although the current time can be used as a crude form of 
+"random" that is adequate for some purposes, see here 
+[https://vim.fandom.com/wiki/Switch_color_schemes]).
+
+USING BASH  *vwt-1674-using-bash*
+
+The bash shell provides the RANDOM environment variable that gives a random 
+integer from 0 to 32767 inclusive, on many Linux systems. Since 0G jumps to 
+the last line, this variable provides line numbers effectively from 1 to 32768 
+inclusive, and if the number of lines in the buffer is 32768 or less, the 
+following can be used to define a command such that :RandomLine will jump to a 
+random line in the buffer:
+
+>
+    :command! RandomLine execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
+<
+
+USING URANDOM  *vwt-1674-using-urandom*
+
+On Linux, random bytes can be read from /dev/urandom. The following takes 
+three such bytes (-N3) which results in a random integer from 0 to 16,777,215 
+inclusive. Using more than three bytes might give integer overflow with a 
+negative result (not a problem for G but undesirable if used for something 
+else).
+
+The following defines a command such that :RandomLine will jump to a random 
+line in the buffer:
+
+>
+    :command! RandomLine execute 'normal! '.(matchstr(system('od -vAn -N3 -tu4 /dev/urandom'), '^\_s*\zs.\{-}\ze\_s*$') % line('$')).'G'
+<
+
+The matchstr() strips leading and trailing whitespace, including newlines, 
+from the result of calling system() (the leading whitespace must be removed 
+since Vim, when converting a string to a number, gives zero if the string does 
+not start with a digit). The od (octal dump) utility reads 3 bytes from 
+urandom and outputs the text equivalent of a 4 byte unsigned integer (-tu4) 
+with no lines marked and no addresses (-vAn).
+
+USING RUBY  *vwt-1674-using-ruby*
+
+The following variation requires Ruby and a Vim compiled with support for 
+Ruby.
+
+>
+    :command! RandomLine ruby Vim::command 'normal! ' + ((rand $curbuf.length) + 1).to_s + 'G'
+<
+
+The following alternative defines a command that works with ranges 
+[https://vim.fandom.com/wiki/Ranges]:
+
+>
+    function! RandomLine() range
+      ruby first_line = (VIM::evaluate 'a:firstline').to_i
+      ruby last_line = (VIM::evaluate 'a:lastline').to_i
+      ruby VIM::command(((rand last_line - first_line + 1) + first_line).to_s)
+      ruby VIM::command("mark '")
+    endfunction
+    command! -range=% RandomLine <line1>,<line2>call RandomLine()
+<
+
+Usage examples:
+    - :RandomLine jump to a random line from the first to the last inclusive.
+    - :.,$RandomLine jump to a random line from the current line (.) to the last line ($) inclusive.
+    - :?^=?,/^=/RandomLine jump to a random line within the current section, where each section starts with a header having "=" as the first character.
+
+
+PLUGINS  *vwt-1674-plugins*
+
+One can utilize Dr. Chip's random number generator 
+[http://www.drchip.org/astronaut/vim/index.html#RNDM].
+
+COMMENTS  *vwt-1674-comments*
+
+It would be nice if someone could provide a clue why jumping to a random line 
+might be useful. I can imagine wanting a program to fetch a random line from a 
+file for some kind of test input, but why use Vim for that? JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 08:15, April 6, 2012 (UTC)
+
+I don't actually jump to the lines, but I DO have a command that fires on buffer load to close approximately half of the folds in the window. For small files, it loops over all lines and sets the foldlevel to the average. For large files (over 10000 lines or so, accessed over the network) this can take a while; so I've used a random number generator to generate a few thousand random line numbers and gotten the foldlevel at each of them to average out instead. It needs to be random enough to get a good statistical sample, though probably I could have just sampled at intervals instead. --Fritzophrenic 16:00, April 6, 2012 (UTC)
+And I was generating random records for an application. Say, I found company names, human names from internet, and I opened both files in split view. To create a random match between people names and company names I wanted to record @ macro and run it n times in order to collect the (simple) database records in another buffer. I could use another tool (like Python) for that but I have a hammer in my hand and everything looking like... :-) --Udslk 12:13, April 7, 2012 (UTC)
+I sort of got an use or this very recently. I had a really big csv file of about 500000 records and I wanted to reduce it by randomly removing records. So, this can be useful for that. Not a great use case but this would have solved my problem. - Swaroop 13:45, July 7, 2016 (IST)
+
+It may be useless when editing source code, but I've got a text file of URLs, todos, notes gathered over some time without access to a wiki and I want an unbiased way to spend some time every now sorting portions of the file.

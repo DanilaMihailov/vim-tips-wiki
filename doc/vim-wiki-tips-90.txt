@@ -1,0 +1,182 @@
+*vim-wiki-tips-90.txt*   Encryption *vwt-90*
+
+Tip 90 [https://vim.fandom.com/wiki/Encryption]   Previous |vwt-89| Next |vwt-91|
+
+created 2001 · complexity intermediate · author Erhan · version 6.0
+
+==============================================================================
+
+Vim can encrypt your documents. :X prompts for an encryption key, which is 
+stored in the key option. The file will remain unchanged until you write it.
+
+When you reopen the file, Vim will ask for the key; if you enter the wrong 
+key, Vim will "decrypt" it to gibberish content. DO NOT SAVE such a gibberish 
+buffer, or your data will be corrupted. While editing, the text in the swap 
+file, undo file, and backup files are also encrypted; the text in memory is 
+not encrypted. The viminfo file is also not encrypted, and thus should not be 
+used:
+
+>
+    :set viminfo=
+<
+
+If you want to disable encryption, just empty the key option:
+
+>
+    :set key=
+<
+
+The difference between :X and :set key=something is that :X displays 
+asterisks as you type, so that no one can peek at your encryption key. Also, 
+:set commands may end up in your viminfo file.
+
+From version 7.3, Vim supports Blowfish encryption as well as the default 
+pkzip-compatible method. Starting at 7.4.399, a new blowfish method is 
+available to fix security problems 
+[https://groups.google.com/d/msg/vim_dev/D8FyRd0EwlE/bkBOo-hzTzoJ] in the 
+original. Use one of the following to query or set the encryption method 
+before writing the file:
+
+>
+    :setlocal cm?              " show encryption method for the current file
+    :setlocal cm=zip           " weak (default for backwards-compatibility)
+    :setlocal cm=blowfish      " better
+    :setlocal cm=blowfish2     " best (requires Vim version 7.4.399 or higher)
+<
+
+cm is an abbreviation for cryptmethod. Pkzip is a weak encryption method, but 
+is compatible with Vim 7.2 and older; Blowfish is strong, especially using the 
+fixed "blowfish2" method. :help |encryption| includes:
+
+
+
+
+
+The blowfish method provides strong confidentiality, but no message integrity 
+guarantees. It is known to be vulnerable to undetected modification if someone 
+has write access to your files. If this is a concern, you should encrypt your 
+file using an external program that supports cryptographically secure 
+modification detection or integrity checks, like PGP or GPG. When using an 
+external program, be certain to turn off options like persistent undo (:help 
+'undofile'), backup files (:help 'backup'), swap files (:help 'swapfile'), and 
+saving certain information like register contents to the .viminfo file (:help 
+'viminfo'), to prevent that the entire file or parts of the file are available 
+on your disk unencrypted. When using Vim's built-in encryption, Vim will 
+encrypt supporting files as discussed above. Using external methods, Vim will 
+not know to encrypt these files.
+
+Some older Vim versions (older than 7.1, at least) ask only once for the 
+password -- if you happen to mistype it, then you might write a file which you 
+cannot decrypt. Recent versions of Vim prompt twice for the password on 
+encryption. However, if you use the wrong password on decryption, and then 
+SAVE the gibberish file which results, Vim will still write the file, 
+corrupting your data; so be careful!
+
+SOLUTIONS WITH EXTERNAL PROGRAMS  *vwt-90-solutions-with-external-programs*
+
+PGP  *vwt-90-pgp*
+
+Here are some autocommands tested with pgp version 2.6.2. The pgp call for 
+writing uses PGP's "conventional" cryptography; to use its public key 
+cryptography, use pgp -fe userid instead.
+
+>
+    augroup PGP
+      au!
+      au BufReadPost *.pgp :%!pgp -f
+      au BufWritePre *.pgp :%!pgp -fc
+      au BufWritePost *.pgp u
+    augroup END
+<
+
+GPG  *vwt-90-gpg*
+
+Here is a set of autocommands that allows you to work on GPG-encrypted files 
+as though they were ordinary text files. Be aware that Vim uses temporary 
+files (rather than pipes) when filtering data through external programs, so 
+the fully decrypted file will be written to disk twice:
+    - Once when reading from gpg --decrypt,
+    - once when writing to gpg --encrypt,
+    - and perhaps another time if your OS has unencrypted swap files.
+
+
+With that said, here is the code.
+
+>
+    " Transparent editing of gpg encrypted files.
+    " By Wouter Hanegraaff
+    augroup encrypted
+      au!
+    
+      " First make sure nothing is written to ~/.viminfo while editing
+      " an encrypted file.
+      autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+      " We don't want a various options which write unencrypted data to disk
+      autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+    
+      " Switch to binary mode to read the encrypted file
+      autocmd BufReadPre,FileReadPre *.gpg set bin
+      autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+      " (If you use tcsh, you may need to alter this line.)
+      autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+    
+      " Switch to normal mode for editing
+      autocmd BufReadPost,FileReadPost *.gpg set nobin
+      autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+      autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+    
+      " Convert all text to encrypted text before writing
+      " (If you use tcsh, you may need to alter this line.)
+      autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+      " Undo the encryption so we are back in the normal text, directly
+      " after the file has been written.
+      autocmd BufWritePost,FileWritePost *.gpg u
+    augroup END
+<
+
+If you use tcsh as your shell, the 2>/dev/null will make your shell sad. 
+Create a gpg.sh script which will do the stderr redirection:
+
+>
+    #!/bin/sh
+    gpg "$@" 2>> .gpg.err
+<
+
+And then change the two lines of the lines in the .vimrc snippet from above 
+that actually do the GPG encryption/decryption to:
+
+>
+    autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg.sh --decrypt
+    autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg.sh --default-recipient-self -ae
+<
+
+CCRYPT  *vwt-90-ccrypt*Here is a working autocmd set for ccrypt: note that it uses the environment variable, which can be dangerous on older multi-user systems (see man ccrypt, also lookup scrypt, bcrypt on google).
+
+>
+    augroup CPT
+      au!
+      au BufReadPre  *.cpt setl bin viminfo= noswapfile
+      au BufReadPost *.cpt let $CPT_PASS = inputsecret("Password: ")
+      au BufReadPost *.cpt silent 1,$!ccrypt -cb -E CPT_PASS
+      au BufReadPost *.cpt set nobin
+      au BufWritePre *.cpt set bin
+      au BufWritePre *.cpt silent! 1,$!ccrypt -e -E CPT_PASS
+      au BufWritePost *.cpt silent! u
+      au BufWritePost *.cpt set nobin
+    augroup END
+<
+
+To create a test.cpt file, do this:
+
+>
+    C:\> dir > test.cpt
+<
+
+>
+    C:\> set CPT_PASS=secret
+    C:\> ccrypt -e -E CPT_PASS test.cpt
+<
+
+That will create a file test.cpt, which you can then open in Vim.
+
+COMMENTS  *vwt-90-comments*

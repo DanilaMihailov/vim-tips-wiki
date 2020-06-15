@@ -1,0 +1,89 @@
+*vim-wiki-tips-1522.txt*   Displaying the current Vim environment *vwt-1522*
+
+Tip 1522 [https://vim.fandom.com/wiki/Displaying_the_current_Vim_environment]   Previous |vwt-1521| Next |vwt-1525|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Displaying_the_current_Vim_environment] 
+2007 · complexity basic · author Yegappan Lakshmanan · version 7.0
+
+==============================================================================
+
+You can display the current Vim environment (settings, options, commands, 
+maps, etc) using the following commands:
+
+>
+    :abbreviate   - list abbreviations
+    :args         - argument list
+    :augroup      - augroups
+    :autocmd      - list auto-commands
+    :buffers      - list buffers
+    :breaklist    - list current breakpoints
+    :cabbrev      - list command mode abbreviations
+    :changes      - changes
+    :cmap         - list command mode maps
+    :command      - list commands
+    :compiler     - list compiler scripts
+    :digraphs     - digraphs
+    :file         - print filename, cursor position and status (like Ctrl-G)
+    :filetype     - on/off settings for filetype detect/plugins/indent
+    :function     - list user-defined functions (names and argument lists but not the full code)
+    :function Foo - user-defined function Foo() (full code list)
+    :highlight    - highlight groups
+    :history c    - command history
+    :history =    - expression history
+    :history s    - search history
+    :history      - your commands
+    :iabbrev      - list insert mode abbreviations
+    :imap         - list insert mode maps
+    :intro        - the Vim splash screen, with summary version info
+    :jumps        - your movements
+    :language     - current language settings
+    :let          - all variables
+    :let FooBar   - variable FooBar
+    :let g:       - global variables
+    :let v:       - Vim variables
+    :list         - buffer lines (many similar commands)
+    :lmap         - language mappings (set by keymap or by lmap)
+    :ls           - buffers
+    :ls!          - buffers, including "unlisted" buffers
+    :map!         - Insert and Command-line mode maps (imap, cmap)
+    :map          - Normal and Visual mode maps (nmap, vmap, xmap, smap, omap)
+    :map<buffer>  - buffer local Normal and Visual mode maps
+    :map!<buffer> - buffer local Insert and Command-line mode maps
+    :marks        - marks
+    :menu         - menu items
+    :messages     - message history
+    :nmap         - Normal-mode mappings only
+    :omap         - Operator-pending mode mappings only
+    :print        - display buffer lines (useful after :g or with a range)
+    :reg          - registers
+    :scriptnames  - all scripts sourced so far
+    :set all      - all options, including defaults
+    :setglobal    - global option values
+    :setlocal     - local option values
+    :set          - options with non-default value
+    :set termcap  - list terminal codes and terminal keys
+    :smap         - Select-mode mappings only
+    :spellinfo    - spellfiles used
+    :syntax       - syntax items
+    :syn sync     - current syntax sync mode
+    :tabs         - tab pages
+    :tags         - tag stack contents
+    :undolist     - leaves of the undo tree
+    :verbose      - show info about where a map or autocmd or function is defined
+    :version      - list version and build options
+    :vmap         - Visual and Select mode mappings only
+    :winpos       - Vim window position (gui)
+    :xmap         - visual mode maps only
+<
+
+NOTES  *vwt-1522-notes*
+
+Additional information is available to a Vim script. For example, :help 
+|tabpagebuflist()| shows how to list all buffers in all tabs.
+
+A script called bugreport.vim is provided with Vim. When run, the script 
+produces a file with information about Vim's environment. To see the script, 
+use the command :view $VIMRUNTIME/bugreport.vim in Vim.
+
+COMMENTS  *vwt-1522-comments*

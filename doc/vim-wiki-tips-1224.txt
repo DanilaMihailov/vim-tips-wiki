@@ -1,0 +1,188 @@
+*vim-wiki-tips-1224.txt*   Toggle spellcheck with function keys *vwt-1224*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1224 [https://vim.fandom.com/wiki/Toggle_spellcheck_with_function_keys]   Previous |vwt-1221| Next |vwt-1225|
+
+created 2006 · complexity basic · author Alex N · version 7.0
+
+==============================================================================
+
+If you have gvim toolbars disabled, here's an easier and quicker way to 
+toggle the spellcheck functionality:
+
+>
+    :map <F5> :setlocal spell! spelllang=en_us<CR>
+<
+
+Remap to whichever Fx key you require, or switch the dictionary to use.
+
+COMMENTS  *vwt-1224-comments*
+
+Also for when you're in insert mode:
+
+>
+    ":imap <F5> <Esc>:setlocal spell! spelllang=en_us<CR>i
+    inoremap <F5> <C-\><C-O>:setlocal spelllang=en_us spell! spell?<CR>
+<
+
+==============================================================================
+
+This works better. The previous tip's :imap will change the position of the 
+cursor if the cursor was at the very end of the line.
+
+>
+    :imap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
+<
+
+==============================================================================
+
+I just used the following:
+
+>
+    nn <F7> :setlocal spell! spell?<CR>
+<
+
+<F7> is the same as most Windows applications. spelllang=en_us is by default?
+
+==============================================================================
+
+>
+    " For those with sadly no function keys available
+    " toggle spelling use \s
+    imap <Leader>s <C-o>:setlocal spell! spelllang=en_gb<CR>
+    nmap <Leader>s :setlocal spell! spelllang=en_gb<CR>
+<
+
+==============================================================================
+
+>
+    let g:myLang = 0
+    let g:myLangList = ['nospell', 'de_de', 'en_gb']
+    function! MySpellLang()
+      "loop through languages
+      if g:myLang == 0 | setlocal nospell | endif
+      if g:myLang == 1 | let &l:spelllang = g:myLangList[g:myLang] | setlocal spell | endif
+      if g:myLang == 2 | let &l:spelllang = g:myLangList[g:myLang] | setlocal spell | endif
+      echomsg 'language:' g:myLangList[g:myLang]
+      let g:myLang = g:myLang + 1
+      if g:myLang >= len(g:myLangList) | let g:myLang = 0 | endif
+    endfunction
+    map <F7> :<C-U>call MySpellLang()<CR>
+<
+
+Someone can maybe implement it a better way, but so I can toggle through.
+
+==============================================================================
+
+Fiddled around a little, now it does not move the cursor anymore, and I don't 
+have the slightest idea why. Here is that part from my .vimrc:
+
+>
+    "switch spellcheck languages
+    let g:myLang = 0
+    let g:myLangList = [ "nospell", "de_de", "en_us" ]
+    function! MySpellLang()
+      "loop through languages
+      let g:myLang = g:myLang + 1
+      if g:myLang >= len(g:myLangList) | let g:myLang = 0 | endif
+      if g:myLang == 0 | set nospell | endif
+      if g:myLang == 1 | setlocal spell spelllang=de_de | endif
+      if g:myLang == 2 | setlocal spell spelllang=en_us | endif
+      echo "language:" g:myLangList[g:myLang]
+    endf
+    
+    map <F7> :call MySpellLang()<CR>
+    imap <F7> <C-o>:call MySpellLang()<CR>
+<
+
+Don't know what I changed, but the most important thing is that it works now. 
+I also changed the order of the commands, because before the first hit of F7 
+would only display the current state and did not change anything, now it 
+directly switches to the next language.
+
+==============================================================================
+
+It would be better to set the "myLang" variable local for each buffer, 
+because the spell option is also local. In case you use two or more buffers 
+and activate "en_gb" for one, "g:myLang" contains 2 now if you want to 
+activate it for another one, you have to press <F7> three times.
+
+So change each occurrence of g:myLang to b:myLang and define it for each 
+buffer when the function is called for the first time. For this: remove the 
+"let g:myLang = 0" line and add the following statement to the function 
+directly after the function declaration:
+
+>
+    if !exists( "b:myLang" )
+      let b:myLang=0
+    endif
+<
+
+==============================================================================
+
+The spell option can be directly set to get(g:myLangList, b:myLang) (except 
+for the case b:myLang==0, of course). This way, the list can be managed and 
+accessed more easily:
+
+>
+    if b:myLang == 0
+      setlocal nospell
+    else
+      execute "setlocal spell spelllang=" . get(g:myLangList, b:myLang)
+    endif
+<
+
+==============================================================================
+
+Putting it all together:
+
+>
+    " Spell Check
+    let b:myLang=0
+    let g:myLangList=["nospell","de_de","en_gb"]
+    function! ToggleSpell()
+      let b:myLang=b:myLang+1
+      if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+      if b:myLang==0
+        setlocal nospell
+      else
+        execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+      endif
+      echo "spell checking language:" g:myLangList[b:myLang]
+    endfunction
+    
+    nmap <silent> <F7> :call ToggleSpell()<CR>
+<
+
+==============================================================================
+
+In case the spelling language was set by other means than ToggleSpell() (a 
+filetype autocommand say), it is safer to replace
+
+>
+    if !exists( "b:myLang" )
+      let b:myLang=0
+    endif
+<
+
+by this additional check
+
+>
+    if !exists( "b:myLang" )
+      if &spell
+        let b:myLang=index(g:myLangList, &spelllang)
+      else
+        let b:myLang=0
+      endif
+    endif
+<
+
+Note that index returns -1 if the set language is not in g:myLangList, 
+implying the spelling to be toggled off at this occasion.

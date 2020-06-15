@@ -1,0 +1,111 @@
+*vim-wiki-tips-1178.txt*   Make an HTML anchor and href tag *vwt-1178*
+
+Tip 1178 [https://vim.fandom.com/wiki/Make_an_HTML_anchor_and_href_tag]   Previous |vwt-1173| Next |vwt-1180|
+
+created 2006 · complexity basic · author Gerhard Siegesmund · version 6.0
+
+==============================================================================
+
+When editing HTML pages or blog entries, you may need to enter an HTML link. 
+This tip show a simple mapping to manually make a link from a URL and a page 
+title. An alternative uses a script to automatically read the title by getting 
+and parsing the HTML source from the website identified by the URL.
+
+MANUALLY MAKING A LINK  *vwt-1178-manually-making-a-link*
+
+Suppose you have some lines like this:
+
+>
+    This identifies a website:
+    http://www.example.com
+    The Example Site
+<
+
+With the mapping below, you can move the cursor to anywhere in the second 
+line (the target URL), then press F7 to convert the text to:
+
+>
+    This identifies a website:
+    <a href="http://www.example.com">The Example Site</a>
+<
+
+The mapping for your vimrc [https://vim.fandom.com/wiki/Vimrc] is:
+
+>
+    " Convert two lines (URL then TITLE) to one line: <a href=URL>TITLE</a>
+    map <F7> <Esc>I<a href="<Esc>A"><Esc>gJA</a><Esc>
+<
+
+AUTOMATICALLY DETERMINING THE TITLE  *vwt-1178-automatically-determining-the-title*
+
+With the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc], 
+you can easily insert a link looking like this:
+
+>
+    <a href="URL" target="TARGET">PAGE TITLE</a>
+<
+
+You are prompted to enter the URL and TARGET. The script automatically 
+determines PAGE TITLE by reading the HTML source from the website at URL.
+
+When you are prompted to enter text, the normal command line shortcuts are 
+available. For example, press Ctrl-R then + to insert the contents of the 
+clipboard, or press the Up arrow key to scroll through the input history.
+
+Assuming the default backslash leader key, you would type \al to add a link. 
+You are prompted to enter the URL, and the target; if no target is entered, 
+the link will not include a target field. The link is inserted after the line 
+containing the cursor.
+
+>
+    " Prompt user to enter URL and optional TARGET.
+    " Inserts an html link: a line after the cursor like
+    "   <a href="URL" target="TARGET">Page title</a>
+    " where 'Page title' is determined from the html source read from URL.
+    " Requires wget (or similar) tool to get source.
+    nnoremap <Leader>al :call AddLink()<CR>
+    function! AddLink()
+      let url = input('URL to add? ')
+      if empty(url)
+        return
+      endif
+      let target = input('Target for this link? ')
+      if !empty(target)
+        let target = ' target="' . target . '"'
+      endif
+      let html = system('wget -q -O - ' . shellescape(url))
+      let regex = '\c.*head.*<title[^>]*>\_s*\zs.\{-}\ze\_s*<\/title>'
+      let title = substitute(matchstr(html, regex), "\n", ' ', 'g')
+      if empty(title)
+        let title = 'Unknown'
+      endif
+      put ='<a href=\"' . url . '\"' . target . '>' . title . '</a>'
+    endfunction
+<
+
+ALTERNATIVE TOOLS  *vwt-1178-alternative-tools*
+
+The script above includes this line which assumes you have wget 
+[http://en.wikipedia.org/wiki/Wget] installed (-q is quiet, and -O - outputs 
+to stdout):
+
+>
+    let html = system('wget -q -O - ' . shellescape(url))
+<
+
+An alternative to wget would be to use the following if you have curl 
+[http://en.wikipedia.org/wiki/cURL] (-s is silent):
+
+>
+    let html = system('curl -s ' . shellescape(url))
+<
+
+Or use the following if you have lynx 
+[http://en.wikipedia.org/wiki/Lynx_(web_browser)] (-source outputs the source 
+rather than a text rendering of the html):
+
+>
+    let html = system('lynx -source ' . shellescape(url))
+<
+
+COMMENTS  *vwt-1178-comments*

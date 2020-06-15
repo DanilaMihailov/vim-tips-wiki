@@ -1,0 +1,76 @@
+*vim-wiki-tips-551.txt*   Automatically indent an XML file using XSLT *vwt-551*
+
+Tip 551 [https://vim.fandom.com/wiki/Automatically_indent_an_XML_file_using_XSLT]   Previous |vwt-550| Next |vwt-552|
+
+created September 5, 2003 · complexity advanced · author yijun · version 5.7
+
+==============================================================================
+
+Do you want to indent an XML file? Try the following XSLT (say file named 
+indent.xsl):
+
+>
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+     <xsl:output method="xml" indent="yes"/>
+     <xsl:strip-space elements="*"/>
+     <xsl:template match="/">
+      <xsl:copy-of select="."/>
+     </xsl:template>
+    </xsl:stylesheet>
+<
+
+In Vim, whenever a file with the ".xml" extension is loaded into the buffer, 
+you can try the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] to 
+trigger the XSLT for filtering the buffer contents:
+
+>
+    if version >= 540
+      augroup filetype
+        autocmd FileType xml '[,']!xsltproc indent.xsl %
+      augroup END
+    endif
+    " other autocmds
+    if version>540
+      autocmd!
+    endif
+<
+
+Next time when you load an XML file in Vim, it will be indented 
+automatically.
+
+xsltproc is a command line tool that is part of the gnome libxslt. See 
+http://xmlsoft.org/XSLT.html [http://xmlsoft.org/XSLT.html]
+
+COMMENTS  *vwt-551-comments*
+
+Using an XSLT which copies the document (not the file) is a common way to get 
+pretty-printed XML.
+
+Here are some more tips, variations, and alternatives:
+    - http://www.pinkjuice.com/howto/vimxml/tasks.xml#prettyprinting [http://www.pinkjuice.com/howto/vimxml/tasks.xml#prettyprinting]
+    - http://www.pinkjuice.com/howto/vimxml/setup.xml#xsltlint [http://www.pinkjuice.com/howto/vimxml/setup.xml#xsltlint]
+
+
+==============================================================================
+
+If you don't have a copy of XSLT, you can use the following to indent 
+XML/HTML:
+
+>
+    :%s/></>\r</g
+    gg=G
+<
+
+==============================================================================
+
+>
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+     <xsl:output method="xml" indent="yes"/>
+     <xsl:strip-space elements="*"/>
+     <xsl:template match="/">
+      <xsl:copy-of select="."/>
+     </xsl:template>
+    </xsl:stylesheet>
+<
+
+==============================================================================

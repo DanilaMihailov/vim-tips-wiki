@@ -1,0 +1,79 @@
+*vim-wiki-tips-1158.txt*   Duplicate previous line word by word *vwt-1158*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1158 [https://vim.fandom.com/wiki/Duplicate_previous_line_word_by_word]   Previous |vwt-1156| Next |vwt-1159|
+
+created 2006 · complexity basic · author zzapper · version 5.7
+
+==============================================================================
+
+This is a simple tip, which I have found really useful for coding and 
+documentation. So much so that I've allocated it two precious function 
+buttons.
+
+>
+    Mary had a little lamb<Press F2>
+    Mary <press F1>
+    Mary had<press F1>
+    Mary had a<etc etc>
+<
+
+>
+    imap <F1> @<Esc>kyWjPA<BS>
+    nmap <F1> @<Esc>kyWjPA<BS>
+    imap <F2> <Esc>o<Esc>kyWjPA<BS><Space>
+    nmap <F2> <Esc>o<Esc>kyWjPA<BS><Space>
+<
+
+Please consider giving it a try you'll likely find it addictive.
+
+COMMENTS  *vwt-1158-comments*
+
+There are similar built-in commands. See :help |i_CTRL-Y| and :help 
+|i_CTRL-E|. However, these only insert character by character.
+
+==============================================================================
+
+What about i_CTRL-X_CTRL-N? I use this all the time.
+
+==============================================================================
+
+Here is a safer version that is less damaging at line ends (inserts trailing 
+spaces instead), does not polute the undo history, works for wrapped lines and 
+could be performed from the middle of an available line. Works like Ctrl-E and 
+Ctrl-Y (except for words) in Insert mode.
+
+>
+    "word copy from line above/below
+    "<Esc>gi ensures Insert (not Replace) mode
+    inoremap <C-l> <Esc>gi<Space><Esc>gkywgjvpa
+    inoremap <C-b> <Esc>gi<Space><Esc>gjywgkvpa
+<
+
+==============================================================================
+
+A nice idea. Anyway, I use <c-y> twice, maybe thrice, then <Tab> what is 
+mapped to <c-p> (VimTip102 |vwt-102|).
+
+==============================================================================
+
+==============================================================================
+
+this is my mappings in .vimrc for duplicating a line: nmap <C-y> 
+<ESC>YA<ESC>p
+
+==============================================================================
+
+I used to use the <c-l> mapping above but found it a bit buggy so i came up 
+with this one
+
+>
+    imap <expr> <c-l> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\s\=\\|.\)')
+<

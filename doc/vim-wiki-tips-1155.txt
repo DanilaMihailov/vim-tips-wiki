@@ -1,0 +1,99 @@
+*vim-wiki-tips-1155.txt*   Set options with automatic escaping of spaces *vwt-1155*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1155 [https://vim.fandom.com/wiki/Set_options_with_automatic_escaping_of_spaces]   Previous |vwt-1154| Next |vwt-1156|
+
+created 2006 · complexity basic · author Salman Halim · version 6.0
+
+==============================================================================
+
+This function/command works just like the built-in :set except that it 
+escapes out the spaces on the rhs, making things a bit more easy:
+
+Regular set:
+
+>
+    set fp=par\ 70j
+<
+
+Our set:
+
+>
+    Set fp=par 70j
+<
+
+Just like the regular :set, multiple options may still be specified:
+
+>
+    Set fp=par 70j tw=100 ai! ai?
+<
+
+The only known caveat is in single word options:
+
+>
+    Set fp=par 70j ai
+<
+
+What you'll end up with is 'fp' set to 'par 70j ai' because Set uses the 
+presence of the =, ! or ? symbols to differentiate the current word as the 
+start of a new option rather than part of the last one.
+
+Of course, there is no real reason to use Set unless there is an obscure set, 
+such as:
+
+>
+    Set mp=texify -b -p --src-specials %
+<
+
+vs
+
+>
+    set mp=texify\ -b\ -p\ --src-specials\ %
+<
+
+Of course, there is:
+
+>
+    let &mp='texify -b -p --src-specials %'
+<
+
+I like the ability to use Set, however; requires much less thought and 
+planning: if I do a regular 'set' and get an error, I just go up a line in the 
+command-line history and change the 'set' to 'Set' and forget it.
+
+>
+    function! Set( ... )
+      let result = ''
+      for i in a:000
+        if ( i !~ '[=!?]' )
+          let result .= '\'
+        endif
+        " Escaping out any existing spaces takes care of the case where we passed in escaped spaces.
+        let result .= ' ' .escape( i, ' ' )
+      endfor
+      execute 'set' .result
+    endfunction
+    com! -nargs=+ -complete=option Set call Set( <f-args> )
+<
+
+COMMENTS  *vwt-1155-comments*
+
+If I'm reading that right, it can't correctly preseve multiple spaces on the 
+original line. That may sometimes be a problem. Multiple consecutive spaces, I 
+mean.
+
+==============================================================================
+
+You are correct. I had toyed with the idea of passing everything in as one 
+big argument and parsing through it myself (match() and strpart() or 
+something), but I just couldn't think of an example from my personal usage 
+where I ever passed in anything but single spaces.
+
+==============================================================================

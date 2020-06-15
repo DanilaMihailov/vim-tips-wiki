@@ -1,0 +1,42 @@
+*vim-wiki-tips-696.txt*   Make mouse drag not select text or go into visual mode *vwt-696*
+
+Tip 696 [https://vim.fandom.com/wiki/Make_mouse_drag_not_select_text_or_go_into_visual_mode]   Previous |vwt-695| Next |vwt-697|
+
+created 2004 · complexity basic · author Gabe Dalbec · version 6.0
+
+==============================================================================
+
+It drives me crazy that frequently when I click in a window, it goes into 
+visual mode for a few characters and thus I can't type normal command mode 
+commands. I'm finding I always have to press "v" to exit visual mode before I 
+can use vim again.
+
+I finally figured out how to disable visual mode using the mouse:
+
+>
+    noremap <LeftDrag> <LeftMouse>
+    noremap! <LeftDrag> <LeftMouse>
+<
+
+COMMENTS  *vwt-696-comments*
+
+In my vimrc:
+
+>
+    set mouse=nicr
+<
+
+No more visual mode from using mouse! :help 'mouse'
+
+==============================================================================
+
+That doesn't quite work, as the mouse still puts you into visual mode (which 
+is really all I was trying to avoid).
+
+Also, with my way, you can use Shift-LeftDrag to still select visual.
+
+==============================================================================
+
+What works for me is :set mouse-=a
+
+==============================================================================If you want to have mouse=a enabled and still want to copy, On mac you can use press fn and select the area. Cmd+c and Cmd+v anywhere you want to.

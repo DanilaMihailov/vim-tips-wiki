@@ -1,0 +1,80 @@
+*vim-wiki-tips-747.txt*   Get latest releases for syntax highlighting, runtime, plugins etc *vwt-747*
+
+Tip 744 [https://vim.fandom.com/wiki/Get_latest_releases_for_syntax_highlighting,_runtime,_plugins_etc]   Previous |vwt-743| Next |vwt-745|
+
+created 2004 · complexity basic · author Charles E. Campbell, Jr. · version 
+6.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+''This tip is obsolete: use Mercurial instead; see building Vim 
+[https://vim.fandom.com/wiki/Building_Vim] and using Mercurial 
+[https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial].
+
+Do you want the latest, official syntax highlighting files, runtime scripts, 
+documents, macros, language support, plugins, etc? See
+
+>
+    ftp://ftp.home.vim.org/pub/vim/runtime
+    ftp://ftp.home.vim.org/pub/vim/runtime/colors
+    ftp://ftp.home.vim.org/pub/vim/runtime/compiler
+    ftp://ftp.home.vim.org/pub/vim/runtime/doc
+    ftp://ftp.home.vim.org/pub/vim/runtime/lang
+    ftp://ftp.home.vim.org/pub/vim/runtime/macros
+    ftp://ftp.home.vim.org/pub/vim/runtime/syntax
+    ftp://ftp.home.vim.org/pub/vim/runtime/tools
+<
+
+Patches and whatnot are distributed on vim-dev, but typically don't contain 
+the updates to files in the directories above. If you're having a problem with 
+syntax highlighting, for instance, check the syntax repository above just in 
+case its been fixed already.
+
+In my own case, I put experimental versions of syntax highlighting files and 
+plugins that I maintain here [http://www.drchip.org/astronaut/vim/], such as 
+netrw.vim (netrw v46a now supports remote directory listing for example).
+
+COMMENTS  *vwt-747-comments*
+
+If you have rsync installed, you can use it to synchronize your runtime 
+files. I use it to keep my "master" runtimes up-to-date, currently at 
+~/.build/vim/vim72/runtime/, as follows (the "parent" vim72 directory being 
+the current directory):
+
+>
+    rsync -avzcP --delete --exclude="/dos/" ftp.nluug.nl::Vim/runtime/ ./runtime/
+<
+
+On Linux, I follow that by a make installruntime step if anything other than 
+tags has been updated.
+
+Note: Even on Windows, where I expect rsync to be available at least via 
+Cygwin and/or MinGW and/or GnuWin32, I recommend downloading the "Unix" 
+runtimes; even Vim for Windows can source them with no problem. It's true that 
+Notepad cannot display them correctly, but Wordpad can. — Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 05:45, 6 May 2009 (UTC)
+
+==============================================================================
+
+An alternative is to use an ftp mirroring tool (e.g. the fmirror tool 
+ftp://ftp.sunet.se/pub/nir/ftp/utilities/fmirror/ 
+[ftp://ftp.sunet.se/pub/nir/ftp/utilities/fmirror/] [link dead, fmirror seems 
+to be abandoned now]). To use this script, change into the vimXX/runtime 
+directory directory and run this:
+
+>
+    /usr/bin/fmirror -k \
+     -l $HOME/src/vimXX/runtime \
+     -p user@domain.com \
+     -r /pub/vim/runtime \
+     -s ftp.vim.org \
+     -S -V3
+<
+
+After having updated the runtime files change into the vimXX/src directory(or 
+whatever version we're at) and do a "make installruntime".
+
+Note, replace the vimXX by whatever version of vim you are using (e.g. 73 for 
+Vim version 7.3)

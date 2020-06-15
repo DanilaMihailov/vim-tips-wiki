@@ -1,0 +1,76 @@
+*vim-wiki-tips-76.txt*   Show only lines in quickfix list for current buffer *vwt-76*
+
+Tip 76 [https://vim.fandom.com/wiki/Show_only_lines_in_quickfix_list_for_current_buffer]   Previous |vwt-75| Next |vwt-78|
+
+created 2001 · complexity intermediate · version 7.0
+
+==============================================================================
+
+After executing :make or :grep you can browse the list of errors/matches, and 
+the appropriate source code locations, with commands like :cnext. :help 
+|quickfix|
+
+This tip folds away lines [https://vim.fandom.com/wiki/Folding] in the 
+current buffer that have no errors (when using :make), or that do not match 
+the search pattern (when using :grep). See here |vwt-801| to fold lines in the 
+quickfix list.
+
+FOLD AWAY MISSES  *vwt-76-fold-away-misses*
+
+The following script can be used to fold away lines with no errors/matches.
+
+Usage
+    - Create file ~/.vim/plugin/foldmisses.vim (Unix) or $HOME/vimfiles/plugin/foldmisses.vim (Windows) containing the script below, then restart Vim.
+    - Edit a file.
+    - Enter a command like :vimgrep /regexp/ % to get a quickfix list.
+    - Enter :FoldMisses to fold away lines in the current buffer that are not in the quickfix list.
+    - Enter :FoldLMisses to fold away lines in the current buffer that are not in the buffer's location list.
+    - Optional: :1FoldMisses will give 1 extra context line (fewer lines folded). You can set a default via let g:foldmisses_context = 1
+    - As normal, za toggles a fold, and zR opens all folds.
+
+
+>
+    if ! exists('g:foldmisses_context')
+      let g:foldmisses_context = 0
+    endif
+    
+    " Add manual fold from line1 to line2, inclusive.
+    function! s:Fold(line1, line2)
+      if a:line1 < a:line2
+        execute a:line1.','.a:line2.'fold'
+      endif
+    endfunction
+    
+    " Return list of line numbers for current buffer found in quickfix list.
+    function! s:GetHitLineNumbers(list)
+      let result = []
+      for d in a:list
+        if d.valid && d.bufnr == bufnr('')
+          call add(result, d.lnum)
+        endif
+      endfor
+      return result
+    endfunction
+    
+    function! s:FoldMisses(list, context)
+      setlocal foldmethod=manual
+      normal! zE
+      let extra = a:context == 99999 ? g:foldmisses_context : a:context
+      let last = 0
+      for lnum in s:GetHitLineNumbers(a:list)
+        let start = last==0 ? 1 : last+1+extra
+        call s:Fold(start, lnum-1-extra)
+        let last = lnum
+      endfor
+      call s:Fold(last+1+extra, line('$'))
+    endfunction
+    
+    ":[N]FoldMisses [N]     Show only the lines (and surrounding [N] lines
+    ":[N]FoldLMisses [N]    of context) in the current buffer that appear
+    "                       in the quickfix / location list.
+    "                       Missed, error-free lines are folded away.
+    command! -bar -count=99999 FoldMisses call s:FoldMisses(getqflist(), <count>)
+    command! -bar -count=99999 FoldLMisses call s:FoldMisses(getloclist(0), <count>)
+<
+
+COMMENTS  *vwt-76-comments*

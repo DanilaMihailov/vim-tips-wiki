@@ -1,0 +1,56 @@
+*vim-wiki-tips-794.txt*   Scripting - Indirectly Referencing Variables *vwt-794*
+
+Tip 794 [https://vim.fandom.com/wiki/Scripting_-_Indirectly_Referencing_Variables]   Previous |vwt-792| Next |vwt-795|
+
+created 2004 · complexity advanced · author rja · version 5.7
+
+==============================================================================
+
+It is possible to indirectly reference a variable using {} (curly braces) in 
+your Vim script. This give you the ability to build up variable names 
+on-the-fly and subsequently reference the data that those variables hold.
+
+For example:
+
+>
+    :let richard_name = "Richard"
+    :let name_pointer = "richard_name"
+    :echo {name_pointer}
+<
+
+will display the string "Richard" on screen
+
+Another example:
+
+>
+    :let richard_name = "Richard"
+    :let alan_name = "Alan"
+    :let postfix = "_name"
+    :let name_pointer = "richard" . postfix
+    :echo {name_pointer}
+    :let name_pointer = "alan" . postfix
+    :echo {name_pointer}
+<
+
+will display "Richard" then "Alan".
+
+You can also call functions indirectly in the same way. For example:
+
+>
+    function! GlobalFunc(pattern,func)
+      let files = glob(a:pattern)
+      while files != ''
+        let file = substitute(files,'^\(.\{-}\)\n.*','\1',"")
+        let files = strpart(files,strlen(file)+1)
+        call {a:func}(file)
+      endwhile
+    endfunction
+<
+
+This function calls a:func with every file matching pattern.
+
+REFERENCES  *vwt-794-references*
+    - :help  |curly-braces-names|
+
+
+COMMENTS  *vwt-794-comments*

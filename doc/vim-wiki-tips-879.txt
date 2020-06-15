@@ -1,0 +1,62 @@
+*vim-wiki-tips-879.txt*   Change vimrc with auto reload *vwt-879*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 879 [https://vim.fandom.com/wiki/Change_vimrc_with_auto_reload]   Previous |vwt-878| Next |vwt-880|
+
+created 2005 · complexity basic · version 5.7
+
+==============================================================================
+
+If you find yourself always re :so ing your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] after you changed it, have the following 
+autocmd in your vimrc:
+
+>
+    autocmd! bufwritepost .vimrc source %
+<
+
+COMMENTS  *vwt-879-comments*
+
+I did this and it seems to work. However I get a lot of errors (E174) saying 
+command already exists for each line in my vimrc.
+
+==============================================================================
+
+When you define functions in vimrc, use "function!". Some other commands 
+should also have "!" appended, which means to overwrite the existing command.
+
+==============================================================================
+
+expand('<sfile>') helps to find the .vimrc name.
+
+For example, since I switch between Windows and Linux, my .vimrc contains:
+
+>
+    exec 'cab vimrc' . expand('<sfile>')
+<
+
+==============================================================================
+
+Even better, put in your .vimrc:
+
+>
+    autocmd BufWritePost .vimrc source %
+<
+
+And in your .gvimrc:
+
+>
+    autocmd BufWritePost .vimrc source % source ~/.gvimrc
+    autocmd BufWritePost .gvimrc source %
+<
+
+The gvimrc part still has ~/.gvimrc hard-coded, though.
+
+==============================================================================

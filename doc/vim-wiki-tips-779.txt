@@ -1,0 +1,52 @@
+*vim-wiki-tips-779.txt*   OEM to ANSI conversion *vwt-779*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 779 [https://vim.fandom.com/wiki/OEM_to_ANSI_conversion]   Previous |vwt-778| Next |vwt-781|
+
+created 2004 · complexity basic · version 6.0
+
+==============================================================================
+
+I am using Windows 2000, US system. I have a bunch of text files coming from 
+a DOS machine (OEM charset), with characters above code 127. I would like to 
+convert those files into ANSI charset, so that I can see those characters 
+appropriately everywhere under Windows.
+
+Open the file in Vim and enter these commands:
+
+>
+    :set encoding=cp437
+    :set fileencoding=latin1
+    :wq
+<
+
+You can now reopen the file and the characters should have been converted. I 
+prefer to quit after the conversion so that encoding and fileencoding are 
+reset, but I supopse you can simply set encoding back to latin1.
+
+cp437 is the code page for the OEM charset.
+
+REFERENCES  *vwt-779-references*
+    - :help 'encoding'
+    - :help 'fileencoding'
+
+
+COMMENTS  *vwt-779-comments*
+
+Did the same to transform UNICODE (UTF-8) to Latim-1 (ISO-8859-1) and it 
+worked.
+
+I recommend to anyone having trouble understanding these encodings to read 
+the following article:
+
+http://www.joelonsoftware.com/articles/Unicode.html 
+[http://www.joelonsoftware.com/articles/Unicode.html]
+
+==============================================================================

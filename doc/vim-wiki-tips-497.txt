@@ -1,0 +1,270 @@
+*vim-wiki-tips-497.txt*   Replace a word with yanked text *vwt-497*
+
+Tip 605 [https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text]   Previous |vwt-604| Next |vwt-606|
+
+created 2003 · complexity basic · author Yang Xiangyu · version 6.0
+
+==============================================================================
+
+A common requirement, particularly when programming, is to copy or delete 
+text from one location, and use what was copied or deleted to replace text in 
+one or more other locations. This tip describes how this operation is 
+performed using standard Vim techniques, and with some tricks that may make it 
+easier.
+
+HOW TO COPY/PASTE  *vwt-497-how-to-copy/paste*
+
+For simplicity, this shows how to copy a word and paste it over other words. 
+However, the visual selection could be varied to use any text.
+
+Copy a word and paste it over other words:
+
+Copy text in quotes, and paste it over other quoted text:
+
+Copy a line and paste it over other lines:
+
+Deleting, changing and yanking text copies the affected text to the unnamed 
+register (""). Yanking text also copies the text to register 0 ("0). So the 
+command yiw copies the current word to "" and to "0.
+
+Typing viw selects the current word, then pressing p pastes the unnamed 
+register over the visual selection. The visual selection that was just 
+replaced is then stored in the default unnamed register.
+
+MAPPING FOR PASTE  *vwt-497-mapping-for-paste*
+
+As seen in the examples above, if you want to paste the same text a second 
+time, you must use the "0 register, as in viw"0p. A workaround is to remap the 
+p command in visual mode so that it first deletes to the black hole register 
+like so:
+
+>
+    xnoremap p "_dP
+<
+
+Note, using P in the remap replicates the default visual mode p function. 
+Feel free to test. And you'd use xnoremap instead of vnoremap, according to 
+the docs |http://vimdoc.sourceforge.net/htmldoc/map.html#mapmode-x|. Now you 
+don't have to worry about pasting from the "0 register each subsequent time.
+
+However, this remapping prevents you from pasting from other registers in 
+visual mode. So viw"ap to paste from the "a register is now broken. This 
+script 
+[https://code.google.com/p/lh-vim/source/browse/misc/trunk/macros/repl-visual-no-reg-overwrite.vim] 
+may solve that. Alternatively, I guess you could use a leader key instead such 
+as:
+
+>
+    let mapleader=","
+    xnoremap <leader>p "_dP
+<
+
+And then the workflow would be: yiw, move, viw,p, move again, viw,p, etc
+
+ALTERNATIVE MAPPING FOR PASTE  *vwt-497-alternative-mapping-for-paste*
+
+The mapping xnoremap p "_dP changes the behavior of p when pasting over 
+selected text which is at the end of a line.That occurs because when text at 
+the end of a line is deleted, the cursor moves back to the last character on 
+the line, and P then pastes before that last character.
+
+To get a more natural and consistent behavior like the default p, but without 
+overwriting the register we can simply paste and then restore the main 
+register:
+
+>
+    xnoremap <silent> p p:let @"=@0<CR>
+<
+
+or
+
+>
+    xnoremap <silent> p p:let @+=@0<CR>
+<
+
+when using unnamedplus (:set clipboard=unnamedplus :help 'clipboard'), or
+
+>
+    xnoremap <silent> p p:let @+=@0<CR>:let @"=@0<CR>
+<
+
+to restore both unnamed and unnamedplus.
+
+USING A TEXT OBJECT  *vwt-497-using-a-text-object*
+
+Instead of using copy/paste, it is often better to use a text object command 
+such as ciw to change the inner word. This method has the advantage of being 
+easily repeatable using the . repeat command.
+
+TO DO
+    - Use with clipboard @+
+    - Explain: Use register 2 to insert previously deleted text: diw"2P
+
+
+This process works with any selected text, although it works best if:
+    - The yanked text is characterwise and the replaced text is selected characterwise; or
+    - The yanked text is linewise and the replaced text is selected linewise; or
+    - The yanked text is blockwise and the replaced text is selected blockwise.
+
+
+Typing yiw (yank inner word) is an example of a characterwise copy, while yy 
+(yank current line) is an example of a linewise copy.
+
+STAMPING  *vwt-497-stamping*
+
+With this mapping, you can press S to replace the current word with the last 
+yanked text. You can repeat the operation to replace words at different 
+locations (move to another word and press S, then move to another word and 
+press S, and so on). Each time you press S, the yanked text is "stamped" over 
+the current word.
+
+>
+    nnoremap S diw"0P
+<
+
+The S command is then not available – use the equivalent cc command instead.
+
+An alternative mapping uses the black hole register ("_) for the deletion so 
+the unnamed register is not changed:
+
+>
+    nnoremap S "_diwP
+<
+
+The alternative replaces the current word with the last text that was yanked 
+or deleted. This means that you can copy or delete text from one location, 
+then use that text to replace words in multiple other locations. However, if 
+you delete any more text (for example, if you press x to delete an unwanted 
+comma), the ability to easily use the previously-deleted text is lost.
+
+In addition to the above, you could use the following to replace visually 
+selected text with the last yanked text. Again, you can quickly repeat this by 
+selecting some more text and pressing S to make the same change.
+
+>
+    vnoremap S "_d"0P
+<
+
+If you want to replace visually selected text with the last yanked or deleted 
+text, use:
+
+>
+    vnoremap S "_dP
+<
+
+SUBSTITUTE  *vwt-497-substitute*
+
+To replace the last searched text with the last yanked text in the entire 
+buffer, use:
+
+>
+    :%s//\=@"/g
+<
+
+See search and replace [https://vim.fandom.com/wiki/Search_and_replace].
+
+FROM TIP 1011  *vwt-497-from-tip-1011*
+
+For those who use visual mode, here are some commands and mappings that may 
+be useful:
+
+Type gv to reselect the previous visual area.
+
+Copy the current word or visually selected text to the clipboard:
+
+>
+    nnoremap <F4> "+yiw
+    vnoremap <F4> "+y
+<
+
+Replace the current word or visually selected text with the clipboard 
+contents:
+
+>
+    nnoremap <F5> viw"+p
+    vnoremap <F5> "+p
+<
+
+Prepare a :substitute command using the current word or the selected text:
+
+>
+    nnoremap <F6> yiw:%s/\<<C-r>"\>/<C-r>"/gc<Left><Left><Left>
+    vnoremap <F6> y:%s/\<<C-r>"\>/<C-r>"/gc<Left><Left><Left>
+<
+
+One key <F7> does everything. Good for inter-window copying and pasting.
+
+>
+    "copy
+    vmap <F7> "+ygv"zy`>
+    "paste (Shift-F7 to paste after normal cursor, Ctrl-F7 to paste over visual selection)
+    nmap <F7> "zgP
+    nmap <S-F7> "zgp
+    imap <F7> <C-r><C-o>z
+    vmap <C-F7> "zp`]
+    cmap <F7> <C-r><C-o>z
+    
+    "copy register
+    autocmd FocusGained * let @z=@+
+<
+
+SEE ALSO  *vwt-497-see-also*
+    - Repeat last change [https://vim.fandom.com/wiki/Repeat_last_change]
+
+
+RELATED PLUGINS  *vwt-497-related-plugins*
+    - ReplaceWithRegister [https://www.vim.org/scripts/script.php?script_id=2703] plugin to replace text covered by a motion, entire line(s) or the current selection with the contents of a register; more versatile and covers corner cases better than simple mappings
+    - YankRing [https://www.vim.org/scripts/script.php?script_id=1234] - Maintains a history of previous yanks, changes and deletes
+    - yankstack [https://github.com/maxbrunsfeld/vim-yankstack] - It allows you to yank and delete things without worrying about losing the text that you yanked previously. It effectively turns your default register into a stack, and lets you cycle through the items in the stack after doing a paste. This plugin is intended to be a simpler alternative to the YankRing plugin.
+    - vim-easyclip [https://github.com/svermeulen/vim-easyclip] - This plugin solves that problem by redirecting all change and delete operations to the black hole register and introducing a new operator, 'cut' (by default this is mapped to the m key for 'move').
+
+
+REFERENCES  *vwt-497-references*
+    - :help  |registers|
+    - :help  |v_p|
+
+
+COMMENTS  *vwt-497-comments*
+
+TO DO
+    - Prune out any misguided information.
+    - That will leave some notes on copying a word (or selected text) and pasting it to replace another word (or selected text).
+    - There will also be some notes on visual mode which should be moved elsewhere (possibly 1584).
+
+
+Related:
+    - 47 Swapping characters, words and lines |vwt-47|
+    - 191 Transposing |vwt-191|
+    - 438 Search and replace in a visual selection |vwt-438|
+    - 646 Moving lines up or down in a file |vwt-646|
+    - 1584 Visual selection |vwt-1584|
+
+
+I hope some of these can be merged, while others will be "see also".
+
+Copy/paste tips:
+    - 66 Transfer text between two Vim instances |vwt-66|
+    - 71 Transfer text between two gvim sessions using clipboard |vwt-71|
+    - 261 Close windows from gvim popup menu |vwt-261|
+    - 312 Copy, cut and paste |vwt-312|
+    - 344 Cut or copy lines without counting the lines |vwt-344|
+    - 356 Quick yank and paste |vwt-356|
+    - 386 Cut/copy and paste using visual selection |vwt-386|
+    - 432 Putting the current file on the Windows clipboard |vwt-432|
+    - 471 Using the mouse for Vim in an xterm |vwt-471|
+    - 478 Copy the search results into clipboard |vwt-478|
+    - 829 Copy and paste between Vim instances |vwt-829|
+    - 834 Word-wise cut, copy and paste |vwt-834|
+    - 964 GNU/Linux clipboard copy/paste with xclip |vwt-964|
+    - 984 Accessing the system clipboard |vwt-984|
+    - 1199 Unconditional linewise or characterwise paste |vwt-1199|
+    - 1268 Copy and paste between sessions using a temporary file |vwt-1268|
+    - 1593 Smart paste |vwt-1593|
+    - 1623 Using the Windows clipboard in Cygwin Vim |vwt-1623|
+
+
+I'm parking the copy/paste list here; later will work out which is "main" 
+copy/paste tip and will move list there. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 11:24, September 28, 2009 (UTC)
+
+I'd like for this tip to remain about copy/paste as it relates to visual mode, and we should have at least one other (separate) tip on the system clipboard (maybe more than one if specific systems have problems). One more that is a general "how to copy/paste" that also discusses use of registers would be good too. I don't want to see too much combination though, or the tip will probably become too big. --Fritzophrenic 16:27, October 1, 2009 (UTC)

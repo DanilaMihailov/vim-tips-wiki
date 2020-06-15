@@ -1,0 +1,80 @@
+*vim-wiki-tips-1077.txt*   Move function parameters with macro *vwt-1077*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1077 [https://vim.fandom.com/wiki/Move_function_parameters_with_macro]   Previous |vwt-1074| Next |vwt-1084|
+
+created December 13, 2005 · complexity intermediate · author Robert Ames · 
+version 5.7
+
+==============================================================================
+
+>
+    "Move after next comma
+    nmap ,mc "zdiWxf,a <Esc>"zp
+    
+    "Move until next parenthesis
+    nmap ,mp "zdiWxf)hi, <Esc>"zpx
+<
+
+Given:
+
+>
+    foo = compare( "first", second, theThird );
+<
+
+Putting cursor on "first" and pressing ",mc" will move the "first" parameter 
+after the following comma:
+
+>
+    foo = compare( second, "first", theThird );
+<
+
+Putting cursor on "second" parameter and pressing ",mp" will move it to the 
+parenthesis:
+
+>
+    foo = compare( "first", theThird, second );
+<
+
+This is similar to the old "xp" trick (which will transpose two characters) 
+with a delete and a put. The parameter under the cursor is snipped with "diW" 
+(delete Inner FullWord), which will include the comma. To put it after a comma 
+is simply a paste in the right spot (f,p). To put it as the last parameter, 
+you've got to add a comma to the last paramter and remove its last comma.
+
+This is dependent on spaces between parameters or will require some tweaking 
+to match how you work. BE CAREFUL AS IT WILL EAT YOUR CODE IF YOU DON'T WATCH 
+IT CLOSELY!
+
+This tip changes the "z" register. Also, it looks like the tip doesn't 
+correctly deal with strings that have spaces.
+
+COMMENTS  *vwt-1077-comments*
+
+Swapping characters, words and lines |vwt-47| has some mappings for swapping 
+words around most any non-word characters (comma, equals, etc).
+
+==============================================================================
+
+Slide visual highlighted words (on a line) back and forth to 
+beginning/end-of-line, or by character/word. These mappings have protection 
+against "code eating".
+
+>
+    "shift word forward/backward
+    vmap <C-Left> <Esc>`<<Left>i<Esc>gvx`^Pgv<Left>o<Left>o
+    vmap <C-Right> <Esc>`><Right>gvxpgv<Right>o<Right>o
+    vmap <C-A-Left> <Esc>`<<S-Left>gvx<S-Left>Pgv`[o`]o
+    vmap <C-A-Right> <Esc>`><S-Right>gvxi<S-Right><C-r>"<Esc>gv`]o`[o<BS>
+    vmap <C-Home> x0Pv`]o`[
+    vmap <C-End> x$pv`[o`]
+<
+
+==============================================================================

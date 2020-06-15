@@ -1,0 +1,164 @@
+*vim-wiki-tips-632.txt*   Setting the font in the GUI *vwt-632*
+
+Tip 632 [https://vim.fandom.com/wiki/Setting_the_font_in_the_GUI]   Previous |vwt-631| Next |vwt-634|
+
+created 2004 · complexity basic · author Tony Mechelynck 
+[https://vim.fandom.com/wiki/User:Tonymec] · version 6.0
+
+==============================================================================
+
+This tip concerns the setting of the 'guifont' option. It is assumed that 
+'guifontset' and 'guifontwide' will, if available, be left empty or set to a 
+non-conflicting value. Of course, this applies only to the GUI, since the font 
+for console Vim is determined by the particular terminal or terminal emulator 
+being used.
+
+If this tip is too complex for you, and you're using gvim on only one of 
+Windows, GTK2 or MacOSX (and on no other platform), then see Change font 
+[https://vim.fandom.com/wiki/Change_font].
+
+BACKGROUND  *vwt-632-background*
+
+1. There are five possible formats for the 'guifont' option: GTK+2/3, kvim 
+(obsolete), Photon, other-X11 and other. Each version of the GUI accepts only 
+one of them.
+
+2. Some versions allow selecting the font by means of a menu, using
+
+>
+    :set guifont=*
+<
+
+However, the result is usually too restrictive.
+
+3. Most versions allow setting an option by editing the current value, using
+
+:set guifont=<Tab> (if 'nocompatible'), or:set guifont=<Ctrl-E> (if 
+'compatible')
+
+The current value appears, with escaping backslashes if and where needed. 
+Change what you want to change, write it down so you can later enter it in 
+your vimrc if you find out that you like it, then press Enter to accept the 
+new result.
+
+HOW TO PROCEED  *vwt-632-how-to-proceed*
+    -  The default value for 'guifont' is the null string. However, a default or system vimrc may already have set some value. If what you see is "almost" what you want, use method 3 above. If the current value is empty, you will have to proceed in some other way. In that case, press <Esc> to leave command-line mode.
+    -  If the current value is empty, or if the current font has neither the shape nor the size that you want, try method 2 above. If it doesn't work, copy the code snippet found at the end of this section into your vimrc and start from there, changing one thing at a time until you're satisfied.
+    -  If your version of Vim allows selecting fonts via a menu, I recommend (for "other-X11") keeping only what is required to have a working font and replacing the rest (including, most especially, the last parameter, which is the encoding) by dash-separated asterisks; or (for other systems) keeping the font name and size and removing the rest (or, for non-X11, setting the encoding to cDEFAULT). See the examples below.
+
+
+Here is a snippet of code that should work on all versions of gvim. Start 
+with this, change the "set" statements as needed, and put it in your vimrc.
+
+>
+    if has("gui_running")
+      if has("gui_gtk2") || has("gui_gtk3")
+        set guifont=Courier\ New\ 11
+      elseif has("gui_photon")
+        set guifont=Courier\ New:s11
+      elseif has("gui_kde")
+        set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
+      elseif has("x11")
+        set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+      else
+        set guifont=Courier_New:h11:cDEFAULT
+      endif
+    endif
+<
+
+COMMENTS  *vwt-632-comments*
+
+For kvim (i.e. when has("gui_kde") is TRUE), there are several positional 
+parameters separated by slashes. Internal spaces must, as always, be 
+backslash-escaped. So in that case one may use something like
+
+set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
+
+The parameters are in the following order:
+
+>
+    font family (in this example, "Courier New")
+    point size (default = 10)
+    pixel size (-1 = default)
+    style hint (what to do if requested family can't be found; 5 = AnyStyle = default)
+    weight (50 = normal, 25 = light, 63 = semibold, 75 = bold, 87 = black)
+    italic (0 = no)
+    underline (0 = no)
+    strikeout (0 = no)
+    fixedPitch (1 = yes)
+    raw (0 = no)
+<
+
+==============================================================================
+
+On Windows, I like the font to be bold. To do this, use :b at the end:
+
+>
+    set guifont=courier_new:h11:b
+<
+
+==============================================================================
+
+Working on a 1024x768 screen under Windows, I find Courier-New:h11 too big. I 
+use:
+
+>
+    :set guifont=Lucida_Console:h8:cDEFAULT
+<
+
+This gives nearly the same size as Notepad, and fits as much text.
+
+==============================================================================
+
+I use Proggy Clean from http://www.proggyfonts.net/ 
+[http://www.proggyfonts.net/] with:
+
+>
+    set guifont=ProggyCleanTTSZBP:h12:cDEFAULT
+<
+
+==============================================================================
+
+I have a problem with ProggyCleanTT, and it's this ; the font has no bold 
+face.
+
+The problem with that is that when Windows is asked to render it bold, it 
+will synthesize a bold face by "smearing" the font one pixel to the right. 
+This makes the boldface of ProggyCleanTT one pixel wider than the normal face.
+
+Some applications get this right and still render the text in a rigid matrix 
+with each character in the correct position. Other applications (notably those 
+using the native Win32 GDI string rendering routines) render the text by 
+drawing each character at the offset left by the previous one. This means that 
+text applications that use boldface as part of their "prettification" of 
+source code can seriously screw up the major reason to use a monospaced font, 
+which is the consistent spacing of characters from line to line.
+
+For what it's worth, gvim appears to fall into the former category and 
+renders ProggyCleanTT Bold at the same width as the normal face. Hoorah.
+
+My habit is still to use Bitstream Vera Sans Mono at 8 points, since this 
+just works properly in every text editor I use, and is nearly as good as 
+ProggyClean.
+
+==============================================================================
+
+My last comment lead to a little googling until I found 
+http://www.donationcoder.com/Software/Jibz/Dina/index.html 
+[http://www.donationcoder.com/Software/Jibz/Dina/index.html]
+
+This guy has taken Proggy and tweaked it, added the extra faces it lacks, and 
+provided three point sizes.
+
+I think I shall be trying this one out in my editors for a while.
+
+==============================================================================
+
+If you like :set guifont=*, you could always map a key to allow you to 
+quickly choose a font. For example:
+
+>
+    map <F3> <Esc>:set guifont=*<CR>
+<
+
+==============================================================================

@@ -1,0 +1,28 @@
+*vim-wiki-tips-1035.txt*   View NFO-files correctly *vwt-1035*
+
+Tip 1035 [https://vim.fandom.com/wiki/View_NFO-files_correctly]   Previous |vwt-1033| Next |vwt-1036|
+
+created November 1, 2005 · complexity basic · version 7.0
+
+==============================================================================
+
+Most .NFO files [http://en.wikipedia.org/wiki/.nfo] use the otherwise 
+uncommon file encoding of cp437. To view them correctly in Vim, the encoding 
+has to be specified.
+
+If you are already viewing the file, just type:
+
+>
+    :e ++enc=cp437
+<
+
+That will reload the file forcing the encoding to cp437.
+
+If you want all NFO files to open this way, you can add the following line to 
+your .vimrc
+
+>
+    autocmd BufReadPre *.nfo :setlocal fileencodings=cp437,utf-8
+<
+
+COMMENTS  *vwt-1035-comments*

@@ -1,0 +1,31 @@
+*vim-wiki-tips-868.txt*   Go to end-of-line when using langmap *vwt-868*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 868 [https://vim.fandom.com/wiki/Go_to_end-of-line_when_using_langmap]   Previous |vwt-864| Next |vwt-869|
+
+created 2005 · complexity basic · author Ivan Tishchenko · version 6.0
+
+==============================================================================
+
+Recently I found it very helpful to use the 'langmap' option. But I've got a 
+problem: When I switch to my language, I'm not able to use the $ command 
+(go-to-end-of-line), because the keyboard layout for my language does not 
+contain this character at all.
+
+I had to press <End>, or use some other inconvenient way of jumping to the 
+end of a line.
+
+Today I found another way, which is much easier: command g_ moves the cursor 
+to the last non-blank character in the line. This works with 'langmap', for 
+all English characters are always "mapped" properly.
+
+See also VimTip278 |vwt-278|.
+
+COMMENTS  *vwt-868-comments*

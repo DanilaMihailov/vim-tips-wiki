@@ -1,0 +1,278 @@
+*vim-wiki-tips-1543.txt*   Find in files within Vim *vwt-1543*
+
+Tip 1543 [https://vim.fandom.com/wiki/Find_in_files_within_Vim]   Previous |vwt-1542| Next |vwt-1544|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200801#Find_in_files_within_Vim] 
+2008 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+BASIC USE  *vwt-1543-basic-use*
+
+A useful feature in many text editors is the ability to search for regular 
+expressions in multiple files. Vim has this feature, but it is a little hard 
+to find.
+
+Vim provides these commands for searching files:
+    - :grep
+    - :lgrep
+    - :vimgrep
+    - :lvimgrep
+
+
+All of these commands can be used to search for a regular expression in 
+whatever files you specify. "grep" and "lgrep" use an external application to 
+perform the search, and are great if you are running Vim on a system with a 
+good file searching utility, if you are accustomed to using an external 
+application for your searches, or if your search is not a complicated one. 
+"vimgrep" and "lvimgrep" are part of Vim, and therefore are good for using on 
+any system, especially if you want to use Vim-style regular expressions in 
+your search. Keep in mind though, that vimgrep can often be slower than grep, 
+which will call an external program to do the dirty work.
+
+These commands all fill a list with the results of their search. "grep" and 
+"vimgrep" fill the "quickfix list", which can be opened with :cw or :copen, 
+and is a list shared between ALL windows. "lgrep" and "lvimgrep" fill the 
+"location list," which is local to the current window, and can be opened with 
+:lw or :lopen. Both of these lists can be used to instantly jump to the 
+matching line in whatever file it occurs in. The commands :lnext and 
+:lprevious can be used to cycle between found results.
+
+Use of grep and lgrep depend on the external application they point to, but 
+use of vimgrep and lvimgrep is as follows:
+
+>
+    :vim[grep][!] /{pattern}/[g][j] {file} ...
+<
+
+The 'g' option specifies that all matches for a search will be returned 
+instead of just one per line, and the 'j' option specifies that Vim will not 
+jump to the first match automatically.
+
+For example, to search for the words "house" or "home" in all .txt files in 
+the current directory, use:
+
+>
+    :lvim /\<\(house\|home\)\>/gj *.txt
+    :lw
+<
+
+TIPS AND TRICKS  *vwt-1543-tips-and-tricks*
+
+OLD SEARCH RESULTS  *vwt-1543-old-search-results*
+
+If you would like to view the results of a previous search, the :colder (or 
+:lolder) and :cnewer (or :lnewer) commands will allow you to do this without 
+typing the search again.
+    - :help  |:colder|
+    - :help  |:cnewer|
+    - :help  |:lolder|
+    - :help  |:lnewer|
+
+
+RECURSIVE SEARCH  *vwt-1543-recursive-search*
+
+You can use ** in the file pattern to search recursively. For example, to 
+search for all lines containing "dostuff()" in all .c files in the parent 
+directory and all its subdirectories, use:
+
+>
+    :vimgrep /dostuff()/j ../**/*.c
+<
+
+Be careful! On Windows, either escape the backslash with another backslash, 
+or use a forward slash (see next section). The above will work on Windows, but 
+this will not, for example:
+
+>
+    :vimgrep /dostuff()/j ..\**\*.c
+<
+
+PATH SEPARATORS  *vwt-1543-path-separators*
+
+In the Windows version of Vim, backslash ('\') characters can be used as path 
+separators, but forward slashes also work, and using '/' allows file paths in 
+these searches to work in Vim under any operating system. This is especially 
+useful if your vimrc file is used on multiple platforms, and you want to write 
+mappings for common searches as below.
+
+DOTFILES  *vwt-1543-dotfiles*
+
+The * wildcard will not match dotfiles, e.g. ".bashrc". To include dotfiles 
+in a search, you can do something like the following to search dotfiles in the 
+current working directory:
+
+>
+    :vimgrep /pattern/ ./.*
+<
+
+MAPPINGS  *vwt-1543-mappings*
+
+You can use a mapping, command, or abbreviation for common searches, like a 
+search for a word under the cursor in all files of the same type in the 
+current directory. This can be especially useful if you have it automatically 
+open the results list as well.
+
+This mapping uses <cword> to get the word under the cursor, and searches for 
+it in the current directory and all subdirectories, opening the quickfix 
+window when done:
+
+>
+    map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+<
+
+This command based on VimTip483 |vwt-483| uses <cword> to get the word under 
+the cursor, but also uses % to limit the search to the current file only:
+
+>
+    command GREP :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%') | copen
+<
+
+Finally, this cabbrev uses CTRL-R CTRL-W to get the word under the cursor, 
+limiting the search to files of the same type using expand("%:e"), and moving 
+the cursor on the command-line to be just before the file list using <C-Left>, 
+so that you can easily specify a different search location. This method is 
+nice because you can either type :lvim<Enter> to perform the default search, 
+or :lvim<Space> to enter the default search into the command line, but leave 
+it there for editing.
+
+>
+    cabbrev lvim
+          \ lvim /\<lt><C-R><C-W>\>/gj
+          \ *<C-R>=(expand("%:e")=="" ? "" : ".".expand("%:e"))<CR>
+          \ <Bar> lw
+          \ <C-Left><C-Left><C-Left>
+<
+
+Note: Using a cabbrev and a mapping together may not work very well, because 
+the mapping will trigger the cabbrev. Also, be careful not to use common text 
+in your cabbrev, such as making one for the "vim" command, because then 
+whenever you try to edit a .vim file for example, the cabbrev will be expanded 
+when you press Enter. You could avoid this by moving the cursor to somewhere 
+else in the line before pressing enter.
+
+DISABLING AUTOCMDS FOR FAST SEARCHES  *vwt-1543-disabling-autocmds-for-fast-searches*
+
+Using vimgrep to search hundreds of files can be slow. A search taking only a 
+few seconds using an external grep program might take nearly a minute with 
+vimgrep. One reason for this is that vimgrep uses Vim's procedures to read 
+files, which can involve execution of several autocommands.
+
+You can make use of the :noautocmd command modifier to significantly increase 
+search speed by temporarily disabling all autocmds during the execution of the 
+:vimgrep. It may also solve other issues you may have, such as unwanted 
+interaction with plugins that trigger off BufRead events. Use it as follows:
+
+>
+    :noautocmd vimgrep /{pattern}/[flags] {file(s)}
+<
+
+See :help |:noautocmd|
+
+This simple addition should work in any of the examples given in this tip, 
+including mappings and abbreviations.
+
+An unfortunate side effect of disabling autocmds in this way is that you may 
+find syntax highlighting is off when Vim displays the result. One workaround 
+is to type :e and press Enter to reload the file. Another is to use the j flag 
+in the search, to prevent jumping to the first match automatically. You will 
+then need to enter a command such as :cw to open the quickfix window, then 
+press Enter to see it. Or, use :cnext.
+
+Note that autocmds must be enabled in order for vimgrep to work for remote or 
+archived files, since Vim's editing of such files depends on plugins using 
+autocmds.
+
+USING EXTERNAL PROGRAMS FOR FAST SEARCHES  *vwt-1543-using-external-programs-for-fast-searches*
+
+If you want to speed up searching in files, and you don't need the power of 
+Vim's regular expressions or its ability to detect file encodings, you can use 
+an external program (traditionally grep) for searching. But, remember to do it 
+within Vim using :grep, so that you have the output available in Vim to view 
+and navigate by!
+
+Depending on your system, you may find that a command like the following will 
+quickly search files:
+
+>
+    :grep pattern *.c
+<
+
+See :help |:grep|, :help 'grepprg', and Search using quickfix to list 
+occurrences |vwt-483| for ways to customize this, either to make it work on 
+your system or to do something else entirely! The above example will work on 
+many Unix-based systems (which have grep in the path), and on many Windows 
+systems (where Vim will try to use findstr).
+
+In addition there are plugins to integrate these utilities with Vim:
+    - grep.vim : Grep search tools integration with Vim [https://www.vim.org/scripts/script.php?script_id=311]
+    - findstr.vim : Using MS-Windows findstr utility to search for text with Vim [https://www.vim.org/scripts/script.php?script_id=1575]
+
+
+One of the advantages of using an external command, is that the search is 
+sometimes much more customizeable than Vim's built-in commands. For example, 
+performing a customized grep search on the word under the cursor:
+
+>
+    map <F4> :execute " grep -srnw --binary-files=without-match --exclude-dir=.git --exclude-from=exclude.list . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+<
+
+If you fill file exclude.list with file patterns to exclude from search, such 
+as "*~" – all files ending in a '~' character – the search can be made much 
+faster by virtue of only searching files of interest. See the man pages for 
+grep on your system for details of the other options.
+
+ALTERNATE SETUP WITH HOTLINKED WINDOW INSTEAD OF SCROLLING LIST  *vwt-1543-alternate-setup-with-hotlinked-window-instead-of-scrolling-list*
+
+You might rather get the grep results in their own (hot linked) buffer, 
+instead ofin the whole-screen scrolling list that comes up by default. This 
+command:
+
+>
+    command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen 33
+<
+
+May be useful (use ':MyGrep pattern files' or make a binding to use it).
+
+Note also that replacing 'grep' with 'lgrep' and 'copen' with 'lopen'will do 
+about the same thing with the location list instead of thequickfix list.
+
+RELATED PLUGINS  *vwt-1543-related-plugins*
+    - trag.vim: A wrapper for vimgrep that facilitates regexp building and project handling [https://www.vim.org/scripts/script.php?script_id=2033]
+    - EasyGrep: Makes vimgrep easier with mappings and configurable options, and provides "replace in files" capability [https://www.vim.org/scripts/script.php?script_id=2438]
+    - Filesearch: Filesystem searching using glob or regular expression patterns [https://www.vim.org/scripts/script.php?script_id=3646]
+
+
+SEE ALSO  *vwt-1543-see-also*
+    - Tip 1234: Find files in subdirectories |vwt-1234|, for when the contents of a file are not known, but the file name or part of the file name is.
+    - Tip 1008: Toggle to open or close the quickfix window |vwt-1008|, for a quick way to toggle on or off the quickfix window which contains the results of your vimgrep searches.
+    - Asynchronous grep on Windows [https://vim.fandom.com/wiki/Execute_external_programs_asynchronously_under_Windows#Extended_example:_asynchronous_grep]
+
+
+REFERENCES  *vwt-1543-references*
+    - :help  |:grep|
+    - :help  |:vimgrep|
+    - :help  |quickfix|
+    - :help  |starstar|
+    - :help  |:<cword>|
+    - :help  |c_<C-R>_<C-W>|
+    - :help  |:cabbrev|
+    - :help  |abbreviations|
+
+
+COMMENTS  *vwt-1543-comments*
+
+I enjoy using the GNU id-utils (http://www.gnu.org/software/idutils/ 
+[http://www.gnu.org/software/idutils/]).Searches with the id-utils are 
+incredibly fast!
+
+For a few tips and plugins about the id-utils see:
+    - :help  |tips.txt|
+    - Using_vim_as_an_IDE_all_in_one [https://vim.fandom.com/wiki/Using_vim_as_an_IDE_all_in_one]
+    - script#251 [https://www.vim.org/scripts/script.php?script_id=251]
+
+
+And don't forget ctags and the TagList plugin if you are developing code.
+
+Cheers!

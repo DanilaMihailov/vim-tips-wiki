@@ -1,0 +1,253 @@
+*vim-wiki-tips-450.txt*   Working with multiple sessions *vwt-450*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 450 [https://vim.fandom.com/wiki/Working_with_multiple_sessions]   Previous |vwt-449| Next |vwt-451|
+
+created March 26, 2003 · complexity basic · author Me Thinks · version 5.7
+
+==============================================================================
+
+I usually need to work on different projects (let us call them: PROJ1 and 
+PROJ2). These are in different directories, have different files.. etc. It 
+would be nice if I can instruct my editor to take me back to the exact session 
+(see :help sessions) for each of these projects - open the required files and 
+buffers, window layout etc.
+
+SOLUTION  *vwt-450-solution*
+
+1. Append the following code to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] or save the file in $HOME/.vim/plugin
+
+Change the variable g:PathToSessions to your desired place, if needed (make 
+sure that this directory exists and is writable)
+
+2. Open all/some files in a particular project (as if you are working on 
+that) in gvim. Say I open all my PROJ1 related files.
+
+You can split windows etc.. and make it look as if you are really working! 
+Type
+
+>
+    :SetSession PROJ1
+<
+
+3. Quit gvim.
+
+4. Restart gvim without any filenames at the command line.
+
+5. You ought to get a popup-entry asking you which session to restore. Choose 
+PROJ1.vim to see the effect.
+
+6. Repeat with other projects.
+
+NOTE  *vwt-450-note*
+
+You don't have to :SetSession everytime you open gvim as in step 5. Only 
+once.
+
+If you start vim with no files at the command line, you have an option of 
+going back to the last saved session (this is available in the gui if you 
+choose LastSession.vim)
+
+>
+    au VimLeave * call VimLeave()
+    au VimEnter * call VimEnter()
+    let g:PathToSessions = $HOME . "/.vim/sessions/"
+    
+    function! VimEnter()
+      if argc() == 0
+        " gvim started with no files
+        if has("browse") == 1
+          let g:SessionFileName = browse(0, "Select Session", g:PathToSessions, g:PathToSessions . "LastSession.vim")
+          if g:SessionFileName != ""
+            exe "source " . g:SessionFileName
+          endif
+        else
+          " For non-gui vim
+          let LoadLastSession = confirm("Restore last session?", "&Yes\n&No")
+          if LoadLastSession == 1
+            exe "source " . g:PathToSessions . "LastSession.vim"
+          endif
+        endif
+      endif
+    endfunction
+    
+    function! VimLeave()
+      exe "mksession! " . g:PathToSessions . "LastSession.vim"
+      if exists("g:SessionFileName") == 1
+        if g:SessionFileName != ""
+          exe "mksession! " . g:SessionFileName
+        endif
+      endif
+    endfunction
+    " A command for setting the session name
+    com -nargs=1 SetSession :let g:SessionFileName = g:PathToSessions . <args> . ".vim"
+    " .. and a command to unset it
+    com -nargs=0 UnsetSession :let g:SessionFileName = ""
+<
+
+COMMENTS  *vwt-450-comments*
+
+Nice tip, but I had to change the code a lot before I got it to work. Perhaps 
+your setup (or platform) is somehow different from mine.
+
+Anyway, here's my code. It works great for me:
+
+>
+    au VimLeave * call VimLeave()
+    au VimEnter * call VimEnter()
+    let g:PathToSessions = $HOME . "/.vim/sessions"
+    
+    function! VimEnter()
+      if argc() == 0
+        " gvim started with no files
+        if has("browse") == 1
+          let g:SessionFileName = browse(0, "Select Session", g:PathToSessions, "/LastSession.vim")
+          if g:SessionFileName != ""
+            exe "source " . g:SessionFileName
+          endif
+        else
+          " For non-gui vim
+          let LoadLastSession = confirm("Restore last session?", "&Yes\n&No")
+          if LoadLastSession == 1
+            exe "source " . g:PathToSessions . "/LastSession.vim"
+          endif
+        endif
+      endif
+    endfunction
+    
+    function! VimLeave()
+      exe "mksession! " . g:PathToSessions . "/LastSession.vim"
+      if exists("g:SessionFileName") == 1
+        if g:SessionFileName != ""
+          exe "mksession! " . g:SessionFileName
+        endif
+      endif
+    endfunction
+    
+    " A command for setting the session name
+    com! -nargs=1 SetSession :let g:SessionFileName = g:PathToSessions . "/" . <args> . ".vim"
+    " .. and a command to unset it
+    com! -nargs=0 UnsetSession :let g:SessionFileName = ""
+<
+
+==============================================================================
+
+I had to had a line to VimEnter:
+
+>
+    exe "source ~/.vim/syntax/mysyntax.vim"
+<
+
+to keep my personal syntax highlighting.
+
+Sourcing the session file seemed to switch the highlighting back to the 
+default. Apart from that it was an excellent tip
+
+==============================================================================
+
+One more detail: Instead of
+
+>
+    :SetSession PROJ1
+<
+
+I find I have to do
+
+>
+    :SetSession "PROJ1"
+<
+
+==============================================================================
+
+Oops.
+
+>
+    :SetSession "PROJ1"
+<
+
+is correct.
+
+Apart from that, I don't see why the changes to the g:PathToSessions 
+(removing the "/") and the rest of the code were needed. As has been said, 
+maybe our setups are somehow different.. I have tested on HPUX and Windows 
+NT.. the original script seemed to work fine..
+
+Regarding personal syntax highlighting, normal filetype detection ought to 
+take place, and it does for me, and the appropriate syntax file gets sourced. 
+Again, I don't know why this doesn't work at your end..
+
+One more issue: mksession also saves values of vim variables, like 'path' for 
+instance, so changes in your .vimrc to these variables will get overwritten 
+when you source the PROJ1.vim file
+
+Maybe I'll iron these out, add some more glamour, and move it to scripts 
+section.
+
+==============================================================================
+
+I've edited the script a bit so that i don't have to move my hand just to use 
+the mouse to click on the file, and make them work more consistently either 
+GUI or non-GUI. It's just a quick hack.
+
+>
+    function! VimEnter()
+      if argc() == 0
+        let LoadLastSession = confirm("Restore last session?", "&Yes\n&No")
+        if LoadLastSession == 1
+          exe "source " . g:PathToSessions . "/LastSession.vim"
+        else
+          call LoadSessions()
+        endif
+      endif
+    endfunction
+    
+    function! LoadSessions()
+      let result = "List of sessions:"
+      let sessionfiles = glob(g:PathToSessions . "/*.vim")
+      while stridx(sessionfiles, "\n") >= 0
+        let index = stridx(sessionfiles, "\n")
+        let sessionfile = strpart(sessionfiles, 0, index)
+        let result = result . "\n " . fnamemodify(sessionfile, ":t:r")
+        let sessionfiles = strpart(sessionfiles, index + 1)
+      endwhile
+      let result = result . "\n " . fnamemodify(sessionfiles, ":t:r")
+      let result = result . "\n" . "Please enter a session name to load (or empty to start normally):"
+      let sessionname = input(result)
+      if sessionname != ""
+        exe "source " . g:PathToSessions . "/" . sessionname . ".vim"
+      endif
+    endfunction
+<
+
+==============================================================================
+
+ALTERNATIVE: SESSION.VIM PLUG-IN  *vwt-450-alternative:-session.vim-plug-in*
+
+The session.vim plug-in [http://peterodding.com/code/vim/session/] 
+(script#3150 [https://www.vim.org/scripts/script.php?script_id=3150]) extends 
+the concepts on this page into a more full featured session manager that 
+supports automatic session management (using a `default' session), manual 
+session management (using named sessions) and restoring of dynamic windows 
+created by plug-ins such as NERD tree 
+[https://www.vim.org/scripts/script.php?script_id=1658] and Project 
+[https://www.vim.org/scripts/script.php?script_id=69].
+
+==============================================================================
+
+Here's another, session.vim on github 
+[https://github.com/viespejo/dotvim/blob/master/session.vim].
+
+==============================================================================
+
+ALTERNATIVE: GITSESSION.VIM PLUG-IN  *vwt-450-alternative:-gitsession.vim-plug-in*
+
+I wrote another session plugin based on git projects and branches called 
+gitsessions.vim [https://github.com/wting/gitsessions.vim].

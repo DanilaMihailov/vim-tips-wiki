@@ -1,0 +1,149 @@
+*vim-wiki-tips-119.txt*   Explorer startup and shutdown *vwt-119*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 119 [https://vim.fandom.com/wiki/Explorer_startup_and_shutdown]   Previous |vwt-118| Next |vwt-120|
+
+created September 22, 2001 · complexity intermediate · author Rudy Moore · 
+version 6.0
+
+==============================================================================
+
+I really like the new explorer window, but I wanted it to function a little 
+more seemlessly in the editor. The following code does two things. First, the 
+explorer is started when Vim is started. I also noticed and fixed that the 
+explorers size is not equal to the window size, hence the strange behavior 
+when popping between two windows. The other major function of the code is to 
+close the explorer when it's the only window that's left. I'd actually like to 
+take this a step further and close the window if the last _document_ window is 
+closed. I'd prefer that multiple explorers or help windows don't keep the 
+application running - only having a file open keeps the application running. 
+But I didn't see an easy way to do this... anyone else?
+
+Code (which currently lives in my _vimrc):
+
+>
+    " FILE BROWSER STARTUP
+    func OpenFileWindow()
+      " :runtime plugin/*.vim " this would be useful if you were calling this
+      " function from the .vimrc directly
+      let g:explDetailedList=1 " show size and date by default
+      let g:explVertical=1 " Split vertically
+      let g:explStartRight=0 " Put new explorer window to the left of the current window
+      :Sexplore
+      set nonu
+      set winwidth=15 " Make the width of the window match the explorer setting
+      "let g:explVertical=0 " Split vertically
+      doautocmd fileExplorer BufEnter " Forces the directory refresh to occur
+      :winc l " change to the document window
+    endfunc
+    
+    func CloseIfLast()
+      if exists("b:completePath") " this is how I determine that I'm in an explorer window
+      let n = winnr()
+      wincmd p
+      if n == winnr()
+      quit " quit the window
+      endif
+      wincmd p
+      endif
+    endfunc
+    
+    if has("autocmd")
+      if !exists("rudyautocommands")
+      let rudyautocommands = 1
+      autocmd VimEnter * call OpenFileWindow()
+      autocmd WinEnter * call CloseIfLast()
+      endif
+    endif
+<
+
+COMMENTS  *vwt-119-comments*
+
+This partially works on Vim 7.0. The window is created perfectly (and easier 
+than the old version, if you ask me), but it doesn't close when it's the last 
+window open.It seems if exists("b:completePath") can no longer be used to 
+determine that you're an explorer window.
+
+>
+    " FILE BROWSER STARTUP
+    func OpenFileWindow()
+     :20vs
+     :Explore
+     wincmd p
+    endfunc
+    
+    func CloseIfLast()
+     if exists("b:completePath") " this is how I determine that I'm in an explorer window
+     let n = winnr() " pop between windows, if the window number is the same
+     wincmd p " then they're the same window.
+     if n == winnr()
+     quit " quit the window
+     endif
+     wincmd p
+     endif
+    endfunc
+    
+    if has("autocmd")
+     if !exists("rudyautocommands")
+     let rudyautocommands = 1
+     autocmd VimEnter * call OpenFileWindow()
+     autocmd WinEnter * call CloseIfLast()
+     endif
+    endif
+<
+
+==============================================================================
+
+Modified to work with both 6.x and 7.0:
+
+>
+    " File Browser Setup
+    func OpenFileWindow()
+     :20vs
+     :Explore
+     if v:version < 700
+     doautocmd fileExplorer BufEnter " Forces the directory refresh to occur
+     endif
+     wincmd p
+    endfunc
+    
+    func CloseIfLast()
+     if v:version >= 700
+     if exists("b:netrw_curdir") " Set by netrw file explorer
+     let n = winnr() " if window number is the same
+     wincmd p
+     if n == winnr()
+     quit " quit why is this half colored
+     endif
+     wincmd p
+     endif
+     elseif v:version >= 600
+     if exists("b:completePath") " Set by old (vim6) file explorer
+     let n = winnr() " if window number is the same
+     wincmd p
+     if n == winnr()
+     quit " quit why is this half colored
+     endif
+     wincmd p
+     endif
+     endif
+    endfunc
+    
+    if has("autocmd")
+     if !exists("rudyautocommands")
+     let rudyautocommands = 1
+    
+     autocmd VimEnter * call OpenFileWindow()
+     autocmd WinEnter * call CloseIfLast()
+     endif
+    endif
+<
+
+==============================================================================

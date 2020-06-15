@@ -1,0 +1,53 @@
+*vim-wiki-tips-1495.txt*   Wrap a visual selection in an HTML tag *vwt-1495*
+
+Tip 1495 [https://vim.fandom.com/wiki/Wrap_a_visual_selection_in_an_HTML_tag]   Previous |vwt-1491| Next |vwt-1498|
+
+created 2007 · complexity intermediate · author Max Cantor · version 6.0
+
+==============================================================================
+
+There are a bunch of HTML wrapper tips and tricks out there, but I couldn't 
+find any that suited my desire to be able to quickly wrap an arbitrary visual 
+highlight in an arbitrary HTML tag. Here's the function, and a mapping to go 
+with it:
+
+>
+    " Wrap visual selection in an HTML tag.
+    vmap <Leader>w <Esc>:call VisualHTMLTagWrap()<CR>
+    function! VisualHTMLTagWrap()
+      let tag = input("Tag to wrap block: ")
+      if len(tag) > 0
+        normal `>
+        if &selection == 'exclusive'
+          exe "normal i</".tag.">"
+        else
+          exe "normal a</".tag.">"
+        endif
+        normal `<
+        exe "normal i<".tag.">"
+        normal `<
+      endif
+    endfunction
+<
+
+Put it in ~/.vim/scripts/wrapwithtag.vim and enable in ~/.vimrc:
+
+>
+    au Filetype html,xml source ~/.vim/scripts/wrapwithtag.vim
+<
+
+When editing HTML file, visually highlight text and press {Leader} w, enter 
+tag name (where {Leader} defaults to the '\' key, but you can override with a 
+:let mapleader = command :help |mapleader|).
+
+COMMENTS  *vwt-1495-comments*
+
+Another option is to use the xml.vim 
+[https://www.vim.org/scripts/script.php?script_id=1397] plugin. Save it as 
+~/.vim/ftplugins/html.vim. To wrap some text with tag, visually select the 
+text, and press <LocalLeader>x (<LocalLeader> is backslash \ by default). To 
+strip the surrounding tag, press <LocalLeader>d.
+
+==============================================================================
+
+Why not use ftplugin directory instead of a Filetype autocmd?

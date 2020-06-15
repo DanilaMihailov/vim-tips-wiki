@@ -1,0 +1,228 @@
+*vim-wiki-tips-1005.txt*   HTML entities *vwt-1005*
+
+Tip 1005 [https://vim.fandom.com/wiki/HTML_entities]   Previous |vwt-1004| Next |vwt-1007|
+
+created 2005 · complexity basic · author Jos van den Oever · version 6.0
+
+==============================================================================
+
+There are several ways to deal with HTML entities so that text can be edited, 
+for example, while it contains a simple ampersand (&) rather than its HTML 
+entity (&amp;).
+
+SIMPLE SEARCH AND REPLACE  *vwt-1005-simple-search-and-replace*
+
+This code allows you to easily escape or unescape HTML entities: Change (<, 
+>, &) to (&lt;, &gt;, &amp;), or the reverse.
+
+This does not escape all characters that should be escaped—just the most 
+common.
+
+>
+    " Escape/unescape & < > HTML entities in range (default current line).
+    function! HtmlEntities(line1, line2, action)
+      let search = @/
+      let range = 'silent ' . a:line1 . ',' . a:line2
+      if a:action == 0  " must convert &amp; last
+        execute range . 'sno/&lt;/</eg'
+        execute range . 'sno/&gt;/>/eg'
+        execute range . 'sno/&amp;/&/eg'
+      else              " must convert & first
+        execute range . 'sno/&/&amp;/eg'
+        execute range . 'sno/</&lt;/eg'
+        execute range . 'sno/>/&gt;/eg'
+      endif
+      nohl
+      let @/ = search
+    endfunction
+    command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
+    noremap <silent> <Leader>h :Entities 0<CR>
+    noremap <silent> <Leader>H :Entities 1<CR>
+<
+
+If you add the above code to your vimrc [https://vim.fandom.com/wiki/Vimrc], 
+you can HTML escape the current line by typing \H, and unescape by typing \h 
+(assuming the default backslash leader key). The same keys can be used to 
+operate on all lines in a visually selected area, for example, select several 
+lines then type \h to unescape them.
+
+In addition, a user command is defined. It defaults to operating on the 
+current line, but accepts a range. The argument is 0 to unescape, or 1 to 
+escape, for example:
+
+>
+    " Unescape lines 10 to 20 inclusive.
+    :10,20Entities 0
+    
+    " Escape all lines.
+    :%Entities 1
+<
+
+AUTOMAGIC ESCAPING  *vwt-1005-automagic-escaping*
+
+A script is available (unicodeswitch 
+[https://www.vim.org/scripts/script.php?script_id=909]) that automagically 
+converts entities when files are read and written, so you can view the 
+characters, and write the codes, or vice versa. It was originally written for 
+Java unicodes, but there is also a setting for HTML codes.
+
+The script is for &nnn style encoding, not the HTML entities.
+
+PERL HTML::ENTITIES  *vwt-1005-perl-html::entities*
+
+Note: Vim needs to compiled with the "perl" feature enabled for this to work.
+
+A slightly more complex solution that escapes all characters uses Perl. You 
+need Perl [http://www.perl.org/] and HTML-Parser 
+[http://search.cpan.org/dist/HTML-Parser/].
+
+>
+    function! HTMLEncode()
+    perl << EOF
+     use HTML::Entities;
+     @pos = $curwin->Cursor();
+     $line = $curbuf->Get($pos[0]);
+     $encvalue = encode_entities($line);
+     $curbuf->Set($pos[0],$encvalue)
+    EOF
+    endfunction
+    
+    function! HTMLDecode()
+    perl << EOF
+     use HTML::Entities;
+     @pos = $curwin->Cursor();
+     $line = $curbuf->Get($pos[0]);
+     $encvalue = decode_entities($line);
+     $curbuf->Set($pos[0],$encvalue)
+    EOF
+    endfunction
+    
+    nnoremap <Leader>h :call HTMLEncode()<CR>
+    nnoremap <Leader>H :call HTMLDecode()<CR>
+<
+
+To convert a line, put the cursor in the line and type \h or \H.
+
+RUBY HTMLENCODE  *vwt-1005-ruby-htmlencode*
+
+Note: Vim needs to be compiled with the "ruby" feature enabled for this to 
+work.
+
+The following is a simpler alternative using Ruby.
+
+>
+    function! HTMLEncode()
+    ruby << EOF
+      @str=VIM::Buffer.current.line
+      VIM::Buffer.current.line=@str.unpack("U*").collect {|s| (s > 127 ? "&##{s};" : s.chr) }.join("")
+    EOF
+    endfunction
+    
+    nnoremap <Leader>h :call HTMLEncode()<CR>
+<
+
+LANGUAGE SPECIFIC HTML-ENTITIES  *vwt-1005-language-specific-html-entities*
+
+To change, for example, Norwegian special characters, there is no need to 
+select text and not check all the text since it is never part of code-syntax. 
+With the following, typing ,r will check all the text and replace all three 
+Norwegian special characters with entities. This can easily be applied to 
+other languages.
+
+>
+    " Replace all Norwegian special characters with entities.
+    nnoremap <silent> ,r :call ReplaceNorChar()<CR>
+    function! ReplaceNorChar()
+      silent %s/Æ/\&AElig;/eg
+      silent %s/Ø/\&Oslash;/eg
+      silent %s/Å/\&Aring;/eg
+      silent %s/æ/\&aelig;/eg
+      silent %s/ø/\&oslash;/eg
+      silent %s/å/\&aring;/eg
+    endfunction
+<
+
+Add it to your ~/.vimrc or ~/.vim/ftplugin/html.vim.
+
+SEE ALSO  *vwt-1005-see-also*
+    - Quick reference and decode/encode tool [http://www.html-entities.org/]
+    - Html escape tool [http://puzzlersworld.com/misc/html_escape_tool.html]
+
+
+COMMENTS  *vwt-1005-comments*
+
+Can check it with:
+
+>
+    .! php -r "echo htmlentities('<cword>');"
+<
+
+==============================================================================
+
+>
+    command Entities :call Entities()
+    function Entities()
+      silent s/À/\&Agrave;/eg
+      silent s/Á/\&Aacute;/eg
+      silent s/Â/\&Acirc;/eg
+      silent s/Ã/\&Atilde;/eg
+      silent s/Ä/\&Auml;/eg
+      silent s/Å/\&Aring;/eg
+      silent s/Æ/\&AElig;/eg
+      silent s/Ç/\&Ccedil;/eg
+      silent s/È/\&Egrave;/eg
+      silent s/É/\&Eacute;/eg
+      silent s/Ê/\&Ecirc;/eg
+      silent s/Ë/\&Euml;/eg
+      silent s/Ì/\&Igrave;/eg
+      silent s/Í/\&Iacute;/eg
+      silent s/Î/\&Icirc;/eg
+      silent s/Ï/\&Iuml;/eg
+      silent s/Ð/\&ETH;/eg
+      silent s/Ñ/\&Ntilde;/eg
+      silent s/Ò/\&Ograve;/eg
+      silent s/Ó/\&Oacute;/eg
+      silent s/Ô/\&Ocirc;/eg
+      silent s/Õ/\&Otilde;/eg
+      silent s/Ö/\&Ouml;/eg
+      silent s/Ø/\&Oslash;/eg
+      silent s/Ù/\&Ugrave;/eg
+      silent s/Ú/\&Uacute;/eg
+      silent s/Û/\&Ucirc;/eg
+      silent s/Ü/\&Uuml;/eg
+      silent s/Ý/\&Yacute;/eg
+      silent s/Þ/\&THORN;/eg
+      silent s/ß/\&szlig;/eg
+      silent s/à/\&agrave;/eg
+      silent s/á/\&aacute;/eg
+      silent s/â/\&acirc;/eg
+      silent s/ã/\&atilde;/eg
+      silent s/ä/\&auml;/eg
+      silent s/å/\&aring;/eg
+      silent s/æ/\&aelig;/eg
+      silent s/ç/\&ccedil;/eg
+      silent s/è/\&egrave;/eg
+      silent s/é/\&eacute;/eg
+      silent s/ê/\&ecirc;/eg
+      silent s/ë/\&euml;/eg
+      silent s/ì/\&igrave;/eg
+      silent s/í/\&iacute;/eg
+      silent s/î/\&icirc;/eg
+      silent s/ï/\&iuml;/eg
+      silent s/ð/\&eth;/eg
+      silent s/ñ/\&ntilde;/eg
+      silent s/ò/\&ograve;/eg
+      silent s/ó/\&oacute;/eg
+      silent s/ô/\&ocirc;/eg
+      silent s/õ/\&otilde;/eg
+      silent s/ö/\&ouml;/eg
+      silent s/ø/\&oslash;/eg
+      silent s/ù/\&ugrave;/eg
+      silent s/ú/\&uacute;/eg
+      silent s/û/\&ucirc;/eg
+      silent s/ü/\&uuml;/eg
+      silent s/ý/\&yacute;/eg
+      silent s/þ/\&thorn;/eg
+      silent s/ÿ/\&yuml;/eg
+    endfunction
+<

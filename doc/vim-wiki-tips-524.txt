@@ -1,0 +1,69 @@
+*vim-wiki-tips-524.txt*   Evaluate an expression in any mode *vwt-524*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 524 [https://vim.fandom.com/wiki/Evaluate_an_expression_in_any_mode]   Previous |vwt-523| Next |vwt-525|
+
+created August 3, 2003 · complexity basic · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+The <CTRL-R>= things evaluates the expression. For example:
+
+>
+    <CTRL-R>=12+34<CR>
+<
+
+<CTRL-R>= works in insert mode and in command mode. I felt it more convenient 
+if <CTRL-R>= did the same thing in normal mode too.
+
+I have this in my vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    map <CTRL-R>= :echo
+<
+
+Now <CTRL-R>=123*456<CR> evaluates expressions for me in all 3 modes: normal 
+mode, insert mode, and command mode. In fact I found it much more convenient 
+to do casual calculations using <CTRl-R>= in normal mode than in any other 
+mode.
+
+Be warned: when typing <CTRL-R>= in normal mode, don't make long pause before 
+'='. <CTRL-R> alone means 'redo' in normal mode. Vim is very smart, and 
+figures the difference between single <CTRL-R> (which is 'redo') and the 
+mapped sequence <CTRL-R>= (which is remapped). The 'timeoutlen' option 
+controls this difference. The default value of 'timeoutlen' option is very 
+convenient.
+
+This is an expansion of Using Vim as calculator |vwt-73|.
+
+REFERENCES  *vwt-524-references*
+    - :help  |c_CTRL-R|
+    - :help  |i_CTRL-R|
+    - :help 'timeoutlen'
+    - :help 'ttimeoutlen'
+
+
+COMMENTS  *vwt-524-comments*
+
+To get the behavior like i_CTRL-r in normal mode, use @=. For example, in 
+normal mode, @='dd'<CR> will delete the current line just as if you had 
+pressed dd in normal mode.
+    - :help  |@|
+
+
+For more information. You can also do things like
+
+>
+    :let @a = 'dd'
+<
+
+and then press @a in normal mode. This does the same thing.
+
+==============================================================================

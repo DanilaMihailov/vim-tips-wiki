@@ -1,0 +1,36 @@
+*vim-wiki-tips-1506.txt*   Swap LHS and RHS of an Assignment statement *vwt-1506*
+
+Tip 1506 [https://vim.fandom.com/wiki/Swap_LHS_and_RHS_of_an_Assignment_statement]   Previous |vwt-1505| Next |vwt-1507|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Swap_LHS_and_RHS_of_an_Assignment_statement] 
+2007 · complexity basic · author Mike Brotherston · version 7.0
+
+==============================================================================
+
+Suppose you have a statement (C/C++/Java/etc):
+
+>
+    alpha = beta;
+<
+
+and you want to change it to:
+
+>
+    beta = alpha;
+<
+
+Try this mapping:
+
+>
+    noremap <C-S> :s/\([^ =]*\)\([ ]*\)=[ ]*\([^;]*\);/\3 = \1;/<CR>:nohl<CR>
+<
+
+<C-S> may cause Unix terminals to suspend. Replace with <F2> or something 
+easy to remember for your own purposes.
+
+This mucks with your current matched highlighting selections; thus the 
+trailing :nohl. If someone knows how to do this without mucking with the 
+incremental searches jot it down.
+
+COMMENTS  *vwt-1506-comments*

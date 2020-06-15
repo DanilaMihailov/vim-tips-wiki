@@ -1,0 +1,51 @@
+*vim-wiki-tips-1515.txt*   Key maps using the Alt modifier *vwt-1515*
+
+Tip 1515 [https://vim.fandom.com/wiki/Key_maps_using_the_Alt_modifier]   Previous |vwt-1514| Next |vwt-1516|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Key_maps_using_the_Alt_modifier] 
+2007 · complexity basic · version 7.0
+
+==============================================================================
+
+This tip is about enabling the use of all characters in a Hungarian keymap, 
+but the idea may be useful for other languages as well, hence the title.
+
+There are four different Hungarian keymaps, depending on the infamous y-z key 
+swap and the number of keys on the keyboard (101 or 102). For 101-key 
+keyboards there is no separate 0 (zero) key, it is accessible by Alt-i'. The 
+Happy Hacking Keyboard has a layout similar to 101 keys, so this must be used 
+there as well.
+
+Important punctuation characters are accessible with mappings using the Alt 
+key, so we have to disable menu-shortcuts using the Alt key with the following 
+setting.
+
+>
+    :set winaltkeys=no
+<
+
+If this setting is enabled, we can define the missing keys. Here are the most 
+important ones:
+
+>
+    " Combinations accessible with the Alt key
+    <M-`> 0
+    <M-q> \
+    <M-w> |
+    <M-f> [
+    <M-g> ]
+    <M-x> #
+    <M-c> &
+    <M-v> @
+    <M-b> {
+    <M-n> }
+    <M-m> <
+    <M-.> >
+    <M-,> ;
+<
+
+These lines can be appended to your $VIM/vimfiles/keymap/magyar_utf-8.keymap 
+file.
+
+COMMENTS  *vwt-1515-comments*

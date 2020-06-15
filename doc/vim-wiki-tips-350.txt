@@ -1,0 +1,54 @@
+*vim-wiki-tips-350.txt*   Insert a non commented line despite formatoptions *vwt-350*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 350 [https://vim.fandom.com/wiki/Insert_a_non_commented_line_despite_formatoptions]   Previous |vwt-349| Next |vwt-351|
+
+created 2002 · complexity basic · author Feral · version 5.7
+
+==============================================================================
+
+This is relevant when your 'formatoptions' includes o.
+
+From :help |fo-table|, "Automatically insert the current comment leader after 
+hitting 'o' or 'O' in Normal mode."
+
+I like this behavior enough to keep the o option, however at times I want to 
+not insert the comment chars, and although manually deleting the added chars 
+is not hard I present these simple mappings that delete the added chars 
+automatically.
+
+>
+    nnoremap go o<Esc>S
+    nnoremap gO O<Esc>S
+<
+
+This makes go open a new line under the cursor and removes inserted chars, 
+while gO opens a new line above the cursor and removes inserted chars.
+
+COMMENTS  *vwt-350-comments*
+
+It should be noted that the go mapping presented above will interfere with 
+Vim's default go (Go to {count} byte in the buffer :help |go|) command.
+
+There should be a much more elegant way of achieving the same effect, but I 
+am currently unaware of what it might be.
+
+==============================================================================
+
+I look everywhere for a solution to this problem. My work around is to use 
+Ctrl-W (insert mode) to delete the previous word.
+
+A side note. I find it useful to use Ctrl-Backspace instead of Ctrl-W.
+
+>
+    imap <C-BS> <C-W>
+<
+
+==============================================================================

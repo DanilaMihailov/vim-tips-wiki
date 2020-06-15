@@ -1,0 +1,88 @@
+*vim-wiki-tips-913.txt*   Delete files with a Vim command *vwt-913*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 913 [https://vim.fandom.com/wiki/Delete_files_with_a_Vim_command]   Previous |vwt-912| Next |vwt-914|
+
+created 2005 · complexity basic · author hari_vim · version 6.0
+
+==============================================================================
+
+You can of course create a command/map to execute the external "rm" or "del" 
+command depending on the OS and environment, but Vim has a delete() function 
+which works very well, and I like to do it this way because it works on all 
+environments without much effort. Put the following in your vimrc (all on one 
+line) and you can use the "Remove" command with the normal Vim command-line 
+arguments (such as "%" to remove the current file). It also has filename 
+completion.
+
+>
+    command! -complete=file -nargs=1 Remove :echo 'Remove: '.'<f-args>'.' '.(delete(<f-args>) == 0 ? 'SUCCEEDED' : 'FAILED')
+<
+
+As cited in this stackoverflow answer 
+[http://stackoverflow.com/q/16678661/413494%7C] there is also a simple way to 
+remove the file and close the buffer
+
+>
+    :call delete(expand('%')) | bdelete!
+<
+
+Once you execute the command, watch out for the "SUCCEEDED" status for 
+confirmation. This only removes the file on the filesystem, so if you want, 
+you can explicitly delete/wipeout the vim buffer too.
+
+COMMENTS  *vwt-913-comments*
+
+To expand slightly, I use the following to delete the current buffer -- this 
+is smart enough to not delete help buffers:
+
+>
+    function! DeleteFile(...)
+      if(exists('a:1'))
+        let theFile=a:1
+      elseif ( &ft == 'help' )
+        echohl Error
+        echo "Cannot delete a help buffer!"
+        echohl None
+        return -1
+      else
+        let theFile=expand('%:p')
+      endif
+      let delStatus=delete(theFile)
+      if(delStatus == 0)
+        echo "Deleted " . theFile
+      else
+        echohl WarningMsg
+        echo "Failed to delete " . theFile
+        echohl None
+      endif
+      return delStatus
+    endfunction
+    "delete the current file
+    com! Rm call DeleteFile()
+    "delete the file and quit the buffer (quits vim if this was the last file)
+    com! RM call DeleteFile() <Bar> q!
+<
+
+Basically, Rm will delete the current file; RM will delete the current file 
+and quit the buffer (without saving) in one go. Given that DeleteFile() takes 
+a parameter and uses that instead of the current buffer should allow a version 
+of Rm/RM to take a parameter (or not) quite easily; left to the reader as an 
+exercise.
+
+==============================================================================
+
+I don't understand why you would use all those commands and functions.
+
+Why not :echo delete(filename)? Or, if you want to delete file and wipeout 
+buffer, which I guess happens very rarely, you may write :echo delete(@%), and 
+if successfull -- :bw!.
+
+==============================================================================

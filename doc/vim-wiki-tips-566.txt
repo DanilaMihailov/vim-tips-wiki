@@ -1,0 +1,54 @@
+*vim-wiki-tips-566.txt*   Autocomplete with TAB when typing words *vwt-566*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 566 [https://vim.fandom.com/wiki/Autocomplete_with_TAB_when_typing_words]   Previous |vwt-564| Next |vwt-567|
+
+created September 30, 2003 · complexity basic · author mohsin · version 6.0
+
+==============================================================================
+
+>
+    "Use TAB to complete when typing words, else inserts TABs as usual.
+    "Uses dictionary and source files to find matching words to complete.
+    
+    "See help completion for source,
+    "Note: usual completion is on <C-n> but more trouble to press all the time.
+    "Never type the same word twice and maybe learn a new spellings!
+    "Use the Linux dictionary when spelling is in doubt.
+    "Window users can copy the file to their machine.
+    function! Tab_Or_Complete()
+      if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+        return "\<C-N>"
+      else
+        return "\<Tab>"
+      endif
+    endfunction
+    :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+    :set dictionary="/usr/dict/words"
+<
+
+REFERENCES  *vwt-566-references*
+    - :help  |ins-completion|
+    - :help  |i_CTRL-X_CTRL-K|
+
+
+COMMENTS  *vwt-566-comments*
+
+Even easier than <Tab> is to have words completed automatically. There are 
+some drawbacks to this, but the word_complete.vim 
+[https://www.vim.org/scripts/script.php?script_id=73] plugin works pretty 
+well.
+
+==============================================================================
+
+To use the dictionary, add 'k' to your ':set complete'. For language keywords 
+(tags), also add ']'. See :help 'complete'.
+
+==============================================================================

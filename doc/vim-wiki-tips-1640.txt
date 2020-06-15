@@ -1,0 +1,442 @@
+*vim-wiki-tips-1640.txt*   Show tab number in your tab line *vwt-1640*
+
+Tip 1640 [https://vim.fandom.com/wiki/Show_tab_number_in_your_tab_line]   Previous |vwt-1639| Next |vwt-1641|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200911#Show_tab_number_in_your_tab_line] 
+2009 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+You can quickly jump to a specific tab page using the |gt| command with a 
+count, but it can be difficult to quickly determine the tab number you want. 
+This task is made much easier if you display the tab's number at the beginning 
+of its tab page label.
+
+The following script will set up a tab label containing a "modified" 
+indicator, the tab number, the name of the currently active buffer in the tab, 
+and the number of windows in the tab. Drop it into your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] or its own file in your plugin directory.
+
+Getting the tab number is easy, it's just the "let label.=v:lnum" portion of 
+the script, if you don't want to use the entire thing. We could have also used 
+the tabpagenr() function, which may be required if using 'tabline' instead. 
+Note that we CANNOT simply use %N as stated in :help |setting-guitablabel|, 
+because we are returning text from a function that is called using %{...} 
+syntax.
+
+Note, this script only works in GUI Vim, because it uses the (marginally 
+easier) 'guitablabel' option instead of 'tabline', which would work in 
+terminal Vim.
+
+>
+    set showtabline=2 " always show tabs in gvim, but not vim
+    " set up tab labels with tab number, buffer name, number of windows
+    function! GuiTabLabel()
+      let label = ''
+      let bufnrlist = tabpagebuflist(v:lnum)
+      " Add '+' if one of the buffers in the tab page is modified
+      for bufnr in bufnrlist
+        if getbufvar(bufnr, "&modified")
+          let label = '+'
+          break
+        endif
+      endfor
+      " Append the tab number
+      let label .= v:lnum.': '
+      " Append the buffer name
+      let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+      if name == ''
+        " give a name to no-name documents
+        if &buftype=='quickfix'
+          let name = '[Quickfix List]'
+        else
+          let name = '[No Name]'
+        endif
+      else
+        " get only the file name
+        let name = fnamemodify(name,":t")
+      endif
+      let label .= name
+      " Append the number of windows in the tab page
+      let wincount = tabpagewinnr(v:lnum, '$')
+      return label . '  [' . wincount . ']'
+    endfunction
+    set guitablabel=%{GuiTabLabel()}
+<
+
+Since a tab can contain multiple windows, it can be nice to see at a glance 
+which buffers are loaded in each window in a non-current tab. There is not 
+enough space in a tab label for this, but we can add a tooltip so that we can 
+see what files are loaded by hovering the mouse over the tab label in 
+question. Again, this will only work in GUI Vim.
+
+>
+    " set up tab tooltips with every buffer name
+    function! GuiTabToolTip()
+      let tip = ''
+      let bufnrlist = tabpagebuflist(v:lnum)
+      for bufnr in bufnrlist
+        " separate buffer entries
+        if tip!=''
+          let tip .= " \n "
+        endif
+        " Add name of buffer
+        let name=bufname(bufnr)
+        if name == ''
+          " give a name to no name documents
+          if getbufvar(bufnr,'&buftype')=='quickfix'
+            let name = '[Quickfix List]'
+          else
+            let name = '[No Name]'
+          endif
+        endif
+        let tip.=name
+        " add modified/modifiable flags
+        if getbufvar(bufnr, "&modified")
+          let tip .= ' [+]'
+        endif
+        if getbufvar(bufnr, "&modifiable")==0
+          let tip .= ' [-]'
+        endif
+      endfor
+      return tip
+    endfunction
+    set guitabtooltip=%{GuiTabToolTip()}
+<
+
+REFERENCES  *vwt-1640-references*
+    -  :help 'guitablabel'
+    -  :help  |setting-guitablabel|
+    -  :help 'guitabtooltip'
+
+
+COMMENTS  *vwt-1640-comments*
+
+The tip could be tweaked to use the 'tabline' option for terminal Vim.
+
+==============================================================================
+
+Should probably start with a simple version, something like following.
+
+Set tab label to show tab number, filename, if modified ('+' is shown if the 
+current window in the tab has been modified):
+
+>
+    :set guitablabel=%N/\ %t\ %M
+<
+
+Then mention how the script shows '+' if any window in the tab has been 
+modified. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 07:27, 
+May 19, 2010 (UTC)
+
+==============================================================================
+
+Yes, I like this. It was my original intent with this tip to include such a 
+simple introductory example.
+
+In fact, it may be better to tweak this easy example to remove as much script 
+as possible. I believe the script gains very little other than what you 
+mention. The only other thing I see is that it shows the number of windows in 
+the tab, but I'm not sure whether that's possible without the script or not.
+
+I believe we can readily use something like %N/\ %t\ %{ModifiedWindow()} for 
+the tab line...not sure though.
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 17:24, May 
+19, 2010 (UTC)
+
+==============================================================================
+
+Here's a text-style tabline for both Console and GUI modes; it displays 
+before each filename something like 3:4/8, meaning "Tab 3, window 4 of 8". 
+These numbers are in "User1" highlight, or "User2" for the current tab, while 
+the TabLine, TabLineSel and TabLineFill highlight groups have their usual 
+meanings, see :help |setting-tabline|. You may want to set the colours in a 
+colorscheme, possibly an owncoded one, but that is not the topic of this tip.
+
+>
+    if has('gui')
+      set guioptions-=e
+    endif
+    if exists("+showtabline")
+      function MyTabLine()
+        let s = ''
+        let t = tabpagenr()
+        let i = 1
+        while i <= tabpagenr('$')
+          let buflist = tabpagebuflist(i)
+          let winnr = tabpagewinnr(i)
+          let s .= '%' . i . 'T'
+          let s .= (i == t ? '%1*' : '%2*')
+          let s .= ' '
+          let s .= i . ':'
+          let s .= winnr . '/' . tabpagewinnr(i,'$')
+          let s .= ' %*'
+          let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+          let bufnr = buflist[winnr - 1]
+          let file = bufname(bufnr)
+          let buftype = getbufvar(bufnr, 'buftype')
+          if buftype == 'nofile'
+            if file =~ '\/.'
+              let file = substitute(file, '.*\/\ze.', '', '')
+            endif
+          else
+            let file = fnamemodify(file, ':p:t')
+          endif
+          if file == ''
+            let file = '[No Name]'
+          endif
+          let s .= file
+          let i = i + 1
+        endwhile
+        let s .= '%T%#TabLineFill#%='
+        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+        return s
+      endfunction
+      set stal=2
+      set tabline=%!MyTabLine()
+      map    <C-Tab>    :tabnext<CR>
+      imap   <C-Tab>    <C-O>:tabnext<CR>
+      map    <C-S-Tab>  :tabprev<CR>
+      imap   <C-S-Tab>  <C-O>:tabprev<CR>
+    endif
+<
+
+The mappings at the end are for easy navigation among the tabs: Ctrl-tab = 
+next (right of current), Ctrl-Shift-Tab = previous (left of current), both in 
+round-robin wraparound mode.This function is not perfect: the name for a netrw 
+directory appears as [No Name], just like for an unnamed buffer. Feel free to 
+enhance it if you can. — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 
+22:49, August 14, 2010 (UTC)
+
+==============================================================================
+
+Here is my tabline function. Unlike the others, it doesn't rely on +gui. It 
+will display 1: (tab #), [n+] (modified count on tab--only if needed) and 
+special help and quickfix buffer labels. This tabline shows all active 
+buffers. To minimize space, dir paths of regular files are shortened to first 
+characters. I based it on the sample tabline in the vim docs.
+
+Buyer Beware! This is my first attempt at a vim script. If it destroys 
+things, don't say I didn't warn you! Use at your own risk. Finally, any 
+pointers and improvements are welcome.
+
+To use, just copy and paste the code into your .vimrc.
+
+>
+    set showtabline=2  " 0, 1 or 2; when to use a tab pages line
+    set tabline=%!MyTabLine()  " custom tab pages line
+    function MyTabLine()
+      let s = '' " complete tabline goes here
+      " loop through each tab page
+      for t in range(tabpagenr('$'))
+        " set highlight for tab number and &modified
+        let s .= '%#TabLineSel#'
+        " set the tab page number (for mouse clicks)
+        let s .= '%' . (t + 1) . 'T'
+        " set page number string
+        let s .= t + 1 . ':'
+        " get buffer names and statuses
+        let n = ''  "temp string for buffer names while we loop and check buftype
+        let m = 0  " &modified counter
+        let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
+        " loop through each buffer in a tab
+        for b in tabpagebuflist(t + 1)
+          " buffer types: quickfix gets a [Q], help gets [H]{base fname}
+          " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
+          if getbufvar( b, "&buftype" ) == 'help'
+            let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
+          elseif getbufvar( b, "&buftype" ) == 'quickfix'
+            let n .= '[Q]'
+          else
+            let n .= pathshorten(bufname(b))
+          endif
+          " check and ++ tab's &modified count
+          if getbufvar( b, "&modified" )
+            let m += 1
+          endif
+          " no final ' ' added...formatting looks better done later
+          if bc > 1
+            let n .= ' '
+          endif
+          let bc -= 1
+        endfor
+        " add modified label [n+] where n pages in tab are modified
+        if m > 0
+          let s .= '[' . m . '+]'
+        endif
+        " select the highlighting for the buffer names
+        " my default highlighting only underlines the active tab
+        " buffer names.
+        if t + 1 == tabpagenr()
+          let s .= '%#TabLine#'
+        else
+          let s .= '%#TabLineSel#'
+        endif
+        " add buffer names
+        let s .= n
+        " switch to no underlining and add final space to buffer list
+        let s .= '%#TabLineSel#' . ' '
+      endfor
+      " after the last tab fill with TabLineFill and reset tab page nr
+      let s .= '%#TabLineFill#%T'
+      " right-align the label to close the current tab page
+      if tabpagenr('$') > 1
+        let s .= '%=%#TabLineFill#%999Xclose'
+      endif
+      return s
+    endfunction
+<
+
+--JonSkanes [https://vim.fandom.com/wiki/User:JonSkanes] 14:34, February 6, 
+2011 (UTC)
+
+==============================================================================
+
+This is also my first attempt at a Vim script. I modified the above by 
+JonSkanes to make it look more like the default style. I haven't tried it in 
+GUI Vim.
+
+>
+    set tabline=%!MyTabLine()
+    function MyTabLine()
+      let s = '' " complete tabline goes here
+      " loop through each tab page
+      for t in range(tabpagenr('$'))
+        " select the highlighting for the buffer names
+        if t + 1 == tabpagenr()
+          let s .= '%#TabLineSel#'
+        else
+          let s .= '%#TabLine#'
+        endif
+        " empty space
+        let s .= ' '
+        " set the tab page number (for mouse clicks)
+        let s .= '%' . (t + 1) . 'T'
+        " set page number string
+        let s .= t + 1 . ' '
+        " get buffer names and statuses
+        let n = ''  "temp string for buffer names while we loop and check buftype
+        let m = 0 " &modified counter
+        let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
+        " loop through each buffer in a tab
+        for b in tabpagebuflist(t + 1)
+          " buffer types: quickfix gets a [Q], help gets [H]{base fname}
+          " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
+          if getbufvar( b, "&buftype" ) == 'help'
+            let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
+          elseif getbufvar( b, "&buftype" ) == 'quickfix'
+            let n .= '[Q]'
+          else
+            let n .= pathshorten(bufname(b))
+            "let n .= bufname(b)
+          endif
+          " check and ++ tab's &modified count
+          if getbufvar( b, "&modified" )
+            let m += 1
+          endif
+          " no final ' ' added...formatting looks better done later
+          if bc > 1
+            let n .= ' '
+          endif
+          let bc -= 1
+        endfor
+        " add modified label [n+] where n pages in tab are modified
+        if m > 0
+          "let s .= '[' . m . '+]'
+          let s.= '+ '
+        endif
+        " add buffer names
+        if n == ''
+          let s .= '[No Name]'
+        else
+          let s .= n
+        endif
+        " switch to no underlining and add final space to buffer list
+        "let s .= '%#TabLineSel#' . ' '
+        let s .= ' '
+      endfor
+      " after the last tab fill with TabLineFill and reset tab page nr
+      let s .= '%#TabLineFill#%T'
+      " right-align the label to close the current tab page
+      if tabpagenr('$') > 1
+        let s .= '%=%#TabLine#%999XX'
+      endif
+      return s
+    endfunction
+<
+
+Jordon Kalilich [https://vim.fandom.com/wiki/User:Jordon_Kalilich] 22:31, 
+March 25, 2011 (UTC)
+
+==============================================================================
+
+Hi, here are my two cents: if you simply want your tab line displaying tab 
+numbers and file names, just copy the example code shown in the official 
+'tabline' documentation in your .vimrc, and then modify the MyTabLabel 
+function this way:
+
+>
+    function MyTabLabel(n)
+    	  let buflist = tabpagebuflist(a:n)
+    	  let winnr = tabpagewinnr(a:n)
+    	  return buflist[winnr - 1] . ') ' . bufname(buflist[winnr - 1])
+    endfunction
+<
+
+This will show a tab line like this:
+
+>
+    | 1) file1.txt | 2) file2.txt | 3) file3.txt |
+<
+
+Of course, feel free to change the separator defined in the last line (here, 
+the parenthesis).
+
+--BobFavazzi [https://vim.fandom.com/wiki/User:BobFavazzi] 16:22, October 10, 
+2011 (UTC)
+
+No, this will display the buffer number, not the tab number. You could easily end up with something like:
+| 4) file4.txt | 1) file1.txt | 1) file1.txt | 2)file2.txt |
+--Fritzophrenic 17:16, October 10, 2011 (UTC)
+
+You're right. Thank you for the correction, I am no Vim expert at all.
+I finally ended up with the .vimrc entry below, borrowed (and simplified) from this vim_use thread about "setting Vim tabline".
+
+>
+    if exists("+showtabline")
+         function MyTabLine()
+             let s = ''
+             let t = tabpagenr()
+             let i = 1
+             while i <= tabpagenr('$')
+                 let buflist = tabpagebuflist(i)
+                 let winnr = tabpagewinnr(i)
+                 let s .= '%' . i . 'T'
+                 let s .= (i == t ? '%1*' : '%2*')
+                 let s .= ' '
+                 let s .= i . ')'
+                 let s .= ' %*'
+                 let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+                 let file = bufname(buflist[winnr - 1])
+                 let file = fnamemodify(file, ':p:t')
+                 if file == ''
+                     let file = '[No Name]'
+                 endif
+                 let s .= file
+                 let i = i + 1
+             endwhile
+             let s .= '%T%#TabLineFill#%='
+             let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+             return s
+         endfunction
+         set stal=2
+         set tabline=%!MyTabLine()
+    endif
+<
+
+Hope this may helps. :)
+--BobFavazzi 11:10, October 13, 2011 (UTC)
+
+==============================================================================

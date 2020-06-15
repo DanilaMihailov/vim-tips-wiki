@@ -1,0 +1,97 @@
+*vim-wiki-tips-1660.txt*   Create underlines, overlines, and strikethroughs using combining characters *vwt-1660*
+
+Tip 1660 [https://vim.fandom.com/wiki/Create_underlines,_overlines,_and_strikethroughs_using_combining_characters]   Previous |vwt-1659| Next |vwt-1661|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201007#Create_underlines.2C_overlines.2C_and_strikethroughs_using_combining_characters] 
+July 20, 2010 · complexity basic · author Bmdavll · version 7.0
+
+==============================================================================
+
+This tip provides an easy method to enter Unicode 
+[http://en.wikipedia.org/wiki/Unicode] combining characters into text. Unicode 
+contains "combining" code points that modify the appearance of the previous 
+character. Several of these can be used to create text with lines running 
+through them, including U+0305 (COMBINING OVERLINE), U+0332 (COMBINING LOW 
+LINE), U+0333 (COMBINING DOUBLE LOW LINE), and U+0336 (COMBINING LONG STROKE 
+OVERLAY).
+
+This is done by putting the appropriate combining character after each 
+printable character in the text. To create these effects easily, you can add 
+the following commands to your vimrc [https://vim.fandom.com/wiki/Vimrc].
+
+`SET UP UNICODE`  *vwt-1660-`set-up-unicode`*
+
+Unicode needs to be enabled so Vim will render combining characters properly. 
+See Working with Unicode [https://vim.fandom.com/wiki/Working_with_Unicode]. 
+Specifically, the 'fileencoding' and 'encoding' options should be set to a 
+Unicode encoding such as utf-8.
+
+DEFINE COMMANDS  *vwt-1660-define-commands*
+
+>
+    " modify selected text using combining diacritics
+    command! -range -nargs=0 Overline        call s:CombineSelection(<line1>, <line2>, '0305')
+    command! -range -nargs=0 Underline       call s:CombineSelection(<line1>, <line2>, '0332')
+    command! -range -nargs=0 DoubleUnderline call s:CombineSelection(<line1>, <line2>, '0333')
+    command! -range -nargs=0 Strikethrough   call s:CombineSelection(<line1>, <line2>, '0336')
+    
+    function! s:CombineSelection(line1, line2, cp)
+      execute 'let char = "\u'.a:cp.'"'
+      execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]/&'.char.'/ge'
+    endfunction
+<
+
+Each command (:Overline, :Underline, :DoubleUnderline, and :Strikethrough) 
+allows you to add a particular effect to the text. To use them, visually 
+select the portion of the text you want to change. You can use regular visual, 
+line-wise, or block-wise visual modes.
+
+With the text still selected, enter the command name (for example, enter 
+:Underline). You will see that the previously selected text has been 
+underlined.
+
+If you use a command frequently, you may want to define a mapping to make it 
+easier. For example, the following will overline selected text when OO is 
+typed:
+
+>
+    vnoremap OO :Overline<CR>
+<
+
+EXPLANATION  *vwt-1660-explanation*
+    - The commands add a combining character after each non-control character within the selected area in the given range.
+    - If you invoke the commands while the selection is still active, the range will appear on the command line. :help  |:command-range|
+    - The combining characters are encoded in strings using Unicode escapes (for example, "\u0305"). :help  |expr-string|
+    - The characters are inserted only after non-control (printable) characters. If they come after control characters, the text is not well-formed and will not render correctly. :help [:cntrl: |[:cntrl:]|]
+    - The pattern searches for a character prefixed by \%V: that means the character is only matched if it is within the previous selection. :help  |/\%V|
+
+
+To delete a combining character, first use :set delcombine. *:help 
+'delcombine'
+
+To reverse adding a combining character see 
+https://stackoverflow.com/questions/46141062/removing-unicode-combine-character-vim 
+[https://stackoverflow.com/questions/46141062/removing-unicode-combine-character-vim]
+
+COMMENTS  *vwt-1660-comments*
+
+The original script did not operate on the last selected character on my 
+system. For example, selecting "xyz" and entering :Overline would overline xy 
+only. I have patched the script with the following change:
+
+>
+    " Changed original line:
+      execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]\%V/&'.char.'/ge'
+      " to what is now in script:
+      execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]/&'.char.'/ge'
+<
+
+I have mentioned this change in case it breaks anything. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 08:12, June 13, 2011 (UTC)
+
+The reason is, \%V is a little bit buggy and not zero-width. This is mentioned in todo.txt. Chrisbra 11:27, June 14, 2011 (UTC)
+
+Thrilling; now what if I strikethrough a whole block of text, like several 
+paragraphs, but then want to unstrikethrough only a portion thereof, like two 
+sentence? Am I stuck with using 'x' on each and every character?

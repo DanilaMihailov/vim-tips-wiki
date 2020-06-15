@@ -1,0 +1,50 @@
+*vim-wiki-tips-1120.txt*   Remove annoyance with syntax highlighting when starting a string *vwt-1120*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1120 [https://vim.fandom.com/wiki/Remove_annoyance_with_syntax_highlighting_when_starting_a_string]   Previous |vwt-1119| Next |vwt-1126|
+
+created February 4, 2006 · complexity intermediate · author AK · version 5.7
+
+==============================================================================
+
+Did you ever notice how syntax highlight of the whole screen below current 
+line changes when you start a string line (at least, in .py Python files)? Vim 
+thinks the rest of the screen is inside a string and highlights it as such. I 
+find this extremely annoying and I found a very neat fix: you have to edit the 
+syntax file for Python (or some other language), and add 'oneline' to the 
+relevant line:
+
+>
+    syn region pythonString matchgroup=Normal start=+[uU]\='+ end=+'+ skip=+\\\\\|\'+ contains=pythonEscape oneline
+    syn region pythonString matchgroup=Normal start=+[uU]\="+ end=+"+ skip=+\\\\\|\\"+ contains=pythonEscape oneline
+<
+
+This way, only the current line will change, from cursor to the end of line. 
+Usually you're entering the string at the end of line, so you'll have no 
+changes in syntax at all.
+
+COMMENTS  *vwt-1120-comments*
+
+But then you lose the ability to see when you've forgotten to close a quote, 
+etc.
+
+==============================================================================
+
+Just map the sting delimiter key to produce a pair of them and position you 
+between them.
+
+>
+    inoremap " ""<Esc>i
+<
+
+That way you do not forget to close the string and you do not have the syntax 
+coloring problem.
+
+==============================================================================

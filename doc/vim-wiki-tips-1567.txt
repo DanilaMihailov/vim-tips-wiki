@@ -1,0 +1,161 @@
+*vim-wiki-tips-1567.txt*   Use eval to create dynamic templates *vwt-1567*
+
+Tip 1567 [https://vim.fandom.com/wiki/Use_eval_to_create_dynamic_templates]   Previous |vwt-1566| Next |vwt-1568|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200805#Use_eval_to_create_dynamic_templates] 
+2008 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+There are many ways to start with a simple skeleton whenever you create a 
+file of a given type. One of the easiest methods is given in the Vim help at 
+:help |skeleton|, which uses an autocmd to read in a pre-made template file 
+whenever you create a file of the appropriate type. This method, although 
+simple, suffers from one major weakness: the resulting file skeleton is 
+completely defined by the static text in the template file. Many templates 
+will have dynamic content such as copyright dates, creation times, file name, 
+etc. that are impossible to define statically. If you don't need or want a 
+huge plugin with tons of features you never use, but need more power than the 
+static initial text given by the example in the :help documents, or if you 
+just like doing things yourself, then read on.
+
+DYNAMIC CONTENT FROM STATIC FILES  *vwt-1567-dynamic-content-from-static-files*
+
+The first idea one might have to allow dynamic template content could be to 
+define autocmds that would replace specific pre-defined tags like [:DATE:] or 
+[:FILE_NAME:] with the appropriate text. But, why define a syntax of your own, 
+when Vim has a perfectly good expression syntax that you will eventually need 
+to translate into anyway? Using the eval() function, you can easily evaluate 
+an expression obtained from the template file itself in order to provide 
+dynamic content limited only by Vim's expression syntax and parsing. Here's 
+how:
+
+In your .vimrc [https://vim.fandom.com/wiki/Vimrc], define an augroup to load 
+all your desired template files, just as discussed in :help |template|, but 
+modified to do it automatically. It should look something like this:
+
+>
+    augroup templates
+      au!
+      " read in template files
+      autocmd BufNewFile *.* silent! execute '0r $HOME/vimfiles/templates/skeleton.'.expand("<afile>:e")
+    augroup END
+<
+
+silent! is used to ignore errors for non-existent templates. This command 
+allows you to create a template for a new file type simply by naming it 
+appropriately and placing it in the correct directory.
+
+Next, decide on special indicators to tell Vim to use certain text as an 
+expression. I used [:VIM_EVAL:]...[:END_EVAL:], where the '...' is replaced 
+with whatever expression you want Vim to evaluate to replace the entire block.
+
+Now, create all your template files, defining your dynamic content just as 
+you would have Vim create it, and placing the resulting Vim expression inside 
+your chosen indicators. For example, a copyright notice 
+[https://vim.fandom.com/wiki/Automatically_Update_Copyright_Notice_in_Files] 
+in a C file could look like:
+
+>
+    /*
+     * Copyright [:VIM_EVAL:]strftime('%Y')[:END_EVAL:] ABC Company, all rights reserved.
+     */
+<
+
+Finally, add this autocmd to replace each special tag with the result of the 
+contained expression, after all the template files are loaded:
+
+>
+    autocmd BufNewFile * %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
+<
+
+This autocmd takes advantage of the ability to use an expression as the 
+replacement text of an s/ command. See :help |sub-replace-expression| for 
+details. Note that this means your template expressions will be unable to use 
+the same technique internally.
+
+The final product should look something like this:
+
+>
+    augroup templates
+      au!
+      " read in template files
+      autocmd BufNewFile *.* silent! execute '0r $HOME/vimfiles/templates/skeleton.'.expand("<afile>:e")
+    
+      " parse special text in the templates after the read
+      autocmd BufNewFile * %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
+    augroup END
+<
+
+RELATED PLUGINS  *vwt-1567-related-plugins*
+
+These plugins provide similar capabilities, if you want a ready-made 
+solution.
+    - script#198 [https://www.vim.org/scripts/script.php?script_id=198]
+    - script#222 [https://www.vim.org/scripts/script.php?script_id=222]
+    - script#1160 [https://www.vim.org/scripts/script.php?script_id=1160]
+
+
+RELATED TIPS  *vwt-1567-related-tips*
+
+These tips all relate to creating file skeletons. You may find their methods 
+more suited to your taste, or some nice features to combine with this one.
+    - Auto_commands_for_C/C++_editing [https://vim.fandom.com/wiki/Auto_commands_for_C/C%2B%2B_editing]
+    - Shebang_line_automatically_generated [https://vim.fandom.com/wiki/Shebang_line_automatically_generated]
+    - Text_template_with_placeholders [https://vim.fandom.com/wiki/Text_template_with_placeholders]
+    - Insert_template_files_into_buffer [https://vim.fandom.com/wiki/Insert_template_files_into_buffer]
+    - Auto_insert_Java_class_template_when_editing_a_new_Java_file [https://vim.fandom.com/wiki/Auto_insert_Java_class_template_when_editing_a_new_Java_file]
+
+
+BACKWARDS COMPATIBILITY  *vwt-1567-backwards-compatibility*
+
+Note that this tip takes advantage of the eval() function defined in Vim7. If 
+you are using an earlier version, you may need to hack something together to 
+replace it, such as the following:
+
+>
+    " If we don't have the eval() function (e.g. because this is an old
+    " version of Vim), things are a bit harder...try to duplicate as much
+    " functionality as possible
+    autocmd BufNewFile * g#\[:VIM_EVAL:\].*\[:END_EVAL:\]#
+          \let linetxt=getline('.') |
+          \let reptxt=substitute(linetxt,'.*\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\].*','\1','') |
+          \while reptxt!=linetxt |
+          \  let linetxt=substitute(linetxt,'\[:VIM_EVAL:\].\{-\}\[:END_EVAL:\]','\='.reptxt,'') |
+          \  let reptxt=substitute(linetxt,'.*\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\].*','\1','') |
+          \endwhile |
+          \execute 's/^.*$/'.linetxt.'/' |
+          \unlet linetxt |
+          \unlet reptxt
+<
+
+COMMENTS  *vwt-1567-comments*
+
+This is quite like the first version of mu-template Gergely Kontra wrote.
+
+It's nice until we need not only to evaluate expressions, but also to execute 
+instructions like
+
+>
+    :let clsName = inputdialog('What name would you like the class to have?')
+<
+
+Hence my first hack in mu-template in order to support evaluation and 
+execution. The solution consisted in having a hand made loop that tests each 
+line and execute :substitute, g//exe + normal dd depending on the expression 
+detected.But I still needed more like having template-files that include other 
+template-files. For instance, a C header file always has the same structure: 
+copyrigth headers + header-gates + content + header-date + company-footers. 
+The initial code was quite ugly and damn slow.
+
+Hence the third version of the engine 
+[http://code.google.com/p/lh-vim/wiki/muTemplate] where everything is loaded 
+in a :help |List|, and computed first into memory without modifying the 
+current buffer.
+
+All this to say, this is a nice tip, but like mu-template v1, I feel like 
+this is not enough.
+
+--Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] 08:43, 4 June 
+2008 (UTC)

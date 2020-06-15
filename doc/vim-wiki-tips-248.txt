@@ -1,0 +1,114 @@
+*vim-wiki-tips-248.txt*   Auto-save current buffer periodically *vwt-248*
+
+Tip 248 [https://vim.fandom.com/wiki/Auto-save_current_buffer_periodically]   Previous |vwt-247| Next |vwt-249|
+
+created 2002 · complexity intermediate · author salmanhalim · version 6.0
+
+==============================================================================
+
+I have no idea if this was implemented in vim 5.3 or not, but you can 
+definitely do the following kludge in 6.x by using CursorHold and localtime:
+
+When you start reading a file, set a buffer variable to the current time:
+
+>
+    au BufRead,BufNewFile * let b:start_time=localtime()
+<
+
+Set a CursorHold event to check to see if enough time has elapsed since the 
+last save and save if not:
+
+>
+    au CursorHold * call UpdateFile()
+<
+
+Define a function to save the file if needed:
+
+>
+    " only write if needed and update the start time after the save
+    function! UpdateFile()
+      if ((localtime() - b:start_time) >= 60)
+        update
+        let b:start_time=localtime()
+      else
+        echo "Only " . (localtime() - b:start_time) . " seconds have elapsed so far."
+      endif
+    endfunction
+<
+
+Reset the start time explicitly after each save.
+
+>
+    au BufWritePre * let b:start_time=localtime()
+<
+
+Obviously, you should get rid of the else portion once you're certain that 
+this does indeed do what you wanted.
+
+The thing to note is that the CursorHold will only fire after 'updatetime' 
+milliseconds of inactivity have elapsed. So, if you type rapidly for one and a 
+half minutes non-stop, it won't actually save anything until you STOP activity 
+long enough. This may be what you want anyway because it won't interrupt your 
+activity with a forced save.
+
+The actual save-delay can be changed from '60' to another number (in seconds) 
+or a variable or anything like that. This entire functionality can be easily 
+wrapped inside a nice script which enables/disables this on a per-buffer basis 
+(maybe with maps etc.). If desired, I can provide that also.
+
+COMMENTS  *vwt-248-comments*
+
+This is cool. However I personally like how swap files do this for me. By 
+default a swap file is writen to after either 200 characters are typed or 4 
+seconds of inactivity has elapsed. Since a swap file writes faster and updates 
+sooner a recovery is quite simple and sometimes more reliable if something 
+goes wrong.
+
+This is just my personal preference. Some may like the physical auto saving 
+as opposed to swap file recovery. Word for example uses both methods by 
+default. (Yes, I know bad example! Please no flames. ^_^)
+
+==============================================================================
+
+It wasn't my intention to provide this as a mechanism without knowing about 
+the swap file -- am fully aware of how that works. However, someone had asked 
+about this on the Vim email list and since I posted a longish answer there, I 
+decided to make a tip out of it also.
+
+==============================================================================
+
+For a normal user this could be quite useful.
+
+I want to add a word of warning, though. System administrators should be 
+leery about using this. Applications that watch a file and reparse it 
+automatically may have unexpected behavior if it reads a file which contains a 
+partial update.
+
+While this isn't standard practice in Linux, it does happen -- /etc/crontab 
+is oftentimes handled this way, for instance.
+
+I don't know if Vim holds the file open in Windows or whether it closes after 
+reading and reopens it to write. If it holds it open, it can't happen in 
+Windows because Windows will keep the file locked until the file is closed. If 
+Vim closes and reopens the file, though, it could also happen in Windows.
+
+This does frequently impact web application configuration files, though. Many 
+web apps will reread the file anytime the CGI is called. In this case, while 
+you're editing the file, the CGI could fail. Editing a PHP-based configuration 
+file will usually show this problem.
+
+Steven Black [https://vim.fandom.com/wiki/User:Steven_Black] 18:05, December 
+9, 2010 (UTC)
+
+==============================================================================
+
+I want to use autosave only for my notes - that is a file which is typically 
+opened many days in vim and I modify it every now and then. So I created 
+~/.vim/ftplugin/notes.vim:
+
+>
+    au CursorHold <buffer> update
+<
+
+And in such buffer it's just fine to :set ft=notes and the file is being save 
+periodically.

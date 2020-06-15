@@ -1,0 +1,109 @@
+*vim-wiki-tips-1160.txt*   Auto save files when focus is lost *vwt-1160*
+
+Tip 1160 [https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost]   Previous |vwt-1159| Next |vwt-1161|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+This tip tells you how to save files when your window loses focus.
+
+It is useful to save time, for instance, when in one gvim window you are 
+editing some source files and in other windows you are compiling/debugging the 
+same source. Especially useful with window AutoRaise feature.
+
+HOWTO  *vwt-1160-howto*
+
+Several ways to do this have been suggested:
+
+ALWAYS AUTOSAVE EVERYTHING  *vwt-1160-always-autosave-everything*
+
+Put the following into your vimrc [https://vim.fandom.com/wiki/Vimrc]
+
+>
+    :au FocusLost * :wa
+<
+
+IGNORE WARNINGS FROM UNTITLED BUFFERS  *vwt-1160-ignore-warnings-from-untitled-buffers*
+
+The above command will complain if you have untitled buffers open. The 
+command below will cause those warnings to be ignored.
+
+>
+    :au FocusLost * silent! wa
+<
+
+This variant will silently ignore errors from the :wa command, but it does 
+mean any of your untitled buffers, buffers for read-only files, etc. will not 
+be saved just from losing focus, and you will not be notified of this. You 
+will need to remember to save them manually.
+
+SELECTIVELY SAVE A SPECIFIC FILE  *vwt-1160-selectively-save-a-specific-file*
+
+Enable it with
+
+>
+    :call FocusLost_SaveFiles()
+    " Put this in vimrc, add custom commands in the function.
+    function! FocusLost_SaveFiles()
+      exe ":au FocusLost" expand("%") ":wa"
+    endfunction
+<
+
+then whenever the mouse leaves the gvim window, the edited file will be saved 
+to disk.
+
+SAVE ON BUFFER SWITCH  *vwt-1160-save-on-buffer-switch*
+
+This is not exactly "when focus is lost", but maybe you were looking for 
+this:
+
+>
+    :set autowrite
+<
+
+or
+
+>
+    :set autowriteall
+<
+
+This will save the file when you switch buffers, make it etc. See the 
+appropriate :help pages for the exact details.
+
+COMMENTS  *vwt-1160-comments*
+
+TO DO
+    - Have we got a tip on recovery? If so, add a "see also" to that tip.
+    - If not, add a note here like the comment below.
+
+
+==============================================================================
+
+Thank you for the tip :au FocusLost * :waHow can we extend this function to 
+save untitled buffers?We need to give the untitled buffers a filename, perhaps 
+the date combined with the first 5 words of non-blank space text in the 
+document.
+
+or just the buffer number
+
+When your computer crashes, it is the buffers that you have not yet saved, 
+not the ones you have already saved, that you are most concerned with losing. 
+So it is necessary to have the script choose the best possible filename and 
+automatically save these buffers. Any guidance on how to implement this 
+function would be appreciated.217.83.26.249 
+[https://vim.fandom.com/wiki/Special:Contributions/217.83.26.249] 12:09, 28 
+June 2008 (UTC)
+
+By default, Vim keeps a swapfile for each buffer. You don't have to do anything to save your work. It is saved frequently in the swapfile. You do need to remain calm when recovering from the crash, but so long as you read the messages and :help recovery (which directs you to the introduction in usr_11.txt), you should not lose anything significant if the computer crashes.
+Frankly I don't understand the point of this tip. I hate anything that overwrites my file automatically (maybe I was just experimenting with an idea, and was planning to undo it). At any rate, it really isn't hard to save a file when you want. I think this tip is trying to make sure the file is saved when you switch to a compiler to compile the file (so you want to make sure the latest version is on disk).
+BTW also see :help 'autowriteall'. --JohnBeckett 12:49, 28 June 2008 (UTC)
+
+after saving unnamed buffers with in e. g. $HOME/tmp/123_2000-01-01T00_00_00Z.txt, :0file! might be useful
+
+If you want to save only the current file (as opposed to writing all changed 
+buffers), be sure to use "up[date]", not "w[rite]", i.e ":au FocusLost * 
+!silent update". Update writes only when the file is actually changed, whereas 
+write writes always, and that might lead to unwelcome side-effects — most 
+notably, encrypted files will get corrupted if focuslost happens while 
+password input is active.

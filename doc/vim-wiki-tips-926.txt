@@ -1,0 +1,87 @@
+*vim-wiki-tips-926.txt*   QT Help from Vim *vwt-926*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 926 [https://vim.fandom.com/wiki/QT_Help_from_Vim]   Previous |vwt-925| Next |vwt-929|
+
+created 2005 · complexity basic · author MA · version 6.0
+
+==============================================================================
+
+QT GUI Toolkit comes with extensive documentation in html format; searching 
+in help that means constant copy/paste from Vim into my Opera web browser. 
+This tip will allow you to press <C-t> in Vim on any QT Class or Function and 
+have the relevant help open up in Opera in the background.
+
+1. Build tags for all the QT classes and functions using the Perl script 
+given below.
+
+2. Put this in vimrc:
+
+>
+    set tags^=$QTDIR/tags,$QTDIR/doc/html/tags
+    au FileType html :silent exe ":!c:/opera/6*/opera.exe ".expand("%:p")
+<
+
+3. Press <Control-T> on QWidget in any source file The file 
+QTDIR/doc/html/qfile.html will open up in Opera web browser in the background.
+
+Other web browsers may work too.
+
+>
+    # WHAT: make tags for qt documentation.
+    # HOW: cd $QTDIR/doc/html; perl $0 index > tags
+    # AUTHOR: Mohsin Ahmed
+    my(@mytaglist,%seen);
+    while( <> ){
+      if( m/^"(\S+)"\s+(\S+\.html)(.+)/ ) {
+        my($class,$file,$tag)=($1,$2,$3);
+        push @mytaglist,"$class\t$file\t/$class/\n";
+        if( $class =~ m/(\S+)::(\S+)/ ){
+          my($class,$func) = ($1,$2);
+          push @mytaglist,"$func\t$file\t/$class::$func/\n";
+          if( ! $seen{$class}++ ){
+            push @mytaglist,"$class\t$file\t/$class/\n";
+          }
+        }
+      }
+    }
+    print sort @mytaglist;
+<
+
+COMMENTS  *vwt-926-comments*That's how I changed it to use Firefox and close the HTML itself. Although I don't like it that much as now always when I edit an HTML file it will be closed right away... 
+
+>
+    autocmd FileType html :silent execute '!start C:\Programme\Mozilla Firefox\firefox.exe "%:p" ' | bd
+<
+
+==============================================================================This command in vimrc launches Opera only on qt html files: 
+
+>
+    au BufReadPost *qt*/doc/html/*.html :silent exe ":!c:/opera/6*/opera.exe ".expand("%:p") | bd
+<
+
+Putting $QTDIR above did not work, ideally this command should go into 
+qtdir/doc/html/.vimrc.
+
+==============================================================================For some reason I couldn't get the perl script to work, so I hacked this: 
+
+>
+    function! QtClassDoc()
+    	let qt_dir = "/usr/share/qt4/doc/html/"
+    	let class = tolower(expand("<cword>"))
+     	silent execute "!opera -pd .opera-qt -newpage " . qt_dir . class . ".html &>/dev/null" . " &" | redraw!
+    endfunction
+<
+
+==============================================================================
+
+I also found the perl script doesn't work. But we can just use exuberant 
+ctagsto generate the tags file for Qt html doc (run ctags under Qt's html 
+docdirectory) and put that tags file in Vim.

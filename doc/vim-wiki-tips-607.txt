@@ -1,0 +1,62 @@
+*vim-wiki-tips-607.txt*   Opening gvim atop a console window *vwt-607*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 607 [https://vim.fandom.com/wiki/Opening_gvim_atop_a_console_window]   Previous |vwt-606| Next |vwt-608|
+
+created November 19, 2003 · complexity basic · author drchip · version 5.7
+
+==============================================================================
+
+I like to have gvim open atop the current xterm I'm using, rather like a vim 
+console would. Here's some Korn shell script for setting up a function "gv" 
+which queries X for the current window's geometry and adjusts the window for 
+the current fontsize, borders, and menu region.
+
+Admittedly the adjustments for that vary with border sizes, etc, so you'll 
+likely need to adjust x,y,w,h in the Adjustments section.
+
+To start gvim, type:
+
+>
+    gv files options etc
+<
+
+>
+    # gv: gvim covers starting console window
+    function gv
+    {
+    if [[ "${WINDOWID}" = "" ]]; then
+     return
+    fi
+    xwi=$(xwininfo -id $WINDOWID)
+    xyposn=${xwi##*Corners: }
+    xyposn=${xyposn%% -*}
+    wh=${xwi##*geometry }
+    wh=${wh%%[-+]*}
+    
+    integer x y w h
+    x=${xyposn%+[0-9]*}
+    y=${xyposn##*+}
+    w=${wh%x*}
+    hh=${wh#*x}
+    h=${hh%%[-+]*}
+    
+    # Adjustments: account for window borders, menus, fontsizes
+    # Adjust for RH8 Linux: courier-12-r
+    h=h-4
+    x=x-4
+    y=y-18
+    
+    # execute gvim with geometry
+    gvim -geometry "${w}x${h}+${x}+${y}" "$@"
+    }
+<
+
+COMMENTS  *vwt-607-comments*

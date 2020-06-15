@@ -1,0 +1,63 @@
+*vim-wiki-tips-1498.txt*   Delete words in a different way *vwt-1498*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1498 [https://vim.fandom.com/wiki/Delete_words_in_a_different_way]   Previous |vwt-1495| Next |vwt-1499|
+
+created 2007 · complexity basic · author fomit · version 5.7
+
+==============================================================================
+
+Often, you might want to delete a set of arguments within bash scripts in 
+Unix environments as an admin.
+
+So you might think dw (delete word) does the job, because it often does, 
+actually. However, in Unix environments you might also interpret a word in a 
+different way, e.g. a "/path/to/file" can be seen as just one word in terms of 
+the number of arguments. In that case, "dw" will not delete "/path/to/file", 
+instead it will interpret every slash "/" as a separate word, so you have to 
+enter "dw" 6 times.
+
+Instead, you can dynamically enter your own, currently needed delimiter 
+without changing Vim's global behavior in vimrc by just typing "df " (d f 
+space). That deletes from the cursor position to, and including, the next 
+space.
+
+You can easily adapt this style of deleting "words" by replacing space by 
+your own character.
+
+Maybe you want to delete a whole sentence, then you want to type "df.". There 
+are many thinkable usages.
+
+COMMENTS  *vwt-1498-comments*
+
+You can also use dW (capital W) to delete a WORD, which is a number of 
+consecutive characters, such as "/usr/bin/perl". Also check out dt<char>, 
+which deletes up to (not including) <char>.
+
+==============================================================================
+
+If you need that "f " motion often, you could also map
+
+>
+    :ono <Space> f<Space>
+<
+
+then delete with "d ", this is one key less.
+
+==============================================================================
+
+When you use "df ", you simply tell Vim to delete all the chars until (and 
+including) the next space character. This is no magic, and I think it needs to 
+be clarified for novices. The command f<char> puts the cursor on the next 
+occurrence of <char>. This is therefore a movement command. Any movement 
+command, combined with the operator "d" instructs Vim to delete until the new 
+cursor position.
+
+==============================================================================

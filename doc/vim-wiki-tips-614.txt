@@ -1,0 +1,118 @@
+*vim-wiki-tips-614.txt*   Perldoc function and module keyboard mappings *vwt-614*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip461 |vwt-461|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 614 [https://vim.fandom.com/wiki/Perldoc_function_and_module_keyboard_mappings]   Previous |vwt-613| Next |vwt-615|
+
+created December 10, 2003 · complexity intermediate · author Adam Monsen · 
+version 5.7
+
+==============================================================================
+
+>
+    " put the cursor over a perl function and try backslash-pf to see perldoc
+    :nmap <Leader>pf :!perldoc -f <cword><CR>
+    
+    " put the cursor over a perl module name and try backslash-pd to see perldoc
+    :nmap <Leader>pd :e `perldoc -ml <cword>`<CR>
+    " see ':help mapleader' for more info... default is backslash.
+<
+
+COMMENTS  *vwt-614-comments*
+
+Here's something similar I use, with these improvements on original post:
+
+In your .vimrc add these 2 lines:
+
+>
+    autocmd BufEnter *.pl,*.pm,*.cgi let oldkp=&kp | set keywordprg=perl \ -e\ $c=shift;exec\"perldoc\".($c=~/^[a-z]+$/?\"\ -f\ \":\"\ \").$c'
+    autocmd BufLeave *.pl,*.pm,*.cgi let &keywordprg=oldkp
+<
+
+Then when editing a perl file you can use perl's built-in keyword definition 
+mapping (capital K == shift+k) when under a perl function or module to see 
+it's POD.
+
+See :help |K|.
+
+==============================================================================
+
+Doesn't work. This is the error message I get.
+
+>
+    Error detected while processing BufEnter Auto commands for "*.pl":
+    E518: Unknown option: \ -e\ $c=shift;exec"perldoc".($c=~/^[a-z]+$/?"\ -f\ ":"\ ").$c'
+<
+
+==============================================================================
+
+Try this:
+
+>
+    autocmd BufEnter *.pl,*.pm,*.cgi setlocal keywordprg=perl\ -e'$c=shift;exec\"perldoc\ \".(/::/?\"\":\"-f\").\"\ $c\"'
+<
+
+(You don't need the BufLeave with setlocal)
+
+It's clumsy. If you try to look at docs for Modules like CGI or DBI perldoc 
+-f will still be called. You have to press enter once or twice before seeing 
+the desired documentation and once or twice afterwards, depending on various 
+conditions.
+
+If there is a vimscript that handles this better I'd like to see it. 
+Something that checks perldoc's exit code and tries again probably.
+
+==============================================================================
+
+Try this:
+
+>
+    autocmd FileType perl :setlocal keywordprg=perl\ -e\ '$c=shift;exec\"perldoc\ $c\ \|\|\ perldoc\ -f\ $c\ \|\|\ echo\"'
+<
+
+This will try the keyword as a module first and if that fails it will call 
+perldoc again with -f on the assumption that we're looking at a function. If 
+that fails then echo an empty string to avoid some wierdities.
+
+However. It's still clumsy. You have to press q and then any key to get back 
+to your buffer. Is there anyway to get this output into a help buffer?
+
+
+
+==============================================================================
+
+Try this:
+
+>
+    autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <STDIN>; if ($line =~ /(\w+::\w+)/){exec("perldoc $1")} elsif($line =~ /(\w+)/){exec "perldoc -f $1 <bar><bar> perldoc $1"}'<cr><cr>
+<
+
+UPDATE:
+
+>
+    autocmd FileType perl noremap K :!echo <cWORD> <bar> perl -e '$line = <STDIN>; if ($line =~ /([\w:]+)/){exec("perldoc $1 <bar><bar> perldoc -f $1")}' 2>/dev/null<cr><cr>
+<
+
+This will work on:
+
+>
+    use MIME::Lite;
+    use Encode;
+    print("El Barto was here")
+    $msg->send;
+<

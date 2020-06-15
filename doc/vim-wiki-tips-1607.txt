@@ -1,0 +1,45 @@
+*vim-wiki-tips-1607.txt*   Subversion developer cindent options *vwt-1607*
+
+Tip 1607 [https://vim.fandom.com/wiki/Subversion_developer_cindent_options]   Previous |vwt-1606| Next |vwt-1608|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200810#Subversion_developer_cindent_options] 
+October 7, 2008 · complexity basic · version 7.0
+
+==============================================================================
+
+If you are a Subversion developer, you will want Vim to indent according to 
+subversion source code conventions.
+
+Use these commands to setup full svn coding style:
+
+>
+    set ts=4 sw=4 expandtab tw=80 fo=tcroq cindent
+    set isk=a-z,A-Z,48-57,_,.,-,>
+    set cino=>1s,e0,n-2,f0,{.5s,}0,^-.5s,=.5s,t0,+1s,c3,(0,u0,\ 0
+<
+
+Or, alternatively, this simpler setup might suit you; it only adjusts the 
+indenting when braces or control flow statements are involved:
+
+>
+    set noai cin cino={2,>4,n-2
+<
+
+Conformant indenting style for Subversion source looks like this:
+
+>
+    if (maybe == yes)
+        do_stuff();
+      else
+        {
+          do_other_stuff();
+        }
+      more();
+<
+
+SEE ALSO  *vwt-1607-see-also*
+    - File to configure Vim to use Subversion's coding style [http://svn.collab.net/repos/svn/trunk/tools/dev/svn-dev.vim]
+
+
+COMMENTS  *vwt-1607-comments*

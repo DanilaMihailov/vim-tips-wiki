@@ -1,0 +1,101 @@
+*vim-wiki-tips-212.txt*   Setting file attributes without reloading a buffer *vwt-212*
+
+Tip 212 [https://vim.fandom.com/wiki/Setting_file_attributes_without_reloading_a_buffer]   Previous |vwt-210| Next |vwt-213|
+
+created 2002 · complexity intermediate · author Max Ischenko · version 6.0
+
+==============================================================================
+
+While creating scripts and other executable files with Vim you need to set 
+the Unix executable bit on the file.
+
+You can do this from inside Vim with :!chmod a+x %. The % represents the 
+current buffer's file name.
+
+The problem is that Vim will notice attribute changes and prompt you to 
+reload the file. If you do this, your undo history for the file will be lost.
+
+The following function facilitates changing executable attributes without 
+reloading a buffer. It accomplishes this feat by setting up a 
+|FileChangedShell| autocmd that does nothing before running the external 
+command, which means Vim will take no action when it detects the changed 
+attributes. After making sure that Vim has detected the new file attributes 
+using |:checktime|, the script removes the FileChangedShell autocmd again so 
+that Vim acts normally for future file attribute changes.
+
+>
+    function! SetExecutableBit()
+      let fname = expand("%:p")
+      checktime
+      execute "au FileChangedShell " . fname . " :echo"
+      silent !chmod a+x %
+      checktime
+      execute "au! FileChangedShell " . fname
+    endfunction
+    command! Xbit call SetExecutableBit()
+<
+
+Now you can type :Xbit to make the file executable.
+
+COMMENTS  *vwt-212-comments*
+
+Using Max's idea, I came up with this code to toggle the read-only state of a 
+file on Windows.
+
+>
+    function! ToggleReadOnlyBit()
+      let fname = fnameescape(substitute(expand("%:p"), "\\", "/", "g"))
+      checktime
+      execute "au FileChangedShell " . fname . " :echo"
+      if &readonly
+        silent !attrib -r %
+      else
+        silent !attrib +r %
+      endif
+      checktime
+      set invreadonly
+      execute "au! FileChangedShell " . fname
+    endfunction
+    command! XRU call ToggleReadOnlyBit()
+<
+
+Note that a simple let fname = expand("%:p") doesn't work on Windows since 
+autocmd patterns need /'s instead on \'s. It also seemed prudent to escape the 
+filename in case it had embedded spaces. 32.97.110.54 
+[https://vim.fandom.com/wiki/Special:Contributions/32.97.110.54] 21:08, 7 
+November 2008 (UTC)
+
+==============================================================================
+
+TO DO
+    - Does this command interfere with other FileChangedShell autocmds?
+
+
+==============================================================================
+
+Another option could be to use 'undofile' - will this not persist the undo 
+history?
+
+==============================================================================
+
+Inspired by the above, I made the following modifications:You could use a 
+variable to keep track of how the file change should be handled:
+
+>
+    "Change read/only files to read/write when they are edited
+    au FileChangedRO * !start attrib -r %
+    au FileChangedRO * :let s:changedRO = 1 
+    au FileChangedRO * :set noro
+    
+    "Don't ask about the modified read-only file
+    au FileChangedShell * call s:HandleChangedROFile()
+    
+    function s:HandleChangedROFile()
+       if exists('s:changedRO') && s:changedRO == 1
+          let s:changedRO = 0
+          let v:fcs_choice='reload'
+       else
+          v:fcs_choice='ask'
+       endif
+    endfunction
+<

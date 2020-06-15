@@ -1,0 +1,162 @@
+*vim-wiki-tips-1134.txt*   Read base64 raw string/email in Vim *vwt-1134*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1032 |vwt-1032|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1134 [https://vim.fandom.com/wiki/Read_base64_raw_string/email_in_Vim]   Previous |vwt-1133| Next |vwt-1141|
+
+created 2006 · complexity intermediate · author TonyLiu · version 6.0
+
+==============================================================================
+
+Although this tip is very useful for me, but I think it is somehow complex 
+for needing a outter command tool. The most important things today I do with 
+the internet is receiving and sending emails.
+
+But sometimes I just got some base64 raw string like aGFwcHkgdmltbWluZyA=.
+
+Here is how to use a system command to read it in Vim directly.
+
+You need a program like decode64.exe to encode/decode strings. You can can 
+download it from http://iknowuknow2.bokee.com/inc/encode64.zip 
+[http://iknowuknow2.bokee.com/inc/encode64.zip] (unfortunately I tested it 
+under WIN2K/2003 only).
+
+Put the decode64.exe/base64dll.dll somewhere in your %path% enviroment 
+variable.
+
+You need write some script in your vimrc:
+
+>
+    vnoremap ;mme "ey:call CalcEncode64(1)<CR>
+    vnoremap ;mmd "ey:call CalcEncode64(0)<CR>
+    function! CalcEncode64(pattern) " #region
+      let has_equal = 0
+      let l:rege=@e
+      let l:regk=@k
+      let l:regl=@l
+      " 1=encode 0=decode
+      let l:elen = strlen(@e) " TOTAL length
+      let l:rightmark=strpart(@e, l:elen-4, 3)
+      if l:rightmark == "==="
+        let @e = strpart(@e,0,l:elen-4)
+        let has_equal = 1
+      endif
+      if a:pattern == 1
+        let @k = @e
+      elseif a:pattern == 0
+        let @k = substitute (@e, "\n", "", "g")
+      else
+        return ""
+      endif
+      let l:nsize = 1200 " nsize must be multiples of 4 (byte, for base64 code 4 byte is an unit)
+      let l:len = strlen(@k) " TOTAL length
+      let l:vleft=l:len/l:nsize " the .n block
+      let l:vright=l:len/l:nsize " the .n block total
+      let l:answerstr = ""
+      while 0< l:vleft
+        let l:answerstr = l:answerstr . s:normalExecode(l:vleft,l:nsize,l:len,l:vright,a:pattern)
+        let l:vleft = l:vleft-1
+      endwhile
+      " last block < nsize byte
+      let l:answerstr = l:answerstr . s:lastExecode(l:vleft,l:nsize,l:len,l:vright,a:pattern)
+      let @k=l:answerstr
+      if has_equal == 1
+        :normal `>"kp
+      else
+        echo "answer = ".l:answerstr
+      endif
+      let @l=l:regl
+      let @k=l:regk
+      let @e=l:rege
+    endfunction " #endregion
+    
+    function! s:lastExecode(vleft,nsize,len,vright,pattern) " #region
+      let l:answer=""
+      let l:nstart=a:nsize*a:vright
+      let @l=strpart(@k, l:nstart, a:len-a:nsize*a:vright)
+      let l:answer = s:ExeDecode(a:vleft,a:nsize,a:len,a:vright,a:pattern)
+      return l:answer
+    endfunction " #endregion
+    
+    function! s:normalExecode(vleft,nsize,len,vright,pattern) " #region
+      let l:nstart=(a:vright-a:vleft)*a:nsize
+      let @l=strpart(@k, l:nstart, a:nsize)
+      let l:answer = s:ExeDecode(a:vleft,a:nsize,a:len,a:vright,a:pattern)
+      return l:answer
+    endfunction " #endregion
+    
+    function! s:ExeDecode(vleft,nsize,len,vright,pattern) " #region
+      " 1=encode 0=decode
+      " TODO: when encode,the string must NOT contains any char of pipe '|'
+      " which conflicts whith the windows shell command, I really dont know
+      " how to deal with it.
+      if a:pattern == 1
+        let @l = substitute (@l, "\n", "", "g")
+        let @l = substitute (@l, "\r", "", "g")
+        let l:answer = system("echo " . @l . " \| ENCODE64.exe ")
+        let @*="echo " . @l . " \| ENCODE64.exe "
+      elseif a:pattern == 0
+        "let l:answer = system("echo " . @l . " \| DECODE64.exe -D")
+        let l:answer = system("echo " . @l . " \| ENCODE64.exe -D")
+      else
+        return ""
+      endif
+      return l:answer
+    endfunction " #endregion
+<
+
+Now open a new gvim instance and copy and paste aGFwcHkgdmltbWluZyA= into it. 
+Use virtual mode to select it, then press ;mmd
+
+You can see the output text at the bottom of the window: answer = happy 
+vimming
+
+Sometimes the raw base64 string is encoded from Unicode original string. If 
+you want to read it please type:
+
+>
+    :set enc=utf8
+<
+
+first. See :help 'enc'.
+
+COMMENTS  *vwt-1134-comments*
+
+TO DO It's not really acceptable for the Vim Tips wiki to link to unsupported 
+executables with no source. Who knows what the code does? Besides, this tip is 
+far too long and complex when all it does is to run an unknown executable with 
+a number of shortcomings (see the comments above and the readme with the zip 
+file).
+
+==============================================================================
+
+Maybe you would like to install Ruby some time.
+
+>
+    :ruby require "base64"
+    :.rubydo $_=Base64.decode64 $_
+<
+
+or with Perl
+
+>
+    :perl require MIME::Base64
+    :.perldo $_=MIME::Base64::decode($_)
+<
+
+==============================================================================

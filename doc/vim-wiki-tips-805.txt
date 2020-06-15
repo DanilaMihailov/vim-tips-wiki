@@ -1,0 +1,438 @@
+*vim-wiki-tips-805.txt*   Use gvim as an external editor for Windows apps *vwt-805*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 805 [https://vim.fandom.com/wiki/Use_gvim_as_an_external_editor_for_Windows_apps]   Previous |vwt-804| Next |vwt-806|
+
+created 2004 · complexity intermediate · author Ben Collerson · version 6.0
+
+==============================================================================
+
+For Windows users, this tip provides a means of using gvim as an external 
+editor for almost any program. This script has been tested with Lotus Notes 
+and Internet Explorer.
+
+Alternatively (no script required), FireFox users can easily edit text with 
+gvim by installing an add-on (see below |vwt-805-firefox|).
+
+SCRIPT SETUP  *vwt-805-script-setup*
+
+Download the following scripts and place them in your Vim plugin directory:
+    - clipbrd.vim [https://www.vim.org/scripts/script.php?script_id=1014]
+    - genutils.vim [https://www.vim.org/scripts/script.php?script_id=197]
+    - multvals.vim [https://www.vim.org/scripts/script.php?script_id=171]
+
+
+The vbscript below should be saved as something like runvim.vbs and put it in 
+a directory such as C:\Program Files\Vim\Vim63. Modify the run line to show 
+the correct path to your gvim executable. Create a shortcut to runvim.vbs on 
+your desktop. Right-click on the shortcut, select "Properties" from the 
+context menu, click the "Shortcut" tab and add a "Shortcut Key" – something 
+like "Ctrl-Alt-V".
+
+>
+    set oShell = CreateObject("WScript.Shell")
+    oShell.SendKeys"^a"
+    oShell.SendKeys"^c"
+    oShell.SendKeys"^{Home}"
+    ReturnCode = oShell.run ("""C:\\Program Files\\Vim\\Vim63\\Gvim.exe"" +ClipBrd +only",0,True)
+    oShell.SendKeys"^a"
+    oShell.SendKeys"^v"
+    oShell.SendKeys"^{Home}"
+<
+
+SCRIPT USAGE  *vwt-805-script-usage*
+
+When you want to use Vim to edit some text in an application such as an email 
+client or web browser, move your cursor to the text area and hit Ctrl-Alt-V. 
+The current text will be copied into gvim where it can be edited. When 
+finished editing, type :wq and answer "Y" to update register "*". Your edited 
+text should now appear in the text area.
+
+FIREFOX  *vwt-805-firefox*
+
+The script in this tip is not needed if you want to edit text from the 
+FireFox web browser. After installing the excellent It's all text! 
+[https://addons.mozilla.org/en-US/firefox/addon/4125] FireFox add-on, you can 
+edit any textarea on a web page using gvim.
+
+Alternatives for FireFox include ViewSourceWith 
+[https://addons.mozilla.org/en-US/firefox/addon/394] and Mozex 
+[http://mozex.mozdev.org/] (each allows an external editor to be used for 
+"View Source" and for editing any textarea).
+
+If you want Vim-like behavior and vi-style navigation commands in FireFox, 
+too (in addition to editing textareas in Vim), check out the Vimperator 
+[http://vimperator.mozdev.org/] add-on. Most of the primary developers of 
+vimperator, however, have moved to their own fork of vimperator which is 
+highly recommended: Pentadactyl 
+[https://addons.mozilla.org/en-US/firefox/addon/pentadactyl/].
+
+COMMENTS  *vwt-805-comments*
+
+I had some trouble getting it working.
+
+You install Vim in c:\vim\ so I guess then the VBS will work, but I had to do 
+some trickery there because I install vim in Program Files. This is the line 
+that worked for me. Note the triple quotes at the start and the double ones at 
+the end of the location of gvim.exe. I don't know VBS, so I'm guessing this 
+has something to do with escaping quotes (or something).
+
+ReturnCode = oShell.run ("""c:\\Program Files\\Vim\\vim63\\gvim.exe"" 
++ClipBrd +only",0,True)
+
+==============================================================================
+
+I used Hari Krishna Dara's clipbrd.vim script because it provided a quick 
+solution to the problem of getting the text from one application to another. I 
+feel this solution is not ideal in this case.
+
+a) It would be better for the VBScript to put the clipboard into a temporary 
+file and pass this to Vim. This would allow the original clipboard to be saved 
+and restored. Using a temporary file also fits better into how Vim works. When 
+you finish editing :wq is normal, :q! is a kludge.
+
+b) When Vim is exited the original application should be made active to 
+ensure that the text is pasted back in to the correct place. AppActivate is 
+the WSH method which would be used, unfortunately there is no built-in method 
+to get the title of the currently active application before gvim is launched. 
+I am still trying to sort this one out.
+
+==============================================================================
+
+This is a great tip. I have been using clipbrd.vim to do exactly these steps 
+manually, and it never occurred to me that it can be automated using a script. 
+Inspired, I have created somewhat more reliable approach for doing this. I 
+talked to Ben about focusing the original application before pasting the 
+clipboard, but there seems to be no solution for this in vbscript. So here is 
+a working solution that uses the excellent open source automation tool called 
+AutoIt3. Install AutoIt3, copy the following lines and create a .au3 script:
+
+>
+    ; vimEditClipbrd.au3
+    ; Make sure the focus is on the top most window.
+    If WinGetTitle("") == "" Then
+        MouseClick("left")
+    EndIf
+    Sleep(10)
+    Send("^a^c^{HOME}")
+    $actTitle = WinGetTitle("")
+    $vimPath = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Vim\Gvim", "path")
+    If RunWait($vimPath&" --servername ClipBrd +ClipBrd +only ""+call foreground()""") == 0 Then
+        WinActivate($actTitle)
+        Sleep(10)
+        Send("^a^v^{HOME}")
+    EndIf
+<
+
+Follow the same steps as the above comment (i.e., create a shortcut etc).
+
+==============================================================================
+
+If the runvim.vbs script does not work for some editor or other, you could 
+try experimenting with other ways of getting the clipboard. Here is a version 
+of runvim.vbs which might work for editors which have trouble with Ctrl-A:
+
+>
+    set oShell = CreateObject("WScript.Shell")
+    oShell.SendKeys"^{End}^+{Home}%ec^{Home}"
+    ReturnCode = oShell.run("c:\\vim\\vim63\\gvim.exe +ClipBrd +only",0,True)
+    oShell.SendKeys"^{End}^+{Home}%ep^{Home}"
+<
+
+More SendKeys 
+info:http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/wsmthsendkeys.asp 
+[http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/wsmthsendkeys.asp]
+
+==============================================================================
+
+This works for me:
+
+>
+    set oShell = CreateObject("WScript.Shell")
+    WScript.Sleep 100
+    oShell.SendKeys"^a"
+    WScript.Sleep 100
+    oShell.SendKeys"^c"
+    oShell.SendKeys"^{Home}"
+    ReturnCode = oShell.run ("""d:\\vim\\vim63\\gvim.exe"" +ClipBrd +only",0,True)
+    WScript.Sleep 100
+    oShell.SendKeys"^a"
+    WScript.Sleep 100
+    oShell.SendKeys"^v"
+    oShell.SendKeys"^{Home}"
+<
+
+I added WScript.Sleep 100
+
+Apparently the application is too quick with out the pauses.
+
+==============================================================================
+
+I had the problem I think was related before in which I would return to the 
+editor (outlook in this case) and the contents would not update. I found that 
+instead of exiting per the original instructions ':q!' I had to exit ':wq!' 
+and it worked just great!
+
+==============================================================================
+
+I don't have gvim installed. Instead I use Vim under Windows XP + cygwin, 
+after I followed the scripts here, when I press Ctrl+Alt+V, Vim does fire up, 
+but no contents are copied to and from it. I figure this is because in rxvt + 
+vim, the way of copy and paste clipboard is different, i.e. we do Shift + V to 
+paste clipboard to vim, not Ctrl + V. Is there a workaround for rxvt + vim?
+
+==============================================================================
+
+Based on the ideas above I have put together a more robust program for 
+launching an external editor.
+
+Features include error checking, so you don't lose you text when you are on 
+the wrong Firefox tab. It also keeps track of editor sessions, reactivating 
+previous sessions for a particular application.
+
+To install, just unzip, edit the config file "external.ini", and run 
+external.exe.
+
+See here [http://bur.st/~benc/?p=external] and download 
+[http://bur.st/~benc/external/external.zip].
+
+==============================================================================
+
+It should be noted that if your default script host is set to cscript this 
+doesn't work since you end up with a command window hanging around stealing 
+focus. Change the shortcut toReturnCode = oShell.run 
+("%windir%\system32\wscript.exe C:\Vim\Vim63\runvim.vbs +ClipBrd 
++only",0,True)
+
+==============================================================================
+
+I am loving this, however, I have one problem. When I use vim this way (from 
+the vbs script), I don't get the settings from my _vimrc file. There is no 
+syntax highligting etc. Any suggestions? Could it be the switches at the end 
+of this statement? ReturnCode = oShell.run ("c:\\vim\\vim63\\gvim.exe +ClipBrd 
++only",0,True) I don't know what the +only,0,True options do.
+
+==============================================================================
+
+Excellent script. Tested this with gvim 6.4 on Windows XP (damned work 
+machines) and Klaus Horsten's script seems to do the trick. The original 
+script works for the first time, but does not update the clipboard when 
+launched from some apps (Firefox etc). Klaus' script works perfectly.
+
+==============================================================================
+
+I noticed the _vimrc is being read but something else is overriden all the 
+option there. I noticed clipbrd.vim is where overriding all those options.
+
+==============================================================================
+
+If you're using PortableGVim [http://portablegvim.sourceforge.net/], try 
+pointing the vbscript at PortableGvim.exe and setting the WaitForGVim=true 
+setting in the PortableGvim.ini file. Otherwise you may find that the vim 
+never gets focus after the copy/paste and subsequently cannot update the 
+register when you :wq.
+
+==============================================================================
+
+Here's my AutoHotKey script:
+
+>
+    ;edit in vim...
+    #v::
+    WinGetActiveTitle, VimTargetWindow
+    SendInput ^a^c
+    RunWait c:\Program Files (x86)\Vim\vim72\gvim.exe --servername ClipBrd +ClipBrd +only
+    If not ErrorLevel
+    {
+        WinActivate %VimTargetWindow%
+        Sleep 10
+        SendInput ^a^v
+    }
+    return
+<
+
+==============================================================================
+
+Does anybody now how to achieve the same goal on GNU/Linux (Gnome, KDE, 
+etc.)?
+
+The tip on that is Use gvim as an external editor for Linux apps. If someone tries it, please report here (or in the comments section on the other tip) whether it helped and if there were any problems. JohnBeckett 23:08, June 11, 2010 (UTC)
+
+==============================================================================
+
+Here is my AutoHokey scripts I called VimEdit, it has 3 modes: all text 
+editing, line editing and selected text editing:
+
+>
+    ; Documentation {{{1
+    
+    ; Name: vimedit
+    ; Version: 1.0
+    ; Description:
+    ; Author: Alexandre Viau (alexandreviau -at- gmail.com)
+    ; Website:
+    
+    ; About {{{2
+    ; Used to copy text from an application to vim for edition and then from vim
+    ; (edited text) back to the application.
+    ; Installation {{{2
+    ; Usage {{{2
+    ; Tips {{{2
+    ; Todo {{{2
+    ; - checker que le win+alt+; fonctionne, il semble que n'a pas fonctionne une fois
+    ; Bugs {{{2
+    ; - Sometimes the ctrl-; dosen't work and it is not the correct text that is
+    ; pasted or it is emptied and vim says nothing in register *
+    ; History {{{2
+    
+    winId =
+    ; Mapping: Edit all text {{{1
+    ; ctrl-;
+    ^`;::
+        VimEditAll = True ; Edit tout le text
+        VimEditLine = False ; Edit la ligne en cours
+        ClipAdd = False
+        Gosub, VimEdit
+        Sleep 200 ; Le sleep est necessaire sinon ca copie les clips de vimedit...
+                  ; si ca copie les clip de vimedit augmenter cette valeur
+        ClipAdd = True
+    return
+    ; Mapping: Edit current line {{{1
+    ; NOTE: C'est plus fiable d'utilise EditLine pour les textbox (search box,
+    ; address box, etc) car la selection ne se fait pas avec ^a qui fonctionne
+    ; pas tout le temps dans les textbox.
+    ; NOTE2: Pour que ca fonctionne bien dans le run box et le address box de
+    ; windows explorer, etre certain d'etre en insert mode sinon le +Space va faire un +Tab
+    ; ctrl-shift-;
+    ^+`;::
+        VimEditAll = False ; Edit tout le text
+        VimEditLine = True ; Edit la ligne en cours.
+        ClipAdd = False
+        Gosub, VimEdit
+        Sleep 200
+        ClipAdd = True
+    return
+    ; Mapping: Edit selected text {{{1
+    ; win-alt-;
+    #!`;::
+        VimEditAll = False ; Edit seulement le text selectionne
+        VimEditLine = False ; Edit la ligne en cours
+        ClipAdd = False
+        Gosub, VimEdit
+        Sleep 200
+        ClipAdd = True
+    return
+    
+    ; Sub: VimEdit {{{1
+    ; Cette fonction sert a copier du text d'une application vers vim ou de vim
+    ; vers un app. pour editer dans vim et ramener le text dans l'application.
+    ; Avec notepad ca semble cree des ligne vide a la fin, mais pas avec word
+    ; pad alors, et je ne sais pas pour les autres applications...alors laisser
+    ; ca comme ca, ca ne le fait pas lorsque c'est une selection mais quand
+    ; c'est tout le text qui est selectionne
+    VimEdit:
+        ClipboardBak := Clipboard
+        Clipboard =
+        IfWinNotActive, ahk_class Vim
+        {
+            ; Direction 1 - Copy from another application {{{2
+            winId := WinExist("A")
+            if VimEditAll = True
+            {
+                Send ^{Home}
+                Send ^+{End}
+            }
+            if VimEditLine = True
+            {
+                Send {Home}
+                Send +{End}
+            }
+            Send ^{Ins}
+    
+            ; Direction 1 - Paste in vim {{{2
+            IfWinNotExist, ahk_class Vim
+            {
+                Run, gvim.exe --servername GVIM ; gvim must be in the %PATH%
+                WinWait, ahk_class Vim
+            }
+            WinActivate, ahk_Class Vim
+            Send +`;
+            ;Send {Raw}enew!
+            Send {Raw}tabnew
+            Send {Enter}
+            Send {Raw}"*P
+            Send {Raw}gg
+            Send {Raw}zR ; Remove fold
+        }
+        else
+        {
+            ; Direction 2 - Copy from vim {{{2
+            if VimEditAll = True
+            {
+                Send {Escape}
+                Send {Raw}gg
+                Send {Raw}V
+                Send {Raw}G
+            }
+            else if VimEditLine = True
+            {
+                Send {Escape}
+                Send {Raw}V
+            }
+            else ; Selected text only: when we paste back we copy all edited block.
+                 ; Selected text is only the selected text from the application, not from vim
+            {
+                Send {Escape}
+                Send {Raw}gg
+                Send {Raw}V
+                Send {Raw}G
+            }
+            Send {Raw}"*Y
+            Send +`;
+            Send {Raw}close!
+            Send {Enter}
+    
+            ; Direction 2 - Paste to another application {{{2
+            WinActivate, ahk_id %winId%
+            if VimEditAll = True
+            {
+                Send ^{Home}
+                Send ^+{End}
+            }
+            if VimEditLine = True
+            {
+                Send {Home}
+                Send +{End}
+            }
+            Send +{Ins}
+            ;Send {Backspace} ; trouver moyen de detecter s'il y a un \r\n a la fin
+                              ; de la ligne et le supprimer si oui
+            if VimEditAll = True
+                Send ^{Home}
+            if VimEditLine = True
+                Send {Home}
+    
+        } ;}}}
+        Clipboard := ClipboardBak
+    return
+<
+
+--March 25, 2013
+
+==============================================================================
+
+Another Autohotkey script, not tied to vim, and allowing configurable 
+behavior for different window types:
+
+https://github.com/nbirnel/text-for-teh-win 
+[https://github.com/nbirnel/text-for-teh-win]
+
+http://www.birnel.org/~noah/software/text-for-teh-win/index.html 
+[http://www.birnel.org/~noah/software/text-for-teh-win/index.html]

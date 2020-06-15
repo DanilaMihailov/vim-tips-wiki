@@ -1,0 +1,134 @@
+*vim-wiki-tips-893.txt*   Align numbers at decimal point *vwt-893*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+
+
+
+
+This tip is very similar to the following:
+    - VimTip139 |vwt-139|
+    - VimTip894 |vwt-894|
+    - VimTip570 |vwt-570|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 893 [https://vim.fandom.com/wiki/Align_numbers_at_decimal_point]   Previous |vwt-892| Next |vwt-894|
+
+created 2005 · complexity intermediate · author Michael Fitz · version 5.7
+
+==============================================================================
+
+Suppose you have some numbers in an ugly format:
+
+>
+    123
+    2.5678
+    -13.44
+    100.5
+      +47.11
+<
+
+You want to have them nice aligned with 5 decimals written out.
+
+First, we align any line left to the beginning:
+
+>
+    :%s§^\s*§§
+    
+    123
+    2.5678
+    -13.44
+    100.5
+    +47.11
+<
+
+Now we split at the decimal-point (if any) and shift the fractional part wide 
+to the right and add five '0' at the end (because we want 5 fractional digts).
+
+>
+    :%s§\([-+]\?\d\+\)\.\?\(\d*$\)§\1                        !\200000§
+    
+    123                        !00000
+    2                        !567800000
+    -13                        !4400000
+    100                        !500000
+    +47                        !1100000
+<
+
+This tricky substitue aligns the fractional part at column 15:
+
+>
+    :%s§\%15c\s*!§!§
+    
+    123           !00000
+    2             !567800000
+    -13           !4400000
+    100           !500000
+    +47           !1100000
+<
+
+Now we shift the integral part back by exchanging it with leading spaces (and 
+replacing '!' by decimal-point):
+
+>
+    :%s§\(^\S*\)\(\s*\)!§\2\1.§
+    
+               123.00000
+                 2.567800000
+               -13.4400000
+               100.500000
+               +47.1100000
+<
+
+Now we truncate each fractional part to 5 digits:
+
+>
+    :%s§\%21c\d*§§
+    
+               123.00000
+                 2.56780
+               -13.44000
+               100.50000
+               +47.11000
+<
+
+Finally we add a '+'-sign where it's missing:
+
+>
+    :%s§\s\(\d\)§+\1§
+    
+              +123.00000
+                +2.56780
+               -13.44000
+              +100.50000
+               +47.11000
+<
+
+I usually use the (german) paragraph-sign '§' to surround the 
+substitute-patterns, because this letter is very seldom used in any IT-related 
+context.
+
+COMMENTS  *vwt-893-comments*
+
+See VimTip139 |vwt-139| for AlignMaps which provides the \anum (actually 
+<Leader>anum) to do something similar:
+
+>
+    123
+      2.5678
+    -13.44
+    100.5
+    +47.11
+<
+
+It doesn't append the zeros, just does a numeric alignment. \anum also 
+handles the use of commas instead of periods, European style.
+
+==============================================================================

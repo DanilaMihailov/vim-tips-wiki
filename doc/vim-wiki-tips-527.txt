@@ -1,0 +1,77 @@
+*vim-wiki-tips-527.txt*   Use the console colors in gvim *vwt-527*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 527 [https://vim.fandom.com/wiki/Use_the_console_colors_in_gvim]   Previous |vwt-526| Next |vwt-528|
+
+created August 9, 2003 · complexity basic · author Peter Backes · version 6.0
+
+==============================================================================
+
+You might have noticed that gvim uses slightly different colors compared to 
+the console version. If you like the console colors more than the gvim default 
+colors (as I do), you can add the following to your vimrc:
+
+>
+    set background=dark
+    hi SpecialKey guifg=Blue
+    hi MoreMsg guifg=Green
+    hi Visual guifg=NONE guibg=NONE
+    hi Folded ctermbg=4 guibg=Blue
+    hi FoldColumn ctermbg=7
+    hi DiffAdd guibg=Blue
+    hi DiffChange guibg=Magenta
+    hi DiffDelete guibg=Cyan
+    hi Normal guifg=Gray guibg=Black
+    hi Cursor guibg=White
+    hi lCursor guibg=White
+    hi Comment guifg=Cyan
+    hi Constant guifg=Magenta
+    hi Special guifg=Red
+    hi Identifier guifg=Cyan
+    hi Statement guifg=Yellow
+    hi PreProc guifg=Blue
+    hi Type guifg=Green
+    hi Underlined guifg=Blue
+    hi Todo guifg=Black
+<
+
+There's one little difference: Folded is changed to something better for 
+console *and* gui and FoldColumn is left as is in gvim and changed for console 
+vim to match the gvim version.
+
+COMMENTS  *vwt-527-comments*
+
+For those of you who like the old school VGA console feel, heres a truetype 
+version of the VGA font used by most graphics cards. Make sure you set it to 
+be used at size 17 cos thats the only font size it will work at.
+
+http://canobe.sourceforge.net/VGA.ttf [http://canobe.sourceforge.net/VGA.ttf]
+
+==============================================================================
+
+This should be distributed with vim among the other colorschemes. I think the 
+only thing that is missing are the colors of the ruler (when switching 
+colorschemes, the ruler's colors are not updated). Perhaps
+
+>
+    hi StatusLine guifg=black guibg=gray
+<
+
+should do the trick.
+
+==============================================================================
+
+I think the line "hi Visual guifg=NONE guibg=NONE" was causing my VIM on XP 
+to complain "Warning: terminal cannot highlight"
+
+This changed from 6.2 to 7.0 (Highlighting a line worked in 6.2, it stopped 
+working in 7.0)
+
+==============================================================================

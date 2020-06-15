@@ -1,0 +1,36 @@
+*vim-wiki-tips-518.txt*   Errorformat for icc7 *vwt-518*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1575 |vwt-1575|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 518 [https://vim.fandom.com/wiki/Errorformat_for_icc7]   Previous |vwt-517| Next |vwt-519|
+
+created 2003 · complexity basic · version 5.7
+
+==============================================================================
+
+Vim's errorformat option can be combined with the :make command to reduce 
+development time (this is part of Vim's 'quickfix' capability). This option 
+allows Vim to parse the output of a compiler in order to bring up a list of 
+errors and warnings that you can jump to. But, Vim will not be able to parse 
+the output of every compiler by default, so you need to tell it how.
+
+This is an errorformat for the Intel icc7 compiler:
+
+>
+    set errorformat=%E%f(%l):\ %m,%-C,%-C%p,%Z
+<
+
+REFERENCES  *vwt-518-references*
+    - :help 'errorformat'
+    - :help  |:make|
+    - :help  |quickfix|
+
+
+COMMENTS  *vwt-518-comments*

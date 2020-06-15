@@ -1,0 +1,313 @@
+*vim-wiki-tips-589.txt*   Vim as a refactoring tool and some examples in C sharp *vwt-589*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 589 [https://vim.fandom.com/wiki/Vim_as_a_refactoring_tool_and_some_examples_in_C_sharp]   Previous |vwt-588| Next |vwt-590|
+
+created 2003 · complexity intermediate · author Klaus Horsten · version 6.0
+
+==============================================================================
+
+You can use Vim as a refactoring tool. The advantages are:
+
+You can expect much from a refactoring tool but if you have a look at the 
+commercial refactoring tools there is much (not all!) Vim can do too.
+
+I give you three examples, all in C#.
+
+EXAMPLE 1: THE EXTRACT METHOD REFACTORING  *vwt-589-example-1:-the-extract-method-refactoring*
+
+Sphagetti code example:
+
+>
+    public string CreateMenu(string startMenu,string file)
+    {
+         string strOutput = "";
+         int i = 0;
+         ArrayList startArray = new ArrayList();
+         string strVariable = "";
+         string strTemp = "";
+         XmlDocument XMLDoc = new XmlDocument();
+         try {
+             XMLDoc.Load(file);
+         }
+         catch (Exception e) {
+         strOutput = e.GetBaseException().ToString();
+         return strOutput;
+         }
+         XmlNodeList nodeList = XMLDoc.DocumentElement.ChildNodes;
+         ...
+<
+
+Imagine 50 lines of code here.
+
+Use the extract method refactoring to make a composed method.
+
+I use a Vim function (see below) to build the extracted method.
+
+I highlight the code part I want to extract and press \em (for extract 
+method).
+
+A dialog appears and asks me how to name the new method.
+
+I type in "GetXmlDocumentFrom" and do get this:
+
+>
+    // = GetXmlDocumentFrom();
+    private GetXmlDocumentFrom()
+    {
+        XmlDocument XMLDoc = new XmlDocument();
+        try {
+            XMLDoc.Load(file);
+        }
+        catch (Exception e)
+        {
+            strOutput = e.GetBaseException().ToString();
+            return strOutput;
+        }
+        // return ;
+    }
+<
+
+Now I have time to think what parameters the method needs and what to return.
+
+I end up with the following function and remove it from the original 
+function:
+
+>
+    private XmlDocument GetXmlDocumentFrom(string XmlFile)
+    {
+        XmlDocument XMLDoc = new XmlDocument();
+        string strOutput = "";
+        try
+        {
+            XMLDoc.Load(XmlFile);
+        }
+        catch (Exception e)
+        {
+            strOutput = e.GetBaseException().ToString();
+            ErrorMessage(strOutput);
+        }
+        return XMLDoc;
+    }
+<
+
+In the original code I put two lines.
+
+>
+    XmlDocument XMLDoc = new XmlDocument();
+    XMLDoc = GetXmlDocumentFrom(XmlFile);
+<
+
+So I reduced the original code for 8 lines and made it clearer what the code 
+does.
+
+I do this with the rest of the code again and again.
+
+Since the class gets bloated because of the many new methods I later will use 
+the Extract Class refactoring to put this method in an own XmlDocument-class.
+
+This has the advantage that our new function is also available for other 
+similar purposes.
+
+I will create the new class also with the help of Vim, the actual extracting 
+of the method into the new class is just a matter of copy & paste.
+
+Here is the Vim code:
+
+>
+    vmap \em :call ExtractMethod()<CR>
+    function! ExtractMethod() range
+      let name = inputdialog("Name of new method:")
+      '<
+      exe "normal! O\<BS>private " . name ."()\<CR>{\<Esc>"
+      '>
+      exe "normal! oreturn ;\<CR>}\<Esc>k"
+      s/return/\/\/ return/ge
+      normal! j%
+      normal! kf(
+      exe "normal! yyPi// = \<Esc>wdwA;\<Esc>"
+      normal! ==
+      normal! j0w
+    endfunction
+<
+
+EXAMPLE 2: THE SELF ENCAPSULATE FIELD REFACTORING  *vwt-589-example-2:-the-self-encapsulate-field-refactoring*
+
+I have heard a programmer who just uses Visual Studio (nothing against Visual 
+Studio, it's a great tool!) say: "I do not use properties. It's too much 
+work." He just uses fields instead.
+
+With Vim it is no problem to write a property, that is, to use the Self 
+Encapsulate Field refactoring.
+
+I write a name e.g. Name press CTRL-C CTRL-P CTRL-S (create property with 
+string). Voila, the new property appears in just a second:
+
+>
+    private string m_Name;
+    public string Name
+    {
+        get
+        {
+            return m_Name;
+        }
+        set
+        {
+            m_Name = value;
+        }
+    }
+<
+
+Here are the Vim mappings and the underlying function:
+
+>
+    "Create property
+    imap <C-c><C-p><C-s> <Esc>:call CreateProperty("string")<CR>a
+    imap <C-c><C-p><C-i> <Esc>:call CreateProperty("int")<CR>a
+    function! CreateProperty(type)
+      exe "normal bim_\<Esc>b\"yywiprivate ".a:type." \<Esc>A;\<CR>public ".a:type.
+            \ " \<Esc>\"ypb2xea\<CR>{\<Esc>oget\<CR>{\<CR>return " .
+            \ "\<Esc>\"ypa;\<CR>}\<CR>set\<CR>{\<CR>\<Tab>\<Esc>\"yPa = value;\<CR>}\<CR>}\<CR>\<Esc>"
+      normal! 12k2wi
+    endfunction
+<
+
+You can combine Visual Studio and Vim. You can work in Visual Studio and load 
+the file in Vim for refactoring. I have made a menu entry in Visual Studio 
+that loads the actual file I am writing in Vim (cf. Vim as an External Tool 
+[https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio#Vim_as_an_External_Tool]).
+
+EXAMPLE 3: THE REPLACE CONDITIONAL WITH POLYMORPHISM REFACTORING  *vwt-589-example-3:-the-replace-conditional-with-polymorphism-refactoring*
+
+Imagine a switch and you want to replace it with an abstract class and some 
+concrete classes which inherit from this parent class.
+
+You may think "Why should I replace this switch? It's too much work. Writing 
+all these classes ..."
+
+With Vim it's just a question of a few seconds.
+
+To build the abstract class I type, say Fruit.
+
+Then I press CTRL-C CTRL-A CTRL-C (create abstract class) and get
+
+>
+    public abstract class Fruit
+    {
+        public abstract void |();
+    }
+                             | is the cursor position
+<
+
+Now I fill in the methods.
+
+>
+    public abstract class Fruit
+    {
+        public abstract void Taste();
+        public abstract void Color();
+        public abstract string GetSize();
+    }
+<
+
+Now I go on the first letter of Fruit and type CTRL-C CTRL-C CTRL-C (create 
+concrete class).
+
+A dialog appears and asks me for the new name of the concrete class. I type 
+in Apple and get
+
+>
+    public class Apple : Fruit
+    {
+        public override void Taste()
+        {
+        }
+        public override void Color()
+        {
+        }
+        public override string GetSize()
+        {
+        }
+    }
+<
+
+I continue doing so with all the child classes of the abstract class.
+
+In this way I get code templates that I can implement now.
+
+Here are my mappings and the underlying funtion.
+
+>
+    "Create abstract class
+    imap <C-c><C-a><C-c> <Esc>bipublic abstract class <Esc>A<CR>{<CR>public abstract void X();<CR>}<Esc>:?X<CR>0fXs
+    "Create concrete class
+    map <C-c><C-c><C-c> :silent! call ImplementAbstractClass()<CR>
+    function! ImplementAbstractClass() range
+      exe "normal \<Esc>\"yyw"
+      /{
+      normal "xy%
+      normal %o
+      exe "normal! \<Esc>o"
+      let name = inputdialog("Name of new method:")
+      exe "normal! ipublic class " .name." : \<Esc>\"yp\"xp"
+      exe "normal! }O}\<Esc>=="
+      normal %v%
+      normal! gv
+      '<,'>s/abstract/override/g
+      normal! gv
+      '<,'>s/;/\r{\r}\r/g
+      normal! ==
+      normal %kdd%k
+    endfunction
+<
+
+COMMENTS  *vwt-589-comments*
+
+These are amazing! I never thought of doing this, but I have to say your tips 
+are quite amazing! I have begun to use hints 1 and 2 religiously, especially 
+when I have to dig around through code that others have written! Thank you!!
+
+==============================================================================
+
+Here is a variation
+
+>
+    imap <C-c><C-p> <Esc>:call CreateProperty()<CR>a
+    function! CreateProperty()
+      exe "normal bim_\<Esc>b\"yyybiprivate \<Esc>A;\<CR>\<Esc>\"ypw\"xyw\<Esc>2xbipublic \<Esc>$a\<CR>{\<Esc>oget\<CR>{\<CR>return \<Esc>\"xpa;\<CR>}\<CR>set\<CR>{\<CR>\<Tab>\<Esc>\"xPa = value;\<CR>}\<CR>}\<CR>\<Esc>"
+      normal 12k2wi
+    endfunction
+<
+
+This will create a property from a <type> <Field Name>. This alleviates the 
+need for multiple mappings for each data type in the vimrc file
+
+So if you want to create a property from Rectangle Box just press <C-c><C-p> 
+and you get
+
+>
+    private Rectangle m_Box;
+    public Rectangle Box
+    {
+        get
+        {
+            return m_Box;
+        }
+        set
+        {
+            m_Box = value;
+        }
+    }
+<
+
+I am still trying to get rid of some extra spaces in property name but I hope 
+this helps.
+
+==============================================================================

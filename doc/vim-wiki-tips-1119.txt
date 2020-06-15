@@ -1,0 +1,193 @@
+*vim-wiki-tips-1119.txt*   Use Vim like an IDE *vwt-1119*
+
+Tip 1119 [https://vim.fandom.com/wiki/Use_Vim_like_an_IDE]   Previous |vwt-1118| Next |vwt-1120|
+
+created 2006 · complexity intermediate · author Matt Zyzik · version 6.0
+
+==============================================================================
+
+I use Vim for all text editing, even software development. At one point I 
+stopped using IDEs. One major reason is that Vim can do all the major things I 
+need from IDEs (tabs, file trees, grepping, syntax highlighting, indentation, 
+completion, "quickfixing", etc).
+
+VIM PLUGINS  *vwt-1119-vim-plugins*
+
+Still Vim needs plugins to do some IDE-like things that aren't built in. Here 
+are some Vim scripts that make Vim more like an IDE.
+
+The plugins listed below are all great; the one additional plugin that really 
+makes vim feel like an IDE for me is ale [https://github.com/w0rp/ale] -- the 
+Asynchronous Lint Engine. It runs various tests in the background and 
+highlights errors in your code with annotations in the side margin. Incredibly 
+valuable.
+
+Note: You can use pathogen 
+[https://www.vim.org/scripts/script.php?script_id=2332] to isolate your 
+plugins and make it easier to experiment with new plugins.
+
+PROJECT/FILETREE BROWSING  *vwt-1119-project/filetree-browsing*
+    - NERDTree [https://www.vim.org/scripts/script.php?script_id=1658] is a tree explorer plugin for navigating the filesystem.
+    - vtreeexplorer [https://www.vim.org/scripts/script.php?script_id=184] is a tree based file explorer.
+    - project [https://www.vim.org/scripts/script.php?script_id=69] gives you a "project" view of files, rather than a straight file system view
+    - ide [https://www.vim.org/scripts/script.php?script_id=3855] Tracks files status (open/edited/closed/read only) within a project with icons; automatically builds and updates syntax highlight rules based on the project files (C/C++/Java); avoids buffer duplication.
+    - :help  |netrw| for information about the explorer distributed with Vim. It does not display files in a tree by default, but can by using the  |g:netrw_liststyle| option. It also offers useful file-sorting options (by date, size, name).
+    - Luc Hermitte's local_vimrc [https://github.com/LucHermitte/local_vimrc] and Markus "embear" Braun's local_vimrc [https://github.com/embear/vim-localvimrc/] manage projects as files in a same directory tree.
+    - Tim Pope's Projectionist [https://github.com/tpope/vim-projectionist] #4989 provides granular project configuration using "projections".
+
+
+BUFFER/FILE BROWSING  *vwt-1119-buffer/file-browsing*
+    - bufexplorer [https://www.vim.org/scripts/script.php?script_id=42] lets you navigate through open buffers
+    - minibufexpl [https://www.vim.org/scripts/script.php?script_id=159] Elegant buffer explorer; takes very little screen space.
+    - lookupfile [https://www.vim.org/scripts/script.php?script_id=1581] Lookup files using Vim7 ins-completion
+    - Command-T plugin [https://wincent.com/products/command-t/], inspired by the "Go to File" window bound to Command-T in TextMate
+    - MRU [https://www.vim.org/scripts/script.php?script_id=521] access recently opened files.
+    - ctrlp [http://www.vim.org/scripts/script.php?script_id=3736] Fuzzy file, buffer, mru, tag, ... finder with regexp support. Written in vim language. Access all the functions with ctrl-p
+    - FuzzyFinder [http://www.vim.org/scripts/script.php?script_id=1984] same as previous.
+
+
+CODE BROWSING  *vwt-1119-code-browsing*
+    - taglist [https://www.vim.org/scripts/script.php?script_id=273] gives you an outline of the source you're viewing
+    - Tagbar [https://www.vim.org/scripts/script.php?script_id=3465] similar to taglist but can order tags by scope. Recommend for programming languages with classes, e.g. C++, Java, Python.
+    - Indexer [https://www.vim.org/scripts/script.php?script_id=3221] generates tags for all files in project automatically and keeps tags up-to-date. Using ctags. Works well with project plugin or independently.
+    - CCTree [https://www.vim.org/scripts/script.php?script_id=2368] is a Call-Tree Explorer, Cscope based source-code browser, and code flow analyzer.
+    - exUtility [https://www.vim.org/scripts/script.php?script_id=1729] global search, symbol search, tag track...(Like IDE/Source Insight).
+    - ShowMarks [https://www.vim.org/scripts/script.php?script_id=152] visually shows the location of marks.
+    - lh-tags [https://github.com/LucHermitte/lh-tags] automatically updates the ctags database, and provides alternatives to `:tselect` to navigate code.
+
+
+See also Browsing programs with tags 
+[https://vim.fandom.com/wiki/Browsing_programs_with_tags] and Cscope 
+[https://vim.fandom.com/wiki/Cscope].
+
+WRITING CODE  *vwt-1119-writing-code*
+    - A plethora of code snippet/template plugins [https://vim.fandom.com/wiki/Category:Automated_Text_Insertion#Related_scripts] are available, many offering TextMate [http://en.wikipedia.org/wiki/Textmate#Snippets]-like snippet features.
+    - AutoComplPop [https://www.vim.org/scripts/script.php?script_id=1879] gives you code completion as you type.
+    - YouCompleteMe [http://valloric.github.io/YouCompleteMe/] is another completion plugin.
+    - CRefVim [https://www.vim.org/scripts/script.php?script_id=614] A C-reference manual especially designed for Vim.
+
+
+See also Omni completion [https://vim.fandom.com/wiki/Omni_completion] and 
+Make Vim completion popup menu work just like in an IDE 
+[https://vim.fandom.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE].
+
+VIM FUNCTIONALITY  *vwt-1119-vim-functionality*
+    - matchit [https://www.vim.org/scripts/script.php?script_id=39] improves % matching
+    - bufkill [https://www.vim.org/scripts/script.php?script_id=1147] allows you to delete a buffer without actually closing the window.
+    - undotree [https://www.vim.org/scripts/script.php?script_id=4177] or gundo [https://www.vim.org/scripts/script.php?script_id=3304] visualizes your undo tree, see Using undo branches [https://vim.fandom.com/wiki/Using_undo_branches].
+    - surround [https://www.vim.org/scripts/script.php?script_id=1697] makes it easier to delete/change/add parentheses/quotes/XML-tags/much more.
+
+
+COMPILATION  *vwt-1119-compilation*
+    -  vim-dispatch [https://github.com/tpope/vim-dispatch] allows you to asynchronously run shell commands. When running a compiler, the quickfix window will be populated with any potential errors.
+    -  Build Tools Wrapper provides [https://github.com/LucHermitte/vim-build-tools-wrapper] ways to compile programs (possibly in background, on several cores, ...), and to test and execute programs. It can also filter compilation outputs on the fly. When compiling projects under CMake care, BTW plugin permits to switch the compilation mode (a directory actually). The current compilation mode (and project name) will be displayed in the statusline of each buffer (the quickfix buffer as well) through airline plugin.
+    -  (list to be completed)
+
+
+IDE INTEGRATION  *vwt-1119-ide-integration*
+
+You may want to use your IDE for some tasks like debugging, so some 
+integration between Vim and the IDE can be helpful.
+    - Integrate gvim with Visual Studio [https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio]
+    - Eclim [http://eclim.org/] brings Eclipse functionality to the Vim editor.
+
+
+SOURCE CONTROL INTEGRATION  *vwt-1119-source-control-integration*
+
+There are many Vim plugins for different source control management systems. 
+Here are a few.
+    - vcscommand.vim [https://www.vim.org/scripts/script.php?script_id=90] - CVS/SVN/SVK/git/hg/bzr integration plugin
+    - fugitive [https://www.vim.org/scripts/script.php?script_id=2975] - git integration
+    - perforce [https://www.vim.org/scripts/script.php?script_id=240] - perforce integration
+    - lawrencium [https://www.vim.org/scripts/script.php?script_id=3861] - mercurial integration
+    - gitv [http://www.gregsexton.org/portfolio/gitv/] - gitk clone for vim
+    - Splice [http://sjl.bitbucket.org/splice.vim/] - plugin for resolving conflicts during three-way merges 
+
+
+See also Category:VersionControl 
+[https://vim.fandom.com/wiki/Category:VersionControl]
+
+DEBUGGING  *vwt-1119-debugging*
+
+There are several projects to add debugging functionality to vim
+    - Bundled terminal debugger plugin [http://vimhelp.appspot.com/terminal.txt.html#terminal-debug] (since vim 8.1, 2018-05-18)
+    - Clewn [http://clewn.sourceforge.net/] implements full gdb support in the vim editor: breakpoints, watch variables, gdb command completion, assembly windows, etc.
+    - pyClewn [http://pyclewn.sourceforge.net/] like clewn but written in python and also supports pdb [https://docs.python.org/2/library/pdb.html].
+    - vim-debug [http://jaredforsyth.com/projects/vim-debug/], which creates an integrated debugging environment in VIM.
+    - gdbvim [https://www.vim.org/scripts/script.php?script_id=84] plugin: Watch in vim what you debug in gdb. And more.
+    - vim-lldb [https://github.com/gilligan/vim-lldb]: provides lldb debbuging integration.
+    - vim-vebugger [https://github.com/idanarye/vim-vebugger]: debugger front-end for gdb, jdb, Mdbg, pdg, Rdebug
+    - vdebug [https://github.com/joonty/vdebug]: Multi-language DBGP debugger client for Vim (PHP, Python, Perl, Ruby, etc.)
+    - vim-byebug-breakpoints [https://github.com/kmewhort/vim-byebug-breakpoints]: controls Ruby breakpoints for byebug (works with ruby >=2.0)
+
+
+REFACTORING  *vwt-1119-refactoring*
+    - Vim as a refactoring tool and some examples in C sharp [https://vim.fandom.com/wiki/Vim_as_a_refactoring_tool_and_some_examples_in_C_sharp]
+    - refactor plugin [https://www.vim.org/scripts/script.php?script_id=2087]
+    - renamec plugin [https://www.vim.org/scripts/script.php?script_id=2164]
+    - lh-refactor plugin [https://github.com/LucHermitte/vim-refactor] 
+
+
+COMMENTS  *vwt-1119-comments*
+
+When using Visual Studio, see ViEmu [http://www.ngedit.com/viemu.html].
+
+==============================================================================
+
+Code navigation in vi offers much more than a standard IDE, because of the 
+ability to execute the desired combination of commands. Generate an index much 
+more rapidly than an IDE with a heavy GUI:
+
+For example, one can take advantage of the tag stack:
+
+For C++, follow the instructions: on using OmniCpp 
+[http://design.liberta.co.za/articles/code-completion-intellisense-for-cpp-in-vim-with-omnicppcomplete/]Define 
+a custom .ctags file
+
+--c++-kinds=+p
+--fields=+iaS
+--extra=+q
+--language-force=C++
+
+From a console (the exclude options may vary) generate the tags file as 
+follows:
+
+>
+    ctags --exclude=.svn --exclude=target -R .
+<
+
+PRECONFIGURED VIM AS IDE  *vwt-1119-preconfigured-vim-as-ide*
+
+You can find preconfigure VIM as IDE environment created by Damian Ziobro on 
+GitHub:
+
+https://github.com/xmementoit/vim-ide [https://github.com/xmementoit/vim-ide]
+
+It contains preconfigured BASH script to install it on your Ubuntu (not 
+tested on other OSes). In order to install vim-ide on Ubuntu, you need to do 
+following steps:
+    -  back up your previous vimrc configuration
+
+
+>
+    cp $HOME/.vimrc $HOME/.vimrc.bak
+<
+    -  clone vim-ide repository to your HOME directory
+
+
+>
+    cd $HOME && git clone https://github.com/xmementoit/vim-ide
+<
+    -  install vim-ide in your system
+
+
+>
+    cd vim-ide && ./installVim.sh
+<
+    -  explore possibilities and plugins of vim-ide repository in $HOME/.vimrc and $HOME/.vim. Ex. open main.cpp file
+
+
+>
+    vim /tmp/main.cpp
+<
+    -  enjoy your work with vim-ide !

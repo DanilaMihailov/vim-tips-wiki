@@ -1,0 +1,225 @@
+*vim-wiki-tips-1327.txt*   Restoring indent after typing hash *vwt-1327*
+
+Tip 644 [https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash]   Previous |vwt-643| Next |vwt-645|
+
+created 2004 · complexity basic · author stsi · version 6.0
+
+==============================================================================
+
+Q: Why does Vim place # at the first column?
+
+A: You are using 'smartindent', or you have 0# in your 'cinkeys' or 
+'indentkeys' options.
+
+Under some circumstances, when you type a '#' character while in insert mode, 
+the indent on the current line will be removed. Also, formatting or otherwise 
+attempting to adjust the indent of a line starting with '#' may not work as 
+you expect.
+
+This tip discusses the issues and how problems can be avoided.
+
+SIMPLE SOLUTION  *vwt-1327-simple-solution*
+
+In your ~/.vimrc file, remove
+
+>
+    set smartindent
+<
+
+and add
+
+>
+    set cindent
+    set cinkeys-=0#
+    set indentkeys-=0#
+<
+
+USING FILETYPE INDENTATION  *vwt-1327-using-filetype-indentation*
+
+In general, the 'smartindent' option should not be set (typing :set si? 
+should show "nosmartindent"). 'smartindent' is deprecated in favor of 
+'cindent' (for C-style indentation). In most cases, there shouldn't be a need 
+to manually set an indent option. Instead, it is better to use the filetype 
+based indentation provided for your language because it offers more options 
+and functionality. See :help |30.3| and Example vimrc 
+[https://vim.fandom.com/wiki/Example_vimrc]. If the filetype doesn't provide 
+any automatic indentation, 'autoindent' should be preferred as it will simply 
+keep the indent of the previous line.
+
+With this advice, you should avoid the '#' problem.
+
+USING SMARTINDENT  *vwt-1327-using-smartindent*
+
+If you need to set 'smartindent' you will find that inserting '#' at the 
+start of a line will cause any indent to be removed (that is, any leading 
+whitespace before '#' is deleted). To avoid this, :help 'smartindent' suggests 
+the following mapping:
+
+>
+    :inoremap # X<BS>#
+<
+
+Another consequence of setting 'smartindent' is that the operator > will not 
+indent a line starting with '#', and the operator = will remove indents from 
+any lines starting with '#'. If that is a concern, do not set 'smartindent'.
+
+ADJUSTING CINKEYS OR INDENTKEYS  *vwt-1327-adjusting-cinkeys-or-indentkeys*
+
+When 'equalprg' has its default empty value, the = operator adjusts 
+indentation. For example, typing == re-indents the current line. The 
+re-indentation may remove all indents from lines that start with '#'.
+
+To prevent any special treatment of lines starting with '#', remove the '0#' 
+value from:
+    - The 'cinkeys' option (if using 'cindent').
+    - The 'indentkeys' option (if using 'indentexpr').
+
+
+For example:
+
+>
+    set cinkeys-=0#
+    set indentkeys-=0#
+<
+
+TO BE MOVED ELSEWHERE  *vwt-1327-to-be-moved-elsewhere*
+
+I moved the following to here (a mistake). I'll think it over and will move 
+it elsewhere, perhaps VimTip224 |vwt-224|.
+
+INSERTING TEXT IN A BLANK LINE  *vwt-1327-inserting-text-in-a-blank-line*
+
+Here is how to insert text into a blank line, while having the text correctly 
+indented:
+    - Use file type indentation (:filetype indent on in vimrc).
+    - Do not press i or A to start insert mode in a blank line.
+    - Instead, type cc to start insert mode with the cursor correctly indented.
+    - Alternatively, press S (same as cc).
+
+
+cc deletes the current line, then starts insert mode on a new line. :help 
+|cc|
+
+Also, in insert mode, pressing Ctrl-F will re-indent the current line. :help 
+|i_CTRL-F|
+
+In my opinion, this belongs to a tip a Tip concerning "How do I avoid Vim removing indentation" where the message should be (loud and clear) "Don't! Learn to use how to start editing a blank line with the appropriate indent instead. (Using S or cc.) (Spiiph 23:34, September 1, 2009 (UTC))
+
+ROUGH MERGE IN FROM 1019 (NOW REMOVED)  *vwt-1327-rough-merge-in-from-1019-(now-removed)*
+
+The help for autoindent says:
+
+If you do not type anything on the new line except <BS> or CTRL-D and then type <Esc> or <CR>, the indent is deleted again.
+
+This give some difficulties (at least for me):
+    - If I type <Enter>, the cursor moves to the new line and indented, but when I type <Esc>, the indent is deleted (the cursor moves the the leftmost position)
+    - If I type <Enter>, and then paste something, the first line of the pasted text is not indented (the pasted text is not positioned from the cursor position).
+
+
+To fix this, I use the mapping :
+
+>
+    imap <CR> <CR> <BS>
+<
+
+At least, now if I pasted some text after pressing <Enter>, it starts from 
+the current cursor position.
+
+Comments
+
+what about simply pressing Ctrl-R" ?
+
+==============================================================================
+
+Unfortunately, this also has the side-effect of messing up the autoindent 
+feature of if / while / for statements (at least in Java)
+
+==============================================================================
+
+You can press Ctrl-R_ to make sure indent would not be deleted.
+
+ROUGH MERGE IN FROM 1327 (NOW REMOVED)  *vwt-1327-rough-merge-in-from-1327-(now-removed)*
+
+The default behavior of the 'autoindent' option is as follow:
+
+Copy indent from current line when starting a new line (typing <CR> in Insert mode or when using the "o" or "O" command). If you do not type anything on the new line except <BS> or CTRL-D and then type <Esc> or <CR>, the indent is deleted again.
+
+I find that behavior quite annoying since the cursor jumps to the left when 
+empty lines are inserted and 'escape' is pressed. Fortunately, it is possible 
+to force Vim to keep the indentation with the following lines in your vimrc:
+
+>
+    inoremap <CR> <CR><Space><BS>
+    nnoremap o o<Space><BS>
+    nnoremap O O<Space><BS>
+<
+
+If you are using filetype indentation (with filetype indent on in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]) rather than using the 'autoindent' 
+setting, this is unnecessary. After Vim removes the indentation from an empty 
+line, you can press cc or S on that empty line and Vim will reapply the 
+indentation rules. This happens because cc works by deleting the entire line 
+and then re-entering insert mode on a brand-new line (or as :help |cc| says, 
+"delete {count} lines and start insert linewise").
+
+Comments;
+
+Thank you. This tip is very helpful. I was getting very annoyed with Vim 
+deleting the blank lines because it interferes with the way I type.
+
+The way I type the following is: class A extends B {<CR><CR>}<Up><Tab>A() 
+{<CR><CR>}<Up><Tab>super();
+
+>
+    class A extends B {
+        A() {
+            super();
+        }
+    }
+<
+
+I assume most other people do this: class A extends B {<CR><Tab>A() 
+{<CR><Tab>super();<CR><BS>}<CR><BS>}. I wouldn't say either way of typing is 
+better than the other, since they both require the same number of keystrokes.
+
+How does that interfere with Vim (correctly) deleting whitespace on empty lines? This tip is generally misguided, since most users who think they need it, really need to learn to use S :help S. That, and turn :filetype indent on, which removes the need to type <Tab> in the above code. (Spiiph 09:05, 15 August 2009 (UTC))
+
+REFERENCES  *vwt-1327-references*
+    - :help 'smartindent'
+    - :help  |:filetype|
+    - :help  |30.3|
+
+
+COMMENTS  *vwt-1327-comments*
+
+Thoughts wanted
+    - I moved the "hash" tips to here and I think that section is fairly ok.
+
+
+Yes, good. (Spiiph 23:41, September 1, 2009 (UTC))
+    - Inexplicably, I also moved the "keep indent on blank line" tips to here – they need to be fixed and moved elsewhere. I want to clean these up first, which will help decide where the "To be moved elsewhere" section should be moved.
+
+
+See my comment on that section. (Spiiph 23:41, September 1, 2009 (UTC))
+    - I can't make sense of "You can press Ctrl-R_ to make sure indent would not be deleted". Can anyone see the point, or should that comment be deleted?
+
+
+Irrelevant. The Vim help tells you how to do this, should you need to. There's no reason to introduce other (obscure) workarounds. (Spiiph 23:41, September 1, 2009 (UTC))
+    - What about the Ctrl-R" comment? Is it at all helpful (regarding indents)? I suspect it should be deleted.
+
+
+See above. (Spiiph 23:41, September 1, 2009 (UTC))
+    - I added the "Inserting text in a blank line" section (from Spiiph). What needs to be kept from the stuff after that section?
+
+
+Usage of S and cc. This works regardless of method of indentation. (I.e., you don't need to use filetype indentation.)
+    - What about the issue of pasting? I can't understand the point made above. Is it claiming that the advice given somehow allows pasting with correct indents?
+
+
+Pasting is a different matter altoghether. Let it be dealt with elsewhere. Basically, there are a few commands which let you paste-and-indent-properly, most notably [p. (Spiiph 23:41, September 1, 2009 (UTC))
+    - Is there anything helpful we can say about pasting with correct indents? If moving a few lines of code around, I would use normal mode, and would manually fix the indent. We have some advice somewhere on using = to fix indents on pasted text – I'll find that later. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 12:29, 23 August 2009 (UTC)
+
+
+Pasting with indentation does not belong here. See comment above. (Spiiph 23:41, September 1, 2009 (UTC))
+As for pasting within Vim, I normally use ]p or ]P to get the correct indent, and normally there is no re-indentation required. This should be mentioned wherever we end up with the "pasting with indent" stuff. --Fritzophrenic 14:34, November 9, 2010 (UTC)
+    - For me :inoremap # X<BS># didn't work. I had to do :inoremap # XX<left>#<del><left><bs><right>

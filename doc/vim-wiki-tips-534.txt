@@ -1,0 +1,69 @@
+*vim-wiki-tips-534.txt*   For verilog users only *vwt-534*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 534 [https://vim.fandom.com/wiki/For_verilog_users_only]   Previous |vwt-533| Next |vwt-535|
+
+created 2003 · complexity basic · author rajesh · version 5.7
+
+==============================================================================
+
+For all verilog users dealing with netlists, this an easier way to find out 
+in which module you are really working in.add this map to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]. Press ` to find out which module you are 
+actually residing in.
+
+>
+    map ` ma?module<CR>Wyiw'a:echo "module -->" @0<CR>
+<
+
+This map works only when you are within the module. Placing it on 
+module/endmodule does not make any sense.
+
+COMMENTS  *vwt-534-comments*
+
+An improved version of this if you are using a searching for a particular 
+net/wire and then u want to know in which module you are really in. Add this 
+to your vimrc
+
+>
+    map ` ma?module<CR>Wyiw'a/<Up><Up><CR>:echo "module -->" @0<CR>
+<
+
+If you are not searching for any particular net the above map will do.
+
+==============================================================================
+
+It's not working for me. Vim seems to be kind of hanging then i press C-C to 
+break it.BTW but if some signals are having <module> in the signal names? 
+Won't work i think!
+
+==============================================================================
+
+This will not work if you have module with names line module_AND...
+
+==============================================================================
+
+Also wont work if module is in commnets or something,I guess better solution 
+would be to exclusively search for moduleI think the following will avoid both 
+of the problems.
+
+>
+    :map <F6> ma?^\s*\<module\><CR>Wyiw'a:echo "module -->" @0<CR>
+<
+
+==============================================================================
+
+Here's a version which doesn't pollute your search history:
+
+>
+    map ` :let old = @/<CR>ma?module<CR>Wyiw'a:call histdel('search',-1)<CR>:let @/ = old<CR>:echo "module -->" @0<CR>
+<
+
+==============================================================================I added a space after module to help when module is part of a name. Now I'd like to expand it or add another mapping to traverse up hierarchy.

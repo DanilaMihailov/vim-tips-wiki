@@ -1,0 +1,206 @@
+*vim-wiki-tips-1061.txt*   SmartHome and SmartEnd over wrapped lines *vwt-1061*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip315 |vwt-315|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines]. 
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1061 [https://vim.fandom.com/wiki/SmartHome_and_SmartEnd_over_wrapped_lines]   Previous |vwt-1059| Next |vwt-1063|
+
+created 2005 · complexity intermediate · author Gerald Lai · version 6.0
+
+==============================================================================
+
+The Smart Home function allows the cursor to toggle between the start 
+position and the first non-whitespace character position of the line. This is 
+useful for skipping past indentation, whether it be tabs or spaces. Likewise, 
+the Smart End function toggles past trailing whitespaces at the end of a line.
+
+This topic has been discussed before, see Smart home |vwt-315|.
+
+The reason I am bringing this up again is because previous implementations of 
+the Smart Home functionality have not worked well over lines that are wrapped. 
+The implementation below works pleasingly well even when lines are wrapped, 
+stepping through the wrapped lines by <Home> or <End> one by one. It also 
+solves the "<Home> for one character on a line" insert mode problem, and is 
+Replace mode friendly.
+
+Of course, cursor positioning can be achieved via vanilla Vim way: using 0, 
+^, g0, g$, g_, etc, but it's easier and faster when two keys take care of all 
+of the functions. Especially over wrapped lines.
+
+>
+    "place in vimrc
+    nmap <silent><Home> :call SmartHome("n")<CR>
+    nmap <silent><End> :call SmartEnd("n")<CR>
+    imap <silent><Home> <C-r>=SmartHome("i")<CR>
+    imap <silent><End> <C-r>=SmartEnd("i")<CR>
+    vmap <silent><Home> <Esc>:call SmartHome("v")<CR>
+    vmap <silent><End> <Esc>:call SmartEnd("v")<CR>
+    
+    function SmartHome(mode)
+      let curcol = col(".")
+      "gravitate towards beginning for wrapped lines
+      if curcol > indent(".") + 2
+        call cursor(0, curcol - 1)
+      endif
+      if curcol == 1 || curcol > indent(".") + 1
+        if &wrap
+          normal g^
+        else
+          normal ^
+        endif
+      else
+        if &wrap
+          normal g0
+        else
+          normal 0
+        endif
+      endif
+      if a:mode == "v"
+        normal msgv`s
+      endif
+      return ""
+    endfunction
+    
+    function SmartEnd(mode)
+      let curcol = col(".")
+      let lastcol = a:mode == "i" ? col("$") : col("$") - 1
+      "gravitate towards ending for wrapped lines
+      if curcol < lastcol - 1
+        call cursor(0, curcol + 1)
+      endif
+      if curcol < lastcol
+        if &wrap
+          normal g$
+        else
+          normal $
+        endif
+      else
+        normal g_
+      endif
+      "correct edit mode cursor position, put after current character
+      if a:mode == "i"
+        call cursor(0, col(".") + 1)
+      endif
+      if a:mode == "v"
+        normal msgv`s
+      endif
+      return ""
+    endfunction
+<
+
+COMMENTS  *vwt-1061-comments*
+
+To make SmartEnd work properly with multi-byte characters, use current 
+character's length to move cursor rightward, instead of move by 1 byte.
+
+Reason: under a multi-byte character, move cursor 1 byte further might have 
+no effect.
+
+For example, use yl and byteidx() to get the length (this overwrites current 
+used register)
+
+>
+    function SmartEnd(mode)
+      let curcol = col(".")
+      let lastcol = a:mode == "i" ? col("$") : col("$") - 1
+      "gravitate towards ending for wrapped lines
+      if curcol < lastcol - 1
+        normal yl
+        let l:charlen = byteidx(getreg(), 1)
+        call cursor(0, curcol + l:charlen)
+      endif
+      if curcol < lastcol
+        if &wrap
+          normal g$
+        else
+          normal $
+        endif
+      else
+        normal g_
+      endif
+      "correct edit mode cursor position, put after current character
+      if a:mode == "i"
+        normal yl
+        let l:charlen = byteidx(getreg(), 1)
+        call cursor(0, col(".") + l:charlen)
+      endif
+      if a:mode == "v"
+        normal msgv`s
+      endif
+      return ""
+    endfunction
+<
+
+==============================================================================
+
+This tip and VimTip315 |vwt-315| and gave me some great ideas for my own 
+<Home> and <End> keys.
+
+I also studied some great ideas from a URL mentioned in VimTip315 |vwt-315|: 
+http://hermitte.free.fr/vim/ressources/vimfiles/plugin/homeLikeVC++_vim.html 
+[http://hermitte.free.fr/vim/ressources/vimfiles/plugin/homeLikeVC++_vim.html]
+
+Try putting these in your vimrc.
+
+>
+    " map <Home> to move to first word in line
+    " if at first word, move to beginning of line
+    " if at beginning of line, move to beginning of window
+    " if at beginning of window, move to beginning of file
+    nnoremap <silent> <Home> :call SmartHome("n")<CR>
+    inoremap <silent> <Home> <C-O>:call SmartHome("i")<CR>
+    vnoremap <silent> <Home> <Esc>:call SmartHome("v")<CR>
+    function! SmartHome(mode)
+      if col('.') == 1
+        if line('.') == 1
+          return
+        elseif winline() == &scrolloff+1
+          normal! m`gg
+        else
+          normal! m`H0
+        endif
+      elseif strpart(getline('.'), -1, col('.')) =~ '^\s\+$'
+        normal! 0
+      else
+        normal! ^
+      endif
+      if a:mode == "v"
+        normal! msgv`s
+      endif
+    endfun
+    
+    " map <End> to move to end of line
+    " if at end of line, move to end of window
+    " if at end of window, move to end of file
+    nnoremap <silent> <End> :call SmartEnd("n")<CR>
+    inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
+    vnoremap <silent> <End> <Esc>:call SmartEnd("v")<CR>
+    function! SmartEnd(mode)
+      if col('.') < col('$')-1
+        normal! $
+      elseif winline() < winheight(0) - &scrolloff
+        normal! m`L$
+      else
+        normal! m`G$
+      endif
+      if a:mode == "v"
+        normal! msgv`s
+      endif
+    endfun
+<
+
+==============================================================================

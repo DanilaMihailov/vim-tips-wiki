@@ -1,0 +1,63 @@
+*vim-wiki-tips-576.txt*   Generate all Unicode characters *vwt-576*
+
+Tip 576 [https://vim.fandom.com/wiki/Generate_all_Unicode_characters]   Previous |vwt-575| Next |vwt-577|
+
+created 2003 · complexity basic · author maxiangjiang · version 7.0
+
+==============================================================================
+
+You can generate a table of Unicode characters in Vim to see how they are 
+displayed by your system. This may be of interest to anyone using CJK 
+characters [http://en.wikipedia.org/wiki/CJK].
+
+Example The following will add a table showing the characters from hex 9900 
+to 9fff, inclusive:
+
+>
+    :call GenerateUnicode(0x9900, 0x9fff)
+<
+
+Screenshot
+
+[https://vignette.wikia.nocookie.net/vim/images/f/fb/CJK.png/revision/latest?cb=20080421014626]
+
+HOW TO  *vwt-576-how-to*
+
+For this to work, you will need:
+
+>
+    :set guifont=*         "select a suitable font
+    :set encoding=utf-8    "set a suitable encoding
+    :set ambiwidth=double  "for CJK characters (probably not needed)
+<
+
+Copy the following into a file, then type :so % (source current file) to 
+define the function. Enter :new and type :call GenerateUnicode(0x9900,0x9fff) 
+(after setting the font and encoding).
+
+>
+    function! GenerateUnicode(first, last)
+      let i = a:first
+      while i <= a:last
+        if (i%256 == 0)
+          $put ='----------------------------------------------------'
+          $put ='     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F '
+          $put ='----------------------------------------------------'
+        endif
+        let c = printf('%04X ', i)
+        for j in range(16)
+          let c = c . nr2char(i) . ' '
+          let i += 1
+        endfor
+        $put =c
+      endwhile
+    endfunction
+<
+
+SEE ALSO  *vwt-576-see-also*
+    - Entering special characters [https://vim.fandom.com/wiki/Entering_special_characters]
+    - List of Unicode characters (Wikipedia) [http://en.wikipedia.org/wiki/List_of_Unicode_characters]
+    - Charts of Unicode characters (Unicode Consortium) [http://www.unicode.org/charts/]
+
+
+COMMENTS  *vwt-576-comments*

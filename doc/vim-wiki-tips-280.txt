@@ -1,0 +1,161 @@
+*vim-wiki-tips-280.txt*   Integration with PyUnit testing framework *vwt-280*
+
+Tip 280 [https://vim.fandom.com/wiki/Integration_with_PyUnit_testing_framework]   Previous |vwt-279| Next |vwt-282|
+
+created 2002 · complexity intermediate · author Stefan Roemer, Max Ischenko · 
+version 6.2
+
+==============================================================================
+
+Vim has a wonderful ability to integrate with external tools, like compilers, 
+make, ctags, etc. That's one of the reasons we love it. PyUnit can be seen as 
+a "compiler" for Python code.
+
+Doing
+
+>
+    :compiler pyunit
+<
+
+will set the 'errorformat' option for PyUnit, enabling Vim to parse a 
+unittest test runner's output and to enter quickfix mode.
+
+To run all your unit tests at once, using Vim's :make command, you'll need to 
+set the 'makeprg' option and provide a test runner. This is often done using 
+an alltests.py script.
+
+>
+    :setlocal makeprg=./alltests.py
+<
+
+Here is an example alltests.py:
+
+>
+    #!/usr/bin/env python2
+    import unittest
+    import sys
+    sys.path.append('unittests')
+    
+    modules_to_test = (
+    'fooTest',
+    'barTest',
+    'bazTest',
+    )
+    
+    def suite():
+      alltests = unittest.TestSuite()
+      for module in map(__import__, modules_to_test):
+        alltests.addTest(unittest.findTestCases(module))
+      return alltests
+    
+    if __name__ == '__main__':
+      unittest.main(defaultTest='suite')
+<
+
+Here is an alternative alltests.py:
+
+>
+    #!/usr/bin/env python
+    #
+    # This script is based on the one found at http://vim.wikia.com/wiki/VimTip280
+    # but has been generalised. It searches the current working directory for
+    # *_test.py (good) or test_*.py (bad) files and runs each of the unit-tests
+    # found within.
+    #
+    # When run from within Vim as its 'makeprg' with the correct 'errorformat' set
+    # (by setting ":compiler pyunit"), any failure will deliver your cursor to the
+    # line that breaks the unit tests.
+    #
+    # Place this file somewhere where it can be run, such as ${HOME}/bin/alltests.py
+    
+    import unittest, sys, os, re, traceback
+    
+    def find_all_test_files():
+        t_py_re = re.compile('^(test_.*|.*_test)\.py$')
+        is_test = lambda filename: t_py_re.match(filename)
+        drop_dot_py = lambda filename: filename[:-3]
+        return [drop_dot_py(module) for module in
+                filter(is_test, os.listdir(os.getcwd()))]
+    
+    def suite():
+        sys.path.append(os.curdir)
+        modules_to_test = find_all_test_files()
+        print 'Testing', ', '.join(modules_to_test)
+        alltests = unittest.TestSuite()
+        for module in map(__import__, modules_to_test):
+    	alltests.addTest(unittest.findTestCases(module))
+        return alltests
+    
+    if __name__ == '__main__':
+        try:
+            unittest.main(defaultTest='suite')
+        except SystemExit:
+            pass
+        except:
+            # we reverse the Exception/Traceback printout order so vim's
+            # quickfix works properly
+            exceptionType, exceptionValue, exceptionTraceback = sys.exc_info()
+    
+            sys.stderr.write("Exception:\n")
+            ex = traceback.format_exception_only(exceptionType, exceptionValue)
+            for line in ex:
+                sys.stderr.write(line)
+    
+            sys.stderr.write("\nTraceback (most recent call first):\n")
+            tb = traceback.format_tb(exceptionTraceback)
+            for line in reversed(tb):
+                sys.stderr.write(line)
+<
+
+To have Vim automatically use these settings for all Python files, add the 
+following to ~/.vim/after/ftplugin/python.vim 
+($HOME\vimfiles\after\ftplugin\python.vim on Windows)
+
+>
+    " Additions to Vim's filetype plugin for Python, to set up PyUnit as
+    " the 'compiler' for Python files.
+    
+    " Set the errorformat.
+    compiler pyunit
+    
+    " Set 'makeprg': this allows you to call :make on any .py file and
+    " run all of the unit tests in the current working directory.
+    " Ensure you have this file.
+    setlocal makeprg=${HOME}/bin/alltests.py
+<
+
+REFERENCES  *vwt-280-references*
+    - :help 'efm'
+    - :help 'makeprg'
+    - :help  |compiler-pyunit|
+    - :help  |quickfix|
+    - http://c2.com/cgi/wiki?PythonUnit [http://c2.com/cgi/wiki?PythonUnit]
+
+
+COMMENTS  *vwt-280-comments*
+
+The following abbreviations are useful when writing unit tests in Python.
+
+>
+    iabbr <buffer> sa_ self.assert_
+    iabbr <buffer> sae self.assertEquals
+    iabbr <buffer> saf self.assertFalse
+    iabbr <buffer> san self.assertNotEquals
+    iabbr <buffer> sar self.assertRaises
+    iabbr <buffer> sat self.assertTrue
+<
+
+==============================================================================
+
+I don't think the abbreviations belong in this tip. They are not on topic and 
+may be distracting. (Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 10:48, 3 
+August 2009 (UTC))
+
+There are no tips really suitable for holding the iabbr info; following are 
+slightly plausible candidates. Meanwhile, I have moved the abbreviations to 
+the comments section where they are less intrusive. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 03:20, 4 August 2009 (UTC)
+    - 610 Use abbreviations for frequently-used words |vwt-610|
+    - 709 Simple creation of scripts |vwt-709|
+    - 778 Speed up Python coding |vwt-778|
+    - 1041 Snippets for JavaScript, HTML and Python |vwt-1041|

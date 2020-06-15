@@ -1,0 +1,67 @@
+*vim-wiki-tips-595.txt*   Suppressing file changed warnings in a specific buffer *vwt-595*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 595 [https://vim.fandom.com/wiki/Suppressing_file_changed_warnings_in_a_specific_buffer]   Previous |vwt-593| Next |vwt-597|
+
+created 2003 · complexity intermediate · author Adam Wolff · version 5.7
+
+==============================================================================
+
+I generally liked the warnings that Vim gives when a file changes outside of 
+the editor. However, there are times when I want to run a shell command that 
+changes the buffer, and I don't want to hear about it.
+
+I've come up with the following convoluted method to do this, but if there's 
+a better way, I'd love to know.
+
+>
+    function ChangeThisBuffer
+      "set an environment variable to current buffer name
+      let $aucfile = expand( "%" )
+      "add autocmd which only applies to this buffer which removes itself once it runs once
+      autocmd FileChangedShell $aucfile autocmd! FileChangedShell $aucfile
+      execute( 'silent !mycommand' )
+    endfunction
+<
+
+One problem with this approach is that if the shell command fails, or doesn't 
+really change the file, then you won't be notified the next time it changes.
+
+COMMENTS  *vwt-595-comments*
+
+Untested, but this sounds like it would work/is what you are after.
+    - :help 'autoread'
+
+
+>
+    function ChangeThisBuffer
+      setlocal autoread
+      execute( 'silent !mycommand' )
+      set autoread<
+    endfunction
+<
+
+==============================================================================
+
+To avoid the problem with the autocommand not being removed, you could 
+explicity remove it in the function instead of relying on the autocommand 
+itself to do so. Here's what I have in some of my functions:
+
+>
+    checktime
+    exe "au FileChangedShell " . expand("%") . " let &cpo = &cpo"
+    " Do stuff to the file.
+    checktime
+    exe "au! FileChangedShell " . expand("%")
+<
+
+The "let &cpo = &cpo" command is just a convenient no-op.
+
+==============================================================================

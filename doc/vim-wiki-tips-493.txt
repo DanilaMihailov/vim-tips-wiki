@@ -1,0 +1,120 @@
+*vim-wiki-tips-493.txt*   Open the directory for the current file in Windows *vwt-493*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip311 |vwt-311|
+    - VimTip1336 |vwt-1336|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 493 [https://vim.fandom.com/wiki/Open_the_directory_for_the_current_file_in_Windows]   Previous |vwt-492| Next |vwt-494|
+
+created June 24, 2003 · complexity basic · author Adam Wolff · version 6.0
+
+==============================================================================
+
+It's often handy to open the folder that corresponds to a file I'm editing 
+(as much as I hate to leave Vim!) I've added this mapping:
+
+>
+    map <C-e> :silent !explorer %:p:h:gs?\/?\\\\\\?<CR>
+<
+
+So that typing ctrl-e in any buffer opens the folder that the file lives in 
+in Windows.
+
+REFERENCES  *vwt-493-references*
+    - :help  |filename-modifiers|
+
+
+COMMENTS  *vwt-493-comments*
+
+I changed it to this:
+
+>
+    map <C-e> :!start explorer %:p:h:gs?\/?\\\\\\?<CR>
+<
+
+This stops the console window from flashing up on the screen. See :help 
+|:!start|.
+
+==============================================================================
+
+On Unix, try using a free program called 
+Worker:http://www.boomerangsworld.de/worker/woverview.php3?lang=en 
+[http://www.boomerangsworld.de/worker/woverview.php3?lang=en]
+
+It is an X-based file explorer, similar to Windows explorer. I had to modify 
+the mapping to:
+
+>
+    map <C-e> :silent !worker %:p:h<CR>
+<
+
+==============================================================================
+
+For quite a while now I've been doing it this way:
+
+>
+    func! OpenCWD()
+      if has("gui_running")
+        if has("win32")
+          let s:stored_shellslash = &shellslash
+          set noshellslash
+          !start explorer.exe %:p:h
+          let &shellslash = s:stored_shellslash
+        elseif has("gui_kde")
+          !konqueror %:p:h &
+        elseif has("gui_gtk") " TODO: test!
+          !nautilus %:p:h &
+        elseif has("mac") && has("unix")
+          let s:macpath = expand("%:p:h")
+          let s:macpath = substitute(s:macpath," ","\\\\ ","g")
+          execute '!open ' .s:macpath
+        endif
+      endif
+    endfunc
+    command! OpenCWD call OpenCWD() " or whatever you like
+<
+
+I'm not sure how flawless it is, but it has worked for me on a couple of 
+different platforms.
+
+==============================================================================
+
+A solution that I like is to use the vi file manager 
+(http://vifm.sourceforge.net [http://vifm.sourceforge.net]). You can use it 
+with or without being in vim (a vim plugin comes with the distribution). 
+Unfortunately, I have not been able to get it to compile in cygwin on windows 
+yet, and I am on a windows machine right now, so I can't access it to give 
+more of the specifics. I think the plugin comes with a command like :Vifm, 
+but, that could be mapped.
+
+==============================================================================
+
+Since I prefer to stay within Vim, I use the following:
+
+>
+    :sf %:p:h
+<
+
+This splits the window and lists the contents of the directory of the file. 
+Putting the cursor on an item from the list in that window and typing o opens 
+up a new window with the contents of the item.
+
+==============================================================================
+
+How is this different from ":Sexplore" or the shorter ":Sex"?
+
+==============================================================================

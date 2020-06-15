@@ -1,0 +1,146 @@
+*vim-wiki-tips-1142.txt*   Repeat last command and put cursor at start of change *vwt-1142*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1142 [https://vim.fandom.com/wiki/Repeat_last_command_and_put_cursor_at_start_of_change]   Previous |vwt-1141| Next |vwt-1146|
+
+created 2006 · complexity basic · author Adam Wolff · version 5.7
+
+==============================================================================
+
+I rely on this behavior so much, I'm always surprised when I use Vim on a 
+system that doesn't have this map installed:
+
+>
+    nmap . .`[
+<
+
+This changes the behavior of the very useful . command to leave the cursor at 
+the point where it was before editing started. This means that if I have, say, 
+a list of files from a change summary that look like this:
+
+>
+    .../foo/bar/pick.c
+    .../cram/bar/yup.c
+    .../drop/bar/slop.c
+<
+
+And I want to change the leading path, I can go to the first one, and type 
+(say) c3t/anotherdir<Esc> This gives me:
+
+>
+    anotherdir/pick.c
+    .../cram/bar/yup.c
+    .../drop/bar/slop.c
+<
+
+Now I can just go the beginning of the second line and hit .j. to change the 
+second and third lines. Of course you could also use a regexp for stuff like 
+this, but often . is a little faster and saves precious brain cells. See :help 
+|.|.
+
+COMMENTS  *vwt-1142-comments*
+
+I like that tip. I made something similar to the .
+
+>
+    :map <a-.> <Down>.
+<
+
+knowing this tip I will change it to
+
+>
+    :map <a-.> `[<Down>.
+<
+
+So you can do changes in more than one line with repeating only one key.
+
+Sometimes it is useful to make changes like this with a Visual Block, but in 
+this example, shown in the tip, it doesn't work. See :help |v_b_I| :help 
+|v_b_A|.
+
+==============================================================================
+
+I use this to make changes to a visual block:
+
+>
+    vnoremap <silent> . :normal .<CR>
+<
+
+If you do something like this on a line:
+
+>
+    Aline ending<Esc>
+<
+
+(Basically, adding 'line ending' to the end of the line.)
+
+You can then visually select a bunch of lines and hit . to have the same 
+happen to each of them.
+
+==============================================================================
+
+There is a very useful feature of Vim built it for doing these kinds of 
+edits. Take the original example for instance:
+
+>
+    .../foo/bar/pick.c
+    .../cram/bar/yup.c
+    .../drop/bar/slop.c
+<
+
+Instead of changing the first one and repeating the change for the other 
+lines...
+
+Visually select the desired text using ctrl-v. Then with them visually 
+selected (in this case the leading .'s would be selected) press c and then 
+type the new text. It will appear to only be changing the first line however 
+once you hit escape it will apply the change to all the lines.
+
+No extra commands and no remapping needed. Works everywhere.
+
+For a better description of all the things you can do with the visual block 
+stuff, see :help |blockwise-operators|.
+
+==============================================================================
+
+This throws E19 if you do
+
+>
+    :exe "normal d\<Up>G."
+<
+
+and it changes the jumplist.
+
+Here are some changes that fix both:
+
+>
+    nnoremap <expr> . line(".") == line("$") ? "." : ".g`["
+<
+
+Andres.p [https://vim.fandom.com/wiki/User:Andres.p] 04:27, December 8, 2010 
+(UTC)
+
+EDIT: Actually, I was anticipating the position after "."
+
+Here's the true solution:
+
+>
+    function! ResDot(count)
+        execute "normal!" count . "."
+        if line("'[") <= line("$")
+            normal! g`[
+        endif
+    endfunction
+    
+    nnoremap <silent> . :<C-U>call ResDot(v:count1)<CR>
+<
+
+Andres.p [https://vim.fandom.com/wiki/User:Andres.p] 05:14, December 8, 2010 
+(UTC)

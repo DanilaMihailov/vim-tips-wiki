@@ -1,0 +1,223 @@
+*vim-wiki-tips-1599.txt*   Display output of shell commands in new window *vwt-1599*
+
+Tip 1599 [https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window]   Previous |vwt-1598| Next |vwt-1600|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200808#Display_output_of_shell_commands_in_new_window] 
+2008 · complexity basic · version 7.0
+
+==============================================================================
+
+The :! command is useful for running shell commands from Vim. It has one 
+possible drawback: the command output is not displayed in a Vim window, so it 
+can't be accessed with Vim's powerful editing tools. This is easy to fix with 
+:read !command which inserts the output to the current window. A possibly more 
+sophisticated solution is to make a new Vim command which opens a scratch 
+buffer for the output of shell command. Here's an example:
+
+>
+    command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+    function! s:RunShellCommand(cmdline)
+      echo a:cmdline
+      let expanded_cmdline = a:cmdline
+      for part in split(a:cmdline, ' ')
+         if part[0] =~ '\v[%#<]'
+            let expanded_part = fnameescape(expand(part))
+            let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+         endif
+      endfor
+      botright new
+      setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+      call setline(1, 'You entered:    ' . a:cmdline)
+      call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+      call setline(3,substitute(getline(2),'.','=','g'))
+      execute '$read !'. expanded_cmdline
+      setlocal nomodifiable
+      1
+    endfunction
+<
+
+The new :Shell command works just like :! except that it opens a Vim scratch 
+buffer and prints the command output there. The scratch buffer will be wiped 
+out completely when it's closed. An example of usage:
+
+>
+    :Shell ls -la
+<
+
+The idea can be extended by adding shortcut commands for commonly used shell 
+commands. This example adds some common version control tools:
+
+>
+    command! -complete=file -nargs=* Git call s:RunShellCommand('git '.<q-args>)
+    command! -complete=file -nargs=* Svn call s:RunShellCommand('svn '.<q-args>)
+    command! -complete=file -nargs=* Bzr call s:RunShellCommand('bzr '.<q-args>)
+    command! -complete=file -nargs=* Hg  call s:RunShellCommand('hg '.<q-args>)
+<
+
+Now the version control tools can be used like this from Vim:
+
+>
+    :Git add %                (The "%" expands to the current filename)
+    :Svn diff -c 1234
+    :Bzr log -l 10
+    :Hg annotate %
+<
+
+ENHANCED SCRIPT  *vwt-1599-enhanced-script*
+
+TO DO
+    - I think the original script (above) has some problems:
+    - fnameescape() should be shellescape().
+    - Using fnameescape() may insert a backslash which interferes with the substitute().
+    - On Windows, using %:p for file C:\path\file results in C:pathfile.
+    - Won't work with spaces in filename? Even if quoted?
+
+    - Check if following enhanced script fixes problems.
+    - Does it work?
+    - Perhaps replace above script with the following.
+
+
+>
+    command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+    function! s:RunShellCommand(cmdline)
+      let isfirst = 1
+      let words = []
+      for word in split(a:cmdline)
+        if isfirst
+          let isfirst = 0  " don't change first word (shell command)
+        else
+          if word[0] =~ '\v[%#<]'
+            let word = expand(word)
+          endif
+          let word = shellescape(word, 1)
+        endif
+        call add(words, word)
+      endfor
+      let expanded_cmdline = join(words)
+      botright new
+      setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+      call setline(1, 'You entered:  ' . a:cmdline)
+      call setline(2, 'Expanded to:  ' . expanded_cmdline)
+      call append(line('$'), substitute(getline(2), '.', '=', 'g'))
+      silent execute '$read !'. expanded_cmdline
+      1
+    endfunction
+<
+
+SEE ALSO  *vwt-1599-see-also*
+    - Append output of an external command |vwt-467|
+    - The AsyncCommand plugin [https://www.vim.org/scripts/script.php?script_id=3431] provides the AsyncShell command to run shell commands asynchronously and then loads the output in a split when the command completes.
+
+
+COMMENTS  *vwt-1599-comments*
+
+Following is refactored text that was posted on talk page.
+
+Thanks, the part I took away from this tip was the shortcut command 
+(command!), and passing all the arguments as the first argument. This will 
+make for some clean helper functions when used with abbreviations (in your 
+.vimrc):
+
+>
+    ca shell Shell
+<
+
+so you can do this:
+
+>
+    :shell ls -al
+<
+
+Jearsh [https://vim.fandom.com/wiki/User:Jearsh] 06:28, February 13, 2010 
+(UTC)
+
+More on this concept is at Replace a builtin command using cabbrev. JohnBeckett 02:41, February 18, 2010 (UTC)
+
+ANOTHER ENHANCED SCRIPT  *vwt-1599-another-enhanced-script*
+
+>
+    function! s:ExecuteInShell(command)
+      let command = join(map(split(a:command), 'expand(v:val)'))
+      let winnr = bufwinnr('^' . command . '$')
+      silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
+      setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+      echo 'Execute ' . command . '...'
+      silent! execute 'silent %!'. command
+      silent! execute 'resize ' . line('$')
+      silent! redraw
+      silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+      silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+      echo 'Shell command ' . command . ' executed.'
+    endfunction
+    command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+<
+
+Usage: :Shell ls -al
+
+Only one window by command, if a window already exists for a command, it will 
+be reused.
+
+Possible to reexecute the command by typing <localleader>r in normal mode in 
+a window opened by :Shell.
+
+<localleader>g go to the previous window.
+
+The command :Shell! reexecute the last command.
+
+Last version available at 
+https://svn.mageekbox.net/repositories/vim/trunk/.vimrc 
+[https://svn.mageekbox.net/repositories/vim/trunk/.vimrc].
+
+ANOTHER ENHANCED SCRIPT FOR VERTICAL SPLIT  *vwt-1599-another-enhanced-script-for-vertical-split*
+
+I wanted the window to split vertically, so did these small changes to the 
+above script
+
+>
+    function! s:ExecuteInShell(command)
+      let command = join(map(split(a:command), 'expand(v:val)'))
+      let winnr = bufwinnr('^' . command . '$')
+      silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+      setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+      echo 'Execute ' . command . '...'
+      silent! execute 'silent %!'. command
+      silent! execute 'resize '
+      silent! redraw
+      silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+      silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+      echo 'Shell command ' . command . ' executed.'
+    endfunction
+    command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+<
+
+Usage: :Shell ls -al
+
+ANOTHER WAY  *vwt-1599-another-way*
+
+I do this:
+
+>
+    :tabe|read !git blame #
+<
+
+You have to use # where you would normally use %, but other than that this 
+should work well. -- YEARtheDRAGON June 29, 2016
+
+YET ANOTHER WAY  *vwt-1599-yet-another-way*
+
+I use a slightly different syntax to open in a split in the current window.
+
+>
+    :set splitright | vnew | r!somecommand
+<
+
+If you prefer horizontal splits you can use
+
+>
+    :set splitbelow | new | r!somecommand
+<
+
+The setting of the split direction is probably "permanent" for the length of 
+your session, but I usually just set it in my .vimrc because I prefer to have 
+newer files on the right or bottom.

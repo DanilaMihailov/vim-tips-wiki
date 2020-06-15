@@ -1,0 +1,37 @@
+*vim-wiki-tips-734.txt*   Fix the x command in virtualedit mode *vwt-734*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 734 [https://vim.fandom.com/wiki/Fix_the_x_command_in_virtualedit_mode]   Previous |vwt-733| Next |vwt-735|
+
+created 2004 · complexity basic · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+This tip is useful only for those who use virtualedit mode (set 
+virtualedit=all, or set ve=all).
+
+I like virtualedit mode except for behaviour of 'x' (delete character). When 
+'x' is used past end-of-line, it does nothing. I wanted it to jump left to the 
+actual end-of-line so as to start deleting characters there. Below is 'x' 
+redefinition that does exactly this; and it does not break 'x' in 
+non-virtualedit mode:
+
+>
+    " redefine x for virtualEdit so that past end of line, it jumps left to end-of-line
+    function! Redefine_x_ForVirtualEdit()
+      if &ve != "" && col('.') >= col('$')
+        normal $
+      endif
+    endfu!
+    silent! unmap x
+    :nnoremap <silent>x x:call Redefine_x_ForVirtualEdit()<CR>
+<
+
+COMMENTS  *vwt-734-comments*

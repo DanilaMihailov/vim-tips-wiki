@@ -1,0 +1,49 @@
+*vim-wiki-tips-262.txt*   Change the gvim mouse arrow cursor *vwt-262*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 262 [https://vim.fandom.com/wiki/Change_the_gvim_mouse_arrow_cursor]   Previous |vwt-261| Next |vwt-264|
+
+created 2002 · complexity basic · author ncr · version 6.0
+
+==============================================================================
+
+Here is how you can change the shape of your mouseptr in gvim.
+
+>
+    :set mouseshape=n:pencil
+<
+
+This will change the shape of the mouseptr to pencil in normal mode. You can 
+choose different shapes for different modes. See :help 'mouseshape'.
+
+Want more shapes?
+
+Then look for the file cursorfont.h in your X11/ directory. This file 
+contains lots of cursor shape #define definitions, like
+
+>
+    .
+    #define XC_heart 62
+    .
+<
+
+Now :set mouseshape=n:62 will set the shape of the mouseptr to heart in 
+normal mode.
+
+COMMENTS  *vwt-262-comments*
+
+Not available for Windows.
+
+==============================================================================
+
+Actually, only certain built-in cursors are available in Windows. Pencil 
+doesn't work, but others do. See :help mouseshape
+
+==============================================================================

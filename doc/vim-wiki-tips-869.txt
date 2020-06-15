@@ -1,0 +1,29 @@
+*vim-wiki-tips-869.txt*   Opening new buffer below the current *vwt-869*
+
+Tip 869 [https://vim.fandom.com/wiki/Opening_new_buffer_below_the_current]   Previous |vwt-868| Next |vwt-872|
+
+created 2005 · complexity basic · author Ivan Tishchenko · version 6.0
+
+==============================================================================
+
+Have you ever been annoyed with that fact that :new opens a buffer above the 
+current window instead of below? If yes, then try :below new to open the new 
+window below the current one, for this one command.
+
+You can also have all splits open below the current window by default, using 
+the option. For example, place the following in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    set splitbelow
+<
+
+The process is similar if you want vertically-split windows to open to the 
+right. Use :below vnew to create a new vertical buffer on the right, or put 
+the following in vimrc:
+
+>
+    set splitright
+<
+
+COMMENTS  *vwt-869-comments*

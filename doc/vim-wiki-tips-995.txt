@@ -1,0 +1,66 @@
+*vim-wiki-tips-995.txt*   Resize window when showing/hiding line numbers *vwt-995*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 995 [https://vim.fandom.com/wiki/Resize_window_when_showing/hiding_line_numbers]   Previous |vwt-994| Next |vwt-996|
+
+created September 20, 2005 · complexity basic · author Craig Emery · version 
+5.7
+
+==============================================================================
+
+When using
+
+>
+    :set number
+<
+
+to show line numbers, your column alignment can be broken. However when 
+you're in a window that supports it, the width of the window can be changed 
+and as long as you've got enough screen real-estate to accommodate the extra 
+columns your column alignment can be retained.
+
+Add this to your vimrc file:
+
+>
+    function! Toggle_num()
+      if !exists("g:grow")
+        let g:grow = 8
+      endif
+      set number!
+      if &number
+        exec "set columns+=" . g:grow
+      else
+        exec "set columns-=" . g:grow
+      endif
+    endfunction
+    map <M-n> :call Toggle_num()<CR>
+<
+
+So each time you use META-n, line numbers will be toggled and the appropriate 
+number of columns will be added or removed from your vim window.
+
+COMMENTS  *vwt-995-comments*
+
+As of Vim 7.0, it's possible to change the line number column width using the 
+numberwidth option. Of course, it doesn't really make sense now to always 
+grow/shrink by 8 if numberwidth is set to, say, 4. So, an easy fix would be to 
+change the line:
+
+>
+    let g:grow = 8
+<
+
+into:
+
+>
+    let g:grow = &numberwidth
+<
+
+==============================================================================

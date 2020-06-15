@@ -1,0 +1,126 @@
+*vim-wiki-tips-465.txt*   Generic xml imap to make an element of any word you type *vwt-465*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 465 [https://vim.fandom.com/wiki/Generic_xml_imap_to_make_an_element_of_any_word_you_type]   Previous |vwt-464| Next |vwt-466|
+
+created 2003 · complexity basic · author Bart van Deenen · version 6.0
+
+==============================================================================
+
+We're doing a lot of xml work, in docbook and custom xml files. Here is one 
+mapping that I use all the time.
+
+>
+    imap ,,, <Esc>bdwa<<Esc>pa><CR></<Esc>pa><Esc>kA
+<
+
+If in isert mode I type programlisting,,, the text immediately gets modified 
+to
+
+>
+    <programlisting>
+    </programlisting>
+<
+
+with the cursor in between, still in insert mode.
+
+The same happens with any other word I type followed by three commas.
+
+>
+    <tryit>
+    </tryit>
+<
+
+COMMENTS  *vwt-465-comments*
+
+If you change the b to B and the w to W, then the imap will go over the colon 
+in a namespace.
+
+==============================================================================
+
+If you use :set ai then indenting will be retained.
+
+==============================================================================
+
+I improved my imap with a function. Put the following in xml.vim in your 
+ftplugin directory, or source it in your vimrc. The ^] and ^M are entered via 
+<CTRL-V><Esc> and <CTRL-V><CR>
+
+>
+    function! Make_element()
+      "function to make an xml element at the current cursor position out of the
+      "contents of the just deleted unnamed register "
+      "Bart van Deenen
+      if match(getline('.'),'^\s*'.@".'\s*$') == -1
+        "the deleted word was not alone on the line
+        let @w = "i<^[ea></^[pa>^[F<i"
+      else "the deleted word was on it's own on the line
+        let @w = "i<^[ea>^M</^[pa>^[kA"
+      endif
+    endfunction
+    "include colon(58) for namespaces in xsl for instance
+    set iskeyword=@,48-57,_,192-255,58
+    imap <buffer> ,,, <Esc>bye:call Make_element()<CR>@w
+<
+
+==============================================================================
+
+It's probably better to use :setlocal iskeyword than :set
+
+==============================================================================
+
+Just a quick note, instead of setting the "iskeyword" like that, you can use
+
+>
+    :set iskeyword+=:
+<
+
+to add the colon to the list of characters/ranges, this way you won't break 
+anything else if it depends on specific settings of iskeyword.
+
+References
+    - :help  |:set+=|
+    - :help  |:set-=|
+
+
+==============================================================================
+
+This tip is great, but it does not work if the word is only one character 
+long, like "a" in html.
+
+==============================================================================
+
+I uploaded this as script#632 
+[https://www.vim.org/scripts/script.php?script_id=632] with a correction that 
+handles one-character words.
+
+==============================================================================
+
+Try VimTip583 |vwt-583| (Vim as XML Editor).
+
+==============================================================================
+
+This fixes the case where you have only one (or more) character(s):
+
+>
+    inoremap ,,, <Esc>diwi<<Esc>pa><CR></<Esc>pa><Esc>kA
+<
+
+Then, typing
+
+>
+    p,,,
+<
+
+results in 
+
+
+
+==============================================================================

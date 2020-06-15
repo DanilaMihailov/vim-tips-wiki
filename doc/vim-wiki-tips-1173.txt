@@ -1,0 +1,108 @@
+*vim-wiki-tips-1173.txt*   Spelling suggestions anywhere, even in console mode *vwt-1173*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1173 [https://vim.fandom.com/wiki/Spelling_suggestions_anywhere,_even_in_console_mode]   Previous |vwt-1172| Next |vwt-1178|
+
+created 2006 · complexity intermediate · author Ben Staniford · version 5.7
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+Spell support is now built in as of Vim 7.0. Just :set spell spelllang=en_us 
+for example. Some people may prefer a different speller with a plugin but most 
+users should use the built in functionality.
+
+A little while ago, I tried out all the spelling plug-ins for Vim because I 
+was doing a bit of a project and needed to make sure it was all beautifully 
+spelled. One function that I found really lacking in the various spelling 
+plug-ins was the ability to make suggestions on the current word. Some of them 
+allowed this facility but there were restrictions, such as only being able to 
+use it in graphical mode and only being able to use it on certain types of 
+files. I wanted something that would work anywhere, whether in some code, in a 
+text doc and that would work in console mode. I also wanted to see how easily 
+I could in-line some Perl into a Vim script to perform some function on it. 
+The answer to that was that it's not impossible, but it's a bit ugly!
+
+Here's the function I created.
+
+>
+    " F7 Will give some spelling suggestions for the current word in any mode
+    nmap <F7> \ss
+    vmap <F7> <C-C> \ss
+    omap <F7> \ss
+    map! <F7> <C-C> \ss
+    noremap <silent> \ss :call SuggestWord()<CR>
+    
+    "Make some spelling suggestions for the current word, and allow you to change it for the word you prefer
+    "Requires ispell and perl
+    "By Ben Staniford
+    function! SuggestWord ()
+      let rw = tempname()
+      let oldspelling = expand("<cword>")
+      "Run ispell on the word under the cursor and prompt us for a choice, then save it to a temp file
+      exe '!echo -n '.oldspelling.' | ispell -a -S | perl -e '."\x27".'print "\n\n\n";'.
+            \ 'while(<>) {if(/.*:\s(.*$)/){$m=1;@a=split ", ",$1;print "Suggestions: [CTL-C to abort]\n";'.
+            \ 'for (@a) {print ++$i.")$_ "} print "\n>"; open (I, "/dev/tty"); $b=<I>; open(RW,">'.rw.'");'.
+            \ 'print RW "$a[$b-1]";}}if($m\!=1){print "No Suggestions\n"}'."\x27"
+      "If the user selected a word and it was saved, read it now
+      if filereadable(rw)
+        exe 'read ! cat '.rw
+        exe "normal \"adw"
+        exe "normal ddk"
+        exe "normal /".oldspelling."\<CR>"
+        exe "normal cw"
+        "Print the word slightly differently if we're at the beginning of a line
+        if (wincol() == 1)
+          exe "normal \"aP"
+        else
+          exe "normal \"ap"
+        endif
+      endif
+    endfunction "SuggestWord()
+<
+
+COMMENTS  *vwt-1173-comments*
+
+TO DO Update tip for Vim 7. Spell checking is now built-in.
+
+And yet aspell has very good heuristics regarding alternatives suggestion.
+--Luc Hermitte 01:36, 19 April 2008 (UTC)
+
+==============================================================================
+
+Here's a version that does not require Perl:
+
+>
+    nnoremap <silent><F2> :cal SpellSuggest()<CR>
+    function! SpellSuggest()
+      let s = substitute(system("echo ".expand("<cword>")." | aspell -a -W2 | grep '^&'"), "^.*:\\s\\(.*\\)\\n", "\\1,", "")
+      if s != ""
+        let slength = strlen(s)
+        let end = 0
+        let i = 0
+        while end != slength
+          let i = i + 1
+          let w = matchstr(s, "^\\%(.\\{-}\\zs[^ ,]\\+\\ze,\\)\\{".i."}")
+          echon "(".i.")".w." "
+          let end = matchend(s, w.",")
+        endwhile
+        echo ""
+        let c = input("Replace with: ")
+        if c =~ "^[1-9]\\d*$" && c > 0 && c <= i
+          execute "normal! ciw".matchstr(s, "^\\%(.\\{-}\\zs[^ ,]\\+\\ze,\\)\\{".c."}")
+        endif
+      else
+        echo "No suggestions"
+      endif
+    endfunction
+<
+
+==============================================================================

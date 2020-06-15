@@ -1,0 +1,91 @@
+*vim-wiki-tips-1161.txt*   Windo and restore current window *vwt-1161*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1161 [https://vim.fandom.com/wiki/Windo_and_restore_current_window]   Previous |vwt-1160| Next |vwt-1164|
+
+created 2006 · complexity intermediate · author Salman Halim · version 6.0
+
+==============================================================================
+
+The :windo, :bufdo, :argdo and :tabdo commands are great. However, they have 
+one side-effect that I don't like: they change the current window/buffer/tab 
+and make it the last one. Toward that end, I have the following commands 
+defined in my environment:
+
+>
+    " Just like windo, but restore the current window when done.
+    function! WinDo(command)
+      let currwin=winnr()
+      execute 'windo ' . a:command
+      execute currwin . 'wincmd w'
+    endfunction
+    com! -nargs=+ -complete=command Windo call WinDo(<q-args>)
+    
+    " Just like Windo, but disable all autocommands for super fast processing.
+    com! -nargs=+ -complete=command Windofast noautocmd call WinDo(<q-args>)
+    
+    " Just like bufdo, but restore the current buffer when done.
+    function! BufDo(command)
+      let currBuff=bufnr("%")
+      execute 'bufdo ' . a:command
+      execute 'buffer ' . currBuff
+    endfunction
+    com! -nargs=+ -complete=command Bufdo call BufDo(<q-args>)
+<
+
+Using them is no different from using the standard :windo or :bufdo, except 
+that when you're done, you're right back where you were.
+
+Examples:
+
+>
+    :Windofast set nu
+<
+
+Turns on line-numbers in all windows – quickly (because no autocommands 
+trigger) – and leaves your cursor exactly where it was so that you may 
+continue with what you were doing.
+
+Here's another example, one that I have defined permanently:
+
+>
+    function! SetAutoSaveAndRestore( enable )
+      augroup SaveAndRestoreAll
+        au!
+        if a:enable
+          au FocusLost * silent! Windo call UpdateIfPossible()
+          au FocusGained * silent! checktime
+        endif
+      augroup END
+    endfunction
+    " Automatically write all changed buffers every time we move out of the Vim window
+    call SetAutoSaveAndRestore( 1 )
+    
+    " Writes out the current file if it isn't read-only, has changed and has a name.
+    " Useful from the autocommand that saves all files upon Vim's losing focus.
+    function! UpdateIfPossible()
+      if expand('%') == ''
+        return
+      elseif &ro || !&modified
+        return
+      endif
+      update
+    endfunction
+<
+
+Whenever the Vim window is left (to go to an IDE for concurrent development, 
+for example), all modified and writable files are saved. Conversely, the call 
+to 'checktime' automatically updates the contents of any files that may have 
+been modified with the latest version on disk.
+
+The above should be combined with 'autoread' and 'autowrite' for best 
+results.
+
+COMMENTS  *vwt-1161-comments*

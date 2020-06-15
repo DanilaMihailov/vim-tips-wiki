@@ -1,0 +1,115 @@
+*vim-wiki-tips-481.txt*   Abbreviations only on shortcut *vwt-481*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 481 [https://vim.fandom.com/wiki/Abbreviations_only_on_shortcut]   Previous |vwt-480| Next |vwt-482|
+
+created 2003 · complexity basic · author maurice · version 6.0
+
+==============================================================================
+
+This is just a more flexible completion.
+
+I made the following (example) to have a unique abbreviation:
+
+>
+    iabbrev date^A <c-r>=strftime("%F")<CR>
+<
+
+Note that ^A is Control-A (insert with <c-v><c-a>).
+
+This is to avoid the completion if you really want to write 'date'.
+
+And now this mapping:
+
+>
+    inoremap <c-b> <c-v><c-a><c-[>a
+<
+
+Now type date<c-b> in insert-mode and you will get the date.
+
+COMMENTS  *vwt-481-comments*
+
+So why not just use this?
+
+>
+    iabbrev date^B <c-r>=strftime("%F")<CR>
+<
+
+Admittedly, it requires you to do something after the control-b (such as 
+another key or escape), but you would do precisely the same thing anyway with 
+the original procedure.
+
+The point of this tip seems to be to make a simple abbreviation such as "date" which does not require special entry such as <C-V><C-A> and which you can choose to expand with a shortcut key (<C-B>) or to NOT expand it as you choose. This suggestion defeats the purpose of the tip.
+
+==============================================================================
+
+The mapping in this tip (to expand the abbreviation) does not work for me. 
+This does:
+
+>
+    imap <c-b> <c-v><c-a><c-]>
+<
+
+Note the use of "imap" rather than "inoremap". I'm not sure if this is needed 
+or not, but it seemed to be for me.
+
+<C-]> is also used rather than <c-[> (note <c-[> is a synonym for <ESC>) 
+because <C-]> is "expand abbreviation without inserting another character" 
+whereas the <ESC>a didn't seem to expand the abbreviation for me (although 
+that may have been because I tried it with inoremap).
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 22:13, 5 
+August 2009 (UTC)
+
+==============================================================================
+
+This tip seems needlessly complicated, and I think the title is unclear. 
+Shortcut can mean many things. Abbreviations I'd suggest are something you'd 
+be unlikely to type in text, without resorting to control sequences, like 
+iabbr date_ <C-R>=strftime(...)<CR> or iabbr ddate <C-R>=strftime(...). Both 
+are faster for me to type. The abbreviation will be expanded with the next 
+character, or when leaving insert mode. (Spiiph 
+[https://vim.fandom.com/wiki/User:Spiiph] 22:40, 5 August 2009 (UTC))
+
+==============================================================================
+
+I have not tried it, and I have only looked very superficially, but I think 
+the original tip did intend Ctrl-[ (Esc). The user is supposed to type "date" 
+then press Ctrl-b. The second mapping converts that ^B to ^A then exits insert 
+mode (which should cause the abbreviation to be expanded to the date), then 
+the mapping uses 'a' to re-enter insert mode. I haven't decided if this is 
+clever or not, but it does overly tricky and I guess it needs some brutal 
+fixing.
+    - 610 Use abbreviations for frequently-used words |vwt-610|
+    - 650 Abbreviation that prompts whether to expand it or not |vwt-650|
+    - 912 Smart abbreviation |vwt-912|
+    - 1382 Auto spelling correction using abbreviations |vwt-1382|
+
+
+Above are some candidates for possible merging. Tip 912 has some comments 
+relevant to the above. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 01:48, 6 August 2009 (UTC)
+
+==============================================================================
+
+I kind of like the idea behind the tip. One of the reasons that I don't use 
+abbreviations very often is that I feel I would often take longer to remember 
+the particular abbreviation I used for an item than I would to just type it 
+(or use insert-mode completion on it). If all the "mangling" needed to make 
+the abbreviation unlikely to occur in normal text was taken care of by a 
+common mapping rather than me needing to remember it, it might be easier to 
+use. I think this tip is rather clever, though I admit it isn't necessarily 
+that useful to a wide audience. I'm stumped as to why it didn't work with the 
+<ESC>a...I'm pretty sure you're right as to the intentions there, John, that's 
+what I thought myself. But when I tried it with gvim -N -u NONE, it only 
+inserted ^A^[a instead of inserting ^A, expanding the abbrev, and re-entering 
+insert mode. It was then that I found the i_CTRL-] command and decided it was 
+better than leaving and reentering insert mode anyway.--Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] 15:43, 6 August 2009 (UTC)

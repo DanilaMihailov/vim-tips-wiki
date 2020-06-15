@@ -1,0 +1,93 @@
+*vim-wiki-tips-1300.txt*   List changes to the current file *vwt-1300*
+
+Tip 1300 [https://vim.fandom.com/wiki/List_changes_to_the_current_file]   Previous |vwt-1299| Next |vwt-1301|
+
+created 2006 · complexity basic · author Markus Trenkwalder · version 6.0
+
+==============================================================================
+
+Vim remembers the locations where changes occurred. Each position (column 
+number, line number) is recorded in a change list, and each buffer has a 
+separate change list that records the last 100 positions where an undo-able 
+change occurred.
+
+To avoid cluttering the change list, if you make a change at a certain 
+position, then make another change nearby, only the location of the later 
+change is recorded ("nearby" means on the same line, within a certain number 
+of bytes).
+
+The change list for each file is saved between edits (provided the 'viminfo' 
+option has the ' parameter), so you can see where changes occurred from 
+previous editing sessions. :help 'viminfo'
+
+USING A CHANGE LIST  *vwt-1300-using-a-change-list*
+
+You can go back, then forward, to visit the locations where changes occurred:
+    - Type g; to jump back to the position of the previous (older) change.
+    - Type g, to jump to the position of the next (newer) change.
+
+
+Display the change list for the current buffer with:
+
+>
+    :changes
+<
+
+Your current location in the change list is indicated with '>', and the first 
+number in each row is a count that can be used to jump to that position. For 
+example, after pressing g; three times, the :changes command may show 
+something like this:
+
+>
+    change line  col text
+        4    42   10 the current line 42 is shown here
+        3    93    0 -invalid-
+        2    23    0 the current line 23 is shown here
+        1    89   34 the current line 89 is shown here
+    >   0    22   40 the current line 22 is shown here
+        1    39    0 the current line 39 is shown here
+        2    15   46 the current line 15 is shown here
+<
+
+Given the above, you could press:
+    - g, to jump to line 39.
+    - g; to jump to line 89.
+    - 4 then g; to jump to line 42.
+
+
+In the example, line 93 no longer exists (the change location is invalid).
+
+CAPTURING LIST OF CHANGE LOCATIONS  *vwt-1300-capturing-list-of-change-locations*
+
+You may want a record of the recent locations where changes occurred in the 
+current buffer. As an example, the following commands redirect the output of 
+the :changes command to file c.txt, then edit that file. The 'more' option is 
+temporarily switched off to avoid the "-- More --" prompt.
+
+>
+    :set nomore
+    :redir > c.txt
+    :changes
+    :redir END
+    :set more
+    :e c.txt
+<
+
+SEE ALSO  *vwt-1300-see-also*
+    - Using marks |vwt-42| to manually record marks that you can return to
+    - Jumping to previously visited locations |vwt-10| the jump list records where jumps occurred
+
+
+REFERENCES  *vwt-1300-references*
+    - :help  |changelist|
+    - :help  |:changes|
+
+
+COMMENTS  *vwt-1300-comments*
+
+Vim 7 also has undo branching: you can make changes, undo some of them, make 
+different changes, and then have both trees of changes maintained, allowing 
+you to go back and forth between different branches of changes. :help 
+|undo-branches|, Undo tree [https://vim.fandom.com/wiki/Undo_tree]
+
+==============================================================================

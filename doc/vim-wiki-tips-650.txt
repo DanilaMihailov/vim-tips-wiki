@@ -1,0 +1,29 @@
+*vim-wiki-tips-650.txt*   Abbreviation that prompts whether to expand it or not *vwt-650*
+
+Tip 650 [https://vim.fandom.com/wiki/Abbreviation_that_prompts_whether_to_expand_it_or_not]   Previous |vwt-649| Next |vwt-651|
+
+created February 4, 2004 · complexity basic · author Yakov Lerner · version 
+6.0
+
+==============================================================================
+
+You can define an abbreviation in such a way that it will ask whether to 
+expand it or not. The trick is to define it as an expression, then have that 
+expression ask for confirmation:
+
+>
+    function! s:Ask(abbr,expansion,defprompt)
+      let answer = confirm("Expand '" . a:abbr . "'?", "&Yes\n&No", a:defprompt)
+      " testing against 1 and not 2, I correctly take care of <abort>
+      return answer == 1 ? a:expansion : a:abbr
+    endfunction
+    
+    iabbrev <expr> for <SID>Ask('for', "for () {\n}", 2)
+<
+
+REFERENCES  *vwt-650-references*
+    - :help  |:iabbrev|
+    - :help  |:map-expression|
+
+
+COMMENTS  *vwt-650-comments*

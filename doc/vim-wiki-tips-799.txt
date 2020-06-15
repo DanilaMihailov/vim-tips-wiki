@@ -1,0 +1,121 @@
+*vim-wiki-tips-799.txt*   Searching for files *vwt-799*
+
+Tip 799 [https://vim.fandom.com/wiki/Searching_for_files]   Previous |vwt-798| Next |vwt-800|
+
+created October 3, 2004 · complexity intermediate · author elz · version 7.3
+
+==============================================================================
+
+Vim offers several commands for searching for files by name: |:find|, 
+|:sfind|, |:tabfind| on the command-line, several normal-mode commands like 
+|gf|, and others. If you just enter :find filename, Vim will directly open the 
+first file found in your 'path' matching "filename". You can provide a count 
+like :2find filename to edit the second file on the path matching the 
+filename, but it can be difficult to figure out what order the file you're 
+looking for might occur in your path. Vim 7.3 makes this easier, by 
+introducing tab-completion of filenames found by the :find command. If you set 
+'wildmenu', then you can see a list of all files found by the command and 
+select which one to edit without worrying about counts or anything else.
+
+You can also use external utilities like find on Unix-like systems to look 
+for files. For example, if you want to populate your |quickfix| list with the 
+output of a find command, you could add this to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] file:
+
+>
+    " find files and populate the quickfix list
+    fun! FindFiles(filename)
+      let error_file = tempname()
+      silent exe '!find . -name "'.a:filename.'" | xargs file | sed "s/:/:1:/" > '.error_file
+      set errorformat=%f:%l:%m
+      exe "cfile ". error_file
+      copen
+      call delete(error_file)
+    endfun
+    command! -nargs=1 FindFile call FindFiles(<q-args>)
+<
+
+Then, when in normal mode, use the :FindFile command to search for a filename 
+pattern. All the file names that match this pattern (under the current 
+directory) will be displayed in the quickfix window, along with a description 
+of each of one of them.
+
+Notice, the search is done in a recursive manner, and you can use wildcards. 
+If your version of find supports it, you can do a case-insensitive search by 
+replacing -name with -iname; otherwise you can specify multiple cases with a 
+pattern like [Ff]oo[Bb]ar.txt. If you want to use a regular expression, you 
+can call find with the -regex or -iregex flags instead (if supported).
+
+The function uses some standard Unix-like utilities: find, file, sed.
+
+RELATED PLUGINS  *vwt-799-related-plugins*
+    -  FuzzyFinder [https://www.vim.org/scripts/script.php?script_id=1984] (requires L9 plugin [https://www.vim.org/scripts/script.php?script_id=3252])
+    -  Ctrl-P [http://kien.github.io/ctrlp.vim/] (temporarily expands the commandline)
+    -  Command-T [https://www.vim.org/scripts/script.php?script_id=3025] (requires Ruby support)
+    -  AsyncFinder [https://www.vim.org/scripts/script.php?script_id=4198] (requires Python support, splits open a temporary window, never locks up Vim)
+
+
+SEE ALSO  *vwt-799-see-also*
+    - Find files in subdirectories [https://vim.fandom.com/wiki/Find_files_in_subdirectories]
+
+
+COMMENTS  *vwt-799-comments*
+
+I use this little script. If we find an exact match (wc -l = 1), i open the 
+file in vim. If I find more than one matches, open a list of the files. Then I 
+can use 'gf' (gotofile) in vim to open the specific file.
+
+>
+    #! /bin/sh
+    ## fvim: finds files and opens them in vim
+    listfile=/tmp/fvim.tmp
+    
+    ## Find files and store them in a list
+    find . -iname "$1" > $listfile
+    
+    findcount=`cat $listfile | wc -l`
+    if [ $findcount -ge 2 ] ; then
+     vim $listfile
+    else
+     vim `cat $listfile`
+    fi
+<
+
+==============================================================================
+
+This is what I do:
+
+>
+    function! Find(...)
+       if a:0 == 1
+          let filename = a:1
+          execute "args `find . -iname '*".filename."*' -print`"
+       elseif a:0 == 2
+          let path     = a:1
+          let filename = a:2
+          execute 'args `find '.path." -iname '*".filename."*' -print`"
+       endif
+    endfunction
+    command! -nargs=+ Find call Find(<f-args>)
+<
+
+==============================================================================
+
+This way the files are opened in your args list and you can use :argdo
+
+>
+    " Use grep on filenames instead of relying on find's patterns.
+    " TODO: How to hook this up with 'gf'?
+    command! -nargs=1 FindFiles call FindFiles(<q-args>)
+    function! FindFiles(filename)
+      let error_file=tempname()
+      silent exe '!find . ~
+        \|grep -Pis "'.a:filename.'" -- -
+        \| xargs file
+        \| sed "s/:/:1:/" > '.error_file
+      setl errorformat=%f:%l:%m
+      exe "cfile ". error_file
+      copen
+      call delete(error_file)
+    endfunction
+<

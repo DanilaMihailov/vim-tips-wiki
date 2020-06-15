@@ -1,0 +1,220 @@
+*vim-wiki-tips-981.txt*   Commenting out a range of lines *vwt-981*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip981 |vwt-981|
+    - VimTip369 |vwt-369|
+    - VimTip388 |vwt-388|
+    - VimTip271 |vwt-271|
+    - VimTip660 |vwt-660|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 981 [https://vim.fandom.com/wiki/Commenting_out_a_range_of_lines]   Previous |vwt-979| Next |vwt-982|
+
+created 2005 · complexity basic · author JimD · version 5.7
+
+==============================================================================
+
+Here's a general tip that works for any version of vi, not just vim.
+
+It's very common to need to comment out a range of lines, let's say in a 
+shell script. One way to do this is to move to the first line and type: I# 
+(insert #<Space> as the first non-blank character of the line)
+
+Then use a series of: j. (moving down and repeat the previous command/change)
+
+However, this is tedious; using j.j.j. ...
+
+Another way is to determine the line numbers of the first and last line. You 
+can use the :f ex command to display these; or you can temporarily use :set nu 
+to enable "number mode" and :set nonu to disable when you're done.
+
+Whatever method you use to find the line numbers they can be used as a range 
+for a substitute command: :xx,yy s/^/# /
+
+This is a bit tedious because you have to look up the numbers and re-type 
+them.
+
+So we want a method that is less repetitive than j.j.j. and involves less 
+manual fussing with line numbers than the ex range/substitute command. The 
+solution is as old as vi/ex itself though it's often overlooked.
+
+Move to the first line and set a mark with: ma (where "a" is any letter you 
+choose)
+
+Move to the last line and issue the following ex command: :'a,. s/^/# /
+
+This works on the range of lines between the mark (single quote, register 
+letter) and the current line (.) substituting each beginning of line with the 
+string "# " (octothorpe, space).
+
+More elaborate sequences of pure old ex commands can also be used to create 
+boxes around C/C++ blocks; but they are really horrid to type every time so 
+they have to be mapped to some key sequence and entails consistently using the 
+same register every time.
+
+For example:
+
+>
+    map gC :'a,. s/^/ */^M:. s/\(.*\)/\1^V^V^M **************\//^M:'a s/\(.*\)/\/**************^V^V^M\1/^M
+<
+
+maps the sequence gC to a macro which wraps a block of text, from the current 
+line back to the line marked by the "a" in a C style comment like:
+
+>
+    /************************
+    *
+    * ....
+    * ....
+    ************************/
+<
+
+The example is a little crude - it doesn't indent the comment block at all, 
+for example; and it could use some extra blank lines. However, it illustrates 
+the point of what we can do even with plain old vi/ex commands.
+
+COMMENTS  *vwt-981-comments*
+
+Yes, this was part of my original vi training, but I hadn't quite mastered it 
+until setting marks had become a part of my repertoire. But once I was 
+comfortable with setting marks, fixing indenting in Vim was a matter of 'a='b 
+(for marks a and b). (Of course, this depends on having the correct a syntax 
+file set, but this is usually automatically set.)
+
+However, for short ranges of basic prefixing comments (# or //), I've come to 
+be very fond of visual block mode and block insert. To do this, start visual 
+block mode (usually with Ctrl-V), and adjust the selection with movement keys 
+as needed. (Again, marks can be used.) Once the selections are made, start 
+block insert with 'I' (or append with 'A'), and type the comment text. When 
+you hit escape, comments will be added to all affect lines. Also, the visual 
+selection can be recalled with gv. The substitute can also be used with a 
+visual selection since the visual selection creates marks of its own (though I 
+use this least often). {FYI: This requires the +visualextra feature which may 
+or may not be compiled into your current Vim. See :version to check your list 
+of available features.}
+
+==============================================================================
+
+I use a autocommand to load the appropriate mapping for each language to the 
+same key, like this:
+
+>
+    filetype on
+    augroup vimrc_filetype
+     autocmd!
+     autocmd FileType c call s:MyCSettings()
+     ...
+     autocmd FileType vim call s:MyVimSettings()
+    augroup end
+    
+    " Clear all comment markers (one rule for all languages)
+    map _ :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
+    
+    function! s:MyCSettings()
+      ...
+      " Insert comments markers
+      map - :s/^/\/\//<CR>:nohlsearch<CR>
+    endfunction
+    
+    function! s:MyVimSettings()
+      ...
+      " Insert comments markers
+      map - :s/^/\"/<CR>:nohlsearch<CR>
+    endfunction
+<
+
+So then I can press the '-' key to comment a line and the '_' key to 
+uncomment it.
+
+==============================================================================
+
+You can consider using the boxes utility from http://boxes.thomasjensen.com/ 
+[http://boxes.thomasjensen.com/]
+
+The idea is to filter a number of lines through the boxes command, and it 
+will take care of commenting the lines in or out, depending on its arguments. 
+Especially useful in combination with autocommands, but see boxes' 
+Documentation under the Vim integration chapter.
+
+Advantage: simplicity.Disadvantage: it's an external tool.
+
+==============================================================================
+
+A -VISUAL BLOCK- can also be used to comment out lines. Start by typing 
+"Ctrl-V" and then highlight a strip downwards by hitting "down/j". After that, 
+type capital "I" to insert for all highlighted lines. Type the comment, in 
+this case "#<Space>". Then hit "Esc".
+
+Works with vim.
+
+==============================================================================
+
+I have added the following lines to my vimrc. I have to select a block of 
+text and right-click and then click on the appropriate sub-menu item.
+
+>
+    vmenu PopUp.Comments.AddSQLComments :s/^/--/<CR>
+    vmenu PopUp.Comments.RemoveSQLComments :s/^--//<CR>
+    vmenu PopUp.Comments.AddCStyleComments <Esc>`>a*/<Esc>`<i/*<Esc>
+<
+
+==============================================================================
+
+I use something like this in my 'rc file.
+
+>
+    vmap ,; :s/^/;;;/<CR>:noh<CR>
+    " visually select block of text to comment, in Lisp
+<
+
+Something like this works great for just selecting a bunch of text or even in 
+lisp a block of code to comment out.
+
+And the reverse use something like:
+
+>
+    vmap ,cl :s/^;;;//<CR>:noh<CR>
+    " uncomment visually selected text
+<
+
+==============================================================================
+
+Not really a VIM tip, but I find here-documents very useful in bash for 
+commenting out large chunks of code. It's also easier to delete than if you 
+insert comments (e.g. #) because you only have to delete two lines instead of 
+a # on every line.In my example I redirect to : which means nothing is printed 
+or executed. You can redirect to anything that supports reading stdin. The 
+'<<-' is the redirect, and '-' makes it ignore tabs or spaces at the beginning 
+of lines. ': <<- COMMENT' redirects everything from the next line up to 
+'COMMENT' on the last line. The keyword can be almost anything.
+
+Example bash code:
+
+>
+    #!/bin/bash
+    echo "this will be echoed"
+    
+    : <<- COMMENT
+    	echo "this will not be echoed"
+    	echo "neither will this"
+    	ls -d .[a-z]*
+    	# You can even insert tabs and comments.
+    	Or just write whatever
+    COMMENT
+<
+
+Maedox [https://vim.fandom.com/wiki/User:Maedox] 15:18, January 13, 2011 
+(UTC)

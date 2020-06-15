@@ -1,0 +1,104 @@
+*vim-wiki-tips-441.txt*   Toggle auto-wrap *vwt-441*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 441 [https://vim.fandom.com/wiki/Toggle_auto-wrap]   Previous |vwt-440| Next |vwt-443|
+
+created March 11, 2003 · complexity basic · author Xiangjiang Ma · version 
+6.0
+
+==============================================================================
+
+In insert mode, I would like to
+
+Following is the map I figured out, using <C-B>:
+
+>
+    set sr fo=roqm1 tw=64
+    im <C-B> <C-O>:setl sr! fo<C-R>=strpart("-+",&sr,1)<CR>=tc<CR>_<BS><Right>
+<
+
+By default, it goes without auto-wrap. If I want, I can type <C-B> to toggle 
+auto-wrap. Another <C-B> toggles back.
+
+Basically it toggles two settings:
+
+>
+    :set fo+=tc<CR>
+    :set fo-=tc<CR>
+<
+
+strpart() is used for toggling; "sr" is choosing for no good reason; "_" can 
+be any char; <BS><Right> is needed to toggle this action.
+
+COMMENTS  *vwt-441-comments*
+
+A better toggle command, which doesn't just abuse the sr setting for a toggle 
+switch would be:
+
+>
+    imap <C-B> :call AutoWrapToggle()<CR>
+    function! AutoWrapToggle()
+      if &formatoptions =~ 't'
+        set fo-=t
+      else
+        set fo+=t
+      endif
+    endfunction
+<
+
+==============================================================================
+
+I found on Unix, we don't need the last part of the map.
+
+>
+    im <C-B> <C-O>:setl sr! fo<C-R>=strpart("-+",&sr,1)<CR>=tc<CR>
+<
+
+==============================================================================
+
+Just found that it is not related Unix or Windows.
+
+It is a settting of virtualedit. For current vim version (6.1), if we
+
+>
+    :set virtualedit=insert
+<
+
+We need the last part in the map, otherwise, we don't need it.
+
+==============================================================================
+
+To easily turn on and off automatic line wrapping, there are "wrap" and 
+"nowrap" options. For example, wrapping can be enabled thus:
+
+>
+    set wrap
+<
+
+Or to disable, use:
+
+>
+    set nowrap
+<
+
+You may also need to set `textwidth`, which controls the line size (not just 
+the presentation of the line). To turn off the text width, use:
+
+>
+    set textwidth=0
+<
+
+To set a line to 80 characters, use:
+
+>
+    set textwidth=80
+<
+
+For more, `help textwidth` or `help wrap`.

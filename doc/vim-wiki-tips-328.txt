@@ -1,0 +1,44 @@
+*vim-wiki-tips-328.txt*   Vim in Microsoft Visual Foxpro *vwt-328*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 328 [https://vim.fandom.com/wiki/Vim_in_Microsoft_Visual_Foxpro]   Previous |vwt-325| Next |vwt-330|
+
+created September 18, 2002 · complexity basic · author Stanislav Sitar · 
+version 5.7
+
+==============================================================================
+
+You can tell Microsoft Visual FoxPro 
+[http://en.wikipedia.org/wiki/Visual_FoxPro] to use an external editor for 
+editing project files.
+
+To tell MS VFP to use Vim, use regedit to locate:
+
+[HKEY_CURRENT_USER\Software\Microsoft\VisualFoxPro\5.0\Options]
+
+and create a new item
+
+>
+    TEDIT
+<
+
+with string content
+
+>
+    "/N C:\Progra~1\vim\vim61\gvim.exe"
+<
+
+(or whatever your path to Vim happens to be).
+
+This will not replace the internal VFP editor for such things as modifying 
+the "click method" for a button (unfortunately), but when you modify a 
+program, VFP will fire up gvim.
+
+COMMENTS  *vwt-328-comments*

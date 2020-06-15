@@ -1,0 +1,26 @@
+*vim-wiki-tips-569.txt*   Insert line numbers with a Perl filter *vwt-569*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 569 [https://vim.fandom.com/wiki/Insert_line_numbers_with_a_Perl_filter]   Previous |vwt-568| Next |vwt-570|
+
+created September 30, 2003 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+>
+    " Create a menu item to call Perl on the file.
+    " Edit the -e "script" before pressing return to filter thru Perl.
+    " Script below works shell=sh, and add line numbers to the file.
+    :amenu Mo1.Format.NumberLines<Tab>:!perl :1,$!perl -ne \"printf(\\"\%3d:\%s\\",\$.,\$_);\"
+<
+
+See Insert line numbers |vwt-65| for other methods.
+
+COMMENTS  *vwt-569-comments*

@@ -1,0 +1,119 @@
+*vim-wiki-tips-378.txt*   Auto insert Java class template when editing a new Java file *vwt-378*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 378 [https://vim.fandom.com/wiki/Auto_insert_Java_class_template_when_editing_a_new_Java_file]   Previous |vwt-376| Next |vwt-380|
+
+created 2002 · complexity basic · author Pete Kazmier · version 6.0
+
+==============================================================================
+
+If you are lazy like me, and tend to use lengthy and verbose Java class 
+names, then this tip is for you. When creating a new Java class file, the 
+first thing that I do after creating it is to add the following block of text:
+
+>
+    public class ClassName
+    {
+    }
+<
+
+Rather than have to type the ClassName twice (once when you first opened the 
+new file, and then again for this block), you can use this autocmd to insert 
+that text for you automatically:
+
+>
+    autocmd BufNewFile *.java
+      \ exe "normal Opublic class " . expand('%:t:r') . "\n{\n}\<Esc>1G"
+<
+
+COMMENTS  *vwt-378-comments*
+
+This autocommand generated multiple 'public class..{}' entries sometimes. I 
+have no idea why.
+
+==============================================================================
+
+Added this to add comments on top, constructor and comments on bottom - no 
+big deal.
+
+>
+    autocmd BufNewFile *.java
+     \ exe "normal O/** " . expand('%:t:r') ".java\n/ \n\npublic class " . expand('%:t:r') .
+     \ "\n{\n\tpublic " . expand('%:t:r') "(){}\n}\n//" . expand('%:t:r') ".java \<Esc>1G"
+<
+
+==============================================================================
+
+I use the code below to type in the package name. Otherwise I often forget to 
+type that in and the class file goes in the wrong place. It assumes that the 
+top-level directory is "com", which may be wrong but I couldn't think of any 
+other way to do it.
+
+>
+    autocmd BufNewFile *.java call InsertJavaPackage()
+    function! InsertJavaPackage()
+      let dir = getcwd()
+      let dir = substitute(dir, "^.*\/com\/", "com/", "")
+      let dir = substitute(dir, "\/", ".", "g")
+      let dir = "package " . dir . ";"
+      let result = append(0, "")
+      let result = append(1, dir)
+      let filename = expand("%")
+      let filename = substitute(filename, "\.java", "", "")
+      let result = append(2, "")
+      let result = append(3, "class " . filename . " {")
+      let result = append(4, "}")
+    endfunction
+<
+
+==============================================================================
+
+I always have my source code under a src dir and I often stand in the basedir 
+and open new files with the correct path, ie:
+
+>
+    vi src/se/hogia/innovation/Test.java
+<
+
+So I changed the function to this:
+
+>
+    function! InsertJavaPackage()
+      let filename = expand("%")
+      let filename = substitute(filename, "\.java$", "", "")
+      let dir = getcwd() . "/" . filename
+      let dir = substitute(dir, "^.*\/src\/", "", "")
+      let dir = substitute(dir, "\/[^\/]*$", "", "")
+      let dir = substitute(dir, "\/", ".", "g")
+      let filename = substitute(filename, "^.*\/", "", "")
+      let dir = "package " . dir . ";"
+      let result = append(0, dir)
+      let result = append(1, "")
+      let result = append(2, "class " . filename . " {")
+      let result = append(4, "}")
+    endfunction
+<
+
+==============================================================================
+
+If you want to have your packages one level down from a directory like repos, 
+then use
+
+>
+    let dir = substitute(dir, "^.*\/repos\/.\\{-}\/", "", "")
+<
+
+instead of
+
+>
+    let dir = substitute(dir, "^.*\/repos\/", "", "")
+<
+
+==============================================================================

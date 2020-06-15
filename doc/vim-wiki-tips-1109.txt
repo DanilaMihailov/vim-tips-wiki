@@ -1,0 +1,140 @@
+*vim-wiki-tips-1109.txt*   Maintain cursor and screen position *vwt-1109*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1109 [https://vim.fandom.com/wiki/Maintain_cursor_and_screen_position]   Previous |vwt-1108| Next |vwt-1110|
+
+created 2006 · complexity advanced · author Gerald Lai · version 6.0
+
+==============================================================================
+
+This is for script writers who wish to save and restore the position of the 
+normal cursor and its screen.
+
+To save cursor and screen positions: call CurPos("save")
+
+To restore positions: call CurPos("restore")
+
+Example:
+
+>
+    "Pressing <F2> shouldn't change a thing! try with special characters and such
+    nmap <F2> :call Test()<CR>
+    function Test()
+      call CurPos("save")
+      normal gg0
+      call CurPos("restore")
+    endfunction
+    
+    function CurPos(action)
+      if a:action == "save"
+        let b:saveve = &virtualedit
+        let b:savesiso = &sidescrolloff
+        set virtualedit=all
+        set sidescrolloff=0
+        let b:curline = line(".")
+        let b:curvcol = virtcol(".")
+        let b:curwcol = wincol()
+        normal! g0
+        let b:algvcol = virtcol(".")
+        normal! M
+        let b:midline = line(".")
+        execute "normal! ".b:curline."G".b:curvcol."|"
+        let &virtualedit = b:saveve
+        let &sidescrolloff = b:savesiso
+      elseif a:action == "restore"
+        let b:saveve = &virtualedit
+        let b:savesiso = &sidescrolloff
+        set virtualedit=all
+        set sidescrolloff=0
+        execute "normal! ".b:midline."Gzz".b:curline."G0"
+        let nw = wincol() - 1
+        if b:curvcol != b:curwcol - nw
+          execute "normal! ".b:algvcol."|zs"
+          let s = wincol() - nw - 1
+          if s != 0
+            execute "normal! ".s."zl"
+          endif
+        endif
+        execute "normal! ".b:curvcol."|"
+        let &virtualedit = b:saveve
+        let &sidescrolloff = b:savesiso
+        unlet b:saveve b:savesiso b:curline b:curvcol b:curwcol b:algvcol b:midline
+      endif
+      return ""
+    endfunction
+<
+
+COMMENTS  *vwt-1109-comments*
+
+Benji Fisher's functions (foo.vim?) contain a Mark() function that returns an 
+ex command that, when executed, restores the cursor and screen positions. An 
+example:
+
+>
+    :let currPos = Mark()
+    " Do some stuff
+    :execute currPos
+<
+
+==============================================================================
+
+I tested Benji's Mark() function and found that it doesn't hold the screen 
+position well when the screen has already been scrolled past to the right - 
+which is the original intention for retaining the screen position in the first 
+place.
+
+Here's an example of how it breaks:
+
+>
+    fun TestMark()
+      let a = Mark()
+      "move to the start & end of the file to simulate cursor displacement
+      normal gg0G0
+      exe a
+    endfun
+    nmap <F2> :call TestMark()<CR>
+<
+
+Now try pressing <F2> at the end of a long line of a large file (try a binary 
+file) that is longer than the window width. The cursor retains its position, 
+but the screen position shifts.
+
+==============================================================================
+
+cecutil.vim's SaveWinPosn() and RestoreWinPosn() functions script#1066 
+[https://www.vim.org/scripts/script.php?script_id=1066] do this too.
+
+==============================================================================
+
+I tried cecutil's SaveWinPosn() and RestoreWinPosn() but it does not retain 
+the screen's exact position once the cursor is at the end of a long line and 
+the screen has been scrolled to the right. Perhaps it has to do with the 
+'scrolloff', 'sidescrolloff' & 'sidescroll' options.
+
+==============================================================================
+
+The script above tries to restore the screen middle line number (so line xx 
+will be at the middle screen before and after editing). This is not very 
+reliable, because when the last line of the file is above the bottom of the 
+screen, the cursor position after M is not in the middle of the screen. Save 
+and restore the top of the screen (using H) is more reliable. So
+
+>
+    H
+    "save line number x
+    "do something
+    "go to line number x
+    zt
+<
+
+should restore the screen better than the solution above. In the case where 
+the last line of the file is below the bottom of the screen, then the two 
+solutions are identical (except for the position of the cursor -- one in 
+middle, one at top).

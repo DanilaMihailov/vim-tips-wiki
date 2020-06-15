@@ -1,0 +1,83 @@
+*vim-wiki-tips-1229.txt*   Source current file when editing a script *vwt-1229*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1229 [https://vim.fandom.com/wiki/Source_current_file_when_editing_a_script]   Previous |vwt-1228| Next |vwt-1230|
+
+created 2006 · complexity intermediate · author DO · version 6.0
+
+==============================================================================
+
+When you edit Vim script you often need to make a small change, then test 
+some function, then make some another small change and so on. It is not 
+convenient to restart Vim every time, and it is not convenient to run it from 
+Ex command line.
+
+So, it is reasonable to make a mapping:
+
+>
+    noremap <silent><buffer> <F9> :exec 'source '.bufname('%')<CR>
+<
+
+You may to place this line into file {runtimepath}/ftplugin/vim.vim, to use 
+this mapping for Vim files only.
+
+COMMENTS  *vwt-1229-comments*
+
+It is quite convenient to run it from a command line:
+
+>
+    :so %
+<
+
+==============================================================================
+
+Neither of the above works unless you save the file first. I use
+
+>
+    nmap <C-A> :w<CR>:so %<CR>
+<
+
+==============================================================================
+
+When developing a function it is sometime useful to source only a part of a 
+file. The following function dumps a range in a file and source it:
+
+>
+    function! SourceRange() range
+      let tmpsofile = tempname()
+      call writefile(getline(a:firstline, a:lastline), l:tmpsofile)
+      execute "source " . l:tmpsofile
+      call delete(l:tmpsofile)
+    endfunction
+    command! -range Source <line1>,<line2>call SourceRange()
+<
+
+Then, for sourcing a selection:
+
+>
+    :'<,'>Source
+<
+
+Or, for sourcing the whole buffer:
+
+>
+    :%Source
+<
+
+
+
+==============================================================================
+
+Alternatively, and leveraging more of the existing functionality, just (y)ank 
+the range and execute it with
+
+>
+    :@"
+<

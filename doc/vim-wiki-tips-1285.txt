@@ -1,0 +1,118 @@
+*vim-wiki-tips-1285.txt*   Replace a builtin command using cabbrev *vwt-1285*
+
+Tip 1285 [https://vim.fandom.com/wiki/Replace_a_builtin_command_using_cabbrev]   Previous |vwt-1282| Next |vwt-1286|
+
+created 2006 · complexity intermediate · author Yakov Lerner · version n/a
+
+==============================================================================
+
+You can use :command to define your own commands, but user-defined commands 
+must start with an uppercase letter to avoid confusion with built-in commands.
+
+This tip shows how to replace a built-in command using :cabbrev to 
+automatically replace the existing command when it is typed.
+
+For example, you may want to change the behavior of a built-in command like 
+:e. Or, you may make a common typo, like using :w1 instead of :w!. For 
+whatever reason, if you want to change the behavior of a built-in command, you 
+can't just use :command to override it, because user-defined commands must 
+begin with a capital letter.
+
+Suppose you have a user-defined :E command that you want to use to override 
+the default :e command. You could do the following:
+
+>
+    :cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
+<
+
+The (getcmdtype()==':' && getcmdpos()) makes sure the replacement happens 
+only in the first column of the command line (i.e. not later in the line, 
+where it is most likely NOT intended to be used as a command, and not on the 
+search line, which is also affected by cabbrev).
+
+If you do this a lot, it would be useful to define a function to do it for 
+you. Use this to quickly and easily define lowercase abbreviations for 
+whatever command you want:
+
+>
+    function! CommandCabbr(abbreviation, expansion)
+      execute 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
+    endfunction
+    command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
+    " Use it on itself to define a simpler abbreviation for itself.
+    CommandCabbr ccab CommandCabbr
+<
+
+This not only creates the function, but also provides the (lowercase!) 
+command :ccab to define such abbreviations "on the fly".
+
+Note that because of the use of <f-args>, you will need to escape ("\ "), or 
+use <Space>, to include literal spaces in your expansion. This is explained in 
+:help |<f-args>|.
+
+WARNING: the abbreviation commands work only if "set paste" is NOT set 
+before. (see ":help paste" for more information.
+
+Example to avoid w1 typo:
+
+cabbrev w1 <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w!' : 'w1')<CR>
+
+SCRIPTS  *vwt-1285-scripts*
+    - cmdalias [https://www.vim.org/scripts/script.php?script_id=746] Create aliases for Vim commands.
+    - altercmd [https://www.vim.org/scripts/script.php?script_id=2675] Alter built-in Ex commands by your own ones.
+    - ambicmd [https://www.vim.org/scripts/script.php?script_id=3879] You can use ambiguous command.
+    - CommandAlias [https://www.vim.org/scripts/script.php?script_id=4250] Make aliases to vim command.
+
+
+SEE ALSO  *vwt-1285-see-also*
+
+These are all good candidates for this technique (or use it already):
+    - Find in files within Vim [https://vim.fandom.com/wiki/Find_in_files_within_Vim]
+    - Handle common command typos [https://vim.fandom.com/wiki/Handle_common_command_typos]
+    - Run a command in multiple buffers [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers]
+
+
+This is a good reference in case this tip causes you problems:
+    - Disabling cabbrev [https://vim.fandom.com/wiki/Disabling_cabbrev]
+
+
+This plugin does the same thing (possibly in the same way):
+    - script#746 [https://www.vim.org/scripts/script.php?script_id=746]
+
+
+REFERENCES  *vwt-1285-references*
+    - :help  |:cabbrev|
+    - :help  |:command|
+    - :help  |getcmdpos()|
+    - :help  |getcmdtype()|
+
+
+COMMENTS  *vwt-1285-comments*
+
+USING <EXPR> (VIM 7)  *vwt-1285-using-<expr>-(vim-7)*
+
+With Vim 7 ("or later"), you can use :cabbrev <expr> — here is an example, 
+replacing the :h command to open the help window at the bottom of the Vim 
+screen:
+
+>
+    cabbrev    <expr>    h    ((getcmdtype() == ':' && getcmdpos() <= 2)? 'bot h' : 'h')
+<
+
+See also :help |:map-<expr>|
+
+getcmdpos() will usually be 2 because the cursor is on the space after :h (I 
+tested it with getcmdpos() == 1 and that doesn't work). -- Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 07:03, 12 May 2008 (UTC)
+
+In this example, you can do ::h or : h (from normal mode) to call the built-in :help command (bypassing the abbreviation).
+
+or :he or :help since abbreviations only trigger when followed by a non-id character (such as a space or the Enter key) — Tonymec 18:01, 21 August 2008 (UTC)
+
+Example of overriding message on writing - will print 'Saved' after :w in 
+lieu of filename 42 lines, 42 characters written.
+
+>
+    command Write :silent w | :echo 'Saved'  
+    cabbrev w <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Write' : 'w')<CR>
+<

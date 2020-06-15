@@ -1,0 +1,79 @@
+*vim-wiki-tips-473.txt*   Compiler for perl *vwt-473*
+
+
+
+This tip is deprecated for the following reasons:
+
+The official Vim distribution—since at least Vim 6.4—comes with a compiler 
+script so you can type :compiler perlTip 473 [https://vim.fandom.com/wiki/Compiler_for_perl]   Previous |vwt-472| Next |vwt-474|
+
+created 2003 · complexity basic · author Chris Forkin · version 5.7
+
+==============================================================================
+
+At one stage I was writing a lot of perl scripts/modules with Vim and found 
+it useful to be able to run the perl syntax-checker (perl -c) from within Vim 
+via the :make command. To be able to do this you'll need to add the following 
+Module (VimCompile.pm) to your @INC.
+
+>
+    #!/usr/bin/perl -w
+    #$Id: VimCompile.pm,v 1.2 2002/02/16 01:07:03 forkin Exp $
+    # reformat "perl -c" syntax-check error-/warning-messages for Vim
+    
+    package VimCompile;
+    use strict;
+    
+    sub _die {
+      my ($msg)=@_;
+      $msg=~s/^((.* at )((.*) line )([0-9]+)(\.|, near .*))$/$4:$5: $1/mg;
+      die qq/$msg/;
+    }
+    
+    sub _warn {
+      my ($msg)=@_;
+      $msg=~s/^((.* at )((.*) line )([0-9]+)(\.|, near .*))$/$4:$5: $1/mg;
+      warn qq/$msg/;
+    }
+    
+    $SIG{'__DIE__'}=\&_die;
+    $SIG{'__WARN__'}=\&_warn;
+    # return OK
+    
+    1;
+<
+
+This Module will reformat the warnings/errors so that Vim can parse them (to 
+allow you to jump to the location/source-code of the error). You will also 
+need to deposit the following (perl.vim) in your ~/.vim/runtime/compiler 
+directory.
+
+>
+    " Vim compiler file
+    " Compiler: perl (output of "die" massaged)
+    " Maintainer: Chris Forkin, chris@forkin.com
+    
+    if exists("current_compiler")
+     finish
+    endif
+    
+    let current_compiler = "perl"
+    " A workable errorformat for "perl -c"
+    setlocal errorformat=%f:%l:\ %m
+    " default make
+    setlocal makeprg=perl\ -MVimCompile\ -c\ %
+<
+
+COMMENTS  *vwt-473-comments*
+
+:help |errorformat-Perl|
+
+or have a look at $VIMRUNTIME/tools/efm_perl.pl to use quickfix mode with 
+perl scripts.
+
+==============================================================================
+
+!perl -Wc %
+
+Actually disregard my perl -Wc comment I realise yours does more then simple 
+compiler checks.

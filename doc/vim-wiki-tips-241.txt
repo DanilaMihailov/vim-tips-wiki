@@ -1,0 +1,54 @@
+*vim-wiki-tips-241.txt*   Hide fold markers *vwt-241*
+
+Tip 241 [https://vim.fandom.com/wiki/Hide_fold_markers]   Previous |vwt-239| Next |vwt-242|
+
+created 2002 · complexity intermediate · author Edwin · version 6.0
+
+==============================================================================
+
+I wanted to start using folding without having to get used to seeing the 
+(default) markers, aka {{{ and }}}. So, here are two autocmds that will make 
+them fade to black (bg=black, fg=black). Alternatively, you could use the 
+Ignore highlighting group.
+
+Method 1:
+
+>
+    au BufRead,BufNewfile * syn match fmrkr '"*{{{\|"*}}}' |
+      \ syn cluster vimCommentGroup contains=fmrkr |
+      \ hi fmrkr term=NONE guibg=black guifg=black
+      \ ctermbg=black ctermfg=black
+<
+
+Method 2:
+
+>
+    au BufRead,BufNewfile * syn match fmrkr '"*{{{\|"*}}}'
+      \ containedin=vimLineComment contained |
+      \ hi fmrkr term=NONE guibg=black guifg=black
+      \ ctermbg=black ctermfg=black
+<
+
+Both methods accomplish the same thing, but in a different way. Simply pick 
+one and see those annoying markers fade away.
+
+I just tried it out with Vim files, but you can easily modify it for any 
+other filetypes.
+
+REFERENCES  *vwt-241-references*
+    - :help  |ft-c-syntax|
+    - :help  |:syn-containedin|
+    - Understanding most of :help  |syntax.txt| would also be helpful.
+    - See VimTip99 |vwt-99| to determine what highlighting group the cursor is in.
+
+
+COMMENTS  *vwt-241-comments*
+
+TO DO It might be better to:
+    - Use add= instead of contains= for the syn cluster
+    - Use Syntax autocmd event instead of BufRead,BufNewfile for both methods
+    - With the above, make it trigger only for the correct language (e.g. autocmd Syntax vim ...)
+    -  Would also like to see that the color selected was the current background color not just black (if I understand things)
+
+
+==============================================================================

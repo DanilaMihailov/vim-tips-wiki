@@ -1,0 +1,53 @@
+*vim-wiki-tips-444.txt*   Show entire multiline error in quickfix *vwt-444*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 444 [https://vim.fandom.com/wiki/Show_entire_multiline_error_in_quickfix]   Previous |vwt-443| Next |vwt-445|
+
+created 2003 · complexity basic · author eric sherman · version 5.7
+
+==============================================================================
+
+Put this in your vimrc [https://vim.fandom.com/wiki/Vimrc] if you use the 
+cwindow:
+
+>
+    " \cc
+    map <Leader>cc :cwindow<CR>:cc<CR><c-w>bz<CR><CR>
+    " \cn
+    map <Leader>cn :cwindow<CR>:cn<CR><c-w>bz<CR><CR>
+    " \cp
+    map <Leader>cp :cwindow<CR>:cp<CR><c-w>bz<CR><CR>
+<
+
+and when you use \cc (or whatever your leader character is + cc), \cn or \cp, 
+it will do what :cc, :cn and :cp usually did, with the added bonus of showing 
+the entire contents of multiline errors. this is especially useful for javac 
+via ant, and it's obnoxious to keep typing <c-w>b<CR> every time i do a :cn, 
+so i mapped this.
+
+Detailed explanation:
+    - ":cwindow<CR>" ensures that the quickfix window is shown.
+
+    - ":cc" (:cn, and :cp) actually do the operation
+
+    - "<c-w>b" go to the bottom window (which cwindow will be if it's shown) which will magically center on the error
+
+    - "z<CR>" will reposition the buffer in the window so that the current line becomes the top line in the window
+
+    - "<CR>" carriage-return on the error line, taking you back to the code with the error
+
+
+COMMENTS  *vwt-444-comments*
+
+Another solution to this problem is to "set cmdheight=2" which will provide 
+two lines at the bottom of the screen for quickfix error lines instead of the 
+default one.
+
+==============================================================================

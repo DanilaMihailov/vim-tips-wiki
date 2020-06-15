@@ -1,0 +1,70 @@
+*vim-wiki-tips-1338.txt*   See man pages by gview *vwt-1338*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1338 [https://vim.fandom.com/wiki/See_man_pages_by_gview]   Previous |vwt-1336| Next |vwt-1341|
+
+created 2006 · complexity basic · author gosman · version n/a
+
+==============================================================================
+
+First, source the script man.vim in your vimrc like below, then you can use 
+:Man command.
+
+>
+    source /usr/share/vim/vim70/ftplugin/man.vim
+<
+
+Then, create a bash script gman like below:
+
+>
+    #!/bin/bash
+    #gman use gview to see the man pages
+    #usage: gman name
+    #example: gman ls
+    gview -c \"Man $1\" -c only
+<
+
+Now you can see man pages by gman, and you can use scrollbar to browse the 
+manual.
+
+COMMENTS  *vwt-1338-comments*
+
+I am fond of the following bash function which has a similar effect to this 
+tip.
+
+>
+    function vman() {
+      /usr/bin/man $* | col -b | vim -R -c 'set ft=man nomod nolist' -
+    }
+<
+
+Or for gview:
+
+>
+    function gman() {
+      # Don't trigger gview unless there is a page to show.
+      for f in `man -w $*`; do
+        man $f | col -b | gview -c 'set ft=man nomod nolist' - &> /dev/null
+        break
+      done
+    }
+<
+
+Can also do with an alias for the csh shells:
+
+>
+    alias gman 'man \!* | col -b | gview - >&! /dev/null'
+<
+
+==============================================================================
+
+See VimTip167 |vwt-167|.
+
+==============================================================================

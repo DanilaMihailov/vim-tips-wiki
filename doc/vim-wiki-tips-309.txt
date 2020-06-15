@@ -1,0 +1,105 @@
+*vim-wiki-tips-309.txt*   Close vim you left open remotely *vwt-309*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 309 [https://vim.fandom.com/wiki/Close_vim_you_left_open_remotely]   Previous |vwt-308| Next |vwt-311|
+
+created August 12, 2002 · complexity intermediate · author noah · version 6.0
+
+==============================================================================
+
+Vim 6 has this cool client-server protocol. I use it all the time to edit a 
+file in an existing gvim, like so
+
+>
+    $ gvim --remote [filename]
+<
+
+Today I left myself logged in at the console at work, and when I got home I 
+realized I had left vim running with files unsaved. I think I even left it in 
+insert mode. I wanted to edit these files at home. So I ssh'd to the machine 
+and started playing with the --remote commands.
+
+The Vim help was a bit cryptic:
+
+>
+    --remote-send {keys} Send {keys} to server and exit.
+<
+
+After a lot of failed attempts, I finally succeeded in getting the remote vim 
+to save its buffers and quit.
+
+>
+    $ DISPLAY=:0 vim --servername GVIM --remote-send '<Esc>:wqa<CR>'
+<
+
+A couple of notable things. The environment variable DISPLAY has to be the 
+display of the remote vim, and you have to be able to open that display. The 
+client-server stuff is done through X.
+
+The <CR> is important. This part eluded me for a long time. The {keys} are 
+just like keys you would press if you were editing at the console, and you 
+have to press enter, or vim won't do anything.
+
+Check your .swp files to make sure Vim really closed the files it was 
+editing. Vim provides little feedback as to the success or failure of what 
+you're trying to do remotely. Nonetheless, it's clearly a useful feature to 
+have available.
+
+COMMENTS  *vwt-309-comments*
+
+To get better feedback you can use the :redir command to redirect messages to 
+a file, like this:
+
+>
+    vim --servername GVIM --remote-send ':redir >> outputfile<CR>'
+<
+
+You can also evaluate remote expressions:
+
+>
+    vim --servername GVIM --remote-expr 'mode()'
+<
+
+this will tell you what mode vim is currently in and
+
+>
+    vim --servername GVIM --remote-expr 'getcwd()'
+<
+
+will tell you what directory vim is working in
+
+==============================================================================
+
+I never have to worry about leaving a file open, unsaved. I used to do that a 
+lot, and have developed a nervous habbit of saving a LOT.
+
+If you are like me, and don't have to worry about that, then you can simply 
+type "killall vim", and all open vim's will close themselfs. If you just want 
+to kill one type "ps -ef | grep vim" to find the pid. You can then type "kill 
+1234" where 1234 is the pid.
+
+==============================================================================
+
+vim keeps swp files for all opened files. Just kill the vim process that 
+bothers you, then open the file through your ssh connection. You will be 
+prompted with several options, choose 'R' to recover. Save your file as 
+something else, just to be sure, and then sort things out with the .swp file.
+
+- daffy
+
+==============================================================================
+
+Instead off killing vim, reptyr can reattach a running vim session to the 
+current terminal: https://github.com/nelhage/reptyr 
+[https://github.com/nelhage/reptyr]
+
+It works wonders when for some reason my SSH session is interrupted.
+
+- vdelau

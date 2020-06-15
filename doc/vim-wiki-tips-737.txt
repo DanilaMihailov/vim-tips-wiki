@@ -1,0 +1,41 @@
+*vim-wiki-tips-737.txt*   Fine tuning syntax colors *vwt-737*
+
+
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+If you make use of this tip to tweak a color scheme, your changes will be 
+lost whenever you reset the colorscheme, either by reloading it or resetting 
+syntax highlighting. A real fix should probably make use of the ColorScheme 
+autocmd, and we should mention how to copy/edit a color scheme file as well, 
+since this is a more robust solution.Tip 737 [https://vim.fandom.com/wiki/Fine_tuning_syntax_colors]   Previous |vwt-736| Next |vwt-738|
+
+created May 31, 2004 · complexity basic · author FreeFall90 · version 6.0
+
+==============================================================================
+
+If you want to change just one or two colors in your syntax highlighting, 
+there is a simpler way other than editing color files (or creating new ones). 
+For example, I wanted to tweak the default colors a bit, so I added the 
+following lines to my vimrc [https://vim.fandom.com/wiki/Vimrc] file:
+
+>
+    highlight comment ctermfg=lightblue
+    highlight constant ctermfg=red
+<
+
+This made the comments and constants easier to read on my screen. Replace 
+"comment" or "constant" with whatever text type you want to change the color 
+of. Try experimenting with different colors to see what looks best to you. 
+(This was NOT gone in the gui vim, as I don't use it/have it installed).
+
+REFERENCES  *vwt-737-references*
+    - :help  |usr_06.txt|
+
+
+COMMENTS  *vwt-737-comments*
+
+In vim 7.2 this makes the given element bolded as well as changing the color.

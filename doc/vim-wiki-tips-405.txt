@@ -1,0 +1,37 @@
+*vim-wiki-tips-405.txt*   ShowBlockName one-liner equivalent for one coding style *vwt-405*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 405 [https://vim.fandom.com/wiki/ShowBlockName_one-liner_equivalent_for_one_coding_style]   Previous |vwt-404| Next |vwt-406|
+
+created January 17, 2003 · complexity intermediate · author William Natter · 
+version 6.0
+
+==============================================================================
+
+I use [[ and its look-alikes a lot for browsing my C++ code. You can use 
+ShowLine() and the following mapping to obtain something close to 
+ShowBlockName (and it's pretty fast):
+
+>
+    map <silent> z[ [[k:call ShowLine()<CR>``
+<
+
+REFERENCES  *vwt-405-references*
+    - :help  |[[|
+    - :help  |``|
+
+
+COMMENTS  *vwt-405-comments*
+
+ShowLine() is not built in to Vim.
+
+Guessing from the vague original tip, I would say that this tip is meant to be a supplement to script#381 (ShowLine.vim).
+
+==============================================================================

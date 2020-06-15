@@ -1,0 +1,62 @@
+*vim-wiki-tips-1636.txt*   Always start on first line of git commit message *vwt-1636*
+
+Tip 1636 [https://vim.fandom.com/wiki/Always_start_on_first_line_of_git_commit_message]   Previous |vwt-1635| Next |vwt-1637|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200910#Always_start_on_first_line_of_git_commit_message] 
+2009 · complexity basic · author Khym Chanur · version 7.0
+
+==============================================================================
+
+When editing a git commit message (.git/COMMIT_EDITMSG) you often won't start 
+on the first line due to Vim remembering your last position in that file 
+[https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session]. 
+An easy way to fix this is to add the following line to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+<
+
+Alternatively, you can create a file named gitcommit.vim in ~/.vim/ftplugin 
+[https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean] containing the 
+following line:
+
+>
+    call setpos('.', [0, 1, 1, 0])
+<
+
+COMMENTS  *vwt-1636-comments*
+
+We have two other short git tips:
+    - 1262 Git grep |vwt-1262|
+    - 1614 Using Git from Vim |vwt-1614|
+
+
+Why is this tip needed when it is so easy to type gg to go to the first line? 
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:01, May 15, 2010 
+(UTC)
+
+Probably because muscle-memory might lead someone to immediately try to 
+insert text, without looking? ~Anon, 2012-08-21 8:47-0700
+
+==============================================================================
+
+Also, you should hook other event, because FileType is too early, and cursor 
+position will be overwritten using info from .viminfo:
+
+>
+    function MyBufEnter()
+      " don't (re)store filepos for git commit message files
+      if &filetype == "gitcommit"
+        call setpos('.', [0, 1, 1, 0])
+      endif
+    endfunction
+    au BufEnter * call MyBufEnter()
+<
+
+or just:
+
+>
+    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+<

@@ -1,0 +1,91 @@
+*vim-wiki-tips-844.txt*   Simple Macros to quote and unquote a word *vwt-844*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 844 [https://vim.fandom.com/wiki/Simple_Macros_to_quote_and_unquote_a_word]   Previous |vwt-843| Next |vwt-846|
+
+created 2005 · complexity basic · author Anders Thøgersen · version 6.0
+
+==============================================================================
+
+Here are some simple mappings that can be used to quote and unquote a word. 
+Place the cursor over a word and press qw to place single quotes, or qd to 
+place double quotes around the word. To remove quotes press wq.
+
+>
+    " 'quote' a word
+    nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
+    " double "quote" a word
+    nnoremap qd :silent! normal mpea"<Esc>bi"<Esc>`pl
+    " remove quotes from a word
+    nnoremap wq :silent! normal mpeld bhd `ph<CR>
+<
+
+SEE ALSO  *vwt-844-see-also*
+    - surround.vim [https://www.vim.org/scripts/script.php?script_id=1697] plugin to surround text with brackets, quotes; much more
+
+
+COMMENTS  *vwt-844-comments*
+
+The tip doesn't work for single character words, but this does:
+
+>
+    nnoremap qw :silent! normal "zyiw<Esc>:let @z="'".@z."'"<CR>cw<c-r>z<Esc>b
+    nnoremap qd :silent! normal "zyiw<Esc>:let @z="\"".@z."\""<CR>cw<c-r>z<Esc>b
+<
+
+Blows away the "z" register, though.
+
+==============================================================================
+
+I use the following for quoting visual selections (keeps all registers 
+intact)
+
+>
+    vmap <silent> <Leader>qs :call Quote("'")<CR>
+    vmap <silent> <Leader>qd :call Quote('"')<CR>
+    function! Quote(quote)
+      let save = @"
+      silent normal gvy
+      let @" = a:quote . @" . a:quote
+      silent normal gvp
+      let @" = save
+    endfunction
+<
+
+==============================================================================
+
+Here is what I think is the nicest solution for a word-quoting macro.
+
+>
+    " Quote a word consisting of letters from iskeyword.
+    nnoremap <silent> qw :call Quote('"')<CR>
+    nnoremap <silent> qs :call Quote("'")<CR>
+    nnoremap <silent> wq :call UnQuote()<CR>
+    function! Quote(quote)
+      normal mz
+      exe 's/\(\k*\%#\k*\)/' . a:quote . '\1' . a:quote . '/'
+      normal `zl
+    endfunction
+    
+    function! UnQuote()
+      normal mz
+      exe 's/["' . "'" . ']\(\k*\%#\k*\)[' . "'" . '"]/\1/'
+      normal `z
+    endfunction
+<
+
+==============================================================================
+
+Surround current word or visually selected text with double quotes:
+
+>
+    nnoremap <Leader>" ciw"<C-r>""<Esc>
+    vnoremap <Leader>" c"<C-r>""<Esc>
+<

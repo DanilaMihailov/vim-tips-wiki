@@ -1,0 +1,255 @@
+*vim-wiki-tips-153.txt*   Making Parenthesis And Brackets Handling Easier *vwt-153*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip630 |vwt-630|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 153 [https://vim.fandom.com/wiki/Making_Parenthesis_And_Brackets_Handling_Easier]   Previous |vwt-150| Next |vwt-154|
+
+created November 4, 2001 · complexity basic · author Joachhim Hofmann · 
+version 5.7
+
+==============================================================================
+
+"AUTOMATIC" BRACKET SETTING  *vwt-153-"automatic"-bracket-setting*
+
+To automatically insert a closing parenthesis when typing an opening 
+parenthesis you can insert the following simple mapping to your vimrc:
+
+>
+    :inoremap ( ()<Esc>i
+<
+
+This ends up with the cursor between the opening and the closing parenthesis 
+in insert mode.
+
+You can apply this and the following tips, of course, with the kind of 
+parenthesis/bracket character you want to, i.e. (, {, [, < ..... and, pretty 
+useful as well, quotation marks ",',.... (to be continued)
+
+FURTHER IMPROVEMENT OF PARENTHESIS/BRACKET EXPANDING  *vwt-153-further-improvement-of-parenthesis/bracket-expanding*
+
+If you are ready with filling the parenthesis/brackets, you likely want to 
+"escape" from the brackets again to continue coding.
+
+To make this pretty comfortable, I invented the following kind of mappings, 
+which get out of the last expanded parenthesis/bracket, regardless of the 
+actual type of it, and enter append mode again.
+
+I mapped this kind of "getaway" with CTRL_j, you may use your favorite 
+keystroke with it.
+
+>
+    ...
+    :inoremap ( ()<Esc>:let leavechar=")"<CR>i
+    :inoremap [ []<Esc>:let leavechar="]"<CR>i
+    ...
+    :imap <C-j> <Esc>:exec "normal f" . leavechar<CR>a
+<
+
+Explanation: The variable "leavechar" contents the actual char which is to 
+"escape" from.
+
+A much more simple solution that handles nested braces or quotes correctly:
+
+>
+    :inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a
+<
+
+"LATE" BRACKETING OF TEXT  *vwt-153-"late"-bracketing-of-text*
+
+Occasionally I later want already written text parts to put in parenthesis.
+
+I use the following macro, which brackets previously visually selected text.
+
+I mapped it with _(.
+
+>
+    :vnoremap _( <Esc>`>a)<Esc>`<i(<Esc>
+<
+
+Furthermore, a sort of mapping for bracketing a *single word* is conceivable.
+
+Because this is not as general like the kind of visual mode mapping, I use 
+this kind of "word bracketing" only for surrounding the word right behind the 
+cursor in insert mode with **. I use the following macro to "emphasize" the 
+word i just typed, for newsgroup articles.
+
+>
+    :imap _* <Esc>bi*<Esc>ea*<Space>
+<
+
+CONCLUSION  *vwt-153-conclusion*
+
+Since I use these macros, I never caused a syntax error because of missing 
+brackets, and furthermore I can quickly insert parenthesis and qutotes into 
+code- and non-code files.
+
+COMMENTS  *vwt-153-comments*
+
+Led me to create this mapping:
+
+>
+    inoremap { {<CR><BS>}<Esc>ko
+<
+
+to be used in conjunction with my autoindent setup:
+
+>
+    set expandtab
+    set shiftwidth=4
+    set smarttab
+    set autoindent
+    set smartindent
+<
+
+Now, any time i type a '{', this is what i get:
+
+>
+    {
+    <cursor here ready for coding>
+    }
+<
+
+Great time saver and it ensures that i don't ever miss a brace. And it even 
+works for you crazy people who put the open brace on the same line as the 
+for/while/function name ;)
+
+==============================================================================
+
+I modified this tip a bit to support different types of parenthisis better. 
+This one will remember the list of parenthesis you typed.
+
+>
+    inoremap ( ()<Esc>:call BC_AddChar(")")<CR>i
+    inoremap { {<CR>}<Esc>:call BC_AddChar("}")<CR><Esc>kA<CR>
+    inoremap [ []<Esc>:call BC_AddChar("]")<CR>i
+    inoremap " ""<Esc>:call BC_AddChar("\"")<CR>i
+    " jump out of parenthesis
+    inoremap <C-j> <Esc>:call search(BC_GetChar(), "W")<CR>a
+    
+    function! BC_AddChar(schar)
+     if exists("b:robstack")
+     let b:robstack = b:robstack . a:schar
+     else
+     let b:robstack = a:schar
+     endif
+    endfunction
+    
+    function! BC_GetChar()
+     let l:char = b:robstack[strlen(b:robstack)-1]
+     let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
+     return l:char
+    endfunction
+<
+
+==============================================================================
+
+I ran into this too. If there's actually a space in the mapping in your 
+.vimrc file it will get added to the mapping. So just make sure to remove the 
+space.If you check the current mapping by doing a
+
+>
+    :inoremap {
+<
+
+if you did have that trailing whitespace it would show the mapping as
+
+>
+    { {<CR>}<Esc>:call BC_AddChar("}")<CR><Esc>kA<CR><Space>
+<
+
+Vim shouldn't interpret the whitespace as part of the mapping, perhaps this 
+is a bug ?
+
+==============================================================================
+
+The following may be a little more complex than it needs to be, but allows me 
+to type the closing character to get out of the delimiter, if I'm already at 
+the end.
+
+>
+    inoremap ( ()<Esc>i
+    inoremap [ []<Esc>i
+    inoremap { {<CR>}<Esc>O
+    autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
+    inoremap ) <c-r>=ClosePair(')')<CR>
+    inoremap ] <c-r>=ClosePair(']')<CR>
+    inoremap } <c-r>=CloseBracket()<CR>
+    inoremap " <c-r>=QuoteDelim('"')<CR>
+    inoremap ' <c-r>=QuoteDelim("'")<CR>
+    
+    function ClosePair(char)
+     if getline('.')[col('.') - 1] == a:char
+     return "\<Right>"
+     else
+     return a:char
+     endif
+    endf
+    
+    function CloseBracket()
+     if match(getline(line('.') + 1), '\s*}') < 0
+     return "\<CR>}"
+     else
+     return "\<Esc>j0f}a"
+     endif
+    endf
+    
+    function QuoteDelim(char)
+     let line = getline('.')
+     let col = col('.')
+     if line[col - 2] == "\\"
+     "Inserting a quoted quotation mark into the string
+     return a:char
+     elseif line[col - 1] == a:char
+     "Escaping out of the string
+     return "\<Right>"
+     else
+     "Starting a string
+     return a:char.a:char."\<Esc>i"
+     endif
+    endf
+<
+
+==============================================================================
+
+This one is nice if one uses Perl:
+
+>
+    inoremap {<CR> {<CR>}<Esc>ko
+<
+
+this will not add the closing bracket if you type something like 
+'$foo{"bar"}++', but it will help if you make subs or multiline hashes.
+
+==============================================================================
+
+In Breadman's cool script you might want to add a TAB to the third line 
+thusly
+
+>
+    inoremap { {<CR>}<Esc>O<TAB>
+<
+
+so when you hit { you will have
+
+>
+    {
+     |<-------cursor
+    }
+<
+
+==============================================================================

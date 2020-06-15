@@ -1,0 +1,57 @@
+*vim-wiki-tips-1130.txt*   Format a code block *vwt-1130*
+
+Tip 1130 [https://vim.fandom.com/wiki/Format_a_code_block]   Previous |vwt-1129| Next |vwt-1131|
+
+created 2006 · complexity basic · author Matt Zyzik · version 6.0
+
+==============================================================================
+
+This tip has some suggestions for operating on blocks of source code, 
+particularly using text objects such as iB (inner block, same as i{ or i}).
+
+FORMATTING A FUNCTION  *vwt-1130-formatting-a-function*
+
+Here are some basic formatting commands:
+
+= is an operator (by default, it formats/indents text).
+i{ is a text object that specifies the surrounding code block.
+vi{ visually selects the inner code block around the cursor.
+=i{ formats the code block.
+=2i{ formats the current block and the block around it.
+
+You can format the entire buffer with gg=G.
+
+SELECTING A FUNCTION  *vwt-1130-selecting-a-function*
+
+A C function may start with a comment followed by the function header, then a 
+body in braces. Assuming the cursor is on the first line of the comment before 
+the function, you can type the following to select the entire function 
+(comment, header and body):
+
+>
+    V/{<CR>%
+<
+
+The V starts linewise visual selection; the /{ searches for the first left 
+brace ("<CR>" means to press Enter); the % moves to the matching right brace 
+(which should be the end of the function). You may want to then press j to 
+move the cursor down to select any blank lines.
+
+Having selected the function, you could press x to delete it, or y to copy 
+it.
+
+SEE ALSO  *vwt-1130-see-also*
+    - 597 Indent a code block |vwt-597| (consider merging)
+    - Run Vim command on current C/C++/Java function |vwt-945|
+    - textobj-function [https://www.vim.org/scripts/script.php?script_id=2619] plugin to make a function a text object
+
+
+REFERENCES  *vwt-1130-references*
+    - :help  |text-objects|
+
+
+COMMENTS  *vwt-1130-comments*
+
+TO DO
+    - Change theme of whole tip to be working with code blocks via text objects (an introduction to viB and friends).
+    - Perhaps talk about textobj-function [https://www.vim.org/scripts/script.php?script_id=2619] plugin (it's in 'See also'; thanks for the comment letting us know about it).

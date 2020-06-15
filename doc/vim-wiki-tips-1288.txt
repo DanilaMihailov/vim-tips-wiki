@@ -1,0 +1,76 @@
+*vim-wiki-tips-1288.txt*   Forcing UTF-8 Vim to read Latin1 as Latin1 *vwt-1288*
+
+Tip 1288 [https://vim.fandom.com/wiki/Forcing_UTF-8_Vim_to_read_Latin1_as_Latin1]   Previous |vwt-1287| Next |vwt-1289|
+
+created 2006 · complexity basic · author Tony Mechelynck 
+[https://vim.fandom.com/wiki/User:Tonymec] · version 6.0
+
+==============================================================================
+
+Usually, when opening an editfile while 'encoding' is set to UTF-8, Vim will 
+try UTF-8 before Latin1. This is all good and proper since the UTF-8 heuristic 
+can give an error result and the Latin1 one cannot. However, if the file 
+contains (at the moment) only 7-bit ASCII data, it will be represented 
+identically under Latin1 and UTF-8, and no one (not even a human) can decide 
+without additional information.
+
+If we want later-added bytes above 127 to be represented as Unicode, the 
+solution is simple: we can add a BOM to the file by setting the 'bomb' option 
+(":setlocal bomb"). But what if we want later data between 128 and 255 to be 
+represented as Latin1? This is a little trickier, but the answer is simple; 
+it's of the kind that makes one say "Now why didn't I think of that?". Here it 
+is:
+    -  If you want your file to be always interpreted by Vim as Latin1 and never as UTF-8, place in it a line with a number of "upper-ASCII" bytes in it (i.e. bytes in the range 128-255), then save the file after making sure that 'fileencoding' is set to Latin1, e.g. by doing ":setlocal fenc=latin1". In a program source file or a shell script, the line can be a comment; in a text file, it can be "fancy underlining". The following will do (for example):
+
+>
+    # zim: set fenc=latin1 nomod : ÷÷÷÷÷÷
+<
+
+
+Place it where you would a modeline. Notice that with the letter v instead of 
+z in column 3 it would be a modeline; but the problem with setting the 
+'fileencoding' by means of a modeline is that the latter's action happens only 
+after the file has been read. This line will make the "typical" 
+'fileencodings' heuristics (as set, e.g., by ":set 
+fileencodings=ucs-bom,utf-8,latin1") to give a "negative" result for UTF-8, so 
+that Vim's automatic mechanisms will recognise the file as Latin1.
+
+See also Working with Unicode 
+[https://vim.fandom.com/wiki/Working_with_Unicode].
+
+COMMENTS  *vwt-1288-comments*
+
+If the purpose is to ensure the loader fails to match it UTF-8, why not just 
+put something like #£ in the file. Why bother with the pseudo-modeline?
+
+You could. One possible way is to use Latin1 "divide-by signs" to underline the top title. It all depends what you want the file to look like. You may also want to make sure that none of your co-editors (if any) remove the upper-ASCII bytes, and that may require a comment. -- Tonymec 15:48, 29 November 2007 (UTC)
+
+==============================================================================
+
+To force opening a file in Latin1 I just call vim this way:
+
+>
+    $ vim --cmd "set encoding=Latin1" file.txt
+<
+
+-- Cocker68 2011-08-19 23:35:10 (UTC+2)
+
+==============================================================================
+
+This is a bad idea, it sets Vim's internal encoding to Latin1. Most people 
+using a Vim with encoding utf-8 are doing so intentionally and would not want 
+Vim to internally use Latin1. You will then be unable to view any characters 
+not in Latin1 inside Vim.
+
+The correct way to do this from the command-line, if you know in advance that 
+the file is Latin1, is something like this:
+
+>
+    $ vim -c "e ++enc=latin1" file.txt
+<
+
+However, the entire point of this tip, is that one does not NEED to remember 
+to specify on the command-line whenever editing a pure latin1 file.
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 22:32, 
+August 19, 2011 (UTC)

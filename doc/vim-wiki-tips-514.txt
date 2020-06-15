@@ -1,0 +1,171 @@
+*vim-wiki-tips-514.txt*   Automatic insertion of C/C++ header gates *vwt-514*
+
+Tip 514 [https://vim.fandom.com/wiki/Automatic_insertion_of_C/C%2B%2B_header_gates]   Previous |vwt-510| Next |vwt-515|
+
+created July 21, 2003 · complexity basic · author Morten Fjord-Larsen · 
+version 5.7
+
+==============================================================================
+
+C/C++ header files should be guarded against multiple inclusions using 
+preprocessor directives, e.g.:
+
+>
+    #ifndef FOO_H
+    #define FOO_H
+    
+    /* Declarations. */
+    
+    #endif
+<
+
+Placing the following snippet in your vimrc file, makes Vim insert these 
+preprocessor gates automatically, when a new header file is created:
+
+>
+    function! s:insert_gates()
+      let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+      execute "normal! i#ifndef " . gatename
+      execute "normal! o#define " . gatename . " "
+      execute "normal! Go#endif /* " . gatename . " */"
+      normal! kk
+    endfunction
+    autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+<
+
+COMMENTS  *vwt-514-comments*
+
+Here's my variation.
+
+Pull up foo.c or foo.h, hit your key sequence to trigger New_Class(), and 
+bang, there's the class structure for you.
+
+>
+    function New_Class_C(l_class_name, u_class_name)
+       insert
+    #include "l_class_name.h"
+    
+    u_class_name::u_class_name(
+    )
+    {
+       ;
+    }
+    
+    u_class_name::~u_class_name(
+    )
+    {
+       ;
+    }
+    .
+       %s/l_class_name/\=a:l_class_name/g
+       %s/u_class_name/\=a:u_class_name/g
+    endfunction
+    
+    function New_Class_H(l_class_name, u_class_name)
+       insert
+    #if !defined(INCLUDED_u_class_name_H)
+    #define INCLUDED_u_class_name_H
+    
+    class u_class_name {
+    public:
+       u_class_name();
+       ~u_class_name();
+    };
+    
+    #else
+    
+    class u_class_name;
+    
+    #endif
+    .
+       %s/u_class_name/\=a:u_class_name/g
+    endfunction
+    
+    function New_Class()
+       let class_name = expand("%:r")
+       let file_type = expand("%:e")
+       let l_class_name = tolower(class_name)
+       let u_class_name = toupper(class_name)
+    
+       if file_type =~# "c"
+          call New_Class_C(l_class_name, u_class_name)
+       else
+          call New_Class_H(l_class_name, u_class_name)
+       endif
+    endfunction
+<
+
+TO DO The following is from a proposed new tip that has now been deleted. 
+What is required to make this work? It assumes you start with something?
+
+Here is an alternative, intended to produce:
+
+>
+    #ifndef __FILENAME_H
+    #define __FILENAME_H
+    #endif //__FILENAME_H
+<
+
+This will add this kind of block at the top of a new .h file at the press of 
+a key. Add to your vimrc file:
+
+>
+    nnoremap <F12> "%phr_I#ifndef __<Esc>gUwyypldwidefine <Esc>yypldwiendif //<Esc>O<Esc>
+<
+
+This is another alternative, also a mapping, intended to produce more 
+verbosely-commented boilerplate but otherwise similar to the above:
+
+>
+    :nnoremap <C-F12> "%phr_g0gUw<Esc>I#ifndef __<Esc>g$yiwo<Esc>pI#  define <Esc>gg<Esc>A /* Guard against multiple
+     header inclusion error */<Esc>ggjo<Esc>I#endif /* end if-not-def <Esc>pA */<Esc>2O<Esc>
+<
+
+Produces when run on "Phoohaa.h" (must be in that file's working directory):
+
+>
+    #ifndef __PHOOHAA_H /* Guard against multiple header instance error */
+    #  define __PHOOHAA_H
+    
+    
+    #endif /* end if-not-def __PHOOHAA_H */
+<
+
+Please note however that using double underscores anywhere in your include 
+guard names is not recommended, and symbols starting with a double underscore 
+including defines are reserved for use by the compiler. So in the above 
+example it is best to use:
+
+>
+    #ifndef FILENAME_H
+    #define FILENAME_H
+    ....
+<
+
+For more information, see: 
+http://stackoverflow.com/questions/228783/what-are-the-rules-about-using-an-underscore-in-a-c-identifier 
+[http://stackoverflow.com/questions/228783/what-are-the-rules-about-using-an-underscore-in-a-c-identifier]
+
+SIMPLISTIC  *vwt-514-simplistic*
+
+>
+    function g:MyAddGuard(s)<br>
+        call append(0, ["#ifndef " . a:s, "#define " . a:s, ""])
+        call append(line("$"), ["#endif /*" . a:s . "*/"])
+    endfunction
+<
+
+To add a guard to the current file, just do:
+
+>
+    :call MyAddGuard("MACRONAME")
+<
+
+Choosing an appropriate name for the function will allow you to easily 
+tab-complete this line.
+
+See also 
+https://github.com/drmikehenry/vim-headerguard/blob/master/plugin/headerguard.vim 
+[https://github.com/drmikehenry/vim-headerguard/blob/master/plugin/headerguard.vim].
+
+==============================================================================

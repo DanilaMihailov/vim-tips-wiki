@@ -1,0 +1,18 @@
+*vim-wiki-tips-753.txt*   Make File-Open track directory of current file *vwt-753*
+
+Tip 753 [https://vim.fandom.com/wiki/Make_File-Open_track_directory_of_current_file]   Previous |vwt-752| Next |vwt-754|
+
+created June 21, 2004 · complexity basic · author Rob Allen · version 6.0
+
+==============================================================================
+
+To get the File, Open dialog box to default to the current file's directory 
+add:
+
+>
+    set browsedir=buffer
+<
+
+to your vimrc file.
+
+COMMENTS  *vwt-753-comments*

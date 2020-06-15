@@ -1,0 +1,70 @@
+*vim-wiki-tips-755.txt*   Using an expression in substitute command *vwt-755*
+
+Tip 755 [https://vim.fandom.com/wiki/Using_an_expression_in_substitute_command]   Previous |vwt-754| Next |vwt-757|
+
+created 2004 · complexity intermediate · author Raj Kiran Grandhi · version 
+6.0
+
+==============================================================================
+
+You can use an expression as the replacement string in the substitute command 
+(:s). When the replacement string starts with \= it is evaluated as an 
+expression. This opens whole new avenue of interesting possiblities. Here are 
+a few examples:
+    - Number all the lines in a file (insert line number followed by a tab):
+
+
+:%s/^/\=line('.')."\t"/
+    - Number a range of lines (from line 10 to line 20):
+
+
+:10,20s/^/\=line('.')."\t"/
+    - Number a range of lines sequentially starting from 1:
+
+
+:let counter=0|10,20g//let counter=counter+1|s/^/\=counter."\t"
+    - Number all the paragraphs in range starting from 1 (assuming the paragraphs are separated by one or more blank lines):
+
+
+:let counter=0|1,20g/^$\n^\s*[^\s]/let counter=counter+1|+1s/^/\=counter."\t"
+Note: The above command does not work for the first paragraph in the file if there is no blank line above it.
+    - Create a file skeleton with dynamic content [https://vim.fandom.com/wiki/Use_eval_to_create_dynamic_templates] by using eval() in the expression.
+
+
+REFERENCES  *vwt-755-references*
+    - :help  |sub-replace-special|
+    - :help  |sub-replace-expression|
+
+
+COMMENTS  *vwt-755-comments*
+
+You can also substitute inside substitute!
+
+>
+    :%s#.*#\='cp '.submatch(0).' all/'.substitute(submatch(0),'/','_','g')#
+<
+
+The substitute uses # (not a slash) as the delimiter because / appears in the 
+replacement text. The search pattern (.*) is submatch(0).
+
+The replacement expression inserts "cp " and "all/" and changes any "/" to 
+"_", for example changing line:
+
+>
+    sub1/sub2/file1.html
+<
+
+to
+
+>
+    cp sub1/sub2/file1.html all/sub1_sub2_file1.html
+<
+
+See Best Vim Tips |vwt-305| for a few more.
+
+==============================================================================
+
+For incremented columns, see generating a column of increasing numbers 
+|vwt-150|: incremented, decremented, daynames, dates, etc.
+
+==============================================================================

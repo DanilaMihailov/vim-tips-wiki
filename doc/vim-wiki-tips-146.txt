@@ -1,0 +1,145 @@
+*vim-wiki-tips-146.txt*   Opening multiple files from a single command-line *vwt-146*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 146 [https://vim.fandom.com/wiki/Opening_multiple_files_from_a_single_command-line]   Previous |vwt-144| Next |vwt-147|
+
+created 2001 · complexity basic · author salmanhalim · version 5.7
+
+==============================================================================
+
+I use the :split command a lot -- both to open a second window containing the 
+currently edited file and to edit a new file altogether (with the :split 
+<filename> option). however, I also like to be able to edit more than one file 
+and calling :sp multiple times is inconvenient. so, I created the following 
+command, function and abbreviation:
+
+>
+    function! Sp(...)
+      if(a:0 == 0)
+        sp
+      else
+        let i = a:0
+        while(i > 0)
+          execute 'let file = a:' . i
+          execute 'sp ' . file
+          let i = i - 1
+        endwhile
+      endif
+    endfunction
+    com! -nargs=* -complete=file Sp call Sp(<f-args>)
+    cab sp Sp
+<
+
+This retains the behaviour of :sp in that I can still type :sp (the 
+abbreviation takes care of that). :Sp takes any number of files and opens them 
+all up, one after the other.
+
+The things I have noticed are that this causes 'sp' to be expanded to 'Sp' 
+everywhere, even in search patterns. Also, prepending 'vert' doesn't work.
+
+COMMENTS  *vwt-146-comments*
+
+This is great! It saves the effort of typing multiple :sp under vim. I have 
+two suggestions.
+
+1. If I use
+
+>
+    vim
+    :Sp a b c
+<
+
+It results in 4 windows in vim. One is empty. Is this could be improved?
+
+2. Is there a way to make a new_cmd that splits a window to 3, each one for a 
+file specified in the command line? For example,
+
+>
+    vim a b c
+    :new_cmd
+<
+
+then I could see 3 windows in vim. One for a, one for b, and one for c.
+
+==============================================================================
+
+Just before the endif, add this:
+
+>
+    windo if expand('%') == '' | q | endif
+<
+
+Empty windows will be closed (if unmodified).
+
+==============================================================================
+
+I added an option to split also vertically and made filenames expand through 
+glob:
+
+>
+    function! Sp(dir, ...)
+      let split = 'sp'
+      if a:dir == '1'
+        let split = 'vsp'
+      endif
+      if(a:0 == 0)
+        execute split
+      else
+        let i = a:0
+        while(i > 0)
+          execute 'let files = glob (a:' . i . ')'
+          for f in split (files, "\n")
+            execute split . ' ' . f
+          endfor
+          let i = i - 1
+        endwhile
+        windo if expand('%') == '' | q | endif
+    endif
+    endfunction
+    com! -nargs=* -complete=file Sp call Sp(0, <f-args>)
+    com! -nargs=* -complete=file Vsp call Sp(1, <f-args>)
+<
+
+==============================================================================
+
+This tip is superseded by :argadd:
+
+>
+    :argadd *.html
+      :all
+<
+
+STARTING IN SPLITS  *vwt-146-starting-in-splits*
+
+If you want to start vim with several files in a splitted window, just type
+
+>
+    vim -o a b c
+<
+
+for the horizontal split, and
+
+>
+    vim -O a b c
+<
+
+for the vertical split.
+
+To change between the windows opened
+
+>
+    crtl+ww
+<
+
+For further information, you can consult:
+    - man vim
+    - :help  |-o|
+    - :help  |CTRL-W_w|
+    - :help  |windows|

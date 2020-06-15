@@ -1,0 +1,42 @@
+*vim-wiki-tips-997.txt*   Saving file made easy *vwt-997*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 997 [https://vim.fandom.com/wiki/Saving_file_made_easy]   Previous |vwt-996| Next |vwt-998|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+To save a file, we do <Esc>:w<Enter>.
+
+If you add the following line to your vimrc, you can easily save a file by 
+pressing F2.
+
+>
+    map <F2> :w! <CR>
+<
+
+COMMENTS  *vwt-997-comments*
+
+I just press ZZ to save and exit.
+
+==============================================================================
+
+F2 is too far away from where I keep my fingers - I prefer the following:
+
+>
+    map W :wa^M
+    map! ^W ^[:wa^Ma
+<
+
+This makes W save all buffers in command mode and Ctrl+W do the same in 
+insert mode.
+
+==============================================================================

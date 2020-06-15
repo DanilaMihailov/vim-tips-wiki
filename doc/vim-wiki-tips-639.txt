@@ -1,0 +1,56 @@
+*vim-wiki-tips-639.txt*   Highlight debug blocks in programs *vwt-639*
+
+Tip 639 [https://vim.fandom.com/wiki/Highlight_debug_blocks_in_programs]   Previous |vwt-638| Next |vwt-640|
+
+created 2004 · complexity basic · author Karthick Gururaj · version 6.0
+
+==============================================================================
+
+If your C/C++ code is scattered with statements like
+
+>
+    #ifdef DEBUG
+     // Some code..
+     cout << "Debug output: blah" << endl;
+    #endif
+<
+
+and you would like to highlight these segments in a different colour (so that 
+you can skip them visually), add the following code in your .vimrc (colouring 
+follows that of comments)
+
+>
+    syn region MySkip contained start="^\s*#\s*\(if\>\|ifdef\>\|ifndef\>\)" skip="\\$" end="^\s*#\s*endif\>" contains=MySkip
+    
+    let g:CommentDefines = ""
+    
+    hi link MyCommentOut2 MyCommentOut
+    hi link MySkip MyCommentOut
+    hi link MyCommentOut Comment
+    
+    map <silent> ,a :call AddCommentDefine()<CR>
+    map <silent> ,x :call ClearCommentDefine()<CR>
+    
+    function! AddCommentDefine()
+      let g:CommentDefines = "\\(" . expand("<cword>") . "\\)"
+      syn clear MyCommentOut
+      syn clear MyCommentOut2
+      exe 'syn region MyCommentOut start="^\s*#\s*ifdef\s\+' . g:CommentDefines . '\>" end=".\|$" contains=MyCommentOut2'
+      exe 'syn region MyCommentOut2 contained start="' . g:CommentDefines . '" end="^\s*#\s*\(endif\>\|else\>\|elif\>\)" contains=MySkip'
+    endfunction
+    
+    function! ClearCommentDefine()
+      let g:ClearCommentDefine = ""
+      syn clear MyCommentOut
+      syn clear MyCommentOut2
+    endfunction
+<
+
+To see the effect, position the cursor on the word DEBUG in the C code 
+snippet above and type ,a
+
+RELATED PLUGINS  *vwt-639-related-plugins*
+    -  ifdef plugin [https://www.vim.org/scripts/script.php?script_id=7]
+
+
+COMMENTS  *vwt-639-comments*

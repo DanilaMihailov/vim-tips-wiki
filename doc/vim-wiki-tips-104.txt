@@ -1,0 +1,45 @@
+*vim-wiki-tips-104.txt*   Capture SQL query output *vwt-104*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 104 [https://vim.fandom.com/wiki/Capture_SQL_query_output]   Previous |vwt-103| Next |vwt-105|
+
+created September 3, 2001 · complexity advanced · author meonkeys · version 
+5.7
+
+==============================================================================
+
+DBI::Shell is a Perl module that is used as a shell interface to Perl's 
+popular DBI (database interface) package. Forget your favorite SQL navigation 
+gui and give this method a shot. This has only been tested in Unix.
+
+1. Run dbish (runs DBI::Shell; installed with DBI::Shell) and connect to any 
+database.
+
+2. In dbish, set /format box.
+
+3. Enter your query.
+
+4. To execute query, type "/ | vim -"
+
+This runs the query and pipes the output to the standard input of Vim.
+
+Here are some follow-up tips:
+    - Use gvim instead of Vim so a new window will pop up.
+    - Set nowrap once in Vim.
+
+
+COMMENTS  *vwt-104-comments*
+
+Note that if your are using MySQL cli, you can type : "pager vim -" (without 
+the quotes indeed).
+
+Then every select, desc, show, etc. will be opened in Vim.
+
+==============================================================================

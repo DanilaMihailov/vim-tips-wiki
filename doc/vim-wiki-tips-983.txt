@@ -1,0 +1,168 @@
+*vim-wiki-tips-983.txt*   Numbering lines and interpolating sequences *vwt-983*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 983 [https://vim.fandom.com/wiki/Numbering_lines_and_interpolating_sequences]   Previous |vwt-982| Next |vwt-984|
+
+created September 4, 2005 · complexity intermediate · author JimD · version 
+5.7
+
+==============================================================================
+
+There are several tips surrounding numbering here in the collection. This is 
+an effort to summarize and consolidate them.
+
+One of vi's unique features is the ability to display line numbers alongside 
+our text. :set number (or :set nu for short) enables this mode. Obviously this 
+is most useful when dealing with code and when using ex ranges (:xxx,nnn ...). 
+However, it does tend to push all of the text several columns to the right 
+which can make for quite a bit of ugly line wrapping when dealing with text 
+that was already wrapped close to the width of your text.
+
+Switching the mode on or off can be tedious (8 or 10 keystrokes). The 
+following pair of mappings reduces that to just two:
+
+>
+    :map gn :set nu<CR>
+    :map gN :set nonu<CR>
+<
+
+Those are so simple they'll work in any version of vi (not just vim).
+
+Alternatively we can just make one macro (vim specific) which toggles the 
+number mode state:
+
+>
+    :map gn :set invnu<CR>
+<
+
+(The functions in VimTip 757 aren't necessary; if we've read VimTip 37 which 
+covers using the inv prefix to boolean settings to "invert," or toggle, their 
+current state).
+
+To make a toggling macro like this in an older version of vi we could use a 
+moderately ugly hack. In our .exrc file we'd set the initial macro/state:
+
+>
+    map gn :set nu<CR>:so ~/.exrc.nonu<CR>
+    ... and then in our ~/.exrc.nonu file we toggle it:
+    map gn :set nonu<CR>:so ~/.exrc.nu<CR>
+<
+
+In other words; we use the :source command to remap the macro each time it's 
+called. (That trick can be used generically for toggles and for cycling among 
+lists of states, if we're willing to clutter our home directory with all those 
+little fiddly bits. Thankfully this is vim and we can dispense with all that.
+
+Of course these examples are following the common convention of using "g" as 
+a prefix for our custom mappings since the "g" key is unused in standard vi 
+and the n and N bindings don't conflict with any vim defaults. We could bind 
+them to "zn" and "zN" (since "z" is the other common vi mapping prefix). 
+However we would be over-riding a couple of vim specific mappings (for 
+foldenable related settings).
+
+When vi students ask me about line numbering I have to clarify if they want 
+the numbers displayed or if they want numbers inserted into selected sequences 
+of their text. vi can handle either case with alacrity. The following macro 
+will filter a sequence of lines from the "n" mark to the current one through 
+the UNIX nl (number lines) filter.
+
+>
+    :map g# :'n,. !nl<CR>
+<
+
+So simple it's almost not worthy of a tip. Of course one could use 'cat -n' 
+or any simple 'awk' or Perl script in lieu of the 'nl' utility and one could 
+certainly customize this with custom arguments controlling the width and 
+number formatting options, at least with the GNU version of 'nl.' (The Perl 
+script in VimTip 569, "Insert line numbers or filter thru perl", would be 
+equivalent to GNU: nl -w3 -s:)
+
+Note I use the "n" marker for this to emphasize that I'm intent on NUMBERING 
+a range of lines. That's handy because I usually use the "a" mark first for 
+general purposes such as yanking or deleting. Using "n" here minimizes the 
+risk that I'll inadvertantly number a large range of lines to one of my 
+general purpose marks. (VimTip 28 offers a function using vim native built-ins 
+for users on non-UNIX systems without the 'nl' utility. However my advice to 
+them is: install Cygwin!).
+
+(VimTip 65 offers an unecessarily complex suggestion for numbering all the 
+lines of a file. One can simply use :%!nl[Enter] for that. Only six keystrokes 
+for something which is not a common requirement. The g# macro above is useful 
+for programmers and programming instructors or technical writers when 
+including and discussing excerpts of code).
+
+VimTip 124 provides a more elaborate function which can take arguments for 
+starting indices, and offers other features. However, it's elaborate enough 
+that I'd probably never remember to call it when I needed it.
+
+In cases where I need to generate a sequence of similar lines which differ 
+only in a few places by embeded numbers, I generally just write a simple shell 
+command using a for loop, the GNU 'seq' utility (which, can be implemented in 
+about 5 lines of shell if you're on a machine that lacks it) and echo 
+statements). For example I sometimes find myself editing DNS zone and reverse 
+zone files and using simple commands like:
+
+>
+    :r! for i in $(seq 5 200);do echo -e "dyn$i.my.org\t\tIN A 192.168.1.$i"; done
+<
+
+to generate most of my text.
+
+VimTip 150 tells us how to generate a column of increasing numbers using 
+Ctrl-V block/visual and a script. It's nice but I have to admit I resort to 
+something a bit more crude. I create my template line with some unique string 
+such as "xxx" to be replaced by the numeric sequence. I then duplicate that 
+using normal vi commands like 100p (to put in a hundred copies of the template 
+line, for example). Then I simply use something like !} (filter from here 
+through the end of the paragraph) and type is a moderately ugly command like:
+
+>
+    awk '{sub(/xxx/,n++);print}'
+<
+
+as the filter (assuming I want to start with zero). More tedious versions are 
+easily concocted using things like:
+
+>
+    awk 'BEGIN {n=100};{sub(/xxx/,n-=3);print}'
+<
+
+to do things like count down from 100 by threes. Thankfully I rarely have 
+occasion to need this sort of thing for more than a half dozen lines where 
+it's generally easier to just type such things by hand. Otherwise I'd save the 
+specifics to a short script and possibly map the filtering to another macro 
+like the g# shown above.
+
+A couple of odd vim specific bindings that appear in other tips are Ctrl-A 
+and Ctrl-X (VimTip 30 and partially duplicated in VimTip 287, and mentioned in 
+passing in VimTip 305). These find the number nearest to the cursor and 
+increment or decrement it respectively. I've never used that and will probably 
+never quite remember it when I would and will probably never quite remember it 
+when I would.
+
+COMMENTS  *vwt-983-comments*
+
+Numbering seems to be popular subject, and this makes for a nice article or 
+commentary on various related tips. It's a pity that the linking format wasn't 
+used in the tip. I've collected all of the references above and included them 
+below.
+    - VimTip28 |vwt-28| add a line-number to every line without cat or awk alike utilities
+    - VimTip28 |vwt-28| Cool trick to change numbers
+    - VimTip30 |vwt-30| Best of VIM Tips (VIM's best Features)
+    - VimTip150 |vwt-150|, handles dates!)
+    - script#145 [https://www.vim.org/scripts/script.php?script_id=145] - increment.vim - Stanislav Sitar
+    - script#156 [https://www.vim.org/scripts/script.php?script_id=156] - increment.vim - Srinath Avadhanula
+    - script#842 [https://www.vim.org/scripts/script.php?script_id=842] - increment.vim - William Natter (sequences on a substitution character)
+    - script#189 [https://www.vim.org/scripts/script.php?script_id=189] - renumber.vim - Neil Bird (only re-sequences, but handles hex)
+    - script#821 [https://www.vim.org/scripts/script.php?script_id=821] - blockwork.vim - John Aldridge
+    - script#1046 [https://www.vim.org/scripts/script.php?script_id=1046] - monday.vim - Stefan Karlsson (increments month and weekday names)
+
+
+==============================================================================

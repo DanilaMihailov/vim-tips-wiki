@@ -1,0 +1,37 @@
+*vim-wiki-tips-1302.txt*   Custom resizing on the spot *vwt-1302*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1302 [https://vim.fandom.com/wiki/Custom_resizing_on_the_spot]   Previous |vwt-1301| Next |vwt-1303|
+
+created August 11, 2006 · complexity basic · author atomik fungus · version 
+5.7
+
+==============================================================================
+
+This was inspired by VimTip173 |vwt-173|. Sometimes you don't want to have 
+your windows on their max or min width (length) so I added the following 
+commands to my vimrc.
+
+>
+    "This two change in between vertical windows maximizing their length, and if you keep them pressed they will increase width by 2 columns steps.
+    "very nice when lines are too long to fit in just one row.
+    nmap <c-h> <c-w>h<c-w>_<c-w>><c-w>>
+    nmap <c-l> <c-w>l<c-w>_<c-w>><c-w>>
+<
+
+The same can be done for the horizontal split.
+
+COMMENTS  *vwt-1302-comments*
+
+TO DO Take the time to figure out how to make this useful. By length the 
+author means height. Should use a repeat number. If you need this tip to 
+increase the width, won't you need a way to decrease it?
+
+==============================================================================

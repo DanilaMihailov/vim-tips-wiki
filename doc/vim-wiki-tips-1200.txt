@@ -1,0 +1,111 @@
+*vim-wiki-tips-1200.txt*   View PHP documentation for current word *vwt-1200*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1200 [https://vim.fandom.com/wiki/View_PHP_documentation_for_current_word]   Previous |vwt-1199| Next |vwt-1202|
+
+created April 8, 2006 · complexity basic · author bigkm · version 5.7
+
+==============================================================================
+
+Open php.net's documentation with the word underneath the cursor
+
+>
+    noremap gd ! open [http://php.net/<cword><CR> http://php.net/<cword><CR>];
+<
+
+COMMENTS  *vwt-1200-comments*
+
+I couldn't find a way to open the php manual in an already-open window except 
+by compiling Firefox myself. Instead I had to go with re-launching the browser 
+each time I wanted to check the manual. Also, in order to launch Firefox when 
+it is already running, the new instance will need a separate profile, so it 
+does get a litte complicated:
+
+>
+    function OpenPHPManual(keyword)
+      let firefox = '/Applications/Firefox.app/Contents/MacOS/firefox-bin'
+      " you will need to create this profile in firefox
+      let profile = 'Profile for PHP Manual'
+      let url = 'http://www.php.net/' . a:keyword
+      exec '!' . firefox . ' -p "' . profile . '" "' . url . '"'
+    endfunction
+    noremap gd :call OpenPHPManual(expand('<cword>'))<CR>
+<
+
+In recent Firefox versions (2014 and probably earlier) there is a -no-remote 
+option 
+[http://kb.mozillazine.org/Opening_a_new_instance_of_your_Mozilla_application_with_another_profile].
+
+==============================================================================
+
+On my GNOME system I use "gnome-open http://domain.com [http://domain.com]"; 
+to open the default browser (Firefox). I've configured Firefox to open new 
+windows in new tabs if a browser is already open.
+
+==============================================================================
+
+For mozilla, informations here: http://www.mozilla.org/unix/remote.html 
+[http://www.mozilla.org/unix/remote.html]
+
+==============================================================================
+
+Manpageview supports php help (it uses links), for example:
+
+>
+    :Man bzopen
+<
+
+while in a file identified by the syntax highlighting as being php.
+
+==============================================================================
+
+Here is what I did. I use lynx to see the documentation, but the 
+documentation at PHP.org has some menu stuff I don't want to see (I have to 
+scroll everytime). And the speed is slower than if it were local. So I 
+downloaded the doc files and put it on my webserver. I still want to search 
+the php website if i cant remember the function name. So i added two options:
+
+>
+    function OpenPHPManual(keyword)
+      let web = 'lynx -accept_all_cookies --cookie_file=/home/jon/.lynx_cookies --cookie_save_file=/home/jon/.lynx_cookies --cookies'
+      let url = 'http://jp2.php.net/' . a:keyword
+      exec '!' . web . ' "' . url . '"'
+    endfunction
+    
+    function OpenPHPManualLocal(keyword)
+      let web = 'lynx'
+      let url = 'http://192.168.0.2/~jon/phpdoc/function.' . a:keyword . '.html'
+      exec '!' . web . ' "' . url . '"'
+    endfunction
+    
+    noremap fd :call OpenPHPManualLocal(expand('<cword>'))<CR>
+    noremap fj :call OpenPHPManual(expand('<cword>'))<CR>
+<
+
+==============================================================================
+
+Add a -nopause to the above lynx command. It makes getting the files from 
+PHP's mirrors faster.
+
+==============================================================================
+
+If you are using Mac OS X you can use the 'open' command which tries to use 
+an existing Firefox window:
+
+>
+    :!open [http://www.php.net/<cword> http://www.php.net/<cword>];
+<
+
+If you use 'sudo vim ...' then you're running 'open' as Admin User, which may 
+still have Safari as the default browser, in which case you can use 'sudo 
+/Applications/Firefox...' to start firefox as Admin and set Firefox as the 
+default web browser.
+
+==============================================================================

@@ -1,0 +1,122 @@
+*vim-wiki-tips-1298.txt*   Run Matlab script under Windows *vwt-1298*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1298 [https://vim.fandom.com/wiki/Run_Matlab_script_under_Windows]   Previous |vwt-1297| Next |vwt-1299|
+
+created 2006 · complexity intermediate · author Manu Hack · version n/a
+
+==============================================================================
+
+If you have a Matlab script file (not function file), then you could add the 
+following simple files to C:/Program Files/Vim/vimfiles/ftplugin/matlab 
+(depends on where you installed Vim).
+
+run.py
+
+>
+    for i in range(len(vim.current.buffer)):
+      print h.Execute(vim.current.buffer[i])
+<
+
+run.vim
+
+>
+    :py from win32com.client import Dispatch
+    :py import vim
+    :py h=Dispatch('matlab.application')
+    map <buffer> ,r :w<CR>:cd C:/Program Files/Vim/vimfiles/ftplugin/matlab<CR>:pyf run.py<CR>
+<
+
+Then just type ,r you can run and get the results in the current windows.
+
+Make sure you have a running Python. I'm using WinXP, Vim 7.0, Matlab 6.5, 
+and Python 2.4.
+
+See the improved version of this tip in script#1634 
+[https://www.vim.org/scripts/script.php?script_id=1634].
+
+COMMENTS  *vwt-1298-comments*
+
+Not working. I created the files run.vim, run.py, and the map. However, when 
+I enter a matlab script I get this:
+
+>
+    Couldn't open buffer 3 in window 2, creating a new window
+    Error message: NameError: name 'Dispatch' is not defined
+<
+
+==============================================================================
+
+Just a thought on this one, perhaps it would be better to enclose run.vim in:
+
+>
+    if has("win32")
+       ...
+    endif
+<
+
+just to ensure it doesn't cause problems for those of use who use the same 
+Vim setup on Windows & Linux. Also, it would be beneficial to change the 
+mapping to use $VIM instead of C:\Program Files\vim
+
+==============================================================================
+
+Another thing is that there should be a tab before the line in the for-loop. 
+You may get an error for omitting that.
+
+==============================================================================
+
+Some more updates for the code:
+
+1. One may need to add the path where your functions are stored. This can be 
+done by Matlab function addpath.
+
+2. After using for a while, I find that if my script call other functions 
+which have been modified, Matlab is not able to use the updated version of the 
+functions. One could add a line in run.py as follows.
+
+run.py
+
+>
+    h.Execute("rehash toolboxcache")
+    for i in range(len(vim.current.buffer)):
+      print h.Execute(vim.current.buffer[i])
+<
+
+Then it should work well. At least at the moment I could start working 
+without going back and forth between Matlab and Vim.
+
+==============================================================================
+
+Finally got some time to improve the run.vim.
+
+Now no need to use the run.py and just put the following run.vim in 
+ftplugin/matlab.
+
+>
+    if has("win32")
+      :py from win32com.client import Dispatch
+      :py import vim
+      :py h=Dispatch('matlab.application')
+      :py path=vim.eval('expand("%:p:h")')
+      :py h.Execute("temppath='"+ path+"'")
+      :py h.Execute("addpath(temppath)")
+      :py h.Execute("clear temppath")
+      map <buffer> ,r :w<CR>:py h.Execute("rehash path")<CR>:py print h.Execute(vim.eval('expand("%:t:r")'))<CR>
+      map <buffer> ,b :w<CR>:py h.Execute("rehash path")<CR>:py print h.Execute('dbstop in '+vim.eval('expand("%:t:r")')+' at '+vim.eval('line(".")'))<CR>
+    endif
+<
+
+Still, you need Python with the win32com.
+
+Tip: You might want to use 'matlab.desktop.application' for the complete 
+matlab interface.
+
+==============================================================================

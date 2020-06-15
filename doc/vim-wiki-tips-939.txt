@@ -1,0 +1,56 @@
+*vim-wiki-tips-939.txt*   Single config file for Vim on Windows with Cygwin *vwt-939*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 939 [https://vim.fandom.com/wiki/Single_config_file_for_Vim_on_Windows_with_Cygwin]   Previous |vwt-937| Next |vwt-941|
+
+created 2005 · complexity basic · author Lee Savidge · version 5.7
+
+==============================================================================
+
+I got really bored of editing multiple vimrc files when I wanted to change 
+mine. So, after installing cygwin under Windows I added an environment 
+variable which set HOME to be c:\cygwin\home\username. Vim/GVim in Windows 
+reads that variable if it is set and notes that the config file to read is the 
+one I have in my cygwin directory. Also, because Vim/GVim under Windows 
+understands that the config files could be called either .vimrc or _vimrc it 
+doesn't require any other change. Now when either Vim in cygwin or Vim/GVim in 
+Windows loads, they both use the same config files. This assumes that your 
+config files can work under either environment as mine do.
+
+COMMENTS  *vwt-939-comments*
+
+Another option (if for some reason you don't want to change your Windows HOME 
+var) is to create a vimrc file in your Windows home with the following lines:
+
+>
+    set runtimepath+=c:/cygwin/home/username/.vim
+    source c:/cygwin/home/username/_vimrc
+<
+
+==============================================================================
+
+I think if you have installed cygwin, you can use the following method:under 
+cygwin:
+
+>
+    $ cd ~
+    $ ln -s /path/to/windows/_vimrc .vimrc
+<
+
+and by this way, we can use the same vimrc. Don't forget we can use " if 
+has('win32') ..." to write config for different environment.
+
+==============================================================================
+
+Be careful with setting $HOME to something else under Windows. A lot of apps 
+rely on such variable as well. You may end up messing up another app`s 
+settings.
+
+==============================================================================

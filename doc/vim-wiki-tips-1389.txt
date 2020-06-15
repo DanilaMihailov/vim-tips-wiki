@@ -1,0 +1,42 @@
+*vim-wiki-tips-1389.txt*   Trailing white space aware Delete key *vwt-1389*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1389 [https://vim.fandom.com/wiki/Trailing_white_space_aware_Delete_key]   Previous |vwt-1388| Next |vwt-1391|
+
+created 2006 · complexity basic · author pulp · version 6.0
+
+==============================================================================
+
+This function will extend the 'delete key' to delete trailing white spaces 
+and empty lines at once. Leading blanks are preserved.
+
+Tested with: Insert Mode, set virtualedit=all, set backspace=2, blanks for 
+ident.
+
+>
+    function! Smart_Del(...)
+      let line=getline (".")
+      let column = col(".")
+      let part2= strpart(line, column-1)
+      if part2 =~ '^\s*$' && part2!=""
+        let part1= strpart(line, 0, column-1)
+        call setline (".", part1)
+      endif
+      iunmap <silent> <DEL>
+      execute "normal i\<DEL>\<Esc>"
+      if column > 1
+        execute "normal l"
+      endif
+      inoremap <silent> <DEL> <C-o>: call Smart_Del()<CR>
+    endfunction
+    inoremap <silent> <DEL> <C-o>: call Smart_Del()<CR>
+<
+
+COMMENTS  *vwt-1389-comments*

@@ -1,0 +1,88 @@
+*vim-wiki-tips-472.txt*   Handy option flag toggler *vwt-472*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip920 |vwt-920|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 472 [https://vim.fandom.com/wiki/Handy_option_flag_toggler]   Previous |vwt-471| Next |vwt-473|
+
+created May 12, 2003 · complexity basic · author robin · version 6.0
+
+==============================================================================
+
+Here's a little function I put together to make some of my mappings easier to 
+read, understand and change.
+
+>
+    function ToggleFlag(option,flag)
+      exec ('let lopt = &' . a:option)
+      if lopt =~ (".*" . a:flag . ".*")
+        exec ('set ' . a:option . '-=' . a:flag)
+      else
+        exec ('set ' . a:option . '+=' . a:flag)
+      endif
+    endfunction
+<
+
+Examples of use:
+
+>
+    map <silent> <F8> :call ToggleFlag("guioptions","m")<CR>
+    map <silent> <F9> :call ToggleFlag("guioptions","T")<CR>
+<
+
+COMMENTS  *vwt-472-comments*
+
+The following might be more flexible (I think it should work for any 
+flag-style option).
+
+>
+    " my function to cycle a numeric option
+    function CycleNum(option,min,inc,max)
+      exec ('let tz_value = (((&'.a:option.'-'.a:min.')+'.a:inc.')%(('.a:max.'-'.a:min.')+'.a:inc.'))+'.a:min)
+      if (tz_value < a:min) " in case inc<0
+        let tz_value = tz_value+a:max
+      endif
+      exec ('setlocal '.a:option.'='.tz_value)
+    endfunction
+    
+    " my function to toggle an option flag
+    function ToggleFlag(option,flag)
+      exec ('let tf_o = &'.a:option)
+      exec ('setlocal '.a:option.'-='.a:flag)
+      exec ('let tf_t = &'.a:option)
+      if (tf_o == tf_t)
+        exec ('setlocal '.a:option.'+='.a:flag)
+      endif
+    endfunction
+    
+    " Toggle folding column
+    noremap <silent> <F7> :call CycleNum("foldcolumn",0,2,6)<BAR>set foldcolumn?<CR>
+    imap <F7> <C-O><F7>
+    
+    " Toggle window appearance
+    noremap <silent> <F8> :call ToggleFlag("guioptions","m")<BAR>set guioptions?<CR>
+    imap <F8> <C-O><F8>
+    noremap <silent> <F9> :call ToggleFlag("guioptions","T")<BAR>set guioptions?<CR>
+    imap <F9> <C-O><F9>
+    
+    " Cycle tabstop
+    noremap <silent> <M-t>s :call CycleNum("tabstop",4,4,8)<BAR>set tabstop?<CR>
+    " Cycle shiftwidth
+    noremap <silent> <M-t>w :call CycleNum("shiftwidth",4,4,8)<BAR>set shiftwidth?<CR>
+<
+
+==============================================================================

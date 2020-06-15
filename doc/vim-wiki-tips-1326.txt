@@ -1,0 +1,40 @@
+*vim-wiki-tips-1326.txt*   Map extra keys on non US keyboards *vwt-1326*
+
+Tip 1326 [https://vim.fandom.com/wiki/Map_extra_keys_on_non_US_keyboards]   Previous |vwt-1323| Next |vwt-1332|
+
+created 2006 · complexity basic · author Martin Krischik · version 6.0
+
+==============================================================================
+
+On a US keyboard, it is convenient to press [ and ] which each have their own 
+key.
+
+You can have the same convenience on non-US keyboards with a map like the 
+following (this example is for a German keyboard):
+
+>
+    map ü <C-]>
+    map ö [
+    map ä ]
+    map Ö {
+    map Ä }
+    map ß /
+<
+
+A key like ü is only useful in insert mode, and you can still use it in that 
+mode.
+
+COMMENTS  *vwt-1326-comments*
+
+Enter is heavily used and - in Turkish Q keyboard layout - far from hand 
+position so it is productive to use "ş" character as <cr> in normal mode. That 
+way the keyboard characters are lay like G H J K L Ş which boosts performance. 
+It is also possibly a good idea to use "ğ" as a mapleader key which lays just 
+above Ş.
+
+==============================================================================
+
+nmap ş <cr>
+ let mapleader = "ğ"   " in your .vimrc file
+
+==============================================================================

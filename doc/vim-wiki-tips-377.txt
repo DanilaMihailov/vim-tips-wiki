@@ -1,0 +1,579 @@
+*vim-wiki-tips-377.txt*   Map caps lock to escape in XWindows *vwt-377*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 166 [https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_XWindows]   Previous |vwt-165| Next |vwt-167|
+
+created 2001 · complexity basic · author Leif Wickland · version 6.0
+
+==============================================================================
+
+This tip shows some methods for mapping keys within the operating system to 
+make life easier in Vim. In particular, it can be convenient to use the 
+CapsLock key for Escape (so you don't have to move your hand to reach the Esc 
+key).
+
+This tip is for Unix-based systems. For Windows, see Map caps lock to escape 
+in Windows [https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_Windows].
+
+See Avoid the escape key [https://vim.fandom.com/wiki/Avoid_the_escape_key] 
+for tips on using Vim to map keys to avoid the need to press Esc to exit from 
+insert mode.
+
+DETAILS  *vwt-377-details*
+
+If you want to completely swap the Caps Lock and Escape keys, you have to 
+replace the "Lock" on Caps Lock. Drop this file in your home directory:
+
+>
+    ! Swap caps lock and escape
+    remove Lock = Caps_Lock
+    keysym Escape = Caps_Lock
+    keysym Caps_Lock = Escape
+    add Lock = Caps_Lock
+<
+
+and call it ".speedswapper". Then open a terminal and type
+
+>
+    $ xmodmap ~/.speedswapper
+<
+
+and you'll be twice as efficient in Vim. Who needs caps lock anyway? The 
+swapping lasts for the duration of the X session, so you can put it in a 
+.xinitrc or similar startup file.
+
+COMMENTS  *vwt-377-comments*
+
+If you want to use the capslock as escape on the console as opposed to just 
+in X, try:
+
+>
+    loadkeys ~/keymap
+<
+
+where ~/keymap contains:
+
+>
+    keycode 58 = Escape
+<
+
+Or, if you want to completely swap them:
+
+>
+    keycode 1 = Caps_Lock
+    keycode 58 = Escape
+<
+
+See 'man 5 keymaps', and verify with 'dumpkeys' that keycode 1 is Escape and 
+keycode 58 is Caps_Lock beforehand.
+
+Be careful, because if you swap the keys, they will be swapped every time the 
+script is called. It is safer to set them equal to the original keycodes, 
+change the Caps Lock mapping, then switch the keycodes (in the following 
+example, the keycode values are 8 higher):
+
+>
+    keycode 66 = Caps_Lock
+    keycode 9 = Escape
+    remove Lock = Caps_Lock
+    add Lock = Escape
+    keycode 9 = Caps_Lock
+    keycode 66 = Escape
+<
+
+This can be put directly into the Xmodmap (for example in /etc/X11/Xmodmap), 
+then called from the bashrc. Just to be sure, execute the bashrc twice and 
+make sure the Escape key is working as Caps Lock, not the other way around.
+
+==============================================================================
+
+I used the following code, and it works for me (none the others did)
+
+>
+    xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+<
+
+==============================================================================
+
+Must have for nerdy touch typists with german keyboards and us keyboard 
+keymappings:the key between z/y and left shift (doesn't exist on us keyboards) 
+is superfluous when using an american keymap.=> the best place to put escape 
+and you can leave control on capslock!
+
+COMMENTS FROM TIP 1083 (NOW REMOVED)  *vwt-377-comments-from-tip-1083-(now-removed)*
+
+In Linux, you can change the keyboard-layout using a tool called xmodmap.
+
+Write the following line into a file (e.g. ~/.xmodmap-esc)
+
+>
+    clear Lock
+    keycode 0x42 = Escape
+<
+
+and load it by running
+
+>
+    xmodmap ~/.xmodmap-esc
+<
+
+or you can just run
+
+>
+    xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+<
+
+in your X start up file.
+
+==============================================================================
+
+I know how to turn caps off in Tiger (or turn it into a Ctrl key):
+    - Open System Preferences
+    - Goto Keyboard & Mouse
+    - At the bottom of the panel there is a "Modifier Keys..." button, click it
+    - Choose "No Action" or "^ ctrl" for caps-lock
+
+
+==============================================================================
+
+For Panther one can look at uControl 
+(http://gnufoo.org/ucontrol/ucontrol.html 
+[http://gnufoo.org/ucontrol/ucontrol.html]).
+
+==============================================================================
+
+On any X windows implementation you can use:
+
+>
+    xmodmap -e 'keycode 66 = Control_L'
+    xmodmap -e 'clear Lock'
+    xmodmap -e 'add Control = Control_L'
+<
+
+to make your caps lock work as control, like on Sun keyboards. Which is a 
+little easier to use IMHO.
+
+==============================================================================
+
+Instead of reaching for Esc, you can press Ctrl-[ (which is the equivalent).
+
+Xfree86 users can make the CapsLock key another Control key by adding the 
+following to the InputDevice section of your XF86Config file. Then you never 
+have to leave the home row.
+
+>
+    Option "XkbOptions" "grp:alt_shift_toggle,ctrl:nocaps,grp_led:scroll"
+<
+
+For Mac OS X, you can change this via the "Modifier Keys" button on the 
+"Keyboard" section of the "Keyboard & Mouse" preference pane.
+
+COMMENTS FROM TIP 75 (FOR WINDOWS)  *vwt-377-comments-from-tip-75-(for-windows)*
+
+Here's how to map the caps lock key to a control under X windows, at least 
+under xfree86-3.x and 4.x:Add a file named ".Xkbmap" in your home directory 
+with this content:
+
+>
+    -option ctrl:nocaps
+<
+
+XMODMAP COMMENTS FROM TIP 285  *vwt-377-xmodmap-comments-from-tip-285*
+
+I changed my CapsLock key to Escape under XFree86 with the following lines in 
+my ~/.Xmodmap:
+
+>
+    ! Esc on caps lock
+    remove Lock = Caps_Lock
+    keysym Caps_Lock = Escape
+<
+
+In my ~/.xinitrc, xmodmap is called to set the mapping:
+
+>
+    if [ -f ~/.Xmodmap ]; then
+      xmodmap ~/.Xmodmap
+    fi
+<
+
+==============================================================================
+
+Well, map! <S-space> <Esc> doesn't work for me either on xterm, eterm or 
+whatever. Forthose with a 'normal' pc keyboard, you probably have the 
+'windows' key on the bottom row. Justuse it. Type the following on the 
+commandline or put it in your .bash_profile or .xinitrc:
+
+>
+    xmodmap -e "keysym Super_L = Escape
+<
+
+==============================================================================
+
+How about remapping one of those irrelevant and annoying Windows-specific 
+keys that are on every standard 104 key keyboard: the windows key and the 
+context-menu key? They aren't used for anything on any of the Linux systems 
+I've ever used.
+
+This command turns the left Windows key into another Esc key. Just add it to 
+your ~/.bashrc to make the change permanent.
+
+>
+    xmodmap -e 'keysym Super_L = Escape'
+<
+
+==============================================================================
+
+The following .Xmodmap swaps the CapsLock and Esc Keys:
+
+>
+    remove Lock = Caps_Lock
+    add Lock = Escape
+    keysym Caps_Lock = Escape
+    keysym Escape = Caps_Lock
+<
+
+==============================================================================
+
+Yet another way to remap the Caps Lock key to be Escape (i.e. helpful if you 
+don't have root priv).
+
+>
+    % xmodmap -pk | grep -i caps
+     66 0xffe5 (Caps_Lock)
+    % xmodmap -e 'keycode 66 = Escape'
+<
+
+==============================================================================
+
+The answer is
+
+>
+    --contents of file .Xmodmap
+    remove Lock = Caps_Lock
+    remove Mod1 = Alt_R
+    remove Mod5 = Scroll_Lock
+    
+    keycode 43 = h H Left
+    keycode 44 = j J Down
+    keycode 45 = k K Up
+    keycode 46 = l L Right
+    keycode 56 = b B BackSpace
+    keycode 64 = Alt_L
+    keycode 66 = Mode_switch
+    keycode 113 = Caps_Lock
+    
+    add Lock = Caps_Lock
+    add Mod1 = 0x007D 0x009C Alt_L Alt_L
+    add Mod4 = 0x007F 0x0080
+    add Mod5 = Mode_switch ISO_Level3_Shift
+<
+
+>
+    xmodmap .Xmodmap
+<
+
+Now in insert mode I use CAPS-{hjkl} to move around and CAPS-b to do a delete 
+(BTW it works for all the X apps ALSO while writting this message)If someone 
+would make a key below the spacebar to map to ESC I wouldn't have to move my 
+fingers anymore.
+
+to do the same thing in console mode use this map
+
+>
+    --contents of file map
+    keycode 58 = Alt
+    keycode 125 = Caps_Lock
+    alt keycode 35 = Left
+    alt keycode 36 = Down
+    alt keycode 37 = Up
+    alt keycode 38 = Right
+    alt keycode 48 = Delete
+<
+
+>
+    loadkey map
+<
+
+The problem as usual is in RTFM from xmodmap documention
+
+The list of keysyms is assigned to the indicated keycode (which may be 
+specified in decimal, hex or octal and can be determined by running the xev 
+program). Up to eight keysyms may be attached to a key, however the last four 
+are not used in any major X server implementation. The first keysym is used 
+when no modifier key is pressed in conjunction with this key, the second with 
+Shift, HERE--> the third when the Mode_switch key is used with this key and 
+the fourth when both the Mode_switch and Shift keys are used <---
+
+==============================================================================
+
+I didn't read all the comments, but in my enviro I have caps lock remapped to 
+escape.This is a bit faster than caps-lock being a Ctrl key.
+
+My home directory contains a .xmodmaprc file which contains the two lines:
+
+>
+    clear lock
+    keycode 66 = Escape
+<
+
+And after that you can run xmodmap ~/.xmodmaprc I'm unsure how to do this in 
+text mode however.
+
+==============================================================================
+
+Very useful for me was [1] 
+[http://sudan.ubuntuforums.com/showthread.php?t=106209].
+
+In brief: type
+
+>
+    xev
+<
+
+in the terminal, then press the button you want to remap for "Escape". I 
+pressed left WinKey and the program displayed "keycode 115". After it I 
+executed the command:
+
+>
+    xmodmap -e "keycode 115 = Escape"
+<
+
+Now it WORKS! I've put the above command to my .bushrc to do it 
+automatically.
+
+COMMENT FROM TIP 327 (NOW REMOVED)  *vwt-377-comment-from-tip-327-(now-removed)*
+
+To avoid moving your hand to find the Ctrl key, remap the Ctrl key. On any 
+modern Unix using X do:
+
+>
+    setxkbmap -option ctrl:swapcaps
+<
+
+and your CapsLock key will become Ctrl, while Ctrl will become CapsLock. That 
+position is right next to the pinky finger, and feels really naturally.
+
+On older Unix systems store this in a file:
+
+>
+    ! Swap Caps_Lock and Control_L
+    remove Lock = Caps_Lock
+    remove Control = Control_L
+    keysym Control_L = Caps_Lock
+    keysym Caps_Lock = Control_L
+    add Lock = Caps_Lock
+    add Control = Control_L
+<
+
+and execute that file with
+
+>
+    xmodmap filename
+<
+
+Probably the best thing is to put one of these commands in .xsession or 
+equivalent file. Red Hat Linux and Fedora will execute by default .Xkbmap and 
+.Xmodmap. In such a case it is enough to put xmodmap commands in .Xmodmap 
+file, and only -option ctrl:swapcaps in .Xkbmap. Of course you need only one 
+of these two files.
+
+FROM TIP 342 (NOW REMOVED)  *vwt-377-from-tip-342-(now-removed)*
+
+Tired of hunting down <Esc> at upper-left of your keyboard, while using a 
+keyboard with useless Windows keys?
+
+Well, remap them -- use xmodmap. I'm using Debian and my xmodmap config file 
+is in /etc/X11/xinit/xmodmap. You may have to use xmodmap directly (from 
+~/.xinitrc in *BSD or whatever).
+
+Here's part of my xmodmap:
+
+>
+    keycode 115 = braceleft
+    keycode 116 = Escape
+    keycode 117 = braceright
+<
+
+The keys are:
+    -  115 - Windows key, between the left-hand Ctrl and Alt keys
+    -  116 - Windows key, to the right of the AltGr key
+    -  117 - Menu key, to the left of the right-hand Ctrl key
+
+
+Valid for all environments with X, on *BSD as well as on Linux.
+
+You get the same mappings under ordinary console by modifying the console 
+keymap file (pretty self-explanatory), in my case it's 
+/usr/share/keymaps/i386/qwerty/et.kmap.gz.
+
+I'm using mapping braces to winkeys because of my Estonian keyboard.
+
+==============================================================================
+
+I think users with german, slavic (and probably some other) keyboards will 
+have better things to do with the windows key - because we need additional 
+keys for umlauts etc, or other language-specific letters, some of the 
+important signs, namely {[]}\ are the "third-function" of number keys 7 and 
+above. You have to type those with the right hand, while simultaneously 
+pressing "Alt Ctr" located right of the spacebar which at least I never 
+learned to do properly, you can't do that without changing the position of the 
+hand, and I keep hitting the wrong key. I've been raging about this stupid 
+mapping for a long time without it ever occurring to me that there's a free 
+key you could map to Alt Ctr and use it with your left hand.
+
+==============================================================================
+
+Why don't you map
+    -  left winkey -> {
+    -  shift+left winkey -> [
+    -  right winkey -> <Esc>
+    -  right winmenu -> }
+    -  shift+right winmenu ]
+
+
+==============================================================================
+
+> Is there a way to remap capslock for the console, too?
+
+Yes, if you are using KDE3. Just go into the control panel under keyboard and 
+choose to make the CapsLock another control key. Then you can use capslock-[ 
+the way it was originally intended to be used in Vim.
+
+FROM TIP 775 (NOW REMOVED)  *vwt-377-from-tip-775-(now-removed)*
+
+I don't like mapping Caps_Lock to Escape as is done in this tip. I don't want 
+an easier way to hit Escape, I want to prevent unexpected things from 
+happening when I accidentally hit Caps_Lock when I was trying to hit Shift. 
+With Caps_Lock mapped to escape i still got unexpected results. So here is how 
+your bind Caps lock to the Shift key under Xwindows:
+
+Just put this in a file in your home directory called .Xmodmap
+
+>
+    remove lock = Caps_Lock
+    keycode 66 = Shift_R
+    remove shift = Shift_R
+    add shift = Shift_R
+<
+
+Comment
+
+Shift and Shift at the same place isn't very useful. One thing that is though 
+is to remap Caps-Lock to Ctrl. Its safe to hit accidentally and it provides a 
+very good place to do Ctrl-W or Ctrl-X Ctrl-L etc.
+
+That's basically how the Happy Hacking keyboard is implemented too, and it's 
+a joy on a normal keyboard.
+
+FROM TIP 377 (NOW REMOVED)  *vwt-377-from-tip-377-(now-removed)*
+
+I have collected most of the special key scancodes on the Microsoft Natural 
+Multimedia Keyboard. This might be helpful for those of you that do lots of 
+key-bindings.
+
+http://nirvani.org/docs/Microsoft_natural_multimedia_keyboard_scancodes.html 
+[http://nirvani.org/docs/Microsoft_natural_multimedia_keyboard_scancodes.html]
+
+Comments
+
+To actually 'use' the multimedia keys, its useful to be able to map them with 
+nmap or something. The easiest/best way to do this is to find the key's 
+scancode via runing xev and pressing the key, looking at the scancode output, 
+then doing a
+
+>
+    xmodmap -e "keycode 139 = F13"
+<
+
+for example, replacing the 139 with whatever your special multimedia key's 
+scancode was, and the F13 with whatever key you want, i used the F keys > 13 
+since my keyboard doesnt have anything above 12, and you can define upto i 
+think 35 F keys (so i just mapped all my 'multimedia' keys to F13-F29 and then 
+maped those F keys in vim to things i wanted to do, or to my windowmanager to 
+do other stuff)
+
+So thats a method that should work on any keyboard, and doesnt rely on 
+special propriatary(sp) key layout stuff, but it does take a couple steps to 
+get your scancodes n such. Here is what my .xinitrc looks like so i make sure 
+and get all my keys mapped whenever i load X (i just put in the last lines 
+that do anything, your X file may have some funny startup stuff it does)
+
+Note the first two lines are me mapping my Caps Lock to the Escape key, so i 
+dont have to make that horrible reach to the escape key to get outa whatever 
+mode i am in. If you don want that, just dont have the top two lines (i just 
+thought a few people might find that of interest)
+
+>
+    xmodmap -e "remove Lock = Caps_Lock"
+    xmodmap -e "keysym Caps_Lock = Escape"
+    xmodmap -e "keycode 158 = F13"
+    xmodmap -e "keycode 165 = F14"
+    xmodmap -e "keycode 159 = F15"
+    xmodmap -e "keycode 151 = F16"
+    xmodmap -e "keycode 164 = F17"
+    xmodmap -e "keycode 162 = F18"
+    xmodmap -e "keycode 166 = F19"
+    xmodmap -e "keycode 233 = F20"
+    xmodmap -e "keycode 232 = F21"
+    xmodmap -e "keycode 229 = F22"
+    xmodmap -e "keycode 121 = F23"
+    xmodmap -e "keycode 230 = F24"
+    xmodmap -e "keycode 130 = F25"
+    xmodmap -e "keycode 236 = F26"
+    xmodmap -e "keycode 129 = F27"
+    xmodmap -e "keycode 166 = F28"
+    xmodmap -e "keycode 164 = F29"
+    exec /usr/bin/wmaker
+<
+
+Hope that does someone some good. Again, to find out your scancode key, run 
+the program
+
+xev
+
+then start hitting keys, and watch as stuff scrolls by, look for the keypress 
+event as you hit a key, then look for the 'keycode' and thats the number you 
+want!
+
+==============================================================================
+
+With regards to xmodmap, you might find it tidier to put all your mappings 
+into (e.g.) ~/.xmodmap and then call "xmodmap ~/.xmodmap" from ~/.xinitrc. 
+Also, for those of you using xdm/kdm/gdm instead of startx/xinit, use 
+~/.xsession instead of ~/.xinitrc.
+
+==============================================================================
+
+Another helpful thought may be mapping <AltGr-HJKL> to arrow keys globally. 
+In order to do that one should edit Xmodmap file:
+
+>
+    keysym h = h H agrave Agrave Left
+    keysym j = j J aring Aring Down
+    keysym k = k K ampersand ampersand Up
+    keysym l = l L ccedilla Ccedilla Right
+<
+
+For those whose AltGr is on the right hand side (HJKL is at right too) it is 
+way better to swap AltGr with Alt_Left for easier applicability (Note that my 
+hate to Num_Lock and Caps_Lock is visible!):
+
+>
+    remove mod2 = Num_Lock
+    remove mod1 = Alt_L
+    remove mod5 = ISO_Level3_Shift
+    keysym Alt_L = ISO_Level3_Shift
+    keysym ISO_Level3_Shift = Alt_L
+    add mod1 = Alt_L
+    add mod5 = ISO_Level3_Shift
+    clear Lock
+    keysym Caps_Lock = Escape
+<

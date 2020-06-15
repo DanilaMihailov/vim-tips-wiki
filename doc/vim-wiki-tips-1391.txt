@@ -1,0 +1,31 @@
+*vim-wiki-tips-1391.txt*   Enable paren matching over whole file *vwt-1391*
+
+
+
+This tip is deprecated for the following reasons:
+
+This is highly version-specific. Should delete this tip.Tip 1391 [https://vim.fandom.com/wiki/Enable_paren_matching_over_whole_file]   Previous |vwt-1389| Next |vwt-1392|
+
+created 2006 · complexity basic · author pulp · version
+
+==============================================================================
+
+The matchparen.vim plugin (delivered with Vim) restricts paren matching only 
+to the current visible lines.
+
+To change this behavior you need to change the following lines in the file 
+../plugin/matchparen.vim:
+
+>
+    line: 102
+     let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline)
+    to:
+     let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip)
+    
+    line: 109
+     if m_lnum > 0 && m_lnum >= line('w0') && m_lnum <= line('w$')
+    to:
+     if m_lnum > 0
+<
+
+COMMENTS  *vwt-1391-comments*

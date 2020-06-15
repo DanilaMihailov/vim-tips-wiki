@@ -1,0 +1,52 @@
+*vim-wiki-tips-1562.txt*   Comfortable handling of registers *vwt-1562*
+
+Tip 1562 [https://vim.fandom.com/wiki/Comfortable_handling_of_registers]   Previous |vwt-1561| Next |vwt-1563|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Comfortable_handling_of_registers] 
+2008 · complexity basic · author Benshi 
+[https://vim.fandom.com/wiki/User:Benshi] · version 7.0
+
+==============================================================================
+
+This tip explains how to cycle between several registers, while accessing 
+their content through the standard "unnamed" register (@").
+
+To easily swap between different registers it is convenient to map a key to 
+move the registers in a "circular list". The following mapping illustrates the 
+idea:
+
+>
+    :nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
+<
+
+Now you can cycle between the registers "", "a, "b by pressing \s (assuming 
+the default backslash for the leader key).
+    - :let @a=@b copies register "b to register "a.
+    - | separates Ex commands; \ escapes the pipe for the map command.
+
+
+This is also useful if you want to copy between the xclipboard and the 
+unnamed standard register of Vim:
+
+>
+    :nnoremap <Leader>s :let @a=@" \| let @"=@+ \| let @+=@a<CR>
+<
+
+Another usage can be found in cycling through the cut/copy history, i.e. 
+cycling through the numbered registers.
+
+To see what it's changing, you could modify the command like this:
+
+>
+    :nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| reg "ab<CR>
+<
+
+REFERENCES  *vwt-1562-references*
+    - :help  |:let|
+    - :help  |:reg|
+    - :help  |registers|
+    - :help  |map_bar|
+
+
+COMMENTS  *vwt-1562-comments*

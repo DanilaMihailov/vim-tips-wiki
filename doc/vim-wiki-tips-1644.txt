@@ -1,0 +1,34 @@
+*vim-wiki-tips-1644.txt*   Text object for formulas in Latex *vwt-1644*
+
+Tip 1644 [https://vim.fandom.com/wiki/Text_object_for_formulas_in_Latex]   Previous |vwt-1643| Next |vwt-1645|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201001#Text_object_for_formulas_in_Latex] 
+January 16, 2010 · complexity basic · version 7.0
+
+==============================================================================
+
+In Latex, in-text formulas are surrounded by a pair of $ signs. The following 
+plugin plus bindings allow operation on these formulas using the usual syntax 
+for text objects in Vim. This allows for quick yanking, changing and deleting 
+of such formulas which are very common tasks when writing mathematical text in 
+Latex.
+
+For information on operator pending commands and omap see here 
+[https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)#Operator_pending_mode_maps].
+
+Install CountJump [https://www.vim.org/scripts/script.php?script_id=3130] and 
+add the following code to your ftplugin/tex.vim file.
+
+>
+    call CountJump#TextObject#MakeWithCountSearch('<buffer>', '$', 'ai', 'v', '\$', '\$')
+<
+
+Now you can yank, delete, etc entire formulas using i$ for interior and a$ to 
+include the bounding dollar signs.
+
+For example, if you put the cursor inside a formula and type yi$, this will 
+yank the interior of the dollar signs. Typing da$ will delete the entire 
+formula including the dollar signs.
+
+COMMENTS  *vwt-1644-comments*

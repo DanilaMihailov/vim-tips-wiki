@@ -1,0 +1,75 @@
+*vim-wiki-tips-267.txt*   Selectively displaying abbreviations *vwt-267*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 267 [https://vim.fandom.com/wiki/Selectively_displaying_abbreviations]   Previous |vwt-266| Next |vwt-268|
+
+created June 27, 2002 · complexity basic · author zzapper · version 5.7
+
+==============================================================================
+
+Abbreviations have always been one of the most useful parts of Vim, trouble 
+is when you've got too many you forgot what you called them.
+
+You can of course list the whole lot with
+
+>
+    :ab<CR>
+<
+
+But did you know that you can type the first few letters of your 
+abbreviations and get a list of just those abs. eg:
+
+>
+    :ab php<CR>
+<
+
+gives me all my php abs
+
+>
+    :ab perl<CR>
+<
+
+gives me all my perls
+
+also try control-D instrad of <CR>
+
+COMMENTS  *vwt-267-comments*
+
+It also works for maps.
+
+eg: all my maps beginning with a comma
+
+>
+    :map ,
+<
+
+displays
+
+>
+    ,z :redir @*|sil exec 'g@<\(input\|select\|textarea\|/\=form\)\>@p'|redir END<CR>
+    ,y "yyy@y<CR>
+    ,x :%s#<script\_.*/script>#<script>^M</script>#g
+    ,v :e $VIM/_vimrc
+    ,s :source $VIM/_vimrc
+    ,r :redir! > c:/aaa/xxx
+    ,i :update<CR>: !start c:\progra~1\intern~1\iexplore.exe <cWORD><CR>
+    ,f :update<CR>:silent !start c:\progra~1\intern~1\iexplore.exe file://%:p<CR>
+    ,c c/["'<;)]<CR>
+    ,h "zda<h1><C-R>z</h1> <Esc>2F>
+<
+
+==============================================================================
+
+You can use Tab- and Ctrl-D-completion on the Vim commandline for just about 
+everything. Play around. Commands, filenames, maps, abbreviations, buffernames 
+and whatnot. It's context sensitive, so it completes the right thing at the 
+right place. Extraordinarily useful and an extreme speed boost.
+
+==============================================================================

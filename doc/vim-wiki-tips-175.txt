@@ -1,0 +1,53 @@
+*vim-wiki-tips-175.txt*   Set Vim as your default editor for Unix *vwt-175*
+
+Tip 175 [https://vim.fandom.com/wiki/Set_Vim_as_your_default_editor_for_Unix]   Previous |vwt-174| Next |vwt-176|
+
+created December 6, 2001 · complexity basic · author bhaskar · version 5.7
+
+==============================================================================
+
+Normally, typing edit on a Unix system brings up the vi editor and not Vim.If 
+you've installed Vim in your home directory somewhere,you don't have a root 
+account, and you want tomake Vim the default editor for anything you do(e.g. 
+edit a SQL statement in SQLplus), define these three variables in your 
+.profile:
+
+>
+    VIM=<base directory where Vim executable is placed>
+    VIMRUNTIME=<base directory where Vim runtimes are kept>
+    EDITOR=$VIM/vim
+    
+    E.g:
+    VIMRUNTIME=/usr/bin
+    EDITOR=/usr/bin/vim
+<
+
+If you've installed vim with another name (say, vim.exe) thenchange 
+EDITOR=$VIM/vim to EDITOR=$VIM/vim.exe
+
+Source .profile, and the next time you start an editor from anyprogram you'll 
+bring up Vim.
+
+On Ubuntu (or other Debian-based systems), update-alternatives can be used to 
+change the default editor:
+
+>
+    sudo update-alternatives --config editor
+    # Type the number which corresponds to Vim here (after installing it) then press Enter.
+<
+
+$EDITOR is the defined variable that programs on Unix-like operating systems 
+are supposed to use for the default editor. Actually, $VISUAL is another 
+defined variable for a non line-oriented editor, which is technically the 
+correct role for Vim. Many notable programs on Unix support these variables, 
+though obviously there are a few that for various reasons do not.
+
+COMMENTS  *vwt-175-comments*
+
+Note that if you built Vim manually rather installed your distribution's 
+package, it may not show up in the list presented by update-alternatives, you 
+will need to add it:
+
+>
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100
+<

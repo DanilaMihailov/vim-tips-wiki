@@ -1,0 +1,60 @@
+*vim-wiki-tips-254.txt*   Matching optional parts of a word *vwt-254*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 254 [https://vim.fandom.com/wiki/Matching_optional_parts_of_a_word]   Previous |vwt-253| Next |vwt-255|
+
+created 2002 · complexity basic · author RobertKellyIV · version 6.0
+
+==============================================================================
+
+This code fragment is suitable to drop into DrChip's CStubs from script#1269 
+[https://www.vim.org/scripts/script.php?script_id=1269].
+
+If you have ever wanted to match parts of a word you may have considered 
+something like:
+
+>
+    if wrd == "re" || wrd == "ret" || wrd == "retu" || wrd == "retur"
+      "do something
+<
+
+Although the above works well enough it is a pain to maintain and add new 
+words (not to mention it's just a touch messy).
+
+A more elegant (and easier to use I believe) method would be to use \%[] as 
+part of a pattern.
+
+For instance, "\\<re\\%[tur]\\>" will match "re", "ret", "retu" or "retur"
+
+Explanation:
+
+>
+    \\< = start of word
+    re = first letters of word we want to require to match
+    \\%[tur] = optionally match chars between the braces, i.e. 't', 'tu' or 'tur'
+    \\> = end of word
+<
+
+So, we can use this as a pattern for match like so (in DrChip's CStubs):
+
+>
+    elseif match(wrd, "\\<re\\%[tur]\\>") > -1
+      exe "norm! bdWireturn\<Esc>"
+<
+
+Which, I think, is a little better than the longer alternative:
+
+>
+    " vs
+    elseif wrd == "re" || wrd == "ret" || wrd == "retu" || wrd == "retur"
+      exe "norm! bdWireturn\<Esc>"
+<
+
+COMMENTS  *vwt-254-comments*

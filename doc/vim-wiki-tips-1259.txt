@@ -1,0 +1,42 @@
+*vim-wiki-tips-1259.txt*   Edit Java jar and other files *vwt-1259*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1259 [https://vim.fandom.com/wiki/Edit_Java_jar_and_other_files]   Previous |vwt-1251| Next |vwt-1260|
+
+created 2006 · complexity basic · author emmby · version 7.0
+
+==============================================================================
+
+Jar files are zip files, and you can browse them from within Vim simply by 
+treating them the same as Vim treats zip files.
+
+If you want to figure out how to do this yourself, read :help |new-filetype| 
+and zipPlugin.vim. The latter is a plugin distributed with Vim: in Vim, put 
+the cursor on $VIMRUNTIME/plugin/zipPlugin.vim and type gf.
+
+For impatient people, just place the following in a file named 
+~/.vim/ftdetect/jar.vim (on Unix systems) or $HOME/vimfiles/ftdetect/jar.vim 
+(on Windows systems):
+
+>
+    au BufRead,BufNewFile *.jar,*.war,*.ear,*.sar,*.rar set filetype=zip
+<
+
+If you open a jar file in Vim, you will be able to browse it. If that does 
+not work, update to a recent version of Vim with zipPlugin installed.
+
+COMMENTS  *vwt-1259-comments*
+
+From :help |zip-extension| a .jar file can be unzipped with the following in 
+vimrc [https://vim.fandom.com/wiki/Vimrc].
+
+>
+    au BufReadCmd *.jar call zip#Browse(expand("<amatch>"))
+<

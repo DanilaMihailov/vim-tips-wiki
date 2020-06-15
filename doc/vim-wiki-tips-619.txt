@@ -1,0 +1,128 @@
+*vim-wiki-tips-619.txt*   How to make a keymap *vwt-619*
+
+Tip 619 [https://vim.fandom.com/wiki/How_to_make_a_keymap]   Previous |vwt-618| Next |vwt-623|
+
+created 2003 · complexity basic · author Tony Mechelynck 
+[https://vim.fandom.com/wiki/User:Tonymec] · version 6.0
+
+==============================================================================
+
+This tip explains how to make a keymap for yourself. It is based on:
+    - :help  |mbyte-keymap|
+    - :help  |keymap-file-format|
+
+
+You'll also find relevant information at:
+    - :help 'keymap'
+    - :help 'iminsert'
+    - :help  |language-mapping|
+    - :help <Char> |&lt;Char&gt;|
+
+
+HOW TO NAME THE FILE AND WHERE TO PLACE IT  *vwt-619-how-to-name-the-file-and-where-to-place-it*
+
+Keymaps reside in the "keymap" subdirectory of the directories named in 
+'runtimepath'. Their names are of one of the forms:
+
+>
+    <keymap>.vim
+    <keymap>_<encoding>.vim
+<
+
+so if you need keymaps for Czech and Norwegian, and want to use them under 
+UTF-8, you will probably create two keymaps, named, for instance, 
+"czech_utf8.vim" and "norwegian_utf8.vim". If those names collide with names 
+already present in $VIMRUNTIME/keymap/, then either use slightly different 
+names before the underline, or put them in the "keymap" subdirectory of a 
+directory named earlier than $VIMRUNTIME in 'runtimepath', so yours will be 
+found first (but in the latter case you won't be able to use the default 
+keymap of the same name). Create the needed directory if it doesn't exist yet.
+
+WHAT A KEYMAP CONSISTS OF  *vwt-619-what-a-keymap-consists-of*
+
+A keymap consists of three parts:
+
+FIRST PART OF A KEYMAP: THE VIM SCRIPT  *vwt-619-first-part-of-a-keymap:-the-vim-script*
+
+This may contain any Ex-commands and Vim comments germane to the use of the 
+keymap. In particular, the following Ex-commands are useful:
+
+(1) If this keymap is only a slight modification of another, preexisting one: 
+a "source" statement for the keymap on which this one is based. Then you will 
+only have to code the changes.
+
+(2) A short name, for instance in a keymap for Czech
+
+>
+    let b:keymap_name="cz"
+<
+
+This will appear as <cz> near the right end of the standard status line for 
+any window where the keymap in question is enabled (by having its long name 
+set ot setlocal'ed in 'keymap' and 'iminsert' setlocal'ed to 1).
+
+(3) A cursor color for when keymaps are in use. This one is more 
+controversial (Bram comments it out in published keymaps) but I find it useful 
+in my "private" ones.
+
+>
+    highlight lCursor ctermbg=red guibg=red
+<
+
+Use any color that pleases you, and beware that highlight groups are global 
+for the whole of Vim, so it is possible to use different keymaps in split 
+windows of a single Vim instance, but not different language cursor colors, 
+unless you set up an autocommand to change the lCursor highlight at the 
+WinEnter event. (How to make that work is outside the scope of this HowTo.)
+
+SECOND PART: THE LOADKEYMAP |:LOADKEYMAP| COMMAND  *vwt-619-second-part:-the-loadkeymap-|:loadkeymap|-command*
+
+This is just to tell Vim that whatever comes after, to the end of the file, 
+is a series of language-mappings, in a special format which will be described 
+hereafter.
+
+THIRD PART: THE MAPPINGS THEMSELVES  *vwt-619-third-part:-the-mappings-themselves*
+
+Each key mapping line consists of three parts; the optional third one may 
+contain spaces but not the first two:
+
+>
+    {lhs} {rhs} [comment]
+<
+
+Vim interprets this line as if (in a standard Vim script) there had been
+
+>
+    lmap <buffer> {lhs} {rhs}
+<
+
+The {lhs} is what you press, as interpreted by your default (English) 
+keyboard. It is usually a single character, but it may be more than one: in 
+that case all of them but the last act as "dead keys". For instance, in a 
+German keymap, you may want to use the colon as a prefix to tell that the 
+following vowel gets an umlaut (so that :A maps to Ä, :a to ä etc.)
+
+Any key or key combination which does not appear as an {lhs} keeps its 
+"English" meaning in the target language. (This will usually be the case for 
+the space bar and for any punctuation, or even letters, that you don't want to 
+move about on the keyboard.) This means that if, for instance, you map the sz 
+letter pair to the German eszet, you'll still be able to use the small-s 
+letter with its usual meaning whenever it is not followed by z. Similarly, if 
+you map the colon as above, a colon remains a colon if followed by anything 
+other than a vowel, for instance a space or a digit.
+
+In all cases, you can force the initial key(s) of a mapping to keep their 
+original meaning, either by waiting for the mapping to time out, or by moving 
+the cursor about, for instance with <Left><Right>.
+
+The {rhs} is what it translates to, in the target language. For UTF-8 the 
+{rhs} may be of the form <Char-0> to <Char-2347483647> (decimal), or 
+<Char-0x0> to <Char-0x7FFFFFFF> (hex), or <Char-00> to <Char-017777777777> 
+(octal) -- see :help |<Char>|. For other encoding targets, the <Char> notation 
+may also be used, but of course only as far as the target permits: e.g. in 
+8-bit encodings, only till 255 / 0xFF / 0377.
+
+The [comment] is the easiest: it's for the human reader of the keymap, not 
+for Vim.
+
+COMMENTS  *vwt-619-comments*

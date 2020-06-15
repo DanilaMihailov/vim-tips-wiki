@@ -1,0 +1,420 @@
+*vim-wiki-tips-102.txt*   Smart mapping for tab completion *vwt-102*
+
+Tip 102 [https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion]   Previous |vwt-100| Next |vwt-103|
+
+created 2001 · complexity basic · author benoit cerrina · version 6.0
+
+==============================================================================
+
+I'm used to complete words with the Tab key, however when editing source I 
+can't just map that to Vim keyword completion because I sometime need to 
+insert real tabs, since it mostly happen when at the beginning of the line or 
+after a ; and before a one line comma (java, c++ or perl anyone)
+
+I've come to find the following really useful.
+
+This is how you can map the Tab key in insert mode while still being able to 
+use it when at the start of a line or when the preceding char is not a keyword 
+character.
+
+in a script file in a plugin directory or in your .vimrc file:
+
+first define a function which returns a Tab or the appropriate completion, 
+depending on the context:
+
+>
+    function! Smart_TabComplete()
+      let line = getline('.')                         " current line
+    
+      let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                      " line to one character right
+                                                      " of the cursor
+      let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+      if (strlen(substr)==0)                          " nothing to match on empty string
+        return "\<tab>"
+      endif
+      let has_period = match(substr, '\.') != -1      " position of period, if any
+      let has_slash = match(substr, '\/') != -1       " position of slash, if any
+      if (!has_period && !has_slash)
+        return "\<C-X>\<C-P>"                         " existing text matching
+      elseif ( has_slash )
+        return "\<C-X>\<C-F>"                         " file matching
+      else
+        return "\<C-X>\<C-O>"                         " plugin matching
+      endif
+    endfunction
+<
+
+Then define the appropriate mappings:
+
+>
+    inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+<
+
+The trick here is the use of the <c-r>= in insert mode to be able to call 
+your function without leaving insert mode. See :help |i_CTRL-R|.
+
+COMMENTS  *vwt-102-comments*
+
+TO DO
+    - Clean up! This is a nice tip...
+    - Use an <expr> mapping instead of <C-R>=
+
+
+==============================================================================
+
+See also SuperTab [https://www.vim.org/scripts/script.php?script_id=1643].It 
+is a complete system, and the completion remembers the completion mode!
+
+==============================================================================
+
+One behavior of the tab completion script above may be undesirable for some 
+users (a bug, or a use case I don't understand?): it checks up to the 
+character right of the cursor, so that it may "complete" a blank string.
+
+For example, placing the cursor to the left of "foo" in the following line:
+
+" foo
+
+... and pressing Tab would attempt to "complete" a word, instead of inserting 
+a tab. If this behavior is undesirable, simply remove the "+1" from 
+"col('.')+1" in the script above.
+
+==============================================================================
+
+for those of us that would like to use dictionary files for filetypes ( in 
+order to use function prototypes et. al.) you can modify the 'iskeyword' 
+option temporarily to complete function names for example :given a dictionary 
+with abs(VALUE)
+
+I could type :
+
+>
+    ab<TAB>
+<
+
+and it would expand to abs(VALUE)
+
+>
+    function! InsertTabWrapper(direction)
+      let oldisk=&isk "save the iskeyword options
+      set isk+=(,),, "add '(' ')' and ',' character
+      let col = col('.') - 1
+      if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+      elseif "backward" == a:direction
+        return "\<c-n>"
+      else
+        return "\<c-p>"
+      endif
+      set &isk=oldisk "restore the iskeyword options
+    endfunction
+<
+
+==============================================================================
+
+>
+    fun! Iskcompletion()
+      let oldisk=&isk
+      set isk+=(,)
+      normal <C-P>
+      set &isk=oldisk
+    endfun
+<
+
+==============================================================================
+
+If you want to use keywords in completion, you'll need to make dictionary 
+files for each of the languages whose keywords you want to use.
+
+e.g.
+
+>
+    grep keyword /usr/share/vim/vim61/syntax/sh.vim | grep -v nextgroup | awk '{ $1=""; $2=""; $3=""; print}' | perl -pe 's/\s+/\n/g' | grep -v contained | grep -v '^$' | sort | uniq > /home/user/.vim/dict/sh.dict
+<
+
+the above command will probably need tweaking depending on the syntax file.
+
+and in your .vimrc:
+
+>
+    " tell complete to look in the dictionary
+    set complete-=k complete+=k
+    
+    " load the dictionary according to syntax
+    :au BufReadPost * if exists("b:current_syntax")
+    :au BufReadPost * let &dictionary = substitute("~/.vim/dict/FT.dict", "FT", b:current_syntax, "")
+    :au BufReadPost * endif
+<
+
+==============================================================================
+
+I prefer to be able to toggle tab completion manually. The following 
+functionworks for me:
+
+>
+    " toggle tab completion
+    function! TabCompletion()
+      if mapcheck("\<tab>", "i") != ""
+        :iunmap <tab>
+        :iunmap <s-tab>
+        :iunmap <c-tab>
+        echo "tab completion off"
+      else
+        :imap <tab> <c-n>
+        :imap <s-tab> <c-p>
+        :imap <c-tab> <c-x><c-l>
+        echo "tab completion on"
+      endif
+    endfunction
+    map <Leader>tc :call TabCompletion()<CR>
+<
+
+==============================================================================
+
+Have to chime in... here's my silly attempt at making the Tab key 
+moreintelligent. The function below (derived work of course) allows one to 
+getthe original effect of <Tab> if the previous character is a space. I.e.,you 
+can type:
+
+>
+    foo<Space><Tab>
+<
+
+and it'll end up as foo<Tab> with the space deleted. This is *not* the sameas 
+<C-v><Tab>, which would always insert a real Tab character rather thanhonoring 
+'softtabstop'.
+
+>
+    " Intelligent tab completion
+    inoremap <silent> <Tab> <C-r>=<SID>InsertTabWrapper(1)<CR>
+    inoremap <silent> <S-Tab> <C-r>=<SID>InsertTabWrapper(-1)<CR>
+    function! <SID>InsertTabWrapper(direction)
+      let idx = col('.') - 1
+      let str = getline('.')
+      if a:direction > 0 && idx >= 2 && str[idx - 1] == ' '
+            \&& str[idx - 2] =~? '[a-z]'
+        if &softtabstop && idx % &softtabstop == 0
+          return "\<BS>\<Tab>\<Tab>"
+        else
+          return "\<BS>\<Tab>"
+        endif
+      elseif idx == 0 || str[idx - 1] !~? '[a-z]'
+        return "\<Tab>"
+      elseif a:direction > 0
+        return "\<C-p>"
+      else
+        return "\<C-n>"
+      endif
+    endfunction
+<
+
+==============================================================================
+
+What about this to dump all the syntax files into properly formatted dict 
+files
+
+>
+    for i in /usr/share/vim/syntax/*;do grep keyword $i | grep -v nextgroup | awk '{ $1=""; $2=""; $3=""; print}' | perl -pe 's/\s+/\n/g' | grep -v contained | grep -v '^$' | sort | uniq>~/.vim/dict/`basename $i .vim`.dict;done
+<
+
+==============================================================================
+
+One small suggestion for daniel elstner's script: replace '[a-z]' with 
+'[^<Space><tab>]'.
+
+==============================================================================
+
+My derivation of this wonderful tip: (aimed at C++ // comments)
+
+This as it happens has nothing to do with Tab nor completion.
+
+>
+    function! SpecialCR()
+     " Feral This is inspired by how multi-edit does things.
+     let DaLine = getline('.')
+     if match(DaLine, '\c^\s*//$') > -1
+    " [Feral:213/03@04:59] Just eat the // chars
+    " return "\<BS>\<BS>"
+    "
+    "This method:
+    " // -[Feral:213/03@04:59]----------------------------------------------
+    " //
+    " 75 is the column we wish to not go beyond.
+    " 2 = ' -'
+    " 20 = my time stamp: [Feral:213/03@04:52]
+    " 1 = '-'
+    let AmountForFiller = 75 - (virtcol('.')+2+20+1)
+    let Filler = ""
+    while strlen(Filler) < AmountForFiller
+      let Filler = Filler.'-'
+    endwhile
+    let DaLine = " -[Feral:".strftime('%j/%y@%H:%M')."]-".Filler."\<CR>"
+    return DaLine
+     elseif match(DaLine, '\c^\s*//\s$') > -1
+       return "\<BS>\<BS>\<BS>"
+     else
+       return "\<CR>"
+     endif
+    endfunction
+    
+    inoremap <CR> <c-r>=SpecialCR()<CR>
+<
+
+This will make <CR> eat C++ line comments when they are the only think on the 
+line, or more precisely:"//\s" will be get 3 backspaces which should erase it 
+and "//" will get a simple timestamp separator.
+
+==============================================================================
+
+Here's the section of my vimrc that has all this wired up (this is on a 
+windows box, I jumped on a unix machine to run the shell script that makes all 
+the dict files). My addition is Ctrl-TAB to begin a keyword search instead of 
+hitting Ctrl-X Ctrl-K, then I can regular TAB through the entries.
+
+Watch out for those dang spaces at the end of the lines!
+
+Thanks to everybody who contributed, this is great.
+
+>
+    " Remap TAB to keyword completion
+    function! InsertTabWrapper(direction)
+      let col = col('.') - 1
+      if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+      elseif "backward" == a:direction
+        return "\<c-p>"
+      elseif "forward" == a:direction
+        return "\<c-n>"
+      else
+        return "\<c-x>\<c-k>"
+      endif
+    endfunction
+    
+    inoremap <tab> <c-r>=InsertTabWrapper ("forward")<CR>
+    inoremap <s-tab> <c-r>=InsertTabWrapper ("backward")<CR>
+    inoremap <c-tab> <c-r>=InsertTabWrapper ("startkey")<CR>
+    
+    " toggle tab completion
+    function! ToggleTabCompletion()
+      if mapcheck("\<tab>", "i") != ""
+        :iunmap <tab>
+        :iunmap <s-tab>
+        :iunmap <c-tab>
+        echo "tab completion off"
+      else
+        :imap <tab> <c-n>
+        :imap <s-tab> <c-p>
+        :imap <c-tab> <c-x><c-l>
+        echo "tab completion on"
+      endif
+    endfunction
+    
+    map <Leader>tc :call ToggleTabCompletion()<CR>
+    
+    " tell complete to look in the dictionary
+    set complete-=k complete+=k
+    
+    " load the dictionary according to syntax
+    :au BufReadPost * if exists("b:current_syntax")
+    :au BufReadPost * let &dictionary = substitute("C:\\vim\\vimfiles\\dict\\FT.dict", "FT", b:current_syntax, "")
+    :au BufReadPost * endif
+<
+
+==============================================================================
+
+This script doesn't work with multibyte (utf-8 chars)
+
+==============================================================================
+
+Try replace condition with
+
+!col || strpart(getline('.'), col-1, col) =~ '\s'
+
+==============================================================================
+
+your tab-completion tip is very nice. Although my kde-konsole didn't 
+recognize the shift-tab, <s-tab> combination.
+
+I solved this by adding the following line to 
+/usr/share/apps/konsole/linux.keytab
+
+>
+    key Backtab : "\E[Z"
+<
+
+and set the keyboard settings in konsole to "linux console".
+
+==============================================================================
+
+In the following bit, it's more useful if you substituted "BufEnter" for 
+"BufReadPost". At least, for those who switch between Vim windows of differing 
+file types (for example I go between perl and cpp and bash quit a bit)
+
+>
+    >" load the dictionary according to syntax
+    >:au BufReadPost * if exists("b:current_syntax")
+    >:au BufReadPost * let &dictionary = substitute("C:\\vim\\vimfiles\\dict\\FT.dict", "FT", b:current_syntax, "")
+    >:au BufReadPost * endif
+<
+
+==============================================================================
+
+In :help |ins-completion| you can find following settings.
+
+>
+    function! CleverTab()
+      if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        return "\<Tab>"
+      else
+        return "\<C-N>"
+    endfunction
+    inoremap <Tab> <C-R>=CleverTab()<CR>
+<
+
+It works fine, but this never uses "omni-completion" introduced from Vim 7.To 
+use omni-completion if available, then it should be followings.
+
+>
+    function! CleverTab()
+      if pumvisible()
+        return "\<C-N>"
+      endif
+      if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        return "\<Tab>"
+      elseif exists('&omnifunc') && &omnifunc != ''
+        return "\<C-X>\<C-O>"
+      else
+        return "\<C-N>"
+      endif
+    endfunction
+    inoremap <Tab> <C-R>=CleverTab()<CR>
+<
+
+==============================================================================
+
+AVOID FLICKER BY USING AN EXPR MAPPING  *vwt-102-avoid-flicker-by-using-an-expr-mapping*
+
+All of the above techniques using <C-R>=...<CR> cause flicker in my xterm, 
+caused by 3 or 4 full screen redraws. This can be very slow when dealing with 
+a large syntax-rich screen. One of the TODOs recommends using an <expr> 
+instead, and this worked perfectly for me, avoiding all the redraws! I simply 
+changed:
+
+>
+    inoremap <silent> <tab> <c-r>=InsertTabWrapper ("forward")<cr>
+<
+
+into:
+
+>
+    inoremap <expr> <silent> <tab> InsertTabWrapper("forward")
+<
+
+I can highly recommend this approach. If you agree, perhaps we should update 
+the scripts on this page.
+
+However there is one disadvantage: It may be easier for other plugins to 
+replay a <C-R>=...<CR> mapping than an <expr> mapping. (For example, modified 
+versions of UltiSnips which fall back to the original <Tab> mapping when 
+UltiSnips has no snippet to complete.)

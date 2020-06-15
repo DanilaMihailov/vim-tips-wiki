@@ -1,0 +1,57 @@
+*vim-wiki-tips-1525.txt*   Formatting paragraphs in LaTeX: an "environment-aware gqap" *vwt-1525*
+
+Tip 1525 [https://vim.fandom.com/wiki/Formatting_paragraphs_in_LaTeX:_an_%22environment-aware_gqap%22]   Previous |vwt-1522| Next |vwt-1526|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Formatting_paragraphs_in_LaTeX:_an_.22environment-aware_gqap.22] 
+2007 · complexity basic · author Dsquared · version 7.0
+
+==============================================================================
+
+If you use Vim to write LaTeX documents, you probably have been frustrated by 
+the fact that the gqap command doesn't respect equations and other 
+environments. It takes something like
+
+>
+    I have discovered a marvelous proof of the following equation which this
+    blog post is too narrow to contain:
+    \begin{displaymath}
+      a^2 + b^2 = c^2
+    \end{displaymath}
+    where $a$, $b$, and $c$ are the sides of an equilateral triangle.
+<
+
+and turns it into
+
+>
+    I have discovered a marvelous proof of the following equation which
+    this blog post is too narrow to contain: \begin{displaymath} a^2 +
+    b^2 = c^2 \end{displaymath} where $a$, $b$, and $c$ are the sides of
+    an equilateral triangle.
+<
+
+The following mappings help the gq command understand what delimits 
+paragraphs in LaTeX source files:
+
+>
+    map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
+    omap lp ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>//-1<CR>.<CR>
+<
+
+With these, you can use \gq or gqlp ("gq LaTeX paragraph") to format 
+paragraphs in your LaTeX files. Lines that begin with some whitespace, then a 
+backslash, then "begin", "end", or "label" (along with blank lines) are 
+considered to delimit paragraphs and won't be changed, just the text between 
+them.
+
+Perhaps a better solution would be to change the 'paragraphs' option (:help 
+'paragraphs') so that one could specify a regexp that delimits paragraphs, 
+instead of just listing some nroff macros!
+
+Also check out script#2187 
+[https://www.vim.org/scripts/script.php?script_id=2187] and script#2307 
+[https://www.vim.org/scripts/script.php?script_id=2307].
+
+COMMENTS  *vwt-1525-comments*
+
+Don't you mean right triangle?

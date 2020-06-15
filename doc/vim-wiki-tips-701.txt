@@ -1,0 +1,78 @@
+*vim-wiki-tips-701.txt*   Simple code beautifier *vwt-701*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 701 [https://vim.fandom.com/wiki/Simple_code_beautifier]   Previous |vwt-700| Next |vwt-708|
+
+created 2004 · complexity basic · author Gabriel Zachmann · version 6.0
+
+==============================================================================
+
+Occasionally, I get code from other people who, for instance, don't like to 
+put spaces in the for-loops or assignments.
+
+For example, what I get looks like
+
+>
+    for(int j=0;j<size;j++)
+        if(vector[j]>d)
+<
+
+and what I would like to see is
+
+>
+    for ( int j = 0; j < size; j ++ )
+        if ( vector[j] > d )
+<
+
+Here are a few vimrc lines that can help. Put them in your vimrc, or 
+.vim/after/ftplugin/cpp.vim (or whatever language you are using), then you can 
+beautify at least single lines using one mouse click.
+
+>
+    nmenu Misc.Beautify.For :s/for\s*(\s*/for ( /<CR>:s/\s*)\s*$/ )/<CR>:s/\(\i\+\)\s*=\s*/\1 = /<CR>:s/\s*\([=<>!]=\\|[<>]\)\s*/ \1 /<CR>:s/\s*\(--\\|++\)/\1/<CR>:s/\s*;\s*/; /g<CR>
+    nmenu Misc.Beautify.Func :s/\s*)/ )/g<CR>:s/\s*\([(,]\)\s*/\1 /g<CR>:s/(\s\+)/()/g<CR>
+    nmenu Misc.Beautify.If :s/if\s*(\s*/if ( /<CR>:s/\s*)\s*$/ )/<CR>:silent s/\s*\([=<>!]=\\|[<>]\)\s*/ \1 /<CR>
+    nmenu Misc.Beautify.Assign :s/\s*\([-+*\/&\|]\?\)\s*=\s*/ \1= /g<CR>
+<
+
+Tip: if you need to beautify several lines, tear off the menu.
+
+Of course, being simple regexes, these little helpers can be fooled pretty 
+easily by complicated code, but they should work for 90% of your code.
+
+COMMENTS  *vwt-701-comments*
+
+Do it automatically if you are only reading code (the file won't be mark 
+modified):
+
+>
+    function! Mosh_Beautify()
+      :silent! %s,^\(\s*\)\<if(,\1if (,
+      " etc
+    endfun
+    :autocmd BufRead *.java :call Mosh_Beautify()
+<
+
+==============================================================================
+
+It may be easier (and more flexible) to use GNU indent. Check it out: 
+http://www.gnu.org/software/indent/indent.html 
+[http://www.gnu.org/software/indent/indent.html]
+
+==============================================================================
+
+>
+    G=gg in command mode will auto reindent the entire document.
+    == will indent the current line.
+    = in visual mode will indent the selected text.
+    =% in command mode will reindent the current braces.
+<
+
+==============================================================================

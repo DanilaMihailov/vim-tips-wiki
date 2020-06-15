@@ -1,0 +1,84 @@
+*vim-wiki-tips-1568.txt*   File no longer available - mark buffer modified *vwt-1568*
+
+Tip 1568 [https://vim.fandom.com/wiki/File_no_longer_available_-_mark_buffer_modified]   Previous |vwt-1567| Next |vwt-1569|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200806#File_no_longer_available_-_mark_buffer_modified] 
+2008 · complexity basic · author Ewfalor · version 7.0
+
+==============================================================================
+
+By default, when Vim notices the file for a buffer being edited has been 
+deleted (e.g. after running a shell command), it raises error E221 to warn the 
+user. An additional behaviour desired by some is to also mark the buffer as 
+'modified' so that it can't be abandoned without providing a bang (!). This 
+isn't foolproof, as the file could still be deleted without Vim noticing, so 
+your best defense is to make sure files you want are not deleted; however this 
+can provide a second line of defense.
+
+To use it, add the following to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc], or create file 
+~/.vim/plugin/filechanged.vim (Unix) or $HOME/vimfiles/plugin/filechanged.vim 
+(Windows) containing the script below, then restart Vim.
+
+>
+    au FileChangedShell * call FCSHandler(expand("<afile>:p"))
+    function FCSHandler(name)
+      let msg = 'File "'.a:name.'"'
+      let v:fcs_choice = ''
+      if v:fcs_reason == "deleted"
+        let msg .= " no longer available - 'modified' set"
+        call setbufvar(expand(a:name), '&modified', '1')
+        echohl WarningMsg
+      elseif v:fcs_reason == "time"
+        let msg .= " timestamp changed"
+      elseif v:fcs_reason == "mode"
+        let msg .= " permissions changed"
+      elseif v:fcs_reason == "changed"
+        let msg .= " contents changed"
+        let v:fcs_choice = "ask"
+      elseif v:fcs_reason == "conflict"
+        let msg .= " CONFLICT --"
+        let msg .= " is modified, but"
+        let msg .= " was changed outside Vim"
+        let v:fcs_choice = "ask"
+        echohl ErrorMsg
+      else  " unknown values (future Vim versions?)
+        let msg .= " FileChangedShell reason="
+        let msg .= v:fcs_reason
+        let v:fcs_choice = "ask"
+        echohl ErrorMsg
+      endif
+      redraw!
+      echomsg msg
+      echohl None
+    endfunction
+<
+
+You can easily customize this code to take whatever action you desire for the 
+various values of v:fcs_reason, by setting v:fcs_choice (for example, you 
+could reload the buffer if the mode has changed).
+
+Based on discussion on the vim_use mailing list 
+[http://groups.google.com/group/vim_use/browse_thread/thread/64785ff585431733/b2ff93351b09eee8].
+
+REFERENCES  *vwt-1568-references*
+
+Basis of this tip:
+    - :help  |FileChangedShell|
+    - :help  |v:fcs_reason|
+    - :help  |v:fcs_choice|
+
+
+Used in this tip:
+    - :help  |setbufvar()|
+    - :help  |:echohl|
+    - :help  |:echomsg|
+
+
+SEE ALSO  *vwt-1568-see-also*
+    - Suppressing file changed warnings in a specific buffer [https://vim.fandom.com/wiki/Suppressing_file_changed_warnings_in_a_specific_buffer]
+    - Setting file attributes without reloading a buffer [https://vim.fandom.com/wiki/Setting_file_attributes_without_reloading_a_buffer]
+
+
+COMMENTS  *vwt-1568-comments*

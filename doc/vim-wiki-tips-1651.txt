@@ -1,0 +1,120 @@
+*vim-wiki-tips-1651.txt*   Keep folds closed while inserting text *vwt-1651*
+
+Tip 1651 [https://vim.fandom.com/wiki/Keep_folds_closed_while_inserting_text]   Previous |vwt-1650| Next |vwt-1652|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201004#Keep_folds_closed_while_inserting_text] 
+April 22, 2010 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+Setting 'foldmethod' to syntax causes two annoying problems: a general 
+slow-down of Vim when inserting/completing text, and folds which go "SPROING!" 
+every time you insert text which creates a new fold.
+
+The first problem is caused by Vim's syntax folding being so slow compared to 
+other methods; see :help |todo.txt| and search for "folding with 
+'foldmethod'".
+
+The second problem applies to any automatic folding method—be it marker, 
+syntax, or expression folding—inserting text which starts a fold will 
+automatically open all folds beneath the insertion point.
+
+To work around both issues, you can temporarily switch to a manual fold 
+method when entering insert mode, and switch back when leaving it. This will 
+save any currently open/closed folds while in insert mode without creating new 
+folding regions, and restore your preferred settings when leaving insrt mode. 
+Presumably you will enter both the opening and closing of a fold in one 
+insertion; this method is not all that effective otherwise.
+
+To accomplish the workaround, use the InsertEnter and InsertLeave autocmd 
+events. Since 'foldmethod' is a window-local option, store the old value in a 
+window-local variable:
+
+>
+    " Don't screw up folds when inserting text that might affect them, until
+    " leaving insert mode. Foldmethod is local to the window.
+    autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
+    autocmd InsertLeave * let &l:foldmethod=w:last_fdm
+<
+
+This is probably good enough in most situations, but remember that some 
+autocmds or mappings, or use of the mouse (gasp!) might cause Vim to switch 
+windows without leaving insert mode. This will cause problems without a little 
+bit more effort; we could restore the wrong fold method, leave foldmethod at 
+manual permanently in another window, or even get an error when leaving insert 
+mode. The following should work better:
+
+>
+    " Don't screw up folds when inserting text that might affect them, until
+    " leaving insert mode. Foldmethod is local to the window. Protect against
+    " screwing up folding when switching between windows.
+    autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+    autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+<
+
+Note that secondary windows open on the same buffer in the same tab page will 
+not be protected, since foldmethod is a window-local option. Probably a 
+|:windo| command could also solve the issue in this case if desired.
+
+COMMENTS  *vwt-1651-comments*
+
+With the above workaround, the slowdown is only deferred to the switch out of 
+insert mode, which can be considerable as well, for example when using syntax 
+foldings in a TeX file. I therefore created the plugin 
+https://github.com/Konfekt/FastFold [https://github.com/Konfekt/FastFold] that 
+only updates the fold upon saving the currently edited buffer. Give it a shot 
+if you run into the same issue. --July 21, 2014
+
+==============================================================================
+
+There is also an issue when pasting within normal mode or undoing an edit. Is 
+there a way to temporarily disable foldmethod when doing those operations 
+also? Especially when the yankring plugin remaps my 'p'/'P' keys and the 
+repeat plugin remaps my 'u' key.
+
+When would you automatically enable it again? It is easy to manually set the foldmethod to 'manual' and back to 'syntax' with a simple :set command. Another suggestion is to set it to 'syntax' only briefly at key points to set up folds, then switch to 'manual' for most of your editing. This will mean folds only update when you save, when they are probably stable anyway, but may get out-of-date during extended editing sessions. Something like:
+
+>
+    autocmd Syntax foo setl fdm=syntax
+    autocmd Syntax foo setl fdm=manual
+    autocmd BufWritePost *.foo setl fdm=syntax
+    autocmd BufWritePost *.foo setl fdm=manual
+<
+
+--Fritzophrenic 21:33, December 1, 2011 (UTC)
+
+>When would you automatically enable it again?
+Instead of using autocommands here, I was thinking of using key mapping, so pasting or undoing would first trigger the foldmethod=manual, then the intended action of the key command, then re-enabling the foldmethod to what it was before. Just not sure how to properly map it so that arbitrary plugins that extend these actions by themselves mapping onto them still work.
+
+Unfortunately nesting mappings like this is often difficult, especially if you're trying to do it in a generic way.
+Good plugins often set up their mappings to a <Plug>something mapping. See :help using-<Plug> for details. If the plugin author did this, then for a specific mapping, you can do something like:
+
+>
+    :nmap <silent> u :setl fdm=manual<CR><Plug>SomeUndoMap:normal! u<CR>:setl fdm=syntax<CR>
+<
+
+However, the above mapping as written will not work with a count, you'll need to tweak it if desired. And doing something similar for paste will take some work to get it working with arbitrary registers.
+If the author of the plugin does not use <SID> or s: stuff in the mapping, then you can do something similar even if they do not use <Plug>.
+
+I'm skeptical, however, that this is really the solution you want to go with. The problem is not the action itself, it's when Vim tries to update syntax fold information when the fold regions are incompletely defined. The only way to make Vim handle this well is if you update both the begin and end of a region without fdm=syntax. So re-enabling syntax folding after every undo/paste will gain you nothing. And, you'd need to map potentially every command that could ever change your buffer. Probably not a very fun task! Maybe the best thing to do in your case would be the BufWritePost method I mention, or map one key to disable automatic folding and another key to enable it. This final method will give you the most flexibility but will obviously no longer provide automatic folding. Perhaps the best thing would be the BufWritePost method, combined with a single mapping to update folds by applying and un-applying fdm=syntax. Then you control exactly when Vim updates folds, only when you are ready for it.
+
+Fritzophrenic 16:47, December 2, 2011 (UTC)
+
+I tried
+
+>
+    autocmd Syntax foo setl fdm=syntax
+    autocmd Syntax foo setl fdm=manual
+    autocmd BufWritePost *.foo setl fdm=syntax
+    autocmd BufWritePost *.foo setl fdm=manual
+<
+
+but to no avail. When executing them manually, it works, but after activating 
+fdm=syntax it needs a moment for it (possibly to scan for foldpoints). When 
+doing it via autocmd nothing like that happens, and no folds are created 
+anywhere. Tried with * and different autocmds, nothing works here. It is as if 
+vim checks only after all autocmds have been executed what foldmethod to 
+use...
+
+Hmm. You can try a BufWinEnter instead of Syntax for the setl fdm=manual. Or, instead of setting it directly, you could create (during a Syntax autocmd) a CursorHold/CursorMoved/InsertEnter autocmd which sets the foldmethod to manual and removes itself. This is a bit of a hack but should work. If neither of these methods work, or you need help creating them, I'd ask on #vim on Freenode, or on the vim_use mailing list. See Asking questions. --Fritzophrenic 21:40, January 23, 2012 (UTC)

@@ -1,0 +1,102 @@
+*vim-wiki-tips-1206.txt*   Remove up to the nth slash to clean file lists *vwt-1206*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1206 [https://vim.fandom.com/wiki/Remove_up_to_the_nth_slash_to_clean_file_lists]   Previous |vwt-1204| Next |vwt-1213|
+
+created 2006 · complexity intermediate · author Ken Holm · version 5.7
+
+==============================================================================
+
+Lets say you find a list of files:
+
+>
+    :r !find / -name blahblah -ls
+<
+
+and get the following:
+
+>
+    3139934 4 -rw-r--r-- 1 dude dude 600 Feb 3 13:25 /var/www/lawwebdev.blahblah.com/cgi-bin/Archives/ESS.2005050
+    3010144 4 -rw-r--r-- 1 mang mang 1848 Mar 31 09:35 /var/www/lawwebdev.blahblah.com/cgi-bin/blahblah.pl
+    1964295 4 -rw-r--r-- 1 apache apache 597 Mar 8 11:48 /var/www/lawweb.blahblah.com/cgi-bin/blahblah.pl
+    2339286 4 -rw-r--r-- 1 mang mang 1851 Mar 31 09:29 /var/www/lawweb.blahblah.com/cgi-bin/blahblah.pl
+    3010157 4 -rw-r--r-- 1 mang mang 1940 Mar 31 10:44 /var/www/lawwebtest.blahblah.com/cgi-bin/blahblah.pl
+    294691 4 -rw-r--r-- 1 mang mang 1848 Apr 10 16:02 /tmp/PMT/blahblah.pl
+    1880561 4 -rw-r--r-- 1 mang mang 2432 Feb 22 13:49 /usr/local/scripts/prod/blahblah.pl
+    1880565 4 -rw-r--r-- 1 mang mang 1700 Mar 30 14:44 /usr/local/scripts/dev/blahblah.pl
+    899894 4 -rw-r--r-- 1 mang mang 1848 Mar 31 09:48 /usr/local/scripts/dev/Gold/base/blahblah.pl
+    1880626 4 -rw-r--r-- 1 mang mang 1699 Mar 30 14:46 /usr/local/scripts/test/blahblah.pl
+<
+
+Now, you'd like to just have a list of files without the rest of the info.
+
+Issue the global replace as follows:
+
+>
+    :%s/^.\{-}\ze\///
+<
+
+That leaves you with a nice list:
+
+>
+    /var/www/lawwebdev.blahblah.com/cgi-bin/Archives/ESS.20050506/Archives/blahblah.pl
+    /var/www/lawwebdev.blahblah.com/cgi-bin/blahblah.pl
+    /var/www/lawweb.blahblah.com/cgi-bin/blahblah.pl
+    /var/www/lawweb.blahblah.com/cgi-bin/blahblah.pl
+    /var/www/lawwebtest.blahblah.com/cgi-bin/blahblah.pl
+    /tmp/PMT/blahblah.pl
+    /usr/local/scripts/prod/blahblah.pl
+    /usr/local/scripts/dev/blahblah.pl
+    /usr/local/scripts/dev/Gold/base/blahblah.pl
+    /usr/local/scripts/test/blahblah.pl
+<
+
+If you want two levels deep you can wrap the atom being grabbed in escaped 
+parens and quantify it with braces:
+
+>
+    :%s/^\(.\{-}\ze\/\)\{3}//
+<
+
+Note: If you want two levels deep, you need to grab three atom's worth of 
+stuff, all the junk to the left of the first slash, then the first two levels 
+of dirs.
+
+COMMENTS  *vwt-1206-comments*
+
+Why not use:
+
+>
+    :r !find /path/to/search -name pattern_to_find
+<
+
+and skip the '-ls' parameter completely? That will do away with the 
+extraneous listing fields in the first place. Or am I missing something really 
+subtle?
+
+==============================================================================
+
+The really subtle part was how to delete all the stuff before the first 
+slash.
+
+One could ask "Why not use :r !locate filename?"
+
+That would have given us the data we needed with no manipulation necessary. 
+However that is beyond the scope of this tip.
+
+==============================================================================
+
+Why not the shorter:
+
+>
+    :%s:[^/]*::
+<
+
+==============================================================================

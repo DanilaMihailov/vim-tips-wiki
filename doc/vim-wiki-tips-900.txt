@@ -1,0 +1,40 @@
+*vim-wiki-tips-900.txt*   Insert comment boxes in your code *vwt-900*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 900 [https://vim.fandom.com/wiki/Insert_comment_boxes_in_your_code]   Previous |vwt-899| Next |vwt-901|
+
+created March 22, 2005 · complexity intermediate · author Ken Holm · version 
+5.7
+
+==============================================================================
+
+Put this in your vimrc and you can have nicely aligned comment boxes:
+
+>
+    map ,co O#====================================================================================================<CR>#<CR>#====================================================================================================<Esc>100\|Dkk100\|DjA
+<
+
+Note:
+    - The above should all be on one line.
+    - There is a space after the "A" at the end of the line above.
+    - While in navigation mode use ,co to create a comment block.
+    - The comment block will chop off at column 100.
+    - It relies on having autoindent set.
+
+
+COMMENTS  *vwt-900-comments*
+
+This should have the same result, I believe:
+
+>
+    map ,co O#<Esc>100A=<Esc>100\|D<CR>i#<CR><Esc>i##<Esc>100a=<Esc>100\|D<Esc>kA
+<
+
+==============================================================================

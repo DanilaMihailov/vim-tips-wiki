@@ -1,0 +1,119 @@
+*vim-wiki-tips-158.txt*   Using Computer Modern TT as a gvim font under Windows *vwt-158*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 158 [https://vim.fandom.com/wiki/Using_Computer_Modern_TT_as_a_gvim_font_under_Windows]   Previous |vwt-156| Next |vwt-159|
+
+created November 8, 2001 · complexity intermediate · author Vince Negri · 
+version 5.7
+
+==============================================================================
+
+If you really like the Computer Modern typewriter font (as seen in most TeX 
+distributions) you can use it as the font in gvim! (looks excellent with font 
+smoothing turned on)
+
+First, get hold of the free Blue Sky Type 1 PS versions of the CM fonts from 
+your local CTAN mirror. Unpack to a suitable directory.
+
+Next locate the cmtt8.pfb file and open it (in Vim, naturally) - find the 
+line saying
+
+>
+    dup 32 /visiblespace put
+<
+
+and change it to
+
+>
+    dup 32 /space put
+<
+
+that is, inserting enough spaces to keep the file size exactly the same 
+(IMPORTANT!).
+
+Save the file in Mac format (:set fileformat=mac).
+
+Now install the cmtt8.pfm file - in Win9x/NT4, you'll need Adobe Type Manager 
+(free download), but in Win2k, you can just drop the .pfm file into the Fonts 
+folder.
+
+Now in your _gvimrc:
+
+>
+    set guifont=CMTT8:h11:cSYMBOL
+<
+
+(use whatever height you like instead of h11)
+
+and enjoy! It's the first scalable font I can bear to edit code in.
+
+COMMENTS  *vwt-158-comments*
+
+I couldn't get the font to install on my win2k box. What exactly should the 
+name of the file be? Should I change the cmtt8.pfb to cmtt8.pfm? I tried 
+making the modifications as per the instructions, and when I tried copying it 
+to my fonts directory, windows told me that it was an invalid font. I kept the 
+right number of spaces, and I set fineformat=mac, but it didn't work. Maybe 
+somebody could post a version of the font that works OK?
+
+==============================================================================
+
+If you have downloaded the full bluesky package, you will have *both* .pfb 
+and .pfm files. Do not rename the .pfb file to .pfm! The .pfm file will appear 
+with a red 'a' as its icon in Win2k.
+
+(Thinking I should have marked this tip as advanced, as messing with Type 1 
+fonts even in Win2k is fairly non-intuitive....)
+
+==============================================================================
+
+One of the nicest mono spaced fonts that I have found has come from 
+Microsoft.
+
+They have a nice selection of screen legible fonts located at 
+http://www.microsoft.com/typography [http://www.microsoft.com/typography].
+
+The monospaced font is called Andale Mono and can be downloaded as a self 
+installing executable (ugh.) under Windows.
+
+Take a look if you need a good font.
+
+==============================================================================
+
+Agreed. Andale Mono is what I use. It's a fine computer type font. In fact, 
+I've set up my CMD prompt to use it and the IE Browser to use it for the 
+monospaced fonts. Looks better than Courier new.
+
+==============================================================================
+
+I can't understand why the answer to "How do I get Computer Modern working?" 
+should be "Oh, use this crappy font that I like. It is crude compared to 
+Computer Modern but I can't tell the difference any more than I can actually 
+respond to your question!" I mean seriously, I see this all the time. "How do 
+I install Vim/Firefox/Open Office?" "Oh, you don't need to! You can just 
+install Emacs/IE/Word!" Don't Microsoft and Emacs users have someplace they 
+can go together and be utterly unresponsive to each other's questions instead?
+
+==============================================================================
+
+Nice tip! Computer modern is a beautiful font - my source code is much more 
+elegant now ;-)
+
+One note - doing 'set ff=mac' and saving my edits to the .pfb file did not 
+work (for me, usingWin98, Adobe Type Manager, and Vim 6.0). Leaving the file 
+format alone did work.
+
+==============================================================================
+
+Latin Modern is a version of Computer Modern in OpenType (.otf) format. I use 
+Latin Modern in a .otf version. It contains a number of Computer Modern 
+Typewriter fonts at different optical sizes. It works well and should be 
+available to all applications when you install it. It should not take any 
+steps to install beyond what a .ttf file requires.

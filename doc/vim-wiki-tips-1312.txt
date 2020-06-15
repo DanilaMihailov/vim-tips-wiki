@@ -1,0 +1,216 @@
+*vim-wiki-tips-1312.txt*   256 colors in vim *vwt-1312*
+
+Tip 1312 [https://vim.fandom.com/wiki/256_colors_in_vim]   Previous |vwt-1311| Next |vwt-1314|
+
+created 2006 · complexity basic · author lpenz · version 6.0
+
+==============================================================================
+
+XTerm and most other modern terminal emulators support 256 colors, you can 
+use a script to check if your terminal supports 256 colors 
+[https://raw.github.com/incitat/eran-dotfiles/master/bin/terminalcolors.py].
+
+To enable colors on XTerm you will need to run the configure scripts with the 
+--enable-256-color switch, in addition you may also need to set your TERM 
+environment variable to xterm-256color.
+
+For bourne shells (bash, zsh, pdksh) this is done in ~/.profile:
+
+>
+    if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+            export TERM='xterm-256color'
+    else
+            export TERM='xterm-color'
+    fi
+<
+
+Or for csh shells this is done in ~/.cshrc:
+
+>
+    setenv TERM xterm-256color
+<
+
+See http://frexx.de/xterm-256-notes/ [http://frexx.de/xterm-256-notes/] for 
+more information about 256 colors on XTerm
+
+==============================================================================
+
+To enable 256 colors in vim, put this your .vimrc before setting the 
+colorscheme:
+
+>
+    set t_Co=256
+<
+
+You may also need to add:
+
+>
+    set t_AB=^[[48;5;%dm
+    set t_AF=^[[38;5;%dm
+<
+
+Your colors should at least look a little different. For full effect, use a 
+colorscheme that supports 256 colors like desert256 
+[https://www.vim.org/scripts/script.php?script_id=1243], inkpot 
+[https://www.vim.org/scripts/script.php?script_id=1143], 256-grayvim 
+[https://www.vim.org/scripts/script.php?script_id=3062], or gardener 
+[https://www.vim.org/scripts/script.php?script_id=1348].
+
+REFERENCES  *vwt-1312-references*
+    - :help  |xterm-color|
+
+
+SEE ALSO  *vwt-1312-see-also*
+    - colorschemedegrade script [http://www.cs.drexel.edu/~mjw452/colorschemedegrade.tar.gz], converts any GUI-only colorscheme to 256 colors; GUI version of VIM is required.
+    - View all colors available to gvim [https://vim.fandom.com/wiki/View_all_colors_available_to_gvim] describes how to list available color names and numbers
+
+
+COMMENTS  *vwt-1312-comments*
+
+Setting $TERM in the shell profile is generally a bad idea, since you may 
+wish to use different terminals. It is preferable to add it to .Xdefaults (or 
+similar file read by X applications):
+
+>
+    XTerm*termName:         xterm-256color
+<
+
+Also, if the terminfo file is correct, there's no need to set 't_Co' in Vim. 
+It will ask the terminal for that value. (Spiiph 
+[https://vim.fandom.com/wiki/User:Spiiph] 11:39, 11 August 2009 (UTC))
+
+==============================================================================
+
+Manually overriding the TERM setting is one of the most disgusting things I 
+know of. I make sure all my machines have the extra set of Terminfo files, 
+then I use the following logic in my .bashrc (which gets sourced from 
+.bash_profile if $PS1 is set):
+
+The entire system runs smoother if TERM is set properly. Overriding it to 
+incorrect settings can produce strange problems which don't exist when using a 
+different terminal emulator. The existence of poorly written terminal 
+emulators using bogus TERM values results in application developers "working 
+around" issues with their Terminal applications which, in turn, causes 
+Terminal applications to not behave as you would expect. Now we have terminal 
+applications sending color escape sequences when the terminal is monochrome, 
+and we have some terminal application forcing xterm-style 256-color codes to 
+terminals regardless of whether the terminal supports it. It makes me sad, as 
+it is bad design breeding more bad design.
+
+When the terminal emulator supports it, you should always override the TERM 
+setting to the correct setting for your terminal. (Your terminal is not Xterm 
+unless it supports Tektronix mode.)
+
+All moderm terminal emulators support setting the TERM variable except for 
+the Gnome Terminal.
+
+Here's what to set the TERM entry for, based upon your terminal emulator:
+    -  PuTTY - putty-256color
+    -  rxvt - rxvt-256color
+    -  Eterm - Eterm-256color
+    -  Konsole - konsole-256color
+    -  XFCE's Terminal - gnome-256color
+
+
+XFCE's Terminal uses the same library as the Gnome Terminal to create the 
+virtual terminal, so it actually makes sense to use the same TERM setting for 
+the two terminal emulators. This logic applies in other cases, if an 
+application uses Konsole's or rxvt's code to perform terminal emulation, you 
+can accurately and properly use that application's TERM setting.
+
+I use the following code to catch gnome-terminal and automatically set the 
+TERM correctly for xterm:
+
+>
+    if [ "$TERM" = "xterm" ] ; then
+        if [ -z "$COLORTERM" ] ; then
+            if [ -z "$XTERM_VERSION" ] ; then
+                echo "Warning: Terminal wrongly calling itself 'xterm'."
+            else
+                case "$XTERM_VERSION" in
+                "XTerm(256)") TERM="xterm-256color" ;;
+                "XTerm(88)") TERM="xterm-88color" ;;
+                "XTerm") ;;
+                *)
+                    echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
+                    ;;
+                esac
+            fi
+        else
+            case "$COLORTERM" in
+                gnome-terminal)
+                    # Those crafty Gnome folks require you to check COLORTERM,
+                    # but don't allow you to just *favor* the setting over TERM.
+                    # Instead you need to compare it and perform some guesses
+                    # based upon the value. This is, perhaps, too simplistic.
+                    TERM="gnome-256color"
+                    ;;
+                *)
+                    echo "Warning: Unrecognized COLORTERM: $COLORTERM"
+                    ;;
+            esac
+        fi
+    fi
+<
+
+Then I provide additional logic to make sure it falls back if there are 
+missing Terminfo files:
+
+>
+    SCREEN_COLORS="`tput colors`"
+    if [ -z "$SCREEN_COLORS" ] ; then
+        case "$TERM" in
+            screen-*color-bce)
+                echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
+                export TERM=screen-bce
+                ;;
+            *-88color)
+                echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
+                export TERM=xterm-88color
+                ;;
+            *-256color)
+                echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
+                export TERM=xterm-256color
+                ;;
+        esac
+        SCREEN_COLORS=`tput colors`
+    fi
+    if [ -z "$SCREEN_COLORS" ] ; then
+        case "$TERM" in
+            gnome*|xterm*|konsole*|aterm|[Ee]term)
+                echo "Unknown terminal $TERM. Falling back to 'xterm'."
+                export TERM=xterm
+                ;;
+            rxvt*)
+                echo "Unknown terminal $TERM. Falling back to 'rxvt'."
+                export TERM=rxvt
+                ;;
+            screen*)
+                echo "Unknown terminal $TERM. Falling back to 'screen'."
+                export TERM=screen
+                ;;
+        esac
+        SCREEN_COLORS=`tput colors`
+    fi
+<
+
+Note that after this is done I know that TERM is valid and as correct as I 
+can get it in the current environment.
+
+In the rest of my init scripts I can also check SCREEN_COLORS and tweak 
+things (like my PS1) based upon the palette available.
+
+With the terminal set properly, you don't need to manually tweak any 
+Termcap/Terminfo settings anywhere, and all applications that support 256 
+color mode can use it.
+
+(Steven Black [https://vim.fandom.com/wiki/User:Steven_Black] 20:34, June 22, 
+2010 (UTC))
+
+Thanks, good info! Ubuntu (I've checked Hardy and Lucid) only ships with some basic terminfo definitions. sudo aptitude install ncurses-term will get you the additional ones for 256 colors. -- Inkarkat 11:37, June 23, 2010 (UTC)
+
+==============================================================================
+
+LXTerminal works in 256 color mode, but you will need to load a color profile 
+like "colorscheme desert256" --Kanliot 
+[https://vim.fandom.com/wiki/User:Kanliot] 17:03, April 7, 2012 (UTC)

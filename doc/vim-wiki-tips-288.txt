@@ -1,0 +1,80 @@
+*vim-wiki-tips-288.txt*   Generate Java setters and getters automatically *vwt-288*
+
+Tip 288 [https://vim.fandom.com/wiki/Generate_Java_setters_and_getters_automatically]   Previous |vwt-286| Next |vwt-290|
+
+created 2002 · complexity intermediate · author Sheer El-Showk · version 5.7
+
+==============================================================================
+
+This mapping makes it much simpler to write new java classes by automating a 
+repetitive coding task, the creation of setters and getters. Note that a 
+ready-made plugin |vwt-288-plugins| exists to do much the same thing.
+
+To use, first write a basic class with the following format:
+
+>
+    public class MyClass
+    {
+      private <type> <varname> = <initvalue>;
+      private <type> <varname> = initvalue>;
+      // getters
+      // setters
+    }
+<
+
+Note the getters/setters comment -- these are important as they are used to 
+place the getters and setters.
+
+The mapping is which should be added to the .vimrc file is:
+
+>
+    map jgs mawv/ <CR>"ty/ <CR>wvwh"ny/getters<CR>$a<CR><CR><Esc>xxapublic
+    <Esc>"tpa<Esc>"npbiget<Esc>l~ea()<CR>{<CR><Tab>return
+    <Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxapublic void
+    <Esc>"npbiset<Esc>l~ea(<Esc>"tpa <Esc>"npa)<CR>{<CR><Tab>this.<Esc>"npa=
+    <Esc>"npa;<CR>}<Esc>=<CR>`ak
+<
+
+The above should be one long line with no spaces between the end of the lines 
+above.
+
+To use this to generate a class go to the variable that should have a 
+setter/getter and place the curser at the beginning of the 'private':
+
+>
+    private <type> <variable> = <initvalue>'
+    ^
+<
+
+Then type:
+
+>
+    jgs
+<
+
+This will create the first getter/setter and then move up to the next 
+variable. A user can continue typing jgs until all the getters/setters have 
+been generated.
+
+PLUGINS  *vwt-288-plugins*
+    - The java_getset.vim [https://www.vim.org/scripts/script.php?script_id=490] script makes it dead simple to auto generate getters and setters, plus its easy to install and configure.
+    - lh-refactor [http://code.google.com/p/lh-vim/wiki/lhRefactor] handles getters and setters among other refactorings (and languages)
+
+
+COMMENTS  *vwt-288-comments*
+
+This is a great idea, but this implementation is a little lacking. When I 
+first used it, it put my getters and setters in comments (since it searchers 
+for // getters, and doing an $a<CR> on that line continues the comment). 
+Additionally, it assumes a tabstop of 8 instead of letting the file type 
+indent do the work, plus the spacing is a little messed up.
+
+What I usually do is type all my private members. I got to the first one and 
+hit qa to start macro recording to register a. Then I make my getter and 
+setter using only commands that operate on words and not characters. When 
+done, hit q again, and now register a has your macro.
+
+Comment from Jeremy; This mapping caused a delay on the last j press in 
+normal mode for me. It was quite irritating. I would suggest pointing the 
+mapping to a different key sequence where the first key is not a common 
+navigation key.

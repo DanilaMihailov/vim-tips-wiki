@@ -1,0 +1,125 @@
+*vim-wiki-tips-675.txt*   How to turn off all colors *vwt-675*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 675 [https://vim.fandom.com/wiki/How_to_turn_off_all_colors]   Previous |vwt-673| Next |vwt-676|
+
+created March 12, 2004 · complexity intermediate · author mdmiller · version 
+6.0
+
+==============================================================================
+
+If you're like me, you don't want a colorful editor. I spent hours looking 
+for a "turn off all those colors right now!!" command and I couldn't find any 
+help. After some poking around for a while, I found the commands you need. 
+Just put these at the end of your vimrc file.
+
+>
+    syntax off
+    set nohlsearch
+    set t_Co=0
+<
+
+If you don't have a vimrc file, simply create one in your home directory.
+
+COMMENTS  *vwt-675-comments*
+
+If you want coloring sometimes but want an easy way to turn it off 
+occasionally (while editing) type
+
+>
+    :set syntax=
+<
+
+==============================================================================
+
+What's wrong with
+
+>
+    :syntax off
+<
+
+==============================================================================
+
+With "syntax off" alone Vim will still use colored highlighting when you 
+search for things. For those who simply think colors are yucky, that's reason 
+enough. For me, there's also the fact that I usually lose interest in a search 
+term a few minutes after I find it. (i.e. find where a variable is used, 
+examine the use of that variable, then move on to something unrelated.) I find 
+it disconcerting to have something highlighted when it is no longer important 
+to me. Yes, I know there is a way to turn off the highlight from the previous 
+search, but it takes more keystrokes than I want to mess with. And I could 
+simply search for something that isn't in the file I'm editing, but such a 
+kluge of an answer disturbs me.
+
+So the next thing I tried was "syntax off" + "set t_Co=0", and that made vim 
+comepletely colorless, but search result highlighting was accomplished through 
+alternate means - I believe bold or italics or some such thing. To clarify 
+what I wrote in the previous paragraph, the emphasis of a currently 
+uninteresting search result is the thing I dislike, not the means of the 
+emphasis. So this option was not good enough for me.
+
+I also tried "syntax off" + "set nohlsearch". This option is nice most of the 
+time, but vim still used colors to emphasize some of its error messages. By 
+the time I discovered this, I was so frustrated with vim that I wanted to beat 
+it into submission. I wanted no colors, no emphasized text, nothing that 
+looked at all different than traditional vi. (I know, this is a silly 
+emotional reaction. But when you use technology all day, it needs to be 
+comfortable. And "comfort" is a word that can only be completely defined in an 
+emotional context.)
+
+For my purposes, "syntax off" + "set nohlsearch" + "set t_Co=0" is the only 
+satisfying option. Leaving out any ingredient gives me something that is not 
+good enough. Given that "syntax off" + "set t_Co=0" will produce a colorless 
+vim, perhaps I did not choose the best title for my tip, but people seem to be 
+enjoying it, so I have no regrets.
+
+Now you know what is wrong (from my personal point of view) with just typing 
+"syntax off".
+
+==============================================================================
+    -  Additionally:
+
+
+For a more practical reason to include set t_Co=0 than just "to beat it into 
+submission," consider that, without this line, vim not only uses color for 
+some error messages, but also for control characters (e.g. tabs and line 
+endings under set list, or characters made visible via ^V). If the colors are 
+hard to read on a given terminal, the ability to turn them off can be crucial.
+
+==============================================================================
+    -  An alternative viewpoint:
+
+
+I couldn't get "syntax off" to work reliably enough for me (admittedly this 
+was years ago, so it might be an old problem). Here's what I use:
+
+>
+    set nohlsearch
+    set noincsearch
+    filetype off
+<
+
+The thing that's turning the syntax highlighting on in the first place is the 
+vim plugin system that reacts to the filetype it determines the file to be. So 
+this disables that altogether (which theoretically should make it load files 
+faster, although honestly the difference--if there even is one--is so small 
+it's unnoticeable). Plus turning the annoying searching stuff off.
+
+That doesn't disable all the highlighting completely, but I find that 
+whatever is leftover is fine. YMMV, natch.
+
+==============================================================================
+    -  An alternative viewpoint:
+
+
+On debian 6 based system, I found a /etc/vim/vimrc.local file had syntax on 
+and this was overriding what I had in VIMINIT environment variable. My 
+solution was to comment out "syntax on" in the /etc/vim/vimrc.local file. The 
+previous two sentences was written 3/5/2014 re: vim 7.2.

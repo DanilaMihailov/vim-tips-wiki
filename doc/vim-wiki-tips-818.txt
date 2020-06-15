@@ -1,0 +1,63 @@
+*vim-wiki-tips-818.txt*   Integrate Vim diff with TortoiseCVS *vwt-818*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1286 |vwt-1286|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 818 [https://vim.fandom.com/wiki/Integrate_Vim_diff_with_TortoiseCVS]   Previous |vwt-817| Next |vwt-819|
+
+created 2004 · complexity basic · author Alejandro Calbazana · version 5.7
+
+==============================================================================
+
+Under Windows, you can use TortoiseCVS along with Vim/GVim as the diff tool 
+of choice:
+
+Create a .bat file containing the following and put it in your path:
+
+>
+    @echo off
+    "C:\Program Files\Vim\vim63\GVim.exe" -d %1 %2
+<
+
+Add this .bat file as the diff utility under 
+TortoiseCVS->Preferences->Tools->External Diff Application.
+
+COMMENTS  *vwt-818-comments*
+
+You don't have to create a .bat file to do this. Just enter "C:\Program 
+Files\Vim63\GVim.exe" as "Diff application".
+
+Set "Two-way diff parameters" as -d "%1" "%2".
+
+==============================================================================
+
+Not that Vim isn't good at diff'ing, but I use ExamDiff Pro 
+(http://www.prestosoft.com [http://www.prestosoft.com]) for diff-ing with 
+TortoiseCVS. Not free, but the display/ease of merging is great.
+
+==============================================================================
+
+I use WinMerge (http://www.winmerge.org [http://www.winmerge.org]). It's 
+great.
+
+==============================================================================
+
+I'm using Meta-Diff (see http://meta-diff.sourceforge.net/ 
+[http://meta-diff.sourceforge.net/]). It's configured to use Vim for source 
+files, Examdiff for other text files, CSDiff for Word documents etc.
+
+==============================================================================

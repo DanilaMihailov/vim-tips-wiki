@@ -1,0 +1,106 @@
+*vim-wiki-tips-754.txt*   Highlighting source between matching curly braces *vwt-754*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip6 |vwt-6|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 754 [https://vim.fandom.com/wiki/Highlighting_source_between_matching_curly_braces]   Previous |vwt-753| Next |vwt-755|
+
+created June 26, 2004 · complexity basic · author joerga · version 6.0
+
+==============================================================================
+
+I was getting far too many errors creating ruby cgi-scripts due to misplaced 
+curly braces, so here's my solution.
+
+The following ruby script generates a pattern (see below) used for 
+highlighting a codesection from the curly brace under the cursor to the 
+matching brace. It currently finds 12 recursions, you can generate larger 
+patterns reaching deeper by changing the parameter (n=12) in method 
+"generate".
+
+
+
+>
+    # ruby script
+    def next_iteration(text)
+     text.gsub( /#{Regexp.quote("a%(x)*b")}/, "a%(%(a%(x)*b)|%(x))*b" )
+    end
+     
+    def generate( text, n )
+     1.upto(n){ |i| text = next_iteration( text ) }
+     text
+    end
+     
+    def to_pattern(text)
+     text.gsub(/x/,"\\n|[^ab]").gsub(/a/,"\\{").gsub(/b/,"\\}")
+    end
+     
+    ax = generate("a%(x)*b", 12).sub(/b$/,"")
+    # a = starting brace, b = ending brace, x = characters in between
+    puts to_pattern( "/\\v%(%##{ax}b)|%(#{ax}%#b)/" )
+<
+
+"a" and "b" are synonyms for the starting/ending brace, "x" holds the 
+characters in between, if any. Using recursion, the original pattern "a(x)*b" 
+is expanded to the monstrous pattern seen below.
+
+Note: Use %() for grouping in the pattern, as the normal (captivating) 
+variant cannot be used that often in one pattern.
+
+Append the following to your vimrc:
+
+>
+    highlight ShowMatches guibg=darkgrey guifg=white
+    au! Cursorhold * exe 'match ShowMatches /\v%(%#\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(\n|[^\{\}])*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(%(\{%(\n|[^\{\}])*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*\})|%(\n|[^\{\}]))*%#\})/'
+    set ut=30
+<
+
+Up to now, creating a pattern for mixing curly braces and brackets hasn't 
+been very successful. The resulting patterns grow far too fast.
+
+SEE ALSO  *vwt-754-see-also*
+    - Rainbow Parenthsis Bundle : Colors Parenthsis [https://www.vim.org/scripts/script.php?script_id=1561]
+    - Highlight unwanted spaces |vwt-396|
+    - Moving to matching braces |vwt-6| for simple methods to select a block
+
+
+COMMENTS  *vwt-754-comments*
+
+TO DO Is the above useful for Vim 7?
+
+It is not the same thing as matchparen
+--Luc Hermitte 14:11, 7 September 2007 (UTC)
+
+Need to clarify what the tip actually does (a reader shouldn't have to decode 
+stuff to work this out). What's that ruby script for, and why does it start 
+the tip? Is this tip superseded by rainbow_parenthesis?
+
+Is rainbow_parenthesis just script#1561 
+[https://www.vim.org/scripts/script.php?script_id=1561]? The text on that page 
+doesn't give much of a description. Someone needs to install it and tell 
+readers what it does. Or, maybe we should delete this tip if no one wants to 
+fix it by, say, July 2008. --JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 01:58, 23 April 2008 (UTC)
+
+==============================================================================
+
+I tried this and in certain C files I am getting ERRORE363: pattern caused 
+out-of-stack error
+
+It crashes Vim 6.3
+
+==============================================================================

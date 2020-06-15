@@ -1,0 +1,92 @@
+*vim-wiki-tips-989.txt*   Word wrap without line breaks *vwt-989*
+
+Tip 989 [https://vim.fandom.com/wiki/Word_wrap_without_line_breaks]   Previous |vwt-988| Next |vwt-990|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+When editing a text file, if you want word wrapping, but only want line 
+breaks inserted when you explicitly press the Enter key:
+
+>
+    :set wrap
+    :set linebreak
+    " :set nolist In vim versions prior to 7.4.353 list disabled linebreak
+<
+
+This will get Vim to wrap existing text as desired. wrap tells Vim to word 
+wrap visually (as opposed to changing the text in the buffer), and linebreak 
+tells Vim to only wrap at a character in the breakat option (by default, this 
+includes " ^I!@*-+;:,./?" (note the inclusion of " " and that ^I is the 
+control character for Tab)).
+
+In addition, you will need to prevent Vim from automatically inserting line 
+breaks in newly entered text. The easiest way to do this is:
+
+>
+    :set textwidth=0
+    :set wrapmargin=0
+<
+
+If you want to keep your existing 'textwidth' settings for most lines in your 
+file, but not have Vim automatically reformat when typing on existing lines, 
+you can do this with:
+
+>
+    :set formatoptions-=t
+<
+
+If you want Vim to adjust textwidth automatically most of the time but you 
+have a few long lines that you don't want to change, use:
+
+>
+    :set formatoptions+=l
+<
+
+To make settings permanent, without the need to type this every time you use 
+Vim, just add the commands to your vimrc [https://vim.fandom.com/wiki/Vimrc].
+
+REFERENCES  *vwt-989-references*
+    - :help 'wrap'
+    - :help 'linebreak'
+    - :help  |ins-textwidth|
+    - :help 'showbreak' to show the difference between soft and hard wrapped lines
+
+
+SEE ALSO  *vwt-989-see-also*
+    - Move cursor by display lines when wrapping |vwt-38|
+    - Move through wrapped lines |vwt-308|
+    - Automatic word wrapping |vwt-850|
+
+
+COMMENTS  *vwt-989-comments*
+
+I'm not certain whether 'wrapmargin' is always turned off when it is set 
+equal to zero, but it seems to work. Is this always the case?
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 17:47, June 
+15, 2010 (UTC)
+
+I do not use wrapmargin but surely its meaning implies that it only does something when set to a value above zero. I think it's pretty safe to assume the tip is ok. JohnBeckett 11:32, June 16, 2010 (UTC)
+
+==============================================================================
+
+This doesn't work. With the settings saved, I restarted vim and created a new 
+file. If I hold down the "a" key and randomly press the space bar. Eventually 
+vim still inserts line feed characters into the text. This is not a visual 
+wrap, but the actual '\n' character. Which shouldn't happen. --October 2, 2012
+
+==============================================================================
+
+It can be useful to do a word wrap without line breaks only when editing text 
+(not programming code), using LaTeX for example. I've added these lines in my 
+.vimrc to reach this :
+
+>
+    au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
+<
+
+--Eduardoconto 20:48, February 8, 2013 (UTC)
+
+That works, but where possible, it is probably better to use the technique shown at Keep your vimrc file clean. JohnBeckett (talk) 07:01, February 9, 2013 (UTC)

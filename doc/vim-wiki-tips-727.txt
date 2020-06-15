@@ -1,0 +1,81 @@
+*vim-wiki-tips-727.txt*   Helpfiles and avoiding E21 error with fileencoding *vwt-727*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 727 [https://vim.fandom.com/wiki/Helpfiles_and_avoiding_E21_error_with_fileencoding]   Previous |vwt-725| Next |vwt-732|
+
+created 2004 · complexity intermediate · author Øystein Urdahl · version 6.0
+
+==============================================================================
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+not really very helpful in general, and flawed (see comments)
+
+In 1:6.2-532+1 helpfiles was changed back to not being compressed anymore 
+since that broke :helpg[rep]. That meant that instead of having the suffix 
+.txt.gz they where back to just .txt. Naturally the helpfiles (opened by :help 
+with friends) opens with 'nomodifiable' set since you are supposed to read 
+them and not edit them. For me that made a problem since i had an :au (auto 
+command) in my vimrc setting *.txt to have the iso-8859-1 (latin-1) 
+fileencoding. Now I got an error every time I wanted to use the help system. 
+To overcome this I changed my vimrc [https://vim.fandom.com/wiki/Vimrc] from 
+this:
+
+>
+    au BufNewFile,BufRead mutt*,*.txt,*/.followup set tw=77 ai nocindent fileencoding=iso-8859-1
+<
+
+to this:
+
+>
+    " 'nomodifiable' disallows changes to 'fileformat' and 'fileencoding' so remove those entries in the else clause
+    function! Noma_workaround()
+      if exists("modifiable")
+        set tw=77 ai nocindent fileencoding=iso-8859-1
+      else
+        set tw=77 ai nocindent
+      endif
+    endfunction
+    au BufNewFile,BufRead mutt*,*.txt,*/.followup call Noma_workaround()
+<
+
+In short this just mean that I call the Noma_workaround() function to 
+determine if I can set the fileencoding or if that will give an error. In that 
+case I jsut set the other options.
+
+COMMENTS  *vwt-727-comments*
+
+Your Noma_workaround will almost never set 'filencoding' to latin1 because
+
+>
+    if exists("modifiable")
+<
+
+tests the existence of a _variable_ with that name. To test the _option_ with 
+that name, you should use
+
+>
+    if exists("+modifiable")
+<
+
+to test if the option is functional, and/or
+
+>
+    if &modifiable
+<
+
+to test if it is currently true.
+
+See :help |exists()|
+
+==============================================================================

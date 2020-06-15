@@ -1,0 +1,167 @@
+*vim-wiki-tips-1623.txt*   Using the Windows clipboard in Cygwin Vim *vwt-1623*
+
+Tip 1623 [https://vim.fandom.com/wiki/Using_the_Windows_clipboard_in_Cygwin_Vim]   Previous |vwt-1622| Next |vwt-1624|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200904#Using_the_Windows_clipboard_in_Cygwin_Vim] 
+April 10, 2009 · complexity basic · author Ir0nh34d · version 7.0
+
+==============================================================================
+
+Using Vim under Cygwin, it is difficult to access the Windows clipboard 
+[https://vim.fandom.com/wiki/Accessing_the_system_clipboard]:
+    - Typing "+y does not yank (copy) to the Windows clipboard.
+    - Typing "+p does not paste from the Windows clipboard. 
+    - Typing "*y and "*p instead seems to work however
+
+
+As a result, you cannot easily use the clipboard to copy text between Cygwin 
+Vim and a native Windows application. This tip shows some workarounds.
+
+COPY TO WINDOWS CLIPBOARD  *vwt-1623-copy-to-windows-clipboard*
+
+Using this function:
+
+>
+    function! Putclip(type, ...) range
+      let sel_save = &selection
+      let &selection = "inclusive"
+      let reg_save = @@
+      if a:type == 'n'
+        silent exe a:firstline . "," . a:lastline . "y"
+      elseif a:type == 'c'
+        silent exe a:1 . "," . a:2 . "y"
+      else
+        silent exe "normal! `<" . a:type . "`>y"
+      endif
+      
+      "call system('putclip', @@)  " if you're using an old Cygwin
+      "call system('clip.exe', @@) " if you're using Bash on Windows
+      
+      "As of Cygwin 1.7.13, the /dev/clipboard device was added to provide
+      "access to the native Windows clipboard. It provides the added benefit
+      "of supporting utf-8 characters which putclip currently does not. Based
+      "on a tip from John Beckett, use the following:
+      call writefile(split(@@,"\n"), '/dev/clipboard')
+      
+      let &selection = sel_save
+      let @@ = reg_save
+    endfunction
+<And simple mappings, such as:
+
+>
+    vnoremap <silent> <leader>y :call Putclip(visualmode(), 1)<CR>
+    nnoremap <silent> <leader>y :call Putclip('n', 1)<CR>
+<
+
+You can visually select some text then yank it to the Windows clipboard, or 
+use the normal yank options (for example, 3\y to yank 3 lines based from the 
+current line, assuming the default backslash leader key).
+
+To allow for usage from the command line, add a command to execute Putclip 
+with a range:
+
+>
+    com! -nargs=0 -range=% Putclip call Putclip('c', <line1>, <line2>)
+<
+
+COPY USING `/DEV/CLIPBOARD` EXCLUSIVELY  *vwt-1623-copy-using-`/dev/clipboard`-exclusively*
+
+You can eliminate the hassle of a vimscript if you choose, by selecting the 
+text in visual mode, then entering the following...
+
+>
+    :'<,'>w !cat > /dev/clipboard
+<
+
+Then of course you could assign a key combination or whatever you want to the 
+above. I like how explicit this is within the Cygwin environment.
+
+Note: The syntax above is `w !` NOT `w!` which do different things. Remember 
+to include the space.
+
+PASTE FROM WINDOWS CLIPBOARD  *vwt-1623-paste-from-windows-clipboard*
+
+The easiest way to do this is to press SHIFT-INSERT in insert mode.
+
+(The insert key is next to the Delete/Home/End keys.)
+
+Another option is to use this function:
+
+>
+    function! Getclip()
+      let reg_save = @@
+      "let @@ = system('getclip')
+      "Much like Putclip(), using the /dev/clipboard device to access to the
+      "native Windows clipboard for Cygwin 1.7.13 and above. It provides the
+      "added benefit of supporting utf-8 characters which getclip currently does
+      "not. Based again on a tip from John Beckett, use the following:
+      let @@ = join(readfile('/dev/clipboard'), "\n")
+      setlocal paste
+      exe 'normal p'
+      setlocal nopaste
+      let @@ = reg_save
+    endfunction
+<
+
+And a simple mapping, such as:
+
+>
+    nnoremap <silent> <leader>p :call Getclip()<CR>
+<
+
+You can use the normal paste options (for example, \p to paste the clipboard 
+contents, assuming the default backslash leader key).
+
+SEE ALSO  *vwt-1623-see-also*
+    - fakeclip [https://www.vim.org/scripts/script.php?script_id=2098] plugin allowing use of "*p, "*yy and more on Cygwin
+
+
+COMMENTS  *vwt-1623-comments*
+
+How can we make a "cut" version of copy? I don't know enough about writing 
+functions. Blindly changing "y" to "d" just resulting in it deleting one 
+character only.Robertmarkbram 
+[https://vim.fandom.com/wiki/User:Robertmarkbram] 04:38, 5 August 2009 (UTC)
+
+==============================================================================
+
+Changing Putclip to be:
+
+>
+    function! Putclip(type, ...) range
+      let sel_save = &selection
+      let &selection = "inclusive"
+      let reg_save = @@
+      if a:type == 'n'
+        silent exe a:firstline . "," . a:lastline . "d"
+      elseif a:type == 'c'
+        silent exe a:1 . "," . a:2 . "d"
+      else
+        silent exe "normal! `<" . a:type . "`>d"
+      endif
+      call system('putclip', @@)
+      let &selection = sel_save
+      let @@ = reg_save
+    endfunction
+<
+
+Should do the trick. Ir0nh34d [https://vim.fandom.com/wiki/User:Ir0nh34d] 
+03:36, 7 August 2009 (UTC)
+
+==============================================================================
+
+Nice one Ir0nh34d! Changed that to CutClip.. and give it some shortcuts:
+
+>
+    " Cut via \x in normal or visual mode.
+    vnoremap <silent> <leader>x :call Cutclip(visualmode(), 1)<CR>
+    nnoremap <silent> <leader>x :call Cutclip('n', 1)<CR>
+    " Cut via Alt+x
+    vnoremap <silent> ^[x :call Cutclip(visualmode(), 1)<CR>
+    nnoremap <silent> ^[x :call Cutclip('n', 1)<CR>
+<
+
+I like to use Alt+C or \y for copy and Alt+p or \p for paste. That way, I 
+keep some of the Windows and Vim familiarity about the actions. Robertmarkbram 
+[https://vim.fandom.com/wiki/User:Robertmarkbram] 08:38, 9 August 2009 (UTC)

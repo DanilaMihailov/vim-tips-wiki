@@ -1,0 +1,85 @@
+*vim-wiki-tips-946.txt*   VisVim for Visual Studio *vwt-946*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 946 [https://vim.fandom.com/wiki/VisVim_for_Visual_Studio]   Previous |vwt-945| Next |vwt-948|
+
+created 2005 · complexity intermediate · author neil · version 6.0
+
+==============================================================================
+
+VisVim only works for old versions of Visual Studio. For using vim with 
+modern versions of Visual Studio, see Integrate gvim with Visual Studio 
+[https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio].
+
+VISVIM FOR VISUAL STUDIO 5.0 AND 6.0  *vwt-946-visvim-for-visual-studio-5.0-and-6.0*
+    - The OLE version of gvim can be used as the editor in Visual Studio 5.0 and 6.0. This is called VisVim. :help  |VisVim|
+    - The source code for Vim includes directory src/VisVim which allows building file VisVim.dll.
+    - File src/VisVim/README_VisVim.txt is the documentation.
+    - With VisVim, you can use Visual Studio for designing and building, and use Vim commands within Visual Studio for editing.
+    - VisVim does not work with Visual Studio 2002 and later (Visual Studio .NET). However the Visual Studio versions after VS6 support use of an external editor. See Integrate gvim with Visual Studio [https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio].
+
+
+When installed, this addin registers a new command ("Open with Vim") but 
+doesn't put it in any menus or toolbars for you. You can add it to a menu or 
+toolbar by using Tools/Customize, go to the Commands tab, select Addins in the 
+left listbox, and scroll down to find "Open with Vim". Now drag that to a menu 
+or toolbar.
+
+Now open a file in VS.NET, move the cursor if you like, and click Open with 
+Vim. It will launch vim and execute :drop for the file you had open in VS.NET. 
+It then moves the currentpoint for vim to the same row and column that you had 
+in VS.NET.
+
+It also adds a section to the properties box called "VisVimNET" with these 
+settings:
+
+>
+    [ ] Change directory to file's one
+     (means that the cwd of vim will be changed to the parent directory of the file being edited)
+    [ ] Make Vim foreground application
+     (supposed to bring Vim to the front when it executes - didn't work for me though)
+    [ ] Set cursor at center of window
+     (executes zz after moving to the current row and column)
+    [ ] Synchronize with activated window
+     (if this is checked, then each time you change files in VS.NET, commands will be sent to vim to put you in the same file.)
+<
+
+Naturally, when you save a file in vim and then switch to VS.NET, VS.NET will 
+detect that you changed the file and ask to reload it. And vice-versa.
+
+NEW IMPLEMENTATION OF VISVIM  *vwt-946-new-implementation-of-visvim*
+
+These links are broken.
+
+The VisVim which comes with Vim 6.3 does not work with Visual Studio .NET. 
+Here is an implementation of VisVim for VS.NET :
+
+Setup: http://www.kaoriya.net/testdir/VisVimNET/VisVimNETSetup-20040706.msi 
+[http://www.kaoriya.net/testdir/VisVimNET/VisVimNETSetup-20040706.msi]
+
+Source Code: 
+http://www.kaoriya.net/testdir/VisVimNET/VisVimNET-20040706.tar.bz2 
+[http://www.kaoriya.net/testdir/VisVimNET/VisVimNET-20040706.tar.bz2]
+
+Looks like this implementation is completely different from the orignal 
+VisVim. It will be great if the original VisVim is modified or this is 
+included in the next Vim release. If you know any other VisVim implementation 
+which works for VS.NET, please post the link here.
+
+Read README_VisVim.txt in a directory tree of your Vim for help.
+
+COMMENTS  *vwt-946-comments*
+
+I just noticed that it did install in VS 2003, but not in VS 2005. Any 
+direction would be appreciated.
+
+Use the method at Integrate gvim with Visual Studio.
+
+==============================================================================

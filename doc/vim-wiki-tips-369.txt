@@ -1,0 +1,144 @@
+*vim-wiki-tips-369.txt*   Comment/UnComment visually selected text *vwt-369*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip981 |vwt-981|
+    - VimTip369 |vwt-369|
+    - VimTip388 |vwt-388|
+    - VimTip271 |vwt-271|
+    - VimTip660 |vwt-660|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 369 [https://vim.fandom.com/wiki/Comment/UnComment_visually_selected_text]   Previous |vwt-367| Next |vwt-371|
+
+created 2002 · complexity intermediate · author Amit Neogy · version 6.0
+
+==============================================================================
+
+Visually selected code can be easily Commented out and uncommented by using 
+the following functions. The functions insert/delete C/C++/Java style 
+comments. The comment characters can be modified by editing the functions.
+
+Add the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]. It will 
+add two menu items under the "Edit" menu in gVim. The function calls can be 
+mapped to keystrokes if desired.
+
+>
+    "Menu items for Commenting and Un-Commenting code
+    amenu 20.435 &Edit.-SEP4- :
+    amenu Edit.Comment <Esc>`<:let fl=line(".")<CR>`>:let ll=line(".")<CR>:call Comment(fl, ll)<CR>
+    amenu Edit.UnComment <Esc>`<:let fl=line(".")<CR>`>:let ll=line(".")<CR>:call UnComment(fl, ll)<CR>
+    
+    "Function for commenting a block of Visually selected text
+    function Comment(fl, ll)
+      let i=a:fl
+      let comment="//"
+      while i<=a:ll
+        let cl=getline(i)
+        let cl2=comment.cl
+        call setline(i, cl2)
+        let i=i+1
+      endwhile
+    endfunction
+    
+    "Function for Un-Commenting a block of Visually selected text
+    function UnComment(fl, ll)
+      let i=a:fl
+      let comment="//"
+      while i<=a:ll
+        let cl=getline(i)
+        let cl2=substitute(cl, "//", "", "")
+        call setline(i, cl2)
+        let i=i+1
+      endwhile
+    endfunction
+<
+
+COMMENTS  *vwt-369-comments*
+
+There are a few scripts here already, that will do the same in a more general 
+way, nevertheless I'd suggest the following changes
+
+>
+    let comment="// "
+<
+
+in Comment() for better readability, and
+
+>
+    let cl2=substitute(cl, "^\s*// ", "", "")
+<
+
+in UnComment() to ensure the comment will only be replaced at the beginning 
+of a line.
+
+==============================================================================
+
+I find it easier to simply select the area you want to comment out in 
+visual-block mode (usually CTRL-V or CTRL-Q), type "I" (CAPS - EYE) type the 
+comment character '//' and ESC. This gives me the flexibility to change my 
+comment character (for instance make it /// for later searches) and is 
+straight-forward. To uncomment, simply select the comment characters is 
+visual-block mode, and delete them.
+
+==============================================================================
+
+isn't more pratical select the lines (block-visual) and insert your comment 
+(i do it inserting 'c' on fortran sources):
+
+>
+    <c-v>
+    ... move around ...
+    0 (be sure to stay at first column!)
+    I (insert)
+    // (or what you like)
+    <Esc> (with some Vim versions (7.2) you need to press "move down" now)
+<
+
+to remove them, select it (<c-v> do the magic), and press 'x'
+
+==============================================================================
+
+I use the following (for haskell style comments, just replace -- with 
+whatever your line comment characters are)
+
+>
+    map ,c :s/^/-- /<CR>
+    map ,u :s/^-- //<CR>
+<
+
+So, typing ,c in normal mode will comment lines, typing ,u will uncomment 
+them.
+
+Works in visual mode as well.
+
+==============================================================================
+
+This is my current setup, it works very nicely.
+
+>
+    au FileType haskell,vhdl,ada let b:comment_leader = '-- '
+    au FileType vim let b:comment_leader = '" '
+    au FileType c,cpp,java let b:comment_leader = '// '
+    au FileType sh,make let b:comment_leader = '# '
+    au FileType tex let b:comment_leader = '% '
+    noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
+    noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
+    
+    ,c comments out a region
+    ,u uncomments a region
+<
+
+==============================================================================

@@ -1,0 +1,65 @@
+*vim-wiki-tips-197.txt*   Open file in already running vim from elsewhere *vwt-197*
+
+Tip 197 [https://vim.fandom.com/wiki/Open_file_in_already_running_vim_from_elsewhere]   Previous |vwt-196| Next |vwt-198|
+
+created 2002 · complexity basic · author T. Zellerin · version 7.4
+
+==============================================================================
+
+If you want to edit a new file in an already-running Vim, instead of 
+launching another instance, you may use --remote argument:
+
+>
+    gvim first_file
+    gvim --remote +split first_file
+<
+
+It requires X windows (but works in terminal version of Vim there too) or MS 
+Windows and built-in client-server mechanism. If there are several instances 
+of vim already running, you may choose to which you talk using --servername
+
+REFERENCES  *vwt-197-references*
+    - :help  |--remote|
+    - :help  |--servername|
+
+
+COMMENTS  *vwt-197-comments*
+
+Just wanted to add to this that there are built-in functions available that 
+let you do the same thing from within running Vim session. It is cool, if you 
+want some sample code, see the following script:script#180 
+[https://www.vim.org/scripts/script.php?script_id=180]
+
+==============================================================================
+
+I have the following alias in shell initialization script file (~/.bashrc)
+
+>
+    alias gvir="gvim --remote"
+<
+
+Then, it is very convenient for me to open a file in an existing gvim window.
+
+>
+    $ gvir new_file
+<
+
+==============================================================================
+
+If you are using some buffer manager like script#159 
+[https://www.vim.org/scripts/script.php?script_id=159] you might find the 
+following bash alias commands useful to start vim:
+
+>
+    alias gvdev=" gvim --servername foo --remote"
+    alias gvlib=" gvim --servername bar --remote"
+<
+
+You can use different names, etc, but the gist of it is that you can open 
+different files into one or many windows. Use gvdev to open your actual 
+scripts and gvlib to open config, headers, libraries, etc.
+
+You don't have to worry about pre-starting a server...if it's not found, gvim 
+will start with that name anyway.
+
+==============================================================================

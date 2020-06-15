@@ -1,0 +1,27 @@
+*vim-wiki-tips-164.txt*   Make non-ASCII characters displayed on console *vwt-164*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 164 [https://vim.fandom.com/wiki/Make_non-ASCII_characters_displayed_on_console]   Previous |vwt-159| Next |vwt-165|
+
+created November 14, 2001 · complexity basic · author Gerhard Häring · 
+version 5.7
+
+==============================================================================
+
+I had a problem with VIM on the FreeBSD console: it didn't display characters 
+like German umlauts correctly, but escaped them with a tilde. The solution is 
+to teach VIM about printable characters. I use the following on my vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    set isprint=@,128-255
+<
+
+COMMENTS  *vwt-164-comments*

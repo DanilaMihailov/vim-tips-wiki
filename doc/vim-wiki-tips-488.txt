@@ -1,0 +1,103 @@
+*vim-wiki-tips-488.txt*   Start with a wide window for diff *vwt-488*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 488 [https://vim.fandom.com/wiki/Start_with_a_wide_window_for_diff]   Previous |vwt-485| Next |vwt-489|
+
+created 2003 · complexity basic · author jaldri1 · version 6.0
+
+==============================================================================
+
+The Vim diff feature (fantastic as it is) opens with the default window width 
+(gvim), and the two files each get a half width buffer windows with a vertical 
+split between them. When you resize, only one buffer window changes. We might 
+write function to automatically center the split and possibly trigger it 
+automatically with an autocmd (advanced). However, we can still have Vim open 
+with a wider window when performing a diff. The following code can be added to 
+the vimrc file. Be sure to adjust the numbers for the available screen 
+real-estate and the other settings to taste.
+
+>
+    " Window settings
+    set lines=60 " Set window height
+    set columns=98 " Set window width 'co'
+    set guioptions+=b " Add bottom scroll bar 'go'
+    " If comparing files side-by-side, then ...
+    if &diff
+      " double the width up to a reasonable maximum
+      let &columns = ((&columns*2 > 172)? 172: &columns*2)
+    endif
+<
+
+Remember, the default for the columns setting is either 80 or the terminal 
+width. I wouldn't expect consistant results for non-gVim usage. By the way, I 
+still need to add a test to detect vim vs. gVim in my own vimrc (perhaps 
+greping $VIM for gvim) so that I can adjust colors and other settings 
+accordingly. Note that the expression in the let statement can be replaced 
+with a constant. But, that expression may prove usefull if the columns setting 
+is to vary (e.g. a filetype plugin). For a general function (intermediate), 
+someone would want to come up with some global names like MaxScreenColumns or 
+MaxBufferColumns.
+
+COMMENTS  *vwt-488-comments*
+
+To check if the GUI is enabled, just test with:
+
+>
+    if has("gui_running") ... endif
+<
+
+Another solution is to put GUI-specific code in your .gvimrc instead, which 
+can make stuff a lot cleaner.
+
+==============================================================================
+
+For code that should only be executed when running gvim, wrap it in:
+
+>
+    if has("gui")
+      " ...
+    endif
+<
+
+You can also check the availability of options with exists("+guioptions"). 
+Note that for exists(), '+' is different then '&'.
+
+==============================================================================
+
+If you want exactly 80 columns in each half:
+
+>
+    if &diff
+      let &columns = 160 + 2*&foldcolumn + 1
+    endif
+<
+
+The last 1 is for the vertical separator.
+
+==============================================================================
+
+For win32 users, this will maximize the gvim window and split the two windows 
+equally:
+
+>
+    if has("gui_running")
+      if &diff
+        autocmd VimResized * wincmd =
+        autocmd GuiEnter * simalt ~x
+      endif
+    endif
+<
+
+"wincmd =" is the same as Ctrl-= and makes split windows equal sized. See 
+Maximize or set initial window size 
+[https://vim.fandom.com/wiki/Maximize_or_set_initial_window_size] for "simalt 
+~x". --waywardson
+
+==============================================================================

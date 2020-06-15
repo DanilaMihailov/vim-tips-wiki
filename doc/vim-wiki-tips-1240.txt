@@ -1,0 +1,121 @@
+*vim-wiki-tips-1240.txt*   Automatically position the cursor when editing email messages *vwt-1240*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1240 [https://vim.fandom.com/wiki/Automatically_position_the_cursor_when_editing_email_messages]   Previous |vwt-1238| Next |vwt-1244|
+
+created 2006 · complexity basic · author Davide Alberani · version 5.7
+
+==============================================================================
+
+>
+    " Tip: Place the cursor in the optimal position, editing email messages.
+    " Author: Davide Alberani
+    " Version: 0.1
+    " Date: 24 May 2006
+    " Description: if you use Vim to edit your emails, having to manually
+    " move the cursor to the right position can be quite annoying.
+    " This command will place the cursor (and enter insert mode)
+    " in the more logical place: at the Subject header if it's
+    " empty or at the first line of the body (also taking
+    " care of the attribution, to handle replies messages).
+    " Usage: I like to call the Fip command by setting the command that is used
+    " by my mail reader (mutt) to execute Vim. E.g. in my muttrc I have:
+    " set editor="vim -c ':Fip'"
+    " Obviously you can prefer to call it using an autocmd:
+    " " Modify according to your needs and put this in your vimrc:
+    " au BufRead mutt* :Fip
+    " Hints: read the comments in the code and modify it according to your needs.
+    " Keywords: email, vim, edit, reply, attribution, subject, cursor, place.
+    
+    " Function used to identify where to place the cursor, editing an email.
+    function FirstInPost (...) range
+      let cur = a:firstline
+      while cur <= a:lastline
+        let str = getline(cur)
+        " Found an _empty_ subject in the headers.
+        " NOTE: you can put similar checks to handle other empty headers
+        " like To, From, Newgroups, ...
+        if str == 'Subject: '
+          execute cur
+          :start!
+          break
+        endif
+        " We have reached the end of the headers.
+        if str == ''
+          let cur = cur + 1
+          " If the first line of the body is an attribution, put
+          " the cursor _after_ that line, otherwise the cursor is
+          " leaved right after the headers (assuming we're writing
+          " a new mail, and not editing a reply).
+          " NOTE: modify the regexp to match your mail client's attribution!
+          if strlen(matchstr(getline(cur), '^On.*wrote:.*')) > 0
+            let cur = cur + 1
+          endif
+          execute cur
+          :start
+          break
+        endif
+        let cur = cur + 1
+      endwhile
+    endfunction
+    
+    " Command to be called.
+    com Fip :set tw=0<Bar>:%call FirstInPost()
+<
+
+COMMENTS  *vwt-1240-comments*
+
+I prefer to start two lines into the first big chunk of empty text (either in 
+the main body on a new email, or after all the quoted lines on a reply), so I 
+changed the
+
+>
+    if str == ''
+    let cur = cur + 1
+    " If the first line of the body is an attribution, put
+    " the cursor _after_ that line, otherwise the cursor is
+    " leaved right after the headers (assuming we're writing
+    " a new mail, and not editing a reply).
+    " NOTE: modify the regexp to match your mail client's attribution!
+    if strlen(matchstr(getline(cur), '^On.*wrote:.*')) > 0
+    let cur = cur + 1
+    endif
+    execute cur
+    :start
+    break
+    endif
+<
+
+to
+
+>
+    if str == ''
+    :start
+    normal gg/\n\n\n^M2ji
+    break
+    endif
+<
+
+Note that the ^M there is entered with Ctrl-V Ctrl-M (or Ctrl-Q Ctrl-M on 
+Windows).
+
+==============================================================================
+
+Here's a one-line-in-the-dot-vimrc option:
+
+>
+    autocmd BufRead mutt* execute 'normal gg/\n\n\n^M2j'
+<
+
+I prefer to still stay in normal mode in case I need to search or perform 
+other commands before entering insert mode. Your signature will need to start 
+with a few newlines in it for the above to work.
+
+==============================================================================

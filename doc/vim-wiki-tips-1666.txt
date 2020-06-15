@@ -1,0 +1,46 @@
+*vim-wiki-tips-1666.txt*   Jump between methods in C++ *vwt-1666*
+
+
+
+This tip is too small!
+
+This tip is too simple, too obvious, or just plain not long enough as-is. 
+Please expand it or find a place to merge the information into another similar 
+tip. If you don't feel up to the merge yourself feel free to add a merge 
+suggestion in the comments section |vwt-1666-comments| or by adding a 
+Duplicate [https://vim.fandom.com/wiki/Template:Duplicate] tag.Tip 1666 [https://vim.fandom.com/wiki/Jump_between_methods_in_C%2B%2B]   Previous |vwt-1665| Next |vwt-1667|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201010#Jump_between_methods_in_C.2B.2B] 
+October 8, 2010 · complexity basic · version 7.0
+
+==============================================================================
+
+This tip shows how to easily jump to the next or previous method in a C++ 
+program using a simple regular expression.
+
+JUMP TO NEXT/PREVIOUS METHOD  *vwt-1666-jump-to-next/previous-method*
+
+Put these lines in your vimrc [https://vim.fandom.com/wiki/Vimrc] and you can 
+press Alt-Shift-J (or Alt-Shift-K) to jump to the next (or previous) method in 
+a C++ file:
+
+>
+    nnoremap <M-J> /\v^(\w+\s+)?\w+::\w+\(.*\)
+    nnoremap <M-K> ?\v^(\w+\s+)?\w+::\w+\(.*\)
+<
+
+Better still, if this is in file ftplugin/cpp.vim, it only activates when 
+editing C++ files.
+
+This only works if the format of the method is:
+
+>
+    type classname::methodname(args)
+<
+
+SEE ALSO  *vwt-1666-see-also*
+    - Highlighting of method names in the definition [https://vim.fandom.com/wiki/Highlighting_of_method_names_in_the_definition] for a syntax-file addition to emphasize method names
+
+
+COMMENTS  *vwt-1666-comments*

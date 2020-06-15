@@ -1,0 +1,56 @@
+*vim-wiki-tips-1646.txt*   Quick command in insert mode *vwt-1646*
+
+Tip 1646 [https://vim.fandom.com/wiki/Quick_command_in_insert_mode]   Previous |vwt-1645| Next |vwt-1647|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201002#Quick_command_in_insert_mode] 
+February 27, 2010 · complexity basic · author Bmx007 · version 7.0
+
+==============================================================================
+
+You can use CTRL-O or CTRL-\ CTRL-O (see :help |ins-special-special|) to 
+execute a normal-mode command without leaving insert mode. But this is awkward 
+for frequently used commands. Even mapping keys like <F5> or CTRL key 
+combinations can be difficult to reach, and there are not many available keys 
+to map 
+[https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)#Finding_unused_keys]. 
+If you want quick access to common normal-mode commands from insert mode, 
+hitting <ESC> to actually go to normal mode may not be attractive.
+
+You can Avoid the escape key 
+[https://vim.fandom.com/wiki/Avoid_the_escape_key], but it can be faster to 
+map double uppercase letters in insert mode to common commands. Most people 
+don't use two uppercase letters in a row. If you do actually need to insert 
+any text from these mappings, you can always type CTRL-V before the second 
+character in the mapping (:help |i_CTRL-V|), or wait for the mapping to time 
+out first.
+
+QUICK MOVEMENTS  *vwt-1646-quick-movements*
+
+>
+    inoremap II <Esc>I
+    inoremap AA <Esc>A
+    inoremap OO <Esc>O
+<
+
+Those mappings stay in insert mode.
+    - II go to just before the first non-blank text of the line
+    - AA go to the end of the line
+    - OO start editing on a new line above the current line
+
+
+LINE MODIFICATIONS  *vwt-1646-line-modifications*
+
+>
+    inoremap CC <Esc>C
+    inoremap SS <Esc>S
+    inoremap DD <Esc>dd
+    inoremap UU <Esc>u
+<
+    - CC change what is on the right of the cursor
+    - SS change the whole line
+    - DD delete the current line (end in normal mode)
+    - UU undo
+
+
+COMMENTS  *vwt-1646-comments*

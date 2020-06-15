@@ -1,0 +1,76 @@
+*vim-wiki-tips-219.txt*   Run make from command line and open Vim on errors *vwt-219*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 219 [https://vim.fandom.com/wiki/Run_make_from_command_line_and_open_Vim_on_errors]   Previous |vwt-218| Next |vwt-220|
+
+created 2002 · complexity basic · author scott urban · version 5.7
+
+==============================================================================
+
+A simple alias (*csh) or shell function (bash) will let you run make from 
+your shell, then automatically open vim or gvim on the errors (if there were 
+any):
+
+csh or tcsh:
+
+>
+    alias Make 'make \!* |& tee make.errors || gvim -q make.errors -c :copen'
+<
+
+bash:
+
+>
+    Make () { command make "$@" |& tee make.errors || gvim -q make.errors -c :copen ; }
+<
+
+If you use vanilla sh or ksh or even cmd.exe, you can probably do the same - 
+add a note if you have ideas.
+
+COMMENTS  *vwt-219-comments*
+
+The '|&' before the 'tee' doesn't work on Bash version 3.00.15(1)-release. I 
+had to take out '&' for it to run.
+
+What does the '&' make the pipe do? Answer: pipes both stdout and stderr.
+
+==============================================================================
+
+Is this somehow better than running make from within Vim using the :make 
+command?
+
+I have an alias like this:
+
+>
+    alias vmake 'vim -c make! -c cwindow'
+<
+
+Much more elegant, in my opinion.
+
+==============================================================================
+
+After added this to ~/.bashrc
+
+>
+    Make () {
+       make "$@" 3>&1 1>&2 2>&3 | tee make.errors
+       N=`wc -l make.errors|cut -d ' ' -f 1`
+       if [ $N"x" != "0x" ]; then
+           vim -q make.errors -c :copen
+       fi
+    }
+<
+
+Compiling your program, Ex:
+
+>
+    #Make clean all
+<
+
+If error happened, then vim invokes automatically.

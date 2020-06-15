@@ -1,0 +1,82 @@
+*vim-wiki-tips-660.txt*   Comment lines in different filetypes *vwt-660*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+
+
+
+
+This tip is very similar to the following:
+    - VimTip981 |vwt-981|
+    - VimTip369 |vwt-369|
+    - VimTip388 |vwt-388|
+    - VimTip271 |vwt-271|
+    - VimTip660 |vwt-660|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 660 [https://vim.fandom.com/wiki/Comment_lines_in_different_filetypes]   Previous |vwt-659| Next |vwt-662|
+
+created 2004 · complexity intermediate · author SmartDen/Firelex · version 
+5.7
+
+==============================================================================
+
+This code snippet is a part of a vimrc file to set comments in various 
+filetypes. The function CommentIt() decides itself, according to the current 
+file's type which variant of comments to use.
+
+This function should be called with autocmd BufEnter * call CommentIt() 
+somewhere after its declaration to be invoked every time the user enters a new 
+buffer.
+
+>
+    function CommentIt ()
+      if &filetype == "vim"
+        vmap +# :s/^/"/<CR>
+        vmap -# :s/^"//<CR>
+      elseif &filetype == "tcl"
+        vmap +# :s/^/#/<CR>
+        vmap -# :s/^#//<CR>
+      elseif &filetype == "c"
+        vmap +# I/*<Esc>gv<End><Esc>a*/<Esc>
+        vmap -# I<Esc>2xgv$<Esc>h2x<Esc>
+      elseif &filetype == "cpp"
+        vmap +# A<End><CR><Esc>gv:s/^/ *<CR>gvI<Esc>ko<Home>/*<Esc>gvA<Esc>ji */
+        vmap -# :s/^..//<CR>gvI<Esc>ddgvA<Esc>dd
+      elseif &filetype == "dosbatch"
+        vmap +# :s/^/rem /<CR>
+        vmap -# :s/^rem //<CR>
+      endif
+    endfunction
+    "...
+    autocmd BufEnter * call CommentIt ()
+<
+
+COMMENTS  *vwt-660-comments*
+
+Better yet, try script#23 
+[https://www.vim.org/scripts/script.php?script_id=23].
+
+==============================================================================
+
+You can also put filetyp depending stuff in your local syntax files, e.g.
+
+>
+    $HOME/vimfiles/after/syntax/tcl.vim (on Windows)
+<
+
+==============================================================================
+
+Not {rtp}/after/syntax/, use {rtp}/ftplugin/. This have nothing to do with 
+syntax files.
+
+I (also) recommend EnhancedCommentify.
+
+==============================================================================

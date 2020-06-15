@@ -1,0 +1,89 @@
+*vim-wiki-tips-1558.txt*   Overload a key with multiple handlers *vwt-1558*
+
+Tip 1558 [https://vim.fandom.com/wiki/Overload_a_key_with_multiple_handlers]   Previous |vwt-1557| Next |vwt-1559|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Overload_a_key_with_multiple_handlers] 
+2008 · complexity basic · author Niels AdB · version 7.0
+
+==============================================================================
+
+The following function can be used to maintain a list of handlers, to make 
+handling a keypress in different contexts more dynamic.
+
+>
+    function! RunHandlers(handler_list, default_action)
+      for handler in a:handler_list
+        execute "let handled = " handler."()"
+        if handled
+          return
+        endif
+      endfor
+      execute a:default_action
+    endfunction
+<
+
+This function calls a list of handlers until one returns true, indicating the 
+event was handled. If no handler returns true, a default action is executed.
+
+Take for example, the following CloseScratch function.
+
+>
+    function! CloseScratch()
+      if &buftype == "nofile" && &bufhidden == "hide" && !&swapfile
+        bdelete
+        return 1
+      endif
+      return 0
+    endfunction
+<
+
+Using RunHandlers I can now dynamically overload <Esc> to call this function 
+(in normal mode), like so:
+
+>
+    " Default Escape and clear message line.
+    function! DefaultEsc()
+      normal! "<Esc>"
+      echo ""
+    endfunction
+    
+    let g:esc_handler = []
+    call add(g:esc_handler, "CloseScratch")
+    nnoremap <Esc> :call RunHandlers(g:esc_handler, "call DefaultEsc()")<CR>
+<
+
+Adding more handlers should be easy enough. In this case, CloseScratch is 
+tried first, and if that fails DefaultEsc is called.
+
+COMMENTS  *vwt-1558-comments*
+
+Try using :silent or <silent> rather than an empty echo to make the bottom 
+line clear.
+    - :help  |:silent|
+    - :help  |:map-silent|
+
+
+This is a pretty cool tip though! I like the idea of multiple things mapped 
+to the same key.
+
+I think the idea of echo "" is to clear the message line, for example, if you previously got a "Pattern not found" message.
+I think you're right about the purpose, but I personally think it is better to avoid the message in the first place with :silent! or the 'e' option for searches. But I guess I'm just nitpicking.
+Here is the idea: I search for 'fangle'. Oops, not found. So now there is a "Pattern not found" message on my screen. Some people (I am one of them) can't concentrate while prominent messages are displayed, so I have mapped Space to ':nohl' and ':echo ""'. I once tried to convince Bram that Esc should default to do exactly that because I've seen other people use Vim and go crazy while trying to remove no-longer wanted search highlights and messages. No one on vim_use could understand my POV.
+
+==============================================================================
+
+Will someone please explain what DefaultEsc actually does!? I can understand 
+the echo, and I know that normal! "<Esc>" will execute the normal command 
+"press the Escape key" (without invoking any mapping for that key). But what 
+does the Escape key do in normal mode (apart from beep/flash if you had them 
+turned on)??
+
+for example it cancels any typed v:count or v:register
+
+I have improved the script, and I can see that it is potentially useful, but 
+I think the tip is pretty disappointing without a realistic example of 
+chaining a couple of handlers. --JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 11:26, 9 May 2008 (UTC)
+
+==============================================================================

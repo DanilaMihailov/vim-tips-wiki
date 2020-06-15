@@ -1,0 +1,41 @@
+*vim-wiki-tips-1654.txt*   Display UTF-8 characters in Mac Quicklook *vwt-1654*
+
+Tip 1654 [https://vim.fandom.com/wiki/Display_UTF-8_characters_in_Mac_Quicklook]   Previous |vwt-1653| Next |vwt-1655|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201006#Display_UTF-8_characters_in_Mac_Quicklook] 
+June 5, 2010 · complexity basic · author Dnlcorrea · version 7.0
+
+==============================================================================
+
+If you save a file using Vim or MacVim and try to open it with Quicklook, the 
+characters will not display correctly. That is because Mac OS uses an extended 
+attribute to determine the encoding of a file.
+
+To fix, add this to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    au BufWritePost * :if &fenc=='utf-8' || (&fenc=='' && &enc=='utf-8') | exec "silent !xattr -w com.apple.TextEncoding 'UTF-8;134217984' \"%\"" | endif
+<
+
+This will append the extended attribute in every file you save with a UTF-8. 
+Note that % is in double quotes to escape spaces for the shell. The :silent 
+command prevents Vim from displaying the results (which are empty).
+
+If you want this for .txt files only, use the following instead:
+
+>
+    au BufWritePost *.txt :if &fenc=='utf-8' || (&fenc=='' && &enc=='utf-8') | exec "silent !xattr -w com.apple.TextEncoding 'UTF-8;134217984' \"%\"" | endif
+<
+
+Using the command ls -l will show '@' in the file's attributes, for example:
+
+>
+    -rw-r--r--@ 1 daniel  staff  15 Jun  5 10:12 lol.txt
+<
+
+COMMENTS  *vwt-1654-comments*
+
+TO DO
+    -  Use shellquote instead of surrounding with spaces manually?
+    -  explain the 134... number. What the heck is it for?

@@ -1,0 +1,104 @@
+*vim-wiki-tips-610.txt*   Use abbreviations for frequently-used words *vwt-610*
+
+Tip 610 [https://vim.fandom.com/wiki/Use_abbreviations_for_frequently-used_words]   Previous |vwt-609| Next |vwt-613|
+
+created 2003 · complexity intermediate · version 6.0
+
+==============================================================================
+
+Vim can expand abbreviations entered while in insert mode. An abbreviation is 
+defined by adding a line like the following to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    iabbrev <keys> <expansion>
+<
+
+Replace <keys> with the letter or letters which should be expanded to 
+<expansion>, for example:
+
+>
+    iabbrev #i #include (typing "#i" and space will be expanded to "#include")
+    iabbrev #d #define  (typing "#d" and space will be expanded to "#define")
+    iabbrev s struct    (typing "s" and space will be expanded to "struct")
+    iabbrev t typedef   (typing "t" and space will be expanded to "typedef")
+<
+
+In some cases Vim expands a letter automatically that you don't want. You 
+have to watch out for that.
+
+When entering a word which is already in the buffer, Ctrl-P or Ctrl-N can be 
+used to autocomplete [https://vim.fandom.com/wiki/Any_word_completion] the 
+word currently being entered. Autocompletion does not require abbreviations to 
+have been defined, but it only works for a word consisting of characters 
+matching the 'iskeyword' option.
+
+If wanted, dictionary completion 
+[https://vim.fandom.com/wiki/Dictionary_completions] can used to define words 
+that can be autocompleted. For example, with the following settings, Ctrl-P or 
+Ctrl-N will work with words defined in the specified dictionary file:
+
+>
+    :set complete+=k
+    :set dictionary+=/your/dict/file
+<
+
+COMMENTS  *vwt-610-comments*
+
+You can put your common typos as abbreviations, for auto correction:
+
+>
+    iabbrev teh the
+    iabbrev seperate separate
+<
+
+==============================================================================
+
+> How cut the space from the resulted substitution?
+
+From :help |abbreviations|: An exception to this is the character <C-]> 
+(Ctrl-]), which is used to expand an abbreviation without inserting any extra 
+characters.
+
+Example:
+
+>
+    :iabbrev hh hello
+        "hh<Space>" is expanded to "hello<Space>"
+        "hh<C-]>" is expanded to "hello"
+<
+
+==============================================================================
+
+Use getchar() to eat up that space, for example:
+
+>
+    iabbrev <t <target name="%"></target><Esc>F%s<c-o>:call getchar()<CR>
+<
+
+==============================================================================
+
+Regarding how to eat the last typed character (when it is a space): Use 
+:Iabbr and :Inoreabbr from script#50 
+[https://www.vim.org/scripts/script.php?script_id=50].
+
+==============================================================================
+
+See the SuperTab plugin 
+[https://www.vim.org/scripts/script.php?script_id=1643]. It does almost all of 
+this without the need for programming.
+
+==============================================================================
+
+To eat the last space, for example, with:
+
+>
+    iabbrev did <div id="
+<
+
+In insert mode, type did then press Ctrl-]
+
+Result: The abbreviation is expanded with no extra characters, and you are 
+still in insert mode and can continue typing.
+
+==============================================================================

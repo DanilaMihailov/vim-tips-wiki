@@ -1,0 +1,43 @@
+*vim-wiki-tips-641.txt*   Highlighting of method names in the definition *vwt-641*
+
+Tip 641 [https://vim.fandom.com/wiki/Highlighting_of_method_names_in_the_definition]   Previous |vwt-640| Next |vwt-642|
+
+created 2004 · complexity basic · author Olivier Teuliere · version 6.0
+
+==============================================================================
+
+When editing big cpp files, it can be very convenient to highlight the method 
+name (the part after "::") in a method definition.
+
+I use the following function in my vimrc:
+
+>
+    " Add highlighting for function definition in C++
+    function! EnhanceCppSyntax()
+      syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
+      hi def link cppFuncDef Special
+    endfunction
+<
+
+I have another line to call this function automatically when editing a C++ 
+file:
+
+>
+    autocmd Syntax cpp call EnhanceCppSyntax()
+<
+
+This doesn't work in all cases (for instance, it doesn't highlight 
+constructors using an initialization list on the same line) but it shouldn't 
+highlight function calls (such as MyClass::MyStaticMethod( int foo ); )
+
+SEE ALSO  *vwt-641-see-also*
+    -  Jump between methods in C++ [https://vim.fandom.com/wiki/Jump_between_methods_in_C%2B%2B]
+
+
+COMMENTS  *vwt-641-comments*
+
+To further facilitate adding user-defined extensions to existing syntax 
+files, you can use a ".vim/after/syntax/" directory. See :help 
+|mysyntaxfile-add|.
+
+==============================================================================

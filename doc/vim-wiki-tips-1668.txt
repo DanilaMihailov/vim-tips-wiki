@@ -1,0 +1,69 @@
+*vim-wiki-tips-1668.txt*   Autoloading Cscope Database *vwt-1668*
+
+Tip 1668 [https://vim.fandom.com/wiki/Autoloading_Cscope_Database]   Previous |vwt-1667| Next |vwt-1669|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201102#Autoloading_Cscope_Database] 
+February 11, 2011 · complexity basic · author Dorserg · version 7.0
+
+==============================================================================
+
+By default, Cscope script [http://cscope.sourceforge.net/cscope_maps.vim] 
+adds cscope.out from Vim's current directory and from $CSCOPE_DB. However, if 
+you start Vim from say ~/proj/src/a/b/c/, while cscope.out is at ~/proj/src/, 
+that cscope.out won't be loaded automatically.
+
+For ctags, there is a nice trick: with the command :set tags=tags;/ Vim will 
+look for tags file everywhere starting from the current directory up to the 
+root.
+
+This tip provides the same "autoloading" functionality for Cscope. Just add 
+the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    function! LoadCscope()
+      let db = findfile("cscope.out", ".;")
+      if (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        set cscopeverbose
+      " else add the database pointed to by environment variable 
+      elseif $CSCOPE_DB != "" 
+        cs add $CSCOPE_DB
+      endif
+    endfunction
+    au BufEnter /* call LoadCscope()
+<
+
+SEE ALSO  *vwt-1668-see-also*
+    - Cscope [https://vim.fandom.com/wiki/Cscope]
+
+
+COMMENTS  *vwt-1668-comments*
+
+If somebody use gVim in the windows(like me use Winxp), a modified script for 
+the _vimrc script maybe helpful as follow:
+
+>
+    function LoadCscope()
+    	if (executable("cscope") && has("cscope"))
+    		let UpperPath = findfile("cscope.out", ".;")
+    		if (!empty(UpperPath))
+    			let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)	
+    			if (!empty(path))
+    				let s:CurrentDir = getcwd()
+    				let direct = strpart(s:CurrentDir, 0, 2) 
+    				let s:FullPath = direct . path
+    				let s:AFullPath = globpath(s:FullPath, "cscope.out")
+    				let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath 
+    				execute s:CscopeAddString 
+    			endif
+    		endif
+    	endif
+    endfunction
+    command LoadCscope call LoadCscope()
+<
+
+The last statement "Command LoadCscope call LoadCscope()" means that we can 
+use command :LoadCscope to call the function LoadCscope for convinence.

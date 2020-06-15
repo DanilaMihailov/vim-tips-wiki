@@ -1,0 +1,33 @@
+*vim-wiki-tips-745.txt*   Find VIMRUNTIME in a bash script *vwt-745*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 745 [https://vim.fandom.com/wiki/Find_VIMRUNTIME_in_a_bash_script]   Previous |vwt-744| Next |vwt-746|
+
+created June 15, 2004 · complexity advanced · author Steve Hall · version 6.0
+
+==============================================================================
+
+I recently needed the value of $VIMRUNTIME in a bash shell script and was 
+forwarded these two terrific solutions that may be of use to others.
+
+>
+    vim --cmd 'echo $VIMRUNTIME' --cmd 'quit' 2> /tmp/VIMRUNTIME.txt
+    VIMRUNTIME=`perl -pe 's/\r\n//g' /tmp/VIMRUNTIME.txt`
+    rm -f /tmp/VIMRUNTIME.txt
+<
+
+>
+    VIMRUNTIME=`vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015' `
+<
+
+Both properly capture Vim's output and handle the trailing line feed, 
+although in remarkably different ways.
+
+COMMENTS  *vwt-745-comments*

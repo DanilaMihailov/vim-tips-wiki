@@ -1,0 +1,158 @@
+*vim-wiki-tips-331.txt*   Modeline magic *vwt-331*
+
+Tip 331 [https://vim.fandom.com/wiki/Modeline_magic]   Previous |vwt-330| Next |vwt-332|
+
+created 2002 · complexity basic · version 6.0
+
+==============================================================================
+
+Options set in your vimrc [https://vim.fandom.com/wiki/Vimrc] will apply to 
+all files that you edit. You can also set:
+    - Different options for all files of a certain type (for example, all *.py files). See filetype.vim [https://vim.fandom.com/wiki/Filetype.vim] and filetypes |vwt-1510| and an example |vwt-1565|.
+    - Different options for a particular file using modelines (this tip).
+
+
+Note that the 'modeline' option must be set in order to take advantage of 
+this tip. This option is set by default for Vim running in nocompatible mode, 
+but some notable distributions of Vim disable this option in the system vimrc 
+for security. In addition, it is off by default when editing as root. See 
+:help 'modeline' for more information.
+
+EXAMPLES  *vwt-331-examples*
+
+For example, in a particular file you may want each tab character that you 
+type to be expanded to spaces. To achieve this, put the following modeline 
+near(*) the top or the bottom of that file:
+
+>
+    # vim: set expandtab:
+<
+
+The space between the comment opening and vim: is required, otherwise the 
+modeline will not be recognized.
+
+(*) "Near" means within 5 lines of the top or bottom (you can change the 
+default number of lines with the 'modelines' option).
+
+The following examples show some alternatives that could be in a C file:
+
+>
+    // vim: noai:ts=4:sw=4
+       -or-
+    /* vim: noai:ts=4:sw=4
+    */
+       -or-
+    /* vim: set noai ts=4 sw=4: */
+       -or-
+    /* vim: set fdm=expr fde=getline(v\:lnum)=~'{'?'>1'\:'1': */
+<
+
+With "set", the modeline ends at the first colon not following a backslash. 
+Without "set", no text can follow the options, so for example, the following 
+is invalid:
+
+>
+    Error E518: Unknown option: */
+    /* vim: noai:ts=4:sw=4 */
+<
+
+ADDING A MODELINE  *vwt-331-adding-a-modeline*
+
+With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] and the 
+default leader key, you could type \ml to add a modeline based on your current 
+settings:
+
+>
+    " Append modeline after last line in buffer.
+    " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+    " files.
+    function! AppendModeline()
+      let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+            \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+      let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+      call append(line("$"), l:modeline)
+    endfunction
+    nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+<
+
+In a C file, you would get a modeline like this:
+
+>
+    /* vim: set ts=8 sw=4 tw=0 noet : */
+<
+
+Alternatively, you could use a simple menu entry, for example:
+
+>
+    amenu Edit.Insert\ &modeline <C-\><C-N>ggOvim:ff=unix ts=4 ss=4<CR>vim60:fdm=marker<Esc>
+<
+
+Choosing the menu item would insert two modelines like this:
+
+>
+    vim:ff=unix ts=4 ss=4
+    vim60:fdm=marker
+<
+
+ENABLING MODELINES  *vwt-331-enabling-modelines*
+
+Vim executes a modeline only if all of the following apply:
+    - 'modeline' is set to "modeline" (not "nomodeline")
+    - 'modelines' is set to a positive integer (not "0")
+    - You are not root.
+
+
+Enter the following to see the current settings and, if not the default, 
+where they were last set.
+
+>
+    :verbose set modeline? modelines?
+<
+
+Debian, Ubuntu, Gentoo, OSX, etc. by default disable modelines for security 
+reasons. To enable modelines, edit your vimrc file (for example, in Vim enter 
+:e $MYVIMRC) and check you have lines like the following.
+
+>
+    set modeline
+    set modelines=5
+<
+
+SECURITY  *vwt-331-security*
+
+TO DO
+    - Need note on security implications of modelines and reference to alternatives.
+    - Text other than "vim:" can be recognised as a modeline.
+    - Google "vim modeline vulnerability" (without quotes) for information.
+
+
+REFERENCES  *vwt-331-references*
+    - :help  |auto-setting|
+    - :help  |modeline|
+    - :help 'modeline' determines whether to look for modelines
+    - :help 'modelines' number of lines checked to find each modeline
+
+
+COMMENTS  *vwt-331-comments*
+
+This mechanism can be extended to 'let' – see script#83 
+[https://www.vim.org/scripts/script.php?script_id=83].
+
+See script#1876 [https://www.vim.org/scripts/script.php?script_id=1876] - 
+securemodelines
+
+==============================================================================
+
+How is it that the modeline:vim: noai:ts=4:sw=4is used as an example of 
+correct modeline usage and then used as an error example (when describing use 
+of 'set') right afterwards?
+
+Because, if you are using the set: syntax, then the modeline ends on the first : character it finds. Thus, you can include the modeline in /* ... */ style comments. When you are *not* using the set: syntax, then the modeline always continues to the end of the line. Any text at all in the line will be considered part of the modeline. Therefore you cannot use /* ... */ style comments, you must use // style comments. --Fritzophrenic (talk) 18:11, February 5, 2015 (UTC)
+
+==============================================================================
+
+What does "near" mean in the context of "near the top or the bottom"?
+
+Per the article, see :help 'modelines' for the exact meaning. But usually, "within 5 lines". --Fritzophrenic (talk)
+
+==============================================================================

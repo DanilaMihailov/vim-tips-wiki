@@ -1,0 +1,229 @@
+*vim-wiki-tips-1233.txt*   Using tab pages *vwt-1233*
+
+Tip 1347 [https://vim.fandom.com/wiki/Using_tab_pages]   Previous |vwt-1343| Next |vwt-1348|
+
+created 2006 · complexity basic · version 7.0
+
+==============================================================================
+
+This tip provides an introduction to opening, navigating, and working with 
+tab pages. In Vim, each file is loaded into a buffer, which can be displayed 
+in any number of windows, in any number of tabs. The easiest way to think 
+about tab pages in Vim is to consider them to be viewports, layouts, or 
+workspaces.
+
+In many editors (not Vim), each file is opened in a new tab, and one tab can 
+show only one file, and one file cannot appear in more than one tab. Vim's tab 
+pages do not have these limitations, and tabs are a convenient way to organize 
+your work. See Quick tips for using tab pages 
+[https://vim.fandom.com/wiki/Quick_tips_for_using_tab_pages] for examples of 
+how tabs can be used to their full potential.
+
+Trying to configure Vim to always have one file per tab will not be 
+successful, and would remove much of the power of Vim. However, when you want 
+to edit a file, it is easy to use :tabe instead of :e so that usually there is 
+one file per tab. You can also launch files in new tabs under Windows 
+[https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows] and Unix 
+[https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix].
+
+An alternative to one file per tab is to learn to use the 'hidden' option 
+combined with efficient use of the buffer list via a plugin such as 
+FuzzyFinder [https://www.vim.org/scripts/script.php?script_id=1984], 
+LustyExplorer [https://www.vim.org/scripts/script.php?script_id=1890] or 
+BufExplorer [https://www.vim.org/scripts/script.php?script_id=42].
+
+OPENING AND CLOSING TABS  *vwt-1233-opening-and-closing-tabs*
+
+When starting Vim, the -p option opens each specified file in a separate tab 
+(up to the value of the 'tabpagemax' option). Examples:
+
+>
+    vim -p first.txt second.txt
+    gvim -p *.txt
+<
+
+Once Vim has been launched, there are many commands that directly create or 
+close tabs:
+
+>
+    :tabedit {file}   edit specified file in a new tab
+    :tabfind {file}   open a new tab with filename given, searching the 'path' to find it
+    :tabclose         close current tab
+    :tabclose {i}     close i-th tab
+    :tabonly          close all other tabs (show only the current tab)
+<
+
+The :tabfind command uses Vim's 'path' option to determine which directories 
+should be searched when opening the specified file. For example, the following 
+tells Vim to look in the directory containing the current file (.), then the 
+current directory (empty text between two commas), then each directory under 
+the current directory ('**').
+
+>
+    :set path=.,,**
+<
+
+Remember, as with any Vim commands, you only need type enough characters in 
+the command for Vim to be able to unambiguously identify it. For example, you 
+could use :tabe and :tabf instead of :tabedit and :tabfind.
+
+In addition to these commands, because Vim already has a plethora of commands 
+for working with split windows, Vim provides the |:tab| command-line modifier, 
+to use a new tab instead of a new window for commands that would normally 
+split a window. For example:
+
+>
+    :tab ball         show each buffer in a tab (up to 'tabpagemax' tabs)
+    :tab help         open a new help window in its own tab page
+    :tab drop {file}  open {file} in a new tab, or jump to a window/tab containing the file if there is one
+    :tab split        copy the current window to a new tab of its own
+<
+
+A command like :sp myfile.txt creates a new window in the current tab editing 
+the specified file. That window can be moved to a new tab by pressing Ctrl-W 
+T, and can be copied to a new tab with the command :tab sp (split the current 
+window, but open the split in a new tab).
+
+You can type Ctrl-W c to close the current window. If that window is the last 
+window visible in a tab, the tab is also closed (if another tab page is 
+currently open).
+
+If the file you are editing contains the name of another file, you can put 
+the cursor on the name and type gf to edit the file (goto file 
+[https://vim.fandom.com/wiki/Open_file_under_cursor]). If you type Ctrl-W gf 
+the file is displayed in a new tab.
+
+In gvim, you can right click the tab label bar for a popup menu with Close, 
+New Tab, and Open Tab... items.
+
+NAVIGATION  *vwt-1233-navigation*
+
+>
+    :tabs         list all tabs including their displayed windows
+    :tabm 0       move current tab to first
+    :tabm         move current tab to last
+    :tabm {i}     move current tab to position i+1
+    
+    :tabn         go to next tab
+    :tabp         go to previous tab
+    :tabfirst     go to first tab
+    :tablast      go to last tab
+<
+
+In normal mode, you can type:
+
+>
+    gt            go to next tab
+    gT            go to previous tab
+    {i}gt         go to tab in position i
+<
+
+Note that the gt command counts from one. That means 3gt will jump to the 
+third tab. Also note is 0gt and gt mean the same thing: jumping to the next 
+tab.
+
+Using recent vim versions, in normal mode and in insert mode, you can type:
+
+>
+    Ctrl-PgDn     go to next tab
+    Ctrl-PgUp     go to previous tab
+<
+
+Jumping to a specific tab with {i}gt is easier if you set up your tabline to 
+show the tab number 
+[https://vim.fandom.com/wiki/Show_tab_number_in_your_tab_line].
+
+SWITCHING TO ANOTHER BUFFER  *vwt-1233-switching-to-another-buffer*
+
+By default, when switching to another buffer, the current buffer is hidden 
+and its window is used to display the requested buffer. However, some commands 
+can be configured with the 'switchbuf' option to switch to another window, 
+possibly in another tab, if the buffer is currently displayed in another 
+window. :help 'switchbuf'
+
+With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc], you can 
+switch to the next buffer by pressing F8, or the previous buffer by pressing 
+Shift-F8. If the target buffer is already displayed in a window in one of the 
+tabs, that window will be displayed. Otherwise, the current window will be 
+split, and the target buffer will be displayed in the new window.
+
+>
+    set switchbuf=usetab
+    nnoremap <F8> :sbnext<CR>
+    nnoremap <S-F8> :sbprevious<CR>
+<
+
+If you prefer to open a new tab instead of a new split window, you can set 
+switchbuf to usetab,newtab.
+
+Using this technique will cycle between buffers without disturbing the 
+current window or tab layout, providing each buffer is already in a window in 
+a tab. Each listed buffer (:help 'buflisted') is visited in order of buffer 
+number.
+
+Note, that this option affects more than just the commands mapped above. 
+Particularly, it affects the quickfix window. See the help for details.
+
+SHORTCUTS  *vwt-1233-shortcuts*
+
+Here are some ideas for entries you may want to add to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc].
+
+With the following mappings (which require gvim), you can press Ctrl-Left or 
+Ctrl-Right to go to the previous or next tabs, and can press Alt-Left or 
+Alt-Right to move the current tab to the left or right.
+
+>
+    nnoremap <C-Left> :tabprevious<CR>
+    nnoremap <C-Right> :tabnext<CR>
+    nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+    nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+<
+
+With the following, you can press F8 to show all buffers in tabs, or to close 
+all tabs (toggle: it alternately executes :tab ball and :tabo).
+
+>
+    let notabs = 0
+    nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
+<
+
+The following command abbreviation allows typing :tabv myfile.txt to view the 
+specified file in a new tab; the buffer is read-only and nomodifiable so you 
+cannot accidentally change it.
+
+>
+    cabbrev tabv tab sview +setlocal\ nomodifiable
+<
+
+SEE ALSO  *vwt-1233-see-also*
+    - We have many tips about using tab pages [https://vim.fandom.com/wiki/Category:Tabs]
+
+
+
+
+FIXING TIPS ON TAB PAGES  *vwt-1233-fixing-tips-on-tab-pages*
+
+This section is a temporary area to plan merging/fixing existing tips on tab pages.
+
+TO DO
+    - Perhaps merge in some information from tips listed below (or add as 'see also').
+    - I think the tip should be renamed to "Using tab pages"? Any comments?
+
+
+- Put some basic commands up top (move between tabs, open a new tab in VIM etc). This aught to answer 90% of the questions, then go into :tabedit {file} commands which is much more details than most people want or care about. 
+Yes, this tip is much less of an introduction and covers much more detail now. I was thinking about this tip as a "How to use tab pages" and Quick tips for using tab pages as a "Why to use tab pages" but I don't think there's that much reason to make those the names. The pages really don't have that much to do with each other. --Fritzophrenic 15:59, May 20, 2010 (UTC)
+
+Navigation mappings
+    - 1221 Alternative tab navigation |vwt-1221| mappings to jump to a tab
+    - 1295 Select tab page with a key |vwt-1295| tab navigation mappings
+    - 1309 Safari style keybindings for tab navigation |vwt-1309| more tab navigation mappings
+
+
+Miscellaneous
+    - 1247 Tabclose instead of quit-all |vwt-1247| something about closing tab pages
+    - 1317 Open every buffer in its own tabpage |vwt-1317| open each buffer in a tab page
+    - 1333 Have focus on left tab after tabclose |vwt-1333| close tab and focus on previous tab
+
+
+COMMENTS  *vwt-1233-comments*

@@ -1,0 +1,70 @@
+*vim-wiki-tips-711.txt*   Tags generation for current file *vwt-711*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 711 [https://vim.fandom.com/wiki/Tags_generation_for_current_file]   Previous |vwt-710| Next |vwt-712|
+
+created May 5, 2004 · complexity basic · author Florentin Ionescu · version 
+5.7
+
+==============================================================================
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+as noted in the comments, simpler solutions such as *, #, gD, gd, or the 
+TagList plugin exist for jumping around within a single file
+
+Ctags allows you to search for a tag associated with an identifier.
+
+This script allows to search for an identifier in the current open file 
+without using an identifier, that is displays the "tags" file for current 
+opened file.
+
+Shell script:
+
+>
+    cat /usr/local/bin/vimlocal.sh
+    echo | /usr/bin/ctags --extra=+fq --if0=yes --file-scope=yes --fields=+afmikKlnsz --c-types=+cdefgmnpstuvx --c++-types=+cdefgmnpstuvx -x -n --filter "$@" | tr -s '[ \t]' '@' |sed -e "s,^\([_-~:A-Za-z]\+\)@\([_-~:A-Za-z]\+\)@\([0-9]\+\).*, \3 \1," | sed -e "s,[_-~A-Za-z]\+::,,"|sort -k1 -n |uniq
+<
+
+Vim mapping:
+
+>
+    map <M-l> <Esc>:!/usr/local/bin/vimlocals.sh % <CR>:
+<
+
+Note:
+
+1. ctags options probably don't have to be so many.
+
+2. There are more complex alternatives like excellent taglist.vim which will 
+open and IDE type environment but I prefer simple solutions based on unix 
+command-lines.
+
+COMMENTS  *vwt-711-comments*
+
+Huh? To search in this file for an identifer in this file, why not just hit * 
+while the cursor is on the identifier?
+
+==============================================================================
+
+I haven't tried the tip, but I'm assuming it's so you can jump to the 
+function declaration, rather than match for every occurrence of the keyword.
+
+==============================================================================
+
+"F4" (see help) and/or search helps for identifier under cursors. This is not 
+a substitute for "tags" file, it just helps to look for indentifier (function 
+or variable ) which is not under the cursor and jump between them which is 
+helpfull when you work with large files.
+
+==============================================================================

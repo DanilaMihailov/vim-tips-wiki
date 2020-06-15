@@ -1,0 +1,51 @@
+*vim-wiki-tips-1382.txt*   Auto spelling correction using abbreviations *vwt-1382*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1382 [https://vim.fandom.com/wiki/Auto_spelling_correction_using_abbreviations]   Previous |vwt-1381| Next |vwt-1384|
+
+created 2006 · complexity basic · author Peter Hodge · version 6.0
+
+==============================================================================
+
+Vim's abbreviation feature also doubles as an on-the-fly spell checker. 
+Simply create abbreviations for words you misspell often and Vim will fix them 
+for you:
+
+>
+    iabbrev mispell misspell
+    iabbrev funciton function
+    iabbrev functiton function
+    iabbrev fucntion function
+    iabbrev funtion function
+    iabbrev erturn return
+    iabbrev retunr return
+    iabbrev reutrn return
+    iabbrev reutn return
+    iabbrev queyr query
+    iabbrev htis this
+    iabbrev foreahc foreach
+    iabbrev forech foreach
+<
+
+For a list of English spelling corrections you can use immediately, check out 
+autocorrect.vim [https://www.vim.org/scripts/script.php?script_id=2429].
+
+COMMENTS  *vwt-1382-comments*
+
+Alternately:
+
+>
+    set dict=/usr/dict/words
+    set spell
+<
+
+and turn completion on.
+
+==============================================================================

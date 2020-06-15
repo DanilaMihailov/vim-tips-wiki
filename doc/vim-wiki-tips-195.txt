@@ -1,0 +1,47 @@
+*vim-wiki-tips-195.txt*   Switching between files *vwt-195*
+
+Tip 195 [https://vim.fandom.com/wiki/Switching_between_files]   Previous |vwt-194| Next |vwt-196|
+
+created 2002 · complexity basic · author Kontra, Gergely · version 6.0
+
+==============================================================================
+
+When editing multiple files, it is often necessary to switch from one file to 
+another. That can be done more easily using a mapping, rather than entering a 
+command. This tip maps Ctrl-Tab and Ctrl-Shift-Tab to move forwards or 
+backwards through the available buffers or windows.
+
+If you prefer to work with buffers, you can map the :bn and :bp commands 
+(buffer next, and buffer previous).
+
+>
+    nnoremap <C-Tab> :bn<CR>
+    nnoremap <C-S-Tab> :bp<CR>
+<
+
+If you frequently use split windows, you might want to use the Ctrl-W family 
+of commands to switch between windows.
+
+>
+    nnoremap <C-Tab> <C-w>w
+    nnoremap <C-S-Tab> <C-w>W
+<
+
+And if you prefer one tab for one buffer, you can map the :tabn and :tabp 
+commands (tab next, and tab previous).
+
+>
+    nnoremap <C-Tab> :tabn<CR>
+    nnoremap <C-S-Tab> :tabp<CR>
+<
+
+REFERENCES  *vwt-195-references*
+    - Easier_buffer_switching [https://vim.fandom.com/wiki/Easier_buffer_switching] - I highly recommend the <F5> mapping followed by completion with <Ctrl-N> or <Tab>.
+    - :help  |CTRL-W|
+    - :help  |:bnext|
+    - :help  |:bprevious|
+    - :help  |:tabnext|
+    - :help  |:tabprevious|
+
+
+COMMENTS  *vwt-195-comments*

@@ -1,0 +1,46 @@
+*vim-wiki-tips-1203.txt*   Set up vtreeexplorer and taglist on left *vwt-1203*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1203 [https://vim.fandom.com/wiki/Set_up_vtreeexplorer_and_taglist_on_left]   Previous |vwt-1202| Next |vwt-1204|
+
+created 2006 · complexity basic · version 5.7
+
+==============================================================================
+
+A simple mapping to quickly set up a couple of VTreeExplorer 
+[https://www.vim.org/scripts/script.php?script_id=184] and TagList 
+[https://www.vim.org/scripts/script.php?script_id=273] in the left side of 
+your Vim window. Add the following to your vimrc:
+
+>
+    map <F12> <Esc>:Tlist<CR><C-W>h<C-W>s:VTreeExplore<CR>:set nonu<CR><C-W>l
+<
+
+The mapping does the following:
+    - Opens the TagList (opens left by default).
+    - Switches to the TagList window and splits it.
+    - Opens VTreeExplorer in the split window.
+    - Turns of line numbering in the VTreeExplorer.
+    - Switches back to the window where you started.
+
+
+COMMENTS  *vwt-1203-comments*
+
+Not sure if Tlist and VTreeExplore can be used with |, but consider 
+(untested):
+
+>
+    map <F12> <Esc>:Tlist <Bar> wincmd h <Bar> wincmd s <Bar> VTreeExplore <Bar> set nonu <Bar> wincmd l<CR>
+<
+
+:help |:wincmd|
+
+Also consider using 'nnoremap' and 'inoremap' and possibly 'vnoremap' rather 
+than just 'map'.

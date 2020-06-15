@@ -1,0 +1,64 @@
+*vim-wiki-tips-826.txt*   PHP manual in Vim help format *vwt-826*
+
+Tip 826 [https://vim.fandom.com/wiki/PHP_manual_in_Vim_help_format]   Previous |vwt-825| Next |vwt-828|
+
+created 2004 · complexity intermediate · author Jörn Horstmann · version 6.0
+
+==============================================================================
+
+Download http://planetxml.de/php_manual.txt 
+[http://planetxml.de/php_manual.txt] and put it into your vim/doc folder, then 
+run :helptags [path to vim/doc]. Documentation for PHP functions can be shown 
+by pressing K while the cursor is on a function name.
+
+The manual was created using a modified version of script found at 
+http://www.phpvolcano.com/articles/manual/index.php 
+[http://www.phpvolcano.com/articles/manual/index.php].
+
+COMMENTS  *vwt-826-comments*
+
+There is a new version available at 
+http://blog.planetxml.de/uploads/vim-php-manual.tgz 
+[http://blog.planetxml.de/uploads/vim-php-manual.tgz]
+
+I added more text and examples from the manual and it is now split into one 
+file per function. Installation has also changed, you have to create a folder 
+named 'doc' somewhere and add this to your runtimepath. For example unpack it 
+to c:\program\vim\php\doc and add this to your .vimrc: 
+runtimepath+=c:\program\vim\php
+
+==============================================================================
+
+I found it necessary to unset keywordprg (which I did in ftplugin/php.vim) so 
+that the K defaults to the :help command (rather than :!man).
+
+==============================================================================
+
+Based on the information found here 
+(http://blog.planetxml.de/archives/16-PHP-Manual-in-VIM-einbinden.html 
+[http://blog.planetxml.de/archives/16-PHP-Manual-in-VIM-einbinden.html]) I 
+generated a new set of files, updated from the latest cvs phpdoc. The new 
+manual includes all new features found in php 5.3.
+
+Download: http://www.interpotential.com/downloads/vim/vim-php-manual.tar.gz 
+[http://www.interpotential.com/downloads/vim/vim-php-manual.tar.gz]
+
+==============================================================================
+
+To generate your own set of files:
+    - wget http://pastebin.com/pastebin.php?dl=f64c725dd [http://pastebin.com/pastebin.php?dl=f64c725dd] -O parser2.php
+    - svn co http://svn.php.net/repository/phpdoc/modules/doc-en [http://svn.php.net/repository/phpdoc/modules/doc-en] phpdoc (or whatever documentation you want, for example doc-jp)
+    - sudo apt-get install pear (on debian based distros)
+    - mkdir out
+    - php parser2.php
+
+
+That's all, you'll get your documentation on the "out" folder
+
+==============================================================================
+
+None of the above worked for me (vim 7.2.442, neither on Ubuntu nor Gentoo). 
+The vim-php-manual help files above where not recognized with :helptags, the 
+produced tags file only had 3 lines in it. Solution was to create my own files 
+like suggested above. But i had to uncomment line 206 and comment out 207 in 
+parser2.php to get help files in correct vim format.

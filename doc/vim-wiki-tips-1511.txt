@@ -1,0 +1,125 @@
+*vim-wiki-tips-1511.txt*   In line copy and paste to system clipboard *vwt-1511*
+
+Tip 1511 [https://vim.fandom.com/wiki/In_line_copy_and_paste_to_system_clipboard]   Previous |vwt-1510| Next |vwt-1513|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#In_line_copy_and_paste_to_system_clipboard] 
+2007 · complexity basic · author Robert Iannucci · version 7.0
+
+==============================================================================
+
+This tip applies to those Mac, Linux, and Windows users who are unable to 
+access the System clipboard using the builtin copy and paste mechanism that 
+Vim provides. Note that most Vim users can use the built-in methods of 
+Accessing the system clipboard 
+[https://vim.fandom.com/wiki/Accessing_the_system_clipboard] with no trouble. 
+If you have problems, first make sure your Vim is compiled with clipboard 
+support. If you still have problems, or cannot get a Vim compiled with 
+clipboard support for some reason, this tip can help provide a workaround.
+
+This has been covered in other |vwt-687| places |vwt-984|, but it can be 
+annoying to only be able to copy and paste line-wise. It can be particularly 
+annoying when you just want to yank a single word to do a web search or 
+similar. Luckily, Vim can use external utilities on many systems to access the 
+clipboard with a system call:
+
+>
+    " On OSX
+    vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+    nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
+<
+
+>
+    " On ubuntu (running Vim in gnome-terminal)
+    " The reason for the double-command on <C-c> is due to some weirdness with the X clipboard system.
+    vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+    nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+<
+
+But the double command problem seems to be caused by the xclip utility. That 
+bug is present in xclip 0.08-7. But xclip 0.11 downloaded from sourceforge 
+works fine and:
+
+>
+    vmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
+<
+
+is sufficient.
+
+>
+    " groovyness in Insert mode (lets you paste and keep on typing)
+    " This blows away i_CTRL-V though (see :help i_CTRL-V)
+    imap <C-v> <Esc><C-v>a
+<
+
+"+ and "* are supposed to 'do the right thing', but there isn't any such 
+integration with OS X, and I have simply had complete failure with ubuntu 
+(even with +xterm_clipboard +clipboard +X11).
+
+Though, it has been reported to work fine on Ubuntu 8.04 with default 
+packages (vim 7.1-138).
+
+One other thing to note: mapping <C-v> blows away the whole visual block 
+mode, but I never use it. A possible alternative mapping would be to map these 
+with something like ':vnoremap y' so that it's automatic in visual mode.
+
+This same problem has been observed not just on OS X, but also on Linux 
+machines. Fortunately, if the "+ and "* buffers don't work, a call can be made 
+to the xclip utility.The following maps 'ctrl+c' to copy and 'insert' to paste 
+(since ctrl+v is used for visual block mode in vim)
+
+>
+    vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
+    map <Insert> :set paste<CR>i<CR><CR><Esc>k:.!xclip -o<CR>JxkJx:set nopaste<CR>
+<
+
+The copy shortcut uses marks so that rather than having the entire line 
+copied, only the text selected in visual mode is copied. Finally, an undo at 
+the end restores the text that would otherwise have been deleted. The paste 
+shortcut switches to paste mode so that certain options like indenting are 
+disabled, then switches back after pasting the text. Note the <CR> and J 
+commands so that text can be pasted in the middle of the line.
+
+On Windows machines that have Cygwin support, /dev/clipboard can be used in 
+place of xclip to gain access to the clipboard, should users find the "+ and 
+"* registers don't work.
+
+COMMENTS  *vwt-1511-comments*
+
+TO DO
+    - Explain the point of this tip. Why is it necessary to avoid using the copy/paste mechanisms provided by Vim?
+    - Is this tip only related to Mac OS X or the Ubuntu Linux? If so, state that at the top.
+    - Is there some problem with Vim (what version?) on Mac OS X? Exactly what? Has the appropriate mailing list been informed?
+    - Do other users experience this problem? If not, should the tip be flagged for deletion?
+    - VimTip1199 |vwt-1199| claims to be related to character-wise pasting. Is it helpful?
+
+
+To address the first question, the point of mapping <C-c> is to be able to 
+copy large blocks of text from vim into another application. I use this to 
+copy from vim into an rdesktop session, for example.
+
+But my point in the above "todo" is that the tip needs to read coherently for people who might not be familiar with the particular problem that the tip addresses. For example, Vim is run by a lot of Windows users, where the idea of having trouble copying between apps is totally unknown. The text in the tip only makes sense to people who are used to having the problem.
+Also, you might use <C-c> to copy large blocks of text, but the author of the tip explicitly talks about yanking a single word. The text should make sense: Is the tip only for short snippets? Do all Mac OS X users need this tip to copy between apps? What about Ubuntu users?
+Vim has "+y and "+p. The tip needs to explain when that is not adequate.
+If anyone has some suggestions, please edit the tip, or add suggested text below. In time, suggestions could be enhanced and merged into the tip. --JohnBeckett 03:34, 11 November 2008 (UTC)
+It is not that one wishes to avoid the builtin vim shortcuts. Rather, the "+ and "* are sometimes not integrated with the system clipboard, and in those cases there needs to be some workaround so copy and paste is enabled between Vim and external applications. This problem has been observed on Windows machines as well as Linux (CentOS), and the problem seems to be there on Mac OS X as well. --Preceding unsigned comment added by Radtad82 19:42, May 19, 2011
+The very page referenced by the dodgy section notes that the builtin mechanism doesn't work with OS X... --Preceding unsigned comment added by 68.231.48.165 04:33, August 6, 2010
+On a system where you see a problem, please run Vim and enter :version and note whether it shows +clipboard (support for clipboard has been compiled into Vim), or -clipboard (clipboard not supported). See :help +clipboard.
+The "builtin mechanism doesn't work with OS X" is an old comment, and it probably refers to an obsolete tip. I don't use a Mac, but I asked Björn Winckler (who maintains MacVim), and two years ago he said that the clipboard works with Vim on OS X ("the pasteboard is fully supported in both GUI and terminal mode ... The '+' and '*' registers are one and the same and by default you can use <D-x>/<D-c>/<D-v> to cut/copy/paste just like in any other Mac app"). I believe that any Vim in the last few years that has been compiled to support the clipboard, will support it (although Ctrl-C needs a mapping; I hope to cleanup these copy/paste tips and explain how to map Ctrl-C etc without requiring other Notepad-like features). I suspect this tip is a workaround for someone who is not using the correct version of Vim. JohnBeckett 10:53, May 20, 2011 (UTC)
+
+COPIED FROM TALK PAGE WHICH WILL BE DELETED  *vwt-1511-copied-from-talk-page-which-will-be-deleted*
+
+This page is very useful for Linux. As far as I know, this is only an issue 
+in linux, and possibly Mac OS X.
+
+Copying out of terminal emulators in Linux is sometimes problematic. For 
+example, I use a perl script to send text (on highlight) via the 'xsel' 
+program to the PRIMARY clipboard in rxvt-unicode. This perl script, however, 
+does not function in other applications, case in point, vim, when vim is 
+running in my urxvt virtual terminal.
+
+The solution suggested here allows me (and others) to select a block (or 
+single word of text) and transfer it to another application, vim in a another 
+terminal, web browser, anything. Vim's built in features only work for the 
+same terminal window in which vim is already running. --mtkoan 23:16, April 9, 
+2010 (UTC)

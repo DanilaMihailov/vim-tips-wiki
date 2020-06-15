@@ -1,0 +1,58 @@
+*vim-wiki-tips-1260.txt*   Edit file in existing vim automatically *vwt-1260*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1260 [https://vim.fandom.com/wiki/Edit_file_in_existing_vim_automatically]   Previous |vwt-1259| Next |vwt-1261|
+
+created June 15, 2006 · complexity intermediate · author John Little · 
+version n/a
+
+==============================================================================
+
+Here's another variation on swapping to a file in another instance of Vim.
+
+In Vim 7, this is what the SwapExists event is for. I use Vim on Windows 
+accessing files via a samba mount onto the development server, and rely on the 
+file type association to start Vim, and typically have half a dozen Vim 
+instances, fighting for space with terminal sessions and applications, and so 
+the swap file warning is a nuisance. Cured with:
+
+>
+    function! AskVims()
+      let full_name = escape(expand("<afile>:p"), ' ')
+      for i in split(serverlist())
+        if i != v:servername
+          if remote_expr(i, 'bufexists("' . full_name . '")')
+            echo 'found in ' . i
+            call remote_foreground(i)
+            call remote_expr(i, 'foreground()')
+            let v:swapchoice = 'q'
+            return
+          endif
+        endif
+      endfor
+      echo "not found"
+      let v:swapchoice = ''
+    endfunction
+    auto SwapExists * call AskVims()
+<
+
+COMMENTS  *vwt-1260-comments*
+
+Vim 7's distribution contains a file in the runtime/macros directory called 
+editExisting.vim that does this already.
+
+You could just copy it into one of your plugin directories or create a small 
+editExisting.vim in your plugin directory that does this:
+
+>
+    runtime! macros/editExisting.vim
+<
+
+==============================================================================

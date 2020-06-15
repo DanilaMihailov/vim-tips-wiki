@@ -1,0 +1,65 @@
+*vim-wiki-tips-1213.txt*   Better indent support for php with html *vwt-1213*
+
+Tip 1213 [https://vim.fandom.com/wiki/Better_indent_support_for_php_with_html]   Previous |vwt-1206| Next |vwt-1215|
+
+created 2006 · complexity advanced · author Heptite 
+[https://vim.fandom.com/wiki/User:Heptite] · version 5.7
+
+==============================================================================
+
+This script allows you to indent HTML sections in PHP files. Create file 
+~/.vim/indent/php.vim ($HOME/vimfiles/indent/php.vim on Windows systems) 
+containing the following:
+
+>
+    " Better indent support for PHP by making it possible to indent HTML sections
+    " as well.
+    if exists("b:did_indent")
+      finish
+    endif
+    " This script pulls in the default indent/php.vim with the :runtime command
+    " which could re-run this script recursively unless we catch that:
+    if exists('s:doing_indent_inits')
+      finish
+    endif
+    let s:doing_indent_inits = 1
+    runtime! indent/html.vim
+    unlet b:did_indent
+    runtime! indent/php.vim
+    unlet s:doing_indent_inits
+    function! GetPhpHtmlIndent(lnum)
+      if exists('*HtmlIndent')
+        let html_ind = HtmlIndent()
+      else
+        let html_ind = HtmlIndentGet(a:lnum)
+      endif
+      let php_ind = GetPhpIndent()
+      " priority one for php indent script
+      if php_ind > -1
+        return php_ind
+      endif
+      if html_ind > -1
+        if getline(a:lnum) =~ "^<?" && (0< searchpair('<?', '', '?>', 'nWb')
+              \ || 0 < searchpair('<?', '', '?>', 'nW'))
+          return -1
+        endif
+        return html_ind
+      endif
+      return -1
+    endfunction
+    setlocal indentexpr=GetPhpHtmlIndent(v:lnum)
+    setlocal indentkeys+=<>>
+<
+
+COMMENTS  *vwt-1213-comments*
+
+I personally think it's more straightforward to just :set ft=html while 
+you're editing HTML blocks.
+
+This plugin works for entering new text, but not for using = on a selection, 
+right? Any chance there's a way to fix that as well in the same thing?
+
+I've wrapped this up as a plugin for those who want a cleaner way to use this 
+approach: 
+https://github.com/captbaritone/better-indent-support-for-php-with-html 
+[https://github.com/captbaritone/better-indent-support-for-php-with-html]

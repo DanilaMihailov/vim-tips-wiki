@@ -1,0 +1,35 @@
+*vim-wiki-tips-1321.txt*   Fold a C sharp region *vwt-1321*
+
+Tip 1321 [https://vim.fandom.com/wiki/Fold_a_C_sharp_region]   Previous |vwt-1320| Next |vwt-1322|
+
+created 2006 · complexity basic · author John Cena · version 6.0
+
+==============================================================================
+
+Here is how to fold the following region by typing zf%
+
+>
+    #region
+    ...
+    #endregion
+<
+
+Just add the following line in your cs.vim file placed in syntax folder 
+beneath your vimruntime path.
+
+>
+    let b:match_words = '\s*#\s*region.*$:\s*#\s*endregion'
+<
+
+It works even if the cursor is not on the "#region" keyword.
+
+REFERENCES  *vwt-1321-references*
+    - :help 'matchpairs'
+
+
+COMMENTS  *vwt-1321-comments*
+
+And copy the "matchit.vim" file from your macros folder to plugin folder for 
+it to automatically load everytime a window opens.
+
+==============================================================================

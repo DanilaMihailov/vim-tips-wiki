@@ -1,0 +1,59 @@
+*vim-wiki-tips-543.txt*   Internationalizing the Vim editor *vwt-543*
+
+
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+This information if for an old version of vim, I also don't find it 
+particularly helpful.
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 543 [https://vim.fandom.com/wiki/Internationalizing_the_Vim_editor]   Previous |vwt-542| Next |vwt-545|
+
+created August 27, 2003 · complexity basic · author Vangelis E. · version 5.7
+
+==============================================================================
+
+For a given vim-###-src#.tar.gz release there is only one vim.po file that 
+can be created for translation purposes. However, this vim.po is not unique 
+since several options may be set while extracting with 'xgettext', depending 
+mostly on the format of comments. For your convenience you can download a 
+standard vim.pot to use as a translation template for vim-6.1 to most any 
+language(s):
+
+http://lynxx.org/misc/download/vim-6.1-pot.tgz 
+[http://lynxx.org/misc/download/vim-6.1-pot.tgz]
+
+This is the general template for translating messages in Vim 6.1 using the 
+Xgettext format. It contains all English messages in the (untranslated) form:
+
+>
+    msgid "ABC" - English text
+    msgstr "" - candidate language
+<
+
+To translate Vim 6.1 messages, proceed line-by-line, taking care not to 
+translate commands and options specific to the editor. See the GNU 'gettext' 
+man-page for more info and details on this.
+
+This vim.pot should be used only with v. 6.1 to translate to any language.
+
+When Vim versions advance, a standard vim.po must be created from the newer 
+sources, as explained in Vim goes INTL |vwt-546|.
+
+SEE ALSO  *vwt-543-see-also*
+    - Vim goes INTL |vwt-546|
+    - Vim goes Greek |vwt-545|
+
+
+COMMENTS  *vwt-543-comments*

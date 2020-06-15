@@ -1,0 +1,175 @@
+*vim-wiki-tips-581.txt*   Using vim to view source and edit textarea in mozilla/firebird *vwt-581*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 581 [https://vim.fandom.com/wiki/Using_vim_to_view_source_and_edit_textarea_in_mozilla/firebird]   Previous |vwt-580| Next |vwt-582|
+
+created October 8, 2003 · complexity basic · author maxiangjiang · version 
+5.7
+
+==============================================================================
+
+This is the feature I have dreamed for months, please refer to 
+http://mozex.mozdev.org [http://mozex.mozdev.org]
+
+COMMENTS  *vwt-581-comments*
+
+The current version 1.07 does not work quite as it sounds.
+
+I opened the Mozilla mail and the Vim is not launched when composing a 
+message.
+
+When Viewing the page source or edit textarea, it reports an error: temporary 
+directory c:\windows\temp does not exist.What the heck is this? it certainly 
+does not exist on any PCs which do not have windows98 installed, neither does 
+it exist on PCs which do not have the system installed on drive c:
+
+The 'standard' temp directory should be %systemdrive%\winnt\temp. While user 
+may specify their preference of temp directory in environment variable %temp%.
+
+What is more, I found problem uninstalling this plugin.
+
+==============================================================================
+
+It works great for me on my W2k box.
+
+Assuming that
+    - gvim.exe is located at C:\vim\gvim.exe
+    - temperoray directory is C:\tmp
+
+
+Following is the setting in my user.js:
+
+>
+    user_pref("mozex.command.source", "C:\\vim\\gvim.exe %t");
+    user_pref("mozex.command.textarea", "C:\\vim\\gvim.exe %t");
+    user_pref("mozex.general.tmpdir", "C:\\tmp");
+<
+
+Note that mozillaFB plugin uninstall is still buggy, and that is why I only 
+have one plugin installed.
+
+==============================================================================
+
+To remove firebird plugin, I guess the best way for now is to wait for 
+official release of Firebird 0.7 and install from the beginning. You can also 
+try grep "mozex" in your profile directory and edit one by one. I believe 
+future Firebird will have a solid uninstallation feature.
+
+Also, I put a request on mozilla site for a builtin vim-view-source 
+support:http://forums.mozillazine.org/viewtopic.php?t=28677 
+[http://forums.mozillazine.org/viewtopic.php?t=28677]
+
+Please back me up if you want such a feature, to put together the two best 
+applications (vim and mozillaFB) in the world. Thanks.
+
+==============================================================================
+
+The problem in MozillaFB is less serious than that in Mozilla (brower), in 
+mozilla, you wil be unable to edit the textarea, nor view the source page, 
+whether you want to use vim or not.
+
+==============================================================================
+
+I'm writing this tip from Vim right now.
+
+Setup is Windows XP, Firefox 0.8, Vim 6.2.
+
+Download & Install latest mozex from the url mentioned above ( 
+http://mozex.mozdev.org/ [http://mozex.mozdev.org/] ). After it's installed, 
+go to Tools, Options, Extensions. Select Mozex and select Options.
+
+My temp directory is "C:\temp", so that's what I entered in the "Directory 
+for temporary files" field.Vim is located at "C:\Program 
+Files\Vim\vim62\gvim.exe" on my system. However, mozex isn't handling its 
+input in a very graceful way yet. Thus, spaces trip it up. The solution (which 
+can be found on the Mozex site) is to use DOS short filenames. Thus the path 
+becomes "C:\Progra~1\Vim\vim62\gvim.exe". We also have to pass an argument to 
+vim so that it knows what to edit. "%t" is the argument for editing source and 
+textareas so the input for both fields is "C:\Progra~1\Vim\vim62\gvim.exe %t".
+
+I don't think you can use Vim for mail, as the mail function passes many more 
+options than the body text. Check Mozex's argument list though ( 
+http://mozex.mozdev.org/arguments.html 
+[http://mozex.mozdev.org/arguments.html] ). I'm not a vim hacker, just a vim 
+user. Perhaps someone with more experience could get vim to edit e-mails.
+
+==============================================================================
+
+It works for me: Mozilla 1.6 on Linux (Fedora Core 2). I am using it now. 
+Remember to click in text area after :w from vim!
+
+Here are my settings:
+
+>
+    Intercept clicks: mailto (maybe I'll add ftp later)
+    Mailer: gnome-terminal -x mutt mailto:%A?subject=%S&cc=%C&body=%B
+    Source: /usr/local/bin/gvim %t (full path may not be needed)
+    Textareas: /usr/local/bin/gvim %t
+    Download: when does this apply?
+<
+
+==============================================================================
+
+https://update.mozilla.org/extensions/?application={ec8030f7-c20a-464f-9b0e-13a3a9e97384} 
+[https://update.mozilla.org/extensions/?application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}]I 
+haven't tried this yet, but it should view source in whatever editor you want.
+
+==============================================================================
+
+See also this Firefox extension:
+
+ViewSourceWith 0.0.7.2, by Davide Ficano, released on July 25, 
+2005https://addons.mozilla.org/extensions/moreinfo.php?id=394 
+[https://addons.mozilla.org/extensions/moreinfo.php?id=394]
+
+==============================================================================
+
+Another use of this is to put vim up inside your screen session. I'm running 
+on cygwin, so screen is slightly broken, but this works for me.
+
+>
+    screen -X screen /usr/bin/vim $@
+    sleep .2 # ugly hack due to mozex deleting the file as soon as the screen process finishes (just before vim reads it)
+<
+
+put that is a script file (~/bin/screenvim maybe) and set the textarea option 
+as follows:
+
+>
+    c:\cygwin\bin\bash.exe "c:\home\me\bin\screenvim" %t
+<
+
+FROM OLD TIP 1283  *vwt-581-from-old-tip-1283*
+
+I'm just trying to shamelessly drag your attention to http://mozex.mozdev.org 
+[http://mozex.mozdev.org] again. I adopted mozex plugin and I'm continuing 
+it's development. All the installation (and de-installation) issues for any 
+mozilla based browser should be fixed. And there's much more new things (start 
+external editor by hotkey, nice configuration dialog, utf-8 editing and more). 
+Just be sure to install latest development version.
+
+COMMENTS  *vwt-581-comments*
+
+Vim starts up fine for me, when hitting the hotkey. But when I close it 
+again, the text is not taken to the input box.
+
+I'm running Vim 7.0 on Gentoo and use 'gnome-terminal -e "vim %t"' as the 
+command in Mozex 1.9.3.
+
+==============================================================================
+
+Hey, if Mozex does not work for you, you can try Viewsourcewith extension, it 
+works fine for me with gvim (although it does not seem to work to include 
+"xterm -e vim".In Thunderbird I use "External Editor" extension, which works 
+fine, too. Actually I only do this because I am to lazy to switch to Mutt, 
+which may be way cooler than Thunderbird, but might be a pain in the ass to 
+configure for the first time.
+
+==============================================================================

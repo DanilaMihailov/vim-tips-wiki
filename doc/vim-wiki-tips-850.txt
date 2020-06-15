@@ -1,0 +1,77 @@
+*vim-wiki-tips-850.txt*   Automatic word wrapping *vwt-850*
+
+Tip 850 [https://vim.fandom.com/wiki/Automatic_word_wrapping]   Previous |vwt-848| Next |vwt-851|
+
+created 2005 · complexity basic · author mmj · version 6.0
+
+==============================================================================
+
+You can set the text width for automatic word wrapping using :set textwidth=n 
+(or :set tw=n) where n is a positive integer, for example:
+
+>
+    :set tw=79
+<
+
+That will automatically wrap text as close to 79 characters as white space 
+allows without exceeding the 79 character limit. This option wraps at word 
+boundaries.
+
+Wrapping text using textwidth requires "t" in formatoptions, which it is by 
+default. The following commands display the current setting then add "t" if 
+needed. The abbreviation fo is used instead of formatoptions.
+
+>
+    :set fo?
+    :set fo+=t
+<
+
+If a line is already longer than textwidth when insert mode is started, the 
+line may not be wrapped even if text is added to the line. A long line is not 
+wrapped when text is added if formatoptions contains "l". If needed, "l" can 
+be removed so long lines will be wrapped:
+
+>
+    :set fo-=l
+<
+
+To stop automatic wrapping, unset textwidth using:
+
+>
+    :set tw=0
+<
+
+If you want to wrap lines in a specific area, move the cursor to the text you 
+want to format and type gq followed by the range. For example, gqq wraps the 
+current line and gqip wraps the current paragraph.
+
+The following sets a wrap margin of 2 characters from the right window 
+border. A system-dependent EOL character 
+[https://vim.fandom.com/wiki/File_format] is inserted and the line wraps as 
+you type. This option may be useful in some situations, but probably is not 
+what you are looking for.
+
+>
+    :set wm=2
+<
+
+The above methods do a "hard" wrap of your text, by inserting newline 
+characters. An alternative method is a "soft" wrap which does not change the 
+text but simply displays it on multiple lines. This can be achieved with:
+
+>
+    :set wrap linebreak
+<
+
+Note that this may lead to a bunch of screen lines being taken up by only a 
+single "real" line, so commands like j and k which move on real lines will 
+skip over a lot of screen lines. You can use gj and gk to move by screen 
+lines.
+
+REFERENCES  *vwt-850-references*
+    - :help 'textwidth'
+    - :help 'wrapmargin'
+    - :help 'linebreak'
+
+
+COMMENTS  *vwt-850-comments*

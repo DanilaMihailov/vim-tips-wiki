@@ -1,0 +1,145 @@
+*vim-wiki-tips-1432.txt*   File search similar to cmd-t in TextMate *vwt-1432*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1432 [https://vim.fandom.com/wiki/File_search_similar_to_cmd-t_in_TextMate]   Previous |vwt-1431| Next |vwt-1434|
+
+created 2006 · complexity basic · author Samuel Hughes · version 6.0
+
+==============================================================================
+
+TO DO
+    - Need introduction: what is this?
+    - Decide what should be removed.
+
+
+UPDATE  *vwt-1432-update*
+
+A much better method to get this feature is to install the FuzzyFinder 
+[https://www.vim.org/scripts/script.php?script_id=1984] plugin. Use the 
+function FuzzyFinderFile with argument **/ to do a recursive search through 
+the current directory tree.
+
+Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] so you 
+can invoke the function by pressing F5:
+
+>
+    nmap <F5> :FuzzyFinderFile \*\*\/<CR>
+<
+
+or
+
+>
+    map <Leader>t :FufFile **/<CR>
+<
+
+ORIGINAL TIP  *vwt-1432-original-tip*
+
+This adds capabilities similar to the cmd-t file search feature in TextMate. 
+It uses the Find function from VimTip1234 |vwt-1234|, modified to search 
+recursively whatever directory you are in.
+
+For example, if I am in the "~/alumni" directory and am looking for a file 
+named "admin_controller.rb" somewhere beneath the current directory, I could 
+type:
+
+>
+    :Fi adm trol
+<
+
+where "adm" and "trol" are excerpts of "admin_controller.rb". The results 
+will look like this:
+
+>
+    1 ./app/controllers/admin_controller.rb
+    2 ./test/functional/admin_controller_test.rb
+    Which ? (<enter>=nothing)
+<
+
+Then you type the number next to the file you're searching for and hit Enter.
+
+In other words, it's searching for "*adm*trol*", the asterisks being 
+wildcards. The wildcards replace the spaces from your original search and are 
+also added to the beginning and end of your search keywords.
+
+I use this map for faster access:
+
+>
+    map ,f :Fi
+<
+
+The function is:
+
+>
+    function! Find(name)
+      let l:_name = substitute(a:name, "\\s", "*", "g")
+      let l:list=system("find . -iname '*".l:_name."*' -not -name \"*.class\" -and -not -name \"*.swp\" | perl -ne 'print \"$.\\t$_\"'")
+      let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+      if l:num < 1
+        echo "'".a:name."' not found"
+        return
+      endif
+      if l:num != 1
+        echo l:list
+        let l:input=input("Which ? (<enter>=nothing)\n")
+        if strlen(l:input)==0
+          return
+        endif
+        if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+          echo "Not a number"
+          return
+        endif
+        if l:input<1 || l:input>l:num
+          echo "Out of range"
+          return
+        endif
+        let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+      else
+        let l:line=l:list
+      endif
+      let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+      execute ":e ".l:line
+    endfunction
+    command! -nargs=1 Find :call Find("<args>")
+<
+
+COMMENTS  *vwt-1432-comments*
+
+searchInRuntime.vim [https://www.vim.org/scripts/script.php?script_id=229] 
+and script#1581 [https://www.vim.org/scripts/script.php?script_id=1581] offer 
+similar functionality.
+
+script#2042 [https://www.vim.org/scripts/script.php?script_id=2042] is a 
+ruby/curses based plugin that is very similar to the TextMate functionality, 
+though it won't work in gvim and has a few dependencies (listed on the project 
+page).
+
+==============================================================================
+
+Change find to grep, map to \* and you get a nice intuitive 'find references' 
+function.
+
+==============================================================================
+
+In order to avoid searching in .svn directories, I changed one line in the 
+original function.
+
+>
+    let l:list=system("find . -path \"*/.svn\" -prune -o -iname '*".l:_name."*' -not -name \"*.class\" -and -not -name \"*.swp\" -print | perl -ne 'print \"$.\\t$_\"'")
+<
+
+==============================================================================
+
+Alternatively you can use Vim's built-in '**' wildcard, e.g.
+
+>
+    :edit **/adm*trol<CTRL_D>
+<
+
+==============================================================================

@@ -1,0 +1,209 @@
+*vim-wiki-tips-325.txt*   Errorformat for java/ant/junit/cygwin/bash *vwt-325*
+
+Tip 325 [https://vim.fandom.com/wiki/Errorformat_for_java/ant/junit/cygwin/bash]   Previous |vwt-323| Next |vwt-328|
+
+created 2002 · complexity advanced · author John Sumsion · version 6.0
+
+==============================================================================
+
+If you program in Java and use Jakarta ant for builds *and* if you have the 
+bash shell, this tip will make your development experience a little smoother.
+
+This tip will result in a working compile/edit/debug system (in Win32 
+vim/gvim and in Cygwin vim) that takes you to the exact lines where the build 
+fails, whether the failure is a compilation error or a junit test failure. If 
+you use bash on a linux box, you shouldn't have to change very much to get 
+everything to work.
+
+SET UP BUILD SCRIPT  *vwt-325-set-up-build-script*
+
+Add the following script to your path (I use /usr/local/bin/):
+
+>
+    --mymake--
+    #!/bin/bash
+    cd /work/
+    ant -emacs $* 2>&1 | tr '\' / | tr ^M ' ' | sed -u -n -f /usr/local/bin/testerrors.sed | tee /tmp/errors
+<
+
+Comment: sed -u is non-standard, use the code at: 
+http://mail.gnu.org/archive/html/bug-gnu-utils/2002-05/msg00051.html 
+[http://mail.gnu.org/archive/html/bug-gnu-utils/2002-05/msg00051.html] to get 
+the -u option for sed (this avoids waiting for the build output to get to the 
+screen).
+
+>
+    --testerrors.sed--
+    # This assumes that all your junit test cases are in a com.* package
+    /^Running com\./ {
+     # duplicate the line
+     s!\(.*\)!\1\
+     \1!
+     P
+    
+     # turn the test package into a directory path for %D errorformat
+     s!.*\(com\..*\)\.[A-Za-z_][A-Za-z0-9_]*!\1!
+     s!\.!/!g
+    
+     s!.*!Entering: /work/src/&!
+    
+     # print the line and go on
+     p
+     n
+    }
+    
+    # just pass any unmatched lines through
+    p
+<
+
+SET UP MAKEPRG  *vwt-325-set-up-makeprg*
+
+Add the following lines to your vimrc:
+
+>
+    autocmd BufNewFile,BufRead /work/*.java set makeprg=mymake
+    autocmd BufNewFile,BufRead ?:/work/*.java set makeprg=mymake
+<
+
+SET UP SHELL OPTIONS  *vwt-325-set-up-shell-options*
+
+Add the following lines to your vimrc:
+
+>
+    " in order to have bash as the shell for win32 vi.exe and gvim.exe, you have
+    " to set these options, and also build vimrun.exe in the cygwin environment
+    " so that the system() call is executed via bash, not cmd.exe -- the command
+    " to build vimrun.exe is "make -f Make_cyg.mak vimrun.exe"
+    set shell=bash.exe
+    set shellcmdflag=-c
+    set shellslash
+<
+
+Also to use this environment in Win32 gvim, you must recompile vimrun so that 
+gvim invokes the shell via bash, not via cmd.exe.
+
+SET UP PATH FORMATTING OPTIONS  *vwt-325-set-up-path-formatting-options*
+
+Add the following lines to your vimrc:
+
+>
+    " allows DOS file names from UNIX (Cygwin) vim
+    set isfname+=\
+<
+
+SET UP YOUR ERRORFORMAT  *vwt-325-set-up-your-errorformat*
+
+Add the following lines to your vimrc:
+
+>
+    " the "\%DEntering:\ %f," rule relies on a sed script which generates
+    " "Entering: " messages for each test class run (the directory name is
+    " generated from the test class package and a hard-coded src root)
+    " the "%\\C" at the start of the exception matching line tells to match
+    " case-exact (the exception mathching lines rely on the %D rule that sets
+    " up the correct directory from the package structure)
+    " ant/junit/javac errorformat
+    set errorformat=
+    \%-G%.%#build.xml:%.%#,
+    \%-G%.%#warning:\ %.%#,
+    \%-G%\\C%.%#EXPECTED%.%#,
+    \%f:%l:\ %#%m,
+    \C:%f:%l:\ %m,
+    \%DEntering:\ %f\ %\\=,
+    \%ECaused\ by:%[%^:]%#:%\\=\ %\\=%m,
+    \%ERoot\ cause:%[%^:]%#:%\\=\ %\\=%m,
+    \%Ecom.%[%^:]%#:%\\=\ %\\=%m,
+    \%Eorg.%[%^:]%#:%\\=\ %\\=%m,
+    \%Ejava.%[%^:]%#:%\\=\ %\\=%m,
+    \%Ejunit.%[%^:]%#:%\\=\ %\\=%m,
+    \%-Z%\\C\ at\ com.mypkg.%.%#.test%[A-Z]%.%#(%f:%l)\ %\\=,
+    \%-Z%\\C\ at\ com.mypkg.%.%#.setUp(%f:%l)\ %\\=,
+    \%-Z%\\C\ at\ com.mypkg.%.%#.tearDown(%f:%l)\ %\\=,
+    \%-Z%^\ %#%$,
+    \%-C%.%#,
+    \%-G%.%#
+<
+
+NOTE: Make sure that the character before "at" is an actual Tab character in 
+the three long -Z lines above
+
+Here is an annotated version:
+
+>
+    set errorformat=
+    " don't treat the build.xml diagnostic as an error
+    \%-G%.%#build.xml:%.%#,
+    
+    " don't treat warning lines as errors
+    \%-G%.%#warning:\ %.%#,
+    
+    " don't treat lines containing "EXPECTED" as errors
+    \%-G%\\C%.%#EXPECTED%.%#,
+    
+    " look for this standard error format
+    \%f:%l:\ %#%m,
+    
+    " look for this standard error format (with C: on front)
+    \C:%f:%l:\ %m,
+    
+    " look for special sed-generated "Entering" lines while running tests
+    \%DEntering:\ %f\ %\\=,
+    
+    " look for exceptions that were thrown in the tests, use the exception
+    " description as the error message (don't know how to also include the
+    " exception name in the error message)
+    \%ECaused\ by:%[%^:]%#:%\\=\ %\\=%m,
+    \%ERoot\ cause:%[%^:]%#:%\\=\ %\\=%m,
+    \%Ecom.%[%^:]%#:%\\=\ %\\=%m,
+    \%Eorg.%[%^:]%#:%\\=\ %\\=%m,
+    \%Ejava.%[%^:]%#:%\\=\ %\\=%m,
+    \%Ejunit.%[%^:]%#:%\\=\ %\\=%m,
+    
+    " using the "Entering" directory and the filename/line number provided
+    " in the exception trace, go to the test method where the exception
+    " was thrown
+    \%-Z%\\C\ at\ com.mypkg.%.%#.test%[A-Z]%.%#(%f:%l)\ %\\=,
+    \%-Z%\\C\ at\ com.mypkg.%.%#.setUp(%f:%l)\ %\\=,
+    \%-Z%\\C\ at\ com.mypkg.%.%#.tearDown(%f:%l)\ %\\=,
+    
+    " empty lines terminate searching for further exception lines
+    \%-Z%^\ %#%$,
+    
+    " any line can intervene between the start of an exception printout
+    " and the line where it ends (last in list so that it is matched if
+    " none of the other exception trace patterns match)
+    \%-C%.%#,
+    
+    " all other lines are not errors
+    \%-G%.%#
+<
+
+SET UP KEY MAPPINGS  *vwt-325-set-up-key-mappings*
+
+Add the following lines to your vimrc:
+
+>
+    nmap <F10> :clist<CR>
+    nmap <F11> :cprev<CR>
+    nmap <F12> :cnext<CR>
+<
+
+This allows for quick error navigation.
+
+NOTES  *vwt-325-notes*
+
+Vim treats the "Entering: /work/src/..." messages in a weird way. If there 
+are any actual errors, then these error lines are ignored by the :cnext and 
+:cprev commands, but if there are no real errors, then :cnext and :cprev roll 
+through these "Entering:" messages as if they were errors, but since they 
+don't include any line numbers, the cursor position is never moved.
+
+I thought that this was strange, but even stranger, it is programmed directly 
+into the vim error handling code to function exactly this way. There were no 
+comments, and nobody responded on the vim mailing list, so I just decided to 
+live with it.
+
+The upshot of it all is that if you see an error like "Entering:", chances 
+are that your build succeeded and all the tests ran without a problem.
+
+COMMENTS  *vwt-325-comments*

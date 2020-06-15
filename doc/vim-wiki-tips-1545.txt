@@ -1,0 +1,62 @@
+*vim-wiki-tips-1545.txt*   Folding of find locate tar-tf output *vwt-1545*
+
+Tip 1545 [https://vim.fandom.com/wiki/Folding_of_find_locate_tar-tf_output]   Previous |vwt-1544| Next |vwt-1546|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200801#Folding_of_find_locate_tar-tf_output] 
+2008 · complexity basic · author Umu · version 7.0
+
+==============================================================================
+
+Given a huge file listing as text file, you can use this script to 
+comfortably browse it. Use all fold commands of Vim to open/close parts of the 
+directory tree, as used from standard file managers ( but even more flexible, 
+including moving in fold structure, executing commands on folds ... )
+
+The more, on Unix-like systems you can pipe the output of tools like find, 
+locate, tar -t, ... directly into Vim executing this script by using - as 
+filename.
+
+Examples:
+
+>
+    vim -u browser.vim  arch-hurd-i386.files
+    find . | vim -u browser.vim -
+    locate nox | vim -u browser.vim -
+    tar -tzf boost.tar.gz | vim -u browser.vim -
+<
+
+browser.vim
+
+>
+    set mouse=a
+    set foldminlines=1 foldcolumn=2 fillchars="+" foldlevel=0
+    set foldmethod=expr
+    set foldexpr=FileBrowserFoldExpr()
+    set foldtext=FileBrowserFoldText()
+    
+    function FileBrowserFoldExpr()
+      let line=getline(v:lnum)
+      let n=strlen(substitute(line,'[^/]*','','g'))
+      if (line=~'^.*/$')
+        return '>'.n
+      elseif (strpart(getline(v:lnum+1),0,strlen(line)+1)==line.'/')
+        return '>'.(n+1)
+      endif
+      return n
+    endfunction
+    
+    function FileBrowserFoldText()
+      return getline(v:foldstart) . '    ... [' . (v:foldend-v:foldstart+1) . ' lines]'
+    endfunction
+<
+
+COMMENTS  *vwt-1545-comments*
+
+TO DO
+    - Briefly explain purpose of tip and how to use (don't assume reader can quickly determine what idea is).
+    - Include something like "On Unix systems..." near top as hint for new readers.
+    - Mention how the - makes Vim input from stdin.
+
+
+==============================================================================

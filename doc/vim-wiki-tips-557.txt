@@ -1,0 +1,56 @@
+*vim-wiki-tips-557.txt*   Opening several files in vim via ListFile *vwt-557*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 557 [https://vim.fandom.com/wiki/Opening_several_files_in_vim_via_ListFile]   Previous |vwt-556| Next |vwt-558|
+
+created September 16, 2003 · complexity intermediate · author Alex J. · 
+version 5.7
+
+==============================================================================
+
+Suppose you want to open several files in Vim, but the names of the files to 
+open are stored in a file, each file name on separate line. This is the case 
+with Total Commander, when you open a program and pass %L as a parameter.
+
+It is possible to do it like this:
+
+>
+    gvim "+gl/^/exec 'badd '.getline('.')" +bdel +nohls +"cd %:h" LISTFILE
+<
+
+where LISTFILE contains the list of file names to open.
+
+Using Total Commander, I create new item in "start menu", and assign a 
+shortcut, let's say CTRL+ALT+F4 to it. Set path\gvim.exe as a command.
+
+This is what i put in a "parameters" section:
+
+>
+    "+gl/^/exec 'badd '.getline('.')" +bdel +nohls +"cd %%:h" %L
+<
+
+Then I can select several files, press CTRL+ALT+F4 and load all of them into 
+my favourite text editor :)
+
+COMMENTS  *vwt-557-comments*
+
+Try:
+
+>
+    gvim -c ":args `type mylist`"
+<
+
+You can also use commands like the following, even on Windows:
+
+>
+    gvim *\2*\xx.txt
+<
+
+==============================================================================

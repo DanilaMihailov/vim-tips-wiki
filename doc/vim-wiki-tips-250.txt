@@ -1,0 +1,57 @@
+*vim-wiki-tips-250.txt*   One big window *vwt-250*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 250 [https://vim.fandom.com/wiki/One_big_window]   Previous |vwt-249| Next |vwt-251|
+
+created May 23, 2002 · complexity basic · author Kontra Gergely · version 5.7
+
+==============================================================================
+
+If you like to see your files in fullscreen, and you have to edit more files, 
+you can do the following.
+    -  Use only one window
+    -  Open further files with :e
+    -  type :nm <A-Up> :bp!<CR>
+    -  type :nm <A-Down> :bn!<CR>
+    -  type :nm <C-F4> :bd!<CR>
+
+
+You can of course change the keys.
+
+Now to switch between windows, you can press Alt-Up, and Alt-Down
+
+(Just in the GUI, if you use console, don't use Alt key)
+
+Another idea is to map them to Ctrl-Tab, and Ctrl-Shift-Tab
+
+To close the current file you can press Ctrl-F4.
+
+COMMENTS  *vwt-250-comments*
+
+When I say type, I mean put it into your .vimrc of course
+
+==============================================================================
+
+Should the 'hidden' option be set for this to work?
+
+==============================================================================
+
+Consider using :bwipeout instead of :bd :help |:bd|.
+
+==============================================================================
+
+For some odd reason A-Up and A-Down was not working for me.I think C-Left and 
+C-Right are also a nice combination
+
+==============================================================================
+
+Yes, all the Alt combinations are problematical and work only in the GUI.
+
+==============================================================================

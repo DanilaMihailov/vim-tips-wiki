@@ -1,0 +1,305 @@
+*vim-wiki-tips-684.txt*   Preview current HTML file *vwt-684*
+
+Tip 127 [https://vim.fandom.com/wiki/Preview_current_HTML_file]   Previous |vwt-126| Next |vwt-128|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+This tip shows how to use Vim to view an html file, or a web page, in a web 
+browser. If wanted, a text-based web browser can be used to read the text from 
+an html page into a scratch buffer in Vim.
+
+VIEWING TEXT FROM AN HTML FILE OR A URL  *vwt-684-viewing-text-from-an-html-file-or-a-url*
+
+A text-based web browser such as elinks [http://en.wikipedia.org/wiki/Elinks] 
+can extract a formatted view of the text from an html file or a web page. The 
+following shows how to use elinks to read that text into a scratch buffer. You 
+might do that for a quick preview, or to copy text from the displayed html 
+page.
+
+>
+    function! ViewHtmlText(url)
+      if !empty(a:url)
+        new
+        setlocal buftype=nofile bufhidden=hide noswapfile
+        execute 'r !elinks ' . a:url . ' -dump -dump-width ' . winwidth(0)
+        1d
+      endif
+    endfunction
+    " Save and view text for current html file.
+    nnoremap <Leader>H :update<Bar>call ViewHtmlText(expand('%:p'))<CR>
+    " View text for visually selected url.
+    vnoremap <Leader>h y:call ViewHtmlText(@@)<CR>
+    " View text for URL from clipboard.
+    " On Linux, use @* for current selection or @+ for text in clipboard.
+    nnoremap <Leader>h :call ViewHtmlText(@+)<CR>
+<
+
+After sourcing the above, and assuming the default backslash Leader key, you 
+can:
+    - Edit an html file, then type \H to save and preview the file.
+    - Visually select the full path of a local html file or a URL, then type \h to preview the file or web page.
+    - Copy the full path of a local html file or a URL in another application, then type \h to preview the file or web page in Vim.
+
+
+FROM 256 OPENING CURRENT VIM FILE IN YOUR WINDOWS BROWSER [HTTPS://VIM.FANDOM.COM/WIKI/OPENING_CURRENT_VIM_FILE_IN_YOUR_WINDOWS_BROWSER]  *vwt-684-from-256-opening-current-vim-file-in-your-windows-browser-[https://vim.fandom.com/wiki/opening_current_vim_file_in_your_windows_browser]*
+    - TODO: Finish cleaning following notes.
+
+
+On Windows, using <cWORD> to open the link at the cursor in a browser does 
+not work when the URL is in an html tag surrounded by quotes. However, using 
+<cfile> works for both situations: plain URL and URL between html tags.
+
+>
+    " On Windows, open URL under cursor.
+    nnoremap <F8> :!start C:\progra~1\intern~1\iexplore.exe <cfile><CR>
+    nnoremap <F8> :!start C:\progra~1\mozill~1\firefox.exe <cfile><CR>
+    " On Windows, open current file in Internet Explorer.
+    nnoremap <F5> :update<Bar>silent !start c:\progra~1\intern~1\iexplore.exe file://%:p<CR>
+    " On Linux, open URL under cursor in Firefox.
+    nnoremap <F8> :silent !firefox <cfile><CR>
+<
+
+In the above, there is no space after ! and the Vim command has the form 
+:!start program file which causes Vim (on Windows) to run the specified 
+program with the file as an argument. If the program is not in a PATH 
+directory, the full path to the program must be specified. If the program path 
+contains spaces, it is necessary to put the path in quotes ("...").
+
+==============================================================================
+
+If using <cfile> or <cWORD> does not suit a particular requirement, it is 
+possible to use a pattern to select what is needed. For example, the following 
+takes the first match on the current line which starts with 'http' and 
+continues with non-whitespace characters (it finishes at the first space or 
+tab, or at the end of the line):
+
+>
+    nnoremap <F8> :execute 'silent ! start '.matchstr(getline('.'), 'http\S*')<CR>
+<
+
+==============================================================================
+
+On Windows 7 this opens the current file in Chrome (fix the path by replacing 
+"MyName" with what it should be on your system).
+
+>
+    nnoremap <silent> <F5> :update<Bar>silent !start "C:\Users\MyName\AppData\Local\Google\Chrome\Application\chrome.exe" "file://%:p"<CR>
+<
+
+Or it might be here:
+
+>
+    nnoremap <silent> <F5> :update<Bar>silent !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "file://%:p"<CR>
+<
+
+==============================================================================
+
+On Linux, use xdg-open to open the file using its default application. The 
+first of the following mappings saves the current file, then opens it; the 
+second opens the file under the cursor:
+
+>
+    nnoremap <F5> :update<Bar>silent !xdg-open %:p &<CR>
+    nnoremap <F8> :silent !xdg-open <cfile> &<CR>
+<
+
+FROM 587 PREVIEW CURRENT FILE IN MOZILLA THROUGH LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_FILE_IN_MOZILLA_THROUGH_LOCALHOST]  *vwt-684-from-587-preview-current-file-in-mozilla-through-localhost-[https://vim.fandom.com/wiki/preview_current_file_in_mozilla_through_localhost]*
+
+When editing an HTML file on Windows, enter the following to save the current 
+file and open it in your default browser:
+
+>
+    :update|silent ! start %:p
+<
+
+On Windows, the current file can be opened in its associated application 
+using the start command of the cmd.exe shell. With this mapping, press F5 to 
+save the current file and open it in its associated application:
+
+>
+    nnoremap <silent> <F5> :update<Bar>silent ! start %:p<CR>
+<
+
+The space after ! is required (on Windows, a command of the form !start xxx 
+causes Vim to run xxx asynchronously; Vim does not run start, whereas ! start 
+xxx invokes the shell cmd.exe to run its start internal command operating on 
+xxx). In the unlikely case that the associated application runs in a console 
+(command prompt window), it would be better to add the /b option so the 
+application runs in the same console as start. That is, change the command to 
+start /b %:p.
+
+It is convenient to leave the browser window open: switch back to Vim to do 
+any further editing required, save the file, then switch to the browser and 
+tell it to reload the file with a key like Ctrl-R or F5.
+
+A Linux version of the above mapping would use a program like xdg-open:
+
+>
+    nnoremap <F5> :update<Bar>silent !xdg-open %:p &<CR>
+    nnoremap <F5> :silent update<Bar>silent !xdg-open %:p &<CR>
+<
+
+FROM 684 PREVIEW CURRENT HTML IN BROWSER ON MAC OS X [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_MAC_OS_X]  *vwt-684-from-684-preview-current-html-in-browser-on-mac-os-x-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_mac_os_x]*
+    - TODO: Clean following.
+
+
+There are a few tips on previewing current HTML documents in a Windows 
+browser, but none I could find for Mac OS X. By studying the others, though, I 
+stumbled on a mapping that works. The <CR> at the end anticipates the "Hit 
+ENTER or type command to continue" message.
+
+>
+    nnoremap <F5> :!open -a Safari %<CR><CR>
+<
+
+Comments
+
+To expand on this:
+
+general -- "open x" will open "x" with the default application ... "open -a 
+applicationName x" will open "x" with application "applicationName"
+
+general -- "<D-aKey>" creates a shortcut using the Command (Apple) key
+
+improved(?) -- "nnoremap <silent> <D-p>f :exe ':silent !open -a 
+/Applications/Path/To/Firefox.app %'<CR>"
+
+(prevents remapping, runs quietly, shortcut is now [Command+p,f] for 
+"preview, firefox" ... helpful if you preview in multiple browsers)
+
+improved(?) -- "nnoremap <silent> <D-p>p :exe ':silent !open %'<CR>"
+
+(same, but creates a generic "preview" using default applications ... helpful 
+if you only preview in that browser, or can use it on other file types)
+
+other (open directory in Finder) -- "nnoremap <silent> <D-p>d :exe ':silent 
+!open -a finder %:p:h'<CR>"
+
+(%:p:h completely expands the file path and removes the file name so only 
+directory is left)
+
+other (apply same to netrw browser, ie, :Ex command) -- add to 
+.vimrc/.gvimrc: "let g:netrw_browsex_viewer = 'open'" (this is not necessary 
+starting with 7.2, netrw now uses "open" as the default for "x").
+
+(when using netrw browser, hit "x" while cursor is on file name to open that 
+file with the default application ... if the cursor is over a directory, it 
+will open in Finder)
+
+Also, for Mac users, here is a way to save the current PHP file then preview 
+it through localhost (TODO see %:p:s?pat?sub? below for Vim procedure):
+
+>
+    nnoremap <F5> :update<Bar>!open -a Google\ Chrome `echo http://localhost/${PWD\#*/*/*/*/*/}/%`<CR>
+<
+
+FROM 1015 PREVIEW FILE ON LOCALHOST [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_FILE_ON_LOCALHOST]  *vwt-684-from-1015-preview-file-on-localhost-[https://vim.fandom.com/wiki/preview_file_on_localhost]*
+
+Using this mapping will save the current file (if changed), then preview it 
+on localhost. For example, if you are editing file 
+/var/www/html/one/two/my.html, pressing F5 will use Firefox to open 
+http://localhost/one/two/my.html.
+
+>
+    nnoremap <F5> :silent update<Bar>silent !firefox %:p:s?\(.\{-}/\)\{4}?http://localhost/?<CR>
+<
+
+The core command has the form !firefox %:p:s?pat?sub? which uses the shell to 
+start Firefox to open the current file (%) with its name modified by forming 
+the full path (:p) then substituting the pattern pat with sub.
+
+The pattern is \(.\{-}/\)\{4} which finds exactly four occurrences of any 
+character (.) repeated as few times as possible (\{-}) up to and including the 
+next slash (/). If the file being edited is my.html in directory 
+/var/www/html/one/two, the pattern matches /var/www/html/ (the first 
+occurrence of four slashes, with any characters between).
+
+FROM 201110 PREVIEW CURRENT HTML IN BROWSER ON LINUX [HTTPS://VIM.FANDOM.COM/WIKI/PREVIEW_CURRENT_HTML_IN_BROWSER_ON_LINUX]  *vwt-684-from-201110-preview-current-html-in-browser-on-linux-[https://vim.fandom.com/wiki/preview_current_html_in_browser_on_linux]*
+
+This mapping allows you to use a browser to preview the HTML file currently 
+being edited.
+
+>
+    nnoremap <F5> :silent update<Bar>silent !firefox %:p &<CR>
+<
+
+If necessary, the current file is saved, then Firefox is used to open the 
+file. Replace "firefox" with the name of another browser if wanted, such as 
+"chromium-browser".
+
+OPEN AN HTML FILE IN A BROWSER  *vwt-684-open-an-html-file-in-a-browser*
+
+TODO: Put a link somewhere in this tip to the result of merging all the stuff on opening HTML files.
+
+SEE ALSO  *vwt-684-see-also*
+
+Open web browser to display URL under cursor
+    - 306 Open a web-browser with the URL in the current line |vwt-306|
+    - 555 Vim as bookmark manager |vwt-555|
+    - 732 Quick launch html and other Windows documents |vwt-732|
+    - 1549 Execute external programs asynchronously under Windows |vwt-1549| launch browser or document in associated app
+    - 1656 Automatically refresh display of html on saving file |vwt-1656| uses MozRepl addon for Firefox
+
+
+Display information for word under cursor in a web browser
+    - 394 Internet search for the current word |vwt-394|
+    - 598 PHP online help |vwt-598|
+    - 896 Lookup the city and state of a given US Zip code using TCL |vwt-896|
+    - 922 Launch lynx to get info for the current word |vwt-922|
+    - 926 QT Help from Vim |vwt-926|
+    - 933 Search the web for text selected in Vim |vwt-933|
+    - 1200 View PHP documentation for current word |vwt-1200|
+    - 1354 Online documentation for word under cursor |vwt-1354|
+    - 1377 Context sensitive access to MSDN help |vwt-1377|
+
+
+Configure so "view source" opens in Vim
+    - 118 Use gvim to view page source in Internet Explorer |vwt-118|
+    - 134 View Source in IE6 using VIM |vwt-134|
+    - 581 Using vim to view source and edit textarea in mozilla/firebird |vwt-581|
+    - 805 Use gvim as an external editor for Windows apps |vwt-805|
+    - 1156 View Source from Internet Explorer in gvim |vwt-1156|
+
+
+Other
+    - 317 Vim key bindings for Firefox |vwt-317|
+    - 691 Use gf to open a file via its URL |vwt-691|
+    - 305 Best Vim Tips |vwt-305| has a launching section
+    - 1440 Launch files in new tabs under Windows |vwt-1440|
+    - 1552 Launch files in new tabs under Unix |vwt-1552|
+    - 1652 Launch remote batch jobs and view results in Vim |vwt-1652|
+    - 299 Open file under cursor |vwt-299|
+    - 485 Open a window with the man page for the word under the cursor |vwt-485|
+    - 506 Open Windows Help files on a specific topic |vwt-506|
+    - 557 Opening several files in vim via ListFile |vwt-557|
+    - 1356 Open PDF files |vwt-1356|
+
+
+COMMENTS  *vwt-684-comments*
+
+I have removed the "Related plugins" section as the only plugin listed is 
+obsolete and relies on Perl to do what can be done in plain Vim. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 10:16, April 18, 2012 (UTC)
+
+==============================================================================
+
+I am working on merging a lot of tips related to opening HTML files in 
+browsers, and documents in associated applications. I don't think anything 
+more will be merged in to here. I will soon clean all this up and see how 
+large the result is (some of it might then be moved elsewhere). JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 11:21, April 26, 2012 (UTC)
+
+==============================================================================
+
+In mappings, I am using F5 to open the current file and F8 to open the file 
+under the cursor. Might rethink that after all merging complete. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 23:56, April 26, 2012 (UTC)
+
+==============================================================================
+
+TODO: Probably need shellescape() or at least quotes in some of the mappings 
+to handle embedded spaces. I think the Linux mappings also need & appended. 
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:01, April 27, 
+2012 (UTC)

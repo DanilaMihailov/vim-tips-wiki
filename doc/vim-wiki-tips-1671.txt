@@ -1,0 +1,54 @@
+*vim-wiki-tips-1671.txt*   A better gm command *vwt-1671*
+
+Tip 1671 [https://vim.fandom.com/wiki/A_better_gm_command]   Previous |vwt-1670| Next |vwt-1672|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201103#A_better_gm_command] 
+March 15, 2011 · complexity basic · author Kurkale6ka · version 7.0
+
+==============================================================================
+
+In normal mode, typing gm moves the cursor to the middle of the current 
+screen line. With 'wrap' on, a long line may be wrapped so it appears on 
+several screen lines. Typing gm moves the cursor to the middle of the current 
+line on the screen (or to the end of the line, if it ends before the middle of 
+the screen).
+
+This tips remaps gm so the cursor is moved to the middle of the current 
+physical line. Any leading or trailing whitespace is ignored: the cursor moves 
+to the middle of the text between the first and last non-whitespace 
+characters.
+
+CODE  *vwt-1671-code*
+
+>
+    function! s:Gm()
+      execute 'normal! ^'
+      let first_col = virtcol('.')
+      execute 'normal! g_'
+      let last_col  = virtcol('.')
+      execute 'normal! ' . (first_col + last_col) / 2 . '|'
+    endfunction
+    nnoremap <silent> gm :call <SID>Gm()<CR>
+    onoremap <silent> gm :call <SID>Gm()<CR>
+<
+
+REFERENCES  *vwt-1671-references*
+    - :help  |gm|
+
+
+COMMENTS  *vwt-1671-comments*
+
+I have removed the following from the tip because I can't make it do anything 
+useful. If an explanation or fix is available, please restore it.
+
+>
+    onoremap <silent> gm :call <SID>Gm()<CR>
+    " xmap <silent> gm :call <SID>Gm()<CR>
+<
+
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 08:22, March 31, 
+2012 (UTC)
+
+onoremap makes sense, xmap doesn't work, because visual mode is exited. One could possibly get around it by using an <expr> mapping.Chrisbra (talk) 09:53, July 1, 2013 (UTC)
+Thanks, but I think I meant that we should give an example of where the onoremap does something useful. For example, I just tried it again with a long line that was wrapped over several screen lines. Typing gm went to the middle of the physical line, but going back to the same starting position and typing vgm does not select the text that the first command moved over. Instead, the gm goes to the middle of the screen line. JohnBeckett (talk) 11:09, July 2, 2013 (UTC)

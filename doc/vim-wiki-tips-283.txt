@@ -1,0 +1,59 @@
+*vim-wiki-tips-283.txt*   Turn on syntax coloring in Mac OS X *vwt-283*
+
+Tip 283 [https://vim.fandom.com/wiki/Turn_on_syntax_coloring_in_Mac_OS_X]   Previous |vwt-282| Next |vwt-284|
+
+created July 11, 2002 · complexity basic · author Mario Martinez · version 
+6.0
+
+==============================================================================
+
+Some versions of Mac OS X don't have syntax highlighting support in terminal 
+Vim with default settings.
+
+If you don't have syntax highlighting in any Vim, first make sure something 
+like this is in your .vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    filetype plugin indent on
+    syntax on
+<
+
+If you have that, and still don't get syntax highlighting in Vim running in a 
+terminal (i.e. not a GUI like MacVim), you may need to inform Vim how to 
+handle the terminal.
+
+Something like this is needed, prior to the syntax on command in your .vimrc:
+
+>
+    set term=builtin_beos-ansi
+<
+
+Others (on "Mountain Lion" and "Sierra") reported success with this instead:
+
+>
+    set term=builtin_ansi
+<When using iTerm 2, you can simply do:
+
+>
+    set term=xterm-256color
+<
+
+COMMENTS  *vwt-283-comments*
+
+The following worked great on OSX 10.10.3 Yosemite, and OSX 10.12.4 Sierra. I 
+tested it with .py, .html and .php. Thanks!set term=builtin_ansi Worked like a charm on OS X 10.9 Mavericks, Thanks.
+
+
+
+set term=xterm also works on OS X 10.9 Mavericks
+
+set term=builtin_beos-ansi worked like a charm in OS X 10.10.3 Yosemite. 
+Thanks!
+
+Disclaimer: Under 10.9 Mavericks with an external keyboard, term=builtin_ansi 
+may make the delete key next to the end key change the character under the 
+cursor rather than delete as expected. term=xterm has this key behave as 
+expected.
+
+DinVim is a vim for Mac OS [http://dinvim.com] that supports syntax coloring 
+out of the box.

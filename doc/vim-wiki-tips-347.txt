@@ -1,0 +1,20 @@
+*vim-wiki-tips-347.txt*   Format paragraph without changing the cursor position *vwt-347*
+
+Tip 347 [https://vim.fandom.com/wiki/Format_paragraph_without_changing_the_cursor_position]   Previous |vwt-346| Next |vwt-348|
+
+created 2002 · complexity basic · version 6.0
+
+==============================================================================
+
+To format the current paragraph:
+    - gqap
+    - gwap same, but restores cursor position
+
+
+COMMENTS  *vwt-347-comments*
+
+TO DO
+    - Thanks to anon who pointed out that gwap makes the original tip obsolete (I have removed it).
+    - We don't have any other tips that explain basics of paragraph formatting, so this may as well be it.
+    - Need to explain what "format" means here.
+    - Need to mention textwidth, formatexpr, formatprg and probably more (but keep it simple).

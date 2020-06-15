@@ -1,0 +1,58 @@
+*vim-wiki-tips-272.txt*   Format pasted text automatically *vwt-272*
+
+Tip 272 [https://vim.fandom.com/wiki/Format_pasted_text_automatically]   Previous |vwt-271| Next |vwt-273|
+
+created 2002 · complexity basic · author RobertKellyIV · version 6.0
+
+==============================================================================
+
+If a user would like to paste text into a buffer and have that text indented 
+properly so that the text matches surrounding indents, the following command 
+can be given:
+
+>
+    ]p
+<
+
+Some users prefer to have all of their text pasted with indenting intact. In 
+order to make this easier, the ]p command can be mapped to the p command, so 
+that whenever p is used, ]p will be executed. The following can be added to 
+the .vimrc to accomplish this:
+
+>
+    :nnoremap p ]p
+    :nnoremap <c-p> p
+<
+
+This simply maps normal mode p to what ]p normally does. While ctrl+p now 
+performs just p without the indenting functionality.
+
+CORRECTING BAD INDENT WHILE PASTING  *vwt-272-correcting-bad-indent-while-pasting*
+
+Unfortunately, the ]p command will only adjust indent to match the current 
+line, it will not re-indent the pasted text to correct it according to your 
+current indent rules. You can do this as well, using the special mark, `]. 
+This will jump to the last character of the paste, so you could change the p 
+mapping above to:
+
+>
+    :nnoremap p p=`]
+<
+
+This takes advantage of the fact that a paste operation will place the cursor 
+at the beginning of the inserted text, and uses the = operator to indent 
+[https://vim.fandom.com/wiki/Indenting_source_code] the entire inserted text.
+
+REFERENCES  *vwt-272-references*
+    - :help  |:nnoremap|
+    - :hel  |p|
+    - :help  |=|
+    - :help  |`]|
+    - :help  |]p|
+
+
+RELATED PLUGINS  *vwt-272-related-plugins*
+    -  vim-pasta [https://github.com/sickill/vim-pasta] allows for pasting with automatic adjusting of indentation to destination context.
+
+
+COMMENTS  *vwt-272-comments*

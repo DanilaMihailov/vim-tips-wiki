@@ -1,0 +1,391 @@
+*vim-wiki-tips-1454.txt*   Show what function the cursor is in *vwt-1454*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip945 |vwt-945|
+    - VimTip1087 |vwt-1087|
+    - VimTip1267 |vwt-1267|
+    - VimTip1296 |vwt-1296|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1454 [https://vim.fandom.com/wiki/Show_what_function_the_cursor_is_in]   Previous |vwt-1440| Next |vwt-1455|
+
+created January 1, 2007 · complexity intermediate · author Shotaro Aoyama · 
+version n/a
+
+==============================================================================
+
+This is a function to show what C/C++ function/struct/class the cursor is in. 
+I think this method is fast enough for practical use, but it's not complete.
+
+>
+    function! GetProtoLine()
+      let ret       = ""
+      let line_save = line(".")
+      let col_save  = col(".")
+      let top       = line_save - winline() + 1
+      let so_save = &so
+      let &so = 0
+      let istypedef = 0
+      " find closing brace
+      let closing_lnum = search('^}','cW')
+      if closing_lnum > 0
+        if getline(line(".")) =~ '\w\s*;\s*$'
+          let istypedef = 1
+          let closingline = getline(".")
+        endif
+        " go to the opening brace
+        normal! %
+        " if the start position is between the two braces
+        if line(".") <= line_save
+          if istypedef
+            let ret = matchstr(closingline, '\w\+\s*;')
+          else
+            " find a line contains function name
+            let lnum = search('^\w','bcnW')
+            if lnum > 0
+              let ret = getline(lnum)
+            endif
+          endif
+        endif
+      endif
+      " restore position and screen line
+      exe "normal! " . top . "Gz\<CR>"
+      call cursor(line_save, col_save)
+      let &so = so_save
+      return ret
+    endfunction
+    
+    function! WhatFunction()
+      if &ft != "c" && &ft != "cpp"
+        return ""
+      endif
+      let proto = GetProtoLine()
+      if proto == ""
+        return "?"
+      endif
+      if stridx(proto, '(') > 0
+        let ret = matchstr(proto, '\w\+(\@=')
+      elseif proto =~# '\<struct\>'
+        let ret = matchstr(proto, 'struct\s\+\w\+')
+      elseif proto =~# '\<class\>'
+        let ret = matchstr(proto, 'class\s\+\w\+')
+      else
+        let ret = strpart(proto, 0, 15) . "..."
+      endif
+      return ret
+    endfunction
+    
+    " You may want to call WhatFunction in the statusline
+    set statusline=%f:%{WhatFunction()}\ %m%=\ %l-%v\ %p%%\ %02B
+<
+
+This function works well in the following testcase:
+
+>
+    void draw()
+    {
+        // When cursor is here, WhatFunction() shows "draw"
+        glClear(GL_COLOR_BUFFER_BIT {{|}} GL_DEPTH_BUFFER_BIT);
+    }
+    
+    typedef struct {
+        int ident;  // { <- braces in comments are ignored thanks to %. Great!
+        int version;    // here it shows "} HEADER"
+    } HEADER;
+    
+    # define EX(a, b, c, d)  a
+    enum CMD_index
+    #endif
+    {
+    EX(CMD_append, "append", ex_append); // here "enum CMD_index..."
+    };
+    
+    class Sys {
+    public:
+        load() {
+            // NG: here, it shows "Sys" instead of "load"...
+        }
+    };
+    
+    class Camera : public Object
+    {
+    public:
+        void init();
+    };
+    
+    void Camera::init()
+    {
+        // here WhatFunction shows "init"
+    }
+<
+
+COMMENTS  *vwt-1454-comments*
+
+I again had some problems with scrolling. This time, side-to-side scrolling 
+in diff mode (specifically no line wrap). When the text was scrolled left, 
+pressing 'h' or 'l' would act as if I'd pressed 'zh' or 'zl'.
+
+Similar to the previous issue, I solved the problem by storing the value 
+returned from wincol() in a variable, at the beginning of GetProtoLine(). Then 
+at the end of GetProtoLine(), if wincol() is different, I scroll 
+appropriately.
+
+So:
+
+>
+    " restore position and screen line
+      exe "normal! " . top . "Gz\<CR>"
+      call cursor(line_save, col_save)
+      let &so = so_save
+<
+
+Became:
+
+>
+    " restore position and screen line
+      exe "normal! " . top . "Gz\<CR>"
+      call cursor(line_save, col_save)
+      let line_diff = winline() - window_line
+      if line_diff > 0
+        exe 'normal ' . line_diff . '^E'
+      elseif line_diff < 0
+        exe 'normal ' . -line_diff . '^Y'
+      endif
+      let &so = so_save
+<
+
+==============================================================================
+
+But should be:
+
+>
+    " restore position and screen line
+      exe "normal! " . top . "Gz\<CR>"
+      call cursor(line_save, col_save)
+      let line_diff = winline() - window_line
+      " check if we are in diff mode
+      if &diff
+        if line_diff > 0
+          exe 'normal ' . line_diff . '^E'
+        elseif line_diff < 0
+          exe 'normal ' . -line_diff . '^Y'
+        endif
+      endif
+      let &so = so_save
+<
+
+We need to check if we are in diff mode or it will fail otherwise
+
+==============================================================================
+
+==============================================================================
+
+Calling WhatFunction() in the status line breaks multi-line actions like 
+"2yy" for me, just one line is copied instead of two. Any idea how to fix 
+that?
+
+==============================================================================
+
+To use it, simply enter this (perhaps using a mapping) to show the function 
+name:
+
+>
+    :echo WhatFunction()
+<
+
+Or use it in the statusline as already mentioned.
+
+The method of finding opening brace can be replaced by the one of script#1628 
+[https://www.vim.org/scripts/script.php?script_id=1628]. That's better?
+
+==============================================================================
+
+The regexp used to find the function name, assumes that the function name 
+would not have underscores
+
+present code:
+
+>
+    let ret = matchstr(proto, '\w\+(\@=')
+<
+
+could be:
+
+>
+    let ret = matchstr(proto, '[[:alnum:]_ ]\+(\@=')
+<
+
+==============================================================================
+
+Don't forget that you'll have tildes in destructor names.
+
+So:
+
+>
+    let ret = matchstr(proto, '[[:alnum:]_ ]\+(\@=')
+<
+
+could be:
+
+>
+    let ret = matchstr(proto, '\~\?[[:alnum:]_ ]\+(\@=')
+<
+
+==============================================================================
+
+I set this up to show the function name in my statusline. However, when I was 
+diff-ing two different versions of the same file, and odd scrolling behavior 
+occurred... With the cursor on the bottom line of the window, I pressed 'k', 
+and vi acted as if I pressed 'Ctrl-y'.
+
+I solved the problem by storing the value returned from winline() in a 
+variable, at the beginning of GetProtoLine(). Then at the end of 
+GetProtoLine(), if winline() is different, I scroll appropriately.
+
+==============================================================================
+
+A shorter (but not perfect) method
+
+type "[[" - jump to the previous '{' in the first column. Of course functions 
+must look like this:
+
+>
+    type function_name( ... )
+      {
+          ...
+      }
+<
+
+not
+
+>
+    type function_name( ... ) {
+         ...
+      }
+<
+
+jump back with "CTRL-O"
+
+==============================================================================
+
+Jumplist fix
+
+The script modified the :jumplist, to fix this, change to and to .
+
+(BTW, the original reg ex accepts "_", because it is in \w, why should a 
+change be needed?)
+
+==============================================================================
+
+I think it could be helpful to add a way to quickly disable it for a buffer:
+
+>
+    " allow to quickly disable it (:let b:noWhatFunction=1)
+      if exists("b:noWhatFunction") && b:noWhatFunction
+        return ""
+      endif
+<
+
+==============================================================================
+
+All-in-One-Version
+
+To simplify using all the improvements, here an update C&P-ready:
+
+>
+    function! GetProtoLine()
+      let ret       = ""
+      let line_save = line(".")
+      let col_save  = col(".")
+      let window_line = winline()
+      let top       = line_save - winline() + 1
+      let so_save = &so
+      let &so = 0
+      let istypedef = 0
+      " find closing brace
+      let closing_lnum = search('^}','cW')
+      if closing_lnum > 0
+        if getline(line(".")) =~ '\w\s*;\s*$'
+          let istypedef = 1
+          let closingline = getline(".")
+        endif
+        " go to the opening brace
+        keepjumps normal! %
+        " if the start position is between the two braces
+        if line(".") <= line_save
+          if istypedef
+            let ret = matchstr(closingline, '\w\+\s*;')
+          else
+            " find a line contains function name
+            let lnum = search('^\w','bcnW')
+            if lnum > 0
+              let ret = getline(lnum)
+            endif
+          endif
+          let lines = closing_lnum - line(".")
+          let line_rel = line_save - line(".")
+          let ret = ret . ':' . line_rel . '/' . lines
+        endif
+      endif
+      "exe "keepjumps normal! " . top . "Gz\<CR>"
+      " restore position and screen line
+      call cursor(line_save, col_save)
+      " needed for diff mode (scroll fixing)
+      let line_diff = winline() - window_line
+      if line_diff > 0
+        exe 'normal ' . line_diff . "\<c-e>"
+      elseif line_diff < 0
+        exe 'normal ' . -line_diff . "\<c-y>"
+      endif
+      " sometimes cursor position is wrong after scroll fix, why? Workaround:
+      call cursor(line_save, col_save)
+      let &so = so_save
+      return ret
+    endfunction
+    
+    function! WhatFunction()
+      " allow to quickly disable it (:let b:noWhatFunction=1)
+      if exists("b:noWhatFunction") && b:noWhatFunction
+        return ""
+      endif
+      if &ft != "c" && &ft != "cpp"
+        return ""
+      endif
+      let proto = GetProtoLine()
+      if proto == ""
+        return "?"
+      endif
+      let line_info = matchstr(proto, ':\d\+\/\d\+')
+      if stridx(proto, '(') > 0
+        let ret = matchstr(proto, '\~\?\w\+(\@=')
+      elseif proto =~# '\<struct\>'
+        let ret = matchstr(proto, 'struct\s\+\w\+')
+      elseif proto =~# '\<class\>'
+        let ret = matchstr(proto, 'class\s\+\w\+')
+      else
+        let ret = strpart(proto, 0, 15) . "..."
+      endif
+      let ret .= line_info
+      return ret
+    endfunction
+<
+
+==============================================================================
+
+Please see StlShowFunc [https://github.com/dr-chip-vim-scripts/StlShowFunc] 
+plugin:
+
+It works for several languages.

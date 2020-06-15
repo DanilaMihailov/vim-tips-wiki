@@ -1,0 +1,148 @@
+*vim-wiki-tips-1630.txt*   Quick tips for using tab pages *vwt-1630*
+
+Tip 1630 [https://vim.fandom.com/wiki/Quick_tips_for_using_tab_pages]   Previous |vwt-1629| Next |vwt-1631|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200911#Quick_tips_for_using_tab_pages] 
+2009 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+Vim provides tab pages as one way to organize your workspace, alongside (but 
+not in place of) a buffer list and splittable windows. For basic tab use, see 
+our Using tab pages [https://vim.fandom.com/wiki/Using_tab_pages]. Once you 
+know how to navigate Vim's tab pages, you may be confused as to why they act 
+so differently from the tabs in other editors. Here are some quick ideas, no 
+scripts required, that can get you started using tab pages to their full 
+potential.
+
+FULL-PAGE REFERENCE DOCUMENTS  *vwt-1630-full-page-reference-documents*
+
+By simply prefacing a :help command with the :tab modifier, you can have 
+multiple full-page Vim help topics, each in its own conveniently-labeled tab 
+page, without messing up your window layout. For example, instead of entering 
+:help toc, type :tab help toc. If you have already opened a document in a 
+window and would like it in a tab, press Ctrl-W then T.
+
+You don't need to limit this to Vim's help. You can open other reference 
+material (API docs, framework source code, project notes, etc.), each in a new 
+tab for quick and easy access. This is useful when you need to refer to a 
+document, but you do not want it taking up screen real estate next to the text 
+you are currently working on.
+
+QUICK CHANGES OUTSIDE NORMAL WORKFLOW  *vwt-1630-quick-changes-outside-normal-workflow*
+
+Tabs are great places to work on small tasks that fall outside your normal 
+workflow. Open a new tab page for vimrc [https://vim.fandom.com/wiki/Vimrc] 
+changes or for scratchpads to hold external command output, chunks of text, 
+etc., and you can very quickly switch back to what you were working on before, 
+without messing up your window layout or anything else. Just close the tab, 
+and you're automatically back to whatever you were working on.
+
+ALTERNATE VIEWS OF A FILE  *vwt-1630-alternate-views-of-a-file*
+
+If you are working in a buffer with most folds open, you can keep a second 
+tab page showing the buffer with all folds closed for an "at a glance 
+summary". The folded version serves as an overview of the entire file, often 
+visible on a single screen. You can take advantage of the "at a glance" view 
+to rapidly find and mark a place in a file (typing ma creates a mark that 
+applies to the buffer), then jump to the mark ('a) in a different tab showing 
+the same buffer.
+
+You can also go the other way. Instead of keeping a tab page for a 
+"summarized" view, you could open a tab page for a detailed "x-ray" view of a 
+buffer. In a separate tab page, you can enable useful but visually noisy 
+options like 'list', 'cursorcolumn', 'cursorline', and 'number', and you may 
+have several :match patterns active, or similar. This way, you can keep your 
+regular working view clean and uncluttered, but quickly flip over to the 
+information-overloaded version when needed. This idea works for the settings 
+in :help |option-summary| that are labeled 'local to window'.
+
+SEPARATE 'DIFF' VIEWS  *vwt-1630-separate-'diff'-views*
+
+Along the same lines as the "x-ray" tab above, you can take advantage of the 
+fact that a 'diff' view of two or more buffers is local to the tab page. 
+Knowing this, you can open up a new tab on the current buffer with :tab split, 
+and then in the new tab use the |:DiffOrig| command to create a tab containing 
+a diff of the current state of the buffer with the original state on disk. 
+Now, you can go back to your original tab, make and even save changes, and 
+your 'diff' tab will remain open for you to quickly see changes you have made 
+since you started.
+
+You can go further than this. Using tabs, you are not limited to a single 
+diff. If you have two portions of a single file that are very similar, and you 
+want to see exactly how similar, you can open a new tab with two new buffers, 
+then copy and paste the two sections of the original buffer which you want to 
+compare, one in each window. Then run :windo diffthis in the new tab and you 
+have a quick comparison of just parts of the buffer.
+
+You don't even need to close any other diffs you may have in progress to do 
+this. Using tab pages, you can have multiple diff tabs open at once, alongside 
+tabs for normal editing.
+
+REDIRECTED COMMAND OUTPUT  *vwt-1630-redirected-command-output*
+
+Sometimes, you may want to use the output from an ex command, instead of just 
+viewing it in the status area. Using the |:redir| command, you can run a 
+command, capture the output, then open a new tab page to paste the captured 
+text. This could also be done with a new window, or even within the current 
+window, but using a new tab page can be less disruptive, as it will not mess 
+up your current window layout or buffer contents. If you do this often enough, 
+you could create a simple command or mapping.
+
+You can do the same sort of thing with external commands. The method is even 
+easier. Just open a new tab with :tabnew, then use the |:r!| command to read 
+in the external command. If you find yourself doing this a lot, you can use a 
+script [https://vim.fandom.com/wiki/Capture_ex_command_output].
+
+MINI-SESSIONS  *vwt-1630-mini-sessions*
+
+If you remove 'tabpages' from 'sessionoptions', then |:mksession| will only 
+pay attention to the current tab page. This makes it easy to use tab pages as 
+a lightweight project-organization tool–just open a set of files in whatever 
+window layout you like, then run :mksession some-project.vim to save the 
+current tab page as a session. To work on that set of files again, open a new 
+tab page and :source the appropriate session file.
+
+REPEAT A COMMAND ON A SELECTION OF BUFFERS  *vwt-1630-repeat-a-command-on-a-selection-of-buffers*
+
+It is easy to run a command on all files you have loaded (though not 
+necessarily visible) in Vim, using |:bufdo|. It is possible, using |:argdo| to 
+run a command on a selection of files. But, the argument list can be tedious 
+to work with, and additionally it is limited to real files; you can't use it 
+on buffers that don't yet or will never have an associated file. You can use a 
+new tab to open a window on every buffer you wish to run a command on, then 
+use |:windo| to run the command on every buffer in the tab. If you take care 
+and pay attention to your buffer list instead of relying exclusively on tabs 
+for your organization, you can even do something like:
+
+>
+    :tab sp
+    :sball
+<
+
+to open a tab with a window for ALL currently loaded buffers, and then close 
+any buffers you wish to exclude from your command. Then proceed with the 
+:windo and close the tab to return to what you were doing before.
+
+This method can be especially nice when working with the |quickfix| list, 
+because you can use the 'switchbuf' option to automatically split a window for 
+a result, and the |:cnfile| command repeatedly (potentially by using |@:| with 
+a count) to open every file selected by your |:make|, |:grep|, or other 
+command.
+
+MORE IDEAS  *vwt-1630-more-ideas*
+
+There are plenty more creative things you can do with Vim's tab pages. If you 
+don't try to limit yourself to one-file-per-tab and one-tab-per-file, you will 
+only be limited by our own imagination. Take a look at the other tips in the 
+Tabs category [https://vim.fandom.com/wiki/Category:Tabs] for more ideas and 
+some helpful scripts.
+
+COMMENTS  *vwt-1630-comments*
+
+TO DO
+    -  Link to related tips, e.g. a "sessions" tip, if we have one.
+
+
+VimTip238 has a list of what we have (possibly not very helpful). JohnBeckett 04:02, March 20, 2010 (UTC)

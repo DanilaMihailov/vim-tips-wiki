@@ -1,0 +1,278 @@
+*vim-wiki-tips-125.txt*   Comment your code blocks automatically *vwt-125*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 125 [https://vim.fandom.com/wiki/Comment_your_code_blocks_automatically]   Previous |vwt-124| Next |vwt-126|
+
+created October 2, 2001 · complexity basic · author Long Truong · version 6.0
+
+==============================================================================
+
+I always wanted a script that would auto-comment the end of a conditional 
+block. So, I wrote one. This function searches for the previous matching "{", 
+grabs the line, and inserts it as a comment after the "}". If there is no 
+previous matching "{", it inserts nothing.So...
+
+>
+    if (test){
+<
+
+will generate:
+
+>
+    } // if (test)
+<
+
+This is obviously not work if you use a different style. If you use
+
+>
+    if (test)
+    {
+<
+
+then substituting 'getline(".")', use 'getline(line(".") - 1)' should work.
+
+Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    au BufNewFile,BufRead *.c,*.cc,*.C,*.h imap } <Esc>:call CurlyBracket()<CR>a
+    
+    function CurlyBracket()
+      let l:my_linenum = line(".")
+      iunmap }
+      sil exe "normal i}"
+      imap } <Esc>:call CurlyBracket()<CR>
+      let l:result1 = searchpair('{', '', '}', 'bW')
+      if (result1 > 0)
+        let l:my_string = substitute(getline("."), '^\s*\(.*\){', '\1', "")
+        sil exe ":" . l:my_linenum
+        sil exe "normal a //" . l:my_string
+      endif
+     endfunction
+<
+
+COMMENTS  *vwt-125-comments*
+
+Thanks for the cool script. I had some problems getting it working, but I've 
+bodged it for now. Don't know if you're interested, but I've made a few 
+modifications.
+
+[1] Works for
+
+>
+    if (x ==1 )
+    {
+    .....
+    }
+<
+
+(the substitution appeared to be going awry for lines with braces on their 
+own)
+
+[2] Won't comment lines that are within 10 lines of each other. I find this 
+script great for big huge functions, but for short if statements it can 
+quickly clog up the code with obvious comments.
+
+[3] Won't copy the entire line, but truncates at 30 characters. Prepended 
+spaces are removed.
+
+[4] I've added the line
+
+>
+    au BufNewFile,BufRead *.java,*.c,*.cc,*.C,*.h map <A-F1> :call CurlyBracket()<CR>
+<
+
+to my .vimrc for those times when you started with a small if statement, and 
+ended up with a mammoth one. Simply calls CurleyBracket to comment it.
+
+>
+    function! CurlyBracket()
+      let l:my_linenum=line(".")
+      iunmap }
+      sil exe "normal i}"
+      imap } <Esc>:sil call CurlyBracket()<CR>a
+      let result1=searchpair('{', '', '}', 'bW')
+      let goline=""
+      let appendstr=""
+      if (result1 > 0)
+        let l:my_startline=line(".")
+        if (l:my_linenum - l:my_startline > 10)
+          let l:my_string=substitute(getline(line(".")-1),"^ *","","g")
+          let l:shortstring=strpart(l:my_string,0,30)."..."
+          let appendstr="normal a // ".shortstring
+        endif
+        let goline=":".l:my_linenum
+      endif
+      sil exe goline
+      sil exe appendstr
+    endfunction
+<
+
+==============================================================================
+
+Okay. I have changed this script. It takes into account the last note and 
+some other things I noticed.
+
+Notes:
+    -  This will not indent correctly unless you're using cindent. For some reason, a friend of mine with smartindent and it didn't work
+    -  If your style is to put the curly bracket on it's own line after the "if", add "-1" to all the getline calls.
+
+
+>
+    au BufNewFile,BufRead *.c,*.cc,*.C,*.h imap }<CR> <Esc>:call CurlyBracket()<CR>a
+    
+    function CurlyBracket()
+      let l:startline = line(".")
+      let l:result1 = searchpair('{', '', '}', 'bW', '')
+      if (result1 > 0)
+        let l:linenum = line(".")
+        let l:string1 = getline(l:linenum)
+        if (l:string1 =~ ".*}.*{.*")
+          sil exe "normal 0"
+          let l:result2 = searchpair('{', '', '}', 'bW', '')
+          if (l:result2 > 0)
+            let l:string1 = getline(".") . l:string1
+          endif
+        endif
+        let l:my_string = substitute(l:string1, '^\s*\(.*\){', '\1', "")
+        let l:my_string = strpart(l:my_string,0,30)."..."
+        sil exe ":" . l:startline
+        sil exe "normal i}"
+        if ((l:startline - l:linenum) > 10)
+          sil exe "normal a //" . l:my_string
+        endif
+      endif
+    endfunction
+<
+
+==============================================================================
+
+Just 3 modifications:
+
+[1]. Now, supports both styles of
+
+>
+    if (..) {
+     ..
+    }
+<
+
+and
+
+>
+    if (...)
+    {
+     ...
+    } else
+    {
+     ...
+    }
+<
+
+but,
+
+>
+    if ()
+    {
+    }
+    else
+    {
+    }
+<
+
+still does not work!!
+
+[2] The number of lines is taken form the start of the "if" (in case of 
+if-else)
+
+[3] The "..." is added only if the length of the stringis > 30.
+
+=  *vwt-125-=*
+
+>
+    " curlyC.vim
+    " From Long Truong : Vim Tip #125.
+    " Automatically comments {} in C/C++/Java.
+    
+    au BufNewFile,BufRead *.c,*.cc,*.h imap }<CR> <Esc>:call CurlyBracket()<CR>a
+    au BufNewFile,BufRead *.cpp,*.C imap }<CR> <Esc>:call CurlyBracket()<CR>a
+    au BufNewFile,BufRead *.java,*.idl imap }<CR> <Esc>:call CurlyBracket()<CR>a
+    
+    function CurlyBracket()
+     let l:startline = line(".")
+     let l:result1 = searchpair('{', '', '}', 'bW')
+     if (result1 > 0)
+     let l:linenum = line(".")
+     let l:string1 = substitute(getline(l:linenum), '^\s*\(.*\)\s*$', '\1', "")
+     if (l:string1 =~ '^{')
+     let l:string1 = substitute(getline(l:linenum - 1), '^\s*\(.*\)\s*$', '\1', "") . " " . l:string1
+     sil exe "normal k"
+     endif
+    
+     " get else part if necessary
+     if (l:string1 =~ "^}")
+     sil exe "normal 0"
+     let l:result2 = searchpair('{', '', '}', 'bW')
+     if (l:result2 > 0)
+     let l:linenum = line(".")
+     let l:string2 = substitute(getline(l:linenum), '^\s*\(.*\)\s*$', '\1', "")
+     if (l:string2 =~ '^{')
+     let l:string2 = substitute(getline(l:linenum - 1), '^\s*\(.*\)\s*$', '\1', "") . " " . l:string2
+     endif
+     let l:string1 = l:string2 . " ... " . l:string1
+     endif
+     endif
+    
+     " remove trailing whitespaces and curly brace
+     let l:my_string = substitute(l:string1, '\s*{[^{]*$', '', "")
+     let l:my_strlen = strlen(l:my_string)
+     if (l:my_strlen > 30)
+     let l:my_string = strpart(l:my_string,0,30)."..."
+     endif
+    
+     sil exe ":" . l:startline
+     sil exe "normal i}"
+     if ((l:startline - l:linenum) > 10)
+     sil exe "normal a /* " . l:my_string . " */"
+     endif
+    
+     endif
+    endfunction
+<
+
+==============================================================================
+
+I use: vim6.1.74 - LinuxNice tip but it doesn't work for me!
+
+>
+    Error detected while processing function CurlyBracket:
+    line 2:
+     Error detected while processing function CurlyBracket..CurlyBracket:
+    line 2:
+     Error detected while processing function CurlyBracket..CurlyBracket..CurlyBracket:
+     ...
+<
+
+==============================================================================
+
+People facing Problems with running this script can try removing the <Space> 
+after "iunmap }" statement.
+
+==============================================================================
+
+If you are deciding which script to use, I used curlyC.vim.
+
+Remember that completion is done only if { and } are separated by 10 lines
+
+==============================================================================
+
+The 10 lines buffer was deliberate - you don't want the closing comments for 
+small blocks
+
+==============================================================================

@@ -1,0 +1,38 @@
+*vim-wiki-tips-875.txt*   Using bar in external grep *vwt-875*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 875 [https://vim.fandom.com/wiki/Using_bar_in_external_grep]   Previous |vwt-874| Next |vwt-876|
+
+created February 15, 2005 · complexity basic · author David S · version 5.7
+
+==============================================================================
+
+It took me a while to notice this at :help |:bar|:
+
+'|' can be used to separate commands, so you can give multiple commands in one line. If you want to use '|' in an argument, precede it with '\'.
+
+When using bar in grep from a shell prompt you would use something like:
+
+>
+    grep -i "main\(menu\|tool\)" *
+      or
+    grep -iE "main(menu|tool)" *
+<
+
+However, you must remember to add an extra escape to the '|' character in 
+your regex when using grep from Vim, like so:
+
+>
+    grep -i "main\(menu\\|tool\)" *
+      or
+    grep -iE "main(menu\|tool)" *
+<
+
+COMMENTS  *vwt-875-comments*

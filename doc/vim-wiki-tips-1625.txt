@@ -1,0 +1,90 @@
+*vim-wiki-tips-1625.txt*   Group matching lines *vwt-1625*
+
+Tip 1625 [https://vim.fandom.com/wiki/Group_matching_lines]   Previous |vwt-1624| Next |vwt-1626|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200905#Group_matching_lines] 
+2009 · complexity basic · version 7.0
+
+==============================================================================
+
+This tip helps group lines with the same pattern at the current cursor 
+column, assuming that the lines have already been sorted so that lines with 
+the same pattern occur consecutively. Applying this tip will insert a blank 
+line after each group of matching lines.
+
+CODE  *vwt-1625-code*
+
+The following code defines a function and a mapping to call the function:
+
+>
+    " Press y to yank the wanted text, before calling function.
+    nnoremap <F9> :call GroupMatchingLines()<CR>
+    function! GroupMatchingLines()
+      let pattern = strpart(getline('.'), col('.') - 1, strlen(@@))
+      if !empty(pattern)
+        let pattern = escape(pattern, '\.*$^~[')
+        let col_cursor = col('.')
+        let pattern = '\%'.col_cursor.'c'.'\('.pattern.'\)\@!'
+        let [rowm,colm] = searchpos(pattern,'W')
+        if rowm > 0
+          .-1put =''
+          exe 'normal! j'.col_cursor.'|'
+          return
+        endif
+      endif
+      echo 'String not found'
+    endfunction
+<
+
+EXAMPLE  *vwt-1625-example*
+
+Assume you have sorted some lines using the four characters under the "xxxx" 
+as the sort key (the "xxxx" line is not part of the data):
+
+>
+    ..........xxxx..........
+    00003710001*019062728001
+    00004010001*019172721001
+    00001720001*010094721001
+    00004019001*021072721008
+    01002710001*020092721001
+    00004710001*031022121061
+    00204312001*030092721001
+    00004710001*031072721001
+<
+
+Visually select the string 1*01 in the first line, under "xxxx", then press y 
+to copy the text. Now you can press F9 to group lines that match at the same 
+column position. Each time you press F9, a blank line is inserted before the 
+next line that does not match the current pattern. The following shows the 
+text after pressing F9 twice:
+
+>
+    00003710001*019062728001
+    00004010001*019172721001
+    00001720001*010094721001
+    
+    00004019001*021072721008
+    01002710001*020092721001
+    
+    00004710001*031022121061
+    00204312001*030092721001
+    00004710001*031072721001
+<
+
+EXPLANATION  *vwt-1625-explanation*
+
+The function assumes that the unnamed register (@@ or @") holds a copy of the 
+text that you want matched. Only the length of the text is used. Each time 
+that the function is called, it builds a search pattern using the current 
+position of the cursor and the length of the text in the unnamed register. 
+Special characters (\.*$^~[) are escaped, and so can be used in the pattern. 
+In the above example, the text is "1*01". The search pattern created is 
+\%11c\(1\*01\)\@! which consists of:
+    - \%11c match at byte 11
+    - \(1\*01\) grouped and escaped pattern
+    - \@! match if the preceding does not match
+
+
+COMMENTS  *vwt-1625-comments*

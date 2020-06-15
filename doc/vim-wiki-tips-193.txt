@@ -1,0 +1,88 @@
+*vim-wiki-tips-193.txt*   Insert current filename *vwt-193*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip530 |vwt-530|
+    - VimTip1322 |vwt-1322|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 193 [https://vim.fandom.com/wiki/Insert_current_filename]   Previous |vwt-191| Next |vwt-194|
+
+created 2002 · complexity basic · author Steve Downing · version 5.7
+
+==============================================================================
+
+To inserts the current filename without the extension at the cursor position, 
+when you are in insert mode.
+
+>
+    :inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
+<
+
+To keep the extension use:
+
+>
+    :inoremap <Leader>fn <C-R>=expand("%:t")<CR>
+<
+
+To insert the absolute path of the directory the file is in use:
+
+>
+    :inoremap <Leader>fn <C-R>=expand("%:p:h")<CR>
+<
+
+To insert the relative path of the directory the file is in use:
+
+>
+    :inoremap <Leader>fn <C-R>=expand("%:h")<CR>
+<To insert the name of the innermost directory (the one containing the current file) use:
+
+>
+    :inoremap <Leader>fn <C-R>=expand("%:p:h:t")<CR>
+<
+
+REFERENCES  *vwt-193-references*
+    - :help  |expand()|
+    - :help  |:inoremap|
+    - :help  |i_CTRL-R|
+
+
+COMMENTS  *vwt-193-comments*
+
+I often use <C-R>% when in insert mode. It does the same thing, except you 
+also get your file extension.
+
+==============================================================================
+
+The % variable for file name is also helpful from the command prompt (: at 
+the bottom). I use it for checking the syntax of source code before using it. 
+For example, if I am editing a perl module, this is helpful:
+
+>
+    :w|!perl -c %
+<
+
+This saves the file (w), and executes perl -c on the current file which runs 
+a syntax check.
+
+==============================================================================
+
+Yet another useful % application: suppose your source-files reside in a 
+'.../src' (or '...\src') directory. Now this line will insert the 
+package-structure of you current Java-file at the cursor position:
+
+>
+    :inoremap \jip <C-R>=substitute(substitute(expand("%:p:h"), "^.*[/\\\\]src[/\\\\]", "", ""), "[/\\\\]", ".", "g")<CR>
+<
+
+(Four backslashes because you need to escape them twice.)
+
+Use single quotes instead of double quotes to avoid need for extra backslashes:
+'^.*[/\\]src[/\\]'
+BTW, matchstr(expand("%:p:h"), '^.*[/\\]src[/\\]\zs.*') is simpler.
+
+==============================================================================

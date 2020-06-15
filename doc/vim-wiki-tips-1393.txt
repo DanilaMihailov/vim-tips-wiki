@@ -1,0 +1,101 @@
+*vim-wiki-tips-1393.txt*   Automatically create tmp or backup directories *vwt-1393*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1393 [https://vim.fandom.com/wiki/Automatically_create_tmp_or_backup_directories]   Previous |vwt-1392| Next |vwt-1413|
+
+created November 22, 2006 · complexity intermediate · author Clayton · 
+version 5.7
+
+==============================================================================
+
+I needed a way to automate creating the backup/tmp directories. It is 
+especially annoying when I am in a new environment and I have to manually 
+create the directories. I also prefer to use _vim rather then .vim on a 
+Windows system so it checks for that.
+
+>
+    function! InitBackupDir()
+      if has('win32') || has('win32unix') "windows/cygwin
+        let l:separator = '_'
+      else
+        let l:separator = '.'
+      endif
+      let l:parent = $HOME . '/' . l:separator . 'vim/'
+      let l:backup = l:parent . 'backup/'
+      let l:tmp = l:parent . 'tmp/'
+      if exists('*mkdir')
+        if !isdirectory(l:parent)
+          call mkdir(l:parent)
+        endif
+        if !isdirectory(l:backup)
+          call mkdir(l:backup)
+        endif
+        if !isdirectory(l:tmp)
+          call mkdir(l:tmp)
+        endif
+      endif
+      let l:missing_dir = 0
+      if isdirectory(l:tmp)
+        execute 'set backupdir=' . escape(l:backup, ' ') . '/,.'
+      else
+        let l:missing_dir = 1
+      endif
+      if isdirectory(l:backup)
+        execute 'set directory=' . escape(l:tmp, ' ') . '/,.'
+      else
+        let l:missing_dir = 1
+      endif
+      if l:missing_dir
+        echo 'Warning: Unable to create backup directories:' l:backup 'and' l:tmp
+        echo 'Try: mkdir -p' l:backup
+        echo 'and: mkdir -p' l:tmp
+        set backupdir=.
+        set directory=.
+      endif
+    endfunction
+    call InitBackupDir()
+<
+
+If you found this tip useful, you may also want to check out VimTip20 
+|vwt-20|.
+
+COMMENTS  *vwt-1393-comments*
+
+Of course using just one backup/swapfile directory will mean that the 
+following command won't work any more:
+
+>
+    vimdiff old/foe.txt new/foe.txt
+<
+
+especialy if you need to merge/change both ways.
+
+That's why in script#1537 
+[https://www.vim.org/scripts/script.php?script_id=1537] I use local 
+directories. But the "set directory=" might be a worthy addition to my script.
+
+==============================================================================
+
+Actually, that command does work and it won't clobber the file, in :help 
+'directory'
+
+For Unix and Win32, if a directory ends in two path separators, the swap file name will be built from the complete path to the file with all path separators substituted to percent '%' signs. This will ensure file name uniqueness in the preserve directory.
+
+Example swap files in ~/.vim/tmp:
+
+>
+    %home%user%tmp2%test1.txt.swp %home%user%tmp%test1.txt.swp
+<
+
+Maybe you can clarify if I am misunderstanding what you're saying. In a test 
+I did, even without having the extra slash it will have two different swap 
+files called test.txt.swp and test.txt.swo.
+
+==============================================================================

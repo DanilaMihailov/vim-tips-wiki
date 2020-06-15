@@ -1,0 +1,105 @@
+*vim-wiki-tips-397.txt*   Mapping to quickly browse help *vwt-397*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 397 [https://vim.fandom.com/wiki/Mapping_to_quickly_browse_help]   Previous |vwt-396| Next |vwt-398|
+
+created January 9, 2003 · complexity basic · author Stanislav Sitar · version 
+6.0
+
+==============================================================================
+
+I personally find it very awkward and unintuitive to browse the documentation 
+using Ctrl-] for following the link and Ctrl-Shift-t to go back. I have had an 
+idea to to remap those commands to Enter and Backspace, since I do not use 
+those keys in help in normal mode.
+
+The command :nnoremap <buffer> can remap the key only in the given buffer 
+without affecting the other buffers.
+
+Just create file $VIMRUNTIME/ftplugin/help.vim with following contens:
+
+>
+    " Only do this when not done yet for this buffer
+    if exists("b:did_ftplugin")
+      finish
+    endif
+    
+    " map ctrl-] to enter in normal mode only for this buffer
+    nnoremap <buffer><CR> <c-]>
+    
+    " map ctrl-T to backspace in normal mode only for this buffer
+    nnoremap <buffer><BS> <c-T>
+<
+
+COMMENTS  *vwt-397-comments*
+
+You can adapt this to also use it with the man page file type, so you can hit 
+return on a ref to another man page etc.
+
+I had to use the after config file "~/.vim/after/ftplugin/man.vim" and nmap 
+instead of nnoremap to getting it working. (I think this is because the 
+default man.vim needs to set its remap of <c-]> first.)
+
+==============================================================================
+
+Very useful mappings for helpfiles. I've added them to my help.vim, which 
+also contains these for navigating from |label| to |label|:
+
+>
+    nnoremap <buffer> <Tab> /<Bar>\k*<Bar><CR>
+    nnoremap <buffer> <S-Tab> ?<Bar>\k*<Bar><CR>
+    " Can't get s-tab to work in xterm, so...
+    nmap <buffer> . <Tab>
+    nmap <buffer> , <S-Tab>
+<
+
+==============================================================================
+
+I couldn't get it working by using the help.vim file. Adding these lines to 
+.vimrc seems to work though:
+
+>
+    :au filetype help :nnoremap <buffer><CR> <c-]>
+    :au filetype help :nnoremap <buffer><BS> <c-T>
+<
+
+==============================================================================
+
+To avoid display of '|' when using goulding(princeton.edu) mappings above, 
+use theese instead:
+
+>
+    nnoremap <buffer> <Tab> /<Bar>\zs\k*\ze<Bar><CR>
+    nnoremap <buffer> <S-Tab> ?<Bar>\zs\k*\ze<Bar><CR>
+<
+
+Also, don't put your mappings in $VIMRUNTIME/ftplugin/help.vim but instead in 
+$HOME/{.vim|vimfiles}/after/ftplugin/help.vim (without the didftplugin check), 
+as this will not completely override any ftplugin settings set by the Vim 
+distribution either in this version or a next upgrade.
+
+==============================================================================
+
+Here is my ~/.vim/after/ftplugin/help.vim and ~/.vim/after/ftplugin/man.vim 
+(same content):
+
+>
+    " Browse just with <CR>/<BS>
+    " We allow remapping of <C-]> as ftplugin/man.vim remaps it
+    nmap <buffer><CR> <C-]>
+    nnoremap <buffer><BS> <C-T>
+    if &filetype == 'help'
+      " Lookup |label| using <Tab>/<S-Tab>
+      nnoremap <buffer> <Tab> /<Bar>\zs\k*\ze<Bar><CR>
+      nnoremap <buffer> <S-Tab> ?<Bar>\zs\k*\ze<Bar><CR>
+    endif
+<
+
+==============================================================================

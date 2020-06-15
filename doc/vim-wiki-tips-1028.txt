@@ -1,0 +1,45 @@
+*vim-wiki-tips-1028.txt*   Read tag files from all directories in your path *vwt-1028*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1028 [https://vim.fandom.com/wiki/Read_tag_files_from_all_directories_in_your_path]   Previous |vwt-1026| Next |vwt-1029|
+
+created 2005 · complexity intermediate · version 6.0
+
+==============================================================================
+
+In my development environment, I have several header files directories. I 
+need these directories to be both in my path, and in my tags list.
+
+To accomplish this I use the following Python based script:
+
+>
+    set path=.,$_WINCEROOT/.,$_WINCEROOT/public/,$_WINCEROOT/public/common/oak/inc,$_WINCEROOT/public/common/ddk/inc,$_WINCEROOT/public/common/sdk/inc,$_WINCEROOT/private/cellcore/dtpt/inc
+    set tags=./tags,../tags,../inc/tags
+    
+    function! BuildTagsFromPath()
+    python << EOF
+    import sys
+    import vim
+    paths = vim.eval("&path") # &path gets the option path.
+    pathsSplit = paths.split(",")
+    
+    # prepend original tag list before path.
+    tags = vim.eval("&tags")
+    for path in pathsSplit:
+      tags += "%s/tags," % (path)
+    cmdSetTags = "set tags=%s" % tags
+    vim.command(cmdSetTags)
+    EOF
+    endfunction
+    
+    call BuildTagsFromPath()
+<
+
+COMMENTS  *vwt-1028-comments*

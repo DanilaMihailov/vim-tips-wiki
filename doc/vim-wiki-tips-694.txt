@@ -1,0 +1,74 @@
+*vim-wiki-tips-694.txt*   Quick save to a temporary file before more edits *vwt-694*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 694 [https://vim.fandom.com/wiki/Quick_save_to_a_temporary_file_before_more_edits]   Previous |vwt-692| Next |vwt-695|
+
+created 2004 · complexity basic · author U.R. Molar · version 6.0
+
+==============================================================================
+
+You are about the modify an important file. You want to save this original 
+fileunder a different name (and keep the file view). Quick, think of a new 
+name-- oh, time wasted, for you could have quickly typed in ";s" and got 
+backto the modification at hand.
+
+>
+    map ;s :up \| saveas! %:p:r-<C-R>=strftime("%y%m%d")<CR>-bak.txt \| 3sleep \| e #<CR>
+    " Dated-BAKUP date number format, re-edit original
+    " first update, else changes get lost on re-edit,
+    " saves view (attn: write alone does not save view)
+    " thus better than generic copy at OS level,
+    " but be careful when split editing
+<
+
+The above saves the original file with a date-stamp as part of the filename. 
+Note that it overwrites throughout a single day. If you want a more narrow 
+period of time for overwrites, then supplement above map with hour, min, or 
+seconds. The 3sleep is there just to visually verify that the save has taken 
+place.
+
+
+
+COMMENTS  *vwt-694-comments*
+
+I modified a little:
+
+>
+    map ;s :up \| saveas! %:p:r-<C-R>=strftime("%y%m%d-%H:%M")<CR>-bak.<C-R>=expand("%:e")<CR> \| 3sleep \| e #<CR>
+<
+
+this save's the original file extension ( so you have the same syntax 
+highlighting when openning the backup)
+
+==============================================================================
+
+Here's my mapping to work on a temp copy:
+
+>
+    :map zs :exe "sav $TMP/" . expand("%:t") . strftime("-%Y-%m-%d_%H%M%S")<CR>
+<
+
+==============================================================================
+
+Unfortunately this tip interferes with MRU.vim script#521 
+[https://www.vim.org/scripts/script.php?script_id=521].
+
+==============================================================================
+
+If you don't want the backup files in the MRU, try using :w! {file}
+
+instead of :sav! {file} \| :e
+
+Using :w[rite] with a filename writes the new file, but doesn't change the 
+name of the buffer.
+
+check also :file for buffer name problems
+
+==============================================================================

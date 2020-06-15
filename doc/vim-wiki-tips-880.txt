@@ -1,0 +1,36 @@
+*vim-wiki-tips-880.txt*   Shebang line automatically generated *vwt-880*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 880 [https://vim.fandom.com/wiki/Shebang_line_automatically_generated]   Previous |vwt-879| Next |vwt-882|
+
+created February 20, 2005 · complexity basic · author Bertram Scharpf · 
+version 6.0
+
+==============================================================================
+
+In my Python or Ruby scripts, the first line is always a shebang line. I 
+create it automatically by adding this to my vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    augroup Shebang
+      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: iso-8859-15 -*-\<nl>\"|$
+      autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
+      autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
+      autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
+    augroup END
+<
+
+COMMENTS  *vwt-880-comments*
+
+You can also create a skeleton-file for each filetype and read it - see :help 
+|template|.
+
+==============================================================================

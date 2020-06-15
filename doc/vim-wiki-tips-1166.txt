@@ -1,0 +1,180 @@
+*vim-wiki-tips-1166.txt*   Sort lines *vwt-1166*
+
+Tip 1166 [https://vim.fandom.com/wiki/Sort_lines]   Previous |vwt-1164| Next |vwt-1167|
+
+created 2006 · complexity basic · author Robert Stovall · version 7.0
+
+==============================================================================
+
+Vim has a very powerful built-in sort utility, or it can interface with an 
+external one. In order to keep only unique lines in Vim, you would:
+
+>
+    :{range}sort u
+<
+
+Yes, it's that simple.
+
+You could create a range in advance, such as 'a,. (from mark 'a' to the 
+current line) or you could create one on-the-fly using visual selection by 
+pressing ':' in visual mode, after selecting the text you wish to sort, to get 
+a range of '<,'> on the command line.
+
+If you like using an external sort utility instead, you can do it just as 
+easily. For example, Unix sort, removing duplicate lines:
+
+>
+    :{range}!sort -u
+<
+
+Many other systems also have an external sort utility, but the options and 
+capabilities will differ. It is probably better to use the built-in Vim sort 
+unless you are looking for a specific feature of the external sort (or using 
+an old Vim without the :sort command).
+
+EXAMPLES  *vwt-1166-examples*
+
+SORT IN REVERSE  *vwt-1166-sort-in-reverse*
+
+>
+    :%sort!
+<
+
+SORT, REMOVING DUPLICATE LINES  *vwt-1166-sort,-removing-duplicate-lines*
+
+>
+    :%sort u
+<
+
+SORT USING THE EXTERNAL UNIX SORT UTILITY, RESPECTING MONTH-NAME ORDER  *vwt-1166-sort-using-the-external-unix-sort-utility,-respecting-month-name-order*
+
+>
+    :%!sort -M
+<
+
+("respecting month-name order" means January < February < ... < December)
+
+NUMERIC SORT  *vwt-1166-numeric-sort*
+
+>
+    :sort n
+<
+
+(this way, 100 doesn't precede 20 in the sort)
+
+SORT SUBSECTIONS INDEPENDENTLY, IN THIS EXAMPLE SORT NUMBERS BETWEEN "START" AND "END" MARKERS  *vwt-1166-sort-subsections-independently,-in-this-example-sort-numbers-between-"start"-and-"end"-markers*
+
+>
+    :g/start/+1,/end/-1 sort n
+<
+
+SORT ONLY SPECIFIC LINES USING RANGES  *vwt-1166-sort-only-specific-lines-using-ranges*
+
+sort lines 296 to 349, inclusive
+
+>
+    :296,349sort
+<
+
+SORT BY PATTERN  *vwt-1166-sort-by-pattern*
+
+When working with Javascript ES6, it may be useful to sort your imports
+
+>
+    import './ProjectTemplateEditModal.scss';
+    import * as _ from "lodash";
+    import Moment from 'moment';
+    import React from 'react';
+    import { Button, Col, Modal, Row, Label } from 'react-bootstrap';
+    import { CurrencyControl } from '../../Core/Components/Controls';
+    import { DynamicModalMixin } from '../../Core/Components/Modals';
+    import { ProjectTemplateStore } from '../Stores/ProjectTemplateStore';
+    import { StoreBinder } from '../../Core/Utils/StoreBinder';
+    import { TextAreaControl } from '../../Core/Components/Controls/TextAreaControl';
+    import { TextBoxControl } from '../../Core/Components/Controls/TextBoxControl';
+    import { TooltipWrapper } from '../../Core/Components/Tooltips/TooltipWrapper';
+    import { withRouter } from 'react-router';
+<It is possible to pass a regex expression to sort. Any lines that do not match the expression will be sorted normally, while lines that do match will be sorted on the text that *follows* the expression. 
+
+>
+    :{range}sort /\/[A-z]/
+< This will organize your imports relative to the "package" they are related to:
+
+>
+    import * as _ from "lodash";
+    import Moment from 'moment';
+    import React from 'react';
+    import { Button, Col, Modal, Row, Label } from 'react-bootstrap';
+    import { withRouter } from 'react-router';
+    import { CurrencyControl } from '../../Core/Components/Controls';
+    import { TextAreaControl } from '../../Core/Components/Controls/TextAreaControl';
+    import { TextBoxControl } from '../../Core/Components/Controls/TextBoxControl';
+    import { DynamicModalMixin } from '../../Core/Components/Modals';
+    import { TooltipWrapper } from '../../Core/Components/Tooltips/TooltipWrapper';
+    import { StoreBinder } from '../../Core/Utils/StoreBinder';
+    import './ProjectTemplateEditModal.scss';
+    import { ProjectTemplateStore } from '../Stores/ProjectTemplateStore';
+<You can also sort on text that *matches* the regex by including the 'r' flag, for example:  
+
+>
+    :{range}sort /\/[A-z]/ r
+<
+
+SEE ALSO  *vwt-1166-see-also*
+    - 374 Use filter commands to process text |vwt-374|
+    - 588 How to sort using visual blocks |vwt-588|
+    - 758 Search and sort by selection |vwt-758|
+    - 800 Sorting lines in a file based on the number of words in each line |vwt-800|
+    - 923 Sort lines by a specified word number |vwt-923|
+    - 667 Working with CSV files |vwt-667| sort by CSV field
+    - 128 Use Unix command-line tools in Windows |vwt-128| links to download GNU sort for Windows
+    - 648 Uniq - Removing duplicate lines |vwt-648| techniques to remove duplicate lines
+
+
+REFERENCES  *vwt-1166-references*
+    - :help  |:sort|
+
+
+COMMENTS  *vwt-1166-comments*
+
+TO DO
+    - Probably need some general :sort command info.
+    - Give examples of numeric sort and using regex sort.
+    - Clean up my "see also" list. It's useful now for a comprehensive list of related tips, some of which need work. At least should add a note on point of tip.
+    - If we're going to mention an external sort tool, we may as well include the following with a brief explanation. Vim could do this, but only with a complex regex. Or perhaps better, mention it in VimTip374 |vwt-374| or VimTip923 |vwt-923| in "see also". -k2 sorts on the second field (word by default).
+
+
+>
+    :!sort -k2
+<
+
+==============================================================================
+
+This misguided snippet was added recently:
+
+delimit the column using some char here I have | symbol as delimiter, once did with that you can use below command to sort specific column use -n if u want to sort numeric and its working on some version of vi and not on ubuntu vi :(
+
+>
+    /|.*|/ | sort
+<
+
+used to match a patern |.*| used to match words delimited between || and | as piping commend and sort to sort
+
+This is wrong and should never work. Here's what it is actually doing:
+
+/|.*|/: jump to the next line that has two '|' characters in it, anywhere
+
+|: command separator, this lets you start a new command on the current line
+
+sort: do a default sort of the entire buffer
+
+Basically this is the equivalent of typing :%sort.
+
+Now, what you CAN do, is provide a pattern that the :sort command will skip 
+over and ignore at the start of every line while sorting. For example, to sort 
+based only on text after the last '|' character on the line (what I think was 
+intended by the example), you'd do this:
+
+>
+    :sort /^.*|/
+<

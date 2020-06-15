@@ -1,0 +1,76 @@
+*vim-wiki-tips-1305.txt*   Define your own colors *vwt-1305*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1305 [https://vim.fandom.com/wiki/Define_your_own_colors]   Previous |vwt-1304| Next |vwt-1308|
+
+created August 12, 2006 · complexity basic · author Mosh · version n/a
+
+==============================================================================
+
+If you spend all your time in gvim, you want sober colours soothing to your 
+eyes.
+
+Instead of copying someone's gaudy color scheme, fine tune it your own 
+settings.
+
+Put this function in, say, ~/showcolors.vim, then edit the rgb colors in hex 
+below, and press <A-x> to update and see the results.
+
+Below are (3 dark, 3 pastel) * (red,blue,green,yellow) colour definitions to 
+get you started.
+
+Needs Vim 7 with Python to generate syntax on the fly.
+
+>
+    function! Mosh_Show_Colors()
+      syn off
+    py << EOF
+    import vim,re
+    for line in vim.current.buffer[:]:
+        result = re.match('^\s*:?hi\w*\s*(\w+)',line)
+        if result:
+            kw = result.group(1)
+            syn = ("syn keyword %s %s") % (kw, kw)
+            #print syn
+            vim.command( syn )
+    EOF
+    map <A-x> :call Mosh_Show_Colors()<CR>:exe getline('.')<CR>
+    hi Red1d guifg=#8f0000
+    hi Red2d guifg=#702020
+    hi Red3d guifg=#500707
+    hi Red1p guifg=#fa4740
+    hi Red2p guifg=#f08787
+    hi Red3p guifg=#f0a787
+    
+    hi Blue1d guifg=#1010f0
+    hi Blue2d guifg=#101090
+    hi Blue3d guifg=#103050
+    hi Blue1p guifg=#8080f0
+    hi Blue2p guifg=#a080f0
+    hi Blue3p guifg=#70a0f0
+    
+    hi Green1d guifg=#01a001
+    hi Green2d guifg=#017001
+    hi Green3d guifg=#015001
+    hi Green1p guifg=#a0f0a0
+    hi Green2p guifg=#c0ffa0
+    hi Green3p guifg=#c0f010
+    
+    hi Yellow1p guifg=#f0f000
+    hi Yellow2p guifg=#fafa0a
+    hi Yellow3p guifg=#fdda0a
+    hi Yellow1d guifg=#adaa0a
+    hi Yellow2d guifg=#8a8a01
+    hi Yellow3d guifg=#4a4a01
+    endfunc
+    call Mosh_Show_Colors()
+<
+
+COMMENTS  *vwt-1305-comments*

@@ -1,0 +1,60 @@
+*vim-wiki-tips-1230.txt*   Execute command on each file in a list *vwt-1230*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1230 [https://vim.fandom.com/wiki/Execute_command_on_each_file_in_a_list]   Previous |vwt-1229| Next |vwt-1231|
+
+created 2006 · complexity basic · author Eric Arnold · version n/a
+
+==============================================================================
+
+I wanted to do
+
+>
+    :new file*.[ch]
+<
+
+and have each file show up in a new window, without having to mess up the 
+args list or whatever. I came up with the following script.
+
+>
+    command! -nargs=* -complete=file New call Foreach( "new %% ", <f-args> )
+    command! -nargs=* -complete=file Vnew call Foreach( "vnew %% ", <f-args> )
+    command! -nargs=* -complete=file Diff call Foreach( "vnew %% | diffthis", <f-args> )
+    " %% symbols are replaced with file/arg names
+    function! Foreach( ... )
+      let cmd = a:1
+      "echomsg 'cmd='.cmd . ',0:'.a:0.',all:'.string(a:000)
+      let fnames = []
+      for i in range( 1, a:0 - 1 )
+        let l = split( glob( a:000[i] ), "\n" )
+        if len( l ) < 1
+          let l = [ a:000[i] ]
+        endif
+        call extend( fnames, l )
+      endfor
+      for fname in fnames
+        let cmd1 = substitute( cmd, '%%', fname, 'g' )
+        exe cmd1
+        "echomsg cmd1
+      endfor
+    endfunction
+<
+
+COMMENTS  *vwt-1230-comments*
+
+Is this to do :n file*.[ch] | sball
+
+or with Vim 7 :n file*.[ch] | tab sball
+
+==============================================================================
+
+sball isn't workable if you already have a big buffer list of other stuff.
+
+==============================================================================

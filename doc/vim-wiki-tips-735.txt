@@ -1,0 +1,41 @@
+*vim-wiki-tips-735.txt*   Show fileencoding and bomb in the status line *vwt-735*
+
+Tip 735 [https://vim.fandom.com/wiki/Show_fileencoding_and_bomb_in_the_status_line]   Previous |vwt-734| Next |vwt-736|
+
+created 2004 · complexity basic · author Tony Mechelynck 
+[https://vim.fandom.com/wiki/User:Tonymec] · version 5.7
+
+==============================================================================
+
+The (long) line below comes from my vimrc. It adds, at the left of the 
+right-hand part of the status line, a pair of square brackets containing the 
+value of 'fileencoding' for the file you are editing (or that of 'encoding' if 
+'fileencoding' is empty). The file's encoding is followed by a comma and B if 
+'bomb' is functional and has the value 1 (TRUE).
+
+Examples are [latin1], [iso-8859-15], [utf-8,B], etc.
+
+The complexity of the value is due in large part to the necessity of (a) 
+specifying explicitly the fields used implicitly when 'statusline' is empty (I 
+hope I didn't forget any of them), and (b) backslash-escaping all spaces and 
+quotation marks.
+
+Now here it is:
+
+>
+    if has("statusline")
+     set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+    endif
+<
+
+REFERENCES  *vwt-735-references*
+    - :help 'statusline'
+    - :help  |expr1|
+
+
+COMMENTS  *vwt-735-comments*
+
+Cool, but what if I have only one file open, that means I have no statusline 
+but only the ruler?This script does not show me the enc then. Joachim
+
+Use :set laststatus=2 to always show the statusline. :help 'laststatus' JohnBeckett 22:06, March 16, 2010 (UTC)

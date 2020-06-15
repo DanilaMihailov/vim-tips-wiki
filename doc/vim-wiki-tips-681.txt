@@ -1,0 +1,163 @@
+*vim-wiki-tips-681.txt*   Enhanced command window *vwt-681*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 681 [https://vim.fandom.com/wiki/Enhanced_command_window]   Previous |vwt-680| Next |vwt-682|
+
+created March 18, 2004 · complexity intermediate · author Suresh Govindachar 
+· version 6.0
+
+==============================================================================
+
+If you are comfortable
+    -  with Vim's modes and
+    -  with using the <Esc> key (meaning you rarely hit <Esc> unnecessarily)
+
+
+and you
+    -  would prefer entering : commands in a modal command window rather than on the command line
+
+
+Then this tip is for you.
+
+Some key features of the command window (see :help |cmdwin|) that would lead 
+one to be interested in it are:
+    -  One can edit the buffer any way one wants
+    -  Hitting <CR> results in the line one was on being executed
+    -  editing in the command window is much nicer than editing on the command line
+
+
+Basic use of the command window 
+[https://vim.fandom.com/wiki/Command-line_window] is easy, but this tip allows 
+you to improve the command window with simple mappings to enter and leave it, 
+as well as providing missing functionality from the command line such as using 
+<C-D> to view matches for what you have typed so far.
+
+Begin with some mappings to easily enter and leave the command window with a 
+single key-stroke:
+
+>
+    nmap <Esc> q:<C-W>_
+    nmap q/ q/<C-W>_
+    nmap q? q?<C-W>_
+    augroup ECW_au
+      au!
+      au CmdwinEnter * nmap <Esc> :q<CR>
+      au CmdwinLeave * nmap <Esc> q:<C-W>_
+    augroup END
+<
+
+Some nice things about the command line that are not present in the usual 
+command window are:
+    -  The <UP> and <DOWN> arrow find all the commands that match the text entered to the left of the cursor
+    -  Hitting <C-D> shows the ways in which the typed text can be completed (see :help  |cmdline-completion|)
+
+
+It is possible to have similar features in the command-window too. For the 
+<UP> <DOWN> feature, add the following au-command event triggered maps:
+
+>
+    augroup ECW_au
+      " musn't do au! again
+      au CmdwinEnter : imap <UP> <C-O>y0<C-O>:let@/='^'.@0<CR><C-O>?<Esc><Esc>
+      au CmdwinLeave : iunmap <UP>
+      au CmdwinEnter : imap <DOWN> <C-O>y0<C-O>:let@/='^'.@0<CR><C-O>/<Esc><Esc>
+      au CmdwinLeave : iunmap <DOWN>
+      au CmdwinLeave : :let @/=""
+    augroup END
+<
+
+Now, while in the command window, going to insert mode and hitting the <UP> 
+arrow followed by the n key results in one visiting all the commands that 
+match the text to the left of the cursor when the <UP> key was hit – then 
+hitting <CR> while on any line causes it to be executed. Likewise, for the 
+<DOWN> arrow.
+
+Next for the <C-D> feature. This is slightly more complex. Begin by adding 
+the following autocommand event triggered maps:
+
+>
+    augroup ECW_au
+      " musn't do au! again
+      au CmdwinEnter : imap <C-D> <C-O>y0<C-O>:ECWCtrlD<CR><Esc>
+      au CmdwinLeave : iunmap <C-D>
+    augroup END
+<
+
+Then provide this function: function! s:ECWCtrlD()With this function, hitting 
+<C-D> while in insert mode in thecommand window results in more information 
+about the text tothe left of the cursor appearing on the lines below the 
+cursor.This information can left on the command window or removedby typing u 
+(undo).
+
+The nature of the information provided by <C-D> depends on whatis to the left 
+of the cursor:
+    - If the stuff to the left of the cursor looks, essentially like "map " or "map foo" then the information provided by <C-D> is the same as the information that appears when the the same stuff is typed on the command line and return is hit.
+    - If the stuff to the left of the cursor begins, essentially like "sf " or like "find " then what is displayed on <C-D> is the glob of the remaining stuff (after appending the remaining stuff with a *)
+    - If the stuff to the left of the cursor looks like neither of the above two cases then what is displayed is the glob of the very last non-space separated "word" (after appending that "word" with a *)
+
+
+>
+    function! s:ECWCtrlD()
+      if (match(@", '^ *[a-z]\?map\s\s*\(\S\S*\)\?\s*$') >=0 )
+        let s:foo = @"
+        let save_more=&more
+        set nomore
+        execute ':redir @" |'.s:foo.'|redir END'
+        let &more = save_more
+        put=@"
+        "Keep this next command even though Vim complains -- it is
+        "a work-around for some "unknown bad thing"
+        silent normal
+        return
+      endif
+      "sf and find can have space separated arguments
+      if (match(@", '^ *\(\(sf\)\|\(find\)\)\ *') >=0 )
+        let s:foo = substitute(@", '^ *\(\(sf\)\|\(find\)\)\ *', '', '')
+      else "pick the trailing non-space separated stuff
+        let s:foo = substitute(@", '\(.\{-}\)\(\S\S*\s*\)$', '\2', '')
+      endif
+      let s:foo = substitute(s:foo, '\s*$', '*', '') "OK if ending has two wild-cards
+      let @"=glob(s:foo)
+      if(@" == "") | let @"='no match' | endif
+      put=@"
+    endfunction
+    
+    if !exists(":ECWCtrlD")
+      command -nargs=0 ECWCtrlD call s:ECWCtrlD()
+    endif
+<
+
+If one wants to get even more fancy, one can start with the map
+
+>
+    nmap <S-ESC> :ECWtobedefined
+<
+
+wherein the function ECWtobedefined opens up a new buffer in which one can do 
+anything one likes. Even if this new buffer merely mimics the command window, 
+it will the feature of co-existing with other buffers -- which is a feature 
+that the command window does not have!
+
+COMMENTS  *vwt-681-comments*
+
+TO DO
+    - Define the undefined :ECWtobedefined, or remove it
+    - Test whether this tip even works
+
+How does it work?  I thought the first example needs s/nmap/nnoremap/, but it works.
+    - Reword as desired for better "flow" and layout
+
+
+==============================================================================
+
+Still needs review. Only did minor rewordings. --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] 16:51, 28 July 2008 (UTC)
+
+==============================================================================

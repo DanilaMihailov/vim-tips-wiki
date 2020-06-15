@@ -1,0 +1,103 @@
+*vim-wiki-tips-987.txt*   Easy floating point arithmetic *vwt-987*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 987 [https://vim.fandom.com/wiki/Easy_floating_point_arithmetic]   Previous |vwt-984| Next |vwt-988|
+
+created 2005 · complexity basic · author Brent Rice · version 6.0
+
+==============================================================================
+
+I have often found myself wanting to do quick floating point arithmetic 
+within Vim. Here are the maps that I put together to handle such. They do 
+require access to Perl, but they are a simple solution to simple mathematical 
+needs. Of course the syntax used for the mathematical expression should follow 
+that of Perl itself.
+
+Evaluate an expression contained on the full current line and place answer in 
+a new line below the current line:
+
+>
+    nnoremap <Leader>ma yyp^y$V:!perl -e '$x = <C-R>"; print $x'<CR>-y0j0P
+<
+
+Evaluate an expression contained in a visual selection and place the answer 
+in a new line below the current line:
+
+>
+    vnoremap <Leader>ma yo<Esc>p^y$V:!perl -e '$x = <C-R>"; print $x'<CR>-y0j0P
+<
+
+Evaluate an expression contained on the full current line and replace the 
+current line with the answer:
+
+>
+    nnoremap <Leader>mr ^"gy0^y$V:!perl -e '$x = <C-R>"; print $x'<CR>^"gP
+<
+
+Evaluate an expression contained in a visual selection and replace the visual 
+selection with the answer:
+
+>
+    vnoremap <Leader>mr "aygvrXgv"by:r !perl -e '$x = <C-R>a; print $x'<CR>0"cyWddk:s/<C-R>b/<C-R>c/<CR>
+<
+
+COMMENTS  *vwt-987-comments*
+
+Or you could use :perldo instead of shelling out.
+
+==============================================================================
+
+The bccalc script#219 [https://www.vim.org/scripts/script.php?script_id=219] 
+and EvalSelection script#889 
+[https://www.vim.org/scripts/script.php?script_id=889] plugins serve a similar 
+purpose.
+
+==============================================================================
+
+The last one seems wrong. Both on Windows and on Linux I saw the expression 
+replaced by "XXXXX...".
+
+==============================================================================
+
+I found the problem with the last one: it does work with there is only one 
+line in the buffer. This works (assuming `calcu <expr>' is something to 
+calculate the expression:
+
+>
+    vnoremap <silent> <Leader>mr "aygvrXgv"by:r !calcu <C-R>a<CR>km`j0"cyWdd``:s/<C-R>b/<C-R>c/<CR>$
+<
+
+For other three, I am now using a simpler form:
+
+>
+    nnoremap <silent> <Leader>ma yypV:!calcu <C-R>"<CR>k$
+    vnoremap <silent> <Leader>ma yo<Esc>pV:!calcu <C-R>"<CR>k$
+    nnoremap <silent> <Leader>mr yyV:!calcu <C-R>"<CR>$
+<
+
+==============================================================================
+
+I really worry about the replacement trick in the last mapping, so I worked 
+out a safer version (using marking and jumping):
+
+>
+    vnoremap <silent> <Leader>mr ygvmaomb:r !calcu <C-R>"<CR>"ay$dd`bv`a"ap$
+<
+
+==============================================================================
+
+In addition to bccalc and EvalSelection, there are VimCalc (requires Python) 
+script#3329 [https://www.vim.org/scripts/script.php?script_id=3329] and Crunch 
+(pure VimL) script#4686 
+[https://www.vim.org/scripts/script.php?script_id=4686]. Taking in account 
+these plugins, maybe tips Tip 1235 Scientific calculator |vwt-1235| and Tip 73 
+Using vim as calculator |vwt-73| could be merge with this.
+
+==============================================================================

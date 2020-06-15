@@ -1,0 +1,74 @@
+*vim-wiki-tips-1336.txt*   Open Windows Explorer showing directory of current buffer *vwt-1336*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip311 |vwt-311|
+    - VimTip493 |vwt-493|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1336 [https://vim.fandom.com/wiki/Open_Windows_Explorer_showing_directory_of_current_buffer]   Previous |vwt-1334| Next |vwt-1338|
+
+created 2006 · complexity basic · author Erez Volk · version 6.0
+
+==============================================================================
+
+When working in Windows, I have the following in my vimrc, which I find very 
+useful to start Windows Explorer:
+
+>
+    nmap <F11> :!start explorer /e,,%:p:h<CR>
+    imap <F11> <Esc><F11>
+<
+
+COMMENTS  *vwt-1336-comments*
+
+Pressing Win-E is an easier way to start Explorer, if you have a keyboard 
+with the Windows key.
+
+==============================================================================
+
+To get it to select the current file, use the following:
+
+>
+    nmap <F11> :!start explorer /select,%:p
+    imap <F11> <Esc><F11>
+<
+
+==============================================================================
+
+To combine options to windows commands just put a comma between them. So to 
+combine the examples given above do:
+
+>
+    :!start explorer /e,,%:p:h,/select,%:p
+<
+
+==============================================================================
+
+For OS X users:
+
+>
+    nmap <Leader>f :!open %:p:h<CR>
+<
+
+==============================================================================
+
+Just a little bit more useful:
+
+>
+    nmap <F11> :silent !start explorer /e,,%:p:h,/select,%:p<CR>
+<
+
+==============================================================================

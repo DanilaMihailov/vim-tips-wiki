@@ -232,7 +232,7 @@ impl<'a> WikiEntry<'a> {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    (1..50).into_par_iter().for_each(|n| {
+    (1..=1678).into_par_iter().for_each(|n| {
         let mut rt = Runtime::new().unwrap();
         rt.block_on(WikiEntry::make_tip(n as u32));
     });

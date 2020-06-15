@@ -1,0 +1,70 @@
+*vim-wiki-tips-972.txt*   Run native-Windows Vim from cygwin without a wrapper *vwt-972*
+
+Tip 972 [https://vim.fandom.com/wiki/Run_native-Windows_Vim_from_cygwin_without_a_wrapper]   Previous |vwt-970| Next |vwt-973|
+
+created 2005 · complexity basic · author Tony Mechelynck 
+[https://vim.fandom.com/wiki/User:Tonymec] · version 5.7
+
+==============================================================================
+
+To run native-Windows Vim from cygwin, just create one or more of the 
+following aliases (for instance in ~/.bash_profile). You may grab them by 
+copy&paste via the clipboard:
+
+>
+    alias vim='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim63/vim.exe'
+    alias vimd='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim63/vimd.exe'
+    alias gvim='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim63/gvim.exe'
+    alias gvimd='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim63/gvimd.exe'
+    
+    alias v7vim='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim70aa/vim.exe'
+    alias v7vimd='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim70aa/vimd.exe'
+    alias v7gvim='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim70aa/gvim.exe'
+    alias v7gvimd='VIM=`cygpath -d $VIM` HOME=`cygpath -d $HOME` `cygpath -u $VIM`/vim70aa/gvimd.exe'
+<
+
+Notes:
+    - In each alias, the whole string after the first = is surrounded by single quotes
+    - This assumes that $VIM and $HOME are correctly defined in the master environment. How to set them is outside the scope of this tip.
+    - Today (while I'm writing this) the current Vim versions are 6.3 (stable) and 7.0aa (under development). Sooner or later there will be a newer version. Just change the last directory name in the above aliases to reflect it.
+    - See 'man cygpath' for more info.
+
+
+COMMENTS  *vwt-972-comments*
+    -  Due to spaces in directory names the aliases should be in the form:
+
+
+>
+    alias gvim='VIM=`cygpath -d "$VIM"` HOME=`cygpath -d "$HOME"` "`cygpath -u "$VIM"`/vim63/gvim.exe"'
+<
+    -  Make sure .bash_profile is saved with 'fileformat' set to "unix"
+    -  If the installation path of the VIM is in your $PATH, you don't need to create an alias to run gvim. However, you'll still need a wrapper to correctly translate the filepath you pass in as a argument to gvim.
+
+
+e.g. gvim ~/.bash_profile won't work without doing something like
+
+>
+    gvim `cygpath -w ~/.bash_profile`
+<
+
+==============================================================================
+
+I've created this 
+[http://web.archive.org/20081018133743/alecthegeek.wordpress.com/2008/10/09/handy-hack-run-vim-for-windows-under-cygwin/] 
+Bashfunction that handles
+    -  Vim command line options e.g. -p
+    -  Creates files with any name (e.g. .My.DotFile). That's why I don't use the -d option to cygpath
+    -  Supports file path names with spaces
+
+
+Suggestion for improvements most welcome
+
+Alecclews [https://vim.fandom.com/wiki/User:Alecclews] 06:33, 30 January 2009 
+(UTC)
+
+Some more work is required to correctly handle vim binary options: e.g. gvim -c /pattern/ myfile should not convert /pattern to c:/cygwin/pattern. Hence the other fully wrapped solution that also handles symbolic links, Windows' UNC pathnames, and environment variables -- cygpath may be better at supporting these particular situations with latest Cygwin versions.
+
+BTW, shouldn't we merge the two tips?
+--Luc Hermitte 18:12, 30 January 2009 (UTC)
+
+==============================================================================

@@ -1,0 +1,88 @@
+*vim-wiki-tips-1133.txt*   Load my script only once *vwt-1133*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1133 [https://vim.fandom.com/wiki/Load_my_script_only_once]   Previous |vwt-1132| Next |vwt-1134|
+
+created 2006 · complexity basic · author Marc Weber · version 5.7
+
+==============================================================================
+
+>
+    "_dontloadtwice.vim (make sure it's loaded first)
+    "
+    " In most plugins there is used:
+    "
+    " if exists("loaded_myplugin")
+    "   finish
+    " endif
+    " let g:loaded_myplugin=1
+    "
+    " which takes some space and needs some effort to copy paste/ remember / type
+    " and is easier to read (IMHO)
+    "
+    " I think
+    " exec DontLoadTwice("myplugin")"
+    " is much easier to use
+    " put this into your .vimrc:
+    " returns the well known if exists("..") then finish endif let g:..=1 code
+    " use it this way: call DontLoadTwice("myscriptname")
+    function DontLoadTwice(globalIdentifier)
+      let dltcmd ="if exists(\"g:".a:globalIdentifier."\")\n"
+      let dltcmd.=" finish\n"
+      let dltcmd.="endif\n"
+      let dltcmd.="let g:".a:globalIdentifier."=1\n"
+      return dltcmd
+    endfunction
+<
+
+Of course if you want to redistribute your script and others don't have this 
+function you need to direct users to this tip, so not much gained then. Might 
+be handy for your own quick and dirty scripts.
+
+Note: let a.="abc" means let a=a."abc" (Vim 7).
+
+COMMENTS  *vwt-1133-comments*
+
+For one thing, as you point out, not everybody will have this function 
+defined, which would defeat the purpose of the exercise. For another, here is 
+a simpler implementation of the same thing:
+
+>
+    function! DontLoadTwice( globalIdentifier )
+      let result = ''
+      if exists( 'g:' . a:globalIdentifier )
+        let result = 'finish'
+      else
+        let g:{a:globalIdentifier} = 1
+      endif
+      return result
+    endfunction
+    execute DontLoadTwice( "myVar" )
+<
+
+It's a longer implementation, but I think it's simpler because it doesn't 
+attempt to create a complicated expression to be executed, but rather simply 
+returns the word 'finish' if we should quit.
+
+==============================================================================
+
+A plugin developed with this approach can't be easily redistributed. However, 
+this can be worked around by using Vim 7's autoload plugins (as VimL library 
+plugins). Instead of being defined in the vimrc, the function would be named 
+my_libs#plugin#DontLoadTwice(), and defined in 
+{rtp}/autoload/my_libs/plugin.vim.
+
+Another approach would be to use a template expander plugin 
+[https://vim.fandom.com/wiki/Category:Automated_Text_Insertion]. For instance, 
+µ-template comes with a template that recognizes whether the new .vim file is 
+a plugin or a ftplugin, and proposes a default anti-reinclusion mecanism 
+accordingly.
+
+==============================================================================

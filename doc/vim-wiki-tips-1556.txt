@@ -1,0 +1,281 @@
+*vim-wiki-tips-1556.txt*   Mapping keys in Vim - Tutorial (Part 3) *vwt-1556*
+
+Tip 1556 [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)]   Previous |vwt-1555| Next |vwt-1557|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Mapping_keys_in_Vim_-_Tutorial_.28Part_3.29] 
+April 20, 2008 · complexity basic · author Yegappan · version 7.0
+
+==============================================================================
+
+This is the third part of the three part tutorial on mapping keys in Vim. You 
+can read the other two parts from the following pages:
+    -  Mapping keys in Vim - Tutorial (Part 1) [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)]
+    -  Mapping keys in Vim - Tutorial (Part 2) [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)]
+
+
+
+
+USING MAPS IN VIM PLUGINS AND SCRIPTS  *vwt-1556-using-maps-in-vim-plugins-and-scripts*
+
+A Vim plugin or script can define new key maps to let the user invoke the 
+commands and functions provided by the plugin. A Vim plugin can also invoke 
+key maps defined by other Vim plugins.
+
+A plugin can choose to map any available key. But to avoid surprising 
+(annoying) the user, it is better not to use the keys that already have 
+pre-defined functionality in Vim.
+
+In a Vim plugin, the ":normal" command is used to execute normal mode 
+commands. For example, the "gqip" normal mode command is used to format a 
+paragraph. To invoke this command from a Vim plugin, the following line can be 
+used:
+
+>
+    normal gqip
+<
+
+If any of the keys in "gqip" is mapped, then the mapped key sequence will be 
+executed. This may change the expected behavior of the "gqip" command. To 
+avoid this, add the "!" suffix to the "normal" command:
+
+>
+    normal! gqip
+<
+
+With the "!" suffix, the "normal" command executes the built-in functionality 
+provided by Vim for the specified sequence of keys.
+
+To invoke a script local function, defined with the "s:" prefix, from a map, 
+you have to prefix the function name with <SID>. You cannot use the "s:" 
+prefix for the script-local function, as the map will be invoked from outside 
+of the script context.
+
+>
+    :inoremap <expr> <C-U> <SID>InsertFunc()
+<
+
+A plugin may map one or more keys to easily invoke the functionality provided 
+by the plugin. In the plugin functions used by these types of maps, it is 
+advisable not to alter user Vim option settings, register contents and marks. 
+Otherwise, the user will be surprised to see that some options are changed 
+after invoking a plugin provided map.
+
+MAP LEADER  *vwt-1556-map-leader*
+
+If the key maps provided by all the Vim plugins start with a same key, then 
+it is easier for a user to distinguish between their own key maps and the ones 
+provided by plugins. To facilitate this, Vim provides a special keyword that 
+can be used in a map command.
+
+If the {lhs} key sequence of a map command starts with the string "<Leader>", 
+then Vim replaces it with the key set in the 'mapleader' variable. The default 
+setting for the 'mapleader' variable is backslash ('\'). Note that 'mapleader' 
+is a Vim variable and not a Vim option. The value of this variable can be 
+changed using the 'let' command. For example, to set it to '_' (underscore), 
+you can use the following command in your vimrc file:
+
+>
+    let mapleader = "_"
+<
+
+Vim replaces <Leader> with the 'mapleader' value only when defining the map 
+and not when the map is invoked. This means that after several map commands 
+are defined if the 'mapleader' variable is changed, it will not affect the 
+previously defined maps.
+
+For example, consider the following map command defined by a plugin:
+
+>
+    nnoremap <Leader>f :call <SID>JumpToFile()<CR>
+<
+
+When defining the above command, Vim replaces <Leader> with the value of the 
+'mapleader' variable. If the user didn't set the 'mapleader' variable then the 
+above map can be invoked by entering \f. If the user sets the 'mapleader' to a 
+comma (','), then it can be invoked using ,f.
+
+The <Leader> prefix should be used for global mappings (applicable to all 
+buffers) defined by a plugin. For buffer-local mappings, the <LocalLeader> 
+prefix should be used. Vim will replace this with the value set in the 
+'maplocalleader' variable. The default value for this variable is backslash 
+('\'). The <LocalLeader> is generally used in mappings defined by a Vim 
+filetype plugin.
+
+The 'mapleader' and 'maplocalleader' variables allow the user to choose 
+different keys as starting keys for global mappings and buffer-local mappings 
+defined by Vim plugins.
+
+SCRIPT MAPS  *vwt-1556-script-maps*
+
+If you want to use recursive maps in your map command, but want to use only 
+those keys mapped in your script or plugin, then you can use the <script> 
+attribute in the map definition. For example, consider the following two map 
+commands in a script file:
+
+>
+    noremap <SID>(FindTopic) /Topic<CR>
+    nmap <script> ,dt <SID>(FindTopic)dd
+<
+
+Within the second map command, only the '<SID>(FindTopic)' part is remapped. 
+Without '<script>', 'dd' could be remapped too if someone defined a mapping 
+for it.
+
+If you use the <script> attribute with a ":noremap" command, then the 
+<script> attribute overrides the ":noremap" command. The {rhs} of the map is 
+still scanned for script-local key mappings. But the maps defined outside of 
+the script are not used.
+
+UNIQUE MAPS  *vwt-1556-unique-maps*
+
+If you want to make sure that the mapped key is unique and doesn't interfere 
+with other existing mappings, use the <unique> map attribute. This attribute 
+is particularly useful with the maps defined by a Vim plugin. A map definition 
+with the <unique> attribute will fail if the specified key is already mapped.
+
+>
+    :nnoremap <unique> \s :set invhlsearch<CR>
+<
+
+The above command will fail, if the user already has a mapping for the "\s" 
+key sequence.
+
+USE OF <PLUG>  *vwt-1556-use-of-<plug>*
+
+If you are developing a Vim plugin or script and you want to provide the user 
+with the flexibility of assigning their own key map to invoke a function 
+provided by your script, then you can prefix the map with <Plug>.
+
+For example, let us say a plugin has a function s:VimScriptFn() and the user 
+has to create a map to assign a key to invoke this function. The plugin can 
+provide the following map to simplify this:
+
+>
+    noremap <unique> <Plug>ScriptFunc :call <SID>VimScriptFn()<CR>
+<
+
+Note that in the above map command, instead of the typical key sequence for 
+the {lhs} of the map, the <Plug>ScriptFunc text is used. The <Plug> generates 
+a unique key sequence that a user cannot enter from a keyboard. The above map 
+is visible outside of the script where it is defined.
+
+With the above command, the user can assign _p to invoke the script function 
+as shown below:
+
+>
+    :nmap _p <Plug>ScriptFunc
+<
+
+
+
+MAP RELATED FUNCTIONS  *vwt-1556-map-related-functions*
+
+Vim provides built-in functions to check whether a key sequence is mapped or 
+notand to get the mapped key sequence.
+
+MAPARG()  *vwt-1556-maparg()*
+
+To get the {rhs} of a map command from a script or plugin, use the maparg() 
+function. For example, consider the following commands:
+
+>
+    :nnoremap <C-F2> 2<C-G>
+    :let x = maparg("<C-F2>", "n")
+    :echo x
+<
+
+The variable 'x' will be set to the mapped key sequence "2<C-G>".
+
+The first argument to the maparg() function specifies the key sequence and 
+the second argument specifies the editing mode. The maparg() function checks 
+whether the specified key sequence is mapped in the specified mode and returns 
+the {rhs} of the map if it is defined. If the mode is not specified, then the 
+maparg() function checks for the map in the normal, visual and operator 
+pending modes.
+
+The maparg() function can be used to chain map commands. For example, let us 
+say you want to define a map for <Tab>. But at the same time you don't want to 
+lose the existing map (if any) for <Tab>. Then you can do the following:
+
+>
+    :exe 'nnoremap <Tab> ==' . maparg('<Tab>', 'n')
+<
+
+The above command maps <Tab> to invoke the == command and then invoke the 
+existing map for <Tab> in normal mode.
+
+MAPCHECK()  *vwt-1556-mapcheck()*
+
+To check whether a map is defined for a key sequence, you can use the 
+mapcheck() function. Example:
+
+>
+    :echo mapcheck(';g', 'n')
+<
+
+MODE()  *vwt-1556-mode()*
+
+In a map command, you can use the mode() Vim function to get the current 
+editing mode. But this function returns 'n' (normal) or 'c (command-line) in 
+most cases. So this function cannot be used reliably from a map command to get 
+the current mode. Instead, you should pass the current mode as an argument to 
+the called function. For example, if you want to use a Vim function Somefunc() 
+in several mode-specific map commands and want to distinguish between the 
+modes in the function, then you can do the following:
+
+>
+    :nnoremap _g :call Somefunc('n')<CR>
+    :inoremap _g <C-O>:call Somefunc('i')<CR>
+    :vnoremap _g :<C-U>call Somefunc('v')<CR>
+<
+
+HASMAPTO()  *vwt-1556-hasmapto()*
+
+To check whether a map is defined for a particular key sequence, you can use 
+the hasmapto() function. Note that this function checks for the key sequence 
+in the {rhs} of a map. Example:
+
+>
+    if !hasmapto(":grep")
+        " Define a mapping to invoke the :grep command
+    endif
+<
+
+The hasmapto() function checks for the specified key sequence anywhere in the 
+{rhs} of a map (not necessarily at the beginning of the map).
+
+The hasmapto() function also accepts an optional {mode} argument which allows 
+you to check whether a map definition exists in a particular mode.
+
+>
+    if !hasmapto(":grep", 'n')
+        " Define a normal mode map to invoke :grep
+    endif
+<
+
+COMMENTS  *vwt-1556-comments*
+
+Great series, thanks! One question: Suppose I have a plugin that remaps <C-\> 
+and another plugin that calls <C-\><C-o> to execute a normal mode command in 
+an insert mode mapping. The latter plugin assumes that <C-\> has not been 
+remapped. Is there a way to change the second plugin so that it works even if 
+<C-\> is remapped?
+
+noremap, nnoremap...
+79.184.175.155 13:21, March 12, 2012 (UTC)
+
+The feedkeys() function could be given a mention? The flags 'nt' seem to me a 
+nice sane way to remap keys when swapping them, that (hopefully) won't cause 
+too many unwanted side-effects.
+
+==============================================================================
+
+Question: Why does Vim's documentation (:help write-plugin) recommend one 
+extra level of mapping? Under the recommended approach, <Plug>ScriptFunc would 
+be mapped to a script-local map sequence such as <SID>Func, which in turn, 
+would be mapped to <SID>VimScriptFn()<CR>. It's not clear to me what advantage 
+is provided by the extra level of indirection. I've asked on the Vim list, but 
+am still awaiting a response...
+
+I don't know. I saw your question there too and couldn't answer it. vim_use is the place to ask, you could try bumping your question. Or go ask on stack overflow or the Vim/Vi stack exchange. Either way inserting text into the middle of a wiki article isn't an effective way to ask even if this wiki was more active. I've moved your question to the comments section in case you get an answer and want to post it back here at some point. --Fritzophrenic (talk)

@@ -1,0 +1,55 @@
+*vim-wiki-tips-1114.txt*   Step increment and replace *vwt-1114*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1114 [https://vim.fandom.com/wiki/Step_increment_and_replace]   Previous |vwt-1112| Next |vwt-1118|
+
+created January 25, 2006 · complexity intermediate · author Gerald Lai · 
+version 6.0
+
+==============================================================================
+
+This allows a search, and step-by-step confirm & replace, while having the 
+replace string incremented each time if it contains a number at the end of the 
+string. To search for occurrences of "abc", to replace with "xyz0" for the 
+first "abc", "xyz1" for the second "abc", etc, simply do:
+
+>
+    :SReplace abc xyz0 1
+<
+
+At any step, you can change from "xyzN" to "defN", and pick up where you left 
+off with the same increment.
+
+>
+    Usage: SReplace <search> <substitute> <increment>
+<
+
+>
+    command -nargs=+ SReplace call StepReplace(<f-args>)
+    "makes use of register y
+    function StepReplace(...)
+      if a:0 == 1
+        let @y = input("Replace with: ", @y)
+        let y = @y
+        if @y =~ "\\d\\+$"
+          let n = substitute(@y, ".\\{-}\\(\\d\\+\\)$", "\\1", "") + a:1
+          let @y = substitute(@y, "\\(.\\{-}\\)\\d\\+$", "\\1".n, "")
+        endif
+        return y
+      elseif a:0 == 3
+        let @y = a:2
+        execute "%s/".a:1."/\\=StepReplace(".a:3.")/".(&gdefault ? "" : "g")."c"
+      else
+        echo "Usage: SReplace <search> <substitute> <increment>"
+      endif
+    endfunction
+<
+
+COMMENTS  *vwt-1114-comments*

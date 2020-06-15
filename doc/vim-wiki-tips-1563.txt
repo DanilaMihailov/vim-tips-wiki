@@ -1,0 +1,33 @@
+*vim-wiki-tips-1563.txt*   Create new subroutines *vwt-1563*
+
+Tip 1563 [https://vim.fandom.com/wiki/Create_new_subroutines]   Previous |vwt-1562| Next |vwt-1564|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200805#Create_new_subroutines] 
+2008 · complexity basic · author Pressel · version 7.0
+
+==============================================================================
+
+Here is a convenience function to help Perl programmers when writing new 
+routines.
+
+Put the cursor on a word, then type \ns (assuming the default backslash 
+leader key) to create a new subroutine. The subroutine is given the name of 
+the word under the cursor, and is placed at the "bottom" of the file. If any 
+__xxx__ tokens are used (such as __DATA__ or __END__), the subroutine is 
+inserted before that token. Otherwise, it is appended to the end of the file.
+
+>
+    nnoremap <Leader>ns :call Newsub()<CR>
+    function! Newsub()
+      let word = "sub " . expand("<cword>") . "{}"
+      let ln = search("__.*__", 'nW')
+      if ln == 0
+        call append('$', word)
+      else
+        call append(ln-1, word)
+      endif
+    endfunction
+<
+
+COMMENTS  *vwt-1563-comments*

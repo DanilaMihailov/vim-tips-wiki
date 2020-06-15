@@ -1,0 +1,38 @@
+*vim-wiki-tips-955.txt*   Easily switch between two styles of color scheme *vwt-955*
+
+Tip 955 [https://vim.fandom.com/wiki/Easily_switch_between_two_styles_of_color_scheme]   Previous |vwt-954| Next |vwt-957|
+
+created 2005 · complexity basic · author Georg Dahn · version 6.0
+
+==============================================================================
+
+Pan Shizhu's color scheme ps_color script#760 
+[https://www.vim.org/scripts/script.php?script_id=760] supports two styles, a 
+cool (dark) and a warm (light) style. If you want to switch between these 
+styles by just a single key stroke, you may define the following function in 
+your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    function! s:SwitchPSCStyle()
+      if exists('g:psc_style')
+        if g:psc_style == 'cool'
+          let g:psc_style = 'warm'
+        elseif g:psc_style == 'warm'
+          let g:psc_style = 'cool'
+        endif
+      else
+        let g:psc_style = 'warm'
+      endif
+      colorscheme ps_color
+    endfunction
+    map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
+<
+
+COMMENTS  *vwt-955-comments*
+
+TO DO
+    - Decide what to do with above SwitchPSCStyle function (is it worth keeping?).
+    - Other content that was in this tip has been merged to Switch color schemes |vwt-341|. If remove tip 955, replace it with a redirect to 341.
+
+
+==============================================================================

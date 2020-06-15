@@ -1,0 +1,102 @@
+*vim-wiki-tips-1582.txt*   Vim IRC FAQ *vwt-1582*
+
+Tip 1582 [https://vim.fandom.com/wiki/Vim_IRC_FAQ]   Previous |vwt-1581| Next |vwt-1583|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Vim_IRC_FAQ] 2008 · 
+complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+The #vim community [https://vim.fandom.com/wiki/Vim_on_Freenode] started this 
+FAQ to help solve some common problems enountered by new users of Vim.
+
+COMMON ISSUES  *vwt-1582-common-issues*
+    - Vim is confusing, where do I start? New to Vim [https://vim.fandom.com/wiki/New_to_Vim], Tutorial [https://vim.fandom.com/wiki/Tutorial], Vi-Improved.org Tutorial [http://vi-improved.org/tutorial.php]
+    - How do I record a macro? Macros [https://vim.fandom.com/wiki/Macros]
+    - How do I reselect the visual range I just used? Visual selection [https://vim.fandom.com/wiki/Visual_selection]
+    - How do I change the GUI Font (and make those changes stick)? Change font [https://vim.fandom.com/wiki/Change_font]
+    - How do I make backspace work like in other editors? Backspace and delete problems [https://vim.fandom.com/wiki/Backspace_and_delete_problems]
+    - How do I fix syntax highlighting problems? Fix syntax highlighting [https://vim.fandom.com/wiki/Fix_syntax_highlighting]
+    - How do I paste in code without having all the indenting screwed up? Toggle auto-indenting for code paste [https://vim.fandom.com/wiki/Toggle_auto-indenting_for_code_paste]
+    - How do I insert the current date/time into my file? Insert current date or time [https://vim.fandom.com/wiki/Insert_current_date_or_time]
+    - How do I make the options I set stay set? Debug unexpected option settings [https://vim.fandom.com/wiki/Debug_unexpected_option_settings]
+    - How can you read/write system environment variables from within Vim? Environment variables [https://vim.fandom.com/wiki/Environment_variables]
+    - How can I dump my file to html looking exactly as it currently does (syntax highlighting at all)? Pasting code with syntax coloring in emails [https://vim.fandom.com/wiki/Pasting_code_with_syntax_coloring_in_emails]
+    - How to tell Vim to save as a new file when the file is hardlinked? Editing a hard link to a file [https://vim.fandom.com/wiki/Editing_a_hard_link_to_a_file]
+    - How can I fix the line-endings in this file? File format [https://vim.fandom.com/wiki/File_format]
+    - How to exchange the current line with the line above/below? Swapping characters, words and lines [https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines]
+    - How can Vim work with Visual Studio .Net? Integrate gvim with Visual Studio [https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio]
+    - How can I get diff to work properly in the MS Windows port of Vim? Cannot create diffs under Windows [https://vim.fandom.com/wiki/Fix_error_E97_Cannot_create_diffs_under_Windows]
+    - How can I make keywords autocompletable when creating a new C source file? Make sure Vim knows it is a C file. For example, open it with :e main.c, not just :enew.
+    - How can I get Visual Studio like completion (i.e. Intellisense) in Vim? Omni completion [https://vim.fandom.com/wiki/Omni_completion]
+    - How can I delete parens that surround text? See Surround at Best plugins [https://vim.fandom.com/wiki/Vim_scripts#Best_plugins]
+    - Why do letters show up when I try to enter numbers from the keypad? Why doesn't the numpad work as expected? Why does the NumLock key bring up help.txt? PuTTY numeric keypad mappings [https://vim.fandom.com/wiki/PuTTY_numeric_keypad_mappings]
+    - How can I avoid pressing the Escape key to exit from insert mode? Avoid the escape key [https://vim.fandom.com/wiki/Avoid_the_escape_key]
+    - How do I edit GPG encrypted files in Vim? Edit gpg encrypted files [https://vim.fandom.com/wiki/Edit_gpg_encrypted_files]
+    - When using encryption, is all my data encrypted? No. :help  |encryption| explains that only the file written to disk is encrypted, and there are various possibilities for plain text information to be visible to others. For example, you may want to change your 'viminfo' option so that information in registers is not saved to disk.
+
+
+DOCUMENTATION GUIDE  *vwt-1582-documentation-guide*
+
+Using help
+    - Learn to use help [https://vim.fandom.com/wiki/Learn_to_use_help]
+    -   |:help|
+    - :help  |c_Ctrl-D|
+    - :help  |:helpgrep|
+
+
+Searching
+    - Searching [https://vim.fandom.com/wiki/Searching] how to search, with links to related tips
+    - :help 'hlsearch' turn search highlights on or off permanently
+    - :help  |:nohlsearch| turn search highlights off until the next search
+
+
+Backspace behavior
+    - :help 'bs' how to backspace over line-endings and more
+
+
+Do something to all lines matching a pattern
+    - Power of g [https://vim.fandom.com/wiki/Power_of_g]
+    - :help  |:g|
+
+
+Format options
+    - :help  |fo-table|
+
+
+End-of-line problems (^M is displayed)
+    - File format [https://vim.fandom.com/wiki/File_format]
+
+
+Indenting
+    - Category:Indenting [https://vim.fandom.com/wiki/Category:Indenting]
+    - :help 'expandtab'
+    - :help 'shiftwidth'
+    - :help 'tabstop'
+    - :help 'copyindent'
+    - :help 'preserveindent'
+    - :help  |sub-replace-special| why \n doesn't do what you want in :s///
+
+
+Not indenting when pasting
+    - Indenting source code [https://vim.fandom.com/wiki/Indenting_source_code]
+    - Toggle auto-indenting for code paste [https://vim.fandom.com/wiki/Toggle_auto-indenting_for_code_paste]
+    - :help 'paste'
+
+
+Display invisible characters (tabs, newlines and more)
+    - Highlight unwanted spaces [https://vim.fandom.com/wiki/Highlight_unwanted_spaces]
+    - :help 'list'
+    - :help 'listchars'
+
+
+Show matching braces
+    - :help 'showmatch'
+
+
+OTHER SOURCES  *vwt-1582-other-sources*
+    - Vim FAQ [http://vimhelp.appspot.com/vim_faq.txt.html] this supersedes previous FAQ at sourceforge
+
+
+COMMENTS  *vwt-1582-comments*

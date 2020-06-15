@@ -1,0 +1,262 @@
+*vim-wiki-tips-171.txt*   Search for visually selected text *vwt-171*
+
+Tip 171 [https://vim.fandom.com/wiki/Search_for_visually_selected_text]   Previous |vwt-168| Next |vwt-172|
+
+created 2001 · complexity basic · author Raymond Li · version 6.0
+
+==============================================================================
+
+With this tip, you can select some text, then press a key to search for the 
+next occurrence of the text. Two alternative methods are presented.
+
+SIMPLE  *vwt-171-simple*
+
+Nothing is needed if you want to search for the word under the cursor, just 
+press * [https://vim.fandom.com/wiki/Searching].
+
+To search for visually selected text, put this line in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+<
+
+To use the mapping, visually select the characters that are wanted in the 
+search, then type // to search for the next occurrence of the selected text. 
+Then press n to search for the next occurrence.
+
+The :vnoremap () command maps // in visual mode to copy the visually selected 
+text into the " buffer, then start a search command and paste an escaped 
+version of the copied text into the line. <C-R> represents Ctrl-R 
+[https://vim.fandom.com/wiki/Paste_registers_in_search_or_colon_commands_instead_of_using_the_clipboard] 
+and <CR> represents carriage return (Enter). The search uses \V (:help |/\V|) 
+for "very no-magic" mode, and escape() (:help |escape()|) to escape / and \ 
+characters (the only ones that aren't literals with \V).
+
+ADVANCED  *vwt-171-advanced*
+
+The following is a more advanced implementation, with more robust 
+functionality than the above map.
+
+Features
+    - Press * to search forwards for selected text, or # to search backwards.
+    - As normal, press n for next search, or N for previous.
+    - Handles multiline selection and search.
+    - Whitespace in the selection matches any whitespace when searching (searching for "hello world" will also find "hello" at the end of a line, with "world" at the start of the next line).
+    - Each search is placed in the search history allowing you to easily repeat previous searches.
+    - No registers are changed.
+
+
+Place the following mappings in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    " Search for selected text, forwards or backwards.
+    vnoremap <silent> * :<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+      \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+      \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+    vnoremap <silent> # :<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+      \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+      \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+<
+
+Following is an alternative version with some extra features:
+    - A global variable (g:VeryLiteral) controls whether selected whitespace matches any whitespace (by default, VeryLiteral is off, so any whitespace is found).
+    - Type \vl to toggle VeryLiteral to turn whitespace matching off/on (assuming the default backslash leader key).
+    - When VeryLiteral is off, any selected leading or trailing whitespace will not match newlines, which is more convenient, and avoids false search hits.
+
+
+Create file (for example) ~/.vim/plugin/vsearch.vim (Unix) or 
+$HOME/vimfiles/plugin/vsearch.vim (Windows) with contents:
+
+>
+    " Search for selected text.
+    " http://vim.wikia.com/wiki/VimTip171
+    let s:save_cpo = &cpo | set cpo&vim
+    if !exists('g:VeryLiteral')
+      let g:VeryLiteral = 0
+    endif
+    function! s:VSetSearch(cmd)
+      let old_reg = getreg('"')
+      let old_regtype = getregtype('"')
+      normal! gvy
+      if @@ =~? '^[0-9a-z,_]*$' || @@ =~? '^[0-9a-z ,_]*$' && g:VeryLiteral
+        let @/ = @@
+      else
+        let pat = escape(@@, a:cmd.'\')
+        if g:VeryLiteral
+          let pat = substitute(pat, '\n', '\\n', 'g')
+        else
+          let pat = substitute(pat, '^\_s\+', '\\s\\+', '')
+          let pat = substitute(pat, '\_s\+$', '\\s\\*', '')
+          let pat = substitute(pat, '\_s\+', '\\_s\\+', 'g')
+        endif
+        let @/ = '\V'.pat
+      endif
+      normal! gV
+      call setreg('"', old_reg, old_regtype)
+    endfunction
+    vnoremap <silent> * :<C-U>call <SID>VSetSearch('/')<CR>/<C-R>/<CR>
+    vnoremap <silent> # :<C-U>call <SID>VSetSearch('?')<CR>?<C-R>/<CR>
+    vmap <kMultiply> *
+    nmap <silent> <Plug>VLToggle :let g:VeryLiteral = !g:VeryLiteral
+      \\| echo "VeryLiteral " . (g:VeryLiteral ? "On" : "Off")<CR>
+    if !hasmapto("<Plug>VLToggle")
+      nmap <unique> <Leader>vl <Plug>VLToggle
+    endif
+    let &cpo = s:save_cpo | unlet s:save_cpo
+<
+
+EXPLANATION  *vwt-171-explanation*
+
+The first suggested mapping was:
+
+>
+    vnoremap <silent> * :<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+      \gvy/<C-R><C-R>=substitute(
+      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+      \gV:call setreg('"', old_reg, old_regtype)<CR>
+<
+
+When in visual mode, pressing * will then perform these commands:
+
+>
+    :<C-U>
+    let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+    gvy
+    /<C-R><C-R>=
+    substitute(
+      escape(@", '/\.*$^~['),
+      '\_s\+',
+      '\\_s\\+',
+      'g')<CR><CR>
+    gV
+    :call setreg('"', old_reg, old_regtype)<CR>
+<
+
+:<C-U> enters command mode and deletes (Ctrl-u) the '<,'> range automatically 
+inserted due to the visual selection. The unnamed register (@") is saved and 
+later restored.
+
+gvy reselects then yanks the visual selection (copy to @").
+
+/<C-R><C-R>= starts a search, then substitutes the expression register (@=) 
+literally :help |c_CTRL-R_CTRL-R|. The result of the following expression is 
+inserted into the command line.
+
+escape() inserts a backslash before each /\.*$^~[ character found in @". The 
+/ must be escaped because we are using a / command. The other characters need 
+to be escaped because they have a special meaning in a regular expression.
+
+substitute() replaces every sequence of one or more whitespace characters 
+(space, tab, newline) with an escaped regular expression that will search for 
+any similar sequence.
+
+gV allows the mappings to work in --SELECT-- mode as well as --VISUAL--. 
+Without gV, searching for text in select mode would not move the cursor 
+because the selection is automatically reselected after the mapping.
+
+READABLE EQUIVALENT  *vwt-171-readable-equivalent*
+
+The principle is to get selection in to use it in search. There are multiple 
+ways to get visually selected text. Here is a simple one, which does not 
+distinguish between v and V selections.
+
+>
+    function! s:getSelectedText()
+      let l:old_reg = getreg('"')
+      let l:old_regtype = getregtype('"')
+      norm gvy
+      let l:ret = getreg('"')
+      call setreg('"', l:old_reg, l:old_regtype)
+      exe "norm \<Esc>"
+      return l:ret
+    endfunction
+    
+    vnoremap <silent> * :call setreg("/",
+        \ substitute(<SID>getSelectedText(),
+        \ '\_s\+',
+        \ '\\_s\\+', 'g')
+        \ )<Cr>n
+    
+    vnoremap <silent> # :call setreg("?",
+        \ substitute(<SID>getSelectedText(),
+        \ '\_s\+',
+        \ '\\_s\\+', 'g')
+        \ )<Cr>n
+<
+
+PASTE MATCHING TEXT OF LAST SEARCH  *vwt-171-paste-matching-text-of-last-search*
+
+When using ^r/ in INSERT mode what one most of the time wants is to paste the 
+matched text not the regex used to search the text. Example: after using * on 
+a word, ^r/ will paste the word with \< prepended and \> appended, not what we 
+want. Similarly after a visual search we don't want the \V prepended. The 
+following map takes care of these issues:
+
+>
+    function! Del_word_delims()
+       let reg = getreg('/')
+       " After *                i^r/ will give me pattern instead of \<pattern\>
+       let res = substitute(reg, '^\\<\(.*\)\\>$', '\1', '' )
+       if res != reg
+          return res
+       endif
+       " After * on a selection i^r/ will give me pattern instead of \Vpattern
+       let res = substitute(reg, '^\\V'          , ''  , '' )
+       let res = substitute(res, '\\\\'          , '\\', 'g')
+       let res = substitute(res, '\\n'           , '\n', 'g')
+       return res
+    endfunction
+    inoremap <silent> <C-R>/ <C-R>=Del_word_delims()<CR>
+    cnoremap          <C-R>/ <C-R>=Del_word_delims()<CR>
+<
+
+For more complicated patterns, it's better to act on the text matched with 
+the last search, using the |gn| object.
+
+So, you could also accomplish insertion of a search match using maygn`ap in 
+normal mode. I.e. ma to drop a mark to return to later, y to yank the gn 
+object, then `a to jump back where you were (because the yank will leave you 
+on the text copied), finally p to paste.
+
+When starting from insert mode, you don't even need a mark: you can use the 
+gi command to start again from where you left off. For example:
+
+>
+    :inoremap <F3> <Esc>ygngi<C-R>0
+<
+
+Here, ygn is as before, but gi is used to go back to insert mode in the same 
+place you left off, then <C-R>0 inserts the copied text.
+
+SEE ALSO  *vwt-171-see-also*
+    -  visualstar.vim [https://vim.fandom.com/wiki/Script:2944]
+
+
+COMMENTS  *vwt-171-comments*
+
+TO DO Tips related to visual searching (need to merge):
+    - 1011 Mappings and commands for visual mode |vwt-1011|
+    - 1151 Search visually |vwt-1151|
+
+
+This mapping forms a substitute command with the selected text:
+
+>
+    vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+<
+
+Found on Stack Overflow: Vim replace selected text 
+[http://stackoverflow.com/questions/676600/vim-replace-selected-text].
+
+To auto escape certain characters (e.g. slash and backslash), one can use:
+
+>
+    vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>
+<

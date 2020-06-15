@@ -1,0 +1,102 @@
+*vim-wiki-tips-625.txt*   Typing print statements faster *vwt-625*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 625 [https://vim.fandom.com/wiki/Typing_print_statements_faster]   Previous |vwt-624| Next |vwt-626|
+
+created December 23, 2003 · complexity basic · author Kartik Agaram · version 
+5.7
+
+==============================================================================
+
+Guess what the most common word is in the C++ language? I wager it is 'cout'.
+
+Interactive debuggers and logging libraries are all very well, but most of us 
+still have in our debugging toolboxes the technique of adding short-lived 
+statements to our programs whose only purpose is to help us figure out the bug 
+currently occupying us by printing the value of a variable. If you find 
+yourself often typing such statements they are worth optimizing for.
+
+For example, strings in most languages are surrounded by double quotes which 
+require an extra motion and keystroke for the left shift key. With my coding 
+style I multiply that motion towards the shift key by 4-6 times per print 
+statement and 10-100 print statements everyday. The result is to significant 
+slow me down and bring me closer to the Home for the Aged Wrist. The analogous 
+cout statement in c++ is even more egregious in this regard. Consider 
+statements like the following that I frequently find myself typing:
+
+>
+    cout << "AAA: " << someVarName << ": " << someOtherVarName << "\n" ;
+<
+
+That's *12* times my left hand moves towards the shift key for *one* 
+statement! Unacceptable. My solution is to remap keys to interchange '<' and 
+',' as well as double quotes and single quotes. Rather than force myself to 
+learn a new keyboard mapping within vim I cause the mappings to trigger in a 
+context-sensitive manner, within only a cout statement, from the time I type 
+'cout' to the time I type the ';' in the end.
+
+Here's my code fragment to do this:
+
+>
+    function! CppSetupCout ()
+      inoremap , <Space><<
+      inoremap < ,
+      inoremap ' "
+      inoremap " '
+      imap ; <Esc>:call CppResetCout ()<CR>a;
+      map <Esc>, :call CppResetCout ()<CR>
+      imap <Esc>, <C-o>:call CppResetCout ()<CR>
+    endf
+    
+    function! CppResetCout ()
+      iunmap ,
+      iunmap <
+      iunmap '
+      iunmap "
+      iunmap ;
+      imap <Esc>, <C-o>:call CppSetupCout ()<CR>
+      map <Esc>, :call CppSetupCout ()<CR>
+    endfunction
+    
+    function! AuCpp ()
+      inoremap cout <End><Esc>:call CppSetupCout ()<CR>acout <<
+      imap <Esc>, <C-o>:call CppSetupCout ()<CR>
+      map <Esc>, :call CppSetupCout ()<CR>
+    endfunction
+    
+    autocmd FileType cpp call AuCpp()
+<
+
+Notice that I use <Esc>, (or Alt-,) to quickly toggle these mappings on or 
+off in other situations.
+
+For some other languages it's probably sufficient to simply switch single- 
+and double-quotes. Java might call for switching '+' and '=' within 
+system.out.println. Come to think of it:
+
+>
+    autocmd FileType java iabbrev sop system.out.println
+<
+
+COMMENTS  *vwt-625-comments*
+
+My solution for C is the line in my vimrc:
+
+>
+    nmap _if ofprintf(0<C-d>stderr, "{%s} {%d} - \n", __FILE__, __LINE__);<Esc>F\i
+<
+
+so I type _if, and then start typing the error message I want. adding 
+__FILE__ and __LINE__ is invaluable when I come to remove the debugging I have 
+scattered across half a dozen files. the 0<C-d> is so that these debug 
+statements aren't indented, which makes them easier to pick out visually and 
+to remove.
+
+==============================================================================

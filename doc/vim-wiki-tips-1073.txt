@@ -1,0 +1,34 @@
+*vim-wiki-tips-1073.txt*   Match valid IP address *vwt-1073*
+
+Tip 1073 [https://vim.fandom.com/wiki/Match_valid_IP_address]   Previous |vwt-1072| Next |vwt-1074|
+
+created 2005 · complexity basic · author Matous Jan Fialka · version 6.0
+
+==============================================================================
+
+When editing a file containing IP addresses, it may be helpful to highlight 
+the addresses in a special color. Adding the following code to vimrc 
+[https://vim.fandom.com/wiki/Vimrc] will highlight instances of IP addresses 
+in the file being edited.
+
+>
+    syn match ipaddr /\(\(25\_[0-5]\|2\_[0-4]\_[0-9]\|\_[01]\?\_[0-9]\_[0-9]\?\)\.\)\{3\}\(25\_[0-5]\|2\_[0-4]\_[0-9]\|\_[01]\?\_[0-9]\_[0-9]\?\)/
+    hi link ipaddr Identifier
+<
+
+This will highlight IP addresses the same way identifiers are highlighted in 
+source code files. The following regular expression is used to find each 
+address to be highlighted.
+
+>
+    ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+<
+
+Other regular expressions can be used to find and highlight other patterns 
+within text.
+
+COMMENTS  *vwt-1073-comments*
+
+For a detailed explanation about how this works and for a similar regex for 
+IPv6 addresses, refer to this article: Regex for IP 
+[http://regex-for.com/ip-addresses/]

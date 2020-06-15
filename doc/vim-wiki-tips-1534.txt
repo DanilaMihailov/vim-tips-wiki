@@ -1,0 +1,44 @@
+*vim-wiki-tips-1534.txt*   Check your syntax files for configurable options *vwt-1534*
+
+Tip 1534 [https://vim.fandom.com/wiki/Check_your_syntax_files_for_configurable_options]   Previous |vwt-1533| Next |vwt-1535|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Check_your_syntax_files_for_configurable_options] 
+November 29, 2007 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+Many times, the default syntax file for a given file type leaves something to 
+be desired. For example, perhaps you edit a lot of perl code, and wish that 
+there was pre-defined syntax folding that you could use.
+
+Before you decide to hack the syntax file, or create additions in your 
+after/syntax directory, be sure to check to make sure your desired behavior 
+doesn't already exist as a configurable option in the default syntax file.
+
+A good starting point would be to look up the help page on the syntax file. 
+For our example, use :help |perl.vim|. Here you can see that you can:
+
+>
+    let perl_fold=1
+<
+
+and perl.vim will define the folding for you! Alternatively, you could open 
+perl.vim directly from your install directory under "syntax". There, you would 
+see the following:
+
+>
+    " The following parameters are available for tuning the
+    " perl syntax highlighting, with defaults given:
+    " ...
+    " ...
+    " unlet perl_fold
+    " unlet perl_fold_blocks
+    " ...
+<
+
+Regardless of how you find them, you can set values for these custom options 
+in your vimrc, or in your own ftplugin directory, to run before the normal 
+ftplugin for the filetype. See :help |ftplugin|.
+
+COMMENTS  *vwt-1534-comments*

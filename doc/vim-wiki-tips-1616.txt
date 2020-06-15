@@ -1,0 +1,110 @@
+*vim-wiki-tips-1616.txt*   User input from a script *vwt-1616*
+
+Tip 1616 [https://vim.fandom.com/wiki/User_input_from_a_script]   Previous |vwt-1615| Next |vwt-1617|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200902#User_input_from_a_script] 
+2009 · complexity basic · author Slackdna · version 7.0
+
+==============================================================================
+
+This tip shows how to obtain input from the user from within a script. 
+Examples showing Vim script and Python are given.
+
+OVERVIEW  *vwt-1616-overview*
+
+Vim provides the function input() that can display a prompt for the user, 
+then wait for the user to type some input. To avoid problems with Vim's 
+typeahead mechanism (which includes the processing of mappings), you need to 
+first call inputsave(), then call input(), then inputrestore().
+
+Often it is better to write a Vim command, so you can simply type the desired 
+command and arguments when wanted (you don't need to be prompted for input). 
+However, it is sometimes useful for a script to prompt the user to enter a 
+required parameter.
+
+If your are asking the user to confirm a choice, use instead the command
+
+>
+    confirm(text[,choices[,default[,type]]])
+<
+
+(Note: confirm() is only supported when compiled with dialog support). For 
+more details see the help reference.
+
+VIM EXAMPLE  *vwt-1616-vim-example*
+
+Save the following in a file called, say, vimdemo.vim:
+
+>
+    function! Demo()
+      let curline = getline('.')
+      call inputsave()
+      let name = input('Enter name: ')
+      call inputrestore()
+      call setline('.', curline . ' ' . name)
+    endfunction
+<
+
+Use Vim to edit any file, then enter the following to source (execute) the 
+above script:
+
+>
+    :so vimdemo.vim
+<
+
+That defines function Demo() which you can call with:
+
+>
+    :call Demo()
+<
+
+The function gets the current line to a variable, prompts the user to enter a 
+name, then appends the entered name to the current line. This is only a simple 
+demonstration, and is not intended to do anything useful.
+
+PYTHON EXAMPLE  *vwt-1616-python-example*
+
+Save the following in a file called, say, pydemo.vim:
+
+>
+    function! DefPython()
+    python << PYEND
+    import vim
+    def python_input(message = 'input'):
+      vim.command('call inputsave()')
+      vim.command("let user_input = input('" + message + ": ')")
+      vim.command('call inputrestore()')
+      return vim.eval('user_input')
+    
+    def demo():
+      curline = vim.current.line
+      name = python_input('Enter name')
+      vim.current.line = curline + ' ' + name
+    PYEND
+    endfunction
+    call DefPython()
+<
+
+Use Vim to edit any file, then enter the following to source the script:
+
+>
+    :so pydemo.vim
+<
+
+That defines a Python function demo() which you can call with:
+
+>
+    :py demo()
+<
+
+The Python example does the same as the Vim example: it prompts you to enter 
+a name, then appends that name to the current line.
+
+REFERENCES  *vwt-1616-references*
+    - :help  |input()|
+    - :help  |confirm()|
+    - :help  |python|
+
+
+COMMENTS  *vwt-1616-comments*

@@ -1,0 +1,73 @@
+*vim-wiki-tips-812.txt*   Keep the modified flag after writing to a file *vwt-812*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 812 [https://vim.fandom.com/wiki/Keep_the_modified_flag_after_writing_to_a_file]   Previous |vwt-810| Next |vwt-814|
+
+created 2004 · complexity intermediate · author hari_vim · version 5.7
+
+==============================================================================
+
+Problem: When you modify a file and write contents to a different file, Vim 
+resets the 'modified' flag, which is a Vi compatible behavior. For those who 
+don't want the 'modified' flag reset, the suggested alternative is to use 
+:saveas command instead of :write command, but this changes the name of the 
+current buffer rather than what is wanted. So I have cooked up the following 
+solution which seems to work for regular files, but it is not a fool proof 
+mechanism. The problem is plugins like netrw that catch the event that is 
+triggered when you try to write contents to a different file, and the below 
+solution also uses the same mechanism, so it would end up getting triggered 
+unexpectedly (actually, netrw might work just fine, but you would get ugly 
+error messages in addition).
+
+I have provided a simple workaround for taking care of at least netrw. 
+Basically, it checks if netrw would react to the event and if so skip itself. 
+A more sophisticated solution would actually parse the output of ":au 
+BufWriteCmd" and automatically check if there are other event handlers for 
+this file, but there are not all that many plugins that take advantage of this 
+event (actually I am aware of only netrw), so the workaround should be 
+sufficient (actually, I haven't tested the netrw filenames, so I am not sure 
+it would work). What you should do is to run the ":au BufWriteCmd" before 
+installing this solution and see what other autocommands exist, other than 
+those that are for netrw. You will have to then tweek the code that returns 
+early from the BufWrite() function.
+
+Put the below code in your vimrc and your :write will work as expected (i.e. 
+as described above).
+
+>
+    function! SetBufWriteAuEnabled(enabled)
+      aug BufWrite
+        au!
+        if a:enabled
+          au BufWriteCmd * :call BufWrite()
+        endif
+      aug END
+    endfunction
+    call SetBufWriteAuEnabled(1)
+    
+    function! BufWrite()
+      let fileName = expand('<afile>')
+      " If the filename already matches netrw's criteria, then don't do anything.
+      if fileName =~ 'ftp://\|rcp://\|scp://\|dav://\|rync://\|sftp://'
+        return
+      endif
+      let _modified = &modified
+      exec 'w'.(v:cmdbang?'!':'') v:cmdarg fileName
+      " This autocommand gets triggered by Vim even if the writing is happening to
+      " the same file, so we don't want to modify the behavior of bare :w or :wq
+      " commands.
+      if expand('%') !=# fileName
+        " This *is* the actual work around. Restore the 'modified' flag.
+        let &modified = _modified
+      endif
+    endfunction
+<
+
+COMMENTS  *vwt-812-comments*

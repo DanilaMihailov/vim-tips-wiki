@@ -1,0 +1,54 @@
+*vim-wiki-tips-1470.txt*   Status line to display more information *vwt-1470*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1470 [https://vim.fandom.com/wiki/Status_line_to_display_more_information]   Previous |vwt-1469| Next |vwt-1472|
+
+created January 12, 2007 · complexity basic · author Vijayandra Singh · 
+version 5.7
+
+==============================================================================
+
+Paste the following in your vimrc to display more information in the status 
+line: line number, hex value under cursor, total lines, %position in file.
+
+>
+    set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,bytval=0x%B,%n%Y%)\%P
+<
+
+COMMENTS  *vwt-1470-comments*
+
+>
+    set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
+    set rulerformat=%15(%c%V\ %p%%%)
+    "set rulerformat=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
+    
+    fun! FileTime()
+      let ext=tolower(expand("%:e"))
+      let fname=tolower(expand('%<'))
+      let filename=fname . '.' . ext
+      let msg=""
+      let msg=msg." ".strftime("(Modified %b,%d %y %H:%M:%S)",getftime(filename))
+      return msg
+    endf
+    
+    fun! CurTime()
+      let ftime=""
+      let ftime=ftime." ".strftime("%b,%d %y %H:%M:%S")
+      return ftime
+    endf
+<
+
+==============================================================================
+
+slr.vim script#1501 [https://www.vim.org/scripts/script.php?script_id=1501] 
+is useful too. It allows the setting of multiple status lines and provides 
+macros to switch between them.
+
+==============================================================================

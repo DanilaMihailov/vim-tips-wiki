@@ -1,0 +1,87 @@
+*vim-wiki-tips-1555.txt*   Creating new text objects *vwt-1555*
+
+Tip 1555 [https://vim.fandom.com/wiki/Creating_new_text_objects]   Previous |vwt-1554| Next |vwt-1556|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Creating_new_text_objects] 
+2008 · complexity intermediate · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+A very useful feature of Vim is the ability to operate on "text objects", 
+allowing you to delete a word with the cursor anywhere on the word, visually 
+select a block of code from anywhere within the code, etc. with very little 
+typing and no movement.
+
+For example, to visually select a quoted string (with the quotes), type va". 
+To change the entire contents of a () group (without changing the parentheses 
+themselves), type ci(. See :help |text-objects| for more details.
+
+Occasionally, however, you will come across a situation where what you want 
+to act on is a well-defined object, but is not a Vim-defined text object. 
+Examples of this include all text of the same indent level 
+[https://vim.fandom.com/wiki/Indent_text_object], or all text within a fold. 
+Vim's excellent mapping tools allow you to simulate the behavior of text 
+objects for behavior you define.
+
+A text object has two behaviors that need to be defined: visual mode, where 
+it will select the appropriate text, and as a motion for an operator. So, you 
+will need to use both a vmap and an omap to get the full text-object behavior. 
+As a simple example, we will use a text object for operating on "a fold".
+
+We will start with visual mode, because it is simpler. We want to set the 
+start of visual mode to the start of the fold, so we will first need to leave 
+visual mode with <Esc> (because <Esc> will work no matter what the visual mode 
+is) and then move the cursor to the start of the fold with [z. This command 
+will fail if performed when already on the first line in a fold, so we need to 
+wrap the command in :silent! normal! in order to continue the mapping even in 
+the case of an error. Next, we need to re-enter visual mode. Folds are based 
+on lines, so it makes most sense to enter visual line selection with V. The 
+other option would be to use an <expr> mapping, and use the 'mode()' function 
+to discover the visual mode, but this is inconsistent with the behavior of 
+other text objects. Finally, we need to set the end of the visual selection to 
+the end of the fold with ]z. The entire mapping looks like this (vnoremap is 
+used to ensure we get the built-in functionality of all commands):
+
+>
+    vnoremap af :<C-U>silent! normal! [zV]z<CR>
+<
+
+Now that we have the visual mode mapping, we can actually use it to make our 
+operator-pending mode mapping easier. Since a fold acts on entire lines, "a 
+fold" should probably act on the entire fold (an "inner fold" is more open to 
+interpretation...if it even makes sense). So, an easy way to accomplish an 
+operation would be to visual line select the fold, then apply the operator. 
+This can be done with:
+
+>
+    omap af :normal Vaf<CR>
+<
+
+Here, we use omap and :normal without a bang (!) in order to make sure we use 
+the remapped version of visual selection.
+
+With these two simple mappings, you will now be able to use af just like a 
+normal text object to act on folded text! More complex applications such as an 
+indent-level text object [https://vim.fandom.com/wiki/Indent_text_object] may 
+require a function call to accomplish, but the concept is the same. Map an 
+appropriate visual mapping, and if possible, use it to simplify the operator 
+mapping.
+
+SEE ALSO  *vwt-1555-see-also*
+    - Mapping keys in Vim tutorial |vwt-1516|
+
+
+RELATED SCRIPTS  *vwt-1555-related-scripts*
+    - textobj-user [https://www.vim.org/scripts/script.php?script_id=2100] is a library that assists in writing text objects. With a patch to the Vim source, it can even handle things such as :help  |o_v|.
+    - CountJump [https://www.vim.org/scripts/script.php?script_id=3130] allows to create custom motions and text objects via repeated jumps; one only needs to specify the begin and end patterns.
+
+
+COMMENTS  *vwt-1555-comments*
+
+TO DO
+
+Bugs:
+    - Will select containing fold for nested folds if cursor is on first line of fold.
+    - Cannot handle characterwise selection with o_v :help  |o_v|
+    - Subsequent repetitions of the text-object do nothing. Should probably select next fold level for consistency with other text objects like aB.

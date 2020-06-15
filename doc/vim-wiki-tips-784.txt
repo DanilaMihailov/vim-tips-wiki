@@ -1,0 +1,89 @@
+*vim-wiki-tips-784.txt*   Word under cursor for command *vwt-784*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 784 [https://vim.fandom.com/wiki/Word_under_cursor_for_command]   Previous |vwt-782| Next |vwt-785|
+
+created September 7, 2004 · complexity basic · author Vasudev Nayak · version 
+6.0
+
+==============================================================================
+
+During editing, there are many situations where one would like to do a 
+command based on the word under cursor. Idea is to yank into a register and 
+then use this register automatically. Basis of this functionality are two 
+commands
+    - Yanking into a register, for example: "zyiw - will yank the word into z reg, "byy - yanks the line into b reg
+    - Concatenating the register to a command and executing it. :exe "/".@z.""<CR> - searches for string in z reg
+    -  Alternately you can replace @z by <C-r>z which will directly replace z by its content. 
+
+
+Some more examples:
+
+a) Let's say that you have a file that has a list of files. You don't want to 
+edit all the files, but selectively.
+
+>
+    :map <F2> "zyiw:exe "vs ".@z.""<CR>
+<
+
+Pressing <F2> will open the file in vertically split window.
+
+b) Browsing a text file and saving all those difficult words you want to 
+refer to during leisure
+
+Open the text file and in a split window open an empty file.
+
+>
+    :map <F2> "zyiw<C-w>wo<Esc>"zp<C-w>w
+<
+
+yank the word under cursor, change window, paste and return
+
+c) Help in help in help |:help|
+
+>
+    :map <F3> "zyiw:exe "h ".@z.""<CR>
+<
+
+Press <F3> on any word and we can see vim help for that keyword.
+
+COMMENTS  *vwt-784-comments*
+
+You can use <C-R><C-W> on the ':' command line to paste the word under 
+cursor. So, to open a file in a vertically split window:
+
+>
+    :vs <C-R><C-W><CR>
+<
+
+Alternatively:
+
+>
+    :vs <cfile> <CR>
+<
+
+Anyway, there are alternatives to some of the examples given:
+    - "*": searches the word under cursor
+    - "gf": opens the file under the cursor
+    - "<C-W>f": same, horizontal split
+
+
+==============================================================================
+
+Just want to note that your example:
+
+>
+    :map <F2> "zyiw<C-w>wo<Esc>"zp<C-w>w
+<
+
+works not only with the word under the cursor but with all selected text. 
+Very useful for note-taking and so forth.
+
+==============================================================================

@@ -1,0 +1,108 @@
+*vim-wiki-tips-891.txt*   Copy parts of filename to clipboard *vwt-891*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 891 [https://vim.fandom.com/wiki/Copy_parts_of_filename_to_clipboard]   Previous |vwt-889| Next |vwt-892|
+
+created March 7, 2005 · complexity basic · author MikeTheGuru · version 5.7
+
+==============================================================================
+
+I often need the name and/or directory of the file I'm working on in another 
+Windows application.
+
+Therefore I've added to menu.vim:
+
+>
+    :amenu 20.351 &Edit.Copy\ fName :let @*=expand("%:t")<CR>
+    :amenu 20.352 &Edit.Copy\ fPath :let @*=expand("%:p:h")<CR>
+    :amenu 20.353 &Edit.Copy\ rName :let @*=expand("%:.")<CR>
+<
+
+This will copy
+
+>
+    fName: Only the filename (without path)
+    fPath: Only the path
+    rName: path+filename relative to current directory
+<
+
+COMMENTS  *vwt-891-comments*
+
+Here is what I use on Windows. Since cmd.exe uses backslashes for file 
+sepatators, I write 'path\file' to clipboard instead of 'path/file'.
+
+>
+    :nmap zd :let @*=substitute(expand("%:p"),"/","\\","g")<CR>
+<
+
+==============================================================================
+
+"%:p" gives me backslashes.
+
+==============================================================================
+
+The slashes you get depend on your setting for 'shellslash'. I have the 
+following:
+
+>
+    com! Copyfile let @*=substitute(expand("%:p"), '/', '\', 'g')
+    
+    " Copy the current file (with full path) into the clipboard (mapping for Copyfile)
+    nmap <s-f4> :let @*=substitute(expand("%:p"), '/', '\', 'g')<CR>
+    " Copy the current file (just the name and extension) into the clipboard
+    nmap <c-s-f4> :let @*=expand( "%:t" )<CR>
+    " Split and edit the file that's on the clipboard
+    nmap <c-f4> :execute "Sp " . @*<CR>
+<
+
+For Java classes:
+
+>
+    " Copies the fully qualified (package.class) name of the current Java class or the filename only (no extension) if there
+    " is no package statement in the class.
+    function! GetFqn()
+      let pos = Mark()
+      let packageLine = '^\s*package\s\+\(.*\);'
+      0
+      let packageLineNumber = search( packageLine, 'W' )
+      execute pos
+      if ( packageLineNumber == 0 )
+        return expand( "%:t:r" )
+      endif
+      let package = substitute( getline( packageLineNumber ), packageLine, '\1', '' )
+      let result = package . "." . expand( "%:t:r" )
+      return result
+    endfunction
+    com! Copyfqn let @*=GetFqn() | echo @*
+<
+
+==============================================================================
+
+The two lines involving Mark and pos are Benji's functions to save and 
+restore the cursor position without using mappings. If you don't have access 
+to them, you could replace them with something like:
+
+>
+    " Store the cursor position
+    normal ma
+<
+
+And, later:
+
+>
+    " Restore the cursor position
+    normal `a
+<
+
+Vim 7 has another flag for the search() function that allows it to not move 
+the cursor, so the entire store/restore cursor position thing might possibly 
+be dispensed with there.
+
+==============================================================================

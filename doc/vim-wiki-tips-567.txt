@@ -1,0 +1,24 @@
+*vim-wiki-tips-567.txt*   Edit a temporary copy of the current file *vwt-567*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 567 [https://vim.fandom.com/wiki/Edit_a_temporary_copy_of_the_current_file]   Previous |vwt-566| Next |vwt-568|
+
+created 2003 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+Edit a copy of the current file as $TMP/file-$DATE by pressing zs using the 
+following mapping.
+
+>
+    :map zs :exe "sav $TMP/" . expand("%:t") . strftime("-%Y-%m-%d_%H%M%S")<CR>
+<
+
+COMMENTS  *vwt-567-comments*

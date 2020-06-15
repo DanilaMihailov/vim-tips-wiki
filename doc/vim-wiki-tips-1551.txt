@@ -1,0 +1,114 @@
+*vim-wiki-tips-1551.txt*   IPython integration *vwt-1551*
+
+Tip 1551 [https://vim.fandom.com/wiki/IPython_integration]   Previous |vwt-1549| Next |vwt-1552|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#IPython_integration] 
+2008 · complexity basic · author Srepmub · version 7.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+If you're using IPython [http://ipython.org] 0.11 or newer, have a look at 
+vim-ipython [https://github.com/ivanov/vim-ipython]. It ships with ipython, 
+provides bidirectional interface between vim and ipython, and works on all 
+platforms.
+
+IPython and Vim make for a great IDE. The following shortcuts can help to 
+make it even better.
+
+To also avoid having to enter a test command in IPython, I use konsole and 
+dcop to send the command to IPython automatically. In the following, ' is 
+mapped to run the command 'r' in IPython. First, start IPython as follows:
+
+>
+    konsole --script
+    ipython
+<
+
+Next, add the following mapping to vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    nnoremap ' :wa<CR>:!dcop konsole-`pidof konsole` session-1 sendSession r<CR><CR>
+<
+
+I wanted to make this work in gnome-terminal as well, but couldn't figure out 
+how to do this with DBUS. So here's a nice trick to make it work in any 
+terminal that supports the 'screen' utility. First, create a 'virtual' screen 
+named 'blah':
+
+>
+    screen -S blah
+    ipython
+<
+
+Now to send a command to the 'blah' screen:
+
+>
+    nnoremap ' :wa<CR>:!screen -x blah -X stuff $'r\n'<CR><CR>
+<
+
+To start screen with gnome-terminal:
+
+>
+    gnome-terminal -e 'screen -S blah'
+<
+
+Please feel free to add more tips for integration with IPython below.
+
+I used the following script:
+
+>
+    " maps ' to save and run the current buffer in the ipython session
+    nnoremap ' :wa<CR>:!screen -x ipython_vim -X stuff $'\%run "%:p"\n'<CR><CR>
+    
+    " opens a new konsole window with ipython running in screen
+    com OpenIPython :!konsole -e screen -S ipython_vim ipython
+<
+
+WINDOWS  *vwt-1551-windows*
+
+Find ipythonrc.ini and in this file find this line:
+
+>
+    editor 0
+<
+
+and change this line to this line:
+
+>
+    editor gvim -f
+<
+
+In ipythonrc.ini the hash symbol (#) means comments as in Python. Be aware 
+that there are two ipythonrc.ini files: one in the installation directory, the 
+other in C:\Documents and Settings\<UserName>; one needs to modify the file in 
+<Documents and Settings> and not in the installation directory for the effects 
+to take place.
+
+After doing these modifications, restart IPython and type:
+
+>
+    %edit
+<
+
+and gvim will start.
+
+COMMENTS  *vwt-1551-comments*
+
+I tried this on Windows, and when I type %edit in IPython it opens Notepad 
+and not gvim.
+
+It works with:
+
+>
+    ipython profile create
+    # creates ipython_config.py in document and settings/username/.ipython
+    Then edit this file to replace
+    c.TerminalInteractiveShell.editor = 'notepad'
+    with
+    c.TerminalInteractiveShell.editor = 'gvim -f'
+<
+
+Restart ipython, then %edit should work.

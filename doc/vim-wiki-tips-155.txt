@@ -1,0 +1,60 @@
+*vim-wiki-tips-155.txt*   Decompile Java .class files automatically *vwt-155*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 155 [https://vim.fandom.com/wiki/Decompile_Java_.class_files_automatically]   Previous |vwt-154| Next |vwt-156|
+
+created November 7, 2001 · complexity intermediate · author Lawrence 
+Kesteloot · version 6.0
+
+==============================================================================
+
+Here's a plugin to automatically decompile Java .class files as they're read 
+in. Tweak the javap flags for what you want to see. I didn't post this as a 
+script because it's too simple and it's really more useful for demonstrating 
+how to read decompilable files (or other binary files that can be converted to 
+text).
+
+>
+    function s:ReadClass(dir, classname)
+      execute "cd " . a:dir
+      execute "0read !javap -c " . a:classname
+      1
+      setlocal readonly
+      setlocal nomodified
+    endfunction
+    
+    autocmd BufReadCmd *.class
+      \ call <SID>ReadClass(expand("<afile>:p:h"), expand("<afile>:t:r"))
+<
+
+COMMENTS  *vwt-155-comments*
+
+It doesn't work when package is used in java code.
+
+>
+    Foo.java
+    package com.foo.test;
+    class Foo
+    {
+    
+    }
+<
+
+The question is how to save package information?
+
+==============================================================================
+
+For jad:
+
+>
+    au BufReadCmd *.class setl readonly nomodified | %!jad -p <afile>
+<
+
+==============================================================================

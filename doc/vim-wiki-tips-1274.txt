@@ -1,0 +1,89 @@
+*vim-wiki-tips-1274.txt*   Highlight some whitespace characters *vwt-1274*
+
+Tip 1274 [https://vim.fandom.com/wiki/Highlight_some_whitespace_characters]   Previous |vwt-1272| Next |vwt-1280|
+
+created 2006 · complexity basic · author Andreas Hübner · version 7.0
+
+==============================================================================
+
+When working on projects with other people, you may need to quickly highlight 
+various whitespace usage issues.
+
+The following script can identify any combination of four types of whitespace 
+issues:
+    - Trailing whitespace (space or tab) at end of line.
+    - Spaces used for indenting (if project should use only tabs for indenting).
+    - Spaces before a tab (probably should be removed or converted to tabs).
+    - Tabs not at the start of the line (that is, not used for indents).
+
+
+After sourcing the following script, you can type \ws (assuming the default 
+leader key) to toggle whitespace highlighting on/off. The buffer local 
+variable b:ws_flags determines what is highlighted (see "default" below).
+
+>
+    " Highlight whitespace problems.
+    " flags is '' to clear highlighting, or is a string to
+    " specify what to highlight (one or more characters):
+    "   e  whitespace at end of line
+    "   i  spaces used for indenting
+    "   s  spaces before a tab
+    "   t  tabs not at start of line
+    function! ShowWhitespace(flags)
+      let bad = ''
+      let pat = []
+      for c in split(a:flags, '\zs')
+        if c == 'e'
+          call add(pat, '\s\+$')
+        elseif c == 'i'
+          call add(pat, '^\t*\zs \+')
+        elseif c == 's'
+          call add(pat, ' \+\ze\t')
+        elseif c == 't'
+          call add(pat, '[^\t]\zs\t\+')
+        else
+          let bad .= c
+        endif
+      endfor
+      if len(pat) > 0
+        let s = join(pat, '\|')
+        exec 'syntax match ExtraWhitespace "'.s.'" containedin=ALL'
+      else
+        syntax clear ExtraWhitespace
+      endif
+      if len(bad) > 0
+        echo 'ShowWhitespace ignored: '.bad
+      endif
+    endfunction
+    
+    function! ToggleShowWhitespace()
+      if !exists('b:ws_show')
+        let b:ws_show = 0
+      endif
+      if !exists('b:ws_flags')
+        let b:ws_flags = 'est'  " default (which whitespace to show)
+      endif
+      let b:ws_show = !b:ws_show
+      if b:ws_show
+        call ShowWhitespace(b:ws_flags)
+      else
+        call ShowWhitespace('')
+      endif
+    endfunction
+    
+    nnoremap <Leader>ws :call ToggleShowWhitespace()<CR>
+    highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+<
+
+SEE ALSO  *vwt-1274-see-also*
+    - Highlight unwanted spaces |vwt-396| other methods to display unwanted whitespace
+
+
+COMMENTS  *vwt-1274-comments*
+
+The original tip had a script with quite a nice toggle, but it highlighted 
+all tabs as well as trailing whitespace. That didn't seem any better than 
+Highlight unwanted spaces |vwt-396|, so I've replaced the script and done a 
+very quick test. Please add any thoughts on the code below (bugs? useful?). 
+--JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 11:10, 26 August 
+2008 (UTC)

@@ -1,0 +1,184 @@
+*vim-wiki-tips-1581.txt*   Tutorial *vwt-1581*
+
+Tip 1581 [https://vim.fandom.com/wiki/Tutorial]   Previous |vwt-1580| Next |vwt-1582|
+
+created [https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Tutorial] 
+2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+To be rewarded by the power of Vim, you will need to learn to properly drive 
+it. Following are some simple tutorial guides for getting started. Please 
+ignore anyone who provides advice on how to configure Vim to operate like 
+Notepad!
+
+VIM TUTOR  *vwt-1581-vim-tutor*
+
+Vim ships with its own tutorial. We highly recommended it! Follow the steps 
+at :help |tutor|. If you're in a hurry, you can probably get by with some 
+basic commands [https://vim.fandom.com/wiki/New_to_Vim], but you should 
+definitely do the tutorial when you have about a half hour you can devote to 
+it. Time spent will more than make up for itself with the productivity 
+increase it will give you.
+
+If you need more guided tutorials after completing the built-in one, there 
+are Vim tutorials created by other users 
+[https://vim.fandom.com/wiki/Vim_documentation#Vim_references.2C_tutorials.2C_guides] 
+that you may want to try.
+
+LAUNCHING VIM  *vwt-1581-launching-vim*
+
+In order to launch Vim, open a terminal, and type the command vim.You can 
+also open a file by specifying a name: vim foo.txt. If foo.txt exists, it will 
+be edited. Otherwise it will be created.
+
+INSERTING TEXT  *vwt-1581-inserting-text*
+
+By default, when Vim starts, you cannot simply type to enter text because Vim 
+starts in normal mode (sometimes called command mode). While confusing for new 
+users, normal mode provides the power of Vim because typing a few keys can 
+perform many useful functions.
+
+In normal mode, you can enter commands, for example, to copy, delete or 
+indent text. You return to normal mode from other modes by pressing the Esc 
+key.
+
+You can enter insert mode from normal mode by pressing the i key. Now, text 
+you type will be inserted.
+
+You can enter visual mode from normal mode by pressing the v key. That starts 
+a visual selection.
+
+There are several more ways to enter insert mode, depending on where you want 
+to insert the text:
+    - i insert at current location
+    - a insert after current location (append)
+    - I insert AT START of current line
+    - A insert AFTER END of current line
+    - o insert line below current line (open)
+    - O insert line ABOVE current line
+    - s delete character under cursor and start inserting in its place (substitute text)
+    - S delete all text on line and start inserting in its place (substitute line)
+    - cw delete to the end of current word and start inserting in its place (any movement command can be substituted for w)
+    - cc same as S (change line)
+    - C delete from the cursor to the end of line and start inserting at the cursor position
+
+
+For example, starting in normal mode, if you press A then type "hello" and 
+press Esc, you will append "hello" to the end of the current line. If you move 
+to another line and press . you will append "hello" to that line as well (. 
+repeats the last operation). If you had used I (instead of A), the "hello" 
+would have been inserted at the start of the line, and pressing . would repeat 
+that operation.
+
+SAVING AND QUITTING  *vwt-1581-saving-and-quitting*
+
+Save the current file by entering :w (which always writes the file even if it 
+has not changed), or :update (which only writes the file if it has changed). 
+That is, press Esc to enter normal mode if necessary, then press the : key, 
+then the w key, then press Enter. If Vim indicates a problem (for example, the 
+file was flagged as read-only in Vim, or the file has been modified by another 
+program since you began editing), you can use :w! to force Vim to write the 
+file anyway.
+
+If you are not editing an existing file (for example if you launched Vim with 
+no arguments), you will need to provide a file name when you save. You can do 
+this with :w filename or :saveas filename, for example, :w myfile.txt.
+
+After saving your changes, you can quit Vim with :q. Or the saving and 
+quitting can be combined into one operation with :wq or :x.
+
+If you want to discard any changes, enter :q! to quit Vim without saving.
+
+It is possible to have more than one file open in Vim, and there are commands 
+for saving or quitting when working with multiple files (see :help 
+|window-exit|):
+
+The word "file" was used above, although the correct term is "buffer". A 
+buffer is an area used by Vim to store a collection of text. Usually, a buffer 
+has an associated file: to start, a buffer is filled by reading its file, and 
+the buffer can be saved by writing to its file. A file is read into a buffer 
+when you start Vim with a file name argument (for example, vim myfile.txt), or 
+when you issue the :e filename (edit) command within Vim.
+
+However, it is easy to have buffers that are not associated with a file. 
+Examples are starting Vim with no argument (which gives an empty buffer with 
+no file name), or entering :new to create a new buffer within Vim.
+
+MOVEMENT AND MORE  *vwt-1581-movement-and-more*
+    - Hands on the home row asdf hjkl.
+    - hjkl move in normal mode: h is left and moves left; l is right and moves right; j looks like a down arrow and moves down; k moves up.
+    - w moves one word forward; 3w moves three words forward; b moves one word backward; 3b moves three words backwards.
+    - gg moves to first line, G moves to last line, 123G moves to line number 123.
+    - More moving: 8k moves eight lines up, 5j moves five lines down, 4l moves four characters right, 23h moves 23 characters left.
+    - : opens command line to enter "ex" commands :help  |ex-cmd-index|
+    - ! after an ex command ignores warnings from many commands, or changes the behavior subtly for others.
+    - Objects and actions: at beginning of word: d2w (action)(times)(object) (delete)(2)(words forward) this deletes including the trailing space; use de to delete to end of word (leaving the trailing space).
+    - d2b (delete)(2)(words backward).
+    - hjkl are also objects! example: d3l (delete)(3)(left), for hl we count individual characters, not words, for jk we count individual lines, d3k delete 4 lines up (3 plus current).
+    - cw (change)(word), c3w (change)(3)(words). "Change" means delete the current text and enter insert mode in its place.
+    - cb (change)(word backward), c3b (change)(3)(words backwards).
+    - Why c and d? Use cw to delete word and enter insert mode (so you can type a new word finishing with Esc). Use dw to delete word, staying in normal mode.
+    - Use u to undo and Ctrl-r to redo, multiple times.
+    - Autocompletion: "whatchamacallit" need to type it again? Type wh then press Ctrl-p to find the previous word that starts with "wh". Ctrl-p and Ctrl-n cycle through matches in previous and next order.
+    - Visual mode: v3w (visual select)(3)(words); change selection with b and hjkl*.
+    - After selecting: y will "yank" (copy); p will "put" (paste) at a new location (after the cursor; use P for before the cursor). Use y in visual mode and p in normal mode.
+    - Convenience commands: dd delete current line; yy yank current line.
+    - Searching: /regularexpression to search forward, ?regularexpression search backward; press n for next hit, or N for previous.
+    - As before we can combine objects for more: y/) will yank everything to NEXT parens (or whatever you search for) while y?) will yank everything up to the PREVIOUS parens.
+
+
+FIND AND TILL  *vwt-1581-find-and-till*
+
+It's rewarding to become familiar with the 'find' and 'till' commands.
+    - Jump to a character in the same line: fx to find the next 'x' in the line, and Fx to find the previous one.
+    - 'Till' is similar: tC to jump till just before the next 'C' in the line, and TC to jump till just after the previous one.
+    - Use , and ; to jump to the previous and next occurrence of the character found with t, T, f, or F.
+
+
+In the above, x is any character, including Tab (press f then Tab to jump to the next Tab on the current line).
+
+Magic happens when you combine the motions find and till with operators:
+    - ctx change all text till the next 'x' (x is any character; x is not changed).
+    - cfx same, but include the 'x'.
+
+
+You are now in insert mode. Type the replacement text, then press Esc.
+    - dtx delete all text till the next 'x'.
+    - dfx same, but include the 'x'.
+    - Want to do it again? Save a keystroke with d; or save two with . (see repeat |vwt-44|).
+
+
+Example: You are at the start of a line:
+This is an example (and here is more) and so on (on one line).
+
+Type dt( to delete from the cursor till '(', with result:
+(and here is more) and so on (on one line).
+
+Type . to repeat, with result:
+(on one line).
+
+SEE ALSO  *vwt-1581-see-also*
+    - New to Vim [https://vim.fandom.com/wiki/New_to_Vim]
+    - Quick tips [https://vim.fandom.com/wiki/Quick_tips]
+    - All the right moves [https://vim.fandom.com/wiki/All_the_right_moves]
+    - Learn to use help [https://vim.fandom.com/wiki/Learn_to_use_help]
+    - Other tips for getting started [https://vim.fandom.com/wiki/Category:Getting_started]
+    - Vim Courses [https://classpert.com/vim] online courses to learn Vim, from a wide range of providers.
+    - Learn Vim - Top Ranked Vim Tutorials [https://gitconnected.com/learn/vim] Vim courses ranked by developers
+
+
+COMMENTS  *vwt-1581-comments*
+
+Even though the above does not allude to it, Vim does support mouse clicks, 
+arrow keys, and even menus — as a kind of afterthoughts, not part of Vim's 
+"basic" command set. — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 
+07:28, 25 May 2009 (UTC)
+
+TO DO
+    - Mention other modes (command-line, select, replace, blockwise/linewise visual)? This may be too much info, but maybe at least command-line mode.
+    - "Using the mouse" section. Here's where select mode is probably most useful. Also mention menus. Be sure to emphasize non-mouse stuff though.
+    - Maybe a section about how to  split-windows, just above #Saving and quitting |vwt-1581-saving-and-quitting| which says how to  them?
+
+
+I think that the proposed section about opening split windows is probably too much info for this tip, we should link elsewhere. Same goes for multiple buffers. Probably we need a "see also" section with sub-sections on editing multiple files, etc. The same might be applicable to the "other modes" info. Probably we need a new tip about all Vim's various modes, if we don't have one already. Or just a :help link if there is a suitable place to see info about all the different modes. --Fritzophrenic 14:35, August 19, 2010 (UTC)

@@ -1,0 +1,256 @@
+*vim-wiki-tips-306.txt*   Open a web-browser with the URL in the current line *vwt-306*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip628 |vwt-628|
+    - VimTip732 |vwt-732|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 306 [https://vim.fandom.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line]   Previous |vwt-305| Next |vwt-308|
+
+created August 10, 2002 · complexity intermediate · author Kartik Agaram · 
+version 5.7
+
+==============================================================================
+
+>
+    function! Browser ()
+      let line = getline (".")
+      let line = matchstr (line, "\%(http://\|www\.\)[^ ,;\t]*")
+      exec "!netscape ".line
+    endfunction
+    map <Leader>w :call Browser ()<CR>
+<
+
+COMMENTS  *vwt-306-comments*
+
+I use a similar script when editing html files to view changes made to the 
+file.
+
+>
+    if exists("loaded_mozilla")
+      finish
+    endif
+    let loaded_mozilla=1
+    
+    "Setup commands to run mozilla.
+    ":Mozilla - open current file in mozilla.
+    if !exists(':Mozilla')
+      command Mozilla :call s:StartMozilla()
+    endif
+    
+    function! s:StartMozilla()
+      " let s:myfile = getcwd() . "/" . bufname("%")
+      let s:myfile = expand("%:p")
+      let s:a = "mozilla -remote 'openurl(file://"; . s:myfile . ")'"
+      let s:r =system(s:a)
+      "Mozilla is not running so start it."
+      if s:r =~"No running window found."
+        unlet s:a
+        let s:a = "mozilla " . s:myfile . "&"
+        let s:r =system(s:a)
+      endif
+    endfunction
+<
+
+Both Netscape and Mozilla accept the remote argument which reloads an open 
+browser with the supplied url.
+
+==============================================================================
+
+Here is a more generic way to execute a URL (Windows only):
+
+>
+    vnoremap <silent> <C-F5> :<C-U>let old_reg=@"<CR>gvy:silent!!cmd /cstart <C-R><C-R>"<CR><CR>:let @"=old_reg<CR>
+<
+
+If you visually highlight something, then hit CTRL-F5, it will tell Windows 
+to start the default associated application. script#306 
+[https://www.vim.org/scripts/script.php?script_id=306]- On my machine this 
+will launch Mozilla (since that is my default browser).dave.txt - On my 
+machine this will launch gvim, on default windows machines this would launch 
+notepad.exe.
+
+==============================================================================
+
+This is my modification. It works for http:, ftp: and file:
+
+>
+    function! Browser ()
+      let line0 = getline (".")
+      let line = matchstr (line0, "http[^ ]*")
+      :if line==""
+      let line = matchstr (line0, "ftp[^ ]*")
+      :endif
+      :if line==""
+      let line = matchstr (line0, "file[^ ]*")
+      :endif
+      " echo line
+      exec ":silent !mozilla ".line
+    endfunction
+    map \w :call Browser ()<CR>
+<
+
+==============================================================================
+
+Further refinement: (For URL with #?&|%, such as one from a google search)
+
+>
+    " Evoke a web browser
+    function! Browser ()
+      let line0 = getline (".")
+      let line = matchstr (line0, "http[^ ]*")
+      :if line==""
+      let line = matchstr (line0, "ftp[^ ]*")
+      :endif
+      :if line==""
+      let line = matchstr (line0, "file[^ ]*")
+      :endif
+      let line = escape (line, "#?&;|%")
+      " echo line
+      exec ":silent !mozilla ".line
+    endfunction
+    map \w :call Browser ()<CR>
+<
+
+==============================================================================
+
+Combining a couple previous scripts, here's what I came up with:
+
+>
+    let $PATH = $PATH . ';c:\Program Files\Mozilla FireFox'
+    "=== evoke a web browser
+    function! Browser ()
+      let line0 = getline (".")
+      let line = matchstr (line0, "http[^ ]*")
+      :if line==""
+      let line = matchstr (line0, "ftp[^ ]*")
+      :endif
+      :if line==""
+      let line = matchstr (line0, "file[^ ]*")
+      :endif
+      let line = escape (line, "#?&;|%")
+      :if line==""
+      let line = "\"" . (expand("%:p")) . "\""
+      :endif
+      exec ':silent !firefox.exe ' . line
+    endfunction
+    map \w :call Browser ()<CR>
+<
+
+==============================================================================
+
+ever since i used this command it bothered me that the screen messes up after 
+calling the function.so i decided to use "urlview". well you got to hit enter 
+quit a few times, but you also get all urls presented foud in the current 
+buffer.you can map ":!urlsview %" to something you like
+
+==============================================================================
+
+A workaround for this behaviour is to add ":redraw!<CR>" to the end of the 
+mapping so that it looks like this:
+
+>
+    map \w :call Browser ()<CR>:redraw!<CR>
+<
+
+It will still change the buffer for a moment, though.
+
+==============================================================================
+
+I modified it so that URL that is passed to firefox is protected by quotes. 
+The changed line is:
+
+>
+    exec ':silent !firefox.exe ' . "\"" . line . "\""
+<
+
+The complete script now is:
+
+>
+    let $PATH = $PATH . ';c:\Programs\FireFox1.5'
+    " Evoke a web browser
+    function! Browser ()
+      let line0 = getline (".")
+      let line = matchstr (line0, "http[^ ]*")
+      :if line==""
+      let line = matchstr (line0, "ftp[^ ]*")
+      :endif
+      :if line==""
+      let line = matchstr (line0, "file[^ ]*")
+      :endif
+      let line = escape (line, "#?&;|%")
+      ":if line==""
+      " let line = "\"" . (expand("%:p")) . "\""
+      ":endif
+      exec ':silent !firefox.exe ' . "\"" . line . "\""
+    endfunction
+    map ,w :call Browser ()<CR>
+<
+
+==============================================================================
+
+Under Mac OS X, the open command can handle any URI:
+
+>
+    function! HandleURI()
+      let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
+      echo s:uri
+      if s:uri != ""
+    	  exec "!open \"" . s:uri . "\""
+      else
+    	  echo "No URI found in line."
+      endif
+    endfunction
+    map <Leader>w :call HandleURI()<CR>
+<
+
+==============================================================================
+
+OS X version that uses John Gruber's URL regexp 
+[http://daringfireball.net/2010/07/improved_regex_for_matching_urls] and Ruby 
+(as a plugin [https://github.com/henrik/vim-open-url]):
+
+>
+    ruby << EOF
+      def open_uri
+        re = %r{(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))}
+    
+        line = VIM::Buffer.current.line
+    
+        if url = line[re]
+          system("open", url)
+          VIM::message(url)
+        else
+          VIM::message("No URI found in line.")
+        end
+      end
+    EOF
+    
+    if !exists("*OpenURI")
+      function! OpenURI()
+        :ruby open_uri
+      endfunction
+    endif
+    map <Leader>w :call OpenURI()<CR>
+<
+
+==============================================================================
+
+Under Linux, this one-liner opens the URL under the cursor:
+
+>
+    nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
+<

@@ -1,0 +1,59 @@
+*vim-wiki-tips-1385.txt*   Disable the "Hit any key to close this window" message in remote editing *vwt-1385*
+
+
+
+This tip is deprecated for the following reasons:
+
+Use current netrw; don't patch it - see comments.Tip 1385 [https://vim.fandom.com/wiki/Disable_the_%22Hit_any_key_to_close_this_window%22_message_in_remote_editing]   Previous |vwt-1384| Next |vwt-1386|
+
+created 2006 · complexity advanced · author Diomidis Spinellis · version 6.0
+
+==============================================================================
+
+When using the remote editing functionality under Microsoft Windows, 
+vimrun.exe annoyingly leaves an open window with the prompt "Hit any key to 
+close this window". To disable this feature, modify in the Vim plugins 
+directory the file netrw.vim as follows:
+
+>
+    --- netrw.vim.orig Mon Jun 07 15:06:24 2004
+     +++ netrw.vim Mon Nov 13 17:32:28 2006
+     @@ -342,10 +342,10 @@
+     if g:netrw_cygwin == 1
+     let cygtmpfile=substitute(tmpfile,'^\(\a\):','/cygdrive/\1/','e')
+     " call Decho("executing: !".g:netrw_scp_cmd.useport." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')." ".cygtmpfile)
+     - exe "!".g:netrw_scp_cmd.useport." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')." ".cygtmpfile
+     + silent exe "!".g:netrw_scp_cmd.useport." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')." ".cygtmpfile
+     else
+     " call Decho("executing: !".g:netrw_scp_cmd.useport." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')." ".tmpfile)
+     - exe "!".g:netrw_scp_cmd.useport." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')." ".tmpfile
+     + silent exe "!".g:netrw_scp_cmd.useport." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')." ".tmpfile
+     endif
+     let result = s:NetGetFile(readcmd, tmpfile, b:netrw_method)
+     let b:netrw_lastfile = choice
+     @@ -767,10 +767,10 @@
+     if g:netrw_cygwin == 1
+     let cygtmpfile=substitute(tmpfile,'^\(\a\):','/cygdrive/\1/','e')
+     " call Decho("executing: !".g:netrw_scp_cmd.useport." ".cygtmpfile." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&'))
+     - exe "!".g:netrw_scp_cmd.useport." ".cygtmpfile." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')
+     + silent exe "! ".g:netrw_scp_cmd.useport." ".cygtmpfile." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')
+     else
+     " call Decho("executing: !".g:netrw_scp_cmd.useport." ".tmpfile." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&'))
+     - exe "!".g:netrw_scp_cmd.useport." ".tmpfile." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')
+     + silent exe "! ".g:netrw_scp_cmd.useport." ".tmpfile." ".g:netrw_machine.":".escape(b:netrw_fname,' ?&')
+     endif
+     let b:netrw_lastfile = choice
+<
+
+COMMENTS  *vwt-1385-comments*
+
+TO DO Probably should delete this tip. It might have been handy in November 
+2006, however it's a very bad idea to patch tools, particularly netrw which is 
+frequently updated.
+
+Dr.Chip commented:
+
+IMHO, it's much better to submit patches for netrw to me, directly.
+Be that as it may, did you try :let g:netrw_silent= 1 in your .vimrc?
+
+==============================================================================

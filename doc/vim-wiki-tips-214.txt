@@ -1,0 +1,37 @@
+*vim-wiki-tips-214.txt*   Current buffer based menus *vwt-214*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 214 [https://vim.fandom.com/wiki/Current_buffer_based_menus]   Previous |vwt-213| Next |vwt-215|
+
+created February 14, 2002 · complexity intermediate · author Tomas Zellerin · 
+version 6.0
+
+==============================================================================
+
+If you have different menus for different filetypes, and you want to have 
+only the menu relevant to current buffer displayed, you can use this approach:
+
+In your vimrc:
+
+>
+    au BufEnter * if exists('b:BuffEnter')|exec b:BuffEnter|endif
+    au BufLeave * if exists('b:BuffEnter')|exec b:BuffLeave|endif
+<
+
+In appropriate ftplugin/?.vim, there are assigned commands to create or 
+destroy the menus - here typed in directly, may be of course call to a 
+menu-generating function or whatever.
+
+>
+    let b:BuffEnter='amenu C.added ...'
+    let b:BuffLeave='unmenu! C|unmenu C'
+<
+
+COMMENTS  *vwt-214-comments*

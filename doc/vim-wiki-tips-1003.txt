@@ -1,0 +1,323 @@
+*vim-wiki-tips-1003.txt*   Windows file associations *vwt-1003*
+
+Tip 1003 [https://vim.fandom.com/wiki/Windows_file_associations]   Previous |vwt-1001| Next |vwt-1004|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+Although the Vim installer gives you options to create right-click "edit with 
+Vim" options, it is convenient to be able to simply double-click on a file to 
+have it open in Vim. This "double-click to open" is commonly referred to as a 
+"file association" and is fairly easy to set up in Microsoft Windows. You can 
+use the "Open With..." menu in Windows to set up a basic association, but that 
+will not allow you to specify any command-line arguments to Vim, such as 
+--remote-silent to open with an existing Vim instance. In order to fully 
+specify the action to take when double-clicking a file, Windows provides the 
+ftype and assoc command-line tools. These tools affect all users. You need to 
+use the registry if you want to create #User-specific file associations 
+|vwt-1003-user-specific-file-associations|.
+
+To use, simply open a Windows command prompt and type something like the 
+following:
+
+>
+    assoc .php=PHPFile
+    ftype PHPFile="C:\Program Files\Vim\vim72\gvim.exe" --remote-silent "%1"
+<
+
+Note: If the above commands are entered in a batch file, the percent sign 
+must be escaped (replace "%1" with "%%1").
+
+This particular command sequence will set up Windows to open any files with a 
+.php extension in an existing gvim window 
+[https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows] (or it 
+will open new gvim window if there is no already opened gvim window).
+
+In general, the assoc command is used to associate a given file extension 
+with a filetype. The ftype command is used to tell Windows what to do to open 
+files of a given file type. You can associate any number of file extensions 
+with a given filetype, which makes it easy to set up a single action for 
+similar types of files. For example, the following will treat any files with 
+extensions .c, .h, .pl, or .py as "sourcecode", which it will launch in Vim as 
+we did with PHPFile above:
+
+>
+    assoc .c=sourcecode
+    assoc .h=sourcecode
+    assoc .pl=sourcecode
+    assoc .py=sourcecode
+    ftype sourcecode="C:\Program Files\Vim\vim72\gvim.exe" --remote-silent "%1"
+<
+
+Note: If the above commands are entered in a batch file, the percent sign 
+must be escaped (replace "%1" with "%%1").
+
+HOW IT WORKS  *vwt-1003-how-it-works*
+
+Both the ftype and assoc commands work by creating entries in a specific 
+registry location which Windows will check for various actions taken on a 
+file. The easiest and safest way to create these entries is to use the 
+command-line tools, but it is possible to create them by hand.
+
+assoc .c=sourcecode will create a registry key at HKEY_CLASSES_ROOT\.c that 
+has a (Default) value of sourcecode. When you double-click on a .c file, 
+Windows will see this key and look for another key to figure out what to do 
+with a sourcecode file.
+
+ftype sourcecode="C:\Program Files\Vim\vim72\gvim.exe" "%1" will set up 
+another registry entry, in HKEY_CLASSES_ROOT\sourcecode\Shell\Open\command 
+with (Default) value of "C:\Program Files\Vim\vim72\gvim.exe" "%1". This entry 
+could do with more inspection.
+
+ASSOCIATING VIM WITH OTHER ACTIONS  *vwt-1003-associating-vim-with-other-actions*
+
+Consider the .html file extension. For most users, it would not make sense to 
+open a .html file in Vim when double-clicking the file. Most users would want 
+the file to open in a web browser when double-clicking, but being able to 
+automatically edit the file in Vim when modifying the file would be a nice 
+thing to be able to do. This is where the registry entry created by ftype 
+comes in.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+There are no easy command-line or GUI tools to do this, but you can set up 
+other actions, such as "edit", in the same registry area that ftype uses. 
+Simply replace the "open" portion of the registry key path with the desired 
+action (in this case, "edit"). For example, assume that .html files have been 
+associated with a filetype called htmlfile. Then, to keep the existing 
+double-click action in place, but add Vim as the "edit" action, give the 
+following registry key a (Default) value of "C:\Program 
+Files\Vim\vim72\gvim.exe" "%1": HKEY_CLASSES_ROOT\htmlfile\Shell\Edit\command
+
+Note: in Windows XP, there is a GUI for doing this, accessible through the 
+"Folder Options" dialog.
+
+Now, you can double-click on a .html file to open it in your web browser as 
+normal. But you can also right-click on the file, and choose "Edit" from the 
+context menu. This will open the file in gvim.
+
+Do not limit yourself to just edit actions! For example, you could make an 
+entry to open gvim on a directory 
+[https://vim.fandom.com/wiki/Right_click_in_Windows_Explorer_to_open_gvim_in_explorer_mode], 
+load configuration files, or source scripts 
+[https://vim.fandom.com/wiki/Vim-sessions_under_Windows].
+
+USER-SPECIFIC FILE ASSOCIATIONS  *vwt-1003-user-specific-file-associations*
+
+Unfortunately, all of the methods mentioned above apply your file 
+associations in an area of the registry used by every user account in your 
+Windows installation. This means that if you are on a multi-user system, and 
+you are the only user using Vim, other people will get very annoyed if you use 
+these tools to make files launch in Vim.
+
+Luckily, although Windows does not provide a GUI or even easy command-line 
+tools to edit or change it, Windows 2000 and above provide a place in the 
+registry that can be used to store user-specific file associations. This place 
+is HKEY_CURRENT_USER\Software\Classes. Creating a file association here uses 
+two steps, which duplicate what the assoc and ftype commands do in their 
+registry area. For an example, we will associate the ".c" extension to the 
+"sourcecode" filetype, and then tell Windows to launch anything in the 
+"sourcecode" filetype in gvim version 7.2, opening the file in a new tab 
+[https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows]. It 
+should be easy to adjust this as desired.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+STEP 1: ASSOCIATE THE FILE EXTENSION WITH A FILE TYPE  *vwt-1003-step-1:-associate-the-file-extension-with-a-file-type*
+
+To do this, you need only create a registry key with the name of the file 
+extension desired and a default value of the filetype you want to associate 
+with it. For our example, you would create the key, 
+HKEY_CURRENT_USER\Software\Classes\.c (using regedit or the command-line "reg 
+add" command |vwt-1003-scripting-the-additions|). In regedit, you can see a 
+(Default) value for this key after creating it. Set the value to sourcecode.
+
+STEP 2: ASSOCIATE THE FILETYPE WITH GVIM  *vwt-1003-step-2:-associate-the-filetype-with-gvim*
+
+The next step is to tell Windows what to do with your new filetype, just like 
+the ftype command.
+
+First, create the key 
+HKEY_CURRENT_USER\Software\Classes\sourcecode\shell\open\command. This key 
+will also have a (Default) value, which you need to set to the program used to 
+open files of this type. For example, you could set it to "C:\Program 
+Files\Vim\vim72\gvim.exe" --remote-tab-silent "%1" to open .c files (and other 
+sourcecode typed files) in a new tab in the default gvim.
+
+Just as we explained above, you can specify other actions 
+|vwt-1003-associating-vim-with-other-actions| to take besides opening on a 
+double-click, simply by replacing "open" with the appropriate action in the 
+registry key path.
+
+SCRIPTING THE ADDITIONS  *vwt-1003-scripting-the-additions*
+
+Windows does provide a command-line utility for editing the registry: reg 
+add. You can use this tool from a CMD prompt, but it is probably more useful 
+to create a batch file containing commands to set all your desired file 
+associations.
+
+You need to escape double-quote characters with a backslash. To set the 
+(Default) value we need, provide an empty string as the value name using /v 
+"". In a batch file, you also need to escape the '%' character with a second 
+'%' character. With this in mind, the following lines in a batch file will set 
+up the file association given in our example above:
+
+>
+    reg add HKCU\SOFTWARE\Classes\.c /v "" /t REG_SZ /d "sourcecode" /f
+    reg add HKCU\SOFTWARE\Classes\sourcecode\shell\open\command /v "" /t REG_SZ /d "\"C:\Program Files\Vim\vim72\gvim.exe\" --remote-tab-silent \"%%1\"" /f
+<
+
+SEE ALSO  *vwt-1003-see-also*
+    - Launch files in new tabs under Windows#Using File Associations [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows#Using_File_Associations] demonstrating clever use of the --remote family of command-line options as part of a file association.
+    - Special-use file associations |vwt-934| for when you don't just want to edit a file, but do something else with it in Vim.
+
+
+COMMENTS  *vwt-1003-comments*
+
+TO DO
+    - For user-specific associations, should also mention creating and merging a reg file, which is probably easier.
+    - The usual Windows escape character is "^". Why do we need to escape quotes with a backslash in the "reg add" command? This seems weird, but it works.
+
+
+==============================================================================
+
+You need to escape a double quote (and a backslash) in a ref file because 
+that is how the syntax was designed. It allows RegEdit to differentiate 
+between these characters entered as data vs as entered as delimiters. Same as 
+the percent sign in batch files.ArtK Oct 14, 2014
+
+Sure, I understand the concept of escaping. But why is the escape character '\' here? In .bat files you use ^ to escape anything, and backslash normally doesn't do anything special. So what's special about "reg add"? --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+==============================================================================
+
+Whoa! Lots of inaccurate and misleading statements here. Some corrections and 
+clarifications:
+
+I don't think anything is actually inaccurate here, see my responses below. Maybe we need to retool which portions get emphasis. Please let us know what you think. --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+File association definitions are are stored under registry keys in two 
+(virtual) hives: HKLM and HKU. Specifically, HKLM\Software\Classes\ and 
+HKCU\Software\Classes\ plus HKCU\...\FileExts\:
+
+HKLM\Software\Classes\ defines associations for the local machine, i.e., all 
+users (unless overridden by HKCU definitions)
+
+Yes, this was mentioned in the #User-specific file associations section. This is the place the ftype and assoc commands modify. Where does this need clarification? Do you want to see this in the intro and #How it works sections? --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+HKCU\Software\Classes\ defines associations for the current logged on user.
+
+Yes, this is the entire point of the #User-specific file associations section. Do you think that section needs more prominence? --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+HCR is an alias for HKLM\Software\Classes\. It is not a copy. It is not 
+ambiguous. It is not a merging of anything. It is simply a shorthand way of 
+directly referring to a subset of HKLM (HKLM\Software\Classes\).
+
+Experimentation shows that HCR includes entries for both HKLM and HKCU definitions. I agree it is not a copy...but it certainly seems to be a merging of some kind. Do you know where to find documentation on how this alias works? What happens if you create something here, does it get stored in HKLM or HKCU? --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+Similarly, HKCU is an alias for a subset of HKU (HKU\S-1-5-21-...\) - the 
+currently logged on user account. Again, just a shorthand name. (Each user 
+account has a unique S-1-5-21-... key under HKU so HKCU is unique for each 
+user.)
+
+Good to know. I don't think that's very useful information for this tip, however...I don't think that much detail is needed in knowing how to set up file associations in HKCU. Do you disagree? --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+In addition, 
+HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\ contains all 
+the user account created definitions managed via "Explorer\Tools\Folder 
+Options\File Types". These include, for example, application created entries 
+when you install an app for a single user or when you allow your browser to 
+set itself as the default browser.
+
+OK, good to know. Where does this tie-in to double-clicking to open a file? Is it worth mentioning in this tip? Is there an easy editor or configuration tool for this outside the registry? We should include it if it is useful, especially if it provides an easy alternative to registry hacking. --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+When a file reference is double clicked, Windows first looks in HKCU for any 
+file association definitions for that specific file extent. If and only if no 
+definition exists in HKCU for the requested verb (Open, Edit, Print, etc), 
+does Windows look in HCR for its info.
+
+I don't think HCR works the way you think it does. Right now on my system, in HCR, I have a "sourcecode" entry (with various open/edit verbs defined). "sourcecode" does not exist in HKLM\Software\Classes; here the entries skip right from "SoundRec" to "SPCFile". On the other hand, in HKCU\Software\Classes, "sourcecode" is present. So, obviously HCR includes entries from HKCU\Software\Classes.
+On the other hand, in HCR, "sourcecode" is surrounded "SoundRec" and "SPCFile" just like in HKLM\Software\Classes. But HKCU\Software\Classes has "Software" and "stylesheet" surrounding the "sourcecode" entry. Thus, HCR also obviously includes entries from HKLM. HCR is definitely merging the two locations in some fashion. I just don't know the details as to how. --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+Consequently, ASSOC and FTYPE are totally useless for managing user specific 
+file associations. These utilities operate only on HCR keys (and require admin 
+rights to change entries). Also, FTYPE only operates on the command key for 
+the "open" verb (...\shell\open\command\); it cannot set or reset any other 
+verb command key.
+
+Yes, I agree. That's why we have a separate section on #User-specific associations, and also #Associating Vim with other actions. But since most computers probably have only a few users, and this doesn't involve manually hacking the registry, and since alternate verbs are less common than "double-click to open": ftype and assoc are probably good to mention first. Do we need to emphasize that more in the section about ftype and assoc? --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+This is just the tip of the iceberg regarding file associations. The next 
+level is all of the "OpenWith" mechanisms for many-to-one and one-to-many 
+associations. For more info, see SuperUser post[1] 
+[http://superuser.com/questions/204354/how-do-i-get-ftype-assoc-to-match-windows-explorer/814400#814400], 
+do a Google search[2] 
+[http://www.google.com/search?as_q=windows&as_epq=file+association] or browse 
+the registry with RegEdit (if you don't change anything, it is safe to look. 
+Create a check point first to be doubly safe.)
+
+ArtK Oct 14, 2014
+
+This tip is the result of hours of fiddling with the registry and Google searching, and it works. So please don't assume proper searching was not done first. If this were easy, well-documented, or if Windows had a built-in UI, we may not have needed a tip in the first place. I'm sure there is more to the story about file associations, this is only an attempt to document the process SOMEWHERE because it isn't easy to find this information. Especially as it relates to something as user-specific as a preferred text editor.
+
+The top few Google hits for 'Windows "file associations"' all talk about using the GUI tools in Windows to set an "open with" program. This is all well and good, but programs like Vim often need to pass various command-line arguments along with the file to be useful. Can this be done with the "open with" GUIs?
+
+Thanks for the SuperUser link, that gives some good detail, especially about the FileExts area. But you should certainly look into the HKEY_CLASSES_ROOT again, I think you're incorrect there. --Fritzophrenic (talk) 18:30, October 14, 2014 (UTC)
+
+==============================================================================
+
+The following is a "for reader's information" comment; not a suggestion that 
+the tip be changed. In classic Microsoft style, using HKEY_CLASSES_ROOT is 
+ambiguous. I do not know the details, but on at least some systems (after 
+Windows 9x), I think the following is correct:
+
+HKEY_LOCAL_MACHINE\Software\Classes : for all users
+HKEY_CURRENT_USER\Software\Classes : for interactive user
+HKEY_CLASSES_ROOT : merged view of above (and is used by Win9x apps)
+
+I don't know what happens if you write to HKEY_CLASSES_ROOT (which does not 
+exist). Perhaps (like installing some apps), if you are in the Administrators 
+group, you will write to HKLM, otherwise you will write to HKCU. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 08:24, 2 July 2009 (UTC)
+
+==============================================================================
+
+This is correct as far as I know. I wanted to include some information about 
+how HKCR is a merged view of HKLM/Software/Classes and HKCU/Software/Classes, 
+but doing so would beg information such as "what happens when I edit an entry 
+that actually exists in HKCU?" etc. From experimentation, it seems that 
+creating new keys in this area will always create it in HKLM (system-wide), 
+and ftype and assoc certainly do that, but I don't really have any 
+documentation of that fact, and I don't know what it will do for 
+limited-privilege accounts. I also don't know what happens when you edit an 
+existing key, but I imagine it will "do the right thing" and keep the original 
+where it was. I don't know this for a fact though. For these reasons, I left 
+out that tidbit. But if we can answer some of these questions, it would be a 
+good thing to include.
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 15:19, 2 
+July 2009 (UTC)
+
+==============================================================================
+
+The HKEY_CLASSES_ROOT key provides a merged view of 
+HKEY_LOCAL_MACHINE\Software\Classes and HKEY_CURRENT_USER\Software\Classes.
+
+When reading, the HKEY_CURRENT_USER settings have priority over the 
+HKEY_LOCAL_MACHINE settings.
+
+If you write values to a key under HKEY_CLASSES_ROOT, the values will:
+
+--December 23, 2012
+
+==============================================================================
+
+Perhaps Tip 1301 
+[https://vim.fandom.com/wiki/Associate_files_with_no_extension_to_Vim_under_Windows] 
+could be merged in here, by adding
+
+assoc .=sourcecode
+
+to the examples, with a comment saying it applies to a file with no 
+extension?
+
+JLittle [https://vim.fandom.com/wiki/User:JLittle] 21:27, November 10, 2009 
+(UTC)
+
+Yes, and probably also Open_Vim_Here_by_clicking_the_context_menu_on_a_folder/directory_on_Windows. Maybe we can create a "special cases" section that includes both of these, and potentially other "reserved" values that can be used? --Fritzophrenic 21:44, November 10, 2009 (UTC)

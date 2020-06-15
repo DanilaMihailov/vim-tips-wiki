@@ -1,0 +1,46 @@
+*vim-wiki-tips-1021.txt*   Use glimpse from within Vim *vwt-1021*
+
+Tip 1021 [https://vim.fandom.com/wiki/Use_glimpse_from_within_Vim]   Previous |vwt-1020| Next |vwt-1023|
+
+created 2005 · complexity basic · author Jean-Rene David · version 6.0
+
+==============================================================================
+
+To use glimpse to search your files instead of grep -r, you can use these 
+mappings:
+
+>
+    set grepformat+=%f:\ %l:%m
+    set grepprg=glimpse\ -nyH\ $HOME/indexdir\ $*
+    nnoremap <silent> \g :grep <cword><CR>:cwindow<CR>
+    nnoremap <silent> \G :!glimpseindex -F -H $HOME/indexdir -b ${PWD}<CR>
+<
+
+You must:
+
+1. Have glimpse installed on your system. (see webglimpse.net).
+
+2. Precompile an index with glimpseindex. The mapping above lets glimpseindex 
+decide which files to scan and puts the index in $HOME/indexdir. You can 
+change that if you like.
+
+3. Grep away using the mapping above or, alternatively:
+
+>
+    :grep pattern
+<
+
+Searches are blinding fast with even large projects. By using the grepprg 
+option, you get the benefit of using the quickfix window to browse through 
+your search results.
+
+COMMENTS  *vwt-1021-comments*
+
+I'm using this to use :Glimpse in parallel with :grep
+
+>
+    set gfm+=%f:\ %l:\ %m
+    com -nargs=* Glimpse let s:oldgrep = &grepprg | set grepprg=glimpse | grep <args> | let &grepprg = s:oldgrep
+<
+
+==============================================================================

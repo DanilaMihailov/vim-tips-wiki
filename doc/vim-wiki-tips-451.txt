@@ -1,0 +1,164 @@
+*vim-wiki-tips-451.txt*   KDE Konsole renameSession to edited file name *vwt-451*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 451 [https://vim.fandom.com/wiki/KDE_Konsole_renameSession_to_edited_file_name]   Previous |vwt-450| Next |vwt-452|
+
+created March 28, 2003 · complexity intermediate · author warb · version 6.0
+
+==============================================================================
+
+In KDE3 the renameSession will set the Konsole name. Add this to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] file to name the session after the edited 
+file.
+
+>
+    autocmd BufReadPost * :silent !dcop $KONSOLE_DCOP_SESSION renameSession %
+<
+
+This one set the title to the current working dirctory when you leave vim.
+
+>
+    autocmd VimLeavePre * :silent !dcop $KONSOLE_DCOP_SESSION renameSession $PWD
+<
+
+In KDE4 the qdbus will set the Konsole tab name. Create a script in your 
+$PATH(for example: $HOME/bin) named as update_konsole_tab:
+
+>
+    #/bin/sh
+    if [ "CHK$KONSOLE_DBUS_SESSION" == "CHK" ];then
+        exit 0
+    fi
+    
+    OLD_FORMAT="%d : %n"
+    QDBUS_COMMAND="qdbus org.kde.konsole $KONSOLE_DBUS_SESSION"
+    
+    if [ "CHK$1" == "CHKset" ];then
+        $QDBUS_COMMAND org.kde.konsole.Session.setTabTitleFormat \
+            0 "$2" 1>/dev/null 2>/dev/null
+    
+    fi
+    
+    if [ "CHK$1" == "CHKclean" ];then
+        $QDBUS_COMMAND org.kde.konsole.Session.setTabTitleFormat \
+            0 "$OLD_FORMAT" 1>/dev/null 2>/dev/null
+    fi
+<
+
+Then add these lines into your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    autocmd BufReadPost * :silent !update_konsole_tab set 'vim: %:t'
+    autocmd VimLeavePre * :silent !update_konsole_tab clean
+<In KDE5, the KDE4 qdbus org.kde.konsole command needs to be appended with "-`pidof -s konsole`" which leads to the QDBUS_COMMAND variable becoming:
+
+>
+    KONSOLE_PID="`pidof -s konsole`"
+<
+
+>
+    QDBUS_COMMAND="qdbus org.kde.konsole-$KONSOLE_PID $KONSOLE_DBUS_SESSION"
+<
+
+COMMENTS  *vwt-451-comments*
+
+Dan thanks for the vim help, however I do not use konsole.So I modified my 
+.tcshrc with this:
+
+>
+    # This makes it possible to make vim automagically set the date and time
+    # in the title bar.
+    #
+    alias vimdate '/bin/date "+%A, %B %e, %Y Time: %H:%M"'
+    setenv mydate `vimdate`
+    alias vi 'setenv mydate `vimdate` ; /usr/bin/vim \!* ; cd `pwd`'
+<
+
+then I read the how to for setting or unsetting the title in vim, so I set my 
+.vimrc with this:
+
+>
+    :auto BufEnter * let &titlestring = $USER . " on " . hostname() . " :
+     \ Viming: " . expand("%:p") . " Date: " . $mydate
+    :set title titlestring=%<%F%=%l/%L-%P titlelen=70
+<
+
+This with the .tcshrc mod will give you your name on machine Viming : 
+filename : date and time.
+
+==============================================================================
+
+I might not always use kde, so I have my xterm do my title work for me.My 
+.tcshrc for my xterms, looks like this:
+
+>
+    ### ---------------------------------------------------------------
+    # This is where cd is overloaded and it adjusts the prompt.
+    #
+    # cds: change directory hybrid queueish stack
+    set cds = ( $HOME )
+    #
+    alias cd 'if ( ${#cds} >= 4 ) shift cds;\\
+     chdir \!*;\\
+     setprompt;\\
+     set cds = ( $cds $cwd );\\
+     echo $cds'
+    #
+    alias lastdir 'if ( ${#cds} <= 1 ) set cds = ( $cds $cwd );\\
+     @ idx = ${#cds} - 1;\\
+     chdir $cds[$idx];\\
+     setprompt;\\
+     set cds = ( $cds[1-$idx] );\\
+     echo $cds;\\
+     unset idx'
+    #
+    setprompt
+    #
+    ### ---------------------------------------------------------------
+    #
+    #
+    ### ---------------------------------------------------------------
+    # This is where the title bar of the xterm is set.
+    #
+    alias date '/bin/date "+%A, %B %e, %Y Time: %H:%M:%S"'
+    #
+    if ($?tcsh) then
+    # set prompt="$host{`whoami`}%\!: "
+    #
+     if ($?term) then
+     alias cwdcmd 'echo -n "^[]2;" "$USER on $host : $cwd `date`^G"'
+     cwdcmd
+     endif
+    #else # regular csh
+    # set prompt="$hostnm{`whoami`}\!: "
+    # if ($term == xterm) echo -n "^[]0;$hostnm^G"
+    endif
+    #
+    ### ---------------------------------------------------------------
+<
+
+Note: In the alias cwdcmd line, after the `echo -n "^[]2;" the ^[ is a 
+control h, I think.
+
+This is why I aliases vi to 'setenv mydate `vimdate` ; /usr/bin/vim \!* ; cd 
+`pwd`When I do a cd `pwd` it automatically changes my title bar to:
+
+>
+    me on machine : $PWD day, date, Time: time.
+<
+
+This works with xterm, aterm, wterm, kterm, rxvt, and konsole.Please feel 
+free to email me if you would like me to send you a copy.
+
+Also I run Debian, so there for everything is generic; so I had to figure out 
+how tomodify/customize everything with dot files; this way I learn more by 
+doing it myself.
+
+==============================================================================:

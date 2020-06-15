@@ -1,0 +1,64 @@
+*vim-wiki-tips-669.txt*   Nice window resizing *vwt-669*
+
+Tip 669 [https://vim.fandom.com/wiki/Nice_window_resizing]   Previous |vwt-667| Next |vwt-670|
+
+created March 2, 2004 · complexity basic · author Yada · version 5.7
+
+==============================================================================
+
+>
+    " Map F1 for gvim window resizing.
+    " Put this snippet of code in your vimrc for nice window resizing.
+    " Press F1 key to toggle between the three settings.
+    nmap <F1> :call ResizeWindow()<CR>
+    imap <F1> <Esc><F1>a " for insert mode
+    function! ResizeWindow()
+      if (has("gui_running"))
+        if s:selectedsize == 1
+          let s:selectedsize = 2
+          set number
+          set columns=88 " 88 is exactly 80 with :set number
+          set lines=35
+        elseif s:selectedsize == 2
+          set number
+          let s:selectedsize = 3
+          set columns=98
+          set lines=45
+        else " old school console goodness
+          let s:selectedsize = 1
+          set nonumber
+          set columns=80
+          set lines=25
+        endif
+      endif
+    endfunction
+    let s:selectedsize=1
+    call ResizeWindow()
+<
+
+COMMENTS  *vwt-669-comments*
+
+>
+    "use own map, this is mine
+    map <M-right> <Esc>:resize +2 <CR>
+    map <M-left> <Esc>:resize -2 <CR>
+<
+
+==============================================================================
+
+TO DO This tip (669) was due to be deleted, but I am keeping it temporarily. 
+After merging any useful info from here, this will be replaced with a redirect 
+to a suitable tip.
+
+Related tips (will merge some, and put 'see also' on remainder):
+    - 88 Maximize or set initial window size |vwt-88|
+    - 427 Fast window resizing with plus/minus keys |vwt-427|
+    - 507 Quick window resizing |vwt-507|
+    - 995 Resize window when showing/hiding line numbers |vwt-995|
+    - 1026 Resize xterm when running vimdiff |vwt-1026|
+    - 1110 Toggle gvim window size |vwt-1110|
+    - 1569 Restore screen size and position |vwt-1569|
+
+
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 03:30, March 9, 
+2010 (UTC)

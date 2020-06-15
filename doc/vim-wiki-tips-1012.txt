@@ -1,0 +1,17 @@
+*vim-wiki-tips-1012.txt*   Quoted Printable to Plain *vwt-1012*
+
+Tip 1012 [https://vim.fandom.com/wiki/Quoted_Printable_to_Plain]   Previous |vwt-1010| Next |vwt-1014|
+
+created 2005 · complexity intermediate · author Bertram Scharpf · version 6.0
+
+==============================================================================
+
+Sometimes I pipe an email into Vim and then I cannot read it because it is 
+encoded in quoted printable. Mentioning this in my vimrc helps:
+
+>
+    nnoremap <Leader>Q :%s/=\(\x\x\<BAR>\n\)/\=submatch(1)=='\n'?'':nr2char('0x'.submatch(1))/ge<CR>
+    vnoremap <Leader>Q :s/=\(\x\x\<BAR>\n\)/\=submatch(1)=='\n'?'':nr2char('0x'.submatch(1))/ge<CR>
+<
+
+COMMENTS  *vwt-1012-comments*

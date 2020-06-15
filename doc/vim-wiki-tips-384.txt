@@ -1,0 +1,320 @@
+*vim-wiki-tips-384.txt*   Easily switch between source and header file *vwt-384*
+
+Tip 384 [https://vim.fandom.com/wiki/Easily_switch_between_source_and_header_file]   Previous |vwt-383| Next |vwt-385|
+
+created 2002 · complexity intermediate · author bubbleboy · version 5.7
+
+==============================================================================
+
+Switching between source and header files is a frequent operation, and so 
+many ways to do it have been suggested. This article tries to list them all, 
+and also list their advantages and disadvantages.
+
+SCRIPT CURTINEINCSW.VIM  *vwt-384-script-curtineincsw.vim*
+
+A vim script that does this can be found here: script#5545 
+[https://www.vim.org/scripts/script.php?script_id=5545], and is called 
+CurtineIncSw.vim.
+
+Pros
+    -  Ease of use.
+    -  Zero configuration, just put the file in your ~/.vim/plugins directory
+    -  Available on github, feel free to contribute https://github.com/ericcurtin/CurtineIncSw.vim [https://github.com/ericcurtin/CurtineIncSw.vim]
+    -  Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp .H .HPP) all at the same time - a switch will work from any source to any header extension and vice-versa.
+    -  Simple implementation
+    -  Caches file, so you can switch back quickly
+
+
+SCRIPT A.VIM  *vwt-384-script-a.vim*
+
+A vim script that does this can be found here: script#31 
+[https://www.vim.org/scripts/script.php?script_id=31], and is called a.vim.
+
+Pros
+    -  Ease of use.
+    -  Handles multiple filetypes (not just C and C++), can be easily configured for more.
+    -  Code is very well commented.
+    -  Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp .H .HPP) all at the same time - a switch will work from any source to any header extension and vice-versa.
+    -  The path where the associated file must be searched can be configured.
+
+
+Cons
+    -  Quite large (~ 350 lines of code, not counting comments).
+
+
+Remarks
+    -  It was hard to add new filetypes in older versions of the script, but that is no longer the case.
+
+
+SCRIPT FSWITCH.VIM  *vwt-384-script-fswitch.vim*
+
+Another vim script that does this can be found here: script#2590 
+[https://www.vim.org/scripts/script.php?script_id=2590], and is called 
+FSwitch.vim.
+
+Pros
+    -  Essentially same as a.vim
+    -  More flexible path definitions for searches
+    -  File creation as part of switching is handled well (a sore point with a.vim, apparently)
+    -  Smaller code size than a.vim (I'm not sure a.vim's code size was ever relevant though)
+    -  Heavily documented
+
+
+SCRIPT ALTERNATE-LITE  *vwt-384-script-alternate-lite*
+
+Another script meant to be a simplification of Michael Sharpe's alternate.vim 
+plugin can found here: https://github.com/LucHermitte/alternate-lite 
+[https://github.com/LucHermitte/alternate-lite]. It is called 
+alternate-lite.The plugin also exposes an API that can be used from other 
+plugins.
+
+Pros
+    -  Ease of use.
+    -  Works out of the box with multiple filetypes (not just C and C++), can be easily configured for more.
+    -  Code is commented.
+    -  Plugin is documented.
+    -  Works with different extension styles (.C .c .cxx .cpp .CPP, .cc <--> .h .hpp .H .HPP) all at the same time - a switch will work from any source to any header extension and vice-versa.
+    -  The path where the associated file must be searched can be configured.
+    -  Support for project/buffer specific settings.
+    -  Lazy definition of functions through autoload plugin.
+    -  Exposes an API that can be used to automatically create function definitions in the right file.
+
+
+Cons
+    -  Somehow large (200+ lines of non boilerplate code)
+    -  Depends on a library plugin (lh-vim-lib)
+    -  A few features from original a.vim have been removed (:IH & co)
+
+
+USING CTAGS  *vwt-384-using-ctags*
+
+ctags files can be used to find a file very quickly. Just add the 
+"--extra=+f" option in the ctags line.You may then open new files manually 
+with autocompletion, with :tag myfile.cppOr you may adapt a script like a.vim 
+or FSwitch.vim to call :tag with the correct filename.
+
+Pros
+    -  Very quick
+
+
+Cons
+    -  ctags files need to be generated
+
+
+BY MODIFYING FTPLUGINS  *vwt-384-by-modifying-ftplugins*
+
+This was the original suggestion for this article.
+
+Pros
+    -  Easy to add new filetypes
+    -  highly configurable.
+
+
+Cons
+    -  You have to modify filetype plugins (not that bad).
+    -  :find can be slow, especially when the file you are switching to does not exist.
+    -  Error when file does not exist.
+
+
+To switch between header and source files very quickly, all you need to do is 
+add a few key mappings in your filetype plugin files. Let me explain with an 
+example:
+
+Let's say that you're editing C files, so all you would have to do is edit 
+your ftplugin/c_extra.vim file and include
+
+>
+    nmap ,s :find %:t:r.c<CR>
+    nmap ,S :sf %:t:r.c<CR>
+<
+
+to switch to the corresponding source file, and
+
+>
+    nmap ,h :find %:t:r.h<CR>
+    nmap ,H :sf %:t:r.h<CR>
+<
+
+to switch to the corresponding header file.
+
+The built-in :find command will search (recursively or not) for the specified 
+file anywhere in your Vim 'path' setting. The :sf is short for split-find, 
+meaning that if Vim finds your file it will open it in a split window. Simply 
+add the vert keyword before sf if you want a vertical split.
+
+The mappings can (and indeed, should) be made local to buffer with a <buffer> 
+modifier.
+
+You may also want to use this function that lets you to only use one binding 
+for switching:
+
+>
+    function! SwitchSourceHeader()
+      "update!
+      if (expand ("%:e") == "cpp")
+        find %:t:r.h
+      else
+        find %:t:r.cpp
+      endif
+    endfunction
+    
+    nmap ,s :call SwitchSourceHeader()<CR>
+<
+
+See these help pages for a full description of these built-in features:
+    - :help  |expand()| for a description of the %, :t, :r, :e expansion
+    - :help  |:find| for a description of the 'find' and 'sf' features
+    - :help  |ftplugin| for a description of how filetype plugins work
+    - :help 'path' for a description of how the path setting works
+
+
+This method is also highly configurable. All you have to do is change the 
+'path' setting when switching to different projects, and modify the 
+corresponding filetype plugin to support other languages.
+
+Because this method uses :find, it may be useful to add file paths to your 
+Vim path automatically 
+[https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file#Add_file_directory_to_Vim_path] 
+when you edit them.
+
+SINGLE LINE SOLUTION  *vwt-384-single-line-solution*
+
+Pros
+    -  Only takes one line in .vimrc, and so is very quick to set up
+
+
+Cons
+    -  Only works if the header and source are in the same directory
+    -  Does not handle multiple extension styles simultaneously
+
+
+For programmers that want to switch from foo.cpp to foo.h (or vice versa) on 
+a single key stroke, this might help:
+
+>
+    map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+<
+
+it maps (on F4) the change of the current filename. The endings ".h" and 
+".cpp" are exchanged (via the magic ending ".X123X").
+
+You could use ".hpp" or ".c" filename endings by changing it in the 
+replacement statements.
+
+For more explanation on how this function operates, see :help 
+|filename-modifiers|.
+
+A SHORT FUNCTION  *vwt-384-a-short-function*
+
+Pros
+    -  Still short enough to put into vimrc.
+
+
+Cons
+    -  :find can be slow.
+    -  overwrites path
+
+
+Put these lines in ~/.vimrc and F2 will flip between .c and .h, .hxx and 
+.cxx, etc. Moreover the .h file need not be in the same dir, it can be found 
+via path variable.
+
+>
+    set path=.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*
+    
+    function! Mosh_Flip_Ext()
+      " Switch editing between .c* and .h* files (and more).
+      " Since .h file can be in a different dir, call find.
+      if match(expand("%"),'\.c') > 0
+        let s:flipname = substitute(expand("%"),'\.c\(.*\)','.h\1',"")
+        exe ":find " s:flipname
+      elseif match(expand("%"),"\\.h") > 0
+        let s:flipname = substitute(expand("%"),'\.h\(.*\)','.c\1',"")
+        exe ":sp " s:flipname
+      endif
+    endfun
+    
+    map <F2> :call Mosh_Flip_Ext()<CR>
+<
+
+You can save your place when you switching back and forth by checking the 
+buffers before opening the file.
+
+>
+    function! CocoaMondo_LoadFile(filename)
+      let s:bufname = bufname(a:filename)
+      if (strlen(s:bufname)) > 0
+        exe ":buffer" s:bufname
+      else
+        exe ":find " a:filename
+      endif
+    endfun
+<
+
+MANUAL SWITCHING  *vwt-384-manual-switching*
+
+Pro: No need af changing anything - works with every Vim
+
+Con: A little more work to use than a full-featured script that "just works"
+
+A simple way to manually switch between headers and sources is by using the 
+%< built-in variable, that resolves to the file name without extension. To 
+switch from a header to a source you can do:
+
+>
+    :e %<.c
+<
+
+Or use split to open in a new window:
+
+>
+    :split %<.c
+<
+
+If you frequently switch between .c/.cpp/.h files, you could use mappings 
+like the following:
+
+>
+    nnoremap <Leader>oc :e %<.c<CR>
+    nnoremap <Leader>oC :e %<.cpp<CR>
+    nnoremap <Leader>oh :e %<.h<CR>
+<
+
+Pressing <Leader>oc opens a file matching the current file, but with a .c 
+extension. Pressing <Leader>oC does the same for .cpp, and <Leader>oh does the 
+same for .h.
+
+COMMENTS  *vwt-384-comments*
+
+The Single line solution can also easily be made to split the window 
+horizontally:
+
+>
+    map <F4> :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+<
+
+or vertically:
+
+>
+    map <F4> :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+<
+
+Sometimes this works
+
+If the file begins by including the header file like this:
+
+>
+    #include "somefile.h"
+     ...
+<
+
+go there with "ggW" and tell Vim to open it with "gf" (go back with 
+"CTRL_o"). Add "set path=.,<relative include dir>" for searching for header in 
+particular directories. For more information do ":help file-searching".
+
+Bonus With the cursor on "somefile.h", type CTRL-W f to split the window and 
+show the original C program and the header file.
+
+Pro: No need of changing anything – works with every Vim.
+
+Con: Doesn't work backwards (from file.h to file.cpp).

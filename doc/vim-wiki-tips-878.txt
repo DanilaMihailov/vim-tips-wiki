@@ -1,0 +1,315 @@
+*vim-wiki-tips-878.txt*   Remove unwanted spaces *vwt-878*
+
+Tip 878 [https://vim.fandom.com/wiki/Remove_unwanted_spaces]   Previous |vwt-876| Next |vwt-879|
+
+created 2005 · complexity intermediate · author Bertram Scharpf · version 6.0
+
+==============================================================================
+
+SIMPLE COMMANDS TO REMOVE UNWANTED WHITESPACE  *vwt-878-simple-commands-to-remove-unwanted-whitespace*
+
+In a search, \s finds whitespace (a space or a tab), and \+ finds one or more 
+occurrences.
+
+The following command deletes any trailing whitespace at the end of each 
+line. If no trailing whitespace is found no change occurs, and the e flag 
+means no error is displayed.
+
+>
+    :%s/\s\+$//e
+<
+
+The following deletes any leading whitespace at the beginning of each line.
+
+>
+    :%s/^\s\+//e
+    " Same thing (:le = :left = left-align given range; % = all lines):
+    :%le
+<
+
+With the following mapping a user can press F5 to delete all trailing 
+whitespace. The variable _s is used to save and restore the last search 
+pattern register (so next time the user presses n they will continue their 
+last search), and :nohl is used to switch off search highlighting (so trailing 
+spaces will not be highlighted while the user types). The e flag is used in 
+the substitute command so no error is shown if trailing whitespace is not 
+found. Unlike before, the substitution text must be specified in order to use 
+the required flag.
+
+>
+    :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+<
+
+See Highlighting whitespaces at end of line |vwt-396| to display, rather than 
+delete, unwanted whitespace.
+
+DISPLAY OR REMOVE UNWANTED WHITESPACE WITH A SCRIPT  *vwt-878-display-or-remove-unwanted-whitespace-with-a-script*
+
+The following is a more elaborate procedure that can display or remove 
+unwanted whitespace. Here, "unwanted" means any spaces before a tab character, 
+or any space or tab at the end of a line.
+
+>
+    function ShowSpaces(...)
+      let @/='\v(\s+$)|( +\ze\t)'
+      let oldhlsearch=&hlsearch
+      if !a:0
+        let &hlsearch=!&hlsearch
+      else
+        let &hlsearch=a:1
+      end
+      return oldhlsearch
+    endfunction
+    
+    function TrimSpaces() range
+      let oldhlsearch=ShowSpaces(1)
+      execute a:firstline.",".a:lastline."substitute ///gec"
+      let &hlsearch=oldhlsearch
+    endfunction
+    
+    command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+    command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+    nnoremap <F12>     :ShowSpaces 1<CR>
+    nnoremap <S-F12>   m`:TrimSpaces<CR>``
+    vnoremap <S-F12>   :TrimSpaces<CR>
+<
+
+This is a similar function which similates the manual steps for removing the 
+whitespace.
+
+>
+    function StripTrailingWhitespace()
+      if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<CR>
+        normal `z
+      endif
+    endfunction
+<
+
+However, this has minor side-effects, such as influencing undo history and 
+sometimes changing scroll position.
+
+AUTOMATICALLY REMOVING ALL TRAILING WHITESPACE  *vwt-878-automatically-removing-all-trailing-whitespace*
+
+One way to make sure to remove all trailing whitespace in a file is to set an 
+autocmd in your .vimrc file. Every time the user issues a :w command, Vim will 
+automatically remove all trailing whitespace before saving.
+
+>
+    autocmd BufWritePre * %s/\s\+$//e
+<
+
+However, this is a potentially dangerous autocmd to have as it will always 
+strip trailing whitespace from every file a user saves. Sometimes, trailing 
+whitespace is desired, or even essential in a file so be careful when 
+implementing this autocmd.
+
+One method to mitigate this issue in a .vimrc file, where trailing whitespace 
+matters, is to change how .vimrc prepends wrapped lines. For example, add the 
+following into the .vimrc:
+
+>
+    set wrap
+    set linebreak
+    " note trailing space at end of next line
+    set showbreak=>\ \ \
+<
+
+Now when saving the .vimrc it will use "> \" instead of "> " to prepend 
+wrapped lines.
+
+A user can also specify a particular filetype in an autocmd so that only that 
+filetype will be changed when saving. The following only changes files with 
+the extension .pl:
+
+>
+    autocmd BufWritePre *.pl %s/\s\+$//e
+<
+
+Additionally, a FileType autocommand can be used to restrict the autocmd to 
+certain file types only.
+
+>
+    autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
+<
+
+SEE ALSO  *vwt-878-see-also*
+    - :help  |:autocmd| - Additional information on autocmd
+
+
+RELATED SCRIPTS  *vwt-878-related-scripts*
+    -  The DeleteTrailingWhitespace [https://www.vim.org/scripts/script.php?script_id=3967] plugin offers a eponymous command, and can remove trailing whitespace automatically when the buffer is written.
+    -  The trailing-whitespace [https://www.vim.org/scripts/script.php?script_id=3201] plugin defines :FixWhitespace.
+    -  The bad-whitespace [https://www.vim.org/scripts/script.php?script_id=3735] plugin defines :EraseBadWhitespace.
+    -  The Trailer Trash [https://www.vim.org/scripts/script.php?script_id=3938] plugin defines :Trim.
+    -  The vim-strip-trailing-whitespace [https://github.com/axelf4/vim-strip-trailing-whitespace] plugin touches only modified lines on save.
+
+
+COMMENTS  *vwt-878-comments*
+
+Here's what I use in my .vimrc:
+
+>
+    " Removes trailing spaces
+    function TrimWhiteSpace()
+      %s/\s*$//
+      ''
+    endfunction
+    
+    set list listchars=trail:.,extends:>
+    autocmd FileWritePre * call TrimWhiteSpace()
+    autocmd FileAppendPre * call TrimWhiteSpace()
+    autocmd FilterWritePre * call TrimWhiteSpace()
+    autocmd BufWritePre * call TrimWhiteSpace()
+    
+    map <F2> :call TrimWhiteSpace()<CR>
+    map! <F2> :call TrimWhiteSpace()<CR>
+<
+
+==============================================================================
+
+My preferred setting of list and listchars so that I can see my whitespace 
+instead of removing it:
+
+>
+    set list listchars=tab:»·,trail:·
+<
+
+This gives:»·······text after tab with four spaces after it····
+
+Or try
+
+>
+    set list lcs=tab:·⁖,trail:¶
+<
+
+This gives:·⁖⁖⁖⁖⁖⁖⁖text after tab with four spaces after it¶¶¶¶
+
+==============================================================================
+
+There is one occasion where I want to keep my trailing space. But even in 
+those documents, I want to keep it in only in one place, and not every 
+occurrence.
+
+Here is my substitution pattern:
+
+>
+    s/\(^--\)\@<!\s*$//
+<
+
+This will eliminate all trailing whitespaces except for the one in an email 
+signature marker (-- ). See wikipedia:Signature block 
+[http://en.wikipedia.org/wiki/Signature_block].
+
+In the function in the tip, this expands to:
+
+>
+    execute a:firstline.",".a:lastline."substitute /\\(^--\\)\\@<!\\s*$//ge"
+<
+
+Also, I've found the autocmds to work better like this:
+
+>
+    autocmd FileWritePre * TrimSpaces
+    autocmd FileAppendPre * TrimSpaces
+    autocmd FilterWritePre * TrimSpaces
+    autocmd BufWritePre * TrimSpaces
+<
+
+(taking advantage of the default range defined in Betram's command 
+definition)
+
+==============================================================================
+
+I modified one of the above scripts to let the user know if whitespace was 
+found
+
+>
+    " automatically remove trailing whitespace before write
+    function! StripTrailingWhitespace()
+      normal mZ
+      %s/\s\+$//e
+      if line("'Z") != line(".")
+        echo "Stripped whitespace\n"
+      endif
+      normal `Z
+    endfunction
+    autocmd BufWritePre *.cpp,*.hpp,*.i :call StripTrailingWhitespace()
+<
+
+==============================================================================
+
+I didn't get the * match to work so I used *.* instead:
+
+>
+    autocmd BufWritePre *.* %s/\s\+$//e
+<
+
+==============================================================================
+
+Marks are unnecessary, at least in Vim 7. (Yes, that *.{cpp,h,c,etc} syntax 
+is valid. Much better than *.cpp,*.h,*.c,*.etc IMHO.)
+
+>
+    autocmd BufWritePre  *.{cpp,h,c,etc}  call StripTrailingWhite()
+    
+    function! StripTrailingWhite()
+        let l:winview = winsaveview()
+        silent! %s/\s\+$//
+        call winrestview(l:winview)
+    endfunction
+<
+
+==============================================================================
+
+Actually because %s seems like is forcing a redraw line by line (is a guess) 
+(see also option lazyredraw), I get faster result by entering EX mode first:
+
+>
+    autocmd BufWritePre <Esc>Q :call StripTailingWhite()<CR>:visual<CR>
+<
+
+This was a guess that worked but my limited knowledge can't answer why.
+
+==============================================================================
+
+I like the one above that prints a message. In that case I think the mark is 
+needed. However, there is a small bug in the implementation that fails to 
+print the message if the current line has trailing whitespace and is the last 
+line or only line in the file that does. Checking also for change in the 
+number of chars in the current line fixes it.
+
+>
+    function! StripTrailingWhitespace()
+      normal mZ
+      let l:chars = col("$")
+      %s/\s\+$//e
+      if (line("'Z") != line(".")) || (l:chars != col("$"))
+        echo "Trailing whitespace stripped\n"
+      endif
+      normal `Z
+    endfunction
+    
+    autocmd BufWritePre * call StripTrailingWhitespace()
+<
+
+REMOVE SPACE BUT SAVE CURSOR POSITION  *vwt-878-remove-space-but-save-cursor-position*
+
+I didn't like how I had to use marks to get back to where I was after 
+changing whitespace - it would always leave my cursor at the last change 
+location. Here's a quick fix for that:
+
+>
+    " Remap for destroying trailing whitespace cleanly
+    :nnoremap <Leader>w :let _save_pos=getpos(".") <Bar>
+        \ :let _s=@/ <Bar>
+        \ :%s/\s\+$//e <Bar>
+        \ :let @/=_s <Bar>
+        \ :nohl <Bar>
+        \ :unlet _s<Bar>
+        \ :call setpos('.', _save_pos)<Bar>
+        \ :unlet _save_pos<CR><CR>
+<

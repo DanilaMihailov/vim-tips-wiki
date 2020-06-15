@@ -1,0 +1,72 @@
+*vim-wiki-tips-410.txt*   Allow Inform header files to be distinguished from C headers *vwt-410*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 410 [https://vim.fandom.com/wiki/Allow_Inform_header_files_to_be_distinguished_from_C_headers]   Previous |vwt-409| Next |vwt-411|
+
+created 2003 · complexity intermediate · author Stephen Thomas, Ross Presser, 
+Neil Cerruti · version 6.0
+
+==============================================================================
+
+Inform is an Interactive Fiction authoring language. Its header files often 
+use a '.h' extension, which causes Vim to think they are C files, or do not 
+have any extension at all, leaving Vim unable to determine what kind of file 
+they are. This is irritating to Inform developers using Vim with syntax 
+highlighting.
+
+The solution is to use a custom filetype.vim 
+[https://vim.fandom.com/wiki/Filetype.vim] and 'scripts.vim'.
+
+In filetype.vim add:
+
+>
+    au BufNewFile,BufRead *.h call FTCheck_inform()
+<
+
+and after augroup END add
+
+>
+    " function to detect inform code (any extension)
+    fun! FTCheck_inform()
+      if getline(1) =~ "^!"
+        setfiletype inform
+      elseif getline(2) =~ "^!"
+        setfiletype inform
+      else
+        let s:colnum = col('.')
+        let s:linenum = line('.')
+        call cursor(500, 1)
+        if search('\[\(\s*\I\i*\)*\s*;', 'bW') > 0
+          setfiletype inform
+        endif
+        call cursor(s:linenum, s:colnum)
+      endif
+    endfun
+<
+
+On loading a file with a '.h' extension, a function is called to examine the 
+file for certain Inform-specific constructs. If it finds any, it sets the 
+filetype as inform, otherwise it leaves the filetype unset, allowing the 
+global filetype.vim to determine the filetype.
+
+For files with no extension, create a '$HOME/.vim/scripts.vim':
+
+>
+    " local scripts.vim gets called when
+    " all autocommands have failed to identify file type,
+    " but before global scripts.vim
+    "
+    call FTCheck_inform()
+<
+
+See also the site http://www.stephenthomas.uklinux.net/informvim 
+[http://www.stephenthomas.uklinux.net/informvim]
+
+COMMENTS  *vwt-410-comments*

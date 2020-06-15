@@ -1,0 +1,376 @@
+*vim-wiki-tips-1272.txt*   Mapping fast keycodes in terminal Vim *vwt-1272*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1272 [https://vim.fandom.com/wiki/Mapping_fast_keycodes_in_terminal_Vim]   Previous |vwt-1269| Next |vwt-1274|
+
+created 2006 · complexity intermediate · author Gerald Lai · version 6.0
+
+==============================================================================
+
+In the GUI version of Vim (gvim), the mapping of keys seem to work for the 
+most part. For instance, it is easy to map Ctrl-Shift-F2 to a keystroke:
+
+>
+    "delete all lines in the current buffer
+    :nmap <C-S-F2> ggdG
+<
+
+For terminal versions of Vim (such as xterm, rxvt, win32's cmd.exe, etc), 
+mapping something like Ctrl-Shift-F2 needs some extra work. It may seem 
+daunting to deal with archaic terminal keycodes at first, but once you 
+understand what is going on in the right context, it is quite simple.
+
+1A. KEYCODES  *vwt-1272-1a.-keycodes*
+
+There are two types of keycodes: terminal keycodes and Vim keycodes. Terminal 
+keycodes look something like
+
+>
+    ^[[1;2A
+<
+
+A ^[ is ESC key.
+
+To view keycodes type
+
+>
+    cat
+<
+
+and press any keys. To exit type Ctrl-d (EOF).
+
+These are actual bytes that are sent to Vim by the terminal when we type 
+Shift-Up, for example (on an xterm).
+
+Vim keycodes look like
+
+>
+    <S-Up>
+<
+
+Vim needs its own representation of keycodes because it runs on a variety of 
+platforms. Vim can act upon its own keycodes, and leave the assignment of 
+terminal keycodes to autodetection (or to manual setup by the user, which is 
+what this guide is for).
+
+1B. LIST OF USABLE KEYCODES  *vwt-1272-1b.-list-of-usable-keycodes*
+
+To obtain a list of terminal keycodes, look it up in the manual for that 
+terminal.
+
+For a list of Vim's internal keycodes, see :help |t_ku|. Enter :set termcap 
+to list the terminal keycodes (see :help |terminal-options|).
+
+In addition to the Vim keycodes listed in the help section above, the 
+keycodes for the function keys actually go up to F37. This means, we have
+
+>
+    <F1> to <F37>
+    <S-F1> to <S-F37>
+<
+
+We can use this to our advantage to create more "responsive" mappings. More 
+on this later in section 2b.
+
+We can also set these Vim keycodes:
+
+>
+    <C-Home>, <C-End>
+    <S-Home>, <S-End>
+    <S-a> to <S-z>
+    <C-a> to <C-z>
+    <A-a> to <A-z>
+<
+
+Be careful when setting these keycodes. See section 3a.
+
+1C. SETTING VIM KEYCODES  *vwt-1272-1c.-setting-vim-keycodes*
+
+Vim keycodes look a lot like the keystrokes we would define in a mapping. 
+They are easy to read, quite intuitive, and are almost treated the same by 
+Vim. The only difference is that we can :set internal keycodes. For example, 
+to manually set the keycode for Shift-Down_arrow:
+
+>
+    :set <S-Down>=^[[1;2B
+<
+
+where ^[ is a literal ESC special character.
+
+The following is not allowed because the keycode is not a listed Vim keycode:
+
+>
+    :set <C-S-Down>=^[[1;6B
+<
+
+Once the correct terminal keycode is assigned to the appropriate Vim keycode, 
+the keystroke should work in terminal Vim. Shift-Down_arrow should now work, 
+but the Ctrl-Shift-Down_arrow keycode can not be set in the same way. For this 
+we need mappings (see section 2b).
+
+1D. ENTERING LITERAL CHARACTERS & TERMINAL CODES  *vwt-1272-1d.-entering-literal-characters-&-terminal-codes*
+
+Either in the :command line, or in insert mode:
+
+To enter a literal character in Vim, first type Ctrl-v, followed by a single 
+keystroke. Hence, typing Ctrl-v then Esc will produce ^[.
+
+To enter a terminal keycode in Vim, first type Ctrl-v, followed by the 
+keystroke we want to obtain the term keycode from. Hence, typing Ctrl-v + 
+Shift-Down_arrow will produce ^[[1;2B.
+
+This means that there are two ways to set the Vim keycode as shown in section 
+1c:
+
+>
+    "literally enter the keycode
+    :set <S-Down>={C-v}{Esc}[1;2B
+<
+
+or
+
+>
+    "let the terminal send its keycode to Vim
+    :set <S-Down>={C-v}{S-Down}
+<
+
+where curly brackets {..} denote the action of typing the keystroke. For 
+instance, when you see {C-v}, hold down Ctrl and hit v. Do not type it 
+literally as {C-v}.
+
+We shall use the curly brackets as nomenclature from now on.
+
+Also make use of the Normal mode command ga to inspect the resulting keycode. 
+Place the cursor over a special character, and type ga. This will provide you 
+with ascii information of the character under the cursor.
+
+See :help |i_ctrl-v|, :help |ga|.
+
+2A. MAPPINGS  *vwt-1272-2a.-mappings*
+
+The function of mappings in Vim is to map a set of keystrokes to another set 
+of keystrokes. For more information, see :help |key-mapping|, :help 
+|map-modes|.
+
+2B. MAPPING "FAST" KEYCODES  *vwt-1272-2b.-mapping-"fast"-keycodes*
+
+As mentioned in section 1c, the Ctrl-Shift-Down_arrow keycode cannot be set 
+in the same way as the Shift-Down_arrow keycode because it is not a listed Vim 
+keycode. One way to get around that is to do the following:
+
+>
+    :map <Esc>[1;6B <C-S-Down>
+<
+
+This maps the literal terminal keycode to a Vim keystroke (remember, not a 
+Vim keycode).
+
+The disadvantage of this is that Vim will "wait" everytime after the Esc key 
+pressed for a potential "[" + "1" + ";" + "6" + "B" keystroke combination, 
+just in case you meant to do <C-S-Down> instead of a simple <Esc> to Normal 
+mode.
+
+If you typed {Esc}[1;6B fast enough, you would do a Ctrl-Shift-Down_arrow. 
+After all, you are mapping a keystroke, not a keycode.
+
+A better way of mapping keycodes is to first assign the terminal keycode to 
+an unused Vim keycode, and then map the newly used Vim keycode. This way, we 
+can set option ttimeoutlen to a small value to ensure that the terminal 
+keycode can only be entered into Vim as fast as the terminal can, but will be 
+humanly-impossible to do it manually.
+
+This is how it is done:
+
+>
+    :set timeout timeoutlen=1000 ttimeoutlen=100
+    :set <F13>=^[[1;6B
+    :map <F13> <C-S-Down>
+    :map! <F13> <C-S-Down>
+<
+
+Now, Ctrl-Shift-Down_arrow will work, and Esc will not pause.
+
+Potentially unused Vim keycodes that can be used include:
+
+>
+    <F13> to <F37>
+    <S-F13> to <S-F37>
+    <xF1> to <xF4>
+    <S-xF1> to <S-xF4>
+<
+
+When setting any Vim keycode, exercise caution. Do some checks to see if the 
+terminal code you're setting the Vim keycode to is set elsewhere. There must 
+be no conflicts.
+
+For instance, in a Win32 terminal, <F1> to <F4> will always be set the same 
+as <xF1> to <xF4>, respectively. Therefore, you cannot use those keycodes.
+
+See :help 'timeout', :help 'timeoutlen', :help 'ttimeoutlen'.
+
+2C. LAYING IT OUT IN VIMRC  *vwt-1272-2c.-laying-it-out-in-vimrc*
+
+Here is an example of how to set up the keycodes in a vimrc file. It is 
+highly recommended that you start Vim without any startup scripts that may 
+interfere with keycode detection:
+
+>
+    $ vim -Nu NONE .vimrc
+<
+
+>
+    set timeout timeoutlen=1000 ttimeoutlen=100
+    if !has("gui_running")
+      if &term == "xterm"
+        set <Home>=^[[H <End>=^[[F <BS>=^?
+        set <S-Up>=^[[1;2A <S-Down>=^[[1;2B <S-Right>=^[[1;2C <S-Left>=^[[1;2D
+        set <xF1>={C-v}{C-S-Up}^[[1;6A <xF2>=^[[1;6B <xF3>=^[[1;6C <xF4>=^[[1;6D
+        map <xF1> <C-S-Up>
+        map <xF2> <C-S-Down>
+        map <xF3> <C-S-Right>
+        map <xF4> <C-S-Left>
+        map! <xF1> <C-S-Up>
+        map! <xF2> <C-S-Down>
+        map! <xF3> <C-S-Right>
+        map! <xF4> <C-S-Left>
+      elseif &term == "win32"
+        ...
+      else
+        ...
+      endif
+    endif
+<
+
+where ^[ is a literal ESC special character and ^? is a literal ascii 0x7f 
+character.
+
+See :help 'term', :help |has-patch|.
+
+You can also use a function like the following to automatically assign fast 
+keycodes:
+
+>
+    " MapFastKeycode: helper for fast keycode mappings
+    " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
+    function! <SID>MapFastKeycode(key, keycode)
+        if s:fast_i == 46
+            echohl WarningMsg
+            echomsg "Unable to map ".a:key.": out of spare keycodes"
+            echohl None
+            return
+        endif
+        let vkeycode = '<'.(s:fast_i/23==0 ? '' : 'S-').'F'.(15+s:fast_i%23).'>'
+        exec 'set '.vkeycode.'='.a:keycode
+        exec 'map '.vkeycode.' '.a:key
+        let s:fast_i += 1
+    endfunction
+    let s:fast_i = 0
+<
+
+It uses Vim keycodes <F15> and above. If you don't have keys for <F13> and 
+<F14> on your keyboard, you can also make use of those, for a total of 50 keys 
+you can map this way.
+
+Once defined, you can use the function to map keys like so: (example for 
+rxvt)
+
+>
+    call <SID>MapFastKeycode('<C-F3>', "\e[13^")
+    call <SID>MapFastKeycode('<C-F4>', "\e[14^")
+    call <SID>MapFastKeycode('<M-j>', "\ej")
+    call <SID>MapFastKeycode('<M-k>', "\ek")
+    " ...
+<
+
+3A. TROUBLESHOOTING I  *vwt-1272-3a.-troubleshooting-i*
+
+You only need to employ unused Vim keycodes either when(a) there are no 
+available Vim keycodes that match the terminal keycode, and(b) the terminal 
+keycode is longer than a single keystrokeor(c) setting the Vim keycode that 
+matches the terminal keycode causes weird behavior.
+
+Example where (a) is not true:
+
+>
+    :set <F13>=^[[1;2B
+    :map <F13> <S-Down>
+<
+
+Setting the unused <F13> is redundant, because <S-Down> is already available 
+as a Vim keycode. Do this instead:
+
+>
+    :set <S-Down>=^[[1;2B
+<
+
+Example where (b) is not true:
+
+For a Win32 terminal, mapping Ctrl-Backspace is done by
+
+>
+    :map <C-{C-v}{BS}> <C-BS>
+<
+
+Since the terminal keycode can be represented by <C-^?>, which is a single 
+keystroke, there is no need to employ an unused Vim keycode.
+
+Example where (c) is true:
+
+For an rxvt terminal, merely doing
+
+>
+    :set <A-j>=^[j <A-u>=^[u <A-6>=^[6
+<
+
+will not make Alt-j, Alt-u and Alt-6 work. Reason unknown. Need to assign to 
+unused Vim keycodes.
+
+3B. TROUBLESHOOTING II  *vwt-1272-3b.-troubleshooting-ii*
+
+Sometimes, performing
+
+>
+    :set <xF1>={C-v}{A-S-F1}
+<
+
+produces
+
+>
+    :set <xF1>=^[<S-F1>
+<
+
+where ^[ is a literal ESC special character and <S-F1> is literal text.
+
+This means that you may have already set Vim's keycode <S-F1>, and that it 
+was part of the Alt-Shift-F1 terminal keycode that was sent to Vim. Vim 
+processes the entire terminal keycode and noticed that it could replace part 
+of it with its own internal representation.
+
+To fix this and enter the full terminal keycode, backspace up to < and do 
+{C-v}{S-F1}. The full action would be:
+
+>
+    :set <xF1>={C-v}{A-S-F1}{BS 6 times}{C-v}{S-F1}
+<
+
+to produce
+
+>
+    :set <xF1>=^[^[[23~
+<
+
+To give some perspective, here are the actual terminal keycodes for rxvt:
+
+>
+    <S-F1> = ^[[23~
+    <A-S-F1> = ^[^[[23~
+<
+
+COMMENTS  *vwt-1272-comments*

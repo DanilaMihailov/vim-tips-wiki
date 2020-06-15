@@ -1,0 +1,44 @@
+*vim-wiki-tips-677.txt*   Quick way to insert opening and closing braces for programmers *vwt-677*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip630 |vwt-630|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 677 [https://vim.fandom.com/wiki/Quick_way_to_insert_opening_and_closing_braces_for_programmers]   Previous |vwt-676| Next |vwt-680|
+
+created 2004 · complexity basic · author Yada · version 5.7
+
+==============================================================================
+
+This insert-mode map is fairly easy. It will save a lot of keystrokes for 
+opening and closing braces when programming. It works best with cindent on 
+(:set cindent) since vim will automatically indent to the right tabstop. I 
+mapped it to insert-mode Ctrl-F.
+
+Example:
+
+>
+    int main() Ctrl-F
+<
+
+will produce:
+
+>
+    int main() {
+        |
+    }
+<
+
+insert the following in your vimrc file
+
+>
+    " Opening and closing braces
+    imap <C-F> {<CR>}<C-O>O
+<
+
+COMMENTS  *vwt-677-comments*

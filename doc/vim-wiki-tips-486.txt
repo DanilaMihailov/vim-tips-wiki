@@ -1,0 +1,188 @@
+*vim-wiki-tips-486.txt*   Highlight all search pattern matches *vwt-486*
+
+Tip 14 [https://vim.fandom.com/wiki/Highlight_all_search_pattern_matches]   Previous |vwt-12| Next |vwt-15|
+
+created 2001 · complexity basic · author Yegappan · version 6.0
+
+==============================================================================
+
+When searching, it is often helpful to highlight all search hits (in a 
+program, for example, that allows you to quickly see all occurrences of a 
+variable). This tip shows how search highlighting is controlled, and has a 
+method to highlight searches without moving.
+
+HIGHLIGHTING SEARCH MATCHES  *vwt-486-highlighting-search-matches*
+
+To highlight all search matches, set the following option:
+
+>
+    :set hlsearch
+<
+
+With the defaults, setting this option causes all text matching the current 
+search to be highlighted using the Search highlight group, which adds a yellow 
+background to the current highlighting. See :help |hl-Search|, or type :hi 
+Search to see what color you have it set to. You can easily change the default 
+highlighting with, for example, :hi Search guibg=LightBlue.
+
+To disable the highlighting temporarily, enter (this is a command, not an 
+option):
+
+>
+    :nohlsearch
+<
+
+This command (which can be abbreviated to :noh) removes the highlighting for 
+the current search. The highlighting returns for the next search.
+
+If you do this often, put a mapping in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc], like this:
+
+>
+    " Press Space to turn off highlighting and clear any message already displayed.
+    :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+<
+
+To disable highlighting completely, even after a subsequent search, use:
+
+>
+    :set nohlsearch
+<
+
+If you want to be able to enable/disable highlighting quickly, you can map a 
+key to toggle the hlsearch option 
+[https://vim.fandom.com/wiki/Managing_boolean_options]:
+
+>
+    " Press F4 to toggle highlighting on/off, and show current value.
+    :noremap <F4> :set hlsearch! hlsearch?<CR>
+<
+
+Or, press return to temporarily get out of the highlighted search.
+
+>
+    :nnoremap <CR> :nohlsearch<CR><CR>
+<
+
+
+
+Highlighting can be enabled on Vim startup, when reading the viminfo file. 
+Add the following to your vimrc [https://vim.fandom.com/wiki/Vimrc] if you 
+want Vim to start with no search highlighting:
+
+>
+    :set viminfo^=h
+<
+
+HIGHLIGHT MATCHES WITHOUT MOVING  *vwt-486-highlight-matches-without-moving*
+
+It can be useful to highlight the word under the cursor like *, but without 
+jumping to the next match. Then you can see the search highlights on the 
+current screen, without any scrolling. Move to the first match (ggn), last 
+(GN), next (n) or previous (N) as usual.
+
+One procedure would be to type *`` (search |vwt-1| for next occurrence of 
+word, then jump back to the original position). Following is another procedure 
+that won't flicker the screen when the search would require scrolling.
+
+The technique is to assign the wanted pattern to the search register (@/), 
+and to set the 'hlsearch' option (abbreviated as 'hls'). For example, these 
+commands highlight every whole word matching "the":
+
+>
+    :let @/='\<the\>'
+    :set hls
+<
+
+The following map uses the above technique so that pressing F8 will highlight 
+all occurrences of the current word:
+
+>
+    :nnoremap <F8> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+<
+
+Here is how to do the same for visually selected text:
+
+>
+    set guioptions+=a
+    function! MakePattern(text)
+      let pat = escape(a:text, '\')
+      let pat = substitute(pat, '\_s\+$', '\\s\\*', '')
+      let pat = substitute(pat, '^\_s\+', '\\s\\*', '')
+      let pat = substitute(pat, '\_s\+',  '\\_s\\+', 'g')
+      return '\\V' . escape(pat, '\"')
+    endfunction
+    vnoremap <silent> <F8> :<C-U>let @/="<C-R>=MakePattern(@*)<CR>"<CR>:set hls<CR>
+<
+
+The script starts by adding the 'a' flag to 'guioptions' so that visually 
+selecting text automatically places the text in the clipboard (register *) – 
+that only works on some systems (:help |"*|). The function replaces all 
+whitespace strings (space, tab, newline) with a pattern that finds any amount 
+of whitespace. For example, selecting "foo bar" and pressing F8 will highlight 
+each of the two occurrences in:
+
+>
+    "foo    bar" and "foo
+      bar"
+<
+
+Another approach is to use the following to map the Enter key (<CR>) so that 
+pressing Enter toggles highlighting for the current word on and off:
+
+>
+    let g:highlighting = 0
+    function! Highlighting()
+      if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
+        let g:highlighting = 0
+        return ":silent nohlsearch\<CR>"
+      endif
+      let @/ = '\<'.expand('<cword>').'\>'
+      let g:highlighting = 1
+      return ":silent set hlsearch\<CR>"
+    endfunction
+    nnoremap <silent> <expr> <CR> Highlighting()
+<
+
+After sourcing the above, move the cursor to a word then press Enter to 
+highlight all occurrences of that word (the cursor is not moved). Press Enter 
+again to clear the highlighting. It works by setting the search register so 
+pressing n or N will search forwards or backwards for the word. The <expr> 
+mapping (see :help |:map-<expr>|) means that the text returned by 
+Highlighting() is executed as a command. That is necessary because commands 
+that affect the current search highlighting are ignored when executed inside a 
+function. The global variable g:highlighting is used to track whether 
+highlighting is active as there appears to be no way to detect that using Vim 
+script. The operator =~ is used to check whether the contents of the search 
+register (@/) matches the pattern to search for the exact current word; it 
+uses a regular expression for the match so that the current setting of 
+'ignorecase' is fused (when set, highlighting a word like "example" will also 
+highlight "Example").
+
+SEE ALSO  *vwt-486-see-also*
+    - Searching |vwt-1|
+    - Search for visually selected text |vwt-171|
+    - Highlight multiple words |vwt-1572|
+    - Auto highlight current word when idle |vwt-572|
+
+
+REFERENCES  *vwt-486-references*
+    - :help 'hlsearch' option to control search highlighting
+    - :help  |:nohlsearch| command to temporarily remove search highlighting
+    - :help 'viminfo' include h to disable the effect of 'hlsearch'
+    - :help 'highlight' l:Search means the Search highlight group is used for matches
+    - :help  |:match| you can highlight more than the search pattern
+
+
+COMMENTS  *vwt-486-comments*
+
+I like this no-flicker find/highlight a lot. I used this one but wished it 
+put my cword into search history so /<Up> would recall it.
+
+nnoremap <F8> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+
+So I discovered and tried histadd and it worked!?!
+
+nnoremap <F8> :let curwd='\\\<<C-R>=expand("<cword>")<CR>\\\>'<CR> :let @/=curwd<CR>:call histadd("search", curwd)<CR>:set hls<CR>
+
+Thank you so much for the hint.

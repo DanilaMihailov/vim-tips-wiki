@@ -1,0 +1,46 @@
+*vim-wiki-tips-1648.txt*   Restore the last used mode when switching tabpages *vwt-1648*
+
+Tip 1648 [https://vim.fandom.com/wiki/Restore_the_last_used_mode_when_switching_tabpages]   Previous |vwt-1647| Next |vwt-1649|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201002#Restore_the_last_used_mode_when_switching_tabpages] 
+2008 · complexity basic · author Sightless · version 7.0
+
+==============================================================================
+
+Usually when switching tabpages, Vim stays in the same mode. Some people 
+prefer it if Vim returns to the same mode it was in when the tab page being 
+entered was last used. This behavior reinforces the idea of tab pages as 
+separate workspaces.
+
+The following autocommands store the current mode when leaving a tab into a 
+tab-local variable. On entry into the tab, the mode is restored. Place these 
+autocmds in your vimrc [https://vim.fandom.com/wiki/Vimrc] or a .vim file in 
+~/.vim/plugin/ (or $HOME/vimfiles/plugin on Windows).
+
+>
+    augroup tabInsertMode
+      au!
+      au TabLeave * let t:tabInsertMode_lastmode = mode()
+            \ | let t:tabInsertMode_lastcol = col('.')
+            \ | if t:tabInsertMode_lastcol == col('$')
+            \ |   let t:tabInsertMode_lastmode = 'A'
+            \ | endif
+      au TabEnter * if exists('t:tabInsertMode_lastmode')
+            \ |   if t:tabInsertMode_lastmode == 'A'
+            \ |     if mode() == 'i' | call feedkeys("\<C-O>l")
+            \ |     else | call feedkeys("A") | endif
+            \ |   elseif t:tabInsertMode_lastmode == 'i'
+            \ |     if mode() != 'i' | call feedkeys("i") | endif
+            \ |   else
+            \ |     if mode() == 'i' | call feedkeys("\<Esc>") | endif
+            \ |   endif
+            \ | endif
+    augroup END
+<
+
+COMMENTS  *vwt-1648-comments*
+
+TO DO
+    -  Should probably add logic of some sort for other modes (command-line, replace, visual, etc.). Currently only properly handles insert and normal modes. –Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 03:59, February 14, 2011 (UTC)
+    -  Is this the same thing? Maybe incorporate it: http://stackoverflow.com/questions/22389934/how-can-i-keep-modes-local-to-a-tab [http://stackoverflow.com/questions/22389934/how-can-i-keep-modes-local-to-a-tab]

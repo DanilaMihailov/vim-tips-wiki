@@ -1,0 +1,335 @@
+*vim-wiki-tips-396.txt*   Highlight unwanted spaces *vwt-396*
+
+Tip 396 [https://vim.fandom.com/wiki/Highlight_unwanted_spaces]   Previous |vwt-395| Next |vwt-397|
+
+created 2003 · complexity basic · version 6.0
+
+==============================================================================
+
+It can be hard to maintain consistent use of whitespace characters (space and 
+tab). You may not want spaces before tabs, or trailing whitespace at the end 
+of a line. Sometimes you may want to avoid tabs, or just see where tabs occur.
+
+This tip shows several ways to highlight unwanted whitespace. In addition, 
+the tip explains how to use the listchars option (abbreviated to lcs) to 
+indicate when characters are not displayed on long lines.
+
+HIGHLIGHTING WITH A SEARCH  *vwt-396-highlighting-with-a-search*
+
+For occasional use, you can simply search using a suitable pattern to 
+highlight what you want. The following examples assume you use search 
+highlighting |vwt-14| (:set hlsearch).
+
+>
+    " Show all tabs:
+    /\t
+    
+    " Show trailing whitespace:
+    /\s\+$
+    
+    " Show trailing whitespace only after some text (ignores blank lines):
+    /\S\zs\s\+$
+    
+    " Show spaces before a tab:
+    / \+\ze\t
+<
+
+HIGHLIGHTING WITH THE MATCH COMMAND  *vwt-396-highlighting-with-the-match-command*
+
+The :match command specifies the name of a highlight group and a pattern. Any 
+text matching the pattern will be displayed in the foreground and background 
+colors defined by the highlight group. :help |:match| :help |:2match|
+
+Some examples follow. These use a highlight group named ExtraWhitespace which 
+could be defined with one of the following in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]. :help |:highlight|
+
+>
+    :highlight ExtraWhitespace ctermbg=red guibg=red
+    " The following alternative may be less obtrusive.
+    :highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+    " Try the following if your GUI uses a dark background.
+    :highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+<
+
+However, be aware that future colorscheme commands may clear all user-defined 
+highlight groups. Using,
+
+>
+    :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+<
+
+before the first colorscheme command will ensure that the highlight group 
+gets created and is not cleared by future colorscheme commands. :help 
+|:colorscheme|
+
+Once this highlight group is created, it can be associated with matching text 
+as in the following examples.
+
+>
+    " Show trailing whitespace:
+    :match ExtraWhitespace /\s\+$/
+    
+    " Show trailing whitespace and spaces before a tab:
+    :match ExtraWhitespace /\s\+$\| \+\ze\t/
+    
+    " Show tabs that are not at the start of a line:
+    :match ExtraWhitespace /[^\t]\zs\t\+/
+    
+    " Show spaces used for indenting (so you use only tabs for indenting).
+    :match ExtraWhitespace /^\t*\zs \+/
+    
+    " Switch off :match highlighting.
+    :match
+<
+
+Alternatively, the following pattern will match trailing whitespace, except 
+when typing at the end of a line.
+
+>
+    :match ExtraWhitespace /\s\+\%#\@<!$/
+<
+
+If you use this alternate pattern, you may want to consider using the 
+following autocmd to let the highlighting show up as soon as you leave insert 
+mode after entering trailing whitespace:
+
+>
+    :autocmd InsertLeave * redraw!
+<
+
+Or alternatively, the following can be used:
+
+>
+    :au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    :au InsertLeave * match ExtraWhitespace /\s\+$/
+<
+
+which does not "flash" the screen.
+
+Any :match highlighting applies only to the current window. With the 
+following in your vimrc, the command will be applied to the first window, and 
+to any subsequent windows. The pattern * applies the highlight to all files.
+
+>
+    " Show leading whitespace that includes spaces, and trailing whitespace.
+    :autocmd BufWinEnter * match ExtraWhitespace /^\s* \s*\|\s\+$/
+<
+
+Rather than an autocmd, you may prefer a mapping. With the following, and the 
+default backslash Leader key, you can type \wn to switch highlighting on, and 
+\wf to switch it off.
+
+>
+    :nnoremap <Leader>wn :match ExtraWhitespace /^\s* \s*\<Bar>\s\+$/<CR>
+    :nnoremap <Leader>wf :match<CR>
+<
+
+With Vim 7.1.40 and later, you can use the matchadd() function to define 
+matches (making the :match command available for other purposes). See 
+Highlight long lines |vwt-810| for examples.
+
+If your goal is to:
+
+then the following 6 commands are what you should put into your .vimrc. They 
+are all listed on this page in separate sections, but this is a consolidated 
+list of precisely what you need.
+
+>
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+<
+
+HIGHLIGHTING WITH THE SYNTAX COMMAND  *vwt-396-highlighting-with-the-syntax-command*
+
+Using the :match command is easy, but you may want to keep it for another 
+purpose. An alternative is to use syntax highlighting. :help |syntax|
+
+Here is an example using one of the patterns shown earlier. Put this in your 
+vimrc [https://vim.fandom.com/wiki/Vimrc], after the command :syntax on (which 
+you may already have). Of course you would also need to define ExtraWhitespace 
+with a :highlight command, as shown earlier.
+
+>
+    " Show trailing whitepace and spaces before a tab:
+    :autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+<
+
+If you want the above command to also work if the match is nested in some 
+other syntax group, append containedin=ALL to the end.
+
+USING THE LIST AND LISTCHARS OPTIONS  *vwt-396-using-the-list-and-listchars-options*
+
+In Vim, 'list' is a boolean option that defaults to off. If 'list' is on, 
+whitespace characters are made visible. The 'listchars' option can be used to 
+customize the way whitespace characters are shown. The default displays "^I" 
+for each tab, and "$" at each EOL (end of line, so trailing whitespace can be 
+seen). :help 'list'
+
+The command :set list displays whitespace, while :set nolist displays 
+normally. It is convenient to use :set list! to toggle the option on, so that 
+you can later press : followed by the up arrow to repeat the previous command, 
+to toggle 'list' off.
+
+The following example toggles list, then sets listchars to not display an 
+end-of-line character, and to display > for the first character occupied by a 
+tab, and - for any subsequent characters that the tab may occupy.
+
+>
+    :set list!
+    :set listchars=tab:>-
+<
+
+Here are some alternatives that you can try (each sets list and listchars in 
+one command):
+
+>
+    :set list listchars=tab:>-,trail:.,extends:>
+    " Enter the middle-dot by pressing Ctrl-k then .M
+    :set list listchars=tab:\|_,trail:·
+    " Enter the right-angle-quote by pressing Ctrl-k then >>
+    :set list listchars=tab:»·,trail:·
+    " Enter the Pilcrow mark by pressing Ctrl-k then PI
+    :set list listchars=tab:>-,eol:¶
+    " The command :dig displays other digraphs you can use.
+<
+
+The listchars option uses the "NonText" highlighting group for "eol", 
+"extends" and "precedes", and the "SpecialKey" highlighting group for "nbsp", 
+"tab" and "trail". :help 'listchars'
+
+USING SYNTAX SPACE ERRORS  *vwt-396-using-syntax-space-errors*
+
+Vim has several syntax files that support the display of "space errors". For 
+example, for the C programming language (:set filetype=c), you could put the 
+following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    let c_space_errors = 1
+<
+
+Supported languages are: ada, c, chill, csc, forth, groovy, icon, java, lpc, 
+mel, nqc, nroff, ora, pascal, plm, plsql, python and ruby. The c settings also 
+apply to cpp.
+
+To highlight space errors in java files, you would use:
+
+>
+    let java_space_errors = 1
+<
+
+For C, if you don't want to see trailing space errors at end-of-line set:
+
+>
+    let c_no_trail_space_error = 1
+<
+
+If you only use spaces to indent, and don't want to see space errors in front 
+of tabs:
+
+>
+    let c_no_tab_space_error = 1
+<
+
+If you are interested in learning more, open the syntax file for C (in Vim, 
+put the cursor on the path $VIMRUNTIME/syntax/c.vim and type gf). Then look 
+for the definition of the highlight group cSpaceError (near the end of the 
+file). That group specifies the color used to display space errors in C files. 
+The command :hi cSpaceError will show "xxx" in that color.
+
+
+
+SHOWING LONG LINES  *vwt-396-showing-long-lines*
+
+By default, lines longer than the screen width are not wrapped, and you can 
+horizontally scroll the text, for example by moving the cursor to the end of a 
+long line. Therefore there may be characters preceding the visible text 
+(non-displayed characters on the left), and there may be characters that 
+extend after the visible text (non-displayed characters on the right). The 
+listchars option can be used to show a highlighted symbol when characters are 
+not displayed, for example:
+
+>
+    " Show < or > when characters are not displayed on the left or right.
+    :set list listchars=precedes:<,extends:>
+    " Same, but also show tabs and trailing spaces.
+    :set list listchars=tab:>-,trail:.,precedes:<,extends:>
+<
+
+RESOLVING PERFORMANCE PROBLEMS  *vwt-396-resolving-performance-problems*
+
+It seems that vim does not handle sucessive calls of the match command 
+gracefully. Since BufWinEnter commands are executed every time a buffer is 
+displayed (i.e., switching to another file), the match command is executed 
+many times during a vim session. This seems to lead to a memory leak which 
+slowly impacts performance (for example scrolling and writing become 
+unbearably slow). Include the following line to fix the issue:
+
+>
+    autocmd BufWinLeave * call clearmatches()
+<
+
+NOTE: Versions < 7.2
+
+While I would suggest you keep your VIM up to date, there are reasons why 
+maybe you cannot. To avoid errors you could modify part of the settings above 
+to make sure clearmatches() is an available function (apparently available in 
+7.2+).
+
+>
+    if version >= 702
+      autocmd BufWinLeave * call clearmatches()
+    endif
+<
+
+SEE ALSO  *vwt-396-see-also*
+    - Highlight some whitespace characters |vwt-1274| a script to toggle specified highlighting
+    - Converting tabs to spaces |vwt-12| to convert tabs to spaces or vice versa
+    - Remove unwanted spaces |vwt-878| to display or remove unwanted spaces
+    - Remove unwanted empty lines |vwt-72| to delete blank lines
+    - cream-showinvisibles [https://www.vim.org/scripts/script.php?script_id=363] plugin for attractive display of tabs, returns and trailing spaces
+
+
+RELATED SCRIPTS  *vwt-396-related-scripts*
+    - The ShowTrailingWhitespace [https://www.vim.org/scripts/script.php?script_id=3966] plugin highlights without affecting syntax or :match command, and comes with exceptions for certain filetypes.
+    - The JumpToTrailingWhitespace [https://www.vim.org/scripts/script.php?script_id=3968] plugin provides corresponding movement commands to quickly locate trailing whitespace.
+    - The smartmatcheol.vim [https://www.vim.org/scripts/script.php?script_id=2635] plugin highlights based on file extension or name.
+    - The trailing-whitespace [https://www.vim.org/scripts/script.php?script_id=3201] plugin uses :match.
+    - The bad-whitespace [https://www.vim.org/scripts/script.php?script_id=3735] plugin uses :match, allows on/off/toggling via commands.
+    - The Trailer Trash [https://www.vim.org/scripts/script.php?script_id=3938] plugin uses :match.
+    - The DynamicSigns [https://www.vim.org/scripts/script.php?script_id=3965] plugin can show whitespace errors (also mixed indent) in the sign column.
+
+
+COMMENTS  *vwt-396-comments*
+
+If you want to leave :match available for other uses and still have the match 
+change when you enter or leave Insert mode, then you can use the following 
+snippet.
+
+>
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    augroup WhitespaceMatch
+      " Remove ALL autocommands for the WhitespaceMatch group.
+      autocmd!
+      autocmd BufWinEnter * let w:whitespace_match_number =
+            \ matchadd('ExtraWhitespace', '\s\+$')
+      autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
+      autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
+    augroup END
+    function! s:ToggleWhitespaceMatch(mode)
+      let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
+      if exists('w:whitespace_match_number')
+        call matchdelete(w:whitespace_match_number)
+        call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
+      else
+        " Something went wrong, try to be graceful.
+        let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
+      endif
+    endfunction
+<
+
+==============================================================================

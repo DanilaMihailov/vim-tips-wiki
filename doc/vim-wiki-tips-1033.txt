@@ -1,0 +1,80 @@
+*vim-wiki-tips-1033.txt*   Toggling yes-no *vwt-1033*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1033 [https://vim.fandom.com/wiki/Toggling_yes-no]   Previous |vwt-1032| Next |vwt-1035|
+
+created 2005 · complexity intermediate · author Bertram Scharpf · version 6.0
+
+==============================================================================
+
+When editing config files, you may need to frequently convert between yes and 
+no settings.
+
+With the following in your vimrc, you can press gy to toggle between the 
+words shown in the script.
+
+>
+    function s:ToggleYesNo()
+      let w=expand("<cword>")
+      if     w=="yes"    | let w="no"
+      elseif w=="no"     | let w="yes"
+      elseif w=="on"     | let w="off"
+      elseif w=="off"    | let w="on"
+      elseif w=="manual" | let w="auto"
+      elseif w=="auto"   | let w="manual"
+      else               | let w=""
+      endif
+      if w!=""
+        exec "normal! \"_ciw\<C-R>=w\<CR>\<Esc>b"
+      endif
+    endfunc
+    nnoremap gy :call <SID>ToggleYesNo()<CR>
+<
+
+This could be supplemented with:
+
+>
+    else
+        let n=strpart(w,0,2)
+        if n=="no"
+          let w=strpart(w,2)
+        else
+          let w="no".w
+        endif
+      endif
+<
+
+COMMENTS  *vwt-1033-comments*
+
+Use
+
+>
+    exec "normal! m`\"_ciw\<C-R>=w\<CR>\<Esc>``"
+<
+
+to preserve cursor position.
+
+==============================================================================
+
+The function will print
+
+>
+    :call <SNR>#_ToggleYesNo()
+<
+
+if you press gy on a non-listed word.
+
+Use
+
+>
+    nnoremap <silent> gy :call <SID>ToggleYesNo()<CR>
+<
+
+to prevent this behavior.

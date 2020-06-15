@@ -1,0 +1,79 @@
+*vim-wiki-tips-759.txt*   Selecting your pasted text *vwt-759*
+
+Tip 759 [https://vim.fandom.com/wiki/Selecting_your_pasted_text]   Previous |vwt-758| Next |vwt-760|
+
+created 2004 · complexity basic · version 6.0
+
+==============================================================================
+
+Here is an easy way to select the text you just pasted. For example, you may 
+want to paste some text, then select it for indenting 
+[https://vim.fandom.com/wiki/Shifting_blocks_visually], or formatting, or 
+performing a substitution 
+[https://vim.fandom.com/wiki/Search_and_replace_in_a_visual_selection].
+
+A simple procedure would be to press `[ to jump to the start of the text you 
+last changed. For example, you may use ciw to change inner word, or p to 
+paste, then scroll elsewhere. Typing `[ would jump to the start of the word 
+you just changed, or to the start of the text you just pasted (see marks 
+[https://vim.fandom.com/wiki/Using_marks]).
+
+To select the last changed text (or the text that was just pasted), use a 
+mapping like this in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    nnoremap gp `[v`]
+<
+
+After pasting, type gp to select the pasted text in visual mode. This is 
+similar to the standard gv which you can type to select the last 
+visually-selected text.
+
+Following is a more elaborate alternative:
+
+>
+    nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+<
+
+With this alternative, typing gp will select the last changed (or pasted) 
+text, and the visual mode will be the same as was last used. For example, you 
+may press v to start character-wise visual selection, then move the cursor and 
+press y to yank (copy) the selected text. Elsewhere, you may press p to paste 
+the text. In that case typing gp would select the pasted text character-wise.
+
+Repeating this example, but using V would use line-wise visual selection 
+(whole lines would be selected). Similarly, using Ctrl-V (or Ctrl-Q if you use 
+Ctrl-V for pasting) would use block-wise visual selection.
+
+The mapping uses "<expr>" which means that when you type gp, the mapping is 
+evaluated as an expression, then the result is used. The dot operator (.) is 
+used to concatenate three strings. The first string (without quotes) is `[ and 
+the third string is `]. The second string is the first character (:help 
+|strpart()|) of the result from calling getregtype() which is the "type" of 
+the last register used in a normal mode command. The type is 'v', 'V', or 
+Ctrl-V depending on whether the text in the register resulted, respectively, 
+from a character, a line, or a block operation. (:help |getregtype()|)
+
+For example, if you type yiw to copy a word, the function getregtype() will 
+return v, and the result of the mapping expression will be `[v`] (the same as 
+the first mapping given above). However, if you type 3Y to copy three lines, 
+the result will be `[V`] (linewise).
+
+REFERENCES  *vwt-759-references*
+    - :help  |:map-expression|
+
+
+COMMENTS  *vwt-759-comments*
+
+An anonymous user mentioned the `[ and `] not working as documented in the 
+Vim help, making this mapping fail. Probably that user has a plugin or mapping 
+interfering; please refer to 
+https://groups.google.com/d/topic/vim_use/qTc3SPuuhoQ/discussion 
+[https://groups.google.com/d/topic/vim_use/qTc3SPuuhoQ/discussion] if you 
+suffer the same problem. --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] (talk 
+[https://vim.fandom.com/wiki/User_talk:Fritzophrenic]) 14:55, September 24, 
+2014 (UTC)
+
+getregtype() without argumet use " register. If text was pasted from other 
+register this does not work as expected.

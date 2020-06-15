@@ -1,0 +1,50 @@
+*vim-wiki-tips-1199.txt*   Unconditional linewise or characterwise paste *vwt-1199*
+
+Tip 1199 [https://vim.fandom.com/wiki/Unconditional_linewise_or_characterwise_paste]   Previous |vwt-1198| Next |vwt-1200|
+
+created 2006 · complexity basic · author cory · version 6.0
+
+==============================================================================
+
+If you're like me, you occasionally do a linewise yank, and then want to 
+insert that yanked text in the middle of some other line, (or vice versa). 
+This function and mapping will allow you to do a linewise or characterwise 
+paste no matter how you yanked the text.
+
+>
+    function! Paste(regname, pasteType, pastecmd)
+      let reg_type = getregtype(a:regname)
+      call setreg(a:regname, getreg(a:regname), a:pasteType)
+      exe 'normal "'.a:regname . a:pastecmd
+      call setreg(a:regname, getreg(a:regname), reg_type)
+    endfunction
+    nmap <Leader>lP :call Paste(v:register, "l", "P")<CR>
+    nmap <Leader>lp :call Paste(v:register, "l", "p")<CR>
+    nmap <Leader>cP :call Paste(v:register, "v", "P")<CR>
+    nmap <Leader>cp :call Paste(v:register, "v", "p")<CR>
+<
+
+The above will keep newlines inside the register. To additionally join the 
+pasted lines to a stream of characters without any newlines, use this:
+
+>
+    function! PasteJointCharacterwise(regname, pastecmd)
+      let reg_type = getregtype(a:regname)
+      call setreg(a:regname, '', "ac")
+      exe 'normal "'.a:regname . a:pastecmd
+      call setreg(a:regname, '', "a".reg_type)
+      exe 'normal `[v`]J'
+    endfunction
+    nmap <Leader>p :call PasteJointCharacterwise(v:register, "p")<CR>
+    nmap <Leader>P :call PasteJointCharacterwise(v:register, "P")<CR>
+<
+
+SEE ALSO  *vwt-1199-see-also*
+    - VimTip356 |vwt-356| Quick yank and paste (will be "copy/paste mappings" tip)
+
+
+RELATED PLUGINS  *vwt-1199-related-plugins*
+    - UnconditionalPaste [https://www.vim.org/scripts/script.php?script_id=3355] enhanced plugin based on this tip
+
+
+COMMENTS  *vwt-1199-comments*

@@ -1,0 +1,84 @@
+*vim-wiki-tips-1072.txt*   Shadow your comments to see the code *vwt-1072*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1072 [https://vim.fandom.com/wiki/Shadow_your_comments_to_see_the_code]   Previous |vwt-1071| Next |vwt-1073|
+
+created 2005 · complexity basic · author kamarali · version 6.0
+
+==============================================================================
+
+Sometimes you get bugged with all the comments in your working file. With all 
+the Fixes and Patches and previous comments, code looks miserable. I don't 
+know whether there is any better way of getting rid of comments. This is not a 
+generic tip that will work for all color settings. I don't know how I will get 
+the background color of the currently active theme.
+
+Anyone using Black background in Vim can use the following command:
+
+>
+    :hi Comment guifg=black
+<
+
+Anyone using White background can try this:
+
+>
+    :hi Comment guifg=white
+<
+
+COMMENTS  *vwt-1072-comments*
+
+For what it is worth, my preferred method to ignore comments is simply to 
+fold them away. This way they are still easily accessible if I want, and I can 
+leave comments that I want. However, the downside is (depending on your fold 
+method, of course) it can be tedious to fold masses of comments.
+
+==============================================================================
+
+My personal view is that these sort of history comments have no place in the 
+code. Comments should only be what the code does now. They should also never 
+be hidden - if they are of so little use that they can be hidden then they 
+should be deleted.
+
+Of course changes should be commented, but these should be as part of the 
+Source Code Control system as they are checked in, not an integral part of the 
+code.
+
+==============================================================================
+
+Here is a small script which will work for all types of colors.
+
+>
+    if !exists("ccolor")
+      let ccolor = 0
+      let comment_fg = synIDattr(synIDtrans(hlID("Comment")), "fg")
+      let comment_bg = synIDattr(synIDtrans(hlID("Comment")), "bg")
+      let background = synIDattr(synIDtrans(hlID("Normal")), "bg")
+      execute "highlight Comment guifg=" background
+      execute "highlight Comment guibg=" background
+      exit
+    endif
+    if ccolor == 0
+      let ccolor = 1
+      execute "highlight Comment guifg=" comment_fg
+      execute "highlight Comment guibg=" comment_bg
+    else
+      let ccolor = 0
+      let background = synIDattr(synIDtrans(hlID("Normal")), "bg")
+      execute "highlight Comment guifg=" background
+      execute "highlight Comment guibg=" background
+    endif
+    "check this comment
+<
+
+put this in some comment_color.vim
+
+:so comment_color.vim will change shadow and unshadow comment, alternately.
+
+==============================================================================

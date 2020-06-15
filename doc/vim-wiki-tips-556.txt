@@ -1,0 +1,151 @@
+*vim-wiki-tips-556.txt*   Access Python Help *vwt-556*
+
+Tip 556 [https://vim.fandom.com/wiki/Access_Python_Help]   Previous |vwt-555| Next |vwt-557|
+
+created 2003 · complexity basic · author Fritz Cizmarov · version 6.0
+
+==============================================================================
+
+This tip presents several ways to access Python documentation using pydoc. 
+The recommended location for the commands in this snippet is 
+~/.vim/after/ftplugin/python.vim, or $HOME\vimfiles\after\ftplugin\python.vim 
+on Windows.
+
+USING A SHELL (SIMPLE)  *vwt-556-using-a-shell-(simple)*
+
+To access Python documentation for the word under the cursor using, this 
+mapping can be used
+
+>
+    nnoremap <buffer> K :<C-u>execute "!pydoc " . expand("<cword>")<CR>
+<
+
+or for Windows
+
+>
+    nnoremap <buffer> K :<C-u>execute "!C:/<PythonDir>/Lib/pydoc.py " . expand("<cword>")<CR>
+<
+
+To keep the documentation open while you continue editing, this mapping can 
+be used instead
+
+>
+    nnoremap <buffer> K :<C-u>execute "!xterm -e 'pydoc " . expand("<cword>") . "'"<CR>
+<
+
+or for Windows
+
+>
+    nnoremap <buffer> K :<C-u>execute "!start cmd /c C:/<PythonDir>/Lib/pydoc.py " . \|
+        \ expand("<cword>")<CR>
+<
+
+These mappings only work for single words. To display the documentation for a 
+method or a class in a module, for example os.popen(), modify the mapping in 
+this way
+
+>
+    nnoremap <buffer> K :<C-u>let save_isk = &iskeyword \|
+        \ set iskeyword+=. \|
+        \ execute "!pydoc " . expand("<cword>") \|
+        \ let &iskeyword = save_isk<CR>
+<
+
+It is not recommended to permanently add . to 'iskeyword'.
+
+USING THE PREVIEW WINDOW OR A SCRATCH BUFFER  *vwt-556-using-the-preview-window-or-a-scratch-buffer*
+
+This snippet allows you to use the command :Pyhelp <string> to preview Python 
+documentation in the preview window. It also remaps K in the same manner as 
+above.
+
+If Vim is compiled with +python, it automatically finds the path to pydoc.py. 
+Otherwise, set the s:pydoc_path variable to a suitable value. This seemingly 
+indirect approach is used in an effort to make the snippet platform agnostic.
+
+>
+    if has("python")
+      " let python figure out the path to pydoc
+      python << EOF
+    import sys
+    import vim
+    vim.command("let s:pydoc_path=\'" + sys.prefix + "/lib/pydoc.py\'")
+    EOF
+    else
+      " manually set the path to pydoc
+      let s:pydoc_path = "/path/to/python/lib/pydoc.py"
+    endif
+    
+    nnoremap <buffer> K :<C-u>let save_isk = &iskeyword \|
+        \ set iskeyword+=. \|
+        \ execute "Pyhelp " . expand("<cword>") \|
+        \ let &iskeyword = save_isk<CR>
+    command! -nargs=1 -bar Pyhelp :call ShowPydoc(<f-args>)
+    function! ShowPydoc(what)
+      " compose a tempfile path using the argument to the function
+      let path = $TEMP . '/' . a:what . '.pydoc'
+      let epath = shellescape(path)
+      let epydoc_path = shellescape(s:pydoc_path)
+      let ewhat = shellescape(a:what)
+      " run pydoc on the argument, and redirect the output to the tempfile
+      call system(epydoc_path . " " . ewhat . (stridx(&shellredir, '%s') == -1 ? (&shellredir.epath) : (substitute(&shellredir, '\V\C%s', '\=epath', ''))))
+      " open the tempfile in the preview window
+      execute "pedit" fnameescape(path)
+    endfunction
+<
+
+If, instead, you prefer using a scratch buffer to the preview window, change 
+the ShowPydoc function to
+
+>
+    function! ShowPydoc(what)
+      let bufname = a:what . ".pydoc"
+      " check if the buffer exists already
+      if bufexists(bufname)
+        let winnr = bufwinnr(bufname)
+        if winnr != -1
+          " if the buffer is already displayed, switch to that window
+          execute winnr "wincmd w"
+        else
+          " otherwise, open the buffer in a split
+          execute "sbuffer" bufname
+        endif
+      else
+        " create a new buffer, set the nofile buftype and don't display it in the
+        " buffer list
+        execute "split" fnameescape(bufname)
+        setlocal buftype=nofile
+        setlocal nobuflisted
+        " read the output from pydoc
+        execute "r !" . shellescape(s:pydoc_path, 1) . " " . shellescape(a:what, 1)
+      endif
+      " go to the first line of the document
+      1
+    endfunction
+<
+
+SEE ALSO  *vwt-556-see-also*
+    - script#910 [https://www.vim.org/scripts/script.php?script_id=910]
+    - script#1112 [https://www.vim.org/scripts/script.php?script_id=1112]
+
+
+REFERENCES  *vwt-556-references*
+    - :help  |after-directory|
+    - :help  |:map|
+    - :help  |:map-<buffer>|
+    - :help  |:execute|
+    - :help  |:!|
+    - :help  |<cword>|
+    - :help 'iskeyword'
+    - :help  |:pedit|
+    - :help 'buftype'
+
+
+COMMENTS  *vwt-556-comments*
+
+For an alternative approach to the same problem, try the pyref.vim plug-in 
+[http://peterodding.com/code/vim/pyref/] (script#3104 
+[https://www.vim.org/scripts/script.php?script_id=3104]) which provides 
+context-sensitive documentation for Python source code by looking up help 
+topics on docs.python.org [http://docs.python.org/] (or a local mirror on your 
+file system) and showing them in your favorite web browser.

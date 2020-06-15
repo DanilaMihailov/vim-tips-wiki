@@ -1,0 +1,63 @@
+*vim-wiki-tips-223.txt*   Reverse selected text *vwt-223*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 223 [https://vim.fandom.com/wiki/Reverse_selected_text]   Previous |vwt-222| Next |vwt-224|
+
+created 2002 · complexity basic · author scott urban · version 5.7
+
+==============================================================================
+
+Suppose you want to reverse some text. This mapping will reverse visually 
+selected text. Put the mapping in your vimrc or otherwise source it, then 
+visually select the word or words, and type ;rv – really only works with 
+selections on one line:
+
+>
+    vnoremap ;rv c<C-O>:set revins<CR><C-R>"<Esc>:set norevins<CR>
+<
+
+COMMENTS  *vwt-223-comments*
+
+Interesting idea, but it will only work for those whose Vim has the 
++rightleft option. For those who don't have such a Vim, use "ma" to (mark a) 
+and move the cursor to the last line to be affected, and:
+
+>
+    " \fr: reverse the order of lines (vertical mirror)
+    nmap \fr :set lz<CR>o<Esc>mz'aO<Esc>ma:'a+1,'z-1g/^/m 'a<CR>'addma'zdd:set nolz<CR>
+    
+    " \fR: mirror image the lines (horizontal mirror)
+    nmap \fR :set lz<CR>o<Esc>mzkO<Esc>maj:s/./&\r/g<CR>:'a+1,'z-1g/^/m 'a<CR>:'a+1,'z-1j!<CR>'add'zddk:set nolz<CR>
+<
+
+TIMTOWTDI: Here's a simpler approach for the horizontal mirror, and a command 
+thrown in as a bonus:
+
+>
+    nmap \fR :Mirror<CR>
+    command! -bar -range Mirror <line1>,<line2>call setline('.', join(reverse(split(getline('.'), '\zs')), ''))
+<
+
+TIMTOWTDI: Here's a simpler approach for the vertical mirror:
+
+>
+    map \fr :Reverse<CR>
+    sunmap \fr
+    ounmap \fr
+    command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1
+<
+
+Notice it was mapped then had specific sections unmapped since they don't 
+make sense to have them.
+
+==============================================================================
+
+I use it in my work to reverse the order of 1000 groups of parameters which 
+improves the program performance. Thanks.

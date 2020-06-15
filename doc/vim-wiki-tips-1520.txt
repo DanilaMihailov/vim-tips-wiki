@@ -1,0 +1,73 @@
+*vim-wiki-tips-1520.txt*   Set options or named registers with let *vwt-1520*
+
+Tip 1520 [https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let]   Previous |vwt-1519| Next |vwt-1521|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Set_options_or_named_registers_with_let] 
+2007 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+SETTING REGISTERS  *vwt-1520-setting-registers*
+
+It isn't immediately obvious, but let can be used for far more than setting 
+variables. It can also be used, for example, to set a register.
+
+For example, to set register "r" to hold a really long variable name:
+
+>
+    let @r = "reallyReallySuperLongVariableNameWithSpamAndEggs"
+<
+
+Use "@@" to set the unnamed register, for example:
+
+>
+    let @@ = "example contents of the unnamed register"
+<
+
+Using this technique, you can duplicate the setreg function for use in older 
+versions of Vim, as follows:
+
+>
+    if v:version < 602
+      " Vim 6.2 introduced the setreg function. Make our own otherwise
+      function Setreg(regname, regval)
+        exe "let @".a:regname." = '".a:regval."'"
+      endfunction
+      " set up registers with 'call Setreg', for example
+      call Setreg('a', 'yawP`[j')
+    else
+      " set up registers with 'call setreg', for example
+      call setreg('a', 'yawP`[j')
+    endif
+<
+
+Sourcing the above script sets register a. In normal mode, put the cursor in 
+a word and press @a to execute the commands: yaw (yank a word), P (paste), `[ 
+(jump to start of last yank), j (down).
+
+That duplicates the initial word, and is an example of how a macro can be 
+placed in a register.
+
+SETTING OPTIONS  *vwt-1520-setting-options*
+
+let can also be used to set options, which can be useful in a script.
+
+For example, to save the current value of the 'readonly' option, and restore 
+it later:
+
+>
+    let oldro=&readonly
+    ...
+    ...
+    let &readonly=oldro
+<
+
+REFERENCES  *vwt-1520-references*
+    - :help  |:let-option|
+    - :help  |:let-register|
+    - :help  |:let|
+    - :help  |setreg()| Includes an example to save and restore a register, including its type.
+
+
+COMMENTS  *vwt-1520-comments*

@@ -1,0 +1,47 @@
+*vim-wiki-tips-156.txt*   Describe a SQL table from Vim *vwt-156*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 156 [https://vim.fandom.com/wiki/Describe_a_SQL_table_from_Vim]   Previous |vwt-155| Next |vwt-158|
+
+created November 7, 2001 · complexity basic · author Demian L. Neidetcher · 
+version 5.7
+
+==============================================================================
+
+Here is a bash script to call from Vim, when you want information about a 
+table while you are editing SQL code. Put the script in a file named describe.
+
+>
+    #!/usr/bin/bash
+    
+    f=aTempFile.sql
+    u=<uName>
+    p=<pWord>
+    d=<dBase>
+    
+    echo "/* describe for $1"
+    echo "describe $1;" > $f;
+    echo "quit;" >> $f;
+    
+    sqlplus -S $u/$p@$d @$f
+    rm -f $f;
+    echo " end describe for $1 */"
+<
+
+Your path needs to include the script (as well as sqlplus), then from Vim you 
+type:
+
+>
+    :r !describe <tableName>
+<
+
+That inserts a listing of the table columns, complete with Java/C comments.
+
+COMMENTS  *vwt-156-comments*

@@ -1,0 +1,111 @@
+*vim-wiki-tips-906.txt*   Toggle auto-indenting for code paste *vwt-906*
+
+Tip 906 [https://vim.fandom.com/wiki/Toggle_auto-indenting_for_code_paste]   Previous |vwt-905| Next |vwt-907|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+Pasting text into a terminal running Vim with automatic indentation enabled 
+can destroy the indentation of the pasted text. This tip shows how to avoid 
+the problem.
+
+See how to stop auto indenting |vwt-330| for automatic indentation issues 
+while you are typing.
+
+BACKGROUND  *vwt-906-background*
+
+If you use Vim commands to paste text, nothing unexpected occurs. The problem 
+only arises when pasting from another application, and only when you are not 
+using a GUI version of Vim.
+
+In a console or terminal version of Vim, there is no standard procedure to 
+paste text from another application. Instead, the terminal may emulate pasting 
+by inserting text into the keyboard buffer, so Vim thinks the text has been 
+typed by the user. After each line ending, Vim may move the cursor so the next 
+line starts with the same indent as the last. However, that will change the 
+indentation already in the pasted text.
+
+PASTE TOGGLE  *vwt-906-paste-toggle*
+
+Vim provides the 'paste' option to aid in pasting text unmodified from other 
+applications. You can set it manually like:
+
+>
+    :set paste
+    :set nopaste
+<
+
+Or, Vim offers the 'pastetoggle' option to conveniently turn 'paste' on and 
+off with one keypress.
+
+Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc] (change 
+<F2> to whatever key you want):
+
+>
+    set pastetoggle=<F2>
+<
+
+To paste from another application:
+    - Start insert mode.
+    - Press F2 (toggles the 'paste' option on).
+    - Use your terminal to paste text from the clipboard.
+    - Press F2 (toggles the 'paste' option off).
+
+
+Then the existing indentation of the pasted text will be retained.
+
+You do not have to start insert mode first, but if you are in normal mode and 
+have a mapping for F2, that mapping will apply, and the 'pastetoggle' function 
+will not operate.
+
+Some people like the visual feedback shown in the status line by the 
+following alternative for your vimrc:
+
+>
+    nnoremap <F2> :set invpaste paste?<CR>
+    set pastetoggle=<F2>
+    set showmode
+<
+
+The first line sets a mapping so that pressing F2 in normal mode will invert 
+the 'paste' option, and will then show the value of that option. The second 
+line allows you to press F2 when in insert mode, to toggle 'paste' on and off. 
+The third line enables displaying whether 'paste' is turned on in insert mode.
+
+REFERENCES  *vwt-906-references*
+    - :help 'paste'
+    - :help 'pastetoggle'
+
+
+COMMENTS  *vwt-906-comments*
+
+For VIM running in recent terminals, you can use the excellent 
+vim-bracketed-paste [https://github.com/ConradIrwin/vim-bracketed-paste] 
+plugin which automatically sets 'paste' option when, well, pasting.
+
+OLD COMMENTS  *vwt-906-old-comments*
+    - Thanks for your fix Spiiph, and please check what I changed. I think the following is now attended to, and all these old comments can be deleted after a few days. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:39, January 13, 2010 (UTC)
+
+
+==============================================================================
+
+I've applied this tip (under VIM 7.2), but when pressing F2 under insert mode 
+it cycles through 3 different modes:
+
+>
+    -- (insert) --
+    -- INSERT (paste) --
+    -- INSERT --
+<
+
+So I have to hit F2 twice under insert mode to enter paste mode. Using this 
+worked for me:
+
+>
+    nnoremap <F2> :set invpaste paste?<CR>
+    imap <F2> <C-O>:set invpaste paste?<CR>
+    set pastetoggle=<F2>
+<
+
+Who's 'me'? The imap is superfluous. I'm not sure why it was there from the start, since the 'showmode' option displays whether 'paste' is turned on or not.(Spiiph 12:08, January 12, 2010 (UTC))

@@ -1,0 +1,55 @@
+*vim-wiki-tips-1509.txt*   Automatically create and update cscope database *vwt-1509*
+
+Tip 1509 [https://vim.fandom.com/wiki/Automatically_create_and_update_cscope_database]   Previous |vwt-1508| Next |vwt-1510|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Automatically_create_and_update_cscope_database] 
+2007 · complexity basic · author · version 7.0
+
+==============================================================================
+
+In order to create or update the cscope database in current directory, the 
+following key mapping would help a bit:
+
+>
+    nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+      \:!cscope -b -i cscope.files -f cscope.out<CR>
+      \:cs kill -1<CR>:cs add cscope.out<CR>
+<
+
+In the above mapping, I use "find" to collect the C/C++ source code files and 
+(re)create the cscope database; then "kill -1" to kill all cscope database 
+connections and finally, the newly created "cscope.out" database is added by 
+"cs add cscope.out".
+
+There are two limitations in this key mapping:
+
+ALTERNATE VERSION  *vwt-1509-alternate-version*
+
+Related to limitation #2 above, it's not actually necessary to kill the 
+cscope connection. The command cs reset can accomplish this purpose, if 
+cscope.out is already selected as the cscope file. This gives the following 
+variant:
+
+>
+    nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+      \:!cscope -b -i cscope.files -f cscope.out<CR>
+      \:cs reset<CR>
+<
+
+Note that this assumes that there already exists a connection to the 
+cscope.out file (which is the case if you tell Vim to automatically init the 
+cscope connection at startup).
+
+WITH PYTHON SCRIPT  *vwt-1509-with-python-script*
+
+cscope-manager [https://github.com/susu9/cscope-manager]
+
+COMMENTS  *vwt-1509-comments*
+
+How do you do it in Windows. How to tell windows cmd shell to change 
+directory to the project folder and build cscope DB there?
+
+The directory change is easy, just use the "cd" command just like on Unix (but with backslash separators). The harder part is getting a list of files. You might be able to use dir /b /s *.c and the same for *.h, or you could use Vim to create the list of files using glob() or globpath(). Other than that, cscope itself works in pretty much the same way no matter what system you're on. --Fritzophrenic (talk) 15:46, July 2, 2013 (UTC)
+But, how to pass the current working directory information to "cd", and then how to run cscope from that directory ?
+Just like for any other external command. Actually from within Vim, you can just use Vim's built-in :cd command to get to the directory you want. Or use :lcd. Then use :!path\to\cscope.exe to run cscope from that directory. If you must, you can use the cmd.exe cd command instead, like :!cd some\path & path\to\cscope.exe. If you need Vim's current directory, you can use getcwd(). --Fritzophrenic (talk) 19:54, July 3, 2013 (UTC)

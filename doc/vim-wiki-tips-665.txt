@@ -1,0 +1,94 @@
+*vim-wiki-tips-665.txt*   Hide toolbar or menus to see more text *vwt-665*
+
+Tip 89 [https://vim.fandom.com/wiki/Hide_toolbar_or_menus_to_see_more_text]   Previous |vwt-88| Next |vwt-90|
+
+created 2001 · complexity basic · author Leif Wickland · version 6.0
+
+==============================================================================
+
+In gvim, the 'guioptions' setting controls whether various GUI widgets are 
+shown (and more). For example, you can choose whether to hide or show the menu 
+bar, toolbar or scroll bar.
+
+This tip shows how to control whether these widgets are displayed. Removing 
+the widgets provides more space to see your text, and can speed up screen 
+updates when using X11 over a remote connection. It is also possible to hide 
+specific menus or buttons |vwt-665-hiding-buttons-on-the-toolbar| rather than 
+the entire GUI widget if you just want to simplify the contents of the widget.
+
+REMOVING A WIDGET  *vwt-665-removing-a-widget*
+
+If you do not want to see a widget, put whichever of the following you like 
+in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    :set guioptions-=m  "remove menu bar
+    :set guioptions-=T  "remove toolbar
+    :set guioptions-=r  "remove right-hand scroll bar
+    :set guioptions-=L  "remove left-hand scroll bar
+<
+
+While using gvim, you can easily display a widget. For example, enter the 
+following command to display the menu bar ('go' is an abbreviation for 
+'guioptions'):
+
+>
+    :set go+=m
+<
+
+A more extreme version of removing the menu bar is the following, which does 
+not source the menu script (:help 'go-M' has more information):
+
+>
+    :set guioptions-=M
+<
+
+TOGGLING THE DISPLAY OF A WIDGET  *vwt-665-toggling-the-display-of-a-widget*
+
+The following mappings provide toggles to show or hide a widget. For example, 
+press Ctrl-F1 to display the menu bar (if it is currently hidden), or to hide 
+the menu bar (if it is currently displayed). Ctrl-F2 toggles the toolbar, and 
+Ctrl-F3 toggles the right-hand scrollbar.
+
+>
+    nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+    nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+    nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+<
+
+HIDING BUTTONS ON THE TOOLBAR  *vwt-665-hiding-buttons-on-the-toolbar*
+
+You can hide some of the default gvim ToolBar buttons by adding lines like 
+the following to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    aunmenu ToolBar.FindNext
+    aunmenu ToolBar.FindPrev
+<
+
+See :help |builtin-tools| for a list of available buttons. The names may be 
+different if your language is not English. To find the actual names, type 
+:aunmenu ToolBar. then press Ctrl-D.
+
+REFERENCES  *vwt-665-references*
+    - :help 'guioptions'
+
+
+COMMENTS  *vwt-665-comments*
+
+About #Hiding buttons on the toolbar |vwt-665-hiding-buttons-on-the-toolbar| 
+above: :aunmenu ToolBar.<Ctrl-D> shows the button names in scrambled order. To 
+see them in their actual order, use
+
+>
+    :set wildmenu
+    	:aunmenu ToolBar.<Tab>
+<
+
+then <Right> <Left> to select (if you stop on a | you'll see the actual "menu 
+separator" name on the command line), <Esc> to cancel, <Enter> to remove that 
+toolbar button (Careful here). --Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 18:12, 8 August 2009 (UTC)
+
+RELATED PLUGINS  *vwt-665-related-plugins*
+    - shymenu [https://www.vim.org/scripts/script.php?script_id=2437]  Allows users to temporarily show the menu by pressing a menu's accelerator key.

@@ -1,0 +1,198 @@
+*vim-wiki-tips-991.txt*   Make views automatic *vwt-991*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 991 [https://vim.fandom.com/wiki/Make_views_automatic]   Previous |vwt-990| Next |vwt-994|
+
+created 2005 · complexity basic · author manalive · version 6.0
+
+==============================================================================
+
+You can use :mkview to save folds and such when you close a file - but you 
+have to use :loadview next time you use the file.
+
+With two lines in your vimrc, you can make that automatic.
+
+I got all excited to post this, then found a tip that already mentioned it, 
+back in 2001: VimTip122 |vwt-122| "Skip blank lines when folding text." As he 
+put it:
+
+
+
+
+
+PLUGIN  *vwt-991-plugin*
+
+For the lazy people, you may want to use restore_view.vim 
+[https://www.vim.org/scripts/script.php?script_id=4021] plugin. This plugin 
+integrates many good parts in the comment below.
+
+COMMENTS  *vwt-991-comments*
+
+This was mentioned in the comments below, but the line:
+
+>
+    set viewoptions-=options
+<
+
+should be strongly emphasized. If `options` is included in `viewoptions`, 
+vim's current working directory at the time of `makeview` is stored and loaded 
+with `loadview`. If you have vim automatically changing directories for each 
+buffer, or if you locally set the pwd, your working directory will change when 
+you reload the file during another session. Some may prefer this setting, but 
+I found it quite confusing when vim jumped to a seemingly random working 
+directory upon opening my vimrc, which was edited (and had a view made) while 
+I was in another directory.
+
+This really should be:
+
+>
+    autocmd BufWinLeave * mkview
+    autocmd BufWinEnter * silent loadview
+<
+
+==============================================================================
+
+>
+    autocmd BufWinLeave *.* mkview!
+    autocmd BufWinEnter *.* silent loadview
+<
+
+*.* is better for me than using just *, as when I load Vim it defaults to [No 
+File], which of course triggers the BufWinEnter, and since there is no file 
+name, an error occurs as it tries to execute.
+
+The error does not appear when using *.*
+
+==============================================================================
+
+When I first wrote that I intended to only use folds in source code files, 
+which almost always conform to the *.* pattern. Though it is true, as heptite 
+points out that * would be more general purpose, it would work on files 
+without the dotted notation, notably lots of shell scripts are like that. So 
+use which ever is best for you.
+
+BTW, since I made that tip several years ago, I have found that setting 
+foldmethod to "marker" is more versatile. Though there are often reasons why 
+not to use markers, it works better for me.
+
+==============================================================================
+
+For me, this following lines work quite well for all files
+
+>
+    autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+    autocmd BufWinEnter * if expand("%") != "" | loadview | endif
+<
+
+==============================================================================
+
+Here's the version I have - it matches all files and excludes when opening 
+vim without a file:
+
+>
+    au BufWinLeave ?* mkview
+    au BufWinEnter ?* silent loadview
+<
+
+==============================================================================
+
+BufWinLeave gives me grief when I'm closing a tab and the next tab is 
+nameless. As noted in the manual, when BufWinLeave triggers % may be different 
+from the buffer being unloaded. This works for me without fail so far:
+
+>
+    au BufWritePost,BufLeave,WinLeave ?* mkview
+    au BufWinEnter ?* silent loadview
+<
+
+==============================================================================
+
+I still get "E32: No file name" from "au BufWinEnter ?*" when I start vim 
+fresh and do :copen. Triggering with "au BufReadPre" seems to work okay:
+
+>
+    au BufWritePost,BufLeave,WinLeave ?* mkview
+    au BufReadPre ?* silent loadview
+<
+
+==============================================================================
+
+this is the only solution that worked for me (Ubuntu 11.04, vim 7.3):(source: 
+http://ebonhand.wordpress.com/2011/03/30/automatically-save-and-load-vim-views-folds 
+[http://ebonhand.wordpress.com/2011/03/30/automatically-save-and-load-vim-views-folds] 
+who got it from here: http://dotfiles.org/~tsukkee/.vimrc 
+[http://dotfiles.org/~tsukkee/.vimrc])
+
+>
+    set viewoptions-=options
+    augroup vimrc
+        autocmd BufWritePost *
+        \   if expand('%') != '' && &buftype !~ 'nofile'
+        \|      mkview
+        \|  endif
+        autocmd BufRead *
+        \   if expand('%') != '' && &buftype !~ 'nofile'
+        \|      silent loadview
+        \|  endif
+    augroup END
+<
+
+==============================================================================
+
+I've been messing with this on and off.
+
+You run into issues with it setting views for non-existent, generated files 
+from plugins, and files in system temp directories which are likely to be gone 
+or different when next loaded.
+
+This is my current iteration - on unix/osx you'll want to replace the env 
+variable calls for something appropriate.
+
+Add any temp plugin files - a log from something that's only temporarily on 
+disk, and not in the system temp dirs - to skipview_files.
+
+>
+    let g:skipview_files = [
+                \ '[EXAMPLE PLUGIN BUFFER]'
+                \ ]
+    function! MakeViewCheck()
+        if has('quickfix') && &buftype =~ 'nofile'
+            " Buffer is marked as not a file
+            return 0
+        endif
+        if empty(glob(expand('%:p')))
+            " File does not exist on disk
+            return 0
+        endif
+        if len($TEMP) && expand('%:p:h') == $TEMP
+            " We're in a temp dir
+            return 0
+        endif
+        if len($TMP) && expand('%:p:h') == $TMP
+            " Also in temp dir
+            return 0
+        endif
+        if index(g:skipview_files, expand('%')) >= 0
+            " File is in skip list
+            return 0
+        endif
+        return 1
+    endfunction
+    augroup vimrcAutoView
+        autocmd!
+        " Autosave & Load Views.
+        autocmd BufWritePost,BufLeave,WinLeave ?* if MakeViewCheck() | mkview | endif
+        autocmd BufWinEnter ?* if MakeViewCheck() | silent loadview | endif
+    augroup end
+<
+
+5 if statements one after the other is not compact, but neither is mashing 
+them into one statement with a whole lot of boolean logic. Taverius 
+[https://vim.fandom.com/wiki/User:Taverius] 15:39, August 11, 2011 (UTC)

@@ -1,0 +1,62 @@
+*vim-wiki-tips-1659.txt*   EP3 Syntax File *vwt-1659*
+
+Tip 1659 [https://vim.fandom.com/wiki/EP3_Syntax_File]   Previous |vwt-1658| Next |vwt-1660|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201007#EP3_Syntax_File] 
+July 19, 2010 · complexity basic · author Maxslug · version 7.0
+
+==============================================================================
+
+This is a syntax file for the Perl EP3 pre-processor 
+[http://search.cpan.org/~mykl/Text-EP3-1.10/lib/Text/EP3.pm] which will render 
+the Perl parts as Perl and the rest as Verilog.
+
+EP3.VIM  *vwt-1659-ep3.vim*
+
+>
+    " Vim syntax file
+    " Language:    EP3 (Perl/Verilog)
+    "
+    " Based on mason.vim, html.vim
+    "
+    " Clear previous syntax settings unless this is v6 or above, in which case just
+    " exit without doing anything.
+    "
+    if version < 600
+      syn clear
+    elseif exists("b:current_syntax")
+      finish
+    endif
+    
+    " Load perl and verilog into their own namespaces
+    syn include @ep3Perl    syntax/perl.vim
+    unlet b:current_syntax
+    syn include @ep3Verilog syntax/verilog.vim
+    unlet b:current_syntax
+    
+    " Load verilog as the default syntax
+    runtime! syntax/verilog.vim
+    unlet b:current_syntax
+    
+    " Add some EP3-specific syntax
+    syn match verilogGlobal "@include"
+    
+    " TODO: How do I get the strings in a perl section to render as verilog?
+    "syn region ep3String   start=+"+ end=+"+ contained contains=@ep3Verilog
+    "hi def link perlString @ep3Verilog
+    
+    syn region ep3Vline     matchgroup=Delimiter start="^@>"         end="$"         contains=@ep3Verilog
+    syn region ep3PerlChunk matchgroup=Delimiter start="@perl_begin" end="@perl_end" contains=@ep3Perl,ep3Vline
+    
+    let b:current_syntax = "ep3"
+<
+
+COMMENTS  *vwt-1659-comments*
+
+TO DO
+    - Tell people how to use it.
+
+
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 08:21, September 
+20, 2010 (UTC)

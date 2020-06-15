@@ -1,0 +1,230 @@
+*vim-wiki-tips-97.txt*   Insert current date or time *vwt-97*
+
+Tip 97 [https://vim.fandom.com/wiki/Insert_current_date_or_time]   Previous |vwt-96| Next |vwt-99|
+
+created 2001 · complexity basic · author newbie · version 6.0
+
+==============================================================================
+
+There are a variety of ways to insert a date/time stamp. You can even have 
+Vim automatically update an existing 'last modified' date/time when writing 
+the file.
+
+USING STRFTIME()  *vwt-97-using-strftime()*
+
+Vim's internal strftime() function (:help |strftime()|) returns a date/time 
+string formatted in a way you specify with a format string. Most systems 
+support strftime(), but some don't.
+
+To insert a timestamp in the default strftime format "%c", type either of the 
+following commands:
+
+>
+    :put =strftime(\"%c\")
+    :put =strftime('%c')
+<
+
+or simply:
+
+>
+    :pu=strftime('%c')
+<
+
+This will enter something like the following in your file buffer:
+
+>
+    Wed 13 Jul 2016 18:17:18 BST
+<
+
+Quotation marks have to be escaped in this usage so as not to terminate the 
+line because a quote starts a comment.
+
+To store the return value of the function, the "= register (:help |"=|) is 
+used. Here's a bunch of examples:
+
+Press F5 in normal mode or in insert mode to insert the current datestamp: 
+:help |i_CTRL-R|
+
+>
+    :nnoremap <F5> "=strftime("%c")<CR>P
+    :inoremap <F5> <C-R>=strftime("%c")<CR>
+<
+
+In the example above, the uppercase P at the end inserts before the current 
+character, which allows datestamps inserted at the beginning of an existing 
+line. Other 'put' commands may be more useful for you: :hel |p| :help |P| 
+:help |gp| :help |gP|
+
+Type dts in insert mode to expand to a datestamp: :help |abbreviations| using 
+an expression :help |:map-expression|
+
+>
+    :iab <expr> dts strftime("%c")
+<
+
+To replace text with the current date in a substitute command:
+
+>
+    :s/text to replace/\=strftime("%c")/
+<
+
+Vary the format string (the "%c" argument), to change how the time and/or 
+date are displayed. For some formats, the result may depend on your locale. 
+:help |:language|
+
+The specification for the format string itself depends on the implementation 
+of strftime() on your platform. For details, Unix users may refer to the 
+strftime(3) man page, by running 'man 3 strftime'.
+
+SOME STRFTIME() FORMAT STRING EXAMPLES  *vwt-97-some-strftime()-format-string-examples*
+
+>
+    Format String              Example output
+    -------------              --------------
+    %c                         Thu 27 Sep 2007 07:37:42 AM EDT (depends on locale)
+    %a %d %b %Y                Thu 27 Sep 2007
+    %b %d, %Y                  Sep 27, 2007
+    %d/%m/%y %H:%M:%S          27/09/07 07:36:32
+    %H:%M:%S                   07:36:44
+    %T                         07:38:09
+    %m/%d/%y                   09/27/07
+    %y%m%d                     070927
+    %x %X (%Z)                 09/27/2007 08:00:59 AM (EDT)
+    %Y-%m-%d                   2016-11-23
+    %F                         2016-11-23 (works on some systems)
+    
+    RFC822 format:
+    %a, %d %b %Y %H:%M:%S %z   Wed, 29 Aug 2007 02:37:15 -0400
+    
+    ISO8601/W3C format (http://www.w3.org/TR/NOTE-datetime):
+    %FT%T%z                    2007-08-29T02:37:13-0400
+<
+
+USING EXTERNAL TOOLS  *vwt-97-using-external-tools*
+
+On Unix-based systems, enter the following in Vim to read the output from 
+running the date utility, inserting the result after the current line:
+
+>
+    :r !date
+<
+
+Under Windows, use:
+
+>
+    :r !date /t
+<
+
+The above commands insert the output of the date program after the current 
+line. If wanted, the !! command can be used to filter the current line, 
+replacing it with the output of date.
+
+>
+    !!date
+    # Under Windows, use:
+    !!date /t
+<
+
+AUTOMATICALLY UPDATE TIMESTAMPS  *vwt-97-automatically-update-timestamps*
+
+You might want to automatically update existing time stamps when writing a 
+file.
+
+This is a solution for html implemented as an autocmd which fires when the 
+file is written:
+
+>
+    :au BufWritePre *.html exe "norm mz"|exe '%s/\(<!-- DATE -->\).\{-\}\d\d:\d\d:\d\d/\1'.strftime("%b %d, %Y %X")."/e"|norm `z
+<
+
+That way a string of the form Aug 13, 2001 14:19:50 is embedded in the text, 
+and it will be updated to the current date and time automatically, every time 
+the file is saved (the ...DATE... stuff is an HTML comment and won't appear in 
+an HTML document).
+
+This is a general solution:
+
+>
+    " If buffer modified, update any 'Last modified: ' in the first 20 lines.
+    " 'Last modified: ' can have up to 10 characters before (they are retained).
+    " Restores cursor and window position using save_cursor variable.
+    function! LastModified()
+      if &modified
+        let save_cursor = getpos(".")
+        let n = min([20, line("$")])
+        keepjumps exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
+              \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
+        call histdel('search', -1)
+        call setpos('.', save_cursor)
+      endif
+    endfun
+    autocmd BufWritePre * call LastModified()
+<
+
+keepjumps excludes timestamp position from jump list, which is a false 
+positive in this context. Calling histdel removes timestamp search pattern 
+from search history.
+
+UPDATING TIMESTAMPS IN XML FILES  *vwt-97-updating-timestamps-in-xml-files*
+
+An XML file may contain a line like the following (the value is a date/time 
+given as the number of milliseconds past the epoch 
+[http://en.wikipedia.org/wiki/Unix_time]):
+
+>
+    <property name='p2.timestamp' value='1333222444000'/>
+<
+
+With the code below in your vimrc [https://vim.fandom.com/wiki/Vimrc], enter 
+:UpdateTimestamps to update the value to the current time in each instance of 
+a tag with the format shown above. The code uses Vim's strftime() which 
+requires support by the operating system, so this will only work on systems 
+which handle %s (the number of seconds since the start of 1970-01-01; should 
+be available on Unix systems but not Windows).
+
+>
+    function! s:UpdateTimestamps()
+      let tstamp = strftime('%s000')
+      %s#<property name='p2.timestamp' value='\zs\d\+\ze'/>#\=tstamp#g
+      echo 'New time: ' . tstamp
+    endfunction
+    command! UpdateTimestamps call s:UpdateTimestamps()
+<
+
+It is not necessary to type the full command: just type :Up then press Tab 
+for command completion. Using a command allows updating to be easily applied 
+to multiple buffers 
+[https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers], for example, 
+entering :bufdo UpdateTimestamps would update all tags in all buffers.
+
+UPDATING A DNS SOA SERIAL NUMBER  *vwt-97-updating-a-dns-soa-serial-number*
+
+When manually editing a zone file for a DNS name server, the serial number in 
+the SOA record needs to be updated. Often a ten-digit number is used, 
+consisting of a timestamp of the form "YYYYMMDD" and a two-digit version 
+number. For example, "2009042101" might represent update number 01 on 21 April 
+2009.
+
+The following mapping finds the next 10-digit number, and replaces it with a 
+timestamp + "00", and shows the original number in the message line (so you 
+can see what change occurred):
+
+>
+    :nnoremap <F8> /\<\d\{10}\><CR>ce<C-r>=strftime("%Y%m%d00")<CR><Esc>:echo @"<CR>
+<
+
+For example, if the date today is 21 April 2009 and the next ten-digit number 
+after the cursor is "2008123002", pressing the F8 key would change the number 
+to "2009042100", and would display "2008123002" in the message line at the 
+bottom of the window.
+
+The command searches for \< (beginning word), followed by 10 digits, followed 
+by \> (end word). The ce changes to the end of the word (deleting the number 
+to the unnamed register), then inserts (Ctrl-r) the value of register = (which 
+evaluates the following expression).
+
+SEE ALSO  *vwt-97-see-also*
+    - Automatically Update Copyright Notice in Files |vwt-1521|
+
+
+COMMENTS  *vwt-97-comments*

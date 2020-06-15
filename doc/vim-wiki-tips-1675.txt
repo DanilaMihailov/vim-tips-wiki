@@ -1,0 +1,138 @@
+*vim-wiki-tips-1675.txt*   Remove diacritical signs from characters *vwt-1675*
+
+Tip 1675 [https://vim.fandom.com/wiki/Remove_diacritical_signs_from_characters]   Previous |vwt-1674| Next |vwt-1676|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201108#Remove_diacritical_signs_from_characters] 
+August 31, 2011 · complexity basic · author Marcmontu · version 7.0
+
+==============================================================================
+
+Characters such as 'á' or 'ç' (with diacritics 
+[http://en.wikipedia.org/wiki/diacritic]) may be included in code comments and 
+are successfully processed by many tools. However some tools do not work with 
+these characters.
+
+Instead of changing the tools, it is common to remove the diacritical signs 
+(e.g. replace á with a, and ç with c). This tip provides a script to do the 
+necessary substitutions in a single step.
+
+SCRIPT  *vwt-1675-script*
+
+Create file ~/.vim/plugin/diacritics.vim (Unix) or 
+$HOME/vimfiles/plugin/diacritics.vim (Windows) containing one of the scripts 
+below, then restart Vim. Alternatively, add one of the scripts to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] and restart Vim.
+
+The following script uses Vim's tr() to translate characters with diacritics 
+to characters without. It loads the buffer into a variable in memory and 
+translates all characters in one operation, so it is efficient. However, there 
+is no opportunity to review changes as they occur.
+
+>
+    " Remove diacritical signs from characters in specified range of lines.
+    " Examples of characters replaced: á -> a, ç -> c, Á -> A, Ç -> C.
+    function! s:RemoveDiacritics(line1, line2)
+      let diacs = 'áâãàçéêíóôõüú'  " lowercase diacritical signs
+      let repls = 'aaaaceeiooouu'  " corresponding replacements
+      let diacs .= toupper(diacs)
+      let repls .= toupper(repls)
+      let all = join(getline(a:line1, a:line2), "\n")
+      call setline(a:line1, split(tr(all, diacs, repls), "\n"))
+    endfunction
+    command! -range=% RemoveDiacritics call s:RemoveDiacritics(<line1>, <line2>)
+<
+
+The following alternative script uses :s to search and replace, with an 
+opportunity to confirm each change so it can be reviewed (or press a to 
+proceed with all changes). The substitute uses a replacement expression (\=) 
+to look up the translation character in a dictionary.
+
+>
+    " Remove diacritical signs from characters in specified range of lines.
+    " Examples of characters replaced: á -> a, ç -> c, Á -> A, Ç -> C.
+    " Uses substitute so changes can be confirmed.
+    function! s:RemoveDiacritics(line1, line2)
+      let diacs = 'áâãàçéêíóôõüú'  " lowercase diacritical signs
+      let repls = 'aaaaceeiooouu'  " corresponding replacements
+      let diacs .= toupper(diacs)
+      let repls .= toupper(repls)
+      let diaclist = split(diacs, '\zs')
+      let repllist = split(repls, '\zs')
+      let trans = {}
+      for i in range(len(diaclist))
+        let trans[diaclist[i]] = repllist[i]
+      endfor
+      execute a:line1.','.a:line2 . 's/['.diacs.']/\=trans[submatch(0)]/gIce'
+    endfunction
+    command! -range=% RemoveDiacritics call s:RemoveDiacritics(<line1>, <line2>)
+<
+
+Each alternative script above defines the :RemoveDiacritics command, and the 
+command accepts a range which defaults to the whole buffer. Some examples 
+follow (type the first couple of letters of the command then press Tab for 
+command completion, or press the up arrow for command history):
+
+>
+    :RemoveDiacritics               " whole buffer
+    :.RemoveDiacritics              " current line
+    :'<,'>RemoveDiacritics          " last selected range of lines
+<
+
+See ranges [https://vim.fandom.com/wiki/Ranges] for more information.
+
+REFERENCES  *vwt-1675-references*
+    - :help  |/collection|
+
+
+COMMENTS  *vwt-1675-comments*
+
+Sorry for being away for so long.
+
+Fritzophrenic, Chrisbra, JohnBot and JohnBeckett: thank you very much for 
+improving the script and the tip!@Fritzophrenic, thanks for suggesting the command, I started using this approach for similar tasks. I wasn't aware of the problems in multibyte encoding, but for sure it is better to make it robust. In my opinion it is easier to maintain the diacritic signs and its replacements in a single string (easier to type, line is shorten so it is less likely to added a new diacritic char and forgetting to add its replacement), so I agree with Chrisbra, approach: 
+
+>
+    let diacCharsList=split(diacChars, '\zs')
+<
+
+I didn't understand the changes to the References section, but that is 
+probably because I'm new to wiki editing. I'd be glad if someone can explain 
+that to me :)
+
+Here are the original intentions:
+
+1) http://en.wikipedia.org/wiki/Diacritic 
+[http://en.wikipedia.org/wiki/Diacritic]As English is not my first language, I 
+spent some time to find a keyword when I was searching for a way to remove the 
+diacritical signs. When I posted the tip I thought that if it already existed 
+and I've found it, my first reaction would be "what is diacritical??" - and 
+probably my first guess would be that it is Vim parlance.
+
+2) 
+http://stackoverflow.com/questions/765894/can-i-substitute-multiple-items-in-a-single-regular-expression-in-vim-or-perl 
+[http://stackoverflow.com/questions/765894/can-i-substitute-multiple-items-in-a-single-regular-expression-in-vim-or-perl]After 
+I've give up searching for an existing way of replacing the diacritic 
+characters and decided to create the script, I spent some time thinking on how 
+to write it. I had the idea of performing all the changes with a single :s, 
+but was unable to figure out how. Therefore I copied it from another person, 
+and referencing that page was intending to given him the credit for the 
+implementation.I thought that it could also be useful to understand the implementation. The comment line 
+
+>
+    "exe ":%s/[ãáâ]/\={'ã':'a','á':'a','â':'a'}[submatch(0)]/gIc"
+< was also with the purpose of explaining the unusual line for someone attempting to change/improve it.
+
+Thanks-- marcmontu - 12:37, Friday, July 13, 2012 (UTC)
+
+We remove comments after a decent amount of time has passed so readers can see useful material more clearly. My April 6 comments can be seen by following the history tab that used to be visible at the top of each page (thanks Wikia!), or more simply here. I put the Wikipedia link in the first line of the tip: "(with diacritics)". There's nothing particularly helpful on the Stackoverflow page, and whereas you might have got an idea from there, it's pretty hard to tell where the idea originally came from. We can't give credits (although it is in the history) because just above every sentence of a useful tip uses ideas gleaned from reading the Vim mailing lists, or other tips, or other websites. Likewise, other places with Vim info can't give proper credits either. You might like to copy the "Read more" section from below to your user page (User:Marcmontu) because it's a bit of place here. JohnBeckett (talk) 03:39, July 14, 2012 (UTC)
+OMG the "read more" section is something added by Wikia, and has existed since 2010! Perhaps we had it disabled here and something has enabled it? Or a recent upgrade of something has changed the way it looks, so I wasn't aware that it is an automated nuisance from Wikia? For my curiosity, I'm adding a magic word that may or may not remove it from this page. JohnBeckett (talk) 09:04, July 19, 2012 (UTC)
+
+__NORELATEDARTICLES__
+
+If you have Linux and glibc, can you please try my plugin Diacritic 
+[https://github.com/kubahorak/diacritic]? It's more universal, because it uses 
+iconv command to transliterate.--Haisaul 
+[https://vim.fandom.com/wiki/User:Haisaul] (talk 
+[https://vim.fandom.com/wiki/User_talk:Haisaul]) 14:35, September 24, 2014 
+(UTC)

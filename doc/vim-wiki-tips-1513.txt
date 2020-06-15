@@ -1,0 +1,40 @@
+*vim-wiki-tips-1513.txt*   Changing all HTML tags to lowercase *vwt-1513*
+
+Tip 1513 [https://vim.fandom.com/wiki/Changing_all_HTML_tags_to_lowercase]   Previous |vwt-1511| Next |vwt-1514|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Changing_all_HTML_tags_to_lowercase] 
+2007 · complexity intermediate · author Alex Jakushev · version 6.0
+
+==============================================================================
+
+One part of converting from HTML to XHTML is changing all the tags to 
+lowercase. If you open your HTML file in Vim, this task may be done with this 
+piece of Vim magic:
+
+>
+    :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g
+<
+
+Note that this will change tag names only. To change tag attributes to 
+lowercase as well (multiple attributes supported), use this command:
+
+>
+    :%s/\(<[^>]*\)\@<=\<\(\a*\)\ze=['"]/\L\2/g
+<
+
+COMMENTS  *vwt-1513-comments*
+
+This should work as well:
+
+>
+    :%s/<\([^>]*\)>/<\L\1>/g
+<
+
+This is exactly what I thought of to start with. It is a nice, simple, easy regular expression to accomplish almost the same task. But, it is not quite equivalent. The two regular expressions given in the tip would replace <TAG ATTR='VAL'> with <tag attr='VAL'>, whereas this one would replace it with <tag attr='val'>. Sometimes this is desired, sometimes not, for example with <p class='bigLongClassName'>. Note that none of these regular expressions will work across linebreaks.
+
+==============================================================================
+
+The first search pattern does not recognize tags that have digits in it,like 
+<H1>.It can be corrected replacing the \a (=any alphabetic character) by a \w 
+(=any word character) which includes digits.

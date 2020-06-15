@@ -1,0 +1,318 @@
+*vim-wiki-tips-1202.txt*   Go away and come back *vwt-1202*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1202 [https://vim.fandom.com/wiki/Go_away_and_come_back]   Previous |vwt-1200| Next |vwt-1203|
+
+created 2006 · complexity basic · author inetic · version 6.0
+
+==============================================================================
+
+The following script will save your settings (see :help |:mksession|) on Vim 
+exit, and load those settings when you enter Vim again.
+
+The settings are associated (by this script) to the directory from where 
+you've started Vim. For example, if you start Vim from directory 
+/home/mynick/project/foo, edit multiple buffers and then exit without closing 
+the buffers, when you next run Vim from the same directory, all the buffers, 
+mappings and other settings will be loaded back as they were when you left.
+
+Just paste the following into your vimrc:
+
+>
+    function! MakeSession()
+      let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+      if (filewritable(b:sessiondir) != 2)
+        exe 'silent !mkdir -p ' b:sessiondir
+        redraw!
+      endif
+      let b:filename = b:sessiondir . '/session.vim'
+      exe "mksession! " . b:filename
+    endfunction
+    
+    function! LoadSession()
+      let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+      let b:sessionfile = b:sessiondir . "/session.vim"
+      if (filereadable(b:sessionfile))
+        exe 'source ' b:sessionfile
+      else
+        echo "No session loaded."
+      endif
+    endfunction
+    au VimEnter * nested :call LoadSession()
+    au VimLeave * :call MakeSession()
+<
+
+Without corrections this script will work only on Unix like systems.
+
+COMMENTS  *vwt-1202-comments*
+
+Why not just use script#69 
+[https://www.vim.org/scripts/script.php?script_id=69]?
+
+==============================================================================
+
+Problem with editing crontab, /etc/passwd, and the like.
+
+If you are in $HOME and edit the crontab via crontab -e and then quit Vim 
+without first closing the buffer explicitly, and do this again from $HOME, you 
+will look at an empty crontab.
+
+Why? When you enter crontab -e, crontab essentially copies the current 
+crontab to /tmp/<random_filename> and opens this temporary file in $EDITOR, 
+which is of course Vim. The next time, crontab creates a new temporary file, 
+but Vim restores the last session from $HOME. Hence, you end up editing an 
+empty temporary file. What's more, if you save this file, it won't be 
+activated afterwards because you made no changes to the current temporary 
+crontab file.
+
+The same goes for vipw and vigr and more utilities.
+
+I think the tip would be more useful if it did only restore a session when 
+Vim is started without a filename argument.
+
+==============================================================================
+
+Yes, I agree, after a while I didn't like the behaviour of autoloading a 
+session on VimEnter for similar reasons. I've changed line:
+
+>
+    au VimEnter * nested :call LoadSession()
+<
+
+to:
+
+>
+    map ,l :call LoadSession()<CR>
+<
+
+i.e. loading sesion on ",l" shortcut request.
+
+==============================================================================
+
+I've since modified this script myself to only autoload when no file 
+arguments are provided:
+
+>
+    " automatically load and save session on start/exit.
+    " Modified by robin burchell <w00t@inspircd.org> to only load/save sessions if started with no arguments.
+    function! MakeSession()
+      if g:sessionfile != ""
+        echo "Saving."
+        if (filewritable(g:sessiondir) != 2)
+          exe 'silent !mkdir -p ' g:sessiondir
+          redraw!
+        endif
+        exe "mksession! " . g:sessionfile
+      endif
+    endfunction
+    
+    function! LoadSession()
+      if argc() == 0
+        let g:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+        let g:sessionfile = g:sessiondir . "/session.vim"
+        if (filereadable(g:sessionfile))
+          exe 'source ' g:sessionfile
+        else
+          echo "No session loaded."
+        endif
+      else
+        let g:sessionfile = ""
+        let g:sessiondir = ""
+      endif
+    endfunction
+    
+    au VimEnter * nested :call LoadSession()
+    au VimLeave * :call MakeSession()
+<
+
+==============================================================================
+
+I didn't like that a session is created every time you leave Vim. I've 
+changed it in two ways:
+    - Vim never creates the session.vim, it only updates it.
+    - The user must manually create the first session.vim, after that Vim will update and load as necessary.
+
+
+The idea is that I didn't want session files for every file I casually edit.
+
+>
+    " Creates a session
+    function! MakeSession()
+      let b:sessiondir = $HOME . "/.vim_sessions" . getcwd()
+      if (filewritable(b:sessiondir) != 2)
+        exe 'silent !mkdir -p ' b:sessiondir
+        redraw!
+      endif
+      let b:filename = b:sessiondir . '/session.vim'
+      exe "mksession! " . b:filename
+    endfunction
+    
+    " Updates a session, BUT ONLY IF IT ALREADY EXISTS
+    function! UpdateSession()
+      let b:sessiondir = $HOME . "/.vim_session" . getcwd()
+      let b:sessionfile = b:sessiondir . "session.vim"
+      if (filereadable(b:sessionfile))
+        exe "mksession! " . b:filename
+      endif
+    endfunction
+    
+    " Loads a session if it exists
+    function! LoadSession()
+      let b:sessiondir = $HOME . "/.vim_sessions" . getcwd()
+      let b:sessionfile = b:sessiondir . "/session.vim"
+      if (filereadable(b:sessionfile))
+        exe 'source ' b:sessionfile
+      else
+        echo "No session loaded."
+      endif
+    endfunction
+    
+    au VimEnter * nested :call LoadSession()
+    au VimLeave * :call UpdateSession()
+    map <leader>m :call MakeSession()<CR>
+<
+
+==============================================================================
+
+Combining the previous two ideas then results in having no sessions by 
+default or when called with commandline arguments. After executing :call 
+MakeSession() ( or using its mapping ) that directory then has session 
+autoloading and saving activated. So starting (g)vim without arguments in that 
+directory results in loading the session. And when exiting it is autosaved 
+again. (Note: If you're using Windows, you intend to keep, make sure to exit 
+with :qa not multiple :q otherwise only the last window is saved naturally)
+
+>
+    " Creates a session
+    function! MakeSession()
+      let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+      if (filewritable(b:sessiondir) != 2)
+        exe 'silent !mkdir -p ' b:sessiondir
+        redraw!
+      endif
+      let b:sessionfile = b:sessiondir . '/session.vim'
+      exe "mksession! " . b:sessionfile
+    endfunction
+    
+    " Updates a session, BUT ONLY IF IT ALREADY EXISTS
+    function! UpdateSession()
+      let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+      let b:sessionfile = b:sessiondir . "/session.vim"
+      if (filereadable(b:sessionfile))
+        exe "mksession! " . b:sessionfile
+        echo "updating session"
+      endif
+    endfunction
+    
+    " Loads a session if it exists
+    function! LoadSession()
+      if argc() == 0
+        let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+        let b:sessionfile = b:sessiondir . "/session.vim"
+        if (filereadable(b:sessionfile))
+          exe 'source ' b:sessionfile
+        else
+          echo "No session loaded."
+        endif
+      else
+        let b:sessionfile = ""
+        let b:sessiondir = ""
+      endif
+    endfunction
+    
+    au VimEnter * nested :call LoadSession()
+    au VimLeave * :call UpdateSession()
+    map <leader>m :call MakeSession()<CR>
+<
+
+==============================================================================
+
+To avoid your session to be overwritten when Vim is called with commandline 
+argument add:
+
+>
+    if argc()==0
+<
+
+at the beginning of the update function and
+
+>
+    endif
+<
+
+at the end.
+
+==============================================================================
+
+A simplified version which simply autosaves the current session on exit, if 
+one exists.
+
+>
+    function! SaveSession()
+      if v:this_session != ""
+        echo "Saving."
+        exe 'mksession! ' . '"' . v:this_session . '"'
+      else
+        echo "No Session."
+      endif
+    endfunction
+    
+    au VimLeave * :call SaveSession()
+<
+
+==============================================================================
+
+If you omit 'options' from 'sessionoptions', you might want to use nested 
+flag from VimEnter autocmd. Syntax highlighting and mappings might not be 
+restored otherwise.
+
+autocmd VimEnter * nested call RestoreSession()
+
+==============================================================================
+
+I always use server mode in my vim (for the multimon plugin, essentially), so 
+I have modified the save/load functions to be tied to the servername:
+
+>
+    function! MakeSession()
+      if ! exists("v:servername")
+            return
+      endif
+      let b:sessiondir = $HOME . "/.vim/sessions"
+      if (filewritable(b:sessiondir) != 2)
+        exe 'silent !mkdir -p ' b:sessiondir
+        redraw!
+      endif
+      let b:filename = b:sessiondir . '/' . v:servername
+      exe "mksession! " . b:filename
+    endfunction
+    
+    function! LoadSession()
+      if ! exists("v:servername")
+            return
+      endif
+      let b:sessiondir = $HOME . "/.vim/sessions"
+      let b:sessionfile = b:sessiondir . "/" . v:servername
+      if (filereadable(b:sessionfile))
+        exe 'source ' b:sessionfile
+      else
+        echo "No session loaded."
+      endif
+    endfunction
+    
+    au VimEnter * nested :call LoadSession()
+    au VimLeave * :call MakeSession()
+<
+
+==============================================================================
+
+I wrote another session plugin from the comments here that autosaves/loads 
+based on the git projects and branches called gitsessions.vim 
+[https://github.com/wting/gitsessions.vim].

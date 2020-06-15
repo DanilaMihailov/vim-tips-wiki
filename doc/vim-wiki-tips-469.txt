@@ -1,0 +1,65 @@
+*vim-wiki-tips-469.txt*   Replace the file name extension *vwt-469*
+
+
+
+This page is a candidate for deletion.
+
+If you disagree with its deletion, please explain why at the talk 
+[https://vim.fandom.com/wiki/Category_talk:Candidates_for_deletion], or 
+improve the page and remove the {{delete}} tag.
+
+Remember to check what links here 
+[https://vim.fandom.com/wiki/Special:WhatLinksHere/:Replace_the_file_name_extension] 
+and the before deleting.
+
+This should be deleted in favor of Compiling LaTeX from Vim 
+[https://vim.fandom.com/wiki/Compiling_LaTeX_from_Vim], which has much better 
+methods of compiling.Tip 469 [https://vim.fandom.com/wiki/Replace_the_file_name_extension]   Previous |vwt-468| Next |vwt-471|
+
+created 2003 · complexity basic · author Vincent NAUDOT · version 5.7
+
+==============================================================================
+
+Here is a map allowing you to press "\'" in insert mode. It saves the current 
+tex file, then compiles it.
+
+>
+    map! \' <Esc>:w<CR>:! latex %<CR>i
+<
+
+You may wonder how to open the associated dvi file. Simply replace % with 
+%<.dvi to give:
+
+>
+    map! <F4> <Esc>:! xdvi %<.dvi <CR>i
+    "Or (if using K environment):
+    map! <F4> <Esc>:! kdvi %<.dvi <CR>
+<
+
+The same thing applies for any other extension. The following will open the 
+associated ps file with gv.
+
+>
+    map! <F5> <Esc>:! gv %<.ps <CR>i
+<
+
+COMMENTS  *vwt-469-comments*
+
+This is deprecated, the preferred form is %:r
+
+And in fact there's a whole bunch more things you can do than just remove the 
+extension - you can remove the directory/path, keep just the extension, etc 
+etc by using different ':' modifiers.
+
+:help |filename-modifers|
+
+==============================================================================
+
+There is the vim-latex-project: http://vim-latex.sourceforge.net/ 
+[http://vim-latex.sourceforge.net/]
+
+If you install that in your ~/.vim you will have a lot of improvments over 
+the map. \ll compiles your .tex-file, \lv shows you the .dvi. `d give you 
+\delta, and `D gives you \Delta. There is so much, just check it out!
+
+==============================================================================

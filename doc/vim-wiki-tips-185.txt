@@ -1,0 +1,107 @@
+*vim-wiki-tips-185.txt*   Make vim the editor for files with unregistered extensions in Windows *vwt-185*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip279 |vwt-279|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 185 [https://vim.fandom.com/wiki/Make_vim_the_editor_for_files_with_unregistered_extensions_in_Windows]   Previous |vwt-184| Next |vwt-188|
+
+created 2001 · complexity basic · author Leif Wickland · version 6.0
+
+==============================================================================
+
+Normally in Windows, if you try to "launch" a file whose extension is not 
+registered with the system, the OS will prompt you for what editor you would 
+like to use to open the file. A much more appealing solution, in my mind, is 
+to make Vim the default editor for any unregistered extension.
+
+To set Vim up as the default editor for unregistered extensions, follow these 
+steps:WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+1. Copy the following into a file named unregistered.reg
+
+>
+    REGEDIT4
+    [HKEY_CLASSES_ROOT\Unknown\shell\Open\Command]
+    @="d:\\program files\\vim\\vim60\\gvim.exe \"%1\""
+<
+
+2. Import unregistered into your registry. This can be done in Vim by 
+executing the following
+
+>
+    :!regedit "unregistered.reg"
+<
+
+Disclaimer: This has been tested only on NT4.
+
+COMMENTS  *vwt-185-comments*
+
+It doesn't work for Windows 2000. Too bad...
+
+==============================================================================
+
+My install of Win2K had an "openas" key 
+defined;HKEY_CLASSES_ROOT\Unknown\shell\openas
+
+I renamed it toHKEY_CLASSES_ROOT\Unknown\shell\openasBakand imported the 
+unregistered.reg (adjusted for my gvim install) andnow unregistered files open 
+with gvim.
+
+==============================================================================
+
+Windows 2000 NTThis works:
+
+>
+    Registry-Path: [HKEY_CLASSES_ROOT\Unknown\shell\openas\command]
+<
+
+I changed this:
+
+>
+    %SystemRoot%\system32\rundll32.exe %SystemRoot%\system32\shell32.dll,OpenAs_RunDLL %1
+<
+
+to
+
+>
+    "D:/vim/vim60/gvim.exe" "%1"
+<
+
+and it works.
+
+==============================================================================
+
+Same as Tip VimTip279 |vwt-279|: On Windows, make GVim the default action for 
+double-click with "unknown file types"
+
+Works on Win9x, WinME, WinNT, Win2k, WinXP.
+
+==============================================================================
+
+This tip ending up causing more problems than it was worth. It replaced the 
+functionality of "Open With" in XP so that instead of bringing up a list of 
+programs, it would just open up in Vim.
+
+YMMV, so make sure to backup the registry key(s) before applying.
+
+Note: running XP Pro, Vim 7
+
+==============================================================================
+
+Confirm problem noted above. See VimTip279 |vwt-279| for workable scheme.
+
+What problem noted above? I see a note that it doesn't work on Win2000, but another post offers a solution. No other specific problems are mentioned that I can tell. --Fritzophrenic 15:46, November 8, 2011 (UTC) No doubt the "problem noted above" refers to replacing the "Open With" dialog with just opening in Vim, which I can see would be a problem for many users. --Fritzophrenic (talk) 16:59, November 12, 2012 (UTC)

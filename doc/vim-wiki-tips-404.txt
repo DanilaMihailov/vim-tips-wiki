@@ -1,0 +1,29 @@
+*vim-wiki-tips-404.txt*   Tags for Mixed Assembly and C *vwt-404*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 404 [https://vim.fandom.com/wiki/Tags_for_Mixed_Assembly_and_C]   Previous |vwt-402| Next |vwt-405|
+
+created 2003 · complexity basic · author Vasudev Nayak · version 5.7
+
+==============================================================================
+
+While accessing C functions/variables from assembly (especially for those 
+DSP/low level guys out there) the usual exuberant ctags doesn't work.
+
+The solution:
+
+COMMENTS  *vwt-404-comments*
+
+What on earth does this accomplish? How does this get the assembly symbols in 
+the tags files? Why doesn't it work out-of-the-box (what problem does this 
+solve)?
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 15:31, May 
+3, 2011 (UTC)

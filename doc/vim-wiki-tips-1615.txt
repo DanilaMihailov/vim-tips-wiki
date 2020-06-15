@@ -1,0 +1,87 @@
+*vim-wiki-tips-1615.txt*   View text file in two columns *vwt-1615*
+
+Tip 1615 [https://vim.fandom.com/wiki/View_text_file_in_two_columns]   Previous |vwt-1614| Next |vwt-1616|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200902#View_text_file_in_two_columns] 
+2009 · complexity basic · author Nsg · version 7.0
+
+==============================================================================
+
+When reading text, it can be useful to make a wide window, then split it 
+vertically so two consecutive pages of text can be seen in the left and right 
+windows.
+
+With a large monitor, you might enter :set columns=160 to make the screen 160 
+columns wide. This tip can then be used to split the screen to show two 
+windows, with the 'scrollbind' option set so that scrolling one window also 
+scrolls the other window.
+
+MAPPING  *vwt-1615-mapping*
+
+Enter the following command (or put in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]):
+
+>
+    :noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+<
+
+With the default leader, you can now press \vs to vertically split the screen 
+into two windows with 'scrollbind' set. To display only a single window, press 
+Ctrl-W then o.
+
+The mapping performs these operations:
+
+>
+    :<C-u>              " clear command line (if in visual mode)
+    let @z=&so          " save scrolloff in register z
+    :set so=0 noscb     " set scrolloff to 0 and clear scrollbind
+    :bo vs              " split window vertically, new window on right
+    Ljzt                " jump to bottom of window + 1, scroll to top
+    :setl scb           " setlocal scrollbind in right window
+    <C-w>p              " jump to previous window
+    :setl scb           " setlocal scrollbind in left window
+    :let &so=@z         " restore scrolloff
+<
+
+The mapping clears 'scrollbind' before manipulating the windows so that the 
+position of the second window can be adjusted without scrolling the first 
+window. Setting 'scrolloff' to 0 allows the cursor to be positioned at the 
+bottom of the screen (with command L).
+
+Problems
+    - If the cursor is in the last line when the mapping is executed, the mapping fails because j cannot move the cursor down (and the remaining commands are not executed).
+    - Register z is changed.
+
+
+SEE ALSO  *vwt-1615-see-also*
+    - vim_use discussion [http://groups.google.com/group/vim_use/browse_thread/thread/64c46a0f0c573003/942231124a5163f4]
+    - MPage [http://www.drchip.org/astronaut/vim/index.html#MPAGE] plugin that supports multiple windows (two or more) with sequential text
+
+
+COMMENTS  *vwt-1615-comments*
+
+I put this into a function:
+
+>
+    noremap <silent> <Leader>ac :exe AddColumn()<CR>
+    function! AddColumn()
+      exe "norm \<C-u>"
+      let @z=&so
+      set noscb so=0
+      bo vs
+      exe "norm \<PageDown>"
+      setl scrollbind
+      wincmd p
+      setl scrollbind
+      let &so=@z
+    endfunction
+<
+
+Except when I try to scroll one of the buffer windows by one line or more. In 
+that case, the line-difference between each buffer is reduced to zero. 
+Curiously, this works perfectly when done by hand in the command prompt.
+
+I have read that that line-difference is meant for 2 different files. 
+However, we are using the same file, but in two different windows. Then, how 
+do I keep that line difference valid between the windows on_scroll?

@@ -1,0 +1,154 @@
+*vim-wiki-tips-270.txt*   Insert a single character *vwt-270*
+
+Tip 270 [https://vim.fandom.com/wiki/Insert_a_single_character]   Previous |vwt-269| Next |vwt-271|
+
+created 2002 · complexity basic · author Mikko Pulkkinen · version 6.0
+
+==============================================================================
+
+Using insert mode to insert a single character feels clumsy because three key 
+presses are needed to insert one character. Here is a slightly easier way:
+
+>
+    :nnoremap <Space> i_<Esc>r
+<
+
+Now, when in normal mode, press Space followed by the character that you want 
+to insert.
+
+Bug: Repeating the insertion with . does not work.
+
+COMMENTS  *vwt-270-comments*
+
+I use:
+
+>
+    :nnoremap ,i i_<Esc>r
+    :nnoremap ,a a_<Esc>r
+<
+
+==============================================================================
+
+I consider this a better solution:
+
+>
+    :nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
+    :nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
+<
+
+Such inserts can be repeated with '.' thus making this command worthy (it's 
+not a big problem to make an additional keypress but imagine you need to 
+manually put some spaces or other separators).
+
+'s' and 'S' were chosen because:
+    - They remind of 'single'.
+    - If they are used occasionally, one can use synonyms 'cl' and 'cc' instead.
+
+
+What is the "\e" for?
+It might be meant to represent <Escape> although in Vim 7.2 this method does not need to force an escape from insert mode.
+
+The built-in s command is very useful, but that's a choice for the user. JohnBeckett 22:56, 15 June 2009 (UTC)
+
+==============================================================================
+
+I quite like the solution you proposed, but it does not allow for 
+repetitions, I found myself wanting to do '5s '. I couldn't use the repetition 
+inline because it would repeat the call to getchar so I added a simple proxy 
+function, the result is:
+
+>
+    function! RepeatChar(char, count)
+      return repeat(a:char, a:count)
+    endfunction
+    nnoremap s :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
+    nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
+<
+
+Note that the C-U is necessary to support the ranges and as far as I could 
+tell the '."\e"' was unnecessary, so I removed it
+
+Thanks, I packaged this as a plugin on github at https://github.com/rjayatilleka/vim-insert-char.
+Interesting, thanks. Why wouldn't repeat(getchar(), v:count1) work (why the RepeatChar function)? JohnBeckett 11:20, September 28, 2010 (UTC)
+Because if you use repeat(nr2char(getchar()), v:count1) it executes the "nr2char(getchar())", "v:count1" times, meaning it will try to get "v:count1" keypresses. When you pass it as a parameter to a function it is evaluated only once and the result is repeated. 12:44, September 20, 2010 (UTC)
+This appears to be wrong. I tested this without a separate RepeatChar function, and it does not prompt multiple keypresses; it executes exactly the same. I am using VIM 7.4.1689. 20:30, August 23, 2016 (EDT)
+
+==============================================================================
+
+This is what I am using for a similar purpose. The only difference is, if a 
+character is not provided promptly, it inserts a space:
+
+>
+    function! InsertSingle()
+      sleep 120m|let l:a = getchar(0)
+      if l:a != 0
+        silent! exec "normal a" . nr2char(l:a)
+      else
+        silent! exec "normal a "
+      endif
+    endfunction
+    nnoremap <silent> <Space> :call InsertSingle()<CR>
+<
+
+==============================================================================
+
+By exploiting the InsertCharPre and InsertLeave events we could do the trick. 
+Insertion of a specified number of characters or a single character can now be 
+done without manually switching back to Normal mode.
+
+Since I have switched to Neovim in which Meta key bindings works even in the 
+terminal, I used <M-i> and <M-a> as the shortcuts. If you are using original 
+Vim on a terminal, you could use the trick provided by Tim Pope in his rsi.vim 
+plugin to make the meta key work.
+
+>
+    let s:insert_char_pre = ''
+    let s:insert_leave = ''
+    
+    autocmd InsertCharPre * execute s:insert_char_pre
+    autocmd InsertLeave   * execute s:insert_leave
+    
+    " basic layer
+    function! s:QuickInput (operator, insert_char_pre) 
+        let s:insert_char_pre = a:insert_char_pre
+        let s:insert_leave = 'call <SID>RemoveFootprint()'
+        call feedkeys(a:operator, 'n')
+    endfunction 
+    
+    function! s:RemoveFootprint() 
+        let s:insert_char_pre = ''
+        let s:insert_leave = ''
+        let s:char_count = 0
+    endfunction 
+    
+    " secondary layer
+    function! QuickInput_Count (operator, count) 
+        let insert_char_pre = 'call <SID>CountChars('.a:count.')'
+        call <SID>QuickInput(a:operator, insert_char_pre)
+    endfunction 
+    
+    let s:char_count = 0
+    function! s:CountChars (count) 
+        let s:char_count += 1
+        if s:char_count == a:count
+            call feedkeys("\<Esc>")
+        endif
+    endfunction 
+    
+    " secondary layer
+    function! QuickInput_Repeat (operator, count) 
+        let insert_char_pre = 'let v:char = repeat(v:char, '.a:count.') | call feedkeys("\<Esc>")'
+        call <SID>QuickInput(a:operator, insert_char_pre)
+    endfunction 
+    
+    nnoremap i :<C-u>execute 'call ' v:count? 'QuickInput_Count("i", v:count)' : "feedkeys('i', 'n')"<CR>
+    nnoremap a :<C-u>execute 'call ' v:count? 'QuickInput_Count("a", v:count)' : "feedkeys('a', 'n')"<CR>
+    
+    nnoremap <Plug>InsertAChar :<C-u>call QuickInput_Repeat('i', v:count1)<CR>
+    nnoremap <Plug>AppendAChar :<C-u>call QuickInput_Repeat('a', v:count1)<CR>
+    
+    nmap <M-i> <Plug>InsertAChar
+    nmap <M-a> <Plug>AppendAChar
+<
+
+==============================================================================

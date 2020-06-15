@@ -1,0 +1,198 @@
+*vim-wiki-tips-1662.txt*   Automatically reload files with mixed line-endings in DOS fileformat *vwt-1662*
+
+Tip 1662 [https://vim.fandom.com/wiki/Automatically_reload_files_with_mixed_line-endings_in_DOS_fileformat]   Previous |vwt-1661| Next |vwt-1663|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201010#Automatically_reload_files_with_mixed_line-endings_in_DOS_fileformat] 
+October 14, 2010 · complexity basic · author Fritzophrenic · version 7.0
+
+==============================================================================
+
+If you frequently work with files saved with mixed line-ending styles, so 
+that Vim incorrectly detects the fileformat 
+[https://vim.fandom.com/wiki/File_format], you might wish Vim could 
+automatically read the file in the correct format without requiring you to 
+correct the fileformat manually 
+[https://vim.fandom.com/wiki/File_format#Converting_current_File].
+
+This autocmd in your vimrc [https://vim.fandom.com/wiki/Vimrc] will do just 
+that. If it finds any occurrences of a carriage return at the end of a line, 
+and the file was read in Unix format, it will automatically re-read the file 
+in DOS format. This will automatically correct the issue for good when you 
+save the file, but it is most useful for times when you cannot save the file 
+for some reason (maybe it is in a code module that is "locked down" for 
+example).
+
+>
+    autocmd BufReadPost * nested
+          \ if !exists('b:reload_dos') && !&binary && &ff=='unix' && (0 < search('\r$', 'nc')) |
+          \   let b:reload_dos = 1 |
+          \   e ++ff=dos |
+          \ endif
+<
+
+Most of this is self-explanatory, but there are a couple tricks to it:
+    - The 'n' flag is used on the search, so that the cursor does not move.
+    - The autocmd is nested. This allows other autocmds, like those that load syntax highlighting, etc., to also fire on the reload.
+    - Because the autocmd is nested, it will itself fire again on the reload. Thus, we use the b:reload_dos variable to detect when it has already fired so we do not keep firing recursively.
+
+
+This can be improved a bit. It might be nice to have a warning of some sort 
+when this auto-reload occurs. Or maybe you want to change as few lines as 
+possible, so you can manually convert the fileformat to the one that changes 
+the fewest lines (for example, if only 2 lines out of 12000 have DOS-style 
+endings, why convert the whole file to DOS?). Also, the detection of 
+DOS-format endings uses a search, which could take a very long time on very 
+large files.
+
+The following version (when possible) limits the length of time allowed for 
+the search before giving up, and additionally gives a message to the user by 
+redirecting the output of an :s command with the 'n' flag to count matches 
+without making changes and parsing it to output a message like, "File has 2 
+DOS-style lined endings out of 12000 lines."
+
+>
+    " When loading a file, if it reads in as Unix, but has a DOS line ending,
+    " and is not in binary mode, reload it in DOS format. Do this AFTER loading
+    " last known position to prevent always opening on last line.
+    "
+    " Time out the search after 1/10 second. Timeouts only available in 7.1.211
+    " and up, so just risk long loads in earlier versions.
+    if (v:version > 701 || v:version == 701 && has("patch211"))
+      autocmd BufReadPost * nested
+            \ if !exists('b:reload_dos') && !&binary && &ff=='unix' && (0 < search('\r$', 'nc', 0, 100)) |
+            \   let b:reload_dos = 1 |
+            \   redir => s:num_dos_ends |
+            \   silent %s#\r$##n |
+            \   redir END |
+            \   e ++ff=dos |
+            \   echomsg "File has ".
+            \     substitute(s:num_dos_ends, '^\_.\{-}\(\d\+\).*', '\1', '').
+            \     " DOS-style line endings out of ".line('$')." lines." |
+            \ endif
+    else
+      autocmd BufReadPost * nested
+            \ if !exists('b:reload_dos') && !&binary && &ff=='unix' && (0 < search('\r$', 'nc')) |
+            \   let b:reload_dos = 1 |
+            \   e ++ff=dos |
+            \ endif
+    endif
+    autocmd BufReadPost * if exists('b:reload_dos') | unlet b:reload_dos | endif
+<
+
+CAVEATS  *vwt-1662-caveats*
+    -  It is not trivial to make this work alongside plugins which also reload the buffer. See comments below.
+    -  If you use a plugin which relies on byte counts within a file (like eclim [http://eclim.org]), buffers reloaded in this way will no longer match the byte counts in the file on disk, so any communication about the byte position can easily fail.
+
+
+COMMENTS  *vwt-1662-comments*
+
+To set the 'fileformat' to whatever will change the fewer lines, replace the 
+echomsg command in the above snippet by the following:
+
+>
+    \ let s:l_tot = line('$') |
+      \ let s:l_dos = 0 + s:num_dos_ends |
+      \ echomsg s:l_dos 'DOS-style line endings found in' s:l_tot 'lines' |
+      \ if &noro && &ma |
+        \ if s:l_tot > s:l_dos * 2 |
+          \ setlocal ff=unix |
+          \ echomsg 'File format set to UNIX' |
+        \ else |
+          \ echomsg 'File format set to DOS' |
+        \ endif |
+      \ endif |
+<
+
+(the next statement is the final endif ).Notes:
+    -  This applies to Vim 7.1.211 or later; how to do it for earlier versions too is left as an exercise to the student.
+    -  The Unix/Dos switch is bypassed if the file is 'readonly' or 'nomodifiable' at the time of the  |BufReadPost| event. Either option can be set afterwards by a  |modeline|.
+    -  This takes advantage of the fact that adding zero to a String gives the Number found at the start of the string (or zero if the string starts with a non-numeric character or is empty) — see (of all places) :help  |octal|
+
+
+— Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 04:41, September 21, 
+2011 (UTC)
+
+==============================================================================
+
+Doesn't work for me. It looks like you're trying to cleverly auto-convert the 
+first number in the substitute string to a number, but when I try that it 
+always comes out with zero, because the string contains something like:
+
+>
+    ^@^@3 matches on 3 lines^@3 matches on 3 lines^@
+<
+
+Using the substitute call used in the main script seems to fix it, that's 
+probably why it was there in the first place.
+
+ah, strange. I didn't check and thus noticed neither the nulls nor the double-printing. Well, let's say I tried to be too clever and got my feet caught in the carpet. — Tonymec 07:31, September 23, 2011 (UTC)
+
+I have &ff shown in my statusline so I didn't need the additional echo about 
+the decision made, and I prefer ignoring &modifiable/&readonly and instead 
+setting nomodified after converting back to Unix (not technically true, but 
+close enough to being true for the reasons I use this script).
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic]
+
+==============================================================================
+
+It was non-trivial to make all this work well with plugins which also reload 
+the buffer, like AutoFenc! Here's what I ended up with, some of it can 
+probably be merged:
+
+>
+    " When loading a file, if it reads in as Unix, but has a DOS line ending,
+        " and is not in binary mode, reload it in DOS format. Do this AFTER loading
+        " last known position to prevent always opening on last line.
+        "
+        " Time out the search after 1/10 second. Timeouts only available in 7.1.211
+        " and up, so just risk long loads in Unix.
+        if (v:version > 701 || v:version == 701 && has("patch211"))
+          autocmd BufReadPost * nested
+                \ if !exists('b:reload_DOS') && !exists('b:nested_DOS_reload') && !&binary && &ff=='unix' && (0 < search('\r$', 'n', 0, 100)) |
+                \   redir => s:num_dos_ends |
+                \   silent %s#\r$##n |
+                \   redir END |
+                \   let b:reload_DOS = 1 |
+                \   let b:nested_DOS_reload = 1 |
+                \   let s:l_tot = line('$') |
+                \   let s:l_dos = substitute(s:num_dos_ends, '^\_.\{-}\(\d\+\).*', '\1', '') |
+                \   echomsg s:l_dos 'DOS-style line endings found in' s:l_tot 'lines' |
+                \   e ++ff=dos |
+                \   unlet b:reload_DOS |
+                \ endif
+        else
+          autocmd BufReadPost * nested
+                \ if !exists('b:reload_DOS') && !&binary && &ff=='unix' && (0 < search('\r$', 'nc')) |
+                \   let b:reload_DOS = 1 |
+                \   let b_nested_DOS_reload = 1 |
+                \   e ++ff=dos |
+                \   unlet b:reload_DOS |
+                \ endif
+        endif
+        " Only unlet the stopper variable after all autocmds (including in plugins)
+        " have fired which may want to reload the entire buffer (hopefully).
+        "
+        " Also set the ff to unix here if appropriate since anything reloading the
+        " file has no way to know the correct ff except for what it has already been
+        " set to.
+        if has('gui_running')
+          let s:event = 'GUIEnter'
+        else
+          let s:event = 'VimEnter'
+        endif
+        exec 'autocmd '.s:event.' * autocmd file_handling BufReadPost * '.
+              \ 'if !exists("b:reload_DOS") |'.
+              \   'if exists("b:nested_DOS_reload") |'.
+              \     'unlet b:nested_DOS_reload |'.
+              \     'if exists("s:l_tot") && s:l_tot > s:l_dos * 2 |'.
+              \     '  let s:dos_mod_sav = &l:modified |'.
+              \     '  setlocal ff=unix |'.
+              \     '  let &l:modified=s:dos_mod_sav |'.
+              \     'endif |'.
+              \   'endif |'.
+              \ 'endif'
+<
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic]

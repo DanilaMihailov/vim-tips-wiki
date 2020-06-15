@@ -1,0 +1,52 @@
+*vim-wiki-tips-1359.txt*   Calculator and code evaluation using Perl *vwt-1359*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1359 [https://vim.fandom.com/wiki/Calculator_and_code_evaluation_using_Perl]   Previous |vwt-1356| Next |vwt-1361|
+
+created October 17, 2006 · complexity basic · author Michael Hooreman · 
+version n/a
+
+==============================================================================
+
+This is a Perl variation of VimTip1235 |vwt-1235|.
+
+You can calculate with Perl inside Vim, and do more by adding the following 
+to your vimrc:
+
+>
+    :command! -nargs=+ Evaluate :perl VIM::Msg(eval{<args>})
+<
+
+This prints the last statement value of the provided code as argument, so you 
+can do more than a calculation.
+
+Examples:
+
+>
+    :Evaluate 1+2
+     > 3
+    
+    :Evaluate sin(0)
+     > 0
+    
+    :Evaluate $a=sin(0);$a==sin(0)?"equal":"not equal"
+     > equal
+    
+    :Evaluate @a=(0..10); join "", map{$_%2?"-":$_}@a;
+     > 0-2-4-6-8-10
+<
+
+COMMENTS  *vwt-1359-comments*
+
+An alternative is VimTip1349 |vwt-1349|.
+
+Does not need Python nor Perl.
+
+==============================================================================

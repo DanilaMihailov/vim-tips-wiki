@@ -1,0 +1,56 @@
+*vim-wiki-tips-1059.txt*   Save each line in separate numbered files *vwt-1059*
+
+Tip 1059 [https://vim.fandom.com/wiki/Save_each_line_in_separate_numbered_files]   Previous |vwt-1058| Next |vwt-1061|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+A file may consist of lines of text, where each line is some meaningful 
+record of information. This tip shows how to save each line to a separate file 
+(one line per file).
+
+The following command saves each line in the current buffer to a separate 
+file:
+
+>
+    :g/^/execute '.w '.line('.').'.txt'
+<
+
+The first line is saved in file 1.txt, and the second line is saved in file 
+2.txt, and so on. If a file exists, it is not overwritten—the command stops 
+with an error message, and does not attempt to write any further files. If 
+wanted, replace .w with .w! to force files to be overwritten.
+
+The following command is similar, but it only saves non-empty lines (empty 
+lines are skipped):
+
+>
+    :g/./execute '.w '.line('.').'.txt'
+<
+
+Explanation:
+
+:g/^/...
+The global command performs a command (shown as ... here) on each line that matches the pattern ^. Since that pattern matches the start of a line, it matches every line, and whatever command is used instead of ... will be performed on each line.
+execute ...
+This evaluates the following expression, then executes the result as a command.
+.w
+The w is the write command, and the . is a range that refers to the current line, so the command writes only the current line.
+line('.').'.txt'
+line('.') gives the current line number, which is concatenated with the string .txt.
+
+For the first line, :g/^/ executes the command execute '.w 1.txt' which 
+writes the current line (the first line) to file 1.txt.
+
+If only some lines are wanted, an appropriate search pattern can be used. For 
+example, the following command operates on all lines that start with "Error". 
+In each case, three lines (the line before "Error", the "Error" line, and the 
+line after) are written to a file named N.txt where N is the number of the 
+line containing "Error".
+
+>
+    :g/^Error/execute '.-1,.+1w '.line('.').'.txt'
+<
+
+COMMENTS  *vwt-1059-comments*

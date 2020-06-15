@@ -1,0 +1,191 @@
+*vim-wiki-tips-1531.txt*   Word frequency statistics for a file *vwt-1531*
+
+Tip 1531 [https://vim.fandom.com/wiki/Word_frequency_statistics_for_a_file]   Previous |vwt-1530| Next |vwt-1532|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Word_frequency_statistics_for_a_file] 
+2007 · complexity basic · author vale.smth · version 7.0
+
+==============================================================================
+
+This tip shows how to generate a table of occurrence frequencies for every 
+word in the current buffer, or in selected text. For example, the results may 
+include the following which shows that "action" was used 12 times, "agree" 7 
+times, and so on:
+
+>
+    action  12
+    agree   7
+    and     26
+<
+
+USING A DICTIONARY  *vwt-1531-using-a-dictionary*
+
+Procedure:
+    - In Vim, copy the code shown below, then enter :@" to execute it (or put the code in your vimrc [https://vim.fandom.com/wiki/Vimrc]).
+    - Press V then move the cursor to select the lines whose words you want to count.
+    - Alternatively, select no lines, in which case all words in the buffer will be counted.
+    - Type :WordFrequency and press Enter.
+
+
+A new window will open with a scratch buffer showing the word frequencies.
+
+>
+    function! WordFrequency() range
+      let all = split(join(getline(a:firstline, a:lastline)), '\A\+')
+      let frequencies = {}
+      for word in all
+        let frequencies[word] = get(frequencies, word, 0) + 1
+      endfor
+      new
+      setlocal buftype=nofile bufhidden=hide noswapfile tabstop=20
+      for [key,value] in items(frequencies)
+        call append('$', key."\t".value)
+      endfor
+      sort i
+    endfunction
+    command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
+<
+
+
+
+MOST FREQUENT WORDS FIRST  *vwt-1531-most-frequent-words-first*
+
+Putting the code below in your .vimrc and entering :WordFrequency will show 
+you the most frequent words first. For example:
+
+>
+    count 	 words
+    --------------------------
+    37	 the
+    23	 a
+    21	 set
+    17	 in let
+    14	 to
+    13	 call line
+    11	 of for word
+<
+
+In this example the word "set" occurred 21 times in the text and the words 
+"call" and "line" both occurred 13 times.
+
+Code:
+
+>
+    " Sorts numbers in ascending order.
+    " Examples:
+    " [2, 3, 1, 11, 2] --> [1, 2, 2, 3, 11]
+    " ['2', '1', '10','-1'] --> [-1, 1, 2, 10]
+    function! Sorted(list)
+      " Make sure the list consists of numbers (and not strings)
+      " This also ensures that the original list is not modified
+      let nrs = ToNrs(a:list)
+      let sortedList = sort(nrs, "NaturalOrder")
+      echo sortedList
+      return sortedList
+    endfunction
+    
+    " Comparator function for natural ordering of numbers
+    function! NaturalOrder(firstNr, secondNr)
+      if a:firstNr < a:secondNr
+        return -1
+      elseif a:firstNr > a:secondNr
+        return 1
+      else 
+        return 0
+      endif
+    endfunction
+    
+    " Coerces every element of a list to a number. Returns a new list without
+    " modifying the original list.
+    function! ToNrs(list)
+      let nrs = []
+      for elem in a:list
+        let nr = 0 + elem
+        call add(nrs, nr)
+      endfor
+      return nrs
+    endfunction
+    
+    function! WordFrequency() range
+      " Words are separated by whitespace or punctuation characters
+      let wordSeparators = '[[:blank:][:punct:]]\+'
+      let allWords = split(join(getline(a:firstline, a:lastline)), wordSeparators)
+      let wordToCount = {}
+      for word in allWords
+        let wordToCount[word] = get(wordToCount, word, 0) + 1
+      endfor
+    
+      let countToWords = {}
+      for [word,cnt] in items(wordToCount)
+        let words = get(countToWords,cnt,"")
+        " Append this word to the other words that occur as many times in the text
+        let countToWords[cnt] = words . " " . word
+      endfor
+    
+      " Create a new buffer to show the results in
+      new
+      setlocal buftype=nofile bufhidden=hide noswapfile tabstop=20
+    
+      " List of word counts in ascending order
+      let sortedWordCounts = Sorted(keys(countToWords))
+    
+      call append("$", "count \t words")
+      call append("$", "--------------------------")
+      " Show the most frequent words first -> Descending order
+      for cnt in reverse(sortedWordCounts)
+        let words = countToWords[cnt]
+        call append("$", cnt . "\t" . words)
+      endfor
+    endfunction
+    
+    command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
+<
+
+USING COMMANDS  *vwt-1531-using-commands*
+
+The following alternative demonstrates the amazing power of Ex commands. This 
+process replaces the current buffer with a word frequency table, so you should 
+be working on a copy of your text.
+
+Enter the following commands. In the third line, the "^A" represents Ctrl-A 
+which needs to be entered by pressing Ctrl-V then Ctrl-A (if you use Ctrl-V 
+for paste, press Ctrl-Q then Ctrl-A):
+
+>
+    :%s/\_A\+/\t1\r/g
+    :sort i
+    :g/^\c\(.\+\)\n\1$/norm! $yiwj@"^Akdd
+<
+
+The first command replaces all sequences of not-word characters (including 
+newlines, \_A\+) with "\t1\r" (a tab character, the digit 1, and a newline). 
+The result leaves only words, each followed by a count of 1, with a single 
+word per line.
+
+The second command sorts the lines, ignoring case. The next step combines all 
+lines containing the same word ignoring case.
+
+The third command uses :g/// to flag each line which is followed by another 
+line containing the same text (\1), ignoring case (\c). The given normal-mode 
+command is then executed on each flagged line: $ moves to end-of-line, yiw 
+copies inner word (the count); j goes down one line; @" effectively types the 
+contents of the unnamed register (count copied from previous line), and that 
+value is a repeat count for the Ctrl-A which increments the 1 that many times 
+to accumulate the total; k goes up one line; dd deletes that line.
+
+Possible mods:
+    -  use a more general substitute pattern for non-English texts: :%s/\%(\K\@!\_.\)\+/\t1\r/g This will keep all 'iskeyword' characters (except digits) instead of only letters.
+    -  at the end, add a command to sort after the counts: :sort! n /\t/! - reverse sort, n - sort after numbers, /\t/ - only look at text right from the first Tab character
+
+
+COMMENTS  *vwt-1531-comments*
+
+You may also be interested in Ditto, a Vim plugin that highlights the most 
+frequent words in each sentence, paragraph or file: 
+https://github.com/danielbmarques/vim-ditto 
+[https://github.com/danielbmarques/vim-ditto]
+
+Daniel Marques [https://vim.fandom.com/wiki/User:Danielbmarques] (talk 
+[https://vim.fandom.com/wiki/User_talk:Danielbmarques]) 03:18, July 30, 2016 
+(UTC)

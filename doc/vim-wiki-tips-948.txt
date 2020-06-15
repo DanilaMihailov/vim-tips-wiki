@@ -1,0 +1,85 @@
+*vim-wiki-tips-948.txt*   Correct format-flowed email function *vwt-948*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 948 [https://vim.fandom.com/wiki/Correct_format-flowed_email_function]   Previous |vwt-946| Next |vwt-949|
+
+created June 8, 2005 · complexity intermediate · author Kyle Wheeler · 
+version 5.7
+
+==============================================================================
+
+I frequently get email from people who do not use format-flowed email 
+properly. I prefer to send out "correct" email, including the stuff I'm 
+quoting, and Vim helps me do that. I added this function to my vimrc, and now 
+I use it when editing mail by simply typing:
+
+
+
+Fixq
+
+
+
+Here's the function:
+
+>
+    function! Fixflowed()
+      " save cursor position
+      let pos = getpos(".")
+      " add spaces to the end of every line
+      silent! %s/\([^]> :]\)\ze\n>[> ]*[^> ]/\1 /g
+      " remove extraneous spaces
+      silent! %s/ \+\ze\n[> ]*$//
+      " make sure there's only ONE space at the end of each line
+      silent! %s/ \{2,}$/ /
+      " fix the wockas spacing from the text
+      silent! %s/^[> ]*>\ze[^> ]/& /
+      " compress the wockas
+      while search('^>\+ >', 'w') > 0
+        s/^>\+\zs >/>/
+      endwhile
+      " restore the original cursor location
+      call setpos('.',pos)
+    endfunction
+<
+
+It's a little sensitive because it CAN blow away ascii art (it tries not to), 
+and it also doesn't automatically reflow paragraphs (I have no idea how to do 
+that properly).
+
+I also have another function that helps when inserting indented paragraphs 
+into a format=flowed email; the idea is to remove spaces at the end of 
+indented lines so that they won't be wrapped (quoting is not indenting):
+
+>
+    function! Fixindented()
+      " remove spaces at end of indented lines
+      silent! %s/^\s.*\zs \+$//
+    endfunction
+<
+
+I set these functions up like this:
+
+>
+    autocmd Filetype mail command! Fixq call Fixflowed()
+    autocmd Filetype mail autocmd BufWritePre <buffer> call Fixindented()
+<
+
+Hope it helps someone.
+
+COMMENTS  *vwt-948-comments*
+
+PAR is a lot better at this kind of thing: http://www.nicemice.net/par/ 
+[http://www.nicemice.net/par/]
+
+==============================================================================
+
+PAR is a useful tool, but is not specific to format=flowed, and so can be 
+over-zealous in some cases. For example, it doesn't recognized the -- 
+separator between email body and signature, and wraps it into the signature.

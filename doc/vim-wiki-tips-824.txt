@@ -1,0 +1,78 @@
+*vim-wiki-tips-824.txt*   Use a smaller font for vimdiff *vwt-824*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 824 [https://vim.fandom.com/wiki/Use_a_smaller_font_for_vimdiff]   Previous |vwt-823| Next |vwt-825|
+
+created November 19, 2004 · complexity basic · author Pan Shizhu · version 
+6.0
+
+==============================================================================
+
+I want to change the font when Vim is launched in vimdiff mode, since you'll 
+not be able to change the font later while retaining the 1:1 split, (in other 
+cases, I can change the font before :diffs).
+
+Just add something like the following in gvimrc. Of course, your fonts may 
+vary.
+
+>
+    " Font must be set in gvimrc
+    let in_diff_mode = 0
+    windo let in_diff_mode = in_diff_mode + &l:diff
+    set guifont=Lucida_Console:h15:cDEFAULT
+    " In diff mode
+    if in_diff_mode == 1
+      set guifont=isi_ansi:h14:cDEFAULT
+    endif
+    unlet in_diff_mode
+<
+
+COMMENTS  *vwt-824-comments*
+
+>
+    "Here are some settings for diff mode, the colors are troublesome.
+    if &diff
+      set diffopt=filler,iwhite,icase,context:6
+      ":windo! set wrap
+      " hi diffchange ctermbg=0 .. is black on unix
+      hi diffchange term=NONE ctermbg=3 ctermfg=5
+      hi diffdelete term=NONE ctermbg=0
+      hi diffadd term=NONE ctermbg=1 ctermfg=15
+      if $TERM =~ "xterm"
+        hi diffchange ctermbg=8 ctermfg=1
+        hi difftext ctermbg=8 ctermfg=7
+        hi diffadd ctermbg=8 ctermfg=11
+      endif
+    endif
+<
+
+==============================================================================
+
+Is there any reason not to test for the value of &l:diff directly? In my 
+gvimrc the following lines seem to work:
+
+>
+    if &l:diff
+      set guifont=Monaco:h9
+    else
+      set guifont=Monaco:h11
+    endif
+<
+
+==============================================================================
+
+I have been looking for information on how to set the font size to much 
+larger on a MacOSX installation of Vim.app.
+
+This worked finally:
+
+set guifont=Monaco:h18
+
+==============================================================================

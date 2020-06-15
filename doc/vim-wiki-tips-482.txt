@@ -1,0 +1,326 @@
+*vim-wiki-tips-482.txt*   Keep a to-do memo file with links as in Vim help *vwt-482*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip823 |vwt-823|
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 482 [https://vim.fandom.com/wiki/Keep_a_to-do_memo_file_with_links_as_in_Vim_help]   Previous |vwt-481| Next |vwt-483|
+
+created 2003 · complexity intermediate · author hypertext organizer · version 
+5.7
+
+==============================================================================
+
+No one has a perfect memory. You can make small text files with items you 
+want to remember, and grep them later to search for what you need.
+
+Or, you can keep a single file, and use Vim to organize it, in the same way 
+that Vim organizes its Help. Here is an extract from my own Memo:
+
+>
+    *memo.txt* My Memo - extending my poor memory |guide|
+    ----------------------------------------------------------------
+    *subjects* *toc*
+    |cmd| command tips |def| definitions
+    |dev| developments |ed| editors |friends| friends
+    |lang| languages |misc| others
+    |private| personal info |sys| system
+    ----------------------------------------------------------------
+    Commands *cmd*
+    *General
+    http://www.cslab.vt.edu/manuals
+     ...
+    |doskey| DOS key utility
+     <F8>: expand history
+    |man| Unix manual
+     man foo
+     nroff -man foo.1 | less
+     nroff -man foo.1 | a2ps -m
+    |unix|
+    http://gd.tuwien.ac.at/linuxcommand.org/
+    |winhelp|
+     ...
+    ----------------------------------------------------------------
+    Development *develop* *dev*
+     ...
+    ----------------------------------------------------------------
+    vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
+<
+
+Some explanations:
+
+The last line instructs Vim with a number of editing settings. The most 
+important one here is "ft=help", which says file-type is "help". So Vim will 
+highlight things for us.
+
+You can use *foo* to indicate an anchor to the "help" system of Vim. If you 
+press Ctrl+] on a word "foo", the cursor will jump to the first *foo*. You can 
+also see |foo| as a way to highlight it as implicit keywords.
+
+This is not magic. The mechanism behind it is the tag system. Vim needs to 
+have the following tag file to go to where you want it to go:
+
+>
+    %userprofile% memo.txt /*%userprofile%*
+    .htaccess meo.txt /*.htaccess*
+    access memo.txt /*access*
+    access.conf memo.txt /*access.conf*
+    addressbook memo.txt /*addressbook*
+    anchor_keyword memo.txt /*anchor_keyword*
+    apache memo.txt /*apache*
+    as index.txt /*as*
+    at index.txt /*at*
+    awk index.txt /*awk*
+<
+
+Each line defines a tag, the first element is the keyword, the second is the 
+file where the tag belongs (yes, you can use multiple files as long as you 
+know what they are), and the last element is the command which Vim has to 
+perform at the keyword.
+
+How to write these tags? You can find this utility to do it:
+
+>
+    cc doctags.c -o doctags
+    doctags memo.txt | sort -f | awk -f cases.awk >tags
+    uniq -d -2 tags
+<
+
+>
+    /* doctags.c (see Vim source!) */
+    /* vim:set ts=4 sw=4:
+     * this program makes a tags file for vim_ref.txt
+     *
+     * Usage: doctags vim_ref.txt vim_win.txt ... >tags
+     *
+     * A tag in this context is an identifier between stars, e.g. *c_files*
+     */
+    
+    #include <stdio.h>
+    #include <string.h>
+    #include <ctype.h>
+    #include <stdlib.h>
+    
+    #define LINELEN 200
+    
+     int
+    main(argc, argv)
+     int argc;
+     char **argv;
+    {
+     char line[LINELEN];
+     char *p1, *p2;
+     char *p;
+     FILE *fd;
+    
+     if (argc <= 1)
+     {
+      fprintf(stderr, "Usage: doctags docfile ... >tags\n");
+      exit(1);
+     }
+     printf("help-tags\ttags\t1\n");
+     while (--argc > 0)
+     {
+      ++argv;
+      fd = fopen(argv[0], "r");
+      if (fd == NULL)
+      {
+       fprintf(stderr, "Unable to open %s for reading\n", argv[0]);
+       continue;
+      }
+      while (fgets(line, LINELEN, fd) != NULL)
+      {
+       p1 = strchr(line, '*'); /* find first '*' */
+       while (p1 != NULL)
+       {
+        p2 = strchr(p1 + 1, '*'); /* find second '*' */
+        if (p2 != NULL && p2 > p1 + 1) /* skip "*" and "**" */
+        {
+         for (p = p1 + 1; p < p2; ++p)
+          if (*p == ' ' || *p == '\t' || *p == '|')
+           break;
+         /*
+          * Only accept a *tag* when it consists of valid
+          * characters and is followed by a white character or
+          * end-of-line.
+          */
+         if (p == p2 && (p1 == line || p1[-1] != '-') &&
+         (strchr(" \t\n\r", p[1]) != NULL || p[1] == '\0'))
+         {
+          *p2 = '\0';
+          ++p1;
+          printf("%s\t%s\t/*", p1, argv[0]);
+          while (*p1)
+          {
+           /* insert backslash before '\' and '/' */
+           if (*p1 == '\' || *p1 == '/')
+            putchar('\');
+           putchar(*p1);
+           ++p1;
+          }
+          printf("*\n");
+          p2 = strchr(p2 + 1, '*'); /* find next '*' */
+         }
+        }
+        p1 = p2;
+       }
+      }
+      fclose(fd);
+     }
+     return 0;
+    }
+<
+
+>
+    /* cases.awk */
+    {
+    print tolower($1) "\t" $2 "\t" tolower($3);
+    }
+<
+
+COMMENTS  *vwt-482-comments*
+
+This is all as clear as mud. It would be great if someone could come up with 
+a straightforward explaination of how to write and use a memo file. Or replace 
+this lot with a linkto something more useful.
+
+TODO Omit the misguided suggestions above for using doctags, and below for 
+using tags.py, and use Vim's :helptags as in the next comment.
+
+==============================================================================
+
+See :help |:helptags|.
+
+Make your own tags file within Vim with:
+
+>
+    :execute "helptags " . expand("%:p:h")
+<
+
+from within the open file.
+
+==============================================================================
+
+There is one downside with :helptags. It operates only on *.txt files.
+
+Here is another method for generating a tags file for *word* style tags; 
+written in python and based off the ptags.py from the python22 distribution.
+
+Usage: tags.py [file] [file,etc]
+
+Example: tags.py myfile.html myfile.c etc
+
+>
+    #! /usr/bin/env python
+    # tags.py
+    #{{{ File header information
+    """
+    /*!
+    \file tags.py
+    \brief Create a tags file (of *WORDS*), usable with VIM61, possibly earlier.
+    \note based on ptags.py from the python22 distribution
+     modifed by Feral to find only *word* style tags (for my documtation) output tailored for VIM6.1
+    \author Original author unknown, based on ptags.py from the python22 distribution.
+     This file modified and maintained by Feral
+    \version 1.02
+    \note $Id$
+    
+    Changelog:
+     1.01: [Feral:240/02@08:36] now warns on a duplicate entry, slow and crude method (checks each addition to tags)
+     1.00: [yesterday]
+     Initial version, based on ptags.py from the python22 distrobution.
+    */
+    """
+    #}}}
+    
+    import sys, re, os
+    
+    tags = [] # modified global variable
+    
+    def main():
+      args = sys.argv[1:]
+      print args
+      for file in args:
+      treat_file(file)
+      # keep in mind that the tags are sorted, this line !should! end up at the top...
+      tags.append("!_TAG_FILE_SORTED\t1\n")
+      if tags:
+        fp = open('tags', 'w')
+        tags.sort()
+        for s in tags:
+          fp.write(s)
+    
+    matcher = re.compile(r'\*\w+\*')
+    
+    def treat_file(file):
+      print "treating file", file
+      dacount = 0
+      try:
+        fp = open(file, 'r')
+      except:
+        print >> sys.stderr, 'Cannot open %s' % file
+        return
+      base = os.path.basename(file)
+      while True:
+        line = fp.readline()
+        if not line:
+        break
+        m = matcher.search(line)
+        if m:
+          content = m.group()
+          s = content + '\t' + base + '\t/' + content + '\n'
+          for item in tags:
+            if item == s:
+              print "Duplicate entry:", content
+          tags.append(s)
+          dacount += 1
+      print "\t", dacount, "matches."
+    
+    if __name__ == '__main__':
+      main()
+<
+
+==============================================================================
+
+Also see Thlnk.vim script#293 
+[https://www.vim.org/scripts/script.php?script_id=293].
+
+==============================================================================
+
+It will be better if combined with the folding. I put this on the modeline:
+
+>
+    vim:fdm=marker:tw=78:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
+<
+
+And add folding marks at the end of the section title, like this:
+
+>
+    ==================================================
+    Commands {{{1
+    ==================================================
+<
+
+"{{{1" is the default folding mark for level one. You can use multiple level 
+folders as well (:he Folding). Vim will folder the items automatically so you 
+can get all items at one glance. Really nice feature!
+
+==============================================================================
+
+I just integrated much of these functions (links, folding, etc) into one 
+script in script#828 [https://www.vim.org/scripts/script.php?script_id=828].
+
+==============================================================================

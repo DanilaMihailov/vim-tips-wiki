@@ -1,0 +1,42 @@
+*vim-wiki-tips-52.txt*   Scrolling synchronously *vwt-52*
+
+Tip 52 [https://vim.fandom.com/wiki/Scrolling_synchronously]   Previous |vwt-51| Next |vwt-53|
+
+created 2001 · complexity basic · version 5.7
+
+==============================================================================
+
+When you are displaying more than one window, you can set the scrollbind 
+option in each window so they scroll together.
+
+In each window that should scroll simultaneously, enter the command:
+
+>
+    :set scrollbind
+<
+
+You can enter scb as an abbreviation for scrollbind, and the ! flag causes 
+:set to toggle a boolean option. Therefore, it is convenient to enter the 
+following to toggle scrollbind on or off:
+
+>
+    :set scb!
+<
+
+When you scroll a window which has 'scrollbind' set, all other 'scrollbind' 
+windows are scrolled the same amount, if possible.
+
+REFERENCES  *vwt-52-references*
+    - :help  |scroll-binding|
+    - :help 'scrollbind'
+
+
+COMMENTS  *vwt-52-comments*
+
+...and, if your scrollbound windows ever get out of sync, in gvim it's 
+possible to adjust them, as follows: scrolling the window (by any means) will 
+scroll all scrollbound windows together, but scrolling a window (by means of 
+its scrollbar) won't scroll the other one(s) with it. — Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 00:43, April 4, 2010 (UTC)This 
+technique also works with standard VIM when you have mouse controls enabled 
+and using the mouse-wheel to scroll the inactive window(s).

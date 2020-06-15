@@ -1,0 +1,109 @@
+*vim-wiki-tips-910.txt*   Upload web files from Vim using Python *vwt-910*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 910 [https://vim.fandom.com/wiki/Upload_web_files_from_Vim_using_Python]   Previous |vwt-909| Next |vwt-911|
+
+created 2005 · complexity basic · author Matthias Ihrke · version 5.7
+
+==============================================================================
+
+I often have a local working copy of a remote directory tree (e.g. a website) 
+and sometimes I want to transfer some minor changes to a file very fast (e.g. 
+when updating a webpage).
+
+You can do this by simply typing :Upload while editing a file using the 
+following line in vimrc:
+
+>
+    :command Upload :!upload.py %;
+<
+
+The file upload.py must be in your PATH:
+
+>
+    #!/usr/bin/env python
+    import os, sys
+    
+    # cmd parsing
+    if len(sys.argv)>1 and os.path.isfile(sys.argv[1]): file=sys.argv[1]
+    else: print "Usage: upload.py <file>"; sys.exit()
+    
+    # can be overridden by environment variables
+    mode='scp'
+    server='your_server.org'
+    user='username_on_server'
+    remote_root='/your/root/on/server'
+    local_root='/your/local/root'
+    
+    # override defaults with environment variables
+    if os.getenv('UPLOAD_MODE'): mode = os.getenv('UPLOAD_MODE')
+    if os.getenv('UPLOAD_SERVER'): server = os.getenv('UPLOAD_SERVER')
+    if os.getenv('UPLOAD_USER'): user = os.getenv('UPLOAD_USER')
+    if os.getenv('UPLOAD_REMOTE_ROOT'): remote_root = os.getenv('UPLOAD_REMOTE_ROOT')
+    if os.getenv('UPLOAD_LOCAL_ROOT'): local_root = os.getenv('UPLOAD_LOCAL_ROOT')
+    
+    # add other modes here
+    if mode=='scp':
+      if not os.getcwd().startswith(local_root): print 'file not in %s'%local_root; sys.exit()
+      else: ext_path=os.path.join(os.getcwd().replace(local_root, remote_root), file)
+      cmd = 'scp %s %s@%s:%s'%(file, user, server, ext_path)
+      failure = os.system(cmd)
+      if failure: print "Running %s failed..."%cmd
+<
+
+You will have to specify your server, your directory on the server, the user 
+on the server and the local directory root which is corresponding to the 
+remote directory.
+
+You can specify the location either in the script, or as environment 
+variables as export UPLOAD_REMOTE_ROOT=/some/directory
+
+If the file you are editing is in the specified local directory or one of its 
+subdirectories, the script will automatically upload it to the correct 
+location.
+
+Of course this is only of use if you have one major directory on one major 
+server. If you have data on multiple servers, this script won't help, since 
+you always have to specify the server and the corresponding directories.
+
+COMMENTS  *vwt-910-comments*
+
+Use netrw (distributed with Vim) for this type of operation. See :help 
+|netrw|.
+
+==============================================================================
+
+Using netrw, Vim keeps a local copy of the document in your temp folder.
+
+You can use a procedure like the following to use short names to access 
+hosts.
+
+Add following lines to .ssh/config
+
+>
+    Host short
+    Hostname very.long.hostname
+    User username
+    Port 12345 # if you really need it
+    
+    Host another
+    Hostname another.very.long.hostname
+    User different_username
+<
+
+Now try this:
+
+>
+    vim scp://short/~/path/to/file
+<
+
+The ~ is your home folder (usually you keep files here).
+
+==============================================================================

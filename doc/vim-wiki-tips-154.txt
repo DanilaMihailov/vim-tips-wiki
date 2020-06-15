@@ -1,0 +1,127 @@
+*vim-wiki-tips-154.txt*   Mappings to facilitate the creation of text *vwt-154*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 154 [https://vim.fandom.com/wiki/Mappings_to_facilitate_the_creation_of_text]   Previous |vwt-153| Next |vwt-155|
+
+created November 5, 2001 · complexity basic · author Suresh Govindachar · 
+version 6.0
+
+==============================================================================
+
+This page is dodgy [https://vim.fandom.com/wiki/Category:Dodgy]. The contents 
+may not be useful for Vim 7. If you think this tip is useful, please edit it 
+to make the problem and its solution more understandable, and remove the 
+{{Dodgy}} tag.
+
+Not enough explanation. What is the purpose of each set of mappings, and what 
+do they accomplish? What problem is being solved?
+
+>
+    "
+    " Mappings to facilitate the creation of text
+    "
+    " Author: Suresh Govindachar
+    " Date: November 5, 2001
+    "
+    " While typing text to create a document, I often end up hitting
+    " <Esc>, issuing some commands (with or without ":") and getting back
+    " to typing by issuing a command such as "i", "O", "s" etc.
+    "
+    " I looked into using "set insertmode" to speed up such actions, but
+    " found that too confusing.
+    "
+    " I have come up with a set of mappings that have speeded up my process
+    " of creating documents. I have saved these mappings in a file, named
+    " FullScreenVI.vim, in vim's plugin directory.
+    
+    "To allow overriding the Alt key
+    set winaltkeys=no
+    "To enable viewing messages from commands issued using the mappings presented here
+    set cmdheight=2
+    
+    "The fundamental mapping that makes full-screen editing possible
+    imap <A-o> <C-o>
+    imap <A-;> <C-o>:
+    
+    "Basic motions
+    imap <A-h> <Left>
+    imap <A-j> <Down>
+    imap <A-k> <Up>
+    imap <A-l> <Right>
+    imap <A-f> <PageDown>
+    imap <A-b> <PageUp>
+    imap <A-^> <Home>
+    imap <A-$> <End>
+    
+    "Numbers for repeats
+    imap <A-1> <C-o>1
+    imap <A-2> <C-o>2
+    imap <A-3> <C-o>3
+    imap <A-4> <C-o>4
+    imap <A-5> <C-o>5
+    imap <A-6> <C-o>6
+    imap <A-7> <C-o>7
+    imap <A-8> <C-o>8
+    imap <A-9> <C-o>9
+    
+    "Basic searches
+    imap <A-/> <C-o>/
+    imap <A-*> <C-o>*
+    imap <A-#> <C-o>#
+    imap <A-n> <C-o>n
+    imap <A-N> <C-o>N
+    
+    "Deleting
+    imap <A-x> <C-o>x
+    imap <A-d> <C-o>d
+    imap <A-D> <C-o>D
+    
+    "Yanking and putting
+    imap <A-y> <C-o>y
+    imap <A-Y> <C-o>Y
+    imap <A-p> <C-o>p
+    imap <A-P> <C-o>P
+    
+    "Common prefixes: marking, matching etc.
+    imap <A-~> <C-o>~
+    imap <A-m> <C-o>m
+    imap <A-`> <C-o>`
+    imap <A-"> <C-o>"
+    imap <A-%> <C-o>%
+    imap <A-h> <C-o>:h
+    imap <A-s> <C-o>:s
+    
+    "Interacting with the 'outside'
+    imap <A-!> <C-o>:!
+    imap <A-w> <C-o>:w<CR>
+    imap <A-e> <C-o>:e
+    
+    "Other commands
+    imap <A-u> <C-o>u
+    imap <A-.> <C-o>.
+<
+
+COMMENTS  *vwt-154-comments*
+
+BUG:In the section "Common prefixes: marking, matching etc.":
+
+>
+    imap <A-h> <C-o>:h
+<
+
+conflicts with the "move to left" command; the preceding could be changed to:
+
+>
+    imap <A-H> <C-o>:h
+<
+
+==============================================================================
+
+I gather the above comment is a disparaging remark suggesting that only a novice would use Vim as suggested by the tip. I totally agree. What are we going to do with this page? Someone found it useful, but by keeping it we are suggesting to readers that this kind of thing is worth studying. Adding a dodgy tag is not sufficient. I'll contemplate a radical plan like redirecting it to Tutorial. JohnBeckett 10:25, April 18, 2012 (UTC)

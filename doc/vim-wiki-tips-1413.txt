@@ -1,0 +1,38 @@
+*vim-wiki-tips-1413.txt*   Make tar of all files in vim buffer *vwt-1413*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1413 [https://vim.fandom.com/wiki/Make_tar_of_all_files_in_vim_buffer]   Previous |vwt-1393| Next |vwt-1431|
+
+created 2006 · complexity basic · author Eric Smith · version 5.7
+
+==============================================================================
+
+The following command will make a tar file including path information of all 
+files in the current Vim buffer. If you wish to omit paths, leave out the 
+':p'.
+
+>
+    :silent bufdo !tar -rvf archive.tar %:p
+<
+
+I use it to copy projects (where all files are open in split screen), from 
+one machine to another.
+
+COMMENTS  *vwt-1413-comments*
+
+Zip version - zip all the files in your Vim session.
+
+>
+    :silent bufdo !zip proj.zip %
+<
+
+---You probably want to use :mksession to save your window setup also?
+
+==============================================================================

@@ -1,0 +1,91 @@
+*vim-wiki-tips-1554.txt*   Move current window between tabs *vwt-1554*
+
+Tip 1554 [https://vim.fandom.com/wiki/Move_current_window_between_tabs]   Previous |vwt-1553| Next |vwt-1555|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Move_current_window_between_tabs] 
+2008 · complexity intermediate · author Paluh · version 7.0
+
+==============================================================================
+
+These two functions allow you to move window between tabs. Unlike the 
+:tabmove command, which moves an entire tab to a new position, these functions 
+will move a window in the current tab into another existing tab (or a new tab 
+if there are no other existing tabs).
+
+For example, assume you are editing files in three tabs: [1],[2],[3] – where 
+[] indicates a tab page, and the list of numbers inside brackets shows the 
+windows open in that tab (when there is more than one window in one tab, the 
+script splits it horizontally).
+
+Assume that we are in the first tab (so we are editing window with buffer 
+with file 1 – bold marks current window). After :call MoveToNextTab() there 
+will be [1,2],[3]. After the next :call MoveToNextTab() the windows will be 
+arranged thusly: [2][1,3]. And after next one: [2],[3],[1].
+
+Of course MoveToPrevTab() works in opposite direction.
+
+>
+    function MoveToPrevTab()
+      "there is only one window
+      if tabpagenr('$') == 1 && winnr('$') == 1
+        return
+      endif
+      "preparing new window
+      let l:tab_nr = tabpagenr('$')
+      let l:cur_buf = bufnr('%')
+      if tabpagenr() != 1
+        close!
+        if l:tab_nr == tabpagenr('$')
+          tabprev
+        endif
+        sp
+      else
+        close!
+        exe "0tabnew"
+      endif
+      "opening current buffer in new window
+      exe "b".l:cur_buf
+    endfunc
+    
+    function MoveToNextTab()
+      "there is only one window
+      if tabpagenr('$') == 1 && winnr('$') == 1
+        return
+      endif
+      "preparing new window
+      let l:tab_nr = tabpagenr('$')
+      let l:cur_buf = bufnr('%')
+      if tabpagenr() < tab_nr
+        close!
+        if l:tab_nr == tabpagenr('$')
+          tabnext
+        endif
+        sp
+      else
+        close!
+        tabnew
+      endif
+      "opening current buffer in new window
+      exe "b".l:cur_buf
+    endfunc
+<
+
+My mapping for them:
+
+>
+    nnoremap <A-.> :call MoveToNextTab()<CR>
+    nnoremap <A-,> :call MoveToPrevTab()<CR>
+<
+
+RELATED PLUGINS  *vwt-1554-related-plugins*
+    -  Tabmerge [https://www.vim.org/scripts/script.php?script_id=1961] will merge all the windows of one tab into another
+
+
+COMMENTS  *vwt-1554-comments*
+
+If you prefer vertically-split windows, you can add <C-w>H to the mappings to 
+make the moved buffer vertical. My mappings look like this:map <C-m> :call 
+MoveToNextTab()<CR><C-w>Hmap <C-n> :call MoveToPrevTab()<CR><C-w>H
+
+Alternately, replace the sp lines withvert topleft split

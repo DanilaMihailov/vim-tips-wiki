@@ -1,0 +1,455 @@
+*vim-wiki-tips-353.txt*   Map caps lock to escape in Windows *vwt-353*
+
+Tip 75 [https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_Windows]   Previous |vwt-74| Next |vwt-76|
+
+created 2001 · complexity basic · author Igor Prischepoff · version 6.0
+
+==============================================================================
+
+This tip shows some methods for mapping keys within the operating system to 
+make life easier in Vim. In particular, it can be convenient to use the 
+CapsLock key for Escape so you don't have to reach for the Esc key. It is also 
+useful to use the CapsLock key for Ctrl 
+|vwt-353-use-the-caps-lock-key-as-ctrl| and press Ctrl-[ instead of Esc.
+
+This tip is for Windows systems (not Windows 9x). For Unix-based systems, see 
+Map caps lock to escape in XWindows |vwt-166|.
+
+Some of the procedures here change the way keys behave for all applications. 
+It may be better to use other methods to avoid the escape key |vwt-285| in 
+Vim.
+
+REGISTRY  *vwt-353-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+Before trying the following, you should run regedit.exe and inspect the 
+relevant registry keys, and export them for a backup. Make sure you know how 
+to remove the registry changes if they cause trouble.
+
+For the current user (doesn't work in Windows 7 or 8 and 10): To map CapsLock 
+to Escape, and ScrollLock to CapsLock, create file (for example) keys.reg 
+containing:
+
+>
+    REGEDIT4
+    
+    [HKEY_CURRENT_USER\Keyboard Layout]
+    "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,3a,00,46,00,01,00,3a,00,00,00,00,00
+<
+
+Use Explorer to double-click the file to import the value to the registry. To 
+apply the changes, log off and log on. Then, pressing key Esc will generate 
+Escape as normal, pressing CapsLock will also generate Escape, and pressing 
+ScrollLock will generate CapsLock (and you cannot generate ScrollLock).
+
+Alternatively, for the change to apply to all users, run the following reg 
+file and reboot (this key still works in Windows 7 or 8 and 10):
+
+>
+    Windows Registry Editor Version 5.00
+    
+    [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+    "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,3a,00,46,00,01,00,3a,00,00,00,00,00
+<
+
+To restore the keyboard, run regedit.exe and delete the "Scancode Map" entry 
+from HKEY_CURRENT_USER (and log off/on), or from HKEY_LOCAL_MACHINE (and 
+reboot), depending on which section of the registry you changed.
+
+USE THE CAPS LOCK KEY AS CTRL  *vwt-353-use-the-caps-lock-key-as-ctrl*
+
+Particularly while touch typing, it can be useful to remap the keyboard so 
+that pressing CapsLock is the same as pressing Ctrl. This change makes it easy 
+to press Ctrl-[ as an alternative to pressing Esc |vwt-285|.
+
+The following applies to the current user (log off and log on to apply). 
+Alternatively, an administrator can apply the change to all users (reboot to 
+apply) by replacing [HKEY_CURRENT_USER\Keyboard Layout] with 
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+
+Map CapsLock to LeftCtrl (press CapsLock to generate LeftCtrl):
+
+>
+    REGEDIT4
+    [HKEY_CURRENT_USER\Keyboard Layout]
+    "Scancode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
+<
+
+An alternative would be to replace the "Scancode Map" line with the following 
+to swap CapsLock and LeftCtrl:
+
+>
+    "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,3a,00,1d,00,1d,00,3a,00,00,00,00,00
+<
+
+UTILITIES  *vwt-353-utilities*
+
+As an alternative to changing the registry, there are various utilities that 
+can remap keys. Many of these can be run by a non-administrator, and can apply 
+mappings only when wanted (for example, when running Vim). They do not require 
+log off/on or reboot to apply changes, unless specified otherwise.
+
+KEYTWEAK  *vwt-353-keytweak*
+
+KeyTweak [http://www.bleepingcomputer.com/download/keytweak/] is a free 
+keyboard remapper for Windows NT/2000/XP/Vista/Win 7. It automates the 
+registry trick above (it makes use of Microsoft's Scancode Map registry key) 
+to remap your keyboard. This app requires you to reboot before changes take 
+effect.
+
+SHARPKEYS  *vwt-353-sharpkeys*
+
+This tool is a free keyboard mapper, but requires rebooting the machine for 
+the key mapping to take effect. The interface is fairly simple to use, and 
+appears to work on Windows NT/2003 server/2000/XP/Vista/Win 7/Win 10. By 
+automating the keyboard mapping, this reduces the risk of the user 
+accidentally changing something in the registry.
+
+https://github.com/randyrants/sharpkeys/releases 
+[https://github.com/randyrants/sharpkeys/releases]
+
+DUAL KEY REMAP  *vwt-353-dual-key-remap*
+
+Dual Key Remap [https://github.com/ililim/dual-key-remap] is an open source 
+project that enables mapping CapsLock to both Escape and Ctrl simultaneously. 
+The idea is that, for efficiency and ergonomic, Escape can be triggered when 
+CapsLock is pressed alone whereas Ctrl can be triggered when CapsLock is used 
+in combination with other keys. It's an alternative to some of the AutoHotkey 
+solutions described below, and avoids leaked or stuck keystrokes. The mapping 
+is not permanent and lasts as long as Dual Key Remap is running.
+
+UNCAP  *vwt-353-uncap*
+
+Uncap [https://github.com/susam/uncap#readme] is an open source project to 
+map CapsLock to Escape, or any key to any key. It is a single-file executable 
+that can be downloaded and run without setup or reboot. The key mappings are 
+not permanent: they last only as long as Uncap is running.
+
+If Uncap is run without any arguments, it maps CapsLock to Escape while 
+leaving Escape unchanged. Run uncap 0x1b:0x14 to swap CapsLock and Escape.
+
+AUTOHOTKEY  *vwt-353-autohotkey*
+
+AutoHotkey [http://www.autohotkey.com/] is an open source project to automate 
+sending keys and mouse clicks. It can remap keys, and provides a powerful 
+scripting language, and does not require administrator rights. One of the 
+features of this program is that the key mappings are not permanent, but only 
+last as long as the program is running.
+
+To make Capslock work like Escape, add the following to the default script:
+
+>
+    Capslock::Esc
+<
+
+The following AutoHotkey script will turn off CapsLock and generate Escape 
+when Esc is pressed:
+
+>
+    Esc::
+    SetCapsLockState, off
+    Suspend On
+    Send, {ESC}
+    Suspend Off
+    return
+<
+
+The following AutoHotkey script maps CapsLock to Ctrl in PuTTY. In other 
+applications, CapsLock works normally.
+
+>
+    classname = ""
+    keystate = ""
+    
+    *CapsLock::
+     WinGetClass, classname, A
+     if (classname = "PuTTY")
+       send,{Ctrl down}
+     else
+       GetKeyState, keystate, CapsLock, T
+     if (keystate = "D")
+       SetCapsLockState, Off
+     else
+       SetCapsLockState, On
+     return
+    
+    *CapsLock up::
+     WinGetClass, classname, A
+     if (classname = "PuTTY")
+       send,{Ctrl up}
+     return
+<
+
+The following AutoHotkey script maps CapsLock to ESC in Vim. In other 
+applications, CapsLock works normally.
+
+>
+    classname = ""
+    keystate = ""
+    
+    *Capslock::
+      WinGetClass, classname, A
+      if (classname = "Vim")
+      {
+        SetCapsLockState, Off
+        Send, {ESC}
+      }
+      else
+      {
+        GetKeyState, keystate, CapsLock, T
+        if (keystate = "D")
+          SetCapsLockState, Off
+        else
+          SetCapsLockState, On
+        return
+      }
+      return
+<
+
+The following AutoHotKey script switches CapsLock and Escape. When the 
+application is shut down, the keys return to their normal behavior:
+
+>
+    CapsLock::Esc
+    Esc::
+      if (GetKeyState("CapsLock", "T")) {
+        SetCapsLockState, Off
+      } else {
+        SetCapsLockState, On
+      }
+    return
+<
+
+The following AutoHotKey script tries to emulate an idea I read about from 
+Steve Losh where he overloaded his CapsLock key to do the following: pressing 
+CapsLock and another key is equivalent to pressing Ctrl and the other key, but 
+pressing and releasing CapsLock is equivalent to pressing Escape.
+
+>
+    ; Sends Esc if capslock is pressed alone
+    ; Sends Ctrl+key if capslock is pressed with another key
+    ; TODO: work with arrow keys and other modifiers (e.g. shift, control)
+    
+    SetCapsLockState AlwaysOff
+    CapsLock::Send {esc}
+    CapsLock & a::Send ^a
+    CapsLock & b::Send ^b
+    CapsLock & c::Send ^c
+    CapsLock & d::Send ^d
+    CapsLock & e::Send ^e
+    CapsLock & f::Send ^f
+    CapsLock & g::Send ^g
+    CapsLock & h::Send ^h
+    CapsLock & i::Send ^i
+    CapsLock & j::Send ^j
+    CapsLock & k::Send ^k
+    CapsLock & l::Send ^l
+    CapsLock & m::Send ^m
+    CapsLock & n::Send ^n
+    CapsLock & o::Send ^o
+    CapsLock & p::Send ^p
+    CapsLock & q::Send ^q
+    CapsLock & r::Send ^r
+    CapsLock & s::Send ^s
+    CapsLock & t::Send ^t
+    CapsLock & u::Send ^u
+    CapsLock & v::Send ^v
+    CapsLock & w::Send ^w
+    CapsLock & x::Send ^x
+    CapsLock & y::Send ^y
+    CapsLock & z::Send ^z
+    CapsLock & 0::Send ^0
+    CapsLock & 1::Send ^1
+    CapsLock & 2::Send ^2
+    CapsLock & 3::Send ^3
+    CapsLock & 4::Send ^4
+    CapsLock & 5::Send ^5
+    CapsLock & 6::Send ^6
+    CapsLock & 7::Send ^7
+    CapsLock & 8::Send ^8
+    CapsLock & 9::Send ^9
+    ; how to scape ` and ; ?
+    ; CapsLock & `::Send ^`
+    ; CapsLock & ; ::Send ^;
+    CapsLock & '::Send ^'
+    CapsLock & ,::Send ^,
+    CapsLock & .::Send ^.
+    CapsLock & /::Send ^/
+    CapsLock & -::Send ^-
+    CapsLock & =::Send ^=
+    CapsLock & [::Send ^[
+    CapsLock & ]::Send ^]
+<
+
+Here is a script that works with all keys: acts as left control when pressed 
+and sends esc when pressed and released in under one second:
+
+>
+    SetCapsLockState Off
+    state:=false
+    Esc::
+     state:= not state
+     if (state) {
+    	 SetCapsLockState On
+     } else {
+    	 SetCapsLockState Off
+     }
+     Return
+    
+    *CapsLock::
+    	Send {LControl down}
+    	Return
+    *CapsLock up::
+    	Send {LControl Up}
+    	if (A_PriorKey=="CapsLock"){
+    		if (A_TimeSincePriorHotkey < 1000)
+    			Suspend On
+    			Send, {Esc}
+    			Suspend Off
+    	}
+    	Return
+    ; The next part is only relevant to users of Virtual Box, which interacts weirdly with AutoHotkey. The code below resets ctrl  and caps lock when a Virtual Box window is unfocused.
+    InVB()
+    {
+    	return WinActive("ahk_exe VirtualBox.exe")
+    }
+    in_vb:=InVB()
+    was_in_vb:=in_vb
+    
+    Gui +LastFound 
+    hWnd := WinExist()
+    DllCall( "RegisterShellHookWindow", UInt,Hwnd )
+    MsgNum := DllCall( "RegisterWindowMessage", Str,"SHELLHOOK" )
+    OnMessage( MsgNum, "ShellMessage" )
+    
+    ShellMessage( wParam,lParam )
+    {
+     global in_vb
+     global was_in_vb
+     was_in_vb:=in_vb
+     in_vb:=InVB()
+     if (was_in_vb and not in_vb)
+     {
+    	Suspend On
+    	Send {LControl Up}
+    	SetCapsLockState Off
+    	Suspend Off
+     }
+    }
+<
+
+The following script follows the same idea as the above while helping its 
+shortcomings, and is more concise. It works by checking the last pressed key 
+when the CapsLock key is released. Hope it helps :)
+
+This script often fails when ran in a Juniper Terminal Services remote 
+desktop session. The remote Windows start menu is displayed instead of sending 
+escape. This is caused by the interference between a local and the remote 
+script. Disable local hotkeys or use the basic script on the remote host.
+
+>
+    ; Author: fwompner gmail com
+    #InstallKeybdHook
+    SetCapsLockState, alwaysoff
+    Capslock::
+    Send {LControl Down}
+    KeyWait, CapsLock
+    Send {LControl Up}
+    if ( A_PriorKey = "CapsLock" )
+    {
+        Send {Esc}
+    }
+    return
+<
+
+Here's an additional solution (which just sends Esc key when Ctrl is pressed 
+alone, but does not modify CapsLock in any way)
+
+>
+    ;Author: Autohotkey forum user RHCP
+    ;http://www.autohotkey.com/board/topic/103174-dual-function-control-key/
+    $~*Ctrl::
+    if !state
+        state :=  (GetKeyState("Shift", "P") ||  GetKeyState("Alt", "P") || GetKeyState("LWin", "P") || GetKeyState("RWin", "P"))
+    return
+    
+    $~ctrl up::
+    if instr(A_PriorKey, "control") && !state
+        send {esc}
+    state := 0
+    return
+<
+
+HOTKEYZ  *vwt-353-hotkeyz*
+
+HotKeyz [http://www.skynergy.com/hotkeyz.html] (freeware) is useful for 
+assigning keyboard shortcuts to run frequently used applications using the 
+<Win> key. It also allows CapsLock to be remapped to any key sequence, or to 
+run an application.
+
+The only disadvantage compared to the registry method is that the status of 
+CapsLock is still set and is checked by applications, so if you press it 
+letting the status LED of the keyboard turn on and then start an application, 
+for example Notepad, you will start typing in uppercase and can't change it 
+anymore. You have then to exit the application, turn the CapsLock status off 
+and re-open the program. This is still easier than rebooting.
+
+EXPLANATIONS  *vwt-353-explanations*
+
+REGISTRY SCANCODES  *vwt-353-registry-scancodes*
+
+The format used for "Scancode Map" in the registry is described below (from 
+Scan Code Mapper for Windows 
+[http://www.microsoft.com/whdc/archive/w2kscan-map.mspx] and Keyboard scan 
+codes [http://www.computer-engineering.org/ps2keyboard/scancodes1.html]). More 
+information is at Remap the F12 Key, CapsLock Key or any Key in Windows XP, 
+2000, Vista and 2003 [http://www.usnetizen.com/fix_capslock.php].
+
+"Scancode Map" is a registry binary value with the following format (each 
+value is a 32-bit integer in little-endian order):
+
+>
+    <00000000> <00000000> <NumberFollowingIntegers> <Mapping1> <Mapping2> ... <00000000>
+<
+
+A mapping consists of two 16-bit scancodes. The second scancode (high word) 
+from the keyboard is replaced with the first scancode (low word). Some 
+relevant scancodes are:
+
+>
+    0x01 Esc
+    0x1D L-Ctrl
+    0x38 L-Alt
+    0x3A CapsLock
+    0x46 ScrollLock
+    0x0E Backspace
+<
+
+For example, the line
+
+>
+    "Scancode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,01,00,3a,00,00,00,00,00
+<
+
+consists of one mapping (01,00,3a,00) which replaces the scancode 0x003a with 
+0x0001. That means that pressing CapsLock (0x3a) will generate Escape (0x01).
+
+SEE ALSO  *vwt-353-see-also*
+    - Discussion page [https://vim.fandom.com/wiki/Talk:Map_caps_lock_to_escape_in_Windows] for more details and alternatives
+    - Avoid the escape key |vwt-285| for Vim methods to make pressing Esc easier
+
+
+COMMENTS  *vwt-353-comments*
+
+What is the "Explanations" section trying to explain? I didn't look in detail 
+(this is a big article) but it doesn't seem to apply directly to the methods 
+listed above. --Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 
+(talk [https://vim.fandom.com/wiki/User_talk:Fritzophrenic]) 19:33, December 
+15, 2014 (UTC)
+
+It's explaining what the string of bytes in the registry represent in the "Scancode Map" value in some of the ideas. It applies to the first part of the tip. JohnBeckett (talk) 08:40, December 16, 2014 (UTC)
+
+Note that the new location to update the registry (Windows 10, Jan 2019) is:
+
+HKEY_LOCAL_MACHINE\SYSTEM\Current Control Set\Control\Keyboard Layout
+
+--February 5, 2019

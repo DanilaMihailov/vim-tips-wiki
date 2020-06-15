@@ -1,0 +1,200 @@
+*vim-wiki-tips-320.txt*   Page up/down and keep cursor position *vwt-320*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 320 [https://vim.fandom.com/wiki/Page_up/down_and_keep_cursor_position]   Previous |vwt-319| Next |vwt-322|
+
+created 2002 · complexity basic · author Simon "neoneye" Strandgaard · 
+version 6.0
+
+==============================================================================
+
+Borland behaviour = the cursor keeps the same xy position during pageup/down.
+
+I'm new to Vim scripting, im sure it can be done smarter?
+
+I read VimTip105 |vwt-105| and it gave me a clue of how BorlandPageUp/Down 
+could be done.
+
+>
+    " i could'nt find any get_number_of_visible_lines function, so i made my own.
+    function GetNumberOfVisibleLines()
+      let cur_line = line(".")
+      let cur_col = virtcol(".")
+      normal H
+      let top_line = line(".")
+      normal L
+      let bot_line = line(".")
+      execute "normal " . cur_line . "G"
+      execute "normal " . cur_col . "|"
+      return bot_line - top_line
+    endfunc
+    
+    " noremap <PageUp> 39<C-U>:set scroll=0<CR>
+    function! MyPageUp()
+      let visible_lines = GetNumberOfVisibleLines()
+      execute "normal " . visible_lines . "\<C-U>:set scroll=0\r"
+    endfunction
+    
+    " noremap <PageDown> 39<C-D>:set scroll=0<CR>
+    function! MyPageDown()
+      let visible_lines = GetNumberOfVisibleLines()
+      execute "normal " . visible_lines . "\<C-D>:set scroll=0\r"
+    endfunction
+    
+    " BorlandPascal pageup/down behaviour!
+    " todo: when hitting top/bottom of file, then restore Y to lastY
+    noremap <PageUp> :call MyPageUp()<CR>
+    noremap <PageDown> :call MyPageDown()<CR>
+<
+
+COMMENTS  *vwt-320-comments*
+
+For maintaining the same x coordinate, :help 'startofline'.
+
+==============================================================================
+
+And CTRL-U (up), CTRL-D (down) may also be useful for what you want (half 
+page scrolls)
+
+==============================================================================
+
+A solution that I use (easier, I would say, but has a small side-effect) is 
+this:
+
+>
+    map <PageDown> :set scroll=0<CR>:set scroll^=2<CR>:set scroll-=1<CR><C-D>:set scroll=0<CR>
+    map <PageUp> :set scroll=0<CR>:set scroll^=2<CR>:set scroll-=1<CR><C-U>:set scroll=0<CR>
+<
+
+I found Vim's normal PgUp/PgDn behaviour weird - I think it's different from 
+every other editor I've used and I was unable to get used to it. The above two 
+lines are godsent!
+
+Ditto on the above two lines. They work exactly as I want! (SRS)
+
+==============================================================================
+
+See Combining move and scroll |vwt-105|. You might find it useful to 
+incorporate the improvements into this tip.
+
+==============================================================================
+
+A solution that works in insert and visual modes too:
+
+>
+    nnoremap <silent> <PageUp> <C-U><C-U>
+    vnoremap <silent> <PageUp> <C-U><C-U>
+    inoremap <silent> <PageUp> <C-\><C-O><C-U><C-\><C-O><C-U>
+    
+    nnoremap <silent> <PageDown> <C-D><C-D>
+    vnoremap <silent> <PageDown> <C-D><C-D>
+    inoremap <silent> <PageDown> <C-\><C-O><C-D><C-\><C-O><C-D>
+<
+
+It assumes that "scroll" has its default value. Also there is an intermediate 
+redraw, but that could be perceived as a feature, really.
+
+I've spent a whole day trying to simulate sometheing like the <C-\><C-O> 
+command for Visual mode (hoping for the universal solution -- a way to call 
+any normal mode command from any mode), yet it looks like impossible if the 
+command in question is supposed to be a custom movement command, modifying 
+selection.
+
+==============================================================================
+
+Another method that does not move cursor from screen position when scrolling, 
+even with long lines that wrap: 
+
+>
+    function! s:GetNumScroll(num)
+       let num_rows = winheight(0)
+       let num_scroll = a:num
+       if (a:num == -1)
+         let num_scroll = (num_rows + 1) / 2
+       elseif (a:num == -2)
+         let num_scroll = num_rows
+       endif
+       if (num_scroll < 1)
+         let num_scroll = 1
+       endif
+       return num_scroll
+     endfunction
+     
+     function! s:RtrnToOrig(before_scr_line)
+       normal H
+       let delta = a:before_scr_line - winline()
+       while (delta != 0)
+         if (delta < 0)
+           let delta = winline() - a:before_scr_line
+           let iter = 1
+           while (iter <= delta)
+             execute "normal" "gk"
+             let iter +=1
+           endwhile
+         elseif (delta > 0)
+           let iter = 1
+           while (iter <= delta)
+             execute "normal" "gj"
+             let iter +=1
+           endwhile
+         endif
+         let delta = a:before_scr_line - winline()
+       endwhile
+     endfunction
+     
+     function! s:scrollUP(num)
+       let num_scroll = <SID>GetNumScroll(a:num)
+       let num_rows = winheight(0)
+       " -------------
+       let before_scr_line = winline()
+       normal L
+       let after_scr_line = winline()
+       let extra = num_rows - after_scr_line
+       let extra += num_scroll
+       " move by 1 to prevent over scrolling
+       let iter = 1
+       while (iter <= extra)
+         execute "normal" "gj"
+         let iter +=1
+       endwhile
+       " -------------
+       call <SID>RtrnToOrig(before_scr_line)
+     endfunction
+     
+     function! s:scrollDN(num)
+       let num_scroll = <SID>GetNumScroll(a:num)
+       " -------------
+       let before_scr_line = winline()
+       normal H
+       let after_scr_line = line(".")
+       execute "normal" "gk"
+       let after_scr2_line = line(".")
+       if ( (after_scr_line == after_scr2_line) && (after_scr_line > 1) )
+         execute "normal" "gk"
+       endif
+       let extra = (num_scroll - 1)
+       let extra += (winline() - 1)
+       " move by 1 to prevent over scrolling
+       let iter = 1
+       while (iter <= extra)
+         execute "normal" "gk"
+         let iter +=1
+       endwhile
+       " -------------
+       call <SID>RtrnToOrig(before_scr_line)
+     endfunction
+     
+      nmap <silent> <C-J>     :call <SID>scrollUP(1)<CR>
+      nmap <silent> <C-K>     :call <SID>scrollDN(1)<CR>
+      nmap <silent> <C-F>     :call <SID>scrollUP(-1)<CR>
+      nmap <silent> <C-B>     :call <SID>scrollDN(-1)<CR>
+      nmap <silent> <PageDown>:call <SID>scrollUP(-2)<CR>
+      nmap <silent> <PageUp>  :call <SID>scrollDN(-2)<CR>
+<

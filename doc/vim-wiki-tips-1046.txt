@@ -1,0 +1,104 @@
+*vim-wiki-tips-1046.txt*   Whitespace hungry backspace/delete *vwt-1046*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1046 [https://vim.fandom.com/wiki/Whitespace_hungry_backspace/delete]   Previous |vwt-1045| Next |vwt-1048|
+
+created 2005 · complexity basic · author brailsmt · version 6.0
+
+==============================================================================
+
+I think I figured out a good whitespace hungry delete.
+
+>
+    imap <BS> <Esc>d?\S?e1<CR>i
+<
+
+It deletes from the cursor position backwards in the file until it finds the 
+first non-whitespace character, and then changes the match end offset to avoid 
+deleting that non-whitespace char.
+
+COMMENTS  *vwt-1046-comments*
+
+Can you make one that will delete (or backspace) in tab-space chunks?
+
+I use soft-tabs so it would be nice to be able to backspace over 4 
+whitespaces at a time (if they exist).
+
+==============================================================================
+
+Unfortunately that doesn't faithfully reproduce <BS> under all circumstances. 
+Try something like this (still not perfect).
+
+>
+    function! HungryBackspaceWrapper()
+      let column = col('.')
+      if column == 1
+        return "\<Esc>kJxi"
+      elseif column >= 2 && getline('.')[column - 2] =~ '\S'
+        return "\<BS>"
+      else
+        return "\<Esc>d?\\S?e1\<CR>i"
+      endif
+    endfunction
+    inoremap <silent> <BS> <c-r>=HungryBackSpaceWrapper()<CR>
+<
+
+==============================================================================
+
+Are you sure you don't want to set backspace=indent,eol,start
+
+==============================================================================
+
+Yeah, that seems to only work if the indentations have been automatically 
+inserted. Example, I can type 8 spaces at the beginning of a line and hit 
+backspace, it will only delete one space.
+
+Also, this will not work for removing "tabs" in the middle or end of lines.
+
+==============================================================================
+
+Why not use
+
+>
+    vgeld
+<
+
+>
+    v - visual,
+    ge - backward to the end of the Nth word
+    l - move right
+    d - delete.
+<
+
+It doesn't span blank lines.
+
+==============================================================================
+
+set softtabstop=4 helps. Not sure whether set smarttab is also necessary to 
+make bs delete 4 Spaces
+
+==============================================================================
+
+It seems like it is.
+
+==============================================================================
+
+Was looking for something like this, because whenever I paste code with the 
+middle mouse button, the tab's get converted to 8x space's. Figured out a 
+regex switch that works for me
+
+>
+    :%s/\s\{8\}/\t/g
+<
+
+Change "%" to "." to work only on the current line, may remove "g" if all 
+your 8x spaces are at line beginnings.
+
+It would be better to use the :retab command. See Super retab. JohnBeckett 07:56, June 22, 2011 (UTC)

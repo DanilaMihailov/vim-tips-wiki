@@ -1,0 +1,163 @@
+*vim-wiki-tips-1126.txt*   Automatically set screen title *vwt-1126*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1126 [https://vim.fandom.com/wiki/Automatically_set_screen_title]   Previous |vwt-1120| Next |vwt-1127|
+
+created February 9, 2006 · complexity basic · author Michael Stilkerich · 
+version 6.0
+
+==============================================================================
+
+The screen's title can automatically be updated to the name of the currently 
+opened file, or whatever you like.
+
+Just add the following to your vimrc:
+
+>
+    let &titlestring = hostname() . "[vim(" . expand("%:t") . ")]"
+    if &term == "screen"
+      set t_ts=^[k
+      set t_fs=^[\
+    endif
+    if &term == "screen" || &term == "xterm"
+      set title
+    endif
+<
+
+To create ^[, which is escape, you need to enter CTRL+V <Esc>
+
+This will make a title like hostname[vim(filename)], but that's only my 
+personal preference. That way, you can easily keep track on which window in 
+your screen you have which file opened.
+
+COMMENTS  *vwt-1126-comments*
+
+AUTOCMD  *vwt-1126-autocmd*
+
+Just found this on a website. Using:
+
+>
+    autocmd BufEnter * let &titlestring = hostname() . "[vim(" . expand("%:t") . ")]"
+<
+
+instead of statically setting titlestring even updates the title when 
+switching buffers/opening other files in the same vim session.
+
+==============================================================================
+
+I use:
+
+>
+    set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
+<
+
+By placing the expand expression inside a %{} pair, it is reevaluated 
+automatically and doesn't require an autocommand around it.
+
+THANKS FOR FLYING VIM  *vwt-1126-thanks-for-flying-vim*
+
+I tried it, and after editing a mail within mutt, the screen title keeps 
+saying 'Thanks for flying Vim' instead of being reset to 'mutt'. Any ideas to 
+fix this?
+
+
+
+==============================================================================
+
+I use this to avoid "Thanks for flying Vim"
+
+>
+    set t_ts=^[k
+            set t_fs=^[\
+            auto BufEnter * :set title | let &titlestring = 'v:' . expand('%')
+            auto VimLeave * :set t_ts=^[k^[\
+<
+
+==============================================================================
+
+Oh this is really a problem with all apps that fork off Vim. You can hack 
+around this in mutt using
+
+>
+    source "~/.mutt/editorrc.$TERM"
+<
+
+in your muttrc and create a config for each terminal type, e.g. 
+editorrc.screen:
+
+>
+    set editor="sh -c 'vim $0 && echo -ne \"\\033kmutt\\033\\134\"' "
+<
+
+This will reset the title to mutt after leaving Vim. The problem with this is 
+that you need an extra file for each terminal type you use, lots of the 
+probably containing only set editor=vim
+
+I don't know if there's a possibility to have mutt ignore silently if a 
+sourced file does not exist in which case you could set editor to a default 
+value and override it only for some special terminal types.
+
+btw, since we left the Vim scope now anyway, here's the rest of my title 
+configuring stuff
+
+my .bashrc contains
+
+>
+    case $TERM in
+     xterm*|rxvt*)
+     PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}[`basename ${PWD}`]\007"'
+     ;;
+     screen*)
+     PROMPT_COMMAND='echo -ne "\033k\033\134\033k${HOSTNAME}[`basename ${PWD}`]\033\134"'
+     ;;
+     *)
+     ;;
+    esac
+<
+
+and my .screenrc contains
+
+>
+    shelltitle '] |bash'
+<
+
+This will have the shell display hostname[last component of directory] 
+whenever no program is running and enable screens heuristic to display the 
+program name whenever a program is running.
+
+The fallback value bash is almost never displayed since it will be overriden 
+by the shell prompt. For shells other than bash you should be able to 
+configure this in a similar way. (there are examples in the screen manual). 
+The characters in shelltitle before the pipe sign need to fit the end of your 
+shell prompt, which is "] " in my case.
+
+ESCAPING SPECIAL CHARACTERS  *vwt-1126-escaping-special-characters*
+
+File names can contain characters such as escape, which is very badly handled 
+by my Vim. (The title gets printed, garbled, and doesn't end up in the 
+titlebar properly).This is my solution:
+
+>
+    let my_asciictrl = nr2char(127)
+    let my_unisubst = "␡"
+    for i in range(1, 31)
+      let my_asciictrl .= nr2char(i)
+      let my_unisubst  .= nr2char(0x2400 + i, 1)
+    endfor
+    augroup termTitle
+      au!
+      autocmd BufEnter * let &titlestring = "vim " . tr(expand("%:t"), my_asciictrl, my_unisubst)
+      autocmd BufEnter * set title
+    augroup END
+<
+
+Using 
+https://en.wikipedia.org/wiki/Unicode_control_characters#Control_pictures 
+[https://en.wikipedia.org/wiki/Unicode_control_characters#Control_pictures].

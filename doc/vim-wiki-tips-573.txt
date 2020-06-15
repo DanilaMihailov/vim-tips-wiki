@@ -1,0 +1,64 @@
+*vim-wiki-tips-573.txt*   Repeating a substitute from current cursor position *vwt-573*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 573 [https://vim.fandom.com/wiki/Repeating_a_substitute_from_current_cursor_position]   Previous |vwt-572| Next |vwt-575|
+
+created October 3, 2003 · complexity intermediate · author Charles E. 
+Campbell, Jr. · version 6.0
+
+==============================================================================
+
+The :RS /pattern/subpattern/{flags} command+function as shown below allows 
+one to repeat a RS-substitute after the current cursor position.
+
+For example:
+
+>
+    " The cursor position is indicated with '^' on next line.
+    one two three one two three one two three
+     ^
+    
+    :RS /two/TWO/
+    one TWO three one two three one two three
+           ^
+    
+    move cursor:
+    one TWO three one two three one two three
+                          ^
+    
+    (I think tip author intended to repeat :RS here?)
+    
+    cursor ends up:
+    one TWO three one two three one TWO three
+<
+
+Put the following into your vimrc if you'd like to be able to do this.
+
+>
+    " RS: repeat substitution command
+    com! -range -nargs=* RS call RepeatSubst(<q-args>)
+    " RepatSubst:
+    fun! RepeatSubst(subexpr)
+      if a:subexpr != ""
+        let g:repeatsubst= a:subexpr
+      endif
+      let curcol= col(".")
+      let sep = strpart(g:repeatsubst,0,1)
+      let pat = substitute(g:repeatsubst,'^.\(.\{-}\)'.sep.'.*$','\1','')
+      s/\%#./\r&/
+      let curcol= curcol + matchend(getline("."),pat)
+      exe "s".g:repeatsubst
+      norm! k
+      j!
+      exe 'norm! '.curcol.'|'
+    endfun
+<
+
+COMMENTS  *vwt-573-comments*

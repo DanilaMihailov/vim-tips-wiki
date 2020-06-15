@@ -1,0 +1,47 @@
+*vim-wiki-tips-506.txt*   Open Windows Help files on a specific topic *vwt-506*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 506 [https://vim.fandom.com/wiki/Open_Windows_Help_files_on_a_specific_topic]   Previous |vwt-503| Next |vwt-507|
+
+created July 8, 2003 · complexity intermediate · author David Fishburn · 
+version 6.0
+
+==============================================================================
+
+In Windows XP or similar, you can have Vim open a chm (HTML Help) file at a 
+specific topic. The following example launches the ASA9 Help file on the CWORD 
+at the cursor, or at the visually-selected topic.
+
+>
+    nnoremap <C-F1> :silent! !cmd.exe /c start keyhh.exe -\#klink "<C-R><C-W>" "$ASANY9\docs\dbmaen9.chm"<CR><CR>
+    vnoremap <C-F1> :<C-U>let old_reg=@"<CR>gvy:silent!!cmd.exe /cstart keyhh.exe -\#klink "<C-R><C-R>"" "$ASANY9\docs\dbmaen9.chm"<CR><CR>:let @"=old_reg<CR>:echo ""<CR>
+<
+
+The nnoremap opens the help file using the <CWORD> that the cursor is on.
+
+The vnoremap allows you to visually select a block of text and open the 
+search window with that text. It also restores whatever was previously 
+visually selected after the launch.
+
+If you use the map repeatedly, the same HTML Help window will be used.
+
+Download keyhh.exe (free) from http://www.keyworks.net/keyhh.htm 
+[http://www.keyworks.net/keyhh.htm]
+
+COMMENTS  *vwt-506-comments*
+
+It would be really cool to use this as your keywordprg (:help 'keywordprg').
+
+Unfortunately keywordprg requires that the keyword become the last argument 
+to the program. Moreover the keywordprgis run through vimrun which requires 
+you to close the command prompt that launch the program manually (the "Press 
+any key to close this window" message).
+
+==============================================================================

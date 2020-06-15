@@ -1,0 +1,93 @@
+*vim-wiki-tips-806.txt*   Always keep quickfix window at specified height *vwt-806*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 806 [https://vim.fandom.com/wiki/Always_keep_quickfix_window_at_specified_height]   Previous |vwt-805| Next |vwt-807|
+
+created October 18, 2004 · complexity intermediate · author Ton van den 
+Heuvel · version 6.0
+
+==============================================================================
+
+When I use Vim I have multiple windows open which are all maximized after 
+becoming active, see for example VimTip173 |vwt-173|.
+
+This makes debugging code in combination with the quickfix window a little 
+difficult. After switching from the quickfix window to the code, the quickfix 
+window is minimized and the error message is out of sight. Put the following 
+in your gvimrc to keep the quickfix window at a user specified height:
+
+>
+    " Maximize the window after entering it, be sure to keep the quickfix window
+    " at the specified height.
+    au WinEnter * call MaximizeAndResizeQuickfix(8)
+    
+    " Maximize current window and set the quickfix window to the specified height.
+    function MaximizeAndResizeQuickfix(quickfixHeight)
+      " Redraw after executing the function.
+      set lazyredraw
+      " Ignore WinEnter events for now.
+      set ei=WinEnter
+      " Maximize current window.
+      wincmd _
+      " If the current window is the quickfix window
+      if (getbufvar(winbufnr(winnr()), "&buftype") == "quickfix")
+        " Maximize previous window, and resize the quickfix window to the
+        " specified height.
+        wincmd p
+        resize
+        wincmd p
+        exe "resize " . a:quickfixHeight
+      else
+        " Current window isn't the quickfix window, loop over all windows to
+        " find it (if it exists...)
+        let i = 1
+        let currBufNr = winbufnr(i)
+        while (currBufNr != -1)
+          " If the buffer in window i is the quickfix buffer.
+          if (getbufvar(currBufNr, "&buftype") == "quickfix")
+            " Go to the quickfix window, set height to quickfixHeight, and jump to the previous
+            " window.
+            exe i . "wincmd w"
+            exe "resize " . a:quickfixHeight
+            wincmd p
+            break
+          endif
+          let i = i + 1
+          let currBufNr = winbufnr(i)
+        endwhile
+      endif
+      set ei-=WinEnter
+      set nolazyredraw
+    endfunction
+    
+    " Remap ,m to make and open error window if there are any errors. If there
+    " weren't any errors, the current window is maximized.
+    map <silent> ,m :mak<CR><CR>:cw<CR>:call MaximizeIfNotQuickfix()<CR>
+    
+    " Maximizes the current window if it is not the quickfix window.
+    function MaximizeIfNotQuickfix()
+      if (getbufvar(winbufnr(winnr()), "&buftype") != "quickfix")
+        wincmd _
+      endif
+    endfunction
+<
+
+COMMENTS  *vwt-806-comments*
+
+Shouldn't you be save/restoring those global values:
+
+>
+    " Redraw after executing the function.
+    set lazyredraw
+    " Ignore WinEnter events for now.
+    set ei=WinEnter
+<
+
+==============================================================================

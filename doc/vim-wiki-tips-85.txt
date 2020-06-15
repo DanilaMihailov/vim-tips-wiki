@@ -1,0 +1,39 @@
+*vim-wiki-tips-85.txt*   How to mimic the vim 6.0 plugin feature with older versions *vwt-85*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 85 [https://vim.fandom.com/wiki/How_to_mimic_the_vim_6.0_plugin_feature_with_older_versions]   Previous |vwt-84| Next |vwt-86|
+
+created July 5, 2001 · complexity intermediate · author bubbleboy · version 
+5.7
+
+==============================================================================
+
+If you do not have Vim 6.0, but would like to mimic the plugins directory 
+feature then copy and paste this into your vimrc:
+
+>
+    exec "source " . substitute(glob($VIM."/plugins/*.vim"), "\n", "\nsource ", "g")
+<
+
+It will automatically source every Vim script file located in the vim/plugins 
+directory.
+
+Now, to add a new plugin, just drop the script in this directory and Vim will 
+automatically find it.
+
+COMMENTS  *vwt-85-comments*
+
+To make Vim look in your home directory for the plugins directory:
+
+Use $HOME, or ~ (tilde), instead of $VIM. If you use tilde, it must be inside 
+the quotes. The $VIM (or $HOME) may be placed inside the quotes as well - 
+glob("$VIM/plugins/*.vim") works just fine.
+
+==============================================================================

@@ -1,0 +1,101 @@
+*vim-wiki-tips-988.txt*   Surround selection with text *vwt-988*
+
+
+
+This tip is deprecated for the following reasons:
+
+This tip is deprecated by the surround plugin.
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 988 [https://vim.fandom.com/wiki/Surround_selection_with_text]   Previous |vwt-987| Next |vwt-989|
+
+created September 9, 2005 · complexity basic · author Jan Christoph Ebersbach 
+· version 6.0
+
+==============================================================================
+
+Inspired by VimTip987 |vwt-987| I wrote a small function to surround selected 
+text in visual-mode with text.
+
+For example, to quote a selection:
+
+>
+    before: bla bla Selected Text bla bla
+    :'<,'>call Surround('"', '"')<CR>
+    after : bla bla "Selected Text" bla bla
+<
+
+>
+    fun! Surround(s1, s2) range
+      exe "normal vgvmboma\<Esc>"
+      normal `a
+      let lineA = line(".")
+      let columnA = col(".")
+      normal `b
+      let lineB = line(".")
+      let columnB = col(".")
+      " exchange marks
+      if lineA > lineB || lineA <= lineB && columnA > columnB
+        " save b in c
+        normal mc
+        " store a in b
+        normal `amb
+        " set a to old b
+        normal `cma
+      endif
+      exe "normal `ba" . a:s2 . "\<Esc>`ai" . a:s1 . "\<Esc>"
+    endfun
+<
+
+Surround also works for a selection over more than one line.
+
+>
+    before: bla bla Selec
+    ted Text bla bla
+    :'<,'>call Surround('"', '"')<CR>
+    after : bla bla "Selec
+    ted Text" bla bla
+<
+
+Some handy mappings:
+
+>
+    vnoremap _" :call Surround('"', '"')<CR>
+    vnoremap _( :call Surround('(', ')')<CR>
+    vnoremap _[ :call Surround('[', ']')<CR>
+    vnoremap _{ :call Surround('{', '}')<CR>
+<
+
+I defined it as a command to perform fast on-demand-surroundings
+
+>
+    command! -range -nargs=* Sur call Surround(<f-args>)
+<
+
+>
+    before: bla bla Selected Text bla bla
+    :'<,'>Sur (<\ - -\ >)
+    after : bla bla (< -Selected Text- >) bla bla
+<
+
+COMMENTS  *vwt-988-comments*
+
+>
+    "wrap highlighted text in doublequotes
+    :vmap [q "zdi"<C-R>z"
+    "these wrap ansi color character commands around the visualmode selected text - good for adding
+    "color to stdout [b=blue, [r=red, etc
+    :vmap [b "zdi<C-V><Esc>[1;34m<C-R>z<C-V><Esc>[0m<Esc>
+    :vmap [r "zdi<C-V><Esc>[1;31m<C-R>z<C-V><Esc>[0m<Esc>
+    :vmap [m "zdi<C-V><Esc>[1;35m<C-R>z<C-V><Esc>[0m<Esc>
+    :vmap [c "zdi<C-V><Esc>[1;36m<C-R>z<C-V><Esc>[0m<Esc>
+    :vmap [y "zdi<C-V><Esc>[1;33m<C-R>z<C-V><Esc>[0m<Esc>
+    :vmap [g "zdi<C-V><Esc>[1;32m<C-R>z<C-V><Esc>[0m<Esc>
+<
+
+==============================================================================

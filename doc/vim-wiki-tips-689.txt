@@ -1,0 +1,141 @@
+*vim-wiki-tips-689.txt*   Word count *vwt-689*
+
+Tip 689 [https://vim.fandom.com/wiki/Word_count]   Previous |vwt-688| Next |vwt-690|
+
+created 2004 · complexity basic · author Hans fugal · version 6.0
+
+==============================================================================
+
+It's easy to count the total number of words, or the number of occurrences of 
+a particular word, and more.
+
+COUNTING NUMBER OF WORDS  *vwt-689-counting-number-of-words*
+
+To count the number of words in the current buffer, press g then Ctrl-g.
+
+To count the number of words in a block, select the block (for example, type 
+V5j to select 6 lines) and again press g then Ctrl-g.
+
+The output looks like this:
+
+>
+    Selected 6 of 358 Lines; 37 of 2281 Words; 186 of 13426 Bytes
+<
+
+If you prefer, you can call an external program using the "%" file name 
+expansion. For example, in Unix you could do the following to get the word 
+count of the entire file:
+
+>
+    :w
+    :!wc %
+<
+
+The initial :w writes the current file so that the external program can read 
+it. An alternative (which does not require saving the buffer to a file), is to 
+use the command:
+
+>
+    :w !wc
+<
+
+The above writes the current buffer to the standard input of the external wc 
+program. :help |:write_c|
+
+LIVE WORD COUNT  *vwt-689-live-word-count*
+
+To get a live word count to show up in the vim status bar is a little 
+tricky,but you only need to do this once.
+
+You can edit your vimrc file so the word count is always visible in the 
+status line.[1] 
+[http://spontaneousderivation.com/2009/06/26/live-word-count-in-vim/][2] 
+[http://cromwell-intl.com/linux/vim-word-count.html][3] 
+[http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim]
+
+(FIXME: give step-by-step instructions for one or two simple approaches)
+
+Vim allows you to customize your definition of what counts as a "word".For 
+example, people using Vim to edit raw HTML pages may want to tweak the 
+definitionso only words actually displayed by a web browser are counted as 
+words,but none of the formatting tags count as a word.
+
+COUNTING NUMBER OF PRINTED WORDS IN A LATEX DOCUMENT  *vwt-689-counting-number-of-printed-words-in-a-latex-document*
+
+If you LaTeX and you need a printed word count (for a journal paper, etc.), 
+wc's output isn't directly useful, since its count includes all markup and 
+other non-printed parts of the file. If you LaTeX in Windows, use something 
+like detex [http://urchin.earth.li/~tomford/detex/index.html] to strip the 
+markup away, leaving the actual text, before piping to wc. Unxutils 
+[http://sourceforge.net/projects/unxutils/] or Cygwin [http://www.cygwin.com/] 
+will be of interest to Windows users needing utilities taken for granted by 
+*nix users, including wc.
+
+An example mapping to F3 is given below. The current buffer is written to the 
+stdin of detex, which writes the detex-ed file to the stdin of wc. If 
+something is selected in visual, visual-block, or visual-line mode, only the 
+selection is counted, otherwise the entire buffer is counted.
+
+>
+    :map <F3> :w !detex \| wc -w<CR>
+<
+
+In Windows, this could be made less obtrusive by returning wc's output to a 
+discreet error message at the bottom of the buffer or window, rather than 
+popping up a console every time. Suggestions are welcome. I was surprised to 
+not find anything like this in existing Vim scripts, or packaged with 
+vim-latex, which I've used for quite a while. Please replace this section with 
+the relevant link if such a thing exists.
+
+EDIT: Texcount Perl script can be also used for this matter, which is quite a 
+clever piece of software, but unfortunately, it does not count everything 
+perfectly.
+
+COUNTING OCCURRENCES OF A PATTERN  *vwt-689-counting-occurrences-of-a-pattern*
+
+Use the :s substitute command with the n flag (counts number of hits; no 
+changes occur) to count the number of occurrences of a pattern. For example:
+
+>
+    :%s/pattern//gn
+<
+
+Combine this with the ability to Search and replace in a visual selection 
+[https://vim.fandom.com/wiki/Search_and_replace_in_a_visual_selection], and 
+you can count the occurrences in a portion of a file as well!
+
+For example to count space delimited words in a file you could use:
+
+>
+    :%s/[^ ]\+//gn
+<
+
+A quick way to list all occurrences of the word under the cursor it to type 
+[I (which displays each line containing the current keyword, in this file and 
+in included files when using a language such as C). :help |[I|
+
+RELATED PLUGINS  *vwt-689-related-plugins*
+
+The WC plugin [https://www.vim.org/scripts/script.php?script_id=1191] counts 
+words according to "Strunk & White" rules, for fiction, novel, or journalism 
+writing.
+
+The SearchPosition plugin 
+[https://www.vim.org/scripts/script.php?script_id=2634] shows the relation to 
+search pattern matches in a range or buffer. The mappings, command and 
+operator provided by this plugin search a range or the entire buffer for a 
+pattern (defaulting to the current search pattern), and print a summary of the 
+number of occurrences above, below and on the current line, for example:
+
+>
+    1 match after cursor in this line, 8 following, 2 in previous lines; total 10 for /\<SearchPosition\>/
+    5 matches in this fold, 9 before, 6 following; total 21 for /endif/
+    On sole match in this line, 40 in following lines for /let/
+    :144,172 7 matches in this fold for /let/
+<
+
+REFERENCES  *vwt-689-references*
+    - :help  |12.5|
+
+
+COMMENTS  *vwt-689-comments*

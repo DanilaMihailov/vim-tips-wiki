@@ -1,0 +1,45 @@
+*vim-wiki-tips-1172.txt*   Vim FAQ and other documentation *vwt-1172*
+
+Tip 1172 [https://vim.fandom.com/wiki/Vim_FAQ_and_other_documentation]   Previous |vwt-1171| Next |vwt-1173|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+Vimdoc contains the online help files for Vim: http://vimhelp.appspot.com/ 
+[http://vimhelp.appspot.com/]
+
+Especially useful is the FAQ: http://vimhelp.appspot.com/vim_faq.txt.html 
+[http://vimhelp.appspot.com/vim_faq.txt.html]
+
+The FAQ answers a lot of basic and advanced questions about how to perform 
+tasks in Vim. When you have questions regarding Vim, make sure to search 
+through the FAQ.
+
+The FAQ is also provided as a plugin (script#3298 
+[https://www.vim.org/scripts/script.php?script_id=3298]), so it can simply be 
+used from within Vim. To use it, download the vimball archive from the vim.org 
+page, open the file with Vim and source it:
+
+>
+    :so %
+<
+
+This will install the helpfile in your Vim Runtime path and generate the 
+helptags from the provided documentation. After restarting, access the FAQ by 
+entering:
+
+>
+    :h vim-faq
+<
+
+COMMENTS  *vwt-1172-comments*
+
+@Chrisbra: How does this work? Has Yegappan expressed a view? Apparently 
+script 3298 is a repackaged and slightly modified version of the FAQ at vimdoc 
+(I have not yet looked at it). What happens if the vimdoc FAQ is updated? That 
+is, are there now two versions of the FAQ, or is one a mirror of the other? 
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 08:02, October 27, 
+2010 (UTC)
+
+Yegappan has expressed in https://groups.google.com/group/vim_dev/msg/4ee5efa5e86cbecf that he wanted to give me his latest version so I could check it in into github. I haven't received any info from him yet, but at the same time got some more infos to add to the FAQ. I didn't want to wait lonter so I went ahead and made a plugin version and commited my local changes to github. If he releases his version I'll merge it. Chrisbra 19:02, October 27, 2010 (UTC)

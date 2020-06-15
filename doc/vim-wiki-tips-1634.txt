@@ -1,0 +1,91 @@
+*vim-wiki-tips-1634.txt*   Auto closing an HTML tag *vwt-1634*
+
+Tip 1634 [https://vim.fandom.com/wiki/Auto_closing_an_HTML_tag]   Previous |vwt-1633| Next |vwt-1635|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200909#Auto_closing_an_HTML_tag] 
+2009 · complexity basic · version 7.0
+
+==============================================================================
+
+When typing an html document, you can automatically close html tags using 
+omni completion. For example, you may type <li>example</ then press Ctrl-x 
+Ctrl-o to automatically finish typing the tag so the text reads 
+<li>example</li>.
+
+With the following abbreviation in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc], you can simplify this process:
+
+>
+    :iabbrev </ </<C-X><C-O>
+<
+
+With this abbreviation, you can simply type </ then press Space to 
+automatically complete the tag.
+
+You may find that sometimes you want to type </ without invoking the 
+abbreviation. If that happens a lot, you may prefer the following abbreviation 
+so you have to enter <// to invoke tag completion:
+
+>
+    :iabbrev <// </<C-X><C-O>
+<
+
+Also you can remap Ctrl-x Ctrl-o to Ctrl-Space using:
+
+>
+    :imap <C-Space> <C-X><C-O>
+<
+
+SEE ALSO  *vwt-1634-see-also*
+    - Automatically append closing characters [https://vim.fandom.com/wiki/Automatically_append_closing_characters]
+
+
+REFERENCES  *vwt-1634-references*
+    - :help  |ins-completion|
+
+
+COMMENTS  *vwt-1634-comments*
+
+This autocmd and insert mode mappings will cause > to auto-complete the tag 
+in insert mode, ><CR> to auto-complete and put your cursor on an indented new 
+line, and ><Leader> to cancel autocompleteion for those special times.
+
+>
+    function s:CompleteTags()
+      inoremap <buffer> > ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
+      inoremap <buffer> ><Leader> >
+      inoremap <buffer> ><CR> ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+    endfunction
+    autocmd BufRead,BufNewFile *.html,*.js,*.xml call s:CompleteTags()
+<
+
+==============================================================================I suspect the abbreviation is not very helpful in practice because it won't work if you type, for example, abc</ (it only works if you enter insert mode to type the abbreviation, or if the abbreviation follows whitespace. Perhaps a mapping like 
+
+>
+    :inoremap <F8> </<C-X><C-O>
+< might be more helpful? You would press F8 to add a closing tag while in insert mode. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 10:25, April 26, 2010 (UTC)
+
+==============================================================================
+
+Hmm, but it would work if you end your tag on a new line by itself. I agree 
+this is not very useful though for the reason you give. To stay more in the 
+spirit of the original, perhaps :inoremap <lt>/ </<C-X><C-O> would be better? 
+This would always fire when closing a tag of course, which could be annoying 
+to some. --Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 
+13:54, April 26, 2010 (UTC)
+
+==============================================================================
+
+Use <Leader> instead <C-Space> to avoid conflicts (learn more about Leader 
+key in ":help leader")--Devgutt28 [https://vim.fandom.com/wiki/User:Devgutt28] 
+(talk [https://vim.fandom.com/wiki/User_talk:Devgutt28]) 15:11, August 2, 2012 
+(UTC)
+
+==============================================================================
+
+I know I'm a bit late to the party, but I added on to Fritzophrenic's version 
+with :inoremap <lt>/ </<C-x><C-o><Esc>==gi so the new tag properly indents 
+itself. == re-indents the current line (also moving the cursor), and gi 
+returns the cursor to its location before the re-indent and enters insert 
+mode. (September 2, 2017)

@@ -1,0 +1,148 @@
+*vim-wiki-tips-1656.txt*   Automatically refresh display of html on saving file *vwt-1656*
+
+Tip 1656 [https://vim.fandom.com/wiki/Automatically_refresh_display_of_html_on_saving_file]   Previous |vwt-1655| Next |vwt-1657|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201006#Automatically_refresh_display_of_html_on_saving_file] 
+June 15, 2010 · complexity basic · author A generic person · version 7.0
+
+==============================================================================
+
+Editing HTML in Vim is a lot nicer if you can see updates in Firefox without 
+needing to remove your hands from the keyboard. With MozRepl and a little 
+vimrc script, you can do just that!
+
+THE BAD OLD WAY  *vwt-1656-the-bad-old-way*
+
+You are probably all too familiar with this annoying mini-workflow:
+    - Edit your HTML/CSS file.
+    - Hit save in Vim.
+    - CMD/CNTRL/ALT + TAB over to Firefox.
+    - Press Ctrl-R in Firefox to refresh.
+    - CMD/CNTRL/ALT + TAB back to Vim.
+    - Do it again and again, wincing a little bit each time.
+
+
+THE JOYFUL NEW VIM + MOZREPL WAY  *vwt-1656-the-joyful-new-vim-+-mozrepl-way*
+
+With the little vimrc [https://vim.fandom.com/wiki/Vimrc] + MozRepl 
+[http://wiki.github.com/bard/mozrepl/] hack shown below, all you need to do 
+is:
+    - Edit your HTML/css file.
+    - Hit save in Vim – Firefox will refresh automatically, preserving its scroll offsets!
+
+
+This integration is no where near as fancy as the Emacs MozRepl binding, but 
+this one feature makes it super useful.
+
+VIM + MOZREPL  *vwt-1656-vim-+-mozrepl*
+
+When editing an .html,.css, or .gtpl file, make Firefox refresh after the 
+buffer is saved, preserving the current scroll offset.
+
+REQUIRES  *vwt-1656-requires*
+
+HOW IT WORKS  *vwt-1656-how-it-works*
+
+I use echo + netcat (nc) to send a dopey little MosRepl script (see below) to 
+Firefox. All the output is tossed away (2>&1 > /dev/null) because MozRepl is 
+chatty.
+
+Global variables are used (vimXo, vimYo) to capture the X,Y offset of the web 
+page for Vim. Maybe there's a way to not use a global, but I don't know what 
+that might be. After saving the buffer and reloading the browser, scroll to 
+the X,Y offset.
+
+See also:
+    - http://wiki.github.com/bard/mozrepl/tutorial [http://wiki.github.com/bard/mozrepl/tutorial]
+    - http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html [http://forums.whirlpool.net.au/forum-replies-archive.cfm/495300.html]
+
+
+CODE FOR VIMRC  *vwt-1656-code-for-vimrc*
+
+>
+    autocmd BufWriteCmd *.html,*.css,*.gtpl :call Refresh_firefox()
+    function! Refresh_firefox()
+      if &modified
+        write
+        silent !echo  'vimYo = content.window.pageYOffset;
+              \ vimXo = content.window.pageXOffset;
+              \ BrowserReload();
+              \ content.window.scrollTo(vimXo,vimYo);
+              \ repl.quit();'  |
+              \ nc -w 1 localhost 4242 2>&1 > /dev/null
+      endif
+    endfunction
+<
+
+- added "-w 1" flag to netcat to solve occasional hung connections
+
+A FEW ADDITIONS  *vwt-1656-a-few-additions*
+
+To put in vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    command! -nargs=1 Repl silent !echo
+          \ "repl.home();
+          \ content.location.href = '<args>';
+          \ repl.enter(content);
+          \ repl.quit();" |
+          \ nc localhost 4242
+    
+    nmap <leader>mh :Repl http://
+    " mnemonic is MozRepl Http
+    nmap <silent> <leader>ml :Repl file:///%:p<CR>
+    " mnemonic is MozRepl Local
+    nmap <silent> <leader>md :Repl http://localhost/
+    " mnemonic is MozRepl Development
+<
+
+Now, when working on local html files, if you switch files often then just 
+press <leader>ml and the file is shown in Firefox. Also, <leader>mh will bring 
+you to ex mode where you can type in a URL and go there in Firefox etc.
+
+SCROLLING  *vwt-1656-scrolling*
+
+I use these commands to scroll up and down:
+
+>
+    nnoremap <silent> <c-f><c-d> :call Firefox_scroll_down()<cr><br>
+    function! Firefox_scroll_down()<br>
+      silent call system("echo 'content.window.scrollByPages(1); repl.quit();' | nc -w 1 localhost 4242")<br>
+    endfunction
+    
+    nnoremap <silent> <c-f><c-u> :call Firefox_scroll_up()<cr><br>
+    function! Firefox_scroll_up()<br>
+      silent call system("echo 'content.window.scrollByPages(-1); repl.quit();' | nc -w 1 localhost 4242")<br>
+    endfunction
+<
+
+NEXT AND PREVIOUS TAB  *vwt-1656-next-and-previous-tab*
+
+Here are commands for next and previous tab in Firefox.
+
+>
+    nnoremap <c-f><c-l> :call Firefox_next_tab()<cr><br>
+    function! Firefox_next_tab()<br>
+      call system("echo 'var tabc = window.getBrowser().tabContainer; var tabs = tabc.childNodes; var index = tabc.selectedIndex; if (index !== tabs.length -1) { tabc.selectedItem = tabs[index + 1]; } else { tabc.selectedItem = tabs[0]; } repl.quit()' | nc -w 1 localhost 4242")<br>
+    endfunction
+    
+    nnoremap <c-f><c-h> :call Firefox_prev_tab()<cr><br>
+    function! Firefox_prev_tab()<br>
+      call system("echo 'var tabc = window.getBrowser().tabContainer; var tabs = tabc.childNodes; var index = tabc.selectedIndex; if (index === 0) { tabc.selectedItem = tabs[tabs.length - 1]; } else { tabc.selectedItem = tabs[index - 1]; } repl.quit()' | nc -w 1 localhost 4242")<br>
+    endfunction
+<
+
+SEE ALSO  *vwt-1656-see-also*
+    - original Vim+MozRepl posting [http://groups.google.com/group/mozlab/browse_thread/thread/749ad1250bf8ef81]
+
+
+COMMENTS  *vwt-1656-comments*
+
+Excellent! Needed something to replace LiveReload on my Linux workstation at 
+work. This did the trick. Thanks.
+
+==============================================================================
+
+Maybe need to add :redraw or :redraw! after reload if web page. --July 22, 
+2014

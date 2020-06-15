@@ -1,0 +1,600 @@
+*vim-wiki-tips-1572.txt*   Highlight multiple words *vwt-1572*
+
+Tip 1572 [https://vim.fandom.com/wiki/Highlight_multiple_words]   Previous |vwt-1571| Next |vwt-1573|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200806#Highlight_multiple_words] 
+2008 · complexity basic · version 7.2
+
+==============================================================================
+
+Vim provides a simple way to highlight all occurrences matching your last 
+search |vwt-14|, but it doesn't provide an easy way to highlight more than one 
+search. This tip provides a script to make it easy to highlight multiple words 
+in different colors. In addition, you can search for the next highlighted 
+word.
+
+REQUIREMENTS  *vwt-1572-requirements*
+
+The script uses matchadd() which requires Vim 7.2 
+[https://vim.fandom.com/wiki/Where_to_download_Vim] (actually version 7.1.040 
+or later). You will probably need gvim to display the colors specified in the 
+script. In addition, the script assumes you have a numeric keypad and a system 
+that allows you to map keys on that keypad (for example, the command :map <k0> 
+:echo 'Hello'<CR> would display Hello when you press 0 on the numeric keypad).
+
+You need the script (highlights.vim) and the file that defines the highlight 
+groups (highlights.csv); these are given below.
+
+USAGE  *vwt-1572-usage* [https://vignette.wikia.nocookie.net/vim/images/b/b7/HighlightMultipleWords.png/revision/latest?cb=20081027044439]
+
+The script defines highlight groups named hl1, hl2, ... hl9 (and more). Once 
+enabled, pressing one of the keys 1, 2, ... 9 on the numeric keypad will 
+highlight the word under the cursor with the colors defined in the 
+corresponding highlight group (for example, press 4 on the keypad to highlight 
+the current word with the hl4 group).
+
+Type \m (assuming the default backslash leader key) to toggle mapping of the 
+keypad on/off. At startup, the numeric keypad operates normally because only 
+\m is mapped.
+
+After typing \m to enable the mappings, you could use the keypad to:
+    - Press 1 to highlight the current visually selected text, or the current word (if nothing is selected). Highlight group hl1 is used.
+    - Press 2 for highlight hl2, 3 for highlight hl3, etc.
+    - Press 0 to remove all highlights from the current visually selected text, or the current word.
+
+
+For example, if you place the cursor on the word "rain" and press 4 on the 
+keypad, all occurrences of "rain" will be highlighted (use :hi hl4 to show the 
+colors). No highlighting will occur in words like "rainbow".
+
+Alternatively, place the cursor on "rain" and press viw to select the word, 
+then 4. All occurrences of the visually selected text will be highlighted, 
+including the "rain" in "rainbow".
+
+Each window has its own set of highlights: if you use :split to show two 
+windows, you can have one set of highlights in the top window, and a different 
+set in the other window.
+
+With the mappings enabled, you could use the keypad to:
+    - Press - to remove all highlights in the current window.
+    - Press + to restore the highlighting when - was last used in the current window.
+    - Press * to restore the highlighting when - was last used in any window.
+
+
+For example, suppose you are displaying two windows and you want the same 
+highlighting in each window. In the first window, apply the wanted 
+highlighting. Then (using the numeric keypad keys):
+    - Press - to remove all highlights in the first window.
+    - Press + to restore them.
+    - Switch to the other window and press * to apply the highlights from the first window.
+
+
+SEARCHING  *vwt-1572-searching*
+
+After using \m to enable mappings, you can search for the next or previous 
+occurrence of highlighted text. Patterns highlighted with the :match or 
+:2match commands are also found.
+
+Type \f to find the next match, or \F to find backwards. This has no effect 
+on search highlighting or history.
+
+Alternatively, type \n or \N to search forwards or backwards. Now you can 
+press the normal search keys n or N to find the next or previous occurrence.
+
+HIGHLIGHT COMMAND  *vwt-1572-highlight-command*
+
+The script defines a :Highlight n pattern command where n is a number (1..99) 
+and pattern is the text you want highlighted. Depending on your system, you 
+may be able to use the abbreviation :Hi rather than :Highlight.
+
+The following examples use different colors to highlight various patterns:
+
+>
+    :Highlight 4 hello
+    :Highlight 5 \<hello\>
+    :Highlight 6 Hello World
+    :Highlight 7 \c\<th
+<
+
+The second example is the same as placing the cursor on "hello" then pressing 
+5 on the numeric keypad. The last example highlights th occurring at the 
+beginning of a word, not case sensitive.
+
+The following command will list all active highlights (group names and 
+patterns):
+
+>
+    :Highlight
+<
+
+OTHER COMMANDS  *vwt-1572-other-commands*
+
+After using \m to enable the keypad mappings, you can press 1..9 on the 
+keypad to highlight the visual selection (if any), or the current word. For 
+example, pressing 4 on the keypad will highlight using the hl4 group.
+
+In addition, you can press a digit 1..9 on the main keyboard before pressing 
+1..9 on the keypad. For example, if you press 2 on the main keyboard before 4 
+on the keypad, the hl24 highlight group will be used.
+
+The :Hclear command can clear highlights. After typing :Hclear, you can enter 
+an argument, or you can press Space then Tab for command completion 
+(highlighted patterns). Examples:
+
+>
+    " Remove highlight for visual selection (if any), or current word.
+    :Hclear
+    " Remove highlight 24.
+    :Hclear 24
+    " Remove all highlights for pattern '\c\<th'.
+    :Hclear \c\<th
+    " Remove all highlights.
+    :Hclear *
+<
+
+The following command will create a scratch buffer showing all the defined 
+highlights:
+
+>
+    :Hsample
+<
+
+The following commands can be used to save or restore the current highlights:
+
+>
+    :Hsave anyname
+    :Hrestore anyname
+<
+
+Replace anyname with any name you would like to use. These commands use 
+uppercase global variables (anyname is converted to uppercase), which Vim will 
+save providing you have the ! flag in the 'viminfo' option (:set viminfo^=!).
+
+After typing :Hsave or :Hrestore, you can press Space then Tab for command 
+completion.
+
+EXAMPLE  *vwt-1572-example*
+
+Copy this text into Vim to test word highlighting:
+
+>
+    777  888  999   111 222 333 444 555 666 777 888 999
+    444  555  666   999 111 222 333 444 555 666 777 888
+    111  222  333   888 999 111 222 333 444 555 666 777
+    111222 333444 555666 777888999 111222 333444 555666
+<
+
+Use :sp to split the window and view the above text in both windows. Use \m 
+to enable mappings, then apply some matches in the top window. Switch to the 
+bottom window and apply some different matches: each window maintains a 
+separate list of highlight matches.
+
+In the next step, you must use the -+* keys on the numeric keypad. While in 
+the bottom window, press - to clear highlighting in that window. If wanted, 
+press + to restore highlighting. In the top window, press * to apply the 
+highlighting from the bottom window.
+
+SCRIPT  *vwt-1572-script*
+
+Create file ~/.vim/plugin/highlights.vim (Unix) or 
+$HOME/vimfiles/plugin/highlights.vim (Windows) containing the script below, 
+then restart Vim.
+
+>
+    " Plugin to highlight multiple words in different colors.
+    " Version 2008-11-19 from http://vim.wikia.com/wiki/VimTip1572
+    " File highlights.csv (in same directory as script) defines the highlights.
+    "
+    " Type '\m' to toggle mapping of keypad on/off (assuming \ leader).
+    " Type '\f' to find the next match; '\F' to find backwards.
+    " Can also type '\n' or '\N' for search; then n or N will find next.
+    " On the numeric keypad, press:
+    "   1 to highlight visually selected text or current word
+    "     using highlight group hl1 (defined below)
+    "   2 for highlight hl2, 3 for highlight hl3, etc
+    "     (can press 1 to 9 on keypad for highlights hl1 to hl9)
+    "   0 to remove highlight from current word
+    "   - to remove all highlights in current window
+    "   + to restore highlights cleared with '-' in current window
+    "   * to restore highlights (possibly from another window)
+    " Can press 1 or 2 on main keyboard before keypad 1..9 for more highlights.
+    " Commands:
+    "   ':Highlight' list all highlights.
+    "   ':Highlight [n [pattern]]' set highlight.
+    "   ':Hsample' display all highlights in a scratch buffer.
+    "   ':Hclear [hlnum|pattern|*]' clear highlights.
+    "   ':Hsave x', ':Hrestore x' save/restore highlights (x any name).
+    " Saving current highlights requires '!' in 'viminfo' option.
+    if v:version < 702 || exists('loaded_highlightmultiple') || &cp
+      finish
+    endif
+    let loaded_highlightmultiple = 1
+     
+    " On first call, read file highlights.csv in same directory as script.
+    " For example, line "5,white,blue,black,green" executes:
+    " highlight hl5 ctermfg=white ctermbg=blue guifg=black guibg=green
+    let s:data_file = expand('<sfile>:p:r').'.csv'
+    let s:loaded_data = 0
+    function! LoadHighlights()
+      if !s:loaded_data
+        if filereadable(s:data_file)
+          let names = ['hl', 'ctermfg=', 'ctermbg=', 'guifg=', 'guibg=']
+          for line in readfile(s:data_file)
+            let fields = split(line, ',', 1)
+            if len(fields) == 5 && fields[0] =~ '^\d\+$'
+              let cmd = range(5)
+              call map(cmd, 'names[v:val].fields[v:val]')
+              call filter(cmd, 'v:val!~''=$''')
+              execute 'silent highlight '.join(cmd)
+            endif
+          endfor
+          let s:loaded_data = 1
+        endif
+        if !s:loaded_data
+          echo 'Error: Could not read highlight data from '.s:data_file
+        endif
+      endif
+    endfunction
+     
+    " Return last visually selected text or '\<cword\>'.
+    " what = 1 (selection), or 2 (cword), or 0 (guess if 1 or 2 is wanted).
+    function! s:Pattern(what)
+      if a:what == 2 || (a:what == 0 && histget(':', -1) =~# '^H')
+        let result = expand("<cword>")
+        if !empty(result)
+          let result = '\<'.result.'\>'
+        endif
+      else
+        let old_reg = getreg('"')
+        let old_regtype = getregtype('"')
+        normal! gvy
+        let result = substitute(escape(@@, '\.*$^~['), '\_s\+', '\\_s\\+', 'g')
+        normal! gV
+        call setreg('"', old_reg, old_regtype)
+      endif
+      return result
+    endfunction
+     
+    " Remove any highlighting for hlnum then highlight pattern (if not empty).
+    " If pat is numeric, use current word or visual selection and
+    " increase hlnum by count*10 (if count [1..9] is given).
+    function! s:DoHighlight(hlnum, pat, decade)
+      call LoadHighlights()
+      let hltotal = a:hlnum
+      if 0 < a:decade && a:decade < 10
+        let hltotal += a:decade * 10
+      endif
+      if type(a:pat) == type(0)
+        let pattern = s:Pattern(a:pat)
+      else
+        let pattern = a:pat
+      endif
+      let id = hltotal + 100
+      silent! call matchdelete(id)
+      if !empty(pattern)
+        try
+          call matchadd('hl'.hltotal, pattern, -1, id)
+        catch /E28:/
+          echo 'Highlight hl'.hltotal.' is not defined'
+        endtry
+      endif
+    endfunction
+     
+    " Remove all matches for pattern.
+    function! s:UndoHighlight(pat)
+      if type(a:pat) == type(0)
+        let pattern = s:Pattern(a:pat)
+      else
+        let pattern = a:pat
+      endif
+      for m in getmatches()
+        if m.pattern ==# pattern
+          call matchdelete(m.id)
+        endif
+      endfor
+    endfunction
+     
+    " Return pattern to search for next match, and do search.
+    function! s:Search(backward)
+      let patterns = []
+      for m in getmatches()
+        call add(patterns, m.pattern)
+      endfor
+      if empty(patterns)
+        let pat = ''
+      else
+        let pat = join(patterns, '\|')
+        call search(pat, a:backward ? 'b' : '')
+      endif
+      return pat
+    endfunction
+     
+    " Enable or disable mappings and any current matches.
+    function! s:MatchToggle()
+      if exists('g:match_maps') && g:match_maps
+        let g:match_maps = 0
+        for i in range(0, 9)
+          execute 'unmap <k'.i.'>'
+        endfor
+        nunmap <kMinus>
+        nunmap <kPlus>
+        nunmap <kMultiply>
+        nunmap <Leader>f
+        nunmap <Leader>F
+        nunmap <Leader>n
+        nunmap <Leader>N
+      else
+        let g:match_maps = 1
+        for i in range(1, 9)
+          execute 'vnoremap <silent> <k'.i.'> :<C-U>call <SID>DoHighlight('.i.', 1, v:count)<CR>'
+          execute 'nnoremap <silent> <k'.i.'> :<C-U>call <SID>DoHighlight('.i.', 2, v:count)<CR>'
+        endfor
+        vnoremap <silent> <k0> :<C-U>call <SID>UndoHighlight(1)<CR>
+        nnoremap <silent> <k0> :<C-U>call <SID>UndoHighlight(2)<CR>
+        nnoremap <silent> <kMinus> :call <SID>WindowMatches(0)<CR>
+        nnoremap <silent> <kPlus> :call <SID>WindowMatches(1)<CR>
+        nnoremap <silent> <kMultiply> :call <SID>WindowMatches(2)<CR>
+        nnoremap <silent> <Leader>f :call <SID>Search(0)<CR>
+        nnoremap <silent> <Leader>F :call <SID>Search(1)<CR>
+        nnoremap <silent> <Leader>n :let @/=<SID>Search(0)<CR>
+        nnoremap <silent> <Leader>N :let @/=<SID>Search(1)<CR>
+      endif
+      call s:WindowMatches(g:match_maps)
+      echo 'Mappings for matching:' g:match_maps ? 'ON' : 'off'
+    endfunction
+    nnoremap <silent> <Leader>m :call <SID>MatchToggle()<CR>
+     
+    " Remove and save current matches, or restore them.
+    function! s:WindowMatches(action)
+      call LoadHighlights()
+      if a:action == 1
+        if exists('w:last_matches')
+          call setmatches(w:last_matches)
+        endif
+      elseif a:action == 2
+        if exists('g:last_matches')
+          call setmatches(g:last_matches)
+        else
+          call s:Hrestore('')
+        endif
+      else
+        let m = getmatches()
+        if !empty(m)
+          let w:last_matches = m
+          let g:last_matches = m
+          call s:Hsave('')
+          call clearmatches()
+        endif
+      endif
+    endfunction
+     
+    " Return name of global variable to save value ('' if invalid).
+    function! s:NameForSave(name)
+      if a:name =~# '^\w*$'
+        return 'HI_SAVE_'.toupper(a:name)
+      endif
+      echo 'Error: Invalid name "'.a:name.'"'
+      return ''
+    endfunction
+     
+    " Return custom completion string (match patterns).
+    function! s:MatchPatterns(A, L, P)
+      return join(sort(map(getmatches(), 'v:val.pattern')), "\n")
+    endfunction
+     
+    " Return custom completion string (saved highlight names).
+    function! s:SavedNames(A, L, P)
+      let l = filter(keys(g:), 'v:val =~# ''^HI_SAVE_\w''')
+      return tolower(join(sort(map(l, 'strpart(v:val, 8)')), "\n"))
+    endfunction
+     
+    " Save current highlighting in a global variable.
+    function! s:Hsave(name)
+      let sname = s:NameForSave(a:name)
+      if !empty(sname)
+        let l = getmatches()
+        call map(l, 'join([v:val.group, v:val.pattern, v:val.priority, v:val.id], "\t")')
+        let g:{sname} = join(l, "\n")
+      endif
+    endfunction
+    command! -nargs=? -complete=custom,s:SavedNames Hsave call s:Hsave('<args>')
+     
+    " Restore current highlighting from a global variable.
+    function! s:Hrestore(name)
+      call LoadHighlights()
+      let sname = s:NameForSave(a:name)
+      if !empty(sname)
+        if exists('g:{sname}')
+          let matches = []
+          for l in split(g:{sname}, "\n")
+            let f = split(l, "\t", 1)
+            call add(matches, {'group':f[0], 'pattern':f[1], 'priority':f[2], 'id':f[3]})
+          endfor
+          call setmatches(matches)
+        else
+          echo 'No such global variable: '.sname
+        endif
+      endif
+    endfunction
+    command! -nargs=? -complete=custom,s:SavedNames Hrestore call s:Hrestore('<args>')
+     
+    " Clear a match, or clear all current matches. Example args:
+    "   '14' = hl14, '*' = all, '' = visual selection or cword,
+    "   'pattern' = all matches for pattern
+    function! s:Hclear(pattern) range
+      if empty(a:pattern)
+        call s:UndoHighlight(0)
+      elseif a:pattern == '*'
+        call s:WindowMatches(0)
+      elseif a:pattern =~ '^[1-9][0-9]\?$'
+        call s:DoHighlight(str2nr(a:pattern), '', 0)
+      else
+        call s:UndoHighlight(a:pattern)
+      endif
+    endfunction
+    command! -nargs=* -complete=custom,s:MatchPatterns -range Hclear call s:Hclear('<args>')
+     
+    " Create a scratch buffer with sample text, and apply all highlighting.
+    function! s:Hsample()
+      call LoadHighlights()
+      new
+      setlocal buftype=nofile bufhidden=hide noswapfile
+      let lines = []
+      let items = []
+      for hl in filter(range(1, 99), 'v:val % 10 > 0')
+        if hlexists('hl'.hl)
+          let sample = printf('Sample%2d', hl)
+          call s:DoHighlight(hl, sample, 0)
+        else
+          let sample = '        '
+        endif
+        call add(items, sample)
+        if len(items) >= 3
+          call insert(lines, substitute(join(items), '\s\+$', '', ''))
+          let items = []
+        endif
+      endfor
+      call append(0, filter(lines, 'len(v:val) > 0'))
+      $d
+      %s/\d3$/&\r/e
+    endfunction
+    command! Hsample call s:Hsample()
+     
+    " Set a match, or display all current matches. Example args:
+    "   '14' = set hl14 for visual selection or cword,
+    "   '14 pattern' = set hl14 for pattern, '' = display all
+    function! s:Highlight(args) range
+      if empty(a:args)
+        echo 'Highlight groups and patterns:'
+        for m in getmatches()
+          echo m.group m.pattern
+        endfor
+        return
+      endif
+      let l = matchlist(a:args, '^\s*\([1-9][0-9]\?\)\%($\|\s\+\(.*\)\)')
+      if len(l) >= 3
+        let hlnum = str2nr(l[1])
+        let pattern = l[2]
+        if empty(pattern)
+          let pattern = s:Pattern(0)
+        endif
+        call s:DoHighlight(hlnum, pattern, 0)
+        return
+      endif
+      echo 'Error: First argument must be highlight number 1..99'
+    endfunction
+    command! -nargs=* -range Highlight call s:Highlight('<args>')
+<
+
+DEFINING HIGHLIGHT GROUPS  *vwt-1572-defining-highlight-groups*
+
+The script reads a CSV [https://vim.fandom.com/wiki/CSV] file with the same 
+directory/name as the script, but with .csv extension. Each line should 
+consist of five comma-separated fields, where the first field is a number from 
+1 to 99 inclusive (any other lines are ignored).
+
+For example, the line "5,white,blue,black,green" would define a highlight 
+group named hl5 which color terminals would display as white on blue, and gvim 
+would display as black on green.
+
+Create file ~/.vim/plugin/highlights.csv (Unix) or 
+$HOME/vimfiles/plugin/highlights.csv (Windows) containing the sample below, 
+then restart Vim.
+
+>
+    hlnum,ctermfg,ctermbg,guifg,guibg
+    1,red,,red,
+    2,green,,green,
+    3,blue,,blue,
+    4,black,magenta,black,IndianRed
+    5,black,green,black,chartreuse
+    6,black,cyan,black,DeepSkyBlue
+    7,white,DarkRed,white,firebrick
+    8,white,DarkGreen,white,DarkGreen
+    9,white,DarkBlue,white,DarkSlateBlue
+    11,,,black,thistle
+    12,,,black,burlywood
+    13,,,black,PowderBlue
+    14,,,black,peru
+    15,,,black,DarkSeaGreen
+    16,,,black,SteelBlue
+    17,,,black,DarkOrange
+    18,,,black,DarkOliveGreen
+    19,,,black,SlateGray
+    21,,,red,grey20
+    22,,,green,grey20
+    23,,,CornflowerBlue,grey20
+    24,,,red,grey40
+    25,,,green,grey40
+    26,,,blue,grey40
+    27,,,red,grey70
+    28,,,DarkGreen,grey70
+    29,,,blue,grey70
+<
+
+SEE ALSO  *vwt-1572-see-also*
+    - Discussion page [https://vim.fandom.com/wiki/Talk:Highlight_multiple_words] for alternative methods
+    - View all named colors |vwt-634| to show the colors for the standard color names
+    - Highlighting information |vwt-24| want to fix this to list relevant tips
+    - MultipleSearch [https://www.vim.org/scripts/script.php?script_id=479] highlight multiple searches, each with a different color
+    - Mark [https://www.vim.org/scripts/script.php?script_id=2666] highlight several words in different colors simultaneously (a continuation of the original Mark [https://www.vim.org/scripts/script.php?script_id=1238] plugin)
+
+
+REFERENCES  *vwt-1572-references*
+    - :help  |matchadd()|
+    - :help  |matchdelete()|
+    - :help  |clearmatches()|
+    - :help  |gui-colors|
+
+
+COMMENTS  *vwt-1572-comments*
+
+A recent edit 
+[https://vim.fandom.com/index.php?title=Highlight_multiple_words&diff=29652&oldid=23776] 
+added a note regarding the script that "Selected text can not be highlighted 
+in unmodifiable buffers; "normal! gy" does not work". I guess "gvy" was 
+intended, rather that "gy". However, I can select text in a Help buffer (which 
+is ":set nomodifiable"), then highlight all occurrences of that text using the 
+script in this tip. I have removed the note pending some further information 
+(what is it exactly that does not work?). JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 04:09, March 5, 2011 (UTC)
+
+Hi John,
+
+I assume you created this awesome VIM script. If that is true, can I ask for 
+your permission to use some of the codes for my own VIM script? I plan to do 
+almost the same thing (multiple highlights), but the search text is taken from 
+a configuration file (highlight.csv) and supports case sensitivity. I plan to 
+share it out to the community through my blog, so is there any caveat? Thanks.
+
+Daniel --January 27, 2015
+
+Certainly, everything here is available for re-use! I did not start this tip but I did do a lot of work to extend it to its current form. JohnBeckett (talk) 20:31, January 30, 2015 (UTC)
+
+
+ Thanks, John. I have completed the script and let me know if you would like me to share it here too.
+
+The basic features are:
+
+(1) Highlight multiple regex based on configuration file (to cater for user 
+that needs to read files of a certain format often)
+
+Eg.
+
+hlnum,ctermfg,ctermbg,guifg,guibg,regex,ignorecase
+ 1,black,blue,black,springgreen,localhost,0
+ 2,black,yellow,black,violet,vmnet-dhcpd,1
+ 3,black,cyan,black,dodgerblue1,dhclient,0
+ 4,black,magenta,black,deeppink4,NetworkManager,1
+ 5,black,lightmagenta,black,mediumpurple4,process-[0-9],0
+
+(2) Configuration can be changed dynamically and take effect immediately by 
+pressing <leader>m without the need to reopen the input file
+
+(3) The user can opt to switch to another configuration file using (:UsrCfg 
+<configfile>) on the fly without needing to reopen the input file.
+
+~ Daniel ~
+
+Daniel's script is here. step -- January, 29, 2016

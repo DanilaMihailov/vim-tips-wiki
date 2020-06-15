@@ -1,0 +1,51 @@
+*vim-wiki-tips-1280.txt*   Edit and organize several remote files easily *vwt-1280*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 1280 [https://vim.fandom.com/wiki/Edit_and_organize_several_remote_files_easily]   Previous |vwt-1274| Next |vwt-1282|
+
+created 2006 · complexity intermediate · author Tom Purl · version 6.0
+
+==============================================================================
+
+This tip requires the netrw and Project plugins. The netrw plugin should be 
+included with every version of Vim since 6.0, and the Project plugin is 
+available at script#69 [https://www.vim.org/scripts/script.php?script_id=69].
+
+Using the Project plugin to organize, edit and read remote files is an 
+excellent idea. For example, let's say that you're administering 10 Unix 
+servers, and have the following file on each server: /opt/myapp/etc/myapprc
+
+Also, let's say that you need to check this file on a couple of machines a 
+day and occasionally compare files. Instead of logging into multiple machines 
+(and using a differently-configured text editor on each machine), you can just 
+set up the following Project file:
+
+>
+    myapp_config=/home/someguy/logs/myapp_config CD=. {
+      scp://server1.domain.com///opt/myapp/etc/myapprc
+      scp://server2.domain.com///opt/myapp/etc/myapprc
+      scp://server3.domain.com///opt/myapp/etc/myapprc
+      scp://server4.domain.com///opt/myapp/etc/myapprc
+      scp://server5.domain.com///opt/myapp/etc/myapprc
+      scp://server6.domain.com///opt/myapp/etc/myapprc
+      scp://server7.domain.com///opt/myapp/etc/myapprc
+      scp://server8.domain.com///opt/myapp/etc/myapprc
+      scp://server9.domain.com///opt/myapp/etc/myapprc
+      scp://server10.domain.com///opt/myapp/etc/myapprc
+    }
+<
+
+The netrw plugin allows you to edit and read these files in a fairly 
+transparent manner. And if you're using scp and ssh-agent, you can work with 
+all of these files without even using passwords. Also, if you wanted to do a 
+vimdiff of two of these files, you can open one of them using the Project 
+plugin and use the :diffsplit command to open the other file.
+
+COMMENTS  *vwt-1280-comments*

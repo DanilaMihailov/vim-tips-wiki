@@ -1,0 +1,39 @@
+*vim-wiki-tips-352.txt*   Disabling cabbrev *vwt-352*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 352 [https://vim.fandom.com/wiki/Disabling_cabbrev]   Previous |vwt-351| Next |vwt-355|
+
+created 2002 · complexity intermediate · author Kartik Agaram · version 6.0
+
+==============================================================================
+
+Have you ever been annoyed by an over-zealous cabbrev? A simple way to 
+temporarily disable it is set invpaste. Very convenient in combination with 
+the 'pastetoggle' key. Note however that 'pastetoggle' does not work if you 
+are already in command-line mode, as documented in the help.
+
+You can also simply press <C-V> before whatever character (usually <space>) 
+that you type that will expand the abbreviation. This will insert the 
+character literally without expanding the abbreviation.
+
+REFERENCES  *vwt-352-references*
+    - :help 'paste'
+    - :help 'pastetoggle'
+
+
+COMMENTS  *vwt-352-comments*
+
+Does anybody have a better way to disable cabbrev's? The Vim docs (a little 
+above help abbreviate-local) say pressing <C-v> twice somewhere within the 
+abbrev avoids expanding it. Doesn't work for me, though. Pressing <C-v><Space> 
+works in the ':' prompt, but not while searching - what if I don't want to 
+include a space in the pattern?
+
+==============================================================================

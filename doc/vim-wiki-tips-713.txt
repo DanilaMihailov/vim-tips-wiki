@@ -1,0 +1,76 @@
+*vim-wiki-tips-713.txt*   Create one mapping for both console and GUI *vwt-713*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 713 [https://vim.fandom.com/wiki/Create_one_mapping_for_both_console_and_GUI]   Previous |vwt-712| Next |vwt-714|
+
+created May 8, 2004 · complexity basic · author Salman Halim · version 6.0
+
+==============================================================================
+
+This is a way to set mappings based on whether GUI or console Vim is running:
+
+>
+    function! ModeMapping( guiLhs, termLhs, rhs, ... )
+      let mapCommand='map'
+      if ( a:0 > 0 )
+        let mapCommand=a:1
+      endif
+      if ( has( "gui_running" ) )
+        echo mapCommand . " " . a:guiLhs . " " . a:rhs
+      else
+        echo mapCommand . " " . a:termLhs . " " . a:rhs
+      endif
+    endfunction
+<
+
+Sample use 1:
+
+>
+    call ModeMapping( "<Leader>b", "<Leader>c", ":echo 'Salman'<CR>" )
+<
+
+This means that if GUI is running, <Leader>b becomes the lhs and the :echo 
+bit becomes the rhs; if no GUI is running, you get <Leader>c as the lhs 
+instead.
+
+Sample use 2:
+
+>
+    call ModeMapping( "<Leader>a", "<Leader>d", "<Esc>:echo 'Halim'<CR>gv", 'vmap <buffer>' )
+<
+
+If the GUI is running, <Leader>a is the lhs, <Esc>:echo etc. is the rhs and 
+the mapp command used is 'vmap <buffer>' (a buffer-specific visual mode 
+mapping). Note that the last argument is optional (and wasn't there in the 
+last example).
+
+COMMENTS  *vwt-713-comments*
+
+I'm not sure I understand this. Isn't this what the vimrc and gvimrc files 
+are for?Put any gui specific maps in gvimrc, others in vimrc?
+
+==============================================================================
+
+The point of this is to avoid having to create duplicate mappings with the 
+same rhs; doing it in one place makes maintenance easier. Basically, someone 
+had asked the question on the mailing list of how they could avoid the 
+following construct:
+
+>
+    if ( has( "gui_running" ) )
+      map lhs1 rhs
+    else
+      map lhs2 rhs
+    endif
+<
+
+And my suggestion was to put it into a function (this tip).
+
+==============================================================================

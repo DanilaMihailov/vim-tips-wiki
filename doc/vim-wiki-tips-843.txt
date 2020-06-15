@@ -1,0 +1,57 @@
+*vim-wiki-tips-843.txt*   Moving between buffers using mouse *vwt-843*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 843 [https://vim.fandom.com/wiki/Moving_between_buffers_using_mouse]   Previous |vwt-842| Next |vwt-844|
+
+created 2005 · complexity basic · author charles · version 6.0
+
+==============================================================================
+
+After some time using mini buffer explorer script#159 
+[https://www.vim.org/scripts/script.php?script_id=159], here is the way for 
+moving between buffers using the mouse (thus gvim only) and minibufexpl I feel 
+comfortable with.
+
+1. Download the minibufexpl script and put it in the plugin directory 
+(~/.vim/plugin or %HOME%\vimfiles\plugin in windows). Thus we have a pseudo 
+tabbar in GVim window.
+
+2. Map the right click to <Esc> by adding these lines to vimrc
+
+>
+    imap <RightMouse> <Esc>
+    nmap <RightMouse> <Esc>
+<
+
+3. Then when we want to switch buffer in insert mode (or normal mode), 
+instead having to press the <Esc> key, then move the mouse and click the 
+buffer name, we instead just need to right click and click the buffer name 
+using the mouse. Quite easier I think.
+
+Drawback, you lose your right click menu.
+
+COMMENTS  *vwt-843-comments*
+
+That's a great idea, but try this:
+
+>
+    imap <RightMouse> <Esc>
+    nmap <RightMouse> i<LeftMouse>
+<
+
+As before, right mouse gets you out of insert mode, so you can quickly use 
+the mini buffer explorer. In normal mode, right mouse will put you in insert 
+mode wherever you click.
+
+Now, to edit a different file, <RightClick> to exit insert mode, double 
+<LeftClick> on the new filename, navigate to where you want to edit and 
+<RightClick> to begin insert mode.
+
+==============================================================================

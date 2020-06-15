@@ -1,0 +1,64 @@
+*vim-wiki-tips-366.txt*   Really basic RCS interaction from within vim *vwt-366*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 366 [https://vim.fandom.com/wiki/Really_basic_RCS_interaction_from_within_vim]   Previous |vwt-364| Next |vwt-367|
+
+created 2002 · complexity basic · author Peter · version 6.0
+
+==============================================================================
+
+I've looked around every where and haven't found RCS functions built into vim 
+(which surprises me, really), so I looked more and found some almost working 
+RCS scripts for text-mode. Key there is almost. It's still a kludge, but it 
+works without too much hassle.
+
+I've chosen F1 and F2, because I never use those keys for what they are 
+intended. I use :help for a command reference, not for a tutorial style thing. 
+So, use some discretion. Also, the write command could just as easily have 
+been a :write!, but I decided against that in the case of files that weren't 
+checked out. You should check them out, first, and they should be writable.
+
+>
+    map <F1> :write %<CR>:!ci -l %<CR>:edit!<CR>
+    map <F2> :!co -l %<CR>:edit!<CR>
+<
+
+New RCS files work just fine with the first mapping.
+
+There would be some use to creating the RCS directory, if it's not already 
+there, but I don't see an "if exists and is directory" function, right now.
+
+There's a good menu-driven rcs client for graphical vim, but I hate menus and 
+graphical interfaces.
+
+COMMENTS  *vwt-366-comments*
+
+If you are referring to rcs-menu.vim, even though it has a menu/graphical 
+interface, it also creates mappings to do the same operations, which to me is 
+more useful. So I guess you really get the best of both worlds that way.
+
+==============================================================================
+
+> but I don't see an "if exists and is directory" function, right now.
+
+How about isdirectory()?
+
+>
+    if isdirectory("c:/vim/vimfiles/")
+     "dir exists
+    endif
+<
+
+==============================================================================
+
+See script#360 [https://www.vim.org/scripts/script.php?script_id=360] for 
+visual rcsdiff. Integrates Vim's diffsplit with RCS.
+
+==============================================================================

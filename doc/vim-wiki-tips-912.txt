@@ -1,0 +1,160 @@
+*vim-wiki-tips-912.txt*   Smart abbreviation *vwt-912*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 912 [https://vim.fandom.com/wiki/Smart_abbreviation]   Previous |vwt-911| Next |vwt-913|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+I love the abbreviations in Vim, but sometimes, especially when writing 
+Strings there might be a small Problem: words in the Strings matching my 
+keywords are expanded.
+
+Here are some small snippets, which helped me dealing with keywords in 
+Strings.
+
+First off all the functions. JAVA_EatChar is taken from the vim helpfiles and 
+removes the character trigering the expansion. JAVA_insert_p is a predicate 
+which checks whether we are typing a String or not.
+
+JAVA_replace executes name or repl:
+    -  name is a short String being executed, if you are in a String.
+    -  repl is to be executed, when you want your expansion.
+
+
+>
+    func! JAVA_EatChar(pat)
+      let c=nr2char(getchar())
+      return (c =~ a:pat) ? '' : c
+    endfunc
+    
+    func! JAVA_insert_p()
+      exec "normal i \e"
+      let modeVal=synIDattr( synIDtrans( synID(line("."), col("."), 0)), "name")
+      return modeVal!=?"Constant" && modeVal!=?"Comment"
+    endfunc
+    
+    func! JAVA_replace(name, repl)
+      if JAVA_insert_p()
+        exec a:repl
+        return ""
+      else
+        exec a:name
+        return " "
+      endif
+    endfunc
+<
+
+Here are some mappings:
+
+>
+    iabbrev <silent> <buffer> for for<C-R>=JAVA_replace("", "normal i(){\n}\ekf(\el")<CR><C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> fori for(int i=0;;i++){<CR>}<Esc>k^f;a<C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> forint for(int){<CR>}<Esc>kf)i
+    iabbrev <silent> <buffer> foriti for(Iterator i=;i.hasNext();){<CR>}<Esc>kf=a<C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> forit for(Iterator){<CR>}<Esc>kf)i
+    iabbrev <silent> <buffer> while while<C-R>=JAVA_replace("", "normal i(){\n}\ekf(\el")<CR><C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> sysout <C-R>=JAVA_replace("normal isysout", "normal iSystem.out.println();\eF)")<CR><C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> syserr <C-R>=JAVA_replace("normal isyserr", "normal iSystem.err.println();\eF)")<CR><C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> privfun private(){<CR>}<Esc>kf(i
+    iabbrev <silent> <buffer> pubfun public(){<CR>}<Esc>kf(i
+    iabbrev <silent> <buffer> profun protected(){<CR>}<Esc>kf(i
+    iabbrev <silent> <buffer> tryc try{<CR>}catch(){}<Esc>F)i<C-R>=JAVA_EatChar('\s')<CR>
+    iabbrev <silent> <buffer> trya try{<CR>}catch(Exception e){}<Esc>O<C-R>=JAVA_EatChar('\s')<CR>
+<
+
+I'm using JAVA_replace for for while sysout syserr, but not for others, for 
+example fori forint.
+
+This is very important, because if you define e.g. fori with JAVA_replace the 
+expansion will be executed with "exec" which will call the abbreviation for 
+"for", thus unfortunatelly defining abbreviation for keywords which extend 
+other keywords will become some kind of tricky.
+
+But since the functions don't do any syntax checking by themself, it won't be 
+difficult to apply them to any other language.
+
+COMMENTS  *vwt-912-comments*
+
+Abbreviations have been obsoleted by completion from dictionaries and tags in 
+Vim. Then map <Tab> to do completion.
+
+That way nothing to remember, and your abbreviations are dynamic (nothing 
+static to remember).
+
+==============================================================================
+
+I'm sure abbreviations have NOT been rendered obsolete -- they are a great 
+aid for autocorrection and macros; it's nice to be able to type 'sunita' and 
+have it automatically capitalize it to 'Sunita' without having to do any extra 
+work. Similarly:
+
+iab mdy <c-r>=strftime("%B %d, %Y")<CR>
+
+Inserts the current date (for example, "April 15, 2005") and is great for 
+timestamp purposes.
+
+Forgive the slightly tangential response, but this isn't the first time I've 
+had the dubious privilege of seeing someone's submissions hacked to pieces by 
+Sunita.
+
+I think abbreviations that only trigger when one isn't in a string are very 
+cool. The only thing I would suggest is to make a custom ISafeAbbrev command 
+or something that takes a <lhs> and a <rhs> and executes the entire iabbrev 
+with JAVA_replace etc, allowing the user to simply call it with the <lhs> and 
+the two <rhs> (one for string mode, one for not) or some such.
+
+==============================================================================
+
+The problem with completion using dictionaries or tabs is, that they only 
+expand to words, whereas using abbreviation you can map something like "for" 
+to be expanded as:
+
+>
+    for (){
+    }
+<
+
+in finally set the cursor in the parenthesis or "foriti" will expand to:
+
+>
+    for(Iterator i=;i.hasNext();){
+    }
+<
+
+and place the cursor directly after "=".
+
+This works, cause you can use any keymappings to abbreviations like <Esc>.
+
+This way you can even map the word "write" in input mode to the command ":w" 
+and remove the word "write" (being done automatically)
+
+Can you do something like this with dictionaries?
+
+I agree, for completion of other keywords, functions, using dictionaries and 
+tags is very smart too, but you can't easily map whole code blocks to em.
+
+==============================================================================
+
+If you are interested in more advanced (and definitely more complex when you 
+look at the internals) smart-abbreviations, you may have a look at what I have 
+done in my C&C++ ftplugins (script#336 
+[https://www.vim.org/scripts/script.php?script_id=336]). All the functions 
+used to provide the abbreviations and mappings are available on their own in a 
+set of standalone (API) plugins (script#50 
+[https://www.vim.org/scripts/script.php?script_id=50]).
+
+The C-ftplugin part should be usable in Java, and a portion of the C++ part 
+is easily adaptable to Java.
+
+I have to agree that dictionaries are not enough.
+
+==============================================================================

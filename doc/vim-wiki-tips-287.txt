@@ -1,0 +1,144 @@
+*vim-wiki-tips-287.txt*   Increasing or decreasing numbers *vwt-287*
+
+Tip 30 [https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers]   Previous |vwt-29| Next |vwt-31|
+
+created 2001 · complexity basic · version 7.0
+
+==============================================================================
+
+In normal mode, typing Ctrl-A will increment the next number, and typing 
+Ctrl-X will decrement the next number. The number can be at the cursor, or to 
+the right of the cursor (on the same line). These are the defaults for Vim, 
+although some scripts remap these keys to perform other functions.
+
+These keys work with a count. For example, pressing 5 then Ctrl-A will 
+increment the following number five times (add 5).
+
+NUMBER FORMATS  *vwt-287-number-formats*
+
+The 'nrformats' option defaults to "octal,hex" which means that increment and 
+decrement work on octal and hex numbers, as well as decimal. If 'nrformats' 
+includes "alpha", alphabetic characters are also operated on (the next letter 
+is incremented or decremented). Use :set nrformats? to view the current 
+options, or :set nrformats+=alpha to add the alpha option.
+
+An octal number starts with 0, and a hex number starts with 0x or 0X. Decimal 
+numbers can be preceded with a sign (any + is ignored, while - makes the 
+number negative).
+
+ALTERNATIVE MAPPING  *vwt-287-alternative-mapping*
+
+On Windows, your vimrc [https://vim.fandom.com/wiki/Vimrc] file may source 
+mswin.vim or another script that maps Ctrl-A to Select All. To view and then 
+remove such a normal-mode mapping, enter:
+
+>
+    :verbose map <C-a>
+    :nunmap <C-a>
+<
+
+Alternatively, you can keep the Ctrl-A mapping, and use a different key for 
+incrementing. For example, the following maps Alt-A to perform an increment 
+(it also maps Alt-X to perform a decrement so the Alt key can be used for 
+both):
+
+>
+    :nnoremap <A-a> <C-a>
+    :nnoremap <A-x> <C-x>
+<
+
+ENHANCED INCREMENT/DECREMENT  *vwt-287-enhanced-increment/decrement*
+
+The following script enhances Ctrl-A and Ctrl-X so that they operate on the 
+next number, even if that number is not on the current line (they search for 
+the next number). Also, assuming the default backslash leader key, typing \ 
+then Ctrl-A or Ctrl-X will search backwards and operate on the previous 
+number.
+
+Put the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc] or 
+in a file in your plugin directory.
+
+>
+    function! AddSubtract(char, back)
+      let pattern = &nrformats =~ 'alpha' ? '[[:alpha:][:digit:]]' : '[[:digit:]]'
+      call search(pattern, 'cw' . a:back)
+      execute 'normal! ' . v:count1 . a:char
+      silent! call repeat#set(":\<C-u>call AddSubtract('" .a:char. "', '" .a:back. "')\<CR>")
+    endfunction
+    nnoremap <silent>         <C-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
+    nnoremap <silent> <Leader><C-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
+    nnoremap <silent>         <C-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
+    nnoremap <silent> <Leader><C-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
+<
+
+The above uses the repeat plugin [https://github.com/tpope/vim-repeat] so you 
+can press . to repeat an operation performed by the script. For example, 
+pressing 5 then Ctrl-A would search for the next number and increment it 5 
+times, and pressing . would repeat that (add 5 again). The prefix :silent! is 
+used so that no error occurs if repeat.vim is not found.
+
+The script has an inconsistency when searching in the forwards direction. 
+With the default hex in 'nrformats', the code finds and operates on the next 
+number, which may be a hex number. After the operation, the cursor is left on 
+the last character of the number, and if that character is a letter (for 
+example, 0x12AB), repeating the operation will find and operate on the next 
+number because the script starts by searching for a digit 0..9.
+
+ENHANCED WITH NEXTVAL PLUGIN  *vwt-287-enhanced-with-nextval-plugin*
+
+You can extend the functionality with a plugin. Nextval 
+[http://www.vim.org/scripts/script.php?script_id=4536] can increment/decrement 
+integer (in several variants), float, hex and boolean.
+
+MAKING A LIST  *vwt-287-making-a-list*
+
+There are several ways to make a list of increasing numbers 
+[https://vim.fandom.com/wiki/Making_a_list_of_numbers]. One simple method is 
+to use Ctrl-A in a macro. As an example, suppose you type the line:
+
+>
+    101 This is an item.
+<
+
+In normal mode, enter the following to record a macro into the a register 
+(type the characters shown, without pressing Enter). This macro yanks the 
+current line, then pastes it below, then increments the number.
+
+>
+    qa
+    Y
+    p
+    Ctrl-A
+    q
+<
+
+Now type 15@a to perform the macro 15 times. You will see:
+
+>
+    101 This is an item.
+    102 This is an item.
+    103 This is an item.
+    104 This is an item.
+    and so on
+<
+
+Later, you might insert a new item after #102. Now you need to renumber the 
+following items (the new item will be 103, so the old 103 has to be 
+incremented, as does 104, and so on. That can be done using :.,$g/^\d/exe 
+"normal! \<C-a>" (see here [https://vim.fandom.com/wiki/Power_of_g]).
+
+SEE ALSO  *vwt-287-see-also*
+    - Making a list of numbers [https://vim.fandom.com/wiki/Making_a_list_of_numbers]
+
+
+REFERENCES  *vwt-287-references*
+    - :help  |CTRL-A|
+    - :help 'nrformats'
+
+
+COMMENTS  *vwt-287-comments*
+
+If you use Vim under screen, press Ctrl-A and then hit a. Screen then sends 
+on a translation of Ctrl-A to the underlying program, Vim.
+
+Thanks

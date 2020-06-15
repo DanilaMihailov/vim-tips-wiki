@@ -1,0 +1,77 @@
+*vim-wiki-tips-757.txt*   Sample switch between number/nonumber *vwt-757*
+
+
+
+Please review this tip:
+    - This tip was imported from vim.org and needs general review [https://vim.fandom.com/wiki/Vim_Tips_Wiki:General_guidelines].
+    - You might clean up comments [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Comment_guidelines] or merge similar tips [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].
+    - Add suitable categories [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Category_guidelines] so people can find the tip.
+    - Please avoid the discussion page [https://vim.fandom.com/wiki/Vim_Tips_Wiki:Discussion_guidelines] (use the Comments section below for notes).
+    - If the tip contains good advice for current Vim, remove the {{review}} line.
+Tip 757 [https://vim.fandom.com/wiki/Sample_switch_between_number/nonumber]   Previous |vwt-755| Next |vwt-758|
+
+created July 2, 2004 · complexity basic · author panshdw · version 6.0
+
+==============================================================================
+
+>
+    function! NumberNo()
+      set nonumber
+      map <F12> :call NumberYes()<CR>
+    endfunction
+    
+    function! NumberYes()
+      set number
+      map <F12> :call NumberNo()<CR>
+    endfunction
+    map <F12> :call NumberNo()<CR>
+<
+
+COMMENTS  *vwt-757-comments*
+
+This also works:
+
+>
+    :map <F12> :set number!<CR>
+    "" for insert mode
+    :imap <F12> <c-o>:set number!<CR>
+<
+
+==============================================================================
+
+Another alternative is:
+
+>
+    :map <F12> :let &number=1-&number<CR>
+<
+
+==============================================================================
+
+I do this -- which inverts the 'number' option for every window:
+
+>
+    func! s:NumToggle()
+      let s:current_winnr = winnr()
+      windo set invnumber
+      exec s:current_winnr."winc w"
+    endfunc
+    map <F12> :call <SID>NumToggle()<CR>
+<
+
+==============================================================================
+
+You can also do this:
+
+>
+    noremap <silent> <F12> :if &number \| set nonumber \| else \| set number \| endif<CR>
+<
+
+==============================================================================
+
+Yes, but it's faster to just do:
+
+>
+    noremap <silent> <F12> :set number!<CR>
+<
+
+==============================================================================

@@ -1,0 +1,43 @@
+*vim-wiki-tips-206.txt*   Highlight doubled word errors in text *vwt-206*
+
+Tip 206 [https://vim.fandom.com/wiki/Highlight_doubled_word_errors_in_text]   Previous |vwt-205| Next |vwt-207|
+
+created January 31, 2002 · complexity intermediate · author Ajit Thakkar · 
+version 6.0
+
+==============================================================================
+
+An error I sometimes make while working on a LaTeX file is the repetition of 
+a word as in "the the". Most often, such doubled words come about through a 
+careless edit. Doubled words are hard to spot when the first word of the 
+doubled pair is the last word on one line, and the second word of the pair is 
+the the first word on the next line. There is an example of such an error in 
+the last sentence. Vim's syntax mechanism can be used to highlight doubled 
+words as an error.
+
+To obtain this highlighting for TeX and LaTeX files, place the following two 
+lines:
+
+>
+    syn match texDoubleWord "\c\<\(\a\+\)\_s\+\1\>"
+    hi def link texDoubleWord Error
+<
+
+in a file called tex.vim in the directory that shows up last in your 
+runtimepath (:set runtimepath? to check). This will often be either 
+~/.vim/after/syntax/tex.vim or $VIM/vimfiles/after/syntax/tex.vim
+
+The same effect can be obtained for files of a different filetype, say html, 
+by putting the same lines in a file called html.vim in the same location.
+
+For a less intrusive highlight, you may want to try using one of the spell 
+checker highlight groups instead of "Error" in the second line. See :help 
+|hl-SpellBad|, :help |hl-SpellCap|, :help |hl-SpellLocal|, and :help 
+|hl-SpellRare|.
+
+REFERENCES  *vwt-206-references*
+    - :help 'runtimepath'
+    - :help  |syntax|
+
+
+COMMENTS  *vwt-206-comments*

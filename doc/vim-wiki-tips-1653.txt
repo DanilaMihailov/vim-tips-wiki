@@ -1,0 +1,360 @@
+*vim-wiki-tips-1653.txt*   Getting the Vim source with Mercurial *vwt-1653*
+
+Tip 1653 [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial]   Previous |vwt-1652| Next |vwt-1654|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201005#Getting_the_Vim_source_with_Mercurial] 
+May 14, 2010 · complexity basic · author Tonymec · version 7.0
+
+==============================================================================
+
+This tip describes how to get the Vim source from the new Mercurial 
+repository. It assumes that you know how to compile Vim once you have the 
+source. Examples are for Linux but it shouldn't be hard to adapt them to 
+whatever OS you're running on (provided of course that there exists a version 
+of Mercurial that runs on your OS). Also, the examples are written for GNU 
+make: in case of doubt, try replacing make by gmake everywhere.
+
+Also take a look at the Mercurial instructions from vim.org 
+[http://www.vim.org/mercurial.php].
+
+FIRST TIME ONLY: CREATING YOUR REPOSITORY  *vwt-1653-first-time-only:-creating-your-repository*
+
+MAKE SURE THAT MERCURIAL AND PYTHON ARE INSTALLED ON YOUR SYSTEM  *vwt-1653-make-sure-that-mercurial-and-python-are-installed-on-your-system*
+
+For example, check there is a program named hg and another named python in 
+your PATH. If you haven't got Mercurial, install it, either (if available) by 
+installing the Mercurial package from your distro, or else from the Mercurial 
+site [http://mercurial.selenic.com/]. As of May 2010 the Python version 
+required by the Mercurial package is Python 2.4, but it seems to work fine 
+with later versions like Python 2.6.2.
+
+If you're uncomfortable with a command-line interface (or simply prefer a 
+GUI), there are options available such as TortoiseHg 
+[http://tortoisehg.bitbucket.org/] to simplify common tasks with an 
+easy-to-use GUI front-end. On Windows, the installer even includes Python and 
+a command-line hg tool, so that you get everything you need in one package.
+
+INSTALL A COPY OF BRAM'S LATEST SOURCE, RUNTIME AND ANCILLARY FILES  *vwt-1653-install-a-copy-of-bram's-latest-source,-runtime-and-ancillary-files*
+
+1. Set up a directory head "for building" and cd to it, e.g. (on Linux)
+
+>
+    mkdir -p ~/.build/hg
+    cd ~/.build/hg
+<
+
+2. Clone Bram's repository(this may take some time, depending on the speed of 
+your CPU and Internet connection):
+
+>
+    (date && hg clone http://hg.256bit.org/vim vim) 2>&1 |tee hg-vim.log
+<
+
+The above is slightly more complicated than absolutely necessary because it 
+can be useful to keep a running log. The important part starts with hg and 
+ends immediately before the right parenthesis. Similarly for other hg commands 
+below.
+
+SIMPLE CASE: GETTING NEW PATCHES  *vwt-1653-simple-case:-getting-new-patches*
+
+This applies if all of the following are true:
+    - You have no local changes to the Vim source, ancillary and runtime files (including the Makefile; you can easily compile a custom Vim with no Makefile changes, as detailed in the compiling "how to" pages |vwt-1653-external-links| below)
+    - You compile only one Vim and therefore don't use a shadow directory
+    - You don't build a cscope database inside the Vim source tree
+
+
+In this case, all you need to check for (and, if necessary, get) any changes 
+to the Vim source is:
+
+>
+    cd ~/.build/hg/vim
+    (date && hg pull -u) 2>&1 |tee -a ../hg-vim.log
+<
+
+COMPLEX CASE: YOU HAVE LOCAL CHANGES AND/OR COMPILE SEVERAL VIM VERSIONS  *vwt-1653-complex-case:-you-have-local-changes-and/or-compile-several-vim-versions*
+
+ENABLE THE FETCH EXTENSION  *vwt-1653-enable-the-fetch-extension*
+
+Add the following to the .hg/hgrc file in your repository (it was created by 
+the clone process, with Bram's repository as the default remote source):
+
+>
+    [extensions]
+    hgext.fetch =
+<
+
+No need to add anything after the equal sign, this extension comes packed 
+with Mercurial (but disabled by default)
+
+PATCH YOUR .HGIGNORE FILE  *vwt-1653-patch-your-.hgignore-file*
+
+It is found at the top level of your repository. This step is unnecessary if 
+you have neither additional help files nor additional Vim versions and you 
+don't add a cscope database inside the Vim source tree.Copy the following 
+patch and apply it with patch -p1 < hgignore.diff from the top directory where 
+the file resides.
+
+>
+    diff -r 2bd29808d1f6 -r a5e628a08c4e .hgignore
+    --- a/.hgignore Fri May 14 18:56:38 2010 +0200
+    +++ b/.hgignore Fri May 14 20:05:50 2010 +0200
+    @@ -30,12 +30,25 @@ src/auto/pathdef.c
+     *.res
+     *.RES
+     src/pathdef.c
+     src/Obj*/pathdef.c
+     gvimext.dll
+     gvimext.lib
+     
+     # All platforms
+    +runtime/doc/tags
+     *.rej
+     *.orig
+     *.mo
+     *~
+    +
+    +# shadow directories
+    +# the directory names could be anything but we restrict them
+    +# to shadow (the default) or shadow-*
+    +src/shadow
+    +src/shadow-*
+    +# src/runtime and src/pixmaps are softlinks needed for proper 'make install'
+    +# when in a shadow directory
+    +src/runtime
+    +src/pixmaps
+    +# avoid tracking cscope.out even if built here
+    +src/cscope.out
+<
+
+Then commit this change:
+
+>
+    (date && hg commit -m 'Ignore shadow directories and help tag changes') 2>&1 |tee -a ../hg-vim.log
+<
+
+CREATE SHADOW DIRECTORIES  *vwt-1653-create-shadow-directories*
+
+If you want to compile more than one version of Vim, create shadow 
+directories to avoid conflicts between them. We create them with names 
+starting with shadow- so .hgignore (after applying the above patch) will see 
+them. Here is an example:
+
+>
+    cd ~/.build/hg/vim/src
+    (date && SHADOWDIR='shadow-huge' make -e shadow) 2>&1 |tee -a ../../hg-vim.log
+    (date && SHADOWDIR='shadow-tiny' make -e shadow) 2>&1 |tee -a ../../hg-vim.log
+<
+
+The -e command-line switch is necessary so that make won't override our 
+SHADOWDIR names with the default which is just shadow
+
+APPLY YOUR LOCAL CHANGES AND COMMIT THEM  *vwt-1653-apply-your-local-changes-and-commit-them*
+
+You do this by editing the sources in the src directory. The case where you 
+want to compile different versions of Vim with not only different 
+configuration options but even different changes to the sources is not covered 
+by the present tip, and neither is the case when your changes could conflict 
+with Bram's (the changes I have consist of added sections in out-of-the-way 
+parts of Makefile and feature.h plus Bill McCarthy's extra float functions).
+
+Also, check that your "nonstandard" patches (if any) are mentioned in 
+src/version.c so that they will appear in the :version output of your 
+home-compiled Vim: here is the relevant part of mine, normally you would add 
+one line (with a string followed by a comma) per extra patch with a /**/ 
+comment between each of them:
+
+>
+    static char *(extra_patches[]) =
+    {   /* Add your patch description below this line */
+    /**/
+    #ifdef FEAT_FLOAT
+        "Extra float functions (Bill McCarthy)",
+    #endif
+    /**/
+        NULL
+    };
+<
+
+Then, commit your local changes with
+
+>
+    (date && hg commit -m 'Local source changes') 2>&1 |tee -a ../hg-vim.log
+<
+
+GET ANY NEW OFFICIAL PATCHES AND MERGE THEM WITH YOUR LOCAL ONES  *vwt-1653-get-any-new-official-patches-and-merge-them-with-your-local-ones*
+
+>
+    cd ~/.build/hg/vim
+    (date && hg fetch --switch-parent) 2>&1 |tee -a ../hg-vim.log
+<
+
+The --switch-parent switch places the local directory (where changes are few 
+and far between) as the "first" parent of any resulting merge, so that the 
+local changes won't be removed and added back every time: this reduces the 
+number of source files which make will see as "modified".
+
+Before compiling, you may want to check any files listed as "merged" 
+(possibly with the help of the hg diff function) to make sure that the changes 
+are what you would expect.
+
+SEE ALSO  *vwt-1653-see-also*
+
+MANPAGES  *vwt-1653-manpages*
+    - man hg
+    - man hgrc
+    - man hgignore
+
+
+THE MERCURIAL ONLINE HELP  *vwt-1653-the-mercurial-online-help*
+
+In my experience, second only to the Vim help itself. It includes the whole 
+contents of the manpages |vwt-1653-manpages|, and more.
+    - hg help
+    - hg help subject
+
+
+where subject is a Mercurial command (e.g. pull) or other help subject (e.g. 
+extensions).
+
+Note: The full text of the help is only obtained with -v or --verbose, or when the [ui] section of your hgrc (or, on Windows, Mercurial.ini) contains the line verbose=1
+
+IN THIS WIKI  *vwt-1653-in-this-wiki*
+    - Category:Building Vim [https://vim.fandom.com/wiki/Category:Building_Vim]
+
+
+EXTERNAL LINKS  *vwt-1653-external-links*
+    - The Mercurial site [http://mercurial.selenic.com/]
+    - The Mercurial Guide [http://mercurial.selenic.com/guide/]
+    - The Mercurial mailing list [http://selenic.com/mailman/listinfo/mercurial]
+    - Compiling Vim on Windows [http://users.skynet.be/antoine.mechelynck/vim/compile.htm]
+    - Compiling Vim on Unix/Linux [http://users.skynet.be/antoine.mechelynck/vim/compunix.htm]
+
+
+COMMENTS  *vwt-1653-comments*
+
+KNOWN BUG: LOGGING AND INTERACTIVE MERGE  *vwt-1653-known-bug:-logging-and-interactive-merge*
+
+A problem which I haven't solved about the above method of keeping a running 
+log, is that is doesn't mesh well with Mercurial's "interactive merge tool": 
+if the interactive merge asks a question, you don't see it, and you will have 
+to blind-type a guessed response.
+
+In my experience, questions are about runtime/doc/tags being deleted locally, 
+reintroduced on the remote repository, and the question is "Use (c)changed 
+version or leave (d)eleted?" -- in that case I reply d and the fetch goes on. 
+I get this on the first non-null fetch after a "make install".
+
+If you hit Ctrl-C to break the run, you won't see what Mercurial has output 
+so far: it is not in the log; and your local repository is left in an 
+uncertain state: once I did this, but then "hg status" replied nothing and "hg 
+fetch" gave an error saying local files needed update -C or merge. Finally "hg 
+merge" (with no logging) gave me the c/d question again so I could bring back 
+my local repo to a "sane" state by replying d then manually committing the 
+merge (with a -m message inspired by the "description" on the remote head, as 
+obtained with "hg heads").
+
+— Tonymec 04:39, May 18, 2010 (UTC)
+Workaround: First, use hg -v incoming (see below; -v means "verbose"). No need to log this since it makes no change to the repository. If it tells you "No changes found", no need to do anything more at the moment. Otherwise, it will tell you which files will be changed if you pull. Then if runtime/doc/tags is included, you know that fetch may stop until you type d<Enter>
+— If there are many new changesets, and you want to exceptionally use (just this once) vim as a pager, repeat the command like this (all on one line):
+hg -v --config 'extensions.hgext.pager=' --config 'pager.pager=view -' --config 'pager.attend=incoming' incoming
+
+where the three --config arguments mean that this single command will be run as if your hgrc included the following (in addition tothe other lines already there):
+
+>
+    [extensions]
+    hgext.pager=
+    [pager]
+    pager=view -
+    attend=incoming
+<
+
+i.e. enable the pager extension, use "view -" i.e. Vim read-only from stdin, as a pager, and enable the pager for the hg incoming command. — Tonymec 21:42, July 7, 2010 (UTC)
+
+==============================================================================
+
+I finally found how to force Python programs (including Mercurial, which is 
+written in Python) to always use unbuffered I/O on stdin, stdout and stderr. 
+Simple: set the environment variable to some nonempty string.
+
+Example (for the shell on Unix-like systems):
+
+>
+    cd ~/.build/hg/vim
+    PYTHONUNBUFFERED='unbuffered' (date && hg fetch --switch-parent) 2>&1 |tee -a ../hg-vim.log
+<CAUTION: It might be unwise to do this in your permanent environment, since unbuffering means more frequent and smaller transfers, thus reducing throughput. You may want to do it only when logging via 
+
+— Tonymec [https://vim.fandom.com/wiki/User:Tonymec] (talk 
+[https://vim.fandom.com/wiki/User_talk:Tonymec]) 02:56, July 16, 2012 (UTC)
+
+USEFUL COMMANDS TO "GET INFORMATION"  *vwt-1653-useful-commands-to-"get-information"*
+    - hg -v help
+    - hg -v help |less
+
+
+what are the basic hg commands, and what do they do?
+    - hg -v help 
+
+
+(where command is a Mercurial command) what are the possible arguments to that command (and what do they mean)?(-v or --verbose is necessary to get the full text of the concerned help section)
+    - hg status
+
+
+are there local files waiting for a disposition (commit possibly preceded by add and/or forget)? The reply is one filename per line, preceded by A (added to the list of tracked files), M (merged), D (deleted i.e. specifically not tracked), ? (new file, neither "tracked" nor "not tracked" yet).
+    - hg heads
+
+
+what are all the "tree leaves" ? (commits which are not a parent to a later commit)
+    - hg log -l 
+
+
+(where N is a number): show the N latest commits, with relative number and short hash, branch name if any, tags if any, parent(s) if not, or not only, the immediately older commit, and description (commit message)
+    - hg log -l  -f
+
+
+same as above, but only for the current tip and its parents and ancestors.
+    - hg incoming
+
+
+tells you (in the same format as hg log) which changesets (if any) are waiting for you to pull them.
+    - hg diff -r xxxxxxxxxxxx [-r yyyyyyyyyyyy] [ ...]
+
+
+where xxxxxxxxxxxx (and yyyyyyyyyyyy if present) are revision IDs: Produce a diff of the file(s) named, as they changed between the named revisions. With only one revision: compare it to the current tip. With no filenames: give all differences between these revisions.
+Notes:
+
+ Contrary to what is said in the manpage, with no revision there is no output.
+ I find it useful to use |view - as a pager for the output of this command. Then a simple :saveas patchname.diff will, if you want to, create the patch file after you review it.
+ To always use view as pager for the more "bulky" output-producing Mercurial commands, add the following to your ~/.hgrc file (or, on Windows, your %USERPROFILE%\Mercurial.ini):
+
+>
+    [extensions]
+    hgext.pager=
+    [pager]
+    pager = view -
+    attend = annotate, cat, diff, export, glog, log, qdiff
+<
+
+— Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 09:43, May 24, 2010 
+(UTC)
+
+CHANGING BRANCHES  *vwt-1653-changing-branches*
+
+Changing branches, or going to a "tagged" revision, are two of the functions 
+of the hg update command (which has up as an alias) — in general, its function 
+is to "update" the files in the current repository (the "working copy" as 
+Mercurial names it) to any revision you specify. So:
+
+>
+    hg up vim72
+<
+
+>
+    hg up default
+<
+
+(only for 7.3.142 or later)
+
+>
+    hg up v7-3-155
+<
