@@ -1,7 +1,7 @@
-*vim-tips-wiki-by-category.txt* List of all tips grouped by category *vim-tips-wiki-by-category*
+*vim-tips-wiki-by-category.txt* List of all tips grouped by category *vtw-by-category*
 
 
-ABBREVIATIONS *vim-tips-wiki-by-category-abbreviations*
+ABBREVIATIONS                                   *vtw-by-category-abbreviations*
 ==============================================================================
 
 Using abbreviations *vtw-43*
@@ -16,7 +16,7 @@ Multi-line abbreviations *vtw-966*
 Using abbreviations *vtw-992*
 Auto spelling correction using abbreviations *vtw-1382*
 
-ADVANCED REGEX *vim-tips-wiki-by-category-advanced-regex*
+ADVANCED REGEX                                 *vtw-by-category-advanced-regex*
 ==============================================================================
 
 Working with CSV files *vtw-667*
@@ -28,7 +28,7 @@ Automatically Update Copyright Notice in Files *vtw-1521*
 Word frequency statistics for a file *vtw-1531*
 Exchanging adjacent words *vtw-1539*
 
-AUTOMATED TEXT INSERTION *vim-tips-wiki-by-category-automated-text-insertion*
+AUTOMATED TEXT INSERTION             *vtw-by-category-automated-text-insertion*
 ==============================================================================
 
 Insert a file *vtw-40*
@@ -72,7 +72,7 @@ Auto closing an HTML tag *vtw-1634*
 Auctex-style environment creation in LaTeX *vtw-1647*
 Insert image size into html tag *vtw-1664*
 
-BRACKETS *vim-tips-wiki-by-category-brackets*
+BRACKETS                                             *vtw-by-category-brackets*
 ==============================================================================
 
 Making Parenthesis And Brackets Handling Easier *vtw-153*
@@ -81,7 +81,7 @@ Automatically append closing characters *vtw-630*
 Quick way to insert opening and closing braces for programmers *vtw-677*
 Automatically append closing characters *vtw-1162*
 
-BUILDING VIM *vim-tips-wiki-by-category-building-vim*
+BUILDING VIM                                     *vtw-by-category-building-vim*
 ==============================================================================
 
 Building vim with color on HP-UX *vtw-222*
@@ -95,7 +95,7 @@ Getting the Vim source with Mercurial *vtw-1653*
 Installing on Solaris *vtw-1658*
 Build Vim in Windows with Visual Studio *vtw-1673*
 
-C *vim-tips-wiki-by-category-c*
+C                                                           *vtw-by-category-c*
 ==============================================================================
 
 Translate between single line and block comments *vtw-35*
@@ -125,13 +125,13 @@ Automatically create and update cscope database *vtw-1509*
 Search in current function *vtw-1530*
 Automatic Commenting of Preprocessor Directives in C *vtw-1538*
 
-C SHARP *vim-tips-wiki-by-category-c-sharp*
+C SHARP                                               *vtw-by-category-c-sharp*
 ==============================================================================
 
 Add classname based on filename while in input mode *vtw-1048*
 Fold a C sharp region *vtw-1321*
 
-C++ *vim-tips-wiki-by-category-c++*
+C++                                                       *vtw-by-category-c++*
 ==============================================================================
 
 Translate between single line and block comments *vtw-35*
@@ -153,14 +153,14 @@ Indenting for Qt C++ *vtw-1604*
 C++ code completion *vtw-1608*
 Jump between methods in C++ *vtw-1666*
 
-CANDIDATES FOR DELETION *vim-tips-wiki-by-category-candidates-for-deletion*
+CANDIDATES FOR DELETION               *vtw-by-category-candidates-for-deletion*
 ==============================================================================
 
 Using folders with latex *vtw-323*
 A better interfacing of (La)TeX with the quickfix mode *vtw-443*
 Replace the file name extension *vtw-469*
 
-COMPILER *vim-tips-wiki-by-category-compiler*
+COMPILER                                             *vtw-by-category-compiler*
 ==============================================================================
 
 Compile Java with Jikes *vtw-3*
@@ -200,7 +200,7 @@ Errorformats *vtw-1575*
 Auto compile Javascript with Closure *vtw-1657*
 Combine quickfix steps *vtw-1667*
 
-COMPLETION *vim-tips-wiki-by-category-completion*
+COMPLETION                                         *vtw-by-category-completion*
 ==============================================================================
 
 Any word completion *vtw-4*
@@ -220,7 +220,7 @@ Command line file name completion *vtw-1594*
 Auto closing an HTML tag *vtw-1634*
 Auctex-style environment creation in LaTeX *vtw-1647*
 
-CYGWIN *vim-tips-wiki-by-category-cygwin*
+CYGWIN                                                 *vtw-by-category-cygwin*
 ==============================================================================
 
 Errorformat for java/ant/junit/cygwin/bash *vtw-325*
@@ -231,12 +231,12 @@ Single config file for Vim on Windows with Cygwin *vtw-939*
 Run native-Windows Vim from cygwin without a wrapper *vtw-972*
 Use the same runtime files for native-Windows Vim and cygwin Vim *vtw-973*
 
-DELETE *vim-tips-wiki-by-category-delete*
+DELETE                                                 *vtw-by-category-delete*
 ==============================================================================
 
 Delete words in a different way *vtw-1498*
 
-DEPRECATED *vim-tips-wiki-by-category-deprecated*
+DEPRECATED                                         *vtw-by-category-deprecated*
 ==============================================================================
 
 Using Ispell on a highlighted region *vtw-172*
@@ -272,7 +272,7 @@ IPython integration *vtw-1551*
 Remap join to merge comment lines *vtw-1553*
 Reload file without losing undo history *vtw-1627*
 
-DODGY *vim-tips-wiki-by-category-dodgy*
+DODGY                                                   *vtw-by-category-dodgy*
 ==============================================================================
 
 Toggle off the line-number when enter on-line help *vtw-33*
@@ -296,7 +296,7 @@ Replace selected shell command with full path when editing scripts *vtw-1108*
 Wrap function calls in a print statement *vtw-1436*
 Introduction to display editing using vi *vtw-1465*
 
-DUPLICATE *vim-tips-wiki-by-category-duplicate*
+DUPLICATE                                           *vtw-by-category-duplicate*
 ==============================================================================
 
 Jumping to the declaration of a local/global variable *vtw-8*
@@ -372,7 +372,7 @@ Using vim as an IDE all in one *vtw-1439*
 Show what function the cursor is in *vtw-1454*
 Errorformats *vtw-1575*
 
-EMAIL *vim-tips-wiki-by-category-email*
+EMAIL                                                   *vtw-by-category-email*
 ==============================================================================
 
 Rotating mail signatures *vtw-78*
@@ -388,7 +388,7 @@ Correct format-flowed email function *vtw-948*
 Quoted Printable to Plain *vtw-1012*
 Automatically position the cursor when editing email messages *vtw-1240*
 
-ENCODING *vim-tips-wiki-by-category-encoding*
+ENCODING                                             *vtw-by-category-encoding*
 ==============================================================================
 
 Entering special characters *vtw-51*
@@ -402,7 +402,7 @@ Reload the same file in different encoding *vtw-1195*
 Forcing UTF-8 Vim to read Latin1 as Latin1 *vtw-1288*
 Display UTF-8 characters in Mac Quicklook *vtw-1654*
 
-FILE HANDLING *vim-tips-wiki-by-category-file-handling*
+FILE HANDLING                                   *vtw-by-category-file-handling*
 ==============================================================================
 
 Easy edit of files in the same directory *vtw-2*
@@ -450,7 +450,7 @@ Edit a file or jump to it if already open *vtw-1600*
 Bash file encoding alias *vtw-1641*
 Vim-sessions under Mac *vtw-1645*
 
-FILEFORMAT *vim-tips-wiki-by-category-fileformat*
+FILEFORMAT                                         *vtw-by-category-fileformat*
 ==============================================================================
 
 File format *vtw-26*
@@ -459,7 +459,7 @@ Preserve missing end-of-line at end of text files *vtw-1369*
 File format *vtw-1585*
 Automatically reload files with mixed line-endings in DOS fileformat *vtw-1662*
 
-FILETYPE *vim-tips-wiki-by-category-filetype*
+FILETYPE                                             *vtw-by-category-filetype*
 ==============================================================================
 
 File type plugins *vtw-130*
@@ -471,7 +471,7 @@ Creating your own syntax files *vtw-1561*
 Edit MoinMoin wiki files with folding *vtw-1565*
 Filetype.vim *vtw-1606*
 
-FOLDING *vim-tips-wiki-by-category-folding*
+FOLDING                                               *vtw-by-category-folding*
 ==============================================================================
 
 Show only lines in quickfix list for current buffer *vtw-76*
@@ -504,12 +504,12 @@ Customize text for closed folds *vtw-1547*
 Edit MoinMoin wiki files with folding *vtw-1565*
 Keep folds closed while inserting text *vtw-1651*
 
-FONT *vim-tips-wiki-by-category-font*
+FONT                                                     *vtw-by-category-font*
 ==============================================================================
 
 Setting the font in the GUI *vtw-632*
 
-GETTING STARTED *vim-tips-wiki-by-category-getting-started*
+GETTING STARTED                               *vtw-by-category-getting-started*
 ==============================================================================
 
 Searching *vtw-1*
@@ -542,7 +542,7 @@ Debug unexpected option settings *vtw-1588*
 Buffers *vtw-1663*
 Troubleshooting *vtw-1676*
 
-HTML *vim-tips-wiki-by-category-html*
+HTML                                                     *vtw-by-category-html*
 ==============================================================================
 
 Cleanup your HTML *vtw-18*
@@ -560,7 +560,7 @@ Better indent support for php with html *vtw-1213*
 Add html tags with substitute *vtw-1319*
 Changing all HTML tags to lowercase *vtw-1513*
 
-I18N *vim-tips-wiki-by-category-i18n*
+I18N                                                     *vtw-by-category-i18n*
 ==============================================================================
 
 Working with Unicode *vtw-246*
@@ -573,12 +573,12 @@ French character maps *vtw-697*
 Deadkeys / Accented Characters and Mutt integration *vtw-776*
 Key maps using the Alt modifier *vtw-1515*
 
-IRC *vim-tips-wiki-by-category-irc*
+IRC                                                       *vtw-by-category-irc*
 ==============================================================================
 
 Vim on Freenode *vtw-1579*
 
-INDENTING *vim-tips-wiki-by-category-indenting*
+INDENTING                                           *vtw-by-category-indenting*
 ==============================================================================
 
 Indenting source code *vtw-83*
@@ -603,7 +603,7 @@ Indent text object *vtw-1269*
 Restoring indent after typing hash *vtw-1327*
 Return to previous indent *vtw-1566*
 
-INTEGRATION *vim-tips-wiki-by-category-integration*
+INTEGRATION                                       *vtw-by-category-integration*
 ==============================================================================
 
 Using Gnu-info help in vim *vtw-36*
@@ -653,7 +653,7 @@ Automatically create and update cscope database *vtw-1509*
 In line copy and paste to system clipboard *vtw-1511*
 Change cursor shape in different modes *vtw-1622*
 
-JAVA *vim-tips-wiki-by-category-java*
+JAVA                                                     *vtw-by-category-java*
 ==============================================================================
 
 Compile Java with Jikes *vtw-3*
@@ -676,7 +676,7 @@ J2ME development *vtw-1107*
 Syntax folding for Java *vtw-1150*
 Vim Doclet *vtw-1533*
 
-LATEX *vim-tips-wiki-by-category-latex*
+LATEX                                                   *vtw-by-category-latex*
 ==============================================================================
 
 Compiling LaTeX from Vim *vtw-275*
@@ -694,7 +694,7 @@ Text object for formulas in Latex *vtw-1644*
 Auctex-style environment creation in LaTeX *vtw-1647*
 Compiling LaTeX from Vim *vtw-1678*
 
-LANGUAGESPECIFIC *vim-tips-wiki-by-category-languagespecific*
+LANGUAGESPECIFIC                             *vtw-by-category-languagespecific*
 ==============================================================================
 
 Comment Lines according to a given filetype *vtw-355*
@@ -713,7 +713,7 @@ Introduce variable *vtw-1171*
 Swap LHS and RHS of an Assignment statement *vtw-1506*
 Keep your vimrc file clean *vtw-1510*
 
-MAC OS X *vim-tips-wiki-by-category-mac-os-x*
+MAC OS X                                             *vtw-by-category-mac-os-x*
 ==============================================================================
 
 Turn on syntax coloring in Mac OS X *vtw-283*
@@ -726,12 +726,12 @@ In line copy and paste to system clipboard *vtw-1511*
 Vim-sessions under Mac *vtw-1645*
 Display UTF-8 characters in Mac Quicklook *vtw-1654*
 
-MAKE *vim-tips-wiki-by-category-make*
+MAKE                                                     *vtw-by-category-make*
 ==============================================================================
 
 Autoconvert leading eight spaces to tab when type or paste in Makefile *vtw-1434*
 
-MAP *vim-tips-wiki-by-category-map*
+MAP                                                       *vtw-by-category-map*
 ==============================================================================
 
 Jump to tag (help topic) with German keyboard *vtw-100*
@@ -757,12 +757,12 @@ Mapping keys in Vim - Tutorial (Part 3) *vtw-1556*
 Overload a key with multiple handlers *vtw-1558*
 Quick command in insert mode *vtw-1646*
 
-MATLAB *vim-tips-wiki-by-category-matlab*
+MATLAB                                                 *vtw-by-category-matlab*
 ==============================================================================
 
 Run Matlab script under Windows *vtw-1298*
 
-MOUSE *vim-tips-wiki-by-category-mouse*
+MOUSE                                                   *vtw-by-category-mouse*
 ==============================================================================
 
 Change the gvim mouse arrow cursor *vtw-262*
@@ -775,7 +775,7 @@ Mighty Mouse *vtw-1065*
 Easy block selection with mouse *vtw-1132*
 Auto copy the mouse selection *vtw-1154*
 
-MOVING *vim-tips-wiki-by-category-moving*
+MOVING                                                 *vtw-by-category-moving*
 ==============================================================================
 
 Moving to matching braces *vtw-6*
@@ -793,7 +793,7 @@ Accelerated motion *vtw-1458*
 Moving lines up or down *vtw-1463*
 A better gm command *vtw-1671*
 
-NAVIGATION *vim-tips-wiki-by-category-navigation*
+NAVIGATION                                         *vtw-by-category-navigation*
 ==============================================================================
 
 Jumping to the declaration of a local/global variable *vtw-8*
@@ -820,7 +820,7 @@ When jumping on a tag, automatically split the window if the current buffer has 
 Auto tags by project.vim *vtw-1618*
 Cscope *vtw-1638*
 
-OMNICOMPLETE *vim-tips-wiki-by-category-omnicomplete*
+OMNICOMPLETE                                     *vtw-by-category-omnicomplete*
 ==============================================================================
 
 Compile a separate copy of Vim for Python coding *vtw-1311*
@@ -829,7 +829,7 @@ Continue omnicompletion for python modules *vtw-1548*
 Omni completion *vtw-1591*
 C++ code completion *vtw-1608*
 
-OPTIONS *vim-tips-wiki-by-category-options*
+OPTIONS                                               *vtw-by-category-options*
 ==============================================================================
 
 Displaying status line always *vtw-15*
@@ -858,7 +858,7 @@ Disable automatic comment insertion *vtw-1361*
 Cache user-preferred option values for later reset *vtw-1456*
 Set options or named registers with let *vtw-1520*
 
-ORIGINALDUPLICATE *vim-tips-wiki-by-category-originalduplicate*
+ORIGINALDUPLICATE                           *vtw-by-category-originalduplicate*
 ==============================================================================
 
 VimTip62 *vtw-62*
@@ -877,7 +877,7 @@ VimTip705 *vtw-705*
 VimTip856 *vtw-856*
 VimTip943 *vtw-943*
 
-ORIGINALMISSING *vim-tips-wiki-by-category-originalmissing*
+ORIGINALMISSING                               *vtw-by-category-originalmissing*
 ==============================================================================
 
 VimTip56 *vtw-56*
@@ -1080,7 +1080,7 @@ VimTip1494 *vtw-1494*
 VimTip1502 *vtw-1502*
 VimTip1503 *vtw-1503*
 
-PHP *vim-tips-wiki-by-category-php*
+PHP                                                       *vtw-by-category-php*
 ==============================================================================
 
 Automatically generate PHPdoc comments *vtw-407*
@@ -1095,7 +1095,7 @@ PHP editing *vtw-1527*
 PHP editing *vtw-1541*
 Generate accessor and setter methods from variable names *vtw-1544*
 
-PERL *vim-tips-wiki-by-category-perl*
+PERL                                                     *vtw-by-category-perl*
 ==============================================================================
 
 Using embedded Perl interpreter *vtw-140*
@@ -1104,7 +1104,7 @@ Open a Perl module from its module name *vtw-461*
 Compiler for perl *vtw-473*
 Create new subroutines *vtw-1563*
 
-PLUGIN *vim-tips-wiki-by-category-plugin*
+PLUGIN                                                 *vtw-by-category-plugin*
 ==============================================================================
 
 Applying substitutes to a visual block *vtw-63*
@@ -1124,7 +1124,7 @@ Debug unexpected option settings *vtw-1588*
 Using VimBall with make *vtw-1601*
 JavaFX indent plugin *vtw-1635*
 
-PYTHON *vim-tips-wiki-by-category-python*
+PYTHON                                                 *vtw-by-category-python*
 ==============================================================================
 
 Integration with PyUnit testing framework *vtw-280*
@@ -1147,12 +1147,12 @@ IPython integration *vtw-1551*
 User input from a script *vtw-1616*
 Build Python-enabled Vim on Windows with MinGW *vtw-1650*
 
-REGISTERS *vim-tips-wiki-by-category-registers*
+REGISTERS                                           *vtw-by-category-registers*
 ==============================================================================
 
 Comfortable handling of registers *vtw-1562*
 
-REMOVED *vim-tips-wiki-by-category-removed*
+REMOVED                                               *vtw-by-category-removed*
 ==============================================================================
 
 VimTip5 *vtw-5*
@@ -1336,7 +1336,7 @@ VimTip1496 *vtw-1496*
 VimTip1497 *vtw-1497*
 VimTip1524 *vtw-1524*
 
-REVIEW *vim-tips-wiki-by-category-review*
+REVIEW                                                 *vtw-by-category-review*
 ==============================================================================
 
 Compile Java with Jikes *vtw-3*
@@ -1909,13 +1909,13 @@ Delete words in a different way *vtw-1498*
 External commands on Windows *vtw-1504*
 Timer to execute commands periodically *vtw-1612*
 
-SQL *vim-tips-wiki-by-category-sql*
+SQL                                                       *vtw-by-category-sql*
 ==============================================================================
 
 Command-history facilities for Oracle/sqlplus user *vtw-41*
 Describe a SQL table from Vim *vtw-156*
 
-SCRIPTING *vim-tips-wiki-by-category-scripting*
+SCRIPTING                                           *vtw-by-category-scripting*
 ==============================================================================
 
 Write your own Vim function *vtw-32*
@@ -1943,7 +1943,7 @@ Mapping keys in Vim - Tutorial (Part 3) *vtw-1556*
 Provide script-accessible version info in your plugins *vtw-1559*
 User input from a script *vtw-1616*
 
-SEARCHING *vim-tips-wiki-by-category-searching*
+SEARCHING                                           *vtw-by-category-searching*
 ==============================================================================
 
 Searching *vtw-1*
@@ -2005,13 +2005,13 @@ Copy or change search hit *vtw-1597*
 Jump between methods in C++ *vtw-1666*
 Searching for expressions which include slashes *vtw-1672*
 
-SPELL CHECKING *vim-tips-wiki-by-category-spell-checking*
+SPELL CHECKING                                 *vtw-by-category-spell-checking*
 ==============================================================================
 
 Auto spelling correction using abbreviations *vtw-1382*
 Jump back to spell checked words *vtw-1499*
 
-SPLIT WINDOWS *vim-tips-wiki-by-category-split-windows*
+SPLIT WINDOWS                                   *vtw-by-category-split-windows*
 ==============================================================================
 
 Window zooming convenience *vtw-132*
@@ -2021,14 +2021,14 @@ Resize splits more quickly *vtw-1215*
 Detect window creation with WinEnter *vtw-1598*
 Going to the nth-from-last window *vtw-1624*
 
-SWAPFILES *vim-tips-wiki-by-category-swapfiles*
+SWAPFILES                                           *vtw-by-category-swapfiles*
 ==============================================================================
 
 Remove swap and backup files from your working directory *vtw-20*
 Edit file in existing vim automatically *vtw-1260*
 Swap file "..."already exists! - so diff it *vtw-1517*
 
-SYNTAX *vim-tips-wiki-by-category-syntax*
+SYNTAX                                                 *vtw-by-category-syntax*
 ==============================================================================
 
 Changing the default syntax highlighting *vtw-24*
@@ -2095,7 +2095,7 @@ Edit MoinMoin wiki files with folding *vtw-1565*
 Showing syntax highlight group in statusline *vtw-1573*
 Using vim color schemes with Putty *vtw-1576*
 
-TABS *vim-tips-wiki-by-category-tabs*
+TABS                                                     *vtw-by-category-tabs*
 ==============================================================================
 
 Capture ex command output *vtw-95*
@@ -2118,7 +2118,7 @@ Quick tips for using tab pages *vtw-1630*
 Show tab number in your tab line *vtw-1640*
 Restore the last used mode when switching tabpages *vtw-1648*
 
-TEMPLATES *vim-tips-wiki-by-category-templates*
+TEMPLATES                                           *vtw-by-category-templates*
 ==============================================================================
 
 Text template with placeholders *vtw-322*
@@ -2127,14 +2127,14 @@ Auto insert Java class template when editing a new Java file *vtw-378*
 Insert template files into buffer *vtw-624*
 Use eval to create dynamic templates *vtw-1567*
 
-TEMPORARY *vim-tips-wiki-by-category-temporary*
+TEMPORARY                                           *vtw-by-category-temporary*
 ==============================================================================
 
 Using Vim to send mail on Windows *vtw-590*
 Highlight long lines *vtw-810*
 Highlight long lines *vtw-1523*
 
-TERMINALS *vim-tips-wiki-by-category-terminals*
+TERMINALS                                           *vtw-by-category-terminals*
 ==============================================================================
 
 Vim xterm title *vtw-23*
@@ -2163,13 +2163,13 @@ Bash file encoding alias *vtw-1641*
 Using terminal Vim as an external editor *vtw-1655*
 Using ZSH completion with ctags and Vim *vtw-1665*
 
-TEXT PROCESSING *vim-tips-wiki-by-category-text-processing*
+TEXT PROCESSING                               *vtw-by-category-text-processing*
 ==============================================================================
 
 Par text reformatter *vtw-584*
 Change C++ comments to C comments *vtw-1010*
 
-TODO *vim-tips-wiki-by-category-todo*
+TODO                                                     *vtw-by-category-todo*
 ==============================================================================
 
 Displaying a variable/macro definition *vtw-9*
@@ -2310,14 +2310,14 @@ Insert image size into html tag *vtw-1664*
 Searching for files in a directory listing *vtw-1669*
 Build Vim in Windows with Visual Studio *vtw-1673*
 
-TROUBLESHOOTING *vim-tips-wiki-by-category-troubleshooting*
+TROUBLESHOOTING                               *vtw-by-category-troubleshooting*
 ==============================================================================
 
 Debug unexpected option settings *vtw-244*
 Debug unexpected option settings *vtw-1588*
 Troubleshooting *vtw-1676*
 
-UNDO *vim-tips-wiki-by-category-undo*
+UNDO                                                     *vtw-by-category-undo*
 ==============================================================================
 
 Undo and Redo *vtw-39*
@@ -2326,7 +2326,7 @@ Recover from accidental Ctrl-U *vtw-436*
 Reload file without losing undo history *vtw-1627*
 Using undo branches *vtw-1643*
 
-USAGE *vim-tips-wiki-by-category-usage*
+USAGE                                                   *vtw-by-category-usage*
 ==============================================================================
 
 Displaying a variable/macro definition *vtw-9*
@@ -2423,7 +2423,7 @@ Insert multiple lines *vtw-1661*
 Autoloading Cscope Database *vtw-1668*
 Troubleshooting *vtw-1676*
 
-VERSIONCONTROL *vim-tips-wiki-by-category-versioncontrol*
+VERSIONCONTROL                                 *vtw-by-category-versioncontrol*
 ==============================================================================
 
 Autocheckout from perforce *vtw-176*
@@ -2440,19 +2440,19 @@ Version Control for Vimfiles *vtw-1505*
 Using Git from Vim *vtw-1614*
 Always start on first line of git commit message *vtw-1636*
 
-VIMDIFF *vim-tips-wiki-by-category-vimdiff*
+VIMDIFF                                               *vtw-by-category-vimdiff*
 ==============================================================================
 
 Ignore white space in vimdiff *vtw-1294*
 
-VIML *vim-tips-wiki-by-category-viml*
+VIML                                                     *vtw-by-category-viml*
 ==============================================================================
 
 Edit configuration files for a filetype *vtw-215*
 Source current file when editing a script *vtw-1229*
 Newlines and nulls in Vim script *vtw-1266*
 
-VIMTIP *vim-tips-wiki-by-category-vimtip*
+VIMTIP                                                 *vtw-by-category-vimtip*
 ==============================================================================
 
 Searching *vtw-1*
@@ -3739,7 +3739,7 @@ Troubleshooting *vtw-1676*
 Restore missing gvim menu bar under GNOME *vtw-1677*
 Compiling LaTeX from Vim *vtw-1678*
 
-WINDOWS *vim-tips-wiki-by-category-windows*
+WINDOWS                                               *vtw-by-category-windows*
 ==============================================================================
 
 Maximize or set initial window size *vtw-88*
@@ -3787,7 +3787,7 @@ Vim On Vista *vtw-1542*
 Execute external programs asynchronously under Windows *vtw-1549*
 Switching between different versions of Vim on Windows *vtw-1670*
 
-XML *vim-tips-wiki-by-category-xml*
+XML                                                       *vtw-by-category-xml*
 ==============================================================================
 
 Format your xml document using xmllint *vtw-349*

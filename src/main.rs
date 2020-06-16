@@ -314,7 +314,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut index = String::new();
     index.push_str(&format!(
         "*{}* {}\n\n",
-        "vim-tips-wiki-index.txt", "List of all tips in order *vim-tips-wiki-index*"
+        "vim-tips-wiki-index.txt", "List of all tips in order *vtw-index*"
     ));
     index.push_str(&format!("{}\n\n", "=".repeat(78)));
 
@@ -333,8 +333,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     by_category.push_str(&format!(
         "*{}* {}\n\n",
-        "vim-tips-wiki-by-category.txt",
-        "List of all tips grouped by category *vim-tips-wiki-by-category*"
+        "vim-tips-wiki-by-category.txt", "List of all tips grouped by category *vtw-by-category*"
     ));
 
     for en in &entries {
@@ -349,9 +348,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     for cat in sorted_cats {
         let ens = grouped.get(*cat).unwrap();
+        let mut len = cat.chars().count() * 2 + 17;
+        if len > 77 {
+            len = 77;
+        };
         by_category.push_str(&format!(
-            "\n{} *vim-tips-wiki-by-category-{}*\n{}\n\n",
+            "\n{}{}*vtw-by-category-{}*\n{}\n\n",
             cat.to_uppercase(),
+            " ".repeat(78 - len),
             cat.replace(" ", "-").to_lowercase(),
             "=".repeat(78)
         ));
@@ -367,7 +371,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     alpha.push_str(&format!(
         "*{}* {}\n\n",
         "vim-tips-wiki-alphabetically.txt",
-        "List of all tips in alphabetical order *vim-tips-wiki-alphabetically*"
+        "List of all tips in alphabetical order *vtw-alphabetically*"
     ));
     // alpha.push_str(&format!("{}\n\n", "=".repeat(78)));
 
@@ -379,7 +383,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         if prev_letter.is_none() {
             prev_letter = first;
             alpha.push_str(&format!(
-                "\n{}{}*vim-tips-alphabetically-{}*\n{}\n",
+                "\n{}{}*vtw-alphabetically-{}*\n{}\n",
                 prev_letter.unwrap(),
                 " ".repeat(52),
                 prev_letter.unwrap(),
@@ -389,7 +393,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             prev_letter = first;
 
             alpha.push_str(&format!(
-                "\n{}{}*vim-tips-alphabetically-{}*\n{}\n",
+                "\n{}{}*vtw-alphabetically-{}*\n{}\n",
                 prev_letter.unwrap(),
                 " ".repeat(52),
                 prev_letter.unwrap(),
