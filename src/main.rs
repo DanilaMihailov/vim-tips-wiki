@@ -235,12 +235,10 @@ impl<'a> WikiEntry<'a> {
     }
 
     async fn make_tip(n: u32) -> Result<(), Box<dyn std::error::Error>> {
-        println!("Making tip {}", n);
         let mut original =
             tokio::fs::read_to_string(format!("originals/vim-tips-wiki-{}.html", n)).await;
 
         if original.is_err() {
-            println!("File not found, downloading it ({})", n);
             let resp = reqwest::get(&format!("https://vim.fandom.com/wiki/VimTip{}", n)).await?;
 
             let text = resp.text().await?;
@@ -252,26 +250,27 @@ impl<'a> WikiEntry<'a> {
             .await?;
         }
 
-        println!("Parsing tip {}", n);
         let document = Document::from(original.unwrap().as_str());
         let entry = WikiEntry::parse(&document, n);
         let result = entry.to_vim_help();
 
         tokio::fs::write(format!("doc/{}", entry.file_name()), &result.into_bytes()).await?;
 
-        println!("Done tip {}", n);
-
         Ok(())
     }
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let done = std::sync::atomic::AtomicU16::new(0);
     (1..=1678).into_par_iter().for_each(|n| {
         let mut rt = Runtime::new().unwrap();
         let res = rt.block_on(WikiEntry::make_tip(n as u32));
         match res {
             Err(e) => eprintln!("{:#?}", e),
-            _ => (),
+            _ => {
+                let old = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                print!("\r{}/{}", old + 1, 1678);
+            }
         }
     });
     Ok(())
