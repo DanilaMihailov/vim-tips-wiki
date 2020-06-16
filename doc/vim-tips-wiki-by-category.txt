@@ -73,9 +73,7 @@ BRACKETS                                             *vtw-by-category-brackets*
 
 Making Parenthesis And Brackets Handling Easier |vtw-153|
 Brackets and parentheses in Perl |vtw-318|
-Automatically append closing characters |vtw-630|
 Quick way to insert opening and closing braces for programmers |vtw-677|
-Automatically append closing characters |vtw-1162|
 
 BUILDING VIM                                     *vtw-by-category-building-vim*
 
@@ -83,8 +81,6 @@ Building vim with color on HP-UX |vtw-222|
 Building Vim |vtw-376|
 Build Vim in Windows with Cygwin |vtw-531|
 Version independent installation of Vim on Windows |vtw-714|
-Get latest releases for syntax highlighting, runtime, plugins etc |vtw-744|
-Get latest releases for syntax highlighting, runtime, plugins etc |vtw-747|
 Build Python-enabled Vim on Windows with MinGW |vtw-1650|
 Getting the Vim source with Mercurial |vtw-1653|
 Installing on Solaris |vtw-1658|
@@ -108,10 +104,8 @@ Automatic insertion of C/C++ header gates |vtw-514|
 Errorformat for icc7 |vtw-518|
 Folding functions with the prototype included |vtw-523|
 Typing print statements faster |vtw-625|
-Automatically append closing characters |vtw-630|
 Highlight debug blocks in programs |vtw-639|
 Fold C-style comments |vtw-874|
-Automatically append closing characters |vtw-1162|
 Display the name of the function you are editing |vtw-1296|
 Search for a C-style for statement |vtw-1320|
 Disable automatic comment insertion |vtw-1361|
@@ -169,7 +163,6 @@ Some Java tips |vtw-385|
 A better interfacing of (La)TeX with the quickfix mode |vtw-443|
 Show entire multiline error in quickfix |vtw-444|
 Use the quickfix window to list all errors |vtw-458|
-Compiler for perl |vtw-473|
 Errorformat and makeprg |vtw-476|
 Errorformat for icc7 |vtw-518|
 Automatically quit Vim if quickfix window is the last |vtw-536|
@@ -222,41 +215,6 @@ Use the same runtime files for native-Windows Vim and cygwin Vim |vtw-973|
 DELETE                                                 *vtw-by-category-delete*
 
 Delete words in a different way |vtw-1498|
-
-DEPRECATED                                         *vtw-by-category-deprecated*
-
-Using Ispell on a highlighted region |vtw-172|
-Use integrated spell checking |vtw-290|
-Syntax-based folding |vtw-333|
-Encrypt a file without leaving traces |vtw-371|
-Running diff |vtw-416|
-Auto-fold Perl subs |vtw-419|
-Compiler for perl |vtw-473|
-Wrap visual selection with fold markers |vtw-475|
-Automatically append closing characters |vtw-630|
-Running diff |vtw-678|
-Running diff |vtw-715|
-Get latest releases for syntax highlighting, runtime, plugins etc |vtw-744|
-Get latest releases for syntax highlighting, runtime, plugins etc |vtw-747|
-Simulating arrays with Vim |vtw-795|
-Highlight long lines |vtw-810|
-Text objects for strings |vtw-901|
-View only what you are editing |vtw-916|
-Surround selection with text |vtw-988|
-Automatically append closing characters |vtw-1162|
-Vim-Shell embeds a terminal in Vim |vtw-1227|
-Find files in subdirectories |vtw-1234|
-AES256 encryption in Vim |vtw-1251|
-Patch to conceal parts of lines |vtw-1308|
-Diff the current buffer with another file |vtw-1343|
-Preserve missing end-of-line at end of text files |vtw-1369|
-Disable the "Hit any key to close this window" message in remote editing |vtw-1385|
-Enable paren matching over whole file |vtw-1391|
-Shell script to use grep with gvim |vtw-1392|
-Highlight long lines |vtw-1523|
-IPython integration |vtw-1551|
-Remap join to merge comment lines |vtw-1553|
-Reload file without losing undo history |vtw-1627|
 
 DODGY                                                   *vtw-by-category-dodgy*
 
@@ -435,7 +393,6 @@ FILEFORMAT                                         *vtw-by-category-fileformat*
 
 File format |vtw-26|
 Non-native fileformat for your statusline |vtw-736|
-Preserve missing end-of-line at end of text files |vtw-1369|
 File format |vtw-1585|
 Automatically reload files with mixed line-endings in DOS fileformat |vtw-1662|
 
@@ -460,13 +417,10 @@ Hide fold markers |vtw-241|
 Folding with Regular Expression |vtw-282|
 Syntax folding for Java |vtw-304|
 Search only in unfolded text |vtw-389|
-Auto-fold Perl subs |vtw-419|
-Wrap visual selection with fold markers |vtw-475|
 Folding like in Visual Basic .NET |vtw-519|
 Syntax folding of Python files |vtw-741|
 All folds open when opening a file |vtw-797|
 Fold quickfix list on directory or file names |vtw-801|
-View only what you are editing |vtw-916|
 Folding |vtw-940|
 Folding with Regular Expression |vtw-1022|
 Folding |vtw-1064|
@@ -709,7 +663,6 @@ Abbreviation that prompts whether to expand it or not |vtw-650|
 Fix meta-keys that break out of Insert mode |vtw-738|
 Avoid the escape key |vtw-770|
 Avoid the escape key |vtw-783|
-Text objects for strings |vtw-901|
 Map semicolon to colon |vtw-1111|
 Avoid the escape key |vtw-1117|
 Insert-mode only Caps Lock |vtw-1183|
@@ -817,226 +770,6 @@ Disable automatic comment insertion |vtw-1361|
 Cache user-preferred option values for later reset |vtw-1456|
 Set options or named registers with let |vtw-1520|
 
-ORIGINALDUPLICATE                           *vtw-by-category-originalduplicate*
-
-VimTip62 |vtw-62|
-VimTip245 |vtw-245|
-VimTip274 |vtw-274|
-VimTip276 |vtw-276|
-VimTip292 |vtw-292|
-VimTip499 |vtw-499|
-VimTip500 |vtw-500|
-VimTip501 |vtw-501|
-VimTip512 |vtw-512|
-VimTip513 |vtw-513|
-VimTip544 |vtw-544|
-VimTip703 |vtw-703|
-VimTip705 |vtw-705|
-VimTip856 |vtw-856|
-VimTip943 |vtw-943|
-
-ORIGINALMISSING                               *vtw-by-category-originalmissing*
-
-VimTip56 |vtw-56|
-VimTip57 |vtw-57|
-VimTip59 |vtw-59|
-VimTip60 |vtw-60|
-VimTip61 |vtw-61|
-VimTip157 |vtw-157|
-VimTip160 |vtw-160|
-VimTip186 |vtw-186|
-VimTip392 |vtw-392|
-VimTip504 |vtw-504|
-VimTip508 |vtw-508|
-VimTip540 |vtw-540|
-VimTip549 |vtw-549|
-VimTip594 |vtw-594|
-VimTip657 |vtw-657|
-VimTip702 |vtw-702|
-VimTip704 |vtw-704|
-VimTip728 |vtw-728|
-VimTip729 |vtw-729|
-VimTip730 |vtw-730|
-VimTip788 |vtw-788|
-VimTip836 |vtw-836|
-VimTip838 |vtw-838|
-VimTip854 |vtw-854|
-VimTip881 |vtw-881|
-VimTip921 |vtw-921|
-VimTip980 |vtw-980|
-VimTip993 |vtw-993|
-VimTip1027 |vtw-1027|
-VimTip1044 |vtw-1044|
-VimTip1047 |vtw-1047|
-VimTip1049 |vtw-1049|
-VimTip1056 |vtw-1056|
-VimTip1057 |vtw-1057|
-VimTip1060 |vtw-1060|
-VimTip1062 |vtw-1062|
-VimTip1069 |vtw-1069|
-VimTip1080 |vtw-1080|
-VimTip1081 |vtw-1081|
-VimTip1082 |vtw-1082|
-VimTip1085 |vtw-1085|
-VimTip1086 |vtw-1086|
-VimTip1089 |vtw-1089|
-VimTip1094 |vtw-1094|
-VimTip1095 |vtw-1095|
-VimTip1096 |vtw-1096|
-VimTip1097 |vtw-1097|
-VimTip1098 |vtw-1098|
-VimTip1099 |vtw-1099|
-VimTip1100 |vtw-1100|
-VimTip1102 |vtw-1102|
-VimTip1104 |vtw-1104|
-VimTip1105 |vtw-1105|
-VimTip1106 |vtw-1106|
-VimTip1113 |vtw-1113|
-VimTip1115 |vtw-1115|
-VimTip1116 |vtw-1116|
-VimTip1121 |vtw-1121|
-VimTip1122 |vtw-1122|
-VimTip1135 |vtw-1135|
-VimTip1136 |vtw-1136|
-VimTip1137 |vtw-1137|
-VimTip1138 |vtw-1138|
-VimTip1139 |vtw-1139|
-VimTip1140 |vtw-1140|
-VimTip1143 |vtw-1143|
-VimTip1144 |vtw-1144|
-VimTip1145 |vtw-1145|
-VimTip1163 |vtw-1163|
-VimTip1165 |vtw-1165|
-VimTip1169 |vtw-1169|
-VimTip1170 |vtw-1170|
-VimTip1175 |vtw-1175|
-VimTip1176 |vtw-1176|
-VimTip1179 |vtw-1179|
-VimTip1184 |vtw-1184|
-VimTip1186 |vtw-1186|
-VimTip1191 |vtw-1191|
-VimTip1201 |vtw-1201|
-VimTip1205 |vtw-1205|
-VimTip1207 |vtw-1207|
-VimTip1208 |vtw-1208|
-VimTip1209 |vtw-1209|
-VimTip1210 |vtw-1210|
-VimTip1211 |vtw-1211|
-VimTip1219 |vtw-1219|
-VimTip1222 |vtw-1222|
-VimTip1236 |vtw-1236|
-VimTip1239 |vtw-1239|
-VimTip1243 |vtw-1243|
-VimTip1248 |vtw-1248|
-VimTip1250 |vtw-1250|
-VimTip1252 |vtw-1252|
-VimTip1254 |vtw-1254|
-VimTip1255 |vtw-1255|
-VimTip1256 |vtw-1256|
-VimTip1258 |vtw-1258|
-VimTip1263 |vtw-1263|
-VimTip1264 |vtw-1264|
-VimTip1270 |vtw-1270|
-VimTip1271 |vtw-1271|
-VimTip1277 |vtw-1277|
-VimTip1278 |vtw-1278|
-VimTip1307 |vtw-1307|
-VimTip1310 |vtw-1310|
-VimTip1325 |vtw-1325|
-VimTip1328 |vtw-1328|
-VimTip1329 |vtw-1329|
-VimTip1331 |vtw-1331|
-VimTip1337 |vtw-1337|
-VimTip1339 |vtw-1339|
-VimTip1340 |vtw-1340|
-VimTip1342 |vtw-1342|
-VimTip1344 |vtw-1344|
-VimTip1345 |vtw-1345|
-VimTip1346 |vtw-1346|
-VimTip1350 |vtw-1350|
-VimTip1351 |vtw-1351|
-VimTip1352 |vtw-1352|
-VimTip1353 |vtw-1353|
-VimTip1355 |vtw-1355|
-VimTip1357 |vtw-1357|
-VimTip1358 |vtw-1358|
-VimTip1367 |vtw-1367|
-VimTip1371 |vtw-1371|
-VimTip1372 |vtw-1372|
-VimTip1374 |vtw-1374|
-VimTip1383 |vtw-1383|
-VimTip1394 |vtw-1394|
-VimTip1395 |vtw-1395|
-VimTip1396 |vtw-1396|
-VimTip1397 |vtw-1397|
-VimTip1398 |vtw-1398|
-VimTip1399 |vtw-1399|
-VimTip1400 |vtw-1400|
-VimTip1401 |vtw-1401|
-VimTip1402 |vtw-1402|
-VimTip1403 |vtw-1403|
-VimTip1404 |vtw-1404|
-VimTip1405 |vtw-1405|
-VimTip1406 |vtw-1406|
-VimTip1407 |vtw-1407|
-VimTip1408 |vtw-1408|
-VimTip1409 |vtw-1409|
-VimTip1410 |vtw-1410|
-VimTip1411 |vtw-1411|
-VimTip1412 |vtw-1412|
-VimTip1414 |vtw-1414|
-VimTip1415 |vtw-1415|
-VimTip1416 |vtw-1416|
-VimTip1417 |vtw-1417|
-VimTip1418 |vtw-1418|
-VimTip1419 |vtw-1419|
-VimTip1420 |vtw-1420|
-VimTip1421 |vtw-1421|
-VimTip1422 |vtw-1422|
-VimTip1423 |vtw-1423|
-VimTip1424 |vtw-1424|
-VimTip1425 |vtw-1425|
-VimTip1426 |vtw-1426|
-VimTip1427 |vtw-1427|
-VimTip1428 |vtw-1428|
-VimTip1429 |vtw-1429|
-VimTip1430 |vtw-1430|
-VimTip1441 |vtw-1441|
-VimTip1444 |vtw-1444|
-VimTip1445 |vtw-1445|
-VimTip1446 |vtw-1446|
-VimTip1447 |vtw-1447|
-VimTip1448 |vtw-1448|
-VimTip1449 |vtw-1449|
-VimTip1450 |vtw-1450|
-VimTip1451 |vtw-1451|
-VimTip1452 |vtw-1452|
-VimTip1453 |vtw-1453|
-VimTip1457 |vtw-1457|
-VimTip1459 |vtw-1459|
-VimTip1460 |vtw-1460|
-VimTip1461 |vtw-1461|
-VimTip1462 |vtw-1462|
-VimTip1464 |vtw-1464|
-VimTip1466 |vtw-1466|
-VimTip1467 |vtw-1467|
-VimTip1471 |vtw-1471|
-VimTip1473 |vtw-1473|
-VimTip1474 |vtw-1474|
-VimTip1476 |vtw-1476|
-VimTip1478 |vtw-1478|
-VimTip1480 |vtw-1480|
-VimTip1481 |vtw-1481|
-VimTip1482 |vtw-1482|
-VimTip1485 |vtw-1485|
-VimTip1488 |vtw-1488|
-VimTip1489 |vtw-1489|
-VimTip1492 |vtw-1492|
-VimTip1493 |vtw-1493|
-VimTip1494 |vtw-1494|
-VimTip1502 |vtw-1502|
-VimTip1503 |vtw-1503|
-
 PHP                                                       *vtw-by-category-php*
 
 Automatically generate PHPdoc comments |vtw-407|
@@ -1054,9 +787,7 @@ Generate accessor and setter methods from variable names |vtw-1544|
 PERL                                                     *vtw-by-category-perl*
 
 Using embedded Perl interpreter |vtw-140|
-Auto-fold Perl subs |vtw-419|
 Open a Perl module from its module name |vtw-461|
-Compiler for perl |vtw-473|
 Create new subroutines |vtw-1563|
 
 PLUGIN                                                 *vtw-by-category-plugin*
@@ -1096,196 +827,12 @@ Scientific calculator |vtw-1235|
 Compile a separate copy of Vim for Python coding |vtw-1311|
 Automatically add Python paths to Vim path |vtw-1546|
 Continue omnicompletion for python modules |vtw-1548|
-IPython integration |vtw-1551|
 User input from a script |vtw-1616|
 Build Python-enabled Vim on Windows with MinGW |vtw-1650|
 
 REGISTERS                                           *vtw-by-category-registers*
 
 Comfortable handling of registers |vtw-1562|
-
-REMOVED                                               *vtw-by-category-removed*
-
-VimTip5 |vtw-5|
-VimTip13 |vtw-13|
-VimTip55 |vtw-55|
-VimTip77 |vtw-77|
-VimTip93 |vtw-93|
-VimTip98 |vtw-98|
-VimTip101 |vtw-101|
-VimTip109 |vtw-109|
-VimTip110 |vtw-110|
-VimTip114 |vtw-114|
-VimTip115 |vtw-115|
-VimTip116 |vtw-116|
-VimTip136 |vtw-136|
-VimTip142 |vtw-142|
-VimTip145 |vtw-145|
-VimTip151 |vtw-151|
-VimTip152 |vtw-152|
-VimTip161 |vtw-161|
-VimTip162 |vtw-162|
-VimTip163 |vtw-163|
-VimTip169 |vtw-169|
-VimTip170 |vtw-170|
-VimTip177 |vtw-177|
-VimTip179 |vtw-179|
-VimTip183 |vtw-183|
-VimTip187 |vtw-187|
-VimTip190 |vtw-190|
-VimTip192 |vtw-192|
-VimTip200 |vtw-200|
-VimTip204 |vtw-204|
-VimTip221 |vtw-221|
-VimTip229 |vtw-229|
-VimTip233 |vtw-233|
-VimTip252 |vtw-252|
-VimTip257 |vtw-257|
-VimTip260 |vtw-260|
-VimTip296 |vtw-296|
-VimTip300 |vtw-300|
-VimTip307 |vtw-307|
-VimTip310 |vtw-310|
-VimTip321 |vtw-321|
-VimTip326 |vtw-326|
-VimTip329 |vtw-329|
-VimTip339 |vtw-339|
-VimTip340 |vtw-340|
-VimTip359 |vtw-359|
-VimTip360 |vtw-360|
-VimTip365 |vtw-365|
-VimTip372 |vtw-372|
-VimTip379 |vtw-379|
-VimTip401 |vtw-401|
-VimTip403 |vtw-403|
-VimTip412 |vtw-412|
-VimTip415 |vtw-415|
-VimTip417 |vtw-417|
-VimTip422 |vtw-422|
-VimTip423 |vtw-423|
-VimTip424 |vtw-424|
-VimTip429 |vtw-429|
-VimTip433 |vtw-433|
-VimTip435 |vtw-435|
-VimTip439 |vtw-439|
-VimTip442 |vtw-442|
-VimTip447 |vtw-447|
-VimTip455 |vtw-455|
-VimTip456 |vtw-456|
-VimTip491 |vtw-491|
-VimTip496 |vtw-496|
-VimTip505 |vtw-505|
-VimTip511 |vtw-511|
-VimTip521 |vtw-521|
-VimTip532 |vtw-532|
-VimTip538 |vtw-538|
-VimTip541 |vtw-541|
-VimTip561 |vtw-561|
-VimTip562 |vtw-562|
-VimTip565 |vtw-565|
-VimTip574 |vtw-574|
-VimTip585 |vtw-585|
-VimTip592 |vtw-592|
-VimTip596 |vtw-596|
-VimTip599 |vtw-599|
-VimTip602 |vtw-602|
-VimTip612 |vtw-612|
-VimTip617 |vtw-617|
-VimTip620 |vtw-620|
-VimTip629 |vtw-629|
-VimTip633 |vtw-633|
-VimTip655 |vtw-655|
-VimTip661 |vtw-661|
-VimTip664 |vtw-664|
-VimTip666 |vtw-666|
-VimTip668 |vtw-668|
-VimTip674 |vtw-674|
-VimTip706 |vtw-706|
-VimTip707 |vtw-707|
-VimTip721 |vtw-721|
-VimTip722 |vtw-722|
-VimTip723 |vtw-723|
-VimTip731 |vtw-731|
-VimTip740 |vtw-740|
-VimTip756 |vtw-756|
-VimTip764 |vtw-764|
-VimTip777 |vtw-777|
-VimTip780 |vtw-780|
-VimTip811 |vtw-811|
-VimTip815 |vtw-815|
-VimTip820 |vtw-820|
-VimTip821 |vtw-821|
-VimTip827 |vtw-827|
-VimTip839 |vtw-839|
-VimTip841 |vtw-841|
-VimTip845 |vtw-845|
-VimTip849 |vtw-849|
-VimTip855 |vtw-855|
-VimTip865 |vtw-865|
-VimTip866 |vtw-866|
-VimTip870 |vtw-870|
-VimTip871 |vtw-871|
-VimTip877 |vtw-877|
-VimTip887 |vtw-887|
-VimTip890 |vtw-890|
-VimTip924 |vtw-924|
-VimTip927 |vtw-927|
-VimTip932 |vtw-932|
-VimTip935 |vtw-935|
-VimTip938 |vtw-938|
-VimTip942 |vtw-942|
-VimTip947 |vtw-947|
-VimTip951 |vtw-951|
-VimTip956 |vtw-956|
-VimTip959 |vtw-959|
-VimTip963 |vtw-963|
-VimTip1000 |vtw-1000|
-VimTip1006 |vtw-1006|
-VimTip1013 |vtw-1013|
-VimTip1024 |vtw-1024|
-VimTip1034 |vtw-1034|
-VimTip1038 |vtw-1038|
-VimTip1040 |vtw-1040|
-VimTip1067 |vtw-1067|
-VimTip1075 |vtw-1075|
-VimTip1078 |vtw-1078|
-VimTip1079 |vtw-1079|
-VimTip1101 |vtw-1101|
-VimTip1123 |vtw-1123|
-VimTip1125 |vtw-1125|
-VimTip1152 |vtw-1152|
-VimTip1177 |vtw-1177|
-VimTip1187 |vtw-1187|
-VimTip1192 |vtw-1192|
-VimTip1214 |vtw-1214|
-VimTip1216 |vtw-1216|
-VimTip1223 |vtw-1223|
-VimTip1241 |vtw-1241|
-VimTip1246 |vtw-1246|
-VimTip1273 |vtw-1273|
-VimTip1275 |vtw-1275|
-VimTip1276 |vtw-1276|
-VimTip1281 |vtw-1281|
-VimTip1283 |vtw-1283|
-VimTip1306 |vtw-1306|
-VimTip1313 |vtw-1313|
-VimTip1315 |vtw-1315|
-VimTip1316 |vtw-1316|
-VimTip1318 |vtw-1318|
-VimTip1360 |vtw-1360|
-VimTip1362 |vtw-1362|
-VimTip1364 |vtw-1364|
-VimTip1365 |vtw-1365|
-VimTip1368 |vtw-1368|
-VimTip1387 |vtw-1387|
-VimTip1433 |vtw-1433|
-VimTip1443 |vtw-1443|
-VimTip1475 |vtw-1475|
-VimTip1477 |vtw-1477|
-VimTip1487 |vtw-1487|
-VimTip1496 |vtw-1496|
-VimTip1497 |vtw-1497|
-VimTip1524 |vtw-1524|
 
 REVIEW                                                 *vtw-by-category-review*
 
@@ -1342,7 +889,6 @@ Make non-ASCII characters displayed on console |vtw-164|
 Map caps lock to escape in XWindows |vtw-166|
 Using vim as a man-page viewer under Unix |vtw-167|
 Viewing the actual XPM data in GVIM |vtw-168|
-Using Ispell on a highlighted region |vtw-172|
 Switch between Vim window splits easily |vtw-173|
 Footnotes |vtw-174|
 Autocheckout from perforce |vtw-176|
@@ -1387,7 +933,6 @@ Easy (un)commenting out of source code |vtw-271|
 Function signature previewer |vtw-277|
 Set Vim as the default editor for unknown file types in Windows |vtw-279|
 Print syntax highlighted buffer in one color |vtw-284|
-Use integrated spell checking |vtw-290|
 Remember where you had ended reading help |vtw-293|
 Start in insert mode without losing your escape key |vtw-297|
 Edit file found by whereis |vtw-301|
@@ -1402,7 +947,6 @@ Simple text alignment |vtw-319|
 Page up/down and keep cursor position |vtw-320|
 Vim in Microsoft Visual Foxpro |vtw-328|
 Make footnotes in vim |vtw-332|
-Syntax-based folding |vtw-333|
 Copy C++ function declaration into implementation file |vtw-335|
 Editing remote files via scp in vim |vtw-337|
 Vim and cscope and cygwin |vtw-338|
@@ -1418,7 +962,6 @@ ColdFusion and matchit |vtw-362|
 Fast start up in a telnet session |vtw-363|
 Really basic RCS interaction from within vim |vtw-366|
 Comment/UnComment visually selected text |vtw-369|
-Encrypt a file without leaving traces |vtw-371|
 Map caps lock to escape in XWindows |vtw-377|
 Auto insert Java class template when editing a new Java file |vtw-378|
 Using gvim as frontend for dbx |vtw-380|
@@ -1458,7 +1001,6 @@ Display date-and-time on status line |vtw-468|
 Using the mouse for Vim in an xterm |vtw-471|
 Handy option flag toggler |vtw-472|
 Have . restore the cursor position a la emacs in viper mode |vtw-474|
-Wrap visual selection with fold markers |vtw-475|
 Errorformat and makeprg |vtw-476|
 Put the indentation level on the status line |vtw-477|
 Replace with no typing |vtw-479|
@@ -1644,7 +1186,6 @@ Align numbers at decimal point |vtw-893|
 Lookup the city and state of a given US Zip code using TCL |vtw-896|
 Capitalize words and regions easily |vtw-899|
 Insert comment boxes in your code |vtw-900|
-Text objects for strings |vtw-901|
 Easily change the path option |vtw-902|
 Capitalize words in insert and normal modes without moving the cursor |vtw-903|
 Convenience wrapper for setline |vtw-904|
@@ -1655,7 +1196,6 @@ Easy indenting in insert and normal mode with no cursor displacement |vtw-909|
 Upload web files from Vim using Python |vtw-910|
 Smart abbreviation |vtw-912|
 Delete files with a Vim command |vtw-913|
-View only what you are editing |vtw-916|
 Easy word and page selection and deletion in gvim |vtw-917|
 Moving by screen lines instead of file lines |vtw-919|
 Launch lynx to get info for the current word |vtw-922|
@@ -1692,7 +1232,6 @@ Commenting out a range of lines |vtw-981|
 Numbering lines and interpolating sequences |vtw-983|
 Accessing the system clipboard |vtw-984|
 Easy floating point arithmetic |vtw-987|
-Surround selection with text |vtw-988|
 Make views automatic |vtw-991|
 Manipulate quoted strings |vtw-994|
 Resize window when showing/hiding line numbers |vtw-995|
@@ -1823,7 +1362,6 @@ Use ijkl to move the cursor and h to insert |vtw-1334|
 Open Windows Explorer showing directory of current buffer |vtw-1336|
 See man pages by gview |vtw-1338|
 Power K |vtw-1341|
-Diff the current buffer with another file |vtw-1343|
 Using Vim key bindings while typing non-latin1 text |vtw-1348|
 Calculator Editing |vtw-1349|
 Online documentation for word under cursor |vtw-1354|
@@ -2009,7 +1547,6 @@ Get bright background colors in Linux console |vtw-748|
 Completion using a syntax file |vtw-765|
 Highlight current line |vtw-769|
 Make vim and gvim have the same colors |vtw-773|
-Highlight long lines |vtw-810|
 Different syntax highlighting within regions of a file |vtw-857|
 Remove unwanted spaces |vtw-878|
 Switch color schemes |vtw-884|
@@ -2029,9 +1566,7 @@ Define your own colors |vtw-1305|
 Change the color scheme to show where you are |vtw-1378|
 Highlight special filetype docs |vtw-1381|
 Xterm256 color names for console Vim |vtw-1384|
-Enable paren matching over whole file |vtw-1391|
 Dosini files |vtw-1514|
-Highlight long lines |vtw-1523|
 Check your syntax files for configurable options |vtw-1534|
 Creating your own syntax files |vtw-1561|
 Edit MoinMoin wiki files with folding |vtw-1565|
@@ -2071,8 +1606,6 @@ Use eval to create dynamic templates |vtw-1567|
 TEMPORARY                                           *vtw-by-category-temporary*
 
 Using Vim to send mail on Windows |vtw-590|
-Highlight long lines |vtw-810|
-Highlight long lines |vtw-1523|
 
 TERMINALS                                           *vtw-by-category-terminals*
 
@@ -2126,7 +1659,6 @@ Window zooming convenience |vtw-132|
 Run a command in multiple buffers |vtw-133|
 Syntax folding for Java |vtw-143|
 Search for visually selected text |vtw-171|
-Using Ispell on a highlighted region |vtw-172|
 Search patterns |vtw-188|
 Make-compile current buffer |vtw-210|
 Setting file attributes without reloading a buffer |vtw-212|
@@ -2145,7 +1677,6 @@ Quick yank and paste |vtw-356|
 Building Vim |vtw-376|
 Internet search for the current word |vtw-394|
 Drag and drop file names into the Vim command line |vtw-413|
-Running diff |vtw-416|
 Automatic formatting of paragraphs |vtw-440|
 Convert between hex and decimal |vtw-448|
 Browsing programs with tags |vtw-453|
@@ -2163,10 +1694,8 @@ Open vimrc file |vtw-626|
 View all colors available to gvim |vtw-634|
 Switch to unit test module for Python |vtw-658|
 Nice window resizing |vtw-669|
-Running diff |vtw-678|
 Enhanced command window |vtw-681|
 Use gf to open a file via its URL |vtw-691|
-Running diff |vtw-715|
 Convert between hex and decimal |vtw-772|
 Search for visually selected text |vtw-793|
 Repeat search using grep |vtw-825|
@@ -2207,7 +1736,6 @@ Custom resizing on the spot |vtw-1302|
 Run a command in multiple buffers |vtw-1335|
 Using tab pages |vtw-1347|
 Highlight cursor line after cursor jump |vtw-1380|
-Disable the "Hit any key to close this window" message in remote editing |vtw-1385|
 Make Vim completion popup menu work just like in an IDE |vtw-1386|
 File search similar to cmd-t in TextMate |vtw-1432|
 Use recording to easily add function skeletons from prototypes |vtw-1435|
@@ -2258,7 +1786,6 @@ UNDO                                                     *vtw-by-category-undo*
 Undo and Redo |vtw-39|
 Helps undo 1 line when entered many |vtw-86|
 Recover from accidental Ctrl-U |vtw-436|
-Reload file without losing undo history |vtw-1627|
 Using undo branches |vtw-1643|
 
 USAGE                                                   *vtw-by-category-usage*
@@ -2349,7 +1876,6 @@ Improved hex editing |vtw-1518|
 Displaying the current Vim environment |vtw-1522|
 To switch back to normal mode automatically after inaction |vtw-1540|
 Execute external programs asynchronously under Windows |vtw-1549|
-Remap join to merge comment lines |vtw-1553|
 Record a recursive macro |vtw-1577|
 Converting variables to or from camel case |vtw-1602|
 Ranges |vtw-1611|
@@ -2392,7 +1918,6 @@ Using Computer Modern TT as a gvim font under Windows |vtw-158|
 Make vim the editor for files with unregistered extensions in Windows |vtw-185|
 Set Vim as the default editor for unknown file types in Windows |vtw-279|
 Integrate gvim with Visual Studio |vtw-368|
-Running diff |vtw-416|
 Change between backslash and forward slash |vtw-431|
 Putting the current file on the Windows clipboard |vtw-432|
 Maximize or restore window |vtw-494|
@@ -2404,9 +1929,7 @@ Adding Vim to MS-Windows File Explorer Menu |vtw-636|
 Add Vim to the Windows Explorer context menu |vtw-640|
 Enabling Windows shortcuts for gvim |vtw-645|
 Use shortcut key to start gvim in Windows |vtw-676|
-Running diff |vtw-678|
 Integrate gvim with Visual Studio |vtw-683|
-Running diff |vtw-715|
 Embedding vim in Visual Studio |vtw-716|
 Use Python to build project in Visual Studio |vtw-719|
 Quick launch html and other Windows documents |vtw-732|

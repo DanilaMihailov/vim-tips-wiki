@@ -298,6 +298,22 @@ impl<'a> WikiEntry<'a> {
 
         let document = Document::from(original.unwrap().as_str());
         let entry = WikiEntry::parse(&document, n);
+
+        if entry
+            .categories
+            .iter()
+            .position(|cat| {
+                *cat == "Deprecated".to_owned()
+                    || *cat == "OriginalDuplicate".to_owned()
+                    || *cat == "OriginalMissing".to_owned()
+                    || *cat == "Removed".to_owned()
+            })
+            .is_some()
+        {
+            tokio::fs::remove_file(format!("doc/{}", entry.file_name())).await?;
+            return Err("Tip is skipped".into());
+        }
+
         let result = entry.to_vim_help();
 
         tokio::fs::write(format!("doc/{}", entry.file_name()), &result.into_bytes()).await?;
