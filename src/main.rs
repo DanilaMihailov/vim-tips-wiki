@@ -229,7 +229,7 @@ impl<'a> WikiEntry<'a> {
 
         for cat in &self.categories {
             result.push_str(&format!(
-                "{} *vtw-by-category-{}*\n",
+                "{} |vtw-by-category-{}|\n",
                 cat,
                 cat.replace(" ", "-").to_lowercase()
             ));
@@ -339,7 +339,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     entries.sort_by(|e1, e2| e1.n.partial_cmp(&e2.n).unwrap());
 
     for en in &entries {
-        index.push_str(format!("{:>4}. {} *vtw-{}*\n", en.n, en.title, en.n).as_str());
+        index.push_str(format!("{:>4}. {} |vtw-{}|\n", en.n, en.title, en.n).as_str());
     }
 
     index.push_str(&format!("\n\n vim:{}", "tw=78:et:ft=help:norl:"));
@@ -357,7 +357,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for en in &entries {
         for cat in &en.categories {
             let list = grouped.entry(cat).or_insert(Vec::new());
-            list.push(format!("{} *vtw-{}*\n", en.title, en.n));
+            list.push(format!("{} |vtw-{}|\n", en.title, en.n));
         }
     }
 
@@ -415,7 +415,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 prev_letter.unwrap()
             ));
         }
-        alpha.push_str(format!("{} *vtw-{}*\n", en.title, en.n).as_str());
+        alpha.push_str(format!("{} |vtw-{}|\n", en.title, en.n).as_str());
     }
 
     alpha.push_str(&format!("\n\n vim:{}", "tw=78:et:ft=help:norl:"));

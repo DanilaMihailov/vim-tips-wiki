@@ -106,9 +106,9 @@ curfile = vim.current.buffer.nameif curfile:
 
 CATEGORIES                                                      *vtw-658-cats*
 
-Review *vtw-by-category-review*
-Python *vtw-by-category-python*
-Todo *vtw-by-category-todo*
+Review |vtw-by-category-review|
+Python |vtw-by-category-python|
+Todo |vtw-by-category-todo|
 
 
  vim:tw=78:et:ft=help:norl:

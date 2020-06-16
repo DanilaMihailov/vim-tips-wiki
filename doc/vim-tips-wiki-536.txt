@@ -33,8 +33,8 @@ Rather than use winbufnr(2), I think the test could be if winnr('$') < 2. JohnBe
 
 CATEGORIES                                                      *vtw-536-cats*
 
-Compiler *vtw-by-category-compiler*
-Searching *vtw-by-category-searching*
+Compiler |vtw-by-category-compiler|
+Searching |vtw-by-category-searching|
 
 
  vim:tw=78:et:ft=help:norl:
