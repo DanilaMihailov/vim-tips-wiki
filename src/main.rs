@@ -38,11 +38,11 @@ impl<'a> WikiEntry<'a> {
     }
 
     fn short_prefix(&self, txt: &str) -> String {
-        format!("vwt-{}{}", self.n, txt)
+        format!("vtw-{}{}", self.n, txt)
     }
 
     fn prefix(&self, txt: &str) -> String {
-        format!("vim-wiki-tips-{}{}", &self.n, txt)
+        format!("vim-tips-wiki-{}{}", &self.n, txt)
     }
 
     fn parse_node(&self, node: Node) -> String {
@@ -237,7 +237,7 @@ impl<'a> WikiEntry<'a> {
     async fn make_tip(n: u32) -> Result<(), Box<dyn std::error::Error>> {
         println!("Making tip {}", n);
         let mut original =
-            tokio::fs::read_to_string(format!("originals/vim-wiki-tips-{}.html", n)).await;
+            tokio::fs::read_to_string(format!("originals/vim-tips-wiki-{}.html", n)).await;
 
         if original.is_err() {
             println!("File not found, downloading it ({})", n);
@@ -246,7 +246,7 @@ impl<'a> WikiEntry<'a> {
             let text = resp.text().await?;
             original = Ok(text.clone());
             tokio::fs::write(
-                format!("originals/vim-wiki-tips-{}.html", n),
+                format!("originals/vim-tips-wiki-{}.html", n),
                 &text.into_bytes(),
             )
             .await?;
