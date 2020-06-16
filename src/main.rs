@@ -126,7 +126,7 @@ impl<'a> WikiEntry<'a> {
 
         let href = href.unwrap();
 
-        // link to current page, replace with tag vwt-1-link
+        // link to current page, replace with tag vtw-1-link
         if href.starts_with("#") {
             let prepared = format!(
                 "-{}",
@@ -138,7 +138,7 @@ impl<'a> WikiEntry<'a> {
             format!(
                 "{} |{}|",
                 a_node.text(),
-                href.replace("/wiki/VimTip", "vwt-")
+                href.replace("/wiki/VimTip", "vtw-")
             )
         } else if href.contains("vimdoc") {
             // link to vim docs
