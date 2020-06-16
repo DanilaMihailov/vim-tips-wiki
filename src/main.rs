@@ -327,6 +327,42 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     index.push_str(&format!("\n\n vim:{}", "tw=78:et:ft=help:norl:"));
     std::fs::write("doc/vim-tips-wiki-index.txt", index.as_bytes()).unwrap();
 
+    let mut grouped: std::collections::HashMap<&str, Vec<String>> =
+        std::collections::HashMap::new();
+    let mut by_category = String::new();
+
+    by_category.push_str(&format!(
+        "*{}* {}\n\n",
+        "vim-tips-wiki-by-category.txt",
+        "List of all tips grouped by category *vim-tips-wiki-by-category*"
+    ));
+
+    for en in &entries {
+        for cat in &en.categories {
+            let list = grouped.entry(cat).or_insert(Vec::new());
+            list.push(format!("{} *vtw-{}*\n", en.title, en.n));
+        }
+    }
+
+    let mut sorted_cats = grouped.keys().collect::<Vec<&&str>>();
+    sorted_cats.sort();
+
+    for cat in sorted_cats {
+        let ens = grouped.get(*cat).unwrap();
+        by_category.push_str(&format!(
+            "\n{} *vim-tips-wiki-by-category-{}*\n{}\n\n",
+            cat.to_uppercase(),
+            cat.replace(" ", "-").to_lowercase(),
+            "=".repeat(78)
+        ));
+        for en in ens {
+            by_category.push_str(en.as_str())
+        }
+    }
+
+    by_category.push_str(&format!("\n\n vim:{}", "tw=78:et:ft=help:norl:"));
+    std::fs::write("doc/vim-tips-wiki-by-category.txt", by_category.as_bytes()).unwrap();
+
     let mut alpha = String::new();
     alpha.push_str(&format!(
         "*{}* {}\n\n",
