@@ -1,0 +1,52 @@
+*vim-tips-wiki-1536.txt*   Automatically fitting a quickfix window height *vtw-1536*
+
+Tip 1536 [https://vim.fandom.com/wiki/Automatically_fitting_a_quickfix_window_height]   Previous |vtw-1535| Next |vtw-1538|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Automatically_fitting_a_quickfix_window_height] 
+2007 · complexity basic · author AOYAMA Shotaro · version 6.0
+
+==============================================================================
+
+When I do `:cw`, a quickfix window opens with a 10-line height, even when the 
+number of errors is 1 or 2. I think it's a waste of window space.
+
+So I wrote the following code in my vimrc. With it, a quickfix window height 
+is automatically adjusted to fit its contents (maximum 10 lines).
+
+>
+    au FileType qf call AdjustWindowHeight(3, 10)
+    function! AdjustWindowHeight(minheight, maxheight)
+      exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+    endfunction
+<
+
+Of course, this function can be applied to other windows besides the quickfix 
+window.
+
+If you feel it's too tight, you may want to replace `line("$")` with 
+`line("$")+1`.
+
+COMMENTS                                                   *vtw-1536-comments*
+
+For long lines, consider a long line as many lines
+
+>
+    au FileType qf call AdjustWindowHeight(3, 10)
+       function! AdjustWindowHeight(minheight, maxheight)
+           let l = 1
+           let n_lines = 0
+           let w_width = winwidth(0)
+           while l <= line('$')
+               " number to float for division
+               let l_len = strlen(getline(l)) + 0.0
+               let line_width = l_len/w_width
+               let n_lines += float2nr(ceil(line_width))
+               let l += 1
+           endw
+           exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+       endfunction
+       " https://gist.github.com/juanpabloaj/5845848
+<
+
+ vim:tw=78:et:ft=help:norl:

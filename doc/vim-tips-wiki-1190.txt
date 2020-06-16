@@ -1,0 +1,104 @@
+*vim-tips-wiki-1190.txt*   Source searching for programmers            *vtw-1190*
+
+Tip 1190 [https://vim.fandom.com/wiki/Source_searching_for_programmers]   Previous |vtw-1189| Next |vtw-1193|
+
+created March 30, 2006 · complexity intermediate · author do1 · version 6.0
+
+==============================================================================
+
+Can be useful for programmers who dig in alien code. Sorta like simplier 
+cscope alternative. Put in ~/.bashrc this bash aliases:
+
+>
+    function f() {
+      local i o m
+      set -f
+      test "$ffo" || ffo='! -iname tags'
+      for i in "$@"; do
+        case "$i" in
+        c) ffo='-iname *.[chs]' ;;
+        h) ffo='-iname *.[h]' ;;
+        x) ffo='-iregex .*\.[chs][xp+]?[xp+]?' ;;
+        p) ffo='-iname *.php*' ;;
+        q) ffo='! -iname tags' ;;
+        -*) o="$o $i" ;;
+        *) m="$m $i" ;;
+        esac
+      done
+      test "$m" || return
+      find . $ffo -type f -print0 \
+      | xargs -0 grep --colour=always --binary-file=without-match -n $o "${m# }" \
+      | tee ~/.ff~
+      set +f
+    }
+    
+    function v() {
+      local cmd
+      test -s ~/.ff~ || return
+      if [ "$*" ]; then
+        grep "$*" ~/.ff~ > ~/.ff- || return
+        cmd="vim +`head -1 ~/.ff- | cut -d: -f2` `head -1 ~/.ff- | cut -d: -f1 | uniq`"
+        history -s $cmd
+        $cmd
+      else
+        perl -pe 's/\033[^a-z]*[a-z]//g' ~/.ff~ > ~/.ff
+        vim -q ~/.ff -c :cw5
+      fi
+    }
+    
+    alias vv='cat ~/.ff~'
+<
+
+Then when in source directory you do like:
+
+>
+    ~/vim63/src$ f ui_inchar_undo
+    ./ui.c:73:ui_inchar_undo(s, len)
+    ./proto/ui.pro:3:void ui_inchar_undo __ARGS((char_u *s, int len));
+    ./os_unix.c:3854: ui_inchar_undo(ta_buf, ta_len);
+    ~/vim63/src$ v
+<
+
+'v' will open Vim with all found matches in quickfix window. Then press 
+'CTRL-W o' if you want to hide file list. Or:
+
+>
+    ~/vim63/src$ v ARG
+<
+
+Will execute: 'vim +3 ./proto/ui.pro' and put this command in bash history.
+
+Any argument of 'f' command could be mode of search:
+
+>
+    c - search in C files
+    h - search in C headers
+    x - search in C++ files
+    p - search in PHP files
+    q - search in text files (default).
+<
+
+Last used mode is remembered, so the next examples are equivalent 'f c' 
+followed by 'f ui_get_shellsize', or just 'f c ui_get_shellsize', or 'f 
+ui_get_shellsize c'.
+
+Tested on GNU find 4.1.7, grep 2.5, bash 2.05a, vim 6.3.
+
+For older grep remove '--colour=always' option from 'f' function or upgrade.
+
+COMMENTS                                                   *vtw-1190-comments*
+
+Frequently in /etc/profile for bash 'v' aliased to 'vdir' (by eval 
+'/bin/dircolors -b'), which conflict later with out 'v' function. So in order 
+to fix that append to .bashrc:
+
+>
+    unalias v 2>/dev/null
+<
+
+And maybe more handy is to put default 'c' searching instead of 'q'. Because 
+I am usually interested in C files, and only if not found then in all other.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

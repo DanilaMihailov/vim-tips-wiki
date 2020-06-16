@@ -1,0 +1,37 @@
+*vim-tips-wiki-539.txt*   Quick access to Vim tips and scripts with konqueror *vtw-539*
+
+Tip 539 [https://vim.fandom.com/wiki/Quick_access_to_Vim_tips_and_scripts_with_konqueror]   Previous |vtw-537| Next |vtw-542|
+
+created August 23, 2003 · complexity basic · author zoran · version 5.7
+
+==============================================================================
+
+For those of you using KDE and Konqueror to browse vim.sf.net, you can add it 
+to the so called "Web Shortcuts" in konqueror:
+
+1. In Konqueror choose "Settings/Configure Konqueror"
+
+2. Goto "Web Shortcuts", choose "Add..."
+
+3. Now configure the shortcut:
+    - Search Name Provider: "VIM Tips" 
+    - Search URI: "http://vim.sourceforge.net/tips/tip.php?tip_id=\{@}" 
+    - URI shortcuts: "vt,vimt,vimtip" 
+
+
+4. Click OK and Apply the changes to Konqueror
+
+You can now use: "vt:4" in Konqueror's location bar to jump directly to 
+VimTip4 |vtw-4|.
+
+Feel free to do the same for Vim scripts using 
+"http://vim.sourceforge.net/scripts/script.php?script_id=\{@}" as the Search 
+URI.
+
+COMMENTS                                                    *vtw-539-comments*
+
+TO DO Need to update above now that the tips are here in the Vim Tips wiki.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

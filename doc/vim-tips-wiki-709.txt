@@ -1,0 +1,97 @@
+*vim-tips-wiki-709.txt*   Simple creation of scripts                    *vtw-709*
+
+Tip 709 [https://vim.fandom.com/wiki/Simple_creation_of_scripts]   Previous |vtw-708| Next |vtw-710|
+
+created 2004 · complexity basic · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+If you create lots of scripts, you can arrange for the executable bit to be 
+automagically set on save if the file begins with '`#!/usr/bin/`' or 
+'`#!/bin`'.
+
+>
+    function! MySetExecutableIfScript(line1, current_file)
+      if a:line1 =~ '^#!\(/usr\)*/bin/'
+        let chmod_command = "silent !chmod ugo+x " . a:current_file
+        execute chmod_command
+      endif
+    endfunction
+    autocmd BufWritePost * call MySetExecutableIfScript(getline(1), expand("%:p"))
+<
+
+COMMENTS                                                    *vtw-709-comments*
+
+WARNING: autocommands with constructs like '`if condition | clause | endif`' 
+are problematic for me, and apparently for others given the comments below. 
+They seem to have the potential to make other autocommands declared later not 
+happen. I recommend having you autocommand call a function and doing your 
+ifing in there as above.
+
+==============================================================================
+
+Here's something a little better for Python:
+
+>
+    " Python header
+    function! <SID>PythonHeader()
+      call setline(1, "#! /bin/sh")
+      call append(1, "# vim: filetype=python")
+      call append(2, "\"\"\":\"")
+      call append(3, "exec python $0 ${1+\"$@\"}")
+      call append(4, "\"\"\"")
+      call append(5, "")
+      exe 6
+    endfunction
+    au BufEnter *.py if getline(1) == "" | call s:PythonHeader() | endif
+<
+
+Or for shell:
+
+>
+    " Shell header
+    function! <SID>ShellHeader()
+      call setline(1, "#! /bin/sh")
+      call append(1, "")
+      exe 2
+    endfunction
+    au BufEnter *.sh if getline(1) == "" | call s:ShellHeader() | endif
+<
+
+==============================================================================
+
+I did not want the script to keep doing the chmod even when the file is 
+already excutable, so this is what I have in my vimrc:
+
+>
+    " Define a function that can tell me if a file is executable
+    function! FileExecutable (fname)
+      execute "silent! ! test -x" a:fname
+      return v:shell_error
+    endfunction
+    " Automatically make Perl and Shell scripts executable if they aren't already
+    au BufWritePost *.sh,*.pl,*.cgi if FileExecutable("%:p") | :!chmod a+x % ^@ endif
+<
+
+Note that the ^@ is actually Ctrl-V Ctrl-J (an embedded new line), because 
+you cannot use | as a separator after an external command.
+
+==============================================================================
+
+For the problem with " | endif" after a shell command - e.g.:
+
+>
+    au BufWritePost * if getline(1) =~ "^#! ?/bin/[a-z]*sh" | silent !chmod a+x <afile> | endif
+<
+
+I noticed that the above works fine for csh / tcsh, but not in a bash shell. 
+I got this to work fine for a bash shell:
+
+>
+    au BufWritePost * if getline(1) =~ "^#! ?/bin/[a-z]*sh" | silent !chmod a+x <afile>
+    au BufWritePost * | endif
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

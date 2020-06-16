@@ -1,0 +1,49 @@
+*vim-tips-wiki-1548.txt*   Continue omnicompletion for python modules  *vtw-1548*
+
+Tip 1548 [https://vim.fandom.com/wiki/Continue_omnicompletion_for_python_modules]   Previous |vtw-1547| Next |vtw-1549|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200803#Continue_omnicompletion_for_python_modules] 
+2008 · complexity basic · author ViPERPHiSH · version 7.0
+
+==============================================================================
+
+I was using the Python omni-completion feature in Vim, and I noticed that 
+when you complete a module name, it inserts the module name, followed by a dot 
+(presumably because you would then want to access something inside the 
+module). This is helpful, except that it breaks common omnicompletion 
+keybindings, such as
+
+>
+    imap <silent> <buffer> . .<C-X><C-O>
+<
+
+In order to get completions for this module, one would have to either 
+manually type <C-X><C-O> to run the completion function again, or delete and 
+then re-insert the period. The correct solution is, of course, to fix the 
+Python omnicompletion module. However, this 'feature' is present in all 
+default installations of Vim.
+
+Here is a stopgap solution. On <CR>, it accepts the current completion, and 
+then runs a <C-R>= expression that checks to see if the character before the 
+cursor is a '.'. If it is, then it runs omnicomplete again. The tricky bit 
+about this is that it needs to accept the completion before it can check the 
+cursor position, or else it will be checking against the partially completed 
+text. The col('.')-1 check avoids a problem where you return without a 
+selected match which lands you at column 1 of the next line.
+
+>
+    imap <silent> <expr> <buffer> <CR> pumvisible() ? "<CR><C-R>=(col('.')-1&&match(getline(line('.')), '\\.',
+          \ col('.')-2) == col('.')-2)?\"\<lt>C-X>\<lt>C-O>\":\"\"<CR>"
+          \ : "<CR>"
+<
+
+COMMENTS                                                   *vtw-1548-comments*
+
+How do you enabled omnicompletion for modules, does it work for external 
+modules too?
+
+Is there a version of vim that doesn't have the "feature" that you mentioned? 
+Is there a way to fix this and complile vim yourself?
+
+ vim:tw=78:et:ft=help:norl:

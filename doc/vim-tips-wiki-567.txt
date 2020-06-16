@@ -1,0 +1,18 @@
+*vim-tips-wiki-567.txt*   Edit a temporary copy of the current file     *vtw-567*
+
+Tip 567 [https://vim.fandom.com/wiki/Edit_a_temporary_copy_of_the_current_file]   Previous |vtw-566| Next |vtw-568|
+
+created 2003 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+Edit a copy of the current file as $TMP/file-$DATE by pressing `zs` using the 
+following mapping.
+
+>
+    :map zs :exe "sav $TMP/" . expand("%:t") . strftime("-%Y-%m-%d_%H%M%S")<CR>
+<
+
+COMMENTS                                                    *vtw-567-comments*
+
+ vim:tw=78:et:ft=help:norl:

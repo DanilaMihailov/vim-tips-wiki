@@ -1,0 +1,108 @@
+*vim-tips-wiki-73.txt*   Using vim as calculator                         *vtw-73*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip216 |vtw-216| 
+    - VimTip1235 |vtw-1235| 
+    - VimTip1349 |vtw-1349| 
+    - VimTip1359 |vtw-1359| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 73 [https://vim.fandom.com/wiki/Using_vim_as_calculator]   Previous |vtw-72| Next |vtw-74|
+
+created June 5, 2001 · complexity basic · author Volker Duetsch · version 5.7
+
+==============================================================================
+
+Basic calculations using integers and float numbers can done within Vim 
+easily by typing (insert-mode):
+
+CTRL-R followed by = then, for example, 2+2 and press Enter.
+
+The result 4 will be inserted into the document.
+
+SEE ALSO                                                     *vtw-73-see-also*
+    - Tip 73 Using vim as calculator |vtw-73| Built-in integers (this tip). 
+    - Tip 216 Calculate equations from within vim |vtw-216| Uses Linux bc. 
+    - Tip 987 Easy floating point arithmetic |vtw-987| uses Perl. 
+    - Tip 1070 Inline integer arithmetic |vtw-1070| only works on integers. 
+    - Tip 1235 Scientific calculator |vtw-1235| Uses Python. 
+    - Tip 1349 Calculator Editing |vtw-1349| Uses Linux bc. 
+    - Tip 1359 Calculator and code evaluation using Perl |vtw-1359| Uses Perl. 
+
+
+COMMENTS                                                     *vtw-73-comments*
+
+Adding the following map to your vimrc
+
+>
+    ino <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+<
+
+Then, just type 8*8<C-A>you will get 8*8=64
+
+==============================================================================
+
+For simple arithmetic, you can often get away with just using repeats of the 
+Ctrl-A (increment) and Ctrl-X (decrement) commands.
+
+For instance, to calculate 453-244, insert the text "453" and then, in 
+Command mode, type 244 and press Ctrl-X (answer: 209).
+
+To calculate 4024+3322, insert the text "4024" and then, in Command mode, 
+type 3322 and press Ctrl-A (answer: 7346).
+
+==============================================================================
+
+Passing to the unix utility bc which can do advanced math is very useful. To 
+pipe the current line to bc and replace with it with the result, type (in 
+normal mode):
+
+>
+    !!bc
+<
+
+To pipe the lines that are currently selected in visual mode to bc and 
+replace with it with the result:
+
+>
+    !bc
+<
+
+==============================================================================
+
+I have a mapping for passing a line to bc:
+
+>
+    map gbc yypkA =<Esc>jOscale=2<Esc>:.,+1!bc<CR>kJ
+<
+
+I guess it could be made a bit better. Another useful mapping I once needed 
+was summing numbers on multiple lines:
+
+>
+    vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g<CR>_j
+<
+
+So, having
+
+>
+    10
+    20
+    30
+<
+
+in a file would result in two new lines:
+
+>
+    ==
+    60
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

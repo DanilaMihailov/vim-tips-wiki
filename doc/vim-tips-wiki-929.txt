@@ -1,0 +1,102 @@
+*vim-tips-wiki-929.txt*   Finding your way around in an installshield project XML file *vtw-929*
+
+Tip 929 [https://vim.fandom.com/wiki/Finding_your_way_around_in_an_installshield_project_XML_file]   Previous |vtw-926| Next |vtw-931|
+
+created 2005 · complexity intermediate · author hari_vim · version 6.0
+
+==============================================================================
+
+We still use InstallShield MP 5.x and I find the lack of search functionality 
+in the GUI very hindering (I don't if this is still the case with the newer 
+10.x and 11.x releases), so I use Vim to do all my searching and find the 
+beans etc. and go back to the GUI to locate them. This by itself provides a 
+huge benefit, but it is often not sufficient in a huge project, because you 
+still don't know how to locate it in the GUI.
+
+My solution for sometime was to set 'foldmethod' to "indent" and after 
+searching for the bean, carefully open the folds up one by one and locate the 
+parents (this works because the beans are indented nicely by their level in 
+the bean tree). Once you reach to the top most bean (under the root), you get 
+an idea how to locate it, which solved the problem, but I still felt that it 
+is a bit tedious to do this (especially because of the several folds you need 
+to open up keeping track of the cursor position).
+
+My new solution to this problem is still using folds, but in a different way 
+(you need Vim 6.3). The displayName property of the beans is what we are 
+interested in to locate the bean, so I create an outline of the entire bean 
+structure using the following command (you need script#158 
+[https://www.vim.org/scripts/script.php?script_id=158], and script#171 
+[https://www.vim.org/scripts/script.php?script_id=171] and script#197 
+[https://www.vim.org/scripts/script.php?script_id=197]):
+
+>
+    FoldMatching "displayName" -1
+<
+
+This creates folds just the way I want, but provides no way to navigate the 
+bean structure, so here is a function to take advantage of the fact that the 
+XML is nicely indented, and find the parent bean:
+
+>
+    " This function is useful in an InstallShield XML project file to find the
+    " parent bean of the current bean. Call this function after creating folds
+    " using the following command:
+    " FoldMatching "displayName" -1
+    " This assumes that the beans are indented based on their depth in the bean
+    " tree (which is the case for at least InstallShield MP 5.x)
+    function! FoldMoveToParentNode()
+      normal! zc
+      let curNodeIndent = indent(foldclosed('.'))
+      let nodeIndent = curNodeIndent
+      let curLine = line('.')
+      let line = -1
+      while nodeIndent >= curNodeIndent
+        " Move to the upper fold.
+        normal! zkzc
+        let line = line('.')
+        if line == curLine " No more folds
+          break
+        endif
+        let nodeIndent = indent(foldclosed('.'))
+      endwhile
+    endfunction
+<
+
+Put the above function in your vimrc along with installing the required 
+plugins that I mentioned above, and optionally create a mapping:
+
+>
+    nnoremap \fdp :call FoldMoveToParentNode()<CR>
+<
+
+Here are the concise steps to locate beans:
+    - Execute the below command: 
+
+
+>
+    :FoldMatching "displayName" -1
+<
+    - Search for the bean name or any others that you are interested in (like a 
+      filename or command being executed). This will position the cursor on the fold 
+      that the matching line is part of (vim might automatically open the fold, 
+      depending on your 'foldopen' setting): 
+
+
+>
+    /\.ear
+<
+    - Now execute the above function (or the map) multiple times until you reach 
+      the parent that is familiar to you: 
+
+
+>
+    :call FoldMoveToParentNode()
+<
+
+I find this very handy to quickly navigate in an installshield MP project 
+(especially when it is unfamiliar), and I hope that others also find it 
+useful.
+
+COMMENTS                                                    *vtw-929-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,141 @@
+*vim-tips-wiki-917.txt*   Easy word and page selection and deletion in gvim *vtw-917*
+
+Tip 917 [https://vim.fandom.com/wiki/Easy_word_and_page_selection_and_deletion_in_gvim]   Previous |vtw-916| Next |vtw-918|
+
+created April 20, 2005 · complexity intermediate · author Gerald Lai · 
+version 5.7
+
+==============================================================================
+
+Perhaps the most useful thing I do in Windows editing (be it in MS Word or 
+Notepad-variant) is to hold down both Ctrl-Shift keys and press either 
+up/down/left/right arrow keys or Home/End/PageUp/PageDown keys to select an 
+area that could encompass word-by-word, line-by-line or page-by-page. This 
+allows me to quickly edit or delete my text. This feature is prominent in 
+Windows and I find myself using it too often with any edit box, like in a web 
+browser or chat messenger.
+
+Also, holding down the Ctrl key and pressing either Backspace or Delete keys 
+delete word-by-word.
+
+The features mentioned above work differently and are somewhat clumsy in Vim 
+- requiring many keystrokes and often a change from insert to normal mode and 
+back from visual. Some features do not exist. Hence, I thought of combining 
+these features with Vim as a way of bringing Vim closer to the standard 
+editing tools most textboxes have. Plus, this would be a great way for new 
+users to get acquainted with Vim.
+
+These mappings utilize the Ctrl & Shift keys that may *NOT* work with 
+terminal versions of Vim. They SHOULD work with GVim.
+
+I have set up these mappings to work just the way I would like it to do. They 
+may not conform to how it actually is when the same keystrokes are performed 
+in another editor (e.g. textboxes in Windows or X11). Try it and see if you 
+like it :)
+
+No, v<End><C-d><End> is not the same as v<PageDown>. Both <End>'s are 
+necessary to give its effect. I'm slightly dissatisfied with the <C-Del> 
+mapping done when the cursor is at the end of a line. It pulls the next line 
+up and _deletes the first word_. Any ideas on how to prevent it from taking 
+the first word, but still take the eol?
+
+>
+    "place in vimrc file
+    
+    "word selection
+    nmap <C-S-Left> vbge<Space>
+    nmap <C-S-Right> vew<BS>
+    imap <C-S-Left> _<Esc>mz"_xv`z<BS>obge<Space>
+    imap <C-S-Right> _<Esc>my"_xi<S-Right><C-o><BS>_<Esc>mz"_xv`yo`z
+    vmap <C-S-Left> bge<Space>
+    vmap <C-S-Right> ew<BS>
+    
+    "down/up selection
+    nmap <C-S-Down> v<Down>
+    nmap <C-S-Up> v<Up>
+    imap <C-S-Down> _<Esc>mz"_xv`zo`z<Down><Right><BS><BS>
+    imap <C-S-Up> _<Esc>mz"_xv`z<Up>o`z<BS>o
+    vmap <C-S-Down> <Down>
+    vmap <C-S-Up> <Up>
+    
+    "home/end selection
+    nmap <C-S-Home> v<Home>
+    nmap <C-S-End> v<End>
+    imap <C-S-Home> _<Esc>mz"_s<C-o><Left><C-o>`z<Esc>v<Home>
+    imap <C-S-End> _<Esc>mz"_xv`zo<End>
+    
+    "half page down/up selection
+    nmap <C-S-PageDown> v<End><C-d><End>
+    nmap <C-S-PageUp> v<Home><C-u>
+    imap <C-S-PageDown> _<Esc>mz"_xv`zo<End><C-d><End>
+    imap <C-S-PageUp> _<Esc>mz"_xv`z<BS>o<Home><C-u>
+    vmap <C-S-PageDown> <End><C-d><End>
+    vmap <C-S-PageUp> <Home><C-u>
+    
+    "word deletion
+    imap <C-BS> <C-w>
+    imap <C-Del> _<Esc>mzew<BS>i<Del><Esc>v`z"_c
+<
+
+COMMENTS                                                    *vtw-917-comments*
+
+What is the point of this? Vim's power lies in its modality. If you don't use 
+Vim's modes, there are lots of editors out there that are better for your use. 
+Kate (*nix) and Textpad (Win32) comes to mind.
+
+But if you want to use a really powerful editor, I suggest learning to use 
+Vim like it's supposed to be used. After a while what seemed strange at first 
+starts making sense, and you will find out how great a modal editor is.
+
+==============================================================================
+
+Cream for Vim (http://cream.sf.net [http://cream.sf.net]) has similar 
+functionality within insert mode, if you like single-mode editing (as this tip 
+suggests). But this is not the "Vim way" which is less right-brained/visual 
+and more left-brained/calculated.
+
+==============================================================================
+
+>
+    :imap <C-BS> <Esc>bdwi
+    :imap <S-BS> <Esc>v0di
+    :map <S-BS> b
+    :map <C-BS> <BS>0
+<
+
+The problem is I forget my esoteric mappings, unless they areintuitive and 
+require no switching from left to right brain.
+
+==============================================================================
+
+I can't seem to use or map my HOME key. It sends me to the top of my window 
+no mater what I try. Is this b/c I'm using terminal vim in unix/CDE? It seems 
+that the operating system gets the HOME and END keys before vim does. Is there 
+anything I can do? In gvim my keys work fine.
+
+==============================================================================
+
+Things start to get funky in terminal Vim. A lot of the control-key (Ctrl, 
+Shift, Alt) functionality is either lost or varies between different operating 
+systems.
+
+I use rxvt on the SunOS unix/CDE with the environmental variable $TERM=dtterm 
+when I have a color terminal. I have this in my vimrc file:
+
+>
+    "Home, End, BackSpace, Shift-arrow & Shift-function keys for color terminals
+    if &term == "dtterm"
+      set t_kh=<Esc>[7~ t_@7=<Esc>[8~ t_kb=<Esc> t_%i=<Esc>[c t_#4=<Esc>[d <S-Up>=<Esc>[a <S-Down>=<Esc>[b
+      set <S-F1>=<Esc>[23~ <S-F2>=<Esc>[24~ <S-F3>=<Esc>[25~ <S-F4>=<Esc>[26~ <S-F5>=<Esc>[28~ <S-F6>=<Esc>[29~ <S-F7>=<Esc>[31~ <S-F8>=<Esc>[32~ <S-F9>=<Esc>[33~
+    endif
+<
+
+Note that the character that come after every '=' sign for the "set" options 
+is the ESC key character. To enter it within vim, type <Ctrl-V> and then hit 
+<Esc> - you will get ^[It should look like "set t_kh=^[[7~" on vim.
+
+See :help |terminal-options|.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

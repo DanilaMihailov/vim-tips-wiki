@@ -1,0 +1,57 @@
+*vim-tips-wiki-1631.txt*   Clojure Tips                                *vtw-1631*
+
+Tip 1631 [https://vim.fandom.com/wiki/Clojure_Tips]   Previous |vtw-1630| Next |vtw-1632|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200909#Clojure_Tips] 2009 
+· complexity basic · version 7.0
+
+==============================================================================
+
+Tips relating to the Clojure [http://en.wikipedia.org/wiki/Clojure] language 
+will be given here.
+
+COMMENTING AND UNCOMMENTING             *vtw-1631-commenting-and-uncommenting*
+
+The comment leader for Clojure is the `;` character. This snippet allows easy 
+commenting and uncommenting of lines.
+
+>
+    map <Leader>. :call ClojureCommentUncomment()<CR>
+    function! ClojureCommentUncomment()
+      let search_saved = @/
+      if getline('.') =~ '^;'
+        s/^;//  " remove ';' at beginning of line
+      else
+        s/^/;/  " insert ';' at beginning of line
+      endif
+      let @/ = search_saved
+    endfunction
+<
+
+Typing `\.` (assuming the default backslash leader) will remove `;` from the 
+beginning of the current line if it is present (uncomment), or will insert it 
+otherwise (comment). You could make this more restrictive by only adding the 
+mapping for files of the Clojure filetype, or by adding it to 
+`~/.vim/after/ftplugin/clojure.vim`.
+
+REFERENCES                                               *vtw-1631-references*
+    - :help |filetype| 
+    - :help |after-directory| 
+
+
+COMMENTS                                                   *vtw-1631-comments*
+
+TO DO
+    - May need some information similar to VimTip1565 |vtw-1565| for making Clojure 
+      a known filetype. 
+    - The tip used '\;' but the backslash is redundant (I removed it). 
+    - The tip had if getline('.') =~ '\;' but `s/^;//`. The former matches `;` 
+      anywhere in the line, while the latter only matches at the left margin. I 
+      changed it. 
+
+
+Please fix it if my changes broke anything. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 10:25, September 5, 2009 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

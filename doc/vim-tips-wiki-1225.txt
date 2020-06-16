@@ -1,0 +1,282 @@
+*vim-tips-wiki-1225.txt*   Launch files in new tabs under Windows      *vtw-1225*
+
+Tip 1440 [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows]   Previous |vtw-1439| Next |vtw-1454|
+
+created 2006 · complexity basic · author Xu Song · version n/a
+
+==============================================================================
+
+Many text editors automatically launch new files in tabs, rather than use a 
+separate window for each new file. Here's how to make Vim behave that way 
+under Microsoft Windows. (For split windows instead of tabs, see gvimt script 
+below)
+
+USING FILE ASSOCIATIONS [HTTPS://VIM.FANDOM.COM/WIKI/WINDOWS_FILE_ASSOCIATIONS] *vtw-1225-using-file-associations-[https://vim.fandom.com/wiki/windows_file_associations]*
+
+To automatically open a file in a Vim tab with a double-click or other "Open" 
+action, you need to set up file associations 
+[https://vim.fandom.com/wiki/Windows_file_associations]. Open a command prompt 
+window (Start, Run `cmd.exe`). This example uses C source-code files – modify 
+the commands for whatever file types you want. At command prompt, type (you 
+may need to change the path to suit your system):
+
+>
+    ftype code="C:\Program Files\Vim\vim72\gvim.exe" --remote-tab-silent "%1"
+    assoc .c=code
+    assoc .h=code
+<
+
+Note: use "%%1" to execute from a batch script. You may want to run the 
+script as admin.
+
+Now, double-clicking on .c or .h files will open them in tabs in a single 
+instance of gvim.
+
+To make Vim the editor for all text file types (as defined by MS Windows) try
+
+>
+    ftype txtfile="C:\Program Files\Vim\vim72\gvim.exe" --remote-tab-silent "%1"
+<
+
+USING THE WINDOWS SEND TO MENU       *vtw-1225-using-the-windows-send-to-menu*
+
+Obviously you can't enter file associations for every file you'll ever open 
+in Vim. To provide an "open in tabs" capability for files without an 
+association, you can add an entry to your "Send To" context menu 
+[https://vim.fandom.com/wiki/Add_Vim_to_Windows_Send_To_menu], as follows:
+
+In Windows Explorer, right-click one or more files, and select Send To, gvim 
+in the context menu. You can repeat this to open other files in new tabs in 
+the same Vim instance.
+
+USING DIFFERENT GVIM INSTANCES FOR DIFFERENT FILE TYPES *vtw-1225-using-different-gvim-instances-for-different-file-types*
+
+If wanted, you can define file associations so that certain file types are 
+opened in one instance of gvim, while others are opened in a different 
+instance.
+
+For example, the following will cause .log and .txt files to be opened in an 
+instance of gvim named TXTVIM, while .c and .h files would be opened in 
+another instance using the code example given earlier.
+
+>
+    ftype txtfile="C:\Program Files\Vim\vim71\gvim.exe" --servername TXTVIM --remote-tab-silent "%1"
+    assoc .log=txtfile
+    assoc .txt=txtfile
+<
+
+SendTo menu items for specific Vim instances can be created in the same way, 
+by adding a `--servername` option before the `--remote-tab-silent` in the 
+target for the shortcut created in the section above.
+
+Note that the .txt extension defaults to the txtfile association on Windows. 
+In fact, many extensions are already associated with txtfile, so just setting 
+the ftype as above will automatically set the correct behavior for several 
+filetypes, more of which (such as .log) can be added with `assoc` as shown.To see a list of current associations on your system, type `assoc` with no arguments in a cmd window. Or, for easier viewing, read the list into Vim with 
+
+>
+    :r !assoc
+<
+
+USING THE REGISTRY                               *vtw-1225-using-the-registry*WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+Save the following in a .reg text file:
+
+>
+    Windows Registry Editor Version 5.00
+    [HKEY_CLASSES_ROOT\*\Shell\Tab Edit with &Vim]
+    [HKEY_CLASSES_ROOT\*\Shell\Tab Edit with &Vim\command]
+    @="\"C:\\Program Files\\Vim\\vim73\\gvim.exe\" -p --remote-tab-silent \"%1\" \"%*\""
+<
+
+Note: The .reg files assume Vim 7.3 was installed in the default location – 
+modify the path to suit your system, if needed.
+
+Merge this key into the registry by double clicking the file created above.
+
+If you have set the default editor to gvim for your .c and .cpp files by 
+using the context menu's Open With->Vim (and checking the 'Always use the 
+selected program to open this kind of file'), then you need to modify the 
+following registry keys to make sure every file is opened in a separate tab in 
+the same instance of Vim.
+
+>
+    For .c files:
+    # HKCR\c_auto_file\shell\edit\command\Default -- change the value from C:\Program Files\Vim\vim70\gvim.exe "%1" to C:\Program Files\Vim\vim70\gvim.exe -p --remote-tab-silent "%1"
+    # HKLM\software\classes\c_auto_file\shell\edit\command\Default -- change the value from C:\Program Files\Vim\vim70\gvim.exe "%1" to C:\Program Files\Vim\vim70\gvim.exe -p --remote-tab-silent "%1"
+    
+    Similarly for .cpp files:
+    # HKCR\cpp_auto_file\shell\edit\command\Default -- change the value from C:\Program Files\Vim\vim70\gvim.exe "%1" to C:\Program Files\Vim\vim70\gvim.exe -p --remote-tab-silent "%1"
+    # HKLM\software\classes\cpp_auto_file\shell\edit\command\Default -- change the value from C:\Program Files\Vim\vim70\gvim.exe "%1" to C:\Program Files\Vim\vim70\gvim.exe -p --remote-tab-silent "%1"
+<
+
+This way if you are in a habit of opening files from the command prompt, 
+every filename you type on the command prompt will open the corresponding file 
+in a separate tab in the same Vim instance.
+
+The above works for Windows XP. For Windows 2003, setting 
+HKCR\Applications\gvim.exe\shell\edit\command\(Default) to C:\Program 
+Files\Vim\Vim73\gvim.exe -p --remote-tab-silent "%1" should do it when opening 
+from command prompt or using context menu's Open With->Vim (and checking 
+'Always use the selected program...')
+
+USING AN AUTO COMMAND                         *vtw-1225-using-an-auto-command*
+
+Another solution is to use autocmd:
+
+>
+    autocmd BufReadPost * tab ball
+<
+
+This will make sure every additional file that you open is opened in a tab. I 
+like using this with the :tj command because I store each file name as a tag 
+so I can easily jump to a file name by typing ":tj foo.php" and it will 
+present me with a list of files named foo.php and then open my selection in a 
+new tab. The :tabfind doesn't work well because it immediately opens the first 
+file name that matches instead of presenting me with a list.
+
+This might break when using the 'Diff with Vim' right-click, so the above 
+command can be changed to this:
+
+>
+    if (&diff==0)
+        :autocmd BufReadPost * tab ball
+    endif
+<
+
+The command above allows the following two-fold functionality when 2 files 
+are selected (using Ctrl key) and right-click options menu opens:
+
+The benefit of this approach is that there is no need to play withthe 
+registry files.
+
+GVIMT - SCRIPT TO OPEN NEW FILES IN GVIM IN NEW TABS, SPLITS OR VERTICAL SPLIT *vtw-1225-gvimt---script-to-open-new-files-in-gvim-in-new-tabs,-splits-or-vertical-split*
+
+http://www.vim.org/scripts/script.php?script_id=4214 
+[http://www.vim.org/scripts/script.php?script_id=4214]
+
+If you want to open many files at once or open them in splits instead of 
+tabs, you can use this script instead.
+
+It addresses these problems with the simpler solutions above:
+    - There is no --remote-split parameter so a different approach is needed for 
+      opening files in a new split window. --remote-send can be used to send an 
+      arbitary command for this, but unlike --remote-tab it will not open a new 
+      instance of gvim if one doesn't already exist. 
+    - If you select multiple files and use the Windows context menu, each file gets 
+      its own invocation of the command. gvim does not handle several simultaneous 
+      --remote-tab commands well. 
+    - The SendTo menu does pass all the selected files to one command, but it is an 
+      extra click on the right menu to get there, so it is nice to use the Context 
+      menu. 
+
+
+The command it uses to open split windows could probably be used by itself in 
+the techniques above.
+
+>
+    gvim --remote-send ":split filename<CR>"
+<
+
+SEE ALSO                                                   *vtw-1225-see-also*
+    - :help |clientserver| 
+    - :help |--servername| 
+    - Associate files with no extension to Vim under Windows 
+      [https://vim.fandom.com/wiki/Associate_files_with_no_extension_to_Vim_under_Windows] 
+    - Make vim the editor for files with unregistered extensions in Windows 
+      [https://vim.fandom.com/wiki/Make_vim_the_editor_for_files_with_unregistered_extensions_in_Windows] 
+    - Launch files in new tabs under Unix 
+      [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix] 
+
+
+COMMENTS                                                   *vtw-1225-comments*
+
+Windows 7 (and Vista too, I believe) has per-user associations that override 
+the global associations. This seems to be a bit messy, ftype/assoc had no 
+effect for me because I had already chosen to open .c files with VIM through 
+Windows Explorer. The solution was to search for ".c" in the registry and 
+delete a key named ".c" somewhere in HKEY_CURRENT_USER, then use ftype/assoc.
+
+Ugh, I did not know that. This sounds like the same keys which you can use intentionally to set up user-specific associations on any modern Windows. Arguably Windows is doing The Right Thing by setting them up on a per-user basis by default. But they should also have modified ftype and assoc to do the same thing.
+If you're on a multi-user system, you might consider using the registry keys I just linked to rather than using ftype and assoc, rather than just deleting them.
+--Fritzophrenic 14:14, September 8, 2011 (UTC)
+
+==============================================================================
+
+An annonymous user added the following below #Using file associations 
+|vtw-1225-using-file-associations|:
+
+USING THE WINDOWS OPEN OR DOUBLE-CLICK TO OPEN FILES IN GVIM TABS *vtw-1225-using-the-windows-open-or-double-click-to-open-files-in-gvim-tabs*
+
+To provide an "open in tabs" capability for files without an association on 
+Double-Click or Open menu one need to edit registry as follows:
+    - > C:\Program Files\Vim\vim72\gvim.exe --remote-tab-silent "%1" < if you want 
+      file to open in new tab 
+    - > C:\Program Files\Vim\vim72\gvim.exe --remote-silent "%1" < if you want to 
+      open file in new buffer 
+
+
+The path might need to be modified for the location of gvim on your machine.
+
+In Windows Explorer, double-click one or more files and they should open in 
+tabs in gvim!
+
+I'm OK with this content (if it works) but it needs explanation. How does it 
+work? Why would you want to use this instead of file associations? What does 
+it do? Does it launch ALL files in Vim, or just files without an association 
+already set up?
+
+It also needs a better, more descriptive title. The file associations method 
+also allows you to double-click or use the "open" context menu item to open a 
+file, what does this method do differently?
+
+Finally, it has become our practice, when suggesting a registry edit, to 
+place the Registry Warning template 
+[https://vim.fandom.com/wiki/Template:RegistryWarning] before the suggested 
+registry tweak. Do this simply by adding {{RegistryWarning}} prior to the 
+registry entry instructions.
+
+Thanks for the addition, annonymous user, please feel free to help fix it up!
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 16:14, 
+November 6, 2009 (UTC)
+
+==============================================================================
+
+I don't think the #Using an auto command |vtw-1225-using-an-auto-command| 
+section belongs in this tip. This tip is about getting files to launch in an 
+existing Vim in new tabs when selecting them externally. Using an autocmd to 
+just split off into a new tab only works if you're already using Vim and use 
+an :e command, in which case the proper solution would be to just use 
+tab-based commands instead, so actually I think that whole section is 
+misguided.
+
+Or I guess it works when you're launching Vim with multiple files. From the 
+command-line you'd use the -p flag. Using the send-to method as discussed in 
+this tip, or editing the registry to pass the -p flag as also discussed in 
+this tip, is probably a better way around that too if you want to use the 
+context menu.
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] (talk 
+[https://vim.fandom.com/wiki/User_talk:Fritzophrenic]) 15:02, August 29, 2012 
+(UTC)
+
+
+
+==============================================================================
+
+Unfortunately, the registry hacks do not appear to work, as is, under Windows 
+8.1, nor likely 8. I have not yet been able to find a workaround or alternate 
+method to open a file in a new tab from the context menu.
+
+---- Herb Wolfe [https://vim.fandom.com/wiki/User:Hwolfe] (talk 
+[https://vim.fandom.com/wiki/User_talk:Hwolfe]) 13:54, July 28, 2015 (UTC)
+
+I'm not sure about how to accomplish that directly, but does the SendTo method mentioned in the article work for you instead? --Fritzophrenic (talk) 18:04, July 28, 2015 (UTC)
+
+I just set it up, and it does work.
+
+---- Herb Wolfe [https://vim.fandom.com/wiki/User:Hwolfe] (talk 
+[https://vim.fandom.com/wiki/User_talk:Hwolfe]) 02:27, July 29, 2015 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

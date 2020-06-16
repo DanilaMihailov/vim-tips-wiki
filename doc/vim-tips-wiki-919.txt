@@ -1,0 +1,34 @@
+*vim-tips-wiki-919.txt*   Moving by screen lines instead of file lines  *vtw-919*
+
+Tip 919 [https://vim.fandom.com/wiki/Moving_by_screen_lines_instead_of_file_lines]   Previous |vtw-918| Next |vtw-920|
+
+created April 28, 2005 · complexity basic · author Raj Kiran Grandhi · 
+version 5.7
+
+==============================================================================
+
+Using 'gj' and 'gk' instead of just 'j' and 'k' allows moving down and up by 
+screen lines instead of file lines. Here are a few nifty mappings for that:
+
+>
+    :noremap <Up> gk
+    :noremap! <Up> <C-O>gk
+    :noremap <Down> gj
+    :noremap! <Down> <C-O>gj
+    " the following are optional, to move by file lines using Alt-arrows
+    :noremap! <M-Up> <Up>
+    :noremap! <M-Down> <Down>
+    :noremap <M-Up> k
+    :noremap <M-Down> j
+<
+
+COMMENTS                                                    *vtw-919-comments*
+
+See:
+    - VimTip38 |vtw-38| 
+    - VimTip308 |vtw-308| 
+
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

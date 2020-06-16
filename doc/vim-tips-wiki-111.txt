@@ -1,0 +1,73 @@
+*vim-tips-wiki-111.txt*   Printing with syntax highlighting independent of your normal highlighting *vtw-111*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip284 |vtw-284| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 111 [https://vim.fandom.com/wiki/Printing_with_syntax_highlighting_independent_of_your_normal_highlighting]   Previous |vtw-108| Next |vtw-113|
+
+created 2001 · complexity intermediate · author Aric Blumer · version 6.0
+
+==============================================================================
+
+I have found it undesirable to use `:hardcopy` directly because it uses the 
+current syntax highlighting to determine how to print the text. For example, I 
+like to print comments in italics, but I don't like italic fonts on the 
+screen. This tip will show you how to set up a colorscheme for printing and 
+use it only when you print. This assumes that you are already using a 
+colorscheme.
+
+I copied an existing colorscheme to `~/.vim/colors/print.vim`, and changed 
+all the lines like this:
+
+>
+    highlight Normal ctermbg=DarkGrey ctermfg=White guifg=White guibg=grey20
+<
+
+to this:
+
+>
+    highlight clear Normal
+<
+
+Then I set the syntax groups how I wanted them to be printed on the printer:
+
+>
+    highlight Comment term=italic cterm=italic gui=italic
+    highlight Constant term=bold cterm=bold gui=bold
+    ...etc...
+<
+
+I then defined the following command and function in my vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    command! -nargs=* Hardcopy call DoMyPrint('<args>')
+    function DoMyPrint(args)
+      let colorsave=g:colors_name
+      color print
+      exec 'hardcopy '.a:args
+      exec 'color '.colorsave
+    endfunction
+<
+
+After this is complete, you can do (use uppercase 'H'):
+
+>
+    :Hardcopy > /tmp/out.ps
+<
+
+or just
+
+>
+    :Hardcopy
+<
+
+COMMENTS                                                    *vtw-111-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,145 @@
+*vim-tips-wiki-823.txt*   Add your note files to Vim help               *vtw-823*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip482 |vtw-482| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 823 [https://vim.fandom.com/wiki/Add_your_note_files_to_Vim_help]   Previous |vtw-822| Next |vtw-824|
+
+created November 17, 2004 · complexity intermediate · author Staale Flock · 
+version 5.7
+
+==============================================================================
+
+Many people have lots of files containing short notes regarding your 
+computer, your work, and so on. When you have years of notes, it can be hard 
+to find what you need.
+
+One solution is to vim-helpify your note files, and add a link to them from 
+the ~/.vim/doc/ directory.
+
+Here is an extract from a notes file showing the process:
+
+>
+    " vim: filetype=help foldmethod=marker foldmarker=<<<,>>> modifiable noreadonly
+    You need the noreadonly and modifiable keywords in the vim modeline above.
+    Help files are by default regarded as readonly and nomodifiable files by vim.
+    
+    Notes about sed *sed* *sfsed* <<<
+    
+    Swapping word's in stream (I know, you don't need the cat)
+     cat Myfile.h|sed 's/foo/fyy/g'
+    
+    Notes about vim *vim* *sfvim* <<<
+     Stuff I have learned about vim.
+     Create a help link like this |add-local-help|
+     Regenerate help tags: |helptags|
+    
+     A realy big section closed with a tag <<<
+     --- lots of stuf ---
+     Closing tag >>>
+    
+    Telephonelist *sfphone* <<<
+     mom: 555-676767-333
+     dad: 555-767676-222
+     sis: 555-121212-999
+<
+
+As you can see from my sample I tend to prepend my keywords with sf so I can 
+get a handy list with <CTRL+d> later.
+
+I have tried to index files placed in an arbitrary place. Sadly enough the 
+helptags command does not seem to like this, so my solution has been to make a 
+soft link from the ~/.vim/doc/ directory to my file. You can do this from vim:
+
+>
+    :!ln -s ~/.vim/doc/mynotes.txt ~/Documents/mynotesfile.myext
+<
+
+To have vim create the tags
+
+>
+    :helptags ~/.vim/doc
+<
+
+Now when I need that important phone numer it's only one :h command away
+
+>
+    :h sfp<CTRL-d>
+<
+
+You could also create your own helptags function adding tags containing a 
+more specifig file position. A realy simple function would be.
+
+>
+    function! AddMyHelpTags()
+      exe 'echo -e "sfsed\t ~/Documents/mynotesfile.mytext\t/\*sfsed\*" >> ~/.vim/doc/tags'
+      exe 'echo -e "sfphone\t ~/Documents/mynotesfile.mytext\t/\*sfphone\*" >> ~/.vim/doc/tags'
+      exe 'sort ~/.vim/doc/tags > /tmp/foo.vim.tags'
+      exe 'mv -f /tmp/foo.vim.tags ~/.vim/doc/tags'
+    endfunction
+<
+
+I do not use such a AddMyHelpTags function myself. But I have tested the 
+principle (The sample function it self is not tested, only the commands). This 
+is just a sample to get you going. Remember that you probably would have to 
+run this AddMyHelpTags function each time :helptags has been called, so as-is 
+it is not very convenient.
+
+COMMENTS                                                    *vtw-823-comments*
+
+If you are not able to create the symlink in the vim/doc file, you can do the 
+following:
+
+1. :set helpfile to a file help.txt in a directory of your choice. The file 
+can be empty.
+
+2. :set runtimepath+=<directory of new helpfile>
+
+3. :helptags <directory of new helpfile>
+
+Then the helptags of all *.txt files in the new directory are additional 
+available.
+
+For me, this works with gvim6.3 but not with gvim6.1.
+
+==============================================================================
+
+I dropped foldmarker=<<<,>>> from modeline and use default {{{ and }}}.
+
+What is the benefit of using <<< and >>>, except for the possibility to 
+interfere with some C code that uses signed shift?
+
+==============================================================================
+
+I needed to enable modelines (my default was nomodeline)
+
+>
+    :set modeline
+<
+
+==============================================================================
+
+If you want autogenerate tags after writing files, add this line into your 
+.vimrc :
+
+>
+    autocmd BufWritePost ~/.vim/doc/* :helptags ~/.vim/doc
+<
+
+==============================================================================
+
+Anybody knows how to edit your own help files, when they are invoke by:
+
+>
+    :h yourtag
+<
+
+For me, I need to ":set ma" all the time, not so handy
+
+ vim:tw=78:et:ft=help:norl:

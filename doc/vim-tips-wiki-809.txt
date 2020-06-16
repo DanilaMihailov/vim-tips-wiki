@@ -1,0 +1,165 @@
+*vim-tips-wiki-809.txt*   Use gvim as an external editor for Linux apps *vtw-809*
+
+Tip 809 [https://vim.fandom.com/wiki/Use_gvim_as_an_external_editor_for_Linux_apps]   Previous |vtw-808| Next |vtw-810|
+
+created October 24, 2004 · complexity advanced · author Ben Collerson · 
+version 5.7
+
+==============================================================================
+
+The following script, external-edit, provides the Windows only functionality 
+of VimTip805 |vtw-805| to GNU/Linux systems with X Windows.
+
+This script does not rely on clipbrd.vim script -- it uses a temporary file 
+to pass the clipboard to gvim. This tip is actually not gvim specific but can 
+be configured to use any external editor.
+
+>
+    #!/bin/sh
+    ##################################################
+    #
+    # external-edit: launches an external editor from within an X11 Application.
+    #
+    # Author: Ben Collerson
+    # Copyright: 2004 Ben Collerson
+    # Lastchange: 2004 Oct 24
+    # License: GPL version 2.0 or later (http://www.gnu.org/copyleft/gpl.html)
+    #
+    # Install:
+    # =======
+    # NOTE: These installation instructions are targeted towards a Debian
+    # system. To install on a non-Debian system you will need to reinterpret
+    # these instructions.
+    #
+    # First you will need to install the required packages some of which
+    # are part of Debian so become root and do the following:
+    #
+    #   apt-get install xbase-clients xautomation
+    #
+    # I have used a Window Manager command which has not yet made it into
+    # being a Debian package so you will need to install from source.
+    # get the source from here: http://sweb.cz/tripie/utils/wmctrl/
+    #
+    # This utility is a "command line tool to interact with an EWMH/NetWM
+    # compatible X Window Manager". This means that this tip will not work
+    # if you are using a particularly old window manager, however most of the
+    # main WMs are okay -- including the default Gnome and KDE Window Managers.
+    # More info is available at the wmctrl link provided above.
+    #
+    # Once you have the source tarball for wmctrl extract it and do a
+    #
+    #   ./configure && make && make install
+    #
+    # of course at this stage you will find some obscure library is missing
+    # you will have to resolve this yourself
+    #
+    # Once wmctrl is installed your system put this script somewhere handy like
+    # ~/bin/external-edit and chmod +x ~/bin/external-edit
+    #
+    # Usage:
+    # =====
+    # using your favourite keygrabber/window manager bind a
+    # key combination (eg: Ctrl-Alt-V) to a command like the
+    # following:
+    #
+    #   external-edit /usr/bin/gvim -f
+    #
+    # for my fluxbox/bbkeys configuration I have the following in my .bbkeysrc:
+    #
+    #   KeyToGrab(V), WithModifier(Mod1+Control), WithAction(ExecCommand), DoThis(/home/ben/bin/external-edit gvim -f)
+    #
+    # note than the editor you specify must not fork (gvim -f). When
+    # executed the editor must allow the script to wait until the editor
+    # has finished executing.
+    #
+    #
+    
+    # editor plus arguments (except filename) passed on command line
+    editor=$*
+    
+    # this gets the window id of the window with focus
+    winid=`xdpyinfo | sed -ne 's/^focus:.*\(0x[^,]\+\).*/\1/p'`
+    # and this gets window title
+    wintitle=`xwininfo -id $winid | sed -ne 's/xwininfo: .*"\([^"]\+\)"/\1/p'`
+    
+    mytemp=`mktemp`
+    
+    # copy text using application keyboard short-cuts
+    case $wintitle in
+      *Mozilla*)
+      xte << EOM
+    sleep 1
+    keydown Alt_L
+    key a
+    keyup Alt_L
+    keydown Control_L
+    key c
+    sleep 1
+    key Home
+    keyup Control_L
+    EOM
+      ;;
+      *)
+      xte << EOM
+    sleep 1
+    keydown Control_L
+    key a
+    key c
+    sleep 1
+    key Home
+    keyup Control_L
+    EOM
+    esac
+    
+    xsel -b -o > $mytemp
+    # xclip could also be used eg:
+    # xclip -selection clipboard -o > $mytemp
+    
+    # invoke the editor, wait for it to finish
+    #/usr/bin/gvim -f $mytemp
+    $editor $mytemp
+    
+    # applications should be using the clipboard to paste!
+    xsel -b -i < $mytemp
+    
+    # some applications have incorrect behaviour and use the primary
+    # selection to paste
+    xsel -p -i < $mytemp
+    
+    # activates the original window
+    wmctrl -ia $winid
+    
+    # paste text using standard keyboard short-cuts
+    case $wintitle in
+      *Mozilla*)
+      xte << EOM
+    keydown Alt_L
+    key a
+    keyup Alt_L
+    keydown Control_L
+    key v
+    sleep 1
+    key Home
+    keyup Control_L
+    EOM
+      ;;
+      *)
+      xte << EOM
+    keydown Control_L
+    key a
+    key v
+    sleep 1
+    key Home
+    keyup Control_L
+    EOM
+    esac
+    
+    # cleanup temporary file
+    rm $mytemp
+    
+    # vim:ft=sh:sw=2
+<
+
+COMMENTS                                                    *vtw-809-comments*
+
+ vim:tw=78:et:ft=help:norl:

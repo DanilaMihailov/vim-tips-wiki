@@ -1,0 +1,55 @@
+*vim-tips-wiki-1147.txt*   Use a function key as map leader            *vtw-1147*
+
+Tip 1147 [https://vim.fandom.com/wiki/Use_a_function_key_as_map_leader]   Previous |vtw-1146| Next |vtw-1148|
+
+created 2006 · complexity intermediate · author Martin Krischik · version 6.0
+
+==============================================================================
+
+While fine tuning my plugins, I noticed that Vim does not correctly work with 
+maps using <Leader> when the mapleader is a function key like <F12>. You have 
+to use `:execute` to get a correct mapping:
+
+>
+    execute "nnoremap <unique> " . escape(g:mapleader . "1" , "\") . " :call <SID>Set_Font (1) <CR>"
+    execute "nnoremap <unique> " . escape(g:mapleader . "2" , "\") . " :call <SID>Set_Font (2) <CR>"
+    execute "nnoremap <unique> " . escape(g:mapleader . "3" , "\") . " :call <SID>Set_Font (3) <CR>"
+    execute "inoremap <unique> " . escape(g:mapleader . "1" , "\") . " <C-O>:call <SID>Set_Font (1) <CR>"
+    execute "inoremap <unique> " . escape(g:mapleader . "2" , "\") . " <C-O>:call <SID>Set_Font (2) <CR>"
+    execute "inoremap <unique> " . escape(g:mapleader . "3" , "\") . " <C-O>:call <SID>Set_Font (3) <CR>"
+<
+
+Similarly, you can se then add menus using execute:
+
+>
+    execute "48amenu Plugin.Font.Small<Tab>" . escape(g:mapleader . "1" , "\") . " :call <SID>Set_Font (1)<CR>"
+    execute "48amenu Plugin.Font.Medium<Tab>" . escape(g:mapleader . "2" , "\") . " :call <SID>Set_Font (2)<CR>"
+    execute "48amenu Plugin.Font.Large<Tab>" . escape(g:mapleader . "3" , "\") . " :call <SID>Set_Font (3)<CR>"
+<
+
+The examples are taken from my font plugin, see script#1337 
+[https://www.vim.org/scripts/script.php?script_id=1337] for full details.
+
+COMMENTS                                                   *vtw-1147-comments*
+
+When you want to use <F12> as a mapleader, you must use a backslash when you 
+define it:
+
+>
+    :let mapleader = "\<F12>"
+    :map <Leader>h :echo "Hello world."<CR>
+<
+
+But then you can't use the g:mapleader for setting up menus any more. I guess the problem runs deeper.
+
+==============================================================================
+
+Isn't it a much more general issue that affects all special keys? (see :help 
+|expr-string|)
+
+It seems to me that special keys must always be escaped for `:execute` 
+purpose, and of course not escaped when you want to use their name.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

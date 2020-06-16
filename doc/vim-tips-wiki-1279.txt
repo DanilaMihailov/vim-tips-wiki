@@ -1,0 +1,141 @@
+*vim-tips-wiki-1279.txt*   Highlight current line                      *vtw-1279*
+
+Tip 769 [https://vim.fandom.com/wiki/Highlight_current_line]   Previous |vtw-768| Next |vtw-771|
+
+created 2004 · complexity basic · version 7.0
+
+==============================================================================
+
+It is possible to highlight the line containing the cursor. In addition, the 
+column containing the cursor can be highlighted. Highlighting the line makes 
+it easy to locate the cursor when scrolling through a large file, and 
+highlighting the column can help to check horizontal alignment of text in 
+different lines.
+
+HIGHLIGHTING THAT MOVES WITH THE CURSOR *vtw-1279-highlighting-that-moves-with-the-cursor*
+
+Simply putting `:set cursorline` in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] will highlight the current line in every 
+window and update the highlight as the cursor moves.
+
+The following example shows how to change the highlight colors and how to 
+create a mapping to toggle `cursorline` (to highlight the current line) and 
+`cursorcolumn` (to highlight the current column):
+
+>
+    :hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+    :hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+    :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+<
+
+With the default backslash leader key, typing `\c` will toggle highlighting 
+on and off. That makes it easy to locate the cursor after scrolling in a large 
+file.
+
+If you only want the highlight applied in the current window, use an autocmd 
+instead:
+
+>
+    augroup CursorLine
+      au!
+      au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+      au WinLeave * setlocal nocursorline
+    augroup END
+<
+
+To achieve this result on older Vim versions, you could combine the idea in 
+the first method with a CursorHold or a CursorMoved autocmd.
+
+If you only want highlighting in insert mode (but don't mind that it appears 
+in all windows) use InsertEnter and InsertLeave instead of WinEnter and 
+WinLeave above.
+
+Note that setting the 'cursorline' or 'cursorcolumn' options can cause Vim to 
+respond slowly, especially for large files or files with long lines.
+
+HIGHLIGHTING THAT STAYS AFTER CURSOR MOVES *vtw-1279-highlighting-that-stays-after-cursor-moves*
+
+To highlight the current line, and have the highlighting stay where it is 
+when the cursor is moved, use this mapping:
+
+>
+    :nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
+<
+
+With the default backslash leader key, pressing `\l` will highlight the line 
+that currently contains the cursor. The mapping also sets mark `l` so you can 
+type 'l to return to the highlighted line. Enter `:match` to clear the 
+highlighting when finished.
+
+To highlight the current virtual column (column after tabs are expanded), and 
+have the highlighting stay where it is when the cursor is moved, use this 
+mapping:
+
+>
+    :nnoremap <silent> <Leader>c :execute 'match Search /\%'.virtcol('.').'v/'<CR>
+<
+
+REFERENCES                                               *vtw-1279-references*
+    - :help |:match| 
+    - :help 'cursorcolumn' 
+    - :help 'cursorline' 
+    - :help |hl-CursorLine| 
+    - :help |WinEnter| 
+
+
+SEE ALSO                                                   *vtw-1279-see-also*
+    - Highlight current word to find cursor |vtw-235| 
+
+
+RELATED PLUGINS                                     *vtw-1279-related-plugins*
+    - script#555 [https://www.vim.org/scripts/script.php?script_id=555] 
+    - script#319 [https://www.vim.org/scripts/script.php?script_id=319] 
+    - CursorLineCurrentWindow 
+      [https://www.vim.org/scripts/script.php?script_id=4178] highlights the current 
+      line only the current window, and allows for exceptions like disabling the 
+      cursorline for a particular window or making it permanent for (another) 
+      window. 
+
+
+COMMENTS                                                   *vtw-1279-comments*
+
+It is possible to highlight the entire line permanently (mapped to key \l):
+
+>
+    :nnoremap <silent> <Leader>l :exe "let m = matchadd('WildMenu','\\%" . line('.') . "l')"<CR>
+<
+
+Or one could only highlight the word underneath the cursor (mapped to key 
+\w):
+
+>
+    :nnoremap <silent> <Leader>w :exe "let m=matchadd('WildMenu','\\<\\w*\\%" . line(".") . "l\\%" . col(".") . "c\\w*\\>')"<CR>
+<
+
+To highlight the words contained in the virtual column (mapped to \c):
+
+>
+    :nnoremap <silent> <Leader>c :exe "let m=matchadd('WildMenu','\\<\\w*\\%" . virtcol(".") . "v\\w*\\>')"<CR>
+<
+
+And finally, one can clear the permanent highlights (mapped to \Enter):
+
+>
+    :nnoremap <silent> <Leader><CR> :call clearmatches()<CR>
+<
+
+In the examples, I used a different highlighting group as in the main 
+article.
+
+And to highlight only the line numbers:
+
+>
+    " Enable cursor line position tracking:
+    :set cursorline
+    " Remove the underline from enabling cursorline:
+    :highlight clear CursorLine
+    " Set line numbering to red background:
+    :highlight CursorLineNR ctermbg=red
+<
+
+ vim:tw=78:et:ft=help:norl:

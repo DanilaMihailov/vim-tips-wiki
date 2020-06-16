@@ -1,0 +1,41 @@
+*vim-tips-wiki-156.txt*   Describe a SQL table from Vim                 *vtw-156*
+
+Tip 156 [https://vim.fandom.com/wiki/Describe_a_SQL_table_from_Vim]   Previous |vtw-155| Next |vtw-158|
+
+created November 7, 2001 · complexity basic · author Demian L. Neidetcher · 
+version 5.7
+
+==============================================================================
+
+Here is a bash script to call from Vim, when you want information about a 
+table while you are editing SQL code. Put the script in a file named describe.
+
+>
+    #!/usr/bin/bash
+    
+    f=aTempFile.sql
+    u=<uName>
+    p=<pWord>
+    d=<dBase>
+    
+    echo "/* describe for $1"
+    echo "describe $1;" > $f;
+    echo "quit;" >> $f;
+    
+    sqlplus -S $u/$p@$d @$f
+    rm -f $f;
+    echo " end describe for $1 */"
+<
+
+Your path needs to include the script (as well as sqlplus), then from Vim you 
+type:
+
+>
+    :r !describe <tableName>
+<
+
+That inserts a listing of the table columns, complete with Java/C comments.
+
+COMMENTS                                                    *vtw-156-comments*
+
+ vim:tw=78:et:ft=help:norl:

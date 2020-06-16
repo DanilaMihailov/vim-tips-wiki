@@ -1,0 +1,64 @@
+*vim-tips-wiki-1580.txt*   New to Vim                                  *vtw-1580*
+
+Tip 1580 [https://vim.fandom.com/wiki/New_to_Vim]   Previous |vtw-1579| Next |vtw-1581|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#New_to_Vim] 2008 · 
+complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+Vim ships with its own Tutorial [https://vim.fandom.com/wiki/Tutorial], but 
+the following should get you started if you're in a hurry:
+
+At first:
+    - Start typing something by pressing `i`. 
+    - Exit Vim by pressing Esc then writing `:q` and pressing Enter 
+    - Save your file similarly but using `:w myfile.txt` 
+
+
+Getting help:
+    - `:help :help` - how to use help 
+    - `:help :helpgrep` - how to use the searchable help 
+    - Learn to use the :help [https://vim.fandom.com/wiki/Learn_to_use_help]. Know 
+      the difference between `:help foo`, :help 'foo and `:help c_foo`. 
+    - Try Ctrl-D completion on help topics 
+    - Refer to the Vimdoc |http://vimdoc.sourceforge.net| website for HTML versions 
+      of the Vim docs and electronic copy of the Newriders Vimdoc 
+      [http://www.truth.sk/vim/vimbook-OPL.pdf]. Also has lots of other howtos and 
+      useful documents. 
+
+
+Other tips:
+    - If you find yourself trying to do some major text munging on a file, and 
+      digging through the :help for esoteric regex tricks, consider using Perl if 
+      you know it better. Otherwise, take a look at Category:Searching 
+      [https://vim.fandom.com/wiki/Category:Searching] and Category:Advanced_Regex 
+      [https://vim.fandom.com/wiki/Category:Advanced_Regex]. 
+    - Start with VimTutor or the IRC Style Tutorial 
+      [http://vi-improved.org/tutorial.php] on the #vim IRC channel site. 
+    - Don't worry about trying to know everything about Vim, just learn features 
+      that are useful for what you are currently doing – as time goes on, your 
+      personal featureset will grow. 
+    - Use :make and :grep [https://vim.fandom.com/wiki/Find_in_files_within_Vim] 
+      instead of :!make or :!grep. Then use :cwin or :copen to view the results of 
+      either make or grep in a coloured list. You can jump to the corresponding 
+      line/file with either Return or when click on it, if 'mouse' is set to a (:set 
+      mouse=a). 
+    - touch $HOME/.vimrc 
+    - Read Quick tips [https://vim.fandom.com/wiki/Quick_tips]. 
+    - Find and read lots of example vimrc files. You can find a few on the 
+      VimRcExamples page. 
+    - Learn how to use visual and blockwise-visual modes. Type :help visual-use to 
+      get started. 
+    - Learn how to avoid using the arrow keys. I cut out a piece of cardboard and 
+      put them over my arrow keys to force myself to learn how to navigate using the 
+      keys on the home row almost exclusively. Once you learn how efficient vi 
+      keybindings can be, you'll never want to go back. 
+    - Learn how to use Ctrl-P and Ctrl-N to tell Vim to complete the word you are 
+      currently typing. This saves me a LOT of time when I am coding. 
+
+
+COMMENTS                                                   *vtw-1580-comments*
+
+ vim:tw=78:et:ft=help:norl:

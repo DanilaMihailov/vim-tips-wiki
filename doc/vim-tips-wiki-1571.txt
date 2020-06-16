@@ -1,0 +1,79 @@
+*vim-tips-wiki-1571.txt*   Quickly switch between pager-like and editor-like scroll *vtw-1571*
+
+Tip 1571 [https://vim.fandom.com/wiki/Quickly_switch_between_pager-like_and_editor-like_scroll]   Previous |vtw-1570| Next |vtw-1572|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200806#Quickly_switch_between_pager-like_and_editor-like_scroll] 
+2008 · complexity basic · author kba · version 7.0
+
+==============================================================================
+
+When reading text files, it can be convenient to switch to a pager-like 
+scroll behavior (as with the less utility), where `j` and `k` scroll the 
+document by one line, while keeping the cursor on the same buffer line. Of 
+course you can scroll with Ctrl-e and Ctrl-y, but they require the control 
+key.
+
+With the following in your vimrc [https://vim.fandom.com/wiki/Vimrc], you can 
+press F5 to toggle scrolling on or off. When on, press `j` or `k` to scroll by 
+one line, or `d` or `u` to scroll by half a page.
+
+>
+    function! LessMode()
+      if g:lessmode == 0
+        let g:lessmode = 1
+        let onoff = 'on'
+        " Scroll half a page down
+        noremap <script> d <C-D>
+        " Scroll one line down
+        noremap <script> j <C-E>
+        " Scroll half a page up
+        noremap <script> u <C-U>
+        " Scroll one line up
+        noremap <script> k <C-Y>
+      else
+        let g:lessmode = 0
+        let onoff = 'off'
+        unmap d
+        unmap j
+        unmap u
+        unmap k
+      endif
+      echohl Label | echo "Less mode" onoff | echohl None
+    endfunction
+    let g:lessmode = 0
+    nnoremap <F5> :call LessMode()<CR>
+    inoremap <F5> <Esc>:call LessMode()<CR>
+<
+
+Plugins like LessMode are available, but they may be more complex than you 
+require.
+
+If you prefer modeless solutions, check out
+    - 105 Combining move and scroll |vtw-105| (which maps c-j> and <c-k> to scroll 
+      one line up and down keeping the cursor in the same position on screen) 
+    - 400 Fast scroll mappings |vtw-400| (does the same as VimTip105 |vtw-105| but 
+      maps the keys to <Alt-h/j/k/l/>, also mappings for insert and visual mode. 
+      Mappings might clash with GUI Shortcuts, e.g. <A-h> opens help menu) 
+    - 239 Scroll using arrow keys like in a web browser |vtw-239| (map <Shift-up> 
+      and <Shift-Down> to <c-e> and <c-y>. This might not work on all terminals, 
+      though it does in xterm, konsole and rxvt-unicode on Linux) 
+
+
+There's also a tip (320 Page up/down and keep cursor position |vtw-320|) to 
+make vim behave like Borland IDE when using PageUp/PageDown, so that the 
+cursor stays on the same column.
+
+Besides, if you don't like scrolling manually, make vim do it automatically 
+for you as described in 1198 Automatic scrolling of text |vtw-1198|.
+
+In conclusion: If you prefer the modal approach, then go with the LessMode() 
+function, it's fast and doesn't require key combinations. If you prefer to 
+stay in the mode you're in, use VimTip400 |vtw-400|, it should work on most 
+GUIs and Terminals and does not require scroll/cusor movement combinations 
+which might not work as expected in some cases (start of line, end of line, 
+start of document etc.).
+
+COMMENTS                                                   *vtw-1571-comments*
+
+ vim:tw=78:et:ft=help:norl:

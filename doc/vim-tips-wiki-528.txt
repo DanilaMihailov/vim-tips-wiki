@@ -1,0 +1,123 @@
+*vim-tips-wiki-528.txt*   Make search results appear in the middle of the screen *vtw-528*
+
+Tip 528 [https://vim.fandom.com/wiki/Make_search_results_appear_in_the_middle_of_the_screen]   Previous |vtw-527| Next |vtw-529|
+
+created 2003 · complexity basic · version 6.0
+
+==============================================================================
+
+When searching in Vim, it can be useful to have the text scroll so that the 
+line with the next search hit is in the middle of the screen. That's easy with 
+the built in commands: type `n` to jump to the next search hit, then `zz` to 
+vertically center the line. In addition, the 'scrolloff' option can be used to 
+automatically scroll text into view, so that search hits always have some 
+"context" lines before and after.
+
+This tip describes 'scrolloff', and shows some mappings to vertically center 
+search hits automatically. There is also a script with more features.
+
+SCROLLOFF OPTION                                    *vtw-528-scrolloff-option*
+
+The 'scrolloff' (scroll offset) option determines the minimum number of 
+screen lines that you would like above and below the cursor. By default, 
+'scrolloff' is `0` which means that you can move the cursor to any line in the 
+window without causing scrolling.
+
+The following command scrolls the text so that (when possible) there are 
+always at least five lines visible above the cursor, and five lines visible 
+below the cursor:
+
+>
+    :set scrolloff=5
+<
+
+This option applies to all commands, including searching. After entering the 
+above command (which can be abbreviated as `:set so=5`), the next search hit 
+will have at least five visible lines of text above and below (except when 
+near the beginning or the end of the buffer).
+
+Entering `:set so=999` will keep the cursor vertically centered |vtw-182|.
+
+SIMPLE MAPPINGS                                      *vtw-528-simple-mappings*
+
+Following are some useful mappings to make search results appear in the 
+middle of the screen:
+
+>
+    :nnoremap n nzz
+    :nnoremap N Nzz
+    :nnoremap * *zz
+    :nnoremap # #zz
+    :nnoremap g* g*zz
+    :nnoremap g# g#zz
+<
+
+SCRIPT                                                        *vtw-528-script*
+
+An alternative to the simple mappings is to use a script that can cycle 
+between different states (only `n` and `N` are mapped):
+    - Normal – No mappings: search next and search previous work as normal 
+      (default). 
+    - Scroll hit to middle if not on same page – No scrolling occurs if the next 
+      hit is after the first line and before the last line of the window; otherwise, 
+      the search hit is scrolled to the middle. 
+    - Scroll hit to middle – The search hit is always scrolled to the middle (when 
+      possible). 
+
+
+With the following script in your vimrc [https://vim.fandom.com/wiki/Vimrc], 
+press F4 to cycle the behavior of `n` and `N`:
+
+>
+    nnoremap <silent> <F4> :call <SID>SearchMode()<CR>
+    function s:SearchMode()
+      if !exists('s:searchmode') || s:searchmode == 0
+        echo 'Search next: scroll hit to middle if not on same page'
+        nnoremap <silent> n n:call <SID>MaybeMiddle()<CR>
+        nnoremap <silent> N N:call <SID>MaybeMiddle()<CR>
+        let s:searchmode = 1
+      elseif s:searchmode == 1
+        echo 'Search next: scroll hit to middle'
+        nnoremap n nzz
+        nnoremap N Nzz
+        let s:searchmode = 2
+      else
+        echo 'Search next: normal'
+        nunmap n
+        nunmap N
+        let s:searchmode = 0
+      endif
+    endfunction
+    
+    " If cursor is in first or last line of window, scroll to middle line.
+    function s:MaybeMiddle()
+      if winline() == 1 || winline() == winheight(0)
+        normal! zz
+      endif
+    endfunction
+<
+
+CENTERING `:SUBSTITUTE` MATCHES      *vtw-528-centering-`:substitute`-matches*
+
+If you'd like to have the `substitute` command center matches during 
+confirmation, you can wrap the command and fiddle with `scrolloff`. For 
+example, here's a mapping from <Leader>s that will start a substitution on the 
+selected text, starting from the cursor to the end of the file, with 
+confirmation, keeping each match centered as you work your way through the 
+file:
+
+>
+    com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
+     noremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
+<
+
+SEE ALSO                                                    *vtw-528-see-also*
+    - Searching [https://vim.fandom.com/wiki/Searching] for basic search 
+      information 
+    - Keep cursor vertically centered |vtw-182| to keep the cursor line in the 
+      middle 
+
+
+COMMENTS                                                    *vtw-528-comments*
+
+ vim:tw=78:et:ft=help:norl:

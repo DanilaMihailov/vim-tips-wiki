@@ -1,0 +1,75 @@
+*vim-tips-wiki-590.txt*   Using Vim to send mail on Windows             *vtw-590*
+
+Tip 590 [https://vim.fandom.com/wiki/Using_Vim_to_send_mail_on_Windows]   Previous |vtw-589| Next |vtw-591|
+
+created 2003 · complexity basic · author Stanislav Sitar · version 5.7
+
+==============================================================================
+
+See proposal below to replace this with a redirect.
+
+The question of using Vim for writing email messages with Vim on windows was 
+raised many times.
+
+Finally there is an elegant solution. At 
+http://sylpheed-claws.sourceforge.net/win32/ 
+[http://sylpheed-claws.sourceforge.net/win32/]download 
+`sylpheed-0.9.6claws.exe` and install.
+
+Go to menu configuration -> Common preferences
+
+Go to tab Other and fill something like
+
+>
+    c:\Progra~1\Vim\vim62b\gvim.exe -f "%s"
+<
+
+(depending on where your Vim is installed) as the the editor option
+
+The -f option is very important so Vim does not fork.
+
+You might also go to Compose tab and select Automatically launch an external 
+editor.
+
+COMMENTS                                                    *vtw-590-comments*
+
+Are you sure about the "-f" flag ? So far, I've never seen this flag do 
+anything under Windows. That's why I use mutt compiled for cygwin with the 
+win32 version of Vim.
+
+==============================================================================
+
+You wrote "Finally there is an elegant solution", but there are many 
+solutions: at random Mahogany http://mahogany.sf.net [http://mahogany.sf.net] 
+(excellent one) or pine (great, ever great) or use Google.
+
+==============================================================================
+
+Let me get this right - you want me to switch to a whole new email client 
+just so that I can change its default editor to something else. Not just Vim - 
+*anything*. How is this a Vim tip, exactly??
+
+==============================================================================
+
+PC-Pine offers an external-editor-feature too.
+
+==============================================================================
+
+Look at script#1052 [https://www.vim.org/scripts/script.php?script_id=1052] 
+-- it can send, receive and organize emails from within Vim on Windows and 
+Unix (but requires not only Vim with embedded Perl but also external Perl).
+
+==============================================================================
+
+See VimTip805 |vtw-805| for a general solution for Windows.
+
+==============================================================================
+
+I propose replacing this page with a redirect to tip 805: Use gvim as an 
+external editor for Windows apps 
+[https://vim.fandom.com/wiki/Use_gvim_as_an_external_editor_for_Windows_apps]. 
+There is nothing useful here. Any comments? (I'm putting this in to see if 
+that reminds me to find this later.) JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 09:11, August 20, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

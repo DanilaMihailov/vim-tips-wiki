@@ -1,0 +1,60 @@
+*vim-tips-wiki-189.txt*   Map Ctrl-Backspace to delete previous word    *vtw-189*
+
+Tip 189 [https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word]   Previous |vtw-188| Next |vtw-191|
+
+created January 2, 2002 · complexity basic · author Robert Ames · version 6.0
+
+==============================================================================
+
+In insert mode, pressing Ctrl-W deletes the previous word (:help |word|). If 
+a non-Vim method is wanted, the following mapping can be used in gvim to allow 
+Ctrl-Backspace to be used instead of Ctrl-W:
+
+>
+    " Map Ctrl-Backspace to delete the previous word in insert mode.
+    imap <C-BS> <C-W>
+<
+
+If the mapping is always wanted, place the above in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc].
+
+By default, Ctrl-W only deletes previous words in the text entered after last 
+starting insert mode, and stops deleting text at the beginning of a line. The 
+'backspace' option [https://vim.fandom.com/wiki/Backspace_and_delete_problems] 
+can be set to control what is wanted. For example, the following causes Ctrl-W 
+to always delete the previous word:
+
+>
+    :set backspace=indent,eol,start
+<
+
+REFERENCES                                                *vtw-189-references*
+    - :help |i_CTRL-W| 
+
+
+SEE ALSO                                                    *vtw-189-see-also*
+    - :help |i_CTRL-U| 
+
+
+COMMENTS                                                    *vtw-189-comments*
+
+Mapping Ctrl-Backspace does not work in terminal Vim. Following is a 
+workaround.
+
+>
+    noremap! <C-BS> <C-w>
+    noremap! <C-h> <C-w>
+<
+
+==============================================================================
+
+There are some issues with <C-w>. For example it considers the insert mode's 
+point of entry as a word boundary. Also, in readline <C-w> usually means to 
+kill the previous WORD. There is a way to make it more readline-ish:
+
+>
+    inoremap <C-w> <C-\><C-o>dB
+    inoremap <C-BS> <C-\><C-o>db
+<
+
+ vim:tw=78:et:ft=help:norl:

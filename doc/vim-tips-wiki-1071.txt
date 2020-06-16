@@ -1,0 +1,54 @@
+*vim-tips-wiki-1071.txt*   Simple placeholders                         *vtw-1071*
+
+Tip 1071 [https://vim.fandom.com/wiki/Simple_placeholders]   Previous |vtw-1070| Next |vtw-1072|
+
+created December 9, 2005 · complexity basic · author gabriel · version 5.7
+
+==============================================================================
+
+I was very impressed with the functionality of placeholders in the 
+Latex-Suite script#475 [https://www.vim.org/scripts/script.php?script_id=475], 
+so I decided to add a similiar functionality to my vimrc.
+
+>
+    " A syntax for placeholders
+    " Pressing Control-j jumps to the next match.
+    inoremap <c-j> <Esc>/<++><CR><Esc>cf>
+<
+
+You could of course use any key-sequence for this. I use it with my code for 
+() completion. It can be equally well used with templates and other 
+abbreviations.
+
+>
+    " Completions using placeholders
+    inoremap ( ()<++><Esc>F)i
+    inoremap [ []<++><Esc>F]i
+    inoremap { {}<++><Esc>F}i
+<
+
+This doesn't care if the code is entered free or if it's inside a block of 
+text. In which case I think it should not expand. But I find it helpful none 
+the less.Unlike the scripts pointed to by the comments this tip is just what 
+it advertises. Simple.
+
+COMMENTS                                                   *vtw-1071-comments*
+
+Similar to this is markjump.vim script#485 
+[https://www.vim.org/scripts/script.php?script_id=485], in addition to others 
+(the names of which escape me for now). Markjump adds a few advantages to this 
+method such as not mangling the search pattern and providing previous and next 
+jumps.
+
+==============================================================================
+
+You may have a look at what I produced in the API plugin script#50 
+[https://www.vim.org/scripts/script.php?script_id=50]. It already takes cares 
+of what you are rewriting and much more. See also script#336 
+[https://www.vim.org/scripts/script.php?script_id=336] and mu-template (the 
+fork I'm maintening provides a better integration of markers/placeholders) 
+that fully integrate the bracketing system.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

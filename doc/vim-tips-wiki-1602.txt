@@ -1,0 +1,165 @@
+*vim-tips-wiki-1602.txt*   Converting variables to or from camel case  *vtw-1602*
+
+Tip 1602 [https://vim.fandom.com/wiki/Converting_variables_to_or_from_camel_case]   Previous |vtw-1601| Next |vtw-1603|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200808#Converting_variables_to_or_from_camel_case] 
+2008 · complexity basic · version 7.0
+
+==============================================================================
+
+The coding style for one project may use `CamelCase` for variables, while 
+another may use `under_scores`. Here are some Vim procedures to switch between 
+CamelCase and under_score variable names.
+
+CONVERTING PHP VARIABLES                   *vtw-1602-converting-php-variables*
+
+This is a simple procedure to change variables names from 
+`$this_variable_style` to `$thisVariableStyle`.
+
+The commands below define these mappings:
+    - `+` Find the next `$variable_with_underscores`. 
+    - `_` Convert the next underscore on the current line. 
+
+
+When required, you can yank the following lines in Vim (on the first line, 
+type `2Y`), then execute them (type `@"`) to map the `+` and `_` keys.
+
+>
+    :nnoremap + /\$\w\+_<CR>
+    :nnoremap _ f_x~
+<
+
+Now you can press `+` to search for the next `$variable_with_underscores`, 
+then press `_` to find and delete the next underscore and toggle the case of 
+the next character. Repeatedly press `_` until all underscores are processed, 
+then press `+` to find the next variable. For example, you may type 
+`+__+_+___` to skip through a file.
+
+Type `+~` for initial capitals.
+
+The simple procedure above is suitable for manually changing a small number 
+of variables, while inspecting each change. Using a substitute, the process 
+can be automated. The following command will change all variables names from 
+`$this_variable_style` to `$thisVariableStyle`:
+
+>
+    :%s#\%($\%(\k\+\)\)\@<=_\(\k\)#\u\1#g
+<
+
+If wanted, the `\v` (very magic) option can be used to reduce the number of 
+backslashes, and the conventional `/` can be used as the delimiter instead of 
+`#`. The following command is equivalent to the above:
+
+>
+    :%s/\v%(\$%(\k+))@<=_(\k)/\u\1/g
+<
+
+CHANGE UNDER_SCORES TO CAMELCASE   *vtw-1602-change-under_scores-to-camelcase*
+
+The following shows two substitute commands for converting names with 
+underscores to camel case. The first command converts the beginning character 
+to uppercase, while the second leaves it unchanged. Both commands operate on 
+all underscore names in the current line.
+
+>
+    " Convert each name_like_this to NameLikeThis in current line.
+    :s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
+    
+    " Convert each name_like_this to nameLikeThis in current line.
+    :s#_\(\l\)#\u\1#g
+    
+    " Test (first line is original; second and third are results from above).
+    " CONSTANT ab_cd_ef some words name_like_this and another_name = some_more
+    " CONSTANT AbCdEf some words NameLikeThis and AnotherName = SomeMore
+    " CONSTANT abCdEf some words nameLikeThis and anotherName = someMore
+<
+
+Copy the above text into Vim. In Vim, move the cursor to the first substitute 
+command and press `Y` to copy the line. Move the cursor to the line containing 
+the underscore names in the test text and type `@"` to execute the copied 
+substitute command. That will change each underscore name to camel case in the 
+current line.
+
+The command uses the `\l` pattern to search for lowercase letters, so it will 
+work correctly to convert `abc_def_ghi` to `AbcDefGhi`, but it will convert 
+`abc1_def2_ghi` to `abc1Def2Ghi` (where the first character is still 
+lowercase).
+
+==============================================================================
+
+Alternate command:
+
+>
+    :1,$s/_\([a-z]\)/\u\1/g
+<
+
+It looks for any places with an underscore followed by a lower case letter 
+and replaces that with an upper case letter.
+
+CHANGE UNDER_SCORES TO CAMELCASE   *vtw-1602-change-under_scores-to-camelcase*
+
+>
+    " Convert each NAME_LIKE_THIS to NameLikeThis in the current line.
+    :s#_*\(\u\)\(\u*\)#\1\L\2#g
+<
+
+CHANGE CAMELCASE TO UNDER_SCORES   *vtw-1602-change-camelcase-to-under_scores*
+
+The following shows two substitute commands for converting camel case names 
+to names with underscores. The first command is slightly simpler but fails if 
+the name contains numbers. Both commands operate on all camel case names in 
+the current line.
+
+>
+    " Convert each NameLikeThis to name_like_this in current line.
+    :s#\(\<\u\l\+\|\l\+\)\(\u\)#\l\1_\l\2#g
+    
+    " Alternative: accept numbers in name.
+    :s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
+    
+    " Test (first line is original; second is result from above).
+    " CONSTANT AbCdEf some words NameLikeThis and AnotherName = someMore
+    " CONSTANT ab_cd_ef some words name_like_this and another_name = some_more
+<
+
+If wanted, the substitute commands can be applied to the whole buffer using 
+`%` to indicate "all lines". For example, the second command applied to the 
+whole buffer would be:
+
+>
+    :%s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
+<
+
+Be sure to run a diff to verify that the substitute has changed what you 
+want.
+
+SEE ALSO                                                   *vtw-1602-see-also*
+    - Tim Pope's Abolish [https://www.vim.org/scripts/script.php?script_id=1545] 
+      plugin includes mappings for case conversion of the word under the cursor, 
+      such as `crs` and `crc` to convert to snake case or camel case. 
+    - Moving through camel case words 
+      [https://vim.fandom.com/wiki/Moving_through_camel_case_words] 
+    - The keepcase [https://www.vim.org/scripts/script.php?script_id=6] plugin 
+      allows to do case persistent substitutions. 
+    - lh-style plugin [https://github.com/LucHermitte/lh-style] provides two 
+      commands to convert to an exact style (UpperCamelCase, snake_case, 
+      lowerCamelCase), or to a semantic style (variable, getter, setter, constant, 
+      function, member, parameter, local, global, ... -- the exact style can be 
+      configured for each kind). `:NameConvert snake` will convert the word under 
+      the cursor to snake_case, `%ConvertNames/\<m_\w\+(/getter/gc` will convert 
+      occurrences of the pattern to getter names, after user confirmation. 
+
+
+COMMENTS                                                   *vtw-1602-comments*
+
+If during your formatting you messed up reserved function definitions e.g. 
+you changed `__init__` to `_Init__`, you can run
+
+>
+    :%s/\C_[A-Z][a-z]*__/\="_".tolower(submatch(0))
+<
+
+to rectify the definitions. --August 14, 2016
+
+ vim:tw=78:et:ft=help:norl:

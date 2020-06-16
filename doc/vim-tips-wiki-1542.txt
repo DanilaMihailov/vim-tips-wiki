@@ -1,0 +1,240 @@
+*vim-tips-wiki-1542.txt*   Vim On Vista                                *vtw-1542*
+
+Tip 1542 [https://vim.fandom.com/wiki/Vim_On_Vista]   Previous |vtw-1540| Next |vtw-1543|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Vim_On_Vista] 2007 
+· complexity basic · author Fuzzymonk · version 7.0
+
+==============================================================================
+
+Running Vim on Vista is no problem if you install Vim 7.2 or later.
+
+To get an "Edit with Vim" context menu for 32-bit Vista:
+    - Download the latest version of Vim without Cream 
+      [https://vim.fandom.com/wiki/Download]. 
+    - Run the installer and accept the license agreement. 
+    - On the Choose Components window, expand "Icons, menus and shortcuts". 
+    - Check the box for "Add Contextual Menu". 
+    - Finish the install. 
+
+
+==============================================================================
+
+Vista 64:
+
+Install gvim72.exe from [1] [http://nkcorner.com/gvim72.exe]See building 
+instructions at [2] 
+[http://ionipti.blogspot.com/2010/04/build-gvim-72-x64-and-create-installer.html]
+
+This version is a 64-bit compiled version with patches up to 7.2.411. This 
+version installs graphically, supports printing and the context menus, and is 
+installed to "Program Files" as opposed to "Program Files (x86)".
+
+Alternate 64-bit binaries can be found here: [3] 
+[http://code.google.com/p/vim-win3264/wiki/Win64Binaries].
+
+To add edit menu for Vim manually, follow these directions:
+
+After installing Vim 7.2 I found I still didn't have the "Edit with Vim" 
+option on my contextual menu. After some rooting around online and in the 
+registry here is what I used to resolve the issue manually. This will allow 
+you to edit any file you right click on with Vim, which I find useful.
+
+Yes, this is for the 32-bit binaries on 64-bit vista. (it's what available 
+from vim.org)Snigdinna [https://vim.fandom.com/wiki/User:Snigdinna] 19:26, 30 
+December 2008 (UTC)
+
+It seems that at least with Win7, you need C:\Program Files 
+(x86)\Vim\vim72\gvim.exe "%1" (different quoting). You can also import the 
+following registry file:
+
+>
+    Windows Registry Editor Version 5.00
+    
+    [HKEY_CLASSES_ROOT\*\shell\Open with gvim]
+    @="Edit with gVim"
+    
+    [HKEY_CLASSES_ROOT\*\shell\Open with gvim\Command]
+    @="C:\\Program Files (x86)\\Vim\\vim72\\gvim.exe \"%1\""
+<
+
+CAN'T MAKE VIM THE DEFAULT PROGRAM FOR EDITING FILES? *vtw-1542-can't-make-vim-the-default-program-for-editing-files?*
+
+If you have previously installed Vim to a different location then changed 
+that location (e.g. upgraded) you won't be able to associate files with the 
+new location. You will see this problem when you try right-clicking on a file, 
+choosing Open With | Choose Default Program... and then select Vim as the 
+application - it is not presented in the available list, and if you browse to 
+it and press OK it doesn't work (nothing changes). To fix this edit the 
+registry using regedit, go to:
+
+>
+    HKEY_CLASSES_ROOT\Applications\gvim.exe
+<
+
+Make sure the edit\command and open\command Keys (they might not both exist) 
+have the following default value:
+
+>
+    C:\vim\vim72\gvim.exe "%1"
+    (or where ever your executable actually resides)
+<
+
+==============================================================================
+
+
+
+==============================================================================
+
+
+
+DOWNLOAD AND INSTALL                           *vtw-1542-download-and-install*
+
+Download and Install gVim 7.1(I used the one from [4] 
+[https://sourceforge.net/project/showfiles.php?group_id=43866&package_id=39721])
+    - changed the install dir to C:\vim to get around some odd things with UAC. 
+    - I prefer to have my vimfiles in my home directory, so I choose that option 
+      from the installer. - I also recommend setting the hidden attribute on the 
+      vimfiles folder so it does not visually clutter up the my home directory 
+      (Right click -> properties -> General Tab -> Check Hidden). 
+
+
+Copy the following files into C:\vim\vim71\
+    - iconv.dll (from here [http://sourceforge.net/projects/gettext] You can find 
+      the dll file in the bin directory of the "libiconv-win32" archive.) 
+    - libintl.dll (from here [http://sourceforge.net/projects/gettext] Get 
+      "intl.dll" from the bin directory in the gettext-win32 archive and store it as 
+      "libintl.dll" in the same directory as gvim.exe, overwriting the file that may 
+      already be there.) 
+    - gvimext.dll (from script#1720 
+      [https://www.vim.org/scripts/script.php?script_id=1720]) 
+
+
+CONFIGURE AROUND VISTA                       *vtw-1542-configure-around-vista*
+
+If you want the "Edit with vim" Shell Extension in Windows Explorer:
+    - Run C:\vim\vim71\install.exe 
+    - Choose no when asked if you want to uninstall, then enter "d 14" 
+
+
+TROUBLESHOOTING                                     *vtw-1542-troubleshooting*
+
+SHELL EXTENSION                                     *vtw-1542-shell-extension*
+
+If you get a gvim not in your path error with the "Edit with vim" shell ext, 
+make sure you do not have gvim.exe set to run as Administrator, as that will 
+break it. To check this, right-click on gvim.exe, select 'Properties', then 
+the 'Compatibility' tab. Make sure 'Run this program as administrator' is 
+unchecked, then click on 'Show settings for all users' and again make sure 
+'Run this program as administrator' is unchecked.
+
+VIRTUALSTORE                                           *vtw-1542-virtualstore*
+
+Windows Vista and newer creates a VirtualStore under %USERPROFILE% (often ~ 
+in Vim) to support applications that attempt to open protected files for 
+writing when the user doesn't have permissions. Under User Account Control 
+(UAC), this even applies to administrators who are not running from an 
+elevated shell.
+
+This can lead to problems when you make any modifications under $VIM that 
+might be installed to a protected location, such as %ProgramFiles% as it is by 
+default. To make sure Vim doesn't keep using any files written to the 
+VirtualStore after making modifications under $VIM, delete the VirtualStore 
+for Vim by doing the following from a console shell.
+
+>
+    rmdir /q /s "%USERPROFILE%\AppData\Local\VirtualStore\Program Files\Vim"
+<
+
+Restart Vim.
+
+Notes No explanation has been provided for why the above suggestion about 
+deleting a directory tree would be desirable or safe. Also, no example of a 
+problem that can occur is available. It would be useful to document how 
+modifications under $VIM may occur, and the effect of deleting the 
+VirtualStore files.
+
+COMMENTS                                                   *vtw-1542-comments*
+
+TO DO Several people have reported that they had no problem installing and 
+using Vim on Vista. The users concerned did not perform any of the steps from 
+this tip.
+
+Consequently, it may be better to delete this tip unless some further 
+explanations are available as to why the recommended procedures would be 
+helpful.
+
+There is no known reason to take the steps recommended in the "Download and 
+Install" section of this tip. It is always dodgy to mix files from various 
+sources, particularly if no reason for doing so is given.
+
+In the original tip 
+[https://vim.fandom.com/index.php?title=Vim_On_Vista&oldid=13304], the author 
+stated that the version of Vim was downloaded from hasno.info 
+[http://hasno.info/2007/5/18/windows-vim-7-1-2]. It is always possible that 
+the particular build of Vim had a problem. In that case, the problems 
+presented in this tip would not be applicable to other users, and in fact 
+might be dangerous because some fairly radical manipulations are recommended.
+
+Please add any comments below (after a line consisting of `----` to create a 
+horizontal rule).
+
+==============================================================================
+
+From the new tips discussion 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Vim_On_Vista]:
+
+I didn't realize that everything was working that well on other machines. I 
+do think there is value in keeping two of the sections:
+    - The information on how to fix the shell extension if Vista thinks Vim needs 
+      to be run as administrator. 
+    - The file association fix. 
+
+
+Where would you recommend putting these? Or are they too edge case for the 
+wiki?
+
+--Fuzzymonk 16:27, 14 January 2008 (UTC)
+
+Sorry to have not responded sooner – there has been a lot going on. I decided to just put a "to do" comment where required in the new tips, and leave it for sorting out later. If you want to pursue your suggestion, please just edit the tip here. I think any information regarding Vim on Vista should be in this tip. I don't know what to keep (Vista is outside my experience). I'm hoping to attract comments from Vista users. --JohnBeckett 04:02, 19 February 2008 (UTC)
+
+==============================================================================
+
+The problem I was having was that it couldn't copy the .bat files to the 
+Windows directory. Running install.exe as Administrator solved this problem.
+
+I tried a few methods on this page to no avail.
+
+==============================================================================
+
+The context menu stuff is not working. Tried with gvim-7-2-68.exe under Vista 
+Home Premium 64 as Administrator.
+
+==============================================================================
+
+TO DO
+    - We really need to delete the dodgy stuff from this page. Please add any 
+      comments below. 
+    - Is there any useful information below the "AND IGNORE THE STUFF BELOW" line? 
+      - The tip about fixing the ability to make vim the default application for 
+      file associations after upgrading was useful to me, and I think Snigdinna 
+      thought it useful as well, so I have expanded it a bit and moved it above the 
+      IGNORE line. It wasn't covered by what was already there. Lessthanideal 
+      [https://vim.fandom.com/wiki/User:Lessthanideal] 14:44, June 30, 2011 (UTC) 
+    - Edit on 2008-11-24 
+      [https://vim.fandom.com/index.php?title=Vim_On_Vista&diff=21352&oldid=17966] 
+      added the "IGNORE" line, and the material at the top of the tip. 
+    - Edit on 2008-12-30 
+      [https://vim.fandom.com/index.php?title=Vim_On_Vista&diff=21618&oldid=21546] 
+      added the "Vista 64" section, also above the "IGNORE" line. 
+    - See discussion on Snigdinna's talk page 
+      [https://vim.fandom.com/wiki/User_talk:Snigdinna]. 
+
+
+--JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 01:38, 3 January 
+2009 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

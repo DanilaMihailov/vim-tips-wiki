@@ -1,0 +1,133 @@
+*vim-tips-wiki-547.txt*   Smarter Table Editing                         *vtw-547*
+
+Tip 547 [https://vim.fandom.com/wiki/Smarter_Table_Editing]   Previous |vtw-546| Next |vtw-548|
+
+created August 30, 2003 · complexity intermediate · author Usman Latif · 
+version 5.7
+
+==============================================================================
+
+I frequently need to edit tables where the fields are of varying lengths. 
+Switching between fields is a pain as the fields can contain multiple words 
+and using the w key is impractical. Moreover adding a new row to the table is 
+most troublesome. The new fields need to be aligned with the old entries and 
+tabs don't work very well. Below is an example of such a table that I pulled 
+from the Vim user's guide:
+
+>
+    USAGE                         RESULT    DESCRIPTION
+    append( {lnum}, {string})     Number    append {string} below line {lnum}
+    argc()                        Number    number of files in the argument list
+    argidx()                      Number    current index in the argument list
+    argv( {nr})                   String    {nr} entry of the argument list
+<
+
+I wrote the NextField function (given below) to automatically check the 
+fields on the line directly above and move the cursor to the beginning of the 
+next field. The function pads the line if required. I am using 2 or more 
+spaces as the field separator but the field separator is an argument to the 
+function and can be changed easily.
+
+I have mapped <S-Tab> (Shift-Tab) to invoke the function. In the case of the 
+above table hitting <S-Tab> anywhere on the lines after the line that starts 
+with "append" will cause the cursor to move to the next field position or just 
+before it depending on the context. The function will not work on the line 
+starting with "append" as there is an empty line with no fields above it. It 
+will work on the empty line below the table titles as there are fields on the 
+line above it. Same is the case with the empty line below the last line of the 
+table.
+
+The function takes the following arguments:
+
+fieldsep: A pattern that specifies the field separator between table columns
+
+minlensep: Minimum length of field separator. It is used to make the function 
+move to the next field even when the cursor is positioned less than the length 
+of a field separator from the next table column. Set this to 0 if you are not 
+sure what this argument is for.
+
+padstr: The string to be used for padding when the current line needs to be 
+padded in order to reach the next table column.
+
+offset: The offset at which you want the cursor to be positioned in the next 
+table column. Set it to 0 if you want the cursor positioned at the start of 
+the next table column.
+
+To use the function, place the code below in vimrc and add the following 
+lines after it:
+
+>
+    map <S-Tab> :call NextField(' \{2,}',2,' ',0)<CR>
+    map! <S-Tab> <C-O>:call NextField(' \{2,}',2,' ',0)<CR>
+<
+
+Note: If the whitespace between the fields consists of anything other 
+thanspaces, the function will not work correctly without changing the 
+fieldseparator. Use expandtab option if you must use tabs.
+
+Many variations of the above idea are possible. One variation would be to 
+have a plugin that when invoked on a specific line, extracts the field 
+information on that line and maps the tab key to move to the next field then 
+onwards. That way there won't be any dependence on the line directly above the 
+cursor. If you have any suggestions of your own let me know. If enough people 
+show interest in enhancing this feature I most likely will code an enhanced 
+version.
+
+>
+    " function: NextField
+    " Args: fieldsep,minlensep,padstr,offset
+    "
+    " NextField checks the line above for field separators and moves the cursor on
+    " the current line to the next field. The default field separator is two or more
+    " spaces. NextField also needs the minimum length of the field separator,
+    " which is two in this case. If NextField is called on the first line or on a
+    " line that does not have any field separators above it the function echoes an
+    " error message and does nothing.
+    func! NextField(fieldsep,minlensep,padstr,offset)
+      let curposn = col(".")
+      let linenum = line(".")
+      let prevline = getline(linenum-1)
+      let curline = getline(linenum)
+      let nextposn = matchend(prevline,a:fieldsep,curposn-a:minlensep)+1
+      let padding = ""
+      if nextposn > strlen(prevline) || linenum == 1 || nextposn == 0
+        echo "last field or no fields on line above"
+        return
+      endif
+      echo ""
+      if nextposn > strlen(curline)
+        if &modifiable == 0
+          return
+        endif
+        let i = strlen(curline)
+        while i < nextposn - 1
+          let i = i + 1
+          let padding = padding . a:padstr
+        endwhile
+        call setline(linenum,substitute(curline,"$",padding,""))
+      endif
+      call cursor(linenum,nextposn+a:offset)
+      return
+    endfunc
+<
+
+COMMENTS                                                    *vtw-547-comments*
+
+In my settings, I had to use offset = -1 to start exactly at the next table 
+column.
+
+Alternatively, change line 37 of the function from:
+
+>
+    call cursor(linenum,nextposn+a:offset)
+<
+
+to:
+
+>
+    call cursor(linenum,nextposn+a:offset-1)
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

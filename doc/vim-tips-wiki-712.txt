@@ -1,0 +1,46 @@
+*vim-tips-wiki-712.txt*   Reverse letters                               *vtw-712*
+
+Tip 712 [https://vim.fandom.com/wiki/Reverse_letters]   Previous |vtw-711| Next |vtw-713|
+
+created 2004 · complexity basic · author David Fishburn · version 5.7
+
+==============================================================================
+
+Simply enable visual mode (v), highlight the characters you want inverted, 
+and hit `\is`.
+
+For a single word you can use `vw` (or `viw`):
+
+>
+    viw\is
+<
+
+>
+    vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
+     \:let old_reg=@"<CR>
+     \gv"ay
+     \:let @a=substitute(@a, '.\(.*\)\@=',
+     \ '\=@a[strlen(submatch(1))]', 'g')<CR>
+     \gvc<C-R>a<Esc>
+     \:let @a=old_reg_a<CR>
+     \:let @"=old_reg<CR>
+<
+
+COMMENTS                                                    *vtw-712-comments*
+
+If your Vim has +rightleft (check vim --version), the following visual mode 
+map does the job:
+
+>
+    vmap <Leader>fR c<C-O>:set ri<CR><C-R>"<Esc>:set nori<CR>
+<
+
+A map that reverses the sequence of lines (again, visual mode):
+
+>
+    vmap <Leader>fr :<c-u>set lz<CR>'>o<Esc>'<O<Esc>V'>j:<c-u>'<+1,'>-1g/^/m '<<CR>'dd:set nolz<CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,268 @@
+*vim-tips-wiki-1269.txt*   Indent text object                          *vtw-1269*
+
+Tip 1269 [https://vim.fandom.com/wiki/Indent_text_object]   Previous |vtw-1268| Next |vtw-1272|
+
+created 2006 · complexity basic · author Gerald Lai · version 6.0
+
+==============================================================================
+
+This tip is an improvement of VimTip1014 |vtw-1014| to allow indented text 
+blocks to be treated as text objects. See the already available :help 
+|text-objects|.
+
+For this tip, use `ai` to select "an indent".
+
+When the cursor is on a line with zero indent, the selection will be 
+delimited by blank lines (that may or may not contain whitespaces).
+
+When the cursor is on a line with a non-zero indent, the selection will be 
+delimited by lines with an indent that is less than the original line; blank 
+lines will be SELECTED.
+
+Use `ii` to select "an inner indent".
+
+When the cursor is on a line with zero indent, the selection will be 
+delimited by blank lines (that may or may not contain whitespaces).
+
+When the cursor is on a line with a non-zero indent, the selection will be 
+delimited by lines with an indent that is less than the original line; blank 
+lines will be IGNORED and thus, become the delimiter if one is encountered.
+
+When the cursor is on a blank line, do not do any indent text object 
+selection.
+
+Examples In normal mode, try
+
+>
+    vai
+    vii
+    dai
+    dii
+    yai
+    yii
+<
+
+Code
+
+>
+    "place in vimrc
+    onoremap <silent>ai :<C-U>cal <SID>IndTxtObj(0)<CR>
+    onoremap <silent>ii :<C-U>cal <SID>IndTxtObj(1)<CR>
+    vnoremap <silent>ai :<C-U>cal <SID>IndTxtObj(0)<CR><Esc>gv
+    vnoremap <silent>ii :<C-U>cal <SID>IndTxtObj(1)<CR><Esc>gv
+    
+    function! s:IndTxtObj(inner)
+      let curline = line(".")
+      let lastline = line("$")
+      let i = indent(line(".")) - &shiftwidth * (v:count1 - 1)
+      let i = i < 0 ? 0 : i
+      if getline(".") !~ "^\\s*$"
+        let p = line(".") - 1
+        let nextblank = getline(p) =~ "^\\s*$"
+        while p > 0 && ((i == 0 && !nextblank) || (i > 0 && ((indent(p) >= i && !(nextblank && a:inner)) || (nextblank && !a:inner))))
+          -
+          let p = line(".") - 1
+          let nextblank = getline(p) =~ "^\\s*$"
+        endwhile
+        normal! 0V
+        call cursor(curline, 0)
+        let p = line(".") + 1
+        let nextblank = getline(p) =~ "^\\s*$"
+        while p <= lastline && ((i == 0 && !nextblank) || (i > 0 && ((indent(p) >= i && !(nextblank && a:inner)) || (nextblank && !a:inner))))
+          +
+          let p = line(".") + 1
+          let nextblank = getline(p) =~ "^\\s*$"
+        endwhile
+        normal! $
+      endif
+    endfunction
+<
+
+Entering a count will select (count - 1) outer indent, according to the 
+'shiftwidth' option. For example, if the cursor is on a line with 
+(4*shiftwidth) indent, performing 'v2ii' will select lines of indent >= 
+(3*shiftwidth).Try it to see what it's like.
+
+SEE ALSO                                                   *vtw-1269-see-also*
+    - textobj-indent Text objects for indented blocks of lines 
+      [https://www.vim.org/scripts/script.php?script_id=2484] 
+
+
+COMMENTS                                                   *vtw-1269-comments*
+
+I'm not sure why you chose to have blank lines delimit the selected region. I 
+like to use a lot of blank lines in my code so I changed the function so that 
+it runs over blank lines as if they weren't there. For anyone who's 
+interested, here's the new function:
+
+>
+    function! IndTxtObj(inner)
+      let curline = line(".")
+      let lastline = line("$")
+      let i = indent(line(".")) - &shiftwidth * (v:count1 - 1)
+      let i = i < 0 ? 0 : i
+      if getline(".") =~ "^\\s*$"
+        return
+      endif
+      let p = line(".") - 1
+      let nextblank = getline(p) =~ "^\\s*$"
+      while p > 0 && (nextblank || indent(p) >= i )
+        -
+        let p = line(".") - 1
+        let nextblank = getline(p) =~ "^\\s*$"
+      endwhile
+      if (!a:inner)
+        -
+      endif
+      normal! 0V
+      call cursor(curline, 0)
+      let p = line(".") + 1
+      let nextblank = getline(p) =~ "^\\s*$"
+      while p <= lastline && (nextblank || indent(p) >= i )
+        +
+        let p = line(".") + 1
+        let nextblank = getline(p) =~ "^\\s*$"
+      endwhile
+      if (!a:inner)
+        +
+      endif
+      normal! $
+    endfunction
+<
+
+==============================================================================
+
+If you'd like to select blank lines too, use "ai" to select "an indent" when 
+the indent > 0. You need blank lines to delimit the selection for indent == 0. 
+Otherwise, you will select the whole file instead, which can be annoying.
+
+Hmm. I'm not sure why you included:
+
+>
+    if (!a:inner)
+    +/-
+    endif
+<
+
+These will throw the selection off by one line when using "ai".
+
+==============================================================================
+
+I use ii to select an (entire) indent level and ai to select an (entire) 
+indent level including the boundary lines. If the indent level is the entire 
+buffer, it should select the entire buffer :-).
+
+==============================================================================
+
+>
+    " Changes to allow blank lines in blocks, and
+    " Top level blocks (zero indent) separated by two or more blank lines.
+    " Usage: source <thisfile> in pythonmode and
+    " Press: vai, vii to select outer/inner python blocks by indetation.
+    " Press: vii, yii, dii, cii to select/yank/delete/change an indented block.
+    onoremap <silent>ai :<C-u>call IndTxtObj(0)<CR>
+    onoremap <silent>ii :<C-u>call IndTxtObj(1)<CR>
+    vnoremap <silent>ai <Esc>:call IndTxtObj(0)<CR><Esc>gv
+    vnoremap <silent>ii <Esc>:call IndTxtObj(1)<CR><Esc>gv
+    
+    function! IndTxtObj(inner)
+      let curcol = col(".")
+      let curline = line(".")
+      let lastline = line("$")
+      let i = indent(line("."))
+      if getline(".") !~ "^\\s*$"
+        let p = line(".") - 1
+        let pp = line(".") - 2
+        let nextblank = getline(p) =~ "^\\s*$"
+        let nextnextblank = getline(pp) =~ "^\\s*$"
+        while p > 0 && ((i == 0 && (!nextblank || (pp > 0 && !nextnextblank))) || (i > 0 && ((indent(p) >= i && !(nextblank && a:inner)) || (nextblank && !a:inner))))
+          -
+          let p = line(".") - 1
+          let pp = line(".") - 2
+          let nextblank = getline(p) =~ "^\\s*$"
+          let nextnextblank = getline(pp) =~ "^\\s*$"
+        endwhile
+        normal! 0V
+        call cursor(curline, curcol)
+        let p = line(".") + 1
+        let pp = line(".") + 2
+        let nextblank = getline(p) =~ "^\\s*$"
+        let nextnextblank = getline(pp) =~ "^\\s*$"
+        while p <= lastline && ((i == 0 && (!nextblank || pp < lastline && !nextnextblank)) || (i > 0 && ((indent(p) >= i && !(nextblank && a:inner)) || (nextblank && !a:inner))))
+          +
+          let p = line(".") + 1
+          let pp = line(".") + 2
+          let nextblank = getline(p) =~ "^\\s*$"
+          let nextnextblank = getline(pp) =~ "^\\s*$"
+        endwhile
+        normal! $
+      endif
+    endfunction
+<
+
+==============================================================================
+
+Note that
+
+>
+    (i == 0 && !nextblank) || (i > 0 && ((indent(p) >= i && !(nextblank && a:inner)) || (nextblank && !a:inner)))
+<
+
+can be reduced to
+
+>
+    (!nextblank && indent(p) >= i) || (!a:inner && nextblank)
+<
+
+==============================================================================
+
+I've adjusted this tip to let me select by quote levels in emails:
+
+>
+    onoremap <silent>aq :<C-u>call IndQuoteObj(0)<CR>
+    onoremap <silent>iq :<C-u>call IndQuoteObj(1)<CR>
+    vnoremap <silent>aq <Esc>:call IndQuoteObj(0)<CR><Esc>gv
+    vnoremap <silent>iq <Esc>:call IndQuoteObj(1)<CR><Esc>gv
+    
+    function! QuoteIndent(line)
+      return len(split(matchstr(getline(a:line),'^[> ]*'),">",1))-1
+    endfunction
+    
+    function! IndQuoteObj(inner)
+      let curline = line(".")
+      let lastline = line("$")
+      let i =  QuoteIndent(".") - (v:count1 - 1)
+      echo i
+      let i = i < 0 ? 0 : i
+      if getline(".") =~ "^\\s*$"
+        return
+      endif
+      let p = line(".") - 1
+      let nextblank = getline(p) =~ "^\\s*$"
+      while p > 0 && (nextblank || QuoteIndent(p) >= i )
+        -
+        let p = line(".") - 1
+        let nextblank = getline(p) =~ "^\\s*$"
+      endwhile
+      if (!a:inner)
+        -
+      endif
+      normal! 0V
+      call cursor(curline, 0)
+      let p = line(".") + 1
+      let nextblank = getline(p) =~ "^\\s*$"
+      while p <= lastline && (nextblank || QuoteIndent(p) >= i )
+        +
+        let p = line(".") + 1
+        let nextblank = getline(p) =~ "^\\s*$"
+      endwhile
+      if (!a:inner)
+        +
+      endif
+      normal! $
+    endfunction
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

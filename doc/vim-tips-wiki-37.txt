@@ -1,0 +1,69 @@
+*vim-tips-wiki-37.txt*   Managing set options                            *vtw-37*
+
+Tip 37 [https://vim.fandom.com/wiki/Managing_set_options]   Previous |vtw-36| Next |vtw-38|
+
+created 2001 · complexity basic · author slimzhao · version 6.0
+
+==============================================================================
+
+The options that configure Vim are of three types:
+    - boolean : on or off (example :help 'autochdir') 
+    - number : an integer value (example :help 'textwidth') 
+    - string : a string value (example :help 'backspace') 
+
+
+Options can be global, or may apply only to a particular buffer or window. 
+:help |:setlocal|
+
+A quick list of options is at :help |option-list|, and all the details are at 
+:help |options|.
+
+BOOLEAN OPTIONS                                       *vtw-37-boolean-options*
+
+The many ways to set a boolean option are best illustrated by a simple 
+example. In the following, the 'number' option is used. Any boolean option, 
+such as wrap, linebreak, diff, etc can be set in these ways.
+
+Replace `number` with any boolean option.
+
+For nonboolean options, `:set option&` also sets the option to its default 
+value, and `:set option?` will display the current value.
+
+TOGGLING AN OPTION                                 *vtw-37-toggling-an-option*
+
+If you often need to change an option, you could use a mapping and script as 
+in the following example (which could be placed in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]). In this example, the F12 key is mapped 
+to either enable or disable the mouse.
+
+>
+    nnoremap <F12> :call ToggleMouse()<CR>
+    function! ToggleMouse()
+      if &mouse == 'a'
+        set mouse=
+        echo "Mouse usage disabled"
+      else
+        set mouse=a
+        echo "Mouse usage enabled"
+      endif
+    endfunction
+<
+
+It's easier to toggle a boolean option, for example:
+
+>
+    nnoremap <F12> :set number!<CR>
+<
+
+REFERENCES                                                 *vtw-37-references*
+    - :help |set-option| 
+
+
+COMMENTS                                                     *vtw-37-comments*
+    - Vim settings [http://apps.brrm.ru/vim-options/] editing app for Mac - a GUI 
+      tool to edit "set" options. 
+    - Also see the |:options| command for a similar built-in editable list of 
+      current option values. 
+
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,43 @@
+*vim-tips-wiki-1112.txt*   Listing buffers                             *vtw-1112*
+
+Tip 1112 [https://vim.fandom.com/wiki/Listing_buffers]   Previous |vtw-1111| Next |vtw-1114|
+
+created 2006 · complexity basic · author Matt Zyzik · version 5.7
+
+==============================================================================
+
+Use the following to list your buffers.
+
+>
+    nnoremap <m-:> :ls\|sleep<CR><CR>
+<
+
+Press Alt-: to show the results of `:ls` for one second. Pressing Alt-: 3 
+times will show the `:ls` listing for 3 seconds.
+
+You can also hold down Alt-: to show the file list continuously, then press 
+Ctrl-c when you're done. This can be very useful when working with many files.
+
+COMMENTS                                                   *vtw-1112-comments*
+
+I'll try this for some days:
+
+>
+    map <M-:> :<c-u>ls!<Bar>sleep <c-r>=v:count1<CR><CR><CR>
+<
+
+==============================================================================
+
+>
+    " alt-; display buffer list for 3 seconds
+    nnoremap <m-;> :ls<Bar>3sleep<CR><CR>
+<
+
+==============================================================================
+
+It should be noted that if 'lazyredraw' isn't set, the original mapping will 
+cause the entire display to be refreshed for each <m-:> combination.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

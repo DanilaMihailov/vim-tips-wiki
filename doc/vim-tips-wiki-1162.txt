@@ -1,0 +1,299 @@
+*vim-tips-wiki-1162.txt*   Automatically append closing characters     *vtw-1162*
+
+Tip 630 [https://vim.fandom.com/wiki/Automatically_append_closing_characters]   Previous |vtw-628| Next |vtw-631|
+
+created 2004 · complexity basic · author Andrzej Cuber · version 6.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+The undo/redo workarounds |vtw-1162-more-on-undo.2fredo.2frepeat| contained 
+here were broken by Vim version 7.4. A fix has been included as of 7.4.849 
+[https://github.com/vim/vim/releases/tag/v7.4.849] to support this without 
+workarounds; this tip needs updating to reflect the new method.
+
+This tip discusses methods to automatically add closing characters (such as 
+adding "`}`" after typing "`{`").
+
+A SIMPLE SOLUTION                                 *vtw-1162-a-simple-solution*
+
+BASIC PAIR COMPLETION                         *vtw-1162-basic-pair-completion*
+
+Using the following mappings, when you type an open brace, a closing brace is 
+automatically inserted on the same line after the cursor. If you quickly press 
+Enter after the open brace (to begin a code block), the closing brace will be 
+inserted on the line below the cursor. If you quickly press the open brace key 
+again after the open brace, nothing extra will be inserted—you will just get a 
+single open brace. Finally, if you quickly type an open and close brace, Vim 
+will not do anything special.
+
+>
+    inoremap {      {}<Left>
+    inoremap {<CR>  {<CR>}<Esc>O
+    inoremap {{     {
+    inoremap {}     {}
+<
+
+One thing to be aware of with these mappings is that they will interrupt your 
+undo sequence, as documented at :help |ins-special-special|. This means that 
+after using these mappings and inserting more text between the braces, 
+pressing `u` will only undo the text inserted between the braces. Similarly, 
+pressing `.` (repeat) will only insert the same text.
+
+SKIPPING OVER THE CLOSING CHARACTER *vtw-1162-skipping-over-the-closing-character*
+
+Similar mappings for other "paired" characters can be made from the above 
+with trivial modifications, but characters like brackets and parentheses which 
+often require text after them might instead benefit from something like the 
+following, which automatically closes all groups, and skips over existing 
+closing characters if another one is typed immediately before:
+
+>
+    inoremap        (  ()<Left>
+    inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+<
+
+This solution works by looking at the character just after the cursor (which 
+is at the byte index given by cursor column - 1), and simply moving the cursor 
+if it is the closing character. If the character after the cursor is not the 
+closing character, it inserts the closing character. The mapping is fairly 
+straightforward, but will not work in versions prior to Vim 7.0 which 
+introduced <expr> mappings. You will need to modify this slightly for older 
+versions of Vim |vtw-1162-backwards-compatible-closing-brace-skip|.
+
+In the case of single or double quotes, since the closing character is the 
+same as the opening one, the mapping is done slightly different:
+
+>
+    inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+<
+
+If the character just after the cursor is not a single quote, we insert two 
+single quotes instead of only one.
+
+Note that like the insertion of the closing character, skipping the closing 
+character in this way will break your undo sequence.
+
+EXPANDING THE SIMPLE SOLUTION         *vtw-1162-expanding-the-simple-solution*
+
+MORE ON UNDO/REDO/REPEAT                   *vtw-1162-more-on-undo/redo/repeat*
+
+Without interrupting the undo/redo/repeat sequence, there is not an easy way 
+to move the cursor in insert mode or to insert text without moving the cursor. 
+In Vim 7.4.849 you can move the cursor in insert mode and leave the undo 
+sequence intact with the `CTRL-G_U` sequence. But, it is possible in Vim 7.3 
+and below, using `setpos()` or `setline()` within a function called from an 
+insertion of the expression register, for example:
+
+>
+    " Incomplete example moving the cursor after insertion.
+    " DO NOT USE, use a plugin instead.
+    function! MoveLeft()
+      let newpos = getpos('.')
+      let newpos[2] -= 1
+      if (newpos[2] < 1)
+        let newpos[2] = 1
+      endif
+      call setpos('.', newpos)
+      return ""
+    endfunction
+    inoremap ( ()<C-R>=MoveLeft()<CR>
+<
+
+or:
+
+>
+    " Incomplete example inserting text without moving cursor.
+    " DO NOT USE, use a plugin instead.
+    function! InsertClosing(char)
+      let line = getline('.')
+      let colm = col('.')
+      let colmIdx = colm - 1
+      call setline('.', line[:colmIdx].a:char.line[colmIdx+1:])
+      return ""
+    endfunction
+    inoremap ( (<C-R>=InsertClosing(')')<CR>
+<
+
+The expression register is used instead of an <expr> mapping, because moving 
+the cursor or changing text is not allowed within an <expr> mapping.
+
+Unfortunately, even though the undo sequence is unbroken, without a 
+complicated set of other mappings, the text inserted or cursor movement 
+accomplished within the expression mapping will not be reflected in the text 
+inserted by pressing '`.`'. Using the first method (moving the cursor without 
+breaking undo) you would insert "`abc(def)`" and repeat using `.` to get 
+"`abc()def`". Using the second method (inserting text without moving the 
+cursor) you would insert "`abc(def)`" (with the closing ')' added 
+automatically) and repeat only "`abc(def`" (without the automatic closing 
+character).
+
+If you want auto-insertion of closing characters which does not break your 
+undo sequence, you should consider one of the plugins |vtw-1162-plugins| which 
+has implemented this already, but you will also need to stick with Vim 7.3 or 
+earlier.
+
+ADD THE CLOSING BRACE ONLY AT THE END OF THE LINE *vtw-1162-add-the-closing-brace-only-at-the-end-of-the-line*
+
+Automatically inserting closing braces can be confusing when editing text. 
+The following function inserts the closing brace only when the cursor is at 
+the end of the line. As a consequence, the closing brace doesn't often get in 
+your way, although that might be a question of personal preference.
+
+>
+    function! ConditionalPairMap(open, close)
+      let line = getline('.')
+      let col = col('.')
+      if col < col('$') || stridx(line, a:close, col + 1) != -1
+        return a:open
+      else
+        return a:open . a:close . repeat("\<left>", len(a:close))
+      endif
+    endf
+    inoremap <expr> ( ConditionalPairMap('(', ')')
+    inoremap <expr> { ConditionalPairMap('{', '}')
+    inoremap <expr> [ ConditionalPairMap('[', ']')
+<
+
+MANAGING PAIRED CHARACTER SEQUENCES *vtw-1162-managing-paired-character-sequences*
+
+For adding multiple-character pairs such as C-style comments, you may want to 
+find another way to prevent the mapping from taking effect, such as typing the 
+mapleader (usually '\' – see :help |mapleader|) character first as below:
+
+>
+    inoremap /*          /**/<Left><Left>
+    inoremap /*<Space>   /*<Space><Space>*/<Left><Left><Left>
+    inoremap /*<CR>      /*<CR>*/<Esc>O
+    inoremap <Leader>/*  /*
+<
+
+Similar mappings might be useful for quotes, but they might get in your way 
+depending on the type of file you're editing. Some languages use duplicate 
+single-quotes a lot, and some pair the backtick with the quote. For these 
+situations, you might want to put similar commands into language-specific 
+files. For example, this quote-completer for GNU M4 might live in 
+`~/.vim/after/ftplugin/m4.vim`. :help |after-directory|
+
+>
+    inoremap `      `')<Left><Left>
+    inoremap `<CR>  `<CR>'<Esc>O
+    inoremap ``     `
+    inoremap `'     `'
+<
+
+MORE ADVANCED SOLUTIONS                     *vtw-1162-more-advanced-solutions*
+
+If you want something more complex and configurable, there are a number of 
+different scripts that accomplish this task.
+
+PLUGINS                                                     *vtw-1162-plugins*
+
+The auto-insertion of matching brackets is provided by these plugins:
+    - delimitMate by Israel Chauca Fuentes 
+      [https://www.vim.org/scripts/script.php?script_id=2754] (configurable, latest 
+      version on GitHub [https://github.com/Raimondi/delimitMate] doesn't break 
+      undo/redo/repeat). 
+    - AutoClose by Karl Guertin 
+      [https://www.vim.org/scripts/script.php?script_id=1849] (auto-closes specific 
+      hard-coded characters, and doesn't break undo/redo/repeat in Vim 7.3 or lower) 
+    - AutoClose by Thiago Alves 
+      [https://www.vim.org/scripts/script.php?script_id=2009] (configurable, but 
+      breaks undo/redo/repeat) 
+    - auto-pairs Auto Pairs by Miao Jiang 
+      [https://www.vim.org/scripts/script.php?script_id=3599] (configurable, latest 
+      version on GitHub [https://github.com/jiangmiao/auto-pairs] doesn't break 
+      undo/redo/repeat) 
+    - ClosePairs by Edoardo Vacchi 
+      [https://www.vim.org/scripts/script.php?script_id=2373] (configurable, but 
+      breaks undo/redo/repeat) 
+    - smartinput by Kana Natsuno [https://github.com/kana/vim-smartinput] 
+      (configurable, but breaks undo/redo/repeat) 
+    - Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] has some very 
+      advanced and smart abbreviations [https://github.com/LucHermitte/lh-brackets]. 
+      Those scripts give advanced brace-handling features like markers support 
+      (placeholders in another terminology), several things can be easily tweaked 
+      (whether we want newlines or not before the curly-brackets, ...), the 
+      abbreviations are buffer-relative (which is necessary to have "{" expand into 
+      different things according to the filetype of the buffer edited), 
+      context-sensitive (the abbreviations are not expanded within comments or 
+      string contexts) and more. lh-brackets also provides surrounding, and a smart 
+      <BS> that deletes both characters from an empty pair. See also lh-cpp, the C & 
+      C++ ftplugin suite [https://github.com/LucHermitte/lh-cpp] built on top of it, 
+      where `;` can close all pending `)`. lh-brackets supports redo/repeat on vim 
+      versions >= 7.4-849. 
+    - Srinath Avadhanula's imaps.vim 
+      [https://www.vim.org/scripts/script.php?script_id=244] is used by Latex-Suite 
+      [http://vim-latex.sourceforge.net/] to provide a similar bracketing system. 
+    - Marcn Szamotulski's Automatic LaTeX Plugin 
+      [https://www.vim.org/scripts/script.php?script_id=2945] is closing open 
+      brackets within the omnicompletion mechanism, it also closes opened LaTeX 
+      environments. 
+    - The popular surround.vim 
+      [https://www.vim.org/scripts/script.php?script_id=1697] provides an 
+      insert-mode mapping to insert pairs of any delimiter defined by a text object 
+      together, if you can remember to use it instead of just typing the opening 
+      delimiter. surround.vim integrates with the repeat.vim 
+      [https://www.vim.org/scripts/script.php?script_id=2136] plugin to provide some 
+      support for the repeat command for its normal-mode commands, but the 
+      insert-mode command will still break the undo sequence. 
+
+
+REPLACECURLY SCRIPT                             *vtw-1162-replacecurly-script*
+
+This script operates only on braces, but is smarter about detecting when it 
+should act. It will not take effect when editing comments, strings and lines 
+containing the the word "new." (This is useful for array initialization, e.g. 
+`string[] myArray = new string[] {"a", "b"}`.)
+
+>
+    imap { <Esc>:call ReplaceCurly()<CR>"_cl
+    function! ReplaceCurly()
+      imap { {
+      " only replace outside of comments or strings (which map to constant)
+      let elesyn = synIDtrans(synID(line("."), col(".") - 1, 0))
+      if elesyn != hlID('Comment') && elesyn != hlID('Constant') && match(getline("."), "\\<new\\>") < 0
+        exe "normal a{"
+        " need to add a spare character (x) to position the cursor afterwards
+        exe "normal ox"
+        exe "normal o}"
+        exe "normal kw"
+      else
+        " need to add a spare character (x) to position the cursor afterwards
+        exe "normal a{x"
+      endif
+      imap { <Esc>:let word= ReplaceCurly()<CR>"_cl
+    endfunction
+    
+    "Surround code with braces
+    nmap <Leader>{} O{<Esc>ddj>>ddkP
+    vmap <Leader>{} <Esc>o{<Esc>ddgv>gvdp
+<
+
+BACKWARDS-COMPATIBLE CLOSING BRACE SKIP *vtw-1162-backwards-compatible-closing-brace-skip*
+
+If you need a solution for inserting a closing brace automatically in a 
+pre-7.0 Vim, you can slightly modify the <expr> mapping given above 
+|vtw-1162-skipping-over-the-closing-brace| to use the expression register 
+instead:
+
+>
+    inoremap ) <C-R>=strpart(getline('.'), col('.')-1, 1) == ")" ? "\<lt>Right>" : ")"<CR>
+<
+
+Note that we needed to treat the "\<Right>" text differently so that it is 
+expanded when the expression register is evaluated instead of when the mapping 
+is executed.
+
+SEE ALSO                                                   *vtw-1162-see-also*
+    - Auto closing an HTML tag 
+      [https://vim.fandom.com/wiki/Auto_closing_an_HTML_tag] using omni completion 
+      to auto complete tags 
+
+
+COMMENTS                                                   *vtw-1162-comments*
+
+20150813: Tested on Debian Unstable with Vim 7.4.712 -> Works perfect!
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,169 @@
+*vim-tips-wiki-687.txt*   Mac OS X clipboard sharing                    *vtw-687*
+
+Tip 687 [https://vim.fandom.com/wiki/Mac_OS_X_clipboard_sharing]   Previous |vtw-686| Next |vtw-688|
+
+created 2004 · complexity basic · author Khairulmizam Samsudin · version 5.7
+
+==============================================================================
+
+Add this line to your ~/.vimrc:
+
+>
+    set clipboard=unnamed
+<
+
+You can also use pbcopy/pbpaste command to achieve the same thing.
+
+You may need to use `brew install vim` to update to Vim 7.4 instead of the 
+default 7.3.
+
+Example:
+
+>
+    :.!pbcopy "Copy current line clipboard
+    :4,8!pbcopy "Copy line 4 to 8
+    :!echo "%:p" | pbcopy "Copy current filename to clipboard
+    :r !pbpaste "Paste clipboard content to current line
+<
+
+REFERENCES                                                *vtw-687-references*
+    - :help |filter| 
+
+
+COMMENTS                                                    *vtw-687-comments*
+
+For MacVim [http://code.google.com/p/macvim/] and Windows Gvim, I have the 
+following in my ~/.vimrc:
+
+>
+    set clipboard=unnamed
+<
+
+Operations such as `yy`, `D`, and `P` work with the system clipboard. No need 
+to prefix them with `"+` or `"*`.
+
+You can use homebrew to install the latest vim and your clipboard should work 
+in the terminal.
+
+brew install vim
+
+==============================================================================
+
+I find that the `+` register works for transferring back and forth to the OS 
+X clipboard.
+
+==============================================================================
+
+I failed to mention that I compile Vim with '--without-x --disable-gui' 
+therefore I don't have access to the unnamed registers. pbcopy/pbpaste is a 
+work around.
+
+==============================================================================
+
+I use `4,8w !pbcopy` which prevents the deletion of lines within the 
+window-file where I run the command.
+
+==============================================================================
+
+I've got the following lines in my .vimrc:
+
+>
+    map <F2> :.w !pbcopy<CR><CR>
+    map <F3> :r !pbpaste<CR>
+<
+
+Pressing <F2> copies the current line to the clipboard, pressing <F3> pastes 
+the current content from the clipboard.
+
+==============================================================================
+
+My maps just add onto what these guys have worked on.
+    - <F1> pastes, but I have it configured so it works very well in insert mode 
+      and in normal mode. The nopaste setting makes sure that auto-indent doesn't go 
+      crazy when you try to paste something in. 
+    - <F2> copies text. If you are in normal mode, it will just grab the line your 
+      working on. If you in visual mode however, it will grab all the selected text. 
+
+
+>
+    nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+    imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+    nmap <F2> :.w !pbcopy<CR><CR>
+    vmap <F2> :w !pbcopy<CR><CR>
+<
+
+Comment: the nmap commands work perfectly, but unfortunately the vmap-copy 
+doesn't (it grabs the whole line instead of the selected text). I'm working 
+with the non-GUI version on Mac OS X. Later I will try to figure out a 
+workaround.
+
+Update: There is a potential fix for the non-whole line case (I use the 
+keystroke `leader + y ` instead of `F2` for mapping):
+
+>
+    vnoremap <silent> <leader>y :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR>
+<
+
+Here the trick is to use "vgvy" to grab the selection into default register 
+and feed into pbcopy.
+
+==============================================================================
+
+Use fakeclip [https://www.vim.org/scripts/script.php?script_id=2098] pseudo 
+clipboard register for non-GUI version of Vim on Cygwin and Mac OS X
+
+==============================================================================
+
+It looks like there's a problem with fakeclip on Mac OS X (I don't know which 
+versions are affected). For everyone who gets "Platform not supported: 
+Unknown" or something like this should try this:
+
+In `autoload/fakeclip.vim`: Search for system('uname -o') and change it to 
+system('uname'). Now it should work.
+
+==============================================================================
+
+Another tip: For cross-platform clipboard sharing you can use the open-source 
+(GPL) ClipboardMultiSharer [http://clipboardmshare.steweche.co.uk/] with text 
+and image data on any platform that runs Java; in particular, Mac OS X, 
+Windows and Linux.
+
+==============================================================================
+
+Since version 7.3 the console version of Vim supports Mac OS X clipboard. As 
+noted above just add the following to ~/.vimrc
+
+>
+    set clipboard=unnamed
+<
+
+==============================================================================
+
+As of Mountain Lion, the previous tip does not appear to work in 
+system-provided vim; yanked lines do not go into the system clipboard, nor 
+does anything yanked to the * or + registers.
+
+It does however work with MacVim in terminal mode.
+
+==============================================================================
+
+Also on Lion
+
+>
+    set clipboard=unnamed
+<
+
+no longer works but pbcopy and pbpaste still do. Tip is still valid.
+
+==============================================================================Is +clipboard turned on ?
+
+Check to see if your vim supports +clipboard, with
+
+vim --version
+
+My vim didn't have +clipboard. I added it with "brew install vim" then added 
+an alias to my bash profile (~/.bash_profile):
+
+alias vim="/usr/local/bin/vim"
+
+ vim:tw=78:et:ft=help:norl:

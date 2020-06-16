@@ -1,0 +1,48 @@
+*vim-tips-wiki-67.txt*   Showing the ASCII value of the current character *vtw-67*
+
+Tip 67 [https://vim.fandom.com/wiki/Showing_the_ASCII_value_of_the_current_character]   Previous |vtw-66| Next |vtw-68|
+
+created May 7, 2001 · complexity intermediate · author Erhan · version 5.7
+
+==============================================================================
+
+You can learn the ASCII or Unicode value of the character under the cursor by 
+pressing ga in command mode or :as / :ascii on the command line . This 
+displays the value of the current character in decimal, hex and octal. (Think 
+"get ascii.")
+
+SEEING ASCII/UNICODE VALUES IN THE STATUS LINE *vtw-67-seeing-ascii/unicode-values-in-the-status-line*
+
+You can also add options to the statusline option to show theASCII/Unicode 
+value of the character under the cursor.
+
+>
+    :set statusline=%<%f%h%m%r%=%b\ 0x%B\ \ %l,%c%V\ %P
+<
+
+It's the %b\ 0x%B that does the trick. Note that you may need to :set 
+laststatus=2 so that the status line is visible in edit sessions with only one 
+window showing.
+
+RELATED SCRIPTS                                       *vtw-67-related-scripts*
+    - The characterize plugin 
+      [https://www.vim.org/scripts/script.php?script_id=4410] overrides the ga 
+      command to provide even more useful information for Unicode characters, such 
+      as any |digraphs| Vim has defined to enter the character. 
+    - The unicode plugin [https://www.vim.org/scripts/script.php?script_id=2822] 
+      also provides additional information for any character without overriding the 
+      ga normal command. It provides the :UnicodeName command, that displays the 
+      official Unicode name for any character as well as defined digraphs or html 
+      entity name. This also works correctly for combined chars. 
+
+
+REFERENCES                                                 *vtw-67-references*
+    - :help |ga| 
+    - :help |g8| 
+    - :help 'statusline' 
+    - :help 'laststatus' 
+
+
+COMMENTS                                                     *vtw-67-comments*
+
+ vim:tw=78:et:ft=help:norl:

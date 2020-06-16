@@ -1,0 +1,28 @@
+*vim-tips-wiki-457.txt*   Follow tag in new window                      *vtw-457*
+
+Tip 457 [https://vim.fandom.com/wiki/Follow_tag_in_new_window]   Previous |vtw-452| Next |vtw-458|
+
+created 2003 · complexity basic · author PopEsc · version 6.0
+
+==============================================================================
+
+If you use tags, you might want to follow a tag, but leave the current window 
+open. The following mapping allows you to do this easily with Ctrl-\.
+
+>
+    :map <C-\> :sp<CR><C-]><C-w>_
+<
+
+COMMENTS                                                    *vtw-457-comments*
+
+This creates a new window of maximal size and the original window shrinks to 
+one line. To have the windows be of equal size, just eliminate the "<C-w>_" at 
+the end.
+
+==============================================================================
+
+Just use 'CTRL-W ]'.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

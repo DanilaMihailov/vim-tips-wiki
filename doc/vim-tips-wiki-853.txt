@@ -1,0 +1,150 @@
+*vim-tips-wiki-853.txt*   Write a date-stamped backup of the current file *vtw-853*
+
+Tip 853 [https://vim.fandom.com/wiki/Write_a_date-stamped_backup_of_the_current_file]   Previous |vtw-852| Next |vtw-857|
+
+created 2005 · complexity basic · author Anders Thøgersen · version 5.7
+
+==============================================================================
+
+I sometimes find it useful to take a backup of the file I am currently 
+editing before continuing to edit the file. That's what this function is for.
+
+Put this into your vimrc and press `\ba` while in normal mode, and the 
+current file will be backed up.
+
+>
+    "A mapping to make a backup of the current file.
+    function! WriteBackup()
+      let l:fname = expand('%:p') . '__' . strftime('%Y_%m_%d_%H.%M.%S')
+      silent execute 'write' l:fname
+      echomsg 'Wrote' l:fname
+    endfunction
+    nnoremap <Leader>ba :<C-U>call WriteBackup()<CR>
+<
+
+SEE ALSO                                                    *vtw-853-see-also*
+    - 
+    - Quick save to a temporary file before more edits 
+      [https://vim.fandom.com/wiki/Quick_save_to_a_temporary_file_before_more_edits] 
+      (VimTip694) -- for simpler solution. 
+    - Keep incremental backups of edited files 
+      [https://vim.fandom.com/wiki/Keep_incremental_backups_of_edited_files] 
+      (VimTip892) (Automatic incremental backup ...) 
+
+
+RELATED PLUGINS                                      *vtw-853-related-plugins*
+    - WriteBackup [https://www.vim.org/scripts/script.php?script_id=1828] writes up 
+      to 26 backups (format ) with a custom command. 
+
+
+COMMENTS                                                    *vtw-853-comments*
+    - Is it not better to escape filenames? 
+    - Also, I think it is better if this backup operation doesn't modify the 
+      buffers' modified flag and 
+    - Finally, in order to not break "openability", I prefer keeping the original 
+      extension and inserting my backup extension before that. 
+
+
+Which gives:
+
+>
+    fun! WriteBackup()
+            let _modified = &modified
+            let fname = expand("%:p:r") . "." . strftime("%Y%m%d-%H%M") . "." . expand("%:e")
+            silent exe ":w " . fnameescape(fname)
+            let &modified = _modified
+            echo "Wrote " . fname
+    endfun
+<
+
+Is this apt to replace the function in the main section?
+
+How would you save an unnamed buffer? 83.25.252.50 14:50, August 2, 2012 (UTC)
+
+--Awagner [https://vim.fandom.com/wiki/User:Awagner] 12:25, 18 July 2009 
+(UTC)
+
+==============================================================================
+
+Another trick that I use is:
+
+>
+    :w %33
+<
+
+where 33 is whatever you want, to save foo.bar as foo.bar33 as a backup.
+
+==============================================================================
+
+>
+    " Back up current file to date appended file name and into a specific directory c:/backup
+    " have also put file name last so that, saved file will open correctly in VIM (syntax etc)
+    fun! WriteBackup()
+      let fname = strftime("%Y%m%d_%H%M%S") . "_".expand("%:t")
+      silent exe ":%w c:/backup/" . fname
+      echo "Wrote c:/backup/" . fname
+    endfun
+    nnoremap ,k :call WriteBackup()<CR>
+<
+
+==============================================================================
+
+Also consider script#563 
+[https://www.vim.org/scripts/script.php?script_id=563] to automatically keep 
+backups in RCS.
+
+==============================================================================
+
+I use 'zs' to make a temp copy of the current file in $TMP for temporary 
+editing, this keeps the original extension.
+
+Example: vim file.c -'zs'-> /tmp/file.c-2005-01-17_004201.c
+
+Put this line in vimrc to define the 'zs' macro:
+
+>
+    :map zs :exe "sav $TMP/". substitute(expand("%:t"),strftime("-%Y-%m-%d_.*"),"","").strftime("-%Y-%m-%d_%H%M%S").".".expand("%:e")<CR>
+<
+
+==============================================================================
+
+I already have this line in my _virmrc:
+
+>
+    set bdir=c:\\temp\\editbak " location of the backups
+<
+
+How can I use this value as a location of these backups ?
+
+==============================================================================
+
+This should do what you ask. The trailing \\ in g:bdir is required, and you 
+have to use let instead of set to set a global variable.
+
+>
+    let g:bdir='c:\\temp\\editbak\' " location of the backups
+    fun! WriteBackup()
+      let fname = strftime("%Y%m%d_%H%M%S") . "_".expand("%:t")
+      let path_and_file = g:bdir . fname
+      silent exe ":w " . path_and_file
+      echo path_and_file
+    endfun
+    nnoremap ,k :call WriteBackup()<CR>
+<
+
+==============================================================================
+
+Thanks, works great! One remark:
+
+>
+    >>This should do what you ask. The trailing \\ in g:bdir is required,
+    >>and you have to use let instead of set to set a global variable.
+    >> let g:bdir='c:\\temp\\editbak' " location of the backups
+    
+    Should be:
+     let g:bdir='c:\\temp\\editbak\' " location of the backups
+<
+
+No?
+
+ vim:tw=78:et:ft=help:norl:

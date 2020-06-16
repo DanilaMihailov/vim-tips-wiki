@@ -1,0 +1,177 @@
+*vim-tips-wiki-47.txt*   Swapping characters, words and lines            *vtw-47*
+
+Tip 47 [https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines]   Previous |vtw-45| Next |vtw-48|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+NORMAL-MODE COMMANDS                             *vtw-47-normal-mode-commands*
+
+Swap the current character (the character under the cursor) with the next:
+
+>
+    xp
+<
+
+Swap the current character with the previous:
+
+>
+    Xp
+<
+
+Swap the current line with the next (but see below |vtw-47-mappings| for a 
+better method):
+
+>
+    ddp
+<
+
+Swap the current line with the previous:
+
+>
+    ddkP or ddkkp
+<
+
+Swap the current word with the next (see note):
+
+>
+    dawwP
+    dawelp
+    hdeep                (works at start of first word, useful if your separators aren't spaces)
+    "xdiwdwep"xp         (works with most punctuations too)
+<
+
+Swap the current word with the previous (see note):
+
+>
+    dawbP
+<
+
+Note: These swap-word techniques don't work with punctuation. Use the 
+mappings below to more intelligently move words. However, for many more 
+complex swaps, several plugins |vtw-47-related-plugins| are available which 
+often do a better job.
+
+MAPPINGS                                                     *vtw-47-mappings*
+
+See moving lines up or down 
+[https://vim.fandom.com/wiki/Moving_lines_up_or_down] for the best method to 
+move lines.
+
+To use `gc` to swap the current character with the next, without changing the 
+cursor position:
+
+>
+    :nnoremap <silent> gc xph
+<
+
+To use `gw` to swap the current word with the next, without changing cursor 
+position: (See note.)
+
+>
+    :nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+    " This version will work across newlines:
+    :nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+<
+
+To use `gl` to swap the current word with the previous, keeping cursor on 
+current word: (This feels like "pushing" the word to the left.) (See note.)
+
+>
+    :nnoremap <silent> gl "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+<
+
+To use `gr` to swap the current word with the next, keeping cursor on current 
+word: (This feels like "pushing" the word to the right.) (See note.)
+
+>
+    :nnoremap <silent> gr "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>:nohlsearch<CR>
+<
+
+To use `g{` to swap the current paragraph with the next:
+
+>
+    :nnoremap g{ {dap}p{
+<
+
+Note: Mappings above which perform a search-and-replace (ones containing 
+`:s//`) will operate incorrectly on words with accented characters. To adjust 
+the mappings above to work with your locale, replace all `\w` with [alphabet] 
+and `\W` with `[^alphabet]`, where alphabet is the set of characters in your 
+alphabet. :help |/\w|
+
+For ISO/IEC_8859-1 Latin-1 Supplement characters, substitute all `\w` 
+instances with `[0-9A-Za-zÀ-ÖØ-öø-ÿ_]` and all `\_W` instances with 
+`\_[^0-9A-Za-zÀ-ÖØ-öø-ÿ_]`.
+
+VISUAL-MODE SWAPPING                             *vtw-47-visual-mode-swapping*
+
+To use this mapping: first, delete some text (using a command such as `daw` 
+or `dt` in normal mode, or `x` in visual mode). Then, use visual mode to 
+select some other text, and press Ctrl-X. The two pieces of text should then 
+be swapped.
+
+>
+    :vnoremap <C-X> <Esc>`.``gvP``P
+<
+
+RELATED PLUGINS                                       *vtw-47-related-plugins*
+    - vim-exchange [https://github.com/tommcdo/vim-exchange] Easy text 
+      exchange/swap operator 
+    - Visual Mode Based Swapping 
+      [http://www.drchip.org/astronaut/vim/index.html#VISSWAP] script by Chip 
+      Campbell to swap visually-selected text 
+    - Swap plugin [https://www.vim.org/scripts/script.php?script_id=3250] provides 
+      mappings to swap adjacent words or selected text around a "pivot" 
+    - Transpose words plugin 
+      [https://www.vim.org/scripts/script.php?script_id=3656] swap two words as M-t 
+      (transpose words) in Emacs or bash 
+    - Swap two columns plugin 
+      [https://www.vim.org/scripts/script.php?script_id=3708] swap two columns 
+      (words) in one line or multiple selected lines 
+    - Flipwords plugin [https://www.vim.org/scripts/script.php?script_id=4020] swap 
+      delimited words 
+    - vim-tip-swap-word 
+      [https://github.com/LucHermitte/lh-misc/blob/master/plugin/vim-tip-swap-word.vim] 
+      variation on the topic that avoids side effects like polluting registers 
+
+
+SEE ALSO                                                     *vtw-47-see-also*
+    - Moving lines up or down |vtw-646| mappings to move lines up/down, with 
+      re-indenting 
+    - Transposing |vtw-191| script to move current or selected lines up/down 
+
+
+COMMENTS                                                     *vtw-47-comments*
+
+SWAP ALL LINES IN A VISUAL SELECTED BLOCK *vtw-47-swap-all-lines-in-a-visual-selected-block*
+
+When working with arrays I sometimes realize that I have to do things inthe 
+opposite order. To easily change this I created this small function:
+
+>
+    function SwapAll() range
+      if a:firstline != a:lastline
+        if a:firstline < a:lastline
+          let first=a:firstline
+          let last=a:lastline
+        else
+          let first=a:lastline
+          let last=a:firstline
+        endif
+        while first < last
+          exec first.'m'.last.'|'.(last-1).'m'.(first-1)
+          let first=first+1
+          let last=last-1
+        endwhile
+      endif
+    endfunction
+    
+    vmap     <silent> <C-s>   :call SwapAll()<CR>
+    vnoremap <silent> <C-x>   :call SwapAll()<CR>
+<
+
+--December 4, 2013
+
+ vim:tw=78:et:ft=help:norl:

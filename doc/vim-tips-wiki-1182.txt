@@ -1,0 +1,58 @@
+*vim-tips-wiki-1182.txt*   File explorer                               *vtw-1182*
+
+Tip 1182 [https://vim.fandom.com/wiki/File_explorer]   Previous |vtw-1181| Next |vtw-1183|
+
+created 2006 · complexity basic · author orsenthil · version 5.7
+
+==============================================================================
+
+The command `:Explore` opens the file explorer window.
+
+Select a file or directory name and press Enter to open that file or 
+directory. (For example `:e /home/user` displays the contents of that 
+directory.)
+
+To return to the explorer window, press Ctrl-^ (usually Ctrl-6).
+
+You can also "edit" a directory to explore that directory. For example, `:e 
+..` lists files in the parent directory.
+
+OTHER APPROACHES                                   *vtw-1182-other-approaches*
+
+In normal mode, type `:e` then press Space and Ctrl-D. That will list file 
+names in the current directory. You can type a name and press Enter to edit 
+that file.
+
+If, for example, you want a name that starts with "get" type `:e get` then 
+press Tab repeatedly, or Ctrl-D to list all matches.
+
+Another possibility is to use a mapping like this:
+
+>
+    map <F2> :!ls<CR>:e
+<
+
+SEE ALSO                                                   *vtw-1182-see-also*
+    - Set working directory to the current file 
+      [https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file] - `:e 
+      /home/user` temporarily sets the directory that Vim is in 
+
+
+REFERENCES                                               *vtw-1182-references*
+    - :help |:Explore| 
+    - :help |:Sexplore| 
+    - :help |CTRL-^| 
+
+
+COMMENTS                                                   *vtw-1182-comments*
+
+I wonder if there is a way to navigate the files with case being insensitive 
+after you press Ctrl-D
+
+I have a bug with navigation: sometimes FileExplorer switching onto another 
+buffers. I'm opening 2 buffers: the right panel is empty, the left panel: 
+FileExplorer. I'm on the left. Type ":e /home/user". Then press "-" (go to up 
+directory). Oops! FileExplorer switching me onto the right panel! :-( What is 
+it?
+
+ vim:tw=78:et:ft=help:norl:

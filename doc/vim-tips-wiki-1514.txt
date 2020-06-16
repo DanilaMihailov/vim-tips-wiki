@@ -1,0 +1,85 @@
+*vim-tips-wiki-1514.txt*   Dosini files                                *vtw-1514*
+
+Tip 1514 [https://vim.fandom.com/wiki/Dosini_files]   Previous |vtw-1513| Next |vtw-1515|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Dosini_files] 2007 
+· complexity basic · version 6.0
+
+==============================================================================
+
+Many programs store configuration information in text files with `.ini` 
+extension ("dosini" file type). An example of a section from an ini file is:
+
+>
+    [Preferences]
+    AutoFit=1
+    ToolTips=0
+    PromptToSave=1
+<
+
+Vim includes file `syntax/dosini.vim` for syntax highlighting. This tip shows 
+two enhancements: Folding sections, and correct highlighting when 
+heredoc-style parameters are used.
+
+FOLDING SECTIONS                                   *vtw-1514-folding-sections*
+
+You can enable folding of dosini sections by placing a script in file 
+`~/.vim/after/syntax/dosini.vim` on Unix-based systems, or in file 
+`$HOME/vimfiles/after/syntax/dosini.vim` on Windows systems.
+
+The script should contain:
+
+>
+    syn region dosiniSection start="^\[" end="\(\n\+\[\)\@=" contains=dosiniLabel,dosiniHeader,dosiniComment keepend fold
+    setlocal foldmethod=syntax
+    " Following opens all folds (remove line to start with folds closed).
+    setlocal foldlevel=20
+<
+
+HEREDOC HIGHLIGHTING                           *vtw-1514-heredoc-highlighting*
+
+Some ini parsers suppport heredoc-style parameter settings, for example:
+
+>
+    [Preferences]
+    DefaultText = <<EOT
+    multi
+    line
+    parameter
+    setting
+    EOT
+<
+
+To correctly handle syntax highlighting with heredoc parameters, create file 
+`~/.vim/after/syntax/dosini.vim` (Unix), or 
+`$HOME/vimfiles/after/syntax/dosini.vim` (Windows), containing lines:
+
+>
+    syn match  dosinicomment        "^;.*$\|^#.*$"
+    syn match  dosinilabel          "^\s\+ ="
+    
+    " Handle heredoc syntax in the dosini syntax.
+    " Taken from syntax/perl.ini (:%s/perl/dosini/g).
+    if exists("dosini_string_as_statement")
+      HiLink dosiniStringStartEnd   dosiniStatement
+    else
+      HiLink dosiniStringStartEnd   dosiniString
+    endif
+    
+    HiLink dosiniHereDoc dosiniString
+    
+    syn region dosiniHereDoc matchgroup=dosiniStringStartEnd start=+<<\z(\I\i*\)+      end=+^\z1$+ contains=@dosiniInterpDQ
+    syn region dosiniHereDoc matchgroup=dosiniStringStartEnd start=+<<\s*"\z(.\{-}\)"+ end=+^\z1$+ contains=@dosiniInterpDQ
+    syn region dosiniHereDoc matchgroup=dosiniStringStartEnd start=+<<\s*'\z(.\{-}\)'+ end=+^\z1$+ contains=@dosiniInterpSQ
+    syn region dosiniHereDoc matchgroup=dosiniStringStartEnd start=+<<\s*""+           end=+^$+    contains=@dosiniInterpDQ,dosiniNotEmptyLine
+    syn region dosiniHereDoc matchgroup=dosiniStringStartEnd start=+<<\s*''+           end=+^$+    contains=@dosiniInterpSQ,dosiniNotEmptyLine
+<
+
+REFERENCES                                               *vtw-1514-references*
+    - :help |folding| 
+
+
+COMMENTS                                                   *vtw-1514-comments*
+
+ vim:tw=78:et:ft=help:norl:

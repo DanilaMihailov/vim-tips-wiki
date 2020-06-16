@@ -1,0 +1,247 @@
+*vim-tips-wiki-173.txt*   Switch between Vim window splits easily       *vtw-173*
+
+Tip 173 [https://vim.fandom.com/wiki/Switch_between_Vim_window_splits_easily]   Previous |vtw-172| Next |vtw-174|
+
+created December 4, 2001 · complexity intermediate · author Jonathan 
+McPherson · version 5.7
+
+==============================================================================
+
+ALT+ARROW NAVIGATION                            *vtw-173-alt+arrow-navigation*
+
+Alt+leftarrow will go one window left, etc.
+
+>
+    nmap <silent> <A-Up> :wincmd k<CR>
+    nmap <silent> <A-Down> :wincmd j<CR>
+    nmap <silent> <A-Left> :wincmd h<CR>
+    nmap <silent> <A-Right> :wincmd l<CR>
+<
+
+
+
+CTRL+KJHL NAVIGATION                            *vtw-173-ctrl+kjhl-navigation*
+
+I am a Web developer and I use Vim as my primary editor.
+
+Most programming projects (and Web programming projects, in particular) are 
+spread out over multiple files, which you often want to have open 
+concurrently. If you don't already know, Vim supports this very well! Just 
+use:
+
+>
+    :sp name-of-another-file-to-edit
+<
+
+My problems were that (1) it took too long to move between files, and (2) the 
+files were taking up too much room on the screen.
+
+(1) In order to move to the file in the split above my current window, I was 
+typing Ctrl-W, Up (move up a window) Ctrl-W, _ (maximize the window). That's 
+four keystrokes (more if you count Ctrl and Shift), and they are all over the 
+keyboard. To help avoid this problem, I created this mapping in my .vimrc:
+
+>
+    map <C-J> <C-W>j<C-W>_
+    map <C-K> <C-W>k<C-W>_
+<
+
+Now I can hold down Ctrl and move between windows with the standard Vim 
+movement keys. Much, much quicker!
+
+(2) By default, Vim displays the current line of each minimized file, which 
+(to me) isn't much help and takes up too much screen real estate. I use this 
+line in my .vimrc:
+
+>
+    set wmh=0
+<
+
+This sets the minimum window height to 0, so you can stack many more files 
+before things get crowded. Vim will only display the filename.
+
+Hope this helps those of you who are working on projects with large numbers 
+of files you're constantly flipping through. Happy Vimming!
+
+
+
+COMMENTS                                                    *vtw-173-comments*
+
+One may also do the dual thing for vertical splits/window changes:
+
+>
+    set wmw=0
+    nmap <c-h> <c-w>h<c-w><Bar>
+    nmap <c-l> <c-w>l<c-w><Bar>
+<
+
+
+
+==============================================================================
+
+I have solved the same problem by setting:
+
+>
+    set winminheight=0
+    set winheight=999
+<
+
+winheight is always bigger than my window so the current window is maximized.
+
+I do not have to set mapping and I can use other commands to change buffer, 
+fi C-W C-W, mouse click on status line of the buffer etc.
+
+If the order of the settings are reversed vim might fail to set the 
+winminheight saying "E36: Not enough room". In this case it helps to set the 
+winheight less than the screen height and then set winminheight before setting 
+winheight=999 again. So to have the settings in .vimrc:
+
+>
+    set winheight=1    "Make room for minheight change
+    set winminheight=0 "Set the height of inactive window
+    set winheight=999  "Maximize active window
+<
+
+==============================================================================
+
+I created the SwitchWindow function which uses the ALT left/right/up/down 
+cursor keys to easily move between windows.
+
+>
+    " Switch window mappings /*{{{*/
+    nnoremap <A-Up> :normal <c-r>=SwitchWindow('+')<CR><CR>
+    nnoremap <A-Down> :normal <c-r>=SwitchWindow('-')<CR><CR>
+    nnoremap <A-Left> :normal <c-r>=SwitchWindow('<')<CR><CR>
+    nnoremap <A-Right> :normal <c-r>=SwitchWindow('>')<CR><CR>
+    
+    function! SwitchWindow(dir)
+      let this = winnr()
+      if '+' == a:dir
+        execute "normal \<c-w>k"
+        elseif '-' == a:dir
+        execute "normal \<c-w>j"
+        elseif '>' == a:dir
+        execute "normal \<c-w>l"
+        elseif '<' == a:dir
+        execute "normal \<c-w>h"
+      else
+        echo "oops. check your ~/.vimrc"
+        return ""
+      endif
+    endfunction
+    " /*}}}*/
+<
+
+==============================================================================
+
+Another very useful mapping for me is:
+
+>
+    :imap <C-w> <C-o><C-w>
+<
+
+this allows all window commands in insert mode and i'm not accidentally 
+deleting words anymore :-)
+
+==============================================================================
+
+No keypressing -- focus-follows-mouse for gvim, in _gvimrc
+
+>
+    :set mousefocus
+<
+
+==============================================================================
+
+To quickly resize windows with a vertical split:
+
+>
+    :map - <C-W>-
+    :map + <C-W>+
+<
+
+To resize vertical windows quickly with ALT-SHIFT-[<>]:
+
+>
+    :vsplit other.fil
+    :map <M-<> <C-W><
+    :map <M->> <C-W>>
+<
+
+Always handy to scroll between open windows.
+
+>
+    :map <F6> <C-W>w
+<
+
+==============================================================================
+
+I now use the tabbar plugin script#1338 
+[https://www.vim.org/scripts/script.php?script_id=1338] to simply ALT-1, 
+ALT-2, etc to switch between buffers. The tabbar plugin is derived from the 
+famous minibufexpl plugin with some useful enhancements (like the ALT-n 
+shortcut to switch between buffers).
+
+==============================================================================
+
+I love this tip! I found [however] for my purposes it was very inconvenient 
+to have the 'from' window minimize itself, especially since I often want to 
+look at portions of two (or more) different scripts simultaneously, whilst 
+jumping the cursor between them-perhaps to copy some code from one to the 
+other. Here was my solution:
+
+>
+    map <C-J> <C-W>j<15C-W>_
+    map <C-K> <C-W>k<15C-W>
+<
+
+By adding the value '15' in the appropriate spot, it designates a specific 
+size for a window. However, serendipity intervened...although that is the 
+correct size (per window) when two windows share the screen, if a third (or 
+4th, or whatever) are added, the screen will continue to display each window 
+with an equal share of the real-estate.
+
+==============================================================================
+
+I've found that remapping my tab keys to behave like Firefox solves a lot of 
+the mental problems I have when working with multiple applications. Of course, 
+having C-w mapping to closing a tab isn't quite the best thing when you've got 
+split windows (especially for plugins like Project). The easiest way I've 
+found to avoid this is to simply over-ride the navigation keys with ctrl or 
+alt as follows:
+
+>
+    :nmap <silent> <C-h> :wincmd h<CR>
+    :nmap <silent> <C-j> :wincmd j<CR>
+    :nmap <silent> <C-k> :wincmd k<CR>
+    :nmap <silent> <C-l> :wincmd l<CR>
+<
+
+Of course you might want to retain your old C-w window-managing key in 
+something else, like C-S-w:
+
+>
+    :nmap <silent> <C-S-w> :wincmd<Space>
+<
+
+This saves me a lot of headaches, especially since it's already painful 
+enough to switch between terminals and OSes in a mixed environment like a 
+school lab.
+
+==============================================================================
+
+I'm learning vim and working on a Mac laptop, and C-w is a pain since there's 
+only the one control key on the left side of the keyboard. I'm learning tmux 
+at the same time and have tmux pane navigation mapped to C-b h,j,k,l. I'm 
+constantly confusing vim and tmux navigation, so I mapped vim windows 
+navigation to a <leader><key> combination:
+
+>
+    let mapleader= ","
+     map <leader>h :wincmd h<CR>
+     map <leader>j :wincmd j<CR>
+     map <leader>k :wincmd k<CR>
+     map <leader>l :wincmd l<CR>
+<
+
+ vim:tw=78:et:ft=help:norl:

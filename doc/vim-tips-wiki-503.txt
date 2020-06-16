@@ -1,0 +1,110 @@
+*vim-tips-wiki-503.txt*   PuTTY numeric keypad mappings                 *vtw-503*
+
+Tip 503 [https://vim.fandom.com/wiki/PuTTY_numeric_keypad_mappings]   Previous |vtw-502| Next |vtw-506|
+
+created 2003 · complexity advanced · version 6.0
+
+==============================================================================
+
+This tip contains information on using Vim over PuTTY.
+
+PuTTY [http://www.chiark.greenend.org.uk/~sgtatham/putty/] is a terminal 
+emulator for Windows. It is commonly used as an SSH client to connect to a 
+Unix-based server using the secure shell protocol. Console Vim (not gvim) can 
+be run on the server, using PuTTY as the terminal.
+
+PuTTY acts as an xterm. Check your settings or just `echo $TERM` at the 
+command prompt on most Unix systems to verify the xterm type.
+
+USING THE NUMERIC KEYPAD                    *vtw-503-using-the-numeric-keypad*
+
+Why do letters show up when I try to enter numbers from the keypad? Why 
+doesn't the numpad work as expected? Why does the NumLock key bring up 
+help.txt?
+
+These confusing things happen when PuTTY is in "application keypad mode".
+
+PuTTY can be configured so that keys on the numeric keypad (including 
+NumLock) will send an escape sequence ("application keypad mode"), or will 
+behave as a standard number pad (when NumLock is on, send the characters 
+`[0-9/*-+.]`; otherwise, send the codes for the cursor movement keys).
+
+For use in Vim, you want to disable application keypad mode:
+    - Run PuTTY Configuration. 
+    - In the left pane, select Terminal, Features. 
+    - Put a check mark next to "Disable application keypad mode". 
+    - In the left pane, select Session. 
+    - Save the settings. 
+
+
+Now the NumLock key and the numbers on the numpad should work in Vim, as 
+expected.
+
+Explanation If PuTTY uses application keypad mode, pressing a key on the 
+keypad (including NumLock), causes an escape sequence 
+[http://en.wikipedia.org/wiki/Escape_sequence] to be sent to Vim; the Esc and 
+following characters will cause many confusing things to occur in your Vim 
+session.
+
+SEE ALSO                                                    *vtw-503-see-also*
+    - Invert the number row keys for faster typing 
+      [https://vim.fandom.com/wiki/Invert_the_number_row_keys_for_faster_typing] 
+    - VimLock mode to enter numbers 
+      [https://vim.fandom.com/wiki/VimLock_mode_to_enter_numbers] 
+
+
+COMMENTS                                                    *vtw-503-comments*
+
+May rename this tip so any information relevant to using PuTTY can be placed 
+here.
+
+The original tip was a confused suggestion to define certain mappings so that 
+Vim recognizes the escape sequences generated when keys on the numeric keypad 
+are pressed, if the keypad is set to "application keypad mode".
+
+For example, in application keypad mode, pressing the `1` key on the numeric 
+keypad causes PuTTY to send the escape sequence <Esc>Oq (three byes). Pressing 
+the NumLock key similarly generates an escape sequence.
+
+It is possible to have Vim interpret the escape sequences using the following 
+mappings (but this is not necessary – see tip):
+
+>
+    :inoremap <Esc>Oq 1
+    :inoremap <Esc>Or 2
+    :inoremap <Esc>Os 3
+    :inoremap <Esc>Ot 4
+    :inoremap <Esc>Ou 5
+    :inoremap <Esc>Ov 6
+    :inoremap <Esc>Ow 7
+    :inoremap <Esc>Ox 8
+    :inoremap <Esc>Oy 9
+    :inoremap <Esc>Op 0
+    :inoremap <Esc>On .
+    :inoremap <Esc>OQ /
+    :inoremap <Esc>OR *
+    :inoremap <Esc>Ol +
+    :inoremap <Esc>OS -
+    :inoremap <Esc>OM <Enter>
+<
+
+==============================================================================
+
+Hmm, this may be true, but a mapping or similar method would allow you to 
+distinguish between <k1> and 1, <kEnter> and <CR>, <kDivide> and /, etc. 
+Perhaps we should clean up this mapping and present it as a viable alternative 
+(I'm interested in this because I'm having trouble even on Windows gvim 
+mapping <kEnter> to something different than <Enter>). --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] 15:32, 17 July 2009 (UTC)
+
+==============================================================================
+
+This tip should remain here! After a while struggling with this very problem 
+with vnc viewer 4.1.3 under XP with a Debian lenny vnc4server 4.1.1+X4.3.0-31, 
+this vim remapping is the only solution which work. I hope using the vnc 
+keyword should help others who has this problem to find this solution, as I 
+found it by mere luck, writing a post on the vnc users mailing list and 
+seeking for putty related examples and solutions. --LoneWolf, 9:32, 23 
+december 2009 (GMT)
+
+ vim:tw=78:et:ft=help:norl:

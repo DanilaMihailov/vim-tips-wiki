@@ -1,0 +1,50 @@
+*vim-tips-wiki-748.txt*   Get bright background colors in Linux console *vtw-748*
+
+Tip 748 [https://vim.fandom.com/wiki/Get_bright_background_colors_in_Linux_console]   Previous |vtw-747| Next |vtw-749|
+
+created June 17, 2004 · complexity intermediate · author Michael Hofmann · 
+version 6.0
+
+==============================================================================
+
+To get 16 background colors in a linux framebuffer console to achieve an 
+appearance like in a 16 color xterm, place the following in your vimrc (you 
+have to use a real escape character instead of <Esc>, try something like 
+<Ctrl-V><Esc>):
+
+>
+    if &term =~ "linux"
+      if has("terminfo")
+        set t_Co=16
+        " We use the blink attribute for bright background (console_codes(4)) and the
+        " bold attribute for bright foreground. The redefinition of t_AF is necessary
+        " for bright "Normal" highlighting to not influence the rest.
+        set t_AB=<Esc>[%?%p1%{7}%>%t5%p1%{8}%-%e25%p1%;m<Esc>[4%dm
+        set t_AF=<Esc>[%?%p1%{7}%>%t1%p1%{8}%-%e22%p1%;m<Esc>[3%dm
+      endif
+    endif
+<
+
+Pseudo code for the terminfo entry:
+
+>
+    if bgcol > 7
+      blink = on (<Esc>[5m)
+      bgcolor = bgcol - 8 (<Esc>[4...m)
+    else
+      blink = off (<Esc>[25m)
+      bgcolor = bgcol
+    end
+    
+    if fgcol > 7
+      bold = on (<Esc>[1m)
+      fgcolor = fgcol - 8 (<Esc>[3...m)
+    else
+      bold = off (<Esc>[22m)
+      fgcolor = fgcol
+    end
+<
+
+COMMENTS                                                    *vtw-748-comments*
+
+ vim:tw=78:et:ft=help:norl:

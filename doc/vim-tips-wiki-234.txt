@@ -1,0 +1,207 @@
+*vim-tips-wiki-234.txt*   Command line tricks                           *vtw-234*
+
+Tip 234 [https://vim.fandom.com/wiki/Command_line_tricks]   Previous |vtw-232| Next |vtw-235|
+
+created 2002 · complexity basic · author David Rayner (zzapper) · version 6.0
+
+==============================================================================
+
+These tips save me wearing out my fingers with unnecessary keystrokes. They 
+assume Unix, but I also use them on a Windows Unix Shell (MKS).
+
+>
+    #When I know the file I want to edit is the most recent file in a directory
+    alias -x vew='vi `l\s -t * | head -1 `'
+    
+    #When I know the file I want to edit contains a unique keyword.
+    #This is actually in a little shell script call ed vg where the
+    #keyword is passed as parameter $1
+    
+    #/bin/sh
+    #name vg
+    vi.exe $(grep -isl $1 *) &
+    
+    #some variations
+    alias -x vp='vi `l\s -t *.@(pl|cgi)| head -1 `'
+    
+    #execute the most recent script (I call this from within VIM with a mapped button)
+    alias -x xew='`l\s -t *.pl | head -1 `'
+<
+
+COMMENTS                                                    *vtw-234-comments*
+
+I forgot my best script v.ksh this allows me to edit a file(s) containing any 
+particular substring such say I know that a file in a directory is the only 
+one that contains the letter z I just need to type
+
+>
+    > v z
+<
+
+>
+    #v.ksh
+    #description : vi all files containing $1 in name
+    #but excluding binaries
+    #set -x
+    filenum=0
+    for x in *$1*
+    do
+      if [[ "$x" != *.@(xls|exe|mdb) ]] && [ -f "$x" ]
+      then
+        filelst[$filenum]=$x
+        let filenum=filenum+1
+      fi
+    done
+    vim ${filelst[*]} &
+<
+
+If your shell (e.g. csh) allows you alias parameters this can also be done 
+with something like:
+
+>
+    alias v 'vi *\!*\*'
+<
+
+And as a bash function:
+
+>
+    function v () {
+       vim *${1}*
+    }
+<
+
+You can now edit a file in a directory that is say the only one with a 
+filename containing say "bank" just by typing
+
+>
+    > v bank
+<
+
+Also don't forget the wonderful fact that Vim will edit a pipe
+
+>
+    > ls -1 fred*.c | vim -
+<
+
+will result in Vim opening an unnamed file containing a list of files fred* r
+
+==============================================================================
+
+That 'vew' thing is very cool. I _always_ want to do that, very useful. I had 
+to have it like this under cygwin.
+
+>
+    alias vnew='vim `ls -t | head -1 `'
+    alias vold='vim `ls -t | tail -1 `'
+<
+
+vold is cool when you want to edit each file in a directory but don't want to 
+deal with buffers inside vim.
+
+==============================================================================
+
+Open a file with vi(m) and jump to a particular place defined by "searchstr"
+
+>
+    vi -c "/searchstr" main.c
+<
+
+Turn this into a script
+
+>
+    #vis.ksh
+    #vi with search
+    vi -c "/$1" $2
+<
+
+==============================================================================
+
+How many times you decided to use one file as a basis for a new file, started 
+editing the original, and then absently minded saved it, rather than saving 
+as!
+
+This shell script simplifies and avoids this problem.
+
+>
+    #vcp.ksh
+    #description : copy file $1 to $2 then edit $2
+    #set -x
+    cp $1 $2
+    vi $2
+<
+
+==============================================================================
+
+View gvim command line help by typing `gvim -h`
+
+Notables
+
+>
+    gvim -u local_vimrc
+    gvim --noplugin
+    gvim -v (Vi compatible)
+    gvim + fred.php (jump to End of file)
+    gvim +10 fred.php (jump to 10th line)
+    gvim -w hist.txt fred.php (append all typed commands to hist.txt)
+    gvim -c "/searchstr" main.c (jump to string when main.c opened)(note quotes)
+    gvim -R important.txt (open read only)
+<
+
+==============================================================================
+
+To summarise
+
+>
+    #the following is an alias to edit the most recent file in a directory
+    > vew
+    
+    #the following script v.ksh, edits any file in current directory whose
+    #name contains say "main"
+    >v main
+    
+    #the following script vg.ksh (see below), edits any file containing the
+    #specified keyword and jumps to 1st occurrence
+    >vg fn_main
+    
+    #vg.ksh
+    gvim.exe -c "/$1" $(grep -isl "$1" *)
+    
+    #gvim can edit a pipe
+    ls -1 *.php | gvim -
+<
+
+==============================================================================
+
+>
+    #Ftping via Vim
+    gvim ftp://ftp.yoursite.co.uk/public_html/index.html
+    
+    #Open file1 & file2 into a split window
+    gvim -o file1 file2
+    
+    #compare differences in 2 files (vimdiff)
+    #see :h vimdiff
+    gvim -d file1 file1
+    
+    #performing edits on multiple files (pipe separates commands)
+    vim -c "argdo %s/ABC/DEF/g | w" *.txt
+    
+    vim -c "argdo %s/FOO/BAR/g | update" `grep -l FOO *`
+<
+
+==============================================================================
+
+Proper editing of the contents of a pipe on Unix is possible even with 
+console Vim by using a temporary file and redirection of IO to the tty, an 
+example of which is script#2769 
+[https://www.vim.org/scripts/script.php?script_id=2769].
+
+>
+    find | pipe.vim | nl
+    find | xargs pipe.vim
+    
+    # for end of pipe/less with syntax highlighting, vi - is better:
+    cat /etc/samba/smb.conf | vi -
+<
+
+ vim:tw=78:et:ft=help:norl:

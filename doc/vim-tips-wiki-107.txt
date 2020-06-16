@@ -1,0 +1,65 @@
+*vim-tips-wiki-107.txt*   Convert enum to string table                  *vtw-107*
+
+Tip 107 [https://vim.fandom.com/wiki/Convert_enum_to_string_table]   Previous |vtw-106| Next |vtw-108|
+
+created September 5, 2001 · complexity basic · author Thomas Ramming · 
+version 5.7
+
+==============================================================================
+
+When testing your C/C++ programs, you sometimes wish to have a trace output 
+showing you which enum value is used.
+
+You can do this by creating a string table for that enum type, which contains 
+the enum identifier as a string.
+
+For example:
+
+>
+    printf("%s", MyEnumStringTable[MyEnumVal]);
+<
+
+You can create the complete string table by:
+    - Marking the lines containing the complete typedef enum. 
+    - Selecting menu C/C++.transform enum2Stringtab 
+
+
+You can create string table entries by:
+    - Marking the lines within the typedef enum 
+    - Selecting menu C/C++.transform enum2String 
+
+
+This makes it easy to keep the enum (on changes) consistent to the string 
+table.
+
+Add the following lines to your gvimrc file:
+
+>
+    31amenu C/C++.transform\ enum2Stringtab :s#[ ]*\\(\\w\\+\\)#/* \\1 */ "\\1"#<CR>o};<Esc>uOstatic const char* const Names[] = {<Esc><CR>:noh<CR>
+    31vmenu C/C++.transform\ enum2Stringtab :s#[ ]*\\(\\w\\+\\)#/* \\1 */ "\\1"#<CR>o};<Esc>uOstatic const char* const Names[] = {<Esc><CR>:noh<CR>
+    
+    31amenu C/C++.transform\ enum2String :s#[ ]*\\(\\w\\+\\)#/* \\1 */ "\\1"#<CR>o}<Esc>:noh<CR>
+    31vmenu C/C++.transform\ enum2String :s#[ ]*\\(\\w\\+\\)#/* \\1 */ "\\1"#<CR>o}<Esc>:noh<CR>
+<
+
+COMMENTS                                                    *vtw-107-comments*
+
+Another similar way of doing this, is to define a function in your .vimrc 
+file
+
+>
+    function! Enum2Array()
+        exe "normal! :'<,'>g/^\\s*$/d\n"
+        exe "normal! :'<,'>s/\\(\\s*\\)\\([[:alnum:]_]*\\).*/\\1[\\2] = \"\\2\",/\n"
+        normal `>
+        exe "normal a\n};\n"
+        normal `<
+        exe "normal iconst char *[] =\n{\n"
+        exe ":'<,'>normal ==" " try some indentation
+        normal `< " set the cursor at the top
+    endfunction
+<
+
+and then visual select the enumeration, and call the function.
+
+ vim:tw=78:et:ft=help:norl:

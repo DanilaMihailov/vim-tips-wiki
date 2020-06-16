@@ -1,0 +1,51 @@
+*vim-tips-wiki-752.txt*   Make C-Left C-Right behave as in Windows      *vtw-752*
+
+Tip 752 [https://vim.fandom.com/wiki/Make_C-Left_C-Right_behave_as_in_Windows]   Previous |vtw-751| Next |vtw-753|
+
+created June 21, 2004 · complexity intermediate · author niastarik · version 
+6.0
+
+==============================================================================
+
+For quite a long time I was annoyed to not be able to use <C-Left> <C-Right> 
+when selecting text in Vim. Actually thoses mappings were working but like the 
+W and B keys instead of w and b. The following mappings correct this problem 
+and make those bindings work like in Windows.
+
+You may have to enable select-mode for this to work . I personnally source 
+the $VIMRUNTIME/mswin.Vim script in my vimrc which make select mode behave 
+like Windows. This script is available in the Windows distribution of Vim. On 
+linux, you may simply put the following command in your vimrc: "behave mswin". 
+This will make selection work like in Windows.
+
+>
+    "Edit mapping (make cursor keys work like in Windows: <C-Left><C-Right>
+    "Move to next word.
+    nnoremap <C-Left> b
+    vnoremap <C-S-Left> b
+    nnoremap <C-S-Left> gh<C-O>b
+    inoremap <C-S-Left> <C-\><C-O>gh<C-O>b
+    
+    nnoremap <C-Right> w
+    vnoremap <C-S-Right> w
+    nnoremap <C-S-Right> gh<C-O>w
+    inoremap <C-S-Right> <C-\><C-O>gh<C-O>w
+<
+
+REFERENCES                                                *vtw-752-references*
+    - :help |gh| 
+    - :help |Select-mode| 
+    - :help |:behave| 
+
+
+COMMENTS                                                    *vtw-752-comments*
+
+If you want more complete simulation of Windows selection mode try:
+
+>
+    set keymodel=startsel,stopsel
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

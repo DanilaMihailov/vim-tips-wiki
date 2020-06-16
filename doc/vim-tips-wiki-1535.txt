@@ -1,0 +1,68 @@
+*vim-tips-wiki-1535.txt*   Use :next to search for files in the current directory *vtw-1535*
+
+Tip 1535 [https://vim.fandom.com/wiki/Use_:next_to_search_for_files_in_the_current_directory]   Previous |vtw-1534| Next |vtw-1536|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Use_:next_to_search_for_files_in_the_current_directory] 
+2007 · complexity basic · author Yaojg · version 7.0
+
+==============================================================================
+
+Vim's find only accepts exact file names. It does not accept wild chars like 
+* and **.
+
+`:next` is good way to search for files in the current directory.
+
+For example, if the current directory is d:/vim/reason,
+
+>
+    :next **/*Filter.java
+<
+
+searchs all the files in d:/vim directory recursively to find files whose 
+names are suffixed with Filter.java.
+
+:help |:next|
+
+COMMENTS                                                   *vtw-1535-comments*
+
+TO DO
+    - Explain the point of this tip, as opposed to using other tools that may be 
+      more suited to the task. 
+    - Can the built-in `:Explore` command be used? 
+    - Shouldn't the help be to `:next_f` rather than `:next`? 
+    - The "for example" is unnecessarily confusing. There is no reason to have an 
+      example with "vim" in the path. Also, delete the "d:" – it serves no purpose. 
+    - Does the command really search the parent directory like the words suggest? 
+
+
+==============================================================================
+
+Is there a way to make it search the full path, and not just current 
+directory?
+
+ROUGH MERGE IN OF MATERIAL BY USER TALK:CHUCK FORBISH [HTTPS://VIM.FANDOM.COM/WIKI/USER_TALK:CHUCK_FORBISH] *vtw-1535-rough-merge-in-of-material-by-user-talk:chuck-forbish-[https://vim.fandom.com/wiki/user_talk:chuck_forbish]*
+
+I use the following mappings to iterate through files in my argument list 
+(:args).
+
+>
+    nmap <c-right> :n<CR>
+    nmap <c-left> :N<CR>
+<
+
+Using control and an arrow key is much faster than typing ':cn<CR>'.
+
+Similarly you can use the up and down arrows for going back and forth for the 
+times there is more than one matching tag.
+
+>
+    nmap <C-Down> :tn<CR>
+    nmap <C-Up> :tN<CR>
+<
+
+These key sequences support repeating if kept pressed.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

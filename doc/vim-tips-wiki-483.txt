@@ -1,0 +1,101 @@
+*vim-tips-wiki-483.txt*   Search using quickfix to list occurrences     *vtw-483*
+
+Tip 483 [https://vim.fandom.com/wiki/Search_using_quickfix_to_list_occurrences]   Previous |vtw-482| Next |vtw-484|
+
+created 2003 · complexity intermediate · author Feral · version 7.0
+
+==============================================================================
+
+You can define a command allowing you to type `:GREP` to search for the 
+current word under the cursor, with the results presented in the quickfix 
+window as a 'list occurrences' search.
+
+See :help |:ilist| for another method.
+
+This is inspired by VimTip391 |vtw-391| Simple programmers TODO list using 
+grep, and taglist.vim in script#273 
+[https://www.vim.org/scripts/script.php?script_id=273].
+
+>
+    " Easily GREP current word in current file.
+    command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :cc
+<
+
+This makes use of the vimgrep command, normally used as a "find in files" 
+[https://vim.fandom.com/wiki/Find_in_files_within_Vim] utility, but here 
+limited to search the current file only. In Vim 7.0 and later, see :help 
+|:vimgrep| for help on this tool. Alternatively, you could replace "vimgrep" 
+with "grep", and set the grepprg option (see :help 'grepprg'. For example, you 
+might use `set grepprg=C:\bin\grep.exe\ -niH` on a win32 system.
+
+Here are some mappings to avoid needing to type `:cnext` and `:cprev` to move 
+through the quickfix window.
+
+>
+    " Assign some keys for handy quickfix window commands.
+    if has("win32")
+      nnoremap <kPlus>     :call <SID>Fancy_Quickfix_Cmd(':cnext')<CR>
+      nnoremap <kMinus>    :call <SID>Fancy_Quickfix_Cmd(':cprev')<CR>
+      nnoremap <kMultiply> :call <SID>Fancy_Quickfix_Cmd(':cc')<CR>
+      nnoremap <c-kPlus>   :clast<CR>
+      nnoremap <c-kMinus>  :cfirst<CR>
+      nnoremap <m-kPlus>   :cnewer<CR>
+      nnoremap <m-kMinus>  :colder<CR>
+    endif
+    
+    " Very simple wrapper: do quickfix cmd, center line and,
+    " if taglist.vim's window is open, sync.
+    function s:Fancy_Quickfix_Cmd(Cmd)
+      try
+        execute a:Cmd
+      catch /^Vim(\a\+):E553:/
+        echohl ErrorMsg | echo v:exception | echohl None
+      endtry
+      norm! zz
+      " If the taglist window is open then :TlistSync
+      "    Tag list window name: '__Tag_List__'
+      if bufwinnr('__Tag_List__') != -1
+        TlistSync
+      endif
+    endfunction
+<
+
+If you do not want to use a user command, you can use:
+
+>
+    nnoremap <kPlus>      :cnext<CR> :norm! zz<CR> :TlistSync<CR>
+    nnoremap <kMinus>     :cprev<CR> :norm! zz<CR> :TlistSync<CR>
+    nnoremap <kMultiply>  :cc<CR> :norm! zz<CR>
+<
+
+Of course if you do not want the syncing with taglist.vim simply remove 
+`:TlistSync`.
+
+Now, the advantage of having s:Fancy_Quickfix_Cmd() is that we can 
+conditionally do something based on the command, or some other attribute. In 
+this case we function the same for all commands (and just blindly execute 
+them). We do check to see if the taglist window is open and if so ask it to 
+Sync, if it is not, we don't. One other (minor, cosmetic) advantage to this is 
+we see the user command in the echo area and not the last command executed (as 
+with just the pure mapping method directly above).
+
+Another way to list occurrences in the current file would be
+
+>
+    :g//p
+<
+
+with the text you want to list as your current search pattern. See :help |:g| 
+and :help |:p|)
+
+Of course, :cnext can be abbreviated to :cn, and :cprev can be abbreviated to 
+:cp.
+
+COMMENTS                                                    *vtw-483-comments*
+
+TODO Check that no more changes need to be made since I quickly used 
+":vimgrep" instead of "grep" in the command.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

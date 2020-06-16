@@ -1,0 +1,24 @@
+*vim-tips-wiki-266.txt*   Command line switch to source a script        *vtw-266*
+
+Tip 266 [https://vim.fandom.com/wiki/Command_line_switch_to_source_a_script]   Previous |vtw-265| Next |vtw-267|
+
+created June 26, 2002 · complexity basic · author Max Ischenko · version 6.0
+
+==============================================================================
+
+Use the -S option to start Vim and source a script file:
+
+>
+    gvim -S foobar.vim
+<
+
+This tip is trivial, but I see the following too often. Time to update your 
+mind!
+
+>
+    gvim -c ":so foobar.vim"
+<
+
+COMMENTS                                                    *vtw-266-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,113 @@
+*vim-tips-wiki-22.txt*   Handle common command typos                     *vtw-22*
+
+Tip 22 [https://vim.fandom.com/wiki/Handle_common_command_typos]   Previous |vtw-21| Next |vtw-23|
+
+created 2001 · complexity basic · author glennj · version 5.7
+
+==============================================================================
+
+Since Vim uses nearly the entire keyboard to do different things depending on 
+the mode it is in, simple typos can have much bigger effects than in most 
+other editors. A one-letter difference can make Vim do something entirely 
+different than what you intended. While it is normally easy enough to just the 
+mistake, it can be better to avoid the mistake entirely.
+
+NORMAL AND INSERT MODES                       *vtw-22-normal-and-insert-modes*
+
+If you find yourself making a typo very frequently in a normal-mode command, 
+and accidentally enter a command you almost never use, it is very easy to 
+correct.
+
+For example, if in insert mode you often miss the <Esc> key and hit <F1> 
+instead, you can map <F1> to either a "do nothing" command, or to the intended 
+<Esc> command:
+
+>
+    inoremap <F1> <Nop>
+<
+
+>
+    inoremap <F1> <ESC>
+<
+
+If in visual or normal mode you accidentally hold down the <Shift> key while 
+pressing the <Down> arrow, and you only intend to press <Down> and not 
+<S-Down>:
+
+>
+    " visual mode
+    vnoremap <S-Up> <Up>
+    vnoremap <S-Down> <Down>
+    " normal mode
+    nnoremap <S-Up> <Up>
+    nnoremap <S-Down> <Down>
+<
+
+This might occur often in practice if you use linewise-visual mode by 
+pressing V, and then hold the <Shift> key too long.
+
+It is worth noting that S-Up and S-Down are often unavailable on terminals. I 
+would expand on these mappings like this:
+
+>
+    nnoremap <S-up> V
+    nnoremap <S-left> v
+    nnoremap <S-down> V
+    nnoremap <S-right> v
+    xnoremap <S-up> k
+    xnoremap <S-left> h
+    xnoremap <S-down> j
+    xnoremap <S-right> l
+    snoremap <S-up> <up>
+    snoremap <S-left> <left>
+    snoremap <S-down> <down>
+    snoremap <S-right> <right>
+    onoremap <S-up> k
+    onoremap <S-left> h
+    onoremap <S-down> j
+    onoremap <S-right> l
+    inoremap <S-up> <ESC>gH
+    inoremap <S-left> <ESC>gh
+    inoremap <S-down> <ESC>gH
+    inoremap <S-right> <ESC>gh
+<
+
+COMMAND-LINE MODE                                   *vtw-22-command-line-mode*
+
+Use cabbrev to correct command typos that you commonly make.
+
+For example, if you tend to hold the shift key too long:
+
+>
+    cabbrev Q quit
+    cabbrev W write
+<
+
+or, if you tend to miss the "!" and hit the "@" as well:
+
+>
+    cabbrev q!@ q!
+    cabbrev wq!@ wq!
+<
+
+If you ever find that you actually need to type one of the typos you make, 
+you'll need to disable cabbrev [https://vim.fandom.com/wiki/Disabling_cabbrev] 
+temporarily.
+
+Most typos of the types shown above usually happen when entering a single, 
+quick command like `:w`. It might be a good idea to use a cabbrev that only 
+triggers in the first column 
+[https://vim.fandom.com/wiki/Replace_a_builtin_command_using_cabbrev] of the 
+command line.
+
+COMMENTS                                                     *vtw-22-comments*
+
+ja lubię
+
+>
+    noremap J j
+    noremap <Leader>J J
+    noremap K k
+<
+
+ vim:tw=78:et:ft=help:norl:

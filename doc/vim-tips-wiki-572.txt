@@ -1,0 +1,92 @@
+*vim-tips-wiki-572.txt*   Auto highlight current word when idle         *vtw-572*
+
+Tip 572 [https://vim.fandom.com/wiki/Auto_highlight_current_word_when_idle]   Previous |vtw-571| Next |vtw-573|
+
+created 2003 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+Vim can easily highlight all search pattern matches 
+[https://vim.fandom.com/wiki/Highlight_all_search_pattern_matches] and search 
+for the current word [https://vim.fandom.com/wiki/Search] (the word under the 
+cursor). This tip shows how to automatically highlight all occurrences of the 
+current word without searching. That can be useful when examining unfamiliar 
+source code: just move the cursor to a variable, and all occurrences of the 
+variable will be highlighted.
+
+SCRIPT                                                        *vtw-572-script*
+
+Put the following code in your vimrc [https://vim.fandom.com/wiki/Vimrc], or 
+create file `~/.vim/plugin/autohighlight.vim` (Unix) or 
+`$HOME/vimfiles/plugin/autohighlight.vim` (Windows) containing the script 
+below. Then restart Vim.
+
+To automatically highlight the current word, type `z/`. To turn off, type 
+`z/` again.
+
+>
+    " Highlight all instances of word under cursor, when idle.
+    " Useful when studying strange source code.
+    " Type z/ to toggle highlighting on/off.
+    nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+    function! AutoHighlightToggle()
+      let @/ = ''
+      if exists('#auto_highlight')
+        au! auto_highlight
+        augroup! auto_highlight
+        setl updatetime=4000
+        echo 'Highlight current word: off'
+        return 0
+      else
+        augroup auto_highlight
+          au!
+          au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+        augroup end
+        setl updatetime=500
+        echo 'Highlight current word: ON'
+        return 1
+      endif
+    endfunction
+<
+
+Another variant which respects the current `search` pattern, which will still 
+be highlighted with `hlsearch`:
+
+>
+    " autosave delay, cursorhold trigger, default: 4000ms
+    setl updatetime=300
+    
+    " highlight the word under cursor (CursorMoved is inperformant)
+    highlight WordUnderCursor cterm=underline gui=underline
+    autocmd CursorHold * call HighlightCursorWord()
+    function! HighlightCursorWord()
+        " if hlsearch is active, don't overwrite it!
+        let search = getreg('/')
+        let cword = expand('<cword>')
+        if match(cword, search) == -1
+            exe printf('match WordUnderCursor /\V\<%s\>/', escape(cword, '/\'))
+        endif
+    endfunction
+<
+
+COMMENTS                                                    *vtw-572-comments*
+
+ESCAPING                                                    *vtw-572-escaping*
+
+A recent edit (here 
+[https://vim.fandom.com/index.php?title=Auto_highlight_current_word_when_idle&diff=29630&oldid=27148]) 
+introduced `escape()` into the previous line (which was au CursorHold * let @/ 
+= '\<'.expand('<cword>').'\>'). In general the escape is a good idea, but in 
+practice the current word (cword) is unlikely to have punctuation in it that 
+needs escaping. Thoughts? JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 07:11, March 3, 2011 (UTC)
+
+I note that <cword> works depending on the 'isk' setting, which for some filetypes (very notably, help files) could contain a backslash. I note that the backslash is the only character escaped in the addition. Since we are using the "very no magic" \V modifier, this is really the only character that could possibly need escaping. I think we should keep it, but explain why. --Fritzophrenic 15:30, March 3, 2011 (UTC)
+
+LOAD AT STARTUP                                      *vtw-572-load-at-startup*
+
+How can I load this at startup without a mapping?
+
+Either put a call AutoHighlightToggle() into your .vimrc after defining the function, or just grab the "guts" of the function which turn the highlight on, and add them directly to your .vimrc. The latter would be especially useful if you just want the behavior always on. --Fritzophrenic 16:57, June 20, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

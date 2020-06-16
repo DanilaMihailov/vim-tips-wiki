@@ -1,0 +1,65 @@
+*vim-tips-wiki-1058.txt*   Selecting changes in diff mode              *vtw-1058*
+
+Tip 1058 [https://vim.fandom.com/wiki/Selecting_changes_in_diff_mode]   Previous |vtw-1055| Next |vtw-1059|
+
+created 2005 · complexity intermediate · author Kartik Agaram · version 6.0
+
+==============================================================================
+
+This tip is for when you are working with a two-window vertical diff 
+(comparing two files, side-by-side).
+
+Use `]c` and `[c` to go to a specific change. Then use M-, and M-. to patch 
+using the version on the left or right respectively. The cursor is then 
+positioned in the file that changed for ease of saving, etc.
+
+I find this more intuitive than using diffput and diffget because I no longer 
+need to remember which window the cursor is in.
+
+The code:
+
+>
+    function! DiffTake(dir, oppdir)
+      let l:old = winnr()
+      exec "wincmd ".a:dir
+      " Assumption: just 2 windows side by side.
+      if (winnr() == l:old)
+        diffput
+        exec "wincmd ".a:oppdir
+      else
+        wincmd p
+        diffget
+      endif
+    endfunction
+    
+    function! SetupDiffMappings()
+      if &diff
+        map <Esc>, :call DiffTake("h", "l")<CR>
+        map <Esc>. :call DiffTake("l", "h")<CR>
+      endif
+    endfunction
+    
+    " vim -d
+    call SetupDiffMappings()
+    " Entering diff mode from within vim - diffsplit, etc.
+    autocmd FilterWritePost * call SetupDiffMappings()
+<
+
+COMMENTS                                                   *vtw-1058-comments*
+
+You might also like these settings (but it will require a little savy on 
+keeping which side is which):
+
+>
+    " <F11> moves to "previous" change location,
+    " <F12> moves to "next" change location,
+    map <F11> [c
+    map <F12> ]c
+    
+    " SHIFT<F12> does a "diff put" change location,
+    map <S-F12> dp
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

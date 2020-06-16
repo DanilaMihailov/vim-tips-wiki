@@ -1,0 +1,80 @@
+*vim-tips-wiki-100.txt*   Jump to tag (help topic) with German keyboard *vtw-100*
+
+Tip 100 [https://vim.fandom.com/wiki/Jump_to_tag_(help_topic)_with_German_keyboard]   Previous |vtw-99| Next |vtw-102|
+
+created 2001 · complexity basic · author SBrueggemann · version 5.7
+
+==============================================================================
+
+You're a newbie in Vim and need some :help |help.txt|? Well, help.txt reads:
+
+>
+    Jump to a subject: Position the cursor on a tag between |bars| and hit CTRL-].
+<
+
+Unfortunately there is no "]" key on German keyboards. On Win32 try CTRL-+ 
+(Strg-+), on Linux console I use CTRL-AltGr-9 (Strg-AltGr-9). On UNIX-like OS 
+CTRL-5 works, too.
+
+COMMENTS                                                    *vtw-100-comments*
+
+If you know the ascii code of the ] (93 or 0x5d), you could create a mapping 
+to it to guarantee your combination would work -- the German keyboard might 
+have some other character that could be used:
+
+>
+    noremap <c-theChar> <c-]>
+<
+
+You can get the ] by typing a control-v followed by 93<Space> or control-v 
+followed by x5d.
+
+==============================================================================
+
+I suggest to use:
+
+>
+    nnoremap t <C-]>
+<
+
+the t functionality is rarly used and it make sense. (t =tag, and jumping 
+back with control-t)
+
+==============================================================================
+
+I prefer this mapping:
+
+>
+    nnoremap ü <C-]>
+    nnoremap Ü <C-O>
+<
+
+Who needs umlauts in normal mode?
+
+==============================================================================
+
+On the German keyboard, using anything with an umlaut (or, except on de-CH 
+keyboards where it isn't present, ß which has no "standard" Vim binding 
+either) makes sense in Normal mode. Similarly, on other national layouts, you 
+may want to use a key for an accented letter, or in general for any non-ASCII 
+character — if you have one. OTOH, on any keyboard layout, Vim reserves most F 
+keys for "user mappings", with one notable (and traditional) exception which 
+is F1 = Help, so one possibility suggests itself, valid for national keyboard 
+(except maybe on some laptops where F keys are hard to get at), as follows:
+
+>
+    map <S-F1> <C-]>
+<
+
+If you don't like using F-keys with a modifier, you could e.g. use F2 
+instead.
+
+About the t (movement "till") key: the more I use Vim and the more I use it. 
+A year ago I didn't even know that the function existed. Now I would need to 
+assign it to the {rhs} of a new mapping if it were unavailable. In general it 
+is dangerous in Vim to "steal" existing keys for a different purpose: the main 
+argument against the `mswin.vim` plugin is precisely that it steals quite 
+useful keys to remap already-existing functions to them. --Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 10:57, 12 August 2009 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

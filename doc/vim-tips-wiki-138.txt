@@ -1,0 +1,140 @@
+*vim-tips-wiki-138.txt*   Getting name of the function                  *vtw-138*
+
+Tip 138 [https://vim.fandom.com/wiki/Getting_name_of_the_function]   Previous |vtw-137| Next |vtw-139|
+
+created October 15, 2001 · complexity intermediate · author Nitin Raut · 
+version 5.7
+
+==============================================================================
+
+While browsing code one always needs to know which function you are currently 
+looking. Getting the name is very painful when the functions are lengthy and 
+you are currently browsing NOT near to the start of the function. You can get 
+the function's name by using this simple mapping.
+
+Just place this in your vimrc [https://vim.fandom.com/wiki/Vimrc].
+
+>
+    map _F ma[[k"xyy`a:echo @x<CR>
+<
+
+Now _F will display which function you are currently in.
+
+The working is as follows, mark the current line with a, jump to the previous 
+'{' in the first column, go one line up, yank the line in register x, return 
+to the mark a, echo the value of register x, which is the wanted function 
+name.
+
+COMMENTS                                                    *vtw-138-comments*
+
+Using Vim 6.0 (running on a terminal emulator) I found this to be quite 
+useful, but ugly, since the function name is being displayed 2 lines above the 
+bottom of the screen, along with the message "Hit ENTER or type command to 
+continue" on the bottom line of the screen.
+
+after a bit of investigation, I found that this is because the line being 
+copied has a carriage return at the end of the line, which is then being 
+echoed. so, if instead you use:
+
+>
+    map _F ma[[k"xy$`a:echo @x<CR>
+<
+
+the line without the carriage return is copied, so now the function name is 
+displayed on the bottom line of the screen, and there is no additional 
+message, or key press required.
+
+I am still getting the message when the function name is longer than the 
+width of the screen, but this is quite rare in my code. converting this into a 
+funciton should allow more complex processing of the line to fix that problem 
+also. I may have a go at some point.
+
+==============================================================================
+
+I used to use a macro like this, but I find a more 'vi' way to do this is as 
+follows:
+
+>
+    Press [[ to get to the start of the function and look around if you want.
+    Then type '' (that's two single quotes) to return you to where you were.
+<
+
+It's more keystrokes, but it lets you not have to deal with functions that 
+aren't formated as you'd expect.
+
+==============================================================================
+
+Interesting, I didn't know about that command.This does suggest the further 
+incremental improvement to the macro:
+
+>
+    map _F [[k"xy$``:echo @x<CR>
+<
+
+Which saves playing around with the users markers.Personally I prefer the 
+macro because I can see the code and the function name all at once, which 
+means I don't have to remember quite so much <g>
+
+==============================================================================
+
+Using a plugin like TagsBase 
+[https://www.vim.org/scripts/script.php?script_id={{{id}}}] will allow you to 
+do this for many more languages.
+
+==============================================================================
+
+If you are using the old formatting style ("the one true formatting style"), 
+i.e.
+
+>
+    int something() {
+    
+    }
+<
+
+then this won't work. You can use the following instead:
+
+>
+    map _F ma][%0"xy$`a:echo @x<CR>
+<
+
+][ finds the next '}' on the first column, % finds the complementary '{','0' 
+goes to the beginning of line.
+
+==============================================================================
+
+This is a diff version based on examples presented and based on an older 
+version - I can't remember who wrote it initially - identifies the name of 
+current function andhighlight it.
+
+>
+    map _F mk][%?^[A-Za-z_].*(<CR>V"ky`k:echo "<C-R>k"<CR>
+<
+
+==============================================================================
+
+If you have multi-line functions like:
+
+>
+    int foo (int p1, int p2,
+     int p3, int p4){
+    
+    }
+<
+
+Event "map _F ma][%0"xy$`a:echo @x<CR>" wouldn't work.
+
+Use the following, this works all types of (weird) function formatting style:
+
+>
+    map _F ``mQ``mW[[b%b"xy$`Q`W:echo @x<CR>
+<
+
+b skips white-spaces(including new lines, if any) in backwards, % 
+findsmatching ( for ) and another b skips white-spaces to go to the nameof the 
+function.`Q` and `W` will hold current and previous mark positions so that 
+with `` you can move as previously.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

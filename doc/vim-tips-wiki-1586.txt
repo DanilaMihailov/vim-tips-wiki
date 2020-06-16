@@ -1,0 +1,67 @@
+*vim-tips-wiki-1586.txt*   Quick tips                                  *vtw-1586*
+
+Tip 1586 [https://vim.fandom.com/wiki/Quick_tips]   Previous |vtw-1585| Next |vtw-1587|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Quick_tips] 2008 · 
+complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+These quick tips should help you get started delving into the more advanced 
+features of Vim at an easy pace. The concepts should be accessible even to 
+beginning users, and will enhance your productivity greatly. See the Tutorial 
+[https://vim.fandom.com/wiki/Tutorial] if you are just starting your Vim 
+experience.
+    - Using the `*` key searches for the word under the cursor. Use `#` to do the 
+      same thing backwards. more |vtw-1| 
+    - Using the `%` key on brackets (`([{}])`) will find the matching one. It 
+      should also work for <> tags in HTML.more 
+      [https://vim.fandom.com/wiki/Matchit] 
+    - Using the `.` key will repeat last change. 
+    - Use `u` to undo, and <C-R> to redo (reverse an undo). 
+    - Hitting `gf` will open the file under the cursor 
+      [https://vim.fandom.com/wiki/Open_file_under_cursor]. 
+    - <C-N> and <C-P> in insert mode will try to autocomplete the current word by 
+      looking for similar words in the rest of the file and other places defined by 
+      the 'complete' option :help 'complete'. These are two of the many insert-mode 
+      completion commands: :help |ins-completion| 
+    - If you have long lines in a document, and 'wrap' is set :help 'wrap', you can 
+      map `j` and `k` to move between visible lines by doing `:nmap j gj` and `:nmap 
+      k gk`. 
+    - The `:g` command is useful to apply a command to all lines matching a search. 
+      `:g/pattern/d` will delete all lines matching `pattern`. more 
+      [https://vim.fandom.com/wiki/Delete_all_lines_containing_a_pattern] 
+    - `:bufdo` is useful to apply a command to all open buffers. `:bufdo 
+      %s/pattern/substitution/g` will substitute all instances of `pattern` with 
+      `substitution` in all open buffers. 
+    - To maximize a window |vtw-88|, type `:simalt ~x` (MS Windows only). 
+
+
+COMMENTS                                                   *vtw-1586-comments*
+
+TO DO
+    - Have decided to keep this as the basis of a simple form of Best Vim Tips 
+      [https://vim.fandom.com/wiki/Best_Vim_Tips] that is suitable for newcomers. 
+    - Need to add a link to relevant tips (but keep the quick summary here -- as in 
+      the '*' first line). 
+
+
+==============================================================================
+
+I'd consider the `:simalt ~x` tip rather circumstancial. I don't think it 
+belongs to a "beginner's tips category". :) (Spiiph 
+[https://vim.fandom.com/wiki/User:Spiiph] 14:09, 28 July 2009 (UTC))
+
+Possibly true, but it's information a beginner would find very useful, especially as a .vimrc addition (in an autocmd). I've linked to one of our tips on the subject, perhaps now it will be more useful. It does seem quite out of place though. --Fritzophrenic 02:42, 29 July 2009 (UTC)
+There are quite a few of these "my best tips", "quick tips", "random tips" pages. Would it make sense to organize them in a "Random Tips" category, and at the same time change their titles to indicate that they contain a collection of rather unorganized tips? (Spiiph 09:47, 29 July 2009 (UTC))
+I went to a lot of trouble to clean and keep the stuff that Metacosm dropped on us! I infer you are still active on IRC, but maybe Metacosm has disappeared? At any rate, I think it makes sense to have some simple Category:Getting started tips and I wouldn't want to expand this to an impenetrable maze. I think the simalt stuff was intended as a kind of IRC FAQ (not sure why it's not in Vim IRC FAQ). Feel free to delete it or move it to the FAQ according to taste, because I agree it is out of place, but a simple list (perhaps up to four times this size, but no more) of stuff-you-never-knew-about is good for newcomers. JohnBeckett 11:16, 29 July 2009 (UTC)
+No one asks about ways to maximize gVim on Windows on IRC. :) The rest of the list is pretty decent. (And yes, Metacosm could've edited and reviewed more before adding.) (Spiiph 14:45, 29 July 2009 (UTC))
+
+
+I agree that a short and simple rapid-fire list of "things you might not know" advice (like this tip) is a good idea to have in Category:Getting started. However, I see no reason not to also put this list into a "Random tips" category along with other similar rapid-fire no-real-theme lists of random mappings and settings. I don't think "random tips" would be a good title, but I can't think of a better at the moment. Best Vim Tips, Short mappings for common tasks, and others would fit in quite well in such a category, whereas other categories always seem like a stretch (even Category:Usage seems like a bad fit). --Fritzophrenic 14:28, 29 July 2009 (UTC)
+I believe that Category:Getting started tips should be better aimed than this list. There are a lot of nice tips that fit into Category:Getting started, but I think that this list is just a little too random... or we could improve this list. (Spiiph 14:45, 29 July 2009 (UTC))
+I disagree. The aim of this particular list is to provide a starting point for a new user to begin delving into the details of our hugely complex editor, with links to tips across the wiki that will be of immediate use, but do not themselves qualify as "getting started" tips. Without such guidance, the plethora of commands and options in Vim is easily overwhelming to a new user, and having thousands of tips of various complexity is not all that much more useful without good suggestions of where to start, pointing to tips accessible to a beginner. --Fritzophrenic 15:50, 29 July 2009 (UTC)
+With that aim in mind, I agree. I saw it as a rather haphazard collection of random tips at first, which I consider not being very helpful, but with the addition of links to other tips delving deeper into specific subjects, and with the addition of more "things you might not know", it's starting to look better. EOD for my part. (Spiiph 21:18, 29 July 2009 (UTC))
+
+ vim:tw=78:et:ft=help:norl:

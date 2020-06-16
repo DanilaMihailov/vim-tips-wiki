@@ -1,0 +1,251 @@
+*vim-tips-wiki-1658.txt*   Installing on Solaris                       *vtw-1658*
+
+Tip 1658 [https://vim.fandom.com/wiki/Installing_on_Solaris]   Previous |vtw-1657| Next |vtw-1659|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201007#Installing_on_Solaris] 
+July 1, 2010 · complexity basic · version 7.0
+
+==============================================================================
+
+This tip describes how to install Vim on Solaris 10 
+[http://en.wikipedia.org/wiki/Solaris_(operating_system)].
+
+FOR SPARC BASED SYSTEMS                     *vtw-1658-for-sparc-based-systems*
+
+Some package binaries are required.
+
+Download following vim 7.2 binaries 
+[http://www.sunfreeware.com/programlistsparc10.html#vim] from sunfreeware 
+[http://www.sunfreeware.com].
+    - libgcc-3.4.6-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/libgcc-3.4.6-sol10-sparc-local.gz] 
+      from libgcc-3.4.6 
+      [http://www.sunfreeware.com/programlistsparc10.html#libgcc34]. 
+    - glib-1.2.10-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/glib-1.2.10-sol10-sparc-local.gz] 
+      from glib-1.2.10 [http://www.sunfreeware.com/programlistsparc10.html#glib1]. 
+    - gtk+-1.2.10-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/gtk+-1.2.10-sol10-sparc-local.gz] 
+      from gtk+-1.2.10 [http://www.sunfreeware.com/programlistsparc10.html#gtk1]. 
+    - ncurses-5.7-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/ncurses-5.7-sol10-sparc-local.gz] 
+      from ncurses [http://www.sunfreeware.com/programlistsparc10.html#ncurses]. 
+    - libiconv-1.13.1-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/libiconv-1.13.1-sol10-sparc-local.gz] 
+      from libiconv [http://www.sunfreeware.com/programlistsparc10.html#libiconv]. 
+    - libintl-3.4.0-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/libintl-3.4.0-sol10-sparc-local.gz] 
+      from libintl [http://www.sunfreeware.com/programlistsparc10.html#libintl]. 
+    - vim-7.2-sol10-sparc-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/sparc/10/vim-7.2-sol10-sparc-local.gz] 
+      from vim 7.2 [http://www.sunfreeware.com/programlistsparc10.html#vim]. 
+
+
+>
+    1  Login in to your Solaris box and create a temporary directory, for example:
+       # mkdir /tmp/vim
+    2  Download all binaries to this temporary directory.
+    3  You should perform this installation as the root user so it will be available
+       to all users on the machine:
+       # su -
+       # Password: ******
+    4  Go to the temporary directory:
+       # cd /tmp/vim
+    5  Unzip all packages:
+       # gunzip libgcc-3.4.6-sol10-sparc-local.gz
+       # gunzip glib-1.2.10-sol10-sparc-local.gz
+       # gunzip gtk+-1.2.10-sol10-sparc-local.gz
+       # gunzip ncurses-5.7-sol10-sparc-local.gz
+       # gunzip libiconv-1.11-sol10-sparc-local.gz
+       # gunzip libintl-3.4.0-sol10-sparc-local.gz
+       # gunzip vim-7.2-sol10-sparc-local.gz
+    6  Save current "LD_LIBRARY_PATH" in a file:
+       # echo $LD_LIBRARY_PATH > /tmp/vim/ld_path_file
+    7  Unset your "LD_LIBRARY_PATH" for the current session so Vim installation
+       files will be copied to the default correct location. That way it will
+       work properly with all users.
+       # unset LD_LIBRARY_PATH
+    8  Run the following commands in given sequence, Sequence must be followed
+       otherwise installation may fail. Provide your inputs at the prompt during
+       package installation (you can simply accept the defaults):
+       # pkgadd -d libgcc-3.4.6-sol10-sparc-local
+       # pkgadd -d glib-1.2.10-sol10-sparc-local
+       # pkgadd -d gtk+-1.2.10-sol10-sparc-local
+       # pkgadd -d ncurses-5.7-sol10-sparc-local
+       # pkgadd -d libiconv-1.11-sol10-sparc-local
+       # pkgadd -d libintl-3.4.0-sol10-sparc-local
+       # pkgadd -d vim-7.2-sol10-sparc-local
+    9  Go to the directory where Vim is installed and verify your Vim installation.
+       # cd /usr/local/bin
+    10 Run the following command; it should open Vim:
+       # ./vim
+    11 Exit from Vim (press Esc and type :q!).
+    12 Create link for "/usr/local/bin/vim" on location where "vi" editor
+       (normally "/usr/bin") is installed, after successful verification in step 10.
+       For this run following command to know location of "vi".
+       # which vi
+    13 It will show a directory like "/usr/bin/vi". Change to that directory.
+       # cd /usr/bin
+    14 Run following commands for link creation.
+       # ln -s /usr/local/bin/vim vim
+       # ln -s /usr/local/bin/vimdiff vimdiff
+    15 Create a "vimrc" file in the "$VIM" directory. To do that, start Vim:
+       # vim
+    16 Enter the Vim command:
+         :echo $VIM
+    17 It will output something like "/usr/local/share/vim"
+    18 Go to this ($VIM) directory
+       # cd /usr/local/share/vim
+    19 Create vimrc file here with vi editor.
+       # vi vimrc
+    20 Copy "vimrc" file data from next "vimrc file" section and paste into this file.
+    21 Save this "vimrc" file and exit from "vi" editor.
+    22 Run following command so this file will be available to all users
+       # chmod 755 /usr/local/share/vim/vimrc
+    23 Now you can use vim and vimdiff instead of vi.
+       # vim abc.txt
+       # vimdiff abc.txt efg.txt
+    23 Run the following command to restore "LD_LIBRARY_PATH":
+       # export LD_LIBRARY_PATH=`cat /tmp/vim/ld_path_file`
+<
+
+FOR X86 BASED SYSTEMS                         *vtw-1658-for-x86-based-systems*
+
+Some package binaries are required.
+
+Download following vim 7.2 binaries 
+[http://www.sunfreeware.com/programlistintel10.html#vim] from sunfreeware 
+[http://www.sunfreeware.com].
+    - libgcc-3.4.6-sol10-x86-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/libgcc-3.4.6-sol10-x86-local.gz] 
+      from libgcc-3.4.6 
+      [http://www.sunfreeware.com/programlistintel10.html#libgcc34]. 
+    - glib-1.2.10-sol10-intel-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/glib-1.2.10-sol10-intel-local.gz] 
+      from glib-1.2.10 [http://www.sunfreeware.com/programlistintel10.html#glib1]. 
+    - gtk+-1.2.10-sol10-intel-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/gtk+-1.2.10-sol10-intel-local.gz] 
+      from gtk+-1.2.10 [http://www.sunfreeware.com/programlistintel10.html#gtk1]. 
+    - libiconv-1.13.1-sol10-x86-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/libiconv-1.13.1-sol10-x86-local.gz] 
+      from libiconv [http://www.sunfreeware.com/programlistintel10.html#libiconv]. 
+    - libintl-3.4.0-sol10-x86-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/libintl-3.4.0-sol10-x86-local.gz] 
+      from libintl [http://www.sunfreeware.com/programlistintel10.html#libintl]. 
+    - ncurses-5.7-sol10-x86-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/ncurses-5.7-sol10-x86-local.gz] 
+      from ncurses [http://www.sunfreeware.com/programlistintel10.html#ncurses]. 
+    - vim-7.2-sol10-x86-local.gz 
+      [ftp://ftp.sunfreeware.com/pub/freeware/intel/10/vim-7.2-sol10-x86-local.gz] 
+      from vim 7.2 [http://www.sunfreeware.com/programlistintel10.html#vim]. 
+
+
+>
+    1  Login in to your Solaris box and create a temporary directory, for example:
+       # mkdir /tmp/vim
+    2  Download all binaries to this temporary directory.
+    3  You should perform this installation as the root user so it will be available
+       to all users on the machine:
+       # su -
+       # Password: ******
+    4  Go to the temporary directory:
+       # cd /tmp/vim
+    5  Unzip all packages:
+       # gunzip libgcc-3.4.6-sol10-x86-local.gz
+       # gunzip glib-1.2.10-sol10-intel-local.gz
+       # gunzip gtk+-1.2.10-sol10-intel-local.gz
+       # gunzip libiconv-1.13.1-sol10-x86-local.gz
+       # gunzip libintl-3.4.0-sol10-x86-local.gz
+       # gunzip ncurses-5.7-sol10-x86-local.gz
+       # gunzip vim-7.2-sol10-x86-local.gz
+    6  Save current "LD_LIBRARY_PATH" in a file:
+       # echo $LD_LIBRARY_PATH > /tmp/vim/ld_path_file
+    7  Unset your "LD_LIBRARY_PATH" for the current session so Vim installation
+       files will be copied to the default correct location. That way it will
+       work properly with all users.
+       # unset LD_LIBRARY_PATH
+    8  Run the following commands in given sequence, Sequence must be followed
+       otherwise installation may fail. Provide your inputs at the prompt during
+       package installation (you can simply accept the defaults):
+       # pkgadd -d libgcc-3.4.6-sol10-x86-local
+       # pkgadd -d glib-1.2.10-sol10-intel-local
+       # pkgadd -d gtk+-1.2.10-sol10-intel-local
+       # pkgadd -d libiconv-1.13.1-sol10-x86-local
+       # pkgadd -d libintl-3.4.0-sol10-x86-local
+       # pkgadd -d ncurses-5.7-sol10-x86-local
+       # pkgadd -d vim-7.2-sol10-x86-local
+    9  Go to the directory where Vim is installed and verify your Vim installation.
+       # cd /usr/local/bin
+    10 Run the following command; it should open Vim:
+       # ./vim
+    11 Exit from Vim (press Esc and type :q!).
+    12 Create link for "/usr/local/bin/vim" on location where "vi" editor
+       (normally "/usr/bin") is installed, after successful verification in step 10.
+       For this run following command to know location of "vi".
+       # which vi
+    13 It will show a directory like "/usr/bin/vi". Change to that directory.
+       # cd /usr/bin
+    14 Run following commands for link creation.
+       # ln -s /usr/local/bin/vim vim
+       # ln -s /usr/local/bin/vimdiff vimdiff
+    15 Create a "vimrc" file in the "$VIM" directory. To do that, start Vim:
+       # vim
+    16 Enter the Vim command:
+         :echo $VIM
+    17 It will output something like "/usr/local/share/vim"
+    18 Go to this ($VIM) directory
+       # cd /usr/local/share/vim
+    19 Create vimrc file here with vi editor.
+       # vi vimrc
+    20 Copy "vimrc" file data from next "vimrc file" section and paste into this file.
+    21 Save this "vimrc" file and exit from "vi" editor.
+    22 Run following command so this file will be available to all users
+       # chmod 755 /usr/local/share/vim/vimrc
+    23 Now you can use vim and vimdiff instead of vi.
+       # vim abc.txt
+       # vimdiff abc.txt efg.txt
+    23 Run the following command to restore "LD_LIBRARY_PATH":
+       # export LD_LIBRARY_PATH=`cat /tmp/vim/ld_path_file`
+<
+
+>
+    set nocompatible
+    set history=50
+    set undolevels=100
+    set viminfo='20,\"50
+    set showmode
+    syntax on
+    set ignorecase
+    set tabstop=4
+    set shiftwidth=4
+    set background=light
+    highlight Normal guibg=White guifg=Black
+    set backspace=2
+    set noerrorbells
+    set laststatus=2
+    set cmdheight=1
+    set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ line:%l\ col:%c%V
+    set foldenable
+    set showmatch
+    set lz
+    nnoremap <F3> <Esc>nl
+    inoremap <F3> <Esc>nli
+    inoremap <C-H> <Esc>:%s/search/replace/gc
+    nnoremap <C-W> gti
+    inoremap <C-W>  <Esc>gti
+    "set nowrap   "// do not wrap lines
+    "set number   "// turn on line numbers
+    set nobackup
+<
+
+COMMENTS                                                   *vtw-1658-comments*
+
+This seems really complicated. Doesn't Vim have a nice "make install" command 
+in Solaris? And why is the LD_LIBRARY_PATH stuff needed? I put this in the 
+"building Vim" category but really it looks like just putting a bunch of 
+pre-made binaries in the right place in a somewhat complicated way. 
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 02:10, May 
+28, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

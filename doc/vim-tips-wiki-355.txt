@@ -1,0 +1,97 @@
+*vim-tips-wiki-355.txt*   Comment Lines according to a given filetype   *vtw-355*
+
+Tip 355 [https://vim.fandom.com/wiki/Comment_Lines_according_to_a_given_filetype]   Previous |vtw-352| Next |vtw-356|
+
+created 2002 · complexity intermediate · author Luis Mondesi · version 6.0
+
+==============================================================================
+
+There is probably an easier way to do this, but, if I cannot find an easy 
+solution for a given problem, I just devise one that works for the meantime -- 
+which usually becomes permanent.
+
+This function comments out lines according to file type. So if a file is .sh, 
+it uses # to comment lines. And if a file is type .c it will start the 
+comments with /* and end them with */.
+
+Put these lines in your vimrc [https://vim.fandom.com/wiki/Vimrc] file:
+
+>
+    " comment out highlighted lines according to file type
+    " put a line like the following in your ~/.vim/filetype.vim file
+    " and remember to turn on filetype detection: filetype on
+    " au! BufRead,BufNewFile *.sh,*.tcl,*.php,*.pl let Comment="#"
+    " if the comment character for a given filetype happens to be @
+    " then use let Comment="\@" to avoid problems...
+    function CommentLines()
+      "let Comment="#" " shell, tcl, php, perl
+      exe ":s@^@".g:Comment."@g"
+      exe ":s@$@".g:EndComment."@g"
+    endfunction
+    " map visual mode keycombo 'co' to this function
+    vmap co :call CommentLines()<CR>
+<
+
+In filetype.vim [https://vim.fandom.com/wiki/Filetype.vim] you can add things 
+such as:
+
+>
+    au BufRead,BufNewFile *.inc,*.ihtml,*.html,*.tpl,*.class set filetype=php
+            \ | let Comment="<!-- " | let EndComment=" -->"
+    au BufRead,BufNewFile *.sh,*.pl,*.tcl let Comment="#" | let EndComment=""
+    au BufRead,BufNewFile *.js set filetype=html | let Comment="//" | let EndComment=""
+    au BufRead,BufNewFile *.cc,*.php,*.cxx let Comment="//" | let EndComment=""
+    au BufRead,BufNewFile *.c,*.h let Comment="/*" | let EndComment="*/"
+<
+
+All set, now whenever you are editing a file of those you have defined in 
+your filetype.vim script, you can just go into Visual mode, highlight what you 
+want to comment out, and type "co". Simple.
+
+RELATED PLUGINS                                      *vtw-355-related-plugins*
+    - EnhancedCommentify: script#23 
+      [https://www.vim.org/scripts/script.php?script_id=23] 
+    - The NERD Commenter: script#1218 
+      [https://www.vim.org/scripts/script.php?script_id=1218] 
+    - tComment: script#1173 [https://www.vim.org/scripts/script.php?script_id=1173] 
+    - ToggleCommentify: script#4 
+      [https://www.vim.org/scripts/script.php?script_id=4] 
+
+
+COMMENTS                                                    *vtw-355-comments*
+
+I was used to using 'boxes' as an external filter to comment/decomment, but 
+pushing to the program and back is more 'expensive' then using a simple 
+script, but boxes really is better then EnhancedCommentify.vim (at least I 
+haven't found a way yet to make it behave just like I want it to.).
+
+But I would prefer a maintained thing any day.
+
+==============================================================================
+
+The first filetype autocmd uses `set filetype=php` instead of `setf php`, 
+which could cause it to replace the filetype (depending on where in the 
+runtime path and file it's placed). It's also the only one which changes a 
+filetype (and it does so a bit overzealously, not all .inc or .class files are 
+php).
+
+I think the `setf` can be removed altogether, or moved into a different tip, 
+at least.
+
+In fact, these would probably be better in vimrc autocmds as
+
+>
+    au FileType php  let Comment="<!-- " | let EndComment=" -->"
+<
+
+et al. Let the pre-flow evaluate the filetype, and the post-flow define the 
+comment fields.
+
+Or probably even after/ftplugin/<filetype>.vim syntax modification files.
+
+--JeremyBarton [https://vim.fandom.com/wiki/User:JeremyBarton] 07:42, 30 
+September 2008 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

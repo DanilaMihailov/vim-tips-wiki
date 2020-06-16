@@ -1,0 +1,70 @@
+*vim-tips-wiki-1195.txt*   Reload the same file in different encoding  *vtw-1195*
+
+Tip 1195 [https://vim.fandom.com/wiki/Reload_the_same_file_in_different_encoding]   Previous |vtw-1194| Next |vtw-1197|
+
+created 2006 · complexity basic · author Anatoli Sakhnik · version 6.0
+
+==============================================================================
+
+I often need to edit files with different encodings, which can't be detected 
+automatically (for example, how distinguish between cp866 and cp1251?). So 
+when the desired file was loaded with a wrong encoding, I used to type:
+
+>
+    :e ++enc=<what_was_really_needed> %:p
+<
+
+The following function makes it easier:
+
+>
+    function! ChangeFileencoding()
+      let encodings = ['cp1251', 'koi8-u', 'cp866']
+      let prompt_encs = []
+      let index = 0
+      while index < len(encodings)
+        call add(prompt_encs, index.'. '.encodings[index])
+        let index = index + 1
+      endwhile
+      let choice = inputlist(prompt_encs)
+      if choice >= 0 && choice < len(encodings)
+        execute 'e ++enc='.encodings[choice].' %:p'
+      endif
+    endf
+    nmap <F8> :call ChangeFileencoding()<CR>
+<
+
+Here is a version of this function which wraps the encodings instead of 
+prompting the user:
+
+>
+    let g:enc_index = 0
+    function! ChangeFileencoding()
+      let encodings = ['cp1251', 'koi8-u', 'cp866']
+      execute 'e ++enc='.encodings[g:enc_index].' %:p'
+      if g:enc_index >=2
+    	  let g:enc_index = 0
+      else
+    	  let g:enc_index = g:enc_index + 1
+      endif
+    endf
+    nmap <F8> :call ChangeFileencoding()<CR>
+<
+
+Further, it can be improved by populating the list of encodings from 
+&fileencodings.
+
+You can also configure Vim to set file encoding automatically from a modeline 
+|vtw-911|, which doesn't work as intended by default because the modeline 
+takes effect after the file is read into memory, or you can install a plugin 
+like AutoFenc [https://www.vim.org/scripts/script.php?script_id=2721] to 
+automatically detect the encoding in more situations.
+
+SEE ALSO                                                   *vtw-1195-see-also*
+    - Detect encoding from the charset specified in HTML files 
+      [https://vim.fandom.com/wiki/Detect_encoding_from_the_charset_specified_in_HTML_files] 
+    - Reloading a file using a different encoding |vtw-690| 
+
+
+COMMENTS                                                   *vtw-1195-comments*
+
+ vim:tw=78:et:ft=help:norl:

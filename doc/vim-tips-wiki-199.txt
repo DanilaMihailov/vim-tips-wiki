@@ -1,0 +1,78 @@
+*vim-tips-wiki-199.txt*   Maximize window and return to previous split structure *vtw-199*
+
+Tip 199 [https://vim.fandom.com/wiki/Maximize_window_and_return_to_previous_split_structure]   Previous |vtw-198| Next |vtw-202|
+
+created 2002 · complexity intermediate · author scotch2 · version 6.0
+
+==============================================================================
+
+Say you have layed out a complex window split structure, and want to 
+temporarily open one window with max dimensions, but don't want to lose your 
+split structure. The following function and mappings let you toggle between 
+the split windows and on window maximized. The mappings prevent the default 
+behavior of calling :only and losing your finely tuned splits.
+
+Put this bit in your vimrc file, change mappings if you don't want to 
+override the defaults:
+
+>
+    nnoremap <C-W>O :call MaximizeToggle()<CR>
+    nnoremap <C-W>o :call MaximizeToggle()<CR>
+    nnoremap <C-W><C-O> :call MaximizeToggle()<CR>
+    
+    function! MaximizeToggle()
+      if exists("s:maximize_session")
+        exec "source " . s:maximize_session
+        call delete(s:maximize_session)
+        unlet s:maximize_session
+        let &hidden=s:maximize_hidden_save
+        unlet s:maximize_hidden_save
+      else
+        let s:maximize_hidden_save = &hidden
+        let s:maximize_session = tempname()
+        set hidden
+        exec "mksession! " . s:maximize_session
+        only
+      endif
+    endfunction
+<
+
+COMMENTS                                                    *vtw-199-comments*
+
+This was something that I wanted for a while as well. In Vim 7 there is a 
+nice solution using tabs.
+
+>
+    :tabedit % will open the current buffer in a new tab
+    :tabclose when finished and return to your finely tuned set of splits.
+<
+
+I mapped them to the following sequences for quick access.
+
+>
+    nmap t% :tabedit %<CR>
+    nmap td :tabclose<CR>
+<
+
+I'm now far happier when editing several files at once.
+
+==============================================================================
+
+And, if you want to maintain the cursor position in the new tab:
+
+>
+    function! OpenCurrentAsNewTab()
+        let l:currentPos = getcurpos()
+        tabedit %
+        call setpos(".", l:currentPos)
+    endfunction
+    nmap t% :call OpenCurrentAsNewTab()<CR>
+<
+
+--August 18, 2015
+
+No code is needed. To open the current window in a new tab with the cursor in the same place, enter :tab sp which splits the current window into a new tab. To close the current window, press Ctrl-W then c. That will close the newly opened tab. JohnBeckett (talk) 08:14, August 19, 2015 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

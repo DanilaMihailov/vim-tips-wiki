@@ -1,0 +1,60 @@
+*vim-tips-wiki-1052.txt*   Autoselect the right compiler using the filetype *vtw-1052*
+
+Tip 1052 [https://vim.fandom.com/wiki/Autoselect_the_right_compiler_using_the_filetype]   Previous |vtw-1051| Next |vtw-1053|
+
+created November 18, 2005 · complexity basic · author Yann Coupin · version 
+5.7
+
+==============================================================================
+
+Every time you edit a file you have to set the right type of compiler for 
+this file, one solution is to edit the file for your language in ftplugin and 
+add a compiler statement.
+
+But there's an easier solution. Why not use the name of the type of file to 
+set the right compiler on-the-fly and each time a file is open ? It's as 
+simple as this :
+
+Modify your vimrc and add this line :
+
+au BufRead * try | execute "compiler ".&filetype | catch /./ | endtry
+
+This runs a the compiler command each and every time a file is open and set 
+the compiler to the filetype which was determined by the file type scripts. If 
+there's no compiler for the filetype you're editing it just fails silently and 
+does not show the list of available compilers
+
+COMMENTS                                                   *vtw-1052-comments*
+
+Editing the ftplugin file is a bad idea. This file may change with future 
+updates of Vim. But, there are ways to do this properly. You can add a file to 
+your "after directory" with the desired settings. For example, 
+"~/.vim/after/ftplugin/vim.vim". I like this method best, but there are other 
+methods discussed in the help files. See :help |ftplugin-overrule|.
+
+Also see:
+    - :help |after-directory| 
+    - :help |ftplugin| 
+
+
+==============================================================================
+
+The autocmd method is a good idea, but why not use the FileType event instead 
+of BufRead? This will allow the autocmd to trigger on new files as well as 
+existing ones, and will not trigger when no filetype is detected.
+
+==============================================================================
+
+Or how about just using an ftplugin as the first comment suggests? The 
+autocmd in the tip has no advantages I can think of over an ftplugin.
+
+Using the autocmd in this tip, there is no need to edit an ftplugin file for every single filetype you will ever edit. It will just automatically select the compiler for any filetype (or try to).
+
+==============================================================================
+
+Compiler names may very well differ from the filetype. (It certainly does for 
+C and C++ files, where there are plenty of compilers to choose from.) Using 
+the after-directory, as the first comments suggest is the best idea. (Spiiph 
+[https://vim.fandom.com/wiki/User:Spiiph] 00:24, 6 August 2009 (UTC))
+
+ vim:tw=78:et:ft=help:norl:

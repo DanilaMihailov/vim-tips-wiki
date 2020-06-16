@@ -1,0 +1,113 @@
+*vim-tips-wiki-1491.txt*   Call TortoiseSVN commands from within Vim   *vtw-1491*
+
+Tip 1491 [https://vim.fandom.com/wiki/Call_TortoiseSVN_commands_from_within_Vim]   Previous |vtw-1490| Next |vtw-1495|
+
+created 2007 · complexity basic · author Rex Kerr · version 5.7
+
+==============================================================================
+
+Tortoise SVN is the best Subversion GUI available. That said, it would be 
+nice if you could launch the various commands from within Vim so that you 
+don't have to go back to Explorer to get the context menu. Here are some 
+mappings that work on the current buffer.
+
+>
+    " Save the current buffer and execute the Tortoise SVN interface's diff program
+    map <silent> ,tdiff :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend"<CR>
+    
+    " Save the current buffer and execute the Tortoise SVN interface's log
+    map <silent> ,tlog :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend"<CR>
+    
+    " Save the current buffer and execute the Tortoise SVN interface's revision graph
+    map <silent> ,trevs :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend"<CR>
+    
+    " Save the current buffer and execute the Tortoise SVN interface's blame program
+    map <silent> ,tblame :call TortoiseBlame()<CR>
+    
+    function! TortoiseBlame()
+      " Save the buffer
+      silent execute(':w')
+      " Now run Tortoise to get the blame dialog to display
+      let filename = expand("%")
+      let linenum = line(".")
+      silent execute('!C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:blame /path:"' . filename . '" /line:' . linenum . ' /notempfile /closeonend')
+    endfunction
+<
+
+Others can be added very simply by using these as a template. The command 
+line options are documented at 
+http://tortoisesvn.net/docs/release/TortoiseSVN_en/tsvn-automation.html 
+[http://tortoisesvn.net/docs/release/TortoiseSVN_en/tsvn-automation.html]
+
+RELATED PLUGINS                                     *vtw-1491-related-plugins*
+    - Tortoise [https://www.vim.org/scripts/script.php?script_id=2760] plugin 
+
+
+COMMENTS                                                   *vtw-1491-comments*
+
+I use Vim from within bash on Windows XP and had to switch the path's to be 
+more cygwin compliant. I also switched some of the double quotes to single 
+quotes. Everything works great except that it takes forever to build my 
+revision graph. Here's my slight changes. I also used a different mapping than 
+above, but that just a preference of mine:
+
+>
+    " Save current buffer and diff the file using Tortoise SVN
+    map <unique> <silent> <Leader>td :w<CR>:silent !'/C/Program Files/TortoiseSVN/bin/TortoiseProc.exe' /command:diff /path:'%' /notempfile /closeonend<CR>
+    
+    " Save current buffer and launch Tortoise SVN's revision graph
+    map <unique> <silent> <Leader>tr :w<CR>:silent!'/C/Program Files/TortoiseSVN/bin/TortoiseProc.exe' /command:revisiongraph epath:'%' /notempfile /closeonend<CR>
+    
+    " Save the current buffer and execute the Tortoise SVN interface's blame program
+    map <unique> <Leader>tb :call TortoiseBlame()<CR>
+    
+    " Save the current buffer and execute the Tortoise SVN interface's log
+    map <unique> <silent> <Leader>tl :w<CR>:silent !'/c/Program Files/TortoiseSVN/bin/TortoiseProc.exe' /command:log /path:'%' /notempfile /closeonend<CR>
+    
+    function! TortoiseBlame()
+      " Save the buffer
+      silent execute(':w')
+      " Now run Tortoise to get the blame dialog to display
+      let filename = expand("%")
+      let linenum = line(".")
+      execute('!/C/Progra~1/TortoiseSVN/bin/TortoiseProc.exe /command:blame /path:' . filename . ' /line:' . linenum . ' /notempfile /closeonend')
+    endfunction
+<
+
+==============================================================================
+
+And for those who want to use Vim from Tortoise:
+
+Go to tortoisesvn, settings
+
+Diff viewer : `gvim -d %base %mine`
+
+Diff viewer in tab in running vim: `gvim --remote-tab +"vert diffsplit %base" 
+"%mine"`
+
+Merge Tool : `gvim -c":tabnew %merged" -d %theirs %mine`
+
+==============================================================================
+
+Commit all currently open files (buffers) using TortoiseSVN:
+
+>
+    func! CommitSVNAll()
+    	let buflist = []
+    	for b in range(1, bufnr('$'))
+    		if buflisted(b) && filereadable(bufname(b))
+    			call add(buflist, fnamemodify(bufname(b), ':p'))
+    		endif
+    	endfor
+    	let files = join(buflist, '*')
+    	if files != ''
+    		silent exec '!start "C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe" /command:commit /path:"'.files.'" /closeonend:4'
+    	else
+    		call confirm('No files loaded')
+    	endif
+    endfunc
+    
+    call CommitSVNAll()
+<
+
+ vim:tw=78:et:ft=help:norl:

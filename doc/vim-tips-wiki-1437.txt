@@ -1,0 +1,186 @@
+*vim-tips-wiki-1437.txt*   Using Vim with the Dvorak keyboard layout   *vtw-1437*
+
+Tip 1437 [https://vim.fandom.com/wiki/Using_Vim_with_the_Dvorak_keyboard_layout]   Previous |vtw-1436| Next |vtw-1438|
+
+created 2006 · complexity basic · author Jesse Read · version 6.0
+
+==============================================================================
+
+Some long-time users of Vim have trouble when they try to switch to the 
+Dvorak keyboard layout. They may want to type with the efficiency of the 
+Dvorak layout but use the default Vim layout for navigating and commands 
+(especially the hjkl movement keys).
+
+You can continue using the familiar QWERTY layout for navigation and commands 
+but when you enter insert mode you will be in Dvorak mode.
+
+This also means you don't have to continually switch back and forth between X 
+layouts with xmodmap.
+
+Adding one of the lines of code in this tip to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] lets you do exactly that.
+
+An alternate solution would be to find mappings for only the specific keys 
+which you wish to switch to the QWERTY equivalent. This can be difficult 
+because Vim uses almost the entire keyboard for built-in functionality, so you 
+will need to carefully choose commands which you do not use or provide 
+alternate methods to reach the functionality you are replacing.
+
+CAVEATS                                                     *vtw-1437-caveats*
+    - This potentially interferes with any normal-mode mappings you may have in 
+      your vimrc [https://vim.fandom.com/wiki/Vimrc]. 
+    - This won't change multi-key shortcuts like <c-v>, even in normal mode. 
+    - Many Dvorak users have no problem learning the normal Vim commands with a 
+      Dvorak layout. The movement keys may not look it at first but are in fact 
+      pretty intuitive -- J and K are on the middle and index fingers of the left 
+      hand, right next to each other in the same order as on the qwerty layout, 
+      while H and L are the index and pinky fingers of the right hand, so the one 
+      for left is on the left -- again perfectly accessible. The only real caveat 
+      here, therefore, is that both hands are needed to navigate. Most other keys 
+      are simple mnemonics or just as easy to access in Dvorak anyway. Don't let 
+      Dvorak be a barrier to learning Vim nor let Vim be a barrier to learn Dvorak 
+      just because you don't want to remap everything to get started. Just give it a 
+      chance first! 
+    - You may also want to try the ":e $VIMRUNTIME/macros/dvorak" command, that 
+      guides you to the vim stock dvorak description. It is also broken some times, 
+      so the langmap is preferable, though less portable. 
+    - Remapping the keyboard so that Dvorak is only used in insert mode will make 
+      some commands like "w" for "move forward a word", "f" for "find a character", 
+      etc. much harder to remember if your brain works in Dvorak mode (press "u" to 
+      find a character and "," to move forward a word, etc.). 
+
+
+DVORAK TO QWERTY                                   *vtw-1437-dvorak-to-qwerty*
+
+>
+    set langmap='q,\\,w,.e,pr,yt,fy,gu,ci,ro,lp,/[,=],aa,os,ed,uf,ig,dh,hj,tk,nl,s\\;,-',\\;z,qx,jc,kv,xb,bn,mm,w\\,,v.,z/,[-,]=,\"Q,<W,>E,PR,YT,FY,GU,CI,RO,LP,?{,+},AA,OS,ED,UF,IG,DH,HJ,TK,NL,S:,_\",:Z,QX,JC,KV,XB,BN,MM,W<,V>,Z?
+<
+
+Another perfectly fine approach is to use this keymap: 
+http://www.alge.no/vim/howto/dvorak.html 
+[http://www.alge.no/vim/howto/dvorak.html]
+
+DVORAK.FR TO AZERTY                             *vtw-1437-dvorak.fr-to-azerty*
+
+Here is a mapping for dvorak.fr to azerty :
+
+>
+    set langmap=:a,àz,ée,gr,.t,hy,vu,ci,mo,kp,è^,z$,oq,as,ud,ef,bg,fh,sj,tk,nl,dm,wù,ù*,ç<,'w,qx,\\,c,iv,yb,xn,r\\,,p:,j!,l;;,?A,ÀZ,ÉE,GR,.T,HY,VU,CI,MO,KP,È¨,Z£,OQ,AS,UD,EF,BG,FH,SJ,TK,NL,DM,W%,Ù*,Ç>,'W,QX,\\;C,IV,YB,XN,RG,L.,P/,J§,/&,+é,*',=(,(è,`_,)ç,"à,[),]=,°{,+},\\\\-,-\"
+<
+
+COMMENTS                                                   *vtw-1437-comments*
+
+This is a really bad idea in my opinion. Using two different keyboard 
+layoutsat the same time is confusing and will prevent you from really 
+learningDvorak. I have trouble believing, that the solution above can actually 
+be usedefficiently by anyone.
+
+I have been using Dvorak (as X keyboard map) and Vim for about two years 
+now,without *any* adjustments (concerning Dvorak) to Vim at all, and it works 
+great.The solution imho is to simply remember Vim commands by their name, 
+rather thantheir keyboard position (e.g. I think I want to d(elete) 2 w(ords), 
+and hit d2wwithout thinking about the key positions (my fingers know the 
+position themselves).
+
+Personally, I agree, and have had the same experience. I would not recommend this tip to anyone. Hence some of the warnings in the caveats section. Someone obviously thought this useful, however. If you think the warning should be more prominent, feel free to move it to the beginning of the tip somewhere. --Fritzophrenic 13:15, September 27, 2009 (UTC)
+
+I also agree. I learned vim on a Dvorak keyboard, so the qwerty (real) layout feels weird to me. I find that having j and k on the LH is extremely useful because my LH is usually on the keyboard. The h and l split isn't that bad either, since it's just one row up (which is easy to reach). The only real issues I've ever encountered is when I'm using spell commands `[s', `]s' (for qwerty-ists, equivalent to `-;' and `=;'). I ended up mapping these to `gn' and `gN' so they really aren't an issue anymore. Every once in a while I'll run across a command that was awkward to input, but usually it's smooth.
+
+I find I like the well thought-out layout of both the original vim commands and the layout of dvorak.  You shouldn't have to choose between them.   Yes, you should know the actual key letters for the commands, and that way you don't forget the qwerty layout.  Useful idea to fix it, I wish it actually worked well.
+Please let us know of any specific issues you may have encountered so they can be fixed in the tip. Or fix them yourself. "I wish it actually worked well" tells us nothing. --Fritzophrenic 14:30, August 3, 2010 (UTC)
+
+Nah, just use Dvorak as-is—it's no problem. 24.86.184.60 05:54, August 3, 2010 (UTC)
+
+It's not only "no problem" in some cases it makes things easier. I use the _ and g_ commands all the time because they are so easy to reach, even easier than ^ and $ which (roughly) correspond on QWERTY (which I could also use on Dvorak if I had a mind to). --Fritzophrenic 14:30, August 3, 2010 (UTC)
+
+I agree. I use bw a lot for navigation (probably much more than hl), and these have a much better position on Dvorak than on Qwerty. Also, I recently found out about <C-u> and <C-d>, which also fit better with the Dvorak layout. Before rebinding vim shortcuts I suggest at least using the default keybindings for a week or two, and then evaluate if it's actually necessary. 82.182.180.137 00:38, January 13, 2012 (UTC)
+
+Just to throw my hat in the ring on the other side, I've been using QWERTY for command-mode and Dvorak for insert/replace mode in vim for 15 years and quite like it.  I think a significant fraction of people learn QWERTY first and then Dvorak second.  As a result, our fingers have already memorized where different command-mode actions are in vim.  Just because you've learned a new ergonomic typing method (Dvorak) doesn't mean you have to give up all those memorized QWERTY-based command-mode key sequences.
+
+The biggest thing I don't understand about the complaints from people who think maintaining QWERTY in command-mode is a bad thing is how are you navigating around?  Are you not using 'h' and 'l' for left-right and 'j' and 'k' for up-down?  Those are indispensable if you don't want to have to keep moving your hand to the arrow keys all the time.  And if you made the jump to Dvorak in the first place, that bit of ergonomics is probably important to keeping your hands RSI free, right?
+
+So I'll buck the trend here and recommend switching to this hybrid world.  Trust me, your fingers will effortlessly type Dvorak in insert-mode, but remember all the old QWERTY command-mode actions.  Here's a link to the QWERTY-command Dvorak-insert .vim config file I've been using all these years: http://www.alge.no/vim/howto/dvorak.html   R3cgm 23:04, December 31, 2013 (UTC)
+
+I think part of that depends on whether you learned Vim or Dvorak first. In my case, I was already using Dvorak before I even considered trying Vim. So there was no possible way for me to "remember all the old QWERTY command-mode actions" since I'd not even learned them yet. As for moving around, h is still on the home row, j and k are extremely easy to reach with the index finger and pointer of the left hand. I admit l can be hard to reach but I normally move with w, e, f, t, etc. far more often that h and l. So that's really a non-issue for me. I imagine re-learning Vim shortcuts at the same time as learning a new keyboard could be tricky, that's one reason this tip might still be useful for people. But I personally put of trying Vim for about 2 years because somebody told me I'd have way too much trouble learning Vim if I used Dvorak. And that's simply false. Tips like this one, to re-map your keyboard in order to use Vim, just reinforce the notion that Dvorak and Vim don't mix. That's why I wouldn't recommend this tip in general. --Fritzophrenic (talk) 20:09, January 1, 2014 (UTC)
+
+Does anyone have a similar mapping for colemak? DarwinSurvivor 
+[https://vim.fandom.com/wiki/User:DarwinSurvivor] 00:06, April 22, 2011 (UTC)
+
+While working out what colemak was, I found its FAQ which mentions Vim near the bottom. JohnBeckett 03:17, April 22, 2011 (UTC)
+
+For people who aren't already highly experienced with vim, it seems to me 
+that remapping t->j, n->k, and s->`l` (+ caps) makes a world of sense. This 
+puts all of the cursor movement keys "right at home" ;). This seems much more 
+sensible than the vim standard, which owes only to some arrows printed on the 
+hjk&l keys of Bill Joy's terminal 
+[http://www.tentacle.franken.de/adm3a/adm3a-hjkl.jpg]. Then, as necessary, 
+remap the j, k, and `l` keys to pick up t, n, and s. I haven't ever used t or 
+s in vim, so I just remapped `l` to n (+ caps). I haven't actually put this to 
+much use, though.
+
+I'm surprised you haven't found 't' useful, it's great for things like "dt(" (delete until the next paren). Up until a couple months ago I'd agree with your dismissal of 's', but recently I've found that using 's' with a count makes it very useful for small changes, e.g. 3s at the beginning of abc_func_call deletes the 3 letters "abc" and puts you into insert mode. Granted, c3l does the same thing. The point remains, however, that almost the entire keyboard is used in Vim, and you will doubtless lose some function or another if you start remapping only a few keys. This is why the main body of the tip recommends a full remapping, if any remapping is attempted at all. --Fritzophrenic 14:58, April 28, 2011 (UTC)
+No doubt, but if I remap as described plus each of j & k to one of t & s, I haven't actually lost anything, have I?
+
+For what it's worth, you may also consider remapping Q and X instead so you get QJKX on the bottom row for navigation (with your left hand). The mapping in .vimrc would basically be:
+nnoremap q h
+nnoremap Q H
+nnoremap h x
+nnoremap H X
+nnoremap x l
+nnoremap X L
+nnoremap l q
+nnoremap L Q 
+
+and this would allow navigation with the bottom keys, delete with the H key. and recording macros with the L key. This is not hard to remember because although X is traditionally the delete character, H is also known for delete in the form of <c-h> and the L key is kind of on the opposite side of the keyboard from the traditional Q key, so EX mode and macros are back to roughly where they would be anyway. --artsy.ca 8:59 May 09 2011 EST
+
+==============================================================================
+
+This doesn't work for me: I get the following error from vi:
+
+E357: 'langmap': Matching character missing for w
+
+when I try to use the language command above.
+
+
+
+Thanks, this is because of bad escaping of special characters. See  the mailing list thread on escaping the langmap option. I believe I have fixed it now. At least, no errors get thrown. Fritzophrenic 19:08, December 9, 2011 (UTC)
+
+==============================================================================
+
+An alternative solution:
+
+Years ago I made an AutoHotkey script that pretty much reflected this: 
+http://www.guru-board.com/english/layout_en 
+[http://www.guru-board.com/english/layout_en]
+
+When I press Caps Lock down, all the navigation keys appear under my right 
+hand. I also have backspace and delete mapped next to my index finger. Since 
+I'm a dvorak user, my left hand also has ctrl+a, x, c and v (select all and 
+copy/paste) on the home row this way.
+
+With vim this solves pretty much all the issues people usually mention. The 
+incompatibility with the dvorak layout, providing a real arrow key layout 
+instead of a row... and it works with both edit and navigation modes. It does 
+not interfere with Vim's own commands either, so you can still memorize them 
+by phonetics. Of course, it also works with any other application.
+
+I guess vim with dvorak still is an issue for a lot of users, since googling 
+it results in pretty incomplete discussion.
+
+You can find the AHK-script here: http://rmup.net/kb/AutoHotkey.ahk 
+[http://rmup.net/kb/AutoHotkey.ahk]
+
+If you are a qwerty user, it should take a minute to modify for your needs. 
+The script still lets you use the caps lock normally if you press it without 
+any other key, if you care about that...
+
+The same can be done on Linux with xmodmap or creating a custom xkb layout. 
+xmodmap, for example: "keycode 44 = h H Left Left" and "keycode 66 = 
+Mode_switch NoSymbol Mode_switch" to make caps activate the alternative 
+action.
+
+Have fun :p
+
+- Pauli (August 2012)
+
+ vim:tw=78:et:ft=help:norl:

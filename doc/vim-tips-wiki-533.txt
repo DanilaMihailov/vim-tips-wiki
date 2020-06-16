@@ -1,0 +1,77 @@
+*vim-tips-wiki-533.txt*   Page 1 of 123 in header of hardcopy           *vtw-533*
+
+Tip 533 [https://vim.fandom.com/wiki/Page_1_of_123_in_header_of_hardcopy]   Previous |vtw-531| Next |vtw-534|
+
+created August 18, 2003 · complexity intermediate · author Mikolaj Machowski 
+· version 6.0
+
+==============================================================================
+
+To get this to work you have to know how many lines per page :hardcopy is 
+normally making. Open empty document and in Normal mode "100o". Then make 
+":%s/^/\=line('.')". Now ":hardcopy > nu.ps". Open nu.ps in PostScript viewer. 
+You will see how many lines per page Vim is printing.
+
+In my case this is 73. Now set the 'printheader' option:
+
+>
+    :set printheader=%<%f%h%m%=Page\ %N\ of\ %{line('$')/73+1}
+<
+
+>
+    line('$') - number of lines in buffer
+    73 - number of lines per page
+    +1 - Vim uses integer math and everything rounds down.
+<
+
+REFERENCES                                                *vtw-533-references*
+    - :help 'statusline' 
+
+
+COMMENTS                                                    *vtw-533-comments*
+
+I forgot about case when total number of lines is multiplication of lines per 
+page. Here is an improved version. Number of lines per page was put in 
+variable - you have to change it only once.
+
+>
+    function! PH_Multiple()
+      let lpp = "73" " lpp - lines per page
+      let modulo = line('$') % lpp
+      if modulo != 0
+        return ( line('$') / lpp ) + 1
+      else
+        return line('$') / lpp
+      endif
+    endfunction
+    set printheader =%<%f%h%m%=Page\ %N\ of\ %{PH_Multiple()}
+<
+
+==============================================================================
+
+Some nice additions from comp.editors:
+
+>
+    :set printheader=%<%f%h%m%=Page\ %N\ of\ %{line('$')/73+(line('$')%73!=0)}
+<
+
+>
+    :set printheader=%<%f%h%m%=Page\ %N\ of\ %{(line('$')-1)/73+1}
+<
+
+==============================================================================
+
+Clever; however there are multiple settings (see e.g. 'printfont' & 
+'printoptions') which can change the number of lines per page. Also, if long 
+lines wrap when printed (the default), then the number of lines in the buffer 
+may not match the number of lines printed.
+
+==============================================================================
+
+A simpler way to do the page count arithmetic:
+
+>
+    :set printheader=%<%f%h%m=Page\ %N\ of %{(line('$')+72)/73}
+<
+
+ vim:tw=78:et:ft=help:norl:

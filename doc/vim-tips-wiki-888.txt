@@ -1,0 +1,122 @@
+*vim-tips-wiki-888.txt*   Load multiple files with a single command     *vtw-888*
+
+Tip 888 [https://vim.fandom.com/wiki/Load_multiple_files_with_a_single_command]   Previous |vtw-886| Next |vtw-889|
+
+created 2005 · complexity basic · author Tye Z · version 6.0
+
+==============================================================================
+
+When starting Vim, you can open multiple files, one to a window or tab, with 
+the `-o`, `-O` or `-p` options. This tip discusses doing the same from within 
+Vim.
+
+You can use a command like `:args *.c` to replace the argument list with all 
+`.c` files, then display those files with a command like `:sall` (split window 
+to show one file per window), or `:tab sall` (show one file per tab).
+
+Here is another method. Put the following in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
+<
+
+This uses the shell to send remote commands to the current instance of Vim.
+
+Then do something like this to edit multiple files:
+
+>
+    :Edit .vim/colors/*
+<
+
+Customizations
+    - If desired, substitute `--remote-tab-silent` in place of `--remote-silent` to 
+      load all the files in new tabs. 
+    - If running under Windows, you'll probably want to allow backslashes to occur 
+      in path names, like this: 
+
+
+>
+    com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent ".escape(<q-args>,'\')
+<
+
+ALTERNATIVE                                              *vtw-888-alternative*
+
+If you put the following code in your vimrc, you can simply do `:Etabs file 
+list`, `:Ewindows file list` (horizontal windows), or `:Evwindows file list` 
+(vertical windows).
+
+The commands can be abbreviated, and the function allows for file globbing, 
+so doing something like `:Et *.html` should work. You may even find yourself 
+using one of these to replace the :edit command |vtw-1285|!
+
+>
+    command! -complete=file -nargs=+ Etabs call s:ETW('tabnew', <f-args>)
+    command! -complete=file -nargs=+ Ewindows call s:ETW('new', <f-args>)
+    command! -complete=file -nargs=+ Evwindows call s:ETW('vnew', <f-args>)
+    function! s:ETW(what, ...)
+      for f1 in a:000
+        let files = glob(f1)
+        if files == ''
+          execute a:what . ' ' . escape(f1, '\ "')
+        else
+          for f2 in split(files, "\n")
+            execute a:what . ' ' . escape(f2, '\ "')
+          endfor
+        endif
+      endfor
+    endfunction
+<
+
+ALTERNATIVE 2                                          *vtw-888-alternative-2*
+
+I added this command to my vimrc [https://vim.fandom.com/wiki/Vimrc] to open 
+a list of globbed files in tab pages. For example, the command `:Tabe *.py 
+*.txt` opens a new tab page for each *.py and each *.txt file. When finished, 
+the current tab page shows the first file added.
+
+>
+    command! -complete=file -nargs=* Tabe call Tabe(<f-args>)
+    function! Tabe(...)
+      let t = tabpagenr()
+      let i = 0
+      for f in a:000
+        for g in glob(f, 0, 1)
+          exe "tabe " . fnameescape(g)
+          let i = i + 1
+        endfor
+      endfor
+      if i
+        exe "tabn " . (t + 1)
+      endif
+    endfunction
+<
+
+REFERENCES                                                *vtw-888-references*
+    - :help |--remote-silent| 
+    - :help |--remote-tab-silent| 
+    - :help |--servername| 
+
+
+COMMENTS                                                    *vtw-888-comments*
+
+TO DO
+    - Use fnameescape(), especially in the method that uses the shell. 
+
+
+==============================================================================
+
+From VimTip1234 |vtw-1234| comments section, an alternate method:
+
+You can load an arbitrary list of files with :args <pattern>, for instance:
+
+Open all .c or .h files in the directory (and it's subdirectories) two 
+directories up from the current directory:
+
+args ../../**/*.[ch]
+
+The only caveat (and it's a major one) is that it's very slow.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

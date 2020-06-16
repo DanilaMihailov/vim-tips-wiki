@@ -1,0 +1,138 @@
+*vim-tips-wiki-885.txt*   Switching between different statuslines       *vtw-885*
+
+Tip 885 [https://vim.fandom.com/wiki/Switching_between_different_statuslines]   Previous |vtw-883| Next |vtw-886|
+
+created February 28, 2005 · complexity intermediate · author Matous Jan 
+Fialka · version 6.0
+
+==============================================================================
+
+With the following code in your vimrc, you can press F3 in normal mode to 
+switch between several different status lines.
+
+>
+    "These three functions are just for example.
+    "It might be that these three functions are irrelevant
+    "in example statuslines, but they demonstrate that
+    "functions can be used in statusline too.
+    fu! Percent()
+      let byte = line2byte( line( "." ) ) + col( "." ) - 1
+      let size = (line2byte( line( "$" ) + 1 ) - 1)
+      return (byte * 100) / size
+    endf
+    
+    fu! FileEncoding()
+      if &fileencoding == ''
+        return "is not set"
+      else
+        return &fenc
+      endif
+    endf
+    
+    fu! GlobalEncoding()
+      if &fileencoding == ''
+        return "is not set"
+      else
+        return &enc
+      endif
+    endf
+    
+    "And now the magical stuff!
+    "We define some statuslines at first.
+    let g:StatusLines{0}='[%1*%n%*]%= [%2*%03bD%* | %2*%5(0x%02BH%)%*] [%8oC=%1*%3{Percent()}%%%*] [%8c] : [%8l/%8L = %1*%3p%%%*]'
+    let g:StatusLines{1}='[%1*%n%*]%= [%1*GENC%* %10(%{GlobalEncoding()}%)] [%1*FENC%* %10(%{FileEncoding()}%)]'
+    let g:StatusLines{2}='[%1*%n%*]%= [%1*%F%*]'
+    let g:StatusLinesCurrent=-1
+    
+    "And we map switching on some unused key.
+    map <F3> :call ToggleStatusLine()<CR>
+    
+    "Function that switch between several statuslines
+    fu! ToggleStatusLine()
+      let g:StatusLinesCurrent=g:StatusLinesCurrent+1
+      if (!exists("g:StatusLines" . g:StatusLinesCurrent))
+        let g:StatusLinesCurrent=0
+      endif
+      let &statusline=g:StatusLines{g:StatusLinesCurrent}
+    endf
+    
+    "We use the first one as default.
+    call ToggleStatusLine()
+    
+    "Because I used some highlighting in the example statuslines
+    "I put some highlighting definitions here too.
+    "The colours of statusline itself.
+    hi statusline term=inverse,bold cterm=inverse,bold ctermfg=darkred ctermbg=white
+    hi statuslinenc term=inverse,bold cterm=inverse,bold ctermfg=gray ctermbg=black
+    
+    "Some other colours used in statuslines.
+    hi User1 term=inverse,bold cterm=inverse,bold ctermfg=darkred ctermbg=yellow
+    hi User2 term=inverse,bold cterm=inverse,bold ctermfg=darkred ctermbg=cyan
+<
+
+This tip should be useful if you need more information than is able to be fit 
+in a single statusline.
+
+COMMENTS                                                    *vtw-885-comments*
+
+If you don't like highlighting on the status line, here is a simpler version 
+(it's just s/%[12]\?\*//g)
+
+>
+    let g:StatusLines{0}='[%n]%= [%03bD | %5(0x%02BH%)] [%8oC=%3{Percent()}%%] [%8c] : [%8l/%8L = %3p%%]'
+    let g:StatusLines{1}='[%n]%= [GENC %10(%{GlobalEncoding()}%)] [FENC %10(%{FileEncoding()}%)]'
+    let g:StatusLines{2}='[%n]%= [%F]'
+<
+
+==============================================================================
+
+I get '[GENC] is not set] [FENC is not set]' on my status line. Also the 
+highligthing is disconcerting, it should be a solid separator line.
+
+==============================================================================
+
+A bit better version is this one - works for me fine.
+
+>
+    let g:StatusLines{0}='%5* %*->%7*[%*%1*%n%*%7*]%* %= %7*[%*%2*%03bD%* %7*|%* %2*%5(0x%02BH%)%*%7*]%* %7*[%*%3*%8oC%*%7*=%*%1*%3{Percent()}%%%*%7*]%* %7*[%*%4*%8c%*%7*]%*
+    let g:StatusLines{1}='%5* %*->%7*[%*%1*%n%*%7*]%* %= %7*[%*%1*ENC%* %2*%10{strlen(&enc)?&enc:"is not set"}%*%7*]%* %7*[%*%1*FENC%* %3*%10{strlen(&fenc)?&fenc:"is not set"
+    let g:StatusLines{2}='%5* %*->%7*[%*%1*%n%*%7*]%* %= %7*[%*%1*FILE%* %*%2*%t%*%7*]%*'
+    let g:StatusLinesCurrent=-1
+    
+    fu! SetStatusLineColors()
+      hi statusline term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=white guifg=darkblue guibg=white
+      hi statuslinenc term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkblue guifg=darkblue guibg=darkblue
+      hi User1 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkyellow guifg=darkblue guibg=darkyellow
+      hi User2 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkcyan guifg=darkblue guibg=darkcyan
+      hi User3 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkmagenta guifg=darkblue guibg=darkmagenta
+      hi User4 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkgreen guifg=darkblue guibg=darkgreen
+      hi User5 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkblue guifg=darkblue guibg=darkblue
+      hi User6 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=darkred guifg=darkblue guibg=darkred
+      hi User7 term=inverse,bold cterm=inverse,bold gui=inverse,bold ctermfg=darkblue ctermbg=black guifg=darkblue guibg=black
+    endf
+    
+    fu! ToggleStatusLine()
+      call SetStatusLineColors()
+      let g:StatusLinesCurrent=g:StatusLinesCurrent+1
+      if (!exists("g:StatusLines" . g:StatusLinesCurrent))
+        let g:StatusLinesCurrent=0
+      endif
+      let &statusline=g:StatusLines{g:StatusLinesCurrent}
+    endf
+<
+
+==============================================================================
+
+This is already builtin, see :help 'statusline':
+
+>
+    fu! Percent()
+      let byte = line2byte( line( "." ) ) + col( "." ) - 1
+      let size = (line2byte( line( "$" ) + 1 ) - 1)
+      return (byte * 100) / size
+    endf
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

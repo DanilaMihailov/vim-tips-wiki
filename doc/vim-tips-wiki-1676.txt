@@ -1,0 +1,159 @@
+*vim-tips-wiki-1676.txt*   Troubleshooting                             *vtw-1676*
+
+Tip 1676 [https://vim.fandom.com/wiki/Troubleshooting]   Previous |vtw-1675| Next |vtw-1677|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201109#Troubleshooting] 
+September 6, 2011 · complexity basic · author Raimondi · version 7.0
+
+==============================================================================
+
+Sometimes a basic feature of Vim does not work as expected. The following 
+instructions can help eliminate possible sources of the problem.
+
+GENERAL TROUBLESHOOTING                     *vtw-1676-general-troubleshooting*
+
+CHECK VIM WITHOUT CUSTOMIZATIONS   *vtw-1676-check-vim-without-customizations*
+
+Run the following command from your terminal and see if the problem persists 
+(if wanted, replace "`vim`" with "`gvim`"):
+
+>
+    vim -N -u NONE -i NONE
+<
+
+You will need to manually enable anything like filetype detection, syntax 
+highlighting, etc. that are needed to troubleshoot the problem.
+    - If the problem persists, that means the problem could be in the Vim 
+      executable or official runtime files. Go and verify the enabled features 
+      |vtw-1676-verify-required-features|. 
+    - If the problem went away, it is time to test your vimrc 
+      |vtw-1676-check-vim-with-just-your-.vimrc|. 
+
+
+VERIFY REQUIRED FEATURES                   *vtw-1676-verify-required-features*
+
+Check the feature you need was enabled when Vim was built. Use the `:version` 
+command to see if that feature is enabled.
+    - Some/any needed features are disabled. Build Vim with desired feature enabled 
+      or use your package manager to install a Vim version that has them enabled. 
+    - All needed features are enabled. Consider 3rd party libraries. For example, 
+      the command-T plugin requires that your system ruby be the same as that which 
+      was linked with Vim. 
+
+
+CHECK VIM WITH JUST YOUR .VIMRC     *vtw-1676-check-vim-with-just-your-.vimrc*
+
+Run Vim with following arguments and see if the problem disappears:
+
+>
+    vim -N --noplugin -i NONE
+<
+    - If the problem persists, the reason of your pain is inside your vimrc 
+      |vtw-1676-vimrc|. 
+    - If the problem went away, the next step is to rule out the plugins 
+      |vtw-1676-check-vim-with-just-your-plugins|. 
+
+
+CHECK VIM WITH JUST YOUR PLUGINS   *vtw-1676-check-vim-with-just-your-plugins*
+
+Back to your terminal and run Vim like this:
+
+>
+    vim -N -u NORC -i NONE
+<
+    - If the problem persists, the issue is related to one or more plugins, find 
+      out which |vtw-1676-plugins|. 
+    - If the problem went away, maybe the problem is that Vim is running in 
+      compatible mode, verify that with `:verbose set cp?` to also see where it is 
+      being set. 
+
+
+SPECIFIC TROUBLESHOOTING                   *vtw-1676-specific-troubleshooting*
+
+PLUGINS                                                     *vtw-1676-plugins*
+
+If you have no idea which plugin(s) might be causing the problem, use a 
+binary search method to isolate the errant plugin(s).
+
+VIMRC                                                         *vtw-1676-vimrc*
+
+The VimLint [https://github.com/dahu/VimLint] plugin was designed to help 
+identify erroneous vimrc settings.
+    - Ensure you have a personal vimrc file (file `~/.vimrc` on Linux, or 
+      `$HOME/_vimrc` on Windows). 
+    - Ensure your vimrc contains at least: 
+
+
+>
+    set nocompatible
+    syntax on
+    filetype plugin indent on
+    set hidden
+<
+    - Ensure your vimrc does not have: 
+
+
+>
+    set compatible      or    set cp
+    set smartindent     or    set si
+    set cindent         or    set cin
+    set lisp
+    set gdefault        or    set gd
+    set edcompatible    or    set ed
+    set exrc            or    set ex
+    set insertmode      or    set im
+    set noloadplugins   or    set nolpl
+    set nomagic
+    set nomodeline      or    set noml
+<
+    - If Vim finds the command `finish` anywhere in your vimrc it will stop 
+      sourcing the rest of the file. So you can use it to do a binary search as 
+      described in Plugins |vtw-1676-plugins| to identify the problematic line. 
+    - Ensure `:echo $SHELL` is correct. You will need to use a POSIX shell for full 
+      Vim compatibility. The fish shell is known to not be compatible. 
+    - Ensure `:echo $TERM` is correct. Check TermSettings for your terminal type. 
+
+
+MAPPINGS                                                   *vtw-1676-mappings*
+
+A custom mapping may not work because it was overwritten by a plugin. The 
+following command will tell you if `aa` is mapped to something and, if so, 
+where the mapping was created.
+
+>
+    :verbose map aa
+<
+
+Use the appropriate `:map` command for the mapping you are testing, see 
+`:help :map-modes` for more details.
+
+OPTIONS                                                     *vtw-1676-options*
+
+Many plugins change options when they are sourced, filetype is set, etc. So, 
+you might find yourself wondering why an option is not set as you expect. From 
+inside Vim, type this command:
+
+>
+    :verbose set myoption?
+<
+
+That displays the value of the given option and where it was set. Replace 
+`myoption` with the option being tested, and remember to include the "`?`" 
+(the query causes the value to be displayed; omitting it might set the 
+option).
+
+For local options that inherit its value, that command would not specify 
+where the value was set. What to do in this case?
+
+COMMENTS                                                   *vtw-1676-comments*
+
+Should explain the use of the `-i` flag, and also mention that the viminfo 
+file can be the cause of issues (especially slowness in loading apparently).
+
+==============================================================================
+
+Also need to talk about how to get various plugin managers to start up 
+without your .vimrc when doing -u NORC.
+
+ vim:tw=78:et:ft=help:norl:

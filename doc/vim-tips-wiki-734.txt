@@ -1,0 +1,31 @@
+*vim-tips-wiki-734.txt*   Fix the x command in virtualedit mode         *vtw-734*
+
+Tip 734 [https://vim.fandom.com/wiki/Fix_the_x_command_in_virtualedit_mode]   Previous |vtw-733| Next |vtw-735|
+
+created 2004 · complexity basic · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+This tip is useful only for those who use virtualedit mode (`set 
+virtualedit=all`, or `set ve=all`).
+
+I like virtualedit mode except for behaviour of '`x`' (delete character). 
+When '`x`' is used past end-of-line, it does nothing. I wanted it to jump left 
+to the actual end-of-line so as to start deleting characters there. Below is 
+'`x`' redefinition that does exactly this; and it does not break '`x`' in 
+non-virtualedit mode:
+
+>
+    " redefine x for virtualEdit so that past end of line, it jumps left to end-of-line
+    function! Redefine_x_ForVirtualEdit()
+      if &ve != "" && col('.') >= col('$')
+        normal $
+      endif
+    endfu!
+    silent! unmap x
+    :nnoremap <silent>x x:call Redefine_x_ForVirtualEdit()<CR>
+<
+
+COMMENTS                                                    *vtw-734-comments*
+
+ vim:tw=78:et:ft=help:norl:

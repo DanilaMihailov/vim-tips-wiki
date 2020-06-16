@@ -1,0 +1,158 @@
+*vim-tips-wiki-418.txt*   Disable beeping                               *vtw-418*
+
+Tip 418 [https://vim.fandom.com/wiki/Disable_beeping]   Previous |vtw-416| Next |vtw-419|
+
+created 2003 · complexity basic · version 6.0
+
+==============================================================================
+
+Vim may beep or may flash its window if an error occurs. This tip explains 
+the settings that control these functions, and shows how to disable beeping 
+and flashing in both terminal Vim and GUI Vim (gvim). See below 
+|vtw-418-disable-beep-and-flash-with-an-autocmd| if you just want the 
+solution.
+
+SETTINGS                                                    *vtw-418-settings*
+
+The 'errorbells' (abbreviated as 'eb') option is off by default. If it is on 
+(that is, if `:set errorbells` is used), Vim will either beep or flash its 
+screen when an error message is displayed. For example, the command `:set xyz` 
+displays an error message because 'xyz' is not a valid option. If 'errorbells' 
+is on, the error message will attempt to either sound a beep or flash Vim's 
+screen.
+
+The 'errorbells' option has no effect on the beeps that Vim makes when an 
+error message is not displayed (for example, on pressing Esc when in normal 
+mode).
+
+The 'visualbell' (abbreviated as 'vb') option is off by default.If it is on 
+(that is, if `:set visualbell` is used), Vim will flash its screen instead of 
+sounding a beep (that is, at times when a beep would have occurred, the screen 
+will flash instead).
+
+The 't_vb' option, by default, is set to a code that will cause the screen to 
+flash. Starting the GUI (which occurs after vimrc is read) resets 't_vb' to 
+its default value. If 't_vb' is cleared, Vim will never flash the 
+screen—however, it has to be cleared after the GUI has started.
+
+If 't_vb' is cleared and 'visualbell' is set, no beep and no flash will ever 
+occur. That is achieved by entering the command `:set vb t_vb=` after the GUI 
+has started—see method 1 |vtw-418-disable-beep-and-flash-with-an-autocmd| or 
+method 2 |vtw-418-disable-beep-and-flash-with-gvimrc| below.
+
+DEMONSTRATION                                          *vtw-418-demonstration*
+
+A demonstration is useful to show how the options work. Start Vim with no 
+initializations from vimrc or gvimrc, but using 'nocompatible' mode:
+
+>
+    vim -N -u NONE
+<
+
+In Vim, press Esc. If your sound system is working, you should hear your 
+system's version of a "bell" (often a beep). Enter the command `:set xyz` and 
+observe that an error message is displayed, but no beep occurs. Display the 
+default settings by entering:
+
+>
+    :set eb? vb? t_vb?
+<
+
+Vim will display something like (the `^[...` depends on your system):
+
+>
+    noerrorbells
+    novisualbell
+      t_vb=^[...
+<
+
+Due to `noerrorbells`, no beep occurs when an error message is displayed. 
+However, other "errors" such as pressing Esc when in normal mode will cause a 
+beep.
+
+Enter the command `:set vb` to set `visualbell`. Entering `:set xyz` will 
+give the same result as before. However, pressing Esc should flash Vim's 
+screen (a "visual bell").
+
+Enter the command `:set t_vb=` to clear the `t_vb` option (so it will do 
+nothing). Entering `:set xyz` will give the same result as before (a message 
+but no beep or flash). However, pressing Esc should also do nothing (no beep 
+and no flash). The `t_vb` option controls how Vim flashes the screen (on both 
+Unix and Windows systems, for both terminal and gui Vim). If the option is 
+empty, Vim does not flash the screen.
+
+DISABLE BEEP AND FLASH WITH AN AUTOCMD *vtw-418-disable-beep-and-flash-with-an-autocmd*
+
+To disable beeping (aka "bell") and window flashing, put the following in 
+your vimrc [https://vim.fandom.com/wiki/Vimrc]. This works on Unix and Windows 
+systems for both terminal and GUI Vim.
+
+>
+    set noerrorbells visualbell t_vb=
+    autocmd GUIEnter * set visualbell t_vb=
+<
+
+The same commands can be entered using abbreviations:
+
+>
+    set noeb vb t_vb=
+    au GUIEnter * set vb t_vb=
+<
+
+The above will give an error message if run on a Vim which was not compiled 
+with the `+autocmd` feature. To avoid that possibility, use:
+
+>
+    set noerrorbells visualbell t_vb=
+    if has('autocmd')
+      autocmd GUIEnter * set visualbell t_vb=
+    endif
+<
+
+DISABLE BEEP AND FLASH WITH GVIMRC *vtw-418-disable-beep-and-flash-with-gvimrc*
+
+Another method to disable beeping and flashing is to put a command into your 
+vimrc to handle terminal Vim, and another command into your gvimrc to handle 
+gvim. This works on Unix and Windows systems.
+
+Put the following in vimrc:
+
+>
+    set noeb vb t_vb=
+<
+
+Put the following in gvimrc:
+
+>
+    set vb t_vb=
+<
+
+The gvimrc file is in the same directory as vimrc; see vimrc 
+[https://vim.fandom.com/wiki/Vimrc] for the proper file name.
+
+COMMENTS                                                    *vtw-418-comments*
+
+Superb. Worked well for me.
+
+==============================================================================
+
+Wow. Nothing feels better than disabling those bells when you hit Esc if 
+you're already outside of insert mode. That bell noise is even more annoying 
+than those alarm clocks from the 80's.
+
+==============================================================================
+
+Thanks so much. Very clear and helpful. But why am I unable to do a cut and 
+paste from this wiki? What is the point of making people type up the 
+commentary? --March 3, 2012
+
+You should be able to copy text from the wiki! I just tried it (again) in both Firefox 10 and Internet Explorer 8 and they worked fine. At some time it was hard to see that text had been selected because the "text selected" colour was almost exactly the same as the normal colour. However, when I tried it now, the selected text was very easy to see, and Ctrl-C copied the selection. If you still have a problem, please reply here with details of what browser you are using, and what you did. JohnBeckett 00:48, March 4, 2012 (UTC)
+
+==============================================================================
+
+Did not work for me. The final solution was `set belloff=all` in vimrc 
+[https://vim.fandom.com/wiki/Vimrc].
+
+Thanks, it works !
+
+ vim:tw=78:et:ft=help:norl:

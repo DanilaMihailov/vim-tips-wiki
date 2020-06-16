@@ -1,0 +1,167 @@
+*vim-tips-wiki-1183.txt*   Insert-mode only Caps Lock                  *vtw-1183*
+
+Tip 1183 [https://vim.fandom.com/wiki/Insert-mode_only_Caps_Lock]   Previous |vtw-1182| Next |vtw-1189|
+
+created 2006 · complexity basic · author Gerald Lai · version 6.0
+
+==============================================================================
+
+Pressing the Caps Lock key in Vim can cause trouble due to Vim's modal 
+nature. Have you ever used Caps Lock in insert mode, then switched back to 
+normal mode to issue a few commands, completely forgetting that Caps Lock is 
+still on? Using this tip, you can enable Caps Lock only when typing text, 
+eliminating those pesky <Esc>JJJJUUU commands you accidentally enter.
+
+After implementing this tip, you do not need to use the Caps Lock key. 
+Instead, when in insert mode, press Ctrl-`^` (hold down Ctrl and press `^` – 
+the `6` key on US keyboards) to toggle "Caps Lock" on or off.
+
+This "Caps Lock" does not apply in normal mode. It only applies when:
+    - Typing while in insert mode. 
+    - Typing in the command line. 
+    - Typing a search pattern. 
+    - Typing a character for commands like `r` and `f`. 
+    - Typing in the `input()` line. 
+
+
+USING LANGUAGE MAPPINGS                     *vtw-1183-using-language-mappings*
+
+To use Ctrl-`^` to toggle "Caps Lock", place the following in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] (or just yank the lines in Vim, then type 
+`:@"` to execute them):
+
+>
+    " Execute 'lnoremap x X' and 'lnoremap X x' for each letter a-z.
+    for c in range(char2nr('A'), char2nr('Z'))
+      execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
+      execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
+    endfor
+<
+
+Since the idea is to allow you to forget about capslock, it may also be 
+desirable to automatically turn off this special mode when exiting insert 
+mode:
+
+>
+    " Kill the capslock when leaving insert mode.
+    autocmd InsertLeave * set iminsert=0
+<
+
+Note the use of the 'iminsert' option. Pressing `CTRL-^` actually toggles 
+this option between 0 and 1, which automatically enables or disables your 
+language maps. A related option, 'imsearch', controls the mappings while 
+entering a search pattern.
+
+USING A KEYMAP [HTTPS://VIM.FANDOM.COM/WIKI/HOW_TO_MAKE_A_KEYMAP] *vtw-1183-using-a-keymap-[https://vim.fandom.com/wiki/how_to_make_a_keymap]*
+
+An alternative procedure that also causes Ctrl-`^` to toggle "Caps Lock", is 
+to use a keymap (this is not a mapping; see :help |mbyte-keymap|).
+
+Using the 'keymap' option keeps vimrc clean 
+[https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean] and adds an indicator 
+to the status line while in this "Caps Lock" mode.
+
+Complete and place the following in file 
+`~/.vim/keymap/insert-only_capslock.vim` on Unix-based systems, or file 
+`$HOME/vimfiles/keymap/insert-only_capslock.vim` on Windows systems:
+
+>
+    " Toggle Caps Lock by pressing Ctrl-^, but only for insert and command mode.
+    let b:keymap_name = "CAPS"
+    loadkeymap
+    a A
+    b B
+    c C
+    d D
+    
+    ...
+    
+    y Y
+    z Z
+    
+    A a
+    B b
+    
+    ...
+    
+    Z z
+<
+
+Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    " Insert and command-line mode Caps Lock.
+    " Lock search keymap to be the same as insert mode.
+    set imsearch=-1
+    " Load the keymap that acts like capslock.
+    set keymap=insert-only_capslock
+    " Turn it off by default.
+    set iminsert=0
+<
+
+The same `InsertLeave` autocmd defined for the language mappings can be used 
+for this method.
+
+You may want to include the following in your vimrc so the cursor color 
+changes when "Caps Lock" is on:
+
+>
+    :highlight Cursor guifg=NONE guibg=Green
+    :highlight lCursor guifg=NONE guibg=Cyan
+<
+
+Using the keymap procedure, the effect of pressing Ctrl-`^` is buffer local 
+(so "Caps Lock" may be on in one buffer and off in another).
+
+REFERENCES                                               *vtw-1183-references*
+    - :help |language-mapping| 
+    - :help |i_CTRL-^| 
+
+
+COMMENTS                                                   *vtw-1183-comments*
+
+Status line information:
+
+>
+    " Set following to show "<CAPS>" in the status line when "Caps Lock" is on.
+    let b:keymap_name = "CAPS"
+    " Show b:keymap_name in status line.
+    :set statusline^=%k
+<
+
+You can see the effect of the "language mappings" method by listing all 
+language mappings with the command:
+
+>
+    :lmap
+<
+
+==============================================================================
+
+One could also set a `lCursor` highlight different from the `Cursor` 
+highlight, as a reminder that "pseudo-CapsLock mode" is on (however it is not 
+possible to use different `lCursor` highlights for different keymaps used in 
+parallel in different buffers, except maybe by means of fancy `BufEnter` 
+autocommands); it could then (if one didn't play with 'iminsert') apply also 
+to the operand of Normal-mode `r f t` and the like, and, with 'imsearch' set 
+to -1, to `/` and `?` searches.
+
+Does this work with the lmaps or just with the keymap? This would be good to know. The buffer info is useful, but the highlight info is already in the tip. --Fritzophrenic 18:31, September 1, 2009 (UTC)
+
+IIUC, Cursor vs. lCursor vs. CursorIM highlighting of the cursor depends on 'iminsert' being set to 0, 1 or 2 respectively; so it ought to apply also to lmaps. The advantage of a keymap is that it will set b:keymap_name which will show on the statusline when keymaps/lmaps are active (&imi == 1). If b:keymap_name is unset you get <lang> instead when 'imi' equals 1.--Tonymec 19:53, September 1, 2009 (UTC)
+
+==============================================================================
+
+With "national keyboards" other than en-US, hitting the `6` digit key while 
+holding down the `Ctrl` key may or may not produce `Ctrl-^`, but you can e.g. 
+use the following mappings to use `F5` instead in that case:
+
+>
+    noremap  <F5> :let &l:imi = !&l:imi<CR>
+    inoremap <F5> <C-O>:let &l:imi = !&l:imi<CR>
+    cnoremap <F5> <C-^>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

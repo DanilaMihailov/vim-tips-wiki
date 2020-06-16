@@ -1,0 +1,57 @@
+*vim-tips-wiki-1127.txt*   Fast one session mapping                    *vtw-1127*
+
+Tip 1127 [https://vim.fandom.com/wiki/Fast_one_session_mapping]   Previous |vtw-1126| Next |vtw-1128|
+
+created February 10, 2006 · complexity basic · author Marc Weber · version 
+5.7
+
+==============================================================================
+
+>
+    " A little nice idea I got today...
+    "
+    " I've noticed that I often use one session mappings .. Sometimes :bn
+    " sometimes :make specialtarget
+    " in each case I need it often.
+    " vim supports this by @: but there are cases when I want to press one key only
+    " and other cases I want to user other commands as well.
+    " Having to type :map <F5> :<cmd><CR> does need some time and I'm lazy ;-)
+    " So just copy this text, put it into .vim/plugins/mapFromF1ToF12.vim and enjoy
+    " Try
+    " :echo "dummy"<CR>
+    " <F5>
+    " now you can use F5 to execute :echo "dummy"
+    " Perhaps you want to have mappings local to your buffer only.
+    " Then use map <buffer> and unmap <buffer> instead
+    
+    function MapLastCommandToKeys(keysToMapTo)
+      exe "unmap ".a:keysToMapTo
+      exe "map ".a:keysToMapTo." :".histget("cmd")."<CR>"
+    endfunction
+    
+    function PrepareMap(keysToMapTo)
+      exe "map ".a:keysToMapTo." :call MapLastCommandToKeys('".a:keysToMapTo."')<CR>"
+    endfunction
+    
+    " This will allow you to use F1
+    PrepareMap('<F1>')
+    " This while loop will allow you to use F2,F3,..,F12
+    let i=2
+    while i<13
+      call PrepareMap('<F'.i.'>')
+      let i=i+1
+    endwhile
+    " of cause you can use any mapping eg \a:
+    PrepareMap("\a")
+<
+
+COMMENTS                                                   *vtw-1127-comments*
+
+Recordings can do much more (encompassing other modes) than handle :cmd-line 
+executions. They can also be repeated. See :help |complex-repeat|.
+
+From normal mode,
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

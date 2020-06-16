@@ -1,0 +1,61 @@
+*vim-tips-wiki-1282.txt*   Open SVN diff window                        *vtw-1282*
+
+Tip 1282 [https://vim.fandom.com/wiki/Open_SVN_diff_window]   Previous |vtw-1280| Next |vtw-1285|
+
+created 2006 · complexity intermediate · author Leif Arne Storset · version 
+6.0
+
+==============================================================================
+
+If you use SubVersion for version control (http://subversion.tigris.org 
+[http://subversion.tigris.org]) you will naturally already have set your 
+EDITOR environment variable to 'vim' or 'gvim -f' so you can write commit 
+messages in Vim. But you will also want to view the diff so you can write 
+sensible comments in the log. Opening the diff manually is tedious, so here is 
+a mapping for the F9 key:
+
+>
+    map <F9> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
+<
+
+This opens a new buffer, reads the SVN diff, sets syntax highlighting and 
+tells Vim not to save the buffer, and places the cursor at the top. Since the 
+buffer won't be saved, you may quit using `:wqa` when you're finished writing 
+the commit message.
+
+COMMENTS                                                   *vtw-1282-comments*
+
+See script#90 [https://www.vim.org/scripts/script.php?script_id=90] for VCS 
+integration with Vim.
+
+Add this line to your .bashrc (or the startup script for your shell):
+
+>
+    export SVN_EDITOR='vim -c "4,\$!cut -c-5 --complement | xargs svn diff --no-diff-deleted -x --ignore-eol-style" -c "set syntax=diff" +0'
+<
+
+Or for a separate window:
+
+>
+    export SVN_EDITOR='\
+                    vim -c "4,\$y" \
+                    -c "below new" \
+                    -c "put" \
+                    -c "set syntax=diff buftype=nofile nowrap nobackup previewwindow bufhidden=delete" \
+                    -c "silent execute \"%!cut -c-5 --complement | xargs svn diff --no-diff-deleted -x --ignore-eol-style\" | redraw" \
+                    -c "wincmd k" +0'
+<
+
+Replace `below new` with `vnew` for a vertical split.
+
+==============================================================================
+
+I find the 'gvimdiff' bash script here 
+http://yolinux.com/TUTORIALS/Subversion.html#GDIFF 
+[http://yolinux.com/TUTORIALS/Subversion.html#GDIFF] works great for diff'ing 
+single files. (Compare your current local copy with the original copy you 
+checked out).
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

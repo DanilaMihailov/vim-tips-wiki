@@ -1,0 +1,61 @@
+*vim-tips-wiki-308.txt*   Move through wrapped lines                    *vtw-308*
+
+Tip 308 [https://vim.fandom.com/wiki/Move_through_wrapped_lines]   Previous |vtw-306| Next |vtw-309|
+
+created August 12, 2002 · complexity intermediate · author Little Dragon · 
+version 5.7
+
+==============================================================================
+
+If you don't like the fact that when you press Up and Down on a wrapped line, 
+you get to the next physical line instead of the next line on the screen, you 
+can do something like this:
+
+>
+    imap <silent> <Down> <C-o>gj
+    imap <silent> <Up> <C-o>gk
+    nmap <silent> <Down> gj
+    nmap <silent> <Up> gk
+<
+
+COMMENTS                                                    *vtw-308-comments*
+
+Or you can just jump into paste mode.
+
+In paste mode you will be able to navigate from line to line without the 
+cursor jumping around *and* you won't have the long text wrap if you put a 
+space in, which usually is not a desired effect.
+
+>
+    :set paste
+    or
+    :set pastetoggle=<F9> (or whatever keybinding you want) in your .vimrc
+<
+
+==============================================================================
+
+My current settings are:
+
+>
+    map <silent> <Up> gk
+    imap <silent> <Up> <C-o>gk
+    map <silent> <Down> gj
+    imap <silent> <Down> <C-o>gj
+    map <silent> <home> g<home>
+    imap <silent> <home> <C-o>g<home>
+    map <silent> <End> g<End>
+    imap <silent> <End> <C-o>g<End>
+    
+    setlocal linebreak
+    setlocal nolist
+    setlocal display+=lastline
+<
+
+But I'm still trying to find a way to avoid "jumps" when I'm scrolling and a 
+wrapped line enters or exits the screen...
+
+See also VimTip38 |vtw-38|.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

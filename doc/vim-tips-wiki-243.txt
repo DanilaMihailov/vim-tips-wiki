@@ -1,0 +1,44 @@
+*vim-tips-wiki-243.txt*   Develop vim modules on Win                    *vtw-243*
+
+Tip 243 [https://vim.fandom.com/wiki/Develop_vim_modules_on_Win]   Previous |vtw-242| Next |vtw-246|
+
+created 2002 · complexity basic · author SANFACE Software · version 6.0
+
+==============================================================================
+
+We're trying to develop txt2pdf.vim 
+[https://www.vim.org/scripts/script.php?script_id=283].
+
+It's a very simple module to save the current file and convert it to PDF 
+using our txt2pdf tool http://www.sanface.com/txt2pdf.html 
+[http://www.sanface.com/txt2pdf.html]
+
+On our Windows 2000 we've developed it. It works good.
+
+Today we've tested the module on Linux. Surprise: it doesn't work.
+
+Default Win Vim configure save on Win text in Win way: EOL \r\n.
+
+A Vim module made in this way can't work on Linux (probably on every Unix 
+OS).
+
+If you want to make a Vim module on Win and you want it can work also on Unix 
+(we hope the same rule can work also on different OS) you've to save the Vim 
+module with Unix EOL (\n).
+
+COMMENTS                                                    *vtw-243-comments*
+
+I believe that Vim scripts saved with Unix-style EOL characters can run on 
+any platform. Probably the easiest way to make sure they stay this way is to 
+add a modeline at the top or bottom of the file, for example:
+
+>
+    " vim:ff=unix
+<
+    - :help |modeline| 
+    - :help 'fileformat' 
+
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,27 @@
+*vim-tips-wiki-1245.txt*   Correcting accented characters              *vtw-1245*
+
+Tip 1245 [https://vim.fandom.com/wiki/Correcting_accented_characters]   Previous |vtw-1244| Next |vtw-1247|
+
+created May 25, 2006 · complexity basic · author Luis A. Florit · version 5.7
+
+==============================================================================
+
+This will help if you receive text (e.g, email from wrongly configured 
+clients) with lots of '\nnn' or '&#nnn;' strings, where n is a digit. These 
+'nnn' are the decimal codes of non-ascii characters. To convert all at the 
+same time, you can do the following:
+
+>
+    :%s/\\\([0-9]*\)/\=nr2char(submatch(1))/g
+    or
+    :%s/&#\([0-9]*\);/\=nr2char(submatch(1))/g
+<
+
+REFERENCES                                               *vtw-1245-references*
+    - :help |nr2char()| 
+    - :help |submatch()| 
+
+
+COMMENTS                                                   *vtw-1245-comments*
+
+ vim:tw=78:et:ft=help:norl:

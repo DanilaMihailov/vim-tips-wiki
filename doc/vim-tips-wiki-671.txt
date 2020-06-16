@@ -1,0 +1,181 @@
+*vim-tips-wiki-671.txt*   Add a newline after given patterns            *vtw-671*
+
+Tip 671 [https://vim.fandom.com/wiki/Add_a_newline_after_given_patterns]   Previous |vtw-670| Next |vtw-672|
+
+created 2004 · complexity intermediate · version 7.0
+
+==============================================================================
+
+You may need to insert a line break (newline) before or after each occurrence 
+of a search pattern. That is useful if the newlines are needed, or as a 
+temporary change to help understand some text. This tip shows how to insert 
+newlines before or after specified strings, both manually and using a script 
+to define a command so, for example, :%LineBreakAt <p> </p> would add a 
+newline after <p> and </p> tags in an HTML file.
+
+USING SEARCH AND REPLACE                    *vtw-671-using-search-and-replace*
+
+Suppose you want to insert a line break before each parenthesis and comma 
+('`(`', '`,`', '`)`') in a line. To do that, enter these commands:
+
+>
+    /[(,)]
+    :s//\r&/g
+<
+
+The first command searches for any occurrence of each of the three 
+characters. You can refine this search (that is, search again 
+[https://vim.fandom.com/wiki/Using_command-line_history] after correcting any 
+problems with the search pattern 
+[https://vim.fandom.com/wiki/Search_patterns]). When the search correctly 
+highlights [https://vim.fandom.com/wiki/Highlight_all_search_pattern_matches] 
+the wanted hits, enter the second command to insert a newline before each hit 
+in the current line. In the substitute command, the find pattern is empty, so 
+the last search is used; in the replacement, `\r` inserts a newline and `&` 
+inserts the search hit (see search and replace 
+[https://vim.fandom.com/wiki/Search_and_replace]).
+
+Use `:%s//\r&/g` if you want to replace all occurrences in all lines.
+
+A MORE ELABORATE WAY                            *vtw-671-a-more-elaborate-way*
+
+Another way to break a long line such as `someMethod(arg1, arg2, arg3);` and 
+to auto-ident.
+
+We can achieve that using :s/\((\zs\|, *\zs\|)\)/\r&/g|:'[,']normal ==.
+
+The '[,'] range specifies the previously affected range. In normal mode `==` 
+is to auto-indent code (it usually works well but might not be optimal with 
+python).
+
+The first part is mostly the same as in the previous example, but we separate 
+the regex in 3 using alternation `\|` and use the atomic `\zs` to specify we 
+don't want to break on `(` but on the next character. Similarly, we don't want 
+to break on a comma but on the next non-space character.
+
+After executing this, the line
+
+>
+    someMethod(arg1, arg2, arg3);
+<
+
+then becomes:
+
+>
+    someMethod(
+        arg1,
+        arg2,
+        arg3
+    );
+<
+
+Finally here's a way to map this rather combersome line to the sequence of 
+key 'gob' in normal mode:
+
+>
+    nnoremap gob  :s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal ==<CR>
+<
+
+USING A SCRIPT                                        *vtw-671-using-a-script*
+
+The following script defines a user command to automate the insertion of line 
+breaks. Save the script in a file called `linebreakat.vim`.
+
+>
+    " Insert a newline after each specified string (or before if use '!').
+    " If no arguments, use previous search.
+    command! -bang -nargs=* -range LineBreakAt <line1>,<line2>call LineBreakAt('<bang>', <f-args>)
+    function! LineBreakAt(bang, ...) range
+      let save_search = @/
+      if empty(a:bang)
+        let before = ''
+        let after = '\ze.'
+        let repl = '&\r'
+      else
+        let before = '.\zs'
+        let after = ''
+        let repl = '\r&'
+      endif
+      let pat_list = map(deepcopy(a:000), "escape(v:val, '/\\.*$^~[')")
+      let find = empty(pat_list) ? @/ : join(pat_list, '\|')
+      let find = before . '\%(' . find . '\)' . after
+      " Example: 10,20s/\%(arg1\|arg2\|arg3\)\ze./&\r/ge
+      execute a:firstline . ',' . a:lastline . 's/'. find . '/' . repl . '/ge'
+      let @/ = save_search
+    endfunction
+<
+
+In Vim, enter the command `:so linebreakat.vim` to source the script. If you 
+want the script sourced automatically whenever Vim starts, place the file in 
+directory `~/.vim/plugin` (Unix) or `$HOME/vimfiles/plugin` (Windows). On 
+Windows, enter the following command to see the name of the required directory 
+(which you may need to create):
+
+>
+    :echo expand('$HOME/vimfiles/plugin')
+<
+
+Usage examples
+
+You do not need to type the entire command; depending on your system, you may 
+find that typing `:L` is sufficient (press the Tab key to expand `L` to see 
+other commands that start with that text :help 'wildchar').
+
+The arguments to `LineBreakAt` are the strings that you want to find; they 
+are not search patterns. For example, `:%LineBreakAt! *` will insert a newline 
+before each asterisk in the whole buffer (the command escapes the `*` by 
+preceding it with a backslash, so the asterisk has no special meaning).
+
+If you want to include a space in the text, type a backslash before the 
+space. For example, `:%LineBreakAt! The\ rain` will insert a newline before 
+each occurrence of "The rain" in the whole buffer.
+
+After searching for a pattern (for example \<t\w*e\> to find all words 
+starting with '`t`' and ending with '`e`'), using `:%LineBreakAt!` (with no 
+arguments) will insert a newline before each of the search hits, and using 
+`:%LineBreakAt` will insert a newline after each of the search hits.
+
+EXPLANATION                                              *vtw-671-explanation*
+
+The `:command` line defines a user command (`LineBreakAt`) that calls a 
+function with the same name. The first argument to the function (`bang`) will 
+be '`!`' if an exclamation mark was typed after the command, and will be an 
+empty string otherwise. The arguments typed after the command (one or more 
+strings separated by whitespace) are passed as the `...` in the function. 
+:help |<f-args>|
+
+The function converts the `...` arguments (accessed as the list `a:000`) by 
+escaping the characters that have a special meaning when searching, for 
+example, `/` is replaced with `\/` because the substitute command uses slash 
+as a delimiter. The list of arguments is copied with `deepcopy()` (because 
+arguments to a Vim function cannot be changed), then `map()` processes each 
+argument (`v:val`) with the `escape()` function; the result is copied into 
+`pat_list` (a list of the individual escaped search patterns).
+
+A search pattern is then formed in the `find` variable. If `bang` is empty 
+and there are three arguments, `arg1 arg2 arg3`, the pattern will be 
+`\%(arg1\|arg2\|arg3\)\ze.`. Each argument is separated with `\|` (or), and 
+the result is grouped (`\%(...\)`) so that what follows applies to the whole 
+group, rather than to `arg3`. The `.` at the end requires that a character 
+that is not a newline follows the pattern (so another newline will not be 
+inserted). The `\ze` marks the end of the search hit, so the newline will be 
+inserted before the character that follows the pattern.
+
+If `bang` is empty, the replacement text (`repl`) is `&\r` (the search hit 
+then newline), or is `\r&` (a newline then the search hit), otherwise.
+
+The `:execute` command performs a substitute (`:s///ge`) on the given range 
+of lines (by default, the current line; otherwise, as specified). The `g` flag 
+(global) replaces all occurrences on each specified line, and the `e` flag 
+prevents an error message being displayed if no matches are found.
+
+REFERENCES                                                *vtw-671-references*
+    - :help |:command| 
+    - :help |:substitute| 
+    - :help |:function| 
+    - :help |map()| 
+
+
+COMMENTS                                                    *vtw-671-comments*
+
+ vim:tw=78:et:ft=help:norl:

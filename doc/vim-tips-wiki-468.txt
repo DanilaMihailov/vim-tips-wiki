@@ -1,0 +1,67 @@
+*vim-tips-wiki-468.txt*   Display date-and-time on status line          *vtw-468*
+
+Tip 468 [https://vim.fandom.com/wiki/Display_date-and-time_on_status_line]   Previous |vtw-467| Next |vtw-469|
+
+created May 1, 2003 · complexity basic · author Dorai Sitaram · version 5.7
+
+==============================================================================
+
+The following lines in vimrc will display the time of day and calender date 
+on the editor status line:
+
+>
+    set ruler
+    set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
+<
+
+It doesn't update time if you issue no keystrokes, but as soon as you do 
+anything at all in the editor, you will get the current time.
+
+COMMENTS                                                    *vtw-468-comments*
+
+My vimrc has the following (but it can cause a slowdown).
+
+>
+    set laststatus=2 "black status line at bottom of window
+    if has("win32")
+      set statusline=%<%f%h%m%r%=%{strftime(\"%I:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}\ %{&ff}\ %l,%c%V\ %P
+    else
+      set statusline=%<%f%h%m%r%=%{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}\ %{&ff}\ %l,%c%V\ %P
+    endif
+<
+
+==============================================================================
+
+I didn't add this to the status line, but I did add it to the pheader 
+(printheader), which uses the same syntax.
+
+That way when I print the file, I can also print the current clock time.
+
+>
+    set pheader=%<%f%h%m%40{strftime(\"%I:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}%=Page\ %N
+<
+
+(filename, time, page N)
+
+==============================================================================
+
+I have another proposal: Print the last modification time (not the printing 
+time).
+
+>
+    set pheader=%<%f%h%m\ %40{strftime(\"%c\",getftime(expand(\"%%\")))}%=Page\ %N
+<
+
+==============================================================================
+
+From Vim 8 onwards, new timers make it easy to autoupdate the statusbar, for 
+example, every 4 seconds:
+
+>
+    let timer = timer_start(4000, 'UpdateStatusBar',{'repeat':-1})
+    function! UpdateStatusBar(timer)
+      execute 'let &ro = &ro'
+    endfunction
+<
+
+ vim:tw=78:et:ft=help:norl:

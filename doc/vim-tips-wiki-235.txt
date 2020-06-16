@@ -1,0 +1,54 @@
+*vim-tips-wiki-235.txt*   Highlight current word to find cursor         *vtw-235*
+
+Tip 235 [https://vim.fandom.com/wiki/Highlight_current_word_to_find_cursor]   Previous |vtw-234| Next |vtw-236|
+
+created 2002 · complexity basic · author HughSasse · version 6.0
+
+==============================================================================
+
+When scrolling or searching through a large file it is easy to lose sight of 
+the cursor. A simple way to locate the cursor is to type `zz` (which scrolls 
+the cursor line to the middle of the window), or to quickly type `jk` (which 
+moves the cursor down then up; the movement shows where the cursor is). This 
+tip shows other ways to find the cursor with highlighting.
+
+HIGHLIGHTING TEXT NEAR THE CURSOR  *vtw-235-highlighting-text-near-the-cursor*
+
+The script below can highlight the word containing the cursor to make it 
+easily visible: in normal mode, press Ctrl-K to toggle the highlight on or 
+off.
+
+Put this script in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    nnoremap <C-K> :call HighlightNearCursor()<CR>
+    function HighlightNearCursor()
+      if !exists("s:highlightcursor")
+        match Todo /\k*\%#\k*/
+        let s:highlightcursor=1
+      else
+        match None
+        unlet s:highlightcursor
+      endif
+    endfunction
+<
+
+The search pattern uses `\%#` to match the cursor position, including `\k*` 
+(all consecutive keyword characters) before and after that match. :help |/\%#| 
+:help |/\k|
+
+The match uses the `Todo` highlight group.
+
+SEE ALSO                                                    *vtw-235-see-also*
+    - Highlight current line |vtw-769| 
+    - Highlight cursor line after cursor jump |vtw-1380| 
+    - Keep your cursor centered vertically on the screen |vtw-182| 
+
+
+REFERENCES                                                *vtw-235-references*
+    - :help |:match| 
+
+
+COMMENTS                                                    *vtw-235-comments*
+
+ vim:tw=78:et:ft=help:norl:

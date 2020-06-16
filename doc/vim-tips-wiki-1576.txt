@@ -1,0 +1,154 @@
+*vim-tips-wiki-1576.txt*   Using vim color schemes with Putty          *vtw-1576*
+
+Tip 1576 [https://vim.fandom.com/wiki/Using_vim_color_schemes_with_Putty]   Previous |vtw-1575| Next |vtw-1577|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200806#Using_vim_color_schemes_with_Putty] 
+2008 · complexity basic · author Timkebox · version 7.0
+
+==============================================================================
+
+I am using PuTTY in Windows to access a Unix box, and the Terminal-type 
+string in PuTTY is set to xterm. I wanted to use Vim's color schemes. I tried 
+many different things with no decent result until I found the following code 
+in Vim's help. After inserting the following lines in my vimrc 
+[https://vim.fandom.com/wiki/Vimrc], I was able to use all the color schemes 
+defined by Vim.
+
+For a 16-color display:
+
+>
+    if has("terminfo")
+      let &t_Co=16
+      let &t_AB="\<Esc>[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm"
+      let &t_AF="\<Esc>[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm"
+    else
+      let &t_Co=16
+      let &t_Sf="\<Esc>[3%dm"
+      let &t_Sb="\<Esc>[4%dm"
+    endif
+<
+
+:help |xfree-xterm|
+
+For an 8-color display:
+
+>
+    if &term =~ "xterm"
+      if has("terminfo")
+        let &t_Co=8
+        let &t_Sf="\<Esc>[3%p1%dm"
+        let &t_Sb="\<Esc>[4%p1%dm"
+      else
+        let &t_Co=8
+        let &t_Sf="\<Esc>[3%dm"
+        let &t_Sb="\<Esc>[4%dm"
+      endif
+    endif
+<
+
+ALTERNATIVE                                             *vtw-1576-alternative*
+
+With the settings below, using `:runtime syntax/colortest.vim` shows all 23 
+colors as distinctly unique.
+
+Putty settings: Window, Colours
+
+[x] Allow terminal to specify ANSI colours
+[x] Allow terminal to specify xterm 256-colour mode
+[x] Bolded text is a different colour
+
+Settings in vimrc:
+
+>
+    if &term =~ "xterm"
+      " 256 colors
+      let &t_Co = 256
+      " restore screen after quitting
+      let &t_ti = "\<Esc>7\<Esc>[r\<Esc>[?47h"
+      let &t_te = "\<Esc>[?47l\<Esc>8"
+      if has("terminfo")
+        let &t_Sf = "\<Esc>[3%p1%dm"
+        let &t_Sb = "\<Esc>[4%p1%dm"
+      else
+        let &t_Sf = "\<Esc>[3%dm"
+        let &t_Sb = "\<Esc>[4%dm"
+      endif
+    endif
+<
+
+SEE ALSO                                                   *vtw-1576-see-also*
+    - Color highlighting on telnet |vtw-25| 
+    - Desert color scheme with Vim in PuTTY |vtw-1291| 
+
+
+COMMENTS                                                   *vtw-1576-comments*
+
+It is relatively easy to change the TERM setting PuTTY uses to set it to send 
+it as "xterm-256color" (or install the full set of terminfo files and set it 
+to the proper setting of "putty-256color". -- PuTTY doesn't support Techtronix 
+mode and so is not fully xterm compatible.)
+
+In PuTTY this is changed in the Configuration in the Connection -> Data 
+section. This is the same preferences page where you specify your auto-login 
+username, so you should be visiting this page anyway. With your auto-login 
+username specified, and public key authorization (which you should be using) 
+and a key agent running (PuTTY's Pageant does this) you can select a host and 
+log in without being prompted for username or password.
+
+With your TERM set to anything close to accurate, you can then leverage all 
+256 colors in other applications without manually tweaking the settings for 
+every application.
+
+Steven Black [https://vim.fandom.com/wiki/User:Steven_Black] 17:49, December 
+9, 2010 (UTC)
+
+==============================================================================
+
+I often use PuTTY at work to connect to a solaris box which we use for 
+compiling code. I have no admin rights, and no knowledge of how to set up 
+terminfo, etc. I tried the PuTTY setting you give, but I just get a "using 
+dumb terminal mode" message on login, and Vim has no colors. The 256-color 
+workaround in this tip works fine. I don't like it, I'd rather do it "the 
+right way" but sadly this may not be an option for me. Unless there's 
+something I can do in my own user space to get the terminfo correct. 
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 19:28, 
+December 9, 2010 (UTC)
+
+==============================================================================
+
+Chances are your system doesn't use terminfo then. Try hardwiring your term 
+option like this:
+
+set term=builtin_xterm
+
+or
+
+set term=builtin_ansi
+
+That should give you colors in putty. Your vim needs to be compiled with 
++builtin_term (+ or ++), though.
+
+Chrisbra [https://vim.fandom.com/wiki/User:Chrisbra] 20:50, December 9, 2010 
+(UTC)
+
+==============================================================================
+
+Thanks for the suggestion. I have +builtin_terms (not ++builtin_terms) but 
+neither :set term=builtin_xterm nor :set term=builtin_ansi have any noticeable 
+effect to enable colors, even when it is the first item in the .vimrc (after 
+:set nocompatible). Since the hack in this tip does work for me, and I really 
+don't know much about terminal configuration, I'm probably going to just leave 
+it. --Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 14:24, 
+December 10, 2010 (UTC)
+
+==============================================================================
+
+It works for me with putty. But I need to explicitly set :syntax on after setting 'term' to builtin_ansi. 217.88.63.38 13:20, December 11, 2010 (UTC)
+
+==============================================================================
+
+Try to set Terminal-type string in putty (Connection->Data) to 
+'putty-256color'. That worked for me.
+
+ vim:tw=78:et:ft=help:norl:

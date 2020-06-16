@@ -1,0 +1,78 @@
+*vim-tips-wiki-461.txt*   Open a Perl module from its module name       *vtw-461*
+
+Tip 461 [https://vim.fandom.com/wiki/Open_a_Perl_module_from_its_module_name]   Previous |vtw-460| Next |vtw-462|
+
+created 2003 · complexity basic · author Mark Stosberg · version 6.0
+
+==============================================================================
+
+This tip shows some techniques for accessing information when editing a Perl 
+program. See also Perldoc function and module keyboard mappings |vtw-614| 
+(which should be merged to here).
+
+OPEN A PERL MODULE                                *vtw-461-open-a-perl-module*
+
+You may want to open the source code of a system Perl module that's 
+installed. Here's one way to do that:
+
+>
+    :e `perldoc -l Module::Name`
+<
+
+The following function will allow you to set your cursor over a Perl module 
+name in the file that you are currently editing and type `\pm` to open the 
+corresponding source file in a new buffer:
+
+>
+    nnoremap <Leader>pm :call LoadPerlModule()<CR>
+    
+    function! LoadPerlModule()
+      execute 'e `perldoc -l ' . expand("<cWORD>") . '`'
+    endfunction
+<
+
+VIEW PERLDOC INFORMATION                    *vtw-461-view-perldoc-information*
+
+If you use the `K` command in Perl files, it will try to invoke '`man`' on 
+Perl keywords/functions. But this does not make much sense. It is more useful 
+to redirect `K` to use '`perldoc -f`' in a Perl file. Add this to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    au FileType perl setlocal keywordprg=perldoc\ -T\ -f
+<
+
+and `K` will lookup Perl function names using 'perlfoc -f' for you.
+
+SEE ALSO                                                    *vtw-461-see-also*
+
+Online documentation for word under cursor |vtw-1354|
+
+COMMENTS                                                    *vtw-461-comments*
+
+TO DO
+    - Cleanup this and VimTip614 |vtw-614|, and merge 614 to here. 
+    - Rename this tip. 
+    - I'm pretty sure all the autocmd suggestions are misguided (and should be 
+      deleted). 
+    - Instead, show how to use an `after/ftplugin/perl.vim` file. 
+
+
+The following have suggestions for working with `K` that may be helpful in 
+this tip:
+    - 506 Open Windows Help files on a specific topic |vtw-506| 
+    - 598 PHP online help |vtw-598| 
+    - 642 Use K to easily run a Windows program for the current word |vtw-642| 
+    - 826 PHP manual in Vim help format |vtw-826| 
+    - 1341 Power K |vtw-1341| 
+    - 1533 Vim Doclet |vtw-1533| 
+
+
+I had a quick try with the `after` file, but there is some weird stuff going 
+on with `iskeyword` that I'd like to sort out before doing any further 
+cleaning. JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 05:28, 5 
+April 2009 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

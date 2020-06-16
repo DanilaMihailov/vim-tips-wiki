@@ -1,0 +1,229 @@
+*vim-tips-wiki-776.txt*   Deadkeys / Accented Characters and Mutt integration *vtw-776*
+
+Tip 776 [https://vim.fandom.com/wiki/Deadkeys_/_Accented_Characters_and_Mutt_integration]   Previous |vtw-774| Next |vtw-778|
+
+created August 23, 2004 · complexity basic · author Max Baker · version 5.7
+
+==============================================================================
+
+Using Mutt and Vim for my email, I need to write in Spanish a few times a 
+week, but I'm using a US key layout.
+
+Deadkeys are used for entering accented and special characters. First you hit 
+a modifier key like apostrophe (') and then a vowel to get the accented 
+version (ό).
+
+This tip turns the ' ` ^ and " characters into deadkeys to allow for most all 
+characters used in European languages.
+
+Two functions are added to to turn on deadkeys and turn off deadkeys. Those 
+functions are then mapped to F-keys. Finally, an addition to your .muttrc 
+helps start vim in a wordprocessing mode.
+
+The bulk of the work was done by Claudio Fleiner at 
+http://www.fleiner.com/vim/deadkey.html 
+[http://www.fleiner.com/vim/deadkey.html] . I just wrapped them into functions 
+for ease of use.
+
+>
+    " vimrc
+    nm <F6> :call DeadKeys()<CR>
+    nm <F7> :call DeadKeysOff()<CR>
+    
+    function! DeadKeys()
+      echo "Dead Keys: On"
+      let g:DeadKeysOn=1
+      " map dead keys
+      imap "a    ä
+      imap "A    Ä
+      imap "e    ë
+      imap "E    Ë
+      imap "i    ï
+      imap "I    Ï
+      imap "o    ö
+      imap "O    Ö
+      imap "u    ü
+      imap "U    Ü
+      imap "y    ÿ
+      imap "<Space>    ""<BS>
+      imap ""    ""<BS>
+    
+      imap 'a    á
+      imap 'A    Á
+      imap 'e    é
+      imap 'E    É
+      imap 'i    í
+      imap 'I    Í
+      imap 'o    ó
+      imap 'O    Ó
+      imap 'u    ú
+      imap 'U    Ú
+      imap 'y    ý
+      imap ''    ''<BS>
+      imap '<Space>    ''<BS>
+    
+      imap 'c    ç
+      imap 'C    Ç
+    
+      imap `a    à
+      imap `A    À
+      imap `e    è
+      imap `E    È
+      imap `i    ì
+      imap `I    Ì
+      imap `o    ò
+      imap 'O    Ó
+      imap 'u    ú
+      imap 'U    Ú
+      imap 'y    ý
+      imap ''    ''<BS>
+      imap '<Space>    ''<BS>
+    
+      imap 'c    ç
+      imap 'C    Ç
+    
+      imap `a    à
+      imap `A    À
+      imap `e    è
+      imap `E    È
+      imap `i    ì
+      imap `I    Ì
+      imap `o    ò
+      imap `O    Ò
+      imap `u    ù
+      imap `U    Ù
+      imap ``    ``<BS>
+      imap `<Space>    ``<BS>
+    
+      imap ^a    â
+      imap ^A    Â
+      imap ^e    ê
+      imap ^E    Ê
+      imap ^i    î
+      imap ^I    Î
+      imap ^o    ô
+      imap ^O    Ô
+      imap ^u    û
+      imap ^U    Û
+      imap ^y    xxxx
+      "imap ^y " this one was giving me problems.
+      imap ^^    ^^<BS>
+      imap ^<Space>    ^^<BS>
+    
+      imap ~n    ñ
+      imap ~N    Ñ
+      imap ~~    ~~<BS>
+      imap ~<Space>    ~~<BS>
+    endfunction " deadkeys()
+    
+    function! DeadKeysOff()
+      " Make sure turning them off without having turned them on
+      " does nothing bad.
+      if !exists("g:DeadKeysOn") || !g:DeadKeysOn
+        echo "Dead Keys not on."
+        return
+      endif
+      echo "Dead Keys: Off"
+      let g:DeadKeysOn=0
+      iunmap "a
+      iunmap "A
+      iunmap "e
+      iunmap "E
+      iunmap "i
+      iunmap "I
+      iunmap "o
+      iunmap "O
+      iunmap "u
+      iunmap "U
+      iunmap "y
+      iunmap ""
+      iunmap "<Space>
+    
+      iunmap 'a
+      iunmap 'A
+      iunmap 'e
+      iunmap 'E
+      iunmap 'i
+      iunmap 'I
+      iunmap 'o
+      iunmap 'O
+      iunmap 'u
+      iunmap 'U
+      iunmap 'y
+      iunmap '<Space>
+      iunmap ''
+      iunmap 'c
+      iunmap 'C
+    
+      iunmap `a
+      iunmap `A
+      iunmap `e
+      iunmap `E
+      iunmap `i
+      iunmap `I
+      iunmap `o
+      iunmap `O
+      iunmap `u
+      iunmap `U
+      iunmap `<Space>
+      iunmap ``
+    
+      iunmap ^a
+      iunmap ^A
+      iunmap ^e
+      iunmap ^E
+      iunmap ^i
+      iunmap ^I
+      iunmap ^o
+      iunmap ^O
+      iunmap ^u
+      iunmap ^U
+      "iunmap ^y
+      iunmap ^^
+      iunmap ^<Space>
+    
+      iunmap ~n
+      iunmap ~N
+      iunmap ~~
+      iunmap ~<Space>
+    endfunction
+<
+
+>
+    # .muttrc
+    # Make VI into wordprocessor mode -- auto wrap, backspace to previous line
+    set editor="vim -c 'set tw=76' -c 'set fo=tcq' -c 'set bs=eol' -c 'set wrap'"
+<
+
+COMMENTS                                                    *vtw-776-comments*
+
+Looks like VimTip273 |vtw-273| has some more mutt/mail quote stuff too!
+
+==============================================================================
+
+I have a compose key defined for such things (using an old IBM model M with 
+US layout). Not only can I access the "accented" characters for my mother 
+tngue (German), but I also get easy access to all the other more nifty chars: 
+http://www.schwarzvogel.de/compose.shtml 
+[http://www.schwarzvogel.de/compose.shtml]
+
+==============================================================================
+
+In Windows 2000 or XP the same behavior can be configured for all apps by 
+selecting the US-International -- make sure, INTERNATIONAL -- keyboard locale 
+in control panel.
+
+==============================================================================
+
+With a compose key, you don't have to. "é" is compose-'-e while "'e" is just 
+'-e.
+
+==============================================================================
+
+Or you could simply use vim's digraphs 
+[https://vim.fandom.com/wiki/Entering_special_characters] instead of 
+reinventing the wheel.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

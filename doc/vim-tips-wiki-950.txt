@@ -1,0 +1,55 @@
+*vim-tips-wiki-950.txt*   Search multiple buffers for next match        *vtw-950*
+
+Tip 950 [https://vim.fandom.com/wiki/Search_multiple_buffers_for_next_match]   Previous |vtw-949| Next |vtw-952|
+
+created June 15, 2005 · complexity basic · author Bill Weir · version 5.7
+
+==============================================================================
+
+When editing multiple files I like to have a search operation that behaves a 
+bit like "/*" in less (to search multiple buffers looking for the next match). 
+The Nextmatch function (below) does this, although it doesn't behave quite as 
+I would like.
+
+>
+    function! Nextmatch()
+      let v:errmsg = "X"
+      let s:x = bufnr("%")
+      while v:errmsg != ""
+        bnext
+        if bufnr("%") == s:x
+          break
+        endif
+        1
+        let v:errmsg = ""
+        silent! /
+      endwhile
+    endfunction
+<
+
+COMMENTS                                                    *vtw-950-comments*
+
+TO DO It has been suggested that this tip should be deleted 
+[https://vim.fandom.com/wiki/Category_talk:Candidates_for_deletion/Archive4#Tip_950_Search_multiple_buffers_for_next_match], 
+mainly because it doesn't function totally satisfactorily, and the script 
+mentioned below is superior.
+
+The decision was to keep the tip for now, and to think about it again. Please 
+add any comments here (or just improve the tip). Let's think again whether to 
+delete it in August 2008. --JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 12:46, 22 April 2008 (UTC)
+
+I found this function to be exactly what I wanted. The only change I made was 
+to replace s:x with l:x and then added it and ':nnoremap <F7> :call 
+NextMatch()<CR>' to my .vimrc. Simple and effective. Script#1062 was not what 
+I wanted, too much complexity and functionality for what I needed. Thank you 
+Bill Weir for this function. --DCraver 08/23/2018
+
+==============================================================================
+
+script#1062 [https://www.vim.org/scripts/script.php?script_id=1062] does the 
+same thing but better.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

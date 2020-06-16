@@ -1,0 +1,148 @@
+*vim-tips-wiki-710.txt*   Type and run templates instead of routine code *vtw-710*
+
+Tip 710 [https://vim.fandom.com/wiki/Type_and_run_templates_instead_of_routine_code]   Previous |vtw-709| Next |vtw-711|
+
+created May 4, 2004 · complexity basic · author akeru · version 6.0
+
+==============================================================================
+
+There's a template script written in perl (see sources below).
+
+Use this mapping in visual mode:
+
+>
+    vnoremap <F6> :!perl E:\\Devtools\\vim\\vimfiles\\template\truler.pl<CR>
+<
+
+The template markers are:
+
+>
+    TS:<Single string template here>
+    TB:
+    <multistring template here>
+    TE:
+    TF: <template file name >
+<
+
+So now we are typing following templates and get them transformed.
+
+Typing this:
+
+>
+    TS:public final static int PROXY_TYPE_{$p2}={$p1};
+    1;HTTP
+    2;SOCKS
+    3;SSH
+    4;HTTPS
+    5;NOPROXY
+<
+
+Now select this template with values below, press magic button and 'ta-da', 
+we have this code :
+
+>
+    public final static int PROXY_TYPE_HTTP=1;
+    public final static int PROXY_TYPE_SOCKS=2;
+    public final static int PROXY_TYPE_SSH=3;
+    public final static int PROXY_TYPE_HTTPS=4;
+    public final static int PROXY_TYPE_NOPROXY=5;
+<
+
+Here's the same with multiline template, type following:
+
+>
+    TB:
+    public {$p1} is{$p2}Established() \{
+     return m{$p2};
+    \}
+    TE:
+    boolean;DirectConnection
+    boolean;SockConnection
+    boolean;HTTPConnection
+<
+
+and after transforming we'll got this :
+
+>
+    protected boolean isDirectConnectionEstablished() {
+      return m_DirectConnection;
+    }
+    
+    protected boolean isSockConnectionEstablished() {
+      return m_SockConnection;
+    }
+    
+    protected boolean isHTTPConnectionEstablished() {
+      return m_HTTPConnection;
+    }
+<
+
+I know it's stupid 'copy-paste' and I don't like it, but sometimes It's 
+requiredand that simple script saving my time.
+
+Text::Template you can download it from http://search.cpan.org 
+[http://search.cpan.org].
+
+
+
+>
+    # truler.pl
+    use Text::Template;
+    $tb=0; $te=0;$template_str="";
+    $template_dir="E:\\Devtools\\vim\\vimfiles\\template\\";
+    while (<STDIN>){
+     if (/^TF:(.*)$/){#file
+     $template_file=$1;
+     $template = Text::Template->new(SOURCE => $template_dir.$template_file)
+     or die "Couldn't construct template: $Text::Template::ERROR";
+    
+     }elsif (/^TS:(.*)$/){#line
+     $template_str=$1;
+     $template = Text::Template->new(TYPE=> STRING ,SOURCE => "$template_str\n")
+     or die "Couldn't construct template: $Text::Template::ERROR";
+    
+     }elsif (/^TB:/){#line
+     $tb=1;
+     }elsif (/^TE:/){#line
+     $te=1;
+     $template = Text::Template->new(TYPE=> STRING ,SOURCE => "$template_str\n")
+     or die "Couldn't construct template: $Text::Template::ERROR";
+     }elsif ($tb==1 && $te==0 ) {
+     $template_str.=$_;
+     }else {
+    
+     if (defined $template) {
+     chomp;
+     @p=split /;/;
+     #if ($p > 0) { print "$_\n";
+    
+     my %vars = (
+     p1 => $p[0],
+     p2 => $p[1],
+     p3 => $p[2],
+     p4 => $p[3],
+     p5 => $p[4],
+     p6 => $p[5],
+     p7 => $p[6],
+     p8 => $p[7],
+     p9 => $p[8]
+     );
+     my $result = $template->fill_in(HASH => \%vars);
+     if (defined $result) { print $result }
+     #}
+     } #template_file defined
+     }#else of TF
+    }#end while
+<
+
+COMMENTS                                                    *vtw-710-comments*
+
+I have something similar here 
+http://www.ophinity.com/papers/wrangling/index.html#multiply 
+[http://www.ophinity.com/papers/wrangling/index.html#multiply]
+
+written in python, so it's inherently superior.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,86 @@
+*vim-tips-wiki-579.txt*   Copy paragraphs without excess newlines to MS Word *vtw-579*
+
+Tip 579 [https://vim.fandom.com/wiki/Copy_paragraphs_without_excess_newlines_to_MS_Word]   Previous |vtw-577| Next |vtw-580|
+
+created 2003 · complexity basic · author Siegfried Bublitz · version 5.7
+
+==============================================================================
+
+Sometimes I am forced to enter text into MS Word. I often prefer to create 
+the text in Vim, then paste it into Word. However, Word expects each paragraph 
+to end with a newline, with no newlines in the para.
+
+So I created a mapping that deletes all single newlines from a selected area 
+but keeps multiple ones. Here it is:
+
+>
+    vmap <C-C> "+y:let @+ = substitute(@+, "\n\n\n*", "±", "g")
+     \\|:let @+ = substitute(@+, "\n", " ", "g")<CR>
+     \\|:let @+ = substitute(@+, "±", "\\n", "g")<CR>
+     \\|'<
+<
+
+This is what it does:
+
+Copy the visual area into the selection register +, subsitute two and more 
+newlines but a strange symbol hopefully not contained in the area (±), 
+substitute single newlines by a blank and resubstitute the strange symbol by 
+one newline, then go back to the beginning of the selected area.
+
+If you select now text in Vim with V, it is copied with <Ctrl-C> as described 
+and can be pasted normally into another application.
+
+COMMENTS                                                    *vtw-579-comments*
+
+Here's another way:
+
+Step 1: Set the text width to a very large number; the number should be 
+bigger than the number of characters in any para. For example:
+
+>
+    :set tw=9999
+<
+
+Step 2: Reformat the entire text with the gq command, for example, by using 
+the series of commands below (the first three commands below select the text, 
+the last formats it):
+
+>
+    gg
+    Ctrl-q
+    G
+    gq
+<
+
+To copy to MS-Word, one can do the following:
+
+>
+    gg
+    "*yG
+<
+
+The preceding copies the text into the clipboard. Then go to Word and paste 
+using "Ctrl-v".
+
+Yet another way:
+
+>
+    :g/^$/,/^$/-j
+<
+
+This works with every vi.
+
+==============================================================================
+
+TO DO
+    - Can all of above be replaced with Tim's amazing command (below)? 
+    - Surely that "Ctrl-q" in comment should just be V? `ggVG` 
+    - While `gg"*yG` works on Windows, it should be `gg"+yG` 
+    - Rename tip, maybe "Convert multi-line paragraphs to single line"? 
+
+
+>
+    :v/^\s*$/norm vipJ
+<
+
+ vim:tw=78:et:ft=help:norl:

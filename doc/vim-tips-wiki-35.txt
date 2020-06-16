@@ -1,0 +1,104 @@
+*vim-tips-wiki-35.txt*   Translate between single line and block comments *vtw-35*
+
+Tip 35 [https://vim.fandom.com/wiki/Translate_between_single_line_and_block_comments]   Previous |vtw-34| Next |vtw-36|
+
+created 2001 · complexity intermediate · author slimzhao · version 5.7
+
+==============================================================================
+
+With the following mappings, you can press `\c` to change all C++ comments to 
+C comments, or press `\C` to change all C comments to C++ comments (assuming 
+you are using backslash for your <Leader> key).
+
+Note: The mappings only handle single-line C comments.
+
+For example, if you press `\c` then the following C++ code:
+
+>
+    int i = 12;    // this is a comment
+    char c = 'A';  // and here is another comment
+<
+
+changes to use C comments:
+
+>
+    int i = 12;    /* this is a comment */
+    char c = 'A';  /* and here is another comment */
+<
+
+Here are the mappings. You could put these in your vimrc:
+
+>
+    " C++ //-comment to C /*-comment-*/
+    :noremap <Leader>c :%s://\(.*\):/*\1 */:<CR>
+    
+    " C /*-single-line-*/ to C++ //-comment
+    :noremap <Leader>C :%s:/\*\(.\{-\}\)\s*\*/://\1:<CR>
+<
+
+COMMENTS                                                     *vtw-35-comments*
+
+I tested, and even though the "dodgy" comment said it didn't work, it did 
+work on my setup with no modifications. If you have any problems using this 
+tip, please leave a comment below with exactly what it did wrong so we can fix 
+the tip! --Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 
+04:14, 13 July 2009 (UTC)
+
+==============================================================================
+
+I just tried it and it failed because of something I don't understand about 
+the `"...` Vim comment. When I removed the Vim comments, it worked fine. In 
+more detail: Copy the four lines in the pre block to Vim and set up a test 
+case. In Vim: use V movement to select the four lines, then y to copy, then @" 
+to execute the copied commands. Bug: It doesn't work! Perhaps the comment on 
+the first line masks out the remaining three lines??
+
+Copying just the two :noremap lines and executing them caused it to work.
+
+Note that an inline C comment with code following will cause trouble. Say:
+
+>
+    i = myfunc(a, /* b, */ c);
+<
+
+Converting the above to a C++ comment will eliminate the `c);`. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 07:47, 13 July 2009 (UTC)
+
+==============================================================================
+
+You can't use @" to execute with the comments, or it will use the " like it 
+was a register specification, since @" executes normal mode, not ex, commands. 
+Using :@" (which you probably intended) works fine AFAICT.
+
+Saving the commands (with the comments) to a file and then :source-ing it 
+also works fine.
+
+Good point about the inline C comments, maybe that was the original issue 
+noted. Perhaps the mapping should replace the */ with a newline instead of 
+simply removing it?
+
+The second mapping would become:
+
+>
+    :noremap <Leader>C :%s:/\*\(.\{-\}\)\s*\*/://\1\r:<CR>
+<
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 14:56, 13 
+July 2009 (UTC)
+
+==============================================================================
+
+Ah, yes. My brain said "the commands start with colon, therefore I can use 
+`@"` rather than `:@"`, but as you say the comment lines will be interpreted 
+as normal mode commands. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 22:46, 13 July 2009 (UTC)
+
+==============================================================================
+
+Title should reflect that this only works with C and C++
+
+--Diazleonardo [https://vim.fandom.com/wiki/User:Diazleonardo] (talk 
+[https://vim.fandom.com/wiki/User_talk:Diazleonardo]) 01:31, December 19, 2013 
+(UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,158 @@
+*vim-tips-wiki-1456.txt*   Cache user-preferred option values for later reset *vtw-1456*
+
+Tip 1456 [https://vim.fandom.com/wiki/Cache_user-preferred_option_values_for_later_reset]   Previous |vtw-1455| Next |vtw-1458|
+
+created 2007 · complexity basic · author Thomas · version n/a
+
+==============================================================================
+
+Some plugins inadvertently set global options. I have the following code at 
+the top of my vimrc, and set all options to my preferred values using the 
+`SetOption` command. Whenever I want to reset options I do `:ResetOptions` 
+which resets all user-defined options previously set by `SetOption`.
+
+>
+    let s:option_preferences = []
+    function! ResetOption(options)
+      if empty(a:options)
+        let options = s:option_preferences
+      else
+        let options = a:options
+      endif
+      for name in options
+        let name0 = 'g:'. name .'_default'
+        if exists(name0)
+          exec 'let &'. name .' = '. name0
+        endif
+      endfor
+    endfunction
+    
+    command! -nargs=* ResetOption :call ResetOption([<f-args>])
+    command! -nargs=+ SetOption let s:tmlargs=[<f-args>]
+     \ | for arg in s:tmlargs[1:-1]
+     \ |   if arg =~ '^[+-]\?='
+     \ |     exec 'set '.s:tmlargs[0] . arg
+     \ |   else
+     \ |     exec 'let &'.s:tmlargs[0] .'='. arg
+     \ |   endif
+     \ | endfor
+     \ | call add(s:option_preferences, s:tmlargs[0])
+     \ | exec 'let g:'. s:tmlargs[0] .'_default = &'. s:tmlargs[0]
+     \ | unlet s:tmlargs
+<
+
+EXAMPLES                                                   *vtw-1456-examples*
+
+Add and remove specific options
+
+>
+    :SetOption cpo +=my -=M
+<
+
+Set the value
+
+>
+    :SetOption ts 4
+    :SetOption ts =4
+<
+
+Just cache the predefined value so that it can be restored laterIn this 
+example a later reset would be the same as `:set tw&`
+
+>
+    :SetOption tw
+<
+
+Reset specific options
+
+>
+    :ResetOption ts tw
+<
+
+Reset all user-set options
+
+>
+    :ResetOption
+<
+
+In order to monitor the options setting, I display changed values in 
+`&statusline`.
+
+>
+    set statusline=%1*[%{winnr()}:%02n]%*\ %2t\ %(%M%R%H%W%k%)\ %=%{TmlStatusline()}\ %3*<%l,%c%V,%p%%>%*
+    
+    function! TmlStatusline()
+      let opt = "<". &syntax ."/". &fileformat .">"
+      if !&backup | let opt=opt." no-bak" |endif
+      if !&et | let opt=opt." no-et" |endif
+      if &list | let opt=opt." list" |endif
+      if &paste | let opt=opt." paste" | endif
+      if !&expandtab | let opt=opt." tab" | endif
+      if &ts != g:ts_default | let opt=opt.' ts='.&ts | endif
+      if &sw != g:sw_default | let opt=opt.' sw='.&sw | endif
+      if &tw != g:tw_default | let opt=opt.' tw='.&tw | endif
+      if &wm != g:wm_default | let opt=opt.' wm='.&wm | endif
+      if &enc != g:enc_default | let opt=opt.' enc='.&enc | endif
+      if &ve != g:ve_default | let opt=opt.' ve='. &ve | endif
+      if &fo != g:fo_default | let opt=opt.' fo='. &fo | endif
+      if &cpo != g:cpo_default | let opt=opt.' cpo='. &cpo | endif
+      if &bin | let opt=opt.' [bin]' | endif
+      if &foldlevel != s:foldlevel | let opt=opt.' F'.&foldlevel | endif
+      let opt=opt." | ".strftime("%d-%b-%Y %H:%M")
+      return opt
+    endfunction
+<
+
+COMMENTS                                                   *vtw-1456-comments*
+
+Here is a slightly modified version:
+
+>
+    let s:options = {}
+    function! ResetOption(options)
+      if empty(a:options)
+        let options = keys(s:options)
+      else
+        let options = a:options
+      endif
+      for name in options
+        exec 'let &'. name .' = s:options[name]'
+      endfor
+    endfunction
+    
+    command! -nargs=* ResetOption :call ResetOption([<f-args>])
+    command! -nargs=+ SetOption let s:tmlargs=[<f-args>]
+     \ | for arg in s:tmlargs[1:-1]
+     \ |   if arg =~ '^[+-]\?='
+     \ |     exec 'set '.s:tmlargs[0] . arg
+     \ |   else
+     \ |     exec 'let &'.s:tmlargs[0] .'='. arg
+     \ |   endif
+     \ | endfor
+     \ | exec 'let s:options[s:tmlargs[0]] = &'. s:tmlargs[0]
+     \ | unlet s:tmlargs
+    
+    let s:option_labels = {'fdl': 'F'}
+    function! TmlStatusline()
+      let opt = "<". &syntax ."/". &fileformat .">"
+      if !&backup | let opt=opt." no-bak" |endif
+      if !&et | let opt=opt." no-et" |endif
+      if &list | let opt=opt." list" |endif
+      if &paste | let opt=opt." paste" | endif
+      if !&expandtab | let opt=opt." tab" | endif
+      for [o, v] in items(s:options)
+        exec 'let oo = &'.o
+        if oo != v
+          let opt .= ' '. (has_key(s:option_labels, o) ? s:option_labels[o] : o.'=') . oo
+        endif
+      endfor
+      if &bin | let opt=opt.' [bin]' | endif
+      if exists('b:compressed') | let opt=opt.' ['.b:compressed.']' | endif
+      let opt=opt." | ".strftime("%d-%b-%Y %H:%M")
+      return opt
+    endfunction
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

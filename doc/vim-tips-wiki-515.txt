@@ -1,0 +1,125 @@
+*vim-tips-wiki-515.txt*   List loaded scripts                           *vtw-515*
+
+Tip 515 [https://vim.fandom.com/wiki/List_loaded_scripts]   Previous |vtw-514| Next |vtw-517|
+
+created 2003 · complexity intermediate · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+The `:scriptnames` command can be used to list the scripts that Vim has 
+loaded. This tip provides information on how to list scripts that Vim failed 
+to load. In addition, a user command is provided to list loaded scripts in a 
+scratch buffer which you can search and edit (convenient for use of gf 
+[https://vim.fandom.com/wiki/Open_file_under_cursor] to edit scripts).
+
+LISTING LOADED SCRIPTS                        *vtw-515-listing-loaded-scripts*
+
+To see the file names of all scripts loaded (sourced) by Vim, including those 
+loaded implicitly at startup, enter:
+
+>
+    :scriptnames
+<
+
+The list does not include "would-be scripts" (scripts that Vim tried to open 
+but which failed without warning, perhaps because the script could not be 
+found). To see the "would-be" scripts use the `-V` option when starting Vim:
+
+>
+    vim -V
+<
+
+Use the following to show the system-dependent locations of configuration 
+files (but not the location of system/personal plugins):
+
+>
+    vim --version
+<
+
+LISTING TO A SCRATCH BUFFER              *vtw-515-listing-to-a-scratch-buffer*
+
+The following code (for your vimrc [https://vim.fandom.com/wiki/Vimrc]) 
+defines the `:Scriptnames` user command to list loaded scripts in a scratch 
+buffer which you can search and edit. I.e. it wraps the built-in 
+`:scriptnames` command to place the output in a buffer instead of just 
+displaying it on-screen so that you can now manipulate the output. For 
+example, this lets you put the cursor on the name of a script, and type `gf` 
+("goto file") to show that script.
+
+The `:Scriptnames` command takes an argument which is a pattern to match the 
+names of scripts of interest. Lines which do not contain the given argument 
+are removed from the list. For example, entering `:Scriptnames surround` will 
+list all scripts which contain "surround" in the path name of the script.
+
+Create file `~/.vim/plugin/scriptnames.vim` (Unix) or 
+`$HOME/vimfiles/plugin/scriptnames.vim` (Windows) containing the script below, 
+then restart Vim.
+
+>
+    " Execute 'cmd' while redirecting output.
+    " Delete all lines that do not match regex 'filter' (if not empty).
+    " Delete any blank lines.
+    " Delete '<whitespace><number>:<whitespace>' from start of each line.
+    " Display result in a scratch buffer.
+    function! s:Filter_lines(cmd, filter)
+      let save_more = &more
+      set nomore
+      redir => lines
+      silent execute a:cmd
+      redir END
+      let &more = save_more
+      new
+      setlocal buftype=nofile bufhidden=hide noswapfile
+      put =lines
+      g/^\s*$/d
+      %s/^\s*\d\+:\s*//e
+      if !empty(a:filter)
+        execute 'v/' . a:filter . '/d'
+      endif
+      0
+    endfunction
+    command! -nargs=? Scriptnames call s:Filter_lines('scriptnames', <q-args>)
+<
+
+The following is a more generic function allowing you to view any ex command 
+in a scratch buffer:
+
+>
+    function! s:Scratch (command, ...)
+       redir => lines
+       let saveMore = &more
+       set nomore
+       execute a:command
+       redir END
+       let &more = saveMore
+       call feedkeys("\<cr>")
+       new | setlocal buftype=nofile bufhidden=hide noswapfile
+       put=lines
+       if a:0 > 0
+          execute 'vglobal/'.a:1.'/delete'
+       endif
+       if a:command == 'scriptnames'
+          %substitute#^[[:space:]]*[[:digit:]]\+:[[:space:]]*##e
+       endif
+       silent %substitute/\%^\_s*\n\|\_s*\%$
+       let height = line('$') + 3
+       execute 'normal! z'.height."\<cr>"
+       0
+    endfunction
+     
+    command! -nargs=? Scriptnames call <sid>Scratch('scriptnames', <f-args>)
+    command! -nargs=+ Scratch call <sid>Scratch(<f-args>)
+<
+
+REFERENCES                                                *vtw-515-references*
+    - :help |startup| 
+    - :help |:scriptnames| 
+
+
+COMMENTS                                                    *vtw-515-comments*
+
+The Headlights [https://www.vim.org/scripts/script.php?script_id=3455] plugin 
+(for gvim or MacVim) creates menus for installed plugins along with their 
+files (and commands, mappings, abbreviations, etc).
+
+ vim:tw=78:et:ft=help:norl:

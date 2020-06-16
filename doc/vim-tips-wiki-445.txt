@@ -1,0 +1,75 @@
+*vim-tips-wiki-445.txt*   Formatting stuff                              *vtw-445*
+
+Tip 445 [https://vim.fandom.com/wiki/Formatting_stuff]   Previous |vtw-444| Next |vtw-446|
+
+created March 18, 2003 · complexity basic · author Se7en · version 5.7
+
+==============================================================================
+
+Here are tips for use when programming in Lisp and Visual lisp for AutoCAD.
+
+>
+    imap <Backspace> <Left><del>
+    " this will allow me to always use the backspace key in insert mode
+    
+    imap <C-j> <Esc>Ji
+    " this will allow me to join a line while still in insert mode
+    
+    map .f v%zf
+    " fold an entire block of code
+    
+    nnmap ,y <S-v>y
+    " This will select a whole line of text or it will select
+    " everything in a fold.
+    
+    map .; v%:s/^/;;;/<CR>:noh<CR>
+    " comments out and entire block of code from paren to paren
+    
+    :au BufRead *.lsp :loadview 1<CR>
+    :au BufRead *.LSP :loadview 1<CR>
+    " load the first fold view file for the current file
+    
+    map st :set tw=70<CR>v<S-}>gq<End>
+    " this will allow you to format an entire block of text
+<
+
+COMMENTS                                                    *vtw-445-comments*
+
+Regarding imap <backspace>, you might want to see :help 'bs'.
+
+==============================================================================
+
+You can also do
+
+>
+    imap <C-j> <Esc>Ji
+<
+
+this way
+
+>
+    imap <C-j> <C-o>J
+<
+
+Then you do not leave insert mode.You might also consider using
+
+>
+    inoremap <C-j> <C-o>J
+<
+
+>
+    :help i_CTRL-O
+<
+
+==============================================================================
+
+So the tip should be changed for this:
+
+>
+    set backspace=indent,eol,start
+    " allow backspacing over everything in insert mode
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

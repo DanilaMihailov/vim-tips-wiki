@@ -1,0 +1,201 @@
+*vim-tips-wiki-43.txt*   Using abbreviations                             *vtw-43*
+
+Tip 43 [https://vim.fandom.com/wiki/Using_abbreviations]   Previous |vtw-42| Next |vtw-44|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+Use the `:abbreviate` command to define abbreviations.
+
+Abbreviations can save typing, and can improve accuracy, when you need to 
+enter the same text throughout your document. You can also create 
+abbreviations to automatically correct common typing errors (such as changing 
+teh to the).
+
+Examples:
+
+:ab rtfm read the fine manual
+Whenever you type 'rtfm' followed by punctuation such as a space or comma, the 'rtfm' will be expanded to 'read the fine manual'. This also happens if you type 'rtfm' then press Esc or Enter.
+
+:ab teh the
+Whenever you type the word 'teh', it will be replaced with 'the'.
+
+:ab
+List all abbreviations. A flag is shown in the first column: 'i' means the abbreviation will be used in insert mode, 'c' for command-line mode, and '!' for both modes.
+
+:una rtfm
+:unabbreviate – remove 'rtfm' from the list of abbreviations.
+
+:abc
+:abclear – remove all abbreviations.
+
+Note: To avoid expansion in insert mode, type Ctrl-V after the last character 
+of the abbreviation (on Windows, type Ctrl-Q instead of Ctrl-V).
+
+ROUGH MERGE IN FROM 992 (NOW REMOVED) *vtw-43-rough-merge-in-from-992-(now-removed)*
+
+The 'helpgrep' command is very useful for searching through all the files 
+located in the .vim/doc directory. This command is especially useful if your 
+.vim/doc directory is littered with script documentation as well as language 
+specific documentation such as provided by script#614 
+[https://www.vim.org/scripts/script.php?script_id=614], script#826 
+[https://www.vim.org/scripts/script.php?script_id=826] or script#1330 
+[https://www.vim.org/scripts/script.php?script_id=1330].
+
+The following abbreviation provides faster access to 'helpgrep'.
+
+>
+    :cnoreabbrev H helpgrep
+<
+
+This allows me to type `:H uganda` to search for the word 'uganda' in all of 
+the help files.
+
+ROUGH MERGE IN OF COMMENTS FROM 4   *vtw-43-rough-merge-in-of-comments-from-4*
+
+I have found myself performing a lot of Ctrl-P/Ctr-N commands on the same 
+strings, and when this happens, I generally add an abbreviation, which saves 
+me a keystroke or two. I do a lot of programming in ColdFusion, and I have 
+these lines in my .vimrc:
+
+>
+    ab Attr Attributes
+    ab Appl Application
+    ab Vari Variables
+    ab Req Request
+    ab CFQ CFQUERY
+    ab CFO CFOUTPUT
+    ...
+<
+
+Vim will finish the word as soon as you type a character after the 
+abbreviation.
+
+==============================================================================
+
+Example of a multiline abbreviation:
+
+>
+    :ab mul Multiple<CR>lines
+<
+
+==============================================================================
+
+To move the cursor to a certain position after the abbreviation, try one of 
+these:
+
+>
+    ?ab<enter>
+<
+
+Where ab is the letters at the position you want (search backwards).
+
+>
+    Nb
+<
+
+Where N is the number of words you want to go back. For example, 7b will take you back 7 words.
+
+==============================================================================
+
+To get a C-style comment when you type 'com', you can add this to your .vimrc 
+file:
+
+>
+    iab com /*<CR><CR>/<Up>
+<
+
+which will expand to:
+
+>
+    /*
+     * <here-is-the-cursor-position>
+     */
+<
+
+==============================================================================
+
+Here are some useful abbreviations for Java code:
+
+>
+    abbr psvm public static void main(String[] args){<CR>}<esc>O
+    abbr sysout System.out.println("");<esc>2hi
+    abbr sop System.out.println("");<esc>2hi
+    abbr syserr System.err.println("");<esc>2hi
+    abbr sep System.err.println("");<esc>2hi
+    
+    abbr forl for (int i = 0; i < ; i++) {<esc>7hi
+    abbr tryb try {<CR>} catch (Exception ex) {<CR> ex.printStackTrace();<CR>}<esc>hx3ko
+    abbr const public static final int
+    
+    abbr ctm System.currentTimeMillis()
+    abbr slept try {<CR> Thread.sleep();<CR>}<esc>hxA catch(Exception ex) {<CR> ex.printStackTrace();<CR>}<esc>hx3k$hi
+<
+
+==============================================================================
+
+AUTOMATICALLY ADD ABBREVIATIONS IN A FILE *vtw-43-automatically-add-abbreviations-in-a-file*
+
+If you wish to enter your abbreviations automatically in a file, without the 
+need to open it, then use the following function :
+
+>
+    "------------------------------
+    "mapping to automatically add an
+    "abbreviation
+    fun AddAbbr()
+        normal byw
+        let StringChar = lh#visual#selection()
+        "where lh#visual#selection() is a function you have to download from here :
+        "http://lh-vim.googlecode.com/svn/vim-lib/tags/2.2.1/autoload/lh/visual.vim
+        "and then, to put in your .vim/autoload directory.
+        let val = input("Enter the abbreviation you wish to use for '" . StringChar . "' :")
+        exec "ia" val StringChar
+        silent call SaveAbbr(StringChar, val)
+    endfun
+    
+    fun SaveAbbr(val, abbr)
+        redir >>~/.vim/foo.txt
+        "foo.txt is the file in which you wish to add your abbreviations. For me, it
+        "is ~/.vim/ftplugin/tex.vim
+        echo "iab" a:abbr a:val
+        redir END
+    endfun
+    
+    vmap <S-F8> <ESC>:call AddAbbr()<CR>
+    "Replace S-F8 by any other shortcut you wish
+<
+
+Copy it in your .vimrc file, and read the comments. Basically, you have to 
+download the file located here 
+[http://lh-vim.googlecode.com/svn/vim-lib/tags/2.2.1/autoload/lh/visual.vim] 
+and to copy it in the relevant directory. Then, select a word or an expression 
+in visual mode, and push Shift+F8.
+
+SEE ALSO                                                     *vtw-43-see-also*
+    - Any word completion |vtw-4| automatic completion of words 
+    - 267 Selectively displaying abbreviations |vtw-267| 
+    - 352 Disabling cabbrev |vtw-352| 
+    - 481 Abbreviations only on shortcut |vtw-481| 
+    - 593 Basic postfix abbreviations |vtw-593| 
+    - 610 Use abbreviations for frequently-used words |vtw-610| 
+    - 630 Automatically append closing characters |vtw-630| 
+    - 649 Expand existing abbreviation |vtw-649| 
+    - 650 Abbreviation that prompts whether to expand it or not |vtw-650| 
+    - 842 C/C++ function abbreviations |vtw-842| 
+    - 912 Smart abbreviation |vtw-912| 
+    - 966 Multi-line abbreviations |vtw-966| 
+    - 1071 Simple placeholders |vtw-1071| 
+    - 1162 Add closing brace automatically on code blocks |vtw-1162| 
+    - 1285 Replace a builtin command using cabbrev |vtw-1285| 
+    - 1382 Auto spelling correction using abbreviations |vtw-1382| 
+
+
+REFERENCES                                                 *vtw-43-references*
+    - :help |abbreviations| 
+
+
+COMMENTS                                                     *vtw-43-comments*
+
+ vim:tw=78:et:ft=help:norl:

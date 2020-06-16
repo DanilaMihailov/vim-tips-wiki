@@ -1,0 +1,96 @@
+*vim-tips-wiki-899.txt*   Capitalize words and regions easily           *vtw-899*
+
+Tip 899 [https://vim.fandom.com/wiki/Capitalize_words_and_regions_easily]   Previous |vtw-897| Next |vtw-900|
+
+created 2005 · complexity basic · author Soeren Sonntag · version 6.0
+
+==============================================================================
+
+All of you should know the gu{motion} and gU{motion} commands used to convert 
+a region to lower/upper case. This tip explains how to capitalize a region.
+
+Similar to the gu/gU commands, here are some mappings for "gc" (c as in 
+capitalize).
+
+To capitalize the word "example" place the cursor over the word and type 
+`gciw` (similar to `guiw`).
+
+>
+    Before: this is an example.
+    After:  this is an Example.
+<
+
+To capitalize the whole line place the cursor somewhere on the line and 
+either type gcgc or gcc (similar to gugu/guu).
+
+>
+    Before: this is an Example.
+    After:  This is an example.
+<
+
+I defined some common mappings. Please feel free to add your own.
+
+>
+    gcw        - capitalize word (from cursor position to end of word)
+    gcW        - capitalize WORD (from cursor position to end of WORD)
+    gciw       - capitalize inner word (from start to end)
+    gciW       - capitalize inner WORD (from start to end)
+    gcis       - capitalize inner sentence
+    gc$        - capitalize until end of line (from cursor postition)
+    gcgc       - capitalize whole line (from start to end)
+    gcc        - capitalize whole line
+    {Visual}gc - capitalize highlighted text
+<
+
+Put the following lines into your vimrc file.
+
+>
+    if (&tildeop)
+      nmap gcw guw~l
+      nmap gcW guW~l
+      nmap gciw guiw~l
+      nmap gciW guiW~l
+      nmap gcis guis~l
+      nmap gc$ gu$~l
+      nmap gcgc guu~l
+      nmap gcc guu~l
+      vmap gc gu~l
+    else
+      nmap gcw guw~h
+      nmap gcW guW~h
+      nmap gciw guiw~h
+      nmap gciW guiW~h
+      nmap gcis guis~h
+      nmap gc$ gu$~h
+      nmap gcgc guu~h
+      nmap gcc guu~h
+      vmap gc gu~h
+    endif
+<
+
+COMMENTS                                                    *vtw-899-comments*
+
+Of course, there's the cream-capitalize script script#242 
+[https://www.vim.org/scripts/script.php?script_id=242].
+
+==============================================================================
+
+I would appreciate a mapping to capitalize a word in insert mode, after 
+having typed half a word without having to change modes.
+
+>
+    exampl<~>e  to Example<cursor_insert_mode>
+<
+
+==============================================================================
+
+>
+    :imap <F8> <Esc>g~iwea
+<
+
+This command toggles the case of every character of a word in insert mode. 
+Replace "~" with "U" for uppercase or "u" for lowercase change.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

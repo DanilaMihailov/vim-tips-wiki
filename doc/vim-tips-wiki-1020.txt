@@ -1,0 +1,72 @@
+*vim-tips-wiki-1020.txt*   Auto end-quote html/xml attribute values as you type in insert mode *vtw-1020*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip630 |vtw-630| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 1020 [https://vim.fandom.com/wiki/Auto_end-quote_html/xml_attribute_values_as_you_type_in_insert_mode]   Previous |vtw-1018| Next |vtw-1021|
+
+created 2005 · complexity basic · author Nick Caniglia · version 6.0
+
+==============================================================================
+
+I often use Vim with the xml.vim plugin script from Devin Weaver script#301 
+[https://www.vim.org/scripts/script.php?script_id=301] for html/xml editing, 
+however it seem to lack the auto-quoting of xml attribute values feature that 
+you find in a lot of IDEs these days. So here is a simplistic but still pretty 
+useful mapping tip you might want to add to your favorite xml plugin Vim 
+script or vimrc:
+
+>
+    inoremap " ""<LEFT>
+    inoremap ' ''<LEFT>
+<
+
+It simply replaces the double or single quotation mark character that you 
+just typed with a pair of them and then moves the cursor in between the pair 
+so you are ready to type the attribute's value.
+
+This mapping can get annoying if you find yourself typing quote characters 
+for reasons other than attributes, and you don't want the matching 
+end-quote--you could make it better using a function along the lines of 
+VimTip102 |vtw-102| to maybe only do it when the prior charater is an equal 
+sign '=' , but I ended up liking it this simple way.
+
+This is quite smart actually, because for other purposes you should use &quot; and &#39;, ragtag.vim may help you enter them escaped.
+
+COMMENTS                                                   *vtw-1020-comments*
+
+I normally use
+
+>
+    imap "" ""<LEFT>
+    imap '' ''<LEFT>
+<
+
+Additionally, those are quite handy, too:
+
+>
+    imap () ()<LEFT>
+    imap [] []<LEFT>
+    imap {} {}<LEFT>
+    imap <> <><LEFT>
+<
+
+==============================================================================
+
+For this to work only after an equal sign, you can remap the sequences =" and 
+=', i.e.:
+
+>
+    inoremap =" =""<Left>
+    inoremap =' ='' <Left>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,73 @@
+*vim-tips-wiki-1228.txt*   Improve completion popup menu               *vtw-1228*
+
+Tip 1228 [https://vim.fandom.com/wiki/Improve_completion_popup_menu]   Previous |vtw-1227| Next |vtw-1229|
+
+created 2006 · complexity basic · author Gerald Lai · version n/a
+
+==============================================================================
+
+Vim 7's popup menu for completion (omni or otherwise) takes a little getting 
+used to when it comes to selecting the completed word. See :help 
+|ins-completion|. The completed word can be selected using the arrow, 
+PgUp/PgDn, Enter and Esc keys. In addition to that, there is Ctrl-E, Ctrl-Y, 
+Ctrl-N and Ctrl-P.
+
+Here's an alternative setup that feels a little more like the completion menu 
+of other IDEs
+
+>
+    inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+    inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+    inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+    inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+    inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+    inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+<
+
+Use the Up/Down arrow and PgUp/PgDn keys to scroll through the popup menu. 
+The word in text will change as you scroll through. Press Enter to accept the 
+selected word. Hit Esc to cancel completion and go back to the original word.
+
+Those who prefer Esc to work like Enter can use this
+
+>
+    inoremap <silent> <Esc> <C-r>=pumvisible() ? "\<C-y>" : "\<Esc>"<CR>
+<
+
+Word to the wise, mapping over <Esc> can cause an issue in terminal vim where 
+arrow keys will print letters A through D along with a newline rather than 
+moving. To avoid the issue, simply omit the mapping over <Esc>.
+
+For scrolling using PgUp/PgDn, one can also map Ctrl-u and Ctrl-d to PgUp and 
+PgDn respectively
+
+>
+    inoremap <expr> <C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+    inoremap <expr> <C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+<
+
+The following option inserts only the longest common text of the matches. 
+:help 'completeopt'
+
+>
+    set completeopt+=longest
+<
+
+COMMENTS                                                   *vtw-1228-comments*
+
+Fixed mappings. Replaced original <C-r> mappings with the <expr> mappings in the comments. Merged the comments with the tip, and removed some that didn't belong.
+I think the name of this tip should be changed to something more suitable.
+--Spiiph 14:41, 18 January 2009 (UTC)
+Thanks. Any suggestions for a better title? Do you not like "Improve"? --JohnBeckett 02:51, 19 January 2009 (UTC)
+
+I actually like the behavior of <Up> and <Down> but using <C-P> and <C-N> is more convenient, so prefer to map <C-N> to <Down> etc. rather than the other way. However, for some reason, imaps on <C-N> and <C-P> get ignored when omni-completion popup is visible (but work fine for other completion popups). I asked a question about this long back in vim (e.g., see http://markmail.org/thread/rz6bpanuwneavfym) and didn't get a conclusive response. Anyone knows how to workaround this issue?
+--Haridsv 01:34, 12 March 2009 (UTC)
+Mappings only work in the generic 'complete' completion (<C-N>/<C-P>), not in any completion that is started with <C-X>. This seems to be a design decision. Cp. the notes below :help complete_CTRL-Y.
+To work around this (apart from patching Vim itself), you would need to break out of <C-X> mode. The only way I can think of (and I haven't tried this), is to append a <C-R>=MyInterceptor()<CR> mapping behind every mapping that can enter completion mode (i.e. all <C-X><C-...> mappings: inoremap <C-X><C-U> <C-X><C-U><C-R>=MyInterceptor()<CR>). Inside the MyInterceptor() function, use :help inputsave() and :help getchar() to query the completion key from the user. Then, you'll be able to translate <C-N> to <Down>, etc., and return any other keys unfiltered.
+I was thinking of defaulting to <Down> instead of <C-N>, too, but then stuck with the default mappings, which are useful, too. (And the auto-insertion of matches sometimes saves one from explicitly acknowledging the match, thus saving one keystroke.) -- Inkarkat 13:31, 16 June 2009 (UTC)
+
+I had some issues with the <Esc> mapping given here, and some github bugs back up the idea that it is not uncommon, so I added a caveat about it to the article. 65.183.140.119 18:15, May 2, 2013 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

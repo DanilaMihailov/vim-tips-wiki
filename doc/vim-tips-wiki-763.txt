@@ -1,0 +1,157 @@
+*vim-tips-wiki-763.txt*   Drag words with Ctrl-left/right               *vtw-763*
+
+Tip 763 [https://vim.fandom.com/wiki/Drag_words_with_Ctrl-left/right]   Previous |vtw-762| Next |vtw-766|
+
+created 2004 · complexity basic · author New Jimmi Baug · version 6.0
+
+==============================================================================
+
+Select a block of chars with C-v <move>, then press C-l or C-r to drag the 
+selection around. These didn't work in vim80 (8/2017) - Line is completely 
+messed up after a few C-r and C-l.
+
+>
+    :vmap <C-Right> xpgvlolo
+    :vmap <C-left> xhPgvhoho
+<
+
+COMMENTS                                                    *vtw-763-comments*
+
+Perhaps we need these mappings too:
+
+>
+    :vnoremap <Left> h
+    :vnoremap <Right> l
+    :vnoremap <Up> k
+    :vnoremap <Down> j
+<
+
+==============================================================================
+
+If you want to move the word currently under the cursor, the mappings above 
+work just fine. Use bvw to highlight the current word first and you are good 
+to move it around using Ctrl-Left and Ctrl-Right.
+
+==============================================================================
+
+While we are being complete, you should add these to allow you to move the 
+selected text up and down:
+
+>
+    vmap <C-Down> xjPgvjojo
+    vmap <C-Up> xkPgvkoko
+<
+
+==============================================================================
+
+Here is an alternate suggestion, with a number of enhancements.
+
+1. Word selection. You can easily visually select a word before clicking by 
+typing vaw, viw, vaW, or viW depending on your style of word. Or select 
+multiple words like v2aw, or paragraphs, blocks, etc, see :help |v_a|. If you 
+want to click to select and move a word, just add your select code to a nmap, 
+otherwise the same as the vmap above. See the example below. Note that this 
+leaves the text visually selected, so clicking the same key a second time 
+invokes the vmap for continued movement as described above.
+
+2. The earlier versions did not work well when at the start or end of the 
+line.
+
+3. The earlier versions did not work well for the three different visual 
+select modes (character/line/block).
+
+4. Move by word. The original suggestion moves the text one character at a 
+time. Powerful, but slow (and makes undo annoying). The suggestion below drags 
+the selected text past one word at a time using <Alt-Left> or <Alt-Right>. 
+This may not put you quite where you want, so after you get close, use the 
+<CTRL-Left> or <CTRL-Right> to move past one character.
+
+5. This may be overkill, but these mappings use "zv" to open any fold at the 
+paste position. Remove "zv" if you are older than vim 6.0.
+
+Paste the rest of this post into your vimrc in order to try these mappings.
+
+>
+    " In order to use the arrow keys when visually selecting text:
+    vnoremap <Left> h
+    vnoremap <Right> l
+    vnoremap <Up> k
+    vnoremap <Down> j
+    
+    " Visually drag a block of text, one char/line at a time, using Ctrl-arrows.
+    " Visually select a block of text, then press <C-Right>, <C-Left>, <C-Down>,
+    " or <C-Up> repeatedly to drag the selection around, left/right by one
+    " character, or up/down by one line at a time.
+    " In order to behave nicely when the start or end of the text is reached, this
+    " mapping first tests the move with something like lholh or jkojk. If the move
+    " is not valid, then vim beeps, aborts the mapping, and everything is left as
+    " it was. (The lholh tests both ends of the selection since there is no way to
+    " explicitly test a specific end.) After the paste, there are a number of ways
+    " to reselect the text, but the 1v<Space> is apparently the only way that works
+    " properly for all visual select modes, and when the selection is at the end of
+    " the line. For the up/down movements, this mapping uses "zv" to open any fold,
+    " at the new location. If you are using a vim that doesn't support folds
+    " (earlier than vim 6.0), remove the zv.
+<" Beware, didn't work in vim80/2017.
+
+>
+    vnoremap <C-Right> lholhxp`[1v<Space>
+    vnoremap <C-Left> hlohlxhP`[1v<Space>
+    vnoremap <C-Down> jkojkxjzvP`[1v<Space>
+    vnoremap <C-Up> kjokjxkzvP`[1v<Space>
+    " Visually drag a block of text, one word/line at a time, using Alt-arrows.
+    " The Alt-up/down mapping below is identical to the Ctrl-up/down mapping
+    " above, but the Alt-left/right moves a word at a time (instead of one char).
+    " Once you get the text close to where you want it using Alt-arrows, you can
+    " switch to the Ctrl-arrows for final left/right adjustments.
+    " These mappings work similar to the Ctrl-arrows above, but for the word
+    " movements, testing for a valid move is tricky, since the cursor may be at
+    " either end of the selection. So this mapping does an otherwise useless yank,
+    " then re-selects in order to use `< and `>.
+    
+    " Remove "zv" if you are older than vim 6.0.
+<" Beware, didn't work in vim80/2017.
+
+>
+    vnoremap <A-Right> y1v<Space>w`>xwzvP`[1v<Space>
+    vnoremap <A-Left> y1v<Space>ob`<xbzvP`[1v<Space>
+    vnoremap <A-Down> jkojkxjzvP`[1v<Space>
+    vnoremap <A-Up> kjokjxkzvP`[1v<Space>
+    " You may prefer the mapping below, which moves the selection left by an
+    " inner-word, stopping on both sides of white space. But there is no easy way
+    " to do a similar A-Right, since this uses a mark, which does not move to the
+    " new column when you delete text before the mark.
+    "vnoremap <A-Left> y1v<Space>oiwm``<x``zvP`[1v<Space>
+    " When nothing is selected, <A-Right>, <A-Left>, <A-Down>, or <A-Up> selects
+    " the word under the cursor, and moves it one word in that direction. The
+    " text remains selected, so pressing the same key again will invoke the
+    " visual mapping above.
+    " The "viw" portion selects an inner word; you may prefer to use "vaw", or
+    " for the up/down arrows maybe you would rather select an entire line with
+    " a big "V" instead of "viw". Otherwise, these mappings are similar to the
+    " visual mappings above, although the valid-movement test is simpler here.
+    
+    " Remove "zv" if you are older than vim 6.0.
+<" Beware, didn't work in vim80/2017.
+
+>
+    nnoremap <A-Right> viwm`w``xwzvP`[1v<Space>
+    nnoremap <A-Left> viwm`bb``xbzvP`[1v<Space>
+    nnoremap <A-Down> viwjkxjzvP`[1v<Space>
+    nnoremap <A-Up> viwkjxkzvP`[1v<Space>
+<
+
+==============================================================================
+
+The mappings of the original tip broke when words were dragged off the left & 
+right edges of the line. Here are mappings that do not allow words to be 
+dragged past the edges:
+
+>
+    vmap <C-Left> <Esc>`<<Left>i_<Esc>mz"_xgvx`zPgv<Left>o<Left>o
+    vmap <C-Right> <Esc>`><Right>gvxpgv<Right>o<Right>o
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

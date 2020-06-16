@@ -1,0 +1,63 @@
+*vim-tips-wiki-71.txt*   Transfer text between two gvim sessions using clipboard *vtw-71*
+
+Tip 71 [https://vim.fandom.com/wiki/Transfer_text_between_two_gvim_sessions_using_clipboard]   Previous |vtw-68| Next |vtw-72|
+
+created 2001 · complexity basic · author Alexey Marinichev · version 5.7
+
+==============================================================================
+
+If you use gvim, you can transfer text from one instance of gvim into another 
+using the `+` register.
+
+For example, in one instance, yank two lines:
+
+>
+    "+2yy
+<
+
+Paste it in another instance in normal mode:
+
+>
+    "+p
+<
+
+or in insert mode:
+
+>
+    <Ctrl-R>+
+<
+
+REFERENCES                                                 *vtw-71-references*
+    - :help |gui-selections| 
+    - :help |x11-selection| 
+
+
+COMMENTS                                                     *vtw-71-comments*
+
+In gvim, for the "copy to clipboard" command, Ctrl+C works just as well on 
+highlighted text as "+y.This works for both text in the edit buffer and 
+characters on the command line.
+
+==============================================================================
+
+See also VimTip66 |vtw-66| which works for gvim as well as vim.
+
+==============================================================================
+
+Excellent tip, solved a headache of mine. As the first comment noted, one 
+can, obviously, just copy to the clipboard as with any app. But suppose you 
+don't want to lose the contents of the clipboard? Or you don't want 
+inadvertently to paste material from a Vim session into some other app with a 
+careless CTRL-V? Much better to segregate yanked stuff into registers. This 
+makes working with multiple instances of gvim quite practical for me now.
+
+>
+    :silent !ls -a| gvim -R -
+<
+
+Then heavy use of gf and I'm happily moving text around between gvim 
+instances on separate monitors.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

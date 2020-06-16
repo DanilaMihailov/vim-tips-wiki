@@ -1,0 +1,87 @@
+*vim-tips-wiki-1108.txt*   Replace selected shell command with full path when editing scripts *vtw-1108*
+
+Tip 1108 [https://vim.fandom.com/wiki/Replace_selected_shell_command_with_full_path_when_editing_scripts]   Previous |vtw-1107| Next |vtw-1109|
+
+created 2006 · complexity basic · author l1th10n · version 5.7
+
+==============================================================================
+
+When writing bash scripts and sudoers files, it can be tedious to determine 
+the paths of the commands. Here is a procedure to use the `which` command to 
+return the path of the selected word:
+
+>
+    !which $(cat)
+<
+
+To convert a bash command to a fully-explicit bash command, the key sequence 
+would be "w!which $(cat)". $(cat) simply uses the selected text from the pipe 
+and uses this text as an argument to the 'which' command. This method is great 
+for using commands that use arguments instead of stdin. However, as far as I 
+know, it works only in bash.
+
+This command could be mapped to a key sequence if required.
+
+COMMENTS                                                   *vtw-1108-comments*
+
+For this to work with csh and tcsh you have to enclose the 'cat' command in 
+backticks. So you have to use:
+
+>
+    which `cat`
+<
+
+Also make sure your 'shellpipe' is set to "|& tee". See :help 'shellpipe'.
+
+The backtick version also works with bash.
+
+==============================================================================
+
+In fact, the $(cmd) notation is general for all bourne compatible shells. But 
+as bourne and csh-like shells accept the `cmd` notation, it is more general 
+(although I prefer $(cmd) when dealing with bourne shells for it is 
+recursive).
+
+==============================================================================
+
+This will also do the trick on Unix:
+
+>
+    :echo globpath(substitute($PATH, ':', ',', 'g'), 'cat')
+<
+
+On Windows, you will have to translate ';' (instead of ':') into ',', and 
+replace 'cat' by 'cat.exe'.
+
+These solutions will work even without 'which' installed on the system. The 
+path translation mechanism is wrapped in `:SearchInPATH` from script#229 
+[https://www.vim.org/scripts/script.php?script_id=229].
+
+==============================================================================
+
+Simpler:
+
+>
+    !xargs which
+<
+
+==============================================================================
+
+I'm missing the point of the $(cat) notation. What is this doing?
+
+To just get the full path to a command, you can do
+
+>
+    :.!which cat
+<
+
+This will insert the text "/usr/bin/cat" at the cursor.
+
+==============================================================================
+
+I believe the $() notation passes the currently highlighted word (in visual 
+mode) to the shell.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

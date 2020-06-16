@@ -1,0 +1,53 @@
+*vim-tips-wiki-1458.txt*   Accelerated motion                          *vtw-1458*
+
+Tip 1458 [https://vim.fandom.com/wiki/Accelerated_motion]   Previous |vtw-1456| Next |vtw-1465|
+
+created January 6, 2007 · complexity basic · author sply · version 5.7
+
+==============================================================================
+
+To accelerate your motion when moving the cursor, use:
+
+>
+    :noremap <M-l> 4l
+    :noremap <M-h> 4h
+<
+
+and maybe
+
+>
+    :noremap <M-j> 4j
+    :noremap <M-k> 4k
+<
+
+Now when you are moving around your text, press Alt to get the cursor 
+accelerated.
+
+One might wonder why these mappings would be useful, since there are so many 
+other ways to move quickly. These mappings have some advantages, however. For 
+example, if you use 'w' or 'b' to move, the cursor jumps unevenly, so you 
+must:
+    - Press it somewhat slowly as your eye tracks where the cursor moves with each 
+      press; or 
+    - Count (or estimate) the number of words to jump, press the key sequence, then 
+      correct any mistake you made. 
+
+
+Another option is to use 'f<char>' (followed by ';'), but this is a similar 
+case:
+    - Find a character close to where you want to go (e.g. h), press 'fh', and keep 
+      pressing ';' until you get close by. 
+
+
+All three options require the eye to actively track the cursor and/or the 
+mind to count words. However, if you just hold down 'l' (or in this tip's 
+case, 'Alt_l'), you needn't think about it. The cursor moves at a steady pace, 
+so the eye (and mind) can estimate the destination based on timing. This is 
+not possible using 'w', since it does NOT move steadily.
+
+COMMENTS                                                   *vtw-1458-comments*
+
+When you want to move closer to the middle of a line, you have the built-in 
+normal mode command |gm|
+
+ vim:tw=78:et:ft=help:norl:

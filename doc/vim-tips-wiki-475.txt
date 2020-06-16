@@ -1,0 +1,25 @@
+*vim-tips-wiki-475.txt*   Wrap visual selection with fold markers       *vtw-475*
+
+
+
+This tip is deprecated for the following reasons:
+
+As the comment below indicates, you can use the "`zf`" command.Tip 475 [https://vim.fandom.com/wiki/Wrap_visual_selection_with_fold_markers]   Previous |vtw-474| Next |vtw-476|
+
+created May 18, 2003 · complexity basic · author culley · version 6.0
+
+==============================================================================
+
+Use this vmap to enclose a block with fold markers:
+
+>
+    vmap <Leader>fold mz:<Esc>'<O// {{{<Esc>'>o// }}}<Esc>`z?{{{<CR>A<Space>
+<
+
+COMMENTS                                                    *vtw-475-comments*
+
+Prefer the zf command, in combination with foldmethod=marker. See :help |zf|.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

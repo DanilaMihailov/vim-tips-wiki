@@ -1,0 +1,71 @@
+*vim-tips-wiki-757.txt*   Sample switch between number/nonumber         *vtw-757*
+
+Tip 757 [https://vim.fandom.com/wiki/Sample_switch_between_number/nonumber]   Previous |vtw-755| Next |vtw-758|
+
+created July 2, 2004 · complexity basic · author panshdw · version 6.0
+
+==============================================================================
+
+>
+    function! NumberNo()
+      set nonumber
+      map <F12> :call NumberYes()<CR>
+    endfunction
+    
+    function! NumberYes()
+      set number
+      map <F12> :call NumberNo()<CR>
+    endfunction
+    map <F12> :call NumberNo()<CR>
+<
+
+COMMENTS                                                    *vtw-757-comments*
+
+This also works:
+
+>
+    :map <F12> :set number!<CR>
+    "" for insert mode
+    :imap <F12> <c-o>:set number!<CR>
+<
+
+==============================================================================
+
+Another alternative is:
+
+>
+    :map <F12> :let &number=1-&number<CR>
+<
+
+==============================================================================
+
+I do this -- which inverts the 'number' option for every window:
+
+>
+    func! s:NumToggle()
+      let s:current_winnr = winnr()
+      windo set invnumber
+      exec s:current_winnr."winc w"
+    endfunc
+    map <F12> :call <SID>NumToggle()<CR>
+<
+
+==============================================================================
+
+You can also do this:
+
+>
+    noremap <silent> <F12> :if &number \| set nonumber \| else \| set number \| endif<CR>
+<
+
+==============================================================================
+
+Yes, but it's faster to just do:
+
+>
+    noremap <silent> <F12> :set number!<CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

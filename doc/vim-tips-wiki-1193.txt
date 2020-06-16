@@ -1,0 +1,54 @@
+*vim-tips-wiki-1193.txt*   Syntax highlighting for HTML with embedded Javascript *vtw-1193*
+
+Tip 1193 [https://vim.fandom.com/wiki/Syntax_highlighting_for_HTML_with_embedded_Javascript]   Previous |vtw-1190| Next |vtw-1194|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+Just use the "htmlm4.vim" syntax script. (I got this from VimTip1041 
+|vtw-1041|, but it was non-obvious to somebody looking for a quick answer.)
+
+Put simply, while in normal mode, type the following:
+
+>
+    :set filetype=htmlm4
+<
+
+You can automatically load this syntax for all html files by adding the 
+following line to your vimrc:
+
+>
+    au BufRead *.html set filetype=htmlm4
+<
+
+
+
+COMMENTS                                                   *vtw-1193-comments*
+
+This tip is FALSE. htmlm4 is a filetype for documents which contain both HTML 
+and M4 parts and syntax/htmlm4.vim just combine syntax/html.vim and 
+syntax/m4.vim, so that there is no special treatment on embedded 
+CSS/javascript in syntax/htmlm4.vim. Such treatment is a part of 
+syntax/html.vim. So that this tip is false. You don't have to do the above 
+configuration.
+
+Thanks, but please spell out what you think we on the wiki should do (assuming I don't want to take the time to figure it all out). Are you saying:
+The title of the tip is "Syntax highlighting for HTML with embedded Javascript".
+You automatically get that functionality (assuming say Vim 7) if filetype is html.
+So there is nothing in this tip that is worth keeping.
+We should delete this tip.
+
+JohnBeckett 10:10, 18 June 2009 (UTC)
+
+Try it for your self, at least in my w3 compliant html file with embed js, 
+syntax/html doesn't give the correct highlighting but syntax/htmlm4 does. For 
+that reason alone I think this page should stay. A counter intuative and 
+suprising work around, but if it works, it works.
+
+
+
+After setting filetype=html4 on my file with a bunch of HTML and a bunch of Javascript that was getting highlighted poorly, I tried 'set filetype=html' which worked well. I don't really know the details on what happened, but its worth a try. YMMV.
+Dschnau10 November 1 2012
+
+ vim:tw=78:et:ft=help:norl:

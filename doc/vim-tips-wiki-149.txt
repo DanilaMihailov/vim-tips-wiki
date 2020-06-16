@@ -1,0 +1,27 @@
+*vim-tips-wiki-149.txt*   Update the diff view automatically            *vtw-149*
+
+Tip 149 [https://vim.fandom.com/wiki/Update_the_diff_view_automatically]   Previous |vtw-148| Next |vtw-150|
+
+created October 29, 2001 · complexity intermediate · author Douglas Potts · 
+version 6.0
+
+==============================================================================
+
+When trying to reconcile differences between files, and using the new 'diff' 
+functionality in Vim 6.0 you may want to automatically update the differences 
+as you are working along. A convienent time is when you write out either of 
+the files you are diff'ing. This autocmd will take care of doing that for you.
+
+>
+    " If doing a diff. Upon writing changes to file, automatically update the
+    " differences
+    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+<
+
+COMMENTS                                                    *vtw-149-comments*
+
+A more aggressive auto-diffupdate 
+[http://groups.google.com/group/vim_use/browse_thread/thread/64d65c0400010e01] 
+is discussed on vim_use and should probably be merged into this tip.
+
+ vim:tw=78:et:ft=help:norl:

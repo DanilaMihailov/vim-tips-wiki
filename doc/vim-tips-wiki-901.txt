@@ -1,0 +1,88 @@
+*vim-tips-wiki-901.txt*   Text objects for strings                      *vtw-901*
+
+
+
+This tip is deprecated for the following reasons:
+
+This is now part of Vim 7(.1?)Tip 901 [https://vim.fandom.com/wiki/Text_objects_for_strings]   Previous |vtw-900| Next |vtw-902|
+
+created 2005 · complexity intermediate · author joern_h · version 6.0
+
+==============================================================================
+
+This function adds support for common operations on string text objects like:
+    - `di"` Delete Inner String. 
+    - ca' Change A String. 
+
+
+and so on. Strings have to be on one line. See :help |text-objects| for a 
+description of other predefined text objects.
+
+>
+    function! JHStringObject(cmd,delim,mode)
+      if a:mode == 'i'
+        let c = 'normal T' . a:delim . a:cmd . 't' . a:delim
+      elseif a:mode == 'a'
+        let c = 'normal F' . a:delim . a:cmd . 'f' . a:delim
+      endif
+      execute c
+      if a:cmd == 'c'
+        normal l
+        startinsert
+      endif
+    endfunction
+    nnoremap di" :call JHStringObject('d','"','i')<CR>
+    nnoremap di' :call JHStringObject('d',"'",'i')<CR>
+    nnoremap da" :call JHStringObject('d','"','a')<CR>
+    nnoremap da' :call JHStringObject('d',"'",'a')<CR>
+    nnoremap ci" :call JHStringObject('c','"','i')<CR>
+    nnoremap ci' :call JHStringObject('c',"'",'i')<CR>
+    nnoremap ca" :call JHStringObject('c','"','a')<CR>
+    nnoremap ca' :call JHStringObject('c',"'",'a')<CR>
+    nnoremap yi" :call JHStringObject('y','"','i')<CR>
+    nnoremap yi' :call JHStringObject('y',"'",'i')<CR>
+    nnoremap ya" :call JHStringObject('y','"','a')<CR>
+    nnoremap ya' :call JHStringObject('y',"'",'a')<CR>
+<
+
+COMMENTS                                                    *vtw-901-comments*
+
+I think the tips must begin with a problem definition, not a defintion of the 
+solution. Usually, we look for a tip that is solving a problem we faced. By 
+looking at a snazzy solution, we have no way of telling what context would it 
+apply to us. An example would help.
+
+==============================================================================
+
+Another way to define text objects is using the omap command like this:
+
+>
+    function! StringObject(delim,mode)
+      if a:mode == 'i'
+        let c = 'normal T' . a:delim . 'vt' . a:delim
+      elseif a:mode == 'a'
+        let c = 'normal F' . a:delim . 'vf' . a:delim
+      endif
+      execute c
+    endfunction
+    omap a" :call StringObject('"','a')<CR>
+    omap i" :call StringObject('"','i')<CR>
+    omap a' :call StringObject("'",'a')<CR>
+    omap i' :call StringObject("'",'i')<CR>
+<
+
+Using this method allows you to use all the built-in Vim operators on 
+StringObjects without defining four mappings for each operator.
+
+To get equivalent visual mode mappings add <Esc> to the start:
+
+>
+    vmap a" <Esc>:call StringObject('"','a')<CR>
+    vmap i" <Esc>:call StringObject('"','i')<CR>
+    vmap a' <Esc>:call StringObject("'",'a')<CR>
+    vmap i' <Esc>:call StringObject("'",'i')<CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

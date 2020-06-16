@@ -1,0 +1,105 @@
+*vim-tips-wiki-656.txt*   Recursive mappings                            *vtw-656*
+
+Tip 656 [https://vim.fandom.com/wiki/Recursive_mappings]   Previous |vtw-654| Next |vtw-658|
+
+created 2004 · complexity advanced · author Mohit Kalra · version 5.7
+
+==============================================================================
+
+Recursive mappings are fun to learn and really handy when you want to do 
+repetitive tasks. One way to do this is by recording a macro |vtw-144|, which 
+can be done recursively 
+[https://vim.fandom.com/wiki/Recursive_repeats_for_quick_editing_of_structured_text]. 
+This is another way when you find that you are using the same editing pattern 
+again and again. Recursion may seem a bit complicated at first but it is very 
+intuitive once you get the hang of it. Here are two examples.
+
+Suppose you have a file with the following contents:
+
+>
+    aaa.txt
+    bbbbbb.txt
+    ccc.txt
+<
+
+You want to change the file as follows:
+
+>
+    wc aaa.txt> aaa.log
+    echo "HelloWorld"
+    wc bbbbbb.txt > bbbbbb.log
+    echo "HelloWorld"
+    wc ccc.txt> ccc.log
+    echo "HelloWorld"
+<
+
+A simple recursive mapping that will do the job is:
+
+>
+    :map z Iwc <Esc>lyawA><Esc>pa.log<CR>echo "HelloWorld"<Esc>jz
+<
+
+Now type `z` in the first line and everything else is magic.
+
+Here is the breakup where {} contain the vim commands.
+
+The recursion terminates when the j cannot take you one more line further. If 
+you manually execute a command for one line, you will find it very intuitive 
+to create recursive mappings.
+
+Here is another example. Say you want to change:
+
+>
+    #define myid 199
+    #define myid2 200
+    #define myid3 201
+<
+
+to:
+
+>
+    #define myid 201
+    #define myid2 202
+    #define myid3 203
+<
+
+The simple mapping would be:
+
+>
+    :map z 2^Ajz
+<
+
+where ^A is CTRL_V+A
+
+REFERENCES                                                *vtw-656-references*
+    - :help |recursive_mapping| 
+    - :help |CTRL-A| 
+    - :help 'nowrapscan' when using recursion with searching 
+
+
+COMMENTS                                                    *vtw-656-comments*
+
+>How does one stop a recursion that starts with a search?
+
+>
+    :set nowrapscan
+<
+
+See the "References" section above.
+
+The terminating condition for such a recursive mapping is that the search 
+should not find anything. If the wrapscan is on, the search starts from the 
+top of the document again. So setting wrapscan to off makes sure that the 
+search has a terminating condition.
+
+==============================================================================
+
+I think `nmap z /^\*\*\*\*\*k"Ay}3jz` should be
+
+>
+    nmap z /^\*\*\*\*\*<CR>k"Ay}3jz
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

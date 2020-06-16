@@ -1,0 +1,114 @@
+*vim-tips-wiki-830.txt*   Using netbeans 4 and vim for java             *vtw-830*
+
+Tip 830 [https://vim.fandom.com/wiki/Using_netbeans_4_and_vim_for_java]   Previous |vtw-829| Next |vtw-832|
+
+created 2004 · complexity basic · author Ivan F. Villanueva B. · version 6.0
+
+==============================================================================
+
+This tip explains how to configure Vim to build Java sources and to execute 
+classes without having to start Netbeans, but everything done in the same way 
+Netbeans would do it. Netbeans can then be started any time to do things that 
+Vim cannot, like debugging in a GUI or refactoring.
+
+This has been tested in Linux.
+
+It is assumed that your Java source code is in the directory 
+"~/data/java/src" and that your classes are in different packages below this 
+directory. For example the package com.your_domain.util is in the directory 
+"~/data/java/src/com/your_domain/util"
+
+Step 1: Install Ant
+
+Step 2: Install Netbeans and create a new project with existing sources. At 
+this point you can choose within Netbeans where all project files will be 
+saved. Let say "~/data/java/netbeans" and the project name is "my_domain". The 
+source code directory should be the top directory, here: "~/data/java/src". 
+Netbeans will add packages in the project for all subdirectories, which allows 
+to move classes between packages with the mouse, and Netbeans will refactor 
+your whole source files for you.
+
+Step 3: Compile your project with Netbeans. After that you can close 
+Netbeans.
+
+Step 4: Add the following two lines in .vimrc or in 
+~/.vim/ftplugin/java_netbeans.vim or:
+
+>
+    nmap <F6> :! ant -buildfile ~/data/java/netbeans/my_domain/build.xml compile<CR>
+    nmap <F7> :cd ~/data/java/src<CR>:! ant -buildfile ~/data/java/netbeans/my_domain/build.xml -Drun.class=%:.:r -Djavac.includes=~/data/java/netbeans/my_domain/build/classes/ run-single<CR>:cd %:p:h<CR>
+<
+
+That's it! Now you can compile changed files pressing <F6> or execute the 
+class you are editing with <F7> in Vim. And you can start anytime Netbeans for 
+debugging, refactoring, etc.
+
+COMMENTS                                                    *vtw-830-comments*
+
+Modern-day Netbeans (currently at version 7.3 in 2013) has an excellent vim 
+plugin: just search for "jVi for Netbeans", and download the plugin either 
+from sourceforge or from the netbeans plugin portal.
+
+==============================================================================
+
+Instead of mapping F6 to a direct ant call, I would suggest setting ant as 
+your makeprg and set the errorformat so that you can utilize the quickfix 
+window to easily jump to compilation errors.
+    - :help |makeprg| 
+    - :help |errorformat| 
+
+
+==============================================================================
+
+To use quickfix (for compiling and jumping automatically to errors), one can 
+set:
+
+>
+    set efm=%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
+    set makeprg=ant\ -quiet\ -buildfile\ ~/data/java/netbeans/my_domain/build.xml\ compile
+    nmap <F6> :w<CR>:make<CR>
+<
+
+Note: The above code works pretty well, but if there are no errors, ":clist" 
+returns a few ones, what means that "set efm=..." isn't perfect.
+
+==============================================================================
+
+You shouldn't need to explicitly set the error format. Vim has a default 
+built in for ant that will read it correctly. So as long as you set your 
+makeprg var correctly you should be able to use quickfix with it.For instance 
+to:
+
+>
+    set makeprg=ant\ -emacs\ -find\ build.xml\
+<
+
+That one will just look upwards from the current directory until it finds a 
+file called build.xml and use that as the build file. You could also do a 
+hardcoded path if you like, I just use many different build files so this 
+helps. You also don't need the -emacs if you set the output format in the 
+build script to it.
+
+==============================================================================
+
+To add the compilation only of the current file:
+
+>
+    nmap <F6> :w<CR>:cd ~data/java/src<CR>:let &makeprg = "ant -quiet -buildfile ~data/java/netbeans/my_domain/build.xml -Djavac.includes=" . expand("%:.") . " compile-single"<CR>:cd %:p:h<CR>:make<CR>
+<
+
+To clean all the classes:
+
+>
+    nmap <S-F7> :w<CR>:!ant -e -buildfile /home/ivan/data/java/netbeans/artificialidea/build.xml clean<CR>
+<
+
+To compile the whole project:
+
+>
+    nmap <S-F6> :set makeprg=ant\ -quiet\ -buildfile\ /home/ivan/data/java/netbeans/artificialidea/build.xml\ compile<CR>:w<CR>:make<CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

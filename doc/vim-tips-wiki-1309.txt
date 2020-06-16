@@ -1,0 +1,35 @@
+*vim-tips-wiki-1309.txt*   Safari style keybindings for tab navigation *vtw-1309*
+
+Tip 1309 [https://vim.fandom.com/wiki/Safari_style_keybindings_for_tab_navigation]   Previous |vtw-1308| Next |vtw-1311|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+Tab navigation for those of us using Macs, and used to the way Safari does 
+it. Inspired by VimTip1221 |vtw-1221|.
+
+Add the following to your .gvimrc, restart gvim/vim7.0 and use the following 
+keys:
+    - <apple-t> : New Tab 
+    - <apple-]> : Next Tab 
+    - <apple-[> : Previous Tab 
+
+
+>
+    "custom tab stuff
+    " tab navigation like safari
+    " idea adopted from: [[VimTip1221]]
+    :nmap <D-[> :tabprevious<CR>
+    :nmap <D-]> :tabnext<CR>
+    :map <D-[> :tabprevious<CR>
+    :map <D-]> :tabnext<CR>
+    :imap <D-[> <Esc>:tabprevious<CR>i
+    :imap <D-]> <Esc>:tabnext<CR>i
+    :nmap <D-t> :tabnew<CR>
+    :imap <D-t> <Esc>:tabnew<CR>
+<
+
+COMMENTS                                                   *vtw-1309-comments*
+
+ vim:tw=78:et:ft=help:norl:

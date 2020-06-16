@@ -1,0 +1,103 @@
+*vim-tips-wiki-915.txt*   Using g instead of substitute                 *vtw-915*
+
+Tip 915 [https://vim.fandom.com/wiki/Using_g_instead_of_substitute]   Previous |vtw-914| Next |vtw-916|
+
+created 2005 · complexity basic · author Ethan Mallove · version 6.0
+
+==============================================================================
+
+I re-fell in love with `:g/` when I discovered `norm f{char}`. In the 
+following sample text, say you want to delete the two words between the name 
+and the IP address, and "has address" isn't spelled consistently throughout 
+(preventing us from using `:s/has address//`). You can do this:
+
+>
+    :g/\d\+\.\d\+\.\d\+\.\d\+/norm f w2dw
+<
+
+The above command changes this:
+
+>
+    yahoo.com has address 216.109.112.135
+    yahoo.com is address 66.94.234.13
+    google.com is IP 216.239.37.99
+    google.com has IP 216.239.57.99
+    google.com has address 216.239.39.99
+    msn.com has address 207.68.172.246
+    vhost.sourceforge.net is address 66.35.250.210
+<
+
+to this:
+
+>
+    yahoo.com 216.109.112.135
+    yahoo.com 66.94.234.13
+    google.com 216.239.37.99
+    google.com 216.239.57.99
+    google.com 216.239.39.99
+    msn.com 207.68.172.246
+    vhost.sourceforge.net 66.35.250.210
+<
+
+EXPLANATION                                              *vtw-915-explanation*
+
+The command
+
+>
+    :g/\d\+\.\d\+\.\d\+\.\d\+/norm f w2dw
+<
+
+finds each line matching a pattern, then performs a command on the line. The 
+pattern is the regular expression between the slashes
+
+\d\+\.\d\+\.\d\+\.\d\+
+
+which matches an IPv4 address consisting of
+
+one or more digits followed by a dot (\d\+\.) followed by
+one or more digits followed by a dot followed by
+one or more digits followed by a dot followed by
+one or more digits
+
+The command to be perfomed on the line is
+
+norm f w2dw
+
+which is a normal-mode command consisting of
+
+f<space>
+
+to find the first space after the cursor, then
+
+w
+
+to move forward one word, then
+
+2dw
+
+to delete 2 words (2 is the repeat count).
+
+REFERENCES                                                *vtw-915-references*
+    - :help |f| 
+    - :help |normal| 
+    - VimTip305 |vtw-305| 
+    - VimTip227 |vtw-227| 
+    - VimTip31 |vtw-31| 
+
+
+COMMENTS                                                    *vtw-915-comments*
+
+Or you could use :s
+
+>
+    :%s/\s\zs\w\+\s\+\w\+//
+<
+
+==============================================================================
+
+Actually, this would work ':%g//norm f w2df ', assuming that the columns are 
+separated by spaces instead of tabs.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

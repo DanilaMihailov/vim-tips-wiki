@@ -1,0 +1,78 @@
+*vim-tips-wiki-685.txt*   Search without need to escape slash           *vtw-685*
+
+Tip 685 [https://vim.fandom.com/wiki/Search_without_need_to_escape_slash]   Previous |vtw-683| Next |vtw-686|
+
+created 2004 · complexity basic · author shaggy · version 5.7
+
+==============================================================================
+
+This comes in handy if you have the full path of a file in your clipboard, 
+and want to find it in your current buffer.
+
+Instead of using "/" to search, use "?" then paste. You don't need to escape 
+the frontslashes, so no need to edit the pattern.
+
+If you wish to search forward, just hit "/" and Enter.
+
+If you want to use it again, use the "?" history, not the "/".
+
+REFERENCES                                                *vtw-685-references*
+    - :help |/| 
+    - :help |?| 
+
+
+COMMENTS                                                    *vtw-685-comments*
+
+This works on command line also, eg:
+
+>
+    :g ?c:/tmp/x/y/z/? d
+<
+
+instead of
+
+>
+    :g /c:\/tmp\/x\/y\/z\// d
+<
+
+==============================================================================
+
+Instead of '?' in line,
+
+>
+    :g ?c:/tmp/x/y/z/? d
+<
+
+You can using any character as long as it is not in the search string, e.g.
+
+>
+    :g -c:/tmp/x/y/z/- d
+<
+
+==============================================================================
+
+And you can use different characters for 'g' and 's' parts of a replacement 
+search, eg:
+
+>
+    :g#/tmp/#s//#tmp#/
+<
+
+==============================================================================
+
+Here is a neat way to use document searching:
+
+c/tmp
+
+change to the first instance of tmp found; leaves you in insert mode.
+
+==============================================================================
+
+/!\ Searching with "?" mean you will have to escape the "?" character.
+
+A real solution here would be a plus. Like : How to search with "/" or "?" 
+without escaping anything (create commmand, install plugin etc).
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

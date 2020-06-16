@@ -1,0 +1,87 @@
+*vim-tips-wiki-600.txt*   Copy filename to clipboard                    *vtw-600*
+
+Tip 600 [https://vim.fandom.com/wiki/Copy_filename_to_clipboard]   Previous |vtw-598| Next |vtw-601|
+
+created 2003 · complexity basic · author Igor Keselman · version 5.7
+
+==============================================================================
+
+Sometimes I need to use the name of the file that I'm editing in another 
+application (compiler, e-mail attachment, reference in a document, etc).
+
+These mappings are useful for copying the file name to the clipboard.
+
+>
+    " Convert slashes to backslashes for Windows.
+    if has('win32')
+      nmap ,cs :let @*=substitute(expand("%"), "/", "\\", "g")<CR>
+      nmap ,cl :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>
+    
+      " This will copy the path in 8.3 short format, for DOS and Windows 9x
+      nmap ,c8 :let @*=substitute(expand("%:p:8"), "/", "\\", "g")<CR>
+    else
+      nmap ,cs :let @*=expand("%")<CR>
+      nmap ,cl :let @*=expand("%:p")<CR>
+    endif
+<
+
+This maps the following keys:
+    - `,cs` copies just the filename. 
+    - `,cl` copies the filename including its full path. 
+    - `,c8` copies the filename in 8.3 format for DOS and Windows 9x 
+
+
+You can then simply paste the name into another document using the regular 
+paste command.
+
+COPYING TO THE GNOME CLIPBOARD        *vtw-600-copying-to-the-gnome-clipboard*
+
+Under linux, the script above will copy the file path or filename to X Server 
+clipboard (accessed by pressing the middle mouse button). To copy text to the 
+Gnome Clipboard instead replace the following lines:
+
+>
+    nmap ,cs :let @*=expand("%")<CR>
+      nmap ,cl :let @*=expand("%:p")<CR>
+<
+
+with
+
+>
+    nmap ,cs :let @+=expand("%")<CR>
+      nmap ,cl :let @+=expand("%:p")<CR>
+<
+
+
+
+This uses the + register instead of the * register.
+
+
+
+Note: this may work with KDE and XCFE as well, I simply haven't tested (yet).
+
+REFERENCES                                                *vtw-600-references*
+    - :help |expand()| 
+    - :help |filename-modifiers| 
+    - :help |quotestar| 
+    - :help 'clipboard' 
+
+
+COMMENTS                                                    *vtw-600-comments*
+
+I find it useful to have mappings both for copying the (full) path of the 
+current file to the system clipboard and to the Vim unnamed register, as well 
+as to copy the short name to the unnamed register:
+
+>
+    nnor ,cf :let @*=expand("%:p")<CR>    " Mnemonic: Copy File path
+      nnor ,yf :let @"=expand("%:p")<CR>    " Mnemonic: Yank File path
+      nnor ,fn :let @"=expand("%")<CR>      " Mnemonic: yank File Name
+<
+
+I've never felt the need to copy the short file name to the clipboard, since 
+in most cases the full path will work the same or better.
+
+The short file name (without the path) needs :t expand("%:t")
+
+ vim:tw=78:et:ft=help:norl:

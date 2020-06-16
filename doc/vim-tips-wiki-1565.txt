@@ -1,0 +1,104 @@
+*vim-tips-wiki-1565.txt*   Edit MoinMoin wiki files with folding       *vtw-1565*
+
+Tip 1565 [https://vim.fandom.com/wiki/Edit_MoinMoin_wiki_files_with_folding]   Previous |vtw-1564| Next |vtw-1566|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200805#Edit_MoinMoin_wiki_files_with_folding] 
+2008 · complexity basic · author Jerojasro · version 7.0
+
+==============================================================================
+
+This tip describes how to configure syntax highlighting and folding for 
+MoinMoin files. It is quite useful with editmoin [http://labix.org/editmoin] 
+(a tool allowing use of Vim to edit MoinMoin wiki pages).
+
+SYNTAX HIGHLIGHTING                             *vtw-1565-syntax-highlighting*
+
+Install the moin.vim script 
+[https://www.vim.org/scripts/script.php?script_id=1459] by copying the file 
+to`~/.vim/syntax/moin.vim` on Unix-based systems, or to 
+`$HOME/vimfiles/syntax/moin.vim` on Windows systems.
+
+You may need to create the `.vim` (or `vimfiles`) directory, and you may need 
+to create the `syntax` subdirectory. In Vim, your home directory is specified 
+with `~` on Unix systems, and `$HOME` on Windows systems. You can see what 
+directories to use by entering commands like the following in Vim:
+
+>
+    :echo expand('~')
+    :echo expand('~/.vim/syntax/moin.vim')
+    :echo $HOME
+    :echo expand('$HOME/vimfiles/syntax/moin.vim')
+<
+
+FOLDING                                                     *vtw-1565-folding*
+
+This will allow you to fold wiki sections that start with a header like 
+`==section==` or `===subsection===`, etc. It is done through expression 
+folding, so you have to define the folding expression and set the proper fold 
+method (`expr`).
+
+Create file `~/.vim/ftplugin/moin.vim` (Unix) or 
+`$HOME/vimfiles/ftplugin/moin.vim` (Windows). The contents of the file should 
+be:
+
+>
+    " Settings for editing wiki files.
+    setlocal expandtab
+    setlocal matchpairs+=<:>
+    setlocal nomodeline
+    setlocal modelines=0
+    
+    " Define folding based on wiki headings; start with all folds open.
+    setlocal foldlevel=20
+    setlocal foldmethod=expr
+    setlocal foldexpr=HeadingLevel(v:lnum)
+    if !exists("*HeadingLevel")
+      function HeadingLevel(lnum)
+        " n = number of consecutive '=' at start of line
+        let n = strlen(substitute(getline(a:lnum), '[^=].*', '', ''))
+        return (n == 0) ? '=' : '>' . n
+      endfunction
+    endif
+<
+
+Explanation
+    - The optional `expandtab` setting expands any tab characters that you insert 
+      to an equivalent number of spaces. 
+    - For security, it is highly desirable to switch modelines off to avoid 
+      applying settings or executing code that someone may have inserted in a 
+      modeline on the wiki. 
+    - The optional `foldlevel=20` setting means that all folds will initially be 
+      open so you can see everything (you can close folds if wanted). If you prefer 
+      all folds to be closed initially, omit this line. :help |folding| 
+
+
+Note: if you use non-ASCII characters in your file, you'll need to be sure to 
+set an appropriate set of encoding options 
+[https://vim.fandom.com/wiki/Working_with_Unicode].
+
+FILE TYPE DETECTION                             *vtw-1565-file-type-detection*
+
+It is necessary to tell Vim to associate MoinMoin files with the `moin` 
+filetype so you don't need to manually enter `:setlocal filetype=moin` when 
+editing a wiki file. The following rule in filetype.vim 
+[https://vim.fandom.com/wiki/Filetype.vim] will cause Vim to identify all 
+files with extension `.moin` as MoinMoin files.
+
+>
+    au! BufNewFile,BufRead *.moin setf moin
+<
+
+COMMENTS                                                   *vtw-1565-comments*
+
+Check out Voom, a python-based Vim add-on that puts folding capabilities on 
+steroids:script#2657 [https://www.vim.org/scripts/script.php?script_id=2657]
+
+Someone should add MoinMoin syntax to this, but unless you're sure your 
+content will always and only be in MoinMoin, I'd recommend using txt2tags 
+[http://txt2tags.org/] syntax as your "master source" anyway - Vim syntax 
+highlighting and tag completion available for that as well.
+
+Am I missing something? Voom seems to have almost nothing to do with folding, it generates an outline in a separate buffer by grabbing the content of the current buffer and removing everything but the lines with fold markers. And regardless of what your "master source" is, whether your MoinMoin is hand-written or auto-generated, it's often useful to apply folding to it. --Fritzophrenic 16:30, November 28, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

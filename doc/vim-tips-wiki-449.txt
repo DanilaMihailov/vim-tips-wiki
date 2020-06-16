@@ -1,0 +1,20 @@
+*vim-tips-wiki-449.txt*   Fortran highlighting problems                 *vtw-449*
+
+Tip 449 [https://vim.fandom.com/wiki/Fortran_highlighting_problems]   Previous |vtw-446| Next |vtw-450|
+
+created 2003 · complexity basic · author Fabien Bouleau · version 6.0
+
+==============================================================================
+
+Sometimes the Fortran syntax files do not set the correct source form which 
+can cause issues with highlighting. In order to fix this issue a user may wish 
+to set the source manually for the `.for` extension. This can be done by 
+adding the following to the .vimrc file:
+
+>
+    au BufRead,BufNewFile *.for let b:fortran_fixed_source=1
+<
+
+COMMENTS                                                    *vtw-449-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,171 @@
+*vim-tips-wiki-1592.txt*   Super retab                                 *vtw-1592*
+
+Tip 1592 [https://vim.fandom.com/wiki/Super_retab]   Previous |vtw-1591| Next |vtw-1593|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Super_retab] 2008 · 
+complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+This tip explains how `:retab` converts tabs to spaces, or spaces to tabs, 
+and provides a "super retab" command to convert only the whitespace used for 
+indentation in programs.
+
+STANDARD RETAB                                       *vtw-1592-standard-retab*
+
+You can set the '`expandtab`' (abbreviated to '`et`') option so each tab that 
+you type is converted to an equivalent number of spaces. And you can use the 
+`:retab` command to convert all existing tabs to spaces. You can do both in 
+one command:
+
+>
+    :set et|retab
+<
+
+You can also convert spaces to tabs:
+
+>
+    :set noet|retab!
+<
+
+Both of the above examples should be used with caution. They convert all 
+sequences, even those that might be in a "quoted string like this".
+
+This tip shows how to convert only the indents at the left margin. Any spaces 
+or tabs after the first non-white character are not affected.
+
+SUPER RETAB                                             *vtw-1592-super-retab*
+
+Use the following command to define a new `SuperRetab` command. You could 
+enter this in Vim, or put it in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    :command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+<
+
+For example, you may have a code snippet which uses two-space indents, and 
+you want to entab the indents (convert each leading group of two spaces to a 
+tab). To do this, visually select the code (press `V` then `j`), then enter:
+
+>
+    :'<,'>SuperRetab 2
+<
+
+The above command would change:
+
+>
+    for {
+        that;
+      }
+<
+
+to the following ("`|-------`" represents a tab):
+
+>
+    |-------for {
+    |-------|-------that;
+    |-------}
+<
+
+The command `:SuperRetab 5` would give the same result from the following 
+selected text:
+
+>
+    for {
+              that;
+         }
+<
+
+ALTERNATIVE                                             *vtw-1592-alternative*
+
+An alternative super retab procedure is to use the following two commands:
+
+>
+    :command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
+    :command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
+<
+
+The above defines a `Tab2Space` and a `Space2Tab` command that convert 
+leading whitespace (spaces and tabs that are not at the beginning of a line 
+are not affected). These commands use the current '`tabstop`' (abbreviated as 
+'`ts`') option.
+
+Examples:
+
+>
+    " Convert all leading spaces to tabs (default range is whole file):
+    :Space2Tab
+    " Convert lines 11 to 15 only (inclusive):
+    :11,15Space2Tab
+    " Convert last visually-selected lines:
+    :'<,'>Space2Tab
+    " Same, converting leading tabs to spaces:
+    :'<,'>Tab2Space
+<
+
+SCRIPT                                                       *vtw-1592-script*
+
+A more elaborate solution is to use the following script which provides these 
+features:
+    - The commands allow an argument to specify the column width; if none is given, 
+      the 'tabstop' setting is used. 
+    - Redundant spaces in an indent are removed (in the above mapping, converting 
+      tabs to spaces will not change lines where there is a space before a tab in 
+      the indent). 
+    - The search history is not changed (pressing `n` will do the same search it 
+      would have done before the conversion was performed). 
+    - The cursor position is restored, although the column will be slightly wrong 
+      owing to the different number of characters in the indent. 
+
+
+These commands are provided:
+
+Each command accepts an argument that specifies the number of spaces in a tab 
+column. By default, the 'tabstop' setting is used.
+
+>
+    " Return indent (all whitespace at start of a line), converted from
+    " tabs to spaces if what = 1, or from spaces to tabs otherwise.
+    " When converting to tabs, result has no redundant spaces.
+    function! Indenting(indent, what, cols)
+      let spccol = repeat(' ', a:cols)
+      let result = substitute(a:indent, spccol, '\t', 'g')
+      let result = substitute(result, ' \+\ze\t', '', 'g')
+      if a:what == 1
+        let result = substitute(result, '\t', spccol, 'g')
+      endif
+      return result
+    endfunction
+    
+    " Convert whitespace used for indenting (before first non-whitespace).
+    " what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
+    " cols = string with number of columns per tab, or empty to use 'tabstop'.
+    " The cursor position is restored, but the cursor will be in a different
+    " column when the number of characters in the indent of the line is changed.
+    function! IndentConvert(line1, line2, what, cols)
+      let savepos = getpos('.')
+      let cols = empty(a:cols) ? &tabstop : a:cols
+      execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
+      call histdel('search', -1)
+      call setpos('.', savepos)
+    endfunction
+    command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-args>)
+    command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
+    command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
+<
+
+SEE ALSO                                                   *vtw-1592-see-also*
+    - Converting tabs to spaces 
+      [https://vim.fandom.com/wiki/Converting_tabs_to_spaces] 
+    - Highlight unwanted spaces 
+      [https://vim.fandom.com/wiki/Highlight_unwanted_spaces] 
+    - Indent with tabs, align with spaces 
+      [https://vim.fandom.com/wiki/Indent_with_tabs,_align_with_spaces] 
+    - Indenting source code [https://vim.fandom.com/wiki/Indenting_source_code] 
+
+
+COMMENTS                                                   *vtw-1592-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,146 @@
+*vim-tips-wiki-1287.txt*   Change statusline color to show insert or normal mode *vtw-1287*
+
+Tip 1287 [https://vim.fandom.com/wiki/Change_statusline_color_to_show_insert_or_normal_mode]   Previous |vtw-1286| Next |vtw-1288|
+
+created 2006 · complexity basic · author Yakov Lerner · version 7.0
+
+==============================================================================
+
+The following small piece changes the color of the statusline when you enter 
+insert mode, and when you leave insert mode. There are no mapping keys or new 
+commands to remember, it works totally automatically.
+
+The color codes below are Green in normal mode, and Magenta in insert mode. 
+If you like other colors, just change them.
+
+>
+    " first, enable status line always
+    set laststatus=2
+    
+    " now set it up to change the status line based on mode
+    if version >= 700
+      au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
+      au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
+    endif
+<
+
+If you want a different color based on the kind of insert mode you are in 
+(i.e. insert, replace, or virtual insert), then you can use the `v:insertmode` 
+variable during the InsertEnter event execution to do something different in 
+each mode. For example:
+
+>
+    function! InsertStatuslineColor(mode)
+      if a:mode == 'i'
+        hi statusline guibg=magenta
+      elseif a:mode == 'r'
+        hi statusline guibg=blue
+      else
+        hi statusline guibg=red
+      endif
+    endfunction
+    
+    au InsertEnter * call InsertStatuslineColor(v:insertmode)
+    au InsertChange * call InsertStatuslineColor(v:insertmode)
+    au InsertLeave * hi statusline guibg=green
+    
+    " default the statusline to green when entering Vim
+    hi statusline guibg=green
+<
+
+REFERENCES                                               *vtw-1287-references*
+    - :help |InsertEnter| 
+    - :help |InsertChange| 
+    - :help |InsertLeave| 
+    - :help |v:insertmode| 
+    - :help |:hi| 
+    - :help |hl-StatusLine| 
+
+
+SEE ALSO                                                   *vtw-1287-see-also*
+    - :help 'showmode' for another way to indicate mode 
+    - :help |hl-ModeMsg| if you want to change the color of the above 
+
+
+RELATED PLUGINS                                     *vtw-1287-related-plugins*
+    - There is the SmartusLine [https://github.com/molok/vim-smartusline] plugin 
+      that kind-of does what is explained in this page. 
+    - The StatusLineHighlight 
+      [https://www.vim.org/scripts/script.php?script_id=3383] plugin does not 
+      indicate the mode, but the buffer state (modified, readonly, unmodifiable, 
+      special non-file "scratch") / window (is preview window) by changing the 
+      highlighting of the window's status line. 
+    - Powerline [https://github.com/Lokaltog/vim-powerline] provides a display of 
+      the current mode along with much more information in the statusline area. 
+
+
+COMMENTS                                                   *vtw-1287-comments*
+
+This works when I enter insert mode for the first time and changes the 
+colours properly when i leave insert mode, however after that the colour of 
+the status line stays the same regardless of what mode I am currently in.Could 
+it be something to do with other Vim settings?
+
+Which script are you using? I haven't tried either, but at a quick glance it looks like the second should work, but I'm not as certain about the first. The second sets the same property differently depending on mode, but the first does not have much overlap between the settings changed when switching modes. --Fritzophrenic 15:18, January 28, 2010 (UTC)
+
+You can also, rather than changing the statusline , highlight the current 
+line (see Highlight current line 
+[https://vim.fandom.com/wiki/Highlight_current_line]), which might be more 
+visible.--User:Bmx007 [https://vim.fandom.com/wiki/User:Bmx007]
+
+>
+    hi CursorLine ctermbg=green cterm=none
+    au InsertEnter * set cursorline
+    au InsertLeave * set nocursorline
+<
+
+The method of changing the statusline color works well, except it does not 
+change the statusline to green when you exit insert mode using ^C, (as 
+insertleave is not generated). I was thinking that you could change things so 
+^C changed the statusline color to green then called the ^C functionality, but 
+I don't see how to do that with imap.
+
+You can do the Ctrl-C remapping via inoremap, like so:
+
+>
+    inoremap <c-c> <c-o>:hi statusline guibg=green<cr><c-c>
+<
+
+==============================================================================
+
+Thanks, incorporating all the above to provide a cut and paste solution:
+
+>
+    " Mode Indication -Prominent!
+    function! InsertStatuslineColor(mode)
+      if a:mode == 'i'
+        hi statusline guibg=red
+        set cursorcolumn
+      elseif a:mode == 'r'
+        hi statusline guibg=blue
+      else
+        hi statusline guibg= magenta
+      endif
+    endfunction
+    
+    function! InsertLeaveActions()
+      hi statusline guibg=green
+      set nocursorcolumn
+    endfunction
+    
+    au InsertEnter * call InsertStatuslineColor(v:insertmode)
+    au InsertLeave * call InsertLeaveActions()
+    
+    " to handle exiting insert mode via a control-C
+    inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
+    
+    " default the statusline to green when entering Vim
+    hi statusline guibg=green
+    
+    " have a permanent statusline to color
+    set laststatus=2
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

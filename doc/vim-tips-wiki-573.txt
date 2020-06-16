@@ -1,0 +1,58 @@
+*vim-tips-wiki-573.txt*   Repeating a substitute from current cursor position *vtw-573*
+
+Tip 573 [https://vim.fandom.com/wiki/Repeating_a_substitute_from_current_cursor_position]   Previous |vtw-572| Next |vtw-575|
+
+created October 3, 2003 · complexity intermediate · author Charles E. 
+Campbell, Jr. · version 6.0
+
+==============================================================================
+
+The :RS /pattern/subpattern/{flags} command+function as shown below allows 
+one to repeat a RS-substitute after the current cursor position.
+
+For example:
+
+>
+    " The cursor position is indicated with '^' on next line.
+    one two three one two three one two three
+     ^
+    
+    :RS /two/TWO/
+    one TWO three one two three one two three
+           ^
+    
+    move cursor:
+    one TWO three one two three one two three
+                          ^
+    
+    (I think tip author intended to repeat :RS here?)
+    
+    cursor ends up:
+    one TWO three one two three one TWO three
+<
+
+Put the following into your vimrc if you'd like to be able to do this.
+
+>
+    " RS: repeat substitution command
+    com! -range -nargs=* RS call RepeatSubst(<q-args>)
+    " RepatSubst:
+    fun! RepeatSubst(subexpr)
+      if a:subexpr != ""
+        let g:repeatsubst= a:subexpr
+      endif
+      let curcol= col(".")
+      let sep = strpart(g:repeatsubst,0,1)
+      let pat = substitute(g:repeatsubst,'^.\(.\{-}\)'.sep.'.*$','\1','')
+      s/\%#./\r&/
+      let curcol= curcol + matchend(getline("."),pat)
+      exe "s".g:repeatsubst
+      norm! k
+      j!
+      exe 'norm! '.curcol.'|'
+    endfun
+<
+
+COMMENTS                                                    *vtw-573-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,29 @@
+*vim-tips-wiki-749.txt*   Uuencode and uudecode text in Vim             *vtw-749*
+
+Tip 749 [https://vim.fandom.com/wiki/Uuencode_and_uudecode_text_in_Vim]   Previous |vtw-748| Next |vtw-750|
+
+created June 17, 2004 · complexity basic · author Pan S · version 6.0
+
+==============================================================================
+
+When you want to attach something in your email, uuencode is extremely 
+useful.
+
+This is a mapping to uuencode and uudecode in BASE64.
+
+>
+    nnoremap <silent> <Leader>ue :%!uuencode -m /dev/stdout<CR>
+    nnoremap <silent> <Leader>ud :%!uudecode -o /dev/stdout<CR>
+    vnoremap <silent> <Leader>ue !uuencode -m /dev/stdout<CR>
+    vnoremap <silent> <Leader>ud !uudecode -o /dev/stdout<CR>
+<
+
+Assumption: you have uuencode installed in your PATH. (For cygwin it is 
+included in the sharutils package; for Unix it should be similar.)
+
+Similar mapping can be used to any type of filter, such as the C indenter and 
+C preprocessor.
+
+COMMENTS                                                    *vtw-749-comments*
+
+ vim:tw=78:et:ft=help:norl:

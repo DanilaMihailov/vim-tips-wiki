@@ -1,0 +1,112 @@
+*vim-tips-wiki-82.txt*   Letting variable values be overwritten in a script *vtw-82*
+
+Tip 82 [https://vim.fandom.com/wiki/Letting_variable_values_be_overwritten_in_a_script]   Previous |vtw-81| Next |vtw-83|
+
+created 2001 · complexity basic · author Salman Halim · version 6.0
+
+==============================================================================
+
+This is a simple function I wrote to get the value of a variable from three 
+different places (in that order): the current buffer, the global setting or 
+from the script itself.
+
+This allows me to set a default value for a configuration variable inside my 
+script and the user to change it on a global level by setting the same 
+variable with a `g:` prepended. then, they can further set it on a per-buffer 
+level by the `b:` mechanism. One of the examples for this might be my comments 
+script (not uploaded). I have a variable in there that determines whether 
+comment characters (// for java, for example) are placed the beginning of the 
+line or just before the first-non-blanks in the text. I set up a default in my 
+script:
+
+>
+    let g:comments_hug_start_of_line=0 " comments should hug the text
+<
+
+that's fine as a default, but if I want to overwrite it for Vim scripts, I 
+just put the following in my ftplugin/vim.vim:
+
+>
+    let b:comments_hug_start_of_line=1 " Vim comments should hug the first column, always
+    
+    " Tries to return the buffer-specific value of a variable; if not
+    " found, tries to return the global value -- if that's not found
+    " either, returns an optional default value or -1 if not specified.
+    function! GetVar(...)
+      let varName=a:1
+      if (exists("a:2"))
+        let retVal=a:2
+      else
+        let retVal=-1
+      endif
+      if (exists ("b:" . varName))
+        exe "let retVal=b:" . varName
+      elseif (exists ("g:" . varName))
+        exe "let retVal=g:" . varName
+      endif
+      return retVal
+    endfunction
+<
+
+So, to specify the default scope for java bean properties (used inside 
+`javabean.vim`, though I chose not to put this mechanism in there to avoid the 
+dependency on this function), I just use:
+
+>
+    let current_javabean_scope = GetVar("javabean_scope", "protected")
+<
+
+If there is a buffer or global variable set, it uses that; otherwise, it 
+defaults to protected scope.
+
+COMMENTS                                                     *vtw-82-comments*
+
+I have a similar function in a library-plugin (implemented as an autoload 
+plugin) for Vim 7. The difference is that I always force the script author to 
+specify the default value as we can never know (as a library writer) if the 
+option is a string or a number -- thus the best way to have an unique access 
+point in script functions is to define an accessor:
+
+>
+    let s:defaultMyFooOption = "bar"
+    function s:MyFooOption()
+       return lh#option#Get("myFooOption", s:defaultMyFooOption)
+    endfunction
+<
+
+This way, it is possible to specify the default value as a script variable, 
+and still define the generic function in a VimL library.
+
+BTW, the function I use is the following:
+
+>
+    " {rtp}/autoload/lh/option.vim
+    "
+    " Function: lh#option#Get(name, default [, scope])            {{{2
+    " @return b:{name} if it exists, of g:{name} if it exists, or {default}
+    " otherwise
+    " The order of the variables checked can be specified through the optional
+    " argument {scope}
+    function! lh#option#Get(name,default,...)
+      let scope = (a:0 == 1) ? a:1 : 'bg'
+      let name = a:name
+      let i = 0
+      while i != strlen(scope)
+        if exists(scope[i].':'.name) && (0 != strlen({scope[i]}:{name}))
+          return {scope[i]}:{name}
+        endif
+        let i += 1
+      endwhile
+      return a:default
+    endfunction
+<
+
+NB: it can also support window-variables (`w:`), tab-variables (`t:`), 
+arguments (`a:`), ... See :help |internal-variables|
+
+--Luc Hermitte [https://vim.fandom.com/wiki/User:Luc_Hermitte] 13:09, 30 July 
+2007 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

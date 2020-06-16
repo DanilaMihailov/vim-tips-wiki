@@ -1,0 +1,155 @@
+*vim-tips-wiki-319.txt*   Simple text alignment                         *vtw-319*
+
+Tip 319 [https://vim.fandom.com/wiki/Simple_text_alignment]   Previous |vtw-318| Next |vtw-320|
+
+created August 23, 2002 · complexity basic · author Jahagirdar Vijayvithal S 
+· version 5.7
+
+==============================================================================
+
+Some times one would like to reformat text like:
+
+>
+    a=1;
+    foo=2;
+    longstring=1;
+    c=2
+<
+
+to
+
+>
+    a          =1;
+    foo        =2;
+    longstring =1;
+    c          =2;
+<
+
+This is how we achieve it
+
+>
+    0f=20i<Space><Esc>020lvf=hx
+<
+
+This is what it does
+
+>
+    0 goes to first column
+    f= finds next occurrence of = on current line
+    20i<Space><Esc> inserts 20 spaces before =
+    0 goes back to first column
+    20l forward 20 column
+    vf=hx deletes everything up to the = sign
+<
+
+COMMENTS                                                    *vtw-319-comments*
+
+Any lining up, alignment, etc - just leave it to Dr. Chip Campbell's 
+Align.vim (search for it here)
+
+==============================================================================
+
+I see a BIG drawback! What will it do in the following case?
+
+>
+    int my_very_informative_variable_name = 0;
+<
+
+the result will be:
+
+>
+    int my_very_informat= 0;
+<
+
+The correct way to solve this problem is to find the longest var in the list 
+(selected lines) and align accordingly.
+
+==============================================================================
+
+Some mappings and a python script for 
+alignment.http://www.ophinity.com/code/wrangling/index.html#lineUp 
+[http://www.ophinity.com/code/wrangling/index.html#lineUp]
+
+pro:
+    - humans can understand python 
+
+
+con:
+    - you need to have a python interpreter on your box 
+    - it's not as sophisticated as dr. chips script 
+
+
+==============================================================================
+
+You can save a couple keystrokes without visual mode.
+
+>
+    0f=20i<Space><Esc>020ldt=
+<
+
+And a couple more by using the goto-column movement :help |bar|:
+
+>
+    0f=20i<Space><Esc>d20|
+<
+
+And finally, you can fire off something like
+
+>
+    :11,32norm 0f=20i<Space><ctrl-v><Esc>d20|
+<
+
+to do this for a bunch of lines.
+
+==============================================================================
+
+>
+    0f=gelcw<Tab><Esc>
+<
+
+works well of you have softtabs set to use spaces. (Or using :retab)
+
+This will align based on next tab columns. Neat enough for me.
+
+==============================================================================
+
+Personally I'd shell out and use column for this, but obviously requires 
+having column installed!!
+
+>
+    :'<'>! column -ts=
+<
+
+==============================================================================
+
+Allow me to make a small but important modification to the last command:
+
+>
+    :'<'>! column -ts= -o=
+<
+
+Otherwise, the "=" sign would be removed from the output.It's a very good 
+replacement for the Tabularize plugin! At least for simple stuff like that.
+
+==============================================================================
+
+If you don't mind using up a bookmark, you can align the equals sign on the 
+current line at the current cursor position using the following magic:
+
+>
+    :nnoremap ,= mc0f=80i<Space><Esc>`cdt=j
+<
+
+Here's how it works.
+
+>
+    mc Stores the cursor position in bookmark "c" (you can choose a different slot)
+    0  Goes to start of line
+    f= finds next (first) occurrence of = on current line
+    80i<Space><Esc> inserts 80 spaces before =
+    `c Returns to bookmark (` positions by both line and column)
+    dt= Deletes up to the character before the =
+    j Goes down 1 line (optional)
+<
+
+ vim:tw=78:et:ft=help:norl:

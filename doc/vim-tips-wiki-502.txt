@@ -1,0 +1,30 @@
+*vim-tips-wiki-502.txt*   View character class                          *vtw-502*
+
+Tip 502 [https://vim.fandom.com/wiki/View_character_class]   Previous |vtw-498| Next |vtw-503|
+
+created July 2, 2003 · complexity intermediate · author beo · version 6.0
+
+==============================================================================
+
+This one shows the definition of a predefined character class. ([:alpha:], 
+[:graph:] etc.) The cursor is assumed to point to the name of the character 
+class one wants to examine. Press "cc".
+
+>
+    fun! s:Show()
+      norm! viwy
+      echo 'class [:' . @" . ':]' . "\n"
+      let pat = '[[:' . @" . ':]]'
+      let i = 0
+      while i < 256
+        let ch = nr2char(i)
+        if ch =~ pat | echon ch . '(' . i . ')' . "\t" | endif
+        let i = i + 1
+      endwhile
+    endfun
+    nn cc :call <SID>Show()<Cr>
+<
+
+COMMENTS                                                    *vtw-502-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,132 @@
+*vim-tips-wiki-147.txt*   How to write a plugin                         *vtw-147*
+
+Tip 147 [https://vim.fandom.com/wiki/How_to_write_a_plugin]   Previous |vtw-146| Next |vtw-148|
+
+created 2001 · complexity advanced · author Charles E. Campbell, Jr. · 
+version 6.0
+
+==============================================================================
+
+This tip gives a skeleton for writing a plugin; Vim's help files 
+|vtw-147-references| have plenty of details.
+
+>
+    " ------------------------------------------------------------------------------
+    " Exit when your app has already been loaded (or "compatible" mode set)
+    if exists("g:loaded_YourAppName") || &cp
+      finish
+    endif
+    let g:loaded_YourAppName= 123 " your version number
+    let s:keepcpo           = &cpo
+    set cpo&vim
+    
+    " Public Interface:
+    " AppFunction: is a function you expect your users to call
+    " PickAMap: some sequence of characters that will run your AppFunction
+    " Repeat these three lines as needed for multiple functions which will
+    " be used to provide an interface for the user
+    if !hasmapto('<Plug>AppFunction')
+      map <unique> <Leader>PickAMap <Plug>AppFunction
+    endif
+    
+    " Global Maps:
+    "
+    noremap <silent> <unique> <script> <Plug>AppFunction
+     \ :set lz<CR>:call <SID>AppFunction()<CR>:set nolz<CR>
+    
+    " ------------------------------------------------------------------------------
+    " s:AppFunction: this function is available via the <Plug>/<script> interface above
+    fun! s:AppFunction()
+      ..whatever..
+    
+      " your script function can set up maps to internal functions
+      nnoremap <silent> <Left> :set lz<CR>:silent! call <SID>AppFunction2()<CR>:set nolz<CR>
+    
+      " your app can call functions in its own script and not worry about name
+      " clashes by preceding those function names with <SID>
+      call s:InternalAppFunction(...)
+    
+      " or you could call it with
+      call s:InternalAppFunction(...)
+    endfun
+    
+    " ------------------------------------------------------------------------------
+    " s:InternalAppFunction: this function cannot be called from outside the
+    " script, and its name won't clash with whatever else the user has loaded
+    fun! s:InternalAppFunction(...)
+    
+      ..whatever..
+    endfun
+    
+    " ------------------------------------------------------------------------------
+    let &cpo= s:keepcpo
+    unlet s:keepcpo
+<
+
+With vim 7.0 comes a new feature that strongly affects plugin writing: 
+autoload. This feature reduces the turn-on time for vim; the idea is to split 
+your plugin into two parts, one containing the public interface and one 
+containing the bulk of the script. As always, the plugin portion is always 
+loaded; the autoload portion is loaded only when needed. Functions are written 
+using
+
+>
+    fun! NameOfScriptFile#FunctionName()
+    ...
+    endfun
+<
+
+Thus maps and commands can use the "NameOfScriptFile#FunctionName()" format 
+for their functions in the plugin portion; when the user invokes the command 
+or map, vim will only then load the autoload/NameOfScriptFile.vim script. I 
+heartily recommend that plugin writers avail themselves of this method!
+
+Plugins are intended to be "drop into <`.vim/plugin`>" and work. The problem 
+that the <Plug>, <SID>, etc stuff is intended to resolve: what to do about 
+functions that have the same names in different plugins, and what to do about 
+maps that use the same sequence of characters? The first problem is solved 
+with <SID> (a script identifier number) that Vim assigns: program with it and 
+your users will be happier when your stuff works with all their other stuff.
+
+The second problem: what to about those maps is addressed with <Plug>, 
+<unique>, etc. Basically the idea is: let the user know that there are clashes 
+and don't overwrite previously existing maps. Use the user's preferred 
+map-introducer sequence (I like the backslash, but there are many keyboards 
+which make producing backslashes unpleasant, and those users usually prefer 
+something else).
+
+What I like to do is to have a pair of start/stop maps to reduce my impact on 
+the namespace. When the starting map is used, it kicks off a starting function 
+that introduces all the maps needed. When the stopping map is used, it not 
+only removes the maps the starter made but restores any maps the user had had 
+that would have clashed. I also use the start/stop pair of functions to set 
+and restore options that cause my scripts difficulties.
+
+Check out `DrawIt.vim`'s `SaveMap()` function for a way to save user 
+maps.Restoring maps with it is easy:
+
+>
+    if b:restoremap != ""
+      exe b:restoremap
+      unlet b:restoremap
+    endif
+<
+
+So you can see it sets up a string variable with all the maps that the user 
+had that would have clashed with my application.
+
+One final thing: if your application needs to share information between its 
+various functions, see if you can use `s:varname` (a variable that only your 
+script's functions can access) or `b:varname` (a variable that anything 
+associated with the buffer your application is running with can access) 
+instead of using global variables.
+
+REFERENCES                                                *vtw-147-references*
+    - :help |plugin| 
+    - :help |write-plugin| 
+    - :help |plugin-details| 
+
+
+COMMENTS                                                    *vtw-147-comments*
+
+ vim:tw=78:et:ft=help:norl:

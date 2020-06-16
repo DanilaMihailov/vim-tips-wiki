@@ -1,0 +1,47 @@
+*vim-tips-wiki-295.txt*   Line/word/file/whatever completion            *vtw-295*
+
+Tip 295 [https://vim.fandom.com/wiki/Line/word/file/whatever_completion]   Previous |vtw-294| Next |vtw-297|
+
+created 2002 · complexity intermediate · author Nopik · version 6.0
+
+==============================================================================
+
+In addition to any word completion |vtw-4| you can use Ctrl-X completion mode 
+to complete whole lines, filenames, keywords, and more. While entering text in 
+insert mode, press Ctrl-X (written as <C-X> below), then another key to 
+indicate the type of completion.
+    - <C-X><C-L> complete whole lines 
+    - <C-X><C-P> complete words (<C-P> has the same effect; <C-X> is not needed) 
+    - <C-X><C-F> complete file names 
+    - <C-X>`s` spelling suggestions (after `:setl spell` to enable spell checking) 
+
+
+While completion is active, type <C-P> or <C-N> to select the previous or 
+next item.
+
+For more information, see :help |ins-completion|.
+
+EXAMPLE                                                      *vtw-295-example*
+
+For example, suppose the following text is entered:
+
+>
+    this is first line
+    second line is here
+<
+
+With the cursor on the empty third line, and while still in insert mode, 
+pressing <C-X><C-L> will insert a copy of the second line. Select another line 
+with <C-P> or <C-N>.
+
+If "th" is typed at the start of the third line, pressing <C-X><C-L> will 
+insert the first line because it starts with "th".
+
+As an example of word completion, suppose "f" is typed at the start of the 
+third line. Press <C-P> to complete the word using the previous occurrence 
+that starts with "f"—that will insert "first". If you then press <C-X><C-P> 
+the following word will also be inserted (the result will be "first line").
+
+COMMENTS                                                    *vtw-295-comments*
+
+ vim:tw=78:et:ft=help:norl:

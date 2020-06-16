@@ -1,0 +1,47 @@
+*vim-tips-wiki-862.txt*   How to toggle between all vertical and all horizontal window layout *vtw-862*
+
+Tip 862 [https://vim.fandom.com/wiki/How_to_toggle_between_all_vertical_and_all_horizontal_window_layout]   Previous |vtw-861| Next |vtw-863|
+
+created 2005 · complexity intermediate · author Charles E. Campbell, Jr. · 
+version 6.0
+
+==============================================================================
+
+Suppose you have three windows in a "horizontal list", like this:
+
+>
+    Window1|Window2|Window3
+<
+
+Entering the command:
+
+>
+    :windo wincmd K
+<
+
+will change the windows to a "vertical list", like this:
+
+>
+    Window1
+    Window2
+    Window3
+<
+
+Starting with a "vertical list", entering the command:
+
+>
+    :windo wincmd H
+<
+
+will change the windows to a "horizontal list".
+
+RELATED PLUGINS                                      *vtw-862-related-plugins*
+    - twl.vim [http://www.drchip.org/astronaut/vim/index.html#TWL] implements 
+      `:TWL` (toggle window layout) which detects which type of window layout you 
+      currently have (vertical or horizontal), and applies the correct command to 
+      toggle the layout. 
+
+
+COMMENTS                                                    *vtw-862-comments*
+
+ vim:tw=78:et:ft=help:norl:

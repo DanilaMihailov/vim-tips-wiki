@@ -1,0 +1,155 @@
+*vim-tips-wiki-548.txt*   Using H and L keys as context sensitive pagedown/pageup *vtw-548*
+
+Tip 548 [https://vim.fandom.com/wiki/Using_H_and_L_keys_as_context_sensitive_pagedown/pageup]   Previous |vtw-547| Next |vtw-550|
+
+created September 2, 2003 · complexity basic · author Usman Latif · version 
+5.7
+
+==============================================================================
+
+The H and L keys move the cursor to the top or bottom of the window 
+respectively. They can be a real time saver, instead of hitting j/k many 
+times, a single H/L can move the cursor to the proper place. However, when you 
+are already at the top of the window the H key does nothing and similarly at 
+the bottom of the window the L key does nothing.
+
+I started using the H/L keys a few days ago and quickly discovered that after 
+getting to the top using H, I often want to scroll up. Hitting H again does 
+nothing, so I wrote a function Hcontext which makes the H key context 
+sensitive. I then mapped Hcontext to the H key. Now hitting the H key anywhere 
+other than at the top of the window leads to the usual behavior but hitting H 
+at the first line of the window causes the window to scroll one page back and 
+positions the cursor at the top of the window. Similar behavior is implemented 
+by the Lcontext function but in the other direction. Hitting L on the last 
+line of the window now acts like the pagedown key.
+
+Even if you have never used the H/L keys before you can now start using them 
+as replacement pagedown/pageup keys. Just cut and paste the code at the end 
+into your vimrc and put the following maps after that.
+
+>
+    noremap H :call Hcontext()<CR>
+    noremap L :call Lcontext()<CR>
+<
+
+The unmapped H and L keys take a numeric count as well. Unfortunately, I am 
+not aware of a way to make that count available to the user functions I wrote. 
+The typical vim behavior in case of user functions is to supply the count as a 
+range to the user function. This works most of the time but sometimes the 
+count gets rejected because of range checking.
+
+>
+    function! Hcontext()
+      if (winline() == 1 && line(".") != 1)
+        exe "normal! \<pageup>H"
+      else
+        exe "normal! H"
+      endif
+      echo ''
+    endfunc
+    
+    func! Lcontext()
+      if (winline() == winheight(0) && line(".") != line("$"))
+        exe "normal! \<pagedown>L"
+      else
+        exe "normal! L"
+      endif
+      echo ''
+    endfunc
+<
+
+COMMENTS                                                    *vtw-548-comments*
+
+My suggestion for improvement is to take care of the scrolloff option. My 
+modification of the function:
+
+>
+    func! Hcontext()
+      if (winline() == &so+1 && line(".") != 1)
+        exe "normal! \<PageUp>H"
+      else
+        exe "normal! H"
+      endif
+      echo ''
+    endfunc
+    
+    func! Lcontext()
+      if (winline() == winheight(0)-&so && line(".") != line("$"))
+        exe "normal! \<PageDown>L"
+      else
+        exe "normal! L"
+      endif
+      echo ''
+    endfunc
+<
+
+==============================================================================
+
+I converted this tip to a plugin. See script#763 
+[https://www.vim.org/scripts/script.php?script_id=763].
+
+==============================================================================
+
+I found some problems with the original implementation of the two functions. 
+The functions don't work when the bottom or top line is longer than window 
+width and is spread over multiple window lines. The cursor needs to be on the 
+top or bottom-most window-line to work correctly.
+
+I fixed the problem and the new code is below. However, there is one case 
+where the functions don't work. This case occurs when a count is supplied that 
+will take the cursor to a line that is not visible. The proper behavior is to 
+do nothing, but the code below instead does a pagedown/pageup. In practice I 
+don't expect this behavior to be a problem for anyone.
+
+>
+    map <silent> H :<C-U>call HContext()<CR>
+    map <silent> L :<C-U>call LContext()<CR>
+    func! HContext()
+      let moved = MoveCursor("H")
+      if !moved && line('.') != 1
+        exe "normal! " . "\<pageup>H"
+      endif
+    endfunc
+    
+    func! LContext()
+      let moved = MoveCursor("L")
+      if !moved && line('.') != line('$')
+        exe "normal! " . "\<pagedown>L"
+      endif
+    endfunc
+    
+    func! MoveCursor(key)
+      let cnum = col('.')
+      let lnum = line('.')
+      let wline = winline()
+      exe "normal! " . v:count . a:key
+      let moved = cnum != col('.') || lnum != line('.') || wline != winline()
+      return moved
+    endfunc
+<
+
+==============================================================================
+
+This needs to be extended to support 2H, 3H and also line('w0') and 
+line('w$') may be useful
+
+Have you checked , , to write confidently ?
+
+==============================================================================
+
+Another solution I found on accident that I've been supremely happy with:
+
+>
+    nnoremap J H
+    nnoremap K L
+<
+
+Try it by pressing Shift+J, but when you let go of the shift, hold down j and 
+it will scroll. (for completeness I mapped old functionality to the following)
+
+>
+    nnoremap <C-J> J
+    nnoremap <F1> K
+<
+
+ vim:tw=78:et:ft=help:norl:

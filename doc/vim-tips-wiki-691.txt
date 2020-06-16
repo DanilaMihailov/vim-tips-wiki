@@ -1,0 +1,32 @@
+*vim-tips-wiki-691.txt*   Use gf to open a file via its URL             *vtw-691*
+
+Tip 691 [https://vim.fandom.com/wiki/Use_gf_to_open_a_file_via_its_URL]   Previous |vtw-690| Next |vtw-692|
+
+created 2004 · complexity intermediate · author Xiangjiang Ma · version 6.0
+
+==============================================================================
+
+To make `gf` work for a URL, say, `file:///C:/myfile.txt`, I have the 
+following in my vimrc on Windows:
+
+>
+    au BufReadCmd file:///* exe "bd!|edit ".substitute(expand("<afile>"),"file:/*","","")
+<
+
+COMMENTS                                                    *vtw-691-comments*
+
+How about extending it for `http://x.y [http://x.y]`
+
+For network file like http:// ftp:// etc, I guess it is better to use netrw 
+plugin.
+
+==============================================================================
+
+TO DO
+    - Handle escaped characters like %20 for spaces. 
+
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 16:12, 
+January 6, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

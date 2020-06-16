@@ -1,0 +1,104 @@
+*vim-tips-wiki-1557.txt*   Filter buffer on a search result            *vtw-1557*
+
+Tip 1557 [https://vim.fandom.com/wiki/Filter_buffer_on_a_search_result]   Previous |vtw-1556| Next |vtw-1558|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Filter_buffer_on_a_search_result] 
+2008 · complexity basic · author Niels AdB · version 7.0
+
+==============================================================================
+
+You may want to list all lines in the current buffer that match a pattern, 
+for example, list all lines containing "Warning". The following script copies 
+all matching lines to a scratch (temporary) buffer. You can then examine the 
+list, or save it to a file.
+
+Create a file called (for example) filter.vim containing:
+
+>
+    " Gather search hits, and display in a new scratch buffer.
+    function! Gather(pattern)
+      if !empty(a:pattern)
+        let save_cursor = getpos(".")
+        let orig_ft = &ft
+        " append search hits to results list
+        let results = []
+        execute "g/" . a:pattern . "/call add(results, getline('.'))"
+        call setpos('.', save_cursor)
+        if !empty(results)
+          " put list in new scratch buffer
+          new
+          setlocal buftype=nofile bufhidden=hide noswapfile
+          execute "setlocal filetype=".orig_ft
+          call append(1, results)
+          1d  " delete initial blank line
+        endif
+      endif
+    endfunction
+    
+    " Delete the current buffer if it is a scratch buffer (any changes are lost).
+    function! CloseScratch()
+      if &buftype == "nofile" && &bufhidden == "hide" && !&swapfile
+        " this is a scratch buffer
+        bdelete
+        return 1
+      endif
+      return 0
+    endfunction
+    
+    nnoremap <silent> <Leader>f :call Gather(input("Search for: "))<CR>
+    nnoremap <silent> <Leader>F :call Gather(@/)<CR>
+    nnoremap <silent> <Esc> :call CloseScratch()<CR>
+<
+
+In Vim, the command `:source filter.vim` will execute the script.
+
+Assuming the default leader key (backslash), you can now:
+    - Type `\f` and enter a pattern when prompted. 
+    - Type `\F` to filter on the last search pattern. 
+    - Press Escape to close the scratch buffer listing the search hits. 
+
+
+For example, you could put the cursor on a word and press `*` to search for 
+the next occurrence of that word. If you now type `\F` a new window will open 
+with a list of all lines that contain the word you searched for. Press Escape 
+to close the window.
+
+ALTERNATIVE PROCEDURES                       *vtw-1557-alternative-procedures*
+
+A simple procedure to list all lines matching a pattern is:
+
+>
+    " Print all lines that contain "pattern".
+    :g/pattern/p
+    " Following is equivalent.
+    :g/pattern
+<
+
+The following will delete all lines that do not contain a pattern, leaving 
+only the search hits. You could then press `u` to undo the changes.
+
+>
+    :v/pattern/d
+<
+
+SEE ALSO                                                   *vtw-1557-see-also*
+    - Folding with Regular Expression 
+      [https://vim.fandom.com/wiki/Folding_with_Regular_Expression] to fold away 
+      lines without a search pattern rather than modifying it or using a scratch 
+      buffer 
+    - 
+      Search_for_lines_not_containing_pattern_and_other_helpful_searches#Using_the_:v_command 
+      [https://vim.fandom.com/wiki/Search_for_lines_not_containing_pattern_and_other_helpful_searches#Using_the_:v_command] 
+      for some simple techniques to display lines of interest 
+    - Copy the search results into clipboard |vtw-478| to copy matching patterns 
+      (not lines) 
+    - Redirect g search output |vtw-1063| uses `:redir` with `g//p` for a limited 
+      one-line version of this tip 
+    - List lines with current search pattern highlighted |vtw-1141| defines command 
+      `PP` to highlight matches displayed with `:g//PP` 
+
+
+COMMENTS                                                   *vtw-1557-comments*
+
+ vim:tw=78:et:ft=help:norl:

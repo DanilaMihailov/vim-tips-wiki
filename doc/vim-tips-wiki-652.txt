@@ -1,0 +1,30 @@
+*vim-tips-wiki-652.txt*   Save all open buffers at once                 *vtw-652*
+
+Tip 652 [https://vim.fandom.com/wiki/Save_all_open_buffers_at_once]   Previous |vtw-651| Next |vtw-653|
+
+created 2004 · complexity intermediate · author Andreas Berg · version 6.0
+
+==============================================================================
+
+Vim can open multiple files, each in its own buffer. Here is how to save all 
+changes and continue working, or save all changes and exit Vim. It is also 
+possible to quit all (discard changes).
+
+The `:wa` and `:xa` commands only write a file when its buffer has been 
+changed. By contrast, the `:w` command always writes the current buffer to its 
+file (use `:update` to save the current buffer only if it has been changed).
+
+Warning: If you enter `:qa!`, Vim will discard all changes without asking 
+"are you sure?".
+
+SEE ALSO                                                    *vtw-652-see-also*
+    - Tutorial [https://vim.fandom.com/wiki/Tutorial] 
+
+
+REFERENCES                                                *vtw-652-references*
+    - :help |window-exit| 
+
+
+COMMENTS                                                    *vtw-652-comments*
+
+ vim:tw=78:et:ft=help:norl:

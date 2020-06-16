@@ -1,0 +1,48 @@
+*vim-tips-wiki-976.txt*   List buffers sorted by name                   *vtw-976*
+
+Tip 976 [https://vim.fandom.com/wiki/List_buffers_sorted_by_name]   Previous |vtw-975| Next |vtw-977|
+
+created 2005 · complexity intermediate · author Suresh Govindachar · version 
+6.0
+
+==============================================================================
+
+This tip requires Perl and overwrites the unnamed register.
+
+The output of `:ls` is sorted by buffer number.
+
+The following command results in a user defined command named `:Ls` (all user 
+defined commands need to start with a capital letter).
+
+The output of :Ls is the same as the output of :ls except that the output is 
+sorted by buffer name.
+
+Here's the command which you can place in your vimrc:
+
+>
+    command! -bang Ls redir @" | silent ls<bang> | redir END | echo " " |
+     \ perl {
+     \ my $msg=VIM::Eval('@"');
+     \ my %list=();
+     \ my $key, $value;
+     \ while($msg =~ m/(.*?line\s+\d+)/g)
+     \ {
+     \ $value = $1;
+     \ $value =~ m/"([^"]+)"/;
+     \ $key = $1;
+     \ ($^O =~ /mswin/i) and $key = lc($key);
+     \ $list{$key} = $value;
+     \ }
+     \ my $msg = '';
+     \ for $key (sort keys %list)
+     \ {
+     \ $msg .= "$list{$key}\n";
+     \ }
+     \ VIM::Msg($msg);
+     \ }
+     \ <CR>
+<
+
+COMMENTS                                                    *vtw-976-comments*
+
+ vim:tw=78:et:ft=help:norl:

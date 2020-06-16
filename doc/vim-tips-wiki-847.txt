@@ -1,0 +1,87 @@
+*vim-tips-wiki-847.txt*   Open same file read-only in second Vim        *vtw-847*
+
+Tip 847 [https://vim.fandom.com/wiki/Open_same_file_read-only_in_second_Vim]   Previous |vtw-846| Next |vtw-848|
+
+created January 9, 2005 · complexity basic · author Jang Junyeong · version 
+6.0
+
+==============================================================================
+
+When you open a file opened in somewhere else, you would get "E325: 
+ATTENTION" message because a swap file already exists there. I (almost) always 
+choose the action "[O]pen Read-Only" in this case, so typing 'O' key is an 
+annoying job for me. The following in my vimrc reduce my job.
+
+>
+    func CheckSwap()
+      swapname
+      if v:statusmsg =~ '\.sw[^p]$'
+        set ro
+      endif
+    endfunc
+    
+    if &swf
+      set shm+=A
+      au BufReadPre * call CheckSwap()
+    endif
+<
+
+COMMENTS                                                    *vtw-847-comments*
+
+Very neat trick. However, in a genuine case (when a previous session really 
+crashed), the message is still usefull, and avoiding it could cause some 
+confusion later. Also, you might want to recover the file immediately too. To 
+address this issue, here is a modified attempt that echoes a message in this 
+case. The message is hopefully easier to digest than the original ATTENTION 
+dialog.
+
+I improved it slighly more with a toggle option. If you want to delete the 
+swapfile, it is easier to have Vim do it, so I added a ToggleSwapCheck() 
+function. I usage is to toggle the behavior, reload the buffer to get the Vim 
+dialog box where you can choose to delete the swap. You can later toggle it 
+back on by calling the same function.
+
+>
+    let s:swapCheckEnabled = 0
+    let s:_shm = &shm
+    function! ToggleSwapCheck()
+      let s:swapCheckEnabled = !s:swapCheckEnabled
+      if !s:swapCheckEnabled
+        let &shm = s:_shm
+      endif
+      aug CheckSwap
+        au!
+        if s:swapCheckEnabled
+          set shm+=A
+          au BufReadPre * call CheckSwapFile()
+          au BufRead * call WarnSwapFile()
+        endif
+      aug END
+    endfunction
+    call ToggleSwapCheck()
+    
+    function! CheckSwapFile()
+      if !exists('*GetVimCmdOutput') || !&swapfile || !s:swapCheckEnabled
+        return
+      endif
+    
+      let swapname = GetVimCmdOutput('swapname')
+      if swapname =~ '\.sw[^p]$'
+        set ro
+        let b:_warnSwap = 1
+      endif
+    endfunction
+    
+    function! WarnSwapFile()
+      if exists('b:_warnSwap') && b:_warnSwap && &swapfile
+        echohl ErrorMsg | echomsg "File: \"" . bufname('%') .
+         \ "\" is opened readonly, as a swapfile already existed."
+         \ | echohl NONE
+        unlet b:_warnSwap
+      endif
+    endfunction
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

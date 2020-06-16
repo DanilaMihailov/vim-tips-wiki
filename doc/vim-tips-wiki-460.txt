@@ -1,0 +1,114 @@
+*vim-tips-wiki-460.txt*   See the tabs in your file                     *vtw-460*
+
+Tip 460 [https://vim.fandom.com/wiki/See_the_tabs_in_your_file]   Previous |vtw-459| Next |vtw-461|
+
+created April 21, 2003 · complexity basic · author Robert (MetaCosm) · 
+version 5.7
+
+==============================================================================
+
+When browsing the jEdit screenshots page, I saw a feature I wanted and didn't 
+have in Vim. It was a vertical line showing the Tab characters.
+
+>
+    if (this) {
+    | if (that) {
+    | | do stuff;
+    | }
+    }
+<
+
+I was wondering how to do this in Vim. Turns out it is simple.
+
+>
+    :set list
+    :set listchars=tab:\|\<Space>
+<For more recent versions of vim (tested on 7.4):
+
+>
+    :set listchars=tab:>-     " > is shown at the beginning, - throughout
+<
+
+REFERENCES                                                *vtw-460-references*
+    - :help 'listchars' 
+
+
+COMMENTS                                                    *vtw-460-comments*
+
+In order to tweak the colors
+
+>
+    highlight SpecialKey guifg=<color> ctermfg=<color>
+<
+
+==============================================================================
+
+Here's a function+command to facilitate use:
+
+Usage: :SeeTab (toggles between normal and bar'd tabbing styles)
+
+>
+    " SeeTab: toggles between showing tabs and using standard listchars
+    fu! SeeTab()
+      if !exists("g:SeeTabEnabled")
+        let g:SeeTabEnabled = 1
+        let g:SeeTab_list = &list
+        let g:SeeTab_listchars = &listchars
+        let regA = @a
+        redir @a
+        hi SpecialKey
+        redir END
+        let g:SeeTabSpecialKey = @a
+        let @a = regA
+        silent! hi SpecialKey guifg=black guibg=magenta ctermfg=black ctermbg=magenta
+        set list
+        set listchars=tab:\|\
+      else
+        let &list = g:SeeTab_list
+        let &listchars = &listchars
+        silent! exe "hi ".substitute(g:SeeTabSpecialKey,'xxx','','e')
+        unlet g:SeeTabEnabled g:SeeTab_list g:SeeTab_listchars
+      endif
+    endfunc
+    com! -nargs=0 SeeTab :call SeeTab()
+<
+
+==============================================================================
+
+Use syntax highlighting when expand tabs are on. Note the use of &sw to get 
+the current shiftwidth for the expanded tabs.
+
+>
+    fu! SeeTab()
+      if !exists("g:SeeTabEnabled")
+        let g:SeeTabEnabled = 0
+      end
+      if g:SeeTabEnabled==0
+        syn match leadspace /^\s\+/ contains=syntab
+        exe "syn match syntab /\\s\\{" . &sw . "}/hs=s,he=s+1 contained"
+        hi syntab guibg=Grey
+        let g:SeeTabEnabled=1
+      else
+        syn clear leadspace
+        syn clear syntab
+        let g:SeeTabEnabled=0
+      end
+    endfunc
+    com! -nargs=0 SeeTab :call SeeTab()
+<
+
+==============================================================================
+
+One correction: expand tabs setting expands tabs according to the tabstop 
+setting not shiftwidth - so in the SeeTab() function, replace &sw by &ts
+
+==============================================================================
+
+There are now two scripts for this:
+    - script#627 [https://www.vim.org/scripts/script.php?script_id=627] 
+    - script#628 [https://www.vim.org/scripts/script.php?script_id=628] 
+
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

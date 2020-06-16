@@ -1,0 +1,29 @@
+*vim-tips-wiki-1227.txt*   Vim-Shell embeds a terminal in Vim          *vtw-1227*
+
+
+
+This tip is deprecated for the following reasons:
+
+Vim is currently version 7.4 - the patches in this tip are for 7.0.0Tip 1227 [https://vim.fandom.com/wiki/Vim-Shell_embeds_a_terminal_in_Vim]   Previous |vtw-1226| Next |vtw-1228|
+
+created 2006 · complexity intermediate · author Ryan Springer · version 6.0
+
+==============================================================================
+
+If you have ever wanted to drop to a full shell in a window and do things 
+like run ssh, full-color bash, you should check out Thomas Wana's Vim-Shell 
+patch: http://www.wana.at/vimshell/ [http://www.wana.at/vimshell/]
+
+It currently only works on text-mode Vim 7.0.
+
+COMMENTS                                                   *vtw-1227-comments*
+
+See :help |shell-window|. This feature, while available, is discouraged.
+
+The ConqueShell [https://www.vim.org/scripts/script.php?script_id=2771] 
+plugin provides an interactive shell in a buffer, without needing to patch 
+Vim.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

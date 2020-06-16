@@ -1,0 +1,93 @@
+*vim-tips-wiki-1030.txt*   Diff current buffer and the original file   *vtw-1030*
+
+Tip 1030 [https://vim.fandom.com/wiki/Diff_current_buffer_and_the_original_file]   Previous |vtw-1029| Next |vtw-1031|
+
+created 2005 · complexity intermediate · author Thomas Arendsen Hein · 
+version 6.0
+
+==============================================================================
+
+See also: DiffOrig 
+|http://vimdoc.sourceforge.net/htmldoc/diff.html#:DiffOrig| example from vim's 
+docs (and how to use it in a new tab 
+[https://vim.fandom.com/wiki/Quick_tips_for_using_tab_pages#Separate_.27diff.27_views])
+
+Here is a function and command to see a diff between the currently edited 
+file and its unmodified version in the filesystem. Just put this in your vimrc 
+or in the plugin directory, open a file, make some modifications without 
+saving them, and do `:DiffSaved`.
+
+>
+    function! s:DiffWithSaved()
+      let filetype=&ft
+      diffthis
+      vnew | r # | normal! 1Gdd
+      diffthis
+      exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+    endfunction
+    com! DiffSaved call s:DiffWithSaved()
+<
+
+To get out of diff view you can use the `:diffoff` command.
+
+Below is a similar function, adapted to mimic the '`cvs diff`' command (cvs 
+must be in the path):
+
+>
+    function! s:DiffWithCVSCheckedOut()
+      let filetype=&ft
+      diffthis
+      vnew | r !cvs up -pr BASE #
+      1,6d
+      diffthis
+      exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+    endfunction
+    com! DiffCVS call s:DiffWithCVSCheckedOut()
+<
+
+Same for svn instead of cvs:
+
+>
+    function! s:DiffWithSVNCheckedOut()
+      let filetype=&ft
+      diffthis
+      vnew | exe "%!svn cat " . fnameescape( expand("#:p") )
+      diffthis
+      exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+    endfunction
+    com! DiffSVN call s:DiffWithSVNCheckedOut()
+<
+
+COMMENTS                                                   *vtw-1030-comments*
+
+The following suggestion should work, but will only show you the output of 
+the "diff" command on your system. It will NOT use Vim's excellent diff mode, 
+where you can see side-by-side highlighted and folded differences between text 
+in two different windows.
+
+Super-simple non-function command version:
+
+>
+    :w !diff % -
+<
+
+Here is a version for git in Linux:
+
+>
+    function! s:DiffWithGITCheckedOut()
+      let filetype=&ft
+      diffthis
+      vnew | exe "%!git diff " . fnameescape( expand("#:p") ) . "| patch -p 1 -Rs -o /dev/stdout"
+      exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+      diffthis
+    endfunction
+    com! DiffGIT call s:DiffWithGITCheckedOut()
+<
+
+==============================================================================
+
+Maybe this tip was useful in 2005, but the vimrc_example.vim has evolved 
+since then: see :help |:DiffOrig| --Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 22:39, December 23, 2009 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

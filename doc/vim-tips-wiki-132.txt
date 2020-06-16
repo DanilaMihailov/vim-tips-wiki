@@ -1,0 +1,146 @@
+*vim-tips-wiki-132.txt*   Window zooming convenience                    *vtw-132*
+
+Tip 132 [https://vim.fandom.com/wiki/Window_zooming_convenience]   Previous |vtw-131| Next |vtw-133|
+
+created 2001 · complexity basic · author Salman Halim · version 6.0
+
+==============================================================================
+
+I frequently have multiple windows open in Vim–this reduces the number of 
+lines each window displays–I almost always have my windows either all the same 
+size or the current one as big as possible. The following function can be 
+toggled on or off by typing <Leader>max (I can do this quite quickly); just 
+change the mapping at the bottom to something else if you prefer. This causes 
+the current window to be as big as possible (moving into another window causes 
+that one to become big) and all the others get very small. I actually use this 
+ALL the time. Turning it off (by typing the hotkey sequence again) will cause 
+all windows to have the same height.
+
+>
+    "toggles whether or not the current window is automatically zoomed
+    function! ToggleMaxWins()
+      if exists('g:windowMax')
+        au! maxCurrWin
+        wincmd =
+        unlet g:windowMax
+      else
+        augroup maxCurrWin
+            " au BufEnter * wincmd _ | wincmd |
+            "
+            " only max it vertically
+            au! WinEnter * wincmd _
+        augroup END
+        do maxCurrWin WinEnter
+        let g:windowMax=1
+      endif
+    endfunction
+    nnoremap <Leader>max :call ToggleMaxWins()<CR>
+<
+
+Note that the essential Vim commands are <c-_> which maximizes the current 
+window by making all of the other windows 1-line high. And <c-=> which makes 
+all window sizes the same. The script just makes it easier to toggle. For info 
+on <Leader> see :help |mapleader|.
+
+ROLODEX VIM                                              *vtw-132-rolodex-vim*
+
+A similar effect is achieved with the settings commonly known as "Rolodex 
+Vim" or "the poor man's tabs", invented by Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec].
+
+>
+    :set noequalalways winminheight=0 winheight=9999 helpheight=9999
+<
+    - 'noequalalways' makes sure Vim doesn't try to make all windows equal. 
+    - 'winminheight' set to 0 means non-current windows may collapse to a status 
+      line and nothing else (thus sparing screen real estate) 
+    - 'winheight' at 9999 swells the current window to maximum height, squashing 
+      all non-current windows 
+    - 'helpheight' does the same when in a help window. 
+
+
+The result is that the current window opens full-height, pushing all other 
+windows above and below it to just a status line each. To see what it means, 
+figure a Rolodex phone directory, like people once used before personal 
+computers came around. The current card is open full-size, with the borders of 
+the previous cards visible above it and those of the following cards below it. 
+You can even push the similarity further: mouse-clicking any status line opens 
+that "Rolodex page" in Vim, like holding one index letter on the top or bottom 
+side of the Rolodex allowed to open that directory card in the good old 
+paper-and-ink times of a generation ago. Of course the "Vim Rolodex pages" can 
+also be turned up and down one-by-one with ^Ww and ^WW etc.
+
+See:
+    - :help 'ea' 
+    - :help 'wmh' 
+    - :help 'wh' 
+    - :help 'hh' 
+
+
+ROLODEX VIM ON A PER TAB BASIS        *vtw-132-rolodex-vim-on-a-per-tab-basis*
+
+This code allows you to turn the settings on and off quickly by pressing F2. 
+They are remembered on a per-tab basis so you can have it turned on just for 
+one tab.
+
+Put this code in your .vimrc file.
+
+>
+    "This function turns Rolodex Vim on or off for the current tab
+    "If turning off, it sets all windows to equal height
+    function! ToggleRolodexTab()
+        if exists("t:rolodex_tab") > 0
+            unlet t:rolodex_tab
+            call ClearRolodexSettings()
+            execute "normal \<C-W>="
+        else
+            let t:rolodex_tab = 1
+            call SetRolodexSettings()
+        endif
+    endfunction
+     
+    "This function clears the Rolodex Vim settings and restores the previous values
+    function! ClearRolodexSettings()
+        "Assume if one exists they all will
+        if exists("g:remember_ea") > 0
+            let &equalalways=g:remember_ea
+            let &winheight=g:remember_wh
+            let &winminheight=g:remember_wmh
+            let &helpheight=g:remember_hh
+        endif
+    endfunction
+     
+    "This function set the Rolodex Vim settings and remembers the previous values for later
+    function! SetRolodexSettings()
+        if exists("t:rolodex_tab") > 0
+            let g:remember_ea=&equalalways
+            let g:remember_wh=&winheight
+            let g:remember_wmh=&winminheight
+            let g:remember_hh=&helpheight
+            set noequalalways winminheight=0 winheight=9999 helpheight=9999
+        endif
+    endfunction
+     
+    "These two autocmds make Vim change the settings whenever a new tab is selected
+    "We have to use TabLeave to always clear them.  If we try and turn them off
+    "in TabEnter, it is too late ( I think, since WinEnter has already been called and triggered the display)
+    au TabLeave * call ClearRolodexSettings()
+    au TabEnter * call SetRolodexSettings()
+     
+    "With this mapping, F2 toggles a tab to be Rolodex style
+    noremap <F2> :call ToggleRolodexTab()<CR>
+<
+
+TO DO Merge below comments in if useful
+
+==============================================================================
+
+Great tip—I always edit in this mode. Problem is, the quickfix window gets 
+shrunk to nothing. Does anyone have any idea how to set the quickfix window 
+(:help |:cw|) to a minimum of 12 lines (say) while in rolodex mode?
+
+Try the following (untested) after opening the quickfix window (and with it being current): :setlocal winfixheight=12 (see :help 'winfixheight') — Tonymec 05:25, September 25, 2010 (UTC)
+'winfixheight' is a boolean option. You want something like :resize 12 | setlocal winfixheight. --Fritzophrenic 14:38, September 27, 2010 (UTC)
+But help says that winfixheight is set in a quickfix window, and that it will be ignored when running out of room. So something more would be needed. JohnBeckett 11:15, September 28, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

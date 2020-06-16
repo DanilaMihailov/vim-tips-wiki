@@ -1,0 +1,45 @@
+*vim-tips-wiki-92.txt*   Compress Vim doc files to save space            *vtw-92*
+
+Tip 92 [https://vim.fandom.com/wiki/Compress_Vim_doc_files_to_save_space]   Previous |vtw-91| Next |vtw-94|
+
+created July 20, 2001 · complexity intermediate · author Francis · version 
+6.0
+
+==============================================================================
+
+As everyone knows, the $VIMRUNTIME/doc is increasing rapidly in size. The 
+directory contained so many plain-text documents that I often compress them to 
+save my diskspace. With the support of VIM's GZIP plugin, VIM will 
+automatically uncompress the files when we need to read them.
+
+Here is my procedure:
+
+1. If you have the source, go to 'runtime/doc' and edit 'doctags.c', change 
+printf("%s\t%s\t/*", p1, argv[0]); to printf("%s\t%s.gz\t/*", p1, argv[0]); 
+then make. This is to modify the tag, or you'll have to change the 'tags' file 
+by hand if you don't have doctags.c.
+
+2. Edit the new generated 'tags' file to rename 'help.txt.gz' back to 
+'help.txt' because it's hard-written in VIM executable binary.
+
+>
+    :%s/help\.txt\.gz/help\.txt/g
+<
+
+3. Copy the new 'tags' to $VIMRNUTIME/doc and run 'gzip *.txt; gunzip 
+help.txt'
+
+On Vim 6.0, we can reduce the original size (3302k) to 1326k.
+
+COMMENTS                                                     *vtw-92-comments*
+
+It is possible to compress help.txt, too. there is a 'helpfile' option in 
+vim:
+
+>
+    set helpfile=/usr/share/vim/vim60u/doc/help.txt.gz
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

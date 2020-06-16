@@ -1,0 +1,52 @@
+*vim-tips-wiki-771.txt*   Paste from the clipboard into a new vim       *vtw-771*
+
+Tip 771 [https://vim.fandom.com/wiki/Paste_from_the_clipboard_into_a_new_vim]   Previous |vtw-769| Next |vtw-773|
+
+created August 17, 2004 · complexity basic · author Peter Wilson · version 
+5.7
+
+==============================================================================
+
+Bind a keystroke to "xclip -o | gvim -" ( or "xcb -p 0 | gvim -" or "any 
+command which prints the contents of the clipboard | gvim -")
+
+Pressing that key now captures the contents of the clipboard in a new Vim 
+window.
+
+COMMENTS                                                    *vtw-771-comments*
+
+I don't have xclip. I just click middle mouse button to paste clipboard, also 
+in Windows gvim.
+
+For scripting you could also paste the clipboard register: "*p
+
+==============================================================================
+
+You can also do
+
+>
+    gvim.exe -c 'normal "*p'
+<
+
+or to a named file
+
+>
+    gvim.exe -c 'normal ggdG"*p' file.txt
+<
+
+from VimTip305 |vtw-305|
+
+Put the paste code into a windows batch or Unix Script.
+
+==============================================================================
+
+This seems complicated. Simply use commands:
+
+>
+    :new
+    "*p
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

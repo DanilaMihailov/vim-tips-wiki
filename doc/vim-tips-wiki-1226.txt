@@ -1,0 +1,60 @@
+*vim-tips-wiki-1226.txt*   Use tab key to switch windows and current file path *vtw-1226*
+
+Tip 1226 [https://vim.fandom.com/wiki/Use_tab_key_to_switch_windows_and_current_file_path]   Previous |vtw-1225| Next |vtw-1227|
+
+created 2006 · complexity basic · author Tianmiao Hu · version 5.7
+
+==============================================================================
+
+This tip allows you to use the Tab key to switch windows created by the `:sp` 
+command. It also sets the current file path to that of the file in the window 
+that gains the focus.
+
+Add the following two entries to your vimrc or gvimrc file:
+
+>
+    set autochdir
+    map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
+<
+
+When you use `:sp` to create multiple windows, you can press the Tab key to 
+switch between the windows (hit Esc first if in insert mode). If you use `:e` 
+and hit the Tab key, you will get the files under the same directory as that 
+of the file in the currently focused window.
+
+Explanation:
+    - See :help 'autochdir' for the purpose of the first entry. 
+    - The second entry maps the Tab key to the window switch key, and sets the 
+      current file path by ":cd %:p:h", and clears the ":cd %:p:h" at : prompt. 
+
+
+COMMENTS                                                   *vtw-1226-comments*
+
+The "autochdir" isn't "compiled in" in some some distributions (like Fedora).
+
+==============================================================================
+
+Mapping <S-Tab> to wincmd p is useful also.
+
+==============================================================================
+
+Here's a function to overload the <Tab>, <c-i> functionality to first go 
+forward in the jump list, and if there is nowhere to go, it will move to the 
+next window:
+
+>
+    function! Tab_jump_or_win_move()
+      let l = line(".")
+      let c = col(".")
+      let b = bufnr("%")
+      exe "normal! \<Esc>\<Tab>"
+      if l == line(".") && c == col(".") && b == bufnr("%")
+        call feedkeys( "\<c-w>\<c-w>", "t" )
+      endif
+    endfunction
+    nnoremap <silent> <Tab> :call Tab_jump_or_win_move()<CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

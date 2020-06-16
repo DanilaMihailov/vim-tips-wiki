@@ -1,0 +1,92 @@
+*vim-tips-wiki-273.txt*   Fix email quotations with long lines          *vtw-273*
+
+Tip 273 [https://vim.fandom.com/wiki/Fix_email_quotations_with_long_lines]   Previous |vtw-272| Next |vtw-277|
+
+created 2002 · complexity basic · version 5.7
+
+==============================================================================
+
+When using Vim as your editor of choice, even for email processing - as I do 
+- it is often unpleasing how some email clients quote the email body produced 
+by mailers such as Outlook. The lines often span across multiple visual lines 
+and it's difficult to reply on certain parts of it.
+
+With Vim, you can quickly fix those quotations to maintain a proper hard line 
+break at a desired character width.
+
+First, configure your email client to launch Vim for email replies. For 
+example, when using Mutt, put this line in your .muttrc:
+
+>
+    set editor="vim"
+<
+
+Make sure when you have an email message loaded in Vim, that the value of 
+'formatoptions' contains both `c` and `q`, that the value of 'textwidth' is 
+set to a good width (like 76, to insert line breaks after 76 characters), and 
+that 'filetype' is "mail" (technically, what matters is the 'comments' option 
+to be set properly, in particular, it needs to include the n:> flag, which 
+unfortunately the filetype plugin "mail.vim" does not set, but which Vim does 
+include by default).
+
+The bundled mail.vim filetype sets the options 'textwidth' and 
+'formatoptions' to some reasonable defaults and also defines two maps for 
+quoting text. If these options are not set to your liking, create a file 
+`~/.vim/ftplugin/mail.vim` and set them as you like. Assuming your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] turns on File type plugins 
+[https://vim.fandom.com/wiki/File_type_plugins], (e.g. your .vimrc should 
+contain a line like `filetype plugin on`, see :help |ftplugins|) this should 
+cause Vim to load your desired settings for any buffer with the "mail" 
+filetype. If your 'comments' option has been changed from the Vim default to 
+no longer include n:>, this file is the place to add it back in as well.
+
+However for mutt, Vim can detect the filetype automatically and therefore 
+load the specific filetype, since the path and filename always contains 
+`/tmp/mutt-XXXX` where XXX is a variable string. (For other applications, you 
+may need to call Vim and set the filetype specifically like set editor="vim -c 
+'set filetype=mail'")
+
+Now, when your quoted email is displayed in Vim, there are a few ways to fix 
+the quoted text, all relying on the |gq| operator:
+
+FORMAT VISUAL SELECTION                      *vtw-273-format-visual-selection*
+    - Move cursor to first line of broken paragraph. 
+    - Press 'V' and move to the last line of the paragraph you want to fix. 
+    - Press 'g' and then 'q'. The marked text will wrap around to your specified 
+      textwidth (76 in our case) and the quotations will be preserved across the 
+      lines. 
+
+
+MOVEMENT-BASED FORMAT                          *vtw-273-movement-based-format*
+    - Move cursor to the first line (possibly by pressing `{` to jump to the top of 
+      the paragraph). 
+    - Type `gq}` to format from the cursor to the end of the paragraph, `gqq` to 
+      format just the current line, `gq4j` to format 4 lines, etc. 
+
+
+FORMAT A TEXT OBJECT                            *vtw-273-format-a-text-object*
+    - From anywhere in the paragraph, type `gqip` or `gqap` 
+
+
+QUOTE THE TEXT                                        *vtw-273-quote-the-text*
+    - From visual mode simply press `\q` (assuming your default Leader key is '\' 
+      see :help |<LocalLeader>|) and the visually selected text will be preceeded by 
+      a '> ' using the Mapping provided in the default filetype plugin. 
+
+
+REFERENCES                                                *vtw-273-references*
+    - :help |gq| 
+    - :help |object-motions| 
+    - :help |text-objects| 
+    - :help |ap| 
+    - :help |ip| 
+
+
+RELATED PLUGINS                                      *vtw-273-related-plugins*
+    - Brian Medley's email ftplugin 
+      [https://www.vim.org/scripts/script.php?script_id=99] 
+
+
+COMMENTS                                                    *vtw-273-comments*
+
+ vim:tw=78:et:ft=help:norl:

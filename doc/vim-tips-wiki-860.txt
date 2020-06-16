@@ -1,0 +1,87 @@
+*vim-tips-wiki-860.txt*   Count number of matches of a pattern          *vtw-860*
+
+Tip 860 [https://vim.fandom.com/wiki/Count_number_of_matches_of_a_pattern]   Previous |vtw-859| Next |vtw-861|
+
+created 2005 · complexity basic · author Marc Weber · version 7.0
+
+==============================================================================
+
+To count the number of matches of a pattern, use the substitute command 
+[https://vim.fandom.com/wiki/Search_and_replace] with the `n` flag. The 
+following shows the number of times that `pattern` matches text in the current 
+buffer:
+
+>
+    :%s/pattern//gn
+<
+
+Omit `g` to display the number of lines where the pattern matches:
+
+>
+    :%s/pattern//n
+<
+
+To restrict the count to a region of the text, specify a range instead of `%` 
+(`%` means all lines). For example, the following counts the number of 
+occurrences in lines 10 to 50 inclusive:
+
+>
+    :10,50s/pattern//gn
+<
+
+The following counts the number of occurrences in the lines in the most 
+recent visual selection [https://vim.fandom.com/wiki/Visual_selection].
+
+>
+    :'<,'>s/pattern//gn
+<
+
+WORD UNDER CURSOR                                  *vtw-860-word-under-cursor*
+
+To count the number of occurrences of the last used search pattern, you can 
+leave out the pattern entirely:
+
+>
+    :%s///gn
+<
+
+This makes it easy to count the number of occurrences of the word under the 
+cursor: first press `*` to search for the current word 
+[https://vim.fandom.com/wiki/Searching], then enter `:%s///gn` to count all 
+occurrences of that word.
+
+To access this quickly, define a shortcut command like
+
+>
+    map ,* *<C-O>:%s///gn<CR>
+<
+
+then typing `,*` in quick succession will run the following: `*` finds the 
+next match to the word under the cursor, <C-O> (CTRL+O) returns the cursor to 
+where it started, then `:%s///gn` does the counting we want. Of course this 
+also works with any choice of command instead of `,*`, and you can even 
+overwrite the meaning of `*` with nnoremap * *<C-O>:%s///gn<CR> (see `:help 
+map`)
+
+COMMENTS                                                    *vtw-860-comments*
+
+...you just became my personal hero...))
+
+This thing is causing "Trailing characters" error in gvi editor....what might 
+be the problem?
+
+Which thing? One problem could be that "gvi" is not necessarily the same as "gvim" and may not actually be Vim, but something else, or a very stripped-down version. But I'm only speculating here without version information about "gvi" and without knowing which specific command gives that error. --Fritzophrenic (talk) 17:05, October 25, 2016 (UTC)
+
+Just to add one thing here, after running suggested command, cursor actually 
+moves to first non space character in the line where search started, not at 
+the beginning of searched pattern. For that add 'n' at the end to move cursor 
+to beginning of the word, like nnoremap * *<C-O>:%s///gn<CR>n..-@Rakesh
+
+Add ```` at the end to move cursor back to the beginning of word, which keeps 
+the count status line.
+
+Like: map ,* *<C-O>:%s///gn<CR>``
+
+-@YingchunLi
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,91 @@
+*vim-tips-wiki-1381.txt*   Highlight special filetype docs             *vtw-1381*
+
+Tip 1381 [https://vim.fandom.com/wiki/Highlight_special_filetype_docs]   Previous |vtw-1380| Next |vtw-1382|
+
+created 2006 · complexity basic · author dongtao · version n/a
+
+==============================================================================
+
+Suppose the filetype is en. Then, write a file ~/.vim/syntax/en.vim with 
+contents as follows:
+
+>
+    syn region enConstant start=/</hs=e+1 end=/>/he=s-1
+    syn region enType start=/`/hs=e+1 end=/`/he=s-1
+    syn region enString start=/|/hs=e+1 end=/|/he=s-1
+    syn region enTodo start=/@/hs=e+1 end=/@/he=s-1
+    syn sync minlines=10
+    syn case match
+    
+    hi def link enIdentifier Identifier
+    hi def link enString String
+    hi def link enType Type
+    hi def link enUnderlined Underlined
+    let b:current_syntax = "en"
+<
+
+And the following change in filetype.vim 
+[https://vim.fandom.com/wiki/Filetype.vim]:
+
+>
+    au BufNewFile,BufRead *.en setf en
+<
+
+REFERENCES                                               *vtw-1381-references*
+    - :help |hightlight| 
+    - :help |syntax| 
+    - :help |usr_44.txt| 
+
+
+COMMENTS                                                   *vtw-1381-comments*
+    - A simple syncolor.vim alternative is here 
+      [https://vim.fandom.com/wiki/User:Donald_j_axel/syncolor]. 
+    - A list of tips related to highlighting is here |vtw-24|. 
+    - Use vim.org search [http://www.vim.org/search.php] (put "colorscheme" in the 
+      keywords box) to find colorschemes. 
+
+
+==============================================================================
+
+This should be more comfortable:
+
+>
+    syn case ignore
+    syn match enHide contained /zr/
+    syn match enHide contained /zb/
+    syn match enHide contained /zt/
+    syn match enHide contained /zg/
+    syn match enHide contained /zs/
+    syn match enHide contained /`/
+    syn region enConstant start=/zr/hs=e+1 end=/`/ contains=ALL keepend
+    syn region enType start=/zg/hs=e+1 end=/`/ contains=ALL keepend
+    syn region enStatement start=/zs/hs=e+1 end=/`/ contains=ALL keepend
+    syn region enTodo start=/zt/hs=e+1 end=/`/ contains=ALL keepend
+    syn region enNonText start=/zb/hs=e+1 end=/`/ contains=ALL keepend
+    syn sync minlines=10
+    syn case match
+    
+    hi def link enConstant Constant
+    hi def link enStatement Statement
+    hi def link enType Type
+    hi def link enTodo Todo
+    hi def link enNonText NonText
+    hi def link enHide Error
+    let b:current_syntax = "en"
+<
+
+You also need to change the definition of Error, see below:
+
+in /usr/share/vim/vim70/syntax/syncolor.vim,
+
+>
+    SynColor Error term=reverse cterm=NONE ctermfg=Black ctermbg=Black gui=NONE guifg=White guibg=Red
+<
+
+==============================================================================
+
+Use `syn match enHide /`/` instead of `syn match enHide contained /`/`
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

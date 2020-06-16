@@ -1,0 +1,51 @@
+*vim-tips-wiki-302.txt*   Use gvim in kmail                             *vtw-302*
+
+Tip 302 [https://vim.fandom.com/wiki/Use_gvim_in_kmail]   Previous |vtw-301| Next |vtw-303|
+
+created August 7, 2002 · complexity basic · author Davide Patti · version 6.0
+
+==============================================================================
+
+To automatically open gvim to edit in kmail, "-f" command line option must be 
+used.
+
+In kmail configuration go to the composer settings, and write in the "use 
+external editor" field the following command:
+
+>
+    gvim -f %f
+<
+
+Without -f option gvim would work in background and editing would not have 
+any effect on kmail.
+
+To set the filetype automatically to mail:
+
+>
+    gvim "+set ft=mail" -f %f
+<
+
+COMMENTS                                                    *vtw-302-comments*
+
+See also http://freehackers.org/kvim/ [http://freehackers.org/kvim/] - 
+integrating Vim in KDE. It looks really nice! (I'm not sure of exactly what is 
+needed to get it running i KMail though - but look at those nice 
+screenshots..)
+
+-> kvim changed its name to yzis, so have a look at http://www.yzis.org/ 
+[http://www.yzis.org/]
+
+==============================================================================
+
+This tip is basically true for every mua that allows integration of external 
+editors, e.g. mutt
+
+==============================================================================
+
+Yes it works also with kvim (which is the KDE way). Just put "kvim -f %f" and 
+you're done, when you start typing, it fires up kvim, when leave with :x you 
+get back to kmail kinda like when you use vim with pine.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

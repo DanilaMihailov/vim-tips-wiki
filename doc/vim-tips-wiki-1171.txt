@@ -1,0 +1,75 @@
+*vim-tips-wiki-1171.txt*   Introduce variable                          *vtw-1171*
+
+Tip 1171 [https://vim.fandom.com/wiki/Introduce_variable]   Previous |vtw-1168| Next |vtw-1172|
+
+created 2006 · complexity basic · author Alan Brogan · version 5.7
+
+==============================================================================
+
+The following is from my vimrc, and works as a simple "introduce variable". 
+It is sufficient for Python, but for typed languages (e.g. C++, Java) you will 
+need to add a type (int, String, etc) to the start of the new line.
+
+>
+    " map \v to put x = y on the line above cursor, where
+    " x is the last text inserted
+    " y is the last text deleted
+    map <Leader>v 0wh:put .<CR>a = <Esc>pa<CR><Esc>
+<
+
+Example, given (Python) source code like:
+
+>
+    if x > 3 * y + 4 * z:
+<
+
+You could position the cursor on the 3, then delete the RHS formula, and 
+insert a name for it. You can do the "delete and insert" separately or in one 
+go, e.g. go to the 3 and press "c/:<Cr>formula<Esc>". Or separately as 
+"d/:<Cr>", followed by "iformula<Esc>". In either case you should now see:
+
+>
+    if x > formula:
+<
+
+Then pressing `\v` gives
+
+>
+    formula = 3 * y + 4 * z
+    if x > formula:
+<
+
+What it does:
+
+COMMENTS                                                   *vtw-1171-comments*
+
+Note that the `"` register has your last edit and in insert mode, <C-R> will 
+paste the contents of the register indicated by the next keystroke, so your 
+example re-interpreted with standard commands is:
+
+>
+    (positioned on 3)
+    ct:formula<C-o>Oformula = <C-r>"<Esc>
+    
+    ct: - change to the colon
+    <C-o>O - break out of insert for one command and Open a line above (<Esc>O would work fine, but <Esc> is so far away...)
+    <C-r>" - paste the contents of the unnamed register (:h "")
+<
+
+==============================================================================
+
+Your re-interpretation is one step short, in that you type in the new name 
+twice. The original starts after the new name is typed in, so closer would be 
+:
+
+>
+    map <Leader>v O<C-r>. = <C-r>"<Esc>
+<
+
+==============================================================================
+
+See also VimTip589 |vtw-589| which is also about refactoring.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

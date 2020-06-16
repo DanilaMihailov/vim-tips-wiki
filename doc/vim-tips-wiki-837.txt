@@ -1,0 +1,78 @@
+*vim-tips-wiki-837.txt*   Load files from list of filenames in a text file *vtw-837*
+
+Tip 837 [https://vim.fandom.com/wiki/Load_files_from_list_of_filenames_in_a_text_file]   Previous |vtw-835| Next |vtw-840|
+
+created December 21, 2004 · complexity basic · author Wim Rijnders · version 
+5.7
+
+==============================================================================
+
+Following is a big timesaver if you need to open lots of files.
+
+Assume you have a text file containing filenames with or without paths 
+(created by for instance 'grep -Erl "^" * > files.txt'). Following opens all 
+these files in the same vim.
+
+Assuming that only this text file is opened:
+
+Set the cursor on the first line. In normal mode, type:
+
+>
+    q0gf:rew<CR><DOWN-ARROW>q
+<
+
+This loads the file on the first line, and creates macro '0'.
+
+Check the number of lines with <CTRL-g> and subtract one for the first line. 
+Type this value, then:
+
+>
+    @0
+<
+
+This loads the remaining files.
+
+COMMENTS                                                    *vtw-837-comments*
+
+How about:
+
+>
+    bash> gvim $(grep -l *.* string)
+<
+
+Or
+
+>
+    bash> grep -n *.* string > list
+    bash> vim -q list .. you can visit each file:line with :cnext, :cprev
+<
+
+Or
+
+>
+    bash> find . -name *.* | xargs grep -l string | vim -
+<
+
+No macro, it is all builtin.
+
+==============================================================================
+
+Returning to original tip: "Assume you have a text file containing filenames 
+with or without paths". Very easy and elegant way to run through these files 
+is the following (supposing there is no spaces around filenames):
+
+Open the file then enter:
+
+>
+    :setlocal efm=%f
+    :execute 'cfile '.expand('%')
+<
+
+Last command may be replaced with typing :cfile <c-r>%<CR>
+
+Now you may navigate through these files using copen, cnext, cNext, cfirst, 
+clast.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

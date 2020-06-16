@@ -1,0 +1,52 @@
+*vim-tips-wiki-604.txt*   Insert in normal mode                         *vtw-604*
+
+Tip 604 [https://vim.fandom.com/wiki/Insert_in_normal_mode]   Previous |vtw-603| Next |vtw-605|
+
+created November 18, 2003 · complexity basic · author Sigurd/Yakov Lerner · 
+version 5.7
+
+==============================================================================
+
+INSERTING AN EMPTY LINE                      *vtw-604-inserting-an-empty-line*
+
+With the following map, you can press Enter in normal mode to insert an empty 
+line.
+
+>
+    :nmap <CR> _i<Enter><Esc>
+<
+
+Here is an alternative:
+
+>
+    " Enter a blank line below/above cursor in Normal mode.
+    " The o command will continue comments in a program.
+    nmap ,o o<Esc>k
+    nmap ,O O<Esc>j
+<
+
+INSERTING A SPACE                                  *vtw-604-inserting-a-space*
+
+If you manually align text (declarations, ascii tables, trailing comments), 
+you'll find this simple mapping useful.
+
+In normal mode, it inserts a space to push the rest of the line to the right, 
+while leaving the cursor in the same position.
+
+>
+    :nnoremap <Space> i<Space><Esc>
+<
+
+For example, suppose we want foo to be aligned with bar:
+
+>
+    int   foo;  // ...
+    double    bar;  // ...
+<
+
+Move the cursor just after 'int'. Press Space until 'foo' is aligned with 
+'bar'.
+
+COMMENTS                                                    *vtw-604-comments*
+
+ vim:tw=78:et:ft=help:norl:

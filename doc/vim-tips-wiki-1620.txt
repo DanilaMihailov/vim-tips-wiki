@@ -1,0 +1,34 @@
+*vim-tips-wiki-1620.txt*   Indent C blocks where braces are opened and closed on a single line *vtw-1620*
+
+Tip 1620 [https://vim.fandom.com/wiki/Indent_C_blocks_where_braces_are_opened_and_closed_on_a_single_line]   Previous |vtw-1619| Next |vtw-1621|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200903#Indent_C_blocks_where_braces_are_opened_and_closed_on_a_single_line] 
+2009 · complexity basic · author Sightless · version 7.0
+
+==============================================================================
+
+This snippet, which should be put in `~/.vim/indent/c.vim` to work, gives 
+indentation like this:
+
+>
+    for (;;)
+        { do_something(); }
+<
+
+rather than having the contents of the loop at the same indent level as the 
+'for' keyword.
+
+>
+    func! MyCindent(l)
+      let extra = match(getline(a:l),'^\s*{.*}$')==-1?0:&sw
+      return cindent(a:l)+extra
+    endfunc
+    setlocal indentexpr=MyCindent(v:lnum)
+    setlocal cinkeys+=}
+    let &l:indentkeys=&l:cinkeys
+<
+
+COMMENTS                                                   *vtw-1620-comments*
+
+ vim:tw=78:et:ft=help:norl:

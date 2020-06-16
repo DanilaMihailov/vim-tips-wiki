@@ -1,0 +1,110 @@
+*vim-tips-wiki-213.txt*   Delete all lines containing a pattern         *vtw-213*
+
+Tip 213 [https://vim.fandom.com/wiki/Delete_all_lines_containing_a_pattern]   Previous |vtw-212| Next |vtw-214|
+
+created 2002 · complexity basic · author tarjei · version 5.7
+
+==============================================================================
+
+The ex command `g` is very useful for acting on lines that match a pattern. 
+You can use it with the `d` command, to delete all lines that contain a 
+particular pattern, or all lines that do not contain a pattern.
+
+For example, to delete all lines containing "profile" (remove the `/d` to 
+show the lines that the command will delete):
+
+>
+    :g/profile/d
+<
+
+More complex patterns can be used, such as deleting all lines that are empty 
+or that contain only whitespace:
+
+>
+    :g/^\s*$/d
+<
+
+To delete all lines that do not contain a pattern, use `g!`, like this 
+command to delete all lines that are not comment lines in a Vim script:
+
+>
+    :g!/^\s*"/d
+<
+
+Note that `g!` is equivalent to `v`, so you could also do the above with:
+
+>
+    :v/^\s*"/d
+<
+
+The next example shows use of `\|` ("or") to delete all lines except those 
+that contain "`error`" or "`warn`" or "`fail`" (:help |pattern|):
+
+>
+    :v/error\|warn\|fail/d
+<
+
+SEE ALSO                                                    *vtw-213-see-also*
+    - Remove unwanted empty lines |vtw-72| 
+    - Filter buffer on a search result |vtw-1557| 
+    - Folding with Regular Expression |vtw-282| 
+    - Power of g |vtw-227| 
+
+
+COMMENTS                                                    *vtw-213-comments*
+
+Can we delete/not delete the line that precedes the search string?
+
+like, in the below example i want the command to search for "keyword" and 
+then ratain that and the line before that and deletes the test? Thank you!
+
+<< file starts>>
+
+this is the line that preceeds the search string
+
+keyword
+
+asdfgf asdfgf
+
+lkjhj lkjhj
+
+<< file ends>>
+
+Easy, supply a Range to the d command: :g/keyword/-1d. --Fritzophrenic (talk) 22:09, May 20, 2015 (UTC)
+
+==============================================================================
+
+Can we remove all even numbered lines in a file using this feature. can we do 
+some kind of math in the pattern. (ex: \=line(".") % 2)
+
+Not really, but you can do that in two steps:
+
+>
+    :g/.*/if line('.')%2|call setline(line('.'), '===delete===')|endif
+    :g/^==delete==$/d
+<
+
+If you simply put delete inside the if statement all the lines will be 
+deleted. Much faster solution is to record a macro "ddj" and play it over the 
+file.You could delete lines from several different ranges:
+
+>
+    :let range = range(10,15)+range(20,25)+range(30,35)
+    :g/.*/if index(range, line('.')) != -1|call setline(line('.'), '===delete===')|endif
+    :g/^===delete===$/d
+<
+
+But again I think the faster way to do that is to use :[range]d several 
+times.
+
+How would you instead of deleting, replace matched lines with a single 
+newline between remaining lines?
+
+Use s/// instead. Make sure your pattern matches the whole line (by using 
+wildcards and/or anchors), and replace it with nothing:
+
+>
+    :s/.*pattern.*//
+<
+
+ vim:tw=78:et:ft=help:norl:

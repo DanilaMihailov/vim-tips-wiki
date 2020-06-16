@@ -1,0 +1,85 @@
+*vim-tips-wiki-1591.txt*   Omni completion                             *vtw-1591*
+
+Tip 1591 [https://vim.fandom.com/wiki/Omni_completion]   Previous |vtw-1590| Next |vtw-1592|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Omni_completion] 
+February 16, 2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+Omni completion provides smart autocompletion for programs. When invoked, the 
+text before the cursor is inspected to guess what might follow. A popup menu 
+offers word completion choices that may include struct and class members, 
+system functions, and more. A similar feature in Microsoft Visual Studio is 
+known as IntelliSense.
+
+OVERVIEW                                                   *vtw-1591-overview*
+
+Omni completion is not usually enabled by default. To turn on omni 
+completion, add the following to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    filetype plugin on
+    set omnifunc=syntaxcomplete#Complete
+<
+
+Various programming languages are supported in Vim 7. For many languages such 
+as SQL, HTML, CSS, JavaScript and PHP, omni completion will work out of the 
+box. Other languages such as C and PHP will also take advantage of a tags file 
+- if one exists. Omni completion using a tags file will complete the names of 
+defined constants, functions, classes and other names from included and other 
+external files. Omni completion scripts can be written to support other 
+languages, and to customize behavior. :help |new-omni-completion| :help 
+|compl-omni|
+
+When generating a tags file, Exuberant Ctags [http://ctags.sourceforge.net/] 
+should be used. Windows users need to install a recent version of Exuberant 
+Ctags [http://ctags.sourceforge.net/] (Ctags 5.7, released September 2007, or 
+newer, is recommended). :help |ft-c-omni|
+
+USING OMNI COMPLETION                         *vtw-1591-using-omni-completion*
+
+To use omni completion, type <C-X><C-O> while open in Insert mode.If matching 
+names are found, a pop-up menu opens which can be navigated using the <C-N> 
+and <C-P> keys.
+
+RELATED TIPS                                           *vtw-1591-related-tips*
+
+TO DO
+    - This is to be an overview of omnicompletion, with links to more detailed tips 
+      as required. 
+    - Need to make sense of related tips, and probably merge a few. 
+    - Meanwhile, keep the following list as a useful reference for readers and 
+      editors. 
+
+
+Popup menu and mappings
+    - 102 Smart mapping for tab completion |vtw-102| 
+    - 1228 Improve completion popup menu |vtw-1228| 
+    - 1257 Ctrl-p - autocomplete |vtw-1257| 
+    - 1386 Make Vim completion popup menu work just like in an IDE |vtw-1386| 
+    - 1486 Omni completion popup menu |vtw-1486| 
+
+
+Random thoughts on IDE
+    - 1439 Using vim as an IDE all in one |vtw-1439| 
+
+
+Usage with C++
+    - See C++ code completion |vtw-1608| for omni completion in C++ programs. 
+
+
+Usage with Python
+    - 1311 Compile a separate copy of Vim for Python coding |vtw-1311| 
+    - 1548 Continue omnicompletion for python modules |vtw-1548| 
+
+
+Insenvim [http://insenvim.sourceforge.net/]
+    - 835 Have Intellisense search current directory |vtw-835| 
+
+
+COMMENTS                                                   *vtw-1591-comments*
+
+ vim:tw=78:et:ft=help:norl:

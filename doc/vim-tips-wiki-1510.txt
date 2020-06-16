@@ -1,0 +1,126 @@
+*vim-tips-wiki-1510.txt*   Keep your vimrc file clean                  *vtw-1510*
+
+Tip 1510 [https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean]   Previous |vtw-1509| Next |vtw-1511|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Keep_your_vimrc_file_clean] 
+2007 · complexity basic · author Datagrok · version 7.0
+
+==============================================================================
+
+Many tips that you find on this site and others will tell you to add some 
+code to your `.vimrc` file. (Or on Windows, your `_vimrc` file.) :help 
+|vimrc-intro|
+
+Once you do this a few times, it can get pretty big and confusing, especially 
+if the bits of configuration you are adding are each specific to a single 
+language. Worse, some settings might be incompatible with others.
+
+Happily, Vim has a very nice built-in way to organize and manage 
+language-specific options by breaking them out into files and directories. You 
+can learn all about it by reading :help |vimfiles|, :help |ftplugin-overrule|, 
+:help |after-directory|.
+
+The quick way to get started is to move all the language-specific stuff from 
+your .vimrc file into a file named `.vim/ftplugin/language.vim` (or 
+`$HOME/vimfiles/ftplugin/language.vim` on Windows).
+
+This turns a .vimrc that looks like this:
+
+>
+    autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
+    autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
+    au BufEnter *.py set ai sw=4 ts=4 sta et fo=croql
+<
+
+Into this:
+
+>
+    " File ~/.vimrc
+    " ($HOME/_vimrc on Windows)
+    " Global settings for all files (but may be overridden in ftplugin).
+    set tabstop=2
+    set shiftwidth=2
+    set noexpandtab
+    
+    " File ~/.vim/ftplugin/python.vim
+    " ($HOME/vimfiles/ftplugin/python.vim on Windows)
+    " Python specific settings.
+    setlocal tabstop=4
+    setlocal shiftwidth=4
+    setlocal expandtab
+    setlocal autoindent
+    setlocal smarttab
+    setlocal formatoptions=croql
+<
+
+If there is a filetype plugin distributed with Vim that you want to 
+completely disable, make your own (perhaps empty) settings file and adding 
+this line:
+
+>
+    let b:did_ftplugin = 1
+<
+
+If you like most of what Vim's filetype plugin is doing, but you want to 
+override something specific, you can place your settings in 
+`.vim/after/ftplugin/language.vim` 
+(`$HOME/vimfiles/after/ftplugin/language.vim` on Windows). See :help 
+|after-directory|
+
+If there is a new file extension that you want Vim to recognize, don't muck 
+about with `augroup` in your .vimrc, put the settings in the right place. See 
+:help |ftdetect|
+
+There is a lot more you can do with your `~/.vim` directory (`$HOME/vimfiles` 
+on Windows). `~/.vim/compiler` is a good place to keep configuration that gets 
+applied on a per-compiler basis (for example, I might need to use any of 
+javac, jikes, ant, or make to compile and parse the compiler output for a java 
+source file.) I also like to keep a couple color schemes in `~/.vim/colors`, 
+and I keep notes in vimhelp format in `~/.vim/doc`. Periodically running 
+`:helptags ~/.vim/doc` lets me jump to a tag in those notes using `:h`. :help 
+|helptags| :help |vimfiles|
+
+This tip suggests moving language-specific settings to a suitable ftplugin 
+file. For that to work, you need to have file type detection enabled. Enter 
+the command `:filetype` to determine whether detection is enabled on your 
+system. On some Linux distributions, file type detection is disabled, in which 
+case you should add a command like the following to your vimrc:
+
+>
+    filetype plugin on
+    " Alternative: use the following to also enable language-dependent indenting.
+    filetype plugin indent on
+<
+
+COMMENTS                                                   *vtw-1510-comments*
+
+A minor point: It's "recommended" to keep 'tabstop' at 8 when using 
+'expandtab', since that will ensure that the text or code looks the same way 
+in dumb viewers and when printing. (Spiiph 
+[https://vim.fandom.com/wiki/User:Spiiph] 13:50, 28 July 2009 (UTC))
+
+However, the tabstop = 8 rule is nowhere near universal. For instance, in 
+Java and Python, tabs are usually 4 spaces. Meviin 
+[https://vim.fandom.com/wiki/User:Meviin] 15:22, June 27, 2012 (UTC)
+
+I don't know Java, but in Python, where indenting is important, the standards of the language mandate that hard tabs MUST be interpreted as equivalent to as many spaces would be needed to reach the next multiple of 8, not 4. This applies when not using 'expandtab', since when you use it you are inserting spaces anyway, as Fritzophrenic said. — Tonymec (talk) 04:38, February 13, 2013 (UTC)
+
+Python is a perfect example of how no tabstop setting is universal. The official style guide (PEP8) currently defines one indentation level as 4 spaces with the caveat "For really old code that you don't want to mess up, you can continue to use 8-space tabs." --Pydave (talk) 23:19, March 3, 2013 (UTC)
+
+With Python, this isn't just a matter of style, it's a matter of syntax. Python syntax explicitly interprets a tab as being 8-space aligned. As a matter of style, you can do what you like, but if tabs and spaces are mixed in a single Python file, that 8-space alignment is what Python will use when it interprets your script. See [1]. Me and (talk) 11:00, October 9, 2013 (UTC)
+
+When using 'expandtab', it should always look the same in "dumb" viewers 
+anyway, since you're inserting spaces instead of tabs. --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] 16:22, June 27, 2012 (UTC)
+
+I agree with --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic]. I do that for years. The 
+best way to configure is setting 'expandtab' to '1' and setting 'tabstop' to 
+something you like. I always replaced tabs with spaces. Even before I started 
+to use Vim (many years ago). 01:17, November 21, 2012 (UTC)
+
+Thanks for the advice on "filetype plugin on". Vim wasn't picking up my 
+ftplugin configs and it was driving me nuts.
+
+ vim:tw=78:et:ft=help:norl:

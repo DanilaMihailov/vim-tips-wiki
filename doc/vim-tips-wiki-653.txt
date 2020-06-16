@@ -1,0 +1,80 @@
+*vim-tips-wiki-653.txt*   Continuing doxygen comments                   *vtw-653*
+
+Tip 653 [https://vim.fandom.com/wiki/Continuing_doxygen_comments]   Previous |vtw-652| Next |vtw-654|
+
+created 2004 · complexity intermediate · author Michael Brailsford · version 
+6.0
+
+==============================================================================
+
+This will continue lines of `///` doxygen [http://www.doxygen.org] comments 
+when you reach the end of a line while typing a comment. It also works if you 
+use `o` to open a new line while on a comment starting with `///`. It only 
+works if there is a space between the last `/` and the first letter of the 
+comment, that is no big deal, since it lends itself to readability. So for 
+example:
+
+>
+    /// This will work.
+    ///This won't.
+<
+
+Here is the magic line. Make sure you put it somewhere that will get sourced 
+whenever you open a file you want to use with doxygen. I have it in 
+~/.vim/after/ftplugin/c/c.vim, so it gets sourced for all C and C++ files.
+
+>
+    set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,bO:///,O://
+<
+
+All other comments will continue to work as expected.
+
+REFERENCES                                                *vtw-653-references*
+    - :help 'comments' 
+    - :help |format-comments| 
+
+
+COMMENTS                                                    *vtw-653-comments*
+
+I use:
+
+>
+    set comments-=://
+    set comments+=:///,://
+<
+
+True, it puts them at the end of the comment expression list, but I don't 
+think that will be a problem. This way, I don't have to worry about any other 
+comment expressions that may be present.
+
+Keep in mind that loading a new syntax file overwrites whatever you have set 
+"comments" to be.Add this to your vimrc if you don't want to keep retyping 
+"set comments..."
+
+>
+    autocmd FileType c,cpp set comments-=://
+    autocmd FileType c,cpp set comments+=://!
+    autocmd FileType c,cpp set comments+=://
+<
+
+==============================================================================
+
+I think, for the .vimrc, the post just above should read:
+
+>
+    autocmd FileType c,cpp set comments-=://
+    autocmd FileType c,cpp set comments+=:///
+    autocmd FileType c,cpp set comments+=://
+<
+
+That's what worked for me. - Chris B
+
+==============================================================================
+
+Or just use ^= instead of += to prepend the new option:
+
+>
+    autocmd Filetype c,cpp set comments^=:///
+<
+
+ vim:tw=78:et:ft=help:norl:

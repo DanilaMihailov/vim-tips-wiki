@@ -1,0 +1,76 @@
+*vim-tips-wiki-1063.txt*   Redirect g search output                    *vtw-1063*
+
+Tip 1063 [https://vim.fandom.com/wiki/Redirect_g_search_output]   Previous |vtw-1061| Next |vtw-1065|
+
+created 2005 · complexity basic · author zzapper · version 6.0
+
+==============================================================================
+
+After searching for text, you can use `:g//` to list all lines containing the 
+pattern you last searched for. Or, just type `g/pattern/` to display all lines 
+containing pattern. This tip shows how to capture the result (the list of all 
+lines that contain the pattern).
+
+USER COMMAND                                           *vtw-1063-user-command*
+
+The following addition for your vimrc [https://vim.fandom.com/wiki/Vimrc] 
+defines the `:Filter` command:
+
+>
+    command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
+<
+
+After searching for some text, enter `:Filter` (or just type `:F` then press 
+Tab for command completion). Entering this command will open a new scratch 
+window listing all lines that contain the text that was last searched for.
+
+You can also type the search pattern on the command line. For example, 
+`:Filter red\|blue` lists all lines that contain "red" or "blue".
+
+The command accepts zero or one argument (`-nargs=?`), and the argument 
+replaces <args> where it occurs in the following. Register `a` is cleared (let 
+@a=''), then each matching line is appended to that register (`y A` performed 
+on all matching lines by `g/pattern/`). A new window with a scratch buffer is 
+created (`new | setlocal bt=nofile`), and the register is pasted before the 
+blank line in the scratch buffer (`put! a`). When `:g/pattern/` is used, all 
+following text is taken as a command to be executed on matching lines. Since 
+only `y A` is wanted, the `execute` command is used as it stops at the bar.
+
+REDIRECTING OUTPUT                               *vtw-1063-redirecting-output*
+
+This mapping shows an alternative method using redirection. Put the following 
+in your vimrc [https://vim.fandom.com/wiki/Vimrc]. Then, when you are 
+satisfied with the regex you last used for searching, press F3 to output the 
+`:g/pattern/` results to a new window.
+
+>
+    nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
+<
+
+Explanation:
+
+>
+    :redir @a         redirect output to register a
+    :g//              repeat last global command
+    :redir END        end redirection
+    :new              create new window
+    :put! a           paste register a into new window
+<
+
+The following variation uses redirection to append matching lines to a file 
+(which will be created if it does not exist). That might be useful to keep a 
+temporary copy of matches for several different patterns.
+
+>
+    nnoremap <silent> <F4> :redir >>matches.tmp<CR>:g//<CR>:redir END<CR>:new matches.tmp<CR>
+<
+
+SEE ALSO                                                   *vtw-1063-see-also*
+    - Power of g |vtw-227| for more on the `:g//` command 
+    - Copy the search results into clipboard |vtw-478| for other methods to capture 
+      search hits 
+
+
+COMMENTS                                                   *vtw-1063-comments*
+
+ vim:tw=78:et:ft=help:norl:

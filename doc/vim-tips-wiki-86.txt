@@ -1,0 +1,77 @@
+*vim-tips-wiki-86.txt*   Helps undo 1 line when entered many             *vtw-86*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1054 |vtw-1054| 
+    - VimTip436 |vtw-436| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 86 [https://vim.fandom.com/wiki/Helps_undo_1_line_when_entered_many]   Previous |vtw-85| Next |vtw-87|
+
+created 2001 · complexity basic · author Stepan Koltsov · version 6.0
+
+==============================================================================
+
+When you entered text, you cannot undo only 1 line, for example, when you 
+press "u", all entered in last "insert" text removed.
+
+If you add this line to vimrc [https://vim.fandom.com/wiki/Vimrc]
+
+>
+    inoremap <CR> <CR>^O^[
+<
+
+where "^O" or "^[" is 1 char
+
+"u" will undo (remove) only 1 line.
+
+COMMENTS                                                     *vtw-86-comments*
+
+First idea -- write:
+
+>
+    :inoremap <CR> <CR>a^Ox
+<
+
+it works, but it looks not nice.
+
+==============================================================================
+
+That mapping causes a problem if you break an existing line up, for e.g. if 
+have the following line.
+
+>
+    TextOnALine
+<
+
+pressing return in between 'Text' And 'OnALine' will give you..
+
+>
+    Text
+    ananALine
+<
+
+The 'O' gets replaces with the 'a'.
+
+Adding a <Left> seems to work ok for me
+
+>
+    inoremap <CR> <CR>a<Left>^Ox
+<
+
+==============================================================================
+
+You could also map <CR> to start a new undo sequence using <C-G>u
+
+>
+    :inoremap <CR> <C-G>u<CR>
+<
+
+Chrisbra [https://vim.fandom.com/wiki/User:Chrisbra] 08:51, May 13, 2010 
+(UTC)
+
+ vim:tw=78:et:ft=help:norl:

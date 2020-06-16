@@ -1,0 +1,34 @@
+*vim-tips-wiki-682.txt*   Errorformat for Intel ifort                   *vtw-682*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1575 |vtw-1575| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 682 [https://vim.fandom.com/wiki/Errorformat_for_Intel_ifort]   Previous |vtw-681| Next |vtw-683|
+
+created 2004 · complexity basic · author Chris Hennes · version 5.7
+
+==============================================================================
+
+Intel changed the errorformat for their Fortran compiler with version 8.0. An 
+errorformat string that works with the new compiler is:
+
+>
+    set efm=%E%.%#rror:\ %f\\,\ line\ %l:\ %m,\%-C%.%#,\%-Z\%p^
+<
+
+Note that you may have to change your `isfilename` string to not allow 
+commas, like this:
+
+>
+    let isf="@,48-57,/,.,-,_,+,#,^,,$,%,~,="
+<
+
+COMMENTS                                                    *vtw-682-comments*
+
+ vim:tw=78:et:ft=help:norl:

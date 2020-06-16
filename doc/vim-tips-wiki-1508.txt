@@ -1,0 +1,109 @@
+*vim-tips-wiki-1508.txt*   Create patch for currently editing file     *vtw-1508*
+
+Tip 1508 [https://vim.fandom.com/wiki/Create_patch_for_currently_editing_file]   Previous |vtw-1507| Next |vtw-1509|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Create_patch_for_currently_editing_file] 
+June 18, 2007 · complexity basic · author Christian Brabandt · version 6.0
+
+==============================================================================
+
+Sometimes one wants to create a unified patch from the file which is 
+currently being edited. I have written a function that will create the patch 
+and open it in a new buffer, so that it could possibly be further edited. In 
+case the function cannot determine the unchanged reference file, it will ask 
+the user to provide an alternative filename for diffing (by default it tries 
+to open a file named like the current file with the suffix ".orig" appended.
+
+It will create temporary files in case the current buffer is not modified or 
+new. At the end it will delete the temporary files (but this works only on 
+Linux).
+
+For Windows this script relies on the command diff which must be in your path 
+in order to be executed successfully. The diff command can be modified in the 
+first line of the function.
+
+>
+    fu! DiffUnified()
+      let diffexpr="diff -Nuar"
+      let bname=bufname("")
+      let origtemp=0
+      " Case 1: File has a filename and is not modified
+      if !&modified && !empty(bname)
+        let tempfile=0
+        let origFile=bname.".orig"
+      else
+        " Case 2: File has a filename and is modified
+        if &modified && !empty(bname)
+          if !filereadable(bname.".orig")
+            sp
+            enew
+            r #
+            0d
+            let tempfile2=tempname()
+            exe ":sil w! " .tempfile2
+            wincmd q
+            let origtemp=1
+            wincmd p
+          endif
+          let origFile=tempfile2
+          " Case 2: File is new and is modified
+        else
+          if &modified
+            let origFile=bname.".orig"
+          else
+            let origFile=""
+          endif
+        endif
+        let bname=tempname()
+        exe ":sil w! ".bname
+        let tempfile=1
+      endif
+      try
+        if !filereadable(origFile)
+          let origFile=input("With which file to diff?: ","","file")
+        endif
+        if !filereadable(bname)
+          exe ":sil w! ".bname
+        endif
+        if empty(origFile)
+          throw "nofile"
+        endif
+        exe "sil sp"
+        exe "enew"
+        set bt=nofile
+        exe "sil r!".diffexpr." ".origFile." ".bname
+        exe "0d_"
+        exe "set ft=diff"
+        " Clean up temporary files
+        if  tempfile == 1
+          exe "sil :!rm -f ". bname
+          let tempfile=0
+        endif
+        if origtemp == 1
+          exe "sil :!rm -f ". origFile
+          let origtemp=0
+        endif
+      catch
+      endtry
+    endf
+<
+
+SEE ALSO                                                   *vtw-1508-see-also*
+
+(these tips may be related...verify after this tip is cleaned up)
+    - How to make and submit a patch 
+      [https://vim.fandom.com/wiki/How_to_make_and_submit_a_patch] 
+
+
+COMMENTS                                                   *vtw-1508-comments*
+
+TO DO
+    - Need better explanation of purpose of tip, and how to use it. 
+    - Should better comment the script. 
+    - Should rename to improve the title. 
+
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

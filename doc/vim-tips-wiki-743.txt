@@ -1,0 +1,70 @@
+*vim-tips-wiki-743.txt*   Use Alt-Mouse to select blockwise             *vtw-743*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1132 |vtw-1132| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 743 [https://vim.fandom.com/wiki/Use_Alt-Mouse_to_select_blockwise]   Previous |vtw-742| Next |vtw-744|
+
+created 2004 · complexity basic · author hari_vim · version 6.0
+
+==============================================================================
+
+If you use mouse to make visual selections, you might have observed that 
+making blockwise selections is cumbersome (you need to click <LeftMouse> 
+precisely four times). To make it easier, you can make Vim behave like MS Word 
+using the Alt modifier.
+
+Place the following lines in your vimrc:
+
+>
+    noremap <M-LeftMouse> <LeftMouse><Esc><C-V>
+    noremap <M-LeftDrag> <LeftDrag>
+<
+
+You can also change the modifiers and the mousekey to anything else that is 
+valid, e.g:
+
+>
+    noremap <S-RightMouse> <LeftMouse><Esc><C-V>
+    noremap <S-RightDrag> <LeftDrag>
+<
+
+COMMENTS                                                    *vtw-743-comments*
+
+One does not need to do four-clicks to get a rectangular selection. Simply 
+click and hold in the upper left location. Drag to the lower right location 
+and release (If on another page release the mouse and then right click the 
+lower right location). Type control-v you now have the rectangle selection. 
+(at this point the right click can change the corner points of your 
+selection). With this selection, you can Yank, delete, upper-case, convert 
+case, or any other editing command such as substitution. Of couse, I'm using 
+gvim and not just vim.
+
+==============================================================================
+
+Remember that under Windows, by default gvim is configured to use Control-V 
+for Paste, because that's the standard way most Windows apps work, so in 
+Windows one must drag through the region and then use Control-Q, because the 
+usual Vim purposes of Control-V are remapped onto Control-Q.
+
+==============================================================================
+
+Here is a different version from Gerald Lai. This one automatically creates 
+the selection from current cursor position to the mouse click.
+
+>
+    nnoremap <A-S-LeftMouse> mz<LeftMouse><C-v>g`zo<C-g>
+    inoremap <A-S-LeftMouse> <Esc><C-v>g`^mz<Esc>gi<LeftMouse><C-o><C-v>g`zo<C-g>
+    vnoremap <A-S-LeftDrag> <LeftDrag>
+    vnoremap <A-S-LeftMouse> <C-v><LeftMouse>mzgvg`z<C-g>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

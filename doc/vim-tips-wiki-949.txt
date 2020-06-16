@@ -1,0 +1,165 @@
+*vim-tips-wiki-949.txt*   Integrate Pylint and Pychecker support        *vtw-949*
+
+Tip 949 [https://vim.fandom.com/wiki/Integrate_Pylint_and_Pychecker_support]   Previous |vtw-948| Next |vtw-950|
+
+created 2005 · complexity intermediate · author Dave Vehrs · version 6.0
+
+==============================================================================
+
+Simple function to add pylint and pychecker support to Vim.
+
+>
+    function <SID>PythonGrep(tool)
+      set lazyredraw
+      " Close any existing cwindows.
+      cclose
+      let l:grepformat_save = &grepformat
+      let l:grepprogram_save = &grepprg
+      set grepformat&vim
+      set grepformat&vim
+      let &grepformat = '%f:%l:%m'
+      if a:tool == "pylint"
+        let &grepprg = 'pylint --output-format=parseable --reports=n'
+      elseif a:tool == "pychecker"
+        let &grepprg = 'pychecker --quiet -q'
+      else
+        echohl WarningMsg
+        echo "PythonGrep Error: Unknown Tool"
+        echohl none
+      endif
+      if &readonly == 0 | update | endif
+      silent! grep! %
+      let &grepformat = l:grepformat_save
+      let &grepprg = l:grepprogram_save
+      let l:mod_total = 0
+      let l:win_count = 1
+      " Determine correct window height
+      windo let l:win_count = l:win_count + 1
+      if l:win_count <= 2 | let l:win_count = 4 | endif
+      windo let l:mod_total = l:mod_total + winheight(0)/l:win_count |
+            \ execute 'resize +'.l:mod_total
+      " Open cwindow
+      execute 'belowright copen '.l:mod_total
+      nnoremap <buffer> <silent> c :cclose<CR>
+      set nolazyredraw
+      redraw!
+    endfunction
+    
+    if ( !hasmapto('<SID>PythonGrep(pylint)') && (maparg('<F3>') == '') )
+      map <F3> :call <SID>PythonGrep('pylint')<CR>
+      map! <F3> :call <SID>PythonGrep('pylint')<CR>
+    else
+      if ( !has("gui_running") || has("win32") )
+        echo "Python Pylint Error: No Key mapped.\n".
+              \ "<F3> is taken and a replacement was not assigned."
+      endif
+    endif
+    
+    if ( !hasmapto('<SID>PythonGrep(pychecker)') && (maparg('<F4>') == '') )
+      map <F4> :call <SID>PythonGrep('pychecker')<CR>
+      map! <F4> :call <SID>PythonGrep('pychecker')<CR>
+    else
+      if ( !has("gui_running") || has("win32") )
+        echo "Python Pychecker Error: No Key mapped.\n".
+              \ "<F4> is taken and a replacement was not assigned."
+      endif
+    endif
+<
+
+COMMENTS                                                    *vtw-949-comments*
+
+A suggestion is to use the compiler functionality in Vim (see :help 
+:compiler). To create a compiler file for pychecker, create the following in 
+'pychecker.vim' (and place it in e.g. "~/.vim/compiler/" on a unix-style 
+system)::
+
+>
+    " Vim compiler file
+    " Compiler: Pychecker for Python
+    if exists("current_compiler")
+      finish
+    endif
+    let current_compiler = "pychecker"
+    if exists(":CompilerSet") != 2 " older Vim always used :setlocal
+      command -nargs=* CompilerSet setlocal <args>
+    endif
+    CompilerSet makeprg=pychecker\ %
+    CompilerSet efm=%f:%l:%m
+<
+
+==============================================================================
+
+One flaw with the compiler way is that it searches all modules recursively 
+for errors by default. It then opens the current window to the first error it 
+finds, commonly in a module. While this is good if you wrote and are testing 
+the modules, its not so good when you did not and would rather focus on your 
+own project.
+
+I tried to fix this by editting the makeprg line to match that used above. 
+However, the compiler method tends to break on simple errors. For example:
+
+>
+    I changed:
+     CompilerSet makeprg=pychecker\ %
+    to:
+     CompilerSet makeprg=pychecker\ --quiet\ -q\ %
+    or:
+     CompilerSet makeprg=pychecker\ --quiet\ %
+    or:
+     CompilerSet makeprg=pychecker\ -q\ %
+<
+
+Then I made one small change to a file that previously tested errorfree. I 
+changed a "not" to a "!" in an if statement (common mistake for me).
+
+I then entered the `:make` command and Vim responded with:
+
+>
+    "pydsh" [New File]
+     (4 of 4): NOT PROCESSED UNABLE TO IMPORT
+     Hit ENTER or type command to continue
+    and opened a new empty buffer (:bd to close).
+<
+
+On the other hand, I pressed F3 or F4 for my function and was presented with 
+a open cwindow below my window with one line in it: "pydsh.py|860| [E] invalid 
+syntax" which when selected took me to the line with the problem.
+
+Which would you rather use?
+
+==============================================================================
+
+Wait my mistake. Pylint (F3 for me) responds with the above.
+
+>
+    Pychecker (F4) responds by openning a cwindow with:
+     || SyntaxError: invalid syntax (pydsh.py, line 860)
+     || if ( ! options.scp_proto.lower() == "scp"
+     || ^
+     pydsh|1| NOT PROCESSED UNABLE TO IMPORT
+<
+
+Which does not take me automatically to the line in question but it is 
+slightly better than the compiler method in that it shows me a line number and 
+error.
+
+==============================================================================
+
+Simple Pylint `makeprg` and `errorformat` settings are:
+
+>
+    setlocal makeprg=pylint\ --output-format=parseable\ --reports=n\ %
+    setlocal efm=%f:%l:\ [%t]%m,%f:%l:%m
+<
+
+Slight improvement on the above that accounts for the `[...function]` as well 
+as the multiline error-in-column (`^^`) output:
+
+>
+    au FileType python set makeprg=pylint\ --reports=n\ --output-format=parseable\ %:p
+    au FileType python set efm=%A%f:%l:\ [%t%.%#]\ %m,%Z%p^^,%-C%.%#
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

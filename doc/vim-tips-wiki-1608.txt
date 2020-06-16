@@ -1,0 +1,159 @@
+*vim-tips-wiki-1608.txt*   C++ code completion                         *vtw-1608*
+
+Tip 1608 [https://vim.fandom.com/wiki/C%2B%2B_code_completion]   Previous |vtw-1607| Next |vtw-1609|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200810#C.2B.2B_code_completion] 
+2008 · complexity basic · author Knue · version 7.0
+
+==============================================================================
+
+This tip describes how to use C++ code completion in Vim (omni completion).
+
+When editing a C++ file, enter the command `:set omnifunc?` to see what 
+completion function is currently used. If the result is 
+`omnifunc=ccomplete#Complete`, it means you are using the C completion 
+provided with Vim (not C++). If your `:set omnifunc?` is not set as desired or 
+maybe empty this is a good workaround for C++ files:
+
+>
+    au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+<
+
+The following procedure provides C++ completion.
+
+REQUIRED SETUP                                       *vtw-1608-required-setup*
+
+1. Install OmniCppComplete 
+[https://www.vim.org/scripts/script.php?script_id=1520]. See its 
+`doc/omnicppcomplete.txt` file for information.
+
+2. Make a directory, for example `~/.vim/tags` that will hold your ctags.
+
+3. Create stdc++ tags: Download and unpack the modified libstdc++ headers 
+[https://www.vim.org/scripts/script.php?script_id=2358] to 
+`~/.vim/tags/cpp_src`
+
+4. Run ctags:
+
+>
+    $ cd ~/.vim/tags
+    $ ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f cpp cpp_src
+<
+
+5. Add additional tags (change to your system/likings):
+
+>
+    $ ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f gl /usr/include/GL/   # for OpenGL
+    $ ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f sdl /usr/include/SDL/ # for SDL
+    $ ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f qt4 /usr/include/qt4/ # for QT4
+<
+
+6. Edit your ~/.vimrc and change to your system/likings:
+
+>
+    " configure tags - add additional tags here or comment out not-used ones
+    set tags+=~/.vim/tags/cpp
+    set tags+=~/.vim/tags/gl
+    set tags+=~/.vim/tags/sdl
+    set tags+=~/.vim/tags/qt4
+    " build tags of your own project with Ctrl-F12
+    map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+    
+    " OmniCppComplete
+    let OmniCpp_NamespaceSearch = 1
+    let OmniCpp_GlobalScopeSearch = 1
+    let OmniCpp_ShowAccess = 1
+    let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+    let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+    let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+    let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+    let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+    " automatically open and close the popup menu / preview window
+    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+    set completeopt=menuone,menu,longest,preview
+<
+
+
+
+USING OMNI COMPLETION                         *vtw-1608-using-omni-completion*
+
+When everything is set up properly you can use the code completion. Make sure 
+the 'filetype' of your file is set to `cpp`. You can check this by doing `:set 
+filetype?`. If your 'filetype' isn't `cpp`, you might have to enable file type 
+detection by adding `filetype on` to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc], and restart Vim.
+
+Now start typing (for me this only works if std:: is indented; otherwise I 
+get Omni-completion (^0^N^P) Pattern not found):
+
+>
+    std::
+<
+
+A box opens with suggestions. You can use <C-N> and <C-P> to navigate. 
+<C-X><C-O> opens the omnicompletion manually. A preview window should also 
+appear on the top which shows the signature of functions and the like. Choose 
+`vector` and continue:
+
+>
+    std::vector<int> vi;
+    vi.
+<
+
+Another box opens with suggestions. Choose `push_back(` and continue.
+
+As you can see this is a really nice feature which is especially handy when 
+you use an external library which you don't know very well. Simply create the 
+tags as described above and browse through the suggestions.
+
+ADDITIONAL INFORMATION                       *vtw-1608-additional-information*
+
+It is nice to have the headers of the used libs really on your system so the 
+preview window has something to show. So don't delete the headers after 
+creating the tag files.
+
+REFERENCES                                               *vtw-1608-references*
+    - :help |new-omni-completion| 
+    - :help 'omnifunc' 
+    - :help |complete-functions| 
+
+
+COMMENTS                                                   *vtw-1608-comments*
+
+If you want completion to work for local variables in your code, you have to 
+add the '`+l`' (letter "l" from local) option to the `c++-kinds` argument, as 
+in:
+
+>
+    map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+<
+
+==============================================================================
+
+Some recent edits have introduced `--sort=1` (the "1" should be "yes") and 
+`--sort=yes`. I believe ctags defaults to `sort=yes` so these edits are not 
+necessary. I'm wondering if the edits are useful. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 23:32, May 28, 2010 (UTC)
+
+The autocompletion does *NOT* work for boost shared pointers. So for example, 
+if there is a section of code that looks like:
+
+>
+    boost::shared_ptr<const ObjectType> someObject=boost::shared_ptr<const ObjectType>(new ObjectType());
+    int member = someObject->getMember();
+<
+
+The getMember method will not show up in the dropdown list, because ctags is 
+enabled for ObjectType, not when it's wrapped inside a boost shared pointer. 
+If anyone knows a work around for this, it would be very useful for those C++ 
+programmers who work with Boost.
+
+==============================================================================
+
+I suggest to use GCCSense at http://cx4a.org/software/gccsense 
+[http://cx4a.org/software/gccsense], or clang_complete at script#3302 
+[https://www.vim.org/scripts/script.php?script_id=3302] to have good C++ 
+autocompletion that works with modern C++ code (e.g boost).
+
+ vim:tw=78:et:ft=help:norl:

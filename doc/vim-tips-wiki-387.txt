@@ -1,0 +1,48 @@
+*vim-tips-wiki-387.txt*   Inserting a prefix in a parameter list        *vtw-387*
+
+Tip 387 [https://vim.fandom.com/wiki/Inserting_a_prefix_in_a_parameter_list]   Previous |vtw-386| Next |vtw-388|
+
+created 2002 · complexity Intermediate · author feral · version 6.0
+
+==============================================================================
+
+This is a way to quickly prefix a character (or characters) to a parameter 
+list, via `:substitute`
+
+In the thought that others may like the same preferred style as I, here is an 
+easy way to prefix each param with an underscore.
+
+The command:
+
+>
+    :s/\<\(\I\i*\s\{-}[,)]\)/_\1/g
+<
+
+A sample menu entry:
+
+>
+    amenu Fe&ral's.Prefix\ underscores\ to\ params <Esc><Esc>:s/\<\(\I\i*\s\{-}[,)]\)/_\1/g <Bar> :noh<CR>
+<
+
+AN EXAMPLE                                                *vtw-387-an-example*
+
+Before:
+
+>
+    BOOL CSomeView::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)
+<
+
+After:
+
+>
+    BOOL CSomeView::Create(DWORD _dwStyle, const RECT& _rect, CWnd* _pParentWnd, UINT _nID)
+<
+
+REFERENCES                                                *vtw-387-references*
+    - :help |:substitute| 
+    - :help |pattern-overview| 
+
+
+COMMENTS                                                    *vtw-387-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,90 @@
+*vim-tips-wiki-739.txt*   Writing a valid statusline                    *vtw-739*
+
+Tip 739 [https://vim.fandom.com/wiki/Writing_a_valid_statusline]   Previous |vtw-738| Next |vtw-741|
+
+created 2004 · complexity basic · author Bounga · version 6.0
+
+==============================================================================
+
+I wanted to write a good looking statusline, grouping all the informations I 
+need about a file and the environment. The needed things were the filename, 
+the format of this file, its type, the position (line, column) of the cursor, 
+the relative position in the file (%) and the date (day/month/year - 
+hours:minutes).
+
+There is one thing to always remember when you write a statusline. You have 
+to escape all the blank characters and the " characters. To escape a character 
+you have to use \, so if you want a whitespace you have to do "\ ".
+
+Now here is the statusline:
+
+>
+    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+<
+
+This is true for any option set using the `:set` command. It is possible to 
+work around this using single-quoted strings and the let command 
+[https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let].
+
+COMMENTS                                                    *vtw-739-comments*
+
+I think it is better
+
+>
+    set statusline=%F%m%r%h%w\ (%{&ff}){%Y}[%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+<
+
+==============================================================================
+
+Try this:
+
+>
+    set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+<
+
+==============================================================================
+
+if you want above statusline appear when there is single window, try:
+
+>
+    set laststatus=2
+<
+
+---The status line is update on potentially *each* key stroke. So having a 
+too dynamic modeline is going to make vim really slow.
+
+==============================================================================
+
+To see the file modified time on status line
+
+>
+    set statusline=%{strftime(\"%c\",getftime(expand(\"%:p\")))}
+<
+
+==============================================================================
+
+Here's the statusline I'm currently using:
+
+>
+    set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
+<
+
+==============================================================================
+
+Here's my one (Shervin Emami), it's similar to the ones above but also shows 
+the buffer number, and puts some stuff on the right of the screen:
+
+>
+    set statusline=[%n]\ %<%F\ \ \ [%M%R%H%W%Y][%{&ff}]\ \ %=\ line:%l/%L\ col:%c\ \ \ %p%%\ \ \ @%{strftime(\"%H:%M:%S\")}
+<
+
+This is what the statusline will look like:
+
+>
+    [1] ~/.vimrc   [VIM][unix]                              line:132/133 col:0   99%   @20:40:11
+<
+
+Or if you want something even better, you might as well use vim-airline 
+[https://github.com/bling/vim-airline].
+
+ vim:tw=78:et:ft=help:norl:

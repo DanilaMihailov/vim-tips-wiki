@@ -1,0 +1,68 @@
+*vim-tips-wiki-1641.txt*   Bash file encoding alias                    *vtw-1641*
+
+Tip 1641 [https://vim.fandom.com/wiki/Bash_file_encoding_alias]   Previous |vtw-1640| Next |vtw-1642|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200912#Bash_file_encoding_alias] 
+2009 · complexity basic · author Richard bw 
+[https://vim.fandom.com/wiki/User:Richard_bw] · version 7.0
+
+==============================================================================
+
+Vim can be used to detect the file encoding used in a particular file (for 
+example, utf-8, utf-16le, or latin1). This tip shows an alias to invoke Vim 
+with suitable arguments to check the encoding used for a specified file.
+
+BASH SHELL ALIAS                                   *vtw-1641-bash-shell-alias*
+
+Here is a simple alias for the Bash shell 
+[http://en.wikipedia.org/wiki/Bash_(Unix_shell)] to display what Vim thinks is 
+a file's encoding:
+
+>
+    alias vimenc='vim -c '\''let $enc = &fileencoding | execute "!echo Encoding:  $enc" | q'\'''
+<
+
+This saves having to open Vim, then open the file and check the file 
+encoding, and exit. The alias requires a file as a parameter.
+
+Usage examples:
+
+>
+    $ vimenc UTF-16.xml
+    Encoding: utf-16le
+    Press ENTER or type command to continue
+    
+    $ vimenc ISO-8859-1.xml
+    Encoding: latin1
+    Press ENTER or type command to continue
+<
+
+EXPLANATION                                             *vtw-1641-explanation*
+
+When an existing file is read, Vim tries to interpret the bytes in the file 
+as characters using each encoding specified in the 'fileencodings' option. The 
+first encoding that produces no conversion error is used, and that encoding is 
+reported as the file encoding by the alias shown above.
+
+After using the global 'fileencodings' option to determine the file encoding, 
+Vim stores the result in the buffer local option 'fileencoding' (the first 
+option is plural, ending with an 's'; the second option is singular). In the 
+alias, the `let $enc = &fileencoding` statement assigns the value of 
+'fileencoding' to an environment variable named `enc` (the '`$`' tells Vim to 
+set an environment variable which is displayed by the `echo` command of the 
+shell). :help |expr-option|:help |:let-environment| :help |:!cmd|
+
+When the 'encoding' option is set to a Unicode value such as utf-8, the 
+default for 'fileencodings' is "ucs-bom,utf-8,default,latin1" which will 
+check, in order:
+
+SEE ALSO                                                   *vtw-1641-see-also*
+    - Working with Unicode |vtw-246| 
+    - Detect encoding from the charset specified in HTML files |vtw-1074| 
+    - Forcing UTF-8 Vim to read Latin1 as Latin1 |vtw-1288| 
+
+
+COMMENTS                                                   *vtw-1641-comments*
+
+ vim:tw=78:et:ft=help:norl:

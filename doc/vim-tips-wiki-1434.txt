@@ -1,0 +1,59 @@
+*vim-tips-wiki-1434.txt*   Autoconvert leading eight spaces to tab when type or paste in Makefile *vtw-1434*
+
+Tip 1434 [https://vim.fandom.com/wiki/Autoconvert_leading_eight_spaces_to_tab_when_type_or_paste_in_Makefile]   Previous |vtw-1432| Next |vtw-1435|
+
+created 2006 · complexity intermediate · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+This tip is for those who edit Makefiles by hand.
+
+Makefiles punish you if instead of single tab somebody puts eight spaces in 
+your makefile (happens when pasting between Makeiles). This script guards 
+against this annoying pitfall.
+
+The following script auto-converts 8 spaces at the beginning of line (only in 
+Makefiles, and only at the beginning of line) into tab, as you type or paste. 
+It is suggested to have `:set list` in Makefiles, too. This script will only 
+work if `:set nopaste` is set.
+
+>
+    " In Makefile, automatically convert eight spaces at the beginning
+    " of line to tab, as you type (or paste).
+    au FileType make :inoremap <buffer><silent><Space> <Space><c-o>:call MapSpaceInMakefile()<CR>
+    function! MapSpaceInMakefile()
+      " if this space is 8th space from the beginning of line, replace 8 spaces with
+      " one tab (only at the beginning of file)
+      let line = getline('.')
+      let col = col('.')
+      if strpart(line, 0, 8) == ' '
+        let new = "\t" . strpart(line,8)
+        call setline('.', new )
+      endif
+      return ""
+    endfunction
+<
+
+COMMENTS                                                   *vtw-1434-comments*
+
+You don't need a script for this! Use the substitution command:
+
+>
+    :%s/^ \{8}/^V<Tab>/
+<
+
+^V<Tab> means pressing CTRL-V and the press the <Tab>-key, or s/^ 
+\{8}/^Q<Tab>/ on Windows.
+
+==============================================================================
+
+Your command above does not fix as you type.
+
+==============================================================================
+
+A competent programmer should not err when typing. It is more likely to occur 
+on paste, when one generally will ':set paste'.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

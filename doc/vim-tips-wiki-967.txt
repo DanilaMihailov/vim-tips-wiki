@@ -1,0 +1,51 @@
+*vim-tips-wiki-967.txt*   Fast access to the first nine buffers         *vtw-967*
+
+Tip 967 [https://vim.fandom.com/wiki/Fast_access_to_the_first_nine_buffers]   Previous |vtw-966| Next |vtw-968|
+
+created 2005 · complexity basic · author Alexey Vatchenko · version 6.0
+
+==============================================================================
+
+When opening a number of files into buffers a user may want to switch quickly 
+through the open buffers. The following methods will allow the user to map key 
+combinations to buffers for easier access.
+
+METHOD 1                                                    *vtw-967-method-1*
+
+Use `Alt-X` to quickly switch between buffers, where X is the buffer number 1 
+to 9.
+
+In your .vimrc add:
+
+>
+    :map <M-1> :confirm :b1 <CR>
+    :map <M-2> :confirm :b2 <CR>
+    ...
+    ...
+    ...
+    :map <M-9> :confirm :b9 <CR>
+<
+
+Note this is somewhat similar to the built-in |CTRL-^| command, which can 
+take a count to jump to a specific buffer number.
+
+METHOD 2                                                    *vtw-967-method-2*
+
+Use <ALT><Left> and <ALT><Right> to cycle through buffers.
+
+In your .vimrc add:
+
+>
+    " cycle through buffers with <ALT><Left> and <ALT><Right>
+    :nmap <M-Left> :bprev<CR>
+    :nmap <M-Right> :bnext<CR>
+<
+
+SEE ALSO                                                    *vtw-967-see-also*
+    - script#159 [https://www.vim.org/scripts/script.php?script_id=159] - The 
+      minibufexpl script 
+
+
+COMMENTS                                                    *vtw-967-comments*
+
+ vim:tw=78:et:ft=help:norl:

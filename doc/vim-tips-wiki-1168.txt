@@ -1,0 +1,311 @@
+*vim-tips-wiki-1168.txt*   Folding for plain text files based on indentation *vtw-1168*
+
+Tip 1168 [https://vim.fandom.com/wiki/Folding_for_plain_text_files_based_on_indentation]   Previous |vtw-1167| Next |vtw-1171|
+
+created March 13, 2006 · complexity advanced · author Paul Donohue · version 
+6.0
+
+==============================================================================
+
+I like to organize my notes/outlines/etc in a hierarchical tree format. I 
+wanted to be able to hide branches of the hierarchy that I'm not currently 
+working on, but I also wanted to be able to store everything in a plain text 
+file with minimal special formatting to implement the hiding. So, I decided to 
+use Vim's folding features for this.
+
+Folding based on indentation 
+[https://vim.fandom.com/wiki/Folding#Indent_folding] is the easiest and most 
+intuitive way to hide sections of a file with minimal special formatting. 
+However, I wanted a section of lines with the same indent to fold into a 
+heading with less indent. This is not what the default behavior is, which 
+folds into the first line with the same indent:
+
+Unfolded text:
+
+>
+    heading A
+        line 1
+        line 2
+        line 3
+    heading B
+<
+
+Default behavior (folded based on indent):
+
+>
+    heading A
+        line 1
+    heading B
+<
+
+What I wanted when folded:
+
+>
+    heading A
+    heading B
+<
+
+So, I put this in my vimrc to implement folding:
+
+>
+    setlocal foldmethod=expr
+    setlocal foldexpr=(getline(v:lnum)=~'^$')?-1:((indent(v:lnum)<indent(v:lnum+1))?('>'.indent(v:lnum+1)):indent(v:lnum))
+    set foldtext=getline(v:foldstart)
+    set fillchars=fold:\ "(there's a space after that \)
+    highlight Folded ctermfg=DarkGreen ctermbg=Black
+<
+
+This will create folds based on a single-space indent (I wanted to be able to 
+build a hierarchy many many levels deep, and using a tab for the fold indents 
+very quickly pushed my text off the window, but I didn't want to mess with the 
+tabstop). Blank lines are folded based on the surrounding indentation (they 
+are not counted as a 0 indent line).
+
+I quickly got annoyed by the default key mappings for folding/unfolding 
+sections, so I remapped Shift-Left/Shift-Right to close/open:
+
+>
+    nnoremap <S-Left> zo
+    inoremap <S-Left> <C-O>zo
+    nnoremap <S-Right> zc
+    inoremap <S-Right> <C-O>zc
+    " Shift-Up Shift-Down (incase Shift is held while browsing folds)
+    nmap <S-Up> <Up>
+    imap <S-Up> <Up>
+    nmap <S-Down> <Down>
+    imap <S-Down> <Down>
+<
+
+But, I found that the default mappings for Alt-(Arrows) and Ctrl-(Arrows) 
+sometimes caused Vim to do strange stuff, and I would occasionally hit those 
+by accident, so I remapped those as well:
+
+>
+    " modified arrow keys do bad things by default
+    " Ctrl-(Up, Down, Left, Right)
+    noremap <C-Up> <Nop>
+    noremap! <C-Up> <Nop>
+    noremap <C-Down> <Nop>
+    noremap! <C-Down> <Nop>
+    noremap <C-Left> <Nop>
+    noremap! <C-Left> <Nop>
+    noremap <C-Right> <Nop>
+    noremap! <C-Right> <Nop>
+    " Alt-(Up, Down, Left, Right)
+    noremap <M-Up> <Nop>
+    noremap! <M-Up> <Nop>
+    noremap <M-Down> <Nop>
+    noremap! <M-Down> <Nop>
+    noremap <M-Left> <Nop>
+    noremap! <M-Left> <Nop>
+    noremap <M-Right> <Nop>
+    noremap! <M-Right> <Nop>
+<
+
+REFERENCES                                               *vtw-1168-references*
+    - script#517 [https://www.vim.org/scripts/script.php?script_id=517] 
+    - TVO (The Vim Outliner): http://bike-nomad.com/vim/vimoutliner.html 
+      [http://bike-nomad.com/vim/vimoutliner.html] 
+    - VimOutliner, a capable and well-supported tool: http://www.vimoutliner.org/ 
+      [http://www.vimoutliner.org/] 
+    - indentfolds.vim script#3780 
+      [https://www.vim.org/scripts/script.php?script_id=3780] 
+
+
+COMMENTS                                                   *vtw-1168-comments*
+
+I use tabs as well as spaces and I also want a blank newline to stop folds, 
+so I modified the foldexpr:
+
+>
+    function! TSIndent(line)
+    	return strlen(matchstr(a:line,'\v^\s+'))
+    endfunction
+    setlocal foldmethod=expr
+    setlocal foldexpr=MyTSIndentFoldExpr()
+    function! MyTSIndentFoldExpr()
+    	if (getline(v:lnum)=~'^$')
+    		return 0
+    	endif
+    	let ind = TSIndent(getline(v:lnum))
+    	let indNext = TSIndent(getline(v:lnum+1))
+    	return (ind<indNext) ? ('>'.(indNext)) : ind
+    endfunction
+    setlocal foldtext=MyFoldText()
+    function! MyFoldText()
+    	let line = getline(v:foldstart)
+    	" Foldtext ignores tabstop and shows tabs as one space,
+    	" so convert tabs to 'tabstop' spaces so text lines up
+    	let ts = repeat(' ',&tabstop)
+    	let line = substitute(line, '\t', ts, 'g')
+      let numLines = v:foldend - v:foldstart + 1
+    	return line.' ['.numLines.' lines]'
+    endfunction
+<
+
+If you don't want the blank newlines to stop folds, then replace the 'return 
+0' above with 'return -1'
+
+(The MyFoldText() function also fixes the foldtext so it lines up properly 
+regardless of whether it was indented with tabs or spaces)
+
+==============================================================================
+
+TO DO
+    - LOTS of comments below to merge into the tip or delete 
+    - Better cross-referencing of Folding [https://vim.fandom.com/wiki/Folding]? 
+    - Probably get rid of the key mapping stuff or merge it elsewhere (like Folding 
+      [https://vim.fandom.com/wiki/Folding]?) 
+
+
+==============================================================================
+
+An alternative approach is "reverse indent outlining" as described at 
+http://jfi.uchicago.edu/~tten/for%20geeks/Vim_editor/ 
+[http://jfi.uchicago.edu/~tten/for%20geeks/Vim_editor/] .
+
+==============================================================================
+
+TVO is neat, but it seems to have slightly different goals in mind. The 
+biggest difference is that it doesn't allow folding a text block within a text 
+block. For example, with my script, you can do:
+
+>
+    -headline
+     text block 1a
+     text block 1b
+    - text block 1c
+     text block 2a
+     text block 2b
+     text block 1d
+     text block 1e
+    So, when text block 2 is folded, you see:
+    -headline
+     text block 1a
+     text block 1b
+    + text block 1c
+     text block 1d
+     text block 1e
+    And when text block 1 is folded, you see:
+    +headline
+<
+
+So, basically, an arbitrary line in a text block can become a headline, and 
+another text block can be folded inside it. This isn't possible in TVO.
+
+TVO is also limited to folds 10 levels deep, it doesn't fold text into the 
+headline (by default - the docs seem to suggest there is an option to fold the 
+text into the headline, but I can't seem to find it), it determines the fold 
+level using Tabs (as I mentioned before, Tabs pushed my text off the screen 
+way too fast, and I'd like to do folding without mucking with the tabstop), 
+and it requires that a | be placed in front of each text block (not a big 
+deal, but I like not having any special characters besides spaces to implement 
+the folding, especially since TVO's use of the | is what makes it impossible 
+to put a text block within a text block). So, TVO just isn't quite right for 
+my purposes.
+
+==============================================================================
+
+Take a look at:
+    - http://groups.yahoo.com/group/vim/message/66414 
+      [http://groups.yahoo.com/group/vim/message/66414] 
+    - http://groups.yahoo.com/group/vim/message/66451 
+      [http://groups.yahoo.com/group/vim/message/66451] 
+
+
+They talk about a better way to do the key mappings I originally mentioned 
+without making 'timeoutlen' apply to the <Esc> character.
+
+I also have an outline-to-html converter which generates HTML with JavaScript 
+so that you get a web page which can actually fold the text interactively in 
+the page like you can fold it in Vim. The HTML converter in TVO simply 
+generates static HTML using <UL> and <LI> tags.
+
+==============================================================================
+
+Based on the suggestions in the links I listed in my last message, perhaps 
+this is a better way to do the key mappings:
+
+>
+    " Vim's termcap options for a bunch of modified keys are wrong (at least in xterm)
+    " so, Vim does unexpected things when these key combinations are hit - the lines below should correct the problem
+    " (type Ctrl-V then the keys to get the actual key code escape sequences below)
+    set <S-Up>=^[[1;2A
+    set <S-Down>=^[[1;2B
+    set <S-Right>=^[[1;2C
+    set <S-Left>=^[[1;2D
+    set <C-Right>=^[[1;5C
+    set <C-Left>=^[[1;5D
+    set <S-Home>=^[[1;2H
+    set <S-End>=^[[1;2F
+    set <C-Home>=^[[1;5H
+    set <C-End>=^[[1;5F
+    " For some reason, Vim won't let you set <C-Up> or <C-Down>, <C-PageUp> or <C-PageDown>, or <M-*> - so we'll make Vim think we're hitting other unused keys instead
+    " I would like to map a lot of other modified keys as well (a lot of them do unexpected and usually bad things), but there's only so many unused keys to be commandeered
+    " Ctrl-Up, Ctrl-Down
+    set <F13>=^[[1;5A
+    set <F14>=^[[1;5B
+    " Ctrl-PageUp, Ctrl-PageDown
+    set <F15>=^[[5;5~
+    set <F16>=^[[6;5~
+    " ALT-Home, ALT-End
+    set <F17>=^[[1;3H
+    set <F18>=^[[1;3F
+    
+    " Fold-related Mappings
+    " open current fold
+    nnoremap <S-Right> zo
+    inoremap <S-Right> <C-O>zo
+    " close current fold
+    nnoremap <S-Left> zc
+    inoremap <S-Left> <C-O>zc
+    " incase Shift is held while browsing folds
+    nmap <S-Up> <Up>
+    imap <S-Up> <Up>
+    nmap <S-Down> <Down>
+    imap <S-Down> <Down>
+    " map Ctrl-(arrow keys) to <Nop>, since I don't like the expected Vim behavior even when the termcap entries are correct
+    noremap <C-Right> <Nop>
+    noremap! <C-Right> <Nop>
+    noremap <C-Left> <Nop>
+    noremap! <C-Left> <Nop>
+    noremap <F13> <Nop>
+    noremap! <F13> <Nop>
+    noremap <F14> <Nop>
+    noremap! <F14> <Nop>
+<
+
+==============================================================================
+
+This does *almost* work for me. My gtd-files are in this format:
+
+>
+    090120  This ist item number 1
+    090209  This is item number 2
+            it has two lines
+    090210  This is item number 3
+            it has a couple of lines
+            it has a couple of lines
+    090211  This is item number 4
+            it has two lines
+    090221  This is item number 5
+    090222  This is item number 6
+            it has two lines
+<
+
+This would fold into:
+
+>
+    090120  This is item number 1
+    090209  This is item number 2
+    090221  This is item number 5
+    090222  This is item number 6
+<
+
+Somehow the expression wraps everything to the next single line. I wonder 
+why? The key mappings are nice, but I think the expressen is more interesting, 
+yet totally unexplained and thus hard to understand for a beginner.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

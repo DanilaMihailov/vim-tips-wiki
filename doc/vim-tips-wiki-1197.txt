@@ -1,0 +1,127 @@
+*vim-tips-wiki-1197.txt*   Mapping to enter colon commands             *vtw-1197*
+
+Tip 1197 [https://vim.fandom.com/wiki/Mapping_to_enter_colon_commands]   Previous |vtw-1195| Next |vtw-1198|
+
+created 2006 · complexity basic · author Eric Arnold · version 5.7
+
+==============================================================================
+
+I've decided to swap the `;` and `:` keys since I use the : key much more 
+often.
+
+I also made a mapping so that `;;` puts you directly into the command line 
+edit window. My fingers always get into a knot when entering a lot of :ex 
+commands and editing them often.
+
+>
+    " nothing but '<C-V><C-F>' worked, including combinations of "\<C-F"
+    "cnoremap ; <C-R>= getcmdpos() == 1 ? '<C-V><C-F>A' : ';' <CR>
+    cnoremap <expr> ; getcmdpos() == 1 ? '<C-F>A' : ';'
+    silent! nunmap ;
+    silent! nunmap :
+    nnoremap <unique> ; :
+    nnoremap <unique> : ;
+<
+
+COMMENTS                                                   *vtw-1197-comments*
+
+See 1111 Map semicolon to colon |vtw-1111|.
+
+==============================================================================
+
+Ummm. Don't map ":" to anything, it's a bad idea!
+
+I haven't figured out which key I want to use to replace ; I tried to set a 
+mapping like:
+
+>
+    noremap ff ;
+<
+
+but the problem was that for some reason, it would succeed in triggering the 
+'f' command always as 'f' as the target, but goes ahead and does a ";" command 
+also.
+
+==============================================================================
+
+Oops. The previous anon was mine. Anyway, comment out the map for ":".
+
+It isn't quite right to have ";" put you info edit mode from search "/" . 
+cmap governs all the different command window inputs. Hmm. Any ideas?
+
+==============================================================================
+
+I really meant this:
+
+>
+    cnoremap <expr> ; getcmdpos() == 1 ? '<C-F>kA' : ';'
+    or
+    cnoremap <expr> ; getcmdpos() == 1 ? '<C-F>k$' : ';'
+<
+
+so it puts you at the end of the previous command in the edit window.
+
+==============================================================================
+
+I have basically the same settings, except that I didn't clobber the : 
+command. Instead, I just mapped ;; to ; -- I use it rarely enough that it 
+isn't a problem to hit it twice:
+
+>
+    noremap ;; ;
+    map ; :
+    " edit command-line
+    map q; q:
+<
+
+I chose to use map rather than nmap for the ; mapping to allow it to work in 
+visual mode also, which is very useful.
+
+==============================================================================
+
+Here is another version that works in Vim6. The <expr> thing was added with 
+Vim7.
+
+>
+    if v:version >= 700
+      cnoremap <expr> ; getcmdpos() == 1 ? '<C-F>k$' : ';'
+    else
+      cnoremap ; <C-R>=getcmdpos() == 1 ? '<C-V><C-F>k$' : ';'<CR>
+    endif
+<
+
+==============================================================================
+
+I guess this idea is really for those that spend a lot of time in the command 
+line. When I'm writing Vim script, I use the command line a zillion times a 
+minute. The ;; map works, but the operator-pending wait, with maps of more 
+than one char, gets annoying if you're using it every few seconds.
+
+BTW, here's another map that's ergonomically fast for re-doing the previous 
+command.
+
+>
+    nmap <Leader>. :<C-P><CR>
+<
+
+==============================================================================
+
+> nmap <Leader>. :<C-P><CR>
+
+Isn't it the same as @: ?
+
+==============================================================================
+
+The delay with ;; only becomes apparent if you actually WAIT for the 
+command-line to show up after you hit the first ;... I usually know what 
+command I'm going to type so just type something like ;saveas or something, 
+without actually waiting for the command-line. There's no delay because there 
+is no ambiguity: the instant I hit the second key, the command-line appears 
+with the key I had typed put in place.
+
+I, too, use the command-line for everything. I wouldn't have put forth the ;; 
+mapping if it actually caused a problem in everyday use.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

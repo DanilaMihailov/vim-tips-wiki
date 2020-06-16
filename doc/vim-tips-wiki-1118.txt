@@ -1,0 +1,53 @@
+*vim-tips-wiki-1118.txt*   Repeating an ex command on multiple blocks  *vtw-1118*
+
+Tip 1118 [https://vim.fandom.com/wiki/Repeating_an_ex_command_on_multiple_blocks]   Previous |vtw-1114| Next |vtw-1119|
+
+created 2006 · complexity intermediate · author hari_vim · version 6.0
+
+==============================================================================
+
+You can use the `g//` global command to repeat an Ex command on each block of 
+lines in a file. This technique is useful because you don't need a macro, and 
+the command is retained in history for reuse, possibly after editing.
+
+For example, suppose you want to sort each block of text in a file, and you 
+have a blank line before and after each block (including one before the first 
+block, and one after the last block).
+
+You can sort a single block after the cursor position using the command:
+
+>
+    :/^$/;/^$/-1sort
+<
+
+This applies the `:sort` command to a block of lines defined by a range. The 
+first line in the range is the blank line next after the cursor, and the last 
+line is just before (`-1`) the blank line after that. You must use `;` (not 
+`,`). See :help |:;|.
+
+The following uses the global command to sort each block in the file:
+
+>
+    :g/^\s*$/;//-1sort
+<
+
+The pattern `/^\s*$/` is used to find blank lines, including those consisting 
+of only whitespace (`\s`). The second pattern (`//`) is empty, so the first 
+pattern is repeated (search for next blank line).
+
+COMMENTS                                                   *vtw-1118-comments*
+
+For the address part you can use '}. '{ and '} find paragraph boundaries.
+
+It would be nice to have shortcuts for these patterns:
+
+>
+    \(\%^\|^\n\)\@<=\(.\)\@= : paragraph start
+    \(.\)\@<=\(\%$\|\n$\)\@= : pragraph end
+<
+
+In normal mode, you can use "Vip:".
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

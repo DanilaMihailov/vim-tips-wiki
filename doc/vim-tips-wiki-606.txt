@@ -1,0 +1,47 @@
+*vim-tips-wiki-606.txt*   View man pages in Vim                         *vtw-606*
+
+Tip 606 [https://vim.fandom.com/wiki/View_man_pages_in_Vim]   Previous |vtw-605| Next |vtw-607|
+
+created 2003 · complexity basic · author Manas Behera · version 5.7
+
+==============================================================================
+
+You can see the man pages of anything you want from Vim. No need to exit Vim. 
+Just put the cursor on the word and press K and you will be in the man page 
+section. when you are through just press 'q' and you will be out of Vim. Press 
+enter to come back to Vim.
+
+See also Using vim as a man-page viewer under Unix |vtw-167|.
+
+COMMENTS                                                    *vtw-606-comments*
+
+You can call `runtime ftplugin/man.vim` (distributed with Vim) to enable Vim 
+built-in manpage viewer, with ability of hyperlinking via the tags mechanism.
+
+>
+    :Man <your favourite man page>
+<
+
+A lot better (but a little slower) than the Shift+K.
+
+If you would like this to be the default behavior for K, add the following 
+line to your .vimrc:
+
+>
+    set keywordprg=:Man
+<
+
+==============================================================================
+
+Note: If you want to use Vim when opening man pages from the command line, 
+check out "Vim SuperMan" [https://github.com/jez/vim-superman].
+
+It's a simple wrapper around the `:Man` function that gives you access when 
+you don't already have Vim open.
+
+==============================================================================
+
+You can also just pipe a man page to vim's STDIN using "man <something> | vim 
+-" from bash.
+
+ vim:tw=78:et:ft=help:norl:

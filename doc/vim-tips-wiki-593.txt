@@ -1,0 +1,66 @@
+*vim-tips-wiki-593.txt*   Basic postfix abbreviations                   *vtw-593*
+
+Tip 593 [https://vim.fandom.com/wiki/Basic_postfix_abbreviations]   Previous |vtw-591| Next |vtw-595|
+
+created October 26, 2003 · complexity basic · author leadhyena_inrandomtan · 
+version 6.0
+
+==============================================================================
+
+I'm learning Vim in order to be more competitive in online programming 
+competitions where speed of accurate typing is a factor. This may be a basic 
+tip for some more advanced Vim users out there. I'm very used to editors that 
+provide prefix abbreviation expansion; for example, in jEdit I'd type 
+FA,array,<C-ENTER> in order to make a basic for loop that scanned the array. I 
+wanted this in Vim as well, but found that it was harder to program. When I 
+discovered that I could use a postfix abbreviation instead of a prefix one, I 
+realized that I really didn't need any programming, but rather a long :ab 
+statement like this:
+
+>
+    "this is for java, c++,c# can reshape as necessary
+    :ab ff <Esc>^d$ifor(int i=0;i<<Esc>pi.length;i++){<CR><CR>}//end for loop over array <Esc>pi[i]<Esc>==k==k==ji<Tab>
+<
+
+This way, if I need a loop over the array lines[] then I would type
+
+>
+    lines<SPACE>ff<SPACE>
+<
+
+and Vim would transform this into (with proper indentation):
+
+>
+    for(int i=0;i<lines.length;i++){
+      <CURSOR>
+    }//end for loop over array lines[i]
+<
+
+Similar abbreviations with multiple arguments could be delimited by spaces 
+and could be yanked into multiple registers and plunked down as necessary. You 
+could even use a similar structure to writing abbreviations in jEdit. But, 
+this opens up possibilities for many different things, because Vim allows you 
+to map real commands into the abbreviations, instead of just vanilla text like 
+in jEdit.
+
+COMMENTS                                                    *vtw-593-comments*
+
+Word of warning: I gave a dangerous example. abbreviations expand on any word 
+break, so don't use just for as your abbreviation name. Use something that 
+doesn't come up in syntax, like Xfor or qqfor.
+
+==============================================================================
+
+I thought this such an interesting idea and that I like the post decision to 
+expand I hacked together script#804 
+[https://www.vim.org/scripts/script.php?script_id=804]. It is a quicky but 
+might be useful.
+
+==============================================================================
+
+To use it: enter input mode, type the name of your array, a space, ff, and 
+hit enter.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

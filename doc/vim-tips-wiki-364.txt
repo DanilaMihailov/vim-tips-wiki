@@ -1,0 +1,88 @@
+*vim-tips-wiki-364.txt*   Automatic file type detection with fully qualified ClearCase names *vtw-364*
+
+Tip 364 [https://vim.fandom.com/wiki/Automatic_file_type_detection_with_fully_qualified_ClearCase_names]   Previous |vtw-363| Next |vtw-366|
+
+created November 8, 2002 · complexity basic · author Arnaud Cassignol · 
+version 6.0
+
+==============================================================================
+
+When using ClearCase for versioning, often you will view a specific version 
+of a file like filename.c@@\main\branch\42. Vim cannot correctly identify the 
+file type from this full name. To fix this, you can create an autocommand in 
+the filetype.vim file in your user runtime directory.
+
+>
+    augroup filetypedetect
+     au BufNewFile,BufRead *@@/*
+     \ if expand("<afile>") =~ '@@' |
+     \ exe "doau filetypedetect BufRead " . expand("<afile>:s?@@.*$??") |
+     \ endif
+    augroup END
+<
+
+The "doau" command is executed conditionally for compatibility with 
+non-ClearCase paths that actually contain a '@@' sequence.
+
+If you have any other autocmds set up for certain file extensions, you'll 
+need to adjust them as well to account for ClearCase. If possible, using a 
+FileType event can simplify things, since this is set automatically above. For 
+example:
+
+>
+    autocmd FileType c,cpp <command>
+<
+
+If you actually want to trigger off specific file extensions rather than file 
+types, you'll need to add the pattern used above for detecting clearcase 
+files. For example, to trigger only on .c files:
+
+>
+    autocmd BufWinEnter *.c{@@/*,} <command>
+<
+
+REFERENCES                                                *vtw-364-references*
+    - :help |new-filetype| 
+
+
+SEE ALSO                                                    *vtw-364-see-also*
+
+script#15 [https://www.vim.org/scripts/script.php?script_id=15] combines well 
+with this tip.
+
+COMMENTS                                                    *vtw-364-comments*
+
+This used to work great, but when I upgraded my version of Vim, for some 
+reason file detection stopped working. I did the following to fix it. I don't 
+want to merge it yet, because I'm not entirely sure WHAT fixed it, so 
+eventually I'm going to figure out what parts of my fix are not needed and 
+merge only the necessary ones into the solution above. In the meantime, here's 
+a fix:
+
+>
+    augroup filetypedetect
+      au BufNewFile,BufRead *
+            \ if expand("<afile>:p") =~ '@@' && expand("<afile>:t") !~ '@@' |
+            \   exe "doau filetypedetect BufRead " . substitute(expand("<afile>:p"),'@@.\{-\}$','','') |
+            \ endif
+    augroup END
+<
+
+==============================================================================
+
+I found a case with a new file not in your current view (for example, one 
+that is not yet associated with a baseline) in which even the above fix does 
+not work. It seems that, in such situations, there are at least two @@ marks 
+in the file path. A simple tweak in the `substitute` pattern to find the last 
+one works for me:
+
+>
+    augroup filetypedetect
+      au BufNewFile,BufRead *
+            \ if expand("<afile>:p") =~ '@@' && expand("<afile>:t") !~ '@@' |
+            \   exe "doau filetypedetect BufRead " . substitute(expand("<afile>:p"),'.*\zs@@.\{-\}$','','') |
+            \ endif
+    augroup END
+<
+
+ vim:tw=78:et:ft=help:norl:

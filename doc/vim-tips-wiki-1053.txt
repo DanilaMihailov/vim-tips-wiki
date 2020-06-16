@@ -1,0 +1,20 @@
+*vim-tips-wiki-1053.txt*   Lookup word in dict                         *vtw-1053*
+
+Tip 1053 [https://vim.fandom.com/wiki/Lookup_word_in_dict]   Previous |vtw-1052| Next |vtw-1054|
+
+created November 20, 2005 · complexity basic · author Jan Christoph Ebersbach 
+· version 6.0
+
+==============================================================================
+
+Put this in your vimrc to lookup the inner or selected word in dict. Please 
+adjust latin1 to your encoding.
+
+>
+    nnoremap ,l mayiw`a:exe "!dict -P - $(echo " . @" . "\| recode latin1..utf-8)"<CR>
+    vnoremap ,l may`a:exe "!dict -P - $(echo " . @" . "\| recode latin1..utf-8)"<CR>
+<
+
+COMMENTS                                                   *vtw-1053-comments*
+
+ vim:tw=78:et:ft=help:norl:

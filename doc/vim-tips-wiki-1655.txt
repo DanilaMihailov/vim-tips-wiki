@@ -1,0 +1,62 @@
+*vim-tips-wiki-1655.txt*   Using terminal Vim as an external editor    *vtw-1655*
+
+Tip 1655 [https://vim.fandom.com/wiki/Using_terminal_Vim_as_an_external_editor]   Previous |vtw-1654| Next |vtw-1656|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201006#Using_terminal_Vim_as_an_external_editor] 
+June 14, 2010 · complexity basic · author A generic person · version 7.0
+
+==============================================================================
+
+This tip shows how to use Vim from within a pop-up gnome terminal as an 
+alternative to using gvim. Because most graphical terminals accept a "command 
+string" that is executed when they start running, the technique shown here is 
+easily generalized to other terminal types.
+
+VIM-GNOME                                                 *vtw-1655-vim-gnome*
+
+Many applications can be configured with an external pop-up editor, but 
+require "popping up" to be the editor's default mode (for example, File Roller 
+[http://en.wikipedia.org/wiki/File_Roller], the GNOME desktop archive editor). 
+This is a problem when you do not have gvim installed, or when you simply 
+prefer to use "normal" Vim from within your preferred terminal (for example, 
+gnome-terminal).
+
+Create a file named `vim-gnome` with the following contents, and place it on 
+your execution PATH (and use `chmod +x vim-gnome` to make `vim-gnome` 
+executable):
+
+>
+    #!/bin/sh
+    ARGS="$@"
+    gnome-terminal -e "vim $ARGS"
+<
+
+This wrapper handles passing extra arguments to Vim, so you can enter things 
+like `vim-gnome myfile.txt +42` to edit `myfile.txt` and jump to line 42.
+
+Now you can use `vim-gnome` everywhere that you could have used `gvim`, or 
+any other pop-up editor.
+
+SEE ALSO                                                   *vtw-1655-see-also*
+    - Set Vim as your default editor for Unix 
+      [https://vim.fandom.com/wiki/Set_Vim_as_your_default_editor_for_Unix] 
+
+
+COMMENTS                                                   *vtw-1655-comments*
+
+To have the gnome-terminal not close when exiting vim, try this:
+
+>
+    #!/bin/sh
+    ARGS="$@"
+    gnome-terminal -x sh -c "vim $ARGS; $SHELL"
+<
+
+Now you should get a normal gnome-terminal when exiting vim with the :q 
+command.
+
+--VimRulz [https://vim.fandom.com/wiki/User:VimRulz] 23:54, June 27, 2011 
+(UTC)
+
+ vim:tw=78:et:ft=help:norl:

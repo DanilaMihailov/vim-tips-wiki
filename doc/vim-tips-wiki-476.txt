@@ -1,0 +1,62 @@
+*vim-tips-wiki-476.txt*   Errorformat and makeprg                       *vtw-476*
+
+Tip 476 [https://vim.fandom.com/wiki/Errorformat_and_makeprg]   Previous |vtw-475| Next |vtw-477|
+
+created May 20, 2003 · complexity basic · author sputnik · version 5.7
+
+==============================================================================
+
+I was fiddling around with the errorformat and makeprg opts, and as I code in 
+different languages, i was wondering if there was a way of specifiing a 
+special makeprg and errorformat parameter for each language, and there is! 
+just edit the $VIM/ftplugin/[syntaxfile].vim
+
+For example, perl.vim, added at the end:
+
+>
+    set makeprg=$HOME/bin/vimparse.pl\ -c\ %\ $*
+    set errorformat=%f:%l:%m
+<
+
+c.vim
+
+>
+    set makeprg=g++\ %
+<
+
+It works delightfully with the :Make tip VimTip203 |vtw-203|
+
+I mapped F-5 to :Make, and made it go back to the main window:
+
+>
+    map <F5> :Make<CR><C-w><Up>
+<
+
+COMMENTS                                                    *vtw-476-comments*
+
+I prefer to make a compiler plugin, then use a ftplugin to set a default 
+compiler, i.e.:
+
+>
+    ~/.vim/compiler/xmllint.vim:
+    if exists("current_compiler")
+      finish
+    endif
+    let current_compiler = "xmllint"
+    setlocal makeprg=xmllint\ --valid\ --noout\ %
+    setlocal errorformat=%f:%l:\ %m
+<
+
+>
+    ~/.vim/ftplugin/xml.vim
+    compiler xmllint
+<
+
+This way you can actually set up as many compilers as you want for the same 
+filetype. I set a default in my ftplugin, but then a quick ':compiler 
+somecompiler' will change to a different one as opposed to having to set 
+makeprg and errorformat (remembering those is non-trivial)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

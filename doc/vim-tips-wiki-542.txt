@@ -1,0 +1,83 @@
+*vim-tips-wiki-542.txt*   Edit remote files locally via SCP/RCP/FTP     *vtw-542*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip337 |vtw-337| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 542 [https://vim.fandom.com/wiki/Edit_remote_files_locally_via_SCP/RCP/FTP]   Previous |vtw-539| Next |vtw-543|
+
+created 2003 · complexity intermediate · author Roberto · version 6.0
+
+==============================================================================
+
+I'm frequently editing files remotely, but if the network traffic is tight, 
+then a normal Vim session turns into a tortuous event. The solution to that 
+was right under my nose: Vim's Network-Oriented File Transfers (:help 
+|netrw|).
+
+Instead of editing the file remotely, it can be transfered from the host 
+server, to a local copy, edited and then sent back when done. I know that you 
+can do this manually, but it's a hassle, besides, if it can be done 
+automatically, why not go for that?
+
+You need the following installed and properly configured:
+    - Vim 
+    - netrw.vim (distributed with Vim) 
+    - scp, rcp, ftp or ftp+ 
+
+
+To use, all you need is to specify the protocol, user, host and path to the 
+file you want to edit:
+    - vim scp://konimi@vim.org//var/www/html/rtc_functions.php 
+    - gvim scp://konimi@vim.org//var/www/html/tips/add_tip.php 
+
+
+Every time you write the file (:w etc) the file will get copied over to the 
+source and you will be brought back to your session for further editing.
+
+If you already have an open session, then just issue the following commands:
+
+To read/load up a file: `:Nread 
+scp://konimi@vim.org//var/www/html/rtc_functions.php`
+
+To write the file back: `:Nwrite 
+scp://konimi@vim.org//var/www/html/rtc_functions.php`
+
+That's it! You'll be editing at local speed.
+
+COMMENTS                                                    *vtw-542-comments*
+
+I tried this but it keeps asking me for my password any time I save the file 
+and at the end when I close it.
+
+==============================================================================
+
+To avoid having to enter a password every time, you can use a pair of keys 
+generated with ssh-keygen or puttygen. From what I understand, ssh-agent is 
+also useful for this, but I've never tried it myself.
+
+==============================================================================
+
+The more recent netrw script#1075 
+[https://www.vim.org/scripts/script.php?script_id=1075] has, under help for 
+netrw-list-hack, an url to http://hacks.oreilly.com/pub/h/66 
+[http://hacks.oreilly.com/pub/h/66] which helps one set up no-password ssh/scp 
+etc.
+
+==============================================================================
+
+I would like to add a section here using e 
+ftp:/username@system_name//home/me/mydir1/my_file1 and include in it a 
+discussion on help netrw-chgup and NetUserPass. I'm going to make it a == 
+level topic. If that's OK, I'll proceed.
+
+Go for it. In the worst case, we can always delete it or fix it up. Remember to log in before editing so we know who did it and can comment on your talk page if we see problems. --Fritzophrenic 17:15, February 9, 2010 (UTC)
+
+I'll also add "go for it". However, the tip really needs some general cleanup. I have not looked at the content recently, but the message above seems valid: the content from this tip should be merged into tip 337 (VimTip337). When merging, unless there is a good reason to the contrary, we copy content from the higher-number tip (more recent) to the lower-number tip. Then we rewrite the lower-number tip to omit duplicated or obsolete or unhelpful information. Then we add new information! However, perfection is not always easy, and any move towards improvement is welcome. See Vim Tips Wiki:Quick reference for how to sign a comment. JohnBeckett 07:43, February 10, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,118 @@
+*vim-tips-wiki-1159.txt*   Prevent frequent commands from slowing things down *vtw-1159*
+
+Tip 1159 [https://vim.fandom.com/wiki/Prevent_frequent_commands_from_slowing_things_down]   Previous |vtw-1158| Next |vtw-1160|
+
+created March 2, 2006 · complexity intermediate · author Salman Halim · 
+version 6.0
+
+==============================================================================
+
+This function will work in Vim 6.3+, though I designed it specifically to 
+work around the new Vim 7 CursorMoved and CursorMovedI autocommands that 
+trigger every time the cursor is, well, moved.
+
+If something happens very frequently (such as through the result of a cursor 
+motion) and takes a small bit of time, repeating the operation can be slow: 
+for example, holding the h key down (to move left) with a CursorMoved 
+autocommand set up. This solution prevents the operation from happening unless 
+one of two conditions is met: either a specified interval since the last time 
+has elapsed or the operation has been requested a certain number of times.
+
+For example, highlighting the parentheses surrounding the cursor position is 
+nice, but can be slow (because of the search required to locate them), thus:
+
+>
+    autocommand CursorMoved * call MatchParens()
+<
+
+Can be slow. However:
+
+>
+    autocommand CursorMoved * if LongEnough( "g:MatchParens"1, 3 ) | call MatchParens() | endif
+<
+
+Makes things a bit better. Now, the expression 'if LongEnough...' will only 
+return true (1) if either at least 1 second has elapsed since the last time it 
+returned true OR, if 1 second has NOT yet elapsed (because a motion key was 
+held down, repeatedly triggering the autocommand), then it will return true 
+(1) only once every third time, basically compromising the update frequency 
+for a gain in speed. If the cursor hangs around anywhere for more than a 
+second, then the next time it's moved, it'll get updated.
+
+Note that this is different from CursorHold because we're not triggering on 
+IDLE behaviour (which is passive), but rather on actual movement (which is 
+active). Of course, it is often useful to combine the two, as in this example:
+
+>
+    autocommand CursorHold call MatchParens()
+<
+
+The CursorHold doesn't require a delay in processing because it is only 
+called after a delay.
+
+Note that the first parameter is the name of the variable in which the timer 
+values will be stored (to determine how long it has been since the last time 
+it was invoked) and another variable with the name of <yourVar>_callCount will 
+be created -- in this example, it would be g:MatchParens_callCount -- to hold 
+the number of times it has been called since the last invocation.
+
+You can just call LongEnough with the variable name and a time, in which case 
+it will only allow the trigger after the time has elapsed, ignoring the total 
+number of invocations altogether.
+
+>
+    " Returns true if at least delay seconds have elapsed since the last time this function was called, based on the time
+    " contained in the variable "timer". The first time it is called, the variable is defined and the function returns
+    " true.
+    "
+    " True means not zero.
+    "
+    " For example, to execute something no more than once every two seconds using a variable named "b:myTimer", do this:
+    "
+    " if LongEnough( "b:myTimer", 2 )
+    "   <do the thing>
+    " endif
+    "
+    " The optional 3rd parameter is the number of times to suppress the operation within the specified time and then let it
+    " happen even though the required delay hasn't happened. For example:
+    "
+    " if LongEnough( "b:myTimer", 2, 5 )
+    "   <do the thing>
+    " endif
+    "
+    " Means to execute either every 2 seconds or every 5 calls, whichever happens first.
+    function! LongEnough( timer, delay, ... )
+      let result = 0
+      let suppressionCount = 0
+      if ( exists( 'a:1' ) )
+        let suppressionCount = a:1
+      endif
+      " This is the first time we're being called.
+      if ( !exists( a:timer ) )
+        let result = 1
+      else
+        let timeElapsed = localtime() - {a:timer}
+        " If it's been a while...
+        if ( timeElapsed >= a:delay )
+          let result = 1
+        elseif ( suppressionCount > 0 )
+          let {a:timer}_callCount += 1
+          " It hasn't been a while, but the number of times we have been called has hit the suppression limit, so we activate
+          " anyway.
+          if ( {a:timer}_callCount >= suppressionCount )
+            let result = 1
+          endif
+        endif
+      endif
+      " Reset both the timer and the number of times we've been called since the last update.
+      if ( result )
+        let {a:timer} = localtime()
+        let {a:timer}_callCount = 0
+      endif
+      return result
+    endfunction
+<
+
+COMMENTS                                                   *vtw-1159-comments*
+
+ vim:tw=78:et:ft=help:norl:

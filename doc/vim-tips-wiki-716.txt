@@ -1,0 +1,66 @@
+*vim-tips-wiki-716.txt*   Embedding vim in Visual Studio                *vtw-716*
+
+Tip 716 [https://vim.fandom.com/wiki/Embedding_vim_in_Visual_Studio]   Previous |vtw-714| Next |vtw-717|
+
+created 2004 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+See Integrate gvim with Visual Studio 
+[https://vim.fandom.com/wiki/Integrate_gvim_with_Visual_Studio] to use vim 
+with Visual Studio without embedding.
+
+USING VIM AS AN INTERNAL (MDI) WINDOW *vtw-716-using-vim-as-an-internal-(mdi)-window*
+
+The -P option allows you to launch gVim inside an application supporting MDI 
+windows (such as Microsoft Visual C++). This option is somewhat buggy still, 
+and can crash Visual Studio 6.0 if you try loading Vim with documents open in 
+the default editor. To use it, add the following to the tools menu in Visual 
+Studio:
+
+>
+    Command: C:\Program Files\Vim\vim71\gvim.exe
+    Arguments: -P "Microsoft Visual C++" --servername MDI_VIM
+<
+
+Name it something like "&Internal Vim" - you can now access it through the 
+tools menu.
+
+Notes:
+    - If you are using Visual Studio 6.0, launch the Internal Vim tool with no 
+      documents open in the default editor, and be sure to close Vim before opening 
+      any documents in the default editor, or Visual Studio will crash. Visual 
+      Studio .NET does not have this problem. 
+    - The server name is unnecessary but prevents you from accidentally sending 
+      documents to it from external sources if you use the --remote series of 
+      commands (or allows you to specify your MDI Vim instance if that's what you 
+      want to do). 
+    - The "Microsoft Visual C++" corresponds to the window title, so yours may 
+      vary. There may be an automatic way to get the window title similar to 
+      $(FilePath) above, but I don't know it. 
+    - Visual Studio.NET handles an MDI Vim window much better, especially if you 
+      set the "MDI Environment" setting in Tools->Options->Environment->General. 
+      With .NET, you can actually launch the selected file in an internal Vim window 
+      automatically by adding `+$(CurLine) "$(ItemPath)"` to the end of the 
+      "arguments" field above. --remote-tab-silent can also be used if desired. 
+    - The MDI window created by this call will not automatically gain input focus. 
+      Make sure Vim has focus before entering any commands! 
+    - Since MDI was removed from Visual Studio 2010 (including Express editions), 
+      the -P option will not work for that version. You will always receive the Vim 
+      error E671: Cannot find window title "whatever" no matter what window title 
+      you choose. Oddly enough, I did get Vim to dock with another Vim window that 
+      was open when I chose "Visual C#" as the window title (I was trying to set 
+      this up for Visual C# 2010 Express). 
+
+
+REFERENCES                                                *vtw-716-references*
+    - :help |-P| 
+    - :help |--servername| 
+    - :help |--remote| 
+    - Visual Studio: Arguments for External Tools 
+      [http://msdn2.microsoft.com/en-us/library/ekbzk5f8(VS.80).aspx] 
+
+
+COMMENTS                                                    *vtw-716-comments*
+
+ vim:tw=78:et:ft=help:norl:

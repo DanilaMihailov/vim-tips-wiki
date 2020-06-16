@@ -1,0 +1,204 @@
+*vim-tips-wiki-1547.txt*   Customize text for closed folds             *vtw-1547*
+
+Tip 1547 [https://vim.fandom.com/wiki/Customize_text_for_closed_folds]   Previous |vtw-1546| Next |vtw-1548|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200803#Customize_text_for_closed_folds] 
+March 4, 2008 · complexity basic · author Edouard · version 7.0
+
+==============================================================================
+
+I wanted to improve the standard Vim `foldtext` both to look better in GUI 
+versions of Vim, and to make the folding work better with C-like languages 
+(such as C++, Java and pov).
+
+The `foldtext` function below does three things:
+    - Is less intrusive when displaying code, and right-aligns the number of lines 
+      in the fold. 
+    - Collapses folds that start and end on braces with everything between the 
+      braces replaced with `{...}`. 
+    - Tries to collapse multiline comments with the first non-blank line in the 
+      comment. 
+
+
+Outstanding issues:
+    - Right alignment may not work with signs turned on. 
+    - Tabs mess up the in-place display of the initial '`{`'. 
+
+
+>
+    " Set a nicer foldtext function
+    set foldtext=MyFoldText()
+    function! MyFoldText()
+      let line = getline(v:foldstart)
+      if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+        let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+        let linenum = v:foldstart + 1
+        while linenum < v:foldend
+          let line = getline( linenum )
+          let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+          if comment_content != ''
+            break
+          endif
+          let linenum = linenum + 1
+        endwhile
+        let sub = initial . ' ' . comment_content
+      else
+        let sub = line
+        let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+        if startbrace == '{'
+          let line = getline(v:foldend)
+          let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+          if endbrace == '}'
+            let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+          endif
+        endif
+      endif
+      let n = v:foldend - v:foldstart + 1
+      let info = " " . n . " lines"
+      let sub = sub . "                                                                                                                  "
+      let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+      let fold_w = getwinvar( 0, '&foldcolumn' )
+      let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+      return sub . info
+    endfunction
+<
+
+I also use the following `highlight`s with white backgrounded source to 
+visually set the folds apart from non-folded lines, while trying to keep a 
+nice aesthetic.
+
+>
+    highlight FoldColumn  gui=bold    guifg=grey65     guibg=Grey90
+    highlight Folded      gui=italic  guifg=Black      guibg=Grey90
+    highlight LineNr      gui=NONE    guifg=grey60     guibg=Grey90
+<
+
+SEE ALSO                                                   *vtw-1547-see-also*
+    - Folding [https://vim.fandom.com/wiki/Folding] presents an overview of how to 
+      use folding 
+
+
+REFERENCES                                               *vtw-1547-references*
+    - :help 'foldtext' 
+
+
+COMMENTS                                                   *vtw-1547-comments*
+
+Here's what I use. I think that some of it might be good to merge in 
+(especially the 'diff' folding section) but I'm not up do doing it right now. 
+My goal was to have a very similar fold pattern for things like C code, but 
+provide a good fallback for all other folds, and define something special for 
+diff folding. I really like the way the author of this tip treats comments in 
+a special way—I might need to use that idea.
+
+In my `$HOME/vimfiles/ftplugin` directory, I set up different file-types to 
+use my different fold patterns. For example, in `c.vim`, I have '`let 
+b:foldpat=1`'.
+
+>
+    if has("folding")
+      set foldtext=MyFoldText()
+      function! MyFoldText()
+        " for now, just don't try if version isn't 7 or higher
+        if v:version < 701
+          return foldtext()
+        endif
+        " clear fold from fillchars to set it up the way we want later
+        let &l:fillchars = substitute(&l:fillchars,',\?fold:.','','gi')
+        let l:numwidth = (v:version < 701 ? 8 : &numberwidth)
+        if &fdm=='diff'
+          let l:linetext=''
+          let l:foldtext='---------- '.(v:foldend-v:foldstart+1).' lines the same ----------'
+          let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strlen(line('$'))+1, l:numwidth) : 0)
+          let l:align = (l:align / 2) + (strlen(l:foldtext)/2)
+          " note trailing space on next line
+          setlocal fillchars+=fold:\ 
+        elseif !exists('b:foldpat') || b:foldpat==0
+          let l:foldtext = ' '.(v:foldend-v:foldstart).' lines folded'.v:folddashes.'|'
+          let l:endofline = (&textwidth>0 ? &textwidth : 80)
+          let l:linetext = strpart(getline(v:foldstart),0,l:endofline-strlen(l:foldtext))
+          let l:align = l:endofline-strlen(l:linetext)
+          setlocal fillchars+=fold:-
+        elseif b:foldpat==1
+          let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strlen(line('$'))+1, l:numwidth) : 0)
+          let l:foldtext = ' '.v:folddashes
+          let l:linetext = substitute(getline(v:foldstart),'\s\+$','','')
+          let l:linetext .= ' ---'.(v:foldend-v:foldstart-1).' lines--- '
+          let l:linetext .= substitute(getline(v:foldend),'^\s\+','','')
+          let l:linetext = strpart(l:linetext,0,l:align-strlen(l:foldtext))
+          let l:align -= strlen(l:linetext)
+          setlocal fillchars+=fold:-
+        endif
+        return printf('%s%*s', l:linetext, l:align, l:foldtext)
+      endfunction
+    endif
+<
+
+==============================================================================
+
+Another suggestion (less elaborated than above, tested for 7.2/7.3):
+
+>
+    set foldtext=MyFoldText()
+    function MyFoldText()
+      let nucolwidth = &fdc + &number*&numberwidth
+      let winwd = winwidth(0) - nucolwidth - 5
+      let foldlinecount = foldclosedend(v:foldstart) - foldclosed(v:foldstart) + 1
+      let prefix = " _______>>> "
+      let fdnfo = prefix . string(v:foldlevel) . "," . string(foldlinecount)
+      let line =  strpart(getline(v:foldstart), 0 , winwd - len(fdnfo))
+      let fillcharcount = winwd - len(line) - len(fdnfo)
+      return line . repeat(" ",fillcharcount) . fdnfo
+    endfunction
+<
+
+==============================================================================
+
+This will display javadoc summaries in a fold and will skip over multiple 
+single line comments and C-style comments to display a method signature as the 
+foldtext. I make heavy use of syntax folding and fold javadoc comments and 
+function definitions separately, so I can see both doc summaries and method 
+signatures. I generally want to skip over non-javadoc comments which precede a 
+method decl when I fold a method, so this does both, shows javadoc summary and 
+skips other comments to just show method signature.
+
+This will also align the fold text portion after the number of lines being 
+folded is displayed, so it cleans up the fold display significantly.
+
+>
+    function! GetFoldedHeader()
+      let numlines_folded = v:foldend - v:foldstart + 1
+      let line_num = v:foldstart
+      let firstline = getline(v:foldstart)
+    
+      let charline = matchstr(firstline, '^\s*\(<[^!]\|\w\+\)[^{}]*')
+    
+      " Handle javadoc style comments, display the javadoc summary as the foldtext
+      if match(firstline, '^\s*\/\*\*') == 0
+        if match(firstline, '^\s*\/\*\*\s*$') == 0
+          let charline = substitute(getline(v:foldstart+1), '^\s*\**\s*', '(doc) ', '')
+          let charline = substitute(charline, '\..*$', '.', '')
+        else
+          let charline = substitute(firstline, '\s*\/\*\*\s*', '', '')
+        endif
+      else
+        " handle the special case of multiple single line comments
+        if match(firstline, '^\s*\/\/') == 0
+          if match(getline(v:foldend), '^\s*\/\/') == 0
+            let charline = substitute(firstline, '\s*\/*\s*', '', '')
+          endif
+        else
+          let charline = matchstr(firstline, '^\s*\(<[^!]\|\w\+\)[^{}]*')
+          while strlen(charline) == 0 && line_num < v:foldend
+            let line_num = line_num + 1
+            let charline = matchstr(getline(line_num), '^\s*\(<[^!]\|\w\+\)[^{}]*')
+          endw
+        endif
+      endif
+    
+      let preamble = printf("[%d lines folded]:", numlines_folded)
+      return printf("%-20s%s", preamble, substitute(charline, '^\s*', '', ''))
+<
+
+ vim:tw=78:et:ft=help:norl:

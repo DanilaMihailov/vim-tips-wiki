@@ -1,0 +1,71 @@
+*vim-tips-wiki-1564.txt*   VimLock mode to enter numbers               *vtw-1564*
+
+Tip 1564 [https://vim.fandom.com/wiki/VimLock_mode_to_enter_numbers]   Previous |vtw-1563| Next |vtw-1565|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200805#VimLock_mode_to_enter_numbers] 
+2008 · complexity basic · author Benshi · version 7.0
+
+==============================================================================
+
+It can be convenient to use the numeric keypad when you need to enter a lot 
+of numbers. However, your keyboard may not have a keypad, or you may not want 
+to move your hands from the home row.
+
+The following script allows you to switch Vim to a special "VimLock" mode 
+(like pressing the Num Lock key). In this mode, pressing keys on the home row 
+(a, s, d, ...) will generate digits (1, 2, 3, ...) rather than letters. Press 
+Escape to exit from VimLock mode.
+
+Put the following in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    nnoremap <C-I> :call VimLock(1)<CR>i
+    function! VimLock(enable)
+      if a:enable
+        inoremap a 1
+        inoremap s 2
+        inoremap d 3
+        inoremap f 4
+        inoremap g 5
+        inoremap h 6
+        inoremap j 7
+        inoremap k 8
+        inoremap l 9
+        inoremap ; 0
+        inoremap <Esc> <Esc>:call VimLock(0)<CR>
+      else
+        iunmap a
+        iunmap s
+        iunmap d
+        iunmap f
+        iunmap g
+        iunmap h
+        iunmap j
+        iunmap k
+        iunmap l
+        iunmap ;
+        iunmap <Esc>
+      endif
+    endfunction
+<
+
+Now you can press `Ctrl-i` to enter insert mode and map the keys "`a s d f g 
+h j k l ;`" to the digits "`1 2 3 4 5 6 7 8 9 0`". Pressing `Esc` will end 
+this mode and restore the letter keys. Since `Ctrl-i` is Tab, you can just 
+press the Tab key to enter VimLock mode.
+
+The mappings assume a QWERTY US keyboard where the `;` key is on the right of 
+`L`. If necessary, change `;` to suit your keyboard.
+
+REFERENCES                                               *vtw-1564-references*
+    - :help |vimrc| 
+    - :help |user-functions| 
+    - :help |:call| 
+    - :help |:inoremap| 
+    - :help |:iunmap| 
+
+
+COMMENTS                                                   *vtw-1564-comments*
+
+ vim:tw=78:et:ft=help:norl:

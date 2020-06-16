@@ -1,0 +1,55 @@
+*vim-tips-wiki-874.txt*   Fold C-style comments                         *vtw-874*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip108 |vtw-108| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 874 [https://vim.fandom.com/wiki/Fold_C-style_comments]   Previous |vtw-873| Next |vtw-875|
+
+created February 11, 2005 · complexity intermediate · author David Vos · 
+version 6.0
+
+==============================================================================
+
+Do you want to make a 10-line /*C-style*/ comment disappear?
+
+You can add folding capability to C-style comments using the command:
+
+>
+    au BufNewFile,BufRead *.cpp,*.c,*.h,*.java syn region myCComment start="/\*" end="\*/" fold keepend transparent
+<
+
+This will work on C, .h, C++, and Java files.
+
+The "keepend" and "transparent" commands are necessary to avoid overriding 
+the default syntax highlighting of comments.
+
+If you want to keep the "/*" beginning of the comment in the folded text, you 
+can use the following function:
+
+>
+    set foldtext=MyFoldText()
+    function MyFoldText()
+      let line = getline(v:foldstart)
+      let sub = substitute(line, '^[\t ]*', '', '')
+      let nlines = v:foldend - v:foldstart + 1
+      if strlen(nlines) == 1
+        let nlines = " " . nlines
+      elseif strlen(nlines) == 2
+        let nlines = " " . nlines
+      endif
+      return "+-" . v:folddashes . nlines . ": " . sub
+    endfunction
+<
+
+The resulting line should look about the same as the default, without 
+removing the comments.
+
+COMMENTS                                                    *vtw-874-comments*
+
+ vim:tw=78:et:ft=help:norl:

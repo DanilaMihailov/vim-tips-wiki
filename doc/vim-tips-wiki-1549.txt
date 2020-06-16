@@ -1,0 +1,360 @@
+*vim-tips-wiki-1549.txt*   Execute external programs asynchronously under Windows *vtw-1549*
+
+Tip 1549 [https://vim.fandom.com/wiki/Execute_external_programs_asynchronously_under_Windows]   Previous |vtw-1548| Next |vtw-1550|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200803#Execute_external_programs_asynchronously_under_Windows] 
+2008 · complexity basic · author Don Reba · version 7.0
+
+==============================================================================
+
+Note: Vim 8 was released in September 2016. If you are using Vim 8.0, the 
+AsyncRun [https://www.vim.org/scripts/script.php?script_id=5431] plugin can 
+allow you to run shell commands in the background and output to the quickfix 
+window in realtime by using the native async job api in Vim 8.
+
+Note: Most features from this tip were incorporated in the AsyncCommand 
+[https://www.vim.org/scripts/script.php?script_id=3431] plugin that lets you 
+define how to launch and display results from your own asynchronous commands 
+(before Vim 8.0).
+
+RUNNING EXTERNAL COMMANDS                 *vtw-1549-running-external-commands*
+
+Under Windows, Vim provides two commands for running external programs: `!` 
+and `!start`. The first suspends Vim, runs the program, waits for a keypress, 
+then returns to Vim. The second runs the program without suspending Vim or 
+waiting for a keypress.
+
+The first method has the drawback of not letting you work while the program 
+is running, but with the second you do not see the result of the program's 
+execution. Here is how to get the best of both worlds:
+
+>
+    :!start cmd /c "my app.exe" & pause
+<
+
+The following is an alternative that will leave the command window open until 
+you close it manually:
+
+>
+    :!start cmd /k "my app.exe"
+<
+
+Using this knowledge, the following mapping allows you to press F5 to run the 
+compiled program corresponding to the current source file:
+
+>
+    :nnoremap <silent> <F5> :!start cmd /c "%:p:r:s,$,.exe," & pause<CR>
+<
+
+EXPLANATION                                             *vtw-1549-explanation*
+
+Under Windows, if the command begins with "`!start `", Vim creates a process 
+to run the program without invoking a shell, so the "Hit any key to close this 
+window..." message does not appear. :help |:!start| :help |win32-vimrun|
+
+This tip assumes that `cmd.exe` is your shell (Windows command prompt :help 
+'shell'), and that you are running a console program (not GUI). Most console 
+programs (and batch scripts) will not pause at the end of the output, so just 
+calling the command by itself with `:!start` is not helpful because you will 
+not see the output. Vim's `:!start` command starts a single process and 
+additional shell commands like `pause` cannot be fed to that process. The 
+mapping works around these issues by invoking the shell directly and telling 
+it to run a command like `"my app.exe" & pause`. The cmd shell will execute 
+`"my app.exe"` (the quotes are required if the path contains a space), and 
+will then execute `pause` (if `&&` is used instead of `&`, the `pause` will 
+only be executed if `"my app.exe"` returns errorlevel 0).
+
+The expression `%:p:r:s,$,.exe,` is replaced with the current file name (`%`) 
+modified to include the full path (`:p`), without the extension (`:r`), and 
+with the end of the string (`$`) replaced with `.exe`. The comma (`,`) is a 
+delimiter for the substitute (`:s`). :help |filename-modifiers|
+
+The alternate method works in the same way, but uses the `/k` cmd.exe switch, 
+which executes a command and leaves the window open, as opposed to the `/c` 
+switch, which runs a command and exits.
+
+GUI applications do not need to use this method. For example, if you enter a 
+command like `:!calc` (to run calc.exe for the Windows calculator), Vim will 
+open a shell window, then launch a new `calc` window from that shell. When 
+`calc` is closed, the prompt `Hit any key to close this window...` appears, 
+and Vim is frozen until a key is pressed. But Calculator is a GUI program so 
+it runs in a new process, in a new window. So, if you want to asynchronously 
+run a GUI program like Calculator, you can simply enter:
+
+>
+    :!start calc
+<
+
+SOME NOTES ON CMD.EXE QUOTING         *vtw-1549-some-notes-on-cmd.exe-quoting*
+
+Microsoft's cmd.exe shell behaves in very unexpected ways regarding quoting. 
+For example, the following will not work:
+
+>
+    cmd /c "my app.exe" "quoted arg to my app"
+<
+
+cmd.exe will automatically strip the first and last quote character from the 
+command if the first character is a quote, so what actually gets executed is:
+
+>
+    my app.exe" "quoted arg to my app
+<
+
+Obviously, this doesn't work.
+
+One solution is therefore to add an extra pair of quotes, which looks weird, 
+but works in most cases:
+
+>
+    cmd /c ""my app.exe" "quoted arg to my app""
+<
+
+cmd.exe will automatically remove the extra quotes in this case.
+
+But another problem presents itself if you need to use a special character 
+such as & in an argument. Normally you would do this by quoting:
+
+>
+    cmd /c my_app.exe "arg&moreArg"
+<
+
+But if you need all of quoted args, quoted application, and special 
+characters which should not be interpreted as special characters, you will 
+need to escape the special characters for the sake of the cmd.exe shell:
+
+>
+    cmd /c ""my app.exe" "arg^&moreArg""
+<
+
+Or, you can surround your command in parentheses and escape ALL special 
+characters, including quotes:
+
+>
+    cmd /c (^"my app.exe^" ^"arg^&moreArg^")
+<
+
+See the discussions on vim_dev about proper settings of :help 'shellxquote' 
+for details:
+    - discussion of 7.3.443, surrounding external commands in quotes 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/bd53b29c5e5f2a50] 
+    - discussion of 7.3.445, surrounding external commands in parentheses 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/512daf5f5f62ddf4] 
+    - discussion of 7.3.446, escaping special characters with ^ when surrounding 
+      with parentheses 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/df985880d127a556] 
+
+    - discussion of 7.4.447, unescaping special characters when using :!start 
+      [http://groups.google.com/group/vim_dev/browse_thread/thread/2b5a9657fd242a6a] 
+
+
+!START VS. WINDOWS START COMMAND   *vtw-1549-!start-vs.-windows-start-command*
+
+The following mapping launches the currently edited file with the external 
+application that is associated with it, using the file type's default handler. 
+This is like entering the filename in the Start > Run... dialog, or 
+double-clicking in Windows Explorer. For example, `example.html` will be 
+opened in your default browser.
+
+>
+    :nmap <Leader>x :silent ! start "1" "%:p"<CR>
+<
+
+EXPLANATION                                             *vtw-1549-explanation*
+
+In the Vim command, ':silent' avoids the Hit-Enter prompt, ':p' makes this 
+launch independent from the CWD, the surrounding "" make it handle spaces. The 
+Windows `start` command opens the passed file in a separate window, so that 
+Vim doesn't block; the Windows shell locates the application that is 
+associated with the type of file. The "1" is the optional "title" argument to 
+'start'; without this dummy, 'start' will take the passed file as the title, 
+because it is enclosed in double quotes.
+
+GETTING RESULTS BACK INTO VIM         *vtw-1549-getting-results-back-into-vim*
+
+In many cases, you may want to run a process in a shell, but then do 
+something with the results in Vim. Normally you could just do this with the 
+|system()| function or by reading in the output with |:r!|. But, if you want 
+to do this while continuing to use Vim, you can use the methods from above to 
+launch the process asynchonously, and then use Vim's |clientserver| features 
+to send the results back into Vim. For example, here is a simple "hello world" 
+sort of command, that will just echo what is passed into it, but do so by 
+first sending it through an asynchronous shell.
+
+>
+    command! -nargs=+ AsyncHello call SendAsyncText(<q-args>)
+    
+    function! SendAsyncText(hello_text)
+      let temp_file = tempname()
+      exec 'silent !start cmd /c "echo '.a:hello_text.' > '.temp_file
+            \ ' & vim --servername '.v:servername.' --remote-expr "GetAsyncText('."'".temp_file."')\"".
+            \ ' & pause"'
+    endfunction
+    
+    function! GetAsyncText(temp_file_name)
+      echomsg readfile(a:temp_file_name)[0]
+      call delete(a:temp_file_name)
+    endfunction
+<
+
+EXPLANATION                                             *vtw-1549-explanation*
+
+This command and associated functions work by invoking an asynchronous 
+external process that writes to a temporary file that is then passed back to 
+Vim. If you passed the text, "hello Vim" into AsyncHello, and the current Vim 
+server is named GVIM3, the command that is actually executed in the shell 
+window is:
+
+>
+    echo hello Vim > some_temporary_file_name & vim --servername GVIM3 --remote-expr "GetAsyncText('some_temporary_file_name')" & pause
+<
+
+Note how our use of use of `--servername v:servername` ensures that the 
+results will be sent back to the correct Vim. We use `--remote-expr` to make 
+it easy to write and invoke a function to process the results of the command 
+in any way we desire. In our case it is a simple `readfile` call, but it could 
+be pretty much anything, including use of a command like `cgetfile` to run an 
+asynchronous search |vtw-1549-extended-example:-asynchronous-grep|, for 
+example. The basic idea is the same, however: call a shell command that writes 
+to a known file name before invoking a Vim function on the results.
+
+You may have realized that the `pause` is unnecessary in this case, but it 
+serves to demonstrate the fact that the newly spawned window is opened in the 
+foreground. If your goal is to continue working in Vim, sending the new 
+console window to the background would be useful. In most versions of Windows, 
+this can be done using `:!start /min` instead of just `:!start` in the 
+command.
+
+One final thing to note is the final call to the |delete()| function in our 
+processing function. This is important, otherwise every time we invoke our 
+command, we will leave behind the temporary file.
+
+EXTENDED EXAMPLE: ASYNCHRONOUS GREP *vtw-1549-extended-example:-asynchronous-grep*
+
+Here is an extended example of getting the asynchronous process to 
+communicate back to Vim. The following will perform a grep (well, a findstr) 
+asynchronously on Windows. This example uses all the same ideas in our "hello 
+world" example, to do something that is actually useful. Something extra to 
+note in this function is the use of |escape()| to make sure the user can pass 
+in a search pattern containing a '!' character. According to :help |:!|, any 
+such characters in a shell command will be expanded to the previously used 
+shell command unless escaped with a backslash. Note that if your search does 
+not need to be asynchronous, it is easy to grep from within Vim 
+[https://vim.fandom.com/wiki/Find_in_files_within_Vim] without any tricks like 
+this.
+
+>
+    if has('win32')
+      " basic async search
+      command! -bar -complete=file -nargs=+ GrepAsync call AsyncGrep('',<f-args>)
+      " same, but recursive
+      command! -bar -complete=file -nargs=+ RGrepAsync call AsyncGrep('/S',<f-args>)
+    
+      function! AsyncGrep(flags, pattern, ...)
+        " find a place to store the results to allow Vim to read them in
+        let grep_temp_file = tempname()
+    
+        " get the file list into a format findstr can read, or search all files if
+        " no file list was passed in
+        if a:0 > 0
+          let grep_file_list = substitute(join(a:000, '" "'),'/','\','g')
+        else
+          let grep_file_list = '*'
+        endif
+    
+        " Need to escape '!' characters according to :help :!
+        let flags = escape(a:flags, '!')
+        let pattern = escape(a:pattern, '!')
+        let grep_file_list = escape(grep_file_list, '!')
+    
+        call writefile(['Grep results for "'.pattern.'" in "'.grep_file_list.'"'], grep_temp_file)
+    
+        " execute the search in a new process and redirect to a temporary file, then
+        " send the result file back to this Vim instance
+        exec 'silent !start /min cmd /c "echo Searching for "'.pattern.'" in "'.grep_file_list.'", do not close this window... & '.
+              \ 'findstr /R /N '.flags.' "'.pattern.'" "'.grep_file_list.'" >> "'.grep_temp_file.'" & '.
+              \ 'vim --servername '.v:servername.' --remote-expr "ParseAsyncGrep('."'".grep_temp_file."')".'""'
+      endfunction
+    
+      function! ParseAsyncGrep(tempfile)
+        " set up the errorformat so Vim can parse the output
+        let oldefm = &errorformat
+        let &errorformat = &grepformat
+    
+        " parse the results into the quickfix window, but don't jump to the first
+        " search hit
+        exec 'cgetfile '.a:tempfile
+    
+        " restore the previous state
+        let &errorformat = oldefm
+        call delete(a:tempfile)
+    
+        " the echomsg is mostly debug, but could be used instead of the botright
+        " copen to alert the user without interfering
+        echomsg "got grep results file ".a:tempfile
+    
+        " open the quickfix window but don't interfere with the user; jump back to
+        " the current window after opening the quickfix window
+        botright copen
+        wincmd p
+        redraw
+      endfunction
+    endif
+<
+
+SEE ALSO                                                   *vtw-1549-see-also*
+    - Avoiding the "Hit ENTER to continue" prompts |vtw-16| 
+    - asyncrun.vim [http://www.vim.org/scripts/script.php?script_id=5431] is a pure 
+      VimScript implementation for vim 8.0 to run background shell commands and 
+      output to quickfix window. 
+    - Marc Weber's python-based background-cmd plugin 
+      [http://github.com/MarcWeber/vim-addon-background-cmd] on github to accomplish 
+      this on any system 
+    - AsyncCommand [https://www.vim.org/scripts/script.php?script_id=3431] is a 
+      pure-vimscript implementation based on this tip that works on Windows and 
+      Unix/Linux. 
+    - shellasync [https://www.vim.org/scripts/script.php?script_id=4182] is another 
+      python-based implementation for Unix 
+    - Shougo's vimproc [https://github.com/Shougo/vimproc.vim] requires an external 
+      library, but supports all major operating systems 
+
+
+COMMENTS                                                   *vtw-1549-comments*
+
+TO DO
+    - Ask on vim_use for some async execution techniques for Unix-based systems 
+      because :help |:!start| indicates that `:!start` is for Windows only. 
+
+
+Generally, you can just add '&' to the end of a command on Unix. It won't pop open a terminal like Windows, so it's even more important to redirect the output to a file. --Pydave 23:01, August 8, 2011 (UTC)
+
+==============================================================================
+
+I replaced the first of the following commands with the second:
+
+>
+    :nnoremap <silent> <buffer> <F5> :!start cmd /c "%<.exe" && pause<CR>
+    :nnoremap <silent> <F5> :!start cmd /c "%:p:r:s,$,.exe," & pause<CR>
+<
+
+Explanation:
+    - I removed the <buffer> since you would need to apply the mapping to every 
+      appropriate buffer which is too hard, particularly for someone trying a simple 
+      tip. 
+    - The "`%<.exe`" does not work as hoped: the "`.exe`" does nothing (and "`%<`" 
+      is deprecated). Also, it does not include the path (editing 
+      `/my/prog/sample.c` would execute `sample`). 
+    - While it's not really necessary to append ".exe", the weird ':s,$,.exe,' 
+      expression does it correctly without requiring an <expr> mapping. 
+    - Using '&&', the cmd shell executes 'pause' only if the first program returns 
+      "success" (errorlevel 0). Using '&', 'pause' is always executed (documented as 
+      after the first program). 
+
+
+I actually didn't know the distinction. This is pretty much what every script in this tip was intended to do, so I have made the change there, too and will update my own config. Thanks! --Fritzophrenic 15:57, January 31, 2010 (UTC)
+
+This is just a temp comment to explain my thinking. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 03:43, January 31, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

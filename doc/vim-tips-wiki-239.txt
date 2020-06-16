@@ -1,0 +1,57 @@
+*vim-tips-wiki-239.txt*   Scroll using arrow keys like in a web browser *vtw-239*
+
+Tip 239 [https://vim.fandom.com/wiki/Scroll_using_arrow_keys_like_in_a_web_browser]   Previous |vtw-238| Next |vtw-241|
+
+created 2002 · complexity basic · author Larry Clapp · version 6.0
+
+==============================================================================
+
+You can make Vim scroll the text using the shifted up/down arrows by mapping 
+Shift-Up to Ctrl-Y and Shift-Down to Ctrl-E.
+
+>
+    map <S-Down> <C-E>
+    map <S-Up> <C-Y>
+<
+
+Shift-Down will then scroll down (like moving a scroll-bar down, or like 
+moving a cursor at the bottom of a window down), and Shift-Up will then scroll 
+up (like moving a scroll-bar up, etc).
+
+If you'd rather think about the text moving down/up instead of the cursor 
+moving up/down, you can of course swap the mappings.
+
+If you normally use j and k for cursor movement, and rarely use the arrow 
+keys, you can map the arrow keys directly, in which case I'd probably map the 
+shifted arrow keys back to cursor movement:
+
+>
+    map <Down> <c-e>
+    map <Up> <c-y>
+    map <S-Down> j
+    map <S-Up> k
+<
+
+Vim by default maps S-Down and S-Up to Ctrl-F and Ctrl-B, for both normal and 
+visual mode. Keep this in mind if you change some of the above mappings to 
+"nmap", because you'll probably also want to look in to "vmap".
+
+REFERENCES                                                *vtw-239-references*
+    - :help |ctrl-e| 
+    - :help |ctrl-y| 
+    - :help |key-mapping| 
+    - :help |i_ctrl-o| 
+    - :help |map-modes| 
+
+
+COMMENTS                                                    *vtw-239-comments*
+
+This would be great, but doesn't work with my combination of secure F SSH 
+(windows) and TERM=xterm. The arrows cannot be mapped as <Up>, etc, nor the 
+<home> key. Any idea about why?
+
+arrows
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,28 @@
+*vim-tips-wiki-673.txt*   Prompted quit in insert-mode                  *vtw-673*
+
+Tip 673 [https://vim.fandom.com/wiki/Prompted_quit_in_insert-mode]   Previous |vtw-672| Next |vtw-675|
+
+created 2004 · complexity basic · author Yada · version 5.7
+
+==============================================================================
+
+I find myself typing `:wq` in insert-mode many times. Add this to your vimrc.
+
+>
+    function WQHelper()
+      let x = confirm("Current Mode == Insert-Mode!\n Would you like ':wq'?"," &Yes \n &No",1,1)
+      if x == 1
+        silent! :wq
+      else
+        "???
+      endif
+    endfunction
+    "
+    iab wq <BS><Esc>:call WQHelper()<CR>
+<
+
+COMMENTS                                                    *vtw-673-comments*
+
+what does it do?
+
+ vim:tw=78:et:ft=help:norl:

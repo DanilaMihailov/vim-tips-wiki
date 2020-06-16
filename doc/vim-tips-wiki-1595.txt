@@ -1,0 +1,51 @@
+*vim-tips-wiki-1595.txt*   Restore the cursor position after undoing text change made by a script *vtw-1595*
+
+Tip 1595 [https://vim.fandom.com/wiki/Restore_the_cursor_position_after_undoing_text_change_made_by_a_script]   Previous |vtw-1594| Next |vtw-1596|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200807#Restore_the_cursor_position_after_undoing_text_change_made_by_a_script] 
+2008 · complexity basic · author Lpb612 · version 7.0
+
+==============================================================================
+
+If you modify the text using some script, and then undo it, the cursor may 
+not return to the place where it was before the script was run (called). This 
+comes from the fact that when Vim performs an undo, it restores the position 
+to where the change happened, and not where the cursor was before the change. 
+For example:
+
+>
+    :3
+    :6,7d
+    u
+<
+
+The cursor will be on line 6, not line 3.
+
+Say you have a function `func()` that changes the text. Cursor is somewhere 
+before the calling. You can insert
+
+>
+    normal ix
+    normal x
+<
+
+in the beginning of the function/script (before other changes). Then when the 
+script returns, an undo will restore the cursor position to the place right 
+before `func()` is called. With the above two lines before any other changes 
+to be made by the function, the following effect is achieved:
+
+>
+    " cursor is now at linenr, colnr
+    :call func()
+    u
+    " cursor is now restored at linenr, colnr
+<
+
+Without the "fake" change, undo will go to a position closest to where the 
+first change is made by the function/script, not where the cursor was when the 
+function is called.
+
+COMMENTS                                                   *vtw-1595-comments*
+
+ vim:tw=78:et:ft=help:norl:

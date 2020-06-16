@@ -1,0 +1,47 @@
+*vim-tips-wiki-1301.txt*   Associate files with no extension to Vim under Windows *vtw-1301*
+
+Tip 1301 [https://vim.fandom.com/wiki/Associate_files_with_no_extension_to_Vim_under_Windows]   Previous |vtw-1300| Next |vtw-1302|
+
+created 2006 · complexity basic · author John Little · version 5.7
+
+==============================================================================
+
+For Windows users that use Windows file associations 
+[https://vim.fandom.com/wiki/Windows_file_associations] to automatically 
+launch files in Vim 
+[https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows], a gem 
+I've found is, in a command prompt window:
+
+>
+    assoc .=txtfile
+<
+
+Where txtfile has been defined as a file type that is opened with Vim. See 
+VimTip1003 |vtw-1003|, and try `ftype /?` at the command prompt.
+
+This will cause files with no extension (e.g. "Makefile") to open 
+automatically in Vim.
+
+You may need to logout and log back in before this will take effect.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+You can also use the Windows Registry to set up the extensionless file 
+association. For example, by importing the following registry file (adjust for 
+correct Vim version):
+
+>
+    Windows Registry Editor Version 5.00
+    [HKEY_CLASSES_ROOT\.]
+    [HKEY_CLASSES_ROOT\.\shell]
+    [HKEY_CLASSES_ROOT\.\shell\open]
+    [HKEY_CLASSES_ROOT\.\shell\open\command]
+    @="\"C:\\Vim\\vim61\\gvim.exe\" \"%1\""
+<
+
+SEE ALSO                                                   *vtw-1301-see-also*
+    - VimTip279 |vtw-279| for automatically launching Vim for files which may have 
+      an extension but have no file association. 
+
+
+COMMENTS                                                   *vtw-1301-comments*
+
+ vim:tw=78:et:ft=help:norl:

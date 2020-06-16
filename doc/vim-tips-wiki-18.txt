@@ -1,0 +1,185 @@
+*vim-tips-wiki-18.txt*   Cleanup your HTML                               *vtw-18*
+
+Tip 18 [https://vim.fandom.com/wiki/Cleanup_your_HTML]   Previous |vtw-17| Next |vtw-19|
+
+created 2001 · complexity advanced · author scrott · version 6.0
+
+==============================================================================
+
+If you are working with HTML, you can use Vim to clean up the formating of 
+the HTML code. This tips show how to do it.
+
+USING TIDY FOR CLEANING UP YOUR CODE *vtw-18-using-tidy-for-cleaning-up-your-code*
+
+You need to install html tidy [http://tidy.sourceforge.net/] on your system 
+first. Tidy is a tool to fix invalid HTML content and improve the layout of 
+the resulting markup. There is also Jtidy 
+[http://sourceforge.net/projects/jtidy/], a Java implementation of Tidy 
+available. This can also be used for cleaning up your HTML.
+
+USING TIDY FOR HTML FILES                   *vtw-18-using-tidy-for-html-files*
+
+When you have tidy for your platform installed and it is available from your 
+path, you can simply set up a mapping to filter your content through it.
+
+>
+    :vmap ,x :!tidy -q -i --show-errors 0<CR>
+<
+
+This means, from visual mode, you can simply press `,x` and Vim will filter 
+your content through tidy. This will call tidy in quiet mode (`-q`) and 
+instruct it to indent the lines (`-i`). Errors won't be shown (`--show-errors 
+0`), since the lines should not be lost.
+
+Alternatively, you can also create a |:command| that calls tidy:
+
+>
+    :command Thtml :%!tidy -q -i --show-errors 0
+    :command Txml  :%!tidy -q -i --show-errors 0 -xml
+<
+
+AUTOMATIC FORMATTING OF XML FILES   *vtw-18-automatic-formatting-of-xml-files*
+
+You can also use tidy to format xml files
+
+>
+    :au FileType xml :%!tidy -i -xml --show-errors 0 2>/dev/null
+<
+
+This sets up a FileType autocommand, that will clean up your source using 
+tidy, whenever Vim set's the Filetype to xml.
+
+USING BUILT-IN COMMANDS                       *vtw-18-using-built-in-commands*
+
+Using Vim's 'equalprg' option, you can use the |=| operator to reformat using 
+HTMLTidy. Or, you can use the 'makeprg' option to just show the suggestions 
+from HTMLTidy in your |quickfix| list.
+
+>
+    :setlocal equalprg=tidy\ -quiet\ --show-errors\ 0
+    :setlocal  makeprg=tidy\ -quiet\ -e\ %
+<
+
+At this point you can use `make` to clean up the full file or you can use `=` 
+to clean up sections. Vim also ships with a tidy compiler plugin, that set's 
+the 'makeprg' automatically for you and also sets the 'errorformat' setting 
+for you. To make this work, simply type: `:compiler tidy`
+
+SETTING UP TIDY USING A FILETYPE PLUGIN *vtw-18-setting-up-tidy-using-a-filetype-plugin*
+
+All those options, mappings and commands can be set up automatically for 
+html/xml files automatically, if you use filetype plugins.
+
+To make this work, simply put your settings into a file called html.vim (use 
+xml.vim for the xml filetype and don't forget the -xml switch for tidy) and 
+place it into the directory ~/.vim/ftplugin/ (Unix) or $VIM/vimfiles/ftplugin 
+(windows, where $VIM is the installtion diretory of Vim). See also 
+|filetype-plugin|
+
+If you set up commands and mappings using filetype plugins, you should make 
+those buffer-local (e.g. only available for buffers of that filetype. Use the 
+|<buffer>| argument for mappings and the `-buffer` argument for commands ( 
+|command-buffer|).
+
+REFERENCES                                                 *vtw-18-references*
+    - :help |=| 
+    - :help 'equalprg' 
+    - :help 'makeprg' 
+    - :help 'errorformat' 
+
+
+COMMENTS                                                     *vtw-18-comments*
+
+If you are using tidy under Windows, you need to set your shellpipe=2> or 
+else Vim won't see the output from tidy. Apparently these Unix tools write 
+output to stderr instead of stdout and Vim isn't configured by default to 
+handle this situation.
+
+==============================================================================
+
+vim indents html very well when I put the line
+
+>
+    filetype plugin indent on
+<
+
+into my personal ~/.vimrc (or ~\_vimrc) file. I also think that html-tidy is 
+not able to indent only parts of a HTML file. Therefore, I do not use it as 
+equalprg.
+
+I use html-tidy only in order to check if my HTML document is well formed. 
+Therefore, I create a ~/.vim/after/ftplugin/html.vim (or 
+~\vimfiles\after\ftplugin\html.vim or an html.vim placed in the directory that 
+appears last when typing :set runtimepath?) and put into it (among other 
+things) the lines:
+
+>
+    setlocal makeprg=tidy\ -quiet\ -errors\ %
+    setlocal errorformat=line\ %l\ column\ %v\ -\ %m
+<
+
+I have found that the errorformat option must be adapted as shown in order to 
+be able jump through the error list by means of :cn and :cp etc.
+
+==============================================================================
+
+Tidy can be used for just a portion of the document by using the 
+--show-body-only flag. For instance, on using vim6 on OSX the above command 
+could be rewritten as:
+
+>
+    :exe 'setlocal equalprg=tidy\ -quiet\ -i\ --show-body-only\ true\ -f\ '.&errorfile
+<
+
+the -i indents, that is optional
+
+The rest of the tidy options can be found 
+here:http://tidy.sourceforge.net/docs/quickref.html 
+[http://tidy.sourceforge.net/docs/quickref.html]
+
+==============================================================================
+
+Call a function for tidy - add to your vimrc
+
+>
+    command Td :call Tidy()
+    function Tidy()
+      let filename=expand("%:p") " escapes for bash
+      let filename=substitute(filename, " ", "\\\\ ", "g")
+      let filename=substitute(filename, "(", "\\\\(", "g")
+      let filename=substitute(filename, ")", "\\\\)", "g")
+      let filename=substitute(filename, "[", "\\\\[", "g")
+      let filename=substitute(filename, "]", "\\\\]", "g")
+      let filename=substitute(filename, "&", "\\\\&", "g")
+      let filename=substitute(filename, "!", "\\\\!", "g")
+      let filename=substitute(filename, ",", "\\\\,", "g")
+      let filename=substitute(filename, "'", "?", "g")
+      let filename2=substitute(filename, ".*", "&.tidy.htm", "")
+      let filename3=substitute(filename, ".*", "&.errors.tidy.txt", "")
+      execute "!tidy "."-f ".filename3." ".filename." > ".filename2.""
+    endfunction
+<
+
+==============================================================================
+
+Here is a mapping so Vim calls Tidy when pressing F12. Advantage of this 
+solution: you can undo changes very easily. Put this in your vimrc:
+
+>
+    map <F12> :%!tidy -q --tidy-mark 0 2>/dev/null<CR>
+<
+
+==============================================================================
+
+I use this:
+
+>
+    command Txml set ft=xml | execute "%!tidy -q -i -xml"
+    command Thtml set ft=html | execute "%!tidy -q -i -html"
+<
+
+You can undo the formatting, but the ft change won't be undone.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

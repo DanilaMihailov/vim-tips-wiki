@@ -1,0 +1,219 @@
+*vim-tips-wiki-1335.txt*   Run a command in multiple buffers           *vtw-1335*
+
+Tip 133 [https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers]   Previous |vtw-132| Next |vtw-134|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+This tip shows how to apply a command multiple times using `:argdo` (all 
+files in argument list), or `:bufdo` (all buffers), or `:tabdo` (all tabs), or 
+`:windo` (all windows in the current tab). See search and replace in multiple 
+buffers [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] 
+for the common requirement to perform a substitute multiple times.
+
+BUFDO                                                         *vtw-1335-bufdo*
+
+You may want to perform the same operation on each buffer. For example, you 
+may have recorded a macro [https://vim.fandom.com/wiki/Macros] to register `a` 
+and want to apply the macro to each buffer. You could do that by entering:
+
+>
+    :bufdo execute "normal! @a" | w
+<
+
+The `w` will write each buffer to disk (whether the buffer was changed or 
+not). To only write if changed, use:
+
+>
+    :bufdo execute "normal! @a" | update
+<
+
+An alternative is to set the 'autowrite' option so changed buffers are 
+automatically saved when switching to another buffer:
+
+>
+    :set autowrite
+    :bufdo normal! @a
+<
+
+Yet another alternative is to set the 'hidden' option so buffers do not need 
+to be saved, then use `:wa` to save all changes (only changed buffers are 
+written):
+
+>
+    :set hidden
+    :bufdo normal! @a
+    :wa
+<
+
+TO DO
+
+Refactor following.
+
+The command to do normal commands from the command-line is "normal" and I 
+wanted to run the macro recorded in register `a`, so that explains the "normal 
+@a".
+
+I also wanted to do this over multiple buffers, which explains the "bufdo".
+
+However, I also wanted to make the changes and then save the file so it moved 
+happily onto the next buffer and everything was saved. This required the use 
+of the | w. Initially I tried:
+
+>
+    :bufdo normal @a | w
+<
+
+but that didn't work as the "| w" part was interpreted as a normal command, 
+so that's where the exe command comes from.
+
+RESTORING POSITION                               *vtw-1335-restoring-position*
+
+The commands bufdo, windo and tabdo are great for operating on all buffers or 
+windows or tabs. However, the commands finish in a different place from where 
+you started.
+
+These versions (Bufdo, Windo and Tabdo) restore the current window or buffer 
+or tab, when the command is finished.
+
+For example, to turn on line numbers everywhere, I use `:Windo set nu`. Using 
+`:windo set nu` does the same, but the cursor finishes in a different window.
+
+>
+    " Like windo but restore the current window.
+    function! WinDo(command)
+      let currwin=winnr()
+      execute 'windo ' . a:command
+      execute currwin . 'wincmd w'
+    endfunction
+    com! -nargs=+ -complete=command Windo call WinDo(<q-args>)
+<
+
+>
+    " Like bufdo but restore the current buffer.
+    function! BufDo(command)
+      let currBuff=bufnr("%")
+      execute 'bufdo ' . a:command
+      execute 'buffer ' . currBuff
+    endfunction
+    com! -nargs=+ -complete=command Bufdo call BufDo(<q-args>)
+<
+
+>
+    " Like tabdo but restore the current tab.
+    function! TabDo(command)
+      let currTab=tabpagenr()
+      execute 'tabdo ' . a:command
+      execute 'tabn ' . currTab
+    endfunction
+    com! -nargs=+ -complete=command Tabdo call TabDo(<q-args>)
+<
+
+If you care about the alternate window or buffer as well, you can save these 
+along with the current window or buffer:
+
+>
+    " Like windo but restore the current window.
+    function! WinDo(command)
+      let currwin=winnr()
+      let curaltwin=winnr('#')
+      execute 'windo ' . a:command
+      " restore previous/alt window
+      execute curaltwin . 'wincmd w'
+      " restore current window
+      execute currwin . 'wincmd w'
+    endfunction
+    com! -nargs=+ -complete=command Windo call WinDo(<q-args>)
+<
+
+REFERENCES                                               *vtw-1335-references*
+    - :help |:windo| 
+    - :help |:bufdo| 
+    - :help |:tabdo| 
+
+
+COMMENTS                                                   *vtw-1335-comments*
+
+TODO                                                           *vtw-1335-todo*
+    - Tip 382 Search and replace in multiple buffers 
+      [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] give 
+      advice re using argdo as well as bufdo 
+    - Tip 767 Multiple commands at once 
+      [https://vim.fandom.com/wiki/Multiple_commands_at_once] 
+    - Tip 1160 Auto save files when focus is lost 
+      [https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost] 
+    - Tip 1161 Windo and restore current window 
+      [https://vim.fandom.com/wiki/Windo_and_restore_current_window] 
+
+
+Tips 1160 and 1161 have some interesting code (although I would never use 
+it). Tip 1160 mentions 'autowrite', and can be used as a 'see also' here. 
+Although perhaps my new examples are sufficient?
+
+Tip 1161 has a WinDo command. Perhaps move anything useful from there to here 
+(or perhaps move all the "Xdo and restore" from here to there?).
+
+Need to explain argdo somewhere, and need a little more on windo and tabdo. 
+Should start this tip with something that does not use 'normal' (which 
+requires the tricky execute when using bar).
+
+If you're like me and don't keep your buffer list very tidy, or just work on multiple things at once in a single Vim, bufdo is rarely useful. If you want to act on a bunch of files, too many to readily open a new tab with a window for each of them, then windo is not very useful either. argdo shines for quickly doing a command on a large batch of files when you're already using Vim with a bunch of buffers unrelated to the task. For example, I recently had to:
+
+>
+    cd /doc/directory/of/unnamed/tool
+    args *.html
+    argdo 0put ='<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html1/DTD/html-trad.dtd\">' | w
+<
+
+A tool which will remain unnamed because they ought to know better, distributed their tool with HTML documentation which is broken partially due to the lack of a doctype causing IE8 to parse it in "quirks mode" (even though they specifically targeted this browser version for the tool itself). So, I used the above command to very quickly correct the problem on every html file in their documentation directory in my install location.
+Truth be told, in reality I did not use argdo, I instead recorded a macro to do ggP:wnext<CR> and just pressed @@ on each file (because I wanted to check for a doctype on each before adding one). But, were I confident I needed to do this on ALL the files, I would have used argdo as above.
+--Fritzophrenic 15:16, August 12, 2011 (UTC)
+
+Here is something tricky I needed recently:
+
+>
+    :bufdo call search('pattern')
+<
+
+I wanted to put the cursor on the next occurrence of pattern in each buffer, 
+but I found that `:bufdo normal! n` or other search attempts did not work. I 
+thought I had searched before, but I could not make it work without the trick 
+above. Any insight? JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 
+08:15, August 12, 2011 (UTC)
+
+No idea, I would expect this to work. Maybe you've got some autocmd in your .vimrc to restore a search or something when loading a buffer? I note that search history is in the .viminfo file, but that should only be loaded on startup.
+It seems to work for me, though for some reason the current buffer jumps the cursor to the line containing the match, but not to the match itself. Probably that's something in my config.
+--Fritzophrenic 15:16, August 12, 2011 (UTC)
+Very strange, I just tried it again and there was no problem. Must have been a blunder or some temporary config glitch. Thanks. I'm getting converted to argdo, and I'm planning a rewrite featuring argdo, and mentioning the others. JohnBeckett 10:37, August 13, 2011 (UTC)
+Yeah, I almost never used the arglist until I discovered :args and :argl. Now I use it almost exclusively when doing batch edits. Although, I normally use :next and :wnext rather than :argdo. Fritzophrenic 15:33, August 15, 2011 (UTC)
+
+TIP TITLES                                               *vtw-1335-tip-titles*
+
+These tips should handle the basics for argdo/bufdo/tabdo/windo (redirects 
+bufdo [https://vim.fandom.com/wiki/Bufdo], tabdo 
+[https://vim.fandom.com/wiki/Tabdo], windo [https://vim.fandom.com/wiki/Windo] 
+point to this tip, and I would also make argdo 
+[https://vim.fandom.com/wiki/Argdo]):
+    - Run a command on all buffers or tabs or windows 
+      [https://vim.fandom.com/wiki/Run_a_command_on_all_buffers_or_tabs_or_windows] 
+      this tip 
+    - Search and replace in multiple buffers 
+      [https://vim.fandom.com/wiki/Search_and_replace_in_multiple_buffers] similar 
+      tip but focuses on substitute 
+
+
+Should we rename these, perhaps:
+    - Run a command in multiple files 
+    - Search and replace in multiple files 
+
+
+The "files" is not strictly correct since it might be just a buffer with no 
+file. However, for simplicity (and Google searching), using "files" for the 
+title seems best? JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 
+10:37, August 13, 2011 (UTC)
+
+I'm all for simplicity. But what about making the actual tip say "buffers" and make a redirect with "files"? I'm not sure how well Google handles that but obviously the wikia search handles it well. That way we can satisfy both the pedantic and those searching for an answer. --Fritzophrenic 15:33, August 15, 2011 (UTC)
+OK. Tips will be "buffers", and redirects "files". Will do, and will remove these comments. JohnBeckett 03:52, August 16, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,51 @@
+*vim-tips-wiki-1050.txt*   Move comment line to end of next line       *vtw-1050*
+
+Tip 1050 [https://vim.fandom.com/wiki/Move_comment_line_to_end_of_next_line]   Previous |vtw-1048| Next |vtw-1051|
+
+created 2005 · complexity basic · author matahijau · version 5.7
+
+==============================================================================
+
+Let's say you have some C or Java that looks like this:
+
+>
+    // get the age of the person
+    age = person.getAge();
+<
+
+If you want to compact your code a bit you might want to stick the comment at 
+the end of the statement instead of on its own line. Essentially you want to 
+"join up":
+
+>
+    map <C-S-j> kddpkJ
+<
+
+Used on the example above by placing the cursor on the second line and typing 
+ctrl-shift-j, you will now have:
+
+>
+    age = person.getAge(); // get the age of the person
+<
+
+`ddp` is used to swap the lines before joining, so the comment line is at the 
+end of the newly joined line.
+
+COMMENTS                                                   *vtw-1050-comments*
+
+A better way of swapping lines is to use
+
+>
+    :m+
+    :m-2
+<
+
+Hence, modifying "map <C-S-j> kddpkJ" and maintaining cursor position:
+
+>
+    nmap <C-S-j> mz:m-2<CR>J`z
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

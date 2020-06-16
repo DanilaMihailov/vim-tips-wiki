@@ -1,0 +1,30 @@
+*vim-tips-wiki-852.txt*   Make support for NEC V850 CA850 compilers     *vtw-852*
+
+Tip 852 [https://vim.fandom.com/wiki/Make_support_for_NEC_V850_CA850_compilers]   Previous |vtw-851| Next |vtw-853|
+
+created January 14, 2005 · complexity intermediate · author Lee 
+Riemenschneider · version 6.0
+
+==============================================================================
+
+This line will replace "make" with the "build" command when using ":make".
+
+>
+    " Use build.exe for making
+    set makeprg=build\ -script\ script.bld\ -XO\ build.err
+<
+
+Note: It directs the output to a file called "build.err" and assumes a script 
+based build where the scriptname is "script.bld".
+
+This line allows the error output from the build to be processed for display 
+and linking back to the source.
+
+>
+    " Find CA850 errors and warnings
+    set errorformat=%f\ %l\ %.%#rror:\ %t%n:%m,%f\ %l\ %.%#arning:\ %t%n:%m,%+Eld850:\ %.%#rror:\ %t%n:%m
+<
+
+COMMENTS                                                    *vtw-852-comments*
+
+ vim:tw=78:et:ft=help:norl:

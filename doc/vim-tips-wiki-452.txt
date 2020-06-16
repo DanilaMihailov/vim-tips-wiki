@@ -1,0 +1,59 @@
+*vim-tips-wiki-452.txt*   Edit multiple files from a list of file names *vtw-452*
+
+Tip 452 [https://vim.fandom.com/wiki/Edit_multiple_files_from_a_list_of_file_names]   Previous |vtw-451| Next |vtw-457|
+
+created 2003 · complexity intermediate · author ooglek · version 5.7
+
+==============================================================================
+
+I needed to edit about 300 files in a directory tree that all contained a 
+specific line. I used `:w scriptin` on the first file to write my macro, and 
+then used this command line to execute the rest:
+
+>
+    vim -s scriptin `cat file-containing-files`
+<
+
+This cats the file containing the multiple files, one per line, to the 
+command line, allowing you to edit tens, hundreds or even thousands of files 
+using the same script. Of course, I had to use a recursive macro to get it 
+done. Here's what I used in file `scriptin`:
+
+>
+    qq/\.\.\.\.\.\.Complete^Mdd:wn^M^M@qq@q
+<
+
+Basically recording the macro, searching for my string, deleting that line, 
+writing the file and going to the next, then executing itself (@q), ending the 
+macro and then executing itself. This way one script could be used to edit all 
+300 of my files.
+
+COMMENTS                                                    *vtw-452-comments*
+
+Once the files have been loaded, why not just execute a bufdo? It'll execute 
+the same command (`:g/pattern/d` in this case) in all buffers.
+
+==============================================================================
+
+So many choices. Note that most shells won't take thousands of files on the 
+command line (and we're not even talking about DOS). You need an "`ls -1| 
+while read fn; do <script...`" for that (bash, ksh). And, if you use perl 
+instead of sed, you can get nice backups (e.g. perl -i'.bak' -pe 
+'s/<pattr>/<changes>/g' ...).
+
+==============================================================================
+
+>
+    vim -s scriptin `cat file-containing-files`
+<
+
+The above line doesn't work in current Vim. Instead, what seems to work just 
+fine is:
+
+>
+    vim `cat file-containing-files`
+<
+
+I moved the above from the tip to here to point out that the tip author failed to explain that scriptin is the name of a file that contains a macro (I tweaked the wording to make that a little clearer). As mentioned in the above comments, this tip is pretty dubious. JohnBeckett 03:43, February 6, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

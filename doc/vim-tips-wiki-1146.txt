@@ -1,0 +1,108 @@
+*vim-tips-wiki-1146.txt*   Project browsing using find                 *vtw-1146*
+
+Tip 1146 [https://vim.fandom.com/wiki/Project_browsing_using_find]   Previous |vtw-1142| Next |vtw-1147|
+
+created 2006 · complexity basic · author gautamvsg · version 5.7
+
+==============================================================================
+
+This tip is for loading project files that you know the names for, but do not 
+remember their paths.
+
+Usually when you are working on a project and you want to load a particular 
+file that is somewhere deep in the directory hierarchy, you have to either 
+find the file on the command line and then load it into vim, or use vim tab 
+completion to navigate and load the file. You can use vim's "find" feature 
+instead.
+
+Make the following entry in you vimrc:
+
+>
+    set path=$PWD/**
+<
+
+This will set your path variable to current directory (from which you 
+launched vim) and to all directories under current directory recursively.
+
+Now all you have to do is to open vim/gvim from the base directory of your 
+project. Then if there is a file that you want to open but dont remember the 
+path for it, do a
+
+>
+    :find <full-file-name-including-extension>
+<
+
+and it will open the file that you want.
+
+Caveats
+    - If you have multiple files with the same name, then you are in trouble. Find 
+      will not list them out |vtw-1234| (like cscope/ctags) before it opens the 
+      file. You may end up making edits in the wrong file. However, enabling 
+      wildmenu 
+      [https://vim.fandom.com/wiki/Great_wildmode/wildmenu_and_console_mouse] solves 
+      this by displaying the possible matches and allows you to choose which file 
+      you want to edit. 
+    - The find does not take any wildcards. So you cannot afford to make spelling 
+      mistakes in the file names (esp. java names) 
+
+
+In spite of the caveats, finding in this manner is far faster than navigating 
+through directories to look for files (esp. if you are a touch typist.)
+
+Variations
+    - You can change your path variable anytime to change the find path. 
+    - You can use `:sfind` instead of `:find` to open it in a split window, and 
+      `:tabf` to open it in a new tab. 
+    - Coupled with cscope (see :help cscope) you editing code across files becomes 
+      very convenient. 
+
+
+COMMENTS                                                   *vtw-1146-comments*
+
+Since v58 of netrw, there's
+
+>
+    :Explore **/pattern
+<
+
+which brings up directory listings based on files matching the pattern. For 
+example:
+
+>
+    :Explore **/*.txt
+<
+
+The cursor is left on the matching file so it can be brought up easily. To 
+skip from one matching file to the next:
+
+>
+    :Nexplore (or, if you have a mouse enabled: <s-down>)
+    :Pexplore (or, if you have a mouse enabled: <s-up>)
+<
+
+==============================================================================
+
+See also qf [https://www.vim.org/scripts/script.php?script_id=949].
+
+==============================================================================
+
+There was a previous tip in the same thematics. See Open file under cursor 
+[https://vim.fandom.com/wiki/Open_file_under_cursor].
+
+Regarding the fact several files may match, you can have a look at the plugin 
+SearchInRuntime [https://www.vim.org/scripts/script.php?script_id=229] I'm 
+maintaining.
+
+The commands defined don't have any problem with wildcards, they even support 
+auto-completion. It does not provide a command to edit in the current buffer, 
+but two commands to edit in a split (horizontally or vertically) window. If 
+the file is already opened in a window, we jump to that window. Vim 7 is 
+required.(Surely you mean "edit in the current window", not buffer.)
+
+==============================================================================
+
+On Windows use, `set path=.\**`
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

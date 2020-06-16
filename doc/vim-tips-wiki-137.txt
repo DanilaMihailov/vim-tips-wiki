@@ -1,0 +1,28 @@
+*vim-tips-wiki-137.txt*   Automatically wrap left and right             *vtw-137*
+
+Tip 137 [https://vim.fandom.com/wiki/Automatically_wrap_left_and_right]   Previous |vtw-135| Next |vtw-138|
+
+created 2001 · complexity basic · author Brian Medley · version 6.0
+
+==============================================================================
+
+By default, when pressing left/right cursor keys, Vim will not move to the 
+previous/next line after reaching first/last character in the line. This can 
+be quite annoying for new users. Fortunately this behaviour can be easily 
+changed by putting this in your vimrc file:
+
+>
+    set whichwrap+=<,>,h,l,[,]
+<
+
+This causes the left and right arrow keys, as well as `h` and `l`, to wrap 
+when used at beginning or end of lines. ( < > are the cursor keys used in 
+normal and visual mode, and `[ ]` are the cursor keys in insert mode).
+
+REFERENCES                                                *vtw-137-references*
+    - :help 'whichwrap' 
+
+
+COMMENTS                                                    *vtw-137-comments*
+
+ vim:tw=78:et:ft=help:norl:

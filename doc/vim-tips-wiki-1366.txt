@@ -1,0 +1,200 @@
+*vim-tips-wiki-1366.txt*   Pretty-formatting XML                       *vtw-1366*
+
+Tip 1366 [https://vim.fandom.com/wiki/Pretty-formatting_XML]   Previous |vtw-1363| Next |vtw-1369|
+
+created 2006 · complexity intermediate · author Cory · version 6.0
+
+==============================================================================
+
+FIRST METHOD                                           *vtw-1366-first-method*
+
+Add this to your vimrc so you can type `:PrettyXML` and automatically 
+pretty-format XML. Requires the command 'xmllint' in your PATH.
+
+Note that this ignores significant whitespace! The result will be more 
+readable, but it may not be semantically identical. I use this to read 
+badly-formatted XML documents, not to save them.
+
+>
+    function! DoPrettyXML()
+      " save the filetype so we can restore it later
+      let l:origft = &ft
+      set ft=
+      " delete the xml header if it exists. This will
+      " permit us to surround the document with fake tags
+      " without creating invalid xml.
+      1s/<?xml .*?>//e
+      " insert fake tags around the entire document.
+      " This will permit us to pretty-format excerpts of
+      " XML that may contain multiple top-level elements.
+      0put ='<PrettyXML>'
+      $put ='</PrettyXML>'
+      silent %!xmllint --format -
+      " xmllint will insert an <?xml?> header. it's easy enough to delete
+      " if you don't want it.
+      " delete the fake tags
+      2d
+      $d
+      " restore the 'normal' indentation, which is one extra level
+      " too deep due to the extra tags we wrapped around the document.
+      silent %<
+      " back to home
+      1
+      " restore the filetype
+      exe "set ft=" . l:origft
+    endfunction
+    command! PrettyXML call DoPrettyXML()
+<This tool can be used to verify or to make XML Formatting online. XML Formatter [https://jsonformatter.org/xml-formatter]
+
+SECOND METHOD                                         *vtw-1366-second-method*
+
+This method requires only python3!
+
+Add this to your vimrc and type `:FormatXML `or `=`.
+
+>
+    com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
+    nnoremap = :FormatXML<Cr>
+<
+
+COMMENTS                                                   *vtw-1366-comments*
+
+I tried it on emblemsample.xml 
+[http://www.hab.de/bibliothek/wdb/emblematica/emblemsample.xml]. Buffer was 
+empty after that.
+
+You need xmllint in your PATH (the buffer is replaced with the output from trying to run xmllint).
+
+==============================================================================
+
+The following is my solution. gvim 7.0 on Windows XP. Ruby must be installed.
+
+>
+    # download xmlformat
+    # copy xmlformat.rb to a folder, d:\bin for exmaple
+    # open the xml document to be formated in Vim
+    # type command
+    :% !ruby d:\bin\xmlformat.rb
+<
+
+==============================================================================
+
+From Automatically indent an XML file using XSLT |vtw-551| comes this 
+solution, which I prefer:
+
+>
+    :%s/></>\r</g
+    :0
+    =:$
+<
+
+==============================================================================
+
+Hi, when I run this script I always get:
+
+>
+    Error detected while processing function DoPrettyXML:
+    line    7:
+<
+
+That is because line 7 (1s/<?xml .*?>//) tried to do a substitute in line 1, and gave an error because there was no matching text in your file. I added the 'e' flag so errors will be ignored. I also did some other style tweaks. Please reply with whether it works. --JohnBeckett 01:19, 8 October 2008 (UTC)
+
+==============================================================================
+
+Here is a slightly less than elegant solution to cleanup XML that is all on 
+one line. This does not require XSLT or any special plugins, just some regular 
+expressions.
+
+I put this in my _vimrc
+
+>
+    map <F5> :%s/<\([^>]\)*>/\r&\r/g<enter>:g/^$/d<enter>vat=
+    map <F6> vatJxvito<right><left>x
+    map <F7> /\v^\s*([a-zA-Z\-0-9\$])<enter>qm<F6>nq@q1000@@:1<enter>
+<
+
+When I open an XML, I hit F5... this breaks it all into individual lines. Hit 
+F7, if you want the XML node and content to be on the same line.
+
+==============================================================================
+
+When using Unicode document, xmllint converts all characters to xml entities 
+such as &#000;the solution is to add encoding to the xmllint line, like this:
+
+>
+    silent %!xmllint --encode UTF-8 --format -
+<
+
+but there may be some more generic way (to detect the encoding and set 
+accordingly)
+
+==============================================================================
+
+Based on the solution suggested in this tip, I created the following one, 
+that provides some improvements:
+
+Just put the following in your vimrc:
+
+>
+    " XML formatter
+    function! DoFormatXML() range
+    	" Save the file type
+    	let l:origft = &ft
+    
+    	" Clean the file type
+    	set ft=
+    
+    	" Add fake initial tag (so we can process multiple top-level elements)
+    	exe ":let l:beforeFirstLine=" . a:firstline . "-1"
+    	if l:beforeFirstLine < 0
+    		let l:beforeFirstLine=0
+    	endif
+    	exe a:lastline . "put ='</PrettyXML>'"
+    	exe l:beforeFirstLine . "put ='<PrettyXML>'"
+    	exe ":let l:newLastLine=" . a:lastline . "+2"
+    	if l:newLastLine > line('$')
+    		let l:newLastLine=line('$')
+    	endif
+    
+    	" Remove XML header
+    	exe ":" . a:firstline . "," . a:lastline . "s/<\?xml\\_.*\?>\\_s*//e"
+    
+    	" Recalculate last line of the edited code
+    	let l:newLastLine=search('</PrettyXML>')
+    
+    	" Execute external formatter
+    	exe ":silent " . a:firstline . "," . l:newLastLine . "!xmllint --noblanks --format --recover -"
+    
+    	" Recalculate first and last lines of the edited code
+    	let l:newFirstLine=search('<PrettyXML>')
+    	let l:newLastLine=search('</PrettyXML>')
+    	
+    	" Get inner range
+    	let l:innerFirstLine=l:newFirstLine+1
+    	let l:innerLastLine=l:newLastLine-1
+    
+    	" Remove extra unnecessary indentation
+    	exe ":silent " . l:innerFirstLine . "," . l:innerLastLine "s/^  //e"
+    
+    	" Remove fake tag
+    	exe l:newLastLine . "d"
+    	exe l:newFirstLine . "d"
+    
+    	" Put the cursor at the first line of the edited code
+    	exe ":" . l:newFirstLine
+    
+    	" Restore the file type
+    	exe "set ft=" . l:origft
+    endfunction
+    command! -range=% FormatXML <line1>,<line2>call DoFormatXML()
+    
+    nmap <silent> <leader>x :%FormatXML<CR>
+    vmap <silent> <leader>x :FormatXML<CR>
+<
+
+Thanks a lot to the original writer of this tip! :)I hope you fine this 
+useful! Cheers, Gsimone [https://vim.fandom.com/wiki/User:Gsimone] (talk 
+[https://vim.fandom.com/wiki/User_talk:Gsimone]) 22:17, December 19, 2012 
+(UTC).
+
+ vim:tw=78:et:ft=help:norl:

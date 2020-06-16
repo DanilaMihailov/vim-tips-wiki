@@ -1,0 +1,95 @@
+*vim-tips-wiki-750.txt*   Underline using dashes automatically          *vtw-750*
+
+Tip 750 [https://vim.fandom.com/wiki/Underline_using_dashes_automatically]   Previous |vtw-749| Next |vtw-751|
+
+created 2004 · complexity intermediate · author Chris X Edwards · version 6.0
+
+==============================================================================
+
+This tip shows how to underline text document headings with, for example, a 
+dashed line.
+
+USING A MAPPING                                      *vtw-750-using-a-mapping*
+
+Starting with a line of text like:
+
+>
+    A Very Important Tip!
+<
+
+the mapping below inserts a row of dashes like this:
+
+>
+    A Very Important Tip!
+    ---------------------
+<
+
+This is useful to highlight headings. Add the following to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    " Underline the current line with dashes in normal mode
+    nnoremap <F5> yyp<c-v>$r-
+    
+    " Underline the current line with dashes in insert mode
+    inoremap <F5> <Esc>yyp<c-v>$r-A
+<
+
+Of course you can use other characters instead of `-`, for example, `=` or 
+`_`.
+
+In case you want to get a line above and below the heading, do this in normal 
+mode:
+
+>
+    <F5>yykP
+<
+
+USING SUBSTITUTE                                    *vtw-750-using-substitute*
+
+You can use the global and substitute commands (:help |:g|, :help |:s|) to 
+underline all headings matching a pattern. For example, the following adds a 
+row of dashes under each line that starts with "Chapter":
+
+>
+    :g/^Chapter/t.|s/./-/g
+<
+
+It works by finding each matching line, then copying it (:help |:t|), then 
+substituting each character (`.`) in the line.
+
+USING A FUNCTION                                    *vtw-750-using-a-function*
+
+The following code (for your vimrc [https://vim.fandom.com/wiki/Vimrc]) 
+defines a user command to underline the current line. Examples:
+
+>
+    function! s:Underline(chars)
+      let chars = empty(a:chars) ? '-' : a:chars
+      let nr_columns = virtcol('$') - 1
+      let uline = repeat(chars, (nr_columns / len(chars)) + 1)
+      put =strpart(uline, 0, nr_columns)
+    endfunction
+    command! -nargs=? Underline call s:Underline(<q-args>)
+<
+
+RELATED PLUGINS                                      *vtw-750-related-plugins*
+
+As an alternative, you could use a plugin:
+    - extline [https://www.vim.org/scripts/script.php?script_id=4739] : Plugin for 
+      extending lines (e.g., underlined titles) 
+
+
+SEE ALSO                                                    *vtw-750-see-also*
+    - Create underlines, overlines, and strikethroughs using combining characters 
+      [https://vim.fandom.com/wiki/Create_underlines,_overlines,_and_strikethroughs_using_combining_characters] 
+
+
+COMMENTS                                                    *vtw-750-comments*
+
+`yypVr-` also works well. Great tip for Markdown and WikiTex users.Linktohack 
+[https://vim.fandom.com/wiki/User:Linktohack] 15:37, February 3, 2012 (UTC)
+
+Thanks. There is a subtle feature about the method in the tip. If you have the default 'virtualedit' setting (""), and if there is a tab in the line, using Vr- replaces each tab with a single dash, while the method in the tip uses the correct number of dashes depending on the width of the tab. JohnBeckett 06:50, February 4, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,53 @@
+*vim-tips-wiki-81.txt*   Substitute characters and lines easily          *vtw-81*
+
+Tip 81 [https://vim.fandom.com/wiki/Substitute_characters_and_lines_easily]   Previous |vtw-80| Next |vtw-82|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+The `s` (substitute) command can be used to replace specified characters, and 
+the `S` command can be used to replace specified lines.
+
+For example, the following has the same leading string on several lines:
+
+>
+    foo_bar_baz1 = a1
+    foo_bar_baz2 = a2
+    foo_bar_baz3 = a3
+    foo_bar_baz4 = a4
+    foo_bar_baz5 = a5
+    foo_bar_baz6 = a6
+<
+
+Put the cursor on the `f` at the start of the first line and type the 
+following: `7s` then `fixed` then press Esc. That changes `foo_bar_baz1` to 
+`fixed_baz1`. Move the cursor to the start of the next line and press `.` to 
+repeat the command.
+
+A single character can be replaced with the `r` command. For example, with 
+the cursor on "f", type `rt` to replace the "f" with "t". That only works with 
+characters that can be entered with a single key press, and `s` can be used to 
+for a replacement with a digraph. For example, put the cursor on the "x" in 
+text "12x10" then press `s` followed by Ctrl-K `*X` to change the text to 
+"12×10".
+
+If you need to substitute three lines of text, type `3S`. Vim deletes the 
+three lines and enters insert mode, waiting for the subsitution text.
+
+COMMENTS                                                     *vtw-81-comments*
+
+Of course, if you're lazy like me and you don't want to count that there are 
+7 characters that you want to replace, you could use the c command and use a 
+motion to specify how much to kill. For example, in the previous example, I'd 
+type c2t_ to kill foo_bar and to be left in insert mode.
+
+==============================================================================
+
+You could select the "foo_bar" characters with Ctrl+V (Visual Block – Ctrl+Q 
+on Windows), press "c" to change the block, make your change to the first 
+line, and press Esc. All the lines you selected will be changed the same way.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

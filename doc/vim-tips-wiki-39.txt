@@ -1,0 +1,64 @@
+*vim-tips-wiki-39.txt*   Undo and Redo                                   *vtw-39*
+
+Tip 39 [https://vim.fandom.com/wiki/Undo_and_Redo]   Previous |vtw-38| Next |vtw-40|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+To undo recent changes, from normal mode use the undo command:
+    - `u`: undo last change (can be repeated to undo preceding commands) 
+    - `Ctrl-r`: Redo changes which were undone (undo the undos). Compare to `.` to 
+      repeat a previous change, at the current cursor position. Ctrl-r (hold down 
+      Ctrl and press `r`) will redo a previously undone change, wherever the change 
+      occurred. 
+
+
+A related command is:
+    - `U`: return the last line which was modified to its original state (reverse 
+      all changes in last modified line) 
+
+
+`U` is not actually a true "undo" command as it does not actually navigate 
+undo history like `u` and `Ctrl-r`. This means that (somewhat confusingly) `U` 
+is itself undo-able with `u`; it creates a new change to reverse previous 
+changes.
+
+`U` is seldom useful in practice, but is often accidentally pressed instead 
+of `u`, so it is good to know about.
+
+UNDO TREE                                                   *vtw-39-undo-tree*
+
+Note that unlike most programs which maintain a linear undo history, Vim 
+maintains an undo tree containing every edit made to a buffer. To learn how to 
+use Vim's undo tree, see the separate article on using undo branches 
+[https://vim.fandom.com/wiki/Using_undo_branches].
+
+UNDO STACK                                                 *vtw-39-undo-stack*
+
+Note that a single Insert session (invoked by pressing `i`) is considered as 
+one entry in the undo stack. That is, if you entered 10 lines in a single 
+Insert session, then pressed `Esc`, invoking undo will delete those 10 lines 
+(as opposed to undoing only the the previous line, which is usually the case 
+in most code editors).
+
+SEE ALSO                                                     *vtw-39-see-also*
+    - Recover from accidental Ctrl-U 
+      [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U], which explains 
+      what constitutes a change which can be undone. 
+    - Using undo branches [https://vim.fandom.com/wiki/Using_undo_branches], which 
+      explains Vim's unique and very powerful undo tree. 
+
+
+REFERENCES                                                 *vtw-39-references*
+    - :help |undo| 
+    - :help |U| 
+
+
+COMMENTS                                                     *vtw-39-comments*
+
+>
+    :nnoremap U :echo " < < ===== C H E C K   C A P S   L O C K ===== > > "<CR>
+<
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,166 @@
+*vim-tips-wiki-68.txt*   Backspace and delete problems                   *vtw-68*
+
+Tip 68 [https://vim.fandom.com/wiki/Backspace_and_delete_problems]   Previous |vtw-67| Next |vtw-71|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+On some systems, you may experience problems using the backspace or delete 
+keys. This tip discusses the causes and solutions. Generally, these problems 
+arise on Unix-based systems because of the wide variety of hardware and 
+software involved.
+
+TO DO
+    - Following is a rough merge from some mysterious tips. 
+    - Need to reword and clarify what each is talking about. 
+
+
+BACKSPACE KEY WON'T MOVE FROM CURRENT LINE *vtw-68-backspace-key-won't-move-from-current-line*
+
+Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete 
+over line breaks, or automatically-inserted indentation, or the place where 
+insert mode started:
+
+>
+    set backspace=2 " make backspace work like most other programs
+<
+
+Alternately, add this to your .vimrc:
+
+>
+    set backspace=indent,eol,start
+<
+
+See :help 'backspace'
+
+STRANGE CHARACTERS ARE INSERTED       *vtw-68-strange-characters-are-inserted*
+
+Backspace just puts weird characters in my file.
+
+See :help |:fixdel|.
+
+There's also a bug in xterm (at least v224) that may bring other users into 
+the same backspace problem. Here's the link: 
+http://bugs.gentoo.org/show_bug.cgi?id=154090 
+[http://bugs.gentoo.org/show_bug.cgi?id=154090].
+
+If backspace doesn't work properly in insert mode, e.g. inserting '^?', try 
+putting this your .bashrc:
+
+>
+    stty erase '^?'
+<
+
+DELETE KEY PROBLEMS                               *vtw-68-delete-key-problems*
+
+From :help |:fixdel| (please read all):
+
+If your delete key terminal code is wrong, but the code for backspace is alright, you can put this in your vimrc:
+:fixdel
+This works no matter what the actual code for backspace is.
+ This is, at best, horrifically misleading. In particular, this will break things for Linux users, and for any other Unix system that has "seen the light". For most modern terminal emulators, <BS> sends ^? and <Del> sends ^[[3~ - and putting :fixdel into your .vimrc will change t_kD from the correct ^[[3~ to the incorrect ^H.
+
+For many terminal emulators, Backspace will send either <C-?> or <C-h>, and 
+Ctrl-Backspace will emit the other. So, if you don't want to spend the time to 
+fix your settings, you might be able to work around your problems using 
+ctrl+backspace instead of backspace.
+
+CHECKING FOR BAD MAPPINGS                   *vtw-68-checking-for-bad-mappings*
+
+Your backspace key may be broken due to a bad mapping which has been loaded 
+into Vim. This may be unintentional; Vim sees CTRL-H as a backspace (because 
+CTRL-H is the ASCII code for a backspace), so you also cannot map anything to 
+that. You can check if there are any mappings set, and where they came from, 
+like this:
+
+>
+    :verbose imap <BS>            " show insert-mode mapping for Backspace key
+       or
+    :verbose imap ^H              " insert this with Ctrl+V then Ctrl+H
+<
+
+If you find a mapping you can try clearing it with:
+
+>
+    :iunmap <BS>                  " remove insert-mode mapping for Backspace key
+<
+
+If you want to create your own emergency mapping, you could try:
+
+>
+    :imap ^H <Left><Del>          " map Ctrl+H to move left and delete the char
+<
+
+If you want an even more authentic mapping for a malfunctioning Backspace 
+key, try this function:
+
+>
+    func Backspace()
+      if col('.') == 1
+        if line('.')  != 1
+          return  "\<ESC>Dk$p\<S-J>i"
+        else
+          return ""
+        endif
+      else
+        return "\<Left>\<Del>"
+      endif
+    endfunc
+<
+
+And add put this mapping into your .vimrc:
+
+>
+    inoremap <BS> <c-r>=Backspace()<CR>
+<
+
+SEE ALSO                                                     *vtw-68-see-also*
+    - Fix broken arrow key navigation in insert mode |vtw-1290| cursor key problems 
+
+
+COMMENTS                                                     *vtw-68-comments*
+
+Might want to add following info somewhere in tip:
+
+On many Linux systems, running in an xterm window:
+    - Backspace key emits <BS> (8 or ^H) 
+    - Ctrl-Backspace key combination emits <Del> (127 or ^?) 
+
+
+I got it to work on my system by creating a .vimrc file in the home directory 
+with the line:set t_kb=^?where for ^? I pressed backspace. Don't forget to 
+open a new terminal window after your changes in .vimrc
+
+On some Linux systems, pressing backspace in xterm or uxterm will move the 
+cursor left (without deleting the character). To fix, add:
+
+>
+    xterm.*backarrowKey: false
+<
+
+To your .Xresources file and run:
+
+>
+    xrdb -merge ~/.Xresources
+<
+
+==============================================================================
+
+Alternatively, in .vimrc, type this:"imap ^? ^H"
+
+==============================================================================
+
+My terminal sends ^? for backspace and ^[[3~ for delete. To get these keys 
+working in vim like they work in other programs, I put
+
+>
+    :set backspace=indent,eol,start
+    :set t_kb=^?
+    :set t_kD=^[[3~
+<
+
+into my .vimrc. (Of course, using ^V <backspace> and ^V <delete> to insert 
+the characters.)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,76 @@
+*vim-tips-wiki-25.txt*   Color highlighting on telnet                    *vtw-25*
+
+Tip 25 [https://vim.fandom.com/wiki/Color_highlighting_on_telnet]   Previous |vtw-24| Next |vtw-27|
+
+created 2001 · complexity basic · author stephen · version 5.7
+
+==============================================================================
+
+The following settings in vimrc [https://vim.fandom.com/wiki/Vimrc] will 
+enable color highlighting when using SecureCRT and may work on other telnet 
+packages. The terminal type should be selected as ANSI and color enabled.
+
+>
+    if !has("gui_running")
+      set t_Co=8
+      set t_Sf=^[[3%p1%dm
+      set t_Sb=^[[4%p1%dm
+    endif
+<
+
+The `^[` is entered as <Ctrl-v><Esc>
+
+COMMENTS                                                     *vtw-25-comments*
+
+Of course this isn't what I wanted to do. I wanted to get rid of the stupid 
+syntax colors by default.
+
+But by extension: t_Co=1 does this perfectly; I just put it in my system wide 
+vimrc file.
+
+==============================================================================
+
+I think you can enable color via SecureCRT Session Options 
+:Emulation/Terminal : Linux + Ansi ColorAppearance/Current Color Scheme : 
+Windows
+
+==============================================================================
+
+And in most cases the color problems are simply solved by:
+
+>
+    :syntax on
+<
+
+==============================================================================
+
+In most cases the issue with color syntax on SecureCRT is the Encoding 
+option. Under Terminal -> Emulation make sure you have Linux selected. Under 
+Terminal -> Appearance make sure you have UTF-8 as the encoding. This step is 
+often missed. You may need to add export TERM=linux to your bashrc file as 
+well.
+
+==============================================================================
+
+See :help |xterm-color|
+
+Replace the ^[ with a real <Esc> key (type CTRL-V ESC):
+
+>
+    if &term =~ "xterm"
+        if has("terminfo")
+          set t_Co=8
+          set t_Sf=^[[3%p1%dm
+          set t_Sb=^[[4%p1%dm
+        else
+          set t_Co=8
+          set t_Sf=^[[3%dm
+          set t_Sb=^[[4%dm
+        endif
+      endif
+<
+
+This worked perfectly for me on PuTTY. I'm not sure if anything changes for 
+SecureCRT. It only give 8 colors though.
+
+ vim:tw=78:et:ft=help:norl:

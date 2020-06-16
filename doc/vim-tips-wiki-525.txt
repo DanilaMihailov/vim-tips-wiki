@@ -1,0 +1,45 @@
+*vim-tips-wiki-525.txt*   JavaBeans helper function                     *vtw-525*
+
+Tip 525 [https://vim.fandom.com/wiki/JavaBeans_helper_function]   Previous |vtw-524| Next |vtw-526|
+
+created 2003 · complexity intermediate · author Lech Ambrzykowski · version 
+6.0
+
+==============================================================================
+
+This one helps creating beans. Nothing serious actually, but might come in 
+handy.
+
+>
+    nnoremap <buffer> <silent>dc :call <SID>AddBean()<CR>
+    function! s:AddBean()
+      let line = line('.')
+      let name = inputdialog('Enter the name of the variable: ')
+      let type = inputdialog('Enter the type of the variable: ')
+      let upperName = substitute(name, '^\(\w\)\(.*\)$', '\u\1\2', '')
+      call append(line, "\t}")
+      call append(line, "\t\tthis.".name." = ".name.";")
+      call append(line, "\tpublic void set".upperName."(".type." ".name.") {")
+      call append(line, "")
+      call append(line, "\t}")
+      call append(line, "\t\treturn (this.".name.");")
+      call append(line, "\tpublic ".type." get"."".upperName."() { ")
+      call append(line, "")
+      call append(line, "\tprivate ".type." ".name.";")
+      call append(line, "\t//".name)
+      return line
+    endfunction
+<
+
+COMMENTS                                                    *vtw-525-comments*
+
+You might be interested in 
+http://www.ophinity.com/papers/wrangling/index.html#multiply 
+[http://www.ophinity.com/papers/wrangling/index.html#multiply]
+
+It's fairly generic but i use it to chug thru a list of values and apply 
+those to a code-template. it lends itself to setters & getters.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

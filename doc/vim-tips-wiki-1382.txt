@@ -1,0 +1,45 @@
+*vim-tips-wiki-1382.txt*   Auto spelling correction using abbreviations *vtw-1382*
+
+Tip 1382 [https://vim.fandom.com/wiki/Auto_spelling_correction_using_abbreviations]   Previous |vtw-1381| Next |vtw-1384|
+
+created 2006 · complexity basic · author Peter Hodge · version 6.0
+
+==============================================================================
+
+Vim's abbreviation feature also doubles as an on-the-fly spell checker. 
+Simply create abbreviations for words you misspell often and Vim will fix them 
+for you:
+
+>
+    iabbrev mispell misspell
+    iabbrev funciton function
+    iabbrev functiton function
+    iabbrev fucntion function
+    iabbrev funtion function
+    iabbrev erturn return
+    iabbrev retunr return
+    iabbrev reutrn return
+    iabbrev reutn return
+    iabbrev queyr query
+    iabbrev htis this
+    iabbrev foreahc foreach
+    iabbrev forech foreach
+<
+
+For a list of English spelling corrections you can use immediately, check out 
+autocorrect.vim [https://www.vim.org/scripts/script.php?script_id=2429].
+
+COMMENTS                                                   *vtw-1382-comments*
+
+Alternately:
+
+>
+    set dict=/usr/dict/words
+    set spell
+<
+
+and turn completion on.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

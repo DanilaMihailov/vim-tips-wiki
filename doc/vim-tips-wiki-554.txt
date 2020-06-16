@@ -1,0 +1,155 @@
+*vim-tips-wiki-554.txt*   Smarter Table Editing II                      *vtw-554*
+
+Tip 554 [https://vim.fandom.com/wiki/Smarter_Table_Editing_II]   Previous |vtw-552| Next |vtw-555|
+
+created September 10, 2003 · complexity basic · author Usman Latif · version 
+5.7
+
+==============================================================================
+
+In VimTip547 |vtw-547| I described some functions that enable easier 
+navigation and editing of tables. I have considerably enhanced the 
+functionality and placed all the relevant code in a script file script#769 
+[https://www.vim.org/scripts/script.php?script_id=769].
+
+The idea of the script is to automatically extract fields from a table row 
+and use that information to create maps that aid in editing and navigation of 
+the table. The user first marks a table row as the table heading. The line 
+does not literally have to be the table heading, but it should be 
+representative of the typical row of the table in question.
+
+After this step the script maps tab and shift-tab keys to move between 
+fields. These mappings work in both insert and normal modes. The tab mapping 
+is especially useful in insert mode as it inserts the correct amount of 
+padding to reach the start of the next field.
+
+The script also has an alignment feature that aligns the fields of the row 
+with that of the heading. Editing a pre-existing table frequently leads to 
+misaligned rows and this feature alleviates the need to manually add/remove 
+padding.
+
+To better illustrate the functionality of the script, I have created the 
+table below:
+
+>
+    ====================================================================
+    This table      illustrates the use of         table.vim script
+    ====================================================================
+    <Leader>th      marks a line as table heading  and
+    activates maps  for <Tab>                      and <S-Tab> keys
+    <Leader>th      must be invoked on a well      formed line with
+    the right       number of columns
+    This means      that the above line does not   qualify
+    Also notice     that the field separator is    atleast two spaces
+    --------------------------------------------------------------------
+    when the maps   are active, pressing           <Tab> here
+    <-- moves here  <Tab> here                     <-- moves here
+    <==             <S-Tab> moves back to "<=="    <**
+    <S-Tab> here    moves to "<**" above
+    --------------------------------------------------------------------
+    The maps for    <Tab> and <S-Tab> work in      insert and normal
+    modes, and can  be deactivated by pressing     <Leader>tt
+    pressing        <Leader>tt again,              re-enables the maps
+    --------------------------------------------------------------------
+    The script      has some very basic support    for field alignment
+    It is very       easy to get out of alignment        when editing
+    <Leader>ta      on the line above will         fix the line to:
+    It is very      easy to get out of alignment   when editing
+    --------------------------------------------------------------------
+    <Leader>ta      can be very handy if the user  wants to expand or
+    contract        fields, just change the width  of the fields on the
+      heading line      and press                      <Leader>th
+      to mark the       new heading and then           num<Leader>ta
+      on the top        line of the table.             num is the
+      number of         lines in the table
+    --------------------------------------------------------------------
+    The alignment   command fails when a row has   more fields than
+    the heading     or when the contents of a      field don't fit
+    inside the      field, as specified by the     heading row
+    case1           is        this                 row
+    case2 is this row      ...                       ...
+    this is another     example of case2, there    is no space for
+    field           separator on the first         field on above line
+    ====================================================================
+<
+
+If you don't like the default mappings change them to whatever you like. The 
+mappings are defined on top of the table.vim script file.
+
+To install the script, place table.vim in the vim macros directory and source 
+it in your vimrc using:
+
+>
+    source $VIMRUNTIME/macros/table.vim
+<
+
+If you simply want to check the functionality of the script, place the script 
+file in your current directory, open vim in the same directory and use
+
+>
+    :so table.vim
+<
+
+The script can also be downloaded from http://www.techuser.net/files 
+[http://www.techuser.net/files]
+
+COMMENTS                                                    *vtw-554-comments*
+
+I think it belongs in the documentation of the corresponding script. No need 
+to allocate multiple tip/script ids for the same thing. Hence I vote -1 here 
+but 1 on the script.
+
+==============================================================================
+
+The scripts section is a repository for code and the tips section is about 
+solutions to text-editing problems. The two serve very different and distinct 
+purposes. Recently I posted VimTip548 |vtw-548| and someone turned it into a 
+script, script#763 [https://www.vim.org/scripts/script.php?script_id=763]. No 
+one questioned it, as it was a very natural thing to do. Similarly, I have 
+divided this tip into a download part and a problem/solution part, and I 
+consider it good organization.
+
+I think people should be using the scripts section only to provide file 
+downloads. If they have non-trivial comments that provide motivation for 
+downloading the script, they should be putting them in the tips section. That 
+way there will be one central place where users can look for solutions to 
+text-editing problems.
+
+Please post your opinion on the issue as a comment. I suggest that the site 
+maintainers consider all the discussion here and turn it into a set of 
+guidelines for people posting tips/scripts.
+
+==============================================================================
+
+"I think people should be using the scripts section only to provide file 
+downloads."
+
+I disagree.
+
+When you upload a script you want to motivate then and there why people will 
+find it useful. Tips and scripts are both meant for problem/solution 
+descriptions; I select which section to add something depending on whether I 
+am uploading any significant amount of code that people can use out of the box 
+(dump into plugins, etc.).
+
+If everyone followed you and simply put up a .vim file or a tarball in the 
+scripts section, linking to it from a tip with an explanation of what it does, 
+I think vim online would be a lot less useful than it is now. The scripts 
+section would just be a glorified repository, and we could get rid of it from 
+the webpages altogether, simply using the script IDs transparently in the 
+background. There is a reason why both tips and scripts have lots of room for 
+explanation and description. Duplicating something in both places is just 
+noise.
+
+I realize that whether something constitutes a tip or script is a subjective 
+opinion. You may disagree with me, but it is not worth debating imo. Select 
+one of the two sections. Just one.
+
+As a postscript, it is interesting to compare the karma of your VimTip548 
+|vtw-548| and Robert Kelly's [/scripts/script.php?script_id=763 vimscript 
+#763]. I will hazard the hypothesis that the vim online community has a pretty 
+good idea of where that particular (very useful!) idea belongs.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

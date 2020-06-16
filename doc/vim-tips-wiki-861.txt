@@ -1,0 +1,77 @@
+*vim-tips-wiki-861.txt*   Right click in Windows Explorer to open gvim in explorer mode *vtw-861*
+
+Tip 861 [https://vim.fandom.com/wiki/Right_click_in_Windows_Explorer_to_open_gvim_in_explorer_mode]   Previous |vtw-860| Next |vtw-862|
+
+created 2005 · complexity intermediate · author corp-mule · version 6.0
+
+==============================================================================
+
+It is possible to configure Windows systems so that Windows Explorer includes 
+an "Edit with Vim" item on the right-click context menu (see here 
+[https://vim.fandom.com/wiki/Adding_Vim_to_MS-Windows_File_Explorer_Menu]). 
+This tip shows how to add an "Open Vim here" item when a directory is right 
+clicked, on a 32-bit Windows system. When configured, you can use Windows 
+Explorer to right click a directory, select "Open Vim here", then use the 
+"Explore" mode of Vim to navigate the directory and edit any files it 
+contains.
+
+To do this, we will use the same registry location as used for Windows file 
+associations [https://vim.fandom.com/wiki/Windows_file_associations] to create 
+a specialized custom action available for Folders.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+ORIGINAL TIP                                            *vtw-861-original-tip*
+
+>
+    REGEDIT4
+    
+    [HKEY_CLASSES_ROOT\Folder\shell\VimHere]
+    @="Open Vim here"
+    
+    [HKEY_CLASSES_ROOT\Folder\shell\VimHere\command]
+    @="C:\\Program Files\\Vim\\vim72\\gvim.exe ."
+<
+
+This command will open vim in Explore mode:
+
+
+
+This command will open a new buffer with path set:
+
+
+
+
+
+FROM 200911                                              *vtw-861-from-200911*
+
+Find or create registry key `HKEY_CLASSES_ROOT\Folder\shell\Open Vim 
+here\command` and change the default value to (using the correct path for your 
+system):
+
+>
+    "C:\\Program Files\\Vim\\vim72\\gvim.exe" "%1"
+<
+
+The "Open Vim here" is any text that will be shown on the context menu when a 
+directory is right clicked in Windows Explorer.
+
+The quotes in `"%1"` are required to work with a directory with a space in 
+its name. Alternatively, just use `.` as shown above.
+
+The following could be saved in a .reg file to be imported for a slightly 
+different implementation to achieve the same result. Because this uses 
+`HKEY_CURRENT_USER` the user does not need administrative privileges.
+
+>
+    REGEDIT4
+    [HKEY_CURRENT_USER\Software\Classes\Folder\shell\Open Vim here\command]
+    @="\"C:\\Program Files\\Vim\\vim72\\gvim.exe\" ."
+<
+
+COMMENTS                                                    *vtw-861-comments*
+
+TO DO
+    - Work out what the difference between the procedures is, and probably merge 
+      them. 
+
+
+ vim:tw=78:et:ft=help:norl:

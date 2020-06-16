@@ -1,0 +1,137 @@
+*vim-tips-wiki-1583.txt*   Edit gpg encrypted files                    *vtw-1583*
+
+Tip 1583 [https://vim.fandom.com/wiki/Edit_gpg_encrypted_files]   Previous |vtw-1582| Next |vtw-1584|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Edit_gpg_encrypted_files] 
+2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+Here is an example of some vimrc [https://vim.fandom.com/wiki/Vimrc] commands 
+to enable editing of GPG encrypted files (but see the Comments 
+|vtw-1583-comments| for an improved version).
+
+>
+    " Transparent editing of gpg encrypted files.
+    augroup encrypted
+    au!
+    " First make sure nothing is written to ~/.viminfo while editing
+    " an encrypted file.
+    autocmd BufReadPre,FileReadPre      *.gpg set viminfo=
+    " We don't want a swap file, as it writes unencrypted data to disk
+    autocmd BufReadPre,FileReadPre      *.gpg set noswapfile
+    " Switch to binary mode to read the encrypted file
+    autocmd BufReadPre,FileReadPre      *.gpg set bin
+    autocmd BufReadPre,FileReadPre      *.gpg let ch_save = &ch|set ch=2
+    autocmd BufReadPre,FileReadPre      *.gpg let shsave=&sh
+    autocmd BufReadPre,FileReadPre      *.gpg let &sh='sh'
+    autocmd BufReadPre,FileReadPre      *.gpg let ch_save = &ch|set ch=2
+    autocmd BufReadPost,FileReadPost    *.gpg '[,']!gpg --decrypt --default-recipient-self 2> /dev/null
+    autocmd BufReadPost,FileReadPost    *.gpg let &sh=shsave
+    " Switch to normal mode for editing
+    autocmd BufReadPost,FileReadPost    *.gpg set nobin
+    autocmd BufReadPost,FileReadPost    *.gpg let &ch = ch_save|unlet ch_save
+    autocmd BufReadPost,FileReadPost    *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+    " Convert all text to encrypted text before writing
+    autocmd BufWritePre,FileWritePre    *.gpg set bin
+    autocmd BufWritePre,FileWritePre    *.gpg let shsave=&sh
+    autocmd BufWritePre,FileWritePre    *.gpg let &sh='sh'
+    autocmd BufWritePre,FileWritePre    *.gpg '[,']!gpg --encrypt --default-recipient-self 2>/dev/null
+    autocmd BufWritePre,FileWritePre    *.gpg let &sh=shsave
+    " Undo the encryption so we are back in the normal text, directly
+    " after the file has been written.
+    autocmd BufWritePost,FileWritePost  *.gpg silent u
+    autocmd BufWritePost,FileWritePost  *.gpg set nobin
+    augroup END
+<
+
+RELATED PLUGINS                                     *vtw-1583-related-plugins*
+    - gnupg.vim : transparent editing of gpg encrypted files 
+      [https://www.vim.org/scripts/script.php?script_id=3645] 
+    - tGpg : encrypting files with gpg 
+      [https://www.vim.org/scripts/script.php?script_id=1751] 
+    - openssl.vim : password safe + edit openssl encrypted files 
+      [https://www.vim.org/scripts/script.php?script_id=2012] 
+
+
+SEE ALSO                                                   *vtw-1583-see-also*
+    - Encryption [https://vim.fandom.com/wiki/Encryption] 
+    - viencrypt: shell script to edit encrypted files 
+      [http://github.com/ptarjan/viencrypt] 
+
+
+COMMENTS                                                   *vtw-1583-comments*
+
+AN IMPROVED VERSION                             *vtw-1583-an-improved-version*
+
+It is a bad idea to change 'shell' and 'cmdheight', however temporary, in 
+tips like these, because it distracts the user from the important parts of the 
+script. Also, setting 'shell' to `"sh"` renders this tip unusable for Windows.
+
+It is also quite silly to use several `autocmd`s, and inadvertently depending 
+on Vim executing them in the same order they were defined, to perform a 
+sequence of commands. Use `:|`s or `:function`s instead.
+
+I neither disagree nor agree at this point, but I should point out that Vim will always execute them in the defined order. :help :autocmd mentions that "autocommands execute in the order in which they were given." --Fritzophrenic 18:55, 8 July 2009 (UTC)
+True, or the original tip wouldn't work, but that doesn't mean that depending on this is a good idea. In any case, my major objection is that it makes the code harder to read. (Spiiph 14:27, 27 July 2009 (UTC))
+In this specific case, I agree that autocmds probably shouldn't be used in this fashion; it would be better to define one or two that run a function or use line continuations. However, in general there is nothing wrong with depending on this well-defined and intentional behavior. For example, one can take advantage of the order of execution to set an option to one value for *all* files in one autocmd, and then set it differently for files of a given type in another without any logic needed. All one needs to do is put the specific autocmd after the general one. --Fritzophrenic 15:11, 27 July 2009 (UTC)
+Alright, this I can agree with. (Spiiph 23:05, 28 July 2009 (UTC))
+
+Unnecessarily using `:set` instead of `:setlocal` is now considered a felony 
+in several countries.
+
+Redirecting stderr to `/dev/null` seems strange. If `gpg` runs into any 
+problems, I'd want to know about it. The redirect was, in any case, removed to 
+improve platform independence.
+
+I'm uncertain as to how well the '[,']!gpg commands actually work. It seems 
+like it wouldn't work perfectly in all situations, and that `%!gpg` would be 
+the way to go, but I've left it as it was. Maybe it does something smart that 
+I haven't thought of.
+
+Note that this script is quite nasty in that it empties the 'viminfo' option. 
+Unfortunately, 'viminfo' is not "local to buffer". It's probably best to keep 
+this script in a separate file, and `:source` it only when editing encrypted 
+files.
+
+Note that this script doesn't seem to work out of the box, at least of OSX 10.5.7. It correctly writes encrypted files, but it seems to get confused when trying to open *.gpg files - I think there's just a syntax error on the BufReadPost line with the --decrypt statement. AFAIK the setlocal and execute commands are getting passed to the shell, instead of being executed by Vim. (Anonymous)
+It should be fixed now. (Spiiph 14:27, 27 July 2009 (UTC))
+
+>
+    " Don't save backups of *.gpg files
+    set backupskip+=*.gpg
+    " To avoid that parts of the file is saved to .viminfo when yanking or
+    " deleting, empty the 'viminfo' option.
+    set viminfo=
+    
+    augroup encrypted
+      au!
+      " Disable swap files, and set binary file format before reading the file
+      autocmd BufReadPre,FileReadPre *.gpg
+        \ setlocal noswapfile bin
+      " Decrypt the contents after reading the file, reset binary file format
+      " and run any BufReadPost autocmds matching the file name without the .gpg
+      " extension
+      autocmd BufReadPost,FileReadPost *.gpg
+        \ execute "'[,']!gpg --decrypt --default-recipient-self" |
+        \ setlocal nobin |
+        \ execute "doautocmd BufReadPost " . expand("%:r")
+      " Set binary file format and encrypt the contents before writing the file
+      autocmd BufWritePre,FileWritePre *.gpg
+        \ setlocal bin |
+        \ '[,']!gpg --encrypt --default-recipient-self
+      " After writing the file, do an :undo to revert the encryption in the
+      " buffer, and reset binary file format
+      autocmd BufWritePost,FileWritePost *.gpg
+        \ silent u |
+        \ setlocal nobin
+    augroup END
+<
+
+(Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 17:40, 26 December 2008 
+(UTC))
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

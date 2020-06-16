@@ -1,0 +1,146 @@
+*vim-tips-wiki-699.txt*   Enable servername capability in vim/xterm     *vtw-699*
+
+Tip 699 [https://vim.fandom.com/wiki/Enable_servername_capability_in_vim/xterm]   Previous |vtw-698| Next |vtw-700|
+
+created 2004 · complexity intermediate · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+This tip applies only to non-GUI Vim running in xterm under X11/XWindows 
+(linux, unix or cygwin).
+
+When you want to use Vim's 'clientserver' features, you have this problem 
+with non-GUI Vim under xterm: In Vim under xterm, 'servername' is disabled by 
+default even when 'clientserver' feature is compiled into Vim.
+
+This is different from GUI gvim, where 'servername' is enabled by default.
+
+1. If you want to enable 'servername' for vim/xterm, the first thing to check 
+is whether vim has 'clientserver' feature compiled-in: do ':version' and check 
+for +clientserver; or do
+
+'vim -h| grep servername'
+in shell. If 'clientserver' is compiled in, proceed to the next step.
+If 'clientserver' is not compiled in, you have several choices:
+symlink vim to gvim (if you have gvim installed).
+install vim with 'clientserver' support from binaries
+build vim from sources with clientserver support and install it
+
+2. After you checked that vim has 'clientserver' compiled in, there are 
+several methods to enable 'servername' for vim/xterm. Methods are listed 
+below:
+
+Method (A) If you the want simplest solution, just define shell aliases:
+
+For csh/tcsh: alias vim 'vim --servername vim'
+For bash/ksh: alias vim='vim --servername vim'
+
+The drawback of this method is that vim will not have servername enabled when started from a script.
+
+Method (B) When you're non-root user and vim is installed system-wide by sysadmin:
+
+create directory $HOME/myvim: `mkdir $HOME/myvim`
+add directory $HOME/myvim to your $PATH, but make sure it appears in the PATH the first, before all other directories, or at least before the directory where vim is installed (command 'which vim' tells you where)
+do 'which vim'. Remember directory where system-wide vim is installed. You'll use name of this directory in the next step, in the 2nd line of the script.
+create script called 'vim' in directory $HOME/myvim, with these 2 lines:
+
+#!/bin/sh
+exec /usr/local/bin/vim --servername vim "$@"
+NB: you *must* use full pathname in the 2nd line of the script
+
+chmod a+x $HOME/myvim/vim
+if your shell is tcsh/csh, do 'unhash'
+
+
+Method (C) When you are root user and you want to enable 'server' for all users; or when you are non-root user and you installed vim yourself under your $HOME:
+
+find out where vim is installed: % which vim
+cd to the directory where vim is installed
+remember name of this directory, you'll use in the nest step in the 2nd line of the script:
+in same directory, create script called 'vim.s' with this contents:
+
+#!/bin/sh
+exec /usr/local/bin/vim.bin --servername vim "$@"
+NB: you *must* use full pathname in the 2nd line of the script
+
+chmod a+x vim.s
+mv vim vim.bin
+mv vim.s vim
+
+The drawback of this method is that when you reinstall Vim, you need to repeat the renaming.
+
+COMMENTS                                                    *vtw-699-comments*
+
+This tip contains some decent information on how to set up alias for using 
+the Vim server, and a decent introduction on needing the `+clientserver` 
+feature. It also contains some really bad advice about renaming the vim 
+binary. It can probably be shortened to a couple of paragraphs, and should 
+probably be merged with other tips. (Spiiph 
+[https://vim.fandom.com/wiki/User:Spiiph] 01:55, September 5, 2009 (UTC))
+
+==============================================================================
+
+Of course, if you only want to run Vim as server, you can then invoke it 
+(when desired) as
+
+>
+    vim --servername whatever
+<
+
+replacing "whatever" by the desired server name.
+
+To check whether a server is already running, use
+
+>
+    vim --serverlist
+<
+
+If there is no answer (with exit status zero), it means there is no available 
+server; and if your Vim hasn't got `+clientserver` compiled-in, you'll get an 
+error message and a nonzero exit status.
+
+--Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 07:52, September 5, 2009 
+(UTC)
+
+==============================================================================
+
+For Ubuntu to install +clientserver you need to install vim-gnome, example:
+
+>
+    apt-get install vim-gnome
+<
+
+
+
+==============================================================================
+
+Personnaly I just put the following function in my .zshrc file (but also take 
+a look at the editexisting.vim plugin):
+
+>
+    # Function for always using one (and only one) vim server, even when not
+    # using gvim.
+    # If you really want a new vim session, simply do not pass any
+    # argument to this function.
+    function vim {
+      vim_orig=$(which 2>/dev/null vim)
+      if [ -z $vim_orig ]; then
+        echo "$SHELL: vim: command not found"
+        return 127;
+      fi
+      $vim_orig --serverlist | grep -q VIM
+      # If there is already a vimserver, use it
+      # unless no args were given
+      if [ $? -eq 0 ]; then
+        if [ $# -eq 0 ]; then
+          $vim_orig
+        else
+          $vim_orig --remote "$@"
+        fi
+      else
+        $vim_orig --servername vim "$@"
+      fi
+    }
+<
+
+ vim:tw=78:et:ft=help:norl:

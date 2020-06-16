@@ -1,0 +1,189 @@
+*vim-tips-wiki-810.txt*   Highlight long lines                          *vtw-810*
+
+Tip 810 [https://vim.fandom.com/wiki/Highlight_long_lines]   Previous |vtw-809| Next |vtw-812|
+
+created 2004 · complexity intermediate · author Nitin Raut · version 6.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+Vim 7.3 adds the 'colorcolumn' option which allows you to highlight a 
+specific column. The methods herein may be useful for some users however.
+
+There are a number of situations where it can be helpful to know when you are 
+near, or have exceeded a certain column width (say 80 columns). Vim's 
+highlighting features can be used to easily identify when this occurs. Unlike 
+some editors, Vim cannot show a line at this width.
+
+You can also wrap long lines |vtw-38|, or show `<` > flags when characters 
+are not displayed |vtw-396#HighlightLongLines| on long lines.
+
+SEARCHING                                                  *vtw-810-searching*
+
+A quick method to find long lines is a search like the following. If you use 
+search highlighting |vtw-14| (`:set hlsearch`), this will highlight all text 
+after virtual column 80 (after tabs are expanded).
+
+>
+    /\%>80v.\+
+<
+
+MATCHING                                                    *vtw-810-matching*
+
+A simple command will highlight any text after virtual column 80:
+
+>
+    :match ErrorMsg '\%>80v.\+'
+<
+
+Of course, you can define your own highlight groups |vtw-24| if ErrorMsg is 
+not to your taste. Enter `:match` to clear matching.
+
+Alternatively, you can just highlight any character in column 81. This is 
+less visually aggressive if you have lines that extend past 80 characters, and 
+thus is more suited to being placed in your .vimrc and left on all the time.
+
+>
+    :2mat ErrorMsg '\%81v.'
+<
+
+REPLACING                                                  *vtw-810-replacing*
+
+Command to replace line text >80 chars from the previous word boundary to 
+'...':
+
+>
+    :g/\%>79v/norm 77|gElC...
+<
+
+Credit to Accolade from #vim on Freenode.
+
+AUTOMATIC MATCHING                                *vtw-810-automatic-matching*
+
+If you want to be warned whenever text exceeds 80 columns you can use 
+matching. In Vim 7.2 this is easy to achieve with the following commands (the 
+`-1` means any search highlighting will override the match highlighting):
+
+>
+    :let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
+    :let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+<
+
+You can apply this highlighting automatically for all files with something 
+like this in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    :au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
+    :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+<
+
+You can change the `*` to a different pattern, or a comma-separated list, to 
+make it work only for certain file types like `*.c,*.h` for example.
+
+Since matches are local to a window and are not inherited when a new window 
+is created, this method will not necessarily apply to all new windows you 
+create. It will be pretty close, but if you really want to highlight in all 
+windows, you will need to apply the highlighting whenever you detect a window 
+creation [https://vim.fandom.com/wiki/Detect_window_creation_with_WinEnter].
+
+Clear the highlighting with:
+
+>
+    :call matchdelete(w:m1)
+    :call matchdelete(w:m2)
+<
+
+Alternatively, the following command will clear all matches that have been 
+defined for this window:
+
+>
+    :call clearmatches()
+<
+
+AUTOMATIC MATCHING (FOR VIM BEFORE VERSION 7.1.40) *vtw-810-automatic-matching-(for-vim-before-version-7.1.40)*
+
+For earlier versions of Vim, the following is a close approximation:
+
+>
+    :syntax match Search /\%<81v.\%>77v/
+    :syntax match ErrorMsg /\%>80v.\+/
+<
+
+>
+    :au BufRead,BufNewFile * syntax match Search /\%<81v.\%>77v/
+    :au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
+<
+
+Note the use of BufRead and BufNewFile instead of BufWinEnter. Unlike 
+matches, syntax is local to the buffer instead of the window.
+
+Clear the highlighting (after saving any changes) with:
+
+>
+    :e
+<
+
+This assumes you are editing a file using syntax rules contained in a syntax 
+file (which usually do a `syntax clear` before applying their rules). If you 
+are editing a file with no pre-existing syntax rules, you can get rid of all 
+syntax highlighting with:
+
+>
+    :syntax clear
+<
+
+TOGGLE MATCHING BASED ON TEXTWIDTH *vtw-810-toggle-matching-based-on-textwidth*
+
+If you don't like to always highlight long lines, but you want a fast way to 
+check your line length, you can define a mapping to toggle highlighting 
+on/off. This also allows you to easily define the highlight in terms of the 
+'textwidth' option. The mapping could look like this:
+
+>
+    nnoremap <silent> <Leader>l
+          \ :if exists('w:long_line_match') <Bar>
+          \   silent! call matchdelete(w:long_line_match) <Bar>
+          \   unlet w:long_line_match <Bar>
+          \ elseif &textwidth > 0 <Bar>
+          \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
+          \ else <Bar>
+          \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
+          \ endif<CR>
+<
+
+EXPLANATION                                              *vtw-810-explanation*
+
+The search pattern \%>80v.\+ checks for a match at each position. If the 
+position being tested is at a virtual column above 80, the text at that 
+position is checked to see if it matches what follows (`.\+`). That matches 
+one or more characters, up to but not including the end-of-line.
+
+A simpler pattern such as `\%81v.*` fails to highlight text past the limit if 
+there is no character in virtual column 81, for example if a tab starts just 
+before that column. Furthermore, `\%81v.*` can give an erroneous highlight of 
+column 81 on lines of exactly 80 characters.
+
+The pattern \%<81v.\%>77v matches any character at virtual column 77 to 80 
+inclusive. The pattern checks for a match at each position: `\%<81v.` matches 
+any character at a virtual column below 81; \%>77v causes the match to fail 
+unless the virtual column of the next character is above 77.
+
+REFERENCES                                                *vtw-810-references*
+    - :help |matchadd()| 
+    - :help |:match| 
+    - :help |/\%v| 
+
+
+COMMENTS                                                    *vtw-810-comments*
+
+Textwidth-based matching can be made automatic using the OptionSet autocmd 
+event introduced in Vim 7.4.786 
+[https://github.com/vim/vim/releases/tag/v7.4.786]. I'm not spending time to 
+figure out an exact script at the moment since I've personally switched over 
+to the 'colorcolumn' option. --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] (talk 
+[https://vim.fandom.com/wiki/User_talk:Fritzophrenic]) 16:10, September 2, 
+2015 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,101 @@
+*vim-tips-wiki-428.txt*   Wordwise Ctrl-Y in insert mode                *vtw-428*
+
+Tip 428 [https://vim.fandom.com/wiki/Wordwise_Ctrl-Y_in_insert_mode]   Previous |vtw-427| Next |vtw-431|
+
+created 2003 · complexity basic · author Dubhead · version 5.7
+
+==============================================================================
+
+Ctrl-Y in insert mode is one of Vim's handy extensions that inserts character 
+which is above cursor (see :help i_CTRL-Y). However, sometimes this is not 
+very useful when a user wants to insert many characters. In this case it's 
+better to get a word above the cursor.
+
+Put this in vimrc:
+
+>
+    " Wordwise Ctrl-Y in insert mode
+    noremap! <C-Y> <Esc>klyWjpa
+<
+
+You might want to substitute 'W' with 'w', 'E', or 'e'. Try them and choose 
+one that works best for you.
+
+Unfortunately, this simple map doesn't work at the beginning or end of line. 
+Improvements are welcome.
+
+COMMENTS                                                    *vtw-428-comments*
+
+How about a small mod:
+
+>
+    noremap! <C-Y> <Esc>klyWjPa
+<
+
+==============================================================================
+
+Other interesting variants, depending upon what one wants:
+
+>
+    inoremap <C-Y> <Esc>klyiWjPa
+    inoremap <C-Y> <Esc>klyiwjPa
+<
+
+The yiw yanks the "inner word", yiW yanks the "inner WORD". Both of these 
+forms appear to work at both the beginning and end of sentences, with the 
+exception that neither works for a single letter word at the beginning of a 
+sentence.
+
+==============================================================================
+
+I think
+
+>
+    :imap <F1> <C-O>:set virtualedit=all<CR><C-O>k<C-O>yw<C-O>j<C-O>P<C-O>:set virtualedit=<CR>
+<
+
+is a little bit better, but not really satisfying (a bug in 
+virtualedit/<C-O>?).
+
+==============================================================================
+
+Hmm.. I can't get Ctrl-Y to work at all :( I tried :behave xterm but it 
+doesn't seem to do anything for me :(
+
+==============================================================================
+
+I found it works in the Linux version, but not in Windows.
+
+Which version doesn't work for you? I tried using the inoremap <expr> mapping and also using the mapping with the F1 key. Both worked without problems. So be please specific, what mapping did you use, what happened, did you get an error message, etc... Chrisbra 07:22, November 15, 2011 (UTC)
+
+==============================================================================
+
+Here is a somewhat elaborate solution that fixes several problems:
+    - works at the beginning of a line 
+    - terminates at the end of a line (doesn't do anything weird) 
+    - doesn't overwrite the unnamed (last used) register `@"` 
+
+
+>
+    " wordwise yank from line above
+    inoremap <silent> <C-Y> <C-C>:let @z = @"<CR>mz
+                            \:exec 'normal!' (col('.')==1 && col('$')==1 ? 'k' : 'kl')<CR>
+                            \:exec (col('.')==col('$')-1 ? 'let @" = @_' : 'normal! yw')<CR>
+                            \`zp:let @" = @z<CR>a
+<
+
+What it does:
+
+You can also change the mapping to yank to the end of a word (change "yw" to 
+"ye" on the third line).
+
+==============================================================================
+
+If you have Vim 7 you can use an expression mapping to simplify the mapping. 
+This mapping also will not overwrite any registers or marks
+
+>
+    inoremap <expr> <c-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+<
+
+ vim:tw=78:et:ft=help:norl:

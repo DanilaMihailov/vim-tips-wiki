@@ -1,0 +1,142 @@
+*vim-tips-wiki-1361.txt*   Disable automatic comment insertion         *vtw-1361*
+
+Tip 1361 [https://vim.fandom.com/wiki/Disable_automatic_comment_insertion]   Previous |vtw-1359| Next |vtw-1363|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+Auto-comment allows easy insertion of additional lines of comments. For 
+example, in a C++ file, if you insert a blank line after a comment line 
+beginning with `//`, Vim may automatically insert `//` at the start of the new 
+line. This tip explains how auto commenting can be disabled.
+
+DISABLING TEMPORARILY FOR THE CURRENT SESSION *vtw-1361-disabling-temporarily-for-the-current-session*
+
+To disable it just once for the current session:
+
+>
+    :set formatoptions-=cro
+<
+
+DISABLING IN GENERAL                           *vtw-1361-disabling-in-general*
+
+To disable for all files and sessions, use this:
+
+>
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+<
+
+This sets up an auto command that fires after any filetype-specific plugin; 
+the command removes the three flags from the 'formatoptions' option that 
+control the automatic insertion of comments. With this in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc], a comment character will not be 
+automatically inserted in the next line under any situation.
+
+Use this command to check your format options:
+
+>
+    :set formatoptions?
+<
+
+C++ SINGLE-LINE COMMENTS                   *vtw-1361-c++-single-line-comments*
+
+Many C++ and C programs use `//`-style single line comments, like this:
+
+>
+    // This is a comment.
+<
+
+When file type detection is enabled (for example, with `filetype plugin 
+indent on` in your vimrc; see here 
+[https://vim.fandom.com/wiki/Keep_your_vimrc_file_clean]), the file 
+`$VIMRUNTIME/ftplugin/c.vim` is sourced when you edit a C or C++ file. The 
+`c.vim` script sets the 'comments' option for the local buffer (that is, for 
+the C or C++ file).
+
+One result is that when the cursor is in the `// This is a comment.` line, 
+pressing Enter will automatically insert the comment string (`//`) at the 
+beginning of the next line. It is possible to disable this action, while 
+leaving other auto-commenting features unchanged. To do this, create the file 
+`~/.vim/after/ftplugin/c.vim` (Unix) or `$HOME/vimfiles/after/ftplugin/c.vim` 
+(Windows), creating the directories if needed. The file contains these lines:
+
+>
+    setlocal comments-=://
+    setlocal comments+=f://
+<
+
+When you edit a C or C++ file, the first `c.vim` (in `$VIMRUNTIME/ftplugin`) 
+will be sourced, then the second `c.vim` (in `after/ftplugin`) will be 
+sourced. The second file modifies the 'comments' option by removing (`-=`) the 
+`://` component, then adding (`+=`) the `f://` component. The `f` causes the 
+`//` to be used for a comment only on the first line, that is, Vim will not 
+try to insert `//` on following lines.
+
+Creating the second `c.vim` is the recommended procedure, but an alternative 
+would be to create an auto command by placing the following line in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    au FileType c,cpp setlocal comments-=:// comments+=f://
+<
+
+This auto command will be executed after the `c` or `cpp` file types are set. 
+The command performs the same modification to the 'comments' option as before, 
+but uses the shortcut of placing the two operations in a single command.
+
+OVERRIDING FORMAT OPTIONS SET BY FILETYPE PLUGIN *vtw-1361-overriding-format-options-set-by-filetype-plugin*
+
+If you have enabled file type plugins 
+[https://vim.fandom.com/wiki/File_type_plugins], you may notice that your 
+format options still contain `c`, `o`, or `r`, depending on the filetype. One 
+way to override these settings is by creating a file in your `after` 
+directory.
+
+For example, the command `:filetype plugin` sets `formatoptions=lncrq` for 
+Perl files by default. You can modify that setting by creating a file named 
+`perl.vim` with contents:
+
+>
+    setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+<
+
+The `perl.vim` file should be in this directory (which you may need to 
+create): `~/.vim/after/ftplugin` on Unix-based systems; or 
+`$HOME/vimfiles/after/ftplugin` on Windows systems.
+
+REFERENCES                                               *vtw-1361-references*
+    - :help 'formatoptions' 
+    - :help |fo-table| 
+    - :help |format-comments| 
+
+
+COMMENTS                                                   *vtw-1361-comments*
+
+This leaves the cursor on the next line in the fourth position. Any 
+suggestions on how to leave the cursor in the first position of the next line?
+
+==============================================================================
+
+Doesn't work with my VIM installation. Editing ~/.vimrc setting the following 
+(at the bottom of the file) has no effect:
+
+>
+    set comments=
+    
+    set noai nocin nosi inde=
+    
+    au FileType c,cpp setlocal comments-=:// comments+=f://
+    
+    setlocal comments-=:// comments+=f://
+    
+    set comments-=:// comments+=f://
+<
+
+You don't say what you're trying to accomplish, but it looks like youre attempting to remove all automatic indentation, keep automatic insertion of /*...*/ comments in C and C++ code, and remove automatic insertion of //... comments in C and C++ code.
+First, Vim does not automatically indent anything unless you tell it to, with a "filetype indent on" or a "filetype indent plugin on" in your .vimrc. Remove the "indent" keyword and you should not get any automatic indenting. Although it may be a good idea to keep your "set noai..." line to make sure you default to no indents, unless you disable the automatic indent setup per filetype, the filetype indent plugins will override these every time you load a file.
+Your FileType autocmd should work fine, assuming you have automatic filetype detection turned on, and should also render the following setlocal and set commands unnecessary. You say it has no effect. What do you try (step by step) to see that it has no effect? What do you see? What do you expect to see?
+Something to check to point you in the right direction, if the option is not getting set as you expect, is to see where it was last set. Use ":verbose set comments?" for this.
+Fritzophrenic 16:50, January 18, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

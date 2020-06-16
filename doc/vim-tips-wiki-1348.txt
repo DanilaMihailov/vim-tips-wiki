@@ -1,0 +1,125 @@
+*vim-tips-wiki-1348.txt*   Using Vim key bindings while typing non-latin1 text *vtw-1348*
+
+Tip 1348 [https://vim.fandom.com/wiki/Using_Vim_key_bindings_while_typing_non-latin1_text]   Previous |vtw-1347| Next |vtw-1349|
+
+created September 30, 2006 · complexity basic · author Alexander Mikhailian · 
+version 6.0
+
+==============================================================================
+
+When I am typing in cyrillic, I can not access any of the Vim key bindings, 
+unless I switch the keyboard layout to a latin-based one.
+
+There existed a solution for 1-byte locales, the famous langmap command. 
+Putting the following in the vimrc [https://vim.fandom.com/wiki/Vimrc] solved 
+the problem for those who worked in e.g. a koi8-r or cp1251-based locale.
+
+>
+    set langmap=ж;;
+    set langmap=ё`,йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,\
+      вd,аf,пg,рh,оj,лk,дl,э',яz,чx,сc,мv,иb,тn,ьm,б\,,ю.,Ё~,\
+      ЙQ,ЦW,УE,КR,ЕT,HY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,\
+      ОJ,ЛK,ДL,Ж:,Э\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,
+<
+
+Unfortunately, this did not work in a multibyte locale. Instead, one has to 
+map every key independently:
+
+>
+    map ё `
+    map й q
+    map ц w
+    map у e
+    map к r
+    map е t
+    map н y
+    map г u
+    map ш i
+    map щ o
+    map з p
+    map х [
+    map ъ ]
+    
+    map ф a
+    map ы s
+    map в d
+    map а f
+    map п g
+    map р h
+    map о j
+    map л k
+    map д l
+    map ж ;
+    map э '
+    
+    map я z
+    map ч x
+    map с c
+    map м v
+    map и b
+    map т n
+    map ь m
+    map б ,
+    map ю .
+    
+    map Ё ~
+    map Й Q
+    map Ц W
+    map У E
+    map К R
+    map Е T
+    map Н Y
+    map Г U
+    map Ш I
+    map Щ O
+    map З P
+    map Х {
+    map Ъ }
+    
+    map Ф A
+    map Ы S
+    map В D
+    map А F
+    map П G
+    map Р H
+    map О J
+    map Л K
+    map Д L
+    map Ж :
+    map Э "
+    
+    map Я Z
+    map Ч X
+    map С C
+    map М V
+    map И B
+    map Т N
+    map Ь M
+    map Б <
+    map Ю >
+<
+
+COMMENTS                                                   *vtw-1348-comments*
+
+Do :help 'keymap' and discover The Only Right Way.
+
+==============================================================================
+
+Unfortunately, you are wrong, the keymap option is a replacement for the 
+system-wide keyboard layout switcher with the additional feature of not doing 
+the conversion in the command mode.
+
+What is really needed is a way to switch with the system keyboard layout 
+switcher and be able to use Vim key combinations at the same time.
+
+The ideal feature would probably be a way to take into account the system 
+switcher only in editing mode, while falling back to a default one, be it us, 
+us_intl or nl in command and visual modes.
+
+==============================================================================
+
+Sounds well, but this does not work for me (utf-8 locale).
+
+==============================================================================Works for me partially, it allows you to use keys for navigation and for some normal mode commands for example cw or dw work. However more complex commands for example ciw or ysiw" don't work.
+
+ vim:tw=78:et:ft=help:norl:

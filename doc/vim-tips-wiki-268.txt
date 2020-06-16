@@ -1,0 +1,62 @@
+*vim-tips-wiki-268.txt*   Get cursor position as byte percentage instead of line percentage *vtw-268*
+
+Tip 268 [https://vim.fandom.com/wiki/Get_cursor_position_as_byte_percentage_instead_of_line_percentage]   Previous |vtw-267| Next |vtw-269|
+
+created 2002 · complexity intermediate · author Larry Clapp · version 5.7
+
+==============================================================================
+
+On line 300 of a thousand line file, Vim will show you that you're 30% 
+through the file. But what if most of the lines have one character in them, 
+and some of them have twenty thousand? Sometimes it comes in handy to know 
+your percentage through the file in terms of current-byte / total-bytes. I 
+looked through the Vim docs and couldn't find a way to do this, so I wrote a 
+Vim function to show it.
+
+Put this in your vimrc [https://vim.fandom.com/wiki/Vimrc]
+
+>
+    function! Percent()
+      let byte = line2byte( line( "." ) ) + col( "." ) - 1
+      let size = (line2byte( line( "$" ) + 1 ) - 1)
+      " return byte . " " . size . " " . (byte * 100) / size
+      return (byte * 100) / size
+    endfunction
+<
+
+Uncomment the first return to see intermediate values.
+
+And put this somewhere in your "set statusline=...":
+
+>
+    %{Percent()}%%
+<
+
+REFERENCES                                                *vtw-268-references*
+    - :help 'statusline' 
+    - :help |eval| 
+
+
+COMMENTS                                                    *vtw-268-comments*
+
+Here is a variation on the same theme.
+
+Add this to your vimrc, then type `:HowFar` or `:HF` to display "Byte aaaa of 
+bbbbb (xx%)" on the bottom line. Note: The command! statement is one long 
+line.
+
+>
+    function! BytePercent()
+      let CurByte = line2byte (line ( "." ) ) + col ( "." ) - 1
+      let TotBytes = line2byte( line( "$" ) + 1) - 1
+      return ( CurByte * 100 ) / TotBytes
+    endfunction
+    
+    command! -nargs=0 -bar HowFar echo "Byte " . ( line2byte( line( "." ) ) + col( "." ) - 1 ) . " of " . ( line2byte( line( "$" ) + 1 ) - 1 ) . " (" . BytePercent() . "%)"
+    
+    cnoreabbrev HF HowFar
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

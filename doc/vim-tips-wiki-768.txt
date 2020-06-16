@@ -1,0 +1,99 @@
+*vim-tips-wiki-768.txt*   Add/change file extension in current buffer   *vtw-768*
+
+Tip 768 [https://vim.fandom.com/wiki/Add/change_file_extension_in_current_buffer]   Previous |vtw-767| Next |vtw-769|
+
+created August 13, 2004 · complexity basic · author Dave Silvia · version 5.7
+
+==============================================================================
+
+Say I have a file that was loaded with:
+
+>
+    :view ~/thud/foo/bar.c
+<
+
+I now want to save it as, say ~/thud/foo/bar.c.txt
+
+This can be done using these commands.
+
+>
+    command! -nargs=1 AddExt execute "saveas ".expand("%:p").<q-args>
+    command! -nargs=1 ChgExt execute "saveas ".expand("%:p:r").<q-args>
+<
+
+The following saves the current buffer's file as the current buffer's 
+filename with '.c' appended.
+
+>
+    :AddExt .c
+<
+
+The following saves the current buffer's file as the current buffer's 
+filename with the extension changed to '.txt'.
+
+>
+    :ChgExt .txt
+<
+
+REFERENCES                                                *vtw-768-references*
+    - :help |:command| 
+    - :help |expand()| 
+    - :help |<q-args>| 
+
+
+COMMENTS                                                    *vtw-768-comments*
+
+>
+    :w %:p.txt will save the file with .txt added after the existing extension.
+    :w %:p:r.txt will replace the extension with txt.
+<
+
+==============================================================================
+
+Speaking up for mnemonics, some people, newbies especially, have trouble 
+remembering !/*%^, much less, what it may or may not mean. I, for one, find 
+ChgExt easier to remember, not only for use, but for meaning, than w 
+%:p:r.<ext>. When I see the command in my vimrc 2 years from now, I won't have 
+any trouble using it or remembering what it's for. Nor will I have to say, 
+'Let's see, I did that once 2 years ago... gosh, I'll just look it up again in 
+:h expand' (if I remember that I need to look in :h expand). Let's not loose 
+track of one of the major strongpoints of commands: they make tasks easier. 
+It's the same reason things like aliases and functions exist in shells.
+
+Now if you want to change the command to say something like
+
+>
+    command! -nargs=1 ChgExt :w %:p:r.<args>
+<
+
+that's another matter. But to say 'use this anti-mnemonic formula instead of 
+the command' is not very helpful.
+
+Also, the original question was how to ':saveas' not ':w'. One changes the 
+buffer to the new file, the other does not. So, to be correct, the command 
+should be
+
+>
+    command! -nargs=1 ChgExt :saveas %:p:r.<args>
+<
+
+If you have a mind for anti-mnemonics and the like, great! But don't forget 
+many people don't.
+
+==============================================================================
+
+One alternative:
+
+>
+    :w %<.txt
+<
+
+will write to ~/thud/foo/bar.txt
+
+think of a '<' as 'some backspaces' :help |<>|
+    - :help |extension-removal| 
+
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

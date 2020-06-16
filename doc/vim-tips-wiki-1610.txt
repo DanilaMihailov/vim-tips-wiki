@@ -1,0 +1,65 @@
+*vim-tips-wiki-1610.txt*   Create LaTeX Tables                         *vtw-1610*
+
+Tip 1610 [https://vim.fandom.com/wiki/Create_LaTeX_Tables]   Previous |vtw-1609| Next |vtw-1611|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200811#Create_LaTeX_Tables] 
+2008 · complexity basic · version 7.0
+
+==============================================================================
+
+Typesetting LaTeX tables is time consuming and can get very complicated. It 
+is, however, very easy to use the Perl LaTeX::Table 
+[http://search.cpan.org/dist/LaTeX-Table/] module from within Vim. Install the 
+module with:
+
+>
+    $ cpan LaTeX::Table
+<
+
+Then for example, enter the following into a buffer:
+
+>
+    theme=NYC;caption_top=1;caption=Bla
+    Animal & Description & Price
+    Gnat & per gram & 13.65
+    & each & 0.02
+    Gnu & stuffed & 92.59
+<
+
+Now visually select the lines (for example, `ggVG`), and enter the command 
+`!ltpretty` to filter the text through the `ltpretty` script. The lines are 
+replaced with the following LaTeX code:
+
+>
+    % theme=NYC;caption_top=1;caption=Bla
+     % Animal & Description & Price
+     % Gnat & per gram & 13.65
+     % & each & 0.02
+     % Gnu & stuffed & 92.59
+    
+    \definecolor{latextbl}{RGB}{78,130,190}
+    \begin{table}
+    \centering
+    \caption{Bla}
+    \setlength{\extrarowheight}{1pt}
+    \begin{tabular}{|llr|}
+    \hline
+    \rowcolor{latextbl}\multicolumn{1}{|>{\columncolor{latextbl}}c}{\color{white}\textbf{Animal }} & \multicolumn{1}{>{\columncolor{latextbl}}c}{\color{white}\textbf{ Description }} & \multicolumn{1}{>{\columncolor{latextbl}}c|}{\color{white}\textbf{ Price}} \\
+    \hline
+    \rowcolor{latextbl!25}Gnat & per gram & 13.65 \\
+    \rowcolor{latextbl!10}     & each     & 0.02  \\
+    \rowcolor{latextbl!25}Gnu  & stuffed  & 92.59 \\
+    \hline
+    \end{tabular}
+    \end{table}
+<
+
+COMMENTS                                                   *vtw-1610-comments*
+
+A similar alternative is the ViLaTaC script that can be downloaded from 
+https://github.com/tannhuber/vilatac [https://github.com/tannhuber/vilatac]. 
+It provides individual column formatting with a very simple syntax. However, 
+it is intended for publishing. Thus, colorful themes are not supported.
+
+ vim:tw=78:et:ft=help:norl:

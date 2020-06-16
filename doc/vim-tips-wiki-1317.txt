@@ -1,0 +1,123 @@
+*vim-tips-wiki-1317.txt*   Open every buffer in its own tabpage        *vtw-1317*
+
+Tip 1317 [https://vim.fandom.com/wiki/Open_every_buffer_in_its_own_tabpage]   Previous |vtw-1314| Next |vtw-1319|
+
+created 2006 · complexity basic · author Groleo Marius · version n/a
+
+==============================================================================
+
+To open each buffer in its own tabpage, add this to your vimrc:
+
+>
+    :au BufAdd,BufNewFile * nested tab sball
+<
+
+If you feed multiple files to vim from the commandline the `-p` flag will 
+open each one its own tab:
+
+>
+    gvim -p *.py
+<
+
+SEE ALSO                                                   *vtw-1317-see-also*
+    - Launch files in new tabs under Windows 
+      [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Windows] 
+    - Launch files in new tabs under Unix 
+      [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix] 
+
+
+
+
+COMMENTS                                                   *vtw-1317-comments*
+
+I tried the first command and if you are using the MRU plugin it just freezes 
+vim
+
+==============================================================================
+
+I modified it to the following so that every file I open from the command 
+line with Vim also opens in its own tab:
+
+>
+    :au BufAdd,BufNewFile,BufRead * nested tab sball
+<
+
+However when I do `:e!` to reload the current buffer, it always jumps to the 
+last opened tab and reloads it.
+
+==============================================================================
+
+I would like to get each tab bound to a buffer. This hint is one step closer 
+to that, but not quite there yet. Say I am browsing code and I hit Ctrl-] to 
+jump to a class definition which opens up a new file in a new tab, then I hit 
+Ctrl-T to go back to the previous code. Now I have two tabs that have the same 
+file loaded. Is there any way to catch the change buffer event, then find the 
+tab that already has that buffer loaded and switch to that tab? To me this 
+seems like the natural way to use tabs, at least it's how I'm used to using 
+them from all other programs I've ever used tabs in. It seems funny that there 
+is no option to have them work in this way in Vim.
+
+==============================================================================
+
+This seems to do horrid things when I reference the help (e.g. `:help 
+:auto`): from 1 buffer containing the file I'm editing, I end up with 2, each 
+in their own tab. My original file has been hidden, and I've two windows on 
+the helpfile autocmd.txt - one pointing at start-of-file, the other pointing 
+to the referenced tag.
+
+==============================================================================
+
+It also does not work nicely if you use the `:Explore` command to navigate 
+the file system (which I do all the time). Every time you list a new 
+directory, it opens a new tab. Needless to say the tabs pile up quickly.
+
+==============================================================================
+
+I'm not sure why there's such a problem dealing with tabs - at least I don't 
+find them difficult.
+
+When I open a couple files and I want them to be in individual tabs, I add 
+'-p' to the command:`gvim -p file1 file2 ...` and they all open in their own 
+tabs.
+
+Or, if I don't want that behavior, I omit the '-p', and Vim opens them in 
+buffers but doesn't display them, and then, if I decide I want to split a 
+window and show a particular combination of files in the same tab (or window) 
+I can using the standard (old) splitting methods.
+
+If I have a particular buffer I want to open in a tab, after I've loaded it, 
+I use ':tabfind filename' and Vim opens that buffer in a tab. Or, I just open 
+a blank tab (':tabnew') then do a :bu to pull that file into the tab.
+
+==============================================================================
+
+Here is what I use in my .vimrc. I hope it is helpful:
+
+>
+    "--------------------
+    " Function: Open tag under cursor in new tab
+    " Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
+    "--------------------
+    map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    "--------------------
+    " Function: Remap keys to make it more similar to firefox tab functionality
+    " Purpose:  Because I am familiar with firefox tab functionality
+    "--------------------
+    map     <C-T>       :tabnew<CR>
+    map     <C-N>       :!gvim &<CR><CR>
+    map     <C-W>       :confirm bdelete<CR>
+<
+
+==============================================================================
+
+I've modified the original example a little to try and avoid hitting help, it 
+still messes up :e! but mostly works (only briefly tested)
+
+>
+    au BufNewFile,BufRead * nested
+      \ if &buftype != "help" |
+      \   tab sball |
+      \ endif
+<
+
+ vim:tw=78:et:ft=help:norl:

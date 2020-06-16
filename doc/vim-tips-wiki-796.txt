@@ -1,0 +1,94 @@
+*vim-tips-wiki-796.txt*   Search only over a visual range               *vtw-796*
+
+Tip 796 [https://vim.fandom.com/wiki/Search_only_over_a_visual_range]   Previous |vtw-795| Next |vtw-797|
+
+created 2004 · complexity basic · author David Fishburn · version 6.0
+
+==============================================================================
+
+You may want to select an area of text within a file, and then search for 
+occurrences of a string only within that selection. Then you can add the 
+following to your vimrc.
+
+This creates two visual maps, `/` and `?`, the same command you would use in 
+normal mode. Visually select a range and press /, enter your usual regex and 
+hit enter.
+
+>
+    function! RangeSearch(direction)
+      call inputsave()
+      let g:srchstr = input(a:direction)
+      call inputrestore()
+      if strlen(g:srchstr) > 0
+        let g:srchstr = g:srchstr.
+              \ '\%>'.(line("'<")-1).'l'.
+              \ '\%<'.(line("'>")+1).'l'
+      else
+        let g:srchstr = ''
+      endif
+    endfunction
+    vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
+    vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
+<
+
+The execute is performed outside of the function so that the values remain 
+highlighted (based on the hlsearch option), and the search history is 
+automatically updated. So if you press / (in normal mode instead of visual 
+mode) and press the up arrow, you will see your previous search which can be 
+easily modified.
+
+COMMENTS                                                    *vtw-796-comments*
+
+A much simpler version is to: make your visual selection and then hit <ESC> 
+(returning to normal mode). Then prepend `\%V` to your search, like this:
+
+>
+    /\%Vpattern
+<
+
+Then press enter. If you still want to see your visual selection while you 
+are "n/N"ing to skip around to the other matches, then just type `gv` to 
+reselect the last visual selection.
+
+==============================================================================
+
+Here is another simpler solution that doesn't involve creation of functions. 
+The main difference is that while typing the search string, you are in the 
+real search prompt, which could be advantageous for some users (having maps, 
+abbreviations etc. e.g.)
+
+>
+    vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+    vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+<
+
+==============================================================================
+
+So the disadvantage is when you press "/", you will see "/\%>5\%<25", and 
+then you starting typing. This might confuse some people, but it is certainly 
+an easy map.
+
+I didn't realize that it doesn't matter where the line restrictions are, so I 
+changed my function to:
+
+>
+    let g:srchstr = '\%>'.(line("'<")-1).'l'.
+    \ '\%<'.(line("'>")+1).'l'.
+    \ g:srchstr
+<
+
+So when you hit the Up arrow, you do not have to backspace of the line 
+restrictions, since they are at the beginning of the line instead.
+
+==============================================================================
+
+This tip implements a portion of what VisBlocKSearch() implements, available 
+at Visual Block Commands [http://www.drchip.org/astronaut/vim/index.html#VIS].
+
+To wit: one may use / or ? to do V, v, or ctrl-v selected region searches. 
+Works well with :set hls, by the way. The current tip addresses all 
+visual-selections as if they were V-selected regions (i.e. line limits only).
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

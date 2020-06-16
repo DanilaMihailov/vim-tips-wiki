@@ -1,0 +1,27 @@
+*vim-tips-wiki-817.txt*   Non-blinking block cursor in a Linux console  *vtw-817*
+
+Tip 817 [https://vim.fandom.com/wiki/Non-blinking_block_cursor_in_a_Linux_console]   Previous |vtw-816| Next |vtw-818|
+
+created November 7, 2004 · complexity basic · author David Schweikert · 
+version 5.7
+
+==============================================================================
+
+If you are a Linux user editing with Vim in the console, you can put the 
+following in your vimrc to have a nice non-blinking block cursor like in an 
+xterm:
+
+>
+    if &term == "linux"
+      set t_ve+=^[[?81;0;112c
+    endif
+<
+
+Note that the ^[ above needs to be typed like this: <CTRL-V> <Esc>.
+
+See Documentation/VGA-softcursor.txt in the kernel sources for details about 
+this escape sequence.
+
+COMMENTS                                                    *vtw-817-comments*
+
+ vim:tw=78:et:ft=help:norl:

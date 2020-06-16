@@ -1,0 +1,93 @@
+*vim-tips-wiki-1092.txt*   Keep SQL-PLUS command history under Windows *vtw-1092*
+
+Tip 1092 [https://vim.fandom.com/wiki/Keep_SQL-PLUS_command_history_under_Windows]   Previous |vtw-1090| Next |vtw-1103|
+
+created 2005 · complexity intermediate · author John Kilbourne · version 6.0
+
+==============================================================================
+
+Oracle's SQL*PLUS command line is very spare and simple, and an enjoyable 
+challenge to use, but it does not keep a command history. VimTip41 |vtw-41| 
+addresses this, but I could not get that to work for various reasons. I made a 
+solution that is complicated in some ways (it requires a one-liner .bat file 
+and a one-liner .sql file in addition to an entry in vimrc), but for me it was 
+simpler in that I could get it to work in my situation.
+
+I wanted a log (sqlplus.log) file of my previous sql commands, stored in my 
+%SQLPATH% where my login.sql and other Oracle scripts live. I wanted to see 
+that file even after I quit from the afiedt.buf (the default file created by 
+Oracle upon executing the "edit" command in SQL*PLUS). This is the aspect of 
+VimTip41 |vtw-41| that I could not get to work. Oracle requires that the 
+process that creates that afiedt.buf return control back to Oracle (i.e. you 
+must `:wq` from afiedit.buf). I would have liked a split window viewing both 
+afiedit.buf and sqlplus.log, but have not been able to do that.
+
+So I looked for a way to accomplish these three things:
+    - Append the contents of afiedt.buf to a log file. 
+    - Keep the log file visible after :wq from afiedit.buf. 
+    - Pass the control back to Oracle properly so Oracle could see the contents of 
+      afiedt.buf. 
+
+
+While in SQL*PLUS, I enter
+
+>
+    @edit
+<
+
+at the command prompt to access this one-liner file named edit.sql placed in 
+%SQLPATH% (where Oracle could always find it):
+
+>
+    --filename edit.sql
+    host runvim
+<
+
+Upon reading this file, SQL*PLUS executes the command "runvim" from a newly 
+made shell. Here is the file runvim.bat, placed in my %PATH%:
+
+>
+    :: filename runvim.bat
+    START /B gvim %SQLPATH%sqlplus.history
+<
+
+This starts gvim without making a console window, opening the file 
+"sqlplus.history" in the path %SQLPATH%, an Oracle environment variable set 
+previously .
+
+I edit my SQL commands from sqlplus.history, and copy-paste them to SQL*PLUS 
+when I am done making typos. Or, I can invoke the SQL*PLUS command "edit" (as 
+opposed to my "@edit" invocation which calls the edit.sql file). The "edit" 
+command creates the afiedt.buf file. I want to append the contents of 
+afiedit.buf onto sqlplus.history. I added this little function to my vimrc to 
+do that:
+
+>
+    fu! Sqllog()
+      1,$-1w! >> $SQLPATH/sqlplus.history
+    endf
+    au BufWrite afiedt.buf call Sqllog()
+<
+
+Also, I have this in my vimrc to ensure that Vim does not fork a new process; 
+I believe it is necessary in using the builtin SQL*PLUS "edit" command:
+
+>
+    set guioptions +=f "so gvim does not fork new process
+<
+
+To Do: I would prefer to append the contents of afied.buf after it is quit 
+from, instead of after it is written to, but I am not sure how to do that now. 
+Also, the split window between sqlplus.log and afiedt.buf would be nice to 
+have.
+
+REFERENCES                                               *vtw-1092-references*
+    - :help |:function| 
+    - :help |:au| 
+    - :help |BufWrite| 
+    - :help |gui-fork| 
+
+
+COMMENTS                                                   *vtw-1092-comments*
+
+ vim:tw=78:et:ft=help:norl:

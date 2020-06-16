@@ -1,0 +1,23 @@
+*vim-tips-wiki-1153.txt*   Apply range to any command that does not accept ranges *vtw-1153*
+
+Tip 1153 [https://vim.fandom.com/wiki/Apply_range_to_any_command_that_does_not_accept_ranges]   Previous |vtw-1151| Next |vtw-1154|
+
+created 2006 · complexity basic · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+Some commands do not accept ranges, but you want to execute them for every 
+line in the range.
+
+This trick allows to apply the range to any command that does not accept 
+range directly:
+
+>
+    :n1,n2 g/^/ command
+<
+
+That is, you add `g/^/` between the range and the command.
+
+COMMENTS                                                   *vtw-1153-comments*
+
+ vim:tw=78:et:ft=help:norl:

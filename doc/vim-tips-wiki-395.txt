@@ -1,0 +1,80 @@
+*vim-tips-wiki-395.txt*   Visual marks                                  *vtw-395*
+
+Tip 395 [https://vim.fandom.com/wiki/Visual_marks]   Previous |vtw-394| Next |vtw-396|
+
+created January 8, 2003 · complexity basic · author Thomas Ramming · version 
+6.0
+
+==============================================================================
+
+Setting visual bookmarks in a file can be done in a simple way using Vim's 
+'sign' feature.
+
+This solution just sets the background of the current line to light blue. Add 
+these lines to your gvimrc:
+
+>
+    " define a highlight colour group for bookmarks
+    hi default BookmarkCol ctermfg=blue ctermbg=lightblue cterm=bold guifg=DarkBlue guibg=#d0d0ff gui=bold
+    " define a bookmark / sign: just highlight the line
+    sign define MyBookmark linehl=BookmarkCol
+    " add something to the context menue (right mouse)
+    amenu 1.200 PopUp.-SEP3- :
+    amenu 1.200 PopUp.&mark.set\ bookmark :exe 'sign place 1000 name=MyBookmark line='.line(".").' buffer='.winbufnr(0)<CR>
+    amenu 1.200 PopUp.&mark.del\ bookmarks :sign unplace 1000 <CR>
+    amenu 1.200 PopUp.&mark.list\ bookmarks :sign list<CR>
+<
+
+REFERENCES                                                *vtw-395-references*
+    - :help |:sign| 
+
+
+COMMENTS                                                    *vtw-395-comments*
+
+1. We need to add <silent> on the map to make it work smoothly.
+
+>
+    amenu<silent> 1.200 PopUp.&mark.set\ bookmark :exe 'sign place 1000 name=MyBookmark line='.line(".").' buffer='.winbufnr(0)<CR>
+<
+
+2. Bookmark deletion doesn't work as expected. Is it possible to delete 
+highlighted bookmark under the cursor?
+
+==============================================================================
+
+The problem might be the 'id' (I used the same '1000' for each bookmark). You 
+have to find a way to automatically use unique ids or 'unplace' will delete 
+the bookmarks in the order they have been created.
+
+There is a script 'showmarks' in the script database (search for 
+'showmarks'), which shows 'normal' vim marks.
+
+==============================================================================
+
+To get unique identifier you can use the actual line number as identifier:
+
+>
+    amenu<silent> 1.200 PopUp.&mark.set\ bookmark :exe 'sign place '.line(".").' name=MyBookmark line='.line(".").' buffer='.winbufnr(0)<CR>
+    amenu<silent> 1.200 PopUp.&mark.del\ bookmark :exe 'sign unplace '.line(".")<CR>
+<
+
+==============================================================================
+
+Just download the showmarks.vim plugin from this site and forget about it. 
+It'll automatically show you a mark as a sign when you set one.script#152 
+[https://www.vim.org/scripts/script.php?script_id=152]
+
+==============================================================================
+
+Eventually, I have the following short and sweet version in my .vimrc:
+
+>
+    nme <silent>PopUp.bookmark_&x :exe 'sign unplace '.line(".")<CR>
+    nme <silent>PopUp.bookmark_&a :exe 'sign place '.line(".").
+    ' name=bookmark line='.line(".").' buffer='.winbufnr(0)<CR>
+    sign define bookmark linehl=DiffDelete
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

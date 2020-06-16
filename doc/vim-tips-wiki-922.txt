@@ -1,0 +1,77 @@
+*vim-tips-wiki-922.txt*   Launch lynx to get info for the current word  *vtw-922*
+
+Tip 922 [https://vim.fandom.com/wiki/Launch_lynx_to_get_info_for_the_current_word]   Previous |vtw-920| Next |vtw-923|
+
+created May 5, 2005 · complexity basic · author RichardBronosky · version 6.0
+
+==============================================================================
+
+I use CTRL+L to search php.net for the term under my cursor. The key mapping 
+goes like this:
+
+>
+    nmap ^L :!lynx -accept_all_cookies http://us2.php.net/^R^W\#function.^R^W<CR>
+<
+
+Remember to use CTRL+V CTRL+L to get the ^L and CTRL+V CTRL+R to get the ^R, 
+etc.
+
+My workflow causes me to do most of my PHP development directly on a Unix 
+server over an SSH connection. So, instead of switching from my terminal app 
+to my web browser to search php.net, I like having a single keystroke to do 
+it.
+
+The ^R^W inserts the word under the cursor into the command area. You can use 
+this is many other handy key mappings. The \#func... is to tell lynx to jump 
+to an anchor tag, since all php.net manual pages have an anchor tag named in 
+the form function.{functionName} (and the # is escaped as \# since Vim what to 
+do a path substitution.) I should also note that the anchor part will only 
+work if what you search for a) is a function and not a language construct, or 
+a reference term b) does not contain an underscore. It will still load the 
+page, but you will have to scroll past all of the navigation manually.
+
+COMMENTS                                                    *vtw-922-comments*
+
+Also, use Q to quit lynx instead of just q to avoid the confirmation.
+
+==============================================================================
+
+You can also use the browser plugin script#1053 
+[https://www.vim.org/scripts/script.php?script_id=1053] to view this as a Vim 
+buffer (and use links, etc).
+
+==============================================================================
+
+>
+    nmap ,l :update<CR>:silent !start c:\progra~1\opera75\opera.exe http://us2.php.net/manual/en/function.^R^W.php<CR>
+<
+
+==============================================================================
+
+I remapped gu ('go URL') to bring up w3m:
+
+>
+    nmap gu :!w3m ^R^A<CR>
+<
+
+==============================================================================
+
+This was my implementation (not as nice as the gu map):
+
+>
+    " opening a text based web browser from link under the cursor
+    " Must be at the beginning of the URL text
+    " yW - yanks the WORD
+    " :!w3m <C-R>* - Executes the w3m text browser with contents of the unnamed register
+    nmap ,www yW:!w3m <C-R>*<CR>
+<
+
+But after testing this one works much better:
+
+>
+    nmap gu :!w3m <C-R><C-A><CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

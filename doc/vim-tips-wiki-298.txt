@@ -1,0 +1,98 @@
+*vim-tips-wiki-298.txt*   Changing case with regular expressions        *vtw-298*
+
+Tip 298 [https://vim.fandom.com/wiki/Changing_case_with_regular_expressions]   Previous |vtw-297| Next |vtw-299|
+
+created 2002 · complexity intermediate · author Jonathan McPherson · version 
+5.7
+
+==============================================================================
+
+There are times that you might like to go through a file and change the case 
+of characters that match some criteria. This can be done easily using regular 
+expressions.
+
+In a substitute command [https://vim.fandom.com/wiki/Search_and_replace], 
+place `\U` or `\L` before backreferences for the desired output. Everything 
+after `\U`, stopping at `\E` or `\e`, is converted to uppercase. Similarly, 
+everything after `\L`, stopping at `\E` or `\e`, is converted to lowercase.
+
+Alternatively, use `\u` to uppercase only the first character of what 
+follows, or `\l` to lowercase only the first character.
+
+For example, assume a line with the text "This is a test".
+
+>
+    :s/\(test\)/\U\1 file/
+<
+
+produces: This is a TEST FILE
+
+>
+    :s/\(test\)/\U\1\e file/
+<
+
+produces: This is a TEST file
+
+A backreference is part of a regular expression that refers to a previous 
+part of the regular expression. The most common backreferences are `&` (all 
+the matched text), `\1` (the matched text within the first `\(...\)`), `\2` 
+(the match within the second), and so on.
+
+Some examples that demonstrate the power of this technique:
+
+Lowercase the entire file
+
+>
+    :%s/.*/\L&/
+<
+
+Uppercase all words that are preceded by `<` (an opening HTML tag):
+
+>
+    :%s/<\(\w*\)/<\U\1/g
+<
+
+REFERENCES                                                *vtw-298-references*
+    - :help |sub-replace-special| 
+
+
+COMMENTS                                                    *vtw-298-comments*
+
+Note also the gu<motion> and gU<motion> commands.
+
+For example, ggguG will lowercase the entire file.(gg = go to top, gu = 
+lowercase, G = go to EOF).
+
+==============================================================================
+
+By using the \0 general backref instead of the name ones (\1, \2 etc) you can 
+save some typing for on replace stanza of the regex.
+
+>
+    This regex upper cases an explicit set of words to uppercase in a file.
+    :%s/\(select\)\|\(order)\|\(by\)\|\(from\)\|\(where\)/\U\0/g
+    
+    Not rocket science, but otherwise you'd have to do this:
+    :%s/\(select\)\|\(order)\|\(by\)\|\(from\)\|\(where\)/\U\1\U\2\U\3\U\4\U\5/g
+    
+    [edit:  Much easier to just use this, where either 0 or 1 will work:]
+    :%s/\(select\|order\|by\|from\|where\)/\U\1/g
+<
+
+==============================================================================
+
+convert HTML-Tags to uppercase
+
+>
+    :%s/<\/\=\(\w\+\)\>/\U&/g
+<
+
+or to lowercase
+
+>
+    :%s/<\/\=\(\w\+\)\>/\L&/g
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

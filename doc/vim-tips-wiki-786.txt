@@ -1,0 +1,55 @@
+*vim-tips-wiki-786.txt*   Translate text between different character sets *vtw-786*
+
+Tip 786 [https://vim.fandom.com/wiki/Translate_text_between_different_character_sets]   Previous |vtw-785| Next |vtw-787|
+
+created September 9, 2004 · complexity intermediate · author Breadman · 
+version 5.7
+
+==============================================================================
+
+I tend to swap double and single quotation marks around, as well as other 
+pairs of characters. There is a transform command that I initially thought 
+would be very helpful in script#72 
+[https://www.vim.org/scripts/script.php?script_id=72].
+
+Unfortunately, the original command fails in this case. Below is an updated 
+version which is probably slower, but more powerful, as well as a map for my 
+favorite way to use it.
+
+Also included is a character-switching function I developed in the process, 
+but ended up including inline for efficiency. It turns out that directly 
+assigning to a character in a string (let string[i] = a:new[pos]) is illegal, 
+probably because the rhs can include more than one byte. StrSwitchPos() takes 
+care of that, but doesn't enforce a single-byte replacement.
+
+>
+    " Translate character sets, either in the current line, on a range, or in a string
+    " Note that in this version, unmatched characters in old are deleted
+    command! -nargs=* -range Transform <line1>,<line2> call Transform(<f-args>)
+    function! Transform(old, new, ...)
+      let string = a:0 ? a:1 : getline('.')
+      let i = strlen(string)
+      while i > 0
+        let i = i - 1
+        let pos = stridx(a:old, string[i])
+        if pos > -1
+          let string = strpart(string, 0, i) . a:new[pos] . strpart(string, i + 1)
+        endif
+      endwhile
+      if a:0
+        return string
+      else
+        call setline('.', string)
+      endif
+    endfunction
+    noremap <silent> "" :Transform "' '"<CR>
+    
+    " Spin-off from the above: switch a single character specified by index
+    fun! StrSwitchPos(string, pos, char)
+      return strpart(a:string, 0, a:pos) . a:char . strpart(a:string, a:pos + 1)
+    endfun
+<
+
+COMMENTS                                                    *vtw-786-comments*
+
+ vim:tw=78:et:ft=help:norl:

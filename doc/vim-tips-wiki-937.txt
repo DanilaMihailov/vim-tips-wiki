@@ -1,0 +1,128 @@
+*vim-tips-wiki-937.txt*   Quickly look up Vim help                      *vtw-937*
+
+Tip 937 [https://vim.fandom.com/wiki/Quickly_look_up_Vim_help]   Previous |vtw-936| Next |vtw-939|
+
+created 2005 · complexity basic · author hari_vim · version 6.0
+
+==============================================================================
+
+In addition to the existing techniques for searching Vim help pages, such as 
+the built-in `:helpgrep` and other grep techniques such as using external 
+grep/id-utils, here is another technique that you can use to quickly lookup 
+help topics.
+
+You are probably already aware that Vim creates tags to lookup help topics 
+(using the `:helptags` command), and commands such as `:tselect` (or `:ts` in 
+short) do work in the help windows (it is automatically scoped to only the 
+tags files in your runtime doc directories). This other than providing a way 
+to use familiar tag commands to lookup help topics (such as tag completion and 
+using regex to lookup), allows us to take advantage of any tools that enhance 
+the Vim built-in tag commands. I would like to show here one such tool that 
+you can use.
+
+This requires the tagselect.vim plugin script#1282 
+[https://www.vim.org/scripts/script.php?script_id=1282] and its dependent 
+plugins script#171 [https://www.vim.org/scripts/script.php?script_id=171] and 
+script#197 [https://www.vim.org/scripts/script.php?script_id=197].
+
+The plugin allows you execute a `:tselect` command and view the results in a 
+new window. You can then use Vim's navigation (such as search) to find the tag 
+you want and press Enter to jump to it. When used inside a help window, this 
+naturally works on the help topics too. For example, say you want to view all 
+the topics that have "shell" in their name. One way to do this is use tag 
+completion
+
+>
+    :h shell<Tab>
+<
+
+and go one by one. But this is not easy as often you find tens, if not 
+hundreds of matches for a keyword, so going through the list and using 
+`:tnext` and `:tprevious` commands to navigate to other matching results is 
+painful. But if you use the `:Tselect` command provided by the plugin, it 
+becomes relatively simpler.
+
+>
+    :h
+    :Tselect /.*shell.*
+<
+
+The above gives you the full matching results for all the topics containing 
+"shell" in their names. You can try other regular expressions (see :help 
+|tag-regexp|), but the above is probably the most useful, so you can create a 
+command for it:
+
+>
+    :command! -nargs=+ -complete=tag Helpt :Tselect /.*<args>.*
+<
+
+You can put the above command definition in your vimrc. You can then say:
+
+>
+    :Helpt tag
+<
+
+The best part of this is that you will discover topics that you overlooked 
+several times, including any help topics for plugins.
+
+COMMENTS                                                    *vtw-937-comments*
+
+I prefer the following:
+
+>
+    :he shell<c-d>
+<
+
+That will show a list help topics with 'shell' in the name. From there it is 
+a simple matter to see which help topic you want.
+
+==============================================================================
+
+You can search help without plugins:
+
+>
+    :helpgrep shell
+    :copen
+<
+
+==============================================================================
+
+I also use <ctrl-d> and it completely satisfies me. Could author give any 
+real example which shows that using of that technique gives some noticeable 
+advantages over <ctrl-d>?
+
+==============================================================================
+
+Using <C-D> solution is unwieldy if there are too many hits (I also use this 
+solution though I failed to mention this in my original post because <Tab> 
+does the same as <C-D> for me as I have 'wildmode' set to "list:full"). Ok, 
+here are the benefits I want to point out with the solution using 
+tagselect.vim:
+    - looking up the matching topic - with <C-D> you need to do it visually (it is 
+      not that easy to do random searching using your eyes), - with tagselect.vim, 
+      you can use the vim search. 
+    - selecting a topic - with <C-D> you need to back off the partial pattern 
+      (<C-W> or something like that) and retype the *exact* topic name that you 
+      looked up. - with tagselect.vim, you can just press Enter 
+    - Once you select a topic out of say, 100 matching topics, how would you look 
+      up and jump to another one? - with <C-D>, you need to repeat the :h command 
+      with <C-D> etc. - with tagselect.vim, you would use :Ts command (with no 
+      arguments) and repeat the search and select procedure. 
+    - Using tagselect.vim also allows you to view the filename to narrow down the 
+      topic you want. 
+    - Using :ts or :Ts allows you to specify any regular expression, but :h command 
+      always assumes substring. 
+
+
+The above may not make sense to someone whose needs and usage patterns are 
+different than mine, but I added the tip just in case someone is likely to 
+find it useful as I did.
+
+For the other reader who pointed out the :helpgrep, I already mentioned using 
+this command as an option. Using :cwindow is a good alternative to do search 
+followed by :helpgrep, but this should usually show too many results, which 
+may or not be better (and this shows the actual line as context too).
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

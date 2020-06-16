@@ -1,0 +1,314 @@
+*vim-tips-wiki-923.txt*   Sort lines by a specified word number         *vtw-923*
+
+Tip 923 [https://vim.fandom.com/wiki/Sort_lines_by_a_specified_word_number]   Previous |vtw-922| Next |vtw-925|
+
+created 2005 · complexity intermediate · author Gerald Lai · version 6.0
+
+==============================================================================
+
+Based on the script by Robert Webb found at :help |eval-examples| to sort 
+lines, I made some modifications to enable Sort() to sort lines according to 
+word number count.
+
+I defined words to be clusters of non-whitespace characters separated by 
+whitespace characters. For example, the line "while (k == 0)" has 4 words.
+
+To use, get into visual-block mode (hit Ctrl-V from normal mode, or Ctrl-Q in 
+Windows) and highlight the lines you wish to sort. Then hit <F3> or other key 
+mapping of your choice. You will be prompted to enter a number, which is the 
+word number count from the left.
+
+The functionality of Robert Webb's original script is maintained by entering 
+"0" for the word# count.
+
+Example:
+
+>
+    ID Name PIN E-mail
+    172987129 Jon Doe 5787 jondoe@spamme.com
+    943973494 Don Juan Marco Jr 2001 don@nonexistent.net
+    439872390 Bob Peter Tomalin 7786 tomalin@nospam.edu
+<
+
+To sort by ID, enter "1" for word number. You can also enter a word number 
+count from right by entering a negative number. Since the Name column has a 
+variable number of words for each line, in order to sort by PIN, enter "-2" to 
+indicate the second word from the right.
+
+After that, you will be prompted to enter the sort order. For example, enter 
+"r" to sort in reverse order.
+
+>
+    "Put in vimrc file - tested with GVim 6.3
+    
+    " use visual block <Ctrl-V> to select lines to sort and hit <F3>
+    vmap <F3> :call Sort(Prompt("0","1"),Prompt("1","f"),"Strcmp")<CR>
+    
+    "sort lines function
+    function Sort(wnum, order, cmp) range
+      call SortR(a:firstline, a:lastline, a:wnum, a:order, a:cmp)
+      normal gv
+    endfunction
+    
+    "sort lines recursively
+    function SortR(start, end, wnum, order, cmp)
+      if a:start >= a:end
+        return
+      endif
+      let partition = a:start - 1
+      let middle = partition
+      let partstr2 = Words2(getline((a:start + a:end) / 2), a:wnum)
+      let i = a:start
+      while i <= a:end
+        let str = getline(i)
+        let partstr = Words2(str, a:wnum)
+        if a:order == "r"
+          execute "let result = ".a:cmp."(partstr2, partstr)"
+        else
+          execute "let result = ".a:cmp."(partstr, partstr2)"
+        endif
+        if result <= 0
+          "swap i before partition
+          let partition = partition + 1
+          if result == 0
+            let middle = partition
+          endif
+          if i != partition
+            let str2 = getline(partition)
+            call setline(i, str2)
+            call setline(partition, str)
+          endif
+        endif
+        let i = i + 1
+      endwhile
+      "make sure middle element at end of partition
+      if middle != partition
+        let str = getline(middle)
+        let str2 = getline(partition)
+        call setline(middle, str2)
+        call setline(partition, str)
+      endif
+      call SortR(a:start, partition - 1, a:wnum, a:order, a:cmp)
+      call SortR(partition + 1, a:end, a:wnum, a:order, a:cmp)
+    endfunction
+    
+    "determine compare strings
+    function Words2(line, wnum)
+      if a:wnum > 1
+        return strpart(a:line, matchend(a:line, "\\s*\\(\\S*\\s*\\)\\{".(a:wnum - 1)."}"))
+      elseif a:wnum == 1
+        return strpart(a:line, matchend(a:line, "\\s*"))
+      elseif a:wnum < 0
+        return matchstr(a:line, "\\(\\S*\\s*\\)\\{".(-a:wnum)."}$")
+      else
+        return a:line
+      endif
+    endfunction
+    
+    "compare two strings
+    function Strcmp(str1, str2)
+      if a:str1 < a:str2
+        return -1
+      elseif a:str1 > a:str2
+        return 1
+      else
+        return 0
+      endif
+    endfunction
+    
+    "prompt user for settings
+    function Prompt(str, ...)
+      let default = a:0 ? a:1 : ""
+      if a:str == "0"
+        let str = "Sort by which word [(0)whole line (<0)count from right]? "
+      elseif a:str == "1"
+        let str = "Order [(f)orward (r)everse]? "
+      endif
+      execute "let ret = input(\"".str."\", \"".default."\")"
+      return ret
+    endfunction
+<
+
+Other references:
+    - VimTip588 |vtw-588| 
+    - VimTip800 |vtw-800| 
+
+
+COMMENTS                                                    *vtw-923-comments*
+
+You don't need a script to do this.You can use the built in "sort on last 
+pattern matched" feature.For example to sort on the second blank-delimited 
+word, try
+
+1. /^\S\+\s\zs\S\+/ " to find the start of the second word, note that \zs 
+sets the "start of the match" position
+
+2. :sort // r " to sort lines starting at the start-position of the last 
+match
+
+Thurston1264 [https://vim.fandom.com/wiki/User:Thurston1264] 14:41, July 6, 
+2011 (UTC)
+
+Note, you can eliminate a step, by just including the search pattern into the :sort command, instead of doing a full search first.
+Note also, the 'r' flag given to the :sort command is very important! Without it, the pattern given to a :sort command is the pattern to skip; anything matching this pattern at the beginning of a line will not affect the sort, only the text after the match.
+--Fritzophrenic 19:46, July 6, 2011 (UTC)
+
+==============================================================================
+
+Here is an improved version. Sort lines by word# count or visual area.
+
+To sort by visual area, select a visual area (with a visual block) and enter 
+"v" when prompted for a word# count.
+
+Please disregard the original code and use the one below:
+
+>
+    "Put in vimrc file - tested with GVim 6.3
+    
+    " use visual block <Ctrl-V> to select lines to sort and hit <F3>
+    vmap <F3> :call Sort(Prompt("0","1"),Prompt("1","f"),"Strcmp")<CR>
+    
+    "sort lines function
+    function Sort(wnum, order, cmp) range
+      normal `<
+      execute "let startcol = col(\".\")"
+      normal `>
+      execute "let endcol = col(\".\")"
+      if startcol <= endcol
+        let firstcol = startcol
+        let lastcol = endcol
+      else
+        let firstcol = endcol
+        let lastcol = startcol
+      endif
+      call SortR(a:firstline, a:lastline, firstcol, lastcol, a:wnum, a:order, a:cmp)
+      normal gv
+    endfunction
+    
+    "sort lines recursively
+    function SortR(start, end, first, last, wnum, order, cmp)
+      if a:start >= a:end
+        return
+      endif
+      let partition = a:start - 1
+      let middle = partition
+      let partstr2 = Words2(getline((a:start + a:end) / 2), a:first, a:last, a:wnum)
+      let i = a:start
+      while i <= a:end
+        let str = getline(i)
+        let partstr = Words2(str, a:first, a:last, a:wnum)
+        if a:order == "r"
+          execute "let result = ".a:cmp."(partstr2, partstr)"
+        else
+          execute "let result = ".a:cmp."(partstr, partstr2)"
+        endif
+        if result <= 0
+          "swap i before partition
+          let partition = partition + 1
+          if result == 0
+            let middle = partition
+          endif
+          if i != partition
+            let str2 = getline(partition)
+            call setline(i, str2)
+            call setline(partition, str)
+          endif
+        endif
+        let i = i + 1
+      endwhile
+      "make sure middle element at end of partition
+      if middle != partition
+        let str = getline(middle)
+        let str2 = getline(partition)
+        call setline(middle, str2)
+        call setline(partition, str)
+      endif
+      call SortR(a:start, partition - 1, a:first, a:last, a:wnum, a:order, a:cmp)
+      call SortR(partition + 1, a:end, a:first, a:last, a:wnum, a:order, a:cmp)
+    endfunction
+    
+    "determine compare strings
+    function Words2(line, first, last, wnum)
+      if a:wnum == "v"
+        return strpart(a:line, a:first - 1, a:last - a:first + 1)
+      elseif a:wnum > 1
+        return strpart(a:line, matchend(a:line, "\\s*\\(\\S*\\s*\\)\\{".(a:wnum - 1)."}"))
+      elseif a:wnum == 1
+        return strpart(a:line, matchend(a:line, "\\s*"))
+      elseif a:wnum < 0
+        return matchstr(a:line, "\\(\\S*\\s*\\)\\{".(-a:wnum)."}$")
+      else
+        return a:line
+      endif
+    endfunction
+    
+    "compare two strings
+    function Strcmp(str1, str2)
+      if a:str1 < a:str2
+        return -1
+      elseif a:str1 > a:str2
+        return 1
+      else
+        return 0
+      endif
+    endfunction
+    
+    "prompt user for settings
+    function Prompt(str, ...)
+      let default = a:0 ? a:1 : ""
+      if a:str == "0"
+        let str = "Sort by which word [(0)whole line (<0)count from right (v)isual]? "
+      elseif a:str == "1"
+        let str = "Order [(f)orward (r)everse]? "
+      endif
+      execute "let ret = input(\"".str."\", \"".default."\")"
+      return ret
+    endfunction
+<
+
+==============================================================================
+
+'<,'>!sort -n
+
+Simple
+
+==============================================================================
+
+Unfortunately, ":'<,'>!sort -n" only sorts whole lines, not according to 
+words or visual area. Works great in Linux/Unix environment but need to get 
+sort.exe for Windows.
+
+==============================================================================
+
+I think that using `!sort` as suggested would be a much better idea, but to 
+accomplish the "sort by nth word" functionality of this tip some preparation 
+of the text is needed. Here's an idea for the algorithm to replace the guts of 
+the sort:
+
+Example:to sort on the third word in each line:
+
+>
+    :'<,'>s/^\(\%(\S\+\s\+\)\)\{2\}\(\S\+\s*\)\(.*\)$/\2\1\3
+    :'<,'>!sort
+    :'<,'>s/^\(\S\+\s\+\)\(\%(\S\+\s\+\)\{2\}\)\(.*\)$/\2\1\3
+<
+
+The first command places the "sort word" at the beginning of the line, the 
+second performs the sort (much faster, I imagine, than doing it in a script), 
+and the third restores the "sort word" to its proper place in the line.
+
+There are probably special cases to consider, like when a line does not 
+contain the proper number of words, but I think putting this as the guts of 
+the sort function and adjusting the user input to use it would be a much 
+better method. To use visual selection rather than word number, you could use 
+\%v atoms.
+
+Doing it this way would allow easy expansion to sort by multiple "columns" as 
+well, by moving more than one word to the front of the line.
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 18:07, 21 
+November 2007 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,91 @@
+*vim-tips-wiki-237.txt*   Using vertical splits                         *vtw-237*
+
+Tip 237 [https://vim.fandom.com/wiki/Using_vertical_splits]   Previous |vtw-236| Next |vtw-238|
+
+created April 23, 2002 · complexity intermediate · author Kartik Agaram · 
+version 6.0
+
+==============================================================================
+
+This is just in case there's somebody else who likes to work in a maximized 
+Vim window on a high resolution desktop. If you follow good coding practice 
+and make sure your programs use only 80 characters in each row, have you 
+noticed how much space lies unused on the right?
+
+I find that the following settings keep me from ever seeing another 
+horizontal split, unless I specifically ask for it.
+
+>
+    cabbrev split vsplit
+    cabbrev hsplit split
+    cabbrev sta vertical sta
+    cabbrev help vertical help
+    cabbrev new vnew
+    cabbrev right botright
+    " A more heavyweight solution for ^W^]
+    function! ToggleSplit (dir)
+      let currFname = bufname ("%")
+      let old = winnr ()
+      " Window navigation to ensure the correct window is 'last'.
+      if (a:dir == "u")
+        wincmd k
+        let back="j"
+      elseif (a:dir == "d")
+        wincmd j
+        let back="k"
+      elseif (a:dir == "l")
+        wincmd h
+        let back="l"
+      elseif (a:dir == "r")
+        wincmd l
+        let back="h"
+      endif
+      if (winnr () == old)
+        echo "Ouch"
+        return
+      endif
+      exec "wincmd " . back
+      quit
+      if (back == "j" || back == "k")
+        let orientation = "vsplit"
+      else
+        let orientation = "split"
+      endif
+      if (back == "j" || back == "l")
+        let dir = "below"
+      else
+        let dir = "above"
+      endif
+      exec dir . " " . orientation " " . currFname
+    endfunction
+    noremap ^W^] ^W^]:silent call ToggleSplit ("d")<CR>
+<
+
+Optional.
+
+>
+    set splitright
+<
+
+In which case the above mapping becomes:
+
+>
+    noremap ^W^] :set splitbelow<CR>^W^]:silent call ToggleSplit ("u")<CR>:set nosplitbelow<CR>
+<
+
+Or you could just
+
+>
+    set splitbelow
+<
+
+Very elegant and almost perfect, but it screws up if you want to run a 
+command with ranges
+
+>
+    noremap : :vertical<Space>
+<
+
+COMMENTS                                                    *vtw-237-comments*
+
+ vim:tw=78:et:ft=help:norl:

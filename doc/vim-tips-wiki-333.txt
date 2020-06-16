@@ -1,0 +1,323 @@
+*vim-tips-wiki-333.txt*   Syntax-based folding                          *vtw-333*
+
+
+
+This tip is deprecated for the following reasons:
+
+The c.vim and cpp.vim syntax files include fold information usable by setting 
+foldmethod to "syntax". The java.vim syntax file currently does not define 
+folds, but syntax folding is a much better way to do this and the user can 
+easily add it in the after/syntax directory.Tip 333 [https://vim.fandom.com/wiki/Syntax-based_folding]   Previous |vtw-332| Next |vtw-334|
+
+created 2002 · complexity intermediate · author Kartik Agaram · version 6.0
+
+==============================================================================
+
+Here's a function to toggle the use of syntax-based folding for a c/c++/java 
+file. It also handles folding markers.
+
+>
+    function! OutlineToggle()
+      if (! exists ("b:outline_mode"))
+        let b:outline_mode = 0
+      endif
+      if (b:outline_mode == 0)
+        syn region myFold start="{" end="}" transparent fold
+        syn sync fromstart
+        set foldmethod=syntax
+        silent! exec "%s/{{{/<<</"
+        silent! exec "%s/}}}/>>>/"
+        let b:outline_mode = 1
+      else
+        set foldmethod=marker
+        silent! exec "%s/<<</{{{/"
+        silent! exec "%s/>>>/}}}/"
+        let b:outline_mode = 0
+      endif
+    endfunction
+<
+
+COMMENTS                                                    *vtw-333-comments*
+
+It seems to me that the default folds set up by the C syntax file work great! 
+Just setting `foldmethod=syntax` should do the trick. This allows folding of 
+/*...*/ comments as well. Since it is built into the syntax file, the below is 
+unnecessary, since it already applies all the right groups.
+
+I'm not sure if Java and Cpp syntax files also do this or not, but I assume 
+they do.
+
+==============================================================================
+
+The `syn region myFold start="{" end="}" transparent fold` method does not 
+like to work when you have other syn groups for {,}. I found this annoying (as 
+I like my colored braces) so I figured a pure marker method would work nearly 
+as well, and it does, at least for my uses.
+
+Experiment with the "matchgroup", "contains", "containedin", "keepline", and "extend" options to fix this. I'm sure there is a way to make it work the way you want it. Using syntax folding is certainly the way to go, since that's exactly what you're trying to do here, and you can define multiple fold groups (e.g., folding not only on {..}, but also /*...*/ and #if...#endif).
+
+One way that does work with matchgroup is simply to create 
+~/.vim/after/syntax/c.vim and insert the following line:`syntax region cBlock 
+matchgroup=Operator start="{" end="}" 
+contains=ALLBUT,cCurlyError,@cParenGroup,cErrInParen,cCppParen,cErrInBracket,cCppBracket,cCppString,@Spell 
+fold`Then you may proceed to set highlights on Operator as usual.
+
+Hopefully everything works just did v0.03 and I have run out of time, enjoy!
+
+outlinetoggle.vim from my plugin dir>>>
+
+>
+    " vim:ff=unix ts=4 ss=4
+    " vim60:fdm=marker
+    " \file outlinetoggle.vim
+    "
+    " \brief Vim-Tip #333: Syntax-based folding for c/c++/java
+    "
+    " \author author: Kartik Agaram as of Vim: 6.0
+    " \author Mangled by Feral
+    " \date Tue, 24 Sep 2002 05:44 Pacific Daylight Time
+    " \version $Id$
+    " Version: 0.03
+    " History:
+    " [Feral:267/02@05:43] v0.03:
+    " saves the old marker method now.
+    " stoped trying to be clever (just do the command twice heh)
+    " v0.02
+    " trys to be cleaver and start in the proper outline mode based on if it
+    " finds a "{>>" in the file.
+    
+    "if exists("loaded_outlinetoggle")
+    " finish
+    "endif
+    "let loaded_outlinetoggle = 1
+    
+    " Tip #333: Syntax-based folding for c/c++/java
+    " tip karma Rating 0/0, Viewed by 88
+    "
+    "created: September 23, 2002 18:32 complexity: intermediate
+    "author: Kartik Agaram as of Vim: 6.0
+    "
+    "Here's a function to toggle the use of syntax-based folding for a
+    "c/c++/java file. It also handles folding markers.
+    function! <SID>OutlineToggle()
+      let OldLine = line(".")
+      let OldCol = virtcol(".")
+      if (! exists ("b:outline_mode"))
+        let b:outline_mode = 0
+        let b:OldMarker = &foldmarker
+        " :echo confirm(b:OldMarker)
+        " if search("{>>", 'w') == 0
+          " " no modifed marker found, must be normal marker mode
+          " let b:outline_mode = 0
+        " else
+          " let b:outline_mode = 1
+        " endif
+      endif
+      if (b:outline_mode == 0)
+        let b:outline_mode = 1
+        " syn region myFold start="{" end="}" transparent fold
+        " syn sync fromstart
+        " set foldmethod=syntax
+        " set foldmethod=indent
+        set foldmethod=marker
+        set foldmarker={,}
+        silent! exec "%s/{{{/{<</"
+        silent! exec "%s/}}}/}>>/"
+      else
+        let b:outline_mode = 0
+        set foldmethod=marker
+        let &foldmarker=b:OldMarker
+        " set foldmarker={{{,}}}
+        silent! exec "%s/{<</{{{/"
+        silent! exec "%s/}>>/}}}/"
+      endif
+      execute "normal! ".OldLine."G"
+      execute "normal! ".OldCol."|"
+      unlet OldLine
+      unlet OldCol
+      execute "normal! zv"
+    endfunction
+    command! -nargs=0 OUTLINE call s:OutlineToggle()
+<
+
+==============================================================================
+
+The tip in the comment is great. As is the whole concept of easy folding.I 
+popped this into my .vimrc:
+
+>
+    map <silent> <F12> :OUTLINE<CR>
+<
+
+This makes F12 switch in and out of outline (folded) mode. You could probably 
+use autocommand to make the folding happen when you open something you want to 
+fold.
+
+==============================================================================
+
+I wish I had same thing for comments /* */, but foldermarker does not support 
+regular expression.How about adding alternative foldermarkers?So, we may 
+write:
+
+>
+    set foldermarker1={,}
+    set foldermarker2=/*,*/
+<
+
+To me it sounds like a cool feature.
+
+Please, check more simple implementation and it works with mouse, I tried to 
+reproduce Visual Studio C# editor :)It looks almost the same. This is optimum 
+combination to work with Java files.
+
+>
+    set foldmarker={,}
+    set foldmethod=marker
+    set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
+    set foldcolumn=4
+    set foldlevelstart=1
+<
+
+ostrygun
+
+==============================================================================
+
+Combined feral's tip with the fold columns based on tip comment by ostrygun. 
+Here is the code
+
+>
+    " \file outlinetoggle.vim
+    " \brief Vim-Tip #333: Syntax-based folding for c/c++/java
+    " \author Kartik Agaram as of Vim:   6.0
+    " \author Mangled by Feral
+    " \author Further mauled by rajas_sambhare
+    " \date Tue, 24 Sep 2002 05:44 Pacific Daylight Time
+    " \version $Id$
+    " Version: 0.04
+    " History:
+    " [Feral:267/02@05:43] v0.03:
+    " saves the old marker method now.
+    " stoped trying to be clever (just do the command twice heh)
+    " v0.02
+    " trys to be clever and start in the proper outline mode based on if it
+    " finds a "{>>" in the file.
+    " [Rajas:07/16/04] v0.04.1:
+    " Combined feral's tip with the foldcolumn method and cleaned out comments
+    " from ferals code. Changed commands name to FOLD (shorter :)
+    
+    " Tip #333: Syntax-based folding for c/c++/java
+    " tip karma Rating 0/0, Viewed by 88
+    "
+    "created: September 23, 2002 18:32 complexity:   intermediate
+    "author: Kartik Agaram as of Vim:   6.0
+    "
+    "Here's a function to toggle the use of syntax-based folding for a c/c++/java file. It also handles folding markers.
+    
+    function! <SID>OutlineToggle()
+      let OldLine = line(".")
+      let OldCol = virtcol(".")
+      if (! exists ("b:outline_mode"))
+        let b:outline_mode = 0
+        let b:OldMarker = &foldmarker
+      endif
+      if (b:outline_mode == 0)
+        let b:outline_mode = 1
+        set foldmethod=marker
+        set foldmarker={,}
+        silent! exec "%s/{{{/{<</"
+        silent! exec "%s/}}}/}>>/"
+        set foldcolumn=4
+      else
+        let b:outline_mode = 0
+        set foldmethod=marker
+        let &foldmarker=b:OldMarker
+        silent! exec "%s/{<</{{{/"
+        silent! exec "%s/}>>/{{{/"
+        set foldcolumn=0
+      endif
+      execute "normal! ".OldLine."G"
+      execute "normal! ".OldCol."|"
+      unlet OldLine
+      unlet OldCol
+      execute "normal! zv"
+    endfunction
+    command! -nargs=0 FOLD call s:OutlineToggle()
+<
+
+Copy and save this as outlinetoggle.vim in your Vim/vim63/plugins directory. 
+To toggle folding, type `:FOLD`.Remember you can use :zE to expand all folds.
+
+==============================================================================
+
+It would be cool if there was some way of folding the previous line for those 
+of us that write code like
+
+>
+    int function(....)
+    {
+      ....
+    }
+<
+
+so that the function name was the folded highlight.
+
+==============================================================================
+
+you can always do
+
+>
+    set foldtext=v:folddashes.substitute(getline(v:foldstart-1),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
+<
+
+to have the highlighting be the previous lines text.
+
+==============================================================================
+
+zo = Open a foldzc = Close a fold (The fold region must already exist)zfm = 
+'zf' means to create a fold of movement 'm'
+
+So, if i had a block of code:
+
+>
+    if( predicate )
+    {
+      someFunction();
+    }
+<
+
+If you move the cursor to one of the curly braces, in command mode you type 
+'zf%', then you will end up with a fold looking something like this:
+
+>
+    if( predicate )
+    3 lines: {
+<
+
+The "3 lines: {" will be highlighted, indicating that you have created a 
+fold. Also, "3 lines" tells you how many lines were folded.
+
+==============================================================================
+
+Just a note to all fold users,
+
+>
+    :set fmr={,}
+    :set fdm=marker
+<
+
+Is a quick and easy way to allow folding of anything between angle brackets.
+
+then zM closes all folds and zR opens them all, so I don't know why you need 
+this elaborate solution.
+
+==============================================================================
+
+Since no one else has suggested it:za == toggle fold
+
+I find it much easier to just always use 'za' to open/close folds and let vim 
+figure out to open or close, rather than figuring out to use 'zc' or 'zo' on 
+my own.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

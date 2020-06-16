@@ -1,0 +1,34 @@
+*vim-tips-wiki-900.txt*   Insert comment boxes in your code             *vtw-900*
+
+Tip 900 [https://vim.fandom.com/wiki/Insert_comment_boxes_in_your_code]   Previous |vtw-899| Next |vtw-901|
+
+created March 22, 2005 · complexity intermediate · author Ken Holm · version 
+5.7
+
+==============================================================================
+
+Put this in your vimrc and you can have nicely aligned comment boxes:
+
+>
+    map ,co O#====================================================================================================<CR>#<CR>#====================================================================================================<Esc>100\|Dkk100\|DjA
+<
+
+Note:
+    - The above should all be on one line. 
+    - There is a space after the "A" at the end of the line above. 
+    - While in navigation mode use ,co to create a comment block. 
+    - The comment block will chop off at column 100. 
+    - It relies on having autoindent set. 
+
+
+COMMENTS                                                    *vtw-900-comments*
+
+This should have the same result, I believe:
+
+>
+    map ,co O#<Esc>100A=<Esc>100\|D<CR>i#<CR><Esc>i##<Esc>100a=<Esc>100\|D<Esc>kA
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

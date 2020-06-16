@@ -1,0 +1,39 @@
+*vim-tips-wiki-284.txt*   Print syntax highlighted buffer in one color  *vtw-284*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip111 |vtw-111| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 284 [https://vim.fandom.com/wiki/Print_syntax_highlighted_buffer_in_one_color]   Previous |vtw-283| Next |vtw-285|
+
+created July 20, 2002 · complexity basic · author Sean · version 6.0
+
+==============================================================================
+
+I use this mapping to print syntax highlighted C++ code in B&W.
+
+This tip needs print_bw 
+[https://www.vim.org/scripts/script.php?script_id=233].
+
+The mapping is as follows
+
+>
+    map <C-p> :color print_bw<CR>:hardcopy<CR>:color sean<CR>:syn on<CR>
+<
+
+Change ":color sean" to whatever is your chosen color scheme.
+
+Need to change line 7 of print_bw from "syntax reset" to "syntax off".
+
+<C-p> on a syntax highlighted buffer turns off syntax highlighting, sets the 
+colors to B&W, prints the buffer, resets the color scheme and turns on syntax 
+highlighting again.
+
+COMMENTS                                                    *vtw-284-comments*
+
+ vim:tw=78:et:ft=help:norl:

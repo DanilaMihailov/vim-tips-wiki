@@ -1,0 +1,246 @@
+*vim-tips-wiki-626.txt*   Open vimrc file                               *vtw-626*
+
+Tip 626 [https://vim.fandom.com/wiki/Open_vimrc_file]   Previous |vtw-625| Next |vtw-627|
+
+created 2003 · complexity basic · version 6.0
+
+==============================================================================
+
+WHAT IS VIMRC?                                        *vtw-626-what-is-vimrc?*
+
+The vimrc file contains optional runtime configuration settings to initialize 
+Vim when it starts. On Unix based systems, the file is named `.vimrc`, while 
+on Windows systems it is named `_vimrc`. :help |vimrc|
+
+You can customize Vim by putting suitable commands in your vimrc. Here is a 
+very simple example:
+
+>
+    " Always wrap long lines:
+    set wrap
+<
+
+Lines that begin with " are comments and are not read by vim.
+
+Search for file `vimrc_example.vim` in your Vim files for another example. 
+:help |vimrc-intro| :help |vimrc_example.vim|
+
+To customize Vim for editing a specific file, or a specific type of file, you 
+can use modelines [https://vim.fandom.com/wiki/Modeline_magic], or auto 
+commands, or filetype plugins. :help |auto-setting| :help |filetype|
+
+LOCATION OF VIMRC                                  *vtw-626-location-of-vimrc*
+
+In Vim, your home directory is specified with `$HOME`. On Unix systems, this 
+is your `~` directory. On Windows systems, the best way to find the value of 
+`$HOME` is from within Vim, as follows. These commands are useful to see what 
+directories your Vim is using:
+
+>
+    :version
+    :echo expand('~')
+    :echo $HOME
+    :echo $VIM
+    :echo $VIMRUNTIME
+<
+
+Note the 'system vimrc file' and 'user vimrc file' paths displayed by the 
+`:version` command. The system vimrc file can be created by an administrator 
+to customize Vim for all users. In addition, each user can have his or her own 
+user vimrc.
+
+The output from `:version` includes the paths of the system and user vimrc 
+and gvimrc files.For example:
+
+>
+    system vimrc file: "$VIM/vimrc"
+         user vimrc file: "$HOME/.vimrc"
+          user exrc file: "$HOME/.exrc"
+      system gvimrc file: "$VIM/gvimrc"
+        user gvimrc file: "$HOME/.gvimrc"
+<
+
+If the gvimrc files exist, they are used to configure Vim when the GUI 
+version (gvim) runs (after settings from vimrc are applied).
+
+Settings for gvim can also be placed in the vimrc file using a 
+has('gui_running') check:
+
+>
+    if has('gui_running')
+      set guioptions-=T  " no toolbar
+      colorscheme elflord
+    endif
+<
+
+Although this can be useful to avoid the clutter of both a vimrc and gvimrc 
+file, using the gvimrc file has distinct benefits over the "gui_running" 
+check. The most notable being that a gvimrc file is sourced when using the 
+|:gui| command to change a vim session into a gvim session. Anything that was 
+in the vimrc inside a "gui_running" check will not be applied since the vimrc 
+is only sourced when Vim initially starts.
+
+PER-DIRECTORY VIMRC                              *vtw-626-per-directory-vimrc*
+
+Vim can be configured so that, when starting, it reads commands from a vimrc 
+file in the current directory, after reading the primary vimrc. This is 
+configured by adding `set exrc` to the primary vimrc file. Setting 'exrc' can 
+be a security problem because it means Vim will execute commands from any 
+vimrc file in the directory where Vim is started. :help 'exrc' For that 
+reason, set the 'secure' option if you use this option, and you may also want 
+to limit setting this option to when Vim is started from known "safe" 
+directory trees:
+
+>
+    if getcwd() =~# '^\(/my/safe/dir1/\|/my/safe/dir2/\)'
+      set secure exrc
+    endif
+<
+
+OPENING VIMRC                                          *vtw-626-opening-vimrc*
+
+If Vim finds your vimrc file during startup, Vim will set the `MYVIMRC` 
+environment variable to the full path of the vimrc file. Similarly, if your 
+gvimrc file is found, the `MYGVIMRC` variable is set. Therefore, you can 
+easily edit these files from within Vim:
+
+>
+    :e $MYVIMRC
+    :e $MYGVIMRC
+<
+
+Using file name completion, you could type `:e $M` then press Tab until you 
+see the desired variable. If you only want to see the path, type `:echo $M` 
+then press Tab to see the variable, and press Enter.
+
+In gvim, the Edit menu includes "Startup Settings" which will use `$MYVIMRC` 
+to edit your vimrc file. If `$MYVIMRC` does not exist, "Startup Settings" will 
+create a new file using the "user vimrc file" path shown by the `:version` 
+command.
+
+SOURCING VIMRC                                        *vtw-626-sourcing-vimrc*
+
+After you have saved changes to your vimrc file, you can see the results by 
+exiting from Vim, then starting Vim again.
+
+If you are making frequent changes, you might want to "source" (execute) the 
+changed vimrc file without exiting:
+
+>
+    :so $MYVIMRC
+    " Alternative that can be used if vimrc is the current file:
+    :so %
+<
+
+Warning You may need to plan your vimrc so re-sourcing does not cause 
+problems. If you define commands, functions, or autocmds, you must make them 
+remove or override the previous version when sourced, or you will get errors 
+(for commands and functions) or duplicates (for autocmds). Here are some 
+examples that will work correctly when re-sourced:
+
+>
+    " Use bang (!) to redefine a command or function, if already defined.
+    command! Mycommand echo "Hello!"
+    function! Myfunc()
+      echo "Hello!"
+    endfunction
+    
+    " Put all autocmds in some augroup and use au! to clear the group.
+    augroup vimrc_autocmds
+      au!
+      autocmd BufRead * echo "File read!"
+    augroup END
+<
+
+RECOVERING FROM ERRORS                        *vtw-626-recovering-from-errors*
+
+Some errors in your vimrc may prevent Vim from starting successfully. A 
+reliable way to handle that would be to rename your vimrc file, then edit the 
+renamed file, then give it the correct name. Alternatively, you could start 
+Vim with a command like this (or use "gvim" if that is how you run Vim):
+
+>
+    vim -N -u NONE -U NONE
+<
+
+The `-N` starts in "not compatible" mode (that is, with extra Vim features). 
+The `NONE` argument (must be uppercase) skips initializations and does not 
+read any vimrc file (`-u`), and does not read any gvimrc file (`-U`).
+
+You could now use the `:version` command to show the vimrc path, then enter a 
+command to edit that file.
+
+COMMENTS                                                    *vtw-626-comments*
+
+TO DO
+    - What else is needed to explain what vimrc is, and how to use it, for a 
+      beginner? 
+    - Do something with the following text from the original tip (if keep it, need 
+      to fix text because it assumes you have used some standard setup for 
+      installation, and assumes $VIM and $HOME are some default, and of course is 
+      for Windows): 
+
+
+On Windows, when you start Vim normally, it *either* runs the file 
+"C:\Documents and Settings\(user name)\_vimrc" (where "(user name)" is 
+replaced by the actual user name); *or*, if that file doesn't exist (it 
+usually doesn't, for most users), it runs the file "C:\Program 
+Files\vim\_vimrc". Note that if you have more than one disk your home may be 
+different; do an ":echo $HOME" to know where is your home. You should also see 
+the _viminfo file in that directory.
+    - Include information for Windows: - When `$HOME` is not defined, it is created 
+      by combining `$HOMEDRIVE` and `$HOMEPATH` (if defined). - The recommended 
+      method to define `$HOMEDRIVE` and `$HOMEPATH` is to set the "Home folder ... 
+      Local path" on the Profile tab of the User properties in Local Users and 
+      Groups (run lusrmgr.msc). - I'd say that this (the item above) is the 
+      recommended method to set your home folder in Windows. The recommendes method 
+      to specify where your `_vimrc` is located (if it differs from your home 
+      folder) is to set the `$HOME` environment variable. (Spiiph 
+      [https://vim.fandom.com/wiki/User:Spiiph] 00:16, 29 July 2009 (UTC)) 
+
+    - Link to the #vim [https://vim.fandom.com/wiki/Vim_on_Freenode]-approved 
+      `.vimrc`? ;) (Spiiph [https://vim.fandom.com/wiki/User:Spiiph] 00:18, 29 July 
+      2009 (UTC)) 
+
+
+==============================================================================
+
+Proposal Omit suggestions like the following that attempt to auto-source 
+vimrc. I suspect that anyone needing to read a tip to do this could get 
+themselves in quite a bit of trouble. IMHO it's a lot more sensible to map a 
+key to source a script so you can control when it is sourced. I haven't 
+bothered to put such a mapping in the tip so far because the `:so %` info 
+seems more helpful, and entirely adequate. --JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 11:56, 23 August 2008 (UTC)
+
+To source changes immediately, add to vimrc:
+
+>
+    au BufLeave ~/.vimrc :source ~/.vimrc
+<
+
+Why not use a BufWritePost instead of BufLeave, so it will source whenever you save?
+
+==============================================================================
+
+Getting started tip ...I hit this page because I could not remember the 
+"mkvim" command. I found it elsewhere and thought I'd throw it in here. If you 
+open vim, change some settings and get things how you like you can use this 
+command
+
+>
+    :mkv [file]
+<
+
+to automatically make a vimrc file based on your current settings. The [file] 
+part is optional; vim will use ~/.vimrc by default. If you already have a 
+.vimrc and you attempt this you we will be warned that .vimrc already exists. 
+You can use
+
+>
+    mkv!
+< to overwrite the existing file if you like. However once you do this your original .vimrc file is gone so you may want to back up any existing .vimrc before you try this.
+
+Using :mkvimrc to create .vimrc isn't a terribly good idea, since it saves mappings and abbreviations setup by plugins. It can be useful to copy currently set options to .vimrc however. (Spiiph 14:51, 27 July 2009 (UTC))
+
+ vim:tw=78:et:ft=help:norl:

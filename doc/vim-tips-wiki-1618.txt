@@ -1,0 +1,153 @@
+*vim-tips-wiki-1618.txt*   Auto tags by project.vim                    *vtw-1618*
+
+Tip 1618 [https://vim.fandom.com/wiki/Auto_tags_by_project.vim]   Previous |vtw-1617| Next |vtw-1619|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200902#Auto_tags_by_project.vim] 
+February 24, 2009 · complexity basic · author Runnig · version 7.0
+
+==============================================================================
+
+The Project.vim [https://www.vim.org/scripts/script.php?script_id=69] plugin 
+has special functionality allowing a custom script to be run on opening a 
+file. This tip shows how to automate tags generation using this plugin.
+
+This tip assumes you are using the Project.vim plugin and the GNU Make build 
+system. GNU Make will search for source file changes and will rebuild tags 
+when a file is opened from the project window.
+
+RELATED PLUGINS                                     *vtw-1618-related-plugins*
+    - the Indexer [https://www.vim.org/scripts/script.php?script_id=3221] plugin 
+      already provides painless automatic tags generation for entire projects, and 
+      keeps tags up-to-date. It can work as add-on for the Project.vim 
+      [https://www.vim.org/scripts/script.php?script_id=69] plugin. Probably this is 
+      a better option if you're looking for a ready-made solution. 
+
+
+PREREQUISITES                                         *vtw-1618-prerequisites*
+    - Project.vim [https://www.vim.org/scripts/script.php?script_id=69] plugin to 
+      set up a list of frequently-accessed files for easy navigation. 
+    - GNU Make [http://www.gnu.org/software/make/] tool to control the generation 
+      of executables and other non-source files of a program from the program's 
+      source files. Windows version 
+      [http://gnuwin32.sourceforge.net/packages/make.htm] of GNU Make. 
+
+
+For comfortable use, add Make.exe to your PATH in order to run Make without 
+typing full path:
+
+>
+    D:\example\project>which make
+    C:\Program Files\GnuWin32\bin\make.EXE
+    
+    D:\example\project>make -v
+    GNU Make 3.81
+    Copyright (C) 2006  Free Software Foundation, Inc.
+    This is free software; see the source for copying conditions.
+    There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE.
+<
+
+PROJECT LAYOUT                                       *vtw-1618-project-layout*
+
+Let's assume the following directory structure.
+
+>
+    D:\example\project>tree /f
+    Folder PATH listing
+    Volume serial number is F418-2E27
+    D:.
+    ├─common
+    │      common1.c
+    │      common2.c
+    │
+    ├─include
+    │      project.h
+    │
+    ├─lib
+    │      libproject.lib
+    │
+    └─source
+            src1.c
+            src2.c
+<
+
+The corresponding .vimprojects file is:
+
+>
+    example=d:/example {
+      project=project filter="*.c *.h" {
+        source/src1.c
+        source/src2.c
+        include/project.h
+        common/common1.c
+        common/common2.c
+     }
+    }
+<
+
+Next, let's write the Makefile for tags generation:
+
+>
+    DIRS := source include common
+    SRC := $(foreach dir,$(DIRS),$(wildcard $(dir)/*.[ch]))
+    
+    CTAGS_FLAGS=--c++-kinds=+p --fields=+imaS --extra=+q
+    
+    tags: $(SRC)
+    	ctags $(CTAGS_FLAGS) $(SRC)
+    
+    clean:
+    	rm tags
+<
+
+DIRS are all the directories for make to look into, *.[ch] are source .c and 
+include .h files to generate tags from. Now, you can try command make tags to 
+generate tags from your source files:
+
+>
+    D:\example\project>make tags
+    ctags --c++-kinds=+p --fields=+imaS --extra=+q source/src1.c source/src2.c include/project.h common/common1.c common/common2.c
+    
+    D:\example\project>dir tags
+     Volume in drive D has no label.
+     Volume Serial Number is F418-2E27
+    
+     Directory of D:\example\project
+    
+    02/24/2009  03:53 PM               416 tags
+                   1 File(s)            416 bytes
+<
+
+Tags have been generated.Now we can use Project.vim in= or out= option to 
+automate tags generation. Let's add small maketags.vim script to the project 
+folder:
+
+>
+    D:\example\project>echo silent execute "make -f Makefile tags" > maketags.vim
+<
+
+This script will call make to generate tags every time you open some source 
+file from the project. To do this, let's modify project.vimprojects file a 
+little bit:
+
+>
+    example=d:/example {
+      project=project CD=. in=maketags.vim filter="*.c *.h" {
+        source/src1.c
+        ...
+      }
+    }
+<
+
+Alternatively, you could update tags on file closing:
+
+>
+    ...
+      project=project CD=. out=maketags.vim filter="*.c *.h" {
+      ...
+<
+
+COMMENTS                                                   *vtw-1618-comments*
+
+ vim:tw=78:et:ft=help:norl:

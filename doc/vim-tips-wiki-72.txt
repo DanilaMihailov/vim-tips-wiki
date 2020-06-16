@@ -1,0 +1,88 @@
+*vim-tips-wiki-72.txt*   Remove unwanted empty lines                     *vtw-72*
+
+Tip 72 [https://vim.fandom.com/wiki/Remove_unwanted_empty_lines]   Previous |vtw-71| Next |vtw-73|
+
+created 2001 · complexity basic · author Volker Duetsch · version 5.7
+
+==============================================================================
+
+Use either of the following commands to delete all empty lines:
+
+>
+    :g/^$/d
+    :v/./d
+<
+
+If you want to delete all lines that are empty or that contain only 
+whitespace characters (spaces, tabs), use either of:
+
+>
+    :g/^\s*$/d
+    :v/\S/d
+<
+
+In the second command, `v` operates on lines that do not match, and `\S` 
+matches anything that is not a whitespace, and `d` deletes the flagged lines 
+(all lines that have no characters, or that have only whitespace characters).
+
+You may want to condense multiple blank lines into a single blank line. The 
+following will delete all trailing whitespace |vtw-878| from each line, then 
+replace three or more consecutive line endings with two line endings (a single 
+blank line):
+
+>
+    :%s/\s\+$//e
+    :%s/\n\{3,}/\r\r/e
+<
+
+The `e` substitute flag means that no error is displayed if the pattern is 
+not found. In the second command, `\n` in the search pattern finds newline, 
+while `\r` in the replacement inserts a newline.
+
+Another solution is to join consecutive lines found between non-blank lines.
+
+>
+    :v/\S/,/\S/-j
+<
+
+HANDLING IDEOGRAPHIC SPACE                 *vtw-72-handling-ideographic-space*
+
+In CJK languages (Chinese, Japanese, Korean), the Unicode character 
+IDEOGRAPHIC SPACE may be used. If you have 'encoding' utf-8 (and do not have 
+the 'l' flag in 'cpoptions'), you can use `\u3000` in a search pattern to 
+specify the UTF-16 hex code for IDEOGRAPHIC SPACE. :help |/\]|
+
+In that case, the following will delete all empty lines, or lines that 
+contain only combinations of space, tab or IDEOGRAPHIC SPACE.
+
+>
+    :g/^[ \t\u3000]*$/d
+<
+
+An alternative procedure, which should work in other encodings, would be to 
+enter the CJK space directly into the pattern. That is, you would type the 
+following, but instead of '#' you would enter a CJK space.
+
+>
+    :g/^[ \t#]*$/d
+<
+
+If you're not sure how to type the character, position your cursor on an 
+example of the character that you already have in the buffer. Then type `yl` 
+to yank the character. Then, enter the above `:g` command, but instead of '#' 
+type Ctrl-R " (Control-R then double-quote, which will insert the contents of 
+the unnamed register containing the yanked character).
+
+SEE ALSO                                                     *vtw-72-see-also*
+    - Power of g |vtw-227| Some advanced techniques to condense multiple blank 
+      lines 
+    - Search across multiple lines |vtw-242| Searching across multiple lines 
+    - Quickly adding and deleting empty lines |vtw-1066| A method to easily 
+      add/delete adjacent blank lines 
+    - Delete all lines containing a pattern |vtw-213| Examples using `g//d` 
+    - Fold away empty lines |vtw-399| To temporarily hide multiple blank lines 
+
+
+COMMENTS                                                     *vtw-72-comments*
+
+ vim:tw=78:et:ft=help:norl:

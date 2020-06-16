@@ -1,0 +1,21 @@
+*vim-tips-wiki-819.txt*   Minimize and restore gvim under Windows using shortcut keys *vtw-819*
+
+Tip 819 [https://vim.fandom.com/wiki/Minimize_and_restore_gvim_under_Windows_using_shortcut_keys]   Previous |vtw-818| Next |vtw-822|
+
+created 2004 · complexity basic · author Siegfried Bublitz · version 5.7
+
+==============================================================================
+
+Pressing `CTRL-Z` in normal or visual mode will send Vim to the background, 
+suspending it. Even gvim is iconized. In Microsoft Windows, this means 
+pressing "minimize" the current gvim window.
+
+Windows also provides a "shortcut key" property in the "Properties" dialog of 
+any given shortcut. You can open this dialog and enter `CTRL-ALT-Z` as the 
+shortcut key by selecting the shortcut key box and typing the key combination. 
+Doing so allows you to press `CTRL-ALT-Z` to bring Vim to the foreground after 
+launching it, and press `CTRL-Z` to minimize.
+
+COMMENTS                                                    *vtw-819-comments*
+
+ vim:tw=78:et:ft=help:norl:

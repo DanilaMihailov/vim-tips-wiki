@@ -1,0 +1,60 @@
+*vim-tips-wiki-920.txt*   Quick generic option toggling                 *vtw-920*
+
+Tip 920 [https://vim.fandom.com/wiki/Quick_generic_option_toggling]   Previous |vtw-919| Next |vtw-922|
+
+created April 28, 2005 · complexity intermediate · author Piet Delport · 
+version 5.7
+
+==============================================================================
+
+A fairly well-known mapping to toggle boolean options is:
+
+>
+    map <F2> :set wrap!<CR>
+<
+
+Nicer, more elaborate versions of this idea exist, such as:
+
+>
+    nnoremap <F8> :set wrap! wrap?<CR>
+    imap <F8> <C-O><F8>
+<
+
+which displays the current value of the option after toggling it, and works 
+both in normal and insert mode.
+
+However, that definition quickly clutters up your vimrc, and is a pain to 
+edit due to the redundant occurrences of the toggle key and option.
+
+Wrapping the definition in a function solves the problem, and makes the 
+toggle definition a one-line operation again:
+
+>
+    " Map key to toggle opt
+    function MapToggle(key, opt)
+      let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+      exec 'nnoremap '.a:key.' '.cmd
+      exec 'inoremap '.a:key." \<C-O>".cmd
+    endfunction
+    command -nargs=+ MapToggle call MapToggle(<f-args>)
+    
+    " Display-altering option toggles
+    MapToggle <F1> hlsearch
+    MapToggle <F2> wrap
+    MapToggle <F3> list
+    
+    " Behavior-altering option toggles
+    MapToggle <F10> scrollbind
+    MapToggle <F11> ignorecase
+    MapToggle <F12> paste
+    set pastetoggle=<F12>
+<
+
+SEE ALSO                                                    *vtw-920-see-also*
+    - Managing boolean options 
+      [https://vim.fandom.com/wiki/Managing_boolean_options] 
+
+
+COMMENTS                                                    *vtw-920-comments*
+
+ vim:tw=78:et:ft=help:norl:

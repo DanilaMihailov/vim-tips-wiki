@@ -1,0 +1,57 @@
+*vim-tips-wiki-208.txt*   Alter the display of buffers in the buffers menu *vtw-208*
+
+Tip 208 [https://vim.fandom.com/wiki/Alter_the_display_of_buffers_in_the_buffers_menu]   Previous |vtw-207| Next |vtw-210|
+
+created 2002 · complexity basic · author Roger Pilkey · version 6.0
+
+==============================================================================
+
+If you use the buffers menu, here is where you can change how the buffernames 
+are displayed:
+
+>
+    menu.vim, function s:BMMunge
+    OLD: let name2 = name2 . ' (' . a:bnum . ')'
+    displays:
+     .vimrc (1)
+     menu.vim (2)
+    
+    NEW: let name2 = '&' . a:bnum . '. ' . name2
+    displays
+     1. .vimrc
+     2. menu.vim
+        (with the 1 and the 2 underlined)
+<
+
+which is more useful, because you can (almost) always pick the buffer you 
+want with one keystroke, the buffernumber, until you get to buffer 10 anyway.
+
+COMMENTS                                                    *vtw-208-comments*
+
+Great tip. I changed it so that if you have more than 9 buffers, you get the 
+numbers for 1-9, and for the others you can type the first letter of the 
+filename (which still may not be unique, of course, in which case it will take 
+more keystrokes to select it).
+
+>
+    if a:bnum >= 10
+    let name2 = name2 . ' (' . a:bnum . ')'
+    else
+    let name2 = '&' . a:bnum . '. ' . name2
+    endif
+<
+
+==============================================================================
+
+This tip didn't work in the vim 6.2 menu.vim. Someone added this line a 
+couple of lines down (line 702):
+
+>
+    let name = substitute(name, "&", "&&", "g")
+<
+
+so to make this tip work again, comment out this line.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

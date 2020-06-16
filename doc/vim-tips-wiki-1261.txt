@@ -1,0 +1,52 @@
+*vim-tips-wiki-1261.txt*   Using your vim on different xterms with colors *vtw-1261*
+
+Tip 1261 [https://vim.fandom.com/wiki/Using_your_vim_on_different_xterms_with_colors]   Previous |vtw-1260| Next |vtw-1262|
+
+created 2006 · complexity intermediate · author Klaus Ethgen · version n/a
+
+==============================================================================
+
+I use Vim always in the console and I love to have coloured syntax 
+highlighting. But I also work on several Linux distributions where some have 
+xterm with 16 colours, and others with 256.
+
+So I use the following in my vimrc:
+
+>
+    let g:rhrel = -1
+    if filereadable("/etc/redhat-release")
+      let g:rhrel = 0
+      if version >= 700
+        for line in readfile("/etc/redhat-release", '', 1)
+          if line =~ '\Crelease [0-9.]\+'
+            let g:rhrel = substitute(matchstr(line, 'release [0-9.]\+'), 'release ', "", "")
+          endif
+        endfor
+      endif
+    endif
+    if &term == "xterm"
+      if g:rhrel >= 0 && g:rhrel < 5
+        set t_Co=16
+        colors white
+      else
+        set t_Co=256
+        colors morning
+      endif
+      "colors gor
+    else
+      set t_Co=8 " Ist eh default
+    endif
+<
+
+I just searched for useful colour schemes for 8, 16 and 256 colors in the 
+console. The most are not useful as they do often end with, for example, red 
+foreground on red background or such. But this is another problem.
+
+COMMENTS                                                   *vtw-1261-comments*
+
+You ought to make it simple: In vimrc: `if $TERM =~ /xterm_color256/`and set 
+TERM in your bashrc: `export TERM=xterm_color256`
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

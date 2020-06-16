@@ -1,0 +1,57 @@
+*vim-tips-wiki-1194.txt*   Navigate to the next open fold              *vtw-1194*
+
+Tip 1194 [https://vim.fandom.com/wiki/Navigate_to_the_next_open_fold]   Previous |vtw-1193| Next |vtw-1195|
+
+created 2006 · complexity basic · author Ethan Mallove · version 6.0
+
+==============================================================================
+
+I think it makes more sense for `]z` and `[z` to navigate to the 
+next/previous open fold, so I added the following to my vimrc:
+
+>
+    function! GoToOpenFold(direction)
+      let start = line('.')
+      if (a:direction == "next")
+        while (foldclosed(start) != -1)
+          let start = start + 1
+        endwhile
+      else
+        while (foldclosed(start) != -1)
+          let start = start - 1
+        endwhile
+      endif
+      call cursor(start, 0)
+    endfunction
+    nmap ]z :cal GoToOpenFold("next")
+    nmap [z :cal GoToOpenFold("prev")
+<
+
+COMMENTS                                                   *vtw-1194-comments*
+
+Add the normal command "zj/zk" if you'd prefer to have the mapping jump out 
+of the current open fold and into the next open fold.
+
+>
+    " set ]z and [z go to find open folds
+    function! GoToOpenFold(direction)
+      if (a:direction == "next")
+        normal zj
+        let start = line('.')
+        while foldclosed(start) != -1
+          let start = start + 1
+        endwhile
+      else
+        normal zk
+        let start = line('.')
+        while foldclosed(start) != -1
+          let start = start - 1
+        endwhile
+      endif
+      call cursor(start, 0)
+    endfunction
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,65 @@
+*vim-tips-wiki-1238.txt*   Make buffer modifiable state match file readonly state *vtw-1238*
+
+Tip 1238 [https://vim.fandom.com/wiki/Make_buffer_modifiable_state_match_file_readonly_state]   Previous |vtw-1237| Next |vtw-1240|
+
+created 2006 · complexity intermediate · author Daniel Harding · version 6.0
+
+==============================================================================
+
+If a file on disk is read-only, I would prefer that Vim prevent me from 
+modifying it, rather than giving an error message when I try to write out my 
+changes. The modifiable option does exactly this - when off, it prevents 
+changes from being made to the buffer. However, the modifiable option is on by 
+default. Thus I use the following function to keep a buffer's modifiable state 
+in sync with the underlying file's readonly state. It works especially well 
+when the autoread option is enabled.
+
+>
+    function UpdateModifiable()
+      if !exists("b:setmodifiable")
+        let b:setmodifiable = 0
+      endif
+      if &readonly
+        if &modifiable
+          setlocal nomodifiable
+          let b:setmodifiable = 1
+        endif
+      else
+        if b:setmodifiable
+          setlocal modifiable
+        endif
+      endif
+    endfunction
+    autocmd BufReadPost * call UpdateModifiable()
+<
+
+COMMENTS                                                   *vtw-1238-comments*
+
+Why is the `b:setmodifiable` variable needed?
+
+>
+    autocmd BufReadPost * if &modifiable | setlocal nomodifiable | else | setlocal modifiable | endif
+<
+
+==============================================================================
+
+Did you mean:
+
+>
+    autocmd BufReadPost * if &readonly | setlocal nomodifiable | else | setlocal modifiable | endif
+<
+
+I think b:setmodifiable is there to set &modifiable only if the &readonly 
+previously triggered the script to set &nomodifiable . So, it will skip files 
+that are &nomodifiable but not &readonly. Is that correct? I don't think that 
+case happens much.
+
+==============================================================================
+
+You are right about b:setmodifiable. It is to prevent setting &modifiable 
+when reloading a file that is not &readonly, but which had &nomodifiable set 
+manually. It may be overkill, but it still works correctly.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,40 @@
+*vim-tips-wiki-106.txt*   Insert mail signatures from a rotating file   *vtw-106*
+
+Tip 106 [https://vim.fandom.com/wiki/Insert_mail_signatures_from_a_rotating_file]   Previous |vtw-105| Next |vtw-107|
+
+created 2001 · complexity basic · author brz · version 6.0
+
+==============================================================================
+
+By adding the following line to your `vimrc`, you can use a simple email 
+signature rotator:
+
+>
+    map <Leader>ms :e c:\sign.txt<CR>ggV/^--  $<CR>k"*xG$a<C-R><C-O>*<Esc>:w<CR>:bd<CR>G$a<C-M><Esc>"*P
+<
+
+This rotator expects the user to have a file at the location `C:/sign.txt` 
+with the following information:
+
+>
+    --
+    first signature
+    --
+    second signature
+    --
+    third signature
+    --
+<
+
+When a user finishes an email, they may call the shortcut `\ms` and the 
+'first signature' will be inserted into the email. This will also push the 
+first signature in `C:\sign.txt` to the end of the file. To change to a 
+different signature from the one which is next in the file type `u` and `\ms` 
+again.
+
+The `sign.txt` file must employ a signature separator like the following: '-- 
+'.
+
+COMMENTS                                                    *vtw-106-comments*
+
+ vim:tw=78:et:ft=help:norl:

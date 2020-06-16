@@ -1,0 +1,21 @@
+*vim-tips-wiki-1031.txt*   Vim inside Java                             *vtw-1031*
+
+Tip 1031 [https://vim.fandom.com/wiki/Vim_inside_Java]   Previous |vtw-1030| Next |vtw-1032|
+
+created October 29, 2005 · complexity advanced · author Pavel Tavoda · 
+version 5.7
+
+==============================================================================
+
+If you would like to embed Vim inside your Java application I found, that 
+best way how to do it, is Java terminal emulation. Download jta26.jar from 
+http://javassh.org/space/start [http://javassh.org/space/start]. Then start 
+Vim from your Java program and redirect stdin and stdout to and from terminal 
+emulator.
+
+For some unknown reason you have to use Vim without GUI support, that is, GUI 
+support isn't compiled into binary. You have to use pure terminal Vim.
+
+COMMENTS                                                   *vtw-1031-comments*
+
+ vim:tw=78:et:ft=help:norl:

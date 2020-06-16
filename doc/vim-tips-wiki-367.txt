@@ -1,0 +1,94 @@
+*vim-tips-wiki-367.txt*   Understanding VIMRUNTIME                      *vtw-367*
+
+Tip 367 [https://vim.fandom.com/wiki/Understanding_VIMRUNTIME]   Previous |vtw-366| Next |vtw-369|
+
+created 2002 · complexity basic · author vim_power · version 7.0
+
+==============================================================================
+
+$VIMRUNTIME identifes a directory where Vim's support files are located. Many 
+of the files are not necessary for Vim to run, but are used to provide extra 
+functionality such as syntax highlighting and filetype-based plugins. Its 
+value can be displayed in Vim with the command `:echo $VIMRUNTIME`. It is set 
+using the procedure at :help |$VIMRUNTIME|.
+
+Here is a brief overview of files and directories in $VIMRUNTIME (directories 
+in bold).
+    - autoload – Contains utility scripts which are used by plugins and scripts in 
+      other directories. These scripts are only loaded when the functionality 
+      therein is needed. See :help |autoload| 
+    - bugreport.vim – Use this file if you think you have discovered a bug in Vim. 
+      See :help |bugreport.vim|. 
+    - colors – Contains various colorschemes. See :help |:colorscheme|. 
+    - compiler – Contains compilation scripts for various languages. See :help 
+      |:compiler|. 
+    - delmenu.vim – Deletes all Menu's 
+    - doc – Contains Documentation (the Vim help files, accessed with the |:help| 
+      command. 
+    - diff.exe (Windows only) – allows Windows to use Vim's diff capabilities; 
+      Unix-like systems usually have an external diff utility pre-installed which is 
+      used instead. 
+    - evim.vim – script for easy vim. See :help |evim|. 
+    - filetype.vim [https://vim.fandom.com/wiki/Filetype.vim] – Detects filetype of 
+      files based on their extensions. See :help |filetype|. 
+    - ftoff.vim – |:source| this to disable detection of filetypes. 
+    - ftplugin – Contains plugins that are loaded based on the filetype. 
+    - ftplugin.vim – Enables filetype plugins. 
+    - ftplugof.vim – Disables filetype plugins. 
+    - gvim.exe (Windows only) – the GUI-enabled Vim executable. 
+    - gvimext.dll (Windows only) – used to provide an "Edit with Vim" context menu 
+      on 32-bit Windows systems. 
+    - gvimrc_example.vim – Example of gvimrc. The gvimrc is a config file which is 
+      automatically loaded when the gui starts. :help |gvimrc| 
+    - indent – contains indentation scripts for various languages 
+    - indent.vim – Enables indentation based on filetype. 
+    - indoff.vim – Disables indentation based on filetype. 
+    - keymap – Contains keymap files for various encodings. See :help 'keymap'. 
+    - lang – Contains Message files translated to different languages. See :help 
+      |:language|. 
+    - macmap.vim – Script to enable default Mac-style mappings (not sourced by 
+      default, except maybe on the Mac distribution?) 
+    - macros – Contains various cool stuff which is not automatically loaded. read 
+      "macros/README.txt" 
+    - makemenu.vim – Used by Vim to create the Syntax menu in the GUI menu bar. 
+    - menu.vim – Creates the default menus on the GUI menu bar. 
+    - mswin.vim – sets options for Vim to behave like Windows. This script is 
+      sourced by default on a new Windows installation, and overrides a bunch of 
+      very useful Vim commands with mappings to different functionality to make Vim 
+      behave more like other Windows programs. Not recommended for users who want to 
+      delve into Vim's power, but can be useful for those who only use Vim 
+      occasionally for specific tasks. 
+    - optwin.vim – commands to create Vim's option window. :help |:options| 
+    - plugin – Contains global plugins. All .vim files in this directory are 
+      automatically sourced at startup, after the vimrc 
+      [https://vim.fandom.com/wiki/Vimrc]. 
+    - print – Contains PostScript font encoding vectors for various 8-bit character 
+      encodings. See :help |postscript-printing|, :help |postscript-print-encoding|, 
+      :help |postscript-print-trouble| or try a :help |:helpgrep| command to find 
+      out more 
+    - scripts.vim – helps detect the proper filetype from a file, looking at file 
+      contents for when detection by "file extension" fails. 
+    - spell – contains spelling dictionaries and some utility scripts used by Vim 
+      for the built-in spell checker support :help |spell| 
+    - synmenu.vim – creates the default Syntax menu in the GUI menu bar. 
+    - syntax – Contains Syntax definition files for various programming languages. 
+      See :help |syntax|. 
+    - tools – Some useful tools. Like `blink` to blink the cursor in xterm. 
+    - tutor – Contains the Vim tutorial, in multiple languages. See :help |tutor|. 
+    - vim.exe (Windows only) – the non-gui console Vim application. 
+    - vim32x32.xpm – Vim Logo. 
+    - vimrc_example.vim – Example of vimrc [https://vim.fandom.com/wiki/Vimrc], 
+      sourced by default in a new Windows installation. 
+    - vimrun.exe (Windows only) – Used by Windows Vim to start external commands. 
+    - xxd.exe (Windows only) – utility program to convert a buffer to a hex view. 
+      Unix-like systems usually have a version of this utility already installed 
+      externally. See Improved hex editing 
+      [https://vim.fandom.com/wiki/Improved_hex_editing] for examples of use. 
+
+
+COMMENTS                                                    *vtw-367-comments*
+
+Do we need to list out all the various other files? vimtutor.bat, VisVim.dll, 
+icon files, etc.?
+
+ vim:tw=78:et:ft=help:norl:

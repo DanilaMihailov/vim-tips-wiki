@@ -1,0 +1,41 @@
+*vim-tips-wiki-816.txt*   JAVH - Just another Vim Hacker                *vtw-816*
+
+Tip 816 [https://vim.fandom.com/wiki/JAVH_-_Just_another_Vim_Hacker]   Previous |vtw-814| Next |vtw-817|
+
+created November 5, 2004 · complexity basic · author zzapper · version 5.7
+
+==============================================================================
+
+Perl has its JAPH Just Another Perl Hacker (a short script that produces the 
+output 'Just another Perl hacker' (Google for it)). I thought one day I'd try 
+to something similar with Vim, the trick being to make it as obscure as 
+possible:
+
+>
+    vim -c ":%s%s*%Cyrnfr)fcbafbe[Oenz(Zbbyranne%|:%s)[[()])-)Ig|norm Vg?"
+<
+
+Here are some others, from various sources.
+
+>
+    :s(.*(rekcaH iV rehtonA tsuJ(|t.|s).$)&&)|-s'.'s,\\(.\\)\\(.\\)\\(\\2.*\\),\\2\\3\\1,|'g|s=[^|]*|$=s,.,,=|d a|@a
+<
+
+>
+    gvim -c "exec \"normal itYNQ#v'Z#ABG#GUR#BAYL#BAR\"|%s/#/ /g|normal ggVGg?ggVG~"
+<
+
+So what's the point:
+
+This "tip" shows that you can do some pretty complex stuff with the Vim -c 
+command.
+
+>
+    vim -c "cmd1|cmd2|cmd3"
+    # Example: print paste contents to default printer
+    gvim -c 's/^/\=@*/|hardcopy!|q!'
+<
+
+COMMENTS                                                    *vtw-816-comments*
+
+ vim:tw=78:et:ft=help:norl:

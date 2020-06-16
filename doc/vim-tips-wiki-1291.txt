@@ -1,0 +1,260 @@
+*vim-tips-wiki-1291.txt*   Desert color scheme with Vim in PuTTY       *vtw-1291*
+
+Tip 1291 [https://vim.fandom.com/wiki/Desert_color_scheme_with_Vim_in_PuTTY]   Previous |vtw-1290| Next |vtw-1294|
+
+created 2006 · complexity basic · author Ray Burgemeestre · version 6.0
+
+==============================================================================
+
+The only way I managed to do this was to first load the desert color scheme 
+(`:colorscheme desert`). It will then look only a little like the theme 
+compared to when it's enabled in gvim. I change the colors in the PuTTY 
+session to adjust the colors properly. You can view a screenshot at 
+http://www.fighterz.net/trig/desert.gif 
+[http://www.fighterz.net/trig/desert.gif]
+
+You can change the colors using a registry export I made, or do it manually.
+
+REGISTRY FILE                                         *vtw-1291-registry-file*
+
+The registry file is at http://www.fighterz.net/trig/putty_desert.reg 
+[http://www.fighterz.net/trig/putty_desert.reg] (contents are below).
+
+Running this registry file will create a PuTTY session called "vim desert 
+theme prototype" for you to edit.
+
+MANUALLY                                                   *vtw-1291-manually*
+
+In your PuTTY Configuration --> Window --> Colours, Change the following 
+values:
+    - Default Background = #333333 (51, 51, 51) 
+    - ANSI Blue Bold = #87CEEB (135, 206, 235) (some kind of yellow) 
+
+
+Functions in the theme should be red. <?PHP tags and brackets should be 
+yellow.
+
+They both use "ANSI Magenta", so you can only choose one of the two (yellow 
+or red; I chose yellow in the registry file).
+    - ANSI Magenta = #FFDEAD (255, 222, 173) (yellow) { or #CD5C5C (205, 92, 92) 
+      (red) } 
+    - ANSI Cyan = #FFA0A0 (255, 160, 160) 
+    - ANSI Black = #4D4D4D (77, 77, 77) 
+    - ANSI Cyan Bold = #FFD700 (255, 215, 0) 
+    - Default Foreground = #FFFFFF (255, 255, 255) 
+    - ANSI Yellow = #F0E68C (240, 230, 140) 
+    - ANSI Green = #98FB98 (152, 251, 152) 
+    - ANSI Blue = #CD853F (205, 133, 63) (used in HIGHLIGHT) 
+    - ANSI White = #F5DEB3 (245, 222, 179) 
+
+
+PUTTY version: This was tested on PuTTY 0.58, and will probably work with 
+other versions.
+
+REGISTRY FILE CONTENTS                       *vtw-1291-registry-file-contents*
+
+Create file putty_desert.reg with the following contents:
+
+>
+    Windows Registry Editor Version 5.00
+    
+    [HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\vim%20desert%20theme%20prototype]
+    "Present"=dword:00000001
+    "HostName"=""
+    "LogFileName"="putty.log"
+    "LogType"=dword:00000000
+    "LogFileClash"=dword:ffffffff
+    "LogFlush"=dword:00000001
+    "SSHLogOmitPasswords"=dword:00000001
+    "SSHLogOmitData"=dword:00000000
+    "Protocol"="ssh"
+    "PortNumber"=dword:00000016
+    "CloseOnExit"=dword:00000001
+    "WarnOnClose"=dword:00000001
+    "PingInterval"=dword:00000000
+    "PingIntervalSecs"=dword:00000000
+    "TCPNoDelay"=dword:00000001
+    "TCPKeepalives"=dword:00000000
+    "TerminalType"="xterm"
+    "TerminalSpeed"="38400,38400"
+    "AddressFamily"=dword:00000000
+    "ProxyExcludeList"=""
+    "ProxyDNS"=dword:00000001
+    "ProxyLocalhost"=dword:00000000
+    "ProxyMethod"=dword:00000000
+    "ProxyHost"="proxy"
+    "ProxyPort"=dword:00000050
+    "ProxyUsername"=""
+    "ProxyPassword"=""
+    "ProxyTelnetCommand"="connect %host %port\\n"
+    "Environment"=""
+    "UserName"=""
+    "LocalUserName"=""
+    "NoPTY"=dword:00000000
+    "Compression"=dword:00000000
+    "AgentFwd"=dword:00000000
+    "ChangeUsername"=dword:00000000
+    "Cipher"="aes,blowfish,3des,WARN,des"
+    "KEX"="dh-gex-sha1,dh-group14-sha1,dh-group1-sha1,WARN"
+    "RekeyTime"=dword:0000003c
+    "RekeyBytes"="1G"
+    "AuthTIS"=dword:00000000
+    "AuthKI"=dword:00000001
+    "SshNoShell"=dword:00000000
+    "SshProt"=dword:00000002
+    "SSH2DES"=dword:00000000
+    "PublicKeyFile"=""
+    "RemoteCommand"=""
+    "RFCEnviron"=dword:00000000
+    "PassiveTelnet"=dword:00000000
+    "BackspaceIsDelete"=dword:00000001
+    "RXVTHomeEnd"=dword:00000000
+    "LinuxFunctionKeys"=dword:00000000
+    "NoApplicationKeys"=dword:00000000
+    "NoApplicationCursors"=dword:00000000
+    "NoMouseReporting"=dword:00000000
+    "NoRemoteResize"=dword:00000000
+    "NoAltScreen"=dword:00000000
+    "NoRemoteWinTitle"=dword:00000000
+    "NoRemoteQTitle"=dword:00000001
+    "NoDBackspace"=dword:00000000
+    "NoRemoteCharset"=dword:00000000
+    "ApplicationCursorKeys"=dword:00000000
+    "ApplicationKeypad"=dword:00000000
+    "NetHackKeypad"=dword:00000000
+    "AltF4"=dword:00000001
+    "AltSpace"=dword:00000000
+    "AltOnly"=dword:00000000
+    "ComposeKey"=dword:00000000
+    "CtrlAltKeys"=dword:00000001
+    "TelnetKey"=dword:00000000
+    "TelnetRet"=dword:00000001
+    "LocalEcho"=dword:00000002
+    "LocalEdit"=dword:00000002
+    "Answerback"="PuTTY"
+    "AlwaysOnTop"=dword:00000000
+    "FullScreenOnAltEnter"=dword:00000000
+    "HideMousePtr"=dword:00000000
+    "SunkenEdge"=dword:00000000
+    "WindowBorder"=dword:00000001
+    "CurType"=dword:00000000
+    "BlinkCur"=dword:00000000
+    "Beep"=dword:00000001
+    "BeepInd"=dword:00000000
+    "BellWaveFile"=""
+    "BellOverload"=dword:00000001
+    "BellOverloadN"=dword:00000005
+    "BellOverloadT"=dword:000007d0
+    "BellOverloadS"=dword:00001388
+    "ScrollbackLines"=dword:000000c8
+    "DECOriginMode"=dword:00000000
+    "AutoWrapMode"=dword:00000001
+    "LFImpliesCR"=dword:00000000
+    "DisableArabicShaping"=dword:00000000
+    "DisableBidi"=dword:00000000
+    "WinNameAlways"=dword:00000001
+    "WinTitle"=""
+    "TermWidth"=dword:00000050
+    "TermHeight"=dword:00000018
+    "Font"="Fixedsys"
+    "FontIsBold"=dword:00000000
+    "FontCharSet"=dword:00000000
+    "FontHeight"=dword:00000009
+    "FontVTMode"=dword:00000004
+    "UseSystemColours"=dword:00000000
+    "TryPalette"=dword:00000000
+    "ANSIColour"=dword:00000001
+    "Xterm256Colour"=dword:00000001
+    "BoldAsColour"=dword:00000001
+    "Colour0"="255,255,255"
+    "Colour1"="255,255,255"
+    "Colour2"="51,51,51"
+    "Colour3"="85,85,85"
+    "Colour4"="0,0,0"
+    "Colour5"="0,255,0"
+    "Colour6"="77,77,77"
+    "Colour7"="85,85,85"
+    "Colour8"="187,0,0"
+    "Colour9"="255,85,85"
+    "Colour10"="152,251,152"
+    "Colour11"="85,255,85"
+    "Colour12"="240,230,140"
+    "Colour13"="255,255,85"
+    "Colour14"="205,133,63"
+    "Colour15"="135,206,235"
+    "Colour16"="255,222,173"
+    "Colour17"="255,85,255"
+    "Colour18"="255,160,160"
+    "Colour19"="255,215,0"
+    "Colour20"="245,222,179"
+    "Colour21"="255,255,255"
+    "RawCNP"=dword:00000000
+    "PasteRTF"=dword:00000000
+    "MouseIsXterm"=dword:00000000
+    "RectSelect"=dword:00000000
+    "MouseOverride"=dword:00000001
+    "Wordness0"="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
+    "Wordness32"="0,1,2,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1"
+    "Wordness64"="1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,2"
+    "Wordness96"="1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1"
+    "Wordness128"="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"
+    "Wordness160"="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"
+    "Wordness192"="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2"
+    "Wordness224"="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2"
+    "LineCodePage"="ISO-8859-1:1998 (Latin-1, West Europe)"
+    "CJKAmbigWide"=dword:00000000
+    "UTF8Override"=dword:00000001
+    "Printer"=""
+    "CapsLockCyr"=dword:00000000
+    "ScrollBar"=dword:00000001
+    "ScrollBarFullScreen"=dword:00000000
+    "ScrollOnKey"=dword:00000000
+    "ScrollOnDisp"=dword:00000001
+    "EraseToScrollback"=dword:00000001
+    "LockSize"=dword:00000000
+    "BCE"=dword:00000001
+    "BlinkText"=dword:00000000
+    "X11Forward"=dword:00000000
+    "X11Display"=""
+    "X11AuthType"=dword:00000001
+    "LocalPortAcceptAll"=dword:00000000
+    "RemotePortAcceptAll"=dword:00000000
+    "PortForwardings"=""
+    "BugIgnore1"=dword:00000000
+    "BugPlainPW1"=dword:00000000
+    "BugRSA1"=dword:00000000
+    "BugHMAC2"=dword:00000000
+    "BugDeriveKey2"=dword:00000000
+    "BugRSAPad2"=dword:00000000
+    "BugPKSessID2"=dword:00000000
+    "StampUtmp"=dword:00000001
+    "LoginShell"=dword:00000001
+    "ScrollbarOnLeft"=dword:00000000
+    "BoldFont"=""
+    "BoldFontIsBold"=dword:0040bd58
+    "BoldFontCharSet"=dword:00468334
+    "BoldFontHeight"=dword:0012ffb0
+    "WideFont"=""
+    "WideFontIsBold"=dword:c1b51467
+    "WideFontCharSet"=dword:0040bd58
+    "WideFontHeight"=dword:0012ea24
+    "WideBoldFont"=""
+    "WideBoldFontIsBold"=dword:00000000
+    "WideBoldFontCharSet"=dword:c1b51467
+    "WideBoldFontHeight"=dword:0000000a
+    "ShadowBold"=dword:00000000
+    "ShadowBoldOffset"=dword:00000001
+<
+
+COMMENTS                                                   *vtw-1291-comments*
+
+Link to desert.vim script#105 
+[https://www.vim.org/scripts/script.php?script_id=105].
+
+Checkout another color scheme for putty: 
+https://github.com/soumyadipdm/Heavenly-putty-color-scheme 
+[https://github.com/soumyadipdm/Heavenly-putty-color-scheme]
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

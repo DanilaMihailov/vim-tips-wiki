@@ -1,0 +1,996 @@
+*vim-tips-wiki-1516.txt*   Mapping keys in Vim - Tutorial (Part 1)     *vtw-1516*
+
+Tip 1516 [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)]   Previous |vtw-1515| Next |vtw-1517|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Mapping_keys_in_Vim_-_Tutorial_.28Part_1.29] 
+September 1, 2007 · complexity intermediate · author Yegappan Lakshmanan · 
+version 6.0
+
+==============================================================================
+
+This is the first part of a three part tutorial on mapping keys in Vim. You 
+can read the other two parts of this tutorial from the following pages:
+    - Mapping keys in Vim - Tutorial (Part 2) 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)] 
+    - Mapping keys in Vim - Tutorial (Part 3) 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)] 
+
+
+
+
+INTRODUCTION                                           *vtw-1516-introduction*
+
+Key mapping refers to creating a shortcut for repeating a sequence of keys or 
+commands. You can map keys to execute frequently used key sequences or to 
+invoke an Ex command or to invoke a Vim function or to invoke external 
+commands. Using key maps you can define your own Vim commands.
+
+Vim supports several editing modes - normal, insert, replace, visual, select, 
+command-line and operator-pending. You can map a key to work in all or some of 
+these modes.
+
+The general syntax of a map command is:
+
+>
+    {cmd} {attr} {lhs} {rhs}
+    
+    where
+    {cmd}  is one of ':map', ':map!', ':nmap', ':vmap', ':imap',
+           ':cmap', ':smap', ':xmap', ':omap', ':lmap', etc.
+    {attr} is optional and one or more of the following: <buffer>, <silent>,
+           <expr> <script>, <unique> and <special>.
+           More than one attribute can be specified to a map.
+    {lhs}  left hand side, is a sequence of one or more keys that you will use
+           in your new shortcut.
+    {rhs}  right hand side, is the sequence of keys that the {lhs} shortcut keys
+           will execute when entered.
+<
+
+Examples:
+
+>
+    map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+    map! <F3> <C-R>=strftime('%c')<CR>
+    nnoremap <silent> <F2> :lchdir %:p:h<CR>:pwd<CR>
+<
+
+The first step in creating a map is to decide the sequence of keys the 
+mapping will run. When you invoke a map, Vim will execute the sequence of keys 
+as though you entered it from the keyboard. You can test the keys for your 
+mapping by manually entering the key sequence and verifying that it performs 
+the desired operation.
+
+The second step is to decide the editing mode (insert mode, visual mode, 
+command-line mode, normal mode, etc.) in which the map should work. Instead of 
+creating a map that works in all the modes, it is better to define the map 
+that works only in selected modes.
+
+The third step is to find an unused key sequence that can be used to invoke 
+the map. You can invoke a map using either a single key or a sequence of keys. 
+:help |map-which-keys|
+
+The above steps are explained in more detail in the following sections.
+
+
+
+CREATING KEYMAPS                                   *vtw-1516-creating-keymaps*
+
+To map a sequence of keys to execute another sequence of keys, use the ':map' 
+command.
+
+For example, the following command maps the <F2> key to display the current 
+date and time.
+
+>
+    :map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+<
+
+The following command maps the <F3> key to insert the current date and time 
+in the current buffer:
+
+>
+    :map! <F3> <C-R>=strftime('%c')<CR>
+<
+
+The ':map' command creates a key map that works in normal, visual, select and 
+operator pending modes. The ':map!' command creates a key map that works in 
+insert and command-line mode.
+
+A better alternative than using the 'map' and 'map!' commands is to use 
+mode-specific map commands which are described in later sections.
+
+STORING THE KEY MAPS                           *vtw-1516-storing-the-key-maps*
+
+If you want to map a key for only one Vim session temporarily, then you don't 
+need to save the map command in a file. When you quit that Vim instance, the 
+temporary map definition will be lost.
+
+If you want to restore the key maps across Vim instances, you need to save 
+the map definition command in a file.
+
+One place to store the map commands is the $HOME/.vimrc or $HOME/_vimrc or 
+$VIM/_vimrc file. If you have filetype specific key maps, then you can store 
+them in the filetype specific plugin files. The key maps defined by Vim 
+plugins are stored in the plugin or script file itself.
+
+When adding the map commands to a file, there is no need to prefix the 
+commands with the ':' character.
+
+LISTING KEY MAPS                                   *vtw-1516-listing-key-maps*
+
+You can display a list of existing key maps using the following commands 
+without any arguments:
+
+>
+    :map
+    :map!
+<
+
+The first command displays the maps that work in normal, visual and select 
+and operator pending mode. The second command displays the maps that work in 
+insert and command-line mode.
+
+To display the mode specific maps, prefix the ':map' command with the letter 
+representing the mode.
+
+>
+    :nmap - Display normal mode maps
+    :imap - Display insert mode maps
+    :vmap - Display visual and select mode maps
+    :smap - Display select mode maps
+    :xmap - Display visual mode maps
+    :cmap - Display command-line mode maps
+    :omap - Display operator pending mode maps
+<
+
+Example:
+
+>
+    :nmap
+    n  <C-W>*      * <C-W><C-S>*
+    n  <C-W>#      * <C-W><C-S>#
+    n  <F2>        * :lchdir %:p:h<CR>:pwd<CR>
+<
+
+In the output of the above commands, the first column indicates the mode in 
+which the map works. You can interpret the first column character using the 
+following table:
+
+>
+    n  Normal mode map. Defined using ':nmap' or ':nnoremap'.
+    i  Insert mode map. Defined using ':imap' or ':inoremap'.
+    v  Visual and select mode map. Defined using ':vmap' or ':vnoremap'.
+    x  Visual mode map. Defined using ':xmap' or ':xnoremap'.
+    s  Select mode map. Defined using ':smap' or ':snoremap'.
+    c  Command-line mode map. Defined using ':cmap' or ':cnoremap'.
+    o  Operator pending mode map. Defined using ':omap' or ':onoremap'.
+    
+    <Space>  Normal, Visual and operator pending mode map. Defined using
+             ':map' or ':noremap'.
+    !  Insert and command-line mode map. Defined using 'map!' or
+       'noremap!'.
+<
+
+The following characters may be displayed before the {rhs} of the map:
+
+>
+    *  The {rhs} of the map is not re-mappable. Defined using the
+       ':noremap' or ':nnoremap' or ':inoremap', etc. commands.
+    &  Only script local mappings are re-mappable in the {rhs} of the
+       map. The map command has the <script> attribute.
+    @  A buffer local map command with the <buffer> attribute.
+<
+
+To display all the key maps that start with a particular key sequence, enter 
+the key sequence in the above commands. For example, the following command 
+displays all the normal mode maps that start with 'g'.
+
+>
+    :nmap g
+<
+
+To display all the buffer-local maps for the current buffer, use the 
+following commands:
+
+>
+    :map <buffer>
+    :map! <buffer>
+<
+
+Typically the output of the above commands will span several pages. You can 
+use the following set of commands to redirect the output to the vim_maps.txt 
+file:
+
+>
+    :redir! > vim_maps.txt
+    :map
+    :map!
+    :redir END
+<
+
+REMOVING A KEYMAP                                 *vtw-1516-removing-a-keymap*
+
+To permanently remove a map, you first need to locate the place where it is 
+defined by using the ':verbose map {lhs}' command (replace {lhs} with the 
+mapped key sequence). If the map is defined in the .vimrc or _vimrc file or in 
+one of the files in the vimfiles or .vim directory, then you can edit the file 
+to remove the map.
+
+Another approach is to use the ':unmap' and ':unmap!' commands to remove the 
+map. For example, to remove the map for the <F8> key, you can use the 
+following commands:
+
+>
+    :unmap <F8>
+    :unmap! <F8>
+<
+
+Note that after a key is unmapped using the ':unmap' command, it can be 
+mapped again later. Also you cannot unmap a key used by one of the Vim 
+internal commands. Instead you have to map it to <Nop> to disable its 
+functionality. If you are trying to disable a key map defined by a plugin, 
+make sure the unmap command is executed after the key map is defined by the 
+plugin. To do this in .vimrc, use autocmd:
+
+>
+    autocmd VimEnter * unmap! <F8>
+<
+
+Filetype plugins can be a little tricky, because they can redefine mappings 
+any time you open a file of a certain type. You can just use a different 
+autocmd event for this, e.g.:
+
+>
+    autocmd FileType python unmap! <F8>
+<
+
+Or, you can place the unmap command in the appropriate after directory. :help 
+|after-directory|.
+
+You can remove a mode-specific map by using the mode specific unmap command. 
+The mode-specific unmap commands are listed below:
+
+>
+    nunmap - Unmap a normal mode map
+    vunmap - Unmap a visual and select mode map
+    xunmap - Unmap a visual mode map
+    sunmap - Unmap a select mode map
+    iunmap - Unmap an insert and replace mode map
+    cunmap - Unmap a command-line mode map
+    ounmap - Unmap an operator pending mode map
+<
+
+Note that in the above unmap commands, if a space character is present at the 
+end of the unmapped key sequence, then the command will fail. For example, the 
+following unmap command will fail (replace <Space> with a space character):
+
+>
+    :nnoremap <F2> :ls<CR>
+    :nunmap <F2><Space>
+<
+
+To map a key in only a selected set of modes, you can use the ':map' and 
+':map!' commands and then unmap them using the mode specific unmap commands in 
+a few modes. For example, to map a key in normal and visual mode but not in 
+operator-pending mode, you can use the following commands:
+
+>
+    :map <F6> ....
+    :ounmap <F6>
+<
+
+To clear all the mappings for a particular mode, you can use the ':mapclear' 
+command. The mode-specific map clear commands are listed below:
+
+>
+    mapclear  - Clear all normal, visual, select and operating pending
+                mode maps
+    mapclear! - Clear all insert and command-line mode maps
+    nmapclear - Clear all normal mode maps
+    vmapclear - Clear all visual and select mode maps
+    xmapclear - Clear all visual mode maps
+    smapclear - Clear all select mode maps
+    imapclear - Clear all insert mode maps
+    cmapclear - Clear all command-line mode maps
+    omapclear - Clear all operating pending mode maps
+<
+
+MODE-SPECIFIC MAPS                               *vtw-1516-mode-specific-maps*
+
+Vim supports creating keymaps that work only in specific editing modes. You 
+can create keymaps that work only in normal, insert, visual, select, command 
+and operator pending modes. The following table lists the various map commands 
+and their corresponding editing mode:
+
+>
+    Commands                        Mode
+    --------                        ----
+    nmap, nnoremap, nunmap          Normal mode
+    imap, inoremap, iunmap          Insert and Replace mode
+    vmap, vnoremap, vunmap          Visual and Select mode
+    xmap, xnoremap, xunmap          Visual mode
+    smap, snoremap, sunmap          Select mode
+    cmap, cnoremap, cunmap          Command-line mode
+    omap, onoremap, ounmap          Operator pending mode
+<
+
+Note that the language specific mappings defined using the ':lmap' and 
+':lnoremap' commands are not discussed here. For more information about this 
+refer to the Vim help.
+
+NORMAL MODE MAPS                                   *vtw-1516-normal-mode-maps*
+
+To map keys that work only in the normal mode, use the ':nmap' or ':nnoremap' 
+command. The 'n' in ':nmap' and ':nnoremap' denotes normal mode.
+
+For example, the following command maps the <F5> key to search for the 
+keyword under the cursor in the current directory using the 'grep' command:
+
+>
+    :nnoremap <F5> :grep <C-R><C-W> *<CR>
+<
+
+Examples:
+
+The following commands map the 'j' key to execute 'gj' and the 'k' key to 
+execute 'gk'. These are useful for moving between long wrapped lines.
+
+>
+    :nnoremap k gk
+    :nnoremap j gj
+<
+
+The following command maps ',b' to display the buffer list and invoke the 
+':buffer' command. You can enter the desired buffer number and hit <Enter> to 
+edit the buffer.
+
+>
+    :nnoremap ,b :ls<CR>:buffer<Space>
+<
+
+In the above command, you can enter <Space> at the end of the map command 
+either literally or by pressing the space bar.
+
+To display the currently defined normal mode maps, use the ':nmap' command 
+without any argument:
+
+>
+    :nmap
+<
+
+To remove a keymap from normal mode, use the ':nunmap' command. For example, 
+the following command removes the map for the <F9> key from normal mode:
+
+>
+    :nunmap <F9>
+<
+
+If you invoke an Ex command from a map, you have to add a <CR> or <Enter> or 
+<Return> at the end of the Ex command to execute the command. Otherwise the 
+command will not be executed. For example:
+
+>
+    :nnoremap <F3> :ls
+<
+
+With the above map, if you use <F3> in normal mode, you will be left in the 
+':' command-line after the text 'ls'. To execute the command, you have to use 
+<CR> at the end of the command:
+
+>
+    :nnoremap <F3> :ls<CR>
+<
+
+Now, when you press <F3>, the 'ls' Ex command will be executed.
+
+From a normal mode map, you can get the keyword under the cursor using the 
+expand('<cword>') function or using the <C-R><C-W> command. For example, the 
+following two map commands provide the same functionality:
+
+>
+    :nnoremap ,s :exe 'grep ' . expand('<cword>') . ' *'<CR>
+    :nnoremap ,s :grep <C-R><C-W> *<CR>
+<
+
+INSERT MODE MAPS                                   *vtw-1516-insert-mode-maps*
+
+To map keys that work only in the insert and replace modes, use the 'imap' or 
+'inoremap' command.
+
+Example:The following command maps <F2> to insert the directory name of the 
+current buffer:
+
+>
+    :inoremap <F2> <C-R>=expand('%:p:h')<CR>
+<
+
+To display the currently defined insert mode maps, use the 'imap' command 
+without any argument:
+
+>
+    :imap
+<
+
+To remove a keymap from insert mode, use the ':iunmap' command. For example, 
+the following command removes the insert mode map for <F2>.
+
+>
+    :iunmap <F2>
+<
+
+As printable keys insert a character in the current buffer in insert mode, 
+you should use non-printable keys to create insert mode maps. Some examples 
+for non-printable keys include the function keys <F2>, keys prefixed with the 
+Ctrl or Alt key.
+
+Alternatively, you can map keys that you're just not likely to need to 
+insert, such as two capital letters in a row. This can be an attractive option 
+for quick insert-mode access to common normal-mode commands 
+[https://vim.fandom.com/wiki/Quick_command_in_insert_mode].
+
+To execute Vim normal mode commands from an insert mode map, you have to go 
+from insert mode to normal mode. But after executing the map, you may want to 
+restore the mode back to insert mode. To do this, you can use the <CTRL-O> 
+insert-mode key which temporarily goes to normal-mode for one normal mode 
+command and then comes back to insert mode. For example, to call the Vim 
+function MyVimFunc() from insert mode, you can use the following map command:
+
+>
+    :inoremap <F5> <C-O>:call MyVimFunc()<CR>
+<
+
+One caveat with using the <C-O> command is that if the cursor is after the 
+last character in a line in insert mode, then <C-O> moves the cursor one 
+character to the left after executing the map. If you don't want this, then 
+you can use the <C-\><C-O> command, which doesn't move the cursor. But now the 
+cursor may be placed on a character beyond the end of a line. The above map 
+command is modified to use the <C-\><C-O> key:
+
+>
+    :inoremap <F5> <C-\><C-O>:call MyVimFunc()<CR>
+<
+
+Both the <C-O> and <C-\><C-O> commands create a new undo point, i.e. you can 
+undo the text inserted before and after typing these commands separately.
+
+Another alternative for going from insert mode to normal mode is to use the 
+<Esc> key. But it is preferable to use the <C-O> or <C-\><C-O> command for 
+this.
+
+If you press <Esc> in normal mode to make sure you are in normal mode, then 
+you will hear the error beep sound. Instead, you can use the CTRL-\ CTRL-N 
+command to go to normal mode. If you are already in normal mode, this command 
+will not result in the error bell. This command can be used from a map to go 
+to normal mode.
+
+After executing the normal mode commands from an insert mode map, if the 
+cursor position was moved by the map and no new text was inserted by the 
+commands invoked, then you can use the gi command to restart the insert mode 
+from the previous position where the insert mode was last stopped.
+
+You can insert the result of a Vim expression in insert mode using the <C-R>= 
+command. For example, the following command creates an insert mode map command 
+that inserts the current directory:
+
+>
+    :inoremap <F2> <C-R>=expand('%:p:h')<CR>
+<
+
+If you don't want to insert anything then you can return an empty string from 
+the expression. For example, you can invoke a function from the insert mode 
+map to perform some operation but return an empty string from the function.
+
+The <C-R>= command doesn't create a new undo point. You can also call Vim 
+functions using the <C-R>= command:
+
+>
+    :inoremap <F2> <C-R>=MyVimFunc()<CR>
+<
+
+If the return value of MyVimFunc() is to be ignored and not entered after its 
+call, a ternary operator trick may be used:
+
+>
+    :inoremap <F2> <C-R>=MyVimFunc()?'':''<CR>
+<
+
+This will return an empty string, independent of what MyVimFunc() returns.
+
+When Vim parses a string in a map command, the \<...> sequence of characters 
+is replaced by the corresponding control character. For example, let us say in 
+insert mode you want the down arrow key to execute <C-N> when the insert 
+complete popup menu is displayed. Otherwise, you want the down arrow key to 
+move the cursor one line down. You can try the following command (which 
+doesn't work):
+
+>
+    :inoremap <Down> <C-R>=pumvisible() ? '\<C-N>' : '\<Down>'<CR>
+<
+
+When parsing the above command, Vim replaces <C-N> and <Down> with the 
+corresponding control characters. When you press the down arrow in insert 
+mode, as there are control characters in the expression now, the command will 
+fail.
+
+To fix this, you should escape the '<' character, so that Vim will not 
+replace '\<C-N>' with the control character when parsing the command. The 
+following command works:
+
+>
+    :inoremap <Down> <C-R>=pumvisible() ? '\<lt>C-N>' : '\<lt>Down>'<CR>
+<
+
+With the above command, Vim will use the control character only when the map 
+is invoked and not when the above command is parsed.
+
+To insert a template you should use a Vim abbreviation instead of a insert 
+mode map. For more information about abbreviations refer to the Vim help.
+
+Note that if the 'paste' option is set, then insert mode maps are disabled.
+
+VISUAL MODE MAPS                                   *vtw-1516-visual-mode-maps*
+
+To map keys that work only in visual mode, use the ':vmap' or ':vnoremap' 
+commands. These maps are invoked when you press the mapped keys after visually 
+selecting a range of characters.
+
+For example, the following command maps the g/ key sequence to search for the 
+visually selected sequence of characters:
+
+>
+    :vnoremap g/ y/<C-R>"<CR>
+<
+
+Another visual mode map example to add single quotes around a selected block 
+of text:
+
+>
+    :vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
+<
+
+To display all the currently defined visual mode maps, use the ':vmap' 
+command without any arguments:
+
+>
+    :vmap
+<
+
+To remove a visual mode map, use the ":vunmap" command. For example, the 
+following command removes the visual mode map for g/:
+
+>
+    :vunmap g/
+<
+
+From a visual mode map, you can either perform a text editing operation on 
+the selected characters or add/remove characters at the beginning and/or end 
+of the selected region or pass the selected text to some other 
+internal/external command.
+
+The '< Vim mark represents the first line of a visual region and the '> mark 
+represents the last line of the visual region. The similar `< mark represents 
+the beginning character position of the visual region and the `> mark 
+represents the ending character position of the visual region. You can use 
+these marks in your map to perform operation at the beginning and end of the 
+visual region. If the map is invoked from visual mode, then these marks will 
+refer to the beginning and end of the previous selection and not to the 
+current selected region.
+
+If you want to use the visually selected text in your map, then you can yank 
+the text and then use it in your map. You can either yank the text to a 
+register or use the unnamed (") register. For example, the following command 
+maps the g/ key sequence to search for the visually selected text:
+
+>
+    :vnoremap g/ y/<C-R>"<CR>
+<
+
+Another approach is to use the above described marks and get the text in the 
+region from the buffer using the getline() function.
+
+To execute an Ex command from a visual mode map, you have to first enter the 
+command-line mode using the ':' character. After visually selecting a sequence 
+of characters, when you press ':' to execute a Vim Ex command, Vim 
+automatically inserts the visual block begin ('<') and end ('>') marks. If you 
+invoke an Ex command with this range, then the command is executed for every 
+line in this range. This may be undesirable. For example, if you invoke a Vim 
+function, then the function will be executed separately for each line in the 
+range (unless the function is defined with the '-range' attribute). To remove 
+the visual block start and end marks, use the <C-U> command, which removes all 
+the characters between the start of the line and the current cursor position, 
+at the beginning of your map. For example,
+
+>
+    :vnoremap <F2> :<C-U>call MyVimFunc()<CR>
+<
+
+When you enter a mapped key sequence in character-wise or line-wise or 
+block-wise visual mode, the same visual map is invoked. You can use the 
+visualmode() function in your map to differentiate between these modes. For 
+example, the following code maps the <F5> keys in visual mode to invoke the 
+MyFunc() function. The MyFunc() function uses the visualmode() function to 
+distinguish between the visual modes.
+
+>
+    vnoremap <silent> <F5> :<C-U>call MyFunc()<CR>
+    function! MyFunc()
+        let m = visualmode()
+        if m ==# 'v'
+            echo 'character-wise visual'
+        elseif m == 'V'
+            echo 'line-wise visual'
+        elseif m == "\<C-V>"
+            echo 'block-wise visual'
+        endif
+    endfunction
+<
+
+Note that we use ==# for the initial comparison instead of ==. This is 
+because ==# will always make a case-sensitive comparison, whereas == will 
+consider 'v' and 'V' to be the same if the ignorecase option has been set.
+
+When you enter the command mode using ':' in visual mode, the visual mode is 
+stopped. If you want to re-enter the visual mode from a function invoked from 
+a map, you can use the gv command:
+
+>
+    vnoremap <silent> <F5> :<C-U>call MyFunc()<CR>
+    function! MyFunc()
+        normal! gv
+    endfunction
+<
+
+The maps created with the ":vmap" and ":vnoremap" commands work in both 
+Visual mode and Select mode. When a map is invoked in select mode, Vim 
+temporarily switches to visual mode before executing the map and at the end of 
+the map, switches back to select mode. So the map behaves the same in visual 
+and select mode.
+
+To create a map that works only in Visual mode and not in Select mode use the 
+":xmap" and ":xnoremap" commands. All the other descriptions for the ":vmap" 
+and ":vnoremap" commands also apply to the ":xmap" and ":xnoremap" commands.
+
+To create a map that works only in Select mode and not in Visual mode use the 
+":smap" and ":snoremap" commands.
+
+COMMAND-LINE MODE MAPS                       *vtw-1516-command-line-mode-maps*
+
+To map keys to work only in the command-line mode, use the "cmap" or 
+":cnoremap" commands.
+
+The command-line mode map works in the following command prompts:
+
+>
+    :    Ex command prompt
+    /    Forward search prompt
+    ?    Backward search prompt
+    >    Debug prompt
+    @    input() prompt
+    -    :insert and :append prompts.
+<
+
+You can distinguish between the above prompts using the getcmdtype() function 
+in your map. Example:
+
+>
+    :cnoremap <F8> <C-R>=MyFunc()<CR>
+    function! MyFunc()
+        let cmdtype = getcmdtype()
+        if cmdtype == ':'
+            " Perform Ex command map action
+        elseif cmdtype == '/' || cmdtype == '?'
+            " Perform search prompt map action
+        elseif cmdtype == '@'
+            " Perform input() prompt map action
+        else
+            " Perform other command-line prompt action
+        endif
+    endfunction
+<
+
+To invoke functions from a command-line map, you have to use the '<C-R>=' 
+command or the 'CTRL-\ e' command. An example map that shows this is below:
+
+>
+    :cnoremap <C-F6> <C-R>=Somefunc()<CR>
+    :cnoremap <C-F6> <C-\>eSomefunc()<CR>
+<
+
+The <C-R>= command inserts the value returned by the invoked function at the 
+current location in the command-line. The <C-\>e command replaces the entire 
+command-line with the value returned by the invoked function.
+
+The <C-R>= and <C-\>e commands cannot be used in the prompt for getting an 
+expression (represented by =). For example, to insert the value of the Vim 
+variable 'abc' in the command line, you can use <C-R>=abc<CR> command. In the 
+prompt where you enter the variable name, you cannot again use <C-R>= and 
+<C-\>e. To do this use the <expr> attribute to the map command as explained 
+below.
+
+Another way to invoke a function from a command-line mode map is to use the 
+<expr> attribute as shown below:
+
+>
+    :cnoremap <expr> <C-F6> Cmdfunc()
+<
+
+Using the above map, the value returned by Cmdfunc() is inserted at the 
+current location in the command-line.
+
+In the function invoked by the <C-R>= and <C-\>e commands and <expr> 
+attribute, you can use the getcmdpos() function to get the current position of 
+the cursor in the command. You can use the setcmdpos() function to change the 
+location of the cursor in the command-line. You can use the getcmdline() 
+function to get the current command-line.
+
+It is preferable to use a non-printable control character for invoking a 
+command-line mode map. Otherwise, the map may interfere with the printable 
+characters used in the Vim Ex commands.
+
+Note that if the 'paste' option is set, then command-line mode maps are 
+disabled.
+
+OPERATOR PENDING MODE MAPS               *vtw-1516-operator-pending-mode-maps*
+
+You can create maps that work only when waiting for a motion command from an 
+operator command. For example, the yank command 'y' yanks the text that is 
+selected by the motion that follows the command. To yank the current line and 
+the two following lines of text, you can use the command 'y2j'. After pressing 
+'y', Vim waits for you to enter the motion command. The operator pending maps 
+can be used here. The operator pending mode maps can be used to define your 
+own text objects.
+
+Operator pending commands are defined using the ":omap" and ":onoremap" 
+commands.
+
+For example, the following command creates an operator pending map for <F6> 
+to select the current inner block defined by "{" and "}".
+
+>
+    :onoremap <F6> iB
+<
+
+You can now yank an inner block using the y<F6> command, delete an inner 
+block using the d<F6> command, etc.
+
+To change the starting location of the operator from a operator-pending mode 
+map, you can start visual mode and select the desired range of characters. One 
+disadvantage in starting visual mode is that the previous visual region will 
+be lost.
+
+MAPPING MOUSE EVENTS                           *vtw-1516-mapping-mouse-events*
+
+You can map mouse events similar to mapping keys to perform some action. 
+Thefollowing mouse events can be mapped:
+
+>
+    <LeftMouse>     - Left mouse button press
+    <RightMouse>    - Right mouse button press
+    <MiddleMouse>   - Middle mouse button press
+    <LeftRelease>   - Left mouse button release
+    <RightRelease>  - Right mouse button release
+    <MiddleRelease> - Middle mouse button release
+    <LeftDrag>      - Mouse drag while Left mouse button is pressed
+    <RightDrag>     - Mouse drag while Right mouse button is pressed
+    <MiddleDrag>    - Mouse drag while Middle mouse button is pressed
+    <2-LeftMouse>   - Left mouse button double-click
+    <2-RightMouse>  - Right mouse button double-click
+    <3-LeftMouse>   - Left mouse button triple-click
+    <3-RightMouse>  - Right mouse button triple-click
+    <4-LeftMouse>   - Left mouse button quadruple-click
+    <4-RightMouse>  - Right mouse button quadruple-click
+    <X1Mouse>       - X1 button press
+    <X2Mouse>       - X2 button press
+    <X1Release>     - X1 button release
+    <X2Release>     - X2 button release
+    <X1Drag>        - Mouse drag while X1 button is pressed
+    <X2Drag>        - Mouse drag while X2 button is pressed
+<
+
+Few examples for mapping the above mouse events is given below.
+
+To jump to the tag under the cursor when the tag is double clicked, you can 
+use the following map:
+
+>
+    :nnoremap <2-LeftMouse> :exe "tag ". expand("<cword>")<CR>
+<
+
+The above map uses the expand() function to get the keyword under the cursor 
+and then invokes the "tag" command with the current keyword. The "execute" 
+command is used to concatenate the tag command and the output of the expand() 
+function.
+
+To map the X1 and X2 buttons to go forward and backward in the jump list, you 
+can use the following map:
+
+>
+    :nnoremap <X1Mouse> <C-O>
+    :nnoremap <X2Mouse> <C-I>
+<
+
+The above maps use the <C-O> and <C-I> normal mode commands to walk the jump 
+list.
+
+When you paste text using the middle mouse button, the text is pasted at the 
+current cursor position. To paste at the position of the middle mouse button 
+click, you can use the following map:
+
+>
+    :nnoremap <MiddleMouse> <LeftMouse><MiddleMouse>
+<
+
+The above map first moves the cursor to the point where the click is made and 
+then invokes the <MiddleMouse> functionality.
+
+If you create a map for one of these mouse events, it overrides the internal 
+default handling of that event by Vim. To pass the event to Vim, so that the 
+default handling is also done, you can use "nnoremap" and specify the event in 
+the {rhs} of the map. For example,
+
+>
+    :nnoremap <LeftRelease> <LeftRelease>:call MyFunc()<CR>
+<
+
+With the above map, when the Left mouse button is pressed, the cursor is 
+moved to that location and then the function MyFunc() is called.
+
+You can disable a mouse event, by mapping it to <Nop> If you have a 
+scrollwheel and often accidentally paste text when scrolling text, you can use 
+the following mappings to disable the pasting with the middle mouse button:
+
+>
+    :nnoremap <MiddleMouse> <Nop>
+    :inoremap <MiddleMouse> <Nop>
+<
+
+
+
+NESTED (RECURSIVE) MAPS                     *vtw-1516-nested-(recursive)-maps*
+
+When executing a mapped key sequence, if the {lhs} is not a prefix of the 
+{rhs}, then Vim scans and recursively replaces any mapped keys in the {rhs} of 
+the map. This allows you to define nested and recursive mappings. For example, 
+consider the following set of commands:
+
+>
+    :map <F2>  :echo 'Current time = ' . strftime('%c')<CR>
+    :map <F3> <F2>
+<
+
+When you press <F3>, Vim executes the mapped key sequence for <F2> and 
+displays the current time.
+
+Note that Vim recursively checks for mappings on the {rhs} of a map when 
+executing the map and not when defining the map. In the above example, if you 
+redefine the map for <F2> later, then <F3> will execute the new map for <F2>.
+
+If you include the {lhs} of a map in the {rhs}, then you will create an 
+infinitely recursive key map. For example, the following insert mode map 
+command creates an infinitely recursive map:
+
+>
+    :imap ab xyzab
+<
+
+With the above map, when you enter "ab" in insert mode, it is replaced with 
+"xyz" followed by "ab" which is replaced by "xyz" and so on. You can interrupt 
+the recursive map by pressing CTRL-C.
+
+Vim will recursively replace the mapped key sequence in the {rhs} of a map 
+till it encounters an error. This can be used to create a recursive map that 
+stops on error. For example, the following command creates a map for \s to 
+replace "emacs" with "vi" in all the files in the argument list:
+
+>
+    :nmap \s  :%s/emacs/vi/g \| update \| n<CR>\s
+<
+
+The "\s" at the end of the {rhs} in the map creates a recursive map. The 
+recursive map will stop when it reaches the last file in the argument list as 
+the "n" command will fail.
+
+If the {rhs} of a map begins with the {lhs}, then it is not recursively 
+replaced. For example, the following command will not create a recursive map 
+for x:
+
+>
+    :nmap x xyz
+<
+
+If you want to invoke other maps from your map, then define your maps using 
+the ":map", ":map!", ":nmap", ":imap", ":vmap", ":cmap", ":xmap", ":smap" and 
+":omap" commands.
+
+To prevent Vim from recursively replacing the mapped keys in the {rhs} of 
+map, you can set the 'noremap' option. But instead of setting this option, it 
+is preferable to use the 'noremap' command.
+
+You can use the 'noremap' command to execute the {rhs} of a map literally 
+without any map substitutions. For example, consider the following command 
+which visually selects the current paragraph:
+
+>
+    :map <F2> vip
+<
+
+If a map is defined for any character sequence in the {rhs}, then the above 
+command will break. For example, consider the following map command which maps 
+'vi' to invoke 'gg':
+
+>
+    :map vi gg
+<
+
+When you invoke <F2>, "vi" in the {rhs} will be replaced with "gg" resulting 
+in an unexpected result. To prevent this from happening, you can use the 
+following map command:
+
+>
+    :noremap <F2> vip
+<
+
+Vim has the "noremap" version of the map command for all the mode specific 
+map commands. You can use "nnoremap", "inoremap", "cnoremap", "vnoremap", 
+"snoremap", "xnoremap" and "onoremap". In most of the map commands, it is 
+better to use the "noremap" version of the command to prevent unexpected 
+behavior.
+
+When a key sequence which is mapped using "noremap" is entered at the end of 
+an abbreviation, the abbreviation will not be expanded. For example, the 
+following command creates an insert mode abbreviation for "vi":
+
+>
+    :iabbr vi Vi Improved
+<
+
+In insert mode, when you enter "vi" followed by a space or Enter or some 
+other control character, it is replaced with "Vi Improved". If you have the 
+following map command for the <Enter> key:
+
+>
+    :inoremap <Enter> <Enter><C-G>u
+<
+
+Now, if you press <Enter> after entering "vi", it will not be expanded to "Vi 
+Improved". You can expand the abbreviation by pressing <Space> or by entering 
+Ctrl-].
+
+To read the second part of this tutorial, visit the Mapping keys in Vim - 
+Tutorial (Part_2) 
+[https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)] page.
+
+COMMENTS                                                   *vtw-1516-comments*
+
+It would be nice to have links to the official documentation (see 
+Template:Help [https://vim.fandom.com/wiki/Template:Help]).
+
+Long ago we used !map - but I forget how it worked!
+
+Regarding #Operator pending mode maps |vtw-1516-operator-pending-mode-maps|, 
+it is actually possible to define custom text object selection o-mappings that 
+change the starting location of the cursor. We must first move the cursor to 
+the start of the selection, then go to visual mode, and finally move the 
+cursor to the end of the selection. See for instance:
+    - Indent text object [https://vim.fandom.com/wiki/Indent_text_object] 
+    - Creating new text objects 
+      [https://vim.fandom.com/wiki/Creating_new_text_objects] 
+    - the thread about Text object selection for function parameters 
+      [http://groups.google.com/group/vim_use/browse_frm/thread/94a43931e9e999c3/5b7fd13c4a2c8cae] 
+      on Vim mailing list. 
+    - In the mouse section, it would be nice to mention if mouse scroll wheel 
+      events can be mapped 
+
+
+Very useful, thanks!
+
+==============================================================================
+    - worth noting that apostrophes may be added with the surround.vim 
+      [https://vim.fandom.com/wiki/Script:1697] plugin. 
+
+    - mapping authors often forget to use v:count, v:register and repeat.vim 
+      [https://vim.fandom.com/wiki/Script:2136] in a sensible way 
+
+
+ vim:tw=78:et:ft=help:norl:

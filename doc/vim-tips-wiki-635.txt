@@ -1,0 +1,285 @@
+*vim-tips-wiki-635.txt*   Getting colors to work on solaris             *vtw-635*
+
+Tip 635 [https://vim.fandom.com/wiki/Getting_colors_to_work_on_solaris]   Previous |vtw-634| Next |vtw-636|
+
+created January 14, 2004 · complexity basic · author Brad Lhotsky · version 
+5.7
+
+==============================================================================
+
+You need to get the latest ncurses package available at 
+http://www.sunfreeware.com/ [http://www.sunfreeware.com/] and then configure 
+with this option:
+
+>
+    --with-tlib=ncurses
+<
+
+This will link to ncurses which fully supports the color codes. Then make 
+sure your display is exported as a color capable terminal.
+
+Furthermore you should add
+
+>
+    export TERM=dtterm
+<
+
+to your .profile if you're a bash-user.
+
+COMMENTS                                                    *vtw-635-comments*
+
+I tried this in sun solaris 2.8, but didn't work out.
+
+==============================================================================
+
+I tried type in the line as Vim command, it return error: "E492: Not an 
+editor command: --with-tlib=ncuerses."
+
+==============================================================================
+
+This tip didn't work for me either, but i found another solution: setting the 
+TERM environment variable to "sun-color" did the trick. What's more, it worked 
+only when i did NOT compile with --with-tlib=ncurses (letting it to the 
+default automatic detection) because with it vim said my TERM was unknown
+
+==============================================================================
+
+You also need to setup ld to search /usr/local/lib. To do this see man crle. 
+Add that in, make distclean, reconfigure, and build.. Note: This is NOT a 
+runtime (command line/ vimrc) tip, its a compilation tip.
+
+==============================================================================
+
+Maybe you should "export TERM=xterm-color" in addition to "configure with 
+this option: --with-tlib=ncurses ".It works well on my box.
+
+==============================================================================
+
+Here's what works on my Solaris 8/9 boxes:
+
+>
+    if &term =~ "xterm"
+      if has("terminfo")
+        set t_Co=8
+        set t_Sf=ESC[3%p1%dm
+        set t_Sb=ESC[4%p1%dm
+      else
+        set t_Co=8
+        set t_Sf=ESC[3%dm
+        set t_Sb=ESC[4%dm
+      endif
+    endif
+<
+
+==============================================================================
+
+With Solaris 9 Intel x86 edition, after a normal installation, plus the 
+package ncurses and vim for Solaris 9 x86 installed
+
+You just need to create a $HOME/.vimrc with:
+
+>
+    syntax on
+<
+
+In this case you will get colorised syntax in vim, called from a dtterm
+
+On a native xterm you will not get color, because this is a black and white 
+xterm.
+
+If you install the binaries and lib of XfreeOrg_XFREE86-4.1.0, (package for 
+Solaris Intel from ftp://ftp.xfree86.org/pub/XFree86/4.4.0/binaries/Solaris-9/ 
+[ftp://ftp.xfree86.org/pub/XFree86/4.4.0/binaries/Solaris-9/]) you will get an 
+xterm with color like under linux.
+
+Don't try to install all the packages in particular the XFree Driver must be 
+the one from Sun, like SUN_XFREE86-4.0.3 or SUN_XFREE86-4.2.0 which include 
+package to install with pgdadd, and found in xf86_drv_port_bin_403_2.tar.gz or 
+xf86_drv_port_bin_420_1.tar.gz from: 
+http://developers.sun.com/solaris/developer/support/driver/tools/video/video-index.html 
+[http://developers.sun.com/solaris/developer/support/driver/tools/video/video-index.html] 
+--> Download Porting Kit (you will have to register , but its free, before 
+download). Any way these packages are not required if the native Solaris X 
+driver is fine for your card.
+
+From the ftp.xfree86.org/pub archive, just extract the tarball: Xbin.tgz 
+Xdoc.tgz Xlib.tgz Xman.tgz for example, under a new created directory 
+/usr/X11R6 if it doesn't exist (created by SUN_XFREE86 when installed), and 
+put /usr/X11R6/bin in the PATH , and /usr/X11R6/lib in LD_LIBRARY_PATH, added 
+in /etc/profile for example.
+
+Then if you use vim in a /usr/X11R6/bin/xterm, you have also to set 
+TERM=xterm-color, then vim works also as fine as in dtterm; unfortunately, 
+other command like less will complain about bad implementation because 
+xterm-color doesn't exist in /usr/share/lib/terminfo/x; correct the problem by 
+copying in this directory the xterm-color f from linux machine (in 
+/usr/share/terminfo/x)
+
+==============================================================================
+
+>
+    export TERM=xtermc
+<
+
+that is what worked for me. Many of the systems at this place are still 
+solaris 2.6 though, so I don't know whether this makes a difference, I have 
+got to the 9 systems yet.
+
+==============================================================================
+
+'xtermc' worked for me as well, connecting using putty to a solaris 5.7 
+system. In my case, it seems clear that vim had already been installed using 
+ncurses, but the terminfo was outdated, and the xterm entry doesnt include 
+color information or something. The net result for me was bold and underlined 
+text, but no real colors.
+
+There is no 'xtermc' in the termcap, which could conceivably cause problems 
+for other (less important) shell applications.
+
+==============================================================================
+
+With Putty, set the "Terminal-type string" setting in the "Connection" 
+category to "xtermc".
+
+Save your settings, log in, and enjoy the view.
+
+==============================================================================
+
+I tried this:
+
+>
+    PuTTY with Terminal-type string to xtermc
+    TERM to xtermc
+<
+
+and Vim is now working with colours. But, arrows don't work anymore with 
+Midnight Commander.
+
+==============================================================================
+
+In Application keypad settings section in the Keyboard-Config in PuTTY:
+    - do not check Application cursor keys totally disabled 
+    - check Initial state of cursor keys: Application 
+    - do bot chech Application keypad keys totally disabled 
+    - check Initial state of numeric keypad to Application 
+
+
+==============================================================================
+
+The effects of terminal type strings in ncurses (and more) are defined by a 
+very dense configuration that is part of the "terminfo" system, and "termcap" 
+system in some other programs. I think it's probably too far outside the scope 
+of this forum, but researching that should serve you well (also i dont know 
+enough about it to say anything useful). Be sure not to miss 
+http://www.catb.org/~esr/terminfo/ [http://www.catb.org/~esr/terminfo/] - 
+could be a valuable resource if you do give it a go.
+
+==============================================================================
+
+solaris 9 - try "TERM=dtterm; export TERM" in an xterm window ... seems to 
+work also
+
+==============================================================================
+
+I confirm, 'export TERM=xtermc' enables colors on solaris 2.8 (without 
+--with-tlib=ncurses compile option), but does not work on 2.6 system
+
+==============================================================================
+
+'xtermc' worked for me on Solaris 10 (as did 'sun-color', but that one 
+limited my view to 60 rows).
+
+==============================================================================
+
+export TERM=xtermc worked for me in Solaris 5.8
+
+==============================================================================
+
+I am on a SUN machine as well and have tried everything in this list, but 
+finally I saw a post that said set my TERM to sun-color so I went to my .vimrc 
+and places a nice litte
+
+>
+    set term=sun-color
+    syntax on
+<
+
+and it works like a charm! thanks
+
+==============================================================================
+
+>
+    set term=xtermc
+    syntax on
+<
+
+worked like a charm on x86 Solaris 10.
+
+==============================================================================
+
+You can also set in your ~/.profile in Solaris 8 the following
+
+>
+    export TERM=ansi
+<
+
+then within your ~/.vimrc
+
+>
+    syntax on
+    set nocp incsearch
+    set cinoptions=:0,p0,t0
+    set cinwords=if,else,while,do,for,switch,case,def
+    set formatoptions=tcqr
+    set cindent
+    set ruler
+<
+
+that should work for most installs with the SunFreeware packages.
+
+==============================================================================
+
+I just built vim 7.0 with no special options or libs and set "export 
+TERM=xterm-color" to get color.
+
+==============================================================================
+
+TERM=xterm-color works better for me than TERM=xtermc. Both give color but 
+xtermc produces some artifacts when exiting vim.
+
+==============================================================================
+
+Another possible hack is to set an alias for vim in your .bashrc or alike:
+
+>
+    alias vim='/usr/bin/env TERM=xterm-color vim'
+<
+
+This worked for me and did not produce artifacts when exiting vim.
+
+==============================================================================
+
+I'm using OpenIndiana 10 (forked OpenSolaris 10), and this:
+
+>
+    env TERM=xterm-color vim
+<
+
+gives me no artifacts but a black-and-white color scheme. xtermc gives color 
+but artifacts. The sun-color terminal type works perfectly (color without 
+artifacts), but is not recognized on my linux systems, and I'm not able to 
+have multiple versions of my .vimrc file. I'm going to have to write some 
+conditional code in .vimrc for this. :-(
+
+==============================================================================
+
+On OpenSXCE (sparc version of OpenIndiana) this works perfectly when added to 
+the top of my .vimrc:
+
+>
+    set term=sun-color
+<
+
+Works fine via KDE Konsole SSH session on Fedora 16. No artifacts.
+
+ vim:tw=78:et:ft=help:norl:

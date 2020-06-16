@@ -1,0 +1,68 @@
+*vim-tips-wiki-825.txt*   Repeat search using grep                      *vtw-825*
+
+Tip 825 [https://vim.fandom.com/wiki/Repeat_search_using_grep]   Previous |vtw-824| Next |vtw-826|
+
+created November 19, 2004 · complexity basic · author mosh · version 5.7
+
+==============================================================================
+
+When #/* will not find a word under-cursor, use the macro 'g/' given below, 
+to expand the same search with gnu-grep to dirs/files.
+
+Search results are shown in a small window (quickfix mode), use c-n/c-p to 
+move between results.
+
+Uses gnu-grep on PC/Unix to search vim \<regexp\> in files/trees. Based on 
+'grep-find' which is an emacs commands.
+
+>
+    " Put this in ~/_vimrc and use g/ to repeat current search as a grep-find.
+    " Usage
+    " /xyz .. not found in current file, so lets look for it in *.* with
+    " g/ .. search for xyz in *.*, next lets look for it in the whole tree
+    " :call Mosh_grep("../..")
+    " :call Mosh_grep("/usr/include","strstr")
+    " GNU-grep -recursive,nocase,linenum,noerror,VimRegexp (in that order).
+    :set grepprg=grep\ -rinsE
+    :map g/ :call Mosh_grep()<CR>
+    
+    function! Mosh_grep(...)
+      if a:0 == 0
+        :exec "grep '".@/."' *.*"
+      elseif a:0 == 1
+        :exec "grep '".@/."' " a:1
+      elseif a:0 == 2
+        :exec "grep" a:2 " " a:1
+      endif
+      " Optional mappings for easy navigation of results
+      :map <c-n> :cnext<CR>
+      :map <c-p> :cprev<CR>
+      :copen
+    endfunction
+<
+
+COMMENTS                                                    *vtw-825-comments*
+
+Wouldn't it be helpful to constrain the files to be grepped? E.g. only *.c 
+and *.h files when editing C source?
+
+>
+    => find -name "*.c" | xargs grep "MyFunction"
+    => find -name "*.c" -o -name "*.h" | xargs grep "MyFunction"
+<
+
+Or at least, ignoring *~ and *.bak files?
+
+==============================================================================
+
+No, no, no! This mapping isn't even using gnu grep as it claims, it's using 
+the :grep Vim command (which, on a Unix system, will utilize the grep tool by 
+default, but it is not at all the same). If you want to limit the file type, 
+just pass in the desired files into the command itself! There is no need to 
+shell out to a find command! See Find in files within Vim 
+[https://vim.fandom.com/wiki/Find_in_files_within_Vim].
+
+TO DO Merge this tip somewhere. It basically consists of an incorrect 
+description, and a few very simple mappings.
+
+ vim:tw=78:et:ft=help:norl:

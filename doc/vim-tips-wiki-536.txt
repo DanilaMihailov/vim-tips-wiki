@@ -1,0 +1,34 @@
+*vim-tips-wiki-536.txt*   Automatically quit Vim if quickfix window is the last *vtw-536*
+
+Tip 536 [https://vim.fandom.com/wiki/Automatically_quit_Vim_if_quickfix_window_is_the_last]   Previous |vtw-535| Next |vtw-537|
+
+created 2003 · complexity intermediate · author David Kalita · version 6.0
+
+==============================================================================
+
+Usually I have open one window with source code and one with error codes 
+(command `:copen`). When I quit the source code quickfix window stays open. 
+The following causes the quickfix window to close automatically.
+
+>
+    au BufEnter * call MyLastWindow()
+    function! MyLastWindow()
+      " if the window is quickfix go on
+      if &buftype=="quickfix"
+        " if this window is last on screen quit without warning
+        if winbufnr(2) == -1
+          quit!
+        endif
+      endif
+    endfunction
+<
+
+COMMENTS                                                    *vtw-536-comments*
+
+The quit! should be changed to tabclose to be safe.
+
+I don't think your concern is correct. The quit! would close the current buffer and discard any changes for that buffer. However, the command does not attempt to close any other buffer, so unsaved work in other tabs will be retained (Vim will not terminate).
+Is the ! needed? I think you have to go to a fair bit of trouble to make a change to a quickfix window, so a plain quit would suffice and be a tiny bit safer.
+Rather than use winbufnr(2), I think the test could be if winnr('$') < 2. JohnBeckett 07:00, May 10, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

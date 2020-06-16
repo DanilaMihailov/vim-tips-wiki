@@ -1,0 +1,41 @@
+*vim-tips-wiki-409.txt*   Using selected text in a command              *vtw-409*
+
+Tip 409 [https://vim.fandom.com/wiki/Using_selected_text_in_a_command]   Previous |vtw-408| Next |vtw-410|
+
+created January 21, 2003 · complexity basic · author Lyle · version 5.7
+
+==============================================================================
+
+I wish to use selected text as part of a command - say, to substitute 
+instances of a very long variable with a shorter name:
+
+>
+    :%s/<selected text>/ShorterName/g
+<
+
+How do I do that?
+
+COMMENTS                                                    *vtw-409-comments*
+
+==============================================================================
+
+Just put the cursor over the word in your text. In the command line press 
+<C-R><C-W> the to get the word.
+
+See h: c_<C-R>_<C-W>
+
+==============================================================================
+
+I have the following maps:
+
+>
+    vmap ,g :s/<C-R>//
+    map ,g :s/<C-R>//
+<
+
+I then just add the closing delimiter and flags and hit return. These 
+mappings have saved me a great deal of time.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,21 @@
+*vim-tips-wiki-181.txt*   Get the vim patched source                    *vtw-181*
+
+Tip 181 [https://vim.fandom.com/wiki/Get_the_vim_patched_source]   Previous |vtw-180| Next |vtw-182|
+
+created December 14, 2001 · complexity basic · author benoit cerrina · 
+version 6.0
+
+==============================================================================
+
+There has been a number of person (including) asking in the Vim list how to 
+keep up with Bram's incredible bug correction and patch writing skills, but 
+there is a great way to do this!
+
+Use the cvs source which is available at 
+http://sourceforge.net/cvs/?group_id=8 
+[http://sourceforge.net/cvs/?group_id=8] it is kept up to date and its a lot 
+easier than applying all the patch in order.
+
+COMMENTS                                                    *vtw-181-comments*
+
+ vim:tw=78:et:ft=help:norl:

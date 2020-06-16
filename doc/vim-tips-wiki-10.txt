@@ -1,0 +1,124 @@
+*vim-tips-wiki-10.txt*   Jumping to previously visited locations         *vtw-10*
+
+Tip 10 [https://vim.fandom.com/wiki/Jumping_to_previously_visited_locations]   Previous |vtw-9| Next |vtw-12|
+
+created 2001 · complexity basic · author Yegappan · version 6.0
+
+==============================================================================
+
+Vim remembers the locations you have recently visited (where you jumped 
+from). Each position (file name, column number, line number) is recorded in a 
+jump list, and each window has a separate jump list that records the last 100 
+positions where a jump occurred.
+
+The commands that are regarded as "jumps" include searching, substitute and 
+marks. Scrolling through a file is not regarded as jumping.
+
+The jump list is saved between edits (provided the 'viminfo' option has the ' 
+parameter), so you can see where jumps occurred from previous editing 
+sessions. :help 'viminfo'
+
+USING A JUMP LIST                                   *vtw-10-using-a-jump-list*
+
+Like a web browser, you can go back, then forward:
+    - Press Ctrl-O to jump back to the previous (older) location. 
+    - Press Ctrl-I (same as Tab) to jump forward to the next (newer) location. 
+
+
+Display the jump list for the current window with:
+
+>
+    :jumps
+<
+
+Your current location in the jump list is indicated with '>', and the first 
+number in each row is a count that can be used to jump to that position. For 
+example, after pressing Ctrl-O three times, the `:jumps` command may show 
+something like this:
+
+>
+    jump line  col file/text
+       4   102    0 somefile.txt
+       3    93    0 -invalid-
+       2    23    0 the current line 23 is shown here
+       1    89   34 the current line 89 is shown here
+    >  0    22   40 Display the jump list for the current window with:
+       1    39    0 the current line 39 is shown here
+       2   995    0 anotherfile.txt
+       3    53  102 the current line 53 is shown here
+<
+
+Given the above, you could press:
+    - Ctrl-I to jump to line 39 in the current buffer. 
+    - Ctrl-O to jump to line 89 in the current buffer. 
+    - `4` then Ctrl-O to jump to line 102 in file `somefile.txt`. 
+    - `3` then Ctrl-I to jump to line 53 in the current buffer. 
+
+
+In the example above:
+    - The last line was added to the jump list when the first Ctrl-O was pressed 
+      (so you can return to the initial position: line 53, column 102). 
+    - Line 93 in the current buffer no longer exists (the jump location is 
+      invalid). 
+
+
+USING A SCRIPT TO SELECT A JUMP IN THE LIST *vtw-10-using-a-script-to-select-a-jump-in-the-list*
+
+Using this vimrc [https://vim.fandom.com/wiki/Vimrc] function, you can enter 
+the number of a jump to go to the desired jump:
+
+>
+    function! GotoJump()
+      jumps
+      let j = input("Please select your jump: ")
+      if j != ''
+        let pattern = '\v\c^\+'
+        if j =~ pattern
+          let j = substitute(j, pattern, '', 'g')
+          execute "normal " . j . "\<c-i>"
+        else
+          execute "normal " . j . "\<c-o>"
+        endif
+      endif
+    endfunction
+<
+
+You can invoke the function in command mode:
+
+>
+    :call GotoJump()
+<
+
+After this, you will see the list of jumps and be asked to select a jump. If 
+you type 4 and press Enter, it will take you back to the 4th jump. If you type 
++4 and press Enter, it will take you forward to the 4th jump in the list. If 
+you press Escape, nothing happens.
+
+You can also have a mapping for it, for example:
+
+>
+    nmap <Leader>j :call GotoJump()<CR>
+<
+
+SEE ALSO                                                     *vtw-10-see-also*
+    - Using marks |vtw-42| to manually record marks that you can return to 
+    - List changes to the current file |vtw-1300| the change list records where 
+      changes occurred 
+
+
+REFERENCES                                                 *vtw-10-references*
+    - :help |jump-motions| 
+    - :help |jumplist| 
+    - :help |:jumps| 
+
+
+COMMENTS                                                     *vtw-10-comments*
+
+You can also use `g;` and `g,` to move backward and forward in your edit 
+locations.
+
+One thing that may not be immediately evident is that this works only 
+line-wise. You can't have more than one jump per-line. If you use any of the 
+jump generator commands inside the line, only one jump is saved.
+
+ vim:tw=78:et:ft=help:norl:

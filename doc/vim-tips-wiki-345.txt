@@ -1,0 +1,94 @@
+*vim-tips-wiki-345.txt*   Quickfix and Visual Studio and cygwin         *vtw-345*
+
+Tip 345 [https://vim.fandom.com/wiki/Quickfix_and_Visual_Studio_and_cygwin]   Previous |vtw-344| Next |vtw-346|
+
+created 2002 · complexity basic · author Brian K · version 6.0
+
+==============================================================================
+
+I run gvim inside a cygwin XFree86 session running WindowMaker. Because I'm 
+inside cygwin-XFree86, I can't use the useful VisVim plugin to step through 
+Visual Studio compiler errors. To work around this limitation, I wrote a 
+Bash/Perl script that munges nmake output into something that has cygwin 
+compliant path, and is parseable by the default quickfix errorformat setting.
+
+Here's what to do:
+
+1. Install the following from cygwin:
+    - perl 
+    - cygutils 
+    - bash 
+
+
+2. Set up Visual Studio to support command line compiles. Basically this 
+involves adding paths to the PATH, INCLUDE, and LIB environment variables. See 
+vcvars32.bat in the Visual Studio VC98/bin directory for guidelines.
+
+3. Export a makefile for your dsp project file via the Visual Studio "Project 
+- Export Makefile..."
+
+4. Create the cygwin shell script defined below. Put the script in 
+'/bin/dovcmake'
+
+>
+    #!/bin/bash
+    # This script takes output from
+    # Visual Studio's nmake and reformats
+    # it so that it can be parsed by
+    # cygwin's vim default errorformat
+    # setting
+    nmake /F $1 2>&1 | perl -n -e \
+      ' chomp;
+        if(/^([a-z]:[^(]+)\((\d+)\)(.+)$/i) {
+          $f = $1; $l = $2; $m = $3;
+          $f =~ s/\\/\//g;
+          $cyp = `cygpath -au $f`; \
+          chomp $cyp;
+          print qq{"$cyp",$l:$m\n};}
+        elsif(/error/i) {
+          print qq{$_\n};
+        }'
+<
+
+5. Add this map to your vimrc:
+
+>
+    set makeprg=/bin/dovcmake
+    map <F7> :make <C-R>%<CR>
+<
+
+6. Fire up cygwin vim and open the makefile from step 3. If you hit F7, 
+you'll automatically start a Visual Studio build and you'll be able to step 
+through compiler errors via the :cp and :cn commands.
+
+COMMENTS                                                    *vtw-345-comments*
+
+You should look at the errorformat option (:help |errorformat|). This may 
+solve your problem without Perl.
+
+==============================================================================
+
+I needed to use Perl because I needed to convert windows paths from nmake's 
+output to cygwin paths. Otherwise I would have used errorformat
+
+==============================================================================
+
+You could use Cygwin's cygpath to translate between Cygwin (posix) and 
+windows paths instead of Perl.
+
+==============================================================================
+
+I am using cygpath within the Perl script to translate the paths, but the 
+Perl script does more that just translate paths. It also filters extraneous 
+nmake output , such as the MS copyright info that nmake generates.
+
+==============================================================================
+
+Instead of using cygpath, you may want to look at whether cyg-wrapper.sh will 
+help you. It handles a lot of the tricky path conversion issues between cygwin 
+and Windows.http://hermitte.free.fr/cygwin/#Win32 
+[http://hermitte.free.fr/cygwin/#Win32]
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

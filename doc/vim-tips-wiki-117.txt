@@ -1,0 +1,68 @@
+*vim-tips-wiki-117.txt*   Search all files in project quickly           *vtw-117*
+
+Tip 117 [https://vim.fandom.com/wiki/Search_all_files_in_project_quickly]   Previous |vtw-113| Next |vtw-118|
+
+created September 13, 2001 · complexity intermediate · author Manish 
+Tehanguria · version 6.0
+
+==============================================================================
+
+Searching for a word across the project wastes most of the developres time, 
+which can be avoided by the use of GNU Id_utils with VIM.
+
+The procedure needs to be followed is as follows:
+
+download GNU idutils 3.2d (mkid,lid,fid,fnid,xtokid) from 
+http://www.mossbayeng.com/~ron/vim/builds.html 
+[http://www.mossbayeng.com/~ron/vim/builds.html]
+
+uncompress and store these files in the directory from where Vim is running.
+
+goto the top level directory of the project, and run mkid, it will create ID 
+file in that directory (As it is time consuming process, so be patient). copy 
+this file ID to the directory from where Vim is running.
+
+USAGE:
+
+Put these lines in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    map _u :call ID_search()<Bar>execute "/\\<" . g:word . "\\>"<CR>
+    map _n :n<Bar>execute "/\\<" . g:word . "\\>"<CR>
+    function ID_search()
+     let g:word = expand("<cword>")
+     let x = system("lid --key=none ". g:word)
+     let x = substitute(x, "\n", " ", "g")
+     execute "next " . x
+    endfun
+<
+
+To use it, place the cursor on a word, type "_u" and Vim will load the file 
+that contains the word. Search for the next occurrence of the word in the same 
+file with "n". Go to the next file with "_n".
+
+The mapping of "_u" and "_n" can be done to some other key as per your 
+preference but I use ^K and ^L for this purpose.
+
+COMMENTS                                                    *vtw-117-comments*
+
+I haven't been able to get this to work. I downloaded and compiled the 
+program (from here now: http://www.gnu.org/software/idutils/ 
+[http://www.gnu.org/software/idutils/]) and it made the ID file. But I got the 
+following error when I'd search:
+
+E79: Cannot expand wildcards
+
+==============================================================================
+
+I'm not really certain what problem this tip tries to solve, but here are 
+some potential alternatives:
+    - The Project plugin [https://www.vim.org/scripts/script.php?script_id=69] 
+      includes a "search in project" feature 
+    - You can Find in files within Vim 
+      [https://vim.fandom.com/wiki/Find_in_files_within_Vim] with a builtin command 
+    - :help |tags-and-searches| tells you about Vim's built-in interface for 
+      jumping around in your code based on a premade data file. 
+
+
+ vim:tw=78:et:ft=help:norl:

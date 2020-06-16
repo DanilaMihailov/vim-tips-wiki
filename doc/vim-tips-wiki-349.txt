@@ -1,0 +1,226 @@
+*vim-tips-wiki-349.txt*   Format your xml document using xmllint        *vtw-349*
+
+Tip 349 [https://vim.fandom.com/wiki/Format_your_xml_document_using_xmllint]   Previous |vtw-348| Next |vtw-350|
+
+created 2002 · complexity basic · author Daniel Allen · version 6.0
+
+==============================================================================
+
+If you open an xml document that is either totally or partially unindented, 
+you can use the GNU libxml2 libary's xmllint to reformat and align your 
+document. This is especially good if you want to save your xml documents using 
+as little space as possible (which would be totally unindented). Just add this 
+under the autocmd section of your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+<
+
+This instructs vim to take the entire contents of a *.xml file and pass it 
+through xmllint, using the --format and --recover flags and silencing any 
+errors that may occur. This is generally a very effective process and will 
+only mess up on very poorly typed (a large amount of incorrect syntax) xml 
+documents. Please note that xmllint only adds and removes structural space. It 
+does not remove space from regular text nodes (as doing so would be 
+incorrect).
+
+COMMENTS                                                    *vtw-349-comments*
+
+XMLLINT AS A MAP                                    *vtw-349-xmllint-as-a-map*
+
+If you don't want the XML file to be automatically formatted as soon as you 
+edit it, you can create a map by putting the following command in your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    map @@x !%xmllint --format --recover -^M
+<
+
+When you are in command mode and press `@@x`, Vim will run all of the lines 
+in the current file through the `xmllint` command.
+
+XMLLINT AS A FILTER                              *vtw-349-xmllint-as-a-filter*
+
+Q: How can make it as a filter?
+
+I tried sth like
+
+>
+    let&l:equalprg='xmllint --format --recover'
+<
+
+but it didn't work since xmllint doesn't take STDIN?
+
+A: Notice the '-' given as the file argument to xmllint. This usually means 
+stdin. So, the full command should be:
+
+>
+    let &l:equalprg='xmllint --format --recover -'
+<
+
+A: Yes, xmllint can read from stdin, please note the '-' that occurs at the 
+end of the options. This tells it to dump the file contents to the stdin pipe 
+for xmllint. As far as I know, xmllint can be run in windows if you have gcc, 
+but I am just projecting...look into it. If not, I am sure you can find 
+something to take its place...the tip is just that, a tip, build on it.
+
+A: Regarding the filter question:
+
+Start playing with
+
+>
+    " one or more lines:
+    vmap ,px !xmllint --format -<CR>
+    " pretty-print current line
+    nmap ,px !!xmllint --format -<CR>
+<
+
+==============================================================================
+
+FIXING INDENTING OF COMMENT LINES  *vtw-349-fixing-indenting-of-comment-lines*
+
+"xmllint --format" indents comment lines to 0 which screws up the formatting 
+for vim. A simple fix for single line comments can be made in indent/xml.vim. 
+Copy indent/xml.vim to ~/.vim/xml.vim (Unix systems) and change the line that 
+says:
+
+>
+    let lnum = prevnonblank(a:lnum - 1)
+<
+
+To this:
+
+>
+    let lnum = a:lnum
+    while lnum > 0
+        let lnum = prevnonblank(lnum - 1)
+        let line = getline(lnum)
+        if line =~ '-->'
+            let [lnum,watever] = searchpos('<!--','b')
+        else
+            break
+        endif
+    endwhile
+<
+
+Alone-on-line end-of-comment closing-tags may get badly indented though.
+
+==============================================================================
+
+XMLLINT ON WINDOWS                                *vtw-349-xmllint-on-windows*
+
+Download xmllint for Windows 
+[http://code.google.com/p/xmllint/downloads/list]Use the following command, 
+assuming xml file is open in Vim and xmllint.exe is in the same directory as 
+the file:
+
+>
+    :% !xmllint.exe "%" --format
+<
+
+The first `%` ensures the content of the open file is replaced with the 
+results of passing through xmllint. The order of the second `%` and the flag 
+`--format` is important as otherwise xmllint will try to open a file with the 
+name "--format". The quotes around the second `%` allow file paths that 
+include spaces to be passed to xmllint.
+
+Binaries
+    - http://www.zlatkovic.com/projects/libxml/ 
+      [http://www.zlatkovic.com/projects/libxml/] 
+    - http://www.zlatkovic.com/projects/libxml/binaries.html 
+      [http://www.zlatkovic.com/projects/libxml/binaries.html] 
+
+
+At previous wiki edit, the most recent version was 
+http://www.zlatkovic.com/projects/libxml/libxml2-2.5.8.win32.zip 
+[http://www.zlatkovic.com/projects/libxml/libxml2-2.5.8.win32.zip]
+
+Instructions
+
+For instructions see the Windows section under:
+    - http://www.pinkjuice.com/howto/vimxml/setup.xml#xmllint 
+      [http://www.pinkjuice.com/howto/vimxml/setup.xml#xmllint] 
+
+    - http://www.pinkjuice.com/howto/vimxml/tasks.xml#prettyprinting 
+      [http://www.pinkjuice.com/howto/vimxml/tasks.xml#prettyprinting] and 
+    - http://www.pinkjuice.com/howto/vimxml/tasks.xml#validation 
+      [http://www.pinkjuice.com/howto/vimxml/tasks.xml#validation] 
+
+
+==============================================================================
+
+ALTERNATIVES TO XMLLINT                      *vtw-349-alternatives-to-xmllint*
+
+Seriously consider using Vim's built-in search and replace functionality. See 
+this Pretty-formatting_XML [https://vim.fandom.com/wiki/Pretty-formatting_XML] 
+and the third comment (:%s/></>\r</g , etc).
+
+I was dissatisfied with what xmllint was doing to my XML documents. Its 
+--format option seems to arbitrarily expand or remove blank lines. An 
+alternative is to use the tidy program - formerly HTML Tidy. available at 
+http://tidy.sourceforge.net/ [http://tidy.sourceforge.net/] I altered my 
+.vimrc as follows:
+
+>
+    au FileType xml exe ":silent 1,$!tidy --input-xml true --indent yes 2>/dev/null"
+<
+
+Here's how you use tidy with xml on Windows:
+
+>
+    au FileType xml exe ":silent 1,$!tidy -q -i -xml"
+<
+
+I have this in my .vimrc
+
+>
+    " select xml text to format and hit ,x
+    vmap ,x :!tidy -q -i -xml<CR>
+<
+
+==============================================================================
+
+UTF-8 FORMAT                                            *vtw-349-utf-8-format*
+
+Q: One problem with "xmllint --format" is that it turns non-ASCII UTF-8 
+characters into numeric references. This isn't a problem if you're taking the 
+input of xmllint and editing it with an XML editor that internally converts 
+everything to UTF-8 (like XMetal), but if what you want to do is use Vim to 
+edit the file as a native UTF-8 (with :set encoding=utf8), then you *don't* 
+want a bunch of numeric references instead of Unicode.
+
+The xmllint developer knows about this issue but feels that adding an option 
+to keep/not keep UTF-8 would complicate the code too much. So... is there 
+another XML reformatter more suitable for producing output that Vim can use?
+
+A: Try http://www.pinkjuice.com/howto/vimxml/tasks.xml#prettyprinting 
+[http://www.pinkjuice.com/howto/vimxml/tasks.xml#prettyprinting]
+
+A: I will change the solution described at the above URL since there is a 
+very simple solution to the problem:
+    - http://mail.gnome.org/archives/xml/2003-August/msg00017.html 
+      [http://mail.gnome.org/archives/xml/2003-August/msg00017.html] 
+    - http://mail.gnome.org/archives/xml/2003-August/msg00018.html 
+      [http://mail.gnome.org/archives/xml/2003-August/msg00018.html] 
+
+
+>
+    :%!xmllint --format --encode UTF-8 -
+<
+
+==============================================================================
+
+CHANGING TAB/IDENT WIDTH                    *vtw-349-changing-tab/ident-width*
+
+Q:. Any ideas on how to use xmllint, but change the tab/indent width? It 
+seems to filter, on windows, with 2 spaces for a tab.
+
+A:. In Unix/Linux, if you don't like the default indentation (2 spaces), set 
+the $XMLLINT_INDENT environment variable, or prefix the xmllint command in 
+your .vimrc file:
+
+>
+    au FileType xml exe ":silent 1,$!XMLLINT_INDENT='    ' xmllint --format --recover - 2>/dev/null"
+<
+
+ vim:tw=78:et:ft=help:norl:

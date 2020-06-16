@@ -1,0 +1,22 @@
+*vim-tips-wiki-782.txt*   Jump to definition of entity under cursor     *vtw-782*
+
+Tip 782 [https://vim.fandom.com/wiki/Jump_to_definition_of_entity_under_cursor]   Previous |vtw-781| Next |vtw-784|
+
+created 2004 · complexity basic · author Aron Stansvik · version 5.7
+
+==============================================================================
+
+This is what I use when reading/editing DTDs that make use of entities 
+heavily:
+
+>
+    :map <Leader>e yiw ?<!ENTITY % <C-R>"<CR>
+<
+
+That will map <Leader>e to search backwards for the definition of the entity 
+under the cursor, then you can just CTRL-o back to where you were. Makes 
+reading DTDs less painful.
+
+COMMENTS                                                    *vtw-782-comments*
+
+ vim:tw=78:et:ft=help:norl:

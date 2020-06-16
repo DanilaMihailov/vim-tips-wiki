@@ -1,0 +1,293 @@
+*vim-tips-wiki-358.txt*   Switch color schemes                          *vtw-358*
+
+Tip 341 [https://vim.fandom.com/wiki/Switch_color_schemes]   Previous |vtw-338| Next |vtw-343|
+
+created 2002 · complexity intermediate · version 7.0
+
+==============================================================================
+
+You can easily change your color scheme, but it can be hard to compare 
+several schemes to decide what's best for you. It may help to view a one-page 
+summary |vtw-358-one-page-summary-of-color-schemes| of many color 
+schemes.Alternatively, the script presented below allows you to quickly change 
+colors by pressing a key. If you like variety, you can start Vim with a 
+different scheme depending upon the time of day.
+
+ONE PAGE SUMMARY OF COLOR SCHEMES  *vtw-358-one-page-summary-of-color-schemes*
+
+Nate Kane has created a overview and search page [http://vimcolors.com/] 
+showing sample Ruby code in many different color schemes.
+
+Some of the color schemes are provided with Vim. For example, the following 
+command should show the elflord scheme:
+
+>
+    :colorscheme elflord
+<
+
+Note that if you are using Vim over SSH or in certain color-limited terminals 
+you may need to tell Vim to use 256 color mode in order to have the color 
+schemes display with greater accuracy by using the command `:set t_Co=256` .
+
+SWITCHING COLORS                                    *vtw-358-switching-colors*
+
+The script shown below defines these key mappings:
+    - Press F8 to use the next color scheme. 
+    - Press Shift-F8 to use the previous color scheme. 
+    - Press Alt-F8 to use a random color scheme. 
+
+
+The next/previous/random color scheme selection uses a list of scheme names 
+maintained by the script. The list can be controlled with these commands (the 
+default is `all`):
+
+:SetColors all
+To use all installed color schemes ($VIMRUNTIME/colors/*.vim).
+:SetColors my
+To use names built into the script (define these names by editing the script to change the variables c1, c2 and c3).
+:SetColors blue slate ron
+To use the schemes specified (scheme names, separated with a space, for example, blue slate ron).
+:SetColors
+To display the current list of scheme names.
+
+After using `:SetColors` to list the scheme names (and while the list is 
+still displayed), you could type `:colors d` then press Tab to expand '`d`' to 
+a color scheme name starting with '`d`'. Then press Enter to invoke the color 
+scheme (`:colors` is an abbreviation for `:colorscheme`).
+
+Enter `:SetColors now` to set the current color scheme based on the time of 
+day. Change the colors used by editing the `nowcolors` variable in the script, 
+for example:
+
+>
+    let nowcolors = 'breeze earth less aqua gothic'
+<
+
+SCRIPT                                                        *vtw-358-script*
+    - Create and save file `setcolors.vim` containing the script below. 
+    - In Vim, use the command `:source setcolors.vim` to execute the script so you 
+      can experiment with its features. 
+    - Alternatively, if you save the script in file `~/.vim/plugin/setcolors.vim` 
+      (Unix) or `$HOME/vimfiles/plugin/setcolors.vim` (Windows), it will be 
+      available whenever you start Vim. 
+
+
+>
+    " Change the color scheme from a list of color scheme names.
+    " Version 2010-09-12 from http://vim.wikia.com/wiki/VimTip341
+    " Press key:
+    "   F8                next scheme
+    "   Shift-F8          previous scheme
+    "   Alt-F8            random scheme
+    " Set the list of color schemes used by the above (default is 'all'):
+    "   :SetColors all              (all $VIMRUNTIME/colors/*.vim)
+    "   :SetColors my               (names built into script)
+    "   :SetColors blue slate ron   (these schemes)
+    "   :SetColors                  (display current scheme names)
+    " Set the current color scheme based on time of day:
+    "   :SetColors now
+    if v:version < 700 || exists('loaded_setcolors') || &cp
+      finish
+    endif
+    
+    let loaded_setcolors = 1
+    let s:mycolors = ['slate', 'torte', 'darkblue', 'delek', 'murphy', 'elflord', 'pablo', 'koehler']  " colorscheme names that we use to set color
+    
+    " Set list of color scheme names that we will use, except
+    " argument 'now' actually changes the current color scheme.
+    function! s:SetColors(args)
+      if len(a:args) == 0
+        echo 'Current color scheme names:'
+        let i = 0
+        while i < len(s:mycolors)
+          echo '  '.join(map(s:mycolors[i : i+4], 'printf("%-14s", v:val)'))
+          let i += 5
+        endwhile
+      elseif a:args == 'all'
+        let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
+        let s:mycolors = uniq(sort(map(paths, 'fnamemodify(v:val, ":t:r")')))
+        echo 'List of colors set from all installed color schemes'
+      elseif a:args == 'my'
+        let c1 = 'default elflord peachpuff desert256 breeze morning'
+        let c2 = 'darkblue gothic aqua earth black_angus relaxedgreen'
+        let c3 = 'darkblack freya motus impact less chocolateliquor'
+        let s:mycolors = split(c1.' '.c2.' '.c3)
+        echo 'List of colors set from built-in names'
+      elseif a:args == 'now'
+        call s:HourColor()
+      else
+        let s:mycolors = split(a:args)
+        echo 'List of colors set from argument (space-separated names)'
+      endif
+    endfunction
+    
+    command! -nargs=* SetColors call s:SetColors('<args>')
+    
+    " Set next/previous/random (how = 1/-1/0) color from our list of colors.
+    " The 'random' index is actually set from the current time in seconds.
+    " Global (no 's:') so can easily call from command line.
+    function! NextColor(how)
+      call s:NextColor(a:how, 1)
+    endfunction
+    
+    " Helper function for NextColor(), allows echoing of the color name to be
+    " disabled.
+    function! s:NextColor(how, echo_color)
+      if len(s:mycolors) == 0
+        call s:SetColors('all')
+      endif
+      if exists('g:colors_name')
+        let current = index(s:mycolors, g:colors_name)
+      else
+        let current = -1
+      endif
+      let missing = []
+      let how = a:how
+      for i in range(len(s:mycolors))
+        if how == 0
+          let current = localtime() % len(s:mycolors)
+          let how = 1  " in case random color does not exist
+        else
+          let current += how
+          if !(0 <= current && current < len(s:mycolors))
+            let current = (how>0 ? 0 : len(s:mycolors)-1)
+          endif
+        endif
+        try
+          execute 'colorscheme '.s:mycolors[current]
+          break
+        catch /E185:/
+          call add(missing, s:mycolors[current])
+        endtry
+      endfor
+      redraw
+      if len(missing) > 0
+        echo 'Error: colorscheme not found:' join(missing)
+      endif
+      if (a:echo_color)
+        echo g:colors_name
+      endif
+    endfunction
+    
+    nnoremap <F8> :call NextColor(1)<CR>
+    nnoremap <S-F8> :call NextColor(-1)<CR>
+    nnoremap <A-F8> :call NextColor(0)<CR>
+    
+    " Set color scheme according to current time of day.
+    function! s:HourColor()
+      let hr = str2nr(strftime('%H'))
+      if hr <= 3
+        let i = 0
+      elseif hr <= 7
+        let i = 1
+      elseif hr <= 14
+        let i = 2
+      elseif hr <= 18
+        let i = 3
+      else
+        let i = 4
+      endif
+      let nowcolors = 'elflord morning desert evening pablo'
+      execute 'colorscheme '.split(nowcolors)[i]
+      redraw
+      echo g:colors_name
+    endfunction
+<
+
+SCROLLING THE COLOR SCHEMES              *vtw-358-scrolling-the-color-schemes*
+
+You may want to impress your colleagues by having Vim change the color scheme 
+periodically. The following might be your first attempt:
+
+>
+    :autocmd CursorHold * call NextColor(1)
+<
+
+However, this fails because there is no timer event in Vim. The `CursorHold` 
+event will fire only once when the user has been idle for the time specified 
+with the '`updatetime`' option (so if you stop typing, the color scheme will 
+change once only).
+
+If you want the color scheme to change every 10 seconds, execute the 
+following command (press Ctrl-C to finish).
+
+>
+    :while 1|sleep 10|call NextColor(1)|endwhile
+<
+
+REFERENCES                                                *vtw-358-references*
+    - :help |:colorscheme| 
+    - :help |g:colors_name| 
+
+
+COMMENTS                                                    *vtw-358-comments*
+
+It's kind of weird that s:mycolors is set initially to something different 
+than "my" or "all". You can't get that list back after using the script.
+
+Wouldn't it be cool if you could edit the "my" list on the fly with some 
+commands? Wouldn't it be even cooler if the "my" list was taken from a global 
+variable, which could even be stored in the .viminfo file by including `!` in 
+the 'viminfo' option?
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] (talk 
+[https://vim.fandom.com/wiki/User_talk:Fritzophrenic]) 17:38, January 18, 2013 
+(UTC)
+
+will iterate backgrounds
+
+>
+    if v:version < 700 || exists('loaded_switchcolor') || &cp
+    	finish
+    endif
+    
+    let loaded_switchcolor = 1
+    
+    let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
+    let s:swcolors = map(paths, 'fnamemodify(v:val, ":t:r")')
+    let s:swskip = [ '256-jungle', '3dglasses', 'calmar256-light', 'coots-beauty-256', 'grb256' ]
+    let s:swback = 0    " background variants light/dark was not yet switched
+    let s:swindex = 0
+    
+    function! SwitchColor(swinc)
+    
+    	" if have switched background: dark/light
+    	if (s:swback == 1)
+    		let s:swback = 0
+    		let s:swindex += a:swinc
+    		let i = s:swindex % len(s:swcolors)
+    
+    		" in skip list
+    		if (index(s:swskip, s:swcolors[i]) == -1)
+    			execute "colorscheme " . s:swcolors[i]
+    		else
+    			return SwitchColor(a:swinc)
+    		endif
+    
+    	else
+    		let s:swback = 1
+    		if (&background == "light")
+    			execute "set background=dark"
+    		else
+    			execute "set background=light"
+    		endif
+    
+    		" roll back if background is not supported
+    		if (!exists('g:colors_name'))
+    			return SwitchColor(a:swinc)
+    		endif
+    	endif
+    
+    	" show current name on screen. :h :echo-redraw
+    	redraw
+    	execute "colorscheme"
+    endfunction
+    
+     map <F8>        :call SwitchColor(1)<CR>
+    imap <F8>   <Esc>:call SwitchColor(1)<CR>
+    
+     map <S-F8>      :call SwitchColor(-1)<CR>
+    imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
+<
+
+ vim:tw=78:et:ft=help:norl:

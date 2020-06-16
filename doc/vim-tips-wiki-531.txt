@@ -1,0 +1,74 @@
+*vim-tips-wiki-531.txt*   Build Vim in Windows with Cygwin              *vtw-531*
+
+Tip 531 [https://vim.fandom.com/wiki/Build_Vim_in_Windows_with_Cygwin]   Previous |vtw-530| Next |vtw-533|
+
+created 2003 · complexity basic · author maxiangjiang · version 6.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+The CVS server for Vim is no longer available. Getting the Vim source with 
+Mercurial [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial] 
+is now the recommended method, then you will need to compile as detailed in 
+the rest of this tip
+
+This tip is for those who are interested in building gvim.exe on Windows 
+without using MSVC or BCC. The condition is that cygwin is installed.
+
+Following are the three steps (under any shell and any directory).
+
+>
+    cvs -z3 -d:pserver:anonymous@cvs.vim.org:/cvsroot/vim co vim
+    cd vim/src
+    make -f Make_cyg.mak IME=yes
+<
+
+I have tested under Windows 2000 and have used my own gvim.exe for months 
+without any problem.
+
+COMMENTS                                                    *vtw-531-comments*
+
+Dan Sharp has an end-to-end solution for almost all problems for Vim 
+compiling on 
+Windows:http://mywebpage.netscape.com/sharppeople/vim/howto/Vim-Compile-Win32-HOWTO/index.html 
+[http://mywebpage.netscape.com/sharppeople/vim/howto/Vim-Compile-Win32-HOWTO/index.html]
+
+==============================================================================
+
+Use mingw32 -- gcc for windows. Builds native exe.
+
+From http://www.mingw.org/ [http://www.mingw.org/]
+
+MinGW: A collection of freely available and freely distributable Windows 
+specific header files and import libraries combined with GNU toolsets that 
+allow one to produce native Windows programs that do not rely on any 3rd-party 
+DLLs.
+
+==============================================================================
+
+Note that the resulting gvim.exe built from cygwin package is "native".It has 
+no dependancy on cygwin.dll at all.
+
+==============================================================================
+
+The gvim.exe produced does not use cygwin-style paths. I've got a lot of 
+cygwin mounts that I would like to use.
+
+If you want a Vim which understands Cygwin-style paths and runs seamlessly from a Cygwin bash prompt, I recommend the Console Vim build that comes with Cygwin. You will still need a different executable such as the one described above (gvim.exe and/or vim.exe) to run in Windows outside the Cygwin "Unix-like" environment. --Tonymec 16:03, 21 August 2009 (UTC)
+
+==============================================================================
+
+The CVS command "cvs -z3 -d:pserver:anonymous@cvs.vim.org:/cvsroot/vim co 
+vim" no longer works as the domain cvs.vim.org no longer exists. I was looking 
+to this help to give me a more definitive way to compile vim under Cygwin64. 
+The packaged vim in the current distro does not get along with packages under 
+.vim/bundle/vundle (I believe because the version is too old), and finds a lot 
+of things it doesn't understand. Compiling would be great, except that I ran 
+into problems. I compiled it in a way that defaulted into UNIX (probably 
+wrong, but Cygwin behaves as a UNIX-like system, so it was the closest thing I 
+could think of). 216.105.80.60 
+[https://vim.fandom.com/wiki/Special:Contributions/216.105.80.60] 03:29, 
+October 2, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

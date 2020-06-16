@@ -1,0 +1,76 @@
+*vim-tips-wiki-958.txt*   Execute sybase-sql queries and see the result in a split window *vtw-958*
+
+Tip 958 [https://vim.fandom.com/wiki/Execute_sybase-sql_queries_and_see_the_result_in_a_split_window]   Previous |vtw-957| Next |vtw-960|
+
+created July 8, 2005 · complexity intermediate · author Maxim Kim · version 
+6.0
+
+==============================================================================
+
+I was killed by Sybase's query tool - SQL Advantage. It's editor is so awful 
+that I can't use it at all.
+
+So I decided to engage Vim and sybase database. (I think in that manner you 
+can use Oracle or MS SQL-Server).
+
+First of all, you have to have isql properly set up. And here is my "magic" 
+key bind:
+
+>
+    au FileType sql map <F12> <C-W><C-O>:silent w !isql -SYourServerName -DYourDatabaseName -UYourUserName -PYourPassword > tmpsqlresult.txt<CR>:split tmpsqlresult.txt<CR>
+<
+
+It closes windows other than your sql one. Then send current buffer to stdin 
+of isql, which direct its output to a file, which we split then.
+
+Do not forget to provide your own server settings.
+
+If you want split window to appear below your sql window add
+
+>
+    set splitbelow
+<
+
+to your vimrc.
+
+COMMENTS                                                    *vtw-958-comments*
+
+If you don't want to use tmpsqlresult.txt file then try this
+
+>
+    au FileType sql map <F12> :let fname = tempname()<CR><C-W><C-O>:silent exe "w !isql -SYourServerName -DYourDatabaseName -UYourUserName -PYourPassword > ". fname<CR>:exe "split " . fname<CR>
+<
+
+It uses temporary files. They will be automatically deleted after quiting 
+Vim.
+
+==============================================================================
+
+This allows to execute only selected statements:
+
+>
+    au FileType sql map <C-F12> <Esc>:let fname = tempname()<CR><C-W><C-O>:silent exe "'<,'>w !isql -SYourServerName -DYourDatabaseName -UYourUserName -PYourPassword > ". fname<CR>:exe "split " . fname<CR>
+<
+
+Mapped to Ctrl-F12.
+
+==============================================================================
+
+And if you want reduce the length of the macro and let Vim clean up the 
+temporary file for you, use
+
+>
+    :new<CR>:silent 0r !isql -SYourServerName -DYourDatabaseName -UYourUserName -PYourPassword<CR>
+<
+
+==============================================================================
+
+A better solution is to use the excellent dbext script script#356 
+[https://www.vim.org/scripts/script.php?script_id=356].
+
+Not only does it allow you to execute arbitrary sql, it has lots of helper 
+functions such as lists of all the objects in the syste.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

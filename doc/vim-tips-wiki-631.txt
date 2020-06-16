@@ -1,0 +1,32 @@
+*vim-tips-wiki-631.txt*   Disabling IME input in Windows                *vtw-631*
+
+Tip 631 [https://vim.fandom.com/wiki/Disabling_IME_input_in_Windows]   Previous |vtw-630| Next |vtw-632|
+
+created January 4, 2004 · complexity basic · author Avery M. · version 5.7
+
+==============================================================================
+
+Often, your Windows locale will reflect a foreign country (e.g. Japan) so you 
+can write text in another character set, but you don't want Vim to do that by 
+default. It is annoying to have to disable IME input every time you start up 
+Vim. But it's much easier than that. Simply add this line to your vimrc:
+
+>
+    set iminsert=0
+<
+
+Now, you will start out in regular Roman input mode, without IME.
+
+COMMENTS                                                    *vtw-631-comments*
+
+imcmdline and imsearch can also be disabled in the same way.
+
+==============================================================================
+
+>
+    set imdisable
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

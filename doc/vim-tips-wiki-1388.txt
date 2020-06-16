@@ -1,0 +1,28 @@
+*vim-tips-wiki-1388.txt*   Vim and ocaml interpreter                   *vtw-1388*
+
+Tip 1388 [https://vim.fandom.com/wiki/Vim_and_ocaml_interpreter]   Previous |vtw-1386| Next |vtw-1389|
+
+created 2006 · complexity basic · author setog · version n/a
+
+==============================================================================
+
+I try to learn ocaml, and I add this lines in my vimrc to run the code in the 
+ocaml interpreter:
+
+>
+    set sb
+    map <F11> :split /tmp/ocaml \| %d \|setlocal ft=omlet \| setlocal autowrite \| r!ocaml < # <CR>
+    map <F12> :dr /tmp/ocaml \| %d \|setlocal ft=omlet \|setlocal autowrite \| r!ocaml < # <CR>
+<
+
+The first map (F11) open a temp file in a split and write the output in it 
+(with omlet syntax).
+
+I use the second (F12) to do it if I have already a split with the result.
+
+I do a set autowrite, but I am sure we can use the same property of `:he` 
+command (a buffer in read only without needing to save it).
+
+COMMENTS                                                   *vtw-1388-comments*
+
+ vim:tw=78:et:ft=help:norl:

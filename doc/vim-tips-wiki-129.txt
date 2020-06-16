@@ -1,0 +1,43 @@
+*vim-tips-wiki-129.txt*   Removing automatic comment leaders            *vtw-129*
+
+Tip 129 [https://vim.fandom.com/wiki/Removing_automatic_comment_leaders]   Previous |vtw-128| Next |vtw-130|
+
+created 2001 · complexity basic · author Benji Fisher · version 6.0
+
+==============================================================================
+
+If you include the "r" or "o" flag in the 'formatoptions' option (:help 'fo', 
+:help |fo-table|) then the comment leader is inserted automatically when you 
+start a new line in a comment. For example, in TeX the "%" character is the 
+comment leader, and you might type
+
+>
+    % This is a tex file.
+    % The comment leaders on all lines but the first were generated automatically.
+    % This is the last line of the comment, but Vim will insert the comment leader on the next line.
+    %
+<
+
+You can get rid of the comment leader (along with anything you may already 
+have typed on the line) without affecting the indent, if any, by typing <C-U> 
+while in Insert mode (in case you do this by accident, there are ways to undo 
+it [https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U]).
+
+Related point: If you want to adjust the indent while in insert mode, you can 
+use <C-D> (to decrease the indent) or <C-T> (to increase it). See :help 
+|30.4|.
+
+SEE ALSO                                                    *vtw-129-see-also*
+    - Remap join to merge comment lines 
+      [https://vim.fandom.com/wiki/Remap_join_to_merge_comment_lines] 
+
+
+REFERENCES                                                *vtw-129-references*
+    - :help 'fo' 
+    - :help |fo-table| 
+    - :help |30.4| Editing programs: Other indenting 
+
+
+COMMENTS                                                    *vtw-129-comments*
+
+ vim:tw=78:et:ft=help:norl:

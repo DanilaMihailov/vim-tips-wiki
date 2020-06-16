@@ -1,0 +1,154 @@
+*vim-tips-wiki-182.txt*   Keep your cursor centered vertically on the screen *vtw-182*
+
+Tip 182 [https://vim.fandom.com/wiki/Keep_your_cursor_centered_vertically_on_the_screen]   Previous |vtw-181| Next |vtw-184|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+When scrolling or searching through a large file, it can be convenient to 
+keep the cursor line near the middle of the screen (vertically centered within 
+the window). This tip introduces the `scrolloff` option, and shows another 
+possible technique using the `zz` command.
+
+SCROLLOFF OPTION                                    *vtw-182-scrolloff-option*
+
+The 'scrolloff' (scroll offset) option determines the number of context lines 
+you would like to see above and below the cursor. The following command 
+scrolls the text so that (when possible) there are always at least five lines 
+visible above the cursor, and five lines visible below the cursor:
+
+>
+    :set scrolloff=5
+<
+
+The above command can be abbreviated as `:set so=5`. Entering `:set so=0` 
+restores the default behavior so the cursor can be moved to any line in the 
+window without scrolling.
+
+CENTERING WITH SCROLLOFF                    *vtw-182-centering-with-scrolloff*
+
+Setting 'scrolloff' to a large value causes the cursor to stay in the middle 
+line when possible:
+
+>
+    :set so=999
+<
+
+To restore normal behavior, enter:
+
+>
+    :set so=0
+<
+
+If you change 'scrolloff' frequently, you may want to use a mapping. With the 
+following in your vimrc [https://vim.fandom.com/wiki/Vimrc], and assuming the 
+default backslash leader key, you can type `\zz` to toggle the value of 
+'scrolloff' between `0` and `999`:
+
+>
+    :nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+<
+
+In an expression, `&scrolloff` refers to the value of the 'scrolloff' option. 
+The `:let` command assigns a value to 'scrolloff'; that value is `999-0` if 
+'scrolloff' was `0`, and is `999-999` if 'scrolloff' was `999`.
+
+CENTERING AUTOMATICALLY WITH AUTOCMDS *vtw-182-centering-automatically-with-autocmds*
+
+Setting `scrolloff` to 999 can have undesired consequences, however. 
+Forexample, a script that processes text at the end of your file cancause 
+those last lines (and your cursor, if it’s on them) to disappear from viewat 
+the bottom of the page. Avoid this by using autocmds.
+
+If you almost always prefer to have your cursor centered vertically on the 
+screen, add this to your `vimrc`:
+
+>
+    augroup VCenterCursor
+      au!
+      au BufEnter,WinEnter,WinNew,VimResized *,*.*
+            \ let &scrolloff=winheight(win_getid())/2
+    augroup END
+<
+
+This will keep your cursor centered when you start up, move to another 
+window, add or remove windows or tabs, or resize the GUI. You can disable it 
+during your session with
+
+>
+    au! VCenterCursor
+<
+
+`win_getid()` returns the ID number of the active window, and 
+`winheight(win_getid())` returns the active window’s height in lines visible 
+above its status line, if it has one. Dividing the window’s height by 2 gives 
+the number of visual lines on either side of the center line if the height is 
+odd, the greater by 1 if even.
+
+If you prefer to toggle `scrolloff` with the <leader>zz mapping as suggested 
+above (“<leader>” is the backslash character “`\`” by default), add this to 
+your `vimrc`:
+
+>
+    set scrolloff=<any startup value you like>
+    if !exists('*VCenterCursor')
+      augroup VCenterCursor
+      au!
+      au OptionSet *,*.*
+        \ if and( expand("<amatch>")=='scrolloff' ,
+        \         exists('#VCenterCursor#WinEnter,WinNew,VimResized') )|
+        \   au! VCenterCursor WinEnter,WinNew,VimResized|
+        \ endif
+      augroup END
+      function VCenterCursor()
+        if !exists('#VCenterCursor#WinEnter,WinNew,VimResized')
+          let s:default_scrolloff=&scrolloff
+          let &scrolloff=winheight(win_getid())/2
+          au VCenterCursor WinEnter,WinNew,VimResized *,*.*
+            \ let &scrolloff=winheight(win_getid())/2
+        else
+          au! VCenterCursor WinEnter,WinNew,VimResized
+          let &scrolloff=s:default_scrolloff
+        endif
+      endfunction
+    endif
+    
+    nnoremap <leader>zz :call VCenterCursor()<CR>
+<
+
+The function `VCenterCursor()` toggles between automatically centering 
+yourcursor and setting `scrolloff` to the last value that you manually set. If 
+youmanually set a new `scrolloff` value, the `OptionSet` autocmd detects this 
+and stops the other autocmds from setting `scrolloff` until you call the 
+function againwith <leader>zz.
+
+Currently it is not possible to set `scrolloff` locally (tested on MSWindows 
+7 with GVIM 64-bit, version 8.0.271). Furthermore, autocmddetection fails when 
+you resize the active window without resizing the GUI;leave and reenter that 
+window or do <leader>zz twice to get the right value.
+
+MAPPING WANTED KEYS                              *vtw-182-mapping-wanted-keys*
+
+An alternative to setting 'scrolloff' would be to remap some commands so that 
+they vertically center the cursor, for example, when moving down or up with 
+`j` and `k`. Remap the commands like this:
+
+>
+    :nnoremap j jzz
+    :nnoremap k kzz
+<
+
+SEE ALSO                                                    *vtw-182-see-also*
+    - Make search results appear in the middle of the screen 
+      [https://vim.fandom.com/wiki/Make_search_results_appear_in_the_middle_of_the_screen] 
+
+
+REFERENCES                                                *vtw-182-references*
+    - :help 'scrolloff' 
+    - :help |zz| 
+
+
+COMMENTS                                                    *vtw-182-comments*
+
+ vim:tw=78:et:ft=help:norl:

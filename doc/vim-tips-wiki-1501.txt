@@ -1,0 +1,42 @@
+*vim-tips-wiki-1501.txt*   Substitute last search                      *vtw-1501*
+
+Tip 1501 [https://vim.fandom.com/wiki/Substitute_last_search]   Previous |vtw-1500| Next |vtw-1504|
+
+created 2007 · complexity basic · author Jerome · version n/a
+
+==============================================================================
+
+When doing a complex substitution with a regular expression, it's useful to 
+first search for what you want to replace, to confirm that the search pattern 
+works. Or, just press `*` to search for the current exact word |vtw-1|, 
+followed by ```` (two backticks) if you want to jump back to your original 
+word.
+
+To do the substitute, type:
+
+>
+    :%s//New String/g
+<
+
+In this substitute, the search pattern is empty, so it will use the last 
+search.
+
+Alternately, you can press Ctrl-r followed by `/` to insert the last-search 
+register (for example, you might want to edit the command before pressing 
+Enter):
+
+>
+    :%s/<c-r>//New String/g
+<
+
+If the pattern is in a register, say the `a` register, you can press Ctrl-r 
+then `a` to insert the contents of the register at the appropriate place in 
+the command.
+
+COMMENTS                                                   *vtw-1501-comments*
+    - why would anyone use ``? Just get accustomed to CTRL-o and CTRL-i and enjoy. 
+      - Because, it does almost the same thing, but is easier and faster to type if 
+      you only need to go back a single position. 
+
+
+ vim:tw=78:et:ft=help:norl:

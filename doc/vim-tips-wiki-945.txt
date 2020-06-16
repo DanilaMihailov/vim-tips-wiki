@@ -1,0 +1,104 @@
+*vim-tips-wiki-945.txt*   Run Vim command on current C/C++/Java function *vtw-945*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip1087 |vtw-1087| 
+    - VimTip1267 |vtw-1267| 
+    - VimTip1296 |vtw-1296| 
+    - VimTip1454 |vtw-1454| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 945 [https://vim.fandom.com/wiki/Run_Vim_command_on_current_C/C%2B%2B/Java_function]   Previous |vtw-944| Next |vtw-946|
+
+created 2005 · complexity basic · author Lorenz Wegener · version 5.7
+
+==============================================================================
+
+It is often useful to restrict the range of commands like `s` or `g` to the 
+function one is currently editing. For C/C++ and Java,
+
+>
+    :cmap ;tf ?^{??(?,/^}/
+<
+
+maps the keystrokes `;tf` (this function) to the range of the function in 
+which the cursor is currently located. It works by searching backwards for a { 
+occurring in the first column, and then for a ( to find the start of the 
+function. A } in the first column ends the function body.
+
+For example, suppose you want to change the name of a function argument in 
+the current function from i to ii:
+
+>
+    int foo(int i,
+            int j)
+    {
+        // ...
+        i++;
+        return i;
+    }
+<
+
+In normal mode, type `:;tf` followed by the subsitution command s/\<i\>/ii/g. 
+The command line now reads:
+
+>
+    :?^{??(?,/^}/s/\<i\>/ii/g
+<
+
+Press Enter to execute the command. The function changes to:
+
+>
+    int foo(int ii,
+            int j)
+    {
+        // ...
+        ii++;
+        return ii;
+    }
+<
+
+The range can be used with other commands too.
+
+This tip assumes that:
+    - Your source code is indented, so that curly braces on the first column always 
+      open or close a function body. 
+    - A function name is followed by a `(`. This is true in C, mostly true in C++ 
+      and Java, and true to a limited extend in Perl. 
+
+
+This tip does not work for constructor definitions in C++ and Java, since 
+they can contain many parentheses, for example:
+
+>
+    Foo(int bar, int baz):
+        mBar(bar),
+        mBaz(baz)
+    {}
+<
+
+COMMENTS                                                    *vtw-945-comments*
+
+I don't know a lot of people that actually put braces on the first column in 
+Java, except for the class.
+
+==============================================================================
+
+It is not the case in C++ either if you use namespaces.
+
+==============================================================================
+
+It's used in K&R-Style
+
+==============================================================================
+
+This is pretty cool if you forget to do `va{` (or similar) first, but 
+text-object methods should be discussed as well.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

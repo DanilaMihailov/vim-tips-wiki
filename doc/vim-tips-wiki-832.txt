@@ -1,0 +1,59 @@
+*vim-tips-wiki-832.txt*   Remembering previous deletes/yanks            *vtw-832*
+
+Tip 832 [https://vim.fandom.com/wiki/Remembering_previous_deletes/yanks]   Previous |vtw-830| Next |vtw-834|
+
+created 2004 · complexity basic · author Rory McCann · version 5.7
+
+==============================================================================
+
+Say you delete a paragraph with the command `d}` and you intend to paste that 
+paragraph into another file.
+
+So you edit the other file with `:e other.txt` and you scroll down to where 
+you want to paste the original paragraph. But then you accidentally delete or 
+yank some text.
+
+Now typing `p` simply pastes the text that you just deleted or yanked.
+
+Fortunately, Vim remembers previous deletes/yanks in the numbered registers. 
+You can enter the command `:reg` to list all the registers.
+
+If the text you want is in register 2, enter `"2p` to paste it after the 
+cursor, or `"2P` to paste it before the cursor.
+
+Small deletes (less than a complete line) do not fill the numbered registers.
+
+REGISTERS                                                  *vtw-832-registers*
+    - :help |registers| 
+    - :help |quote_number| 
+
+
+COMMENTS                                                    *vtw-832-comments*
+
+This is pretty magic as well:
+
+>
+    "1p....
+<
+
+put each numeric register successively (where the dot is the Vim repeat 
+operator).
+
+==============================================================================
+
+This is very useful.
+
+Somewhat similar to the "kill ring" in Emacs, where the number of items 
+retained is arbitrary (configurable). However, in Vim it is limited to 10 
+registers and not intuitive.
+
+==============================================================================
+
+After doing a `"1p` you can also cycle through the numbered registers by 
+doing `u.` repeatedly (i.e. remove the last paste and paste the next numbered 
+register, much like "yank-pop" in Emacs: M-y). See :help redo-register for 
+further Information
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

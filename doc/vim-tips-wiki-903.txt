@@ -1,0 +1,63 @@
+*vim-tips-wiki-903.txt*   Capitalize words in insert and normal modes without moving the cursor *vtw-903*
+
+Tip 903 [https://vim.fandom.com/wiki/Capitalize_words_in_insert_and_normal_modes_without_moving_the_cursor]   Previous |vtw-902| Next |vtw-904|
+
+created 2005 · complexity intermediate · author Gerald Lai · version 5.7
+
+==============================================================================
+
+For those of you who require a way of capitalizing (or toggling the case) of 
+words in either insert or normal mode but want the cursor to stay put where it 
+currently is, you're in luck.
+
+The mappings below work in such a way where the word being capitalized is the 
+word where one of its alphabets is being "touched" by the cursor.
+
+When it is in normal mode, the cursor only touches the alphabet underneath it 
+(i.e. alphabet under flashing cursor block).
+
+When it is in insert mode, the cursor touches the alphabet beside it. A few 
+examples below (assume pipe character as cursor):
+    - `foo| bar` – "foo" gets capitalized 
+    - `foo |bar` – "bar" gets capitalized 
+    - `foo b|ar` – "bar" gets capitalized 
+    - `foo bar | more` – no word gets capitalized 
+
+
+Cursor stays where it is after capitalization, in its current mode.
+
+>
+    "Place in vimrc file
+    "<F7> for word case toggle & <F8> for word capitalization
+    "Normal mode mappings:
+    nmap <F7> mzg~iw`z
+    nmap <F8> mzgUiw`z
+    
+    "Insert mode mappings:
+    imap <F7> _<Esc>mza<C-Right><Esc>bg~iw`zi<Del>
+    imap <F8> _<Esc>mza<C-Right><Esc>bgUiw`zi<Del>
+<
+
+Type "~" for togglecase, "U" for uppercase, "u" for lowercase.
+
+COMMENTS                                                    *vtw-903-comments*
+
+These ones seem to work better than the last. Updated insert mode mappings:
+
+>
+    imap <F8> _<Esc>mzwbg~iw`zi<Del>
+    imap <S-F8> _<Esc>mzwbgUiw`zi<Del>
+<
+
+==============================================================================
+
+The last mappings broke for words at the end of the file.
+
+>
+    imap <F8> _<Esc>mzi<S-Right><C-o>b<C-o>g~iw<C-o>`z<Del>
+    imap <S-F8> _<Esc>mzi<S-Right><C-o>b<C-o>gUiw<C-o>`z<Del>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

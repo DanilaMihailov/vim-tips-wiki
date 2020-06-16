@@ -1,0 +1,155 @@
+*vim-tips-wiki-1528.txt*   Quick yank and paste                        *vtw-1528*
+
+Tip 356 [https://vim.fandom.com/wiki/Quick_yank_and_paste]   Previous |vtw-355| Next |vtw-357|
+
+created 2002 · complexity basic · author Niels Aan de Brugh · version 5.7
+
+==============================================================================
+
+TO DO
+    - I propose making this the "copy/paste mappings" tip, and merge in the various 
+      other attempts. 
+    - When finished, rename this tip (and maybe some of the others). 
+    - Possibly have a section for Windows Ctrl-C/X/V stuff, and another for other 
+      approaches. 
+    - For Windows Ctrl-C/X/V, is there any need for a tip other than to explain 
+      about mswin.vim? 
+    - The wiki should explain how to use Vim properly, so a bunch of tips on making 
+      Vim imitate Notepad are not helpful IMHO. However, one tip on Ctrl-C/X/V is 
+      warranted (particularly now they are "standard" on Mac + Windows + Linux). 
+    - Might keep some different approaches, but perhaps will just pick what appears 
+      to be the "best". 
+    - Use following list for related tips (probably will not merge them to here, 
+      but may find some info in them that could be moved to this tip). 
+
+    - Copy/paste mappings (this tip) 
+    - 312 Copy, cut and paste |vtw-312| Copy/paste without selection 
+    - 960 Copy an Entire Buffer to the Clipboard |vtw-960| Copy All 
+
+    - 21 Easy pasting to Windows applications |vtw-21| `:set clipboard=unnamed`, 
+      `:set go+=a` 
+    - 687 Mac OS X clipboard sharing |vtw-687| 
+    - 984 Accessing the system clipboard |vtw-984| 
+    - 1511 In line copy and paste to system clipboard |vtw-1511| Mac OS X? 
+
+
+CONTENT FROM VIMTIP356 (THIS TIP) *vtw-1528-content-from-vimtip356-(this-tip)*
+
+Since I didn't want to interfere with the standard Vim mappings I removed all 
+the <C-c>, <C-v>, etc. mappings found in the default vimrc. But quickly 
+copy-pasting text is a must, so I added the following keymaps. This is very 
+simple, but it works like a charm.
+
+>
+    vmap <C-Space> "ay
+    nmap <C-Space> "aP
+    imap <C-Space> <C-o>"ap
+    nmap <C-c> "ayiw
+<
+
+COMMENTS                                                   *vtw-1528-comments*
+
+I found the insertion mapping faulty: its behavior depended on whether I was 
+at the end of the line. The following work well for me:
+
+>
+    vmap <C-c> "py
+    nmap <C-c> "pyiw
+    vmap <C-p> "pp
+    nmap <C-p> "pP
+    imap <C-p> <Esc>"ppa
+<
+
+CONTENT FROM TIP 1387 (NOW REMOVED; CONTENT TO BE MERGED HERE) *vtw-1528-content-from-tip-1387-(now-removed;-content-to-be-merged-here)*
+
+Having replaced Notepad with gvim, these are my preferred editing shortcuts:
+
+>
+    " Copy to 'clipboard registry'
+    vmap <C-c> "*y
+    
+    " Select all text
+    nmap <C-a> ggVG
+<
+
+COMMENTS                                                   *vtw-1528-comments*
+
+Have you seen vim70/mswin.vim, it comes with Vim 7.0 (and prior versions). It 
+sets up a bunch of behavior that makes Vim work nice with Windows. Just source 
+it in your vimrc. It's worth reading through for some ideas if you don't want 
+to use the entire thing.
+
+CONTENT FROM TIP 1528 (NOW REMOVED; CONTENT TO BE MERGED HERE) *vtw-1528-content-from-tip-1528-(now-removed;-content-to-be-merged-here)*
+
+Easy copy and paste in Vim:
+
+>
+    " normal copy/paste
+    vmap <C-c> y<Esc>i
+    vmap <C-x> d<Esc>i
+    imap <C-v> <Esc>pi
+    imap <C-y> <Esc>ddi
+    map <C-z> <Esc>
+    imap <C-z> <Esc>ui
+<
+
+How it works:
+
+Select something in visual mode. Then Ctrl-c (copy), Ctrl-x (cut).
+
+After the operation you are in insert mode. So just navigate to the place 
+where you want to paste and do Ctrl-v
+
+When in insert mode Ctrl-y deletes the current line, Ctrl-z undo last change.
+
+To make interaction with other applications more intuitive, see 
+Easy_pasting_to_Windows_applications 
+[https://vim.fandom.com/wiki/Easy_pasting_to_Windows_applications].
+
+TODO                                                           *vtw-1528-todo*
+
+Need to state whether this is for a particular operating system. Does it work 
+with the system clipboard? If not, is it useful?
+
+See :help |:behave| for usage of mswin.vim. Most installs of Vim on Windows 
+use mswin.vim. In that case, Ctrl-C, Ctrl-X, Ctrl-V, Ctrl-Z just behave as a 
+Windows user would expect, and the tip as now written has no point.
+
+If using gvim without mswin.vim (a good idea), look at the Edit menu for the 
+recommended keys.
+
+If wanting the mswin.vim key mappings, is there a reason to use this tip 
+rather than mswin.vim?
+
+CONTENT FROM TIP 866 (NOW REMOVED; CONTENT TO BE MERGED HERE) *vtw-1528-content-from-tip-866-(now-removed;-content-to-be-merged-here)*
+
+>
+    "<Ctrl-X> -- cut (goto visual mode and cut)
+    imap <C-X> <C-O>vgG
+    vmap <C-X> "*x<Esc>i
+    
+    "<Ctrl-C> -- copy (goto visual mode and copy)
+    imap <C-C> <C-O>vgG
+    vmap <C-C> "*y<Esc>i
+    
+    "<Ctrl-A> -- copy all
+    imap <C-A> <C-O>gg<C-O>gH<C-O>G<Esc>
+    vmap <C-A> <Esc>gggH<C-O>G<Esc>i
+    
+    "<Ctrl-V> -- paste
+    nm \\paste\\ "=@*.'xy'<CR>gPFx"_2x:echo<CR>
+    imap <C-V> x<Esc>\\paste\\"_s
+    vmap <C-V> "-cx<Esc>\\paste\\"_x
+<
+
+COMMENTS                                                   *vtw-1528-comments*
+
+What's wrong with the default? In Vim 7.1, see the files distributed with 
+Vim:
+    - vim/vim71/macmap.vim, vim/vim71/menu.vim, vim/vim71/mswin.vim 
+    - vim/vim71/autoload/paste.vim 
+
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

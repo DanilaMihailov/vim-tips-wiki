@@ -1,0 +1,54 @@
+*vim-tips-wiki-526.txt*   Enhance the word complete.vim script          *vtw-526*
+
+Tip 526 [https://vim.fandom.com/wiki/Enhance_the_word_complete.vim_script]   Previous |vtw-525| Next |vtw-527|
+
+created 2003 · complexity intermediate · author Adrian von Bidder · version 
+6.0
+
+==============================================================================
+
+I suggest you first look at the script itself: script#73 
+[https://www.vim.org/scripts/script.php?script_id=73]
+
+Since the script has some problems (at least for me) when I paste text in X11 
+with the mouse, and since I need to switch to paste more anyway, I now use 
+this in my vimrc:
+
+>
+    " the word_complete.vim plugin just *rocks*
+    autocmd VimEnter * call DoWordComplete()
+    
+    fun! SetComplete()
+      call DoWordComplete()
+      set nopaste
+      nunmap <F12>
+      iunmap <F12>
+      nmap <F12> :call UnsetComplete()<CR>
+      imap <F12> <Esc>:call UnsetComplete()<CR>a
+      echo
+    endfun
+    
+    fun! UnsetComplete()
+      call EndWordComplete()
+      set paste
+      nunmap <F12>
+      iunmap <F12>
+      nmap <F12> :call SetComplete()<CR>
+      imap <F12> <Esc>:call SetComplete()<CR>a
+      echo
+    endfun
+    
+    nmap <F12> :call UnsetComplete()<CR>
+    imap <F12> <Esc>:call UnsetComplete()<CR>a
+<
+
+Issues
+
+In insert mode, F12 switches to paste mode, but not back again. In normal 
+mode, it works.
+
+
+
+COMMENTS                                                    *vtw-526-comments*
+
+ vim:tw=78:et:ft=help:norl:

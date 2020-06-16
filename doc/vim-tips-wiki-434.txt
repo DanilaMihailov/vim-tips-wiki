@@ -1,0 +1,252 @@
+*vim-tips-wiki-434.txt*   Auto commands for C/C++ editing               *vtw-434*
+
+Tip 434 [https://vim.fandom.com/wiki/Auto_commands_for_C/C%2B%2B_editing]   Previous |vtw-432| Next |vtw-436|
+
+created 2003 · complexity intermediate · author Karthick Gururaj · version 
+6.0
+
+==============================================================================
+
+When you start editing *.h files, you may want to insert some standard text 
+like this:
+
+>
+    /*****************************************************************
+    * Filename: abc.h
+    * Description:
+    * Created: Mar 5 03 09:00:00
+    * Last modified: Mar 6 03 09:00:00
+    * <plus more stuff like author, copyright, etc>
+    *
+    * Revision History
+    * Date Author Remarks
+    * Mar 5 2003 KG File Created
+    *******************************************************************/
+    #ifndef _ABC_H_
+    #define _ABC_H_
+    
+    #endif
+    // vim:ts=3:sw=3:ft=c
+<
+
+I wanted my gvim to do the following things at various stages of editing a 
+abc.h file:
+
+The following autogroup (:help |:au|) commands let you do these (put these in 
+your .vimrc):
+
+>
+    if !exists("autocommands_loaded")
+      let autocommands_loaded = 1
+      au BufNewFile *.h call InsertCHHeader()
+      au BufWrite *.h call ModifyTime()
+      " You might want to comment-out the line below - see note 6 at the end of the post.
+      au BufReadPost *.h call ModifyHeader()
+    endif
+    
+    function! InsertCHHeader()
+      call InsertSkeleton("skeleton.h") " CHANGE this!
+      call InsertFname()
+      1
+      " Search for Description
+      call search("Description:")
+      normal $
+      startinsert
+    endfunction
+    
+    function! InsertSkeleton(fname)
+      let path_to_skeletons = $HOME . "/etc/skeletons/" " CHANGE this!
+      " Save cpoptions
+      let cpoptions = &cpoptions
+      " Remove the 'a' option - prevents the name of the
+      " alternate file being overwritten with a :read command
+      exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+      exe "read " . path_to_skeletons . a:fname
+      " Restore cpoptions
+      exe "set cpoptions=" . cpoptions
+      " Delete the first line into the black-hole register
+      1, 1 delete _
+      " Search for Filename:
+      call search("Filename:")
+      exe "normal A " . expand("%:t")
+      " Search for Created:
+      let current_time = strftime("%b %d %Y %T") "CHANGE this!
+      call search("Created:")
+      exe "normal A " . current_time
+      " Search for Last modified:
+      call search("Last modified:")
+      exe "normal A " . current_time
+    
+      " Search for Date
+      let date_line_no = search("Date")
+      let rev_history = getline(line("."))
+      let rev_history = substitute(rev_history, "Date ", strftime("%b %d %Y"), "") " CHANGE this!
+      let rev_history = substitute(rev_history, "Author", "KG ", "") "CHANGE this!
+      let rev_history = substitute(rev_history, "Remarks", "File created.", "")
+      call append(date_line_no, rev_history)
+    endfunction
+    
+    function! InsertFname()
+      " Convert newname.h to _NEWNAME_H_
+      let fname = expand("%:t")
+      let fname = toupper(fname)
+      let fname = substitute(fname, "\\.", "_", "g")
+      " Search for #ifndef
+      call search("#ifndef")
+      exe "normal A " . "_" . fname . "_"
+      " Search for #define
+      call search("#define")
+      exe "normal A " . "_" . fname . "_"
+    endfunction
+    
+    function! ModifyHeader()
+      " Modify header only if we have write permissions
+      if &readonly == 0
+        " Search for Date
+        let date_line_no = search("Date")
+        if date_line_no != 0
+          let rev_history = getline(line("."))
+          " Substitute Date, and Author fields
+          let rev_history = substitute(rev_history, "Date ", strftime("%b %d %Y"), "") " CHANGE this!
+          let rev_history = substitute(rev_history, "Author", "KG ", "") " CHANGE this!
+          let rev_history = substitute(rev_history, "Remarks", "", "")
+          " echo "Modified = " . rev_history
+          call append(date_line_no, rev_history)
+          normal j$
+          startinsert
+        endif
+      endif
+    endfunction
+    
+    function! ModifyTime()
+      " Do the updation only if the current buffer is modified
+      if &modified == 1
+        let current_time = strftime("%b %d %Y %X") " CHANGE this!
+        " Save current position at mark i
+        normal mi
+        " Search for Last modified:
+        let modified_line_no = search("Last modified:")
+        if modified_line_no != 0 && modified_line_no < 10
+          " There is a match in first 10 lines
+          " Go to the : in modified: and replace the timestamp.
+          exe "normal f:2l" . strlen(current_time) . "s" . current_time
+          echo "Modified date stamp to " . current_time
+          sleep 500m
+          " Restore position
+          normal `i
+        endif
+      endif
+    endfunction
+<
+
+NOTES                                                          *vtw-434-notes*
+
+1. The strftime() function is not portable. You might need to change the 
+format specifier for your system. For example, on a Unix-like system, the 
+format specifier "%a %b %e %T %Z %Y" is a better match for the results of the 
+Vim command `!!date`.
+
+2. The autogroup commands assumes that there is a file called skeleton.h at 
+the location ~/etc/skeletons.
+
+You might have to modify the path and file name. In my case, the skeleton.h file looks like:
+
+>
+    /******************************************************************************
+     * Filename:
+     * Description:
+     *
+     * Version: 1.0
+     * Created:
+     * Last modified:
+     * Revision: None
+     *
+     * Author: Karthick Gururaj
+     * Company: [Removed]
+     * e-mail: [Removed]
+     *
+     * Revision history
+     * Date Author Remarks
+     *
+     ******************************************************************************/
+    #ifndef
+    #define
+    
+    #endif
+    // vim:sw=3:ts=3
+<
+
+Search the script for the pattern "CHANGE" to see where you might have to make changes.
+
+3. The `ModifyTime` function does not quite do the right thing if there is no 
+space after the ":" character. This can be fixed, but is hard to depict in the 
+code sample. The "2l" has to be replaced by "a<Space><Esc>lx", but you can't 
+actually use "<Space>" or "<Esc>" but must insert the actual characters. Not 
+hard to do, just hard to describe clearly.
+
+However, in double quotes, you can use \ like this: "a\<Space>\<Esc>lx".
+
+4. I have not tried to make the script super-portable (that looks obvious 
+eh?). The reasoning is, any changes are a one time effort.
+
+5. The scripts don't modify search history or register values. I have used 
+one letter for marking thou'
+
+6. If you open a new header file, and quit it without writing, no file is 
+created.
+
+7. I found having an autogroup command for modifing the revision history 
+everytime the file is opened to be irritating. So I have disabled this in my 
+system. Note on note: I also had some problems when trying to open the file 
+thro' the quickfix window.
+
+8. You can define more such skeletons for other extentions.
+
+COMMENTS                                                    *vtw-434-comments*
+
+If you liked this tip and code C/C++, I am pretty sure you would love C/C++ 
+IDE [https://www.vim.org/scripts/script.php?script_id=213]. It offers this 
+functionality, and you can create comment templates.
+
+==============================================================================
+
+If you're providing code samples of this complexity, consider submitting a 
+script instead of a tip.
+
+Also, there are some pretty good scripts for skeleton insertion already 
+submitted -- they have the added advantage of working with several different 
+filetypes. (I was debating doing something similar to what you have at one 
+time to make my life easier, but located one of these instead and haven't ever 
+looked back.)
+
+==============================================================================
+
+This stuff strikes me as over-specific, and perhaps should be merged or used 
+to elaborate other tips. For instance, the stuff on "Last Modified" can be 
+used in lots of situations besides C/C++; I use it myself in Java, HTML and 
+README files. It also seems to overlap with a different approach in VimTip97 
+|vtw-97|. Couldn't an updated VimTip97 |vtw-97| contain both ideas, and become 
+a central spot for date maintenance tips?
+
+==============================================================================
+
+This code is so complex, so long, and does so many very different things, 
+that I think it should probably be broken up into 2 or 3 separate tips (with 
+more appropriate names).
+
+The suggestion to move the last modified stuff to VimTip97 |vtw-97| is a good 
+one, but consider whether it is an appropriate addition; VimTip97 |vtw-97| 
+strikes me as more of a simple overview of strftime and what you can do with 
+it. I haven't studied the code in this tip in much detail, so I cannot judge 
+it yet, but it could possibly be better to create a new tip (or find a 
+different time-update tip) that would be a better place for a more complex 
+example of automatically updating the time stamp. We would then link the new 
+tip as a "see also" from VimTip97 |vtw-97|, similar to the way VimTip1521 
+|vtw-1521| is linked.
+
+Of course, the code here for updating timestamps may be simple enough to just 
+include in VimTip97 |vtw-97|, if it is worth keeping at all. --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] 13:45, 18 September 2008 
+(UTC)
+
+ vim:tw=78:et:ft=help:norl:

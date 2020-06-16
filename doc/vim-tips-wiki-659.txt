@@ -1,0 +1,63 @@
+*vim-tips-wiki-659.txt*   Collect filenames of current subtree          *vtw-659*
+
+Tip 659 [https://vim.fandom.com/wiki/Collect_filenames_of_current_subtree]   Previous |vtw-658| Next |vtw-660|
+
+created 2004 · complexity basic · author Siegfried Bublitz · version 5.7
+
+==============================================================================
+
+In Vim you can edit directories, but sometimes it is more convenient to have 
+the names of all files in the complete subtree listed in one buffer. The netrw 
+plugin which creates the directory listing can be tweaked to show a tree view, 
+by using the g:netrw_liststyle variable in your .vimrc 
+[https://vim.fandom.com/wiki/Vimrc] or from the command-line before invoking 
+the directory explorer:
+
+>
+    :let g:netrw_liststyle=3
+<
+
+Sometimes though, you may simply want to list out all the files in a 
+directory tree in a buffer. The below function does just this. It globs the 
+file names of the current directory and iterates through all the names, 
+globbing it again if it is a directory. Note, it can be very slow for large 
+directories.
+
+The following mapping abbreviates the invocation to pressing \L':
+
+>
+    map <Leader>L :call ListTree('.')<CR>
+    function! ListTree(dir)
+      new
+      set buftype=nofile
+      set bufhidden=hide
+      set noswapfile
+      normal i.
+      while 1
+        let file = getline(".")
+        if (file == '')
+          normal dd
+        elseif (isdirectory(file))
+          normal dd
+          let @" = glob(file . "/*")
+          normal O
+          normal P
+          let @" = glob(file . "/.[^.]*")
+          if (@" != '')
+            normal O
+            normal P
+          endif
+        else
+          if (line('.') == line('$'))
+            return
+          else
+            normal j
+          endif
+        endif
+      endwhile
+    endfunction
+<
+
+COMMENTS                                                    *vtw-659-comments*
+
+ vim:tw=78:et:ft=help:norl:

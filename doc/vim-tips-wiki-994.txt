@@ -1,0 +1,111 @@
+*vim-tips-wiki-994.txt*   Manipulate quoted strings                     *vtw-994*
+
+Tip 994 [https://vim.fandom.com/wiki/Manipulate_quoted_strings]   Previous |vtw-991| Next |vtw-995|
+
+created 2005 · complexity intermediate · author horndude77 · version 6.0
+
+==============================================================================
+
+In Java I found that I rarely needed to insert a carriage return in the 
+middle of a string without first adding a "+ to the end. Also I found that 
+when deleting the opening quote of a string which is part of a longer string I 
+almost always indent to connect it back up to the previous line. So here was 
+my solution. This is my first attempt to make something like this with Vim so 
+the coding might be a bit messy, but it gets the job done.
+
+For example when typing this in:
+
+>
+    String s = "A very long string <cursor>
+<
+
+If you press Enter at this point you will get:
+
+>
+    String s = "A very long string "+
+       "<cursor>
+<
+
+At this point pressing backspace you will be back where you were before. It's 
+come in handy. Let me know.
+
+>
+    " If the cursor is in the middle of a quote block when <CR> is pressed
+    " a quote is added to the end of the line followed by a plus, a <CR>
+    " and another quote.
+    function! Quotereturn()
+      let before=strpart(getline(line(".")), 0, col(".")-1)
+      "let after=strpart(getline(line(".")), col("."))
+      if(before =~ '^\([^"]*"\([^"\\]\|\\.\)*"\)*[^"]*"\([^"\\]\|\\.\)*$')
+        return "\"+\"\<Left>\<CR>\<Right>"
+      else
+        return "\<CR>"
+      endif
+    endf
+    inoremap <CR> <C-R>=Quotereturn()<CR>
+    
+    " If you backspace over a quote and it's a continuation fromanother line
+    " the two strings will be concatenated with quotes, spaces, and + removed.
+    function! Quotebackspace()
+      if( (strpart(getline(line(".")), 0, col(".")-1) =~ '^\s*"$') && (getline(line(".")-1) =~ "\"+$") )
+        return "\<Esc>d0kgJhhxxxi"
+      else
+        return "\<C-H>"
+      endif
+    endf
+    inoremap <BS> <C-R>=Quotebackspace()<CR>
+<
+
+COMMENTS                                                    *vtw-994-comments*
+
+Maybe this could be a plugin for Java file type.
+    - :help |add-filetype-plugin| 
+
+
+==============================================================================
+
+>
+    > I think first return could be
+    > return "\"+\<CR>\""
+<
+
+Unfortunately no. It should stay as it is. Consider:
+
+>
+    String s = "A string with spaces.";
+<
+
+And you want it to be:
+
+>
+    String s = "A string with"+
+         " spaces.";
+<
+
+If we use the change that you suggested (that I had originally) the space at 
+the beginning of the second part of the string would have been eaten by Vim in 
+the beginning tabs and it would have looked like:
+
+>
+    String s = "A string with"+
+         "spaces.";
+<
+
+Adding the quote first and then doing the carriage return fixes this.
+
+>
+    > Also on my Vim (6.3) function could return "\<BS>" for backspace,
+    > so <BS> would not be connected with <C-H> (I have other > mappings for
+    > <C-H> in Insert), so second return in second function could read as
+    > return "\<BS>"
+<
+
+True, this should probably be changed.
+
+As for the plugin, I didn't know how to do that. It took about 5 minutes of 
+looking through the docs that you pointed to. Perhaps that could be submitted 
+as a script sometime later. Thanks!
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

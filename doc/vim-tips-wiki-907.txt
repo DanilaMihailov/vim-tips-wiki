@@ -1,0 +1,131 @@
+*vim-tips-wiki-907.txt*   Keep passwords in encrypted file              *vtw-907*
+
+Tip 907 [https://vim.fandom.com/wiki/Keep_passwords_in_encrypted_file]   Previous |vtw-906| Next |vtw-908|
+
+created 2005 · complexity basic · author Siegfried Bublitz · version 5.7
+
+==============================================================================
+
+I keep some of my passwords in a Vim encrypted file (see :help |:X|). The 
+encryption is not strong, but it may be sufficient for your requirements.
+
+I can open the file in front of other people because the file has a modeline 
+that enables folding so the passwords are hidden. For example, opening the 
+file may show:
+
+>
+    my pc1
+    +-- 3 lines mylogin1
+    
+    my pc2
+    +-- 3 lines mylogin2
+<
+
+The file is organized in blocks separated by blank lines. In each block, all 
+but the first line are indented, for example:
+
+>
+    my pc1
+     mylogin1
+     mypasswd1
+    
+    my pc2
+     mylogin2
+     mypasswd2
+<
+
+The first line of the file contains the following modeline:
+
+>
+    vi: noswapfile bufhidden=wipe tw=0 fdm=expr foldexpr=getline(v\:lnum)=~'^\\s\\|^$'
+<
+
+Explanation:
+    - `noswapfile` keeps others from sniffing in the swapfile. 
+    - `bufhidden=wipe` erases all session information when the file is left. 
+    - The fold commands fold as described above. 
+
+
+COMMENTS                                                    *vtw-907-comments*
+
+Home-grown password management systems can easily give you a false sense of 
+security. You might be better off with dedicated software, for example 
+Password Safe [http://passwordsafe.sourceforge.net/].
+
+==============================================================================
+
+You could use `foldmethod=indent` instead.
+
+==============================================================================
+
+Some other settings may help for privacy:
+
+>
+    set nobackup
+    set nowritebackup
+    set viminfo=
+<
+
+==============================================================================
+
+Consider using `foldclose=all` so that an open fold will automatically close 
+after you leave it.
+
+==============================================================================
+
+For ~/.fetchmailrc I have done this to hide the passwords when editing in 
+Vim.
+
+>
+    # vim: autoindent nobackup nowritebackup noswapfile bufhidden=wipe foldmethod=indent fdo=insert fcl=all fdl=1
+    poll xxxxxx.xxxxx.xxx
+     proto pop3
+     auth password
+     user "xxxxxxxxx"
+     password "xxxxxxxx"
+     is xxxxxx@xxxxxxxx.xxx
+     nofetchall nokeep norewrite fetchlimit 100
+<
+
+`fdo=insert` will make it harder to accidentally open the fold with anything 
+other than zo or i.
+
+`fdl=1` will fold only the auth, user and password lines.
+
+`fcl=all` will autoclose the folds on and deeper than the fdl parameter when 
+leaving them.
+
+The user and password lines will be folded once extra and seperating the user 
+and password lines on two lines will make the fold not display the password 
+line in "preview".
+
+==============================================================================
+
+Keeping modelines in an encrypted file gives a cracker a known plaintext 
+string to look for when trying to brute force the encryption.
+
+But, you can put something like this in your vimrc to avoid the modelines 
+(assuming 'head' is available on your system):
+
+>
+    autocmd BufReadPre * if system("head -c 9 " . expand("<afile>")) == "VimCrypt~" | call SetupEncryption() | endif
+    function SetupEncryption()
+      " disable the swap file
+      setlocal noswapfile
+      " disable viminfo (global)
+      set viminfo=
+      " enable folding
+      call SetupFolding()
+      " auto-close folds
+      set foldlevel=0
+      set foldclose=all
+      " make it harder to open folds by accident
+      set foldopen=""
+      " move cursor over word and press 'e' to obfuscate/unobfuscate it
+      noremap e g?iw
+    endfunction
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

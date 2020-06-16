@@ -1,0 +1,173 @@
+*vim-tips-wiki-934.txt*   Vim-sessions under Windows                    *vtw-934*
+
+Tip 934 [https://vim.fandom.com/wiki/Vim-sessions_under_Windows]   Previous |vtw-933| Next |vtw-936|
+
+created 2005 · complexity basic · author Ivan Tishchenko · version 6.0
+
+==============================================================================
+
+It's easy to set up Windows file associations 
+[https://vim.fandom.com/wiki/Windows_file_associations] so that 
+double-clicking a file in Windows Explorer will open the file in Vim. However, 
+for some types of file, Vim can do more than just edit the file. For example, 
+Vim scripts can be executed, and session files can be loaded to restore a 
+previous editing session. In addition, some plugins like project.vim 
+[https://www.vim.org/scripts/script.php?script_id=69] have configuration files 
+that can be loaded to perform special operations.
+
+While it is nice to be able to edit 
+[https://vim.fandom.com/wiki/Windows_file_associations#Associating_Vim_with_other_actions] 
+session, project, and vimscript files using a right-click menu, wouldn't it be 
+nice to be able to run the script, load the session, or open the project just 
+by double-clicking the file? Using Vim's command-line arguments in the file 
+associations, it is very easy to do this!
+
+Note that some of the methods discussed below suggest modifying your Windows 
+Registry.WARNING: Editing your Windows registry may cause unintended side effects that render your system inoperable. Although this tip has worked in the past for some people, there is no guarantee that it will work for you. Use with caution, and at your own risk.
+
+LAUNCHING SESSION FILES                      *vtw-934-launching-session-files*
+
+A session file is a script created by Vim in order to save the current 
+editing session (window layout, buffer file names, mappings, and more). You 
+can use a session file to save the state of a project that you are working on. 
+After you have opened all the files in your project and arranged the windows 
+as required, use the command `:mksession projectname.vis` to save the session. 
+Replace `projectname.vis` with whatever name you like, although the following 
+assumes that extension `.vis` is used. You can include a path so the session 
+file is saved in a convenient directory (or your desktop). The task of 
+entering a path is made easier by pressing the Tab key to complete 
+partially-entered directory or file names.
+
+Later, you can restore the session by starting Vim and sourcing the session 
+script. You could do that at command prompt as in this example:
+
+>
+    gvim -S projectname.vis
+<
+
+It is also possible to define a file association so that double clicking 
+`projectname.vis` in Windows Explorer opens the session.
+
+USING CONSOLE UTILITIES                      *vtw-934-using-console-utilities*
+
+The easiest way to set up a new file association is to enter the following 
+commands at the command prompt. You need to do this as an administrator 
+because the file association will apply to all users. Change the path to where 
+your gvim is installed.
+
+>
+    assoc .vis=vimsession
+    ftype vimsession="C:\Program Files\Vim\vim72\gvim.exe" -S "%1"
+<
+
+USING THE REGISTRY                                *vtw-934-using-the-registry*
+
+The following alternative does not require administrative privilege because 
+it applies the file association only for the current user 
+[https://vim.fandom.com/wiki/Windows_file_associations#User-specific_file_associations]. 
+Place the following lines in file `sessions.reg` (for example) and execute it. 
+Change the path to where your gvim is installed.
+
+>
+    REGEDIT4
+    
+    [HKEY_CURRENT_USER\Software\Classes\.vis]
+    @="vim_session_file"
+    
+    [HKEY_CURRENT_USER\Software\Classes\vim_session_file]
+    @="Vim saved session"
+    
+    [HKEY_CURRENT_USER\Software\Classes\vim_session_file\shell\open\command]
+    @="C:\\Program Files\\Vim\\vim72\\gvim.exe -S \"%1\""
+<
+
+USING THE _VIMRC                                    *vtw-934-using-the-_vimrc*
+
+Another option might be to add the following into _vimrc (or _gvimrc):
+
+>
+    au VimEnter Session.vim :source %:p
+<
+
+It tells gvim to source the Session.vim file. It first loads Session.vim, so 
+it is not optimal, but rather simple solution.
+
+RUNNING VIM SCRIPTS                              *vtw-934-running-vim-scripts*
+
+TO DO
+    - use ftype and assoc commands 
+    - add explanation 
+
+
+>
+    [HKEY_CLASSES_ROOT\.vim]
+    @="vim_auto_file"
+    
+    [HKEY_CLASSES_ROOT\vim_auto_file]
+    @="GVim script"
+    
+    [HKEY_CLASSES_ROOT\vim_auto_file\shell\edit\command]
+    @="C:\\Program Files\\Vim\\vim72\\gvim.exe -c \"try|source %1|q|endtry\""
+<
+
+OPENING PROJECT.VIM PROJECT FILES  *vtw-934-opening-project.vim-project-files*
+
+If you use the project.vim 
+[https://www.vim.org/scripts/script.php?script_id=69] plugin on Windows XP, it 
+is useful to associate `.vimprojects` files with Vim so they can be opened 
+with a double-click in Explorer.
+
+USING CONSOLE UTILITIES                      *vtw-934-using-console-utilities*
+
+The easiest way to set up a new file association is to enter the following 
+commands, as an administrator, at the command prompt:
+
+>
+    assoc .vimprojects=vimproj
+    ftype vimproj="C:\Program Files\Vim\vim72\gvim.exe" -c ":Project %1"
+<
+
+USING THE REGISTRY                                *vtw-934-using-the-registry*
+
+Alternatively, you can use the following .reg file to associate .vimprojects 
+to open a project file in Vim. This will also set up an icon for the project 
+file to make it obvious that it opens in Vim.
+
+>
+    Windows Registry Editor Version 5.00
+    
+    [HKEY_CLASSES_ROOT\.vimprojects]
+    @="vimprojects_auto_file"
+    
+    [HKEY_CLASSES_ROOT\vimprojects_auto_file]
+    @=""
+    
+    [HKEY_CLASSES_ROOT\vimprojects_auto_file\DefaultIcon]
+    @="C:\\Program Files\\Vim\\vim72\\gvim.exe,0"
+    
+    [HKEY_CLASSES_ROOT\vimprojects_auto_file\shell\edit\command]
+    @="C:\\Program Files\\Vim\\vim72\\gvim.exe -c \":Project %1\""
+<
+
+REFERENCES                                                *vtw-934-references*
+    - :help |-S| 
+
+
+COMMENTS                                                    *vtw-934-comments*
+    - TO DO 
+
+
+Probably should change "`...\shell\edit\command`" from edit to open.
+
+I'm pretty sure it's supposed to be "open". From what I understand, the 
+action name will appear in the context menu as given (so right-click, choose 
+"Edit" to run a vim script? I don't think so). I'm not sure exactly how 
+Windows determines which action to use on a double-click, but "ftype" adds an 
+entry using "open" and not "edit", so I am pretty sure that's the correct one 
+to use here. It might be worth tracking down. #windows on Freenode has been a 
+good resource for me in the past, I'll probably ask there unless somebody 
+figures this out sooner.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

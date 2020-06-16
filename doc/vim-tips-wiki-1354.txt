@@ -1,0 +1,177 @@
+*vim-tips-wiki-1354.txt*   Online documentation for word under cursor  *vtw-1354*
+
+Tip 1354 [https://vim.fandom.com/wiki/Online_documentation_for_word_under_cursor]   Previous |vtw-1349| Next |vtw-1356|
+
+created 2006 · complexity basic · author cgaal · version 5.7
+
+==============================================================================
+
+When editing source code in Vim, you may want to lookup online documentation 
+for the word under the cursor. With the following in your vimrc, you can press 
+<M-d> to open your browser on the online documentation for the current word.
+
+This script is like a generalization of the `K` command (:help |K|), where 
+the keyword can be embedded anywhere in the command string.
+
+The script here is configured for C++/Qt (keywords are Qt class names), Ruby 
+(keywords are Ruby class names), and Perl (keywords are Perl functions), but 
+it should be easy to figure out how to add your favorite online doc page for a 
+given file type. Any online doc page will work, as long as the documentation's 
+URL scheme contains the keyword. You will of course need to modify the script 
+to correctly refer to your browser's executable.
+
+>
+    function! OnlineDoc()
+      if &ft =~ "cpp"
+        let s:urlTemplate = "http://doc.trolltech.com/4.1/%.html"
+      elseif &ft =~ "ruby"
+        let s:urlTemplate = "http://www.ruby-doc.org/core/classes/%.html"
+      elseif &ft =~ "perl"
+        let s:urlTemplate = "http://perldoc.perl.org/functions/%.html"
+      else
+        return
+      endif
+      let s:browser = "\"D:\\Applications\\Mozilla Firefox\\firefox.exe\""
+      let s:wordUnderCursor = expand("<cword>")
+      let s:url = substitute(s:urlTemplate, "%", s:wordUnderCursor, "g")
+      let s:cmd = "silent !start " . s:browser . " " . s:url
+      execute s:cmd
+    endfunction
+    " Online doc search.
+    map <silent> <M-d> :call OnlineDoc()<CR>
+<
+
+<M-d> means press the meta key ("Alt" on most machines, see :help |meta|) and 
+the "`d`" key at the same. Of course, you can change the mapping to whatever 
+key you like – see :help |:imap|. The "d" refers to "doc" or "documentation".
+
+COMMENTS                                                   *vtw-1354-comments*
+
+Adding the line:
+
+>
+    imap <silent> <M-d> :call OnlineDoc()<CR>
+<
+
+will run help when either in or out of insert mode. Saves accidentally 
+dropping keystrokes into text.
+
+==============================================================================
+
+If you're using Linux, replace the "`let s:cmd = ...`" line with:
+
+>
+    let s:cmd = "silent !" . s:browser . " " . s:url . "&"
+<
+
+and make sure that the contents of the `s:browser` string is sufficient to 
+launch your browser from the command shell. If Firefox is on your comand path, 
+the following should work:
+
+>
+    let s:browser = "firefox"
+<
+
+==============================================================================
+
+Run google.com/codesearch on the current word:
+
+>
+    function! OnlineDoc()
+      let s:browser = "firefox"
+      let s:wordUnderCursor = expand("<cword>")
+      if &ft == "cpp" || &ft == "c" || &ft == "ruby" || &ft == "php" || &ft == "python"
+        let s:url = "http://www.google.com/codesearch?q=".s:wordUnderCursor."+lang:".&ft
+      elseif &ft == "vim"
+        let s:url = "http://www.google.com/codesearch?q=".s:wordUnderCursor
+      else
+        return
+      endif
+      let s:cmd = "silent !" . s:browser . " " . s:url
+      execute s:cmd
+      redraw!
+    endfunction
+    " Online doc search.
+    map <LocalLeader>k :call OnlineDoc()<CR>
+<
+
+==============================================================================
+
+To add support for PHP documentation, just add the following after the Perl 
+URL line:
+
+>
+    elseif &ft =~ "php"
+        let s:urlTemplate = "http://www.php.net/%"
+<
+
+==============================================================================
+
+See script#489 [https://www.vim.org/scripts/script.php?script_id=489] 
+Manpageview which provides help for man pages, perl, info, php, tex, and (of 
+course) Vim. The php help is provided via php.net [http://www.php.net/]. Vim, 
+php, and tex's help are provided when the filetype is Vim, php, or tex 
+respectively.
+
+==============================================================================
+
+Here's the Firefox string for a standard Windows Firefox install:
+
+>
+    let s:browser = "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\""
+<
+
+==============================================================================
+
+I added
+
+>
+    redraw!
+<
+
+as the last line of the function definition, because I was getting a blank 
+screen due to the silent call. (Now I see that the google codesearch example 
+does this, too).
+
+
+
+==============================================================================
+
+There was a strange problem running this under zsh, so I played around with 
+it. Filetypes in s:langs will goto codesearch, everything else to standard 
+search. Mapped to F3
+
+>
+    " F3 Google/code search
+    function! OnlineDoc()
+      let s:browser = "firefox"
+      let s:wordUnderCursor = expand("<cword>")
+      let s:langs = ["c", "cpp", "ruby", "python", "php", "java", "css"]
+      if  ((match(s:langs, &ft) > -1) && (&ft != ""))
+        let s:url = "http://www.google.com/codesearch\\?q=".s:wordUnderCursor."+lang:".&ft
+      else
+        let s:url = "http://www.google.com/search\\?q=".s:wordUnderCursor
+      endif
+      let s:cmd ="silent ! " . s:browser . " " . s:url
+      execute s:cmd
+      redraw!
+    endfunction
+    map <F3> :call OnlineDoc()<CR>
+<
+
+==============================================================================
+
+For osx (and with a better search engine):
+
+>
+    function! OnlineDoc()
+      let s:urlTemplate = "http://www.cplusplus.com/search.do?q=%"
+      let s:browser = "open"
+      let s:wordUnderCursor = expand("<cword>")
+      let s:url = substitute(s:urlTemplate, "%", s:wordUnderCursor, "g")
+      let s:cmd = "silent! !" . s:browser . " " . s:url
+      execute s:cmd
+    endfunction
+<
+
+ vim:tw=78:et:ft=help:norl:

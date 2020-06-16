@@ -1,0 +1,34 @@
+*vim-tips-wiki-34.txt*   Control the position of the new window          *vtw-34*
+
+Tip 34 [https://vim.fandom.com/wiki/Control_the_position_of_the_new_window]   Previous |vtw-33| Next |vtw-35|
+
+created March 7, 2001 · complexity intermediate · author slimzhao · version 
+5.7
+
+==============================================================================
+
+There are a few ways to open a new window (:help |opening-window|), but some 
+users may not like the placement of this new window. By default, Vim opens the 
+new window above the current one for horizontal splits, and to the left of the 
+current one for vertical splits. You can customize this behavior like most 
+other things in Vim:
+
+>
+    :set splitbelow
+<
+
+make the new window appear below the current window.
+
+>
+    :set splitright
+<
+
+make the new window appear on the right.
+
+COMMENTS                                                     *vtw-34-comments*
+
+TO DO
+    - Move tip to give it a better name? 
+
+
+ vim:tw=78:et:ft=help:norl:

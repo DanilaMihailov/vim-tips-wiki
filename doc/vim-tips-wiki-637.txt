@@ -1,0 +1,49 @@
+*vim-tips-wiki-637.txt*   Execute accidentally inserted commands        *vtw-637*
+
+Tip 637 [https://vim.fandom.com/wiki/Execute_accidentally_inserted_commands]   Previous |vtw-636| Next |vtw-638|
+
+created January 17, 2004 · complexity basic · author Jochen Behrens · version 
+5.7
+
+==============================================================================
+
+If you are in insert mode and typed a command for normal mode, you can use 
+it.
+
+>
+    inoremap <somekey> <Esc>u@.
+<
+
+This mapping switches to normal mode, undoes the last insertion and takes it 
+as a command.
+
+This can allow you to easily do what you intended when you enter insert mode 
+but change your mind later (and forget you're still in insert mode). 
+Unfortunately, it isn't all that useful by itself, because a text insertion 
+counts as a single operation in the undo sequence 
+[https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U#Explanation]. 
+Therefore, it only works if the ONLY text you enter is a normal-mode command.
+
+You can make this mapping more useful by combining it with the following 
+autocmd:
+
+>
+    autocmd CursorHoldI * call feedkeys("\<C-G>u", 'tn')
+<
+
+This will break the undo sequence if you leave Vim in insert mode for too 
+long. This means if you accidentally leave Vim in insert mode after a lengthy 
+insertion, the mapping given at the beginning of the tip will only undo and 
+execute the last inserted text.
+
+REFERENCES                                                *vtw-637-references*
+    - :help |@| 
+    - :help |quote.| 
+    - :help |CursorHoldI| 
+    - :help |feedkeys()| 
+    - :help |ins-special-special| 
+
+
+COMMENTS                                                    *vtw-637-comments*
+
+ vim:tw=78:et:ft=help:norl:

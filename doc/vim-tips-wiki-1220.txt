@@ -1,0 +1,209 @@
+*vim-tips-wiki-1220.txt*   Use vi shortcuts in terminal                *vtw-1220*
+
+Tip 1220 [https://vim.fandom.com/wiki/Use_vi_shortcuts_in_terminal]   Previous |vtw-1218| Next |vtw-1221|
+
+created May 2, 2006 · complexity basic · version 5.7
+
+==============================================================================
+
+Many Unix shells (bash, zsh, etc.) come with keyboard shortcuts enabled: C-a 
+jumps to the start of the line, C-e jumps to the end, and so on. However, 
+these are taken from Emacs. It's possible to tell your shell to use Vi 
+shortcuts instead. Not only will the keybindings match what you're used to, 
+but you'll also have modal editing, just like Vi.
+
+To enable Vi-mode, edit (or create) the file ~/.inputrc or /etc/inputrc and 
+add the following lines:
+
+>
+    set editing-mode vi
+    set keymap vi-command
+<
+
+Restart your terminal and you'll have Vi keybindings. By default, you're in 
+insert mode; press Esc to enter command mode. You may want to keep a cheat 
+sheet of default keymappings 
+[http://www.catonmat.net/blog/bash-vi-editing-mode-cheat-sheet/] handy, since 
+they do differ from Vi/Vim occasionally.
+
+In bash, to see a list of the keymappings currently active, use the command 
+bind -p | grep -v '^#\|self-insert\|^$'. Important: the displayed keybindings 
+will change depending on whether you're in insert or command mode when you 
+execute the command. It is recommended that you run the command once with 
+insert mode active, and once when command mode is active.
+
+A reference to adjusting the options and mappings of the readline library 
+most shells use for text editing can be found in the readline man page 
+[http://linux.die.net/man/3/readline], or in the GNU bash man page 
+[https://www.gnu.org/software/bash/manual/bashref.html#Readline-Interaction].
+
+When customizing your Vi-style kemappings, be mindful of which editing mode 
+your keymap applies to. In your ~/.inputrc, a line with `set keymap 
+vi-command` means that mappings below that line apply to command mode; a line 
+with `set keymap vi-insert` means that mappings below that line apply to 
+insert mode. See a sample .inputrc |vtw-1220-well-formed-example-inputrc| for 
+an example of this.
+
+COMMENTS                                                   *vtw-1220-comments*
+
+My own personal ~/.inputrc, with comments on every line, can be used as an 
+example of customizing your own shell.
+
+>
+    # Use Vi, not Emacs, style editing
+    set editing-mode vi
+    
+    # Show all completions as soon as I press tab, even if there's more than one
+    set show-all-if-ambiguous on
+    # Ignore case
+    set completion-ignore-case on
+    # on menu-complete, first display the common prefix, then cycle through the 
+    # options when hitting TAB
+    set menu-complete-display-prefix on
+    
+    ###########################################################
+    # Keymaps for when we're in command mode (e.g., after hitting ESC)
+    set keymap vi-command
+    
+    # Insert the arguments from the last command
+    "p": "i !!*\r"
+    
+    # When hitting option-up/option-down, cycle through the previous commands
+    # which start with the prefix you've entered, rather than just cycling through
+    # the last entered commands.
+    # In OS X's Terminal.app preferences, I have 'Use option as meta key' off, and
+    # have mapped "option cursor up" to "\033\033[A" and "option cursor down" to 
+    # "\033\033[B".
+    # Feel free to bind to whatever you want. Delete the first '\e' in the keymap
+    # to set plain up/down to do a history search by default.
+    "\e\e[A": history-search-backward
+    "\e\e[B": history-search-forward
+    
+    ###########################################################
+    # Keymaps for when we're in insert (i.e., typing stuff in) mode
+    set keymap vi-insert
+    
+    # Pressing tab will list all completions & select the first one. Pressing it 
+    # again will cycle through available completions.
+    TAB: menu-complete
+    # Shift-TAB cycles completions backward
+    "\e[Z": menu-complete-backward
+    
+    # Option-up/option-down should also apply to insert mode
+    "\e\e[A": history-search-backward
+    "\e\e[B": history-search-forward
+    
+    # Needed because binding 'p' in command mode above wipes its insert mode
+    # function, too. This fixes that, and will insert 'p' when you type 'p'.
+    "p": self-insert
+<
+
+--Magicmat [https://vim.fandom.com/wiki/User:Magicmat] (talk 
+[https://vim.fandom.com/wiki/User_talk:Magicmat]) 07:53, June 14, 2013 (UTC)
+
+
+
+==============================================================================
+
+Some more interesting keys from my ~/.inputrc (works in cygwin/linux bash).
+
+>
+    # Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
+    "\e-": "\C-p\C-a\M-f "
+    
+    # Cycle thru completions.
+    "\e/": menu-complete
+    
+    # glob patterns without executing, eg: 'rm *x'
+    "\ee": glob-expand-word
+    
+    # Vim style history search
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    
+    "\e[C": forward-char
+    "\e[D": backward-char
+    
+    # Two escapes clear command line.
+    "\e\e": "\C-a\C-k"
+<
+
+==============================================================================
+
+If you use zsh (and you really should!) you can add to your .zshrc:
+
+>
+    bindkey -v
+<
+
+to set editing mode to vi. I think this is useful because zsh does not use 
+readline like bash etc do.
+
+==============================================================================
+
+I'm sure all bash users will be familiar with:
+
+>
+    set -o vi
+<
+
+==============================================================================
+
+Ought to be noted that you can do the same with the Korn Shell (ksh). For 
+automatic vi keystrokes, edit $HOME/.profile or whatever your $HOME/$ENV 
+script is.
+
+==============================================================================
+
+Quick clarification for ksh -- that's "set -o vi" you need to add to .profile 
+or $ENV script.
+
+==============================================================================
+
+To summarize: As I understand, setting file ~/.inputrc or /etc/inputrc will 
+set Vi mode to all programs that use 'readline' library. From what i know it's 
+bash, pgsql, mysql, ... + I like to use Term::ReadLine module in perl and 
+therefore Vi mode works right a way for all of my programs. Setting up 'set -o 
+vi' in ~/.bashrc will set it only for bash (the same goes for ksh and zsh 
+setting i guess).
+
+==============================================================================
+
+The problem is that the bindings do not work with vi-mode. Had to change the 
+sequences to VI sequences:
+
+>
+    set editing-mode vi
+    set keymap vi-insert
+    
+    # Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
+    "\C-o": "\e-0eli "
+    
+    # Cycle thru completions.
+    "\C-a": menu-complete
+    
+    # glob patterns without executing, eg: 'rm *x'
+    "\C-e": glob-expand-word
+    
+    # Vim style history search (Already Default)
+    #"\e[A": history-search-backward
+    #"\e[B": history-search-forward
+    
+    #"\e[C": forward-char
+    #"\e[D": backward-char
+    
+    # Two escapes clear command line. (Use C-c or \eC\eC instead)
+    "\e\e": "\e0\C-ki"
+<
+
+==============================================================================
+
+>
+    bindkey -v
+<
+
+Is also the method for tcsh.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

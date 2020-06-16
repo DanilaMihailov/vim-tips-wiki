@@ -1,0 +1,27 @@
+*vim-tips-wiki-1584.txt*   Visual selection                            *vtw-1584*
+
+Tip 1584 [https://vim.fandom.com/wiki/Visual_selection]   Previous |vtw-1583| Next |vtw-1585|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Visual_selection] 
+2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+TO DO
+    - Make this a simple introduction to visual selection. 
+    - Move some of content of following to here (with a link to here): - 312 Copy, 
+      cut and paste |vtw-312| - 344 Cut or copy lines without counting the lines 
+      |vtw-344| - 386 Cut/copy and paste using visual selection |vtw-386| 
+
+
+RESELECT A VISUAL BLOCK                     *vtw-1584-reselect-a-visual-block*
+
+Did you just do something on a visual range, and to your horror the visual 
+block vanished?
+
+Just type `gv` to reselect the last block.
+
+COMMENTS                                                   *vtw-1584-comments*
+
+ vim:tw=78:et:ft=help:norl:

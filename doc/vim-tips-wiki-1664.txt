@@ -1,0 +1,60 @@
+*vim-tips-wiki-1664.txt*   Insert image size into html tag             *vtw-1664*
+
+Tip 1664 [https://vim.fandom.com/wiki/Insert_image_size_into_html_tag]   Previous |vtw-1663| Next |vtw-1665|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201008#Insert_image_size_into_html_tag] 
+2010 · complexity basic · author Rvco · version 7.0
+
+==============================================================================
+
+When editing HTML documents containing images, you need to find out both the 
+width and the length of each image and then feed every <img> tag.Just use perl 
+by adding what follows into your vimrc file.When you hit F4, vim will get the 
+image name and path mentioned in the "src" field of the <img> tag and will use 
+perl to do this job for you.
+
+COPY AND INSERT IMAGE SIZE INTO HTML CODE BY PRESSING A KEY *vtw-1664-copy-and-insert-image-size-into-html-code-by-pressing-a-key*
+
+First step is to make sure you have Perl installed and the Perl module 
+Image::Size. Then all you need is to add this to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc].
+
+>
+    " Get image size with F4 with perl Image::Size module.
+    function! PerlImageSize()
+      g/src
+      normal $
+      normal N
+      normal 2w
+      perl << EOF
+      use Image::Size;
+      $jo = VIM::Eval("expand('<cfile>')");
+      $size = Image::Size::html_imgsize("$jo");
+      VIM::Eval("setreg('a', '$size')");
+    EOF
+      normal $
+      normal "ap
+    endfunction
+    nnoremap <F4> :call PerlImageSize()<CR>
+<
+
+COMMENTS                                                   *vtw-1664-comments*
+
+TO DO
+    - Another mysterious tip. What image? What does it do? What is the `$ N 2w` 
+      stuff? 
+    - An example is needed because clearly the author has something in mind, and 
+      there is no need to perplex each reader of the tip. 
+    - What is the `g/src`? 
+    - The consecutive lines using `normal` can be combined to one. 
+    - Check that the standard indenting I applied to the function does not break 
+      the Perl code. 
+
+
+JohnBeckett aka JohnBot [https://vim.fandom.com/wiki/User:JohnBot] 08:21, 
+September 20, 2010 (UTC)
+
+I think it's any image included in html with an <img> tag. But the tip obviously assumes some things about what has already been entered into the text and the formatting. These assumptions should be eliminated or documented. --Fritzophrenic 20:34, May 31, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

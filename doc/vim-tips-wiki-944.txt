@@ -1,0 +1,66 @@
+*vim-tips-wiki-944.txt*   Send buffer to interpreter in a new xterm     *vtw-944*
+
+Tip 944 [https://vim.fandom.com/wiki/Send_buffer_to_interpreter_in_a_new_xterm]   Previous |vtw-941| Next |vtw-945|
+
+created June 4, 2005 · complexity intermediate · author Thomas Rowe · version 
+5.7
+
+==============================================================================
+
+Without saving the current buffer you want to send its contents to an 
+interpreter (python, scheme, whatever), and you want that interpreter to run 
+in a freshly spawned xterm. A new xterm window is useful because running the 
+shell within Vim does not allow simultaneously inspection of program output 
+and the code buffer, and Vim's shell is weak in several respects.
+
+Put this script in your path and make it executable:
+
+>
+    #!/bin/sh
+    # This is for use from .vimrc files. It sends vim buffers to the specified
+    # interpreter.
+    if [ "$#" -lt 1 ]
+    then
+      echo "ERROR: not enough args."
+      echo "VIMRC USAGE: viminterpreter <interpretercommand>"
+      exit 1
+    fi
+    TMP=`mktemp`
+    VM="$1" #command to run on the current buffer
+    cp /dev/stdin $TMP
+    xterm -e "\"$VM\" $TMP && rm $TMP && read"
+<
+
+Add the following to vimrc:
+
+>
+    map ,p :w !viminterpreter python <CR>
+    map ,g :w !viminterpreter gosh <CR>
+<
+
+Now you can edit scheme code in an unsaved vim buffer and hit ",g" to see 
+what it does. Or ",p" for python code.
+
+COMMENTS                                                    *vtw-944-comments*
+
+Edit the last line in the script to read:
+
+>
+    xterm -e "\"$VM\" $TMP; rm $TMP; read"
+<
+
+The original doesn't let you see the errors if your script fails.
+
+==============================================================================
+
+Following should help:
+
+>
+    :map ,p :!xterm -e "python \"<the_current_buffer>\"" &
+<
+
+Note that & at the end of the line.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

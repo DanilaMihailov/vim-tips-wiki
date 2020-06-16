@@ -1,0 +1,115 @@
+*vim-tips-wiki-191.txt*   Transposing                                   *vtw-191*
+
+Tip 191 [https://vim.fandom.com/wiki/Transposing]   Previous |vtw-189| Next |vtw-193|
+
+created 2002 · complexity intermediate · author Kontra Gergely · version 5.7
+
+==============================================================================
+
+SWAPPING LINES AND COLUMNS                *vtw-191-swapping-lines-and-columns*
+
+The transpose.vim plugin [https://github.com/salsifis/vim-transpose] can be 
+used to transpose arrays of text, lines becoming columns and columns becoming 
+lines. It can handle arrays of text or arrays of delimited fields.
+
+SWAPPING LINES                                        *vtw-191-swapping-lines*
+
+Swapping a line with the line directly above or below it is a common task 
+when writing computer software. This tip provides some mappings for normal, 
+insert and visual modes which make this more easily accomplished. Adding the 
+following to your _vimrc file allows you to move a line (or multiple lines) of 
+text up or down within a document using the <Control> and <Up>/<Down> arrow 
+keys. This is similar to the <Alt> and <Up>/<Down> arrow text movement feature 
+in Eclipse.
+
+>
+    function! MoveLineUp()
+      call MoveLineOrVisualUp(".", "")
+    endfunction
+    
+    function! MoveLineDown()
+      call MoveLineOrVisualDown(".", "")
+    endfunction
+    
+    function! MoveVisualUp()
+      call MoveLineOrVisualUp("'<", "'<,'>")
+      normal gv
+    endfunction
+    
+    function! MoveVisualDown()
+      call MoveLineOrVisualDown("'>", "'<,'>")
+      normal gv
+    endfunction
+    
+    function! MoveLineOrVisualUp(line_getter, range)
+      let l_num = line(a:line_getter)
+      if l_num - v:count1 - 1 < 0
+        let move_arg = "0"
+      else
+        let move_arg = a:line_getter." -".(v:count1 + 1)
+      endif
+      call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
+    endfunction
+    
+    function! MoveLineOrVisualDown(line_getter, range)
+      let l_num = line(a:line_getter)
+      if l_num + v:count1 > line("$")
+        let move_arg = "$"
+      else
+        let move_arg = a:line_getter." +".v:count1
+      endif
+      call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
+    endfunction
+    
+    function! MoveLineOrVisualUpOrDown(move_arg)
+      let col_num = virtcol(".")
+      execute "silent! ".a:move_arg
+      execute "normal! ".col_num."|"
+    endfunction
+    
+    nnoremap <silent> <C-Up> :<C-u>call MoveLineUp()<CR>
+    nnoremap <silent> <C-Down> :<C-u>call MoveLineDown()<CR>
+    inoremap <silent> <C-Up> <C-o>:call MoveLineUp()<CR>
+    inoremap <silent> <C-Down> <C-o>:call MoveLineDown()<CR>
+    "vnoremap <silent> <C-Up> :<C-u>call MoveVisualUp()<CR>
+    "vnoremap <silent> <C-Down> :<C-u>call MoveVisualDown()<CR>
+    xnoremap <silent> <C-Up> :<C-u>call MoveVisualUp()<CR>
+    xnoremap <silent> <C-Down> :<C-u>call MoveVisualDown()<CR>
+<
+
+The above mappings all take a count so 5<C-Up> would move the current line 
+(or visual selection) 5 lines up.
+
+They make use of the `:move` command to do the movement which avoids 
+overwritting a register which other methods may suffer from. As `:move` wont 
+move a line to an invalid location an extra check is made to move no further 
+than the start (or end) of the file. The mappings are also careful to restore 
+the original cursor location in the line (or selection) by first getting it 
+with `virtcol()` and then restoring it with `|`.
+
+SEE ALSO                                                    *vtw-191-see-also*
+    - Moving lines up or down [https://vim.fandom.com/wiki/Moving_lines_up_or_down] 
+    - Swapping characters, words and lines 
+      [https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines] 
+    - Text "bubbling" [http://vimcasts.org/episodes/bubbling-text/] 
+
+
+RELATED PLUGINS                                      *vtw-191-related-plugins*
+    - unimpaired.vim [https://www.vim.org/scripts/script.php?script_id=1590] `[e` 
+      and `]e` exchange current line with [count] lines above/below 
+    - LineJuggler [https://www.vim.org/scripts/script.php?script_id=4140] plugin 
+      has `[e` and `]e` (among other movement and duplication related mappings) 
+    - upAndDown.vim [https://www.vim.org/scripts/script.php?script_id=2586] plugin 
+      implementing this tip 
+
+
+REFERENCES                                                *vtw-191-references*
+    - :help |:move| 
+    - :help |v:count1| 
+    - :help |virtcol()| 
+    - :help |bar| 
+
+
+COMMENTS                                                    *vtw-191-comments*
+
+ vim:tw=78:et:ft=help:norl:

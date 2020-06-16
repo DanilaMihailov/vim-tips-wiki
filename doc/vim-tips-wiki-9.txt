@@ -1,0 +1,79 @@
+*vim-tips-wiki-9.txt*   Displaying a variable/macro definition            *vtw-9*
+
+Tip 9 [https://vim.fandom.com/wiki/Displaying_a_variable/macro_definition]   Previous |vtw-8| Next |vtw-10|
+
+created 2001 · complexity basic · author · version 5.7
+
+==============================================================================
+
+To display the definition of a variable, place the cursor on the variable and 
+use the `[i` command.
+
+To display a macro definition, place the cursor on the macro name and use the 
+`[d` command.
+
+To display all the lines containing the variable name under the cursor, use 
+the `[I` command.
+
+These commands work by literally searching for the text. So they work in 
+most, but not all, cases.
+
+[I
+List lines in this file, and in included files, containing keyword under cursor.
+The meaning of included depends on settings, but defaults are set for C (with search of directories normally used for #include).
+
+[<C-i>
+Jump to first match (first line in file containing keyword).
+Ctrl-i is Tab, so, [<Tab> also jumps to the first match.
+
+]<C-i>
+Jump to next match (first line after cursor containing keyword).
+This follows the <C-i>/<C-o> jumping patterns.
+Prepend the windowing operator (Ctrl-w) to open in a new window.
+
+gd
+Go to definition of local variable (first occurrence of keyword in current function).
+
+gD
+Go to definition of global variable (first occurrence of keyword in current file).
+
+SEE ALSO                                                      *vtw-9-see-also*
+    - List lines with keyword and prompt for jump |vtw-563| 
+    - List lines with current search pattern highlighted |vtw-1141| 
+    - Search visually |vtw-1151| 
+
+
+REFERENCES                                                  *vtw-9-references*
+    - :help |[i| 
+    - :help |[d| 
+    - :help |[I| 
+    - :help |[_CTRL-I| 
+    - :help |gd| 
+
+
+SEARCH IN FILES                                        *vtw-9-search-in-files*
+
+Use `:grep` or `:vimgrep` to search for a pattern in files. See Find in files 
+within Vim |vtw-1543|.
+
+>
+    " grep for word under cursor in c/cpp/h-files
+    nnoremap <F9> <Esc>:exec("grep ".expand("<cword>")." ../*/*.c* ../*/*.h")<CR>
+<
+
+You can omit <CR> for manual changing the file pattern before searching.
+
+If you have configured `set grepprg=mygrep\ -n` then you can use quickfix 
+mode for jumping to the found locations.
+
+COMMENTS                                                      *vtw-9-comments*
+
+TO DO
+    - Have merged information from other tips to here. See if any more cleaning up 
+      is required. 
+    - Confirm that descriptions (drastically simplified wrt help) are accurate. 
+    - Possibly make the "Search in files" section just a line under "See also". Is 
+      the 'nnoremap <F9>' stuff useful? 
+
+
+ vim:tw=78:et:ft=help:norl:

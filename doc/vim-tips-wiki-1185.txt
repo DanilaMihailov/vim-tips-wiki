@@ -1,0 +1,209 @@
+*vim-tips-wiki-1185.txt*   Set working directory to the current file   *vtw-1185*
+
+Tip 64 [https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file]   Previous |vtw-63| Next |vtw-66|
+
+created 2001 · complexity intermediate · author William Lee · version 7.0
+
+==============================================================================
+
+This tip explains how the current working directory can be controlled in Vim. 
+If wanted, Vim can automatically set its global current directory to match the 
+location of the current file, or each window can have its own local current 
+directory.
+
+VIM COMMANDS                                           *vtw-1185-vim-commands*
+
+The present working directory can be displayed in Vim with:
+
+>
+    :pwd
+<
+
+To change to the directory of the currently open file (this sets the current 
+directory for all windows in Vim):
+
+>
+    :cd %:p:h
+<
+
+You can also change the directory only for the current window (each window 
+has a local current directory that can be different from Vim's global current 
+directory):
+
+>
+    :lcd %:p:h
+<
+
+In these commands, `%` gives the name of the current file, `%:p` gives its 
+full path, and `%:p:h` gives its directory (the "head" of the full path).
+
+AUTOMATICALLY CHANGE THE CURRENT DIRECTORY *vtw-1185-automatically-change-the-current-directory*
+
+Sometimes it is helpful if your working directory is always the same as the 
+file you are editing. To achieve this, put the following in your vimrc:
+
+>
+    set autochdir
+<
+
+That's it! Unfortunately, when this option is set some plugins may not work 
+correctly if they make assumptions about the current directory. Sometimes, as 
+an alternative to setting `autochdir`, the following command gives better 
+results:
+
+>
+    autocmd BufEnter * silent! lcd %:p:h
+<
+
+This autocmd changes the window-local current directory to be the same as the 
+directory of the current file. It fails silently to prevent error messages 
+when you edit files via ftp or new files. It works better in some cases 
+because the autocmd is not nested, and will therefore not fire when switching 
+buffers via another autocmd. It will also work in older versions of Vim or 
+versions compiled without the 'autochdir' option. Note, however, that there is 
+no easy way to test for this autocmd in a script like there is for the 
+'autochdir' option.
+
+Either of these methods will "cd" to the directory of the file in the current 
+window, each time you switch to that window.
+
+Using the autocmd method, you could customize when the directory change takes 
+place. For example, to not change directory if the file is in `/tmp`:
+
+>
+    autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+<
+
+CAVEATS                                                     *vtw-1185-caveats*
+    - Either of these automatic methods will make loading and saving sessions work 
+      incorrectly. 
+    - Problems with 'autochdir' and netrw have been reported in the past, though 
+      they are fixed now. 
+
+
+ALTERNATIVES                                           *vtw-1185-alternatives*
+
+MAPPING OR COMMAND FOR QUICK DIRECTORY CHANGE *vtw-1185-mapping-or-command-for-quick-directory-change*
+
+Rather than automatically change the working directory, you can use a mapping 
+or a user command to easily change directory to the file being edited. The 
+command below maps your leader key followed by `cd` to do that.
+
+>
+    nnoremap <leader>cd :cd %:p:h<CR>
+<
+
+Alternatively, use:
+
+>
+    nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+<
+
+to print the directory after changing, so you know where you ended up.
+
+If you prefer, use a command instead of a mapping. The following allows you 
+to enter `:CDC` to change directory (it also displays the new directory):
+
+>
+    " CDC = Change to Directory of Current file
+    command CDC cd %:p:h
+<
+
+ADD FILE DIRECTORY TO VIM PATH       *vtw-1185-add-file-directory-to-vim-path*
+
+If your main purpose in setting the working directory is to easily open files 
+in a project, another approach is to add the directory to the path so that you 
+can use the `:find` command to open any other file in the directory:
+
+>
+    " Add the current file's directory to the path if not already present.
+    autocmd BufRead *
+          \ let s:tempPath=escape(escape(expand("%:p:h"), ' '), '\ ') |
+          \ exec "set path+=".s:tempPath
+<
+
+This can be modified using `:set path^=` instead of `:set path+=`, which 
+prepends the new directory to the beginning of the path instead of appending 
+it to the end. For this to work, you will need to remove the path being added 
+first, because otherwise the `path^=` will take no action. You should probably 
+remove and then prepend the default value of 'path' as well, so that the 
+default value remains at the beginning.
+
+>
+    let s:default_path = escape(&path, '\ ') " store default value of 'path'
+    
+    " Always add the current file's directory to the path and tags list if not
+    " already there. Add it to the beginning to speed up searches.
+    autocmd BufRead *
+          \ let s:tempPath=escape(escape(expand("%:p:h"), ' '), '\ ') |
+          \ exec "set path-=".s:tempPath |
+          \ exec "set path-=".s:default_path |
+          \ exec "set path^=".s:tempPath |
+          \ exec "set path^=".s:default_path
+<
+
+Using this version, after searching the entire path for a file, searching for 
+files in the same directory is much faster, because that directory will be the 
+first item in the search path.
+
+SEE ALSO                                                   *vtw-1185-see-also*
+    - Easy edit of files in the same directory 
+      [https://vim.fandom.com/wiki/Easy_edit_of_files_in_the_same_directory] how to 
+      edit a file without needing to change to its directory 
+    - Project browsing using find 
+      [https://vim.fandom.com/wiki/Project_browsing_using_find] 
+
+
+REFERENCES                                               *vtw-1185-references*
+    - :help |filename-modifiers| information about `%:p:h` 
+    - :help 'autochdir' 
+    - :help |:autocmd| 
+    - :help |:lcd| 
+    - :help |expand()| 
+    - :help |:find| 
+    - :help 'path' 
+
+
+COMMENTS                                                   *vtw-1185-comments*
+
+This was added by an anonymous user, to the Caveats section above:
+    - Files outside of the local directory cannot be opened from the command line 
+      (at least in gVim 7.2 on Windows). e.g. 'gvim dirA/dirB/file.txt' will change 
+      into 'dirA/dirB' and then try to open 'dirA/dirB/file.txt'. Unsurprisingly, 
+      dirA/dirB/dirA/dirB/file.txt does not exist. 
+
+
+This statement is simply false. I use gvim 7.2 on Windows, and the example 
+given works fine for me. Additionally, both autochdir and the autocmd method 
+given above, work by changing the current directory after loading the file. 
+The directory change will have no impact on whether the file loads using 
+either of these two methods.
+
+Anonymous user, I suggest posting to the vim_use mailing list with your 
+problem. Perhaps they can figure out your true root cause. This tip should not 
+be the cause, unless combined with something else in your setup.
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 02:46, June 
+20, 2010 (UTC)
+
+==============================================================================
+
+Are there any problems for paths with spaces using the autocmd on Windows? A 
+comment on VimTip370 |vtw-370| provides the following version that escapes 
+spaces (although would shellescape be better?):
+
+>
+    autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
+<
+
+But I don't need that on Linux for my autocmd to work. --Pydave 
+[https://vim.fandom.com/wiki/User:Pydave] 21:36, August 8, 2011 (UTC)
+
+I just tried with Vim 7.3 on Windows and there is no need to fiddle the spaces. Using autocmd BufEnter * silent! lcd %:p:h just works. In due course, we can remove these comments (Pydave: do that as soon as you read this, if you want). I would be inclined to also remove the caveat about "Problems with 'autochdir' and netrw have been reported in the past..." because if there is no precise info, it's not really helpful, and if the "past" is more than a year ago, I don't think we should bother noting it as we have enough problems cleaning the tips without trying to track historical issues. JohnBeckett 06:58, August 9, 2011 (UTC)
+
+I'm happy with the following text in the tip: "It will also work in older versions of Vim or versions compiled without the 'autochdir' option. Note, however, that there is no easy way to test for this autocmd in a script like there is for the 'autochdir' option."
+However, if anyone thinks it might be unnecessary, please remove it. JohnBeckett 07:49, August 9, 2011 (UTC)
+
+I like the text about testing for autochdir in a script. I think the netrw is in there only because there aren't really any specific problems with plugins that anyone knows about, except for the historic problems with netrw. :help 'autochdir' states that "some plugins may not work" when using the option. Honestly, I'm not convinced the autocmd is any better, I expect most plugins that fail for autochdir will also fail for the autocmd. I would be OK with removing the note about netrw, but I know for some reason a lot of people loudly complain when anyone recommends using autochdir, often giving the autocmd as an alternative, with no real reasons why it's better. --Fritzophrenic 16:31, August 9, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

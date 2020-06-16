@@ -1,0 +1,496 @@
+*vim-tips-wiki-550.txt*   Fix arrow keys that display A B C D on remote shell *vtw-550*
+
+Tip 550 [https://vim.fandom.com/wiki/Fix_arrow_keys_that_display_A_B_C_D_on_remote_shell]   Previous |vtw-548| Next |vtw-551|
+
+created 2003 · complexity basic · author VT · version 6.0
+
+==============================================================================
+
+I wonder how many of you are annoyed with the arrow key behavior during 
+insert mode in Vim.
+
+Leave all the key mappings default, do not change your TERM environment. 
+Here's a simple tip,
+
+>
+    :set term=cons25
+<
+
+It was tested with Vim 5.8 and 6.1 editions on; FreeBSD 4.X-STABLE; 
+xterm(-color),VT100 remote terminals; (t)csh shells.
+
+Note that :set term=cons25 causes printing of garbage characters when the 
+session is local. Vi 7.4, Debian Jessie.
+
+COMMENTS                                                    *vtw-550-comments*
+
+EASY SOLUTION                                          *vtw-550-easy-solution*
+
+>
+    set nocompatible
+<
+
+or
+
+>
+    set nocp
+<
+
+It also fixes the "backspace won't delete" problem that some people have.
+
+SOLUTION 1                                                *vtw-550-solution-1*
+
+Try this mapping, worked on gvim v7.2
+
+>
+    imap ^[OA <ESC>ki
+    imap ^[OB <ESC>ji
+    imap ^[OC <ESC>li
+    imap ^[OD <ESC>hi
+<
+
+See solution 15 for another imap binding solution if this one doesn't work 
+for you.
+
+Note: ^[ is one symbol, try to enter it using <Ctrl-V>ESC or <Ctrl-V><Ctrl-[>
+
+SOLUTION 2                                                *vtw-550-solution-2*
+
+This works for Ubuntu on windows. This doesn't really work very well for me 
+on SunOS -- I have the same problem but :set term=cons25 just gives me OC 
+everywhere before each character until I redraw. Weird.
+
+But, `:set term=ansi` works great, and the arrow keys work.
+
+A better solution is to, while in vi, type in insert mode [ctrl-v][arrow up] 
+and see what you get.Then, in your .vimrc, add the lines
+
+>
+    set t_ku=[ctrl-v][esc]OA # or whatever you saw
+<
+
+so it ends up looking something like
+
+>
+    set t_ku=^[OA
+    set t_kd=^[OB
+    set t_kr=^[OC
+    set t_kl=^[OD
+<
+
+(though you want real escape chars instead of "^[".)
+
+And in addition, set term=ansi makes syntax color off in vim (afair FreeBSD 
+with color xterm).
+
+SOLUTION 3                                                *vtw-550-solution-3*
+
+So are we to be left with no good freebsd / bash solution?
+
+>
+    set t_ku=^[OA
+    set t_kd=^[OB
+    set t_kr=^[OC
+    set t_kl=^[OD
+<
+
+did nothing for me... and the no environment option is not a good one.
+
+`set mouse=a` at least allows me to move in insert mode.
+
+SOLUTION 4                                                *vtw-550-solution-4*
+
+I had the same problem a few days ago. I figured out that i didnt have the 
+~.vimrc file. So, i went to /usr/local/share/vim/vim58 and copied the 
+vimrc_example.vim to ~.vimrc. Problem solved!
+
+==============================================================================
+
+I can confirm that the arrow-key problem (under freebsd) disappeared as soon 
+as I introduced .vimrc
+
+==============================================================================
+
+This also works on a Synology NAS.
+
+SOLUTION 5                                                *vtw-550-solution-5*
+
+After experiencing this issue on FreeBSD 6 and 7 I found the clue as to why 
+arrow keys would display A B C D when in insert mode - buried within :help 
+nocompatible is this nugget:
+
+By default this option is on and the Vi defaults are used for the options. This default was chosen for those people who want to use Vim just like Vi, and don't even (want to) know about the 'compatible' option.
+When a vimrc or gvimrc file is found while Vim is starting up, this option is switched off, and all options that have not been modified will be set to the Vim defaults. Effectively, this means that when a vimrc or gvimrc file exists, Vim will use the Vim defaults, otherwise it will use the Vi defaults.
+
+So rather than mucking around with termcap settings create an empty `.vimrc` 
+file first and see if the issue is resolved. Or, copy the default 
+`vimrc_example.vim` to `~/.vimrc` If not, try the termcap suggestions.
+
+==============================================================================
+
+Do this:
+
+>
+    $ vim ~/.vimrc
+    set t_ku= (now type Ctrl-V and press cursor up)
+    set t_kd= (now type Ctrl-V and press cursor down)
+    set t_kr= (now type Ctrl-V and press cursor right)
+    set t_kl= (now type Ctrl-V and press cursor left)
+<
+
+You should get something that looks like
+
+>
+    set t_ku=^[OA
+    set t_kd=^[OB
+    set t_kr=^[OC
+    set t_kl=^[OD
+<
+
+but the ^[ is actually a single escape character.
+
+That certainly works for me here (FreeBSD 6.1, ssh in from Mac OS).
+
+==============================================================================
+
+It also appears that it must be started as "vim" rather than "vi" in order to 
+read the .vimrc file. I've added an alias to my bashrc scripts to take care of 
+this... "alias vi=vim"
+
+==============================================================================
+
+If you are using vi instead of vim, you need to update the above commands in 
+.exrc file instead of .vimrc. Since alias makes you to work in vim, even you 
+type vi.
+
+==============================================================================
+
+"So, i went to /usr/local/share/vim/vim58 and copied the vimrc_example.vim to 
+~.vimrc. Problem solved!"
+
+Slightly different path for me, but confirmed it works on sunOS 10, also 
+fixed my backspace issue, setup the colors, and search highlights.
+
+SOLUTION 6                                                *vtw-550-solution-6*
+
+I have a similar problem but slightly different. After a very recent update 
+of my system including vim71 the left and right arrow keys started to play up. 
+They both moved left and right respectively, but only by word increments!
+
+Setting ":set term=builtin_ansi" fixed the problem, so I knew it was a 
+terminal problem.
+
+Looking further ":set t_kl" reporting the weird string "^[O*D" Setting this 
+to "^[[D" or "^[OD" has no effect on the arrow keys actions, it remains 
+jumping by word.
+
+Only setting "term=ansi" seems to help. But destroys use of function keys, 
+and the alternate editing screen (preserving normal command line output 
+display, when not editing). So I am stuck with 'word jumping arrow keys'.
+
+I had the same problem, but solved it in a better way by "se term=linux" in my .vimrc. That way, I don't lose my syntax highlighting, function keys, etc, and still managed to stop the "word jumping" arrow keys.
+
+SOLUTION 7                                                *vtw-550-solution-7*
+
+I had the same problem using Mandriva 2010. The solution was to install 
+vim-common from the urpmi repository.
+
+SOLUTION 8                                                *vtw-550-solution-8*
+
+I had the arrow keys switching from normal mode to insert mode when I was 
+using vim in the terminal: E.g. pressing "up" would do the same as <Esc>OA, 
+where <Esc> had no effect, O would switch to insert mode, and A would enter 
+the letter "A". The reason was that I in my .vimrc I had mapped <Esc> in 
+normal mode to do funky stuff. Removing the mapping fixed it.
+
+SOLUTION 9                                                *vtw-550-solution-9*
+
+On my default Ubuntu install, vi meant actual vi, but I was used to vim where 
+this problem didn't occur.
+
+My solution was apt-get install vim.
+
+Also by default on Ubuntu 10.10 you can use vim-tiny and that takes care of 
+the odd characters.
+
+SOLUTION 10                                              *vtw-550-solution-10*
+
+On my Gentoo and Debian installs, this problem was caused by the autoclose 
+plugin and using the workarounds above didn't help.The only solution for me 
+was to get rid of the autoclose plugin.
+
+==============================================================================
+
+Same problem here, the issue appeared on my machine after installing "Limp 
+for Vim", Lisp IDE, for all open Lisp files.Disabling autoclose plugin in Limp 
+got me the arrow keys back.Thanks!
+
+==============================================================================
+
+It does seem like the version of autoclose distributed with Limp is causing 
+this. The latest version doesn't have this problem, although Backspace still 
+isn't working for me.
+
+You can fix the arrow key problem by downloading the newest version of 
+autoclose. You then need to modify mode.vim in Limp. Autoclose no longer has 
+the functions AutoClose_start and AutoClose_stop, and mode.vim calls these 
+functions. Edit mode.vim to change
+
+>
+    call AutoClose_start()
+<
+
+to
+
+>
+    AutoCloseOn
+<
+
+and
+
+>
+    call AutoClose_stop()
+<
+
+to
+
+>
+    AutoCloseOff
+<
+
+SOLUTION 11                                              *vtw-550-solution-11*
+
+I had this problem with a client's server config. Because I didn't have much 
+power or permission to change things, and time was tight, I simply did the 
+following and resolved the problem.
+
+>
+    :set term=ansi
+<
+
+If you ever have that kind of situation, give that a shot.
+
+SOLUTION 12                                              *vtw-550-solution-12*
+
+I had this problem when I would ssh into a debian squeeze server. My solution 
+was an alias on the server:
+
+>
+    alias vim='vim.tiny'
+<
+
+SOLUTION 13                                              *vtw-550-solution-13*
+
+If you are using putty in windows, try to disable application cursor keys 
+mode:
+
+>
+    Session config -> Terminal -> Features -> [V] Disable application cursor keys mode
+<
+
+If ":echo $TERM" outputs "xterm-256color," and you are using putty in 
+windows, make sure the above is unchecked or it will cause the issue.
+
+SOLUTION 14                                              *vtw-550-solution-14*
+
+I had this problem with a remote target, where I made a cross build for. For 
+me it was sufficient to put an empty .vimrc file in my home.
+
+>
+    touch ~/.vimrc
+<
+
+SOLUTION 15                                              *vtw-550-solution-15*
+
+I'm using ubuntu and the latest version of Vim from the apt repository with 
+xubuntu's default terminal, which is xTerm IIRC.
+
+>
+    imap <ESC>oA <ESC>ki
+    imap <ESC>oB <ESC>ji
+    imap <ESC>oC <ESC>li
+    imap <ESC>oD <ESC>hi
+<
+
+This solution is nearly identical to solution 2 with the exception that "^[O" 
+from "imap ^[OA <ESC>ki" has been replaced with "<ESC>o"
+
+I think the imap solution is preferable to any of that term modification 
+stuff because I found that changing the term value corresponding with the 
+other solutions on this page may completely lock out the ability to use escape 
+characters, such as in the context of changing the cursor color depending on 
+which mode you are in. Using imap is def. the least invasive solution.
+
+CHECK WHETHER A PLUGIN IS CAUSING THIS BEHAVIOR *vtw-550-check-whether-a-plugin-is-causing-this-behavior*
+
+This behavior can also be caused by a defective plugin. If you are using 
+Pathogen [https://github.com/tpope/vim-pathogen] for managing your bundles 
+(which you should), you can disable individual plugins by adding them to the 
+list variable "pathogen_disabled" (StackOverflow tip 
+[http://stackoverflow.com/questions/4261785/temporarily-disable-some-plugins-using-pathogen-in-vim]):
+
+>
+    let g:pathogen_disabled = ['delimitMate']
+<
+
+SOLUTION 16                                              *vtw-550-solution-16*
+
+If you are using Cygwin or Cygwin64 Terminal, the "set nocompatible" in a 
+.vimrc does not always work.
+
+Run vi with -N (which does the same thing as nocompatible -- but works).
+
+For example:
+
+>
+    vi -N .bashrc
+<
+
+then add the line:
+
+>
+    alias vim='vi -N'
+<
+
+Exit Vim and the terminal.
+
+SOLUTION 17                                              *vtw-550-solution-17*
+
+I tried all suggestions from this page, but the only thing that worked for me 
+(Debian server, connected with "Konsole" from other linux), was to uninstall 
+the vim-tiny package and to install the vim package.
+
+SOLUTION 18                                              *vtw-550-solution-18*
+
+Having "set noesckeys" in my ~/.vimrc set caused the problem to me with Vim 
+7.4 on Gnome Terminal on Debian.
+
+SOLUTION 19 FOR TERMINAL.APP IN MAC= *vtw-550-solution-19-for-terminal.app-in-mac=*
+
+Had issue with Up/Down in cscope/vim. Enable VT mode in Terminal Preferences 
+" Allow VT100 application keypad mode
+
+SOLUTION 20                                              *vtw-550-solution-20*
+
+Add the following mappings in your .vimrc for whatever terms to disable arrow 
+keys in normal and insert mode. It works for me.
+
+>
+    nnoremap <silent> <ESC>OA <Nop>
+    nnoremap <silent> <ESC>OB <Nop>
+    nnoremap <silent> <ESC>OC <Nop>
+    nnoremap <silent> <ESC>OD <Nop>
+    inoremap <silent> <ESC>OA <Nop>
+    inoremap <silent> <ESC>OB <Nop>
+    inoremap <silent> <ESC>OC <Nop>
+    inoremap <silent> <ESC>OD <Nop>
+<
+
+SOLUTION 21                                              *vtw-550-solution-21*
+
+In my case, having autoclose prevented this behavior. Thing is, I didn't want 
+to have autoclose, and disabling/removing autoclose caused me to have A B C D 
+instead of arrow movement. So, I checked the code of the autoclose plugin and 
+I found the following lines. I added those lines to my .vimrc and everything 
+was fixed (and I was able to remove autoclose):
+
+>
+    "the following simply creates an ambiguous mapping so vim fully
+    "processes the escape sequence for terminal keys, see 'ttimeout' for a
+    "rough explanation, this just forces it to work
+    if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
+      inoremap <silent> <C-[>OC <RIGHT>
+    endif
+<
+
+SOLUTION 22                                              *vtw-550-solution-22*
+
+If you're using bash the best is to set the term to xterm which works great 
+and doesn't leave the text on the screen after you exit Vim. To do so add this 
+line to ~/.vimrc
+
+>
+    set term=xterm
+<
+
+SOLUTION 23                                              *vtw-550-solution-23*
+
+Use Sublime Text instead since this very page is an obvious example as to why 
+this is a terrible text editor. I mean, Jesus Christ... why is any of this 
+nonsense necessary just to get the fucking arrow keys to work correctly? What 
+a joke.--August 7, 2015
+
+Normally, I'd just delete this, because it has nothing to do with Vim. But I think I'll respond, instead.
+
+This page is referring to using Vim inside a terminal window. Can Sublime Text even do that? Not just any terminal window, but a *remote* terminal window; in other words, you've used PuTTY or something to log into some other machine entirely and are sending commands to the editor over the wire. And most of the time, this works pretty well. I've never had to mess with any of the settings on this page, that I can remember, aside from informing Vim what type of terminal it's running in. A better comparison to Sublime Text would be gvim, which does not have any of these limitations because it draws its own GUI and is not constrained in the terminal window. If you have an X Window System implementation supporting it, you can even run gvim on the remote server but use the GUI on your local machine, but sometimes the terminal window is all you have available.  Either way this page is a troubleshooting page for uncommon errors in a feature that Sublime Text doesn't even HAVE...so in other words, you don't have a clue what you're talking about, so stop trolling.
+
+--Fritzophrenic (talk) 14:56, June 2, 2016 (UTC)
+
+SOLUTION 24                                              *vtw-550-solution-24*
+
+These key mapping worked for me by emulating the arrow key notions
+
+>
+    nnoremap <silent> <ESC>OA <UP>
+    nnoremap <silent> <ESC>OB <DOWN>
+    nnoremap <silent> <ESC>OC <RIGHT>
+    nnoremap <silent> <ESC>OD <LEFT>
+    inoremap <silent> <ESC>OA <UP>
+    inoremap <silent> <ESC>OB <DOWN>
+    inoremap <silent> <ESC>OC <RIGHT>
+    inoremap <silent> <ESC>OD <LEFT>
+<
+
+That sounds like a good idea in most cases, but I take advantage of the fact 
+that alt+key issues an escape followed by the key in rapid succession (it'll 
+make sense in a bit.) I'm using Tmux, which distinguishes between escape 
+sequences like mouse events and color codes by waiting for the next input to 
+resolve the ambiguity until a timeout expires - I believe the default was 
+500-1000ms, which must benefit some people working in remote environments or 
+the sheer number of new users asking/complaining about it would have convinced 
+them to go with something more sensible. Anyway, I was a fast typer before I 
+found the alt combinations, but I very rarely press the actual escape key 
+these days. The alt key doesn't send anything until the next key is pressed, 
+at which point both keys go through back-to-back, immediately resolving the 
+ambiguity... with the exception of a few escape sequences just like this one. 
+If in insert mode in one line, and I want to create a new line below and keep 
+typing seamlessly, alt+o does exactly that - no timeout whatsoever. I noticed 
+alt+O was still triggering the timeout, and strangely, it seems to be a 
+full-length timeout and not the 10ms I've given it. So, alt+O is still 
+ambiguous, and some combination of Tmux and Vim is patiently waiting hundreds 
+of milliseconds for the second half of an arrow keypress to arrive. Naturally 
+I looked into noesckeys, and that eliminates all of the timeouts with my 
+inputs, but now scrolling, arrow keys, etc. return to normal mode since they 
+include 'ambiguity-free' escapes, and in this case, prepend several lines of 
+gibberish before I can stop myself.
+
+I know it probably sounds ridiculous that I would type all of this out over 
+an inconvenience I'm measuring in milliseconds, but I spend the better part of 
+most days programming and I've been running into issues stemming from this 
+same escape sequence issue for years now. I've tried all of the (unique) 
+solutions above but none of them made a difference - for now I'm turning 
+'noesckeys' back off and unless someone has another idea, I'm going to have to 
+remap to unrelated key combinations to avoid collisions like this. Universally 
+correct scrolling has proven to be a pipe dream for me, but it would mean a 
+lot to me if someone could come up with a mapping/handling approach that 
+didn't disable non-printing sequences, but pushed them out of WASD land.
+
+SOLUTION 25                                              *vtw-550-solution-25*
+
+Realise there are interactions with VIM, the environment variable TERM, and 
+terminal multiplexing (aka TMUX) and zone in on the source of the problem.
+
+The response is this thread is of spectacular clarity
+
+https://stackoverflow.com/questions/15375992/vim-difference-between-t-co-256-and-term-xterm-256color-in-conjunction-with-tmu 
+[https://stackoverflow.com/questions/15375992/vim-difference-between-t-co-256-and-term-xterm-256color-in-conjunction-with-tmu]
+
+In my case I was using iTerm2 to ssh into ArchLinux machines. What fixed the 
+issue for me was in:
+
+iTerm2 > preferences > Profiles > Keys > Load Presets > Terminal.app 
+Compatiblility
+
+Sweet!
+
+ vim:tw=78:et:ft=help:norl:

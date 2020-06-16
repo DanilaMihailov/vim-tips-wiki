@@ -1,0 +1,59 @@
+*vim-tips-wiki-1377.txt*   Context sensitive access to MSDN help       *vtw-1377*
+
+Tip 1377 [https://vim.fandom.com/wiki/Context_sensitive_access_to_MSDN_help]   Previous |vtw-1376| Next |vtw-1379|
+
+created 2006 · complexity basic · author gosaca · version 6.0
+
+==============================================================================
+
+Access MSDN help for a specific keyword from gvim on Windows.
+
+Add following to gvimrc:
+
+>
+    nmap <F1> :silent ! start iexplore "http://www.google.com/search?hl=en&btnI=I\%27m+Feeling+Lucky&q=site\%3Amsdn.microsoft.com\%20<cWORD>"<CR>
+<
+
+This accomplishes the following:
+    - Starts a new instance of Internet Explorer. 
+    - Navigates to Google search. 
+    - Limits the search to site msdn.microsoft.com. 
+    - Searches for the term under the cursor. 
+    - Navigates the browser directly to the first page returned from the search. 
+
+
+For example, putting your cursor over WaitForSingleObject and hitting <F1> 
+brings you directly to the documentation for that API on the MSDN site.
+
+Use `:set ch=2` to avoid the Hit Enter To Continue message.
+
+The space between "!" and "start" is needed to avoid a "command not found" 
+error. The space causes Vim to send the start command to the cmd.exe shell. 
+`Start` is a cmd command, not a separate program.
+
+COMMENTS                                                   *vtw-1377-comments*
+
+Is there any reason that you don't search msdn directly? Something like:
+
+>
+    nmap <F3> :silent !cmd /C start iexplore "http://search.msdn.microsoft.com/search/default.aspx?query=<cWORD>"<CR>;
+<
+
+==============================================================================
+
+The msdn search brings you to a search results page, from which you must 
+click on another link to get the desired documentation.
+
+Using Google's I'm Feeling Lucky feature navigates you directly to the first 
+page returned by the search, which more often than not is the page you want 
+(since you have limited your search to the msdn.microsoft.com site).
+
+This closely replicates the function of context sensitive help via F1 when 
+working in MSDEV.
+
+In addition, you can always change the site: filter in the search query 
+string to something other than msdn, if you aren't working on a win32 project.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

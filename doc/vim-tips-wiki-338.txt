@@ -1,0 +1,128 @@
+*vim-tips-wiki-338.txt*   Vim and cscope and cygwin                     *vtw-338*
+
+Tip 338 [https://vim.fandom.com/wiki/Vim_and_cscope_and_cygwin]   Previous |vtw-337| Next |vtw-341|
+
+created October 4, 2002 · complexity intermediate · author Vijay Sampath · 
+version 5.7
+
+==============================================================================
+
+Tip 292 (see below) doesn't seem to be true, at least not anymore. I am using 
+cscope 15.4 and Vim 6.1. With a few hacks, I was able to get cscope to work 
+with Vim under cygwin for Windows 2000. I did not need to change the sprintf 
+line. The hacks included
+
+1. Copying if_cscope.? to the src directory and the if_cscope.pro to the 
+src/proto directory. These files do not come standard with the Windows source 
+distribution of Vim. (I think it should - anybody in charge of distribution 
+listening?)
+
+2. Edit if_cscope.c to make the following changes:
+
+Add the following includes:
+
+>
+    #include <sys/unistd.h>
+    #include <sys/signal.h>
+<
+
+3. Edit Make_cyg.makAdd if_cscope.o to OBJ variable.Add a rule for this at 
+the end
+
+>
+    $(OUTDIR)/if_cscope.o: if_cscope.c $(INCL)
+    $(CC) -c $(CFLAGS) if_cscope.c -o $(OUTDIR)/if_cscope.o
+<
+
+Uncomment the lines following
+
+>
+    #>>>>> uncomment this block to build a GUI version
+<
+
+4. Edit feature.hForce cscope compilation:
+
+>
+    #define FEAT_CSCOPE
+<
+
+5. make -f Make_cyg.mak GUI=yes
+
+6. Note that the env variable TMPDIR should be defined in Vim for cscope to 
+work correctly.
+
+That should do it. Somebody in charge of distribution please make this 
+standard. It would save a lot of trouble.
+
+COMMENTS                                                    *vtw-338-comments*
+
+Tip 292 was not imported from its original location 
+[http://www.vim.org/tips/tip.php?tip_id=292] due to duplicate tip titles. The 
+content (slightly fixed) of tip 292 was:
+
+I've found that Vim + cscope + cygwin does not work. The problem seems to be 
+that in
+
+>
+    sprintf(cmd, "exec %s -dl -f %s", prog, csinfo[i].fname);
+<
+
+Vim execs cscope with the "-dl" options, causing it to fail. It is probably a 
+cscope bug, but a simple workaround is to build Vim without that "d":
+
+>
+    sprintf(cmd, "exec %s -l -f %s", prog, csinfo[i].fname);
+<
+
+seems to work for me.
+
+==============================================================================
+
+Another alternative is to install the XFree86 packages that are part of the 
+Cygwin distribution (http://xfree86.cygwin.com/ [http://xfree86.cygwin.com/]). 
+I installed that along with the WindowMaker window manager. I then downloaded 
+the Vim Unix source and edited the src/Makefile. I uncommented:
+
+>
+    CONF_OPT_CSCOPE = --enable-cscope
+<
+
+and
+
+>
+    CONF_OPT_GUI = --enable-gui=motif
+<
+
+I rebuilt Vim and installed it to /usr/bin/vim. I can now use cscope on 
+Windows by running gvim (vim -g) in WindowMaker session.
+
+Brian
+
+==============================================================================
+
+There's a windows version of cscope here: 
+http://web.archive.org/20021007233553/www.geocities.com/shankara_c/cscope.html 
+[http://web.archive.org/20021007233553/www.geocities.com/shankara_c/cscope.html]
+
+==============================================================================
+
+Brian's note is quite clear. It's the best. Just one needs to install the 
+Xfree86 packages by using the Cygwin's generic setup.exe. Once done just start 
+the window maker command by using startx and proceed further.
+
+==============================================================================
+
+I just followed Brian's way by uncommenting CONF_OPT_CSCOPE = 
+--enable-cscope. Cscope does work with Vim under cygwin, but it take almost 
+half a minute to start up Vim
+
+==============================================================================
+
+I just downloaded the tarball from http://cscope.sourceforge.net 
+[http://cscope.sourceforge.net] and didn't have to do anything special to get 
+cscope + vim + cygwin working. Also cygwin now comes with mlcscope as a 
+package.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

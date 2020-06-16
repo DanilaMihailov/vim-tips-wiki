@@ -1,0 +1,45 @@
+*vim-tips-wiki-202.txt*   Debugging window autocommands                 *vtw-202*
+
+Tip 202 [https://vim.fandom.com/wiki/Debugging_window_autocommands]   Previous |vtw-199| Next |vtw-203|
+
+created 2002 · complexity advanced · author Hari Krishna Dara · version 6.0
+
+==============================================================================
+
+Don't know how people debug autocommands, but I just found out that you can 
+debug (at least) those that result due to window close by just doing a debug 
+quit, i.e.,
+
+>
+    :debug quit
+<
+
+Vim will let you step into the autocommands. Try it to believe.
+
+COMMENTS                                                    *vtw-202-comments*
+
+While going through the help pages, I figured this feature is documented with 
+the following example:
+
+>
+    :debug edit <file>
+<
+
+This should let you debug autocommands that get triggered by loading a new 
+buffer.
+
+==============================================================================
+
+There's also the :verbose command, with which you can specify the verbosity 
+level for one command only:
+
+>
+    :9verbose edit somefile.txt.gz
+<
+
+The verbose levels are documented in :help 'verbose'. The 'verbose' option 
+variable sets verbosity permamently, not just for one command only.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

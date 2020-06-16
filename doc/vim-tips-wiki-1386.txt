@@ -1,0 +1,163 @@
+*vim-tips-wiki-1386.txt*   Make Vim completion popup menu work just like in an IDE *vtw-1386*
+
+Tip 1386 [https://vim.fandom.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE]   Previous |vtw-1385| Next |vtw-1388|
+
+created 2006 · complexity intermediate · author Matt Zyzik · version n/a
+
+==============================================================================
+
+COMPLETION MENU                                     *vtw-1386-completion-menu*
+
+The completion menu is controlled by `completeopt`. You can set multiple 
+values to combine behaviours.
+
+Your completion options may be full text from files (see :help 'complete'), 
+Omni completion [https://vim.fandom.com/wiki/Omni_completion], or a custom 
+complete function (see :help |complete-functions|).
+
+COMPLETION OPTIONS                               *vtw-1386-completion-options*
+
+In most IDEs, you normally type some code, press <C-Space> for a completion 
+popup menu, type some more characters to select the menu item you want, then 
+hit <Enter> to insert that completion into the code. With Vim's initial popup 
+menu settings, the behavior of the popup menu is a little less pleasant (for 
+some people).
+
+The first step to "improve" the menu behavior is to execute this command:
+
+>
+    :set completeopt=longest,menuone
+<
+
+The above command will change the 'completeopt' option so that Vim's popup 
+menu doesn't select the first completion item, but rather just inserts the 
+longest common text of all matches; and the menu will come up even if there's 
+only one match. (The `longest` setting is responsible for the former effect 
+and the `menuone` is responsible for the latter.)
+
+The next enhancement is the following mapping:
+
+>
+    :inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+<
+
+The above mapping will change the behavior of the <Enter> key when the popup 
+menu is visible. In that case the Enter key will simply select the highlighted 
+menu item, just as <C-Y> does.
+
+These two mappings further improve the completion popup menu:
+
+>
+    inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+    
+    inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+<
+
+In the above mappings, the first will make <C-N> work the way it normally 
+does; however, when the menu appears, the <Down> key will be simulated. What 
+this accomplishes is it keeps a menu item always highlighted. This way you can 
+keep typing characters to narrow the matches, and the nearest match will be 
+selected so that you can hit Enter at any time to insert it. In the above 
+mappings, the second one is a little more exotic: it simulates <C-X><C-O> to 
+bring up the omni completion menu, then it simulates <C-N><C-P> to remove the 
+longest common text, and finally it simulates <Down> again to keep a match 
+highlighted.
+
+Here is a hacky example of a set of mappings that first close any popups that 
+are open which means you can seamlessly switch between omni and user 
+completions. Then they try the omni or user complete function. If the menu is 
+visible they use the above trick to keep the text you typed and select the 
+first.
+
+>
+    " open omni completion menu closing previous if open and opening new menu without changing the text
+    inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+                \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+    " open user completion menu closing previous if open and opening new menu without changing the text
+    inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+                \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+<
+
+COMPLETE AS YOU TYPE                           *vtw-1386-complete-as-you-type*
+
+The AutoComplPop [https://www.vim.org/scripts/script.php?script_id=1879] 
+plugin automatically opens popup menu for completions as you type.
+
+COMPLETION WITH TAB                             *vtw-1386-completion-with-tab*
+
+You can map Tab to start completions, but there's also the SuperTab 
+[https://www.vim.org/scripts/script.php?script_id=1643] plugin that does some 
+extra context completion and allows you to use Tab to advance through your 
+completion options.
+
+REFERENCES                                               *vtw-1386-references*
+    - :help 'completeopt'. 
+
+
+COMMENTS                                                   *vtw-1386-comments*
+
+TO DO
+    - Merge with VimTip1228 |vtw-1228|? 
+
+
+I don't know. Tip 1228 doesn't explain what their mappings do at all, and there are a lot more of them. This tip tells what's going on, although admittedly it does not tell how it works (which I would like).
+--Fritzophrenic 17:12, 19 November 2007 (UTC)
+    - Further explanation? 
+    - Broken mapping? 
+
+
+The <CR> mapping doesn't work - it causes vim to insert
+
+>
+    pumvisible() ? "\" : "\
+    "
+<
+
+into my files each time I press Enter when there's no pop up menu.
+Works for me! What version of Vim do you have? It looks like your Vim is ignoring the <expr> tag and using the mapping literally instead of evaluating it as an expression first. :map-expressions are a feature introduced in Vim 7, and I do not see any compile-time option for removing them. --Fritzophrenic 20:05, February 22, 2011 (UTC)
+I have the same problem. `vim --version` says: 7.2 (2008 Aug 9, compiled Feb 11 2010 14:27:45), included patches: 1-108. Compile-time options that match "map" include: -keymap -langmap +localmap. --Arthaey
+Again, works fine for me, and I've had something similar in my setup since Vim 7.1. Do you use Vim in "easy mode" or with 'insertmode' set? Maybe you have a "tiny" build or similar? I can't really think of any reasons it would not work unless you entered the mapping wrong. Try contacting #vim on Freenode or the vim_use mailing list. See Asking questions for details. --Fritzophrenic 03:10, March 17, 2011 (UTC)
+
+
+For me everything works until I install "SuperTab continued"; that's when I get the error you describe. Unfortunately, I don't have a solution yet. Will update if/when I do.
+When using SuperTab w/ these mappings use this to avoid the mentioned troubles:
+  let g:SuperTabCrMapping = 0
+--Mklein, January 25, 2012
+
+
+Found a fix, just change <CR> into <C-CR> and magically enter will start working again without holding ctrl. I don't know that works but it is working for me at least on VIM 7.3
+ Pencilcheck December 26, 2012
+
+==============================================================================
+
+If you like the part of the tip where <C-n> automatically selects the first 
+entry by simulating <Down>, you can add the same thing for simulating <Up> 
+when searching backwards with <C-p>:
+
+>
+    " keep menu item always highlighted by simulating <Up> on pu visible
+    inoremap <expr> <C-p> pumvisible() ? '<C-p>' :
+      \ '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
+<
+
+==============================================================================
+
+Where does vim takes the commands from? Is there a text file for each 
+language from where it reads the list of commands to show in the 
+auto-completion pop-up.
+
+There are many different ways Vim can do completion. See :help ins-completion for details. What you are describing sounds most like "dictionary completion", see :help compl-dictionary and :help 'dictionary'.
+Most plugins, though, make use of the user-defined completion (:help compl-function) and omni-completion (:help compl-omni).
+--Fritzophrenic 15:41, January 30, 2012 (UTC)
+
+==============================================================================
+
+It would be really nice if the above functionality for omni-complete would 
+fall back on C-N if it can't find anything. Does anyone know a simple way to 
+do this? I am still not very good at vim-script.
+
+You might be able to make a mapping that does <C-X><C-O> then checks if the popup is visible using the pumvisible() function, if you have "menuone" in your 'completeoptions' setting. Then if the popup isn't visible end the current completion and use <C-N>. I'm not sure how well it would work, though; and it's pretty complicated. --Fritzophrenic 14:47, June 8, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

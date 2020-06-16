@@ -1,0 +1,32 @@
+*vim-tips-wiki-615.txt*   Moving to the next word in insert mode        *vtw-615*
+
+Tip 615 [https://vim.fandom.com/wiki/Moving_to_the_next_word_in_insert_mode]   Previous |vtw-614| Next |vtw-616|
+
+created 2003 · complexity basic · author kallumama · version 5.7
+
+==============================================================================
+
+You can move to the next word in insert mode using <shift> <right arrow key>
+
+You can move to the next word in normal mode using `w`
+
+You can move to the previous word in insert mode using <shift> <left arrow 
+key>
+
+COMMENTS                                                    *vtw-615-comments*
+
+This is true when not using :behave mswin. <C-Left> and <C-Right> will work 
+in either case.
+
+==============================================================================
+
+Not quite. <C-Right> differs depending on whether you are in insert mode or 
+not.
+
+normal mode: <c-right> moves by WORDS (like ":normal W") :help |<C-Right>|
+
+insert mode: <c-right> moves by words (like ":normal w") :help |i_<C-Right>|
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

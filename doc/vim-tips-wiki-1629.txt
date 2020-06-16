@@ -1,0 +1,216 @@
+*vim-tips-wiki-1629.txt*   WYSIWYG graphics editing                    *vtw-1629*
+
+Tip 1629 [https://vim.fandom.com/wiki/WYSIWYG_graphics_editing]   Previous |vtw-1628| Next |vtw-1630|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200908#WYSIWYG_graphics_editing] 
+2009 · complexity basic · author Michael.Eriksson · version 7.0
+
+==============================================================================
+
+Why use an image editor when you can create a favicon 
+[http://en.wikipedia.org/wiki/Favicon] using Vim and have WYSIWYG editing? 
+This tip shows a Vim script to generate a portable pixmap format (PPM) 
+[http://en.wikipedia.org/wiki/Netpbm_format] text file that can be used to 
+create an icon using a tool such as Netpbm 
+[http://en.wikipedia.org/wiki/Netpbm]. In addition, syntax commands are 
+provided that highlight the source text file to give WYSIWYG editing (the 
+screen shows how the icon will appear while the text is edited).
+
+PROCEDURE                                                 *vtw-1629-procedure*
+
+As a simple example, an icon for a Swedish flag will be created. Make a file 
+called `flag.txt` containing the following (the letters following "data" 
+define the colors, other lines are ignored; `B` = blue and `Y` = yellow):
+
+>
+    Sample data for a 16x10 flag of Sweden.
+    
+    data     B B B B B Y Y B B B B B B B B B
+    data     B B B B B Y Y B B B B B B B B B
+    data     B B B B B Y Y B B B B B B B B B
+    data     B B B B B Y Y B B B B B B B B B
+    data     Y Y Y Y Y Y Y Y Y Y Y Y Y Y Y Y
+    data     Y Y Y Y Y Y Y Y Y Y Y Y Y Y Y Y
+    data     B B B B B Y Y B B B B B B B B B
+    data     B B B B B Y Y B B B B B B B B B
+    data     B B B B B Y Y B B B B B B B B B
+    data     B B B B B Y Y B B B B B B B B B
+<
+
+Make a file called `append-colors.vim` containing this Vim script:
+
+>
+    " Basic colors from $VIMRUNTIME/rgb.txt
+    let colors = {
+      \ 'k' : '0 0 0',
+      \ 'b' : '0 0 139',
+      \ 'g' : '0 100 0',
+      \ 'c' : '0 139 139',
+      \ 'r' : '139 0 0',
+      \ 'm' : '139 0 139',
+      \ 'y' : '165 42 42',
+      \ 'w' : '211 211 211',
+      \ 'K' : '169 169 169',
+      \ 'B' : '0 0 255',
+      \ 'G' : '0 255 0',
+      \ 'C' : '0 255 255',
+      \ 'R' : '255 0 0',
+      \ 'M' : '255 0 255',
+      \ 'Y' : '255 255 0',
+      \ 'W' : '255 255 255'}
+    
+    " Append lines to current buffer consisting of header (three lines):
+    "   'P3' = PPM (full color; numbers in ASCII decimal)
+    "   width height (two numbers)
+    "   color_depth  (one number)
+    " then lines from translating each input letter to its color triple.
+    " We translate only the letters that follow "data" at the start of a line.
+    " Width = number of letters in first data item; height = number data items.
+    function! AppendColors(data_file) abort
+      let data = readfile(a:data_file)
+      call filter(data, 'v:val=~#''^data\s''')
+      call map(data, 'split(v:val)[1:]')
+      let width_height = printf('%d %d', len(data[0]), len(data))
+      call append(line('$'), ['P3', width_height, '255'])
+      for columns in data
+        call map(columns, 'g:colors[v:val]')
+        call append(line('$'), columns)
+      endfor
+    endfunction
+    command! -nargs=1 -complete=file AppendColors call AppendColors('<args>')
+<
+
+In Vim, enter the following commands to generate the output file:
+
+>
+    :so append-colors.vim
+    :new
+    :AppendColors flag.txt
+    :w flag.ppm
+<
+
+The above commands creates file `flag.ppm` by translating the letters in 
+`flag.txt` to the color code numbers defined in the `colors` dictionary in the 
+script. The script reads the file into a list called `data`, then filters the 
+list, keeping only the lines that start with "data" followed by a space or a 
+tab character. Each element in the list (a data line) is then split into a 
+list of whitespace-separated words, but the first word ("data") is omitted. 
+The width and height of the icon are then determined from the number of 
+columns and rows in the data. Then the ppm output data is appended to the 
+current buffer.
+
+With the Netpbm tools installed, you can create an icon file (say `flag.ico`) 
+using:
+
+>
+    ppmtowinicon -output=flag.ico flag.ppm
+<
+
+WYSIWYG EDITING                                     *vtw-1629-wysiwyg-editing*
+
+Edit file `flag.txt` and enter the following commands:
+
+>
+    :syntax clear
+    :syntax match Yellow " Y"
+    :syntax match Blue   " B"
+    :highlight Yellow guibg=#FFFF00 guifg=#FFFF00
+    :highlight Blue   guibg=#006FFD guifg=#006FFD
+<
+
+That will highlight "` Y`" (space then `Y`) in yellow, and "` B`" (space then 
+`B`) in blue. The colors are solid (foreground = background).
+
+An easy way to enter the commands would be to save the above lines in file 
+`flag-syntax.vim`, then edit `flag.txt` and enter the command:
+
+>
+    :so flag-syntax.vim
+<
+
+To clear the highlighting, enter:
+
+>
+    :syntax clear
+<
+
+WYSIWYG EDITING WITH FULL-FEATURED SYNTAX FILE *vtw-1629-wysiwyg-editing-with-full-featured-syntax-file*
+
+An alternative to the above simple syntax commands would be to source the 
+following syntax script while editing `flag.txt`:
+
+>
+    if version < 600
+      syntax clear
+    elseif exists('b:current_syntax')
+      finish
+    endif
+    
+    runtime! syntax/sh.vim
+    unlet b:current_syntax
+    
+    syn region ppmData
+     \ matchgroup=ppmKeyword
+     \ keepend
+     \ start=/^data\>/
+     \ end=/$/
+     \ contains=ppmBlack,ppmDarkblue,ppmDarkgreen,ppmDarkcyan,ppmDarkred,ppmDarkmagenta,
+        \ppmBrown,ppmLightgrey,ppmDarkgrey,ppmBlue,ppmGreen,ppmCyan,ppmRed,ppmMagenta,
+        \ppmYellow,ppmWhite
+    
+    syn match ppmBlack       /\C k/ contained
+    syn match ppmDarkblue    /\C b/ contained
+    syn match ppmDarkgreen   /\C g/ contained
+    syn match ppmDarkcyan    /\C c/ contained
+    syn match ppmDarkred     /\C r/ contained
+    syn match ppmDarkmagenta /\C m/ contained
+    syn match ppmBrown       /\C y/ contained
+    syn match ppmLightgrey   /\C w/ contained
+    syn match ppmDarkgrey    /\C K/ contained
+    syn match ppmBlue        /\C B/ contained
+    syn match ppmGreen       /\C G/ contained
+    syn match ppmRed         /\C R/ contained
+    syn match ppmMagenta     /\C M/ contained
+    syn match ppmYellow      /\C Y/ contained
+    syn match ppmWhite       /\C W/ contained
+    
+    if version >= 508 || !exists('did_ppm_syntax_inits')
+     if version < 508
+      let did_ppm_syntax_inits = 1
+      command -nargs=+ HiSet hi <args>
+     else
+      command -nargs=+ HiSet hi def <args>
+     endif
+     HiSet ppmBlack       ctermbg=Black       ctermfg=LightGrey     guibg=black       guifg=white
+     HiSet ppmDarkblue    ctermbg=DarkBlue    ctermfg=LightGrey     guibg=darkblue    guifg=white
+     HiSet ppmDarkGreen   ctermbg=DarkGreen   ctermfg=LightGrey     guibg=darkgreen   guifg=white
+     HiSet ppmDarkCyan    ctermbg=DarkCyan    ctermfg=LightGrey     guibg=darkcyan    guifg=white
+     HiSet ppmDarkRed     ctermbg=DarkRed     ctermfg=LightGrey     guibg=darkred     guifg=white
+     HiSet ppmDarkmagenta ctermbg=DarkMagenta ctermfg=LightGrey     guibg=darkmagenta guifg=white
+     HiSet ppmBrown       ctermbg=Brown       ctermfg=LightGrey     guibg=brown       guifg=white
+     HiSet ppmLightgrey   ctermbg=LightGrey   ctermfg=Black         guibg=lightgrey   guifg=black
+     HiSet ppmDarkgrey    ctermbg=DarkGrey    ctermfg=White         guibg=darkgrey    guifg=white
+     HiSet ppmBlue        ctermbg=Blue        ctermfg=White         guibg=blue        guifg=white
+     HiSet ppmCyan        ctermbg=Cyan        ctermfg=DarkGrey      guibg=cyan        guifg=white
+     HiSet ppmRed         ctermbg=Red         ctermfg=White         guibg=red         guifg=black
+     HiSet ppmMagenta     ctermbg=Magenta     ctermfg=White         guibg=magenta     guifg=black
+     HiSet ppmYellow      ctermbg=Yellow      ctermfg=DarkGrey      guibg=yellow      guifg=black
+     HiSet ppmWhite       ctermbg=White       ctermfg=DarkGrey      guibg=white       guifg=black
+    
+     HiSet link ppmKeyword Keyword
+     delcommand HiSet
+    endif
+    
+    let b:current_syntax = "ppm"
+<
+
+SEE ALSO                                                   *vtw-1629-see-also*
+    - Larger example 
+      [http://www.aswedeingermany.de/50MetaInformation/50Favicon.html] using a bash 
+      script, with screen shots 
+
+
+COMMENTS                                                   *vtw-1629-comments*
+
+ vim:tw=78:et:ft=help:norl:

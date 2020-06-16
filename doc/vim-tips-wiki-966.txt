@@ -1,0 +1,107 @@
+*vim-tips-wiki-966.txt*   Multi-line abbreviations                      *vtw-966*
+
+Tip 966 [https://vim.fandom.com/wiki/Multi-line_abbreviations]   Previous |vtw-965| Next |vtw-967|
+
+created 2005 · complexity basic · author Bernard Barton · version 5.7
+
+==============================================================================
+
+Vim supports multi-line abbreviations, but does not say how you can define 
+them on multiple lines.
+
+Here is a way to define a long abbreviation over multiple lines.
+
+You need a line-continuation character (\) and a carriage return (<CR>) at 
+the beginning of each line. Here is an example:
+
+>
+    iab abtest 
+    \<CR>this is line one
+    \<CR>this is line two
+    \<CR>this is line three
+<
+
+There must be a space following the abbreviation name ("abtest " in the first 
+line above), in order to avoid this error when sourcing abbreviations defined 
+like this:
+
+>
+    E474: Invalid argument
+<
+
+To simplify creating multi-line abbreviations, I've included two substitution 
+commands which will add or remove the \<CR> to the beginning of each line. 
+These are mapped in visual mode, and are bound to the Ctrl-C and Ctrl-Alt-C 
+keys:
+
+>
+    :vmap <C-c> :s/^/\\\<\C\R\>/<CR>:nohlsearch<CR>
+    :vmap <C-A-c> :s/\\<CR[>]//<CR>:nohlsearch<CR>
+<
+
+To create a multi-line abbreviation using these mappings, follow these steps. 
+This example creates a multi-line abbreviation for the proverbial "hello 
+world" C program:
+
+>
+    #include <stdio.h>
+    void main(void) {
+      printf("Hello World\n");
+    }
+<
+    - Place the :vmap key mappings into a file and source it. 
+    - Place the cursor on the first line and press Shift-V. 
+    - Press the 'j' key until the entire code block is highlighted. 
+    - Press Ctrl-C. This places the \<CR> in front of each line. 
+    - Add "iab cmain " (no quotes) just above the abbreviation, and ensure there's 
+      a space after cmain. It should look like this: 
+
+
+>
+    iab cmain 
+    \<CR>#include <stdio.h>
+    \<CR>
+    \<CR>void main(void) {
+    \<CR>
+    \<CR> printf("Hello World\n");
+    \<CR>
+    \<CR>}
+<
+
+Now simply source the file, and type `cmain` to expand the abbreviation.
+
+Here is an example of an abbreviation for Perl programs that you may find 
+useful:
+
+>
+    iab abperl 
+    \<CR>###############################################################################
+    \<CR>#
+    \<CR># File:
+    \<CR>#
+    \<CR># Date:
+    \<CR>#
+    \<CR># Description:
+    \<CR>#
+    \<CR># Syntax:
+    \<CR>#
+    \<CR># Author:
+    \<CR>#
+    \<CR># Copyright (c)
+    \<CR>#
+    \<CR>#
+    \###############################################################################
+<
+
+COMMENTS                                                    *vtw-966-comments*
+
+A better procedure is to keep a clean template in a file, and include that 
+file when required:
+
+>
+    map ,,, :r template<CR>
+<
+
+==============================================================================You may need to add a blank space after the name of your abbreviation.
+
+ vim:tw=78:et:ft=help:norl:

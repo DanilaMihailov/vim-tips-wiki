@@ -1,0 +1,276 @@
+*vim-tips-wiki-398.txt*   Macros                                        *vtw-398*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip144 |vtw-144| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 398 [https://vim.fandom.com/wiki/Macros]   Previous |vtw-397| Next |vtw-399|
+
+created 2003 · complexity basic · version 6.0
+
+==============================================================================
+
+Recording a macro is a great way to perform a one-time task, or to get things 
+done quickly when you don't want to mess with Vim script or mappings, or if 
+you do not yet know how to do it more elegantly.
+
+In Vim, the word "macro" may refer to:
+    - A sequence of commands recorded to a register (this tip). 
+    - A mapping to expand a sequence of typed keys to a longer sequence (see 
+      tutorial 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)]). 
+    - A script written in the Vim script language (stored in a file with extension 
+      `.vim` – see :help |script|). 
+
+
+RECORDING A MACRO                                  *vtw-398-recording-a-macro*
+
+Each register is identified by a letter `a` to `z`.
+
+To enter a macro, type:
+
+>
+    q<letter><commands>q
+<
+
+To execute the macro <number> times (once by default), type:
+
+>
+    <number>@<letter>
+<
+
+So, the complete process looks like:
+
+EXAMPLE                                                      *vtw-398-example*
+
+Given some data like the following:
+
+>
+    one	first example
+    two	second example
+    three	third example
+    four	fourth example
+<
+
+suppose you want to change the data to make a dictionary for a Python 
+program, with this result:
+
+>
+    data = {
+        'one': 'first example',
+        'two': 'second example',
+        'three': 'third example',
+        'four': 'fourth example',
+    }
+<
+
+To do this, record a macro while changing the first line. Then, playback the 
+macro to change each other line. When finished, manually insert the initial 
+"`data = {`" line, and the final "`}`" line.
+
+The following shows one way to record a suitable macro.
+    - Put the cursor on the first line. 
+    - Type `qd` (the `q` starts recording; the `d` is the register where keys will 
+      be recorded). 
+    - Type the following command to change the first sequence of whitespace to "': 
+      '": :s/\s\+/': ' (then press Enter) 
+    - Type the following to insert four spaces followed by "'" at the start of the 
+      line: I ' (then press Escape) 
+    - Type the following to append "'," to the line: A', (then press Escape) 
+    - Type the following to move the cursor to the start of the line, then down to 
+      the next line: 0j (or press Enter) 
+    - Type `q` to stop recording the macro. 
+
+
+The cursor should now be on the second line. Type `@d` to playback the macro 
+once. That should change the second line, with the cursor finishing on the 
+third line. Type `2@@` to finish. The `2` means that what follows is performed 
+twice, and the `@@` plays back the last used macro. Instead of `2@@`, you 
+could type `@d` or `@@` twice.
+
+RUNNING A MACRO                                      *vtw-398-running-a-macro*
+
+Use this mapping as a convenient way to play a macro recorded to register 
+`q`:
+
+>
+    :nnoremap <Space> @q
+<
+    - Start recording keystrokes by typing `qq`. 
+    - End recording with `q` (first press Escape if you are in insert mode). 
+    - Play the recorded keystrokes by hitting space. 
+
+
+Suppose you have a macro which operates on the text in a single line. You can 
+run the macro on each line in a visual selection in a single operation:
+    - Visually select some lines (for example, type `vip` to select the current 
+      paragraph). 
+    - Type `:normal @q` to run the macro from register `q` on each line. 
+
+
+VIEWING A MACRO                                      *vtw-398-viewing-a-macro*
+
+You can use the `:registers` command to view the current contents of any or 
+all register values in Vim. For example, use `:reg` to view all registers, or 
+`:reg a` to view only what you have recorded into register `a`. Typing `:reg 
+abx` will show the contents of registers a, b, and x.
+
+SAVING A MACRO                                        *vtw-398-saving-a-macro*
+
+There are two primary ways of saving a macro for later use.
+
+The simplest way occurs by default if you run Vim in nocompatible mode (which 
+is the default if you have a vimrc [https://vim.fandom.com/wiki/Vimrc]). 
+Simply by including the proper text in your 'viminfo' option or leaving the 
+nocompatible default alone, Vim will automatically write all your registers to 
+a file and restore them at startup.
+
+By default, the content of each register is saved, and will be available next 
+time you run Vim. For example, you might record a macro to register `a`, then 
+exit from Vim with `:q!`. On restarting Vim, you can press `@a` to run the 
+macro from register `a`.
+
+The '`viminfo`' option can disable the saving of registers. If `:set 
+viminfo?` shows a value including (for example) `<50` and `s10` then up to 50 
+lines and 10KB will be saved in each register. If either item is zero, no 
+registers are saved. :help 'viminfo'
+
+The second way to save a macro for later use (especially if you think you 
+might overwrite the macro by accident, therefore restoring the wrong value 
+from the viminfo file) is to use a let command 
+[https://vim.fandom.com/wiki/Set_options_or_named_registers_with_let] in your 
+vimrc [https://vim.fandom.com/wiki/Vimrc].
+
+For a very simple example, suppose you have recorded a macro to jump to the 
+first occurrence of the letter a in a line into register a, using the 
+following key sequence in normal mode:
+
+>
+    qa0faq
+<
+
+If you want to restore this macro whenever you start Vim, regardless of what 
+might be in your viminfo file, you would edit your vimrc and add the following 
+line:
+
+>
+    let @a='0fa'
+<
+
+Assuming that you already have the macro recorded, you can easily insert the 
+register contents rather that typing them all again. While entering the above 
+line, after typing let @a=', simply type Ctrl-R Ctrl-R a to insert the 
+contents of the `a` register. The double Ctrl-R is to insert the contents 
+literally, rather than interpreting them as if typed.
+
+Single quote characters (') are recommended and used in the above examples, 
+because they allow you to type almost everything literally, whereas in 
+double-quotes (") you need to escape certain characters. Compare '\1\2\3"abc"' 
+with "\\1\\2\\3\"abc\"", for example. However, if your register must itself 
+contain single quote characters, you use a second single-quote character to 
+escape it. For example, if you want your register to contain "Vim's quote 
+handling is a little tricky" you would type :let @a='"Vim''s quote handling is 
+a little tricky"'
+
+Note however, that the above method using `:let` will not work as expected 
+for any macros which you make ending in a <CR> or <NL> character (carriage 
+return or newline). This is because, as documented in :help |:let-@|, Vim will 
+treat the register as "linewise" under these conditions. The reason for this 
+is to make registers set with `:let` act "the right way" when dealing with 
+yanked/deleted text, but it can cause headaches when dealing with recorded 
+macros. Possible workarounds include using the |setreg()| function or adding 
+"no-op" commands to the end of the macro, such as a<Esc>. See the discussion 
+on vim_dev about unexpected behavior of the :let command 
+[http://groups.google.com/group/vim_use/browse_thread/thread/fa96cad79cdfaadb/c6e94a82f9867326] 
+for details.
+
+APPENDING TO A MACRO                            *vtw-398-appending-to-a-macro*
+
+If you have recorded a macro that is almost right, but you need to add a few 
+commands to it, you can easily append the commands to an existing macro 
+instead of recording the whole thing over again. Simply replace the register 
+letter with a capital letter.
+
+For example, if you recorded into register `a` using `qa...q`, you could add 
+to the macro (without replacing it) using `qA...q`.
+
+EDITING A MACRO                                      *vtw-398-editing-a-macro*
+
+Suppose that you have recorded a macro in register `a` and you would like to 
+edit the macro. There are multiple ways to accomplish this.
+
+VISUAL MODE ON THE COMMAND LINE      *vtw-398-visual-mode-on-the-command-line*
+
+The procedure is explained above |vtw-398-saving-a-macro|, but here is a 
+summary of the steps:
+
+Note the caveat above about macros which end in <CR> or <NL>.
+
+The above allows you to edit the macro in Vim's command line. An alternative 
+would be to save the macro to a file as shown with the let @a='0fa' example 
+above, then edit the file.
+
+NORMAL/INSERT MODE IN A BUFFER        *vtw-398-normal/insert-mode-in-a-buffer*
+
+SEE ALSO                                                    *vtw-398-see-also*
+    - Record a recursive macro 
+      [https://vim.fandom.com/wiki/Record_a_recursive_macro] 
+    - Reversing order of blocks of text 
+      [https://vim.fandom.com/wiki/Reversing_order_of_blocks_of_text] example of 
+      recording a macro to move blocks 
+    - Using command-line history 
+      [https://vim.fandom.com/wiki/Using_command-line_history] repeating ex commands 
+      without a macro 
+    - Recursive repeats for quick editing of structured text 
+      [https://vim.fandom.com/wiki/Recursive_repeats_for_quick_editing_of_structured_text] 
+    - Easy playback of recorded keys 
+      [https://vim.fandom.com/wiki/Easy_playback_of_recorded_keys] 
+    - Recording keys for repeated jobs 
+      [https://vim.fandom.com/wiki/Recording_keys_for_repeated_jobs] 
+    - vim-macrobatics [https://github.com/svermeulen/vim-macrobatics] - Plugin that 
+      adds some extra functionality to macros 
+
+
+REFERENCES                                                *vtw-398-references*
+    - :help |registers| 
+    - :help |recording| 
+    - :help |:registers| 
+    - :help 'viminfo' 
+    - :help |i_CTRL-R_CTRL-R| 
+
+
+COMMENTS                                                    *vtw-398-comments*
+
+When doing complex edits I often end up using macros that call macros that 
+call other macros, etc. A neat way to save a macro set like that is to open a 
+new file and paste all the appropriate registers into it. Then make the first 
+line of the file a macro that will load the rest of the lines into the 
+appropriate registers for running the set. When you want to restore, all you 
+have to do is open the file, yank the first line, execute it, and presto! Your 
+macro set is loaded and ready to use.
+
+==============================================================================
+
+Is it possible to have different sets of registers for different jobs, par 
+example one set for editing xsl files with shortcuts for various <xsl:xxx> 
+tags in them, another one for editing html, xml, sql etc.? --annonymous user
+
+No, this is not possible. Registers in Vim are global across the entire Vim instance, unlike mappings, abbreviations, etc. which can be local to a buffer. --Fritzophrenic (talk) 21:49, January 15, 2013 (UTC)
+I should say "not possible without some scripting". There is a BufEnter and BufLeave autocmd event, and also a FileType event, which could be combined with saving and restoring of every single named register if desired. I know of no existing plugins which do this. --Fritzophrenic (talk) 21:51, January 15, 2013 (UTC)
+
+I use BufEnter to map CTRL+/ to a command to comment out the selected lines when I am editing various files. Different file types require different comment strategies, so I use BufEnter to figure out which sequence should be used for each file.
+
+>
+    au BufEnter *.js :vmap ^_ :s/^/\/\// <Enter> :nohlsearch <Enter>
+    au BufEnter *.py :vmap ^_ :s/^/#/ <Enter> :nohlsearch <Enter>
+<
+
+-- Michael S. Meeks 14:11, October 9, 2013 (UTC)
+That looks like it could be done better with a FileType autocmd and a buffer-local mapping. See :help :map-<buffer>. The question was asked about macros recorded into a register, however, not about mappings via a :map type of command. --Fritzophrenic (talk) 21:39, October 9, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

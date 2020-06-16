@@ -1,0 +1,47 @@
+*vim-tips-wiki-1373.txt*   Get shortened messages from using echomsg   *vtw-1373*
+
+Tip 1373 [https://vim.fandom.com/wiki/Get_shortened_messages_from_using_echomsg]   Previous |vtw-1370| Next |vtw-1375|
+
+created 2006 · complexity intermediate · author Yakov Lerner · version n/a
+
+==============================================================================
+
+Vim has the ability to display long echo-messages such that they are 
+truncated in the middle to fit the line ('...' will appear in the line). But 
+it's tricky to turn this capability on.
+
+To turn this shortening on, you need two steps:
+
+>
+    set shortmess+=T " add T flag to 'shortmess' option
+<
+
+>
+    :exe "norm :echomsg repeat('a',&co+10)\n"
+    :exe "norm :echomsg LongMessage\n"
+<
+
+Or use the function `ShortEcho()` below.
+
+The first step (`set shortmess+=T`) is straightforward. You might already 
+have T in the `shortmess` option already.
+
+The second step is tricky. `:echo` does not shorten long messages. 
+`:echomsg`, by itself, does not shorten long messages. Only when `:echomsg` is 
+used under `:norm`, are long messages truncated. And don't forget trailing 
+`\n` when using `:exe norm`.
+
+>
+    function! ShortEcho(msg)
+      " regular :echomsg is supposed to shorten long messages when shortmess+=T but it does not.
+      " under "norm echomsg", echomsg does shorten long messages.
+      let saved=&shortmess
+      set shortmess+=T
+      exe "norm :echomsg a:msg\n"
+      let &shortmess=saved
+    endfunction
+<
+
+COMMENTS                                                   *vtw-1373-comments*
+
+ vim:tw=78:et:ft=help:norl:

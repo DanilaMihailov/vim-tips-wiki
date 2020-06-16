@@ -1,0 +1,78 @@
+*vim-tips-wiki-1299.txt*   Autocmd to update ctags file                *vtw-1299*
+
+Tip 1299 [https://vim.fandom.com/wiki/Autocmd_to_update_ctags_file]   Previous |vtw-1298| Next |vtw-1300|
+
+created 2006 · complexity basic · author kilgore trout · version n/a
+
+==============================================================================
+
+If you like to generate tags for a whole project and keep tags up-to-date, 
+you might want to use this plugin: script#3221 
+[https://www.vim.org/scripts/script.php?script_id=3221].
+
+==============================================================================
+
+To automatically update the ctags file when a file is written, add this to 
+your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    function! DelTagOfFile(file)
+      let fullpath = a:file
+      let cwd = getcwd()
+      let tagfilename = cwd . "/tags"
+      let f = substitute(fullpath, cwd . "/", "", "")
+      let f = escape(f, './')
+      let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
+      let resp = system(cmd)
+    endfunction
+    
+    function! UpdateTags()
+      let f = expand("%:p")
+      let cwd = getcwd()
+      let tagfilename = cwd . "/tags"
+      let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
+      call DelTagOfFile(f)
+      let resp = system(cmd)
+    endfunction
+    autocmd BufWritePost *.cpp,*.h,*.c call UpdateTags()
+<
+
+COMMENTS                                                   *vtw-1299-comments*
+
+To run a command in the background you may try script script#1582 
+[https://www.vim.org/scripts/script.php?script_id=1582].
+
+==============================================================================
+
+Since I wrote it, I prefer script#1343 
+[https://www.vim.org/scripts/script.php?script_id=1343].
+
+The big advantage, that I see, is that simply running `ctags -a` on a written 
+file leaves behind in the tags file tags for items you've just deleted before 
+writing the file. Script 1343 removes all entries for the file you've just 
+written and then runs `ctags -a`.
+
+[meta comment: the script presented here also removes deleted entries before 
+appending new ones.]
+
+==============================================================================
+
+I refactored the script as our style is two-space indents. There is no need 
+to "unlet" local variables, and simple names (no tricky underscores) is best. 
+The new function (DelTagOfFile) invokes sed, and that needs explanation (it's 
+only installed on some systems, and why not use Vim). I have just done routine 
+cleanups and haven't thought about what the code is doing (and haven't tested 
+it). JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] (talk 
+[https://vim.fandom.com/wiki/User_talk:JohnBeckett]) 11:13, August 26, 2012 
+(UTC)
+
+==============================================================================
+
+You can also achieve this with easytags 
+[https://www.vim.org/scripts/script.php?script_id=3114] using this command:
+
+>
+    autocmd BufWritePost * exe ":UpdateTags"
+<
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,42 @@
+*vim-tips-wiki-808.txt*   Replace a visual-block of text with another such block *vtw-808*
+
+Tip 808 [https://vim.fandom.com/wiki/Replace_a_visual-block_of_text_with_another_such_block]   Previous |vtw-807| Next |vtw-809|
+
+created 2004 · complexity intermediate · author Chip Campbell · version 6.0
+
+==============================================================================
+
+One may overwrite a visual-block of text with another visual-block of text 
+by:
+    - Select the first block: `ctrl-v move "ay` 
+    - Select the second block: ctrl-v move c ctrl-o "aP <Esc> 
+
+
+COMMENTS                                                    *vtw-808-comments*
+
+Based on the current tip, I've added a little extension to visswap.vim which 
+allows one to
+    - Select a region using Ctrl-v + motion (visual block). 
+    - Press Escape. 
+    - Move cursor to another location, hit \vr (the backslash is actually <Leader>, 
+      so folks may customize that easily). 
+
+
+That sequence will replace the text in a visual-block fashion below the 
+cursor. One may repeat the `\vr` multiple times for additional replacements.
+
+For visswap.vim, see Visual Mode Based Swapping 
+[http://www.drchip.org/astronaut/vim/index.html#VISSWAP].
+
+==============================================================================
+
+To make second block exactly same size as first instead of <Ctrl-v> move hit 
+1<Ctrv-V>
+
+This will make a rectangular selection of exactly same size as previous one 
+using current cursor position as top left corner. Unfortunately it does not 
+(always? yet?) work with multibyte encodings, so be careful if you use them.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

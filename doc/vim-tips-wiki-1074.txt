@@ -1,0 +1,105 @@
+*vim-tips-wiki-1074.txt*   Detect encoding from the charset specified in HTML files *vtw-1074*
+
+Tip 1074 [https://vim.fandom.com/wiki/Detect_encoding_from_the_charset_specified_in_HTML_files]   Previous |vtw-1073| Next |vtw-1077|
+
+created 2005 · complexity advanced · author Wu Yongwei · version 6.0
+
+==============================================================================
+
+If one needs to edit files encoded in multiple legacy encodings, then the Vim 
+fileencodings option cannot help much. Some hacks can be used to put the file 
+encoding in the file (see VimTip911 |vtw-911|). However, in the case of HTML 
+files, the encoding information is often in the HTML file already, especially 
+for non-Latin1 Web pages, for example:
+
+>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" >
+<
+
+The following code can be put in vimrc to detect and use such an encoding 
+specification:
+
+>
+    if has('autocmd')
+      function! ConvertHtmlEncoding(encoding)
+        if a:encoding ==? 'gb2312'
+          return 'cp936' " GB2312 imprecisely means CP936 in HTML
+        elseif a:encoding ==? 'iso-8859-1'
+          return 'latin1' " The canonical encoding name in Vim
+        elseif a:encoding ==? 'utf8'
+          return 'utf-8' " Other encoding aliases should follow here
+        else
+          return a:encoding
+        endif
+      endfunction
+    
+      function! DetectHtmlEncoding()
+        if &filetype != 'html'
+          return
+        endif
+        normal m`
+        normal gg
+        if search('\c<meta[ \t\n]\+http-equiv=\("\?\)Content-Type\1[ \t\n]\+content="text/html;[ \t\n]*charset=[-A-Za-z0-9_]\+"[ \t\n]*>') != 0
+          let reg_bak=@"
+          normal y$
+          let charset=matchstr(@", 'text/html; charset=\zs[-A-Za-z0-9_]\+')
+          let charset=ConvertHtmlEncoding(charset)
+          normal ``
+          let @"=reg_bak
+          if &fileencodings == ''
+            let auto_encodings=',' . &encoding . ','
+          else
+            let auto_encodings=',' . &fileencodings . ','
+          endif
+          if charset !=? &fileencoding &&
+                \auto_encodings =~ ',' . &fileencoding . ','
+            silent! exec 'e ++enc=' . charset
+          endif
+        else
+          normal ``
+        endif
+      endfunction
+    
+      " Detect charset encoding in an HTML file
+      au BufReadPost *.htm* nested call DetectHtmlEncoding()
+    endif
+<
+
+Please notice that the nested autocommand is used to ensure the syntax 
+highlighting is OK and the remembered cursor position is still kept.
+
+It is recommended to use `set encoding=utf-8` in order to ensure successful 
+encoding conversion.
+
+PLUGINS                                                     *vtw-1074-plugins*
+    - AutoFenc.vim [https://www.vim.org/scripts/script.php?script_id=2721] 
+    - charset.vim [https://www.vim.org/scripts/script.php?script_id=199] 
+    - FencView.vim [https://www.vim.org/scripts/script.php?script_id=1708] 
+
+
+COMMENTS                                                   *vtw-1074-comments*
+
+The following source code form is common for generated pages:
+
+>
+    <meta content="text/html …" http-equiv="Content-Type" >
+<
+
+This form will not be recognised.
+
+It would be reasonable to limit the search to the document head, expressed as 
+an absolute characters to scan. This restriction will cause pages containing 
+lots of comments and white space in head to be left alone. I do not think this 
+is much of a problem.
+
+==============================================================================
+
+Version vim7.3_v7 or higher of the |:TOhtml| plugin distributed with Vim 
+includes an autoload function you could call that does a much more complete 
+HTML-charset to Vim encoding conversion. --Fritzophrenic 
+[https://vim.fandom.com/wiki/User:Fritzophrenic] 16:30, November 15, 2010 
+(UTC)
+
+This is now done in the AutoFenc.vim plugin mentioned above. For an example, see the plugin code. --Fritzophrenic 22:24, April 4, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

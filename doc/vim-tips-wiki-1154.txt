@@ -1,0 +1,52 @@
+*vim-tips-wiki-1154.txt*   Auto copy the mouse selection               *vtw-1154*
+
+Tip 1154 [https://vim.fandom.com/wiki/Auto_copy_the_mouse_selection]   Previous |vtw-1153| Next |vtw-1155|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+With this tip, just selecting text with mouse in gvim, will copy that text to 
+the clipboard for pasting into other applications (on Windows and on Xwindows, 
+ala Xterms).
+
+Put these commands in ~/.gvimrc
+
+>
+    " Method 1 (for Xwindows and mswindows), this map is different from the one shown in vim documentation:
+    :noremap <LeftRelease> "+y<LeftRelease>
+    
+    " Method 2 (works only on ms-windows vim63):
+    :set guioptions+=a
+<
+
+COMMENTS                                                   *vtw-1154-comments*
+
+I suppose you meant vnoremap.
+
+==============================================================================
+
+TO DO Can someone tell me how to disable this autocopy function. I often want 
+to replace some selected textwith some other text i have copied before. The 
+autocopy function always owerwrites my buffer.
+
+To Disable Auto Copy:
+
+Put this in .gvimrc
+
+>
+    " Following three lines remove the auto copy function from VIM
+     set guioptions-=a
+     set guioptions-=A
+     set guioptions-=aA
+<
+
+
+
+This is an important question about the tip that needs to be addressed. For method 1, try selecting the text you wish to replace with visual mode instead of selection mode (i.e. use v, V, or CTRL-V instead of the mouse). Method 2 will not allow this, because it copies the visual selection. Perhaps using A instead of a in the guioptions would allow it to work?
+
+Of course, you could alway just dispense with the automatic copying, and copy manually instead. See Accessing the system clipboard.
+
+--Fritzophrenic 13:23, 5 September 2008 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

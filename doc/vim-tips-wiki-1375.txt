@@ -1,0 +1,105 @@
+*vim-tips-wiki-1375.txt*   Avoid scrolling when switch buffers         *vtw-1375*
+
+Tip 1375 [https://vim.fandom.com/wiki/Avoid_scrolling_when_switch_buffers]   Previous |vtw-1373| Next |vtw-1376|
+
+created 2006 · complexity intermediate · author Yakov Lerner · version 7.0
+
+==============================================================================
+
+When switching buffers using the `Ctrl-^` and `:bp` commands, Vim will keep 
+the cursor on the line number where it was before switching the buffer but it 
+might change the position of the current line relative to the screen. For 
+example, the cursor may be in line 1234 of the file, with that line at the top 
+of the screen. The user may switch to another buffer, then switch back (`:bn 
+:bp`), and find that the current line has been repositioned to the middle of 
+the screen.
+
+If the line number is restored correctly, but the shift in screen view is 
+bothersome, add the following to the .vimrc file to restore the screen view 
+correctly:
+
+>
+    " Save current view settings on a per-window, per-buffer basis.
+    function! AutoSaveWinView()
+        if !exists("w:SavedBufView")
+            let w:SavedBufView = {}
+        endif
+        let w:SavedBufView[bufnr("%")] = winsaveview()
+    endfunction
+    
+    " Restore current view settings.
+    function! AutoRestoreWinView()
+        let buf = bufnr("%")
+        if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
+            let v = winsaveview()
+            let atStartOfFile = v.lnum == 1 && v.col == 0
+            if atStartOfFile && !&diff
+                call winrestview(w:SavedBufView[buf])
+            endif
+            unlet w:SavedBufView[buf]
+        endif
+    endfunction
+    
+    " When switching buffers, preserve window view.
+    if v:version >= 700
+        autocmd BufLeave * call AutoSaveWinView()
+        autocmd BufEnter * call AutoRestoreWinView()
+    endif
+<
+
+The above logic works around a couple of issues with the simpler original 
+logic below. First, the view is restored only when the cursor is at 
+start-of-file during the `BufEnter` event. This prevents old saved settings 
+from overriding a newly selected cursor position when the user scrolls an 
+inactive window with the mouse wheel and clicks in that inactive window. When 
+switching buffers within one window, Vim first sets the cursor position to the 
+start of the file, then fires a `BufEnter` event; afterward, if no `autocmd` 
+has changed the cursor position, Vim restores the cursor position based on 
+values saved in its internal data structures. In contrast, when switching to 
+another window the cursor position is not forced to the start of the file; 
+this includes the case when the user scrolls and clicks with the mouse. The 
+logic in `AutoRestoreWinView()` therefore restores the view only when the 
+cursor is at start-of-file.
+
+Secondly, the view settings are stored on a per-buffer, per-window basis, 
+allow the user to maintain two independent cursor positions for one buffer 
+displayed in two windows.
+
+Here is the original logic for historical reference:
+
+>
+    " When switching buffers, preserve window view.
+    if v:version >= 700
+      au BufLeave * if !&diff | let b:winview = winsaveview() | endif
+      au BufEnter * if exists('b:winview') && !&diff | call winrestview(b:winview) | unlet! b:winview | endif
+    endif
+<
+
+Alternatively a user can `:set scrolloff=999` which keeps the current line 
+vertically centered.
+
+SEE ALSO                                                   *vtw-1375-see-also*
+    - :help 'nosol' 
+    - VimTip80 |vtw-80| 
+    - :help 'viminfo' 
+    - :help |last-position-jump| 
+
+
+COMMENTS                                                   *vtw-1375-comments*
+
+Removed stale b:winview to avoid bugs as the one 
+[https://github.com/garbas/vim-snipmate/issues/161] reported in snipmate. - 
+May 29, 2014
+
+As noted by the autocommands should not be run in diff mode, this is 
+accomplished with the "&diff" if test - Sep 21, 2012
+
+This tip results in a display bug 
+[http://vim.1045645.n5.nabble.com/Cursor-anomoly-apparent-and-actual-positions-differ-td5673900.html] 
+that hasn't been patched yet, and there's no mention of a vimscript 
+workaround. - Sep 21, 2012
+
+I had some weirdness with this. But after renaming the var it worked fine! - 
+Jun 30, 2014
+
+ vim:tw=78:et:ft=help:norl:

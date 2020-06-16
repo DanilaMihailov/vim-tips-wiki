@@ -1,0 +1,212 @@
+*vim-tips-wiki-1650.txt*   Build Python-enabled Vim on Windows with MinGW *vtw-1650*
+
+Tip 1650 [https://vim.fandom.com/wiki/Build_Python-enabled_Vim_on_Windows_with_MinGW]   Previous |vtw-1649| Next |vtw-1651|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201003#Build_Python-enabled_Vim_on_Windows_with_MinGW] 
+March 12, 2010 · complexity basic · author Vlad.irnov · version 7.0
+
+==============================================================================
+
+This tip is deprecated for the following reasons:
+
+These instructions are obsolete as Vim's official source repository is now in 
+GitHub, there are official nightly builds, etc. Please improve them if you 
+can.
+
+Getting Python scripting in Vim on Windows can be a bit tricky, see :help 
+|python-dynamic|:
+
+You may not need this tip because the two main Windows installers for Vim 
+usually already have Python support. The most up-to-date Vim version is 
+available from http://sourceforge.net/projects/cream/files/ 
+[http://sourceforge.net/projects/cream/files/] (Vim without Cream). You may 
+find this tip useful if you want to compile your own Vim on Windows if, for 
+example, you need Vim for a different version of Python.
+
+PREREQUISITES                                         *vtw-1650-prerequisites*
+    - Vim version 7.3.x or 7.4.x is already installed. We only want to replace 
+      files `gvim.exe` and `vim.exe`. 
+    - Python 2.x and Python 3.x are installed. Let's assume Python 2.7 is installed 
+      in `C:/Python27` and Python 3.3 is installed in `C:/Python33`. The official 
+      Python installers from http://www.python.org [http://www.python.org] place the 
+      DLL files (python27.dll and python33.dll) in the system path, usually 
+      C:\Windows\system32 or C:\Windows\SysWOW64. 
+    - These instructions are for compiling 32-bit Vim. Python must be 32-bit. 
+
+
+STEP 1: INSTALL MINGW TOOLS [HTTP://WWW.MINGW.ORG/] *vtw-1650-step-1:-install-mingw-tools-[http://www.mingw.org/]*
+
+Download and run automated MinGW installer from 
+https://sourceforge.net/project/showfiles.php?group_id=2435 
+[https://sourceforge.net/project/showfiles.php?group_id=2435]The "base" 
+package should be enough (we only need C compiler). Choose install directory 
+without spaces in its path.(NOTE: There are problems with the current MinGW 
+installer, mingw-get-setup.exe, as of Oct 14, 2013.)
+
+Alternatively, install MinGW using installer or individual packages from the 
+TDM-GCC project: http://tdm-gcc.tdragon.net/ [http://tdm-gcc.tdragon.net/]
+
+Let's assume MingW is installed in `E:\MinGW`.
+
+STEP 2: DOWNLOAD VIM SOURCE FILES *vtw-1650-step-2:-download-vim-source-files*
+    - Get Vim source files from one of the links below. The source version should 
+      match your currently installed Vim version. - 
+      https://github.com/b4winckler/vim [https://github.com/b4winckler/vim] This is 
+      a `git` clone of Vim's official Mercurial repository 
+      [http://code.google.com/p/vim/]. This may be the easiest way to get the most 
+      recent Vim source with all patches included, because you can download 
+      snapshots with a web browser without installing any other software. Google 
+      Code holds the official Vim repository but does not offer this feature. - 
+      Getting the Vim source with Mercurial 
+      [https://vim.fandom.com/wiki/Getting_the_Vim_source_with_Mercurial] - 
+      ftp://ftp.vim.org/pub/vim/unix/ [ftp://ftp.vim.org/pub/vim/unix/] 
+    - Extract or check out all in one directory, for example 
+      `E:\devel\vim_sources\vim-7-4-050`. 
+
+
+STEP 3 (OPTIONAL): APPLY PATCHES   *vtw-1650-step-3-(optional):-apply-patches*
+
+If you need to apply a patch, obtain Windows port of GNU patch (patch.exe) 
+from http://gnuwin32.sourceforge.net/packages/patch.htm 
+[http://gnuwin32.sourceforge.net/packages/patch.htm] .Do a dry run:
+
+>
+    cd vim_source_dir
+    patch.exe --dry-run -p0 < path_to_patch_file > path_to_logfile
+<
+
+Apply the patch:
+
+>
+    cd vim_source_dir
+    patch.exe -p0 < path_to_patch_file > path_to_logfile
+<
+
+STEP 4: BUILD GVIM.EXE AND VIM.EXE *vtw-1650-step-4:-build-gvim.exe-and-vim.exe*
+
+Create a batch file `build_vim.bat` with the following content. It will build 
+gvim.exe and vim.exe with Python 2.7 and Python 3.3 support, HUGE feature set, 
+no OLE. You can remove options PYTHON3, PYTHON3_VER, DYNAMIC_PYTHON3 if you 
+need only Python 2.7.
+
+IMPORTANT: You must edit the paths and Python options.
+
+>
+    @echo off
+    REM Run this batch file from any directory to build gvim.exe and vim.exe.
+    REM But first edit the paths and Python version number.
+    
+    REM --- Specify Vim /src folder ---
+    set VIMSRC=E:\devel\vim_sources\vim-7-4-050\src
+    REM --- Add MinGW /bin directory to PATH ---
+    PATH = E:\MinGW\bin;%PATH%
+    REM --- Also make sure that PYTHON, PYTHON_VER below are correct. ---
+    
+    REM get location of this batch file
+    set WORKDIR=%~dp0
+    set LOGFILE=%WORKDIR%log.txt
+    
+    echo Work directory: %WORKDIR%
+    echo Vim source directory: %VIMSRC%
+    
+    REM change to Vim /src folder
+    cd /d %VIMSRC%
+    
+    REM --- Build GUI version (gvim.exe) ---
+    echo Building gvim.exe ...
+    REM The following command will compile with both Python 2.7 and Python 3.3
+    mingw32-make.exe -f Make_ming.mak PYTHON="C:/Python27" PYTHON_VER=27 DYNAMIC_PYTHON=yes PYTHON3="C:/Python33" PYTHON3_VER=33 DYNAMIC_PYTHON3=yes FEATURES=HUGE GUI=yes gvim.exe > "%LOGFILE%"
+    
+    REM --- Build console version (vim.exe) ---
+    echo Building vim.exe ...
+    REM The following command will compile with both Python 2.7 and Python 3.3
+    mingw32-make.exe -f Make_ming.mak PYTHON="C:/Python27" PYTHON_VER=27 DYNAMIC_PYTHON=yes PYTHON3="C:/Python33" PYTHON3_VER=33 DYNAMIC_PYTHON3=yes FEATURES=HUGE GUI=no vim.exe >> "%LOGFILE%"
+    
+    echo Moving files ...
+    move gvim.exe "%WORKDIR%"
+    move vim.exe "%WORKDIR%"
+    
+    echo Cleaning Vim source directory ...
+    REM NOTE: "mingw32-make.exe -f Make_ming.mak clean" does not finish the job
+    IF NOT %CD%==%VIMSRC% GOTO THEEND
+    IF NOT EXIST vim.h GOTO THEEND
+    IF EXIST pathdef.c DEL pathdef.c
+    IF EXIST obj\NUL      RMDIR /S /Q obj
+    IF EXIST obji386\NUL  RMDIR /S /Q obji386
+    IF EXIST gobj\NUL     RMDIR /S /Q gobj
+    IF EXIST gobji386\NUL RMDIR /S /Q gobji386
+    IF EXIST gvim.exe DEL gvim.exe
+    IF EXIST vim.exe  DEL vim.exe
+    :THEEND
+    
+    pause
+<
+
+Run the batch file. It will build files "gvim.exe" and "vim.exe" and move 
+them into the folder of the batch file. The build process can take a few 
+minutes. A log file will also be created. Any errors will appear in the 
+console window.
+
+STEP 5: REPLACE GVIM.EXE AND VIM.EXE WITH NEW FILES *vtw-1650-step-5:-replace-gvim.exe-and-vim.exe-with-new-files*
+
+Shut down all instances of Vim. Navigate to Vim program folder: 
+`C:\Programs\Vim\vim73` or similar. Back up the original `gvim.exe` and 
+`vim.exe`: either rename them to `gvim_original.exe`, `vim_original.exe` or 
+move them to another folder.
+
+Copy the new `gvim.exe` and `vim.exe` files to the Vim program folder (by 
+copying the files, the default permissions of the folder should be applied to 
+the copies). Start Vim and see if it works:
+
+>
+    :py print 2**0.5
+    :py import sys; print sys.version
+    :py3 print(2**0.5)
+    :py3 import sys; print(sys.version)
+<
+
+COMMENTS                                                   *vtw-1650-comments*
+
+This is a very ambitious tip! Following are some initial thoughts:
+    - Our starting point for a "building Vim" tip is Build Vim with your name 
+      included [https://vim.fandom.com/wiki/Build_Vim_with_your_name_included] (no 
+      useful content at the moment). 
+    - Is the following correct: "The official Python installer ... puts 
+      python25.dll in %windir%/system32"? Perhaps that is an install option? I have 
+      installed Python several times and do not recall it dumping stuff in system32. 
+    - There should be a "clean" option in the makefile that can be used, rather 
+      than the advice to delete certain directories (and pathdef.c is in the deleted 
+      directory so need to mention it). 
+    - It is not really useful to build Vim without getting the current patches. The 
+      correct (and very easy) procedure now is to use the Mercurial repository 
+      [http://code.google.com/p/vim/] set up by Bram to hold all the patched source 
+      and runtime files. We need documentation on how to do this. 
+    - Using a suitable build from Vim-without-Cream is definitely the best approach 
+      for 99% of Windows users. Some hunting around would probably find a version 
+      with an old version of Python if required (it would have an older Vim, 
+      although one that would be newer than 7.2 with no patches). 
+
+
+JohnBot [https://vim.fandom.com/wiki/User:JohnBot] 06:14, March 30, 2010 
+(UTC)
+
+==============================================================================
+
+What is the github stuff? Björn Winckler is a well known Vimmer, but the 
+github is an unofficial clone of the official release available via Mercurial. 
+Also, some explanation is needed: the tip says to select the Vim version via 
+"Switch Tags" but is that really the Vim version? JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 10:13, April 4, 2011 (UTC)
+
+The GitHub mirror looks like the easiest way to download the most recent Vim source with all patches included, as well as any previous 7.x version. Only a web browser is needed. I assume that each tagged snapshot corresponds to Vim 7.x with indicated patches applied, but I cannot prove it. Getting the source from the official Mercurial repo requires installing Hg and figuring out how to use it. (I got the minimum, portable, CLI-only version and it takes up >17MB.) The Gettig_the_Vim_source_with_Mercurial tip is too much for someone who just wants to download the source and is not interested in Mercurial. And it says examples are for Linux. Vlad.irnov 18:42, April 4, 2011 (UTC)
+
+==============================================================================
+
+Running make -f <Makefile> clean should remove relevant files and 
+directories.--Kayosz [https://vim.fandom.com/wiki/User:Kayosz] (talk 
+[https://vim.fandom.com/wiki/User_talk:Kayosz]) 08:33, August 3, 2012 (UTC)
+
+There are problems with mingw32-make.exe -f Make_ming.mak clean. There are errors because it tries to delete files that do not exist. And it does not finish the job and leaves some directories.Vlad.irnov (talk) 11:07, May 1, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,88 @@
+*vim-tips-wiki-530.txt*   Get the name of the current file              *vtw-530*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip193 |vtw-193| 
+    - VimTip1322 |vtw-1322| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 530 [https://vim.fandom.com/wiki/Get_the_name_of_the_current_file]   Previous |vtw-529| Next |vtw-531|
+
+created 2003 · complexity basic · version 6.0
+
+==============================================================================
+
+Register `%` contains the name of the current file, and register `#` contains 
+the name of the alternate file. These registers allow the name of the current 
+or alternate files to be displayed or inserted. The name, or full path, or 
+directory containing the file can be used.
+
+For example, in directory `/abc` the command `vim def/my.txt` would edit file 
+`/abc/def/my.txt`. The following commands could be entered to display the 
+information shown.
+
+For more info run `:help expand`
+
+If all that is wanted is to display the name of the current file, type Ctrl-G 
+(or press `1` then Ctrl-G for the full path).
+
+When using `@%`, the name is displayed relative to the current directory.
+
+In insert mode, type Ctrl-R then `%` to insert the name of the current file.
+
+In command mode (after typing a colon), type Ctrl-R then `%` to insert the 
+name of the current file. The inserted name can then be edited to create a 
+similar name.
+
+In normal mode, type `"%p` to put the name of the current file after the 
+cursor (or `"%P` to insert the name before the cursor).
+
+The following commands insert lines consisting of the full path of the 
+current and alternate files into the buffer:
+
+>
+    :put =expand('%:p')
+    :put =expand('#:p')
+<
+
+SEE ALSO                                                    *vtw-530-see-also*
+
+Need to merge/clean.
+    - 193 Insert current filename |vtw-193| 
+    - 432 Putting the current file on the Windows clipboard |vtw-432| 
+    - 600 Copy filename to clipboard |vtw-600| 
+    - 891 Copy parts of filename to clipboard |vtw-891| 
+
+
+REFERENCES                                                *vtw-530-references*
+    - :help |registers| 
+    - :help |expand()| 
+    - :help |cmdline-special| 
+
+
+COMMENTS                                                    *vtw-530-comments*
+
+If you need to insert other file names (say the *.h name in an #include), you 
+can do C-X+C-F for filename completion.
+
+==============================================================================
+
+Hey quick question, Ctrl-G worked but I'm wondering if there is a special way 
+to examine the contents of the % register? According to :help |@|
+
+>
+    @{0-9a-z".=*}
+    Execute the contents of register {0-9a-z".=*} [count] times.
+    Note that register '%' (name of the current file) and
+    '#' (name of the alternate file) cannot be used.
+<
+
+Is there a special way to echo its contents?
+
+I have edited the tip to clarify several points, including the above. That help is for executing registers and does not apply when a register is displayed or inserted. JohnBeckett 03:06, November 11, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

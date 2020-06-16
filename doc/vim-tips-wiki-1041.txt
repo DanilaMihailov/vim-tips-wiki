@@ -1,0 +1,97 @@
+*vim-tips-wiki-1041.txt*   Snippets for JavaScript, HTML and Python    *vtw-1041*
+
+Tip 1041 [https://vim.fandom.com/wiki/Snippets_for_JavaScript,_HTML_and_Python]   Previous |vtw-1036| Next |vtw-1042|
+
+created November 7, 2005 · complexity intermediate · author Amir Salihefendic 
+· version 6.0
+
+==============================================================================
+
+THE VIM CODE                                           *vtw-1041-the-vim-code*
+
+>
+    "You can use <c-j> to goto the next <++> - it is pretty smart.
+    
+    "JavaScript
+    autocmd BufRead,BufNewFile *.tmpl,*.htm,*.js inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("function <++>(<++>) {\n<++>;\nreturn <++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.htm,*.js inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for(<++>; <++>; <++>) {\n<++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.htm,*.js inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.htm,*.js inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}\nelse {\n<++>;\n}")<CR>
+    
+    "HTML
+    autocmd BufRead,BufNewFile *.tmpl,*.js,*.htm inorea <buffer> cahref <c-r>=IMAP_PutTextWithMovement('<a href="<++>"><++></a>')<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.js,*.htm inorea <buffer> cbold <c-r>=IMAP_PutTextWithMovement('<b><++></b>')<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.js,*.htm inorea <buffer> cimg <c-r>=IMAP_PutTextWithMovement('<¿mg src="<++>" alt="<++>" />')<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.js,*.htm inorea <buffer> cpara <c-r>=IMAP_PutTextWithMovement('<p><++></p>')<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.js,*.htm inorea <buffer> ctag <c-r>=IMAP_PutTextWithMovement('<<++>><++></<++>>')<CR>
+    autocmd BufRead,BufNewFile *.tmpl,*.js,*.htm inorea <buffer> ctag1 <c-r>=IMAP_PutTextWithMovement("<<++>><CR><++><CR></<++>>")<CR>
+    
+    "Python
+    autocmd BufNewFile,BufRead *.py inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("def <++>(<++>):\n<++>\nreturn <++>")<CR>
+    autocmd BufRead,BufNewFile *.py inorea <buffer> cclass <c-r>=IMAP_PutTextWithMovement("class <++>:\n<++>")<CR>
+    autocmd BufRead,BufNewFile *.py inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for <++> in <++>:\n<++>")<CR>
+    autocmd BufRead,BufNewFile *.py inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if <++>:\n<++>")<CR>
+    autocmd BufRead,BufNewFile *.py inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if <++>:\n<++>\nelse:\n<++>")<CR>
+    
+    "Press c-q insted of space (or other key) to complete the snippet
+    imap <C-q> <C-]>
+<
+
+EXPLANATION                                             *vtw-1041-explanation*
+
+If you in a Javascript document type cfun<C-q> then this will be unfolded to 
+(| is the cursor position).
+
+>
+    function |(<++>) {
+    <++>;
+    return <++>;
+    }
+<
+
+<++> are place-holders. You can press <C-j> to get to the next <++> and edit 
+there.
+
+This approach makes it very fast to create new functions, if-else statements 
+etc. It reduces the movement and you get pretty addicted to these snippets. 
+It's very easy to create similar snippets for other languages.
+
+REQUIREMENT                                             *vtw-1041-requirement*
+
+I have used the modified version of imaps.vim.
+
+The modified version of imaps.vim is found in the LaTeX-Suite package and it 
+can be downloaded from my own site (http://amix.dk/vim/imaps.vim 
+[http://amix.dk/vim/imaps.vim]). This script gives the needed functionality.
+
+MY VIMRC                                                   *vtw-1041-my-vimrc*
+
+I have also uploaded my very good documented vimrc (about 800 lines). Check 
+it out at http://www.amix.dk/vim/vimrc.html 
+[http://www.amix.dk/vim/vimrc.html]
+
+COMMENTS                                                   *vtw-1041-comments*
+
+Here is one for Java:
+
+>
+    autocmd BufRead,BufNewFile *.java inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("public <++> <++>(<++>) {\n<++>;\nreturn <++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.java inorea <buffer> cfunpr <c-r>=IMAP_PutTextWithMovement("private <++> <++>(<++>) {\n<++>;\nreturn <++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.java inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for(<++>; <++>; <++>) {\n<++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.java inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}")<CR>
+    autocmd BufRead,BufNewFile *.java inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}\nelse {\n<++>;\n}")<CR>
+<
+
+==============================================================================
+
+I think things like this sould be made plugins. This is no way a tip.
+
+==============================================================================
+
+Arkanus: I don't know, but adding the imap plugin isn't enough, I got a 
+"function X" only and not the complete snippet; but with your .vim directory I 
+get the complete snippetNevermind i've figured it out; you need to add "set 
+laststatus=2" to your .vimrc I don't know why, but without it the thing 
+doesn't work
+
+ vim:tw=78:et:ft=help:norl:

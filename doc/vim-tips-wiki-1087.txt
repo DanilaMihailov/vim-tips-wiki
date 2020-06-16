@@ -1,0 +1,119 @@
+*vim-tips-wiki-1087.txt*   Quick reference of current function         *vtw-1087*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip945 |vtw-945| 
+    - VimTip1267 |vtw-1267| 
+    - VimTip1296 |vtw-1296| 
+    - VimTip1454 |vtw-1454| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 1087 [https://vim.fandom.com/wiki/Quick_reference_of_current_function]   Previous |vtw-1084| Next |vtw-1088|
+
+created 2005 · complexity intermediate · author TonyLiu · version 6.0
+
+==============================================================================
+
+This tip is useful for a programmer who always wants to know what function 
+they are in, and what parameters the current function has.
+
+To avoid the "Hit ENTER or type command to continue" message 
+[https://vim.fandom.com/wiki/Avoiding_the_%22Hit_ENTER_to_continue%22_prompts], 
+I suggest that you'd better set your command line height to 2 or more, because 
+many function definitions have a long width.
+
+Add this to your vimrc:
+
+>
+    :set cmdheight=2
+    nmap _F :call CurrentFunc()<CR>
+    " side effect: register k and mark k will be changed
+    
+    func! CurrentFunc()
+      exec "normal mk"
+      " c-type code have remarkable definitions from other OO code.
+      let l:extension = expand("%:e")
+      if l:extension == "c"
+        exec "normal ][%b%b"
+      else
+        exec "?private\\|public\\|protected\\|procedure\\|function\\s\\+\.*("
+      endif
+      "TODO: maybe you need to open your closed fold at first
+      exec "normal v$\"ky`k"
+      exec "echo @k"
+    endfunc " CurrentFunc
+<
+
+Now, when you are editing a file, exit to normal mode, and type _F to see 
+which is the current function.
+
+If you want to know or add some parameters followed by the definition, just 
+type CTRL-O (<C-O>) to jump to the definition, and type `k can jump back.
+
+.cs, .pas, .c, .sql filetype is supported with this trick.
+
+RELATED PLUGINS                                     *vtw-1087-related-plugins*
+    - Taglist [https://www.vim.org/scripts/script.php?script_id=273] not only 
+      highlights the current function in a sidebar, but allows you to jump to the 
+      various tags in this sidebar 
+    - StlShowFunc [https://github.com/dr-chip-vim-scripts/StlShowFunc]: Works with 
+      several languages, doesn't rely on tags. 
+
+
+COMMENTS                                                   *vtw-1087-comments*
+
+There is an alternative method to jump to the function definition. See if you 
+like this:
+
+If your C/C++ code is coded in Kernighan Richie style of indenting, that is 
+if the open brace '{' of the function is starting at the first column of the C 
+file, you can traverse to all functions of that file by pressing `{{` and `}}` 
+keys.
+
+==============================================================================
+
+I suggest you add
+
+>
+    if l:extension == "c" || l:extension == "cpp"
+<
+
+because in Cpp code public/private is not used in function definition so 
+standard C method of obtaining header should be used.
+
+==============================================================================
+
+Good idea. There are a couple of things to point out though:
+
+The function below remedies both of these problems.
+
+>
+    "function declaration preview (double-backslash with default <Leader>)
+    nmap <Leader><Leader> :cal FuncPreview()<CR>
+    function FuncPreview()
+      let opening = search("^\\S.*)\\s*\\\(\\n\\\)\\={","bn")
+      let closing = search("^}","bn")
+      if opening > closing
+        echo getline(opening)
+      else
+        echo ""
+      endif
+    endfunction
+<
+
+==============================================================================
+
+You could try also my script#1429 
+[https://www.vim.org/scripts/script.php?script_id=1429], which makes the same 
+thing. I tested it with C.
+
+It seems that (like mine) also your tips have problems with unmatched {} in 
+comments.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

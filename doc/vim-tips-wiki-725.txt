@@ -1,0 +1,19 @@
+*vim-tips-wiki-725.txt*   Quick mapping for backing up the file         *vtw-725*
+
+Tip 725 [https://vim.fandom.com/wiki/Quick_mapping_for_backing_up_the_file]   Previous |vtw-719| Next |vtw-727|
+
+created 2004 · complexity basic · author Devin Weaver · version 6.0
+
+==============================================================================
+
+Add this simple mapping into your vimrc to make a quick way to backup your 
+document by typing `\b` in normal mode.
+
+>
+    " For safe measures lets make a quick backup mapping.
+    nnoremap <Leader>b :let x=&backup<Bar>set backup<Bar>write<Bar>let &backup=x<Bar>unlet x<Cr>
+<
+
+COMMENTS                                                    *vtw-725-comments*
+
+ vim:tw=78:et:ft=help:norl:

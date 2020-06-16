@@ -1,0 +1,52 @@
+*vim-tips-wiki-941.txt*   Adding MPI and PVM syntax highlighting        *vtw-941*
+
+Tip 941 [https://vim.fandom.com/wiki/Adding_MPI_and_PVM_syntax_highlighting]   Previous |vtw-939| Next |vtw-944|
+
+created June 2, 2005 · complexity basic · author Dave Turner · version 6.0
+
+==============================================================================
+
+The MPI standard and the PVM library are commonly used to parallelize codes 
+to run them across multiprocessor systems. The lines below can be added to the 
+c.vim syntax file to highlight all MPI and PVM function calls, as well as the 
+MPI data types. The Fortran syntax is the same except that PVM uses the pvmf 
+prefix instead of pvm_. You will also need to add a line to your favorite 
+colorization file to highlight the new Communicator group. I use a Yellow 
+background which shows up well on both light and dark backgrounds to really 
+illustrate where the communications calls are in a program.
+
+>
+    syn match cCommunicator "MPI_[A-Z][A-Z_a-z2 ]*("me=e-1
+    syn match cCommunicator "MPIO_[A-Z][A-Z_a-z ]*("me=e-1
+    syn match cCommunicator "pvm_[a-z ]*("me=e-1
+    syn match cCommunicator "MP_[A-Z_a-z ]*("me=e-1
+    
+    syn keyword cType MPI_Group MPI_Status MPI_Request MPI_Win MPI_Aint
+    syn keyword cType MPI_Info MPI_Op MPI_Datatype MPI_Comm
+    
+    HiLink cCommunicator Communicator
+<
+
+Example addition to the colorization file for dark backgrounds:
+
+>
+    hi Communicator guibg=yellow2 guifg=black gui=bold ctermbg=yellow ctermfg=black
+<
+
+Example addition to the colorization file for light backgrounds:
+
+>
+    hi Communicator guibg=yellow2 guifg=white gui=bold ctermbg=yellow ctermfg=white
+<
+
+COMMENTS                                                    *vtw-941-comments*
+
+I think the idea is great (I had just implemented my own syntax file to do 
+the same), but part of the reason I want syntax highlighting is to catch 
+typos, so if anything starting with MPI is highlighed, the mispelled ones will 
+be highlighed also. It's not so bad to enumerate all 20 or so of the most 
+common ones. I've enumerated a bunch of them 
+here:http://www.acm.caltech.edu/~srbecker/code/c.vim 
+[http://www.acm.caltech.edu/~srbecker/code/c.vim] . -Stephen
+
+ vim:tw=78:et:ft=help:norl:

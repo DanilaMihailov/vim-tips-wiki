@@ -1,0 +1,104 @@
+*vim-tips-wiki-931.txt*   STL help using tags - C++ Standard Template Library *vtw-931*
+
+Tip 931 [https://vim.fandom.com/wiki/STL_help_using_tags_-_C%2B%2B_Standard_Template_Library]   Previous |vtw-929| Next |vtw-933|
+
+created 2005 · complexity basic · author mixedvolume · version 5.7
+
+==============================================================================
+
+This tip builds on VimTip926 |vtw-926| (tagging QT help). With a different 
+Perl parser given below for tagging STL documentation.
+
+In vim, you can now do
+
+>
+    :ta vector
+<
+
+Or press Control-T on `vector` to open stl/vector.html in your browser.
+
+Or do `:ts /push` to find all tags names ~ push.
+
+How:
+
+>
+    wget http://www.sgi.com/tech/stl/STL_doc.zip
+    unzip STL_doc.zip
+    cd STL_doc
+    perl stl_tags.pl > tags # script given below.
+<
+
+In your vimrc put these two lines:
+
+>
+    au BufReadPost */stl_doc/*.html :silent exe ":!c:/opera/6*/opera.exe ".expand("%:p") | bd
+    set tags+=your_stl_dir/tags
+<
+
+I use Opera 6,7,8, but all browsers should work. The html files are opened in 
+tabbed windows in Opera, so no clutter on desktop.
+
+Feel free to hack the script, you can decide what tags you want from STL, 
+here is an example of the tags you should get
+
+>
+    pos_type char_traits.html 133;" STL/Member
+    power power.html /<Title>/;" STL/Title
+    prev_permutation prev_permutation.html /<Title>/;" STL/Title
+    previous Slist.html 477;" STL/Member
+    priority_queue priority_queue.html /<Title>/;" STL/Title
+    priority_queue priority_queue.html 194;" STL/Member
+    priority_queue::empty priority_queue.html 290;" STL/Class::Member
+    priority_queue::pop priority_queue.html 334;" STL/Class::Member
+<
+
+>
+    # What: tag stl documentation for use from gvim.
+    # How: wget http://www.sgi.com/tech/stl/STL_doc.zip; unzip stl_doc.zip
+    # cd stl_doc; perl stl_tags.pl > tags
+    # In ~/.vimrc put this:
+    # :set tags^=stl_doc/tags
+    # au BufReadPost */stl/*.html :silent exe ":!c:/ opera/6*/opera.exe ".expand("%:p") | bd
+    # Usage: vim file.cpp
+    # :ta vector -> Opera will display stl_doc/vector.html
+    # Author: Mohsin Ahmed
+    
+    # make tags for html files listed stl_index.html
+    
+    open(INDEX,"stl_index.html") or die "no stl_index.html?";
+    
+    while(<INDEX>){ $files{$1}++ if m/href="(\w+?.html)"/; } close INDEX;
+    foreach $htmlf (keys %files){
+        open(FILE,"$htmlf") or die "cannot read $htmlf";
+        $lineno = $member=0;
+        while(<FILE>){
+            $lineno++;
+            s,>,>,g; s,<,<,g; s,&,&,g; # html quadgraphs
+            if( m,^<Title>([\w\s]+), ){ $tag = $1; # tag single word titles
+            next if $tag_seen{$tag}++ || $tag =~ m/\s/;
+            push @mytaglist,"$tag\t$htmlf\t/<Title>/;\" STL/Title\n";
+            next;
+        }
+        $members++ if m/<h3>Members/i; # collect members in /Members/..eof()
+        $members=0 if m,</table>,i;
+        if( $members && m,^<code>(.+?)</code>, ){
+            $tag=$1;
+            $tag = $1 if $tag =~ m/\b(\S+)\(/; # purge proto
+            next if $tag =~ /href=/; # skip urls.
+            $tag =~ s,^operator(\S+),$1,; # purge sugar
+            my $file = $htmlf; $file =~ s,\..*,,;
+            push @mytaglist,"$tag\t$htmlf\t$lineno;\" STL/Member\n" # member
+            unless $seen{"$tag.$file"}++;
+            $tag = "$file\::$tag"; # class::member
+            push @mytaglist,"$tag\t$htmlf\t$lineno;\" STL/Class::Member\n"
+            unless $tag_seen{$tag}++;
+            }
+        }
+        close FILE;
+    }
+    print sort @mytaglist;
+<
+
+COMMENTS                                                    *vtw-931-comments*
+
+ vim:tw=78:et:ft=help:norl:

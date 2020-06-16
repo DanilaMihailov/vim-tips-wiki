@@ -1,0 +1,75 @@
+*vim-tips-wiki-851.txt*   Integrate with Mozilla Thunderbird            *vtw-851*
+
+Tip 851 [https://vim.fandom.com/wiki/Integrate_with_Mozilla_Thunderbird]   Previous |vtw-850| Next |vtw-852|
+
+created 2005 · complexity basic · author Stanislav · version 5.7
+
+==============================================================================
+
+There is finally an extension for Thunderbird that enables you to compose 
+mail in an external editor.
+
+You can find it at http://globs.org/?lng=en [http://globs.org/?lng=en]
+
+It works also in Windows 2000, as well as Windows XP and Linux as the author 
+claims. I couldn't make it work at first. You have to start a new message, 
+right click the toolbar and add an icon for External Editor. Now, when you 
+click on the icon, your mail is displayed in Vim.
+
+COMMENTS                                                    *vtw-851-comments*
+
+> Frankly, I think this tip should be removed. The plugin was last updated 
+2005 and it is not compatible with recent versions of Thunderbird anymore.
+
+> Why not use a real mail client (pine, mutt) instead?
+
+Because here at work I am stuck in Windows. I have tried using pine, mutt in 
+Windows, even Sylpheed. They do not work as I expect.
+
+At home I am using FreeBSD, and I am using Thunderbird as a mail client for 
+our "family" address so my wife can use it too. The beauty is, she gets the 
+default interface, and I can press Vim icon and get my preferred editor.
+
+==============================================================================
+
+> Why not use a real mail client (pine, mutt) instead?
+
+Obviously you have never tried managing multiple IMAP accounts with mutt.
+
+==============================================================================
+
+The author has now fixed the bugs so that carriage returns are not shown in 
+Windows and you can use "+set ft=mail" as an argument.
+
+So my value for text editor is now
+
+>
+    gvim.exe "+set ft=mail"
+<
+
+and it works very nicely.
+
+If gvim is not in your path, you'll have to fully qualify it.
+
+The docs say to use:
+
+>
+    gvim --nofork
+<
+
+==============================================================================
+
+That extension does not support multibyte language. When writing mail in 
+English, it works well.
+
+I copy the content from Thunderbird to Vim, and then `:set syntax=mail`, then 
+edit it, then paste it back to Thunderbird.
+
+==============================================================================
+
+Use vim in a terminal is also possible for thunderbird's external editor. A 
+small script can be downloaded from Fclose.com 
+[http://www.fclose.com/b/linux/3301/vim-as-thunderbirds-external-editor-in-linux/]. 
+This provides a familiar way for many Linux users.
+
+ vim:tw=78:et:ft=help:norl:

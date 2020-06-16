@@ -1,0 +1,55 @@
+*vim-tips-wiki-400.txt*   Fast scroll mappings                          *vtw-400*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip979 |vtw-979| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 400 [https://vim.fandom.com/wiki/Fast_scroll_mappings]   Previous |vtw-399| Next |vtw-402|
+
+created January 13, 2003 · complexity basic · author John Sumsion · version 
+6.0
+
+==============================================================================
+
+>
+    " allow Alt-[movement keys] to scroll window
+    if !has("gui_running")
+      nmap ^[l <A-l>
+      nmap ^[h <A-h>
+      nmap ^[k <A-k>
+      nmap ^[j <A-j>
+      vmap ^[l <A-l>
+      vmap ^[h <A-h>
+      vmap ^[k <A-k>
+      vmap ^[j <A-j>
+      imap ^[l <A-l>
+      imap ^[h <A-h>
+      imap ^[k <A-k>
+      imap ^[j <A-j>
+    endif
+    
+    " To have <A-h> available for the mappings below, search menu.vim for the
+    " first instance of &Help and change it to Hel&p so that <Alt-H>
+    " isn't used for the GUI Help menu
+    nmap <A-l> 4zl
+    nmap <A-h> 4zh
+    nmap <A-k> <C-y>
+    nmap <A-j> <C-e>
+    vmap <A-l> 4zl
+    vmap <A-h> 4zh
+    vmap <A-k> <C-y>
+    vmap <A-j> <C-e>
+    imap <A-l> <C-o>4zl
+    imap <A-h> <C-o>4zh
+    imap <A-k> <C-x><C-y>
+    imap <A-j> <C-x><C-e>
+<
+
+COMMENTS                                                    *vtw-400-comments*
+
+ vim:tw=78:et:ft=help:norl:

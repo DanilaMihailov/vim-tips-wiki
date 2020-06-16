@@ -1,0 +1,58 @@
+*vim-tips-wiki-977.txt*   Fix indentation                               *vtw-977*
+
+Tip 977 [https://vim.fandom.com/wiki/Fix_indentation]   Previous |vtw-976| Next |vtw-978|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+It's possible to reformat an entire file, or a section of a file, using Vim's 
+built-in |=| filter. Vim veterans often find this operator to be one of the 
+most useful in their repertoire, but so common that it becomes second-nature 
+and is rarely mentioned.
+
+In normal mode, typing `gg=G` will reindent the entire file. This is a 
+special case; `=` is an operator. Just like `d` or `y`, it will act on any 
+text that you move over with a cursor motion command. In this case, `gg` 
+positions the cursor on the first line, then `=G` re-indents from the current 
+cursor position to the end of the buffer.
+
+In visual mode, typing `=` will fix indentation of the current section. Thus, 
+an equivalent but less efficient command to accomplish the same as `gg=G` in 
+normal mode, would be `ggVG` to select the entire buffer in visual mode, 
+followed by `=` to re-indent the entire selection.
+
+The power of `=` is certainly not limited to the entire file. |==| will 
+re-indent just the current line, or the `=` operator can be combined with 
+|text-objects| for very powerful results.
+
+If you often re-indent large areas (like the entire file, or a large text 
+object), it can be useful to map a key to do it for you, using marks to 
+restore your position. To format and return the same line where you were, just 
+add this mapping to your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    map <F7> gg=G<C-o><C-o>
+<
+
+Now, just press <F7> whenever you want to format your file.
+
+Note, the `=` operator works using whatever automatic indentation settings 
+you have turned on. If you don't have this set up, see indenting source code 
+[https://vim.fandom.com/wiki/Indenting_source_code] before using.
+
+SEE ALSO                                                    *vtw-977-see-also*
+    - :help |30.3| 
+    - :help |indent-expression| 
+    - :help |indent.txt| 
+    - Indenting source code#Methods for automatic indentation 
+      [https://vim.fandom.com/wiki/Indenting_source_code#Methods_for_automatic_indentation] 
+
+
+REFERENCES                                                *vtw-977-references*
+    - :help |=| 
+
+
+COMMENTS                                                    *vtw-977-comments*
+
+ vim:tw=78:et:ft=help:norl:

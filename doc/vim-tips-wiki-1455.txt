@@ -1,0 +1,40 @@
+*vim-tips-wiki-1455.txt*   Jumps to a local/global definition by same key *vtw-1455*
+
+Tip 1455 [https://vim.fandom.com/wiki/Jumps_to_a_local/global_definition_by_same_key]   Previous |vtw-1454| Next |vtw-1456|
+
+created 2007 · complexity basic · author Shotaro Aoyama · version n/a
+
+==============================================================================
+
+When you want to jump to a definition of a variable, what do you do? Use 
+`C-]` or `gd`?
+
+`C-]` finds only global variables (and functions; ctags extracts only global 
+objects).
+
+On the other hand, `gd` detects only local variables.
+
+I think it's a bit complicated to choose between them. So I wrote this 
+function:
+
+>
+    function! GoDefinition()
+      let l:pos = getpos('.')
+      normal! gd
+      if getpos('.') == l:pos
+        execute 'tag' expand('<cword>')
+      endif
+    endfunction
+    nnoremap <C-]> :<C-U>call GoDefinition()<CR>
+<
+
+This function first does `gd` to try to find a local definition of a variable 
+under the cursor, and if it failed then probably the variable is a global 
+variable, so it tries `:tag`.
+
+This way, you can jump to the definition of both local and global variables 
+with the same key.
+
+COMMENTS                                                   *vtw-1455-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,72 @@
+*vim-tips-wiki-99.txt*   Identify the syntax highlighting group used at the cursor *vtw-99*
+
+Tip 99 [https://vim.fandom.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor]   Previous |vtw-97| Next |vtw-100|
+
+created 2001 · complexity intermediate · author Charles E. Campbell, Jr. · 
+version 6.0
+
+==============================================================================
+
+Here's a (what should be a one-line) map to help you tell just what syntax 
+highlighting groups the item under the cursor actually is:
+
+>
+    map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+<
+
+Once known you can override the current highlighting with whatever you want.
+
+If you're debugging a syntax highlighting file (a rare occupation), sometimes 
+you'll wish to know the entire chain of syntax highlighting. For that, see 
+HiLinkTrace [http://www.drchip.org/astronaut/vim/index.html#HILINKS].
+
+See also :help |synstack()|
+
+SEE ALSO                                                     *vtw-99-see-also*
+    - Showing syntax highlight group in statusline 
+      [https://vim.fandom.com/wiki/Showing_syntax_highlight_group_in_statusline] 
+
+
+COMMENTS                                                     *vtw-99-comments*
+
+Example: Looking at the syntax/vim.vim file's
+
+>
+    syn match vimSpecFile "<c\(word\|WORD\)>" nextgroup=...
+<
+
+Put the cursor on the "\(" in the string, press F10:
+
+>
+    hi<vimPatSep> trans<vimPatSep> lo<Special>
+<
+
+will show up on the status line. You may envisage the highlighting as a 
+push-down stack of highlighting groups. The "highest" one is the most limited 
+in scope, and is the name of the syntax keyword, match, or region. Generally 
+such a syntax group is linked to a highlighting group. The "lowest" one is the 
+basic highlighting specification, and probably has a broad reach -- in this 
+case, "Special" is a default highlighting group used in 179 syntax 
+highlighting files (vim 6.0) for a variety of purposes.
+
+Syntax groups can be specified as being transparent, so that whatever group 
+they're in is what is used for highlighting. If that's the case, the group 
+mentioned in "trans<>" will be the name of that group, else it is a repeat of 
+the "hi<>" group name.
+
+With the highlighting script (hilinks.vim), you'll get (via \hlt):
+
+>
+    vimPatSep -> SpecialChar -> Special
+<
+
+which shows the entire highlighting chain. Thus, a "\(" is identified as 
+being highlighted as a vimPatSep, which is a link to SpecialChar, which itself 
+is a link to Special. Actually a "\(" is a vimPatSepZone region which has 
+vimPatSep as its "matchgroup".
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

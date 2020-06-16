@@ -1,0 +1,169 @@
+*vim-tips-wiki-873.txt*   Cycle through buffers including hidden buffers *vtw-873*
+
+Tip 873 [https://vim.fandom.com/wiki/Cycle_through_buffers_including_hidden_buffers]   Previous |vtw-872| Next |vtw-874|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+This tip shows how to cycle through all of your buffers (including unlisted 
+buffers such as directory listings).
+
+For suggestions on how to switch to any other buffer see Easier buffer 
+switching [https://vim.fandom.com/wiki/Easier_buffer_switching].
+
+CYCLING THROUGH LISTED BUFFERS        *vtw-873-cycling-through-listed-buffers*
+
+The commands `:bnext` and `:bprevious` will switch to the next or previous 
+buffer in the buffer list. So a couple of useful maps for cycling through your 
+buffers are:
+
+>
+    :nnoremap <C-n> :bnext<CR>
+    :nnoremap <C-p> :bprevious<CR>
+<
+
+On gvim or if you use the NERDtree and/or Ctrlp Plugin, you may want to try 
+using Tab and Shift-Tab instead:
+
+>
+    :nnoremap <Tab> :bnext<CR>
+    :nnoremap <S-Tab> :bprevious<CR>
+<
+
+A list of your buffers can be shown after switching by using the following 
+maps:
+
+>
+    :nnoremap <A-n> :bnext<CR>:redraw<CR>:ls<CR>
+    :nnoremap <A-p> :bprevious<CR>:redraw<CR>:ls<CR>
+<
+
+The buffer you are currently editing will be shown with a '#'. From there you 
+should be able to get an idea of how far you have to go to the desired buffer 
+and then use the first set of maps to quickly navigate to it.
+
+INCLUDING UNLISTED BUFFERS IN THE CYCLE *vtw-873-including-unlisted-buffers-in-the-cycle*
+
+The `:bnext` and `:bprevious` commands skip unlisted buffers, which can prove 
+frustrating when buffers have been opened to view directory listings, or when 
+you want to view a buffer previously deleted with `:bdelete`. Consider the 
+following example.
+
+>
+    gvim ~ /etc/motd
+        gvim goes to directory ~
+      :bn
+        gvim goes to /etc/motd
+      :bp
+        but will not go back to ~, because it is unlisted
+      :ls!
+        ~ is shown in the list of buffers 1,2
+      :buf 1
+        have to give it the buffer number to find it
+<
+
+The problem gets worse with several levels of directory navigation. The 
+simplest solution for this are the following two mappings:
+
+>
+    :nnoremap <C-n> :execute ":buffer ".(bufnr("%") + 1)<CR>
+    :nnoremap <C-p> :execute ":buffer ".(bufnr("%") - 1)<CR>
+<
+
+This maps <C-n> to switch to the buffer which has a buffer number one higher 
+than the buffer number of the current buffer. While <C-p> cycles in the 
+opposite direction.
+
+However, this does not always work, because there might be holes in the 
+buffer numbers. For example, the buffer list may contain buffer numbers 1, 2, 
+6, 9, 10 and 14. Using the above map for <C-n> from buffer #6, would produce 
+the error message "E86: Buffer 7 does not exist". Also, unlike `:bnext` and 
+`:bprevious`, the above maps will cycle from non-help buffers to help buffers 
+and vice-versa.
+
+A solution is to write a function searching for the next buffer with 
+`bufexists()`, and checking its filetype with `getbufvar()`.
+
+>
+    function! SwitchToNextBuffer(incr)
+      let help_buffer = (&filetype == 'help')
+      let current = bufnr("%")
+      let last = bufnr("$")
+      let new = current + a:incr
+      while 1
+        if new != 0 && bufexists(new) && ((getbufvar(new, "&filetype") == 'help') == help_buffer)
+          execute ":buffer ".new
+          break
+        else
+          let new = new + a:incr
+          if new < 1
+            let new = last
+          elseif new > last
+            let new = 1
+          endif
+          if new == current
+            break
+          endif
+        endif
+      endwhile
+    endfunction
+    nnoremap <silent> <C-n> :call SwitchToNextBuffer(1)<CR>
+    nnoremap <silent> <C-p> :call SwitchToNextBuffer(-1)<CR>
+<
+
+LEAVING MODIFIED BUFFERS                    *vtw-873-leaving-modified-buffers*
+
+If Vim is running with its default settings, or in vi compatible mode, the 
+commands `:bnext`, `:bprevious` and `:buffer` won't abandon the buffer until 
+any changes have been written. There are a few ways this can be changed.
+    - The commands can be called with a trailing !, for example, `:bnext!`, which 
+      will discard any changes made to the buffer. 
+    - Setting the hidden option (`:set hidden`) will keep the changes to the buffer 
+      without writing them to the file. This affects all commands and all buffers. 
+    - Setting either the autowrite or the autowriteall options (`:set autowrite` or 
+      `:set autowriteall`) will automatically save the changes made to the buffer. 
+
+
+REFERENCES                                                *vtw-873-references*
+    - :help |:bnext| 
+    - :help |:bprevious| 
+    - :help |:bdelete| 
+    - :help |abandon| 
+    - :help |unlisted-buffer| 
+    - :help 'hidden' 
+    - :help 'autowrite' 
+    - :help 'autowriteall' 
+
+
+COMMENTS                                                    *vtw-873-comments*
+
+The following is a tweaked version of code from a proposed new tip 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200910#Easier_buffer_switching_with_buffer_listing] 
+(the author's original code is in the previous version of this page):
+
+>
+    function! GoBuf()
+      bnext
+      echon '    '
+      for buf in range(1, bufnr('$'))
+        echon '['
+        if bufloaded(buf)
+          echohl WarningMsg | echon bufname(buf) | echohl None
+        else
+          echon bufname(buf)
+        endif
+        echon ']  '
+      endfor
+    endfunction
+    map <F8> :call GoBuf()<CR>
+<
+
+Press the mapped keys to switch to the next buffer and display a list of all 
+buffers to indicate where you are. Problems: The list of buffers is often not 
+visible (it is overwritten by the `:bnext` message); if have many buffers, the 
+display is not helpful; after closing several buffers, the display includes 
+unhelpful blank entries. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 07:03, April 27, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,66 @@
+*vim-tips-wiki-1014.txt*   Visual selection of indent block            *vtw-1014*
+
+Tip 1014 [https://vim.fandom.com/wiki/Visual_selection_of_indent_block]   Previous |vtw-1012| Next |vtw-1016|
+
+created 2005 · complexity basic · author Robert Schols · version 5.7
+
+==============================================================================
+
+This command will make a visual selection of the lines that have the same 
+indent level or more as the current line.
+
+>
+    :exe "normal V" | let temp_var=indent(line(".")) | while indent(line(".")+1) >= temp_var | exe "normal j" | endwhile
+<
+
+COMMENTS                                                   *vtw-1014-comments*
+
+A slight modification, to select the area above the cursor position as well, 
+and the whole thing wrapped in a function (and nmapped to <Space>):
+
+>
+    function! SelectIndent ()
+      let temp_var=indent(line("."))
+      while indent(line(".")-1) >= temp_var
+        exe "normal k"
+      endwhile
+      exe "normal V"
+      while indent(line(".")+1) >= temp_var
+        exe "normal j"
+      endwhile
+    endfun
+    nmap <Space> :call SelectIndent()<CR>
+<
+
+==============================================================================
+
+Currently, I just `:set foldmethod=indent` and select the folded area.
+
+==============================================================================
+
+I believe this function might be better.
+
+>
+    function SelectIndent()
+      let cur_line = line(".")
+      let cur_ind = indent(cur_line)
+      let line = cur_line
+      while indent(line - 1) >= cur_ind
+        let line = line - 1
+      endw
+      exe "normal " . line . "G"
+      exe "normal V"
+      let line = cur_line
+      while indent(line + 1) >= cur_ind
+        let line = line + 1
+      endw
+      exe "normal " . line . "G"
+    endfunction
+    nnoremap vip :call SelectIndent()<CR>
+<
+
+--February 23, 2013
+
+Thanks, but any chance of mentioning why it is better? JohnBeckett (talk) 23:42, February 23, 2013 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

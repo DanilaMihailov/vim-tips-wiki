@@ -1,0 +1,79 @@
+*vim-tips-wiki-1370.txt*   Tracking clipboard changes                  *vtw-1370*
+
+Tip 1370 [https://vim.fandom.com/wiki/Tracking_clipboard_changes]   Previous |vtw-1369| Next |vtw-1373|
+
+created 2006 · complexity intermediate · author Marian Csontos · version 5.7
+
+==============================================================================
+
+Do you ever wanted to append lines from various sources (or to copy data from 
+some application without any reasonable export method) to one file?
+
+Here is a pretty simple solution for Vim. Just copy all you need to the 
+clipboard and Vim can do the rest.
+
+First you need to start Vim, open desired buffer (named buffer required as 
+script do autosave) and run TrackClipboard function:
+
+>
+    :call TrackClipboard('==============================================================')
+<
+
+The function monitors the clipboard; when it is changed, add data to 
+clipboard (or do whatever you want).
+
+>
+    function! TrackClipboard(delim)
+      let timer1 = 0
+      let temp = @*
+      while @*!='EOF'
+        if temp != @*
+          let temp = @*
+          $put =a:delim
+          $put =temp
+        else
+          " autowrite and redraw every cca 5s
+          let timer1 += 1
+          if timer1 >= 100
+            if &modified
+              write
+              redraw
+            endif
+            let timer1 = 0
+          else
+            sleep 50ms
+          endif
+        endif
+      endwhile
+    endfunction
+<
+
+RELATED SCRIPTS                                     *vtw-1370-related-scripts*
+    - CaptureClipboard [https://www.vim.org/scripts/script.php?script_id=3246] 
+      contains a greatly enhanced plugin that is based on this tip. It offers 
+      feedback on the number of captures, trimming of white space, append as well as 
+      prepend not just to the end of the buffer, arbitrary delimiters and many 
+      configurable defaults. 
+
+
+COMMENTS                                                   *vtw-1370-comments*
+
+>
+    " to automatically save modified buffer, and simplify your function.
+    :set autosave
+<
+
+The 'autosave' option is in the todo list, but as of Vim 7.3.000 not yet implemented. -- Inkarkat 13:19, September 20, 2010 (UTC)
+
+==============================================================================
+
+Use `:set paste` to avoid autoindent applying to pasted text, in a terminal.
+
+Also, you may need `:set noexpandtab` to stop Vim from expanding tabs to 
+spaces.
+
+This is not necessary; the :put command that is used in the function already inserts the text literally. -- Inkarkat 13:19, September 20, 2010 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

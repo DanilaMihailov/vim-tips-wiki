@@ -1,0 +1,57 @@
+*vim-tips-wiki-676.txt*   Use shortcut key to start gvim in Windows     *vtw-676*
+
+Tip 676 [https://vim.fandom.com/wiki/Use_shortcut_key_to_start_gvim_in_Windows]   Previous |vtw-675| Next |vtw-677|
+
+created March 13, 2004 · complexity basic · author LunLun · version 6.0
+
+==============================================================================
+
+I want to open gvim, in Windows XP, using a shortcut key.
+
+To do this, I made a shortcut to gvim, and I assigned a shortcut key in the 
+Properties menu.
+
+However, I can start the first instance of gvim, but the same combination 
+will not allow me to start the second instance; it will just display the first 
+one.
+
+My solution was to create a shortcut in the Start Menu. Now, I press and 
+release the "Windows" key, and then press "g" once. It can launch an unlimited 
+number of instances of Vim. Sometimes, I need to write a script in one 
+instance and to see the output in another.
+
+SEE ALSO                                                    *vtw-676-see-also*
+    - Minimize and restore gvim under Windows using shortcut keys 
+      [https://vim.fandom.com/wiki/Minimize_and_restore_gvim_under_Windows_using_shortcut_keys] 
+
+
+COMMENTS                                                    *vtw-676-comments*
+
+I used this shortcut target, under the "\Doc*Settings\All Users\Start Menu":
+
+>
+    "C:\Program Files\gvim\vim62\gvim.exe" "c:/"
+<
+
+Vim opens the root dir of c:, from which I can navigate and open the desired 
+file w/o a mouse and Win Explorer.
+
+==============================================================================
+
+Where all else fails there is always autohotkey [http://www.autohotkey.com/]
+
+==============================================================================
+
+Another way to use a shortcut key to execute more than one instance of gvim 
+is to use Rundll32.exe and the ShellExec_RunDLL function. For example:
+
+>
+    C:\WINDOWS\system32\rundll32.exe Shell32.dll,ShellExec_RunDLL "C:\Program Files\Vim\vim72\gvim.exe"
+<
+
+==============================================================================
+
+There is an article somewhere on the wiki about using and as a shortcut 
+key...
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,24 @@
+*vim-tips-wiki-642.txt*   Use K to easily run a Windows program for the current word *vtw-642*
+
+Tip 642 [https://vim.fandom.com/wiki/Use_K_to_easily_run_a_Windows_program_for_the_current_word]   Previous |vtw-641| Next |vtw-643|
+
+created January 21, 2004 · complexity basic · author David Risner · version 
+6.0
+
+==============================================================================
+
+To get the K command to open a Windows program without creating a command 
+prompt window that needs to be closed, you can do the following:
+
+In your vimrc add:
+
+>
+    map K yiw:exec "silent !".&kp." ".@0<CR>
+<
+
+You can then set the keywordprg (abbreviated kp above) to the program you 
+want to run.
+
+COMMENTS                                                    *vtw-642-comments*
+
+ vim:tw=78:et:ft=help:norl:

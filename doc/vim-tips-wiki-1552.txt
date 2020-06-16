@@ -1,0 +1,91 @@
+*vim-tips-wiki-1552.txt*   Launch files in new tabs under Unix         *vtw-1552*
+
+Tip 1552 [https://vim.fandom.com/wiki/Launch_files_in_new_tabs_under_Unix]   Previous |vtw-1551| Next |vtw-1553|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200804#Launch_files_in_new_tabs_under_Unix] 
+2008 · complexity basic · author MagnusBerg · version 7.0
+
+==============================================================================
+
+Here is how to open files in new tabs, instead of new instances of gvim, 
+under Unix. It works even when you mouse click to open files in a file 
+manager.
+
+DESKTOP ENTRY                                         *vtw-1552-desktop-entry*
+
+In the `gvim.desktop` desktop file (`/usr/share/applications/` for most 
+GNU/Linux systems) look for the "Exec" line. It will probably be like this:
+
+>
+    Exec=gvim -f %F
+<
+
+Change the Exec line to:
+
+>
+    Exec=gvim -p --remote-tab-silent %F
+<
+
+You may also need to change the StartupNotify value to "false" if it is 
+currently set "true", or your Vim may not respond properly when the file is 
+already open in a tab 
+[http://groups.google.com/group/vim_use/browse_thread/thread/900bd471bc11a423].
+
+Note: Be aware that the desktop file is changed when you install a new 
+version of gvim, so you may need to repeat the following change after an 
+update.
+
+ALIAS                                                         *vtw-1552-alias*
+
+You can of course also use an `alias`:
+
+>
+    % alias gvim='gvim -p --remote-tab-silent'
+<
+
+Most GUI programs don't read aliases, but it is useful if you start gvim from 
+the shell.
+
+AUTOMATIC DESKTOP IDENTIFICATION USING SHELL SCRIPT *vtw-1552-automatic-desktop-identification-using-shell-script*
+
+If you want to automatically open into the gvim window on the current 
+desktop, use the following bash script:
+
+>
+    #!/bin/bash
+    
+    this=$(basename $0); # vim|gvim|rvim etc...
+    desktop=desktop_$(xprop -root -notype  _NET_CURRENT_DESKTOP | perl -pe 's/.*?= (\d+)/$1/')
+    
+    if [ $# != 0 ]; then
+    	exec /usr/bin/$this --servername $desktop --remote-tab-silent "$@"
+    elif ! vim --serverlist | grep -iq $desktop; then
+    	exec /usr/bin/$this --servername $desktop
+    fi
+<
+
+(script originally from https://gist.github.com/966205 
+[https://gist.github.com/966205])
+
+Save this bash script as /usr/local/bin/gvim to override the global Vim 
+installation, which it will call into (assuming your global installation is in 
+/usr/bin).
+
+The script queries the X server for the current desktop, queries Vim for 
+running Vim instances with --serverlist. When you run this script it will open 
+a file in a new tab in an existing gvim window on the current desktop, or open 
+new one if no gvim window exists on the current desktop, using --servername in 
+both cases to specify a name for the new Vim instance which is specific to the 
+current desktop. If no file was given and gvim is already running on the 
+desktop, the script does nothing.
+
+
+
+SEE ALSO                                                   *vtw-1552-see-also*
+    - Launch files in new tabs under Windows |vtw-1440| 
+
+
+COMMENTS                                                   *vtw-1552-comments*
+
+ vim:tw=78:et:ft=help:norl:

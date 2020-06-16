@@ -1,0 +1,147 @@
+*vim-tips-wiki-954.txt*   Restore state of edited files when reopened   *vtw-954*
+
+Tip 954 [https://vim.fandom.com/wiki/Restore_state_of_edited_files_when_reopened]   Previous |vtw-952| Next |vtw-955|
+
+created 2005 · complexity advanced · author Peter · version 5.7
+
+==============================================================================
+
+When using vim/gvim, we often open many subwindows in one vim/gvim. but when 
+we terminate vim/gvim, the subwindows, marks, and contents in registers will 
+be lost. using the pasted contents below, we can keep all and bring us back to 
+the original circumstance.when we reopen a file edited before, it seems we 
+have never close them. it's very useful to develop projects.
+
+In /etc/vim/gvimrc, add the following two lines
+
+>
+    au VimLeave * mksession! ~/.vim/session/%:t.session
+    au VimLeave * wviminfo! ~/.vim/session/%:t.viminfo
+<
+
+write a script named gvims
+
+>
+    #!/bin/sh
+    if [ -r ~/.vim/session/$1.session ]; then
+    gvim "+source ~/.vim/session/$1.session" "+rviminfo ~/.vim/session/$1.viminfo"
+    else
+    gvim $1
+    fi
+<
+
+COMMENTS                                                    *vtw-954-comments*
+
+I'd recommend you to check v:this_session before saving the session. If you 
+edit many files within single session, the way your tip works will depend on 
+the buffer you're in when performing :qa. You will probably have a 
+session-file saved for each buffer your session contains, because %:t will 
+expand to different names in different buffers.
+
+==============================================================================
+
+Nice suggestion! I now use:
+
+add the following two lines to /etc/vim/gvimrc or /etc/vim/gvimrc.local
+
+>
+    au VimLeave * exe ' if strlen(v:this_session) | exe "wviminfo! " . v:this_session . ".viminfo" | else | wviminfo! ~/.vim/session/%:t.session.viminfo | endif '
+    au VimLeave * exe 'if strlen(v:this_session) | exe "mksession! " . v:this_session | else | mksession! ~/.vim/session/%:t.session | endif '
+<
+
+shellscript gvims:
+
+>
+    #!/bin/sh
+    if [ -r ~/.vim/session/$1.session ]; then
+    gvim "+source ~/.vim/session/$1.session" "+rviminfo ~/.vim/session/$1.session.viminfo"
+    else
+    gvim $1
+    fi
+<
+
+==============================================================================
+
+Improve it again.
+
+>
+    au VimLeave * exe ' if strlen(v:this_session) | exe "wviminfo! " . v:this_session . ".viminfo" | else | exe "wviminfo! " . "~/.vim/session/" . g:myfilename . ".session.viminfo" | endif '
+    au VimLeave * exe 'if strlen(v:this_session) | exe "mksession! " . v:this_session | else | exe "mksession! " . "~/.vim/session/" . g:myfilename . ".session" | endif '
+<
+
+script gvims:
+
+>
+    #!/bin/sh
+    if [ -r ~/.vim/session/$1.session ]; then
+    gvim "+source ~/.vim/session/$1.session" "+rviminfo ~/.vim/session/$1.session.viminfo"
+    else
+    gvim "+let g:myfilename = \"$1\" "
+    fi
+<
+
+If we start with a project named "storm", just enter the command "gvims 
+storm", then gvim will open a empty windows.Do what you want to do in gvim. If 
+you have to stop your work for some reasons, just type ":wa", then ":qa" and 
+leave.When you want to continue your work sometime later, just enter "gvims 
+storm". Everything is just restored.
+
+In addition, using "g:myprojectname" instead of "g:myfilename" above should 
+be more better.
+
+==============================================================================
+
+The scripts above is optimized to avoid the conflict between gvim and gvims.
+
+in gvimrc or gvimrc.local
+
+>
+    au VimLeave * exe 'if exists("g:cmd") && g:cmd == "gvims" | if strlen(v:this_session) | exe "wviminfo! " . v:this_session . ".viminfo" | else | exe "wviminfo! " . "~/.vim/session/" . g:myfilename . ".session.viminfo" | endif | endif '
+    au VimLeave * exe 'if exists("g:cmd") && g:cmd == "gvims" | if strlen(v:this_session) | exe "mksession! " . v:this_session | else | exe "mksession! " . "~/.vim/session/" . g:myfilename . ".session" | endif | endif'
+<
+
+>
+    #!/bin/sh
+    if [ -r ~/.vim/session/$1.session ]; then
+    gvim "+source ~/.vim/session/$1.session" "+rviminfo ~/.vim/session/$1.session.viminfo" "+let g:cmd = \"gvims\" " "+command Noprj let g:cmd = \"\" "
+    else
+    gvim "+let g:myfilename = \"$1\" " "+let g:cmd = \"gvims\" " "+command Noprj let g:cmd = \"\" "
+    fi
+<
+
+==============================================================================
+
+What if I want to open a file in vim and want the cursor back at the 
+beginning of the first line, instead of where it was before Ieft in the 
+previous edit? Also, what to do to reset the search string used last time?
+
+==============================================================================
+
+If want the cursor back to the first line, use this in vimrc:
+
+>
+    au BufWinEnter * exe 'normal gg'
+<
+
+You can even let the cursor go to arbitrary line you want, check this one:
+
+>
+    au BufWinEnter * exe 'normal 6gg'
+<
+
+This entry let the cursor go to the 6th line.
+
+==============================================================================
+
+ALTERNATIVE: SESSION.VIM PLUG-IN    *vtw-954-alternative:-session.vim-plug-in*
+
+The session.vim plug-in [http://peterodding.com/code/vim/session/] 
+(script#3150 [https://www.vim.org/scripts/script.php?script_id=3150]) extends 
+the concepts on this page into a more full featured session manager that 
+supports automatic session management (using a `default' session), manual 
+session management (using named sessions) and restoring of dynamic windows 
+created by plug-ins such as NERD tree 
+[https://www.vim.org/scripts/script.php?script_id=1658] and Project 
+[https://www.vim.org/scripts/script.php?script_id=69].
+
+ vim:tw=78:et:ft=help:norl:

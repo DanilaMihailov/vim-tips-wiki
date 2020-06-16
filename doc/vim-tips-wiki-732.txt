@@ -1,0 +1,60 @@
+*vim-tips-wiki-732.txt*   Quick launch html and other Windows documents *vtw-732*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip628 |vtw-628| 
+    - VimTip306 |vtw-306| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 732 [https://vim.fandom.com/wiki/Quick_launch_html_and_other_Windows_documents]   Previous |vtw-727| Next |vtw-733|
+
+created May 22, 2004 · complexity basic · author Yasuoki Mutoh · version 6.0
+
+==============================================================================
+
+First, try the following command in your Vim.
+
+>
+    :!start explorer http://www.vim.org/
+<
+
+You will see the Vim home page in the browser. That's OK.
+
+Then, it'll be much quicker if a menu icon is defined like this.
+
+Triple crick on url and click icon, then you'll get the url in your browser.
+
+But inserting a new icon is not easy, so replace existing one.
+
+Following is the part of "$VIM_HOME\vim\vim61\menu.vim" that shows "Open New" 
+icon replaced with "Start Explore" definition.
+
+>
+    if 1 " disabled; These are in the Windows menu " Replaced 0 to 1.
+      an 1.135 ToolBar.-sep4- <Nop>
+      "an 1.140 ToolBar.New <C-W>n " Commented.
+      vnoremenu 1.140 ToolBar.New "wy:!start explorer <C-R>w<CR> " Added.
+      tmenu ToolBar.New Start Explorer " Tool tip added.
+      an 1.150 ToolBar.WinSplit <C-W>s
+      ...
+      ...
+    endif
+<
+
+Note
+
+The named buffer "w" is used for not disturbing clip board.
+
+Remove comment on Tool tip line.
+
+COMMENTS                                                    *vtw-732-comments*
+
+See VimTip628 |vtw-628|, VimTip394 |vtw-394|
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

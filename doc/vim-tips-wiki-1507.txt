@@ -1,0 +1,49 @@
+*vim-tips-wiki-1507.txt*   Decrease chances of file corruption in case of computer crash *vtw-1507*
+
+Tip 1507 [https://vim.fandom.com/wiki/Decrease_chances_of_file_corruption_in_case_of_computer_crash]   Previous |vtw-1506| Next |vtw-1508|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Decrease_chances_of_file_corruption_in_case_of_computer_crash] 
+2007 · complexity intermediate · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+Bad luck happens.
+
+On the Vim mailing list, one user complained about irrepairable file 
+corruption that happened after OS crash and reboot. The filesystem repair 
+utility, fsck, dutily repaired the filesystem at the expense of losing large 
+pieces of data from his file. Yick. Recently changed files suffer most danger 
+if OS crashes.
+
+The following autocommand will decrease chances of file loss in case of 
+unexpected hardware failure or unexpected electricity failure:
+
+>
+    " disk sync after every write
+    au BufWritePost * silent !sync
+<
+
+May uninterrupted power be with you.
+
+COMMENTS                                                   *vtw-1507-comments*
+    - Be careful, this can freeze your vim session on heavy disk io, e.g. writing 
+      to a slow usb flash. 
+    - Setting option 'swapsync' might be an alternative to the mentioned 
+      autocommand. 
+
+
+==============================================================================
+
+Well, bad luck happens, but irrepairable filesystem corruption is extremely 
+rare on journalising filesystems. I use reiserfs, because that was the only 
+one which was available and "stably" supported when I installed a new drive 
+some years ago; but on recent Linux kernels ext3 and (even better, I've been 
+told) ext4 filesystems are recommended, with the advantage that you can 
+convert an ext2 filesystem to them in-place. An other, very old, trick 
+consists in saving your data to disk at intervals of between five minutes and 
+a quarter-hour, and also every time you leave the keyboard, even if it's just 
+to take a leak. — Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 16:14, 
+September 11, 2011 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

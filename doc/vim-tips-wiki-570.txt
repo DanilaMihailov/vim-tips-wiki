@@ -1,0 +1,52 @@
+*vim-tips-wiki-570.txt*   Align text into a table                       *vtw-570*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip893 |vtw-893| 
+    - VimTip139 |vtw-139| 
+    - VimTip894 |vtw-894| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 570 [https://vim.fandom.com/wiki/Align_text_into_a_table]   Previous |vtw-569| Next |vtw-571|
+
+created September 30, 2003 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+Align badly formatted text into a table by selecting the region, then 
+pressing <A-a>. This case aligns the '='; you decide the centering string 
+before pressing return.
+
+You need the perl script "align" from 
+http://www.cs.albany.edu/~mosh/Perl/align 
+[http://www.cs.albany.edu/~mosh/Perl/align].
+
+Mapping is:
+
+>
+    :vmap <A-a> !perl ~/perl/align -c:=
+<
+
+Example input:
+
+>
+    " x = 1;
+    " xyz = 245;
+    " a=1;
+<
+
+Example output:
+
+>
+    " x   = 1;
+    " xyz = 245;
+    " a   = 1;
+<
+
+COMMENTS                                                    *vtw-570-comments*
+
+ vim:tw=78:et:ft=help:norl:

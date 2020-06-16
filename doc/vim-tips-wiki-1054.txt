@@ -1,0 +1,122 @@
+*vim-tips-wiki-1054.txt*   Modified undo behavior                      *vtw-1054*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip436 |vtw-436| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 1054 [https://vim.fandom.com/wiki/Modified_undo_behavior]   Previous |vtw-1053| Next |vtw-1055|
+
+created 2005 · complexity intermediate · author Nigeria · version 6.0
+
+==============================================================================
+
+I was getting frustrated with the default undo behavior in Vim because 
+sometimes one of my "changes" would be very long (many lines), and I would 
+want to undo one line at a time. So I came up with the idea to change the 
+behavior with the following code that can be inserted into your vimrc:
+
+>
+    function! EnterStuff()
+      let theLine = getline(line("."))
+      let pos = col("'^")
+      execute "normal mqu\<C-r>`q"
+      if(pos > len(theLine))
+        startinsert!
+      else
+        if(pos > 1)
+          normal l
+        endif
+        startinsert
+      endif
+    endfunction
+    
+    function! ChangeUndoMode(theNum)
+      if(a:theNum == 1)
+        inoremap <C-w> <C-w>^O^[
+        inoremap <CR> <Esc>:call EnterStuff()<CR><CR>
+      elseif(a:theNum == 2)
+        inoremap <C-w> <C-w>^O^[
+        inoremap <BS> <BS>^O^[
+        inoremap <DEL> <DEL>^O^[
+        inoremap <CR> <Esc>:call EnterStuff()<CR><CR>
+      else
+        iunmap <C-w>
+        iunmap <BS>
+        iunmap <DEL>
+        iunmap <CR>
+      endif
+    endfunction
+    call ChangeUndoMode(1)
+    nmap \sun :call ChangeUndoMode(1)<CR>
+    nmap \gun :call ChangeUndoMode(2)<CR>
+    nmap \bun :call ChangeUndoMode(3)<CR>
+<
+
+Be sure to write "^O^[" as two characters: ctrl-o and ESC.
+
+So the above code works fairly well. <C-w>, <BS>, <DEL>, <CR> all add to the 
+undo list. The <CR> one took me a long time to figure out. The way it is done 
+in the above code is the only way I know that doesn't mess up indentation. 
+^O^[ automatically screws up indentation.
+
+COMMENTS                                                   *vtw-1054-comments*
+
+You can use <c-g>u to break the undo chain:
+
+>
+    inoremap <BS> <c-g>u<BS>
+    inoremap <CR> <c-g>u<CR>
+    inoremap <del> <c-g>u<del>
+    inoremap <c-w> <c-g>u<c-w>
+<
+
+should have the same effects.
+
+==============================================================================
+
+One more thing you can do is hit <End> while typing a sentence to end the 
+undo sequence. The only reason <C-g>u is needed in the above example is 
+because it doesn't screw up auto-indentation. Normally though, hitting <End> 
+is a great way to end the undo sequence.
+
+==============================================================================
+
+My <End> does not break the undo chain. I had to explicitly imap it to do so:
+
+>
+    inoremap <End> <C-g>u<End>
+<
+
+==============================================================================
+
+The <C-G>u trick seems not to be mentioned in gvim 6.1 docs and does not work 
+either with this version.
+
+==============================================================================
+
+Be careful: "<C-g>u<Space>" breaks abbreviations induced by a <Space>
+
+==============================================================================
+
+Very odd. Try
+
+>
+    :imap <Space> <Space><C-g>u
+<
+
+to make abbrevs work. Do not try
+
+>
+    :imap <Space> <C-g>u<Space>
+<
+
+Vim will hang after using Space (use <C-c> to stop).
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

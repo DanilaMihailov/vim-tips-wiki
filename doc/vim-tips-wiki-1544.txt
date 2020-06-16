@@ -1,0 +1,60 @@
+*vim-tips-wiki-1544.txt*   Generate accessor and setter methods from variable names *vtw-1544*
+
+Tip 1544 [https://vim.fandom.com/wiki/Generate_accessor_and_setter_methods_from_variable_names]   Previous |vtw-1543| Next |vtw-1545|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200801#Generate_accessor_and_setter_methods_from_variable_names] 
+January 12, 2008 · complexity basic · author Gmonfort · version 7.0
+
+==============================================================================
+
+If everytime you start writing a class need to declare a lot of private 
+instance variables and their corresponding accessor and setter public methods, 
+you might find this mappings useful.
+
+>
+    " Public Accessors
+    map <F3> :s/\(\(\w\)\(\w\+\)\).*/public function get\u\2\3(){\r\treturn \$this->\1;\r}/<CR>
+    " Public Setters
+    map <S-F3> :s/\(\(\w\)\(\w\+\)\).*/public function set\u\2\3(\$\1){\r\t\$this->\1 = \$\1;\r}/<CR>
+<
+
+Which will transform this:
+
+>
+    variable1
+    variable2
+    variable3
+<
+
+Into this (using first mapping):
+
+>
+    public function getVariable1(){
+      return $this->variable1;
+    }
+    public function getVariable2(){
+      return $this->variable2;
+    }
+    public function getVariable3(){
+      return $this->variable3;
+    }
+<
+
+Or this (using second mapping):
+
+>
+    public function setVariable1($variable1){
+      $this->variable1 = $variable1;
+    }
+    public function setVariable2($variable2){
+      $this->variable2 = $variable2;
+    }
+    public function setVariable3($variable3){
+      $this->variable3 = $variable3;
+    }
+<
+
+COMMENTS                                                   *vtw-1544-comments*
+
+ vim:tw=78:et:ft=help:norl:

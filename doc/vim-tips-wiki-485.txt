@@ -1,0 +1,139 @@
+*vim-tips-wiki-485.txt*   Open a window with the man page for the word under the cursor *vtw-485*
+
+Tip 485 [https://vim.fandom.com/wiki/Open_a_window_with_the_man_page_for_the_word_under_the_cursor]   Previous |vtw-484| Next |vtw-488|
+
+created 2003 · complexity intermediate · author munk · version 6.0
+
+==============================================================================
+
+This short function opens a new window and reads in the Unix man page for the 
+word under the cursor. To use it add the following to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    fun! ReadMan()
+      " Assign current word under cursor to a script variable:
+      let s:man_word = expand('<cword>')
+      " Open a new window:
+      :exe ":wincmd n"
+      " Read in the manpage for man_word (col -b is for formatting):
+      :exe ":r!man " . s:man_word . " | col -b"
+      " Goto first line...
+      :exe ":goto"
+      " and delete it:
+      :exe ":delete"
+    endfun
+    " Map the K key to the ReadMan function:
+    map K :call ReadMan()<CR>
+<
+
+OPEN A PAGE FROM A PARTICULAR SECTION IN A NEW TERMINAL *vtw-485-open-a-page-from-a-particular-section-in-a-new-terminal*
+
+You might like to be able to hit a key to launch a man page from a certain 
+man section for the word under the cursor:
+
+>
+    command -nargs=0 -range ManInGnomeTerm !gnome-terminal --execute bash -i -c 'man $(if [ $(( <line2> - <line1> + 1 )) -ne 1 ]; then echo $(( <line2> - <line1> + 1 )); fi) <cword> || (echo "man lookup failed" 1>&2 && read)'
+    nnoremap <silent> K :ManInGnomeTerm<CR><CR>
+<
+
+This will look up the word under the cursor in a new gnome-terminal. If you 
+press a number key first, it looks only in that manual section (unless the 
+number is 1, in which case you don't need it anyway...). There is one small 
+bug when you try to look in a particular section while near the end of the 
+file, as this results in an Invalid Range error. Just add a few blank lines at 
+the bottom to work around this issue.
+
+This approach is perhaps most graceful if you are also using vim as a 
+syntax-highlighting pager 
+[https://vim.fandom.com/wiki/Using_vim_as_a_syntax-highlighting_pager] and/or 
+using vim as a man-page viewer under Unix 
+[https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix].
+
+REFERENCES                                                *vtw-485-references*
+    - :help |windows| 
+    - :help |:wincmd| 
+
+
+The col command may differ on your version of Unix, see col(1) for details.
+
+COMMENTS                                                    *vtw-485-comments*
+
+Addendum:
+
+"AFTER THIS:
+
+>
+    " and delete it:
+    :exe ":delete"
+<
+
+" ADD THIS!:
+
+>
+    " finally set file type to 'man':
+    :exe ":set filetype=man"
+<
+
+Which formats the page for man type (make sure to 'setenv TERM xterm' first 
+or similar to see the pwetty colours :)
+
+==============================================================================
+
+Note that if you're using a recent version of groff, you may have to disable 
+SGR (Ansi escape sequences) in order to view man pages within vim. If you see 
+a whole lot of garbage on the screen, try adding to your .vimrc the line:
+
+>
+    let $GROFF_NO_SGR=1
+<
+
+==============================================================================
+
+Also take a look at ":e $VIMRUNTIME/ftplugin/man.vim".
+
+==============================================================================
+
+I'd rather put in my ~/.vimrc:
+
+>
+    source $VIMRUNTIME/ftplugin/man.vim
+    nnoremap K :Man <C-R><C-W><CR>
+<
+
+==============================================================================
+
+I had the problem that it would open the new window, but loaded the man page 
+itself into the old window. Changing:
+
+>
+    :exe ":wincmd n"
+<
+
+to
+
+>
+    :exe ":new"
+<
+
+fixed it for me.
+
+==============================================================================
+
+Of course, you could use script#489 
+[https://www.vim.org/scripts/script.php?script_id=489] to do this, too. In 
+addition, one gets :Man topic as well as the use of K to look up the word 
+under the cursor.
+
+==============================================================================
+
+This also works:
+
+>
+    source $VIMRUNTIME/ftplugin/man.vim
+    nmap K :Man <cword><CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

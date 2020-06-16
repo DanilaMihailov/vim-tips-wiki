@@ -1,0 +1,85 @@
+*vim-tips-wiki-69.txt*   Repeat last change                              *vtw-69*
+
+Tip 44 [https://vim.fandom.com/wiki/Repeat_last_change]   Previous |vtw-43| Next |vtw-45|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+The "`.`" command repeats the last change made in normal mode. For example, 
+if you press `dw` to delete a word, you can then press `.` to delete another 
+word (`.` is dot, aka period or full stop).
+
+The "`@:`" command repeats the last command-line change (a command invoked 
+with "`:`", for example `:s/old/new/`).
+
+You can move the cursor before using either of the repeat commands.
+
+Suppose you press `dd` to delete a line. Next, you might move the cursor, 
+then press `5.` (`5` then dot). That will delete 5 lines.
+
+In normal mode, press `J` to join the next line onto the current line. Press 
+`.` to join more lines.
+
+Or, you might use insert mode to type "`hello `". Press Esc for normal mode, 
+then move the cursor, and press `.` to insert "hello " again.
+
+COPY A WORD TO MULTIPLE LOCATIONS   *vtw-69-copy-a-word-to-multiple-locations*
+
+Type `yiw` to copy the current word. Move the cursor to a new location, then 
+type ciw<C-R>0<Esc> to change the word, replacing it with the copied text. 
+After moving the cursor to a new location, press `.` to repeat the operation 
+(the current word will be replaced with the word that was originally copied). 
+See replace a word with yanked text 
+[https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text].
+
+COPY A LINE TO MULTIPLE LOCATIONS   *vtw-69-copy-a-line-to-multiple-locations*
+
+Move the cursor to the wanted line and press `Y` to copy it. Move the cursor 
+to a new location, then press `p` to paste the line after the current line, or 
+`P` to paste before the current line. After moving the cursor to a new 
+location, press `.` to repeat the paste.
+
+It is also possible to paste the copied line over the destination (replacing 
+the current line). To do that once, copy the wanted line with `Y`, then move 
+to the destination, press `V` to visually select the destination line, then 
+`p` to paste the copied line over the selected line.
+
+A different procedure should be used if the replace operation needs to be 
+repeated. Move the cursor to the wanted line and type `0y$` to copy the line, 
+without the line ending (`0` moves to the beginning of the line; `y$` copies 
+to the end of the line). Move the cursor to a new location, then type 
+S<C-R>0<Esc> (`S` then Ctrl-R then `0` then Escape). After moving the cursor 
+to a new location, press `.` to repeat the operation (the current line will be 
+replaced with the line that was originally copied).
+
+Explanation: Pressing `S` deletes all text from the current line (but not the 
+line ending) and starts an insert operation. In insert mode, pressing Ctrl-R 
+inserts the contents of a register. Register `0` (zero) contains the text that 
+was copied with `y$`.
+
+SEE ALSO                                                     *vtw-69-see-also*
+    - Using command-line history |vtw-45| 
+    - Repeat command on each line in visual block |vtw-84| 
+    - Recording keys for repeated jobs |vtw-144| 
+    - Repeat last colon command |vtw-990| 
+    - Repeating an ex command on multiple blocks |vtw-1118| 
+    - Repeat last command and put cursor at start of change |vtw-1142| 
+
+
+REFERENCES                                                 *vtw-69-references*
+    - :help |single-repeat| 
+
+
+COMMENTS                                                     *vtw-69-comments*
+    - plugin repeat.vim [https://vim.fandom.com/wiki/Script:2136] (repeat.vim 
+      [https://www.vim.org/scripts/script.php?script_id=2136]) to repeat your own 
+      complex mappings and functions; see comments in script header for use 
+    - `@@` to repeat last played macro 
+    - `n`, `N`, `;`, `,` to repeat searches 
+    - `&` to repeat subsititution 
+    - |i_CTRL-A| also known as |i_CTRL-R_.| 
+    - Undo and Redo [https://vim.fandom.com/wiki/Undo_and_Redo] 
+
+
+ vim:tw=78:et:ft=help:norl:

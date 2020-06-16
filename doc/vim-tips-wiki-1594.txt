@@ -1,0 +1,104 @@
+*vim-tips-wiki-1594.txt*   Command line file name completion           *vtw-1594*
+
+Tip 1594 [https://vim.fandom.com/wiki/Command_line_file_name_completion]   Previous |vtw-1593| Next |vtw-1595|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200807#Command_line_file_name_completion] 
+2008 · complexity basic · version 7.0
+
+==============================================================================
+
+In the Vim command line (after pressing `:`), you can use file name 
+completion after a command that expects a file name to be entered. For 
+example, if you type `:e my` then press Tab, the "`my`" will be expanded to 
+the next file name beginning with "my". This tip shows how to navigate 
+directories by easily removing components from the file name.
+
+REMOVING THE LAST PATH COMPONENT   *vtw-1594-removing-the-last-path-component*
+
+In the command line, when a file name is expected, you can press Tab or 
+Shift-Tab for the next or previous file name. After starting file name 
+completion, you can press Ctrl-N or Ctrl-P (next and previous) with the same 
+effect. In addition, the standard Ctrl-W is available to delete the last word 
+before the cursor.
+
+It may happen that you browse a directory, and want to browse another 
+directory:
+
+>
+    :e dir1/long-file-name1
+    :e dir1/long-file-name2
+    ...
+    :e dir1/long-file-name51
+<
+
+Now you want:
+
+>
+    :e dir2/
+<
+
+in the command line. You could press Ctrl-N to cycle through the rest of the 
+files, or press Ctrl-P to cycle back. Alternatively, you could press backspace 
+to delete long-file-name51, or press Ctrl-W five times to remove the words 
+"name51", "-", "file", "-" and "long" from the cmdline. A better procedure is 
+to use the following script.
+
+>
+    cnoremap <C-t> <C-\>e(<SID>RemoveLastPathComponent())<CR>
+    function! s:RemoveLastPathComponent()
+      return substitute(getcmdline(), '\%(\\ \|[\\/]\@!\f\)\+[\\/]\=$\|.$', '', '')
+    endfunction
+<
+
+Then you can press Ctrl-T to remove the last path component. It uses 
+'`isfname`', and stops at characters not included, except escaped spaces. At 
+least one character is always removed.
+
+==============================================================================
+
+>
+    " Variant, first removes the extension.
+    function! s:RemoveLastPathComponent()
+      let c = getcmdline()
+      let cRoot = fnamemodify(c, ':r')
+      return (c != cRoot ? cRoot : substitute(c, '\%(\\ \|[\\/]\@!\f\)\+[\\/]\=$\|.$', '', ''))
+    endfunction
+<
+
+==============================================================================
+
+All of the above always remove from the end of command line, regardless of 
+the current cursor position. (And that is mostly fine, since it's the most 
+common use case.) The following extends the last variant with performing 
+removal only left of the cursor.
+
+>
+    function! s:RemoveLastPathComponent()
+      let l:cmdlineBeforeCursor = strpart(getcmdline(), 0, getcmdpos() - 1)
+      let l:cmdlineAfterCursor = strpart(getcmdline(), getcmdpos() - 1)
+    
+      let l:cmdlineRoot = fnamemodify(cmdlineBeforeCursor, ':r')
+      let l:result = (l:cmdlineBeforeCursor ==# l:cmdlineRoot ? substitute(l:cmdlineBeforeCursor, '\%(\\ \|[\\/]\@!\f\)\+[\\/]\=$\|.$', '', '') : l:cmdlineRoot)
+      call setcmdpos(strlen(l:result) + 1)
+      return l:result . l:cmdlineAfterCursor
+    endfunction
+    cnoremap <C-BS> <C-\>e(<SID>RemoveLastPathComponent())<CR>
+<
+
+REFERENCES                                               *vtw-1594-references*
+    - :help |c_CTRL-N| 
+    - :help |c_CTRL-P| 
+    - :help |compl-filename| 
+    - :help 'isfname' 
+
+
+RELATED PLUGINS                                     *vtw-1594-related-plugins*
+    - CmdlineSpecialEdits.vim 
+      [https://www.vim.org/scripts/script.php?script_id=5865] has a `CTRL-BS` 
+      mapping that has been inspired by this Wiki page 
+
+
+COMMENTS                                                   *vtw-1594-comments*
+
+ vim:tw=78:et:ft=help:norl:

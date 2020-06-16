@@ -1,0 +1,25 @@
+*vim-tips-wiki-286.txt*   Recover overwritten file                      *vtw-286*
+
+Tip 286 [https://vim.fandom.com/wiki/Recover_overwritten_file]   Previous |vtw-285| Next |vtw-288|
+
+created 2002 · complexity basic · author Little Dragon · version 5.7
+
+==============================================================================
+
+I was once editing a file and wanted to test something. The test was meant to 
+add a line at the end of the file, from outside Vim. All was fine, but instead 
+of >> to append the output to the file, I wrote > to replace the file with the 
+output by mistake.
+
+If you happen to do something like that, the solution is:
+
+>
+    :recover
+<
+
+This command only works if you have a swap file. If you do not have a swap 
+file, the recover command will not work.
+
+COMMENTS                                                    *vtw-286-comments*
+
+ vim:tw=78:et:ft=help:norl:

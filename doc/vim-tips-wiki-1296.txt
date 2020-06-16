@@ -1,0 +1,205 @@
+*vim-tips-wiki-1296.txt*   Display the name of the function you are editing *vtw-1296*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip945 |vtw-945| 
+    - VimTip1087 |vtw-1087| 
+    - VimTip1267 |vtw-1267| 
+    - VimTip1454 |vtw-1454| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 1296 [https://vim.fandom.com/wiki/Display_the_name_of_the_function_you_are_editing]   Previous |vtw-1295| Next |vtw-1297|
+
+created 2006 · complexity intermediate · author Alex Esplin · version 6.0
+
+==============================================================================
+
+In looking through the various tips/scripts available, I couldn't find 
+anything to show the name of the function I was editing if it was nested, such 
+as a member function of a sub-class. Everything else I could find looked in 
+the first column for the latest '{'.To enable this, add the following to your 
+.gvimrc or .vimrc: (I left the comments so anyone who wants to modify this can 
+easily follow it)
+
+>
+    fun FunctionName()
+      "set a mark at our current position
+      normal mz
+      "while foundcontrol == 1, keep looking up the line to find something that
+      "isn't a control statement
+      let foundcontrol = 1
+      while (foundcontrol)
+        "find the previous '{' and get the line above it
+        ?{
+        normal k0
+        let tempstring = getline(".")
+        "if the line matches a control statement, set found control to 1 so
+        "we can look farther back in the file for the beginning of the
+        "actual function we are in
+        if(match(tempstring, "while") >= 0)
+          let foundcontrol = 1
+        elseif(match(tempstring, "for") >= 0)
+          let foundcontrol = 1
+        elseif(match(tempstring, "if") >= 0)
+          let foundcontrol = 1
+        elseif(match(tempstring, "else") >= 0)
+          let foundcontrol = 1
+        elseif(match(tempstring, "try") >= 0)
+          let foundcontrol = 1
+        elseif(match(tempstring, "catch") >= 0)
+          let foundcontrol = 1
+        else
+          normal `z
+          let foundcontrol = 0
+          return tempstring
+        endif
+      endwhile
+      return tempstring
+    endfun
+    
+    "this mapping assigns a variable to be the name of the function found by
+    "FunctionName() then echoes it back so it isn't erased if Vim shifts your
+    "location on screen returning to the line you started from in FunctionName()
+    map \func :let name = FunctionName()<CR> :echo name<CR>
+<
+
+COMMENTS                                                   *vtw-1296-comments*
+
+I implemented another way to look for the name of the current function in 
+c_stl.vim (http://hermitte.free.fr/vim/ressources/vimfiles/ftplugin/c/ 
+[http://hermitte.free.fr/vim/ressources/vimfiles/ftplugin/c/]).
+
+However the search is very slow and time consuming when we try to guess the 
+current function when there is no current function. I guess using `:normal [[` 
+could have been more effective.
+
+Using the preview windows instead of the statusline could be an option to 
+think about (see previousWord.vim in the same place).
+
+==============================================================================
+
+I have modified the code from above to cater for test case below.
+
+>
+    function! FunctionName()
+      "set a mark at our current position
+      normal mz
+      "while foundcontrol == 1, keep looking up the line to find something that
+      "isn't a control statement
+      "find the previous '{' and get the line above it
+      "if the line matches a control statement, set found control to 1 so
+      "we can look farther back in the file for the beginning of the
+      "actual function we are in
+      let foundstr = ""
+      let strArrow = ""
+      let strList = ["while", "for", "if", "else", "try", "catch", "case"]
+      let foundcontrol = 1
+      while (foundcontrol)
+        "find the { in this {...}
+        normal [{
+        normal k0
+        let tempstring = getline(".")
+        let foundcontrol = 0
+        for item in strList
+          let foundstridx=match(tempstring,item)
+          if(foundstridx >= 0)
+            let foundstr = strpart(tempstring, foundstridx, 30) . strArrow . foundstr
+            let tempstring = ""
+            let strArrow = " @@@ "
+            let foundcontrol = 1
+            break
+          endif
+        endfor
+        if (foundcontrol == 0)
+          let foundstridx = match(tempstring, "(")
+          if(foundstridx >= 0)
+            "we may found a function
+            "go back to where our original cursor located
+            normal `z
+            let tempstring = tempstring . strArrow . foundstr
+            return tempstring
+          else
+            "may not be a function, just a inner block here
+            let foundcontrol=1
+          endif
+        endif
+      endwhile
+      return tempstring
+    endfunction
+<
+
+Test case: Try place at "hihi" and "hoho" and call the function
+
+>
+    function()
+    {
+    	haha
+    	{
+    		hoho
+    	}
+    	case huhu:
+    	{
+    		hihi
+    	}
+    }
+<
+
+ALTERNATIVE METHOD                               *vtw-1296-alternative-method*
+
+I took the best ideas from both current versions of the code above and with 
+quite a bit of help on Stack Overflow and the VIM mailing list somehow managed 
+to concoct this:
+
+>
+    function WhatFunctionAreWeIn()
+      let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case", "switch"]
+      let foundcontrol = 1
+      let position = ""
+      let pos=getpos(".")          " This saves the cursor position
+      let view=winsaveview()       " This saves the window view
+      while (foundcontrol)
+        let foundcontrol = 0
+        normal [{
+        call search('\S','bW')
+        let tempchar = getline(".")[col(".") - 1]
+        if (match(tempchar, ")") >=0 )
+          normal %
+          call search('\S','bW')
+        endif
+        let tempstring = getline(".")
+        for item in strList
+          if( match(tempstring,item) >= 0 )
+            let position = item . " - " . position
+            let foundcontrol = 1
+            break
+          endif
+        endfor
+        if(foundcontrol == 0)
+          call cursor(pos)
+          call winrestview(view)
+          return tempstring.position
+        endif
+      endwhile
+      call cursor(pos)
+      call winrestview(view)
+      return tempstring.position
+    endfunction
+<
+
+This version is a bit more robust as it does not require that the brackets or 
+the function name adhere to any particular coding style. Also, this version 
+does not jump the cursor around. Enjoy! Dotancohen 
+[https://vim.fandom.com/wiki/User:Dotancohen] 00:07, March 16, 2012 (UTC)
+
+==============================================================================
+
+Please see StlShowFunc [https://github.com/dr-chip-vim-scripts/StlShowFunc] 
+plugin:
+
+It works for several languages.
+
+ vim:tw=78:et:ft=help:norl:

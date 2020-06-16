@@ -1,0 +1,115 @@
+*vim-tips-wiki-344.txt*   Cut or copy lines without counting the lines  *vtw-344*
+
+Tip 344 [https://vim.fandom.com/wiki/Cut_or_copy_lines_without_counting_the_lines]   Previous |vtw-343| Next |vtw-345|
+
+created 2002 · complexity basic · author Kdr · version 6.0
+
+==============================================================================
+
+If you ever need to cut/copy/delete/paste lines without knowing the actual 
+number of lines, here is what you should do.
+
+Similarly, d'k will cut/delete the lines from the current location to the 
+mark.
+
+COMMENTS                                                    *vtw-344-comments*
+
+TO DO
+    - Mention the new relative line number feature of Vim 7.3. Then you can delete 
+      a number of lines with no counting anyway. 
+
+
+==============================================================================
+
+Be sure to check out visual mode. V will allow to select a range of lines, 
+which you can then "ay, etc.This is one of the coolest features of vim.
+
+==============================================================================
+
+A related thought:I like to think of " as into and ' as till.So, something 
+like "ay'k can be thought of as "into a yank till k"
+
+==============================================================================
+
+I normally don't count the lines, but use a range using line numbers like 
+".,100y"('.' means line number at cursorpos). The range can be relative 
+(".,+5"), of course you know the number of lines then.So I don't have to move 
+the cursor around just for yanking and put it again to the position whre I 
+want to drop the lines.
+
+Visual marking with the mouse is a powerful alternative, because you don' 
+have to copy/delete complete lines.You also can visually mark rectangle blocks 
+of text by pressing <CTRL-V> in visual mode.
+
+Remember: Vim automatically copies the visually marked text, so you can 
+simply drop it by clicking the middle mouse buttonat cursor position without 
+using named registers.
+
+==============================================================================
+
+Vim doesn't automatically copy the selected text unless 'clipboard' and 
+'guioptions' settings have specific values. (I believe they are autoselect and 
+a, respectively.)
+
+==============================================================================
+
+:help 'guioptions' Only 'a' needs to be added. My guioptions is 'gmrLtTa', 
+clipboard is empty.
+
+==============================================================================
+
+Other good way is use / to find the place to which delete/copy, e.g., d/This 
+sentence should be left<CR>. For smaller deletes, dt<letter> and df<letter> 
+are also useful.
+
+==============================================================================
+
+An easier-to-remember way:Forget about registers. Go to desired start line, 
+hit ma ("mark this line as 'a'"), then go to desired end line, and hit y'a or 
+d'a ("yank or delete to the line marked 'a'"). Paste using p.
+
+I just updated the main how-to to reflect this simpler method.
+
+A character-level way: (not line-level)Go to desired start character, hit ma 
+(same as above), then go to desired end character (can be in a different 
+line), and hit y`a or d`a (notice that it's the "tick", not the "apostrophe"). 
+Paste using p.
+
+==============================================================================
+
+Go to the start of the block and mark it as `mx` then go to the end of block 
+and mark it as `my`.
+
+Do ``x` (move to start of block), then do `y`y` (copy the block) or `d`y` 
+(delete the block).
+
+==============================================================================
+
+Cool story bros, but emacs is way easier... C-<SPC> to set mark, move to end 
+of region, C-w to kill region, C-y to yank region back.
+
+I know you're trolling, and I know this particular page needs work because the main tip overcomplicates a very simple issue, but I can't resist:
+Emacs: <C-Space>, Vim: ma
+Emacs, Vim: move to end of region
+Emacs: <C-w>, Vim: d'a (Emacs one keystroke ahead)
+Emacs: <C-y>, Vim: p (Vim catches up)
+
+Result: tie.
+Or you could use the "visual mode" comment:
+Emacs: <C-Space>, Vim: V (tie, because that's Shift+v)
+Emacs, Vim: move to end of region
+Emacs: <C-w>, Vim: d (Vim ahead by one)
+Emacs: <C-y>, Vim: p (Vim ahead by two)
+
+Result: Vim Wins! Nice try!
+I'm sure there are ways in both editors to make this even faster, and I don't want to get into it, but Emacs is certainly not "way easier" for this task.
+--Fritzophrenic 20:18, November 18, 2010 (UTC)
+
+==============================================================================
+
+But to be honest, you can't count the number of keystrokes per emacs command 
+all the time. For example, <C-w><C-y> is 3 keystrokes, not 4 because you don't 
+have to lift one of them. So in your example, the first one Emacs is ahead by 
+one and the 'visual mode' example is only behind by one
+
+ vim:tw=78:et:ft=help:norl:

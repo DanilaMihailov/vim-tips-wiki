@@ -1,0 +1,56 @@
+*vim-tips-wiki-879.txt*   Change vimrc with auto reload                 *vtw-879*
+
+Tip 879 [https://vim.fandom.com/wiki/Change_vimrc_with_auto_reload]   Previous |vtw-878| Next |vtw-880|
+
+created 2005 · complexity basic · version 5.7
+
+==============================================================================
+
+If you find yourself always re `:so` ing your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] after you changed it, have the following 
+autocmd in your vimrc:
+
+>
+    autocmd! bufwritepost .vimrc source %
+<
+
+COMMENTS                                                    *vtw-879-comments*
+
+I did this and it seems to work. However I get a lot of errors (E174) saying 
+command already exists for each line in my vimrc.
+
+==============================================================================
+
+When you define functions in vimrc, use "function!". Some other commands 
+should also have "!" appended, which means to overwrite the existing command.
+
+==============================================================================
+
+expand('<sfile>') helps to find the .vimrc name.
+
+For example, since I switch between Windows and Linux, my .vimrc contains:
+
+>
+    exec 'cab vimrc' . expand('<sfile>')
+<
+
+==============================================================================
+
+Even better, put in your .vimrc:
+
+>
+    autocmd BufWritePost .vimrc source %
+<
+
+And in your .gvimrc:
+
+>
+    autocmd BufWritePost .vimrc source % source ~/.gvimrc
+    autocmd BufWritePost .gvimrc source %
+<
+
+The gvimrc part still has ~/.gvimrc hard-coded, though.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

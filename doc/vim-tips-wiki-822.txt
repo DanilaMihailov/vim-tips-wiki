@@ -1,0 +1,122 @@
+*vim-tips-wiki-822.txt*   Add Java import statements automatically      *vtw-822*
+
+Tip 822 [https://vim.fandom.com/wiki/Add_Java_import_statements_automatically]   Previous |vtw-819| Next |vtw-823|
+
+created 2004 · complexity basic · author Richard Faber · version 6.0
+
+==============================================================================
+
+I like the build (make) process to be fast. Eclipse/Netbeans users are 
+excited about "auto-import" features.
+
+Vim can do it just fine. Well, I just got this working today, and it may need 
+some tweaking.
+
+If It doesn't work for you, take some java that compiles. Break one of the 
+imports (assume you don't using foo.*; syntax much).
+
+Then comment lines below starting from bottom up. Watch editing happen. Try 
+to do edits slowly to reproduce what's here.
+
+I generally hit F1 key to build with (jikes) (VimTip3 |vtw-3|).
+
+I hit F1 (:make), then hit F9 (add import for keyword found under cursor). 
+Then F1 (make/build), and so on.
+
+Add Import
+
+>
+    :noremap <F9> <Esc>
+     \<C-W>}o//TEMP MARKER<Esc>
+     \<C-W>P1G/public class<CR><Esc>yy<C-W>pG?import<CR><Esc>p<Esc>
+     \<C-W>P1G/package<CR><Esc>yy<C-W>pG?import<CR><Esc>p<Esc>
+     \$xa.<Esc>0jwwi<CR><Esc>kdd<Esc>
+     \wDx<Esc>kJxx<Esc>$a;<Esc>
+     \0cwimport<Esc>
+     \:update<CR><Esc>
+     \/TEMP MARKER<CR>dd<Esc>
+<
+
+Make
+
+>
+    :noremap <F1> :update<CR>:make<CR><C-W>j<Esc>:cw 3<CR><C-W>p
+<
+
+COMMENTS                                                    *vtw-822-comments*
+
+The JavaImp plugin [https://www.vim.org/scripts/script.php?script_id=325] is 
+also a very good solution to this problem.
+
+It has some other nice goodies as well (i use a slightly modified version of 
+it for auto import, smart import sorting, and tab completion of class names).
+
+==============================================================================
+
+This change handles Interfaces too. (Assumes public starts at col 0. Note: 
+public final class not working)
+
+>
+    \<C-W>P1G/^public <CR><Esc>yy<C-W>pG?import<CR><Esc>p<Esc>
+<
+
+==============================================================================
+
+A slightly more robust implementation, but essentially the same. I have a 
+couple of small improvements. Do not add import statement if one already 
+exists and update regexps to cope better with whitespaces. Doesn't clutter the 
+buffer list and uses wincmd.
+
+>
+    noremap <F5> :call JavaInsertImport()<CR>
+    function! JavaInsertImport()
+      exe "normal mz"
+      let cur_class = expand("<cword>")
+      try
+        if search('^\s*import\s.*\.' . cur_class . '\s*;') > 0
+          throw getline('.') . ": import already exist!"
+        endif
+        wincmd }
+        wincmd P
+        1
+        if search('^\s*public.*\s\%(class\|interface\)\s\+' . cur_class) > 0
+          1
+          if search('^\s*package\s') > 0
+            yank y
+          else
+            throw "Package definition not found!"
+          endif
+        else
+          throw cur_class . ": class not found!"
+        endif
+        wincmd p
+        normal! G
+        " insert after last import or in first line
+        if search('^\s*import\s', 'b') > 0
+          put y
+        else
+          1
+          put! y
+        endif
+        substitute/^\s*package/import/g
+        substitute/\s\+/ /g
+        exe "normal! 2ER." . cur_class . ";\<Esc>lD"
+      catch /.*/
+        echoerr v:exception
+      finally
+        " wipe preview window (from buffer list)
+        silent! wincmd P
+        if &previewwindow
+          bwipeout
+        endif
+        exe "normal! `z"
+      endtry
+    endfunction
+<
+
+==============================================================================
+
+You need to have CTAGS to use the command: run "$ ctags *" in the dir you 
+are.
+
+ vim:tw=78:et:ft=help:norl:

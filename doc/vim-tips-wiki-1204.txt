@@ -1,0 +1,43 @@
+*vim-tips-wiki-1204.txt*   Send to default printer with no prompts under Windows *vtw-1204*
+
+Tip 1204 [https://vim.fandom.com/wiki/Send_to_default_printer_with_no_prompts_under_Windows]   Previous |vtw-1203| Next |vtw-1206|
+
+created April 18, 2006 · complexity basic · author Mario · version 6.0
+
+==============================================================================
+
+Sometimes after viewing something, you want to see a hardcopy of it. Vim 
+provides a command for this:
+
+>
+    :hardcopy
+<
+
+On Windows a typical printers dialog box is displayed. Once you OK that box, 
+Vim sends the document off to the printer. I thought that was great! But how 
+could I do it faster?
+
+Shortly afterwards, I learned the comnmad:
+
+>
+    :ha
+<
+
+and that would do the exact same thing. Was there an even faster way to do 
+that? The answer is yes. You can type:
+
+>
+    :ha!
+<
+
+and that will send it right off to the default printer wtihout a dialog box 
+stopping you!
+
+When I first learned of ":ha!" I smiled all day!
+
+For systems other than Windows, these commands will work slightly 
+differently. See the Docs for details.
+
+COMMENTS                                                   *vtw-1204-comments*
+
+ vim:tw=78:et:ft=help:norl:

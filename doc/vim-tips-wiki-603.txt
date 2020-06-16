@@ -1,0 +1,80 @@
+*vim-tips-wiki-603.txt*   Bookmarks as menu item                        *vtw-603*
+
+Tip 603 [https://vim.fandom.com/wiki/Bookmarks_as_menu_item]   Previous |vtw-601| Next |vtw-604|
+
+created November 14, 2003 · complexity basic · author mosh · version 6.0
+
+==============================================================================
+
+I like to save locations of files I am editing in a bookmark file. Each 
+bookmark shows up as a menu item.
+
+Add the attached lines to ~/_vimrc, and the Bookmark->Add menu items will 
+appear in gvim.
+
+>
+    :set shell=sh shellslash shellcmdflag=-c shellxquote=\" shellpipe=\|\ tee
+    :amenu Mo2.BookMarks.Add
+     \ :let @b='\\042 Bookmark: '.
+     \ " DATE=".strftime("%Y-%b-%d_%X").
+     \ " PWD=".escape(getcwd(),'\').
+     \ escape("\\n",'\').
+     \ ":amenu Mo2.BookMarks.".
+     \ escape(escape(expand("%:t"),'.\'),'\').
+     \ ' :sp +'.line(".").' '.
+     \ escape(expand("%:p"),' \')<CR>
+     \ :exe ':!(echo '.@b.' >> $HOME/bookmark.vim)'<CR>
+     \ :so $HOME/bookmark.vim<CR>
+    :amenu Mo2.BookMarks.Edit :sp $HOME/bookmark.vim<CR>
+    :amenu Mo2.BookMarks.Load :so $HOME/bookmark.vim<CR>
+    
+    if filereadable(expand("$HOME/bookmark.vim"))
+      amenu Mo2.BookMarks.-Sep- :
+      so $HOME/bookmark.vim
+    endif
+<
+
+COMMENTS                                                    *vtw-603-comments*
+
+Script breaks if the file has any spaces or . in the filename.Also the header 
+part ie part before :amenu confuses Vim Script Interpretor.Environment: WinNT, 
+Vim6.2
+
+==============================================================================
+
+This works on Linux with Vim 6.1 and bash (I shortened it for Linux):
+
+>
+    :amenu Mo2.BookMarks.Add
+     \ :let @b=":amenu Mo2.BookMarks.".
+     \ escape(escape(expand("%:t"),'.\'),'\').
+     \ ' :sp +'.line(".").' '.
+     \ escape(expand("%:p"),' \')<CR>
+     \ :exe ':!(echo '.@b.' >> $HOME/hist/bookmark.vim)'<CR>
+     \ :so $HOME/bookmark.vim<CR>
+<
+
+You can test it even in the console mode Vim command line:
+
+>
+    :emenu Mo2.Bookmarks.Add
+    :sp ~/bookmark.vim
+<
+
+==============================================================================
+
+This should be correct for Linux:
+
+>
+    :amenu Mo2.BookMarks.Add
+     \ :let @b=":amenu Mo2.BookMarks.".
+     \ escape(escape(expand("%:t"),'.\'),'\').
+     \ ' :sp +'.line(".").' '.
+     \ escape(expand("%:p"),' \')<CR>
+     \ :exe ':!(echo '.@b.' >> $HOME/bookmark.vim)'<CR>
+     \ :so $HOME/bookmark.vim<CR>
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

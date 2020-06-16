@@ -1,0 +1,23 @@
+*vim-tips-wiki-23.txt*   Vim xterm title                                 *vtw-23*
+
+Tip 23 [https://vim.fandom.com/wiki/Vim_xterm_title]   Previous |vtw-22| Next |vtw-24|
+
+created March 1, 2001 · complexity basic · author stone · version 5.7
+
+==============================================================================
+
+To make your xterm inherit the title from Vim. e.g. 'Vim - ~/.vimrc' put this 
+in your vimrc:
+
+>
+    :set title
+<
+
+REFERENCES                                                 *vtw-23-references*
+    - :help 'title' 
+    - :help 'titlestring' 
+
+
+COMMENTS                                                     *vtw-23-comments*
+
+ vim:tw=78:et:ft=help:norl:

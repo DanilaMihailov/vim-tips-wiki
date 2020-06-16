@@ -1,0 +1,163 @@
+*vim-tips-wiki-545.txt*   Vim goes Greek - Greek language support for Vim 6.1 *vtw-545*
+
+Tip 545 [https://vim.fandom.com/wiki/Vim_goes_Greek_-_Greek_language_support_for_Vim_6.1]   Previous |vtw-543| Next |vtw-546|
+
+created August 27, 2003 · complexity intermediate · author Vangelis E · 
+version 5.7
+
+==============================================================================
+
+ENGLISH TEXT                                            *vtw-545-english-text*
+
+This is the full set of messages, menus and encodings to be used to support 
+Greek language. This set contains:
+    - vim.pot – dummy portable object template for 
+    - vim-6.1 (can be used with any language) 
+    - vim.po – the above vim.pot file with strings translated in Greek 
+    - lang/el/LC_MESSAGES/vim.mo – the Greek vim.po file formatted in machine 
+      object mode (vim.mo) 
+    - lang/menu_gr_gr.greek.vim – Greek used as the default encoding 
+    - lang/menu_gr_gr.latin1.vimq – Greek for Latin 
+    - lang/menu_gr_gr.iso_8859-1.vim – Latin-based ISO encoding sourcing from 
+      iso_8859-7 spec 
+    - lang/menu_gr_gr.iso_8859-7.vim – Greek-Latin-based ISO encoding 
+    - lang/menu_greece_greek.737.vim – MS-DOS/Windows codepage for Greek (737) 
+    - lang/menu_greek_greece.1253.vim – MS-DOS/Windows codepage for Greek (1253) 
+    - lang/menu_greek_greece.cp437.vim – Unix CodePage for Greek (nl_cp437) 
+    - lang/menu_gr_gr.utf-8.vim – UTF-8 for Greek 
+    - tutor/tutor.gr – Vim TUTOR in Greek 
+    - README.TXT – this file 
+
+
+These compressed archives can be downloaded from:
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.zip 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.zip] 
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.tgz 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.tgz] 
+
+
+To use Vim to edit in Greek (or any) language, we first enable the language 
+option for the keyboard (Control Panel|Keyboard|Languages|Greek) and enable a 
+key sequence (e.g. Ctrl-Shift) to toggle between the default language and 
+Greek. In Vim the Greek language is displayed correcty.
+
+Finally, we unzip vim-6.1-menu_el to the vim61 directory. This ensures that 
+the above files are place in the correct path. If you don't know how to 
+extract to $VIMRUNTIME, unzip to any temporary folder. Then drag&drop or 
+copy-and-paste each of the above files to its place after creating the 
+container folders (/path/to/vim61/lang/el).
+
+This is what one may call manual extraction, so please wash your hands 
+beforehand.
+
+For help on setting up Vim to support Greek – see:
+    - :help |:language| 
+    - :help |messages| 
+    - :help 'encoding' 
+
+
+For messages you'll have to set at least:
+
+>
+    let $LANG='el' / let $LANG='gr'
+    :lan mes el / :lan mes gr
+<
+
+For menus:
+
+>
+    :menut English Greek / let menut=Greek
+<
+
+from the cmdline or in the _vimrc file.
+
+For more information see Vim goes INTL - Translating Messages, Menus, 
+Encodings |vtw-546|.
+
+Enjoy Vim a la Greek!
+
+GREEK TEXT                                                *vtw-545-greek-text*
+
+Vim στα Ελληνικά - Πλήρες σετ υποστήριξης ελληνικών για το Vim 6.1
+
+Αυτό είναι το πλήρες σετ μυνημάτων, μενού και κωδικοποίησης για χρήση σε 
+υποστήριξη της ελληνικής γλώσσας με το Vim 6.1.
+
+Περιεχόμενα:
+    - vim.pot – κενό πρότυπο ΡΟ 
+    - για το vim-6.1 (μπορεί να χρησιμοποιηθεί με οποιαδήποτε γλώσσα 
+    - vim.po – το παραπάνω αρχείο vim.pot με συμβολοσειρές μεταφρ. στα ελληνικα 
+    - lang/el/LC_MESSAGES/vim.mo – το ελληνικό αρχείο vim.po μορφοποιημένο σε 
+      κατάσταση ΜΟ (vim.mo) 
+    - lang/menu_gr_gr.greek.vim – Greek χρησιμοποιείται σαν κωδικοποίηση 
+      προεπιλογής 
+    - lang/menu_gr_gr.latin1.vimq – Ελληνικά για Latin 
+    - lang/menu_gr_gr.iso_8859-1.vim – κωδικοποίηση ISO με βάση τη Λατινική, 
+      εκπηγάζει από τη προδιαγραφή iso_8859-7 
+    - lang/menu_gr_gr.iso_8859-7.vim – κωδικοποίηση ISO με βάση τη 
+      Λατινική-Ελληνική 
+    - lang/menu_greece_greek.737.vim – κωδικοσελίδα MS-DOS/Windows για ελληνικά 
+      (737) 
+    - lang/menu_greek_greece.1253.vim – κωδικοσελίδα MS-DOS/Windows για ελληνικά 
+      (1253) 
+    - lang/menu_greek_greece.cp437.vim – Κωδικοσελίδα Unix για ελληνικά (nl_cp437) 
+    - lang/menu_gr_gr.utf-8.vim – UTF-8 για Ελληνικά 
+    - tutor/tutor.gr – ΦΡΟΝΤΙΣΤΗΣ Vim στα Ελληνικά 
+    - README.TXT – αυτό το αρχείο 
+
+
+Αυτά τα συμπιεσμένα αρχεία μπορούν να μεταφορτωθούν από:
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.zip 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.zip] 
+    - http://lynxx.org/misc/download/vim-6.1-menu_el.tgz 
+      [http://lynxx.org/misc/download/vim-6.1-menu_el.tgz] 
+
+
+Για να χρησιμοποιήσετ το Vim σαν επεξεργαστή κειμένου στα ελληνικά (ή 
+οποιαδήποτε άλλη γλώσσα, πρώτα ενεργοποιήστε την επιλογή για το πληκτρολόγιο 
+(Πίνακας Ελέγχου|Πληκτρολόγιο| Γλώσσες|Ελληνικά) και διαλέξτε μια διαδοχή 
+πλήκτρων (π.χ.) για να αλλάζετε μεταξύ της προεπιλεγμένης γλώσσας και των 
+ελληνικών. Στο Vim τα ελληνικα προβάλλονται σωστά.
+
+Τέλος, αποσυμπιέετε το vim-6.1-menu_el στον κατάλογο vim61. Αυτό εξασφαλίζει 
+ότι ταπαραπάνω αρχεία τοποθετούνται στη σωστή διαδρομή. Αν δεν ξέρετε να 
+εξάγετε στο $VIMRUNTIME, ξεζιπάρετε σε οποιοδήποτε προσωρινό φάκελο. Κατόπιν 
+σύρετε-κ-αφήσετε ή αντιγράψτε-κ-επικολλήστε τα παραπάνω αρχεια στη θέση τους 
+μετά τη δημιουργία των καταλόγων που θα τα περιέχουν 
+(/διαδρομη/προς/vim61/lang/el).
+
+Αυτή είναι η λεγόμενη χειροκίνητη εξαγωγή, γι΄αυτό παρακαλούμε να πλύνετε τα 
+χέρια σας προηγουμένως.
+
+Για βοήθεια στη ρύθμιση των παραμέτων του Vim για υποστήριξη ελληνικών, από 
+τη γραμμή εντολών του Vim, δώστε:
+    - :help |:language| 
+    - :help |messages| 
+    - :help 'encoding' 
+
+
+από τη γραμμή εντολών του Vim. Τουλάχιστον πρέπει να τεθούν για μυνήματα:
+
+>
+    let $LANG='el' / let $LANG='gr'
+    :lan mes el / :lan mes gr
+<
+
+για μενού:
+
+>
+    :menut English Greek / let menut=Greek
+<
+
+από τη γραμμή εντολών ή στο αρχείο _vimrc.
+
+Για περισσότερες πληροφορίες, δες Vim goes INTL - Translating Messages, 
+Menus, Encodings |vtw-546|.
+
+Kales epejergasies keimenou!
+
+Vangelis Eustratiusvangelise at lynxx dot org
+
+COMMENTS                                                    *vtw-545-comments*
+
+ vim:tw=78:et:ft=help:norl:

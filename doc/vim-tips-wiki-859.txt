@@ -1,0 +1,38 @@
+*vim-tips-wiki-859.txt*   Show how many lines between matching pairs    *vtw-859*
+
+Tip 859 [https://vim.fandom.com/wiki/Show_how_many_lines_between_matching_pairs]   Previous |vtw-858| Next |vtw-860|
+
+created 2005 · complexity basic · version 6.0
+
+==============================================================================
+
+There are many situations where you may want to count the number of lines 
+between matching pairs of characters, such as parenthesises and braces. This 
+can be especially useful when programming Java, C++, Perl.
+
+Simply set the following:
+
+>
+    :set showcmd
+<
+
+After this, in bottomright corner of vim window you will see count of lines 
+currently selected in visual mode (if there are any), among many other useful 
+things.
+
+Now, to see how many lines are between pairs, you set cursor on first pair, 
+enter visual mode and press %. Now in bottom right corner you see desired 
+number.
+
+Or, for certain matched pairs like {...} groups in a C program, you can use a 
+text object. For example, in C code, anywhere within matched braces, enter 
+visual mode and press "iB" to select everything between the braces. The bottom 
+right corner contains the desired count.
+
+COMMENTS                                                    *vtw-859-comments*
+
+TO DO
+    - Rename tip to make it a more generic tip on the 'showcmd' option? 
+
+
+ vim:tw=78:et:ft=help:norl:

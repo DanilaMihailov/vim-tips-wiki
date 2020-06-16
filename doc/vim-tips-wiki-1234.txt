@@ -1,0 +1,512 @@
+*vim-tips-wiki-1234.txt*   Find files in subdirectories                *vtw-1234*
+
+
+
+This tip is deprecated for the following reasons:
+
+Version 7.3 of Vim supports tab-completion of `:find` command, this is easier 
+than scripting and should be prominently mentioned.Tip 1234 [https://vim.fandom.com/wiki/Find_files_in_subdirectories]   Previous |vtw-1232| Next |vtw-1235|
+
+created 2006 · complexity intermediate · author Vladimir Marek · version 6.0
+
+==============================================================================
+
+I'm working with big, nested workspaces and often I don't remember the exact 
+path to the file, only its filename or part of the filename. If I know some of 
+the text in the file, I could always recursively use 'vimgrep' 
+[https://vim.fandom.com/wiki/Find_in_files_within_Vim#Recursive_Search], but 
+for searching on filenames alone I have been using:
+
+>
+    :!find . -name ...
+<
+
+to locate the file and then edit it. I was trying to find if there is some 
+solution directly in Vim, and haven't found one. Closest were `:find` and 
+`:globpath()`. `:find` works nearly as I need, but unfortunatelly it opens the 
+first file of a given name without telling me that there are more. For 
+`globpath()` I was unable to make it work with the '**' construction, so that 
+it would look into all subdirectories under current directory.
+
+So I wrote this small function. You can use it like this:
+
+>
+    :Find whatever.c - this opens the file "src/core/whatever.c"
+<
+
+If there is more than one match, it will present you a selection:
+
+>
+    :Find Makefile
+    1 ./src/Makefile
+    2 ./src/core/Makefile
+    3 ./src/api/Makefile
+    ...
+    89 ./src/deelply/hidden/Makefile
+    90 ./Makefile
+    Which ? (CR=nothing)
+<
+
+You may also use wildchars (whatever find(1) knows).
+
+>
+    :Find *stream*.c
+    1 ./src/core/i_stream.c
+    2 ./src/core/o_stream.c
+    3 ./src/core/streamio.c
+    Which ? (CR=nothing)
+<
+
+The function itself:
+
+>
+    " Find file in current directory and edit it.
+    function! Find(name)
+      let l:list=system("find . -name '".a:name."' | perl -ne 'print \"$.\\t$_\"'")
+    " replace above line with below one for gvim on windows
+    " let l:list=system("find . -name ".a:name." | perl -ne \"print qq{$.\\t$_}\"")
+      let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+      if l:num < 1
+        echo "'".a:name."' not found"
+        return
+      endif
+      if l:num != 1
+        echo l:list
+        let l:input=input("Which ? (CR=nothing)\n")
+        if strlen(l:input)==0
+          return
+        endif
+        if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+          echo "Not a number"
+          return
+        endif
+        if l:input<1 || l:input>l:num
+          echo "Out of range"
+          return
+        endif
+        let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+      else
+        let l:line=l:list
+      endif
+      let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+      execute ":e ".l:line
+    endfunction
+    command! -nargs=1 Find :call Find("<args>")
+<
+
+RELATED PLUGINS                                     *vtw-1234-related-plugins*
+    - find-complete: Finds files on path with tab to auto-complete filename 
+      functionality [https://www.vim.org/scripts/script.php?script_id=4426] 
+
+
+COMMENTS                                                   *vtw-1234-comments*
+
+You can load an arbitrary list of files with :args <pattern>, for instance:
+
+Open all .c or .h files in the directory (and it's subdirectories) two 
+directories up from the current directory:
+
+args ../../**/*.[ch]
+
+The only caveat (and it's a major one) is that it's very slow.
+
+There's also the `:Explore **/[pattern]` command, available via netrw.vim. 
+Example:
+
+>
+    :Explore **/*.vim
+<
+
+This command will show the current match number out of the total quantity of 
+matches in the status line, and one may move forwards and backwards in the 
+matching files list. Hitting the <CR> on a matching file opens the file, of 
+course.
+
+==============================================================================
+
+When I try the `:Explore` command it gives error: `E77: Too many file names`
+
+Adding a quit button is not a bad idea. Vim internal pager has quit bound to 
+'q' (see :help |more-prompt|), but this will stop my original script. I tried 
+to use try-catch block around and it seems to work.
+
+>
+    if l:num != 1
+        try
+          echo l:list
+        catch /.*/
+        endtry
+        let l:input=input("Which ? (CR=nothing)\n")
+<
+
+==============================================================================
+
+I think, it will be better to use vimgrep for find, than it works also under 
+windows. I don't know how.
+
+Here is a version the exclude subversion directory:
+
+>
+    function! Find(name)
+      let l:list=system("find . -name '".a:name."' | grep -v \".svn/\" | perl -ne 'print \"$.\\t$_\"'")
+      let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+      if l:num < 1
+        echo "'".a:name."' not found"
+        return
+      endif
+      if l:num != 1
+        echo l:list
+        let l:input=input("Which ? (CR=nothing)\n")
+        if strlen(l:input)==0
+          return
+        endif
+        if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+          echo "Not a number"
+          return
+        endif
+        if l:input<1 || l:input>l:num
+          echo "Out of range"
+          return
+        endif
+        let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+      else
+        let l:line=l:list
+      endif
+      let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+      execute ":e ".l:line
+    endfunction
+    command! -nargs=1 Find :call Find("<args>")
+<
+
+==============================================================================
+
+Here is a other nice solution to vimrc
+
+>
+    if exists("$PROJECTDIR")
+      set path=$PROJECTDIR/**
+      set tags=$PROJECTDIR/tags
+    endif
+<
+
+well, is on the shell $PROJECTDIR defined the include recursive all 
+directories.
+
+with `:find foo.cpp` it's open the file on Vim.
+
+==============================================================================
+
+Yes, I have been using construct very similar to yours, the trouble was that 
+:find opens first file of a given name it finds, without telling you that 
+there are other two.
+
+The other thing, :find also does not like wildcard characters, they are 
+expanded before the :find is executed. I would like to be able to use ':find 
+blah*.c'. Or maybe I just don't know how to use :find properly ? :)
+
+==============================================================================
+
+The tags mechanism is how I jump around files. The Exuberant Ctags tool 
+allows you to tag the files themselves.
+
+I have a script that looks like this:
+
+>
+    ctags --extra=+f --langdef=file --langmap='file:.xml.jsp.properties.xslt' \
+    --exclude=WEB-INF/classes \
+    -R src/com src/java testharness/src web/pages sql gen WEB-INF
+<
+
+In your Vim session set the tags file location
+
+>
+    :set tags=pathtotags/tags
+<
+
+And then use :tag FileName
+
+Added bonus, :tag lets you use tab completion!
+
+==============================================================================
+
+>> But maybe there is some way to generate two different tag files and use 
+them in Vim at the same time?
+
+Sure there is! You can try:
+
+>
+    set tags=<path1>/tags,<path2>,tags
+<
+
+==============================================================================
+
+Thank you, very useful script. Would it be possible to add an option to open 
+the found file with another program? For example openoffice in case the found 
+file is odt?
+
+==============================================================================
+
+If the user has no permission for some of the files, they are included in the 
+listing. I solved it by redirecting stderr to /dev/null.
+
+Old line:
+
+>
+    let l:list=system("find . -name '".a:name."' | grep -v \".svn/\" | perl -ne 'print \"$.\\t$_\"'")
+<
+
+New line:
+
+>
+    let l:list=system("find . -name '".a:name."' 2> /dev/null | grep -v \".svn/\" | perl -ne 'print \"$.\\t$_\"'")
+<
+
+==============================================================================
+
+The find command can be nicely integrated with the quickfix functionality of 
+vim.Here an implementation based on the python vim module. Put this in you 
+.vimrc file:
+
+>
+    python << EOL
+    import vim
+    
+    def Finder(*args):
+        ''' Operation is as follows:
+            - request the starting dir
+            - find command finds the requested file
+            - the printf param formats it to accomodate the errorformat '%f:%l:%m'
+            - line is always 1, message is empty (-)
+            - the 'cgete' vim command puts it into the quickfix errorlist
+            - 'botright copen' opens the quickfix list
+        '''
+        start_dir = vim.eval('input("Start from dir: ", getcwd(), "dir")')
+        find_cmd = (r'find %s -name %s -printf %%p:1:-\\n' % (start_dir, args[0]))
+        vim.command("cgete system('%s')" % find_cmd)
+        vim.command('botright copen')
+    EOL
+    command! -nargs=1 Find :py Finder("<args>")
+<
+
+==============================================================================
+
+This is the slightly modified version of the script so it accepts an optional 
+(second) argument.If given it represents a path to be used in a search. The 
+result of the search is redirected to a quickfix window. The quickfix window 
+gets focus after the search is done.
+
+>
+    " Find file in current directory and edit it.
+    function! Find(...)
+      let path="."
+      if a:0==2
+        let path=a:2
+      endif
+      let l:list=system("find ".path. " -name '".a:1."' | grep -v .svn ")
+      let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+      if l:num < 1
+        echo "'".a:1."' not found"
+        return
+      endif
+      if l:num != 1
+        let tmpfile = tempname()
+        exe "redir! > " . tmpfile
+        silent echon l:list
+        redir END
+        let old_efm = &efm
+        set efm=%f
+    
+        if exists(":cgetfile")
+            execute "silent! cgetfile " . tmpfile
+        else
+            execute "silent! cfile " . tmpfile
+        endif
+    
+        let &efm = old_efm
+    
+        " Open the quickfix window below the current window
+        botright copen
+    
+        call delete(tmpfile)
+      endif
+    endfunction
+    command! -nargs=* Find :call Find(<f-args>)
+<
+
+==============================================================================
+
+One more slight modification. If only one file is found, the script directly 
+above this comment will not open anything. And since there's no need to open 
+the quickfix list for one file, it just opens it directly (like find).
+
+>
+    " Find file in current directory and edit it.
+    function! Find(...)
+      let path="."
+      if a:0==2
+        let path=a:2
+      endif
+      let l:list=system("find ".path. " -name '".a:1."' | grep -v .svn ")
+      let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+      if l:num < 1
+        echo "'".a:1."' not found"
+        return
+      endif
+      if l:num == 1
+        exe "open " . substitute(l:list, "\n", "", "g")
+      else
+        let tmpfile = tempname()
+        exe "redir! > " . tmpfile
+        silent echon l:list
+        redir END
+        let old_efm = &efm
+        set efm=%f
+    
+        if exists(":cgetfile")
+            execute "silent! cgetfile " . tmpfile
+        else
+            execute "silent! cfile " . tmpfile
+        endif
+    
+        let &efm = old_efm
+    
+        " Open the quickfix window below the current window
+        botright copen
+    
+        call delete(tmpfile)
+      endif
+    endfunction
+    command! -nargs=* Find :call Find(<f-args>)
+<
+
+==============================================================================
+
+Added configurable inverted grep. Set g:FindIgnore in your .vimrc to a list 
+of strings:
+
+>
+    set g:FindIgnore = ['.swp', '.pyc', '.class', '.git', '.svn']
+<
+
+>
+    " Find file in current directory and edit it.
+    function! Find(...)
+        if a:0==2
+            let path=a:1
+            let query=a:2
+        else
+            let path="./"
+            let query=a:1
+        endif
+    
+        if !exists("g:FindIgnore")
+            let ignore = ""
+        else
+            let ignore = " | egrep -v '".join(g:FindIgnore, "|")."'"
+        endif
+    
+        let l:list=system("find ".path." -type f -iname '*".query."*'".ignore)
+        let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+    
+        if l:num < 1
+            echo "'".query."' not found"
+            return
+        endif
+    
+        if l:num == 1
+            exe "open " . substitute(l:list, "\n", "", "g")
+        else
+            let tmpfile = tempname()
+            exe "redir! > " . tmpfile
+            silent echon l:list
+            redir END
+            let old_efm = &efm
+            set efm=%f
+    
+            if exists(":cgetfile")
+                execute "silent! cgetfile " . tmpfile
+            else
+                execute "silent! cfile " . tmpfile
+            endif
+    
+            let &efm = old_efm
+    
+            " Open the quickfix window below the current window
+            botright copen
+    
+            call delete(tmpfile)
+        endif
+    endfunction
+    
+    command! -nargs=* Find :call Find(<f-args>
+<
+
+==============================================================================
+
+Modified above function to use the -path parameter instead of -iname, this 
+allows things like:
+
+>
+    :Find 'log*htt*err*' /var
+<
+
+Which would find /var/log/httpd/error_log
+
+>
+    Find 'pub*.tpl'
+<
+
+Which would find all .tpl files in public_html
+
+>
+    function! Find(...)
+        if a:0==2
+            let path=a:1
+            let query=a:2
+        else
+            let path="./"
+            let query=a:1
+        endif
+    
+        if !exists("g:FindIgnore")
+            let ignore = ""
+        else
+            let ignore = " | egrep -v '".join(g:FindIgnore, "|")."'"
+        endif
+    
+        let l:list=system("find ".path." -type f -path '".query."'".ignore)
+        let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+    
+        if l:num < 1
+            echo "'".query."' not found"
+            return
+        endif
+    
+        if l:num == 1
+            exe "open " . substitute(l:list, "\n", "", "g")
+        else
+            let tmpfile = tempname()
+            exe "redir! > " . tmpfile
+            silent echon l:list
+            redir END
+            let old_efm = &efm
+            set efm=%f
+    
+            if exists(":cgetfile")
+                execute "silent! cgetfile " . tmpfile
+            else
+                execute "silent! cfile " . tmpfile
+            endif
+    
+            let &efm = old_efm
+    
+            " Open the quickfix window below the current window
+            botright copen
+    
+            call delete(tmpfile)
+        endif
+    endfunction
+    command! -nargs=* Find :call Find(<f-args>)
+<
+
+ vim:tw=78:et:ft=help:norl:

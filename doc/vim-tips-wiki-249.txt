@@ -1,0 +1,70 @@
+*vim-tips-wiki-249.txt*   Insert if/endif around block of code          *vtw-249*
+
+Tip 249 [https://vim.fandom.com/wiki/Insert_if/endif_around_block_of_code]   Previous |vtw-248| Next |vtw-250|
+
+created 2002 · complexity basic · author David Thompson · version 5.7
+
+==============================================================================
+
+One of my favorite macros that I use in vim (and vi) inserts a #if 0 #endif 
+sandwich around a block of code. I always map this to the 2 key sequence ;' 
+which is the semi-colon followed by the single quote. Look at your keyboard, 
+you will notice these keys are adjacent to one another. I like this mapping 
+because it's very fast, my fingers easily roll from one key to the next, 
+obviously YMMV.
+
+To use this mapping, go to the line of code that you want the '#if 0' to be 
+on, type `ma` to mark this line with the marker a, then move to the line that 
+should be last line just above the '#endif' and press ;'
+
+>
+    " insert #if 0 - #endif around block of code
+    map ;' mz'aO<Esc>i#if 0<Esc>'zo<Esc>i#endif<Esc>
+<
+
+You can have custom if macro such that
+
+>
+    #if defined(MACRO_TESTING)
+    Some code
+    #endif /* MACRO_TESTING */
+<
+
+Copy some word or sentence somehow, e.g. Go to the word MACRO_TESTING and 
+press `yiw`. This copied word will be placed at appropriate places by <C-r>" 
+Then go to the line of code that you want the '#if defined(MACRO_TESTING)' to 
+be on, type `ma` to mark this line with the marker a, then move to the line 
+that should be last line just above the '#endif /* MACRO_TESTING */' and press 
+`;;`
+
+>
+    map ;; mz'aO<Esc>i#if defined(<C-r>")<Esc>'zo<Esc>i#endif /* <C-r>" */<Esc>
+<
+
+COMMENTS                                                    *vtw-249-comments*
+
+You could also modify this just a bit and make it a vmap, that way you 
+wouldn't need to mark the beginning of the line set (though not vi 
+compatible).
+
+>
+    vmap ;' '<O<Esc>i#if 0<Esc>'>o<Esc>i#endif<Esc>
+<
+
+==============================================================================
+
+What about removing '#if 0...'? It should be easy to do.
+
+I like to do this with a range argument as well - "3;'" in your case.
+
+However, you get all this with various schemes for commenting/uncommenting 
+code...
+
+==============================================================================
+
+I tweaked it a bit by using 0<C-D> (instead of <Esc>i) and made a version for 
+Perl by replacing '#if 0' with '=pod' and '#endif' with '=cut'.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

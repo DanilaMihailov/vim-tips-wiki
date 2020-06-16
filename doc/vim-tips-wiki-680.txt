@@ -1,0 +1,120 @@
+*vim-tips-wiki-680.txt*   Verbose startup while avoiding File not found *vtw-680*
+
+Tip 680 [https://vim.fandom.com/wiki/Verbose_startup_while_avoiding_File_not_found]   Previous |vtw-677| Next |vtw-681|
+
+created 2004 · complexity basic · author Tony Mechelynck 
+[https://vim.fandom.com/wiki/User:Tonymec] · version 6.0
+
+==============================================================================
+
+PROBLEM                                                      *vtw-680-problem*
+
+I want to run Vim with 'verbose' set, but then it gives a lot of "file not 
+found" messages at startup and closedown. I'd like to avoid those messages, 
+while still seeing where an option was set whenever I interrogate its value.
+
+SOLUTION                                                    *vtw-680-solution*
+
+Instead of setting 'verbose' in your vimrc, use autocommands, as follows (for 
+instance)
+
+>
+    if &cmdheight == 1
+      set cmdheight=2
+    endif
+    if &verbose == 0
+      augroup late-verbose
+        autocmd VimEnter * set verbose=1
+        autocmd VimLeave * set verbose=0
+      augroup END
+    endif
+<
+
+NOTES                                                          *vtw-680-notes*
+    - The idea of the "if" statement is to avoid interfering with a -V argument 
+      which might be set in the command-line for debugging. 
+    - The command-line is widened to at least two lines to avoid Hit-Enter prompts 
+      on `":set option?"` `":edit existing/filename"` etc. 
+
+
+REFERENCES                                                *vtw-680-references*
+    - :help 'verbose' 
+    - :help |:set| 
+    - :help |:set-verbose| 
+
+
+COMMENTS                                                    *vtw-680-comments*
+
+The problem with always having verbose=1 becomes apparent when one does a 
+`:help` or anything -- you get 'file not found' messages about indentation 
+files and the lot. I suggest the following:
+
+>
+    function! Set( optionName )
+      set verbose=1
+      execute 'set ' . a:optionName . '?'
+      set verbose=0
+    endfunction
+    com! -nargs=1 Set call Set( <q-args> )
+<
+
+Then, instead of 'set <optionName>', just use 'Set <optionName>' -- it would 
+be better to change this function to do two things:
+    - Save and restore the actual value of verbose instead of just assuming 0. 
+    - Extend it to take over the entire behaviour of the 'set' command (as it is, 
+      it always just echoes the value of the option and the file where the option 
+      was set). 
+
+
+However, those are left to the reader as an exercise (note that the first is 
+very easy and the second might be a little more interesting, though quite 
+simple, also).
+
+Note that if one decides to indeed replace the built-in '`:set`' with this 
+'`Set`' (by placing all the functionality of '`:set`' into the function), then 
+the following might be useful:
+
+>
+    cab set Set
+<
+
+This will allow one to type '`:set`' in lower-case and still get the 
+functionality desired.
+
+==============================================================================
+
+Most "File not found" messages can be avoided by adding the corresponding 
+file as a zero-length file in a :help |after-directory|. This, however, does 
+not apply to toolbar icons (searched for at startup), since the internal icons 
+are only used when external ones are not found; hence my notion of setting 
+'verbose' while running Vim but not during startup and closedown. I'm not 
+saying my tip cures all problems just by itself, it would be too easy.
+
+To display an option verbosely without setting 'verbose' permanently, use
+
+>
+    :verbose set option?
+<
+
+hence, combining the above two user remarks, the idea of
+
+>
+    :cabbrev Set verbose set
+<
+
+or even
+
+>
+    :cabbrev set verbose set
+<
+
+==============================================================================
+
+Note: under Vim 7, several commands other than ":set" are affected by the 
+'verbose' setting, saying "what changed it latest" (and of course ":setlocal" 
+and ":setglobal" already were in Vim 6). -- Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 05:06, 6 January 2008 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

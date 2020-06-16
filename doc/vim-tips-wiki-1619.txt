@@ -1,0 +1,211 @@
+*vim-tips-wiki-1619.txt*   Using GUI color settings in a terminal      *vtw-1619*
+
+Tip 1619 [https://vim.fandom.com/wiki/Using_GUI_color_settings_in_a_terminal]   Previous |vtw-1618| Next |vtw-1620|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200903#Using_GUI_color_settings_in_a_terminal] 
+2009 · complexity basic · author Dominiko · version 7.0
+
+==============================================================================
+
+Getting consistent colors in different terminals is challenging because 
+different terminals support different numbers of colors.
+
+Also, terminals can be set up with different color palettes, so the same 
+color scheme may look very different on different machines or different 
+terminals. Vim's GUI does not have this problem since colors for the GUI are 
+defined by their true color (their red, green and blue components). However, 
+some people prefer to use Vim in a terminal rather than gvim.
+
+Many terminals support 256 or 88 colors. Gnome-terminal or Xterm for example 
+support 256 colors on recent distributions of Linux or on Cygwin. Even if the 
+terminal supports 256 colors, it may not use the 256 colors by default. But 
+setting 't_Co' to 256 in vimrc [https://vim.fandom.com/wiki/Vimrc] is enough 
+to make Vim use 256 colors. However, setting up a color scheme to look 
+identical in different terminals and in the GUI is difficult since colors for 
+the GUI are defined by RGB, and colors in a terminal are defined by color 
+indices. Furthermore, the indices for `ctermfg` and `ctermbg` depend on the 
+number of colors that the terminal supports.
+
+SOLUTION 1: THE GUICOLORSCHEME PLUGIN *vtw-1619-solution-1:-the-guicolorscheme-plugin*
+
+The guicolorscheme [https://www.vim.org/scripts/script.php?script_id=1809] 
+plugin can be used to conveniently load a color scheme designed for the GUI 
+into a 256-color terminal (or an 88-color terminal) using the color settings 
+of the GUI.
+
+To use it, download and install the guicolorscheme plugin. Then add the 
+following lines to your vimrc [https://vim.fandom.com/wiki/Vimrc]. You may 
+have to uncomment the line `set t_Co=256` or `set t_Co=88` if your terminal 
+does not use 256 colors by default. You can of course replace the rastafari 
+[https://www.vim.org/scripts/script.php?script_id=2198] color scheme in the 
+example below with your favorite. This color scheme is used as an example 
+because it defines colors for the GUI:
+
+>
+    " IMPORTANT: Uncomment one of the following lines to force
+    " using 256 colors (or 88 colors) if your terminal supports it,
+    " but does not automatically use 256 colors by default.
+    "set t_Co=256
+    "set t_Co=88
+    if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') &&
+      \ filereadable(expand("$HOME/.vim/plugin/guicolorscheme.vim"))
+      " Use the guicolorscheme plugin to makes 256-color or 88-color
+      " terminal use GUI colors rather than cterm colors.
+      runtime! plugin/guicolorscheme.vim
+      GuiColorScheme rastafari
+    else
+      " For 8-color 16-color terminals or for gvim, just use the
+      " regular :colorscheme command.
+      colorscheme rastafari
+    endif
+<
+
+SOLUTION 2: THE CSAPPROX PLUGIN     *vtw-1619-solution-2:-the-csapprox-plugin*
+
+The CSApprox [https://www.vim.org/scripts/script.php?script_id=2390] plugin 
+also allows loading colors from the GUI into a color terminal. Internally, it 
+works very differently than the guicolorscheme plugin. Using the CSApprox 
+plugin is easier: installing the plugin may just be enough. But you may need 
+to add the following lines in your vimrc in order to be able to use 256 colors 
+and to configure the CSApprox plugin:
+
+>
+    " IMPORTANT: Uncomment one of the following lines to force
+    " using 256 colors (or 88 colors) if your terminal supports it,
+    " but does not automatically use 256 colors by default.
+    "set t_Co=256
+    "set t_Co=88
+    let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+    colorscheme rastafari
+<
+
+PUTTING IT ALL TOGETHER                     *vtw-1619-putting-it-all-together*
+
+Both plugins guicolorscheme and CSApprox aim to achieve the same goal but 
+they do it in very different ways which have their pros and cons:
+    - CSApprox is more robust since it does not rely on parsing the colorscheme 
+      script. 
+    - CSApprox takes into account the different color cubes for different 
+      terminals. 
+    - CSApprox is more configurable. 
+    - CSApprox is better documented (`:help csapprox`). 
+    - CSApprox is easier to set up, it does not rely on the hack using the 
+      `runtime!` command to load the plugin before loading the color scheme. 
+
+
+On the other hand:
+    - guicolorscheme does not require the `+gui` feature unlike CSApprox. 
+    - guicolorscheme is faster. 
+
+
+The most portable way to get consistent colors in the terminal is to try 
+either one of the plugins. The old Cygwin terminal did not support 256 colors 
+but Cygwin also ships with Mintty which does support 256 colors - set the 
+"Type" to "xterm-256color" in its setup options. Of course, Cygwin/X also 
+ships with Xterm which supports 256 colors. The following script, to be added 
+in vimrc, tries to use CSApprox if all conditions are satisfied, or else tries 
+to use guicolorscheme:
+
+>
+    if version >= 700 && &term != 'cygwin' && !has('gui_running')
+      " In the color terminal, try to use CSApprox.vim plugin or
+      " guicolorscheme.vim plugin if possible in order to have consistent
+      " colors on different terminals.
+      "
+      " Uncomment one of the following lines to force 256 or 88 colors if
+      " your terminal supports it. Or comment both of them if your terminal
+      " supports neither 256 nor 88 colors. Unfortunately, querying the
+      " number of supported colors does not work on all terminals.
+      set t_Co=256
+      "set t_Co=88
+      if &t_Co == 256 || &t_Co == 88
+        " Check whether to use CSApprox.vim plugin or guicolorscheme.vim plugin.
+        if has('gui') &&
+          \ (filereadable(expand("$HOME/.vim/plugin/CSApprox.vim")) ||
+          \  filereadable(expand("$HOME/vimfiles/plugin/CSApprox.vim")))
+          let s:use_CSApprox = 1
+        elseif filereadable(expand("$HOME/.vim/plugin/guicolorscheme.vim")) ||
+          \    filereadable(expand("$HOME/vimfiles/plugin/guicolorscheme.vim"))
+          let s:use_guicolorscheme = 1
+        endif
+      endif
+    endif
+    if exists('s:use_CSApprox')
+      " Can use the CSApprox.vim plugin.
+      let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+      colorscheme rastafari
+    elseif exists('s:use_guicolorscheme')
+      " Can use the guicolorscheme plugin. It needs to be loaded before
+      " running GuiColorScheme (hence the :runtime! command).
+      runtime! plugin/guicolorscheme.vim
+      GuiColorScheme rastafari
+    else
+      colorscheme rastafari
+    endif
+<
+
+OTHER PLUGINS                                         *vtw-1619-other-plugins*
+    - colorsupport.vim [https://www.vim.org/scripts/script.php?script_id=2682] 
+
+
+COMMENTS                                                   *vtw-1619-comments*
+
+Global plugins are loaded by Vim without user intervention, and they can 
+reside in `$VIM/vimfiles/plugin/` just as well as in `~/.vim/plugin/`. To load 
+the colorscheme after the `guicolorscheme` plugin, there are two solutions 
+which are equivalent, and more robust than testing for `filereadable()` (use 
+only one of them):
+    - Put the `if / then / else` block with `:colorscheme` and `:GuiColorScheme` 
+      commands in an (maybe `~/.vim/after/plugin/guicolorscheme.vim` ) 
+    - Load it from an autocommand for the event, which is triggered at the very end 
+      of startup, after all global plugins have been run. 
+    - In both cases, since now we know that the plugin has already been run if only 
+      it is installed, is a good enough test of its presence. 
+
+
+So here is a modified snippet for either a function called at the `VimEnter` 
+event, or a user-after-plugin:
+
+See:
+
+:help after-plugin
+ :help VimEnter
+ :help exists()
+
+Tonymec [https://vim.fandom.com/wiki/User:Tonymec] 16:38, 12 July 2009 (UTC)
+
+==============================================================================
+
+See also in my almost-default colorscheme 
+[https://vim.fandom.com/wiki/User:Tonymec/almost-default.vim] an example of an 
+autocommand which changes colors "on the fly" and works with CSApprox (if 
+installed) on 88/256-color cterms — Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] 01:54, 5 August 2009 (UTC)
+
+==============================================================================
+
+ANOTHER WAY TO SET T_CO : THE  OPTION *vtw-1619-another-way-to-set-t_co :-the--option*
+
+The above vimtip relies on commenting or uncommenting lines of Vim code 
+depending on how many colours your terminal can display. But what if you may 
+use different terminals on the same machine, some of them 88/256-color-capable 
+and some not, and none of them setting in their termcaps?
+
+My idea is to check the terminal name: for instance, on my system,
+    - the Linux console has only 8 background + 16 foreground colours 
+    - the konsole terminal tries to pass itself off as "xterm"; it is 
+      256-colour-capable but doesn't advertise it 
+    - the mlterm terminal is also 256-colour-capable and doesn't advertise it 
+      either 
+    - I haven't tested other terminals such as gnome-terminal or rxvt 
+
+
+So I have the following in my vimrc, before CSApprox (which is what I use) 
+has run:" use 256 colors in Console mode if we think the terminal supports 
+itif &term =~? 'mlterm\|xterm' set t_Co=256endif--Tonymec 
+[https://vim.fandom.com/wiki/User:Tonymec] (talk 
+[https://vim.fandom.com/wiki/User_talk:Tonymec]) 19:13, February 12, 2013 
+(UTC)
+
+ vim:tw=78:et:ft=help:norl:

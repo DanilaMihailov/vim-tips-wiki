@@ -1,0 +1,161 @@
+*vim-tips-wiki-1566.txt*   Return to previous indent                   *vtw-1566*
+
+Tip 1566 [https://vim.fandom.com/wiki/Return_to_previous_indent]   Previous |vtw-1565| Next |vtw-1567|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200805#Return_to_previous_indent] 
+May 17, 2008 · complexity basic · author Arnar · version 7.0
+
+==============================================================================
+
+It bothered me a bit that Ctrl-D in insert mode would just hop on multiples 
+of shiftwidth when editing files with complex (and creative) indentation such 
+as Haskell source files. I replaced <Ctrl-D> with the following Python 
+function that scans the lines above the current one, finds the closest line 
+that has strictly smaller indent and dedents the current one to that level.
+
+>
+    " Handy function to search previous lines for indent levels and
+    " use those instead of multiples of shiftwidth.
+    function! DedentToPrevious()
+    python << EOF
+    import vim
+    tabsize = int(vim.eval("&ts"))
+    l = vim.current.line
+    rest = l.lstrip()
+    indent = l[:-len(rest)]
+    if indent != "":
+        cur_size = len(indent.replace("\t", " "*tabsize))
+        idx = vim.current.window.cursor[0]-2
+        while idx >= 0:
+            ll = vim.current.buffer[idx]
+            indent = ll[:-len(ll.lstrip())]
+            if len(indent.replace("\t", " "*tabsize)) < cur_size:
+                vim.current.line = indent+rest
+                break
+            idx -= 1
+    EOF
+    endfunction
+    
+    " replace the <C-D> in insert mode with the above function
+    imap <C-d> <C-o>:call DedentToPrevious()<CR>
+    
+    " To get more sane behaviour with auto-indent, use this instead:
+    " imap <C-d> <Left><Right><C-o>:call DedentToPrevious()<CR>
+<
+
+TIPS FOR IMPROVEMENT                           *vtw-1566-tips-for-improvement*If you are feeling adventurous, you could make a modified version that takes over the backspace key. I'd recommend using 
+
+>
+    vim.current.window.cursor
+< to detect if the cursor is right between the indent whitespace and line contents (if any) and only use the above behavior in that case. All other cursor positions would need to have the normal backspace behavior.
+
+COMMENTS                                                   *vtw-1566-comments*
+
+There is now a plugin, SofterTabstop 
+[https://github.com/orbisvicis/SofterTabstop] that takes over the backspace 
+key (among others), implementing this behaviour:
+    - backspace: align to first previous dedent within count search lines up, down. 
+    - tab: align to nearest next indent within intersection(adjacent lines of 
+      deeper indentation, count search lines up, down). 
+    - space: don't disable indentation alignment (default vim behavior) if editing 
+      beyond indent. 
+
+
+Alignment to multiples of shiftwidth (default vim behaviour) continues to be 
+supported.
+
+TO DO
+    - The introduction to the tip is a little mysterious. A brief example of the 
+      problem would be helpful. 
+    - The comments below are from the author. They explain the need for the "To get 
+      more sane behaviour" comment for the alternative mapping in the tip. However, 
+      a quick test with Vim 7.2 and 7.0.40 on junk.py and junk.c failed to reproduce 
+      the issue. 
+    - Possibilities: Something clever that I've forgotten about on my system avoids 
+      the problem, or, the problem does not exist on newish versions? 
+    - The tip includes the suggestion in the comment near the bottom that starts "I 
+      believe that the indent is also kept if you move the cursor about in the 
+      line". 
+    - Therefore, I think all the following (and this "todo") can be deleted. Any 
+      opinions? --JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] 00:47, 
+      17 August 2008 (UTC) 
+
+
+==============================================================================
+
+When editing files in some kind of auto-indent (set ai, set cin etc.), vim 
+behaves like this to the user:
+    - End a line by pressing Enter 
+    - Vim will determine the indent of the next line, either by using the previous 
+      line's indent or by calling a language specific indent script. 
+    - In the new line, the cursor appears to be at the correct indent preceded by 
+      whitespace. 
+
+
+In reality, the new line in the buffer is actually empty (there is no spoon.. 
+sorry, whitespace). Thus, when a script asks for the line contents, it simply 
+receives the empty string "" and not a string containing the indent 
+whitespace. In the script above, this produces the following behaviour.
+
+Say the user is editing a Python file, and the cursor is placed where the 
+marker | is (not actually a part of the buffer):
+
+>
+    def some function:
+        if condition:
+            do_something()|
+<
+
+Now the user presses Enter and sees this:
+
+>
+    def some function:
+        if condition:
+            do_something()
+            |
+<
+
+The user wants to reduce the indent by one fold, so instead of pressing 
+backspace four times, she presses C-D. The script above kicks in and tries to 
+determine the current line's indent. The user expects it to find eight spaces, 
+triggering the search of above lines finding that the "one-less" indent is 
+four spaces -- but what really happens is that the current line indent is 
+computed as zero and the script sets that as the current indent, giving the 
+user this:
+
+>
+    def some function:
+        if condition:
+            do_something()
+    |
+<
+
+instead of the expected:
+
+>
+    def some function:
+        if condition:
+            do_something()
+        |
+<
+
+Now, there is an ugly hack to solve this. After creating a new line, if the 
+user types some character, say a space, and then deletes it immediately with 
+backspace, the "fake" indent is turned into actual indent and C-D behaves as 
+expected. The key-sequence for the above script can be modified to simply do 
+this before each invocation of the script, i.e. the imap can be changed to:
+
+>
+    imap <C-d> <Space><BS><C-o>:call DedentToPrevious()<CR>
+<
+
+Perhaps this is an acceptable solution?
+
+I believe that the indent is also kept if you move the cursor about in the line; you don't actually need to type any text. I think this will work, but haven't tested it: imap <C-d> <Left><Right><C-o>:call DedentToPrevious(<CR>
+
+Yes, I tested it and just moving the cursor works fine. It is a little less ugly than inserting and removing text. Arnar 15:49, 28 May 2008 (UTC)
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

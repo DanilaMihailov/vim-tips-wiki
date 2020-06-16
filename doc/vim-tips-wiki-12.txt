@@ -1,0 +1,209 @@
+*vim-tips-wiki-12.txt*   Converting tabs to spaces                       *vtw-12*
+
+Tip 12 [https://vim.fandom.com/wiki/Converting_tabs_to_spaces]   Previous |vtw-10| Next |vtw-14|
+
+created 2001 · complexity basic · author Yegappan · version 5.7
+
+==============================================================================
+
+SETTINGS                                                     *vtw-12-settings*
+
+To insert space characters whenever the tab key is pressed, set the 
+'expandtab' option:
+
+>
+    :set expandtab
+<
+
+With this option set, if you want to enter a real tab character use 
+Ctrl-V<Tab> key sequence.
+
+To control the number of space characters that will be inserted when the tab 
+key is pressed, set the 'tabstop' option. For example, to insert 4 spaces for 
+a tab, use:
+
+>
+    :set tabstop=4
+<
+
+After the 'expandtab' option is set, all the new tab characters entered will 
+be changed to spaces. This will not affect the existing tab characters. To 
+change all the existing tab characters to match the current tab settings, use:
+
+>
+    :retab
+<
+
+To change the number of space characters inserted for indentation, use the 
+'shiftwidth' option:
+
+>
+    :set shiftwidth=4
+<
+
+For example, to get the following coding style,
+    - No tabs in the source file. 
+    - All tab characters are 4 space characters. 
+
+
+use the following set of options:
+
+>
+    :set tabstop=4
+    :set shiftwidth=4
+    :set expandtab
+<
+
+or as a oneliner:
+
+>
+    :set tabstop=4 shiftwidth=4 expandtab
+<
+
+Add the above settings to your vimrc [https://vim.fandom.com/wiki/Vimrc].
+
+ADJUSTING INDENT                                     *vtw-12-adjusting-indent*
+
+Since tabs effectively group spaces together, you may be tempted to work with 
+tabs rather than spaces and change individual lines selectively. To easily 
+change a tab-based indent to use spaces instead when 'noexpandtab' is set, you 
+can temporarily set 'expandtab' and use `:retab` with a range. For example, to 
+convert only the current line to use spaces, use `:.retab`.
+
+However, with some configuration, Vim makes working with spaces for 
+indentation [https://vim.fandom.com/wiki/Indenting_source_code] as easy as 
+working with tabs. You can always use the |<| and |>| operators to quickly 
+indent/de-indent lines or visual selections. And you can set the 'softtabstop' 
+option to cause <Tab> and <BS> to insert and delete the correct number of 
+spaces.
+
+SEE ALSO                                                     *vtw-12-see-also*
+    - Super retab |vtw-1592| to change only indents (whitespace at left margin) 
+    - Highlight unwanted spaces |vtw-396| to display unwanted whitespace 
+
+
+REFERENCES                                                 *vtw-12-references*
+    - :help 'tabstop' 
+    - :help 'shiftwidth' 
+    - :help 'expandtab' 
+    - :help 'smarttab' 
+    - :help 'softtabstop' 
+
+
+COMMENTS                                                     *vtw-12-comments*
+
+To turn off expandtab for editing makefiles, put the following in your vimrc:
+
+>
+    autocmd FileType make setlocal noexpandtab
+<
+
+==============================================================================
+
+To use this mode only for Python add the following to your vimrc:
+
+>
+    autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
+    autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
+<
+
+==============================================================================
+
+This is what I use for Python:
+
+>
+    autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql
+<
+
+==============================================================================
+
+I also add the following line:
+
+>
+    set softtabstop=4 " makes the spaces feel like real tabs
+<
+
+This makes the backspace key treat the four spaces like a tab (so one 
+backspace goes back a full 4 spaces).
+
+==============================================================================
+
+It is possible to get vim to insert at the "true" start of the line with soft 
+tabs, if you have:
+
+>
+    set softtabstop=4
+<
+
+==============================================================================
+
+I change these so frequently that I have keystrokes bound to switch between 
+them:
+
+>
+    " That awful mixed mode with the half-tabs-are-spaces:
+    map \M <Esc>:set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
+    
+    " Mini tabs, small "m":
+    map \m <Esc>:set expandtab tabstop=2 shiftwidth=2<CR>
+    
+    " Think "little tabs" and "big tabs":
+    map \t <Esc>:set expandtab tabstop=4 shiftwidth=4<CR>
+    map \T <Esc>:set expandtab tabstop=8 shiftwidth=8<CR>
+<
+
+==============================================================================
+
+I use this to insert spaces at the beginning of a line and real tab 
+characters elsewhere:
+
+>
+    inoremap <Silent> <Tab> <C-R>=(col('.') > (matchend(getline('.'), '^\s*') + 1))?'<C-V><C-V><Tab>':'<Tab>'<CR>
+<
+
+If you're trying to figure out how it works and are confused by the 
+<C-V><C-V><Tab> thing: <C-R>= asks for an expression, and the expression is 
+entered as if it was typed, then the return value of the expression is 
+inserted as if it too was typed - so, we want to insert <C-V><Tab>, but if we 
+just entered that into the expression, it would be converted to <Tab> before 
+the expression is executed - so, we have to enter <C-V><C-V><Tab> into the 
+expression, which will be converted to <C-V><Tab> before the expression is 
+executed, which will then become <Tab> in the actual file.
+
+I also remapped Shift-Tab so I could easily insert real tabs at the beginning 
+of the line when necessary:
+
+>
+    inoremap <S-Tab> <C-V><Tab>
+<
+
+==============================================================================
+
+Or (surely there is a better way?):
+
+>
+    " make tab do tabs at beginning and spaces elsewhere
+    function VaryTabs()
+      if &expandtab
+        return "\<Tab>"
+      else
+        let nonwhite = matchend(getline('.'),'\S')
+        if nonwhite < 0 || col('.') <= nonwhite
+          return "\<Tab>"
+        else
+          let pos = virtcol('.')
+          let num = pos + &tabstop
+          let num = num - (num % &tabstop) - pos +1
+          return repeat(" ",num)
+        endif
+      endif
+    endfunction
+    inoremap <Tab> <C-R>=VaryTabs()<CR>
+<
+
+Nice plugin: script#2308 
+[https://www.vim.org/scripts/script.php?script_id=2308]
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

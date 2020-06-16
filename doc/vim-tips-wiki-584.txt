@@ -1,0 +1,84 @@
+*vim-tips-wiki-584.txt*   Par text reformatter                          *vtw-584*
+
+Tip 584 [https://vim.fandom.com/wiki/Par_text_reformatter]   Previous |vtw-583| Next |vtw-586|
+
+created 2003 · complexity basic · author mosh · version 5.7
+
+==============================================================================
+
+Vim has a very functional built-in formatter (:help |formatting|), but for 
+raw formatting power nothing beats the Berkeley program 'par'. It can format, 
+justify, align, slice and dice using a bewildering array of options. See 
+http://www.nicemice.net/par/ [http://www.nicemice.net/par/]
+
+To use:
+
+Either :set equalprg=par and format using the magic '=', or assign to a key 
+combination by putting the following in your vimrc (`-j` is to justify lines):
+
+>
+    :set formatprg=par\ -w60
+    :map <A-q> {v}!par -jw60<CR>
+    :vmap <A-q> !par -jw60<CR>
+<
+
+Select a region and press <A-q> to format.
+
+Here are a few examples from the 'par' docs. See the current par page 
+[http://www.nicemice.net/par/] for more.
+
+Before:
+
+>
+    /*   We the people of the United States, */
+    /* in order to form a more perfect union, */
+    /* establish justice, */
+    /* insure domestic tranquility, */
+    /* provide for the common defense, */
+    /* promote the general welfare, */
+    /* and secure the blessing of liberty */
+    /* to ourselves and our posterity, */
+    /* do ordain and establish the Constitution */
+    /* of the United States of America. */
+<
+
+After "par 59":
+
+>
+    /*   We the people of the United States, in      */
+    /* order to form a more perfect union, establish */
+    /* justice, insure domestic tranquility, provide */
+    /* for the common defense, promote the general   */
+    /* welfare, and secure the blessing of liberty   */
+    /* to ourselves and our posterity, do ordain     */
+    /* and establish the Constitution of the United  */
+    /* States of America.                            */
+<
+
+UNICODE                                                      *vtw-584-unicode*
+
+Note that 'par' doesn't handle Unicode correctly. There is a patch which adds 
+multibyte support 
+[http://sysmic.org/dotclear/index.php?2006/06/22/55-add-multibyte-characters-support-in-par], 
+(though at least the 'e' option is known not to work correctly as of Dec 
+2006).
+
+A workaround, using an unpatched 'par' is:
+
+>
+    cat <file> | iconv -f utf-8 -t <encoding> | par <options> | iconv -f <encoding> -t utf-8
+<
+
+replace <file> with filename, <encoding> with the single byte encoding that 
+can represent the document. If the document is written in greek it is 
+iso-8859-7 if it is east europe iso-8859-2 etc. Replace <options> with the par 
+options you wish to use.
+
+SEE ALSO                                                    *vtw-584-see-also*
+    - 
+    - Format a code block [https://vim.fandom.com/wiki/Format_a_code_block] 
+
+
+COMMENTS                                                    *vtw-584-comments*
+
+ vim:tw=78:et:ft=help:norl:

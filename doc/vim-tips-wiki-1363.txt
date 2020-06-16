@@ -1,0 +1,54 @@
+*vim-tips-wiki-1363.txt*   Capture all keys                            *vtw-1363*
+
+Tip 1363 [https://vim.fandom.com/wiki/Capture_all_keys]   Previous |vtw-1361| Next |vtw-1366|
+
+created 2006 · complexity advanced · author hari_vim · version
+
+==============================================================================
+
+Someone once posted a patch to add a new event called GetChar to receive an 
+event for every keypress. This trick is not as powerful and flexible as that, 
+but it can be very useful for a plugin, and is supported in Vim 7.0 with no 
+patches.
+
+Often there are questions on how to capture every key press from a user. The 
+answer is that you can't, unless you map all keys. But even if you map all 
+keys, it is not flexible enough. Here is a trick with recursive <expr> maps 
+and `getchar()` to have all keys pass through your function. You can do 
+whatever you want with the keys, swallow them or pass them to Vim.
+
+Here is a demo that shows how to use it in insert mode. What the function 
+does is to double every key you press, except <Esc> and <C-C>, when it breaks 
+the loop.
+
+>
+    imap <buffer> <silent> <expr> <F12> Double("\<F12>")
+    function! Double(mymap)
+      try
+        let char = getchar()
+      catch /^Vim:Interrupt$/
+        let char = "\<Esc>"
+      endtry
+      "exec BPBreakIf(char == 32, 1)
+      if char == '^\d\+$' || type(char) == 0
+        let char = nr2char(char)
+      endif " It is the ascii code.
+      if char == "\<Esc>"
+        return ''
+      endif
+      redraw
+      return char.char."\<C-R>=Redraw()\<CR>".a:mymap
+    endfunction
+    
+    function! Redraw()
+      redraw
+      return ''
+    endfunction
+<
+
+You can do almost anything that you can do normally in an insert mode, press 
+<BS>, <C-U> etc.
+
+COMMENTS                                                   *vtw-1363-comments*
+
+ vim:tw=78:et:ft=help:norl:

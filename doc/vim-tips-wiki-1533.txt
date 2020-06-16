@@ -1,0 +1,27 @@
+*vim-tips-wiki-1533.txt*   Vim Doclet                                  *vtw-1533*
+
+Tip 1533 [https://vim.fandom.com/wiki/Vim_Doclet]   Previous |vtw-1532| Next |vtw-1534|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Vim_Doclet] 2007 · 
+complexity intermediate · author · version 7.0
+
+==============================================================================
+
+By running a doclet on the JDK source code, you can put the resulting Vim 
+help files in your help path and read Javadoc from directly within Vim. `:help 
+String` and `:help java.util.List` bring up the javadoc for those files, 
+within Vim. Everything's hyperlinked and the entire javadoc is present.
+
+If you set `keywordprg` to blank, you can do a `K` on any Java keyword and 
+bring up the javadoc quickly. This has really cut down on the amount of time I 
+spend outside Vim while coding.
+
+Go to vimdoclet.sourceforge.net |http://vimdoclet.sourceforge.net| to 
+download the doclet and see what the output looks like. There is a sample 
+download of javadoc for `java.lang` and `java.util` if you'd like to try it 
+out before running the doclet.<img style="" src="https://vignette.wikia.nocookie.net/vim/images/2/2e/Vimdoclet1.png/revision/latest/scale-to-width-down/177?cb=20071127020001" title="Vimdoclet1.png (37 KB)" class="thumbimage" alt="Vimdoclet1" data-image-name="Vimdoclet1.png" data-image-key="Vimdoclet1.png"> [https://vim.fandom.com/wiki/File:Vimdoclet1.png]1<img style="" src="https://vignette.wikia.nocookie.net/vim/images/b/b5/Vimdoclet2.png/revision/latest/scale-to-width-down/177?cb=20071127021410" title="Vimdoclet2.png (40 KB)" class="thumbimage" alt="Vimdoclet2" data-image-name="Vimdoclet2.png" data-image-key="Vimdoclet2.png"> [https://vim.fandom.com/wiki/File:Vimdoclet2.png]2<img style="" src="https://vignette.wikia.nocookie.net/vim/images/9/94/Vimdoclet3.png/revision/latest/scale-to-width-down/177?cb=20071127021459" title="Vimdoclet3.png (34 KB)" class="thumbimage" alt="Vimdoclet3" data-image-name="Vimdoclet3.png" data-image-key="Vimdoclet3.png"> [https://vim.fandom.com/wiki/File:Vimdoclet3.png]3
+
+COMMENTS                                                   *vtw-1533-comments*
+
+ vim:tw=78:et:ft=help:norl:

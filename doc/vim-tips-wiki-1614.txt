@@ -1,0 +1,58 @@
+*vim-tips-wiki-1614.txt*   Using Git from Vim                          *vtw-1614*
+
+Tip 1614 [https://vim.fandom.com/wiki/Using_Git_from_Vim]   Previous |vtw-1613| Next |vtw-1615|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200902#Using_Git_from_Vim] 
+February 3, 2009 · complexity basic · author Alecclews · version 7.0
+
+==============================================================================
+
+Git [http://git-scm.com/] is a distributed version control system, which you 
+can use directly from Vim with some help from plugins:
+    - vim-fugitive [http://github.com/tpope/vim-fugitive] (status unknown). Help 
+      text is provided. 
+    - git-vim (included with Vim 7.1 and later). Provides ftplugin and syntax files 
+      for editing various git files (e.g. commit messages). 
+    - fastgit.vim [https://www.vim.org/scripts/script.php?script_id=2861] (not 
+      updated since 2009). 
+    - VCScommand [https://www.vim.org/scripts/script.php?script_id=90] plugin that 
+      needs to be installed separately. This provides commands to interact with git. 
+      Help text is provided. 
+    - gitv [https://www.vim.org/scripts/script.php?script_id=3574] is a 'gitk 
+      clone' plugin. 
+    - vimagit [https://github.com/jreybert/vimagit] is an attempt to reproduce the 
+      magnificent emacs Magit [https://github.com/magit/magit] plugin to vim. The 
+      main idea is to manage all git operations in one single buffer, as efficiently 
+      as possible. 
+    - vim-gitgutter [https://github.com/airblade/vim-gitgutter] plugin which shows 
+      a "changed" indicator based on git diff in the gutter (sign column). It can 
+      also stage or revert hunks. Also see the similar Signify 
+      [https://github.com/mhinz/vim-signify] plugin. 
+
+
+Git supports using vim diff to resolve merge conflicts
+
+>
+    git mergetool -t vimdiff
+<
+
+To make it the default merge tool across all your repos
+
+>
+    git config --global merge.tool vimdiff
+<
+
+SEE ALSO                                                   *vtw-1614-see-also*
+    - Git Grep [https://vim.fandom.com/wiki/Git_grep] 
+
+    - Always start on first line of git commit message 
+      [https://vim.fandom.com/wiki/Always_start_on_first_line_of_git_commit_message] 
+
+    - Additional tips [http://www.osnews.com/story/21556/Using_Git_with_Vim] on Vim 
+      and Git by Amjith Ramanujam [http://amjith.blogspot.com/] 
+
+
+COMMENTS                                                   *vtw-1614-comments*
+
+ vim:tw=78:et:ft=help:norl:

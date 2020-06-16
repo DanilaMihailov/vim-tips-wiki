@@ -1,0 +1,80 @@
+*vim-tips-wiki-322.txt*   Text template with placeholders               *vtw-322*
+
+Tip 322 [https://vim.fandom.com/wiki/Text_template_with_placeholders]   Previous |vtw-320| Next |vtw-323|
+
+created 2002 · complexity basic · author lars_e_krueger · version 6.0
+
+==============================================================================
+
+A number of scripts allow for text and code templates, even some which allow 
+the user to put in placeholders. However, a script is not always needed to 
+allow the user to quickly add a common code block or text block with place 
+holding inserts. This template for inserts a code block with placeholders that 
+are triple percent signs (%%%) where the user wants to enter custom text. The 
+;; command is mapped to find the next %%% and allow the user to change them to 
+the custom text.
+
+CODE                                                            *vtw-322-code*
+
+In this tips code block below, all template mappings are insert-mode only, 
+while the "skip to next placeholder" (mapped as ;;) is both insert and normal 
+mode enabled.
+
+The following is an example code template for a "for loop" statement in C++ 
+with 5 custom text input locations. When added to the vimrc file, it allows 
+the user to type ";fo" in insert mode and add a "for loop" block into their 
+code quickly.
+
+>
+    :imap <buffer> ;fo <C-O>mzfor( %%%; %%%; %%%)<CR>{ // %%%<CR>%%%<CR>}<CR><C-O>'z;;
+<
+
+Add the following to your vimrc file to add the "skip to next placeholder" 
+functionality which will move the cursor to the next %%% section:
+
+>
+    :imap <buffer> ;; <C-O>/%%%<CR><C-O>c3l
+    :nmap <buffer> ;; /%%%<CR>c3l
+<
+
+USAGE                                                          *vtw-322-usage*
+
+Whenever a C++ for block is needed type ";fo" and the following code will be 
+placed in the file. The "_" signifies where the cursor will be in insert mode.
+
+>
+    for( _; %%% ; %%%)
+    { // %%%
+     %%%
+    }
+<
+
+The user may now type in some statement where the first "%%%" was, like i=0.
+
+>
+    for( i=0_; %%% ; %%%)
+    { // %%%
+     %%%
+    }
+<
+
+The user would then type ;; to place the cursor at the next "%%%" location, 
+removing the "%%%" and putting Vim into insert mode.
+
+>
+    for( i=0; _ ; %%%)
+    { // %%%
+     %%%
+    }
+<
+
+SEE ALSO                                                    *vtw-322-see-also*
+    - script#222 [https://www.vim.org/scripts/script.php?script_id=222] - 
+      Mu-Template, a script which has support for placeholders in templates. 
+    - script#336 [https://www.vim.org/scripts/script.php?script_id=336] - A script 
+      which defines C/C++ abbreviations with placeholders. 
+
+
+COMMENTS                                                    *vtw-322-comments*
+
+ vim:tw=78:et:ft=help:norl:

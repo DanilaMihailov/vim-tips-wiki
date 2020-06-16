@@ -1,0 +1,196 @@
+*vim-tips-wiki-892.txt*   Keep incremental backups of edited files      *vtw-892*
+
+Tip 892 [https://vim.fandom.com/wiki/Keep_incremental_backups_of_edited_files]   Previous |vtw-891| Next |vtw-893|
+
+created March 9, 2005 · complexity basic · author Tim Doerfler · version 6.0
+
+==============================================================================
+
+I was wondering how I could make an automatic backup of my edited files. I 
+added the following to my vimrc:
+
+>
+    set backupdir=c:\temp\vim_backup
+    let myvar = strftime("(%y%m%d)[%Hh%M]")
+    let myvar = "set backupext=_". myvar
+    execute myvar
+<
+
+So the command which is executed in this example sounds like this:
+
+>
+    set backupext=_(050309)[15h15]
+<
+
+This creates backups into c:\temp\vim_backup\ having names like 
+myfile_(050309)[15h15] instead of myfile~
+
+Each time my vim starts up for editing a file, backupext gets changed so I 
+get at least one backup per day, without overwriting backups of the day 
+before.
+
+If I open and close that file more often, I could theoretically have one 
+Backup each minute. ( But who would want to have that many backups ? )
+
+COMMENTS                                                    *vtw-892-comments*
+
+With the following mapping:
+
+>
+    fun! InitBex()
+     let myvar = strftime("(%y%m%d)[%Hh%M]")
+     let myvar = "set backupext=_". myvar
+     execute myvar
+     echo myvar
+    endfun
+    map <Esc> :call InitBex()<CR>
+<
+
+You can easily refresh the backupextension time everytime you hit the <Esc> 
+key. So you can get backups every minute, every hour, every day and so on.
+
+see also CursorHold autocommand
+
+==============================================================================
+
+If having multiple backups interests you, you may also consider script#89 
+[https://www.vim.org/scripts/script.php?script_id=89] savevers.vim by Ed 
+Ralston or script#563 [https://www.vim.org/scripts/script.php?script_id=563] 
+rcsvers.vim by Juan Frias and Roger Pilkey.
+
+==============================================================================
+
+If you guys need this kind of backup, invest in version control (I recommend 
+git).
+
+==============================================================================
+
+You can determine how many backups you get by changing the backupext - 
+String: If the backup - String contains minutes, you could get far too many 
+backups ( maximum: one per minute ).
+
+If you leave out the minutes, you get maximum one backup per hour. Leave out 
+the hours -> one per day ...
+
+We use version control for our standard - Software. But we do customizing, 
+too for our customers. And all these customized functions differ from the 
+standard. That's why I want a backup without using a CVS Tool
+
+==============================================================================
+
+If you are a sysadmin and trying to fix something, I think you *do* want that 
+many backups. The drive space is cheap when compared with the cost of 
+unnecesary downtime. I can always send the backups to my trash directory which 
+is already managed. For that matter, I can probably set up logrotate to 
+compress all of the text files in the users trash directories *and* delete the 
+old ones.
+
+==============================================================================
+
+This seems to work for a backup each and every time the file has changed and 
+it does so with a correctly dated and absolutely unique filename in the trash 
+directory. mktemp gaurrenties uniqueness, if not my spelling. ;-) As for 
+knowing when it was deleted, hey that's what we have file attributes for. A 
+trash dumping utility would have to go by the file attributes anyway, right? 
+So here we go:
+
+>
+    set backup
+    " in .vimrc right after the text: "
+    "if has("autocmd") put this:"
+    augroup backups
+     au!
+    "Note:Sorry, but this all goes on one line"
+    autocmd BufWritePost,FileWritePost * !diff -d <afile> <afile>~ &> /dev/null;if [[ $? == 1 ]];then touch <afile>~;mv <afile>~ `mktemp ~/Desktop/Trash/<afile>.XXXXXX`;fi
+    augroup END
+<
+
+"Note: If you see something like this, you know it is working:"
+
+>
+    "leaves.txt" 182L, 2031C written
+    :!diff -d leaves.txt leaves.txt~ &> /dev/null;if [[ $? == 1 ]];then mv leaves.txt~ `mktemp ~/Desktop/Trash/leaves.txt.XXXXXX`;fi
+<
+
+OK, now let's discuss what it does:
+
+>
+    #This line turns on backups:
+    set backup
+    
+    #This line declares a new auto command group named backups.
+    augroup backups
+    
+    #Erase any extra garbage commands that might be lying around.
+     au!
+    
+    autocmd BufWritePost,FileWritePost * !diff -d <afile> <afile>~ &> /dev/null;if [[ $? == 1 ]];then touch <afile>~;mv <afile>~ `mktemp ~/Desktop/Trash/<afile>.XXXXXX`;fi
+    
+    # Of course, this is the end of our one-liner augroup statement.
+    augroup END
+<
+
+The above says create an new autocmd that will be executed when writing a 
+file or buffer is finished. It will apply to files named "*". The bang (i.e. 
+"!") identifies the command to be executed which comes next. The command 
+itself is nothing more than a few BASH commands all on the same line. <afile> 
+is the name of the affected file. Since we know that the name of the backup 
+file is always "filename~", we can use <afile>~ to nail the backup file 
+immediately after it has been written.
+
+I could have just as easily used a bash script to take care of this. It would 
+have been much neater to look at but not as copyable and self contained. The 
+script would have looked like this:
+
+>
+    #!/bin/bash
+    #This script is named trash.sh
+    diff -d $1 $2 &> /dev/null
+    if [[ $? == 1 ]]
+     then touch <afile>~
+     mv $2 `mktemp ~/Desktop/Trash/$1.XXXXXX`
+    fi
+<
+
+If I were to decide to put this script in my command path and use it, my 
+autocmd line would have looked like this:
+
+>
+    autocmd BufWritePost,FileWritePost * !trash.sh <afile> <afile>~
+<
+
+==============================================================================
+
+I noticed that this doesn't work for vim (gvim) 6.4 and vim 7.0.
+
+With help from others I got it tested and working for gvim 7.0. I assume for 
+6.4 it also work, but didn't test it.
+
+The chars '[' and ']' are not working in strftime apparently, and therefore I 
+used '{' and '}'
+
+Copy this into your _vimrc:
+
+>
+    fun! NewInitBex()
+      let &bex = '-' . strftime("(%Y%m%d)-{%H%M}")
+    endfun
+<
+
+And instead of mapping the ESC char I used:
+
+>
+    autocmd BufWritePre * call NewInitBex()
+<
+
+==============================================================================
+
+Maybe it works if you escape the [ ] characters:
+
+>
+    let &bex = '-' . strftime("(%Y%m%d)-\[%H%M\]")
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,34 @@
+*vim-tips-wiki-74.txt*   Using Vim as an outline processor               *vtw-74*
+
+Tip 74 [https://vim.fandom.com/wiki/Using_Vim_as_an_outline_processor]   Previous |vtw-73| Next |vtw-75|
+
+created 2001 · complexity intermediate · author Steve Litt · version 6.0
+
+==============================================================================
+
+With the addition of folding, Vim6 can function as a high performance outline 
+processor. Simply :set ai and in insert mode use backspace to promote and tab 
+to demote headlines.
+
+In command mode, << promotes (n<< to promote multiple lines), and >> demotes. 
+Also, highlight several headlines and < or > to promote or demote.
+
+`:set foldmethod=indent` and then your z commands can expand or collapse 
+headline trees, filewide or by the tree.
+
+VIMOUTLINER                                               *vtw-74-vimoutliner*
+
+The VimOutliner [https://www.vim.org/scripts/script.php?script_id=3515] GPL 
+distro contains the scripts and configs to easily configure Vim6 as an 
+outliner, including scripts to create tag files enabling interoutline 
+hyperlinking.
+
+COMMENTS                                                     *vtw-74-comments*
+
+If you're interested in outlining in Vim, you should also check out my TVO 
+(The Vim Outliner) [https://www.vim.org/scripts/script.php?script_id=517] 
+plugin.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

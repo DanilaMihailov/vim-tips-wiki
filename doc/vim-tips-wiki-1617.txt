@@ -1,0 +1,35 @@
+*vim-tips-wiki-1617.txt*   Quickfix and doxygen                        *vtw-1617*
+
+Tip 1617 [https://vim.fandom.com/wiki/Quickfix_and_doxygen]   Previous |vtw-1616| Next |vtw-1618|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200902#Quickfix_and_doxygen] 
+2009 · complexity basic · author Gdw2 · version 7.0
+
+==============================================================================
+
+We often use `:make` to build my C++ project and then go through the compile 
+errors and fix them. :help |quickfix|
+
+This simple tip shows how you can use `:make` to use Quickfix with doxygen 
+[http://www.stack.nl/~dimitri/doxygen/].
+
+From the shell command line, generate a default config file:
+
+>
+    $doxygen -g
+<
+
+From within Vim do the following:
+
+>
+    :set makeprg=doxygen
+    :make Doxyfile
+<
+
+Quickfix will then allow you to go through your doxygen errors as you would 
+through gcc errors.
+
+COMMENTS                                                   *vtw-1617-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,39 @@
+*vim-tips-wiki-104.txt*   Capture SQL query output                      *vtw-104*
+
+Tip 104 [https://vim.fandom.com/wiki/Capture_SQL_query_output]   Previous |vtw-103| Next |vtw-105|
+
+created September 3, 2001 · complexity advanced · author meonkeys · version 
+5.7
+
+==============================================================================
+
+DBI::Shell is a Perl module that is used as a shell interface to Perl's 
+popular DBI (database interface) package. Forget your favorite SQL navigation 
+gui and give this method a shot. This has only been tested in Unix.
+
+1. Run dbish (runs DBI::Shell; installed with DBI::Shell) and connect to any 
+database.
+
+2. In dbish, set /format box.
+
+3. Enter your query.
+
+4. To execute query, type "/ | vim -"
+
+This runs the query and pipes the output to the standard input of Vim.
+
+Here are some follow-up tips:
+    - Use gvim instead of Vim so a new window will pop up. 
+    - Set nowrap once in Vim. 
+
+
+COMMENTS                                                    *vtw-104-comments*
+
+Note that if your are using MySQL cli, you can type : "pager vim -" (without 
+the quotes indeed).
+
+Then every select, desc, show, etc. will be opened in Vim.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

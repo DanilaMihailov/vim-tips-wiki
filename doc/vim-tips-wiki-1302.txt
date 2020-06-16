@@ -1,0 +1,31 @@
+*vim-tips-wiki-1302.txt*   Custom resizing on the spot                 *vtw-1302*
+
+Tip 1302 [https://vim.fandom.com/wiki/Custom_resizing_on_the_spot]   Previous |vtw-1301| Next |vtw-1303|
+
+created August 11, 2006 · complexity basic · author atomik fungus · version 
+5.7
+
+==============================================================================
+
+This was inspired by VimTip173 |vtw-173|. Sometimes you don't want to have 
+your windows on their max or min width (length) so I added the following 
+commands to my vimrc.
+
+>
+    "This two change in between vertical windows maximizing their length, and if you keep them pressed they will increase width by 2 columns steps.
+    "very nice when lines are too long to fit in just one row.
+    nmap <c-h> <c-w>h<c-w>_<c-w>><c-w>>
+    nmap <c-l> <c-w>l<c-w>_<c-w>><c-w>>
+<
+
+The same can be done for the horizontal split.
+
+COMMENTS                                                   *vtw-1302-comments*
+
+TO DO Take the time to figure out how to make this useful. By length the 
+author means height. Should use a repeat number. If you need this tip to 
+increase the width, won't you need a way to decrease it?
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

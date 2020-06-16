@@ -1,0 +1,88 @@
+*vim-tips-wiki-207.txt*   Editing databases with Vim/Perl/DBI           *vtw-207*
+
+Tip 207 [https://vim.fandom.com/wiki/Editing_databases_with_Vim/Perl/DBI]   Previous |vtw-206| Next |vtw-208|
+
+created January 31, 2002 · complexity intermediate · author Wolfgang Stroh · 
+version 6.0
+
+==============================================================================
+
+Perl's Data-Base-Independent (DBI) module provides programming language level 
+access to a lot of databases.
+
+Vim hosts an embedded Perl interpreter. So it is only a matter of some key 
+strokes to interactively issue DB commands from within Vim or to search, edit, 
+and replace database contents including retrieval and storage. Of course 
+"create table" scripts can be worked upon in Vim as well as storing recurring 
+patterns in Vim functions or Perl modules.
+
+Prerequisites: Vim needs to be compiled with Perl support enabled. See the 
+|if_perl.txt| manual page! The CPAN module DBI as well as an appropriate 
+database driver has to be installed with Perl in order to execute these Vim 
+commands:
+
+>
+    " connect to perl's dbi module:
+    :perl use dbi;
+    " connect to the database:
+    :perl $dbh = dbi->connect( "DBI:mysql:$DBNAME:$HOST",$USER,$PASSWORD,
+     { raiseerror => 1});
+    " perform a simple query:
+    :perl $result = $dbh->selectall_arrayref("show tables;");
+    " insert the list of tables into the current buffer's top:
+    :perl $curbuf->Append(0, map($_->[0], @{$result}));
+<
+
+In MySql the command "show tables;" results in a list of table names. 
+Inserted into a Vim buffer this results in one line per table.
+
+You can find more on my web page http://members.chello.at/intelliware/dbEdit 
+[http://members.chello.at/intelliware/dbEdit]
+
+COMMENTS                                                    *vtw-207-comments*
+
+When I have a some SQL in vim that I want to see the results of, I use this 
+simple technique to send it to Postgres:
+
+1. Highlight the the SQL.
+
+2. :!psql -d my _database (for Postgres)
+
+Vim will filter my lines through that command replace them with the result 
+set. When I'm done reviewing the results, I use "u" to undo the change.
+
+If I repeat this cycle, I can use use :CTRL-P to get back the previous 
+command to use, and instead of typing it again.
+
+For larger pieces of SQL, I put it in a file and use:
+
+>
+    :!psql -d my_db -f %
+    to send the whole script to Postgres.
+<
+
+==============================================================================
+
+Running an external process is the way Emacs handles database queries as 
+well. Cursors and other database programming are not possible this way.
+
+Perl's DBI module provides the Vim user with full interactive access to the 
+database in the same way as used by graphical user interfaces and application 
+programs. Also the single process solution (editor + database access in one 
+process) opens only a single permanent database connection which is much 
+quicker and allows bigger transactions.
+
+Similar motivations led to the programming language Tcl: Why should one embed 
+a command interpreter into application programs? The answer after many years 
+of Tcl is given by a lot of scripts weaving together all kinds of programs as 
+well as Tcl's graphical user interface library Tk which is also used for Perl.
+
+For example Linux consists on one hand of many (text) files, which can be 
+edited by Vim, and on the other hand of many complex relations between them, 
+which can be handled effectively by a relational database. Merging Vim's many 
+facilities with those of databases makes it possible to build a simple yet 
+effective digital library with only the means at hand.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

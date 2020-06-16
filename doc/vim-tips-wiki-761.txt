@@ -1,0 +1,100 @@
+*vim-tips-wiki-761.txt*   Review code effectively using quickfix        *vtw-761*
+
+Tip 761 [https://vim.fandom.com/wiki/Review_code_effectively_using_quickfix]   Previous |vtw-760| Next |vtw-762|
+
+created 2004 · complexity basic · author Karthick Gururaj · version 5.7
+
+==============================================================================
+
+If you do code reviews on a regular basis, this tip could be of help to you. 
+This tip is about:
+
+First learn about quickfix if you don't know about it already :help 
+|quickfix|.
+
+If you type your comments in a file in the format as shown below, then the 
+author can use the quickfix mode for zeroing on the exact file/line.
+
+>
+    <file_name>:<line_number>: <your comment in a single line>
+<
+
+For filling in the file name/line number automatically, put the following 
+code in your vimrc:
+
+>
+    function SavePosition()
+      let g:file_name=expand("%:t")
+      let g:line_number=line(".")
+      let g:reviewer_initials="KG" " Your initials
+    endfunction
+    
+    function InsertComment()
+      execute "normal i". g:file_name . ":" . g:line_number . ": " . g:reviewer_initials . " - "
+      startinsert
+    endfunction
+    nmap ,sp :call SavePosition()<CR>
+    nmap ,ic :call InsertComment()<CR>
+<
+
+Typical review session:
+
+COMMENTS                                                    *vtw-761-comments*
+
+This sounds like a techno overkill.
+
+You cannot assume reviewers like nifty vim tip showoff instead of looking for 
+serious issues, then again you never know who works in dot coms!
+
+==============================================================================
+
+For some reason when I try and use this I get an error:
+
+>
+    Invalid expression: "normal i". file_name . ":" . line_number . ": " .
+<
+
+==============================================================================
+
+You need the line_number, etc as global variables (see :help g:var). Also, 
+you need to remove that trailing "." at the end of the line:
+
+>
+    "normal i". file_name . ":" . line_number . ": "
+<
+
+==============================================================================
+
+Maybe it's better to expand the whole file name, so it's location will be 
+viewed in the quickfix file, too.
+
+==============================================================================
+
+That is true. I didn't read the help properly, and assumed that expand("%") 
+gives the entire path name (which will be different for reviewer and the 
+author). Instead, it puts the relative path. That works great if there are 
+multiple files to be reviewed in a directory hierarchy. Thanks!
+
+==============================================================================
+
+I have uploaded an expanded version of this tip to script#1041 
+[https://www.vim.org/scripts/script.php?script_id=1041]. The script now can 
+handle multi-line comments and defect type classification.
+
+==============================================================================
+
+What if the code is being reviewed by two or more persons? Are they required 
+to explicitly specify their initials? According to your code it does seem that 
+way. One more thing is before inserting a comment we have to say according to 
+your code \ic, is this a built-in command or it can be changed to something 
+else?
+
+==============================================================================
+
+Yes, they'll have to specify their initials explicitly. And \ic is not a 
+built-in command, it is a user defined map. See :help map 
+[http://vimplugin.sf.net/cgi-bin/help?tag=map] for more information
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

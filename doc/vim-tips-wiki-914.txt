@@ -1,0 +1,326 @@
+*vim-tips-wiki-914.txt*   The perfect programming font                  *vtw-914*
+
+Tip 914 [https://vim.fandom.com/wiki/The_perfect_programming_font]   Previous |vtw-913| Next |vtw-915|
+
+created 2005 · complexity basic · author Bernhard Leiner · version 6.0
+
+==============================================================================
+
+Here are some recommendations for fonts to use in gvim, particularly for 
+writing programs.
+
+In console Vim, it is easiest to just change your whole console's font to 
+what suits you best. Just do a search for "<Windows/Ubuntu/etc> change console 
+font".
+
+TO DO
+    - Should probably have separate tips for Linux and Windows font 
+      recommendations, or at least make it clearer what works where. 
+    - Every font should have a screenshot and note if it is free or commercial. 
+
+
+PROGGY                                                        *vtw-914-proggy*
+
+Proggy Clean font from http://www.dafont.com/proggy-clean.font 
+[http://www.dafont.com/proggy-clean.font]
+
+Using gvim with gtk2, I had a problem installing Proggy Clean. I couldn't get 
+the pcf font registered by freetype/fontconfig. The result was that I could 
+select Proggy Clean via "xfontsel", but not with the gtk2 font selector. A gtk 
+build probably would have worked.
+
+Anyway, the ttf font works fine. Just copy ProggyCleanTT.ttf to ~/.fonts and 
+run "fc-cache" once. This should work on every Unix system with fontconfig 
+installed.
+
+Then start gvim and and choose the font, or insert this in your .gvimrc:
+
+>
+    set guifont=ProggyCleanTT\ 12
+<
+
+The 12pt size is necessary for a good look. On OS X, you need to set 15pt.
+
+If you use ProggyCleanTT in gvim and the top of the font looks like garbage, 
+with missing pieces, it is because you have the new freetype hinting turned 
+on. Proggy is not hinted properly.
+
+NEEP                                                            *vtw-914-neep*
+
+I prefer the Neep programming font created by Jim Knoble. Get the 
+jmk-x11-fonts package from http://nikolas.us.to/jmkfonts/ 
+[http://nikolas.us.to/jmkfonts/]
+
+It differentiates between a zero and the letter "O" and looks really nice. I 
+use it for programming on a 1600x1200 screen.
+    - On Debian/Ubuntu: `apt-get install xfonts-jmk` 
+    - On Gentoo: `emerge x11fonts-jmk` 
+
+
+Once you have installed the font you should put a line like this in your 
+.gvimrc file:
+
+>
+    set guifont=Neep\ 18
+<
+
+You may also need to enable bitmap fonts and rebuild the font cache. On 
+Ubuntu:
+
+>
+    rm /etc/fonts/conf.d/70-no-bitmaps.conf
+    fc-cache -f -v
+<
+
+ZEVV-PEEP                                                  *vtw-914-zevv-peep*
+
+I've been using Neep, but the characters are too small on a new laptop with a 
+high resolution screen (1920x1200 at 15.4"). Zevv-peep is a variation on Neep 
+for hires screens. X11 (Linux) and Windows variants are available 
+athttp://zevv.nl/play/code/zevv-neep/ [http://zevv.nl/play/code/zevv-neep/]
+
+Design considerations
+    - Clean, avoid clutter. 
+    - Very clear distinction between similar characters like `0 O o` and `i I l 1 
+      |`. 
+    - Suitable for light text on a dark background. 
+    - Not too densely packed to allow a good separation between characters. 
+
+
+[https://vignette.wikia.nocookie.net/vim/images/6/67/Neepfont.png/revision/latest?cb=20071119192812]
+
+BITSTREAM VERA (TRUE TYPE)                *vtw-914-bitstream-vera-(true-type)*
+
+Free from http://www.gnome.org/fonts/ [http://www.gnome.org/fonts/]
+
+The sans serif mono spaced version of this font is clean and legible down to 
+6 points on Mac OS X with a 110 dpi display.
+
+Nearly all of my programming is via vim through an iTerm (Mac) or konsole 
+(FreeBSD/Linux) terminal window. In the rare instances I use gvim the font has 
+performed as expected.
+
+Sans serif and serif fonts with variable spacing are also included.
+
+Bitstream Vera Sans Mono at 11 point (Mac OS X): 
+[https://vignette.wikia.nocookie.net/vim/images/e/ef/Bitstreamverasans11.png/revision/latest?cb=20091218194137]
+
+DejaVu Sans Mono looks identical to Bitstream Vera Sans Mono, and has more 
+international characters. See the comments section for links.
+
+GOHU                                                            *vtw-914-gohu*
+
+Gohu is a free (under WTFPL) pixmap font available in PCF and BDF. It is 
+extremely legible and unambiguous in both 11 and 14 px sizes.
+
+<img 
+src="https://vignette.wikia.nocookie.net/vim/images/0/05/Gohu-sample.png/revision/latest?cb=20110701113254" 
+alt="Gohu-sample" class="" data-image-key="Gohu-sample.png" 
+data-image-name="Gohu-sample.png" width="505" height="250" > 
+[https://vignette.wikia.nocookie.net/vim/images/0/05/Gohu-sample.png/revision/latest?cb=20110701113254]
+
+Website: http://font.gohu.org/ [http://font.gohu.org/]
+
+Mirror: http://demus.co/files/gohufont-2.0p0.tgz 
+[http://demus.co/files/gohufont-2.0p0.tgz]
+
+UW TTYP0                                                    *vtw-914-uw-ttyp0*
+
+UW ttyp0 is a free bitmap font family with about 3000 Unicode characters, 
+including a number of stylistic variants that can be selected at installation 
+time (plain, dotted or slashed zeroes, straight or curly quotes, visible or 
+invisble NBSP, etc.). Sizes range from 6x11 to 11x22 px in regular and bold; 
+for some sizes there is also an italic version. Currently only BDF/PCF (the 
+X11 bitmap format) is supported; if you need another format, you'll have to 
+convert it yourself. (I won't comment on the quality; as the author I'm 
+obviously biased :-)
+
+Update: Starting with version 1.1, UW ttyp0 also supports Powerline 
+[https://github.com/Lokaltog/powerline].
+
+<img 
+src="https://vignette.wikia.nocookie.net/vim/images/e/e5/Ttyp0-mixed.png/revision/latest?cb=20121002195636" 
+alt="Ttyp0-mixed" class="" data-image-key="Ttyp0-mixed.png" 
+data-image-name="Ttyp0-mixed.png" width="605" height="256" > 
+[https://vignette.wikia.nocookie.net/vim/images/e/e5/Ttyp0-mixed.png/revision/latest?cb=20121002195636]
+
+Website: http://people.mpi-inf.mpg.de/~uwe/misc/uw-ttyp0/ 
+[http://people.mpi-inf.mpg.de/~uwe/misc/uw-ttyp0/]
+
+ADOBE SOURCE CODE PRO                          *vtw-914-adobe-source-code-pro*
+
+Source Sans is a set of monospaced OpenType fonts that have been designed to 
+work well coding environments. This family of fonts is a complementary design 
+to the Source Sans family.Open Font License 1.1 (OFL 1.1)
+
+http://sourceforge.net/projects/sourcecodepro.adobe/ 
+[http://sourceforge.net/projects/sourcecodepro.adobe/]
+
+CREEP                                                          *vtw-914-creep*
+
+Creep is a free font based on the proggy tiny fonts but even smaller (4x9 
+pixels).Since it is created using gbdfed, currently only BDF format is 
+available, but thereare instructions on how to convert it for use in other 
+formats.
+
+<img 
+src="https://vignette.wikia.nocookie.net/vim/images/5/56/Screen.png/revision/latest?cb=20140226130223" 
+alt="Screen" class="" data-image-key="Screen.png" data-image-name="Screen.png" 
+width="671" height="87" > 
+[https://vignette.wikia.nocookie.net/vim/images/5/56/Screen.png/revision/latest?cb=20140226130223]
+
+Get it at: https://github.com/romeovs/creep 
+[https://github.com/romeovs/creep]
+
+OPENDYSLEXIC MONO                                  *vtw-914-opendyslexic-mono*
+
+From the Web site:After a very short time getting used to the unusual appearance of this typeface, I found it extremely easy to read even at smaller sizes. I also felt like reading went more quickly and with less effort.
+
+
+
+OpenDyslexic is available in the repositories of Ubuntu, Debian Sid, Fedora, 
+Arch, and Mageia, and for download at http://opendyslexic.org/ 
+[http://opendyslexic.org/]
+
+OTHER                                                          *vtw-914-other*
+    - Envy Code R from 
+      http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released 
+      [http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released] 
+    - Terminus from http://terminus-font.sourceforge.net/ 
+      [http://terminus-font.sourceforge.net/] 
+    - Terminus TTF from https://files.ax86.net/terminus-ttf/ 
+      [https://files.ax86.net/terminus-ttf/] 
+    - ProFont from http://tobiasjung.name/profont/ 
+      [http://tobiasjung.name/profont/] 
+    - Triskweline from http://www.netalive.org/tinkering/triskweline/ 
+      [http://www.netalive.org/tinkering/triskweline/] – a superb programming font, 
+      however it has no slashed zero.Modified version of Triskweline with slashed 
+      zero and a bold 
+      variant:http://wiki.blender.org/index.php/User:Ideasman42/ProgrammingFonts#triskweline 
+      [http://wiki.blender.org/index.php/User:Ideasman42/ProgrammingFonts#triskweline] 
+    - Bitstream Vera family of fonts from 
+      http://www.bitstream.com/font_rendering/products/dev_fonts/vera.html 
+      [http://www.bitstream.com/font_rendering/products/dev_fonts/vera.html] set 
+      guifont=Bitstream\ Vera\ Sans\ Mono\ 13. 
+    - Deja Vu family, based off Bitstream Vera with greater range of supported 
+      characters: http://dejavu-fonts.org/wiki/index.php?title=Main_Page 
+      [http://dejavu-fonts.org/wiki/index.php?title=Main_Page] 
+    - Dina from http://www.donationcoder.com/Software/Jibz/Dina/ 
+      [http://www.donationcoder.com/Software/Jibz/Dina/] 
+    - Droid Sans Mono is pretty nice. Bold and italic text are the same size as 
+      normal text which is nice for some colorschemes. Your Linux distro may provide 
+      this font or you can get it from google 
+      [http://www.google.com/webfonts/download?kit=KjxjDVJe2m-hw2C84Q5UBw7MkqSwgC_ZUOWi4ZBNajc]. 
+      Modified versions with dotted zero and slashed zero can be found at 
+      http://www.cosmix.org/software [http://www.cosmix.org/software]. 
+    - Microsoft Consolas is an epic programming font. Obviously looks best with 
+      ClearType but can be made to look decent under Xorg. To use Consolas on gvim 
+      for Windows set: `set guifont=Consolas:h11` where `h11` is the font size 11. 
+      http://en.wikipedia.org/wiki/Consolas [http://en.wikipedia.org/wiki/Consolas], 
+      http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252 
+      [http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252] 
+
+
+SEE ALSO                                                    *vtw-914-see-also*
+    - 158 Using Computer Modern TT as a gvim font under Windows |vtw-158| 
+    - 414 Change guifont to see more of your file |vtw-414| 
+    - 484 Console-like fonts for Windows GVim |vtw-484| 
+    - 632 Setting the font in the GUI |vtw-632| 
+    - 774 Gtk gvim and fontconfig |vtw-774| 
+    - 889 Nicer looking fonts on MacOSX |vtw-889| 
+    - What are the best programming fonts? (with screenshots) 
+      [http://www.slant.co/topics/67/~what-are-the-best-programming-fonts%7C] 
+
+
+COMMENTS                                                    *vtw-914-comments*
+
+I don't like any of these fonts on hires screens. They are too small on a 
+1600x1200 panel. Normally I use Lucida Console 12 pt.
+
+==============================================================================
+
+On Windows, I use the Terminal font at 6 pts. However, it's a DOS font and 
+that makes non English letters display all wrong. But I use it anyway because 
+it maximizes my screen usage.
+
+==============================================================================
+
+How about the common 7x14-ISO8859-1 font? The only thing I'd change is to 
+replace the zero with a slashed one (using FontForge). 
+http://www.ank.com.ar/fonts/ [http://www.ank.com.ar/fonts/]
+
+==============================================================================
+
+My favorite fonts are 10x20/X and fixedsys/Windows, always clear and crisp.
+
+==============================================================================
+
+As has been noted, sometimes font size 16 is better for Proggy Clean.
+
+On a Linux system, it can be useful to tell fontconfig to turn off 
+antialiasing for specific fonts. Just create a file named `.fonts.conf` in 
+your home directory with the following content:
+
+>
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <match target="font">
+        <test qual="any" name="family">
+          <string>ProggyCleanTT</string>
+        </test>
+        <edit name="antialias" mode="assign">
+          <bool>false</bool>
+        </edit>
+      </match>
+    </fontconfig>
+<
+
+==============================================================================
+
+The proggy ttf didn't work well for me on FC3. Characters weren't scaled 
+smoothly and looked jagged.
+
+I instead prefer these Microsoft TrueType 
+fonts:http://www.mjmwired.net/resources/mjm-fedora-fc3.html#ttf 
+[http://www.mjmwired.net/resources/mjm-fedora-fc3.html#ttf]
+
+Install the rpm and then use andale mono. They look lovely and are scaled and 
+smoothed perfectly.
+
+>
+    set guifont=Andale\ Mono\ 9
+<
+
+==============================================================================
+
+I've been using a monospace font (not necessarily programming-oriented 
+though) called Inconsolata, available here 
+[http://www.levien.com/type/myfonts/inconsolata.html].
+
+==============================================================================
+
+Here are a couple link to discussion about suitable 
+fonts:http://www.codeproject.com/KB/work/FontSurvey.aspx 
+[http://www.codeproject.com/KB/work/FontSurvey.aspx] — with 
+screenshotshttp://stackoverflow.com/questions/4689/recommended-fonts-for-programming 
+[http://stackoverflow.com/questions/4689/recommended-fonts-for-programming]
+
+==============================================================================
+
+Envy Code R is the most awesome font in the world... I've been using it for 
+years.http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released 
+[http://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released]
+
+==============================================================================
+
+Another free and gorgeous font for programming, Anonymous Pro:
+
+http://www.marksimonson.com/fonts/view/anonymous-pro 
+[http://www.marksimonson.com/fonts/view/anonymous-pro]
+
+==============================================================================
+
+Menlo [http://en.wikipedia.org/wiki/Menlo_(typeface)] has no rival for me.
+
+ vim:tw=78:et:ft=help:norl:

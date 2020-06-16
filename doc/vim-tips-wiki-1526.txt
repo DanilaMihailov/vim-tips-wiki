@@ -1,0 +1,823 @@
+*vim-tips-wiki-1526.txt*   Mapping keys in Vim - Tutorial (Part 2)     *vtw-1526*
+
+Tip 1526 [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)]   Previous |vtw-1525| Next |vtw-1529|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Mapping_keys_in_Vim_-_Tutorial_.28Part_2.29] 
+2007 · complexity intermediate · author Yegappan Lakshmanan · version 6.0
+
+==============================================================================
+
+This is the second part of the three part tutorial on mapping keys in Vim. 
+You can read the other two parts from the following pages:
+    - Mapping keys in Vim - Tutorial (Part 1) 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)] 
+    - Mapping keys in Vim - Tutorial (Part 3) 
+      [https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)] 
+
+
+FINDING UNUSED KEYS                             *vtw-1526-finding-unused-keys*
+
+Further information: Unused keys
+
+In your private maps you should use key sequences that are not used by Vim 
+and by other Vim plugins. :help |map-which-keys|
+
+Many of the key sequences that you can enter from the keyboard are used by 
+Vim to implement the various internal commands. If you use a key sequence in 
+your map that is already used by Vim, then you will not be able to use the 
+functionality provided by Vim for that key sequence. To get a list of the key 
+sequences used by Vim, read the following help topic:
+
+>
+    :help index.txt
+<
+
+If you don't use some Vim functionality invoked by a particular key sequence 
+or you have an alternate key sequence to use that functionality then you can 
+use that key sequence in your maps.
+
+Some of the key sequences may be used by the existing Vim scripts and 
+plugins. To display the list of keys that are currently mapped, use the 
+following commands:
+
+>
+    :map
+    :map!
+<
+
+To determine the script or plugin that defines a map for a key sequence, use 
+the following command.
+
+>
+    :verbose map <key>
+<
+
+In the above command, replace <key> with the desired key sequence. For 
+example, to list all the locations where maps beginning with "," are defined, 
+use the following command:
+
+>
+    :verbose map ,
+<
+
+Try to use an unused key sequence in your maps. Typically, the <F2>, <F3>, 
+... etc function keys are unused. The function keys in combination with 
+Control, Alt and Shift can also be used. But some of the key combinations may 
+not work in all the terminal emulators. Most of the key combinations should 
+work in GUI Vim.
+
+You can also prefix the desired key sequence with a backslash (\) or comma 
+(,) or underscore (_), etc. and use that in your maps.
+
+Note that you cannot map the Shift or Alt or Ctrl keys alone as they are key 
+modifiers. You have to combine these key modifiers with other keys to create a 
+map.
+
+You should not use a frequently used Vim key sequence at the start of your 
+maps. For example, you should not start your normal mode map key sequence with 
+"j" or "k" or "l" or "h". These keys are used for moving the cursor in normal 
+mode. If you use any of these keys at the beginning of your maps, then you 
+will obseve a delay when you enter a single "j" or "k" or "l" or "h".
+
+
+
+KEY NOTATION                                           *vtw-1526-key-notation*
+
+When defining a map command, you can enter printable characters like 'a', 
+'V', etc. literally. You can enter non-printable control characters (like 
+Ctrl-G, Alt-U, Ctrl-Shift-F2, F2, etc.) in several different ways.
+
+You can enter a non-printable control character in a map command by preceding 
+it with CTRL-V. For example, to map the Ctrl-K key to display the buffer list, 
+you can use the following map command:
+
+>
+    :map <press Ctrl-V><press Ctrl-K> :ls<press Ctrl-V><press Enter>
+<
+
+The Ctrl-V key sequence is used to escape the following control character.
+
+The following table shows the mapping between some of the keys on the 
+keyboard and the equivalent Ctrl-key combination:
+
+>
+    Ctrl-I      Tab
+    Ctrl-[      Esc
+    Ctrl-M      Enter
+    Ctrl-H      Backspace
+<
+
+If you use one of the Ctrl-key combination in the above table in a map, the 
+map also applies to the corresponding key. Both the keys produce the same key 
+scan code. For example, if you create a map for CTRL-I, then you can invoke 
+the map by pressing Ctrl-I or the Tab key.
+
+On Unix like systems, the Ctrl-S and Ctrl-Q keys may be used for terminal 
+flow control. If you map these keys in Vim, then when you invoke them, Vim 
+will not receive these key sequences. To use these keys in Vim, you have to 
+change the flow control characters used by the terminal using the 'stty start' 
+and stty stop' commands to some other character or disable the terminal flow 
+control using the following command:
+
+>
+    $ stty -ixon
+<
+
+Similarly, Ctrl-Z is used to suspend Vim on Unix-like systems. To use Ctrl-Z 
+in your maps, you can change the suspend character using the 'stty susp' 
+command.
+
+On MS-Windows, if the mswin.vim file is used, then CTRL-V is mapped to paste 
+text from the clipboard. In this case, you can use CTRL-Q or CTRL+SHIFT+V 
+instead of CTRL-V to escape control characters.
+
+To create a map for the Ctrl-v key, you have to enter it four times:
+
+>
+    :imap ^V^V^V^V EscapeCharacter
+<
+
+In the above command to enter a single ^V, you have to press Ctrl and v. When 
+Vim parses the above command, it replaces the ^V^V^V^V sequence with ^V^V (two 
+Ctrl-V characters). When the map is invoked, Vim replaces the two Ctrl-V 
+characters with a single Ctrl-V character.
+
+The Ctrl-J character represents the linefeed and is internally used by Vim to 
+represent the Nul character. You cannot create a map for Ctrl-J by using the 
+following command:
+
+>
+    "The following command doesn't work
+    :imap <press Ctrl-V><press Ctrl-j> Newlinecharacter
+<
+
+You can also enter a control character by pressing Ctrl-V followed by the 
+decimal or octal or hexadecimal value of the character. For example, to enter 
+CTRL-P, you can press Ctrl-V followed by 016 (decimal) or x10 (hexadecimal) or 
+o020.
+
+Instead of entering the control characters directly in a map command as 
+described above, it is preferable to use symbolic key notation for the control 
+characters for readability. Vim supports representing control characters using 
+symbolic notation like <F1>, <C-W>, <C-S-F1>, etc.
+
+To determine the special key code representation that can be used in a map 
+command, in insert mode, press the <CTRL-K> key followed by the key.
+
+A key with the Ctrl key modifier is represented using the <C-key> notation. 
+For example Ctrl-R is represented using <C-R>. A key with the Shift key 
+modifier is represented using the <S-key> notation. For example Shift-F2 is 
+represented using <S-F2>. A key with the Alt key modifier is represented using 
+<A-key> or <M-key> notation. You can combine one or more key modifiers. For 
+example, to represent Ctrl+Shift+F3 you can use <C-S-F3>. Super is represented 
+<D-key> in MacVim and <T-key> in gtk2 gvim. In gvim it doesn't work with all 
+the keys.
+
+The Vim key notation for other special characters is listed below:
+
+>
+    <BS>           Backspace
+    <Tab>          Tab
+    <CR>           Enter
+    <Enter>        Enter
+    <Return>       Enter
+    <Esc>          Escape
+    <Space>        Space
+    <Up>           Up arrow
+    <Down>         Down arrow
+    <Left>         Left arrow
+    <Right>        Right arrow
+    <F1> - <F12>   Function keys 1 to 12
+    #1, #2..#9,#0  Function keys F1 to F9, F10
+    <Insert>       Insert
+    <Del>          Delete
+    <Home>         Home
+    <End>          End
+    <PageUp>       Page-Up
+    <PageDown>     Page-Down
+    <bar>          the '|' character, which otherwise needs to be escaped '\|'
+<
+
+Note that Vim understands only those keys that are supplied by the operating 
+system to Vim. If a particular key sequence is handled by a window manager or 
+is intercepted by the operating system, then Vim will not see that key 
+sequence. Then, you can not use that key sequence in Vim.
+
+To determine whether Vim receives a key sequence, in insert mode press 
+<CTRL-V> followed by the key sequence. If you see some characters in the 
+buffer, then Vim is receiving the entered key sequence.
+
+If the escape sequence received by Vim is not a standard sequence, you can 
+set the sequence to the desired key. For example, let us say <PageUp> is 
+generating a non-standard key sequence in your system. Then you can use the 
+following command:
+
+>
+    :set <PageUp>=<type Ctrl-V><type PageUp>
+<
+
+In the above command, the first <PageUp> is inserted literally (8 
+characters). The argument after = is entered by pressing Ctrl-V followed by 
+the <PageUp> key.
+
+You can also specify a character by its numeric value in a map. A character 
+is represented by <Char-xxx>, where xxx is the value of the character in 
+decimal or octal or hexadecimal.
+
+For example, the key CTRL-P has a value of 16 (decimal). This is represented 
+by <Char-16> (in decimal), <Char-020> (in octal) and <Char-0x10> (in 
+hexadecimal). You can create a map for <CTRL-P> using any one of the following 
+commands:
+
+>
+    :nnoremap <C-P> {
+    :nnoremap <Char-16> {
+    :nnoremap <Char-020> {
+    :nnoremap <Char-0x10> {
+<
+
+You can also use the termcap entry for a key in the map. The termcap entries 
+are represented using the format <t_xx> where 'xx' is replaced with the key. 
+You can get a list of termcap keys using the ":set termcap" command. For 
+example, to map F8 you can use <t_F8>:
+
+>
+    :nnoremap <t_F8> :make<CR>
+<
+
+But it is preferable to use key notations instead of terminal codes for 
+special keys.
+
+
+
+MAPS WITH THE SAME PREFIX                 *vtw-1526-maps-with-the-same-prefix*
+
+If more than one mapped key sequence starts with the same subsequence of keys 
+then when invoking the map you will notice a delay. For example, the ";" 
+(semi-colon) command in normal mode repeats the previous f or t or F or T 
+command. Assume that your map commands also start with ";". When you press 
+";", Vim needs to wait for you to enter sufficient number of characters to 
+distinguish between the built-in internal command and your mapped commands.
+
+When the 'timeout' option is set (which is the default), then Vim waits for 
+the number of milliseconds specified in the 'timeoutlen' option for a mapped 
+key sequence to complete. The default setting for 'timeoutlen' is one second.
+
+If the 'timeout' option is reset, then Vim will not timeout for mapped key 
+sequences. But it is better not to change the 'timeout' option setting and 
+leave the option in its default value. Instead, if you want more or less delay 
+before a mapped key sequence times out, you can try increasing or decreasing 
+the 'timeoutlen' setting.
+
+Consider the following maps:
+
+>
+    :nnoremap ;g :echo 'First command'<CR>
+    :nnoremap ;k :echo 'Second command'<CR>
+<
+
+When you press ';' to repeat the last 't' or 'f' or 'T' or 'F' command, Vim 
+will now wait for 'timeoutlen' milliseconds to check whether you are going to 
+enter 'g' or 'k'. If you enter any other character or don't enter any 
+character for a second, then Vim will repeat the last 't' or 'f' or 'T' or 'F' 
+command. If you enter 'g' or 'k' after ';', then Vim will execute the 
+corresponding map.
+
+For the above described reason, it is better to avoid starting your mapped 
+key sequence with a frequently used Vim command like j, k, l, etc.
+
+
+
+MAP COMMENTS                                           *vtw-1526-map-comments*
+
+You cannot add a Vim comment in the same line as the map command. The comment 
+will be included in the map command and executed when the key sequence is 
+entered. For example, using the following command, when you press <F2>, Vim 
+will try to execute the comment also as a series of key presses (resulting in 
+error).
+
+>
+    :map <F2> :ls<CR>     " Map to display the list of buffers
+<
+
+You can add the comment before the line that defines the map:
+
+>
+    "Map to display the list of buffers
+    :map <F2> :ls<CR>
+<
+
+SUPPLYING A COUNT TO A MAP               *vtw-1526-supplying-a-count-to-a-map*
+
+To repeat a normal mode Vim command, you can specify a count before the 
+command. For example, to move the cursor 3 lines up, you can use the '3k' 
+command. If you specify a count before a mapped key sequence, the map may not 
+be repated by the specified count.
+
+When a count is entered before invoking a map, the count will be prepended to 
+the key sequence executed for the map. For example, assume you have mapped 
+<F7> to move the cursor by 5 characters to the right:
+
+>
+    :nnoremap <F7> 5l
+<
+
+If you invoke the above map with a count of 2 using 2<F7>, the cursor will 
+not be moved 10 characters to the right. Instead, the cursor will be moved 25 
+characters to the right. This is because the count 2 is prepended to the 5 in 
+the map resulting in 25.
+
+To allow repeating a map by a specified count, you have to define your map 
+using either the '=' expression register, the execute command, or a Vim 
+function.
+
+The '=' expression register allows you to specify an expression for the 
+register contents. To use the expression register in your map, you have to 
+combine that with the '@' operator. The '@' operator executes the contents of 
+a register. If a count is specified before the '@' operator, then it executes 
+the contents of a register by the specified count.
+
+For example, change the above map command to:
+
+>
+    :nnoremap <F7> @='5l'<CR>
+<
+
+Now, if you use 2<F7>, the cursor will be moved 10 characters to the right.
+
+Some things to note about using the '=' register in your map. After 
+specifying an expression, you have to use <CR> to end the command-line. If you 
+want to use the escape character in the expression, you have to escape it 
+using CTRL-V. For example, if you want to define a map to add the '#' 
+character at the beginning of the current line, exit the insert mode and move 
+the cursor one line down, you can use the following command:
+
+>
+    :nnoremap <F4> @='I#<C-V><Esc>j'<CR>
+<
+
+Now if you press 3<F4>, the 3 lines starting from the current line are 
+prefixed with the '#' character.
+
+In the above map, if you specify a key sequence after the contents of the 
+expression register, then those keys will not be executed by the '@' operator. 
+So the specified count doesn't apply to those keys. For example, in the above 
+map, if you move the 'j' out of the contents of the expression register:
+
+>
+    :nnoremap <F4> @='I#<C-V><Esc>'<CR>j
+<
+
+Now, if you execute '3<F4>', three '#' characters will be added to the 
+beginning of the current line and the cursor is moved to the following line.
+
+Another approach, which is useful when mapping to Ex commands, is to build a 
+command string with the concatenate operator '.' and execute this with the 
+'execute' command. Example:
+
+>
+    :nnoremap g<C-T> :<C-U>exe v:count1 . "tag"<CR>
+<
+
+This will map 'g<C-T>' to ':tag' and '5g<C-T>' to ':5tag'.
+
+The v:count1 variable returns 1 if a count is not specified to the last 
+normal mode command. The v:count variable returns 0 if a count is not 
+specified to the last normal mode command/map. In the above map, <C-U> is used 
+to erase the text on the command-line before invoking the function.
+
+A third approach to allow repeating a map is to use a Vim function to define 
+the map. A Vim function can be defined to accept a count and repeat a 
+operation that many number of times. You can use the "range" attribute to 
+define a function that accepts a count.
+
+If you supply a count to a function that doesn't accept a range, then you 
+will get the 'Invalid range' error message. Example:
+
+>
+    function! Myfunc()
+      " Function that doesn't accept a range
+    endfunction
+    :nnoremap _w :call Myfunc()<CR>
+<
+
+If you specify a count to the _w command, then you will see the 'Invalid 
+range' error message.
+
+If you want your map to accept a range, then you have to specify the range 
+attribute when defining the function as shown below:
+
+>
+    function! Myfunc() range
+      echo 'range = ' . a:firstline . ',' . a:lastline
+    endfunction
+    :nnoremap _w :call Myfunc()<CR>
+<
+
+Now you can pass a count to the _w map. The a:firstline and a:lastline 
+variables in the function refer to the starting line number and ending line 
+number of the range supplied to the function. The default is the current line 
+number.
+
+You can also use the internal v:count and v:count1 Vim variables in your 
+function to get the count specified to the last normal mode command or map. 
+Example:
+
+>
+    :nnoremap <C-W> :<C-U>call Myfunc()<CR>
+    function! Myfunc()
+      let c = v:count
+      " Do something count number of times
+    endfunction
+<
+
+
+
+
+
+USING MULTIPLE EX COMMANDS IN A MAP *vtw-1526-using-multiple-ex-commands-in-a-map*
+
+You can specify multiple Ex commands separated by "|" (bar) in the Ex command 
+line (":"). The "|" is used as the command separator. For example,
+
+>
+    :set invignorecase | set ignorecase?
+<
+
+If you specify "|" in the {rhs} of a map, then Vim will treat it as a command 
+separator and only the first command will be part of the map and the 
+subsequent commands will be executed when defining the map. For example,
+
+>
+    :nnoremap <F9> :set invignorecase | set ignorecase?<CR>
+<
+
+In the above command, "set ignorecase?" will not be part of the map for <F9>.
+
+You have to escape the "|" by using backslash (\) or by using the <Bar> 
+symbolic notation or by using CTRL-V. The following commands will work:
+
+>
+    :nnoremap <F9> :set invignorecase \| set ignorecase?<CR>
+    
+    :nnoremap <F9> :set invignorecase <Bar> set ignorecase?<CR>
+    :nnoremap <F9> :set invignorecase <press Ctrl-V>| set ignorecase?<CR>
+<
+
+Some Ex commands use the command that follows them (separated by |) as part 
+of the command itself. For example, the ":global" (or ":g") command repeats 
+the command that follows it for every matched pattern. In the following 
+command,
+
+>
+    :g/foo/s/abc/xyz/g | echo 'Completed substitution'
+<
+
+The ":echo" command is repeated for every 'foo' found in the current buffer. 
+To execute the ":echo" command only once after the ":g" command completes, you 
+have to use the ":exe" command.
+
+>
+    :exe 'g/foo/s/abc/xyz/ge' | echo 'Completed substitution'
+<
+
+If your map uses one of these commands like ":g" then you have to use ":exe" 
+in your map command.
+
+Another way to invoke multiple Ex commands from a map is to invoke them 
+separately as shown below:
+
+>
+    :nnoremap <F9> :set invignorecase<CR>:set ignorecase?<CR>
+<
+
+Ex commands invoked from a map are not added to the command history. You 
+can't recall the individual commands invoked by a map from the command-line.
+
+USING SPACE CHARACTERS IN A MAP     *vtw-1526-using-space-characters-in-a-map*
+
+If you want to use a space character in the {lhs} of a map command, then you 
+have to use <Space> or escape the space character with CTRL-V (need to use two 
+CTRL-Vs). Example:
+
+>
+    nnoremap q<Space> M
+<
+
+The above command creates a normal mode map for the key sequence "q" followed 
+by the space character to move the cursor to the middle of the page.
+
+If you want to use the space character at the beginning of the {rhs} of a map 
+command, then use <Space>. In other places in the {rhs}, you can use the space 
+character by pressing the space bar. Example:
+
+>
+    inoremap <C-F4> <Space><Space><Space>
+<
+
+The above command creates an insert mode map for the key sequence CTRL-F4 to 
+enter three space characters.
+
+Note that if you inadvertently use a space character at the end of the {rhs} 
+in a map command, then the map may behave differently. For example, the 
+following command maps the backspace character in normal mode to behave like 
+the 'X' command and delete the character before the cursor:
+
+>
+    nnoremap <BS> X
+<
+
+If there is a space character after "X" in the above command, then the map 
+will delete the character before the cursor but leave the cursor at the 
+current location instead of moving it back by one position. You can locate 
+these kinds of errors, by looking at the output of the ":map" command. In the 
+":map" output, the space character at the end of the {rhs} in a map will be 
+shown as "<Space>".
+
+DISABLING KEY AND MOUSE EVENTS       *vtw-1526-disabling-key-and-mouse-events*
+
+You can disable key and mouse events by mapping them to the special string 
+"<Nop>". For example, to disable the <F4> key in normal mode, you can use the 
+following command:
+
+>
+    :nmap <F4> <Nop>
+<
+
+You can use the mode specific map command to disable a key in a particular 
+mode.
+
+The <Nop> sequence has a special meaning only if it appears by itself in the 
+{rhs} of a map. You cannot use <Nop> with other keys in the {rhs} of a map. 
+For example, the following command will not disable the <F1> key:
+
+>
+    :inoremap <F1> <Nop><Nop>
+<
+
+You can disable mouse buttons and mouse events by mapping them to <Nop>. For 
+example to disable the <MiddleMouse> button, you can use the following 
+command:
+
+>
+    :imap <MiddleMouse> <Nop>
+<
+
+ERROR IN MAPPED KEY SEQUENCES         *vtw-1526-error-in-mapped-key-sequences*
+
+When executing the key sequences in a key map, if Vim encounters an error, 
+then the map will be aborted and the remaining key sequences will not be 
+executed. You will not see any error message indicating that this has 
+happened. If you have the 'errorbells' or 'visualbell' option set, then you 
+will see the screen flash or hear the audio beep.
+
+For example, consider the following key map that maps <F5> to toggle the case 
+of the first letter of the current word.
+
+>
+    nmap <F5> wb~
+<
+
+In most cases the above map will work as desired. But when the cursor is at 
+the last word in the last line of a file, the above map will not work. In the 
+last word of a file, the "w" command will fail and will not move the cursor to 
+the next word. So the remaining part of the map will not be executed.
+
+One way to workaround this problem is to split the command into two parts and 
+execute them using the ":exec" command:
+
+>
+    nmap <F5> :exec 'normal w'<Bar>exec 'normal b~'<CR>
+<
+
+MAPS AND 'CPOPTIONS' OPTION             *vtw-1526-maps-and-'cpoptions'-option*
+
+The 'cpoptions' Vim option contains many flags that control the compatibility 
+level of Vim with the Vi behavior. To get the current value of the 'cpoptions' 
+option, use the following command:
+
+>
+    :set cpoptions?
+<
+
+When Vim is running in Vi-compatible mode, all the possible flags are set in 
+the 'cpoptions' option.
+
+The flags in the 'cpoptions' Vim option affect map definitions and their 
+usage. These flags are described below.
+
+If the flag 'b' is present in 'cpoptions', then a "|" character in a map 
+command is treated as the end of the map command. This means that you cannot 
+use backslash (\) to escape the "|" character in map command definitions.
+
+Example:
+
+>
+    :nnoremap <F5> :set invhlsearch \| set hlsearch?<CR>
+<
+
+If the 'b' flag is present in 'cpoptions', then the above map command 
+definition will fail. All the characters after the backslash will not be part 
+of the map.
+
+If the flag 'B' is present in 'cpoptions', then the backslash character is 
+not treated as a special character in map commands. For example, let us say 
+you want to create an insert-mode map for the <F6> key to insert the text 
+"Press <Home> to go to first character". For this, you can try using the 
+following command:
+
+>
+    imap <F6> Press <Home> to go to first character
+<
+
+When you press <F6> in the insert mode, the <Home> in the above map will 
+cause Vim to move the cursor to the first character in the line and insert the 
+reminder of the text there. To literally enter the text "<Home>", you need to 
+escape it:
+
+>
+    imap <F6> Press \<Home> to go to first character
+<
+
+If the flag 'B' is not present in 'cpoptions', then the above map command 
+will insert the correct text. If the flag 'B' is present, then the backslash 
+character is not treated as a special character and the above map will not 
+insert the correct text. To treat <Home> literally independent of the 
+'cpoptions' setting, you can use the following command:
+
+>
+    imap <F6> Press <lt>Home> to go to first character
+<
+
+In the above command, the notation <lt> is used for "<" in "<Home>".
+
+If the flag 'K' is present in 'cpoptions', then you can cancel the invocation 
+of a map in the middle of the key sequence by pressing <Esc>. For example, let 
+us say you have the following map command:
+
+>
+    :nnoremap <F3><F3> :ls<CR>
+<
+
+If the flag 'K' is present, then after entering the first <F3>, you can 
+cancel the map by pressing <Esc>. If the flag 'K' is not present, then if you 
+don't press any key after the first <F3>, Vim will wait for 'timeoutlen' 
+milliseconds before cancelling the map (assuming the 'timeout' option is set).
+
+If the flag 'k' is present in 'cpoptions', then raw key codes are not 
+recognized in map commands. You can enter raw key code in a map command by 
+pressing Ctrl-V followed by a control key. For example, consider the following 
+map command:
+
+>
+    nnoremap <press Ctrl-V><press Up arrow> gk
+<
+
+The above command maps the raw key code for the up arrow key to invoke the gk 
+command. If the 'k' flag is not present in 'cpoptions', then the above command 
+will properly work. If the 'k' flag is present in 'cpoptions', then the above 
+map command will not work.
+
+If the flag '<' is present in 'cpoptions', then special keys codes like 
+<Tab>, <C-K>, <F1>, etc. are not recognized in maps. For example, consider the 
+following maps:
+
+>
+    :nnoremap <M-Right> <C-W>l
+    :nnoremap <M-Left> <C-W>h
+<
+
+If the '<' flag is present in 'cpoptions', then the above map commands will 
+not work as the special key codes <M-Right>, <M-Left> and <C-W> will not be 
+recognized.
+
+MAPS AND 'PASTE' OPTION                     *vtw-1526-maps-and-'paste'-option*
+
+While pasting text into a Vim buffer, to disable automatic indentation and 
+interpreting mapped key sequences in the inserted text, you can set the 
+'paste' option. When the 'paste' option is set, mapped key sequences are 
+ignored. By default, the 'paste' option is disabled. If your mapped keys are 
+not working in a buffer, check whether the 'paste' option is set.
+
+MAP ATTRIBUTES                                       *vtw-1526-map-attributes*
+
+You can modify the behavior of a key map by specifying several attributes in 
+the map command. The supported attributes are <buffer>, <silent>, <special>, 
+<script>, <expr>, and <unique>.You can specify one or more of these attributes 
+in a map command immediately after the map command name.
+
+BUFFER-LOCAL MAPS                                 *vtw-1526-buffer-local-maps*
+
+When you create a map, the mapped key can be used in all the Vim buffers. To 
+create a map that is applicable only to specific buffers, use the <buffer> 
+attribute to the map command. For example,
+
+>
+    :setlocal makeprg=gcc\ -o\ %<
+    :nnoremap <buffer> <F3> :make<CR>
+<
+
+The above command creates a map to compile the file opened in the current 
+buffer. You can add the above set of commands to a filetype plugin. For 
+example, you can add it to file `~/.vim/after/ftplugin/c.vim` (Unix) or 
+`$HOME/vimfiles/after/ftplugin/c.vim` (Windows)—create any missing directories 
+or files. Now, you can compile a C file in the current buffer, by pressing the 
+<F3> key. When you open a Java file, this command will not be available.
+
+When a buffer is deleted, the buffer local mappings for that buffer are 
+removed. When a buffer is unloaded or hidden, you will not lose the mappings.
+
+When you remove a buffer local map, you have to specify the <buffer> 
+attribute to the ":unmap" or ":mapclear" command. Without the <buffer> 
+attribute you cannot remove the map.
+
+To display all the buffer-local mappings for the current buffer, use the 
+following commands:
+
+>
+    :map <buffer>
+    :map! <buffer>
+<
+
+To display the mode specific buffer-local maps, use the map command for that 
+mode in the above command.
+
+
+
+SILENT MAPS                                             *vtw-1526-silent-maps*
+
+When a map is invoked, the sequence of keys executed is displayed on the 
+screen. If an Ex command is invoked by the map, then you can see the Ex 
+command at the Vim status line. To silently execute a map, use the <silent> 
+attribute for the map. For example,
+
+>
+    :nnoremap <silent> <F2> :lchdir %:p:h<CR>:pwd<CR>
+<
+
+The above command maps the <F2> key to change to the directory of the current 
+file and then display the current directory. When you invoke the above 
+command, due to the <silent> attribute, you will not see the commands that are 
+executed.
+
+If the commands invoked by the map display a message, then those messages 
+will be visible even though <silent> attribute is specified for the map 
+command. For example, in the above command, the current directory displayed by 
+the ":pwd" command will be visible.
+
+EXPRESSION MAPS                                     *vtw-1526-expression-maps*
+
+For simple maps, the action to be carried out for a key sequence can be 
+defined without using a Vim function. But for complex maps, it is simpler to 
+use a Vim function to implement the action for the map.
+
+You can use the <expr> attribute to a map command to invoke a Vim function 
+and use the returned value as the key sequence to execute.
+
+For example, the following code creates a normal mode map to change to the 
+directory of the current buffer.
+
+>
+    function! ChangeToLocalDir()
+      lchdir %:p:h
+      return ''
+    endfunction
+    nnoremap <expr> _c ChangeToLocalDir()
+<
+
+In this example, the function returns an empty string so the map takes no 
+action other than executing the function.
+
+The <expr> attribute can be used with all the mode specific map commands.
+
+SPECIAL CHARACTERS IN MAPS               *vtw-1526-special-characters-in-maps*
+
+To use non-printable characters using the <> notation like <F5> in a map 
+command, the '<' flag should not be present in the 'cpoptions' option. For 
+example, the following map command will not work:
+
+>
+    :set cpo+=<
+    :inoremap <F7> <C-X><C-N>
+<
+
+In insert mode, if you press <F7>, instead of executing the map, the 
+characters <F7> will be inserted. To prevent this, you can use the <special> 
+map attribute:
+
+>
+    :inoremap <special> <F7> <C-X><C-N>
+<
+
+With the <special> map attribute, independent of the 'cpoptions' option 
+setting, Vim will correctly process the <> key codes in the {rhs} of a map 
+command.
+
+To read the third part of this tutorial, visit the Mapping keys in Vim - 
+Tutorial (Part_3) 
+[https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_3)] page.
+
+COMMENTS                                                   *vtw-1526-comments*
+
+ vim:tw=78:et:ft=help:norl:

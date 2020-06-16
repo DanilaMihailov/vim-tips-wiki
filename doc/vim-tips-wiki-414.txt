@@ -1,0 +1,148 @@
+*vim-tips-wiki-414.txt*   Change guifont to see more of your file       *vtw-414*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip760 |vtw-760| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 414 [https://vim.fandom.com/wiki/Change_guifont_to_see_more_of_your_file]   Previous |vtw-413| Next |vtw-416|
+
+created January 30, 2003 · complexity basic · author benrich · version 5.7
+
+==============================================================================
+
+Sometimes, its nice to be able to quickly jump to a smaller font to see more 
+of the file you're editing at once, and jump back again to make the text more 
+readable. I use these mapping:
+
+>
+    :map <F9> :set guifont=Lucida_Console:h9:cANSI<CR>
+    :map <F11> :set guifont=Lucida_Console:h11:cANSI<CR>
+    :map <S-f9> :set guifont=Courier_New:h9:cANSI<CR>
+    :map <S-f11> :set guifont=Courier_New:h11:cANSI<CR>
+<
+
+9 and 11 are my mnemonics for the font size. F10 wouldn't work for me because 
+it activates the menu. Of course, this only works in gvim.
+
+COMMENTS                                                    *vtw-414-comments*
+
+For decreasing/increasing the current font size by one point you can also use 
+these mappings:
+
+>
+    nmap <F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>
+    nmap <S-F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) + 1)', '')<CR>
+<
+
+Because notation of fonts is highly system dependent, this might only work on 
+Windows.
+
+==============================================================================
+
+In addition you can set the blank space between the lines:
+
+>
+    "number of pixel lines to use between lines
+    set lsp=0
+<
+
+==============================================================================
+
+This tip probably works only for Windows but the basic idea can be applied to 
+UNIX and other platforms.
+
+You mileage may vary regarding the point size, depending on the your screen 
+resolution and whether you are using small fonts or large ones. The same 
+issues apply to 75 dpi vs 100 dpi fonts on X11.
+
+On Windows, you can 'set wak=no' to prevent <F10> from bringing up the menu.
+
+==============================================================================
+
+Try this script, which allows you to enlarge or shrink your font sizes by 
+half-point increments. It works on Win32. The script is easily modified to 
+deal with whole-point increments, of course.
+
+>
+    function! ScaleFontUp()
+      let gf_size_whole = matchstr(&guifont, '\(\:h\)\@<=\d\+')
+      let gf_size_frac = matchstr(&guifont, '\(\:h\d\+\.\)\@<=\d\=')
+      let font_size = gf_size_whole * 10 + gf_size_frac
+      let font_size = font_size + 5
+      let gf_size_whole = font_size / 10
+      let gf_size_frac = font_size - gf_size_whole * 10
+      let new_font_size = ':h'.gf_size_whole.'.'.gf_size_frac.':'
+      let &guifont = substitute(&guifont, '\:h.\{-}\:', new_font_size, '')
+    endfunction
+    
+    function! ScaleFontDown()
+      let gf_size_whole = matchstr(&guifont, '\(\:h\)\@<=\d\+')
+      let gf_size_frac = matchstr(&guifont, '\(\:h\d\+\.\)\@<=\d\=')
+      let font_size = gf_size_whole * 10 + gf_size_frac
+      let font_size = font_size - 5
+      let gf_size_whole = font_size / 10
+      let gf_size_frac = font_size - gf_size_whole * 10
+      let new_font_size = ':h'.gf_size_whole.'.'.gf_size_frac.':'
+      let &guifont = substitute(&guifont, '\:h.\{-}\:', new_font_size, '')
+    endfunction
+    
+    nmap <C-S-F11> :call ScaleFontDown()<CR>
+    nmap <C-S-F12> :call ScaleFontUp()<CR>
+<
+
+Ctrl-Shift-F11 and -F12 reduces and enlarges the font sizes, respectively.
+
+==============================================================================
+
+And if you don't ever use the guis.
+
+>
+    set guioptions-=T "get rid of toolbar
+    set guioptions-=m "get rid of menu
+<
+
+==============================================================================
+
+Check guifont++.vim plugin script#593 
+[https://www.vim.org/scripts/script.php?script_id=593]
+
+When you drop it into your plugin directory, keys +, -, and = will be 
+remapped: + makes the font larger by 1, - makes the font smaller by 1, = 
+restores whatever the original font size was. And these key mappings can be 
+redefined to something else (if you use your +, -, or = keys) in your vimrc 
+file (see the plugin description for info on that).
+
+==============================================================================
+
+Ever want that great looking unix font for gvim on win32?
+
+I have, and I just found where you can get 
+them:http://www.tomasek.cz/semtel/download/fonts.zip 
+[http://www.tomasek.cz/semtel/download/fonts.zip]
+
+This guy has hacked some of the most common unix fonts (.bdf format) into 
+win32 .fon style fonts. Just drop the desired font into your c:\winnt\fonts 
+directory and you're good to go!
+
+My personal favorite is 7x14, which combined with vim's ":set lsp=0" makes my 
+gvim screen on win32 look just like my vim terminal on unix. Horray!
+
+==============================================================================
+
+The functions for scaling the font up and down are really great, but I had to 
+change the "substitute"-line cause I have no colon after the ":hFONTSIZE".
+
+The following line works with and without a colon after the fontsize.
+
+>
+    let &guifont = substitute(&guifont, '\:h[0-9\.]\+', new_font_size, '')
+<
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

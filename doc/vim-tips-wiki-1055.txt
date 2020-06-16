@@ -1,0 +1,96 @@
+*vim-tips-wiki-1055.txt*   Faster directory browsing from command line *vtw-1055*
+
+Tip 1055 [https://vim.fandom.com/wiki/Faster_directory_browsing_from_command_line]   Previous |vtw-1054| Next |vtw-1058|
+
+created 2005 · complexity intermediate · author Amir Salihefendic · version 
+5.7
+
+==============================================================================
+
+I have made some mappings that make directory browsing faster from the 
+command line.
+
+Here is the usage of `$c`:
+
+Imagine you are editing "~/Desktop/project/view/core/admin/MenuEdit.tmpl" and 
+the cwd (current working directory) is "~/Desktop/project".
+
+Now imagine that you need to edit something else in the MenuEdit directory 
+(admin dir), but you don't want to change the cwd.
+
+Then you go to the Vim commandline and press `$c`, and it will transform to 
+"e ~/Desktop/project/view/core/admin/".
+
+That is, the `$c` expands to "e " + the directory of the current file.
+
+I also found out that I sometimes needed to go to a parent directory from the 
+commandline and I found it really tiring to use backspace.
+
+Here is the usage of <C-q>:
+
+Imagine you are editing "~/Desktop/project/view/core/admin/MenuEdit.tmpl" and 
+you would like to step to core/ directory to edit a file there.
+
+Enter commandline and press $c, then press <C-q><C-q>, your commandline 
+should then be "e ~/Desktop/project/view/core/".
+
+That is, the <C-q> on commandline deletes text till last slash.
+
+Why use this?
+
+It's nice to have when working on bigger projects. It's especially useful for 
+MVC (model, view and controller) kind of applications where the different 
+parts are split into different directories.
+
+It's also useful in Java applications where you have source in one directory 
+and tests in another.
+
+>
+    func! Cwd()
+      let cwd = getcwd()
+      return "e " . cwd
+    endfunc
+    
+    func! DeleteTillSlash()
+      let cmd = getcmdline()
+      let cmd_edited = substitute(cmd, "\\(.*/\\).*", "\\1", "")
+      if cmd == cmd_edited
+        let cmd_edited = substitute(cmd, "\\(.*/\\).*/", "\\1", "")
+      endif
+      return cmd_edited
+    endfunc
+    
+    func! CurrentFileDir()
+      return "e " . expand("%:p:h") . "/"
+    endfunc
+    cno $c e <C-\>eCurrentFileDir()<CR>
+    cmap <C-q> <C-\>eDeleteTillSlash()<CR>
+<
+
+COMMENTS                                                   *vtw-1055-comments*
+
+Try the following:
+
+>
+    :<C-R>%
+    :<C-R>%<C-W><C-W>
+<
+
+==============================================================================
+
+They also work, but it's tiring to type <s-.>e<Space><c-r><s-5> (instead of 
+just <s-.>$c).It's 8 key press (where many of them are combined) vs. 4 (that 
+are simple if one uses the right mappings, my $ is mapped to the key below 
+ESC). The $c is at least 50% faster.
+
+And <c-w> only deletes one word at a time. Sometimes you would have to press 
+<c-w> 1 time other times 3 times (i.e. you would have to spend time thinking 
+how many times to press <c-w> - i.e. slower).You would have to press <C-q> 
+only once in every situation.
+
+Also we can set path options to specify multiple directory very freely, see 
+:help 'path'.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

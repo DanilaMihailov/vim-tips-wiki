@@ -1,0 +1,115 @@
+*vim-tips-wiki-54.txt*   View a Java Class File using a decompiler       *vtw-54*
+
+Tip 54 [https://vim.fandom.com/wiki/View_a_Java_Class_File_using_a_decompiler]   Previous |vtw-53| Next |vtw-58|
+
+created March 22, 2001 · complexity intermediate · author bhaskar_v_k · 
+version 5.7
+
+==============================================================================
+
+Do you wish you could view a Java Class File using Vim?
+
+First of all you will need a Java Decompiler to decompile the Class File. I 
+would suggest the JAD decompiler by Pavel Kouznetsov
+    - http://www.varaneckas.com/jad [http://www.varaneckas.com/jad] 
+
+
+It's a command line decompiler and absolutely free.
+
+Next create a vimscript file called jad.vim:
+
+>
+    augr class
+    au!
+    au bufreadpost,filereadpost *.class %!d:jad.exe -noctor -ff -i -p %
+    au bufreadpost,filereadpost *.class set readonly
+    au bufreadpost,filereadpost *.class set ft=java
+    au bufreadpost,filereadpost *.class normal gg=G
+    au bufreadpost,filereadpost *.class set nomodified
+    augr END
+<
+
+Note: Keep the Jad.exe in a directory without white spaces. The -p options 
+directs JAD to send the output to standard output instead of a .jad file. 
+Other options are described on the JAD site.
+
+Next add the following line in the vimrc [https://vim.fandom.com/wiki/Vimrc] 
+file.
+
+>
+    so jad.vim
+<
+
+Next time you do vim abc.class, you have the source code for abc.class.
+
+NOTE: I have written the script so as to open the class file read only, So 
+that you don't accidentally modify it. You can also extend this script to 
+unjar a jar file and then view each file in the JAR file.
+
+COMMENTS                                                     *vtw-54-comments*
+
+I modified this a little bit to use the improved file runtime organisation of 
+vim60, I don't know if other will like it better but here it is:I added to 
+filetype.vim:
+
+>
+    augroup filetypedetect
+    au! BufRead,BufNewFile *.jad setfiletype java
+    au! BufRead,BufNewFile *.class setfiletype class
+    augroup END
+<
+
+and created in ftplugin a class.vim with
+
+>
+    %!jad.exe -noctor -ff -i -p %
+    set readonly
+    set ft=java
+    normal gg=G
+    set nomodified
+<
+
+==============================================================================
+
+If you don't want to 'hit ENTER' after every decompilation, you can add 
+'silent' to some of the lines:
+
+>
+    au bufreadpost,filereadpost *.class silent %!jad -noctor -ff -i -p %
+<
+
+and maybe even:
+
+>
+    au bufreadpost,filereadpost *.class silent normal gg=G
+<
+
+==============================================================================
+
+I can now select any class file, right click, and select the "Edit with Vim" 
+option to view the source.
+
+I'm just wondering, how do I change this to if I do the same to a jar file, 
+and it will show me the contents of the jar file, as in a jar -tf, and if I 
+select any of the entries, I can view the source?
+
+I tried opening the jar file using WinZip, and if I view any of the entries 
+in it using vim, I'll get something like this:JavaClassFileReadException: 
+can't open input file on `C:\Documents'JavaClassFileReadException: can't open 
+input file on `and'JavaClassFileReadException: can't open input file on 
+`Settings\gwunwai\Local'JavaClassFileReadException: can't open input file on 
+`Settings\Temp\Version.class'
+
+I think that's because WinZip extracts the zip entries into my temp 
+directory, which contains white spaces.
+
+Is there some way around this?
+
+==============================================================================
+
+you can change the command to %!jad.exe -noctor -ff -i -p "%"(enclosed the % 
+with quotes). It worked for me
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

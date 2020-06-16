@@ -1,0 +1,162 @@
+*vim-tips-wiki-80.txt*   Restore cursor to file position in previous editing session *vtw-80*
+
+Tip 80 [https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session]   Previous |vtw-79| Next |vtw-81|
+
+created 2001 · complexity intermediate · author Charles E Campbell · version 
+6.0
+
+==============================================================================
+
+PLUGINS                                                       *vtw-80-plugins*
+    - The vim-lastplace [https://github.com/farmergreg/vim-lastplace] plugin will 
+      open your files at the last edit position. It is smart enough to handle commit 
+      messages correctly too! 
+
+
+DOING IT MANUALLY                                   *vtw-80-doing-it-manually*
+
+Here is something for your vimrc [https://vim.fandom.com/wiki/Vimrc] which 
+will allow you to restore your cursor position in a file over several editing 
+sessions. This technique uses the viminfo option, so be sure to have viminfo 
+enabled with reasonable options (it is enabled by default):
+
+>
+    " Tell vim to remember certain things when we exit
+    "  '10  :  marks will be remembered for up to 10 previously edited files
+    "  "100 :  will save up to 100 lines for each register
+    "  :20  :  up to 20 lines of command-line history will be remembered
+    "  %    :  saves and restores the buffer list
+    "  n... :  where to save the viminfo files
+    set viminfo='10,\"100,:20,%,n~/.viminfo
+<
+
+If you are on Unix, the viminfo example above is probably fine as is (but 
+check up on Vim's help for viminfo to see if you like the settings above). For 
+Windows you will need to change the "n" suboption to something like:
+
+>
+    set viminfo='10,\"100,:20,%,nc:\\some\\place\
+<
+
+Afterwards, add the main function that restores the cursor position and its 
+autocmd so that it gets triggered:
+
+>
+    function! ResCur()
+      if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+      endif
+    endfunction
+    
+    augroup resCur
+      autocmd!
+      autocmd BufWinEnter * call ResCur()
+    augroup END
+<
+
+This tip is an improved version of the example given for :help 
+|last-position-jump|. It fixes a problem where the cursor position will not be 
+restored if the file only has a single line.
+
+PARTIAL FOLDLEVEL RESTORE                   *vtw-80-partial-foldlevel-restore*
+
+The following will unfold like :help |zv|, except that when the cursor 
+matches the start of a new folding level, it will unfold just so that the 
+cursor line is visible without doing the same for the contained folded 
+section.
+
+The functionality depends on ResCur() to achieve the desired effect when 
+re-reading a file.
+
+>
+    if has("folding")
+      function! UnfoldCur()
+        if !&foldenable
+          return
+        endif
+        let cl = line(".")
+        if cl <= 1
+          return
+        endif
+        let cf  = foldlevel(cl)
+        let uf  = foldlevel(cl - 1)
+        let min = (cf > uf ? uf : cf)
+        if min
+          execute "normal!" min . "zo"
+          return 1
+        endif
+      endfunction
+    endif
+<
+
+Finish by modifying the previously added augroup:
+
+>
+    augroup resCur
+      autocmd!
+      if has("folding")
+        autocmd BufWinEnter * if ResCur() | call UnfoldCur() | endif
+      else
+        autocmd BufWinEnter * call ResCur()
+      endif
+    augroup END
+<
+
+ADDITIONAL INFORMATION                         *vtw-80-additional-information*
+    - Help for viminfo is at: :help |viminfo|. 
+    - Part of this tip has made its way into the manual: :help 
+      |last-position-jump|. 
+    - There is an improved script#3059 
+      [https://www.vim.org/scripts/script.php?script_id=3059] version of 
+      last-position-jump that also works for easy Vim 
+
+
+COMMENTS                                                     *vtw-80-comments*
+
+TO DO
+    - It looks like `:mkview` and `:loadview` are much better solutions to this 
+      (see http://stackoverflow.com/questions/8854371 
+      [http://stackoverflow.com/questions/8854371]) 
+
+
+Sorry if I am mistakenly messing with your formatting.
+I currently use this simple alternative:
+
+>
+    augroup resCur
+      autocmd!
+      autocmd BufReadPost * call setpos(".", getpos("'\""))
+    augroup END
+<
+
+--andresp (probably not logged in atm)
+    - Check my comment following, and the explanation after that (refactored from 
+      Anres.p's comment with dealt-with material omitted). 
+    - I have not yet looked at the current solution. JohnBot 
+      [https://vim.fandom.com/wiki/User:JohnBot] 07:14, January 22, 2011 (UTC) 
+
+
+On my system, I copy the restore-last-position code from vimrc_example.vim (a 
+file distributed with Vim). That code is the basis of the first solution in 
+the tip (now deleted). vimrc_example also makes the help 'last-position-jump' 
+obsolete. That first solution deserves deletion IMHO because it has a totally 
+inexplicable "norm $" that doesn't seem at all useful to me.
+
+My current feeling is that vimrc_example should be explained, and perhaps the 
+second solution (currently deleted) should be shown. I'm not at all sure that 
+the third solution is worthwhile. JohnBeckett 
+[https://vim.fandom.com/wiki/User:JohnBeckett] 08:58, 5 March 2009 (UTC)
+
+==============================================================================
+
+The solution in vimrc_example.vim is exactly the same as :help line and :help last-position-jump, except that the autocmd is styled across lines instead of concatenated into a single line. Andres.p 18:07, December 1, 2010 (UTC)
+
+The reason why the code in vimrc_example.vim shouldn't be explained I already gave in a previous comment that was deleted by the bot. :) It performs a redundant conditional that keeps from restoring the column position when the file is one line long... Andres.p 21:55, January 22, 2011 (UTC)
+This is exactly why we should mention the version in the :help. We need to know why the :help version can't just be used as-is. I personally have not paid much attention to this tip exactly because I have thought the version in the :help to be enough for my needs. --Fritzophrenic 15:53, January 24, 2011 (UTC)
+
+---
+
+Just a note that this won't work if ~/.viminfo is owned by root (if you're running as a regular user), of course this isn't surprising. I'm just not sure how I ended up with ~/.viminfo owned by root. Bostonvaulter (talk) 20:11, October 5, 2012 (UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,48 @@
+*vim-tips-wiki-846.txt*   Ampersand in freebsd shell commands to view LaTeX files *vtw-846*
+
+Tip 846 [https://vim.fandom.com/wiki/Ampersand_in_freebsd_shell_commands_to_view_LaTeX_files]   Previous |vtw-844| Next |vtw-847|
+
+created January 9, 2005 · complexity basic · author Rabee Tourky · version 
+6.0
+
+==============================================================================
+
+Could not execute shell commands ending with ampersand (&) in gvim running 
+under FreeBSD. Commands like:
+
+>
+    :!xdvi &
+    :!xterm &
+<
+
+did not work. This meant that I couldn't use vim-latex to view documents dvi 
+since by default vim-latex sends a command ending with &. The problem does not 
+occur in vim.
+
+Hint: Check the parameters gvim is started with! In the KDE menu gvim is 
+started with -f option which can cause this problem.
+
++The problem is solved if the shell is changed to ksh from the default sh or 
+bash.
+
+Install pdksh:
+
+>
+    $ su (su to root)
+    # cd /usr/ports/shells/pdksh/
+    #make install cleanset
+<
+
+Change the shell to ksh in .vimrc. Add:
+
+>
+    set sh=ksh
+<
+
+REFERENCES                                                *vtw-846-references*
+    - :help 'shell' 
+
+
+COMMENTS                                                    *vtw-846-comments*
+
+ vim:tw=78:et:ft=help:norl:

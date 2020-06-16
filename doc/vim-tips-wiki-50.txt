@@ -1,0 +1,41 @@
+*vim-tips-wiki-50.txt*   Recovering files                                *vtw-50*
+
+Tip 50 [https://vim.fandom.com/wiki/Recovering_files]   Previous |vtw-49| Next |vtw-51|
+
+created 2001 · complexity basic · version 5.7
+
+==============================================================================
+
+If the power fails, or your computer crashes, any file you were editing 
+probably won't be saved. However, when the computer is restarted, you should 
+be able to recover the file by typing:
+
+>
+    vim -r <filename>
+<
+
+where <filename> is the name of the file you were editing at the time of the 
+crash.
+
+If you were editing without a file name, enter:
+
+>
+    vim -r ""
+<
+
+You can list the recoverable files:
+
+>
+    vim -r
+<
+
+Each of these commands should be executed in the directory where you were 
+when the crash occurred.
+
+REFERENCES                                                 *vtw-50-references*
+    - :help |recovery| 
+
+
+COMMENTS                                                     *vtw-50-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,30 @@
+*vim-tips-wiki-834.txt*   Word-wise cut, copy and paste                 *vtw-834*
+
+Tip 834 [https://vim.fandom.com/wiki/Word-wise_cut,_copy_and_paste]   Previous |vtw-832| Next |vtw-835|
+
+created 2004 · complexity basic · author andyf · version 6.0
+
+==============================================================================
+
+Word-wise cut, copy & paste over the current word. There's nothing special or 
+magical about these bindings, just that I find them really useful for coding, 
+and I thought I'd share.
+
+Add the following lines to vimrc:
+
+>
+    map <A-v> viw"+gPb
+    map <A-c> viw"+y
+    map <A-x> viw"+x
+<
+
+These bindings follow the Windows-style keys of control-V, control-C, and 
+control-X; except using alt instead of control. Adjust to your preference.
+
+COMMENTS                                                    *vtw-834-comments*
+
+I think <Esc>yiw is more convenient.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

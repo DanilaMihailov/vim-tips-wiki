@@ -1,0 +1,76 @@
+*vim-tips-wiki-896.txt*   Lookup the city and state of a given US Zip code using TCL *vtw-896*
+
+Tip 896 [https://vim.fandom.com/wiki/Lookup_the_city_and_state_of_a_given_US_Zip_code_using_TCL]   Previous |vtw-895| Next |vtw-897|
+
+created March 15, 2005 · complexity basic · author Ulf Dittmer · version 5.7
+
+==============================================================================
+
+The following code allows a lookup of a US ZIP code without leaving Vim. 
+Place the cursor over a 5-digit number (the ZIP code), and choose ZipLookup 
+from the Utilities menu. The result is then displayed at the bottom of the 
+screen. For example, placing the cursor over "02169" should result in "02169 
+==> QUINCY, MA" being displayed.
+
+This works by accessing the USPS web site, so one needs to be online for this 
+to work. Since the code parses the HTML code, this breaks whenever the web 
+site code is reorganized, which seems to happen every other year or so, but 
+can be fixed by adjusting the regexp (which may take a bit of fiddling). The 
+code is in TCL, so one needs to use a TCL-enabled version of Vim.
+
+The following should go in your gvimrc file:
+
+>
+    if has("tcl")
+      tclfile utilities.tcl
+      " change the menu name and the menu item name as you see fit
+      menu &Utilities.&ZipLookup :call ZIPLookup(expand("<cword>")) <CR>
+      function ZIPLookup (word)
+        tcl puts [ZipLookup [::vim::expr a:word]]
+      endfunction
+    endif
+<
+
+and this into utilities.tcl:
+
+>
+    proc ZipLookup zipcode {
+      package require http
+      # some websites, not the usps necessarily, care what kind of browser is used.
+      ::http::config -useragent "Mozilla/5.0 (X11; U; Linux 2.4.22; rv:1.7.5) Gecko/20041108 Firefox/1.0"
+      set url "http://zip4.usps.com/zip4/zip_responseA.jsp";
+      while { [string length $zipcode] < 5 } { set zipcode "0$zipcode" }
+      # the http man page is a good place to read up on these commands
+      set query [::http::formatQuery zipcode $zipcode]
+      set http [::http::geturl $url -query $query]
+      set html [::http::data $http]
+      # we use a regular expression pattern to extract the text we are looking for
+      if {[regexp {row1 header1[^>]*>[^<]*<font[^>]*>\s*([^<]+).*row1 header2.*([A-Z][A-Z]).*row1 header3} $html => city state]} {
+        return "$zipcode ==> $city, $state"
+      } else {
+        return "$zipcode ==> not found"
+      }
+    }
+<
+
+COMMENTS                                                    *vtw-896-comments*
+
+If you don't have tcl you could try something like this.
+
+>
+    :map \zc :!lynx [http://zip4.usps.com/zip4/zip_responseA.jsp?zipcode=<C-R><C-W><CR> http://zip4.usps.com/zip4/zip_responseA.jsp?zipcode=<C-R><C-W><CR>];
+<
+
+==============================================================================
+
+Also on my bsd system I can do
+
+>
+    $ vim /usr/share/misc/zipcodes
+<
+
+but this seems to be out of date.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

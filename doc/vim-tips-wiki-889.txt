@@ -1,0 +1,52 @@
+*vim-tips-wiki-889.txt*   Set gvim font in MacOSX                       *vtw-889*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip632 |vtw-632| 
+    - VimTip1587 |vtw-1587| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 889 [https://vim.fandom.com/wiki/Set_gvim_font_in_MacOSX]   Previous |vtw-888| Next |vtw-891|
+
+created March 5, 2005 · complexity basic · author flipouk · version 6.0
+
+==============================================================================
+
+You set your font for gvim on Mac OS X by including a line like this in your 
+$HOME/.vimrc or $HOME/.gvimrc:
+
+>
+    set guifont=Monaco:h14
+<
+
+or
+
+>
+    set guifont=Andale\ Mono:h14
+<
+
+If your font doesn't look smooth, you can try adding this line to 
+$HOME/.gvimrc:
+
+>
+    set antialias
+<
+
+If you're using Monaco on OSX you might want to try disabling antialias:
+
+>
+    set noantialias
+<
+
+REFERENCES                                                *vtw-889-references*
+    - :help 'guifont' 
+    - :help 'antialias' 
+
+
+COMMENTS                                                    *vtw-889-comments*
+
+ vim:tw=78:et:ft=help:norl:

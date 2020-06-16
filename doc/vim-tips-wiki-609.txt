@@ -1,0 +1,211 @@
+*vim-tips-wiki-609.txt*   Execute Python from within current file       *vtw-609*
+
+Tip 609 [https://vim.fandom.com/wiki/Execute_Python_from_within_current_file]   Previous |vtw-608| Next |vtw-610|
+
+created 2003 · complexity intermediate · author Steve Halpin · version 6.0
+
+==============================================================================
+
+Inspired by VimTip608 |vtw-608|.
+
+To execute Python from a range within the current text file and write the 
+output to that file (replacing the Python), add the snippet below to vimrc 
+[https://vim.fandom.com/wiki/Vimrc] (or other suitable *rc file).
+
+Requires a 'proper' Python setup so that the imported modules can be found.
+
+I find it a handy intermediate step between using the Python interpreter on 
+command line and running a complete script. Can be used for easy buffer 
+manipulation, filtering input, preprocessing text and templating-like tasks.
+
+>
+    python << EOL
+    import vim, StringIO,sys
+    def PyExecReplace(line1,line2):
+      r = vim.current.buffer.range(int(line1),int(line2))
+      redirected = StringIO.StringIO()
+      sys.stdout = redirected
+      exec('\n'.join(r) + '\n')
+      sys.stdout = sys.__stdout__
+      output = redirected.getvalue().split('\n')
+      r[:] = output[:-1] # the -1 is to remove the final blank line
+      redirected.close()
+    EOL
+    command -range Pyer python PyExecReplace(<f-line1>,<f-line2>)
+<
+
+SOME EXAMPLES OF USE                            *vtw-609-some-examples-of-use*
+
+SIMPLE                                                        *vtw-609-simple*
+
+>
+    print 2 + 2
+<
+
+>
+    :Pyer
+<
+
+With the cursor on the 'print' line, that line is replaced with 4.
+
+FILTER                                                        *vtw-609-filter*
+
+>
+    for line in vim.current.buffer:
+     if line[0] != '\t':
+      print line
+<
+
+>
+    :%Pyer
+<
+
+Filters out lines beginning with a tab in the current buffer.
+
+INSERTING TIME                                        *vtw-609-inserting-time*
+
+>
+    import time
+    print time.ctime()
+<
+
+>
+    :%Pyer
+<
+
+Replaces line with date/time.
+
+GETTING WEB CONTENT WITHOUT TAGS    *vtw-609-getting-web-content-without-tags*
+
+>
+    import urllib2,htmllib,formatter
+    h = htmllib.HTMLParser(formatter.AbstractFormatter(formatter.DumbWriter()))
+    h.feed(urllib2.urlopen('http://www.somesite.com').read())
+<
+
+>
+    :%Pyer
+<
+
+Inserts the web page text, but not the html tags, for a given site.
+
+COMMENTS                                                    *vtw-609-comments*
+
+I use the following:
+
+>
+    "in vimrc:
+    "python extensions
+    py from vim import buffers, windows, command, current, error
+    py import vim, sys
+    py from vimpy import *
+    
+    command! PyExecBuffer py exec('\n'.join(current.buffer))
+    
+    map <F5> :PyExecBuffer<CR>
+    imap <F5> <Esc><F5><CR>a
+<
+
+vimpy.py
+
+>
+    import sys, vim
+    class Buffer:
+        def __init__(self,buf):
+            self.buf=buf
+        def write(self,s):
+            ll=s.split('\n')
+            self.buf[-1]+=ll[0]
+            for l in ll[1:]:
+                self.buf.append(l)
+        def clear(self):
+            del self.buf[:]
+    
+    def redirect(buf=None):
+        buf = buf or vim.current.window.buffer
+        try:
+            sys._stdout
+        except:
+            sys._stdout=sys.stdout
+        sys.stdout = Buffer(buf)
+<
+
+Then I start Vim, create new window (<C-W> N), and do
+
+>
+    :py redirect(current.window.buffer)
+<
+
+on a window I want to receive all printed data.
+
+Then <F5> in any buffer executes the buffer contents in Python, output goes 
+to the window selected.
+
+To redirect output back just do `sys.stdout = sys._stdout`
+
+This does not require python support in vim. Select lines using V and then 
+press F5.
+
+>
+    :vnoremap <f5> :!python<CR>
+<
+
+source 
+[http://stackoverflow.com/questions/501585/how-can-you-use-python-in-vim].
+
+This one saves the current file before execution and does come back without 
+PAUSE (tested in windows)
+
+>
+    noremap <F5> <ESC>:w<CR>:silent execute "!python %"<CR><CR>
+<
+
+RUN PYTHON SAMPLES FROM VIM              *vtw-609-run-python-samples-from-vim*
+
+>
+    ----
+    " >>> Play Python from within gVim
+    " >>> useful to copy/paste samples and run inside Vim
+    " >>> [usage] Normal_<C-P> against a Python block
+    " >>>         Visual_<C-P> on Visual Python block
+    " >>>         Insert_<C-P>, automatically add print()
+    " ================================
+    if has('python') || has('python3')
+    " ================================
+    nn<silent>z_ :let @/=@_<CR>
+    nn<silent>Zz :let pyf=tempname()<CR>
+       \:sil!let python=has('python3')?'py3file ':'pyfile '<CR>
+       \:sil!let yank = substitute(@0,'[>.]\{3}\s\=','','g')<CR>
+       \:sil!call writefile(split(yank,'\n'),pyf)<CR>
+       \:sil!redir @"<Bar>sil!exe 'silent!'.python.pyf<CR>:redir END<CR>p
+    nm<silent> <C-P>   yip}Zz
+    xm<silent> <C-P> :y<CR>Zz
+    im<silent> <C-P> <Esc>:s/\([>.]\{3}\s\=\)\=\(.*\)/\1print(\2)<CR>z_<C-P>
+    " --------------------------------------------
+    endif
+    
+    
+    # example insert mode, as calculator, <C-P>
+    1/2
+    
+    # example <C-P> anywhere inside block
+    help(help)
+    
+    # example <C-P> anywhere inside block
+    >>> # Fibonacci series:
+    ... # the sum of two elements defines the next
+    ... a, b = 0, 1
+    >>> while b < 10:
+    ...     print(b)
+    ...     a, b = b, a+b
+    ...
+    
+    1
+    1
+    2
+    3
+    5
+    8
+<
+
+ vim:tw=78:et:ft=help:norl:

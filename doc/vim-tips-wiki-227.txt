@@ -1,0 +1,345 @@
+*vim-tips-wiki-227.txt*   Power of g                                    *vtw-227*
+
+Tip 227 [https://vim.fandom.com/wiki/Power_of_g]   Previous |vtw-225| Next |vtw-228|
+
+created 2002 · complexity intermediate · author Arun Easi · version 6.0
+
+==============================================================================
+
+The global command `:g` is very useful. Here are some examples showing the 
+power of `:g`.
+
+BRIEF EXPLANATION OF `:G`                  *vtw-227-brief-explanation-of-`:g`*
+
+>
+    :[range]g/pattern/cmd
+<
+
+This acts on the specified [range] (default whole file), by executing the Ex 
+command cmd for each line matching pattern (an Ex command is one starting with 
+a colon such as `:d` for delete). Before executing cmd, "`.`" is set to the 
+current line.
+
+EXAMPLES                                                    *vtw-227-examples*
+
+Display context (5 lines) for all occurrences of a pattern.
+
+>
+    :g/pattern/z#.5
+    " Same, but with some beautification.
+    :g/pattern/z#.5|echo "=========="
+<
+
+Delete all lines matching a pattern.
+
+>
+    :g/pattern/d
+<
+
+Delete all lines that do not match a pattern. The commands shown are 
+equivalent (`v` is "inerse").
+
+>
+    :g!/pattern/d
+    :v/pattern/d
+<
+
+Delete all blank lines (`^` is start of line; `\s*` is zero or more 
+whitespace characters; `$` is end of line)
+
+>
+    :g/^\s*$/d
+<
+
+Double space the file (`^` is start of line which matches each line).
+
+>
+    :g/^/pu =\"\n\"
+    " Alternative (:put inserts nothing from the blackhole register)
+    :g/^/pu _
+<
+
+Copy all lines matching a pattern to end of file.
+
+>
+    :g/pattern/t$
+<
+
+Move all lines matching a pattern to end of file.
+
+>
+    :g/pattern/m$
+<
+
+Copy all lines matching a pattern to register 'a'.
+
+>
+    qaq:g/pattern/y A
+<
+
+Explanation qaq is a trick to clear register a (qa starts recording a macro to register a, then q stops recording, leaving a empty). y A is an Ex command (:help :y). It yanks the current line into register A (append to register a).
+
+Increment each number at the start of a line, from the current line to 
+end-of-file, by one (the exclamation mark in `:normal!` means this will work 
+even if Ctrl-A has been mapped to perform a function other than its default of 
+incrementing a number).
+
+>
+    :.,$g/^\d/exe "normal! \<C-A>"
+<
+
+Comment lines containing "DEBUG" statements in a C program.
+
+>
+    " using :normal
+    g/^\s*DEBUG/exe "norm! I/* \<Esc>A */\<Esc>"
+    " using :substituting
+    g/^\s*DEBUG/s!.*!/* & */!
+<
+
+Reverse lookup for records (say an address book, with Name at start-of-line 
+and fields after a space).
+
+>
+    :g/pattern/?^\w?p "if only name is interesting
+    :g/pattern/ka|?^\w?p|'ap "if name and the lookup-line is interesting
+    :g/pattern/?^\w?|+,/^[^ ]/-1p "if entire record is interesting
+<
+
+Explanation See :help :range for the meaning of the constructs in the [cmd] portion of the :g commands.
+
+Reverse a file (just to show the power of g).
+
+>
+    :g/^/m0
+<
+
+Explanation According to :help multi-repeat, :g and its cousin :v work in a two-pass manner. The first pass of :g marks every line matching {pattern}, while the second pass (apparently performed starting at the file's beginning and proceeding to the end) performs the [cmd]. The above use of :g takes advantage of the order the lines are processed in (which is probably okay, though probably not technically guaranteed). It works by first marking every line, then moving the first marked line to the top of the file, then moving the second to the top of the file (above the line moved previously), then the third marked line (again above the previously moved line), and so on until the last line in the file is moved to the top, effectively reversing the file. Note that if :g processed lines in any order other than from top to bottom, this command would not work.
+
+Add text to the end of a line that begins with a certain string.
+
+>
+    :g/^pattern/s/$/mytext
+<
+
+DELETING MANY LINES                              *vtw-227-deleting-many-lines*
+
+The command `:g/pattern/d` performs `:d` on all lines matching the pattern, 
+see :help |:delete|. When a line is deleted, it is first copied to a 
+register—since no register is specified, the default (unnamed) register is 
+used. If many thousands of lines are deleted, the copy process can take a 
+significant time. To avoid that waste of time, the blackhole register (`_`) 
+can be specified because any copy or cut into the blackhole register performs 
+no operation.
+
+Fast delete of all lines matching a pattern.
+
+>
+    :g/pattern/d _
+<
+
+NOTES                                                          *vtw-227-notes*
+
+Some explanation of commands commonly used with `:g`
+
+>
+    :2,8co15  "copy lines 2 through 8 after line 15
+    :4,15t$   "copy lines 4 through 15 to end of document (t == co)
+    :-t$      "copy previous line to end of document
+    :m0       "move current line to line 0 (i.e. the top of the document)
+    :.,+3m$-1 "current line through current+3 are moved to the lastLine-1 (i.e. next to last)
+<
+
+==============================================================================
+
+Since commands used with :g are Ex commands, searching for help should 
+include the colon.
+
+>
+    :help :<help-topic>
+    :help :k   "example
+<
+
+REFERENCES                                                *vtw-227-references*
+    - :help |ex-cmd-index| provides a list of Ex commands. 
+    - :help |10.4| is the section of the user manual discussing the :global 
+      command. 
+    - :help |multi-repeat| talks about both the :g and :v commands. 
+
+
+COMMENTS                                                    *vtw-227-comments*
+
+Over a range defined by marks a and b, operate on each line containing 
+pattern. The operation is to replace each pattern2 with string.
+
+>
+    :'a,'bg/pattern/s/pattern2/string/gi
+<
+
+==============================================================================
+
+Run a macro on matching lines (example assuming a macro recorded as 'q'):
+
+>
+    :g/pattern/normal @q
+<
+
+==============================================================================
+
+To delete (subsequent) duplicate lines from a file:
+
+>
+    :g/^\(.*\)\(\r\?\n\1\)\+$/d
+    :%!uniq
+<
+
+To just view the duplicates use:
+
+>
+    /^\(.*\)\(\r\?\n\1\)\+$
+<
+
+==============================================================================
+
+Compress multiple occurrences of blank lines into a single blank line
+
+>
+    :v/./,/./-j
+<
+
+Use :helpgrep '\/,\/' *.txt for an explanation.
+
+I'll break down this incredible collapse-multiple-blank-lines command for 
+everyone, now that I finally figured out how it works.
+
+First, however, I'll rewrite it this way to illustrate that some of those 
+slashes have totally different meaning than others:
+
+>
+    :v_._,/./-1join
+<
+
+Note that to delimit expressions like these, just about any symbol can be 
+used in place of the typical slashes... in this case, I used underscores. What 
+we have is an inverse search (:v, same as :g!) for a dot ('.') which means 
+anything except a newline. So this will match empty lines and proceed to 
+execute [command] on each of them.
+
+>
+    :v_._[command]
+<
+
+The remaining [command] is this, which is a fancy join command, abbreviated 
+earlier as just 'j'.
+
+>
+    ,/./-1join
+<
+
+The comma tells it to work with a range of lines:
+
+>
+    :help :,
+<
+
+With nothing before the comma, the range begins at the cursor, which is where 
+that first blank line was. The end of the range is specified by a search, 
+which to my knowledge actually does require slashes. The slash and dot mean to 
+search for anything (again), which matches the nearest non-empty line and 
+offsets by {offset} lines.
+
+>
+    /./{offset}
+<
+
+The {offset} here is -1, meaning one line above. In the original command we 
+just saw a minus sign, to which vim assumes a count of 1 by default, so it did 
+the same thing as how I've rewritten it, but simply with one character fewer 
+to type.
+
+>
+    /./-1
+<
+
+There is a caveat about join that makes this trick possible. If you specify a 
+range of only one line to "join", it will do nothing. For example, this 
+command tells vim to join into one line all lines from 5 to 5, which does 
+nothing:
+
+>
+    :5,5join
+<
+
+In this case, any time you have more than one empty line (the case of 
+interest), the join will see a range greater than one and join them together. 
+For all single empty lines, join will leave it alone.
+
+There's no good way use a delete command with :v/./ because you have to 
+delete one line for every empty line you find. Join turned out to be the 
+answer.
+
+This command only merges truly "empty" lines... if any lines contain spaces 
+and/or tabs, they will not be collapsed. To make sure you kill those lines, 
+try this:
+
+>
+    :v/^[^ \t]\+$/,/^[^ \t]\+$/-j
+<
+
+Or, to just clean such lines up first,
+
+>
+    :%s/^[ \t]\+$//g
+<
+
+==============================================================================
+
+Here is a 'g' version that does the same thing as that last 'v' command
+
+>
+    :g/^[ <TAB>]*$/,/[^ <TAB>]/-j
+<
+
+However, all the above blank line merging method fails to merge multiple 
+blank lines at the end of a file. The solution is to add then remove an extra 
+line at the end of the file. As such this is the complete blank line 
+compressor command...
+
+>
+    :$s/$/\\rZ/
+    :g/^[ <TAB>]*$/,/[^ <TAB>]/-j
+    :$d
+<
+
+Or in the form of an easy to use macro, which also tries to return to to your 
+original place in the file.
+
+>
+    :map QE mz:$s/$/\\rZ/<CR>:g/^[ <TAB>]*$/,/[^ <TAB>]/-j<CR>Gdd`z
+<
+
+==============================================================================
+
+As always, There's More Than One Way To Do It:
+
+>
+    :%s/^$\n^$//g
+<
+
+This uses a substution (s/foo/bar/) that matches two consecutive blank lines 
+and turns them into one. Applied globally (%), and multiple times to the same 
+line (g), this works exactly as you'd want it to.
+
+==============================================================================
+
+Another way to collapse empty lines, including whitespace, is:
+
+>
+    :%s/^\_s\+/\r/g
+<
+
+`\_s` matches whitespace (space and tab) including end of line, `\+` matches 
+1 or more of those, as many as possible, `\r` inserts carriage return specific 
+to file format (unix-dos-mac).
+
+ vim:tw=78:et:ft=help:norl:

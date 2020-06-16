@@ -1,0 +1,122 @@
+*vim-tips-wiki-91.txt*   Dictionary completions                          *vtw-91*
+
+Tip 91 [https://vim.fandom.com/wiki/Dictionary_completions]   Previous |vtw-90| Next |vtw-92|
+
+created 2001 · complexity basic · author Brian Medley · version 7.0
+
+==============================================================================
+
+This tip explains how to use the dictionary completion facilities provided by 
+Vim. This is useful when using Vim to type code or text such as an email.
+
+DICTIONARY COMPLETION                           *vtw-91-dictionary-completion*
+
+Dictionary completion is one of many search facilities provided by Insert 
+mode completion. It allows the user to get a list of keywords, based off of 
+the current word at the cursor. This is useful if you are typing a long word 
+(e.g. "acknowledgeable") and don't want to finish typing or don't remember the 
+spelling.
+
+To start, we must first tell Vim where our dictionary is located. This is 
+done via the 'dictionary' option. Below is an example. Your location may vary. 
+See :help 'dictionary' for hints as to where you should look.
+
+>
+    :set dictionary?
+    :set dictionary+=/usr/share/dict/words
+<
+
+To use the list of words in a dictionary we have to enter insert mode 
+completion. This is done by hitting Ctrl-X while in insert mode. Next, you 
+have to specify what you want to complete. For dictionaries use Ctrl-K. Once 
+in this mode the keys Ctrl-N and Ctrl-P will cycle through the matches. So, to 
+complete the word "acknowledgeable", type the following in insert mode:
+
+>
+    acknow<CTRL-X><CTRL-K><CTRL-N>
+<
+
+It can be cumbersome to type Ctrl-X Ctrl-K for many different completions so 
+Vim provides a shortcut. While in insert mode Ctrl-N and Ctrl-P will pull 
+completion results from multiple sources. This set is defined by the 
+'complete' option and by default dictionary completion is not enabled. Add 'k' 
+to the list to enable dictionary completion:
+
+>
+    :set complete+=k
+<
+
+Now, while in insert mode we can type the following to complete our example:
+
+>
+    acknow<CTRL-N>
+<
+
+This shortcut may not save much typing but it is easier to type with less 
+thinking about which control keys should be pressed.
+
+You may not want Ctrl-N and Ctrl-P to always select words from your 
+dictionaries because there would be too many words to choose from. In that 
+case, you might want to map a function key, for example:
+
+>
+    :inoremap <F12> <C-X><C-K>
+<
+
+With this mapping, when in insert mode, press F12 to complete the current 
+word from your dictionaries. Press Ctrl-N for the next word or Ctrl-P for the 
+previous word.
+
+FILETYPE-SPECIFIC DICTIONARIES         *vtw-91-filetype-specific-dictionaries*
+
+You can also use filetype-specific dictionaries. If the user would like to 
+automatically load a word file from their ~/.vim/words/ directory for the 
+particular filetype they are working on, the following line can be inserted 
+into the .vimrc file:
+
+>
+    au FileType * execute 'setlocal dict+=~/.vim/words/'.&filetype.'.txt'
+<
+
+This allows you to create ~/.vim/words/tex.txt for inserting jargon while 
+composing a thesis in latex or ~/.vim/words/r.txt for statistics jargon in R.
+
+SIMILAR USE CASES                                   *vtw-91-similar-use-cases*
+
+COMPLETION FOR JAVA/PERL/PHP/ETC KEYWORDS *vtw-91-completion-for-java/perl/php/etc-keywords*
+
+Instead of a dictionary, see Completion using a syntax file 
+[https://vim.fandom.com/wiki/Completion_using_a_syntax_file].
+
+COMPLETION FOR TAGS                               *vtw-91-completion-for-tags*
+
+Tag files can be also searched for completion by adding "]" or "t" (the 
+default) to your "complete" setting.
+
+>
+    set complete+=t
+<
+
+Invoke completion with Ctrl-N.
+
+REFERENCES                                                 *vtw-91-references*
+    - :help |ins-completion| 
+    - :help |compl-dictionary| 
+    - :help 'complete' 
+    - :help 'dictionary' 
+    - :help |:set+=| 
+
+
+COMMENTS                                                     *vtw-91-comments*
+
+Most distributions of Linux come with wordlists, but Windows does not. You 
+can find word lists from the scowl archives: http://wordlist.sourceforge.net 
+[http://wordlist.sourceforge.net]
+
+==============================================================================
+
+Great tip so far, but how can I get the dictionary to understand compound 
+words? e.g. 'Doctors of philosophy'? How does one complete those in without 
+completion cut off after 'doctors'?
+
+ vim:tw=78:et:ft=help:norl:

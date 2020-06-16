@@ -1,0 +1,45 @@
+*vim-tips-wiki-174.txt*   Footnotes                                     *vtw-174*
+
+
+
+
+
+This tip is very similar to the following:
+    - VimTip332 |vtw-332| 
+
+
+These tips need to be merged – see the merge guidelines 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:Merge_guidelines].Tip 174 [https://vim.fandom.com/wiki/Footnotes]   Previous |vtw-173| Next |vtw-175|
+
+created 2001 · complexity basic · author Klaus Fischer · version 6.0
+
+==============================================================================
+
+>
+    ab (1 [1]<Esc>:/^--\s/-1/<CR>o<insert><CR>Footnotes:<CR>----------<CR>[1]
+    ab (2 [2]<Esc>:/^Footnotes\:/+2/<CR>o<insert>[2]
+    ab (3 [3]<Esc>:/^Footnotes\:/+3/<CR>o<insert>[3]
+    ab (4 [4]<Esc>:/^Footnotes\:/+4/<CR>o<insert>[4]
+    ab (5 [5]<Esc>:/^Footnotes\:/+5/<CR>o<insert>[5]
+<
+
+COMMENTS                                                    *vtw-174-comments*
+
+Although I can tell what these does, I imagine that much of the intended 
+audience ('basic' tips users) can't just tell by looking. Perhaps some 
+annotation is in order.
+
+==============================================================================
+
+This tip is useless without any explanation. So what do these do anyway?
+
+==============================================================================
+
+Let me point you guys to this script 
+[https://www.vim.org/scripts/script.php?script_id=431] that you can simply 
+drop in your .vim/plugin directory and straight away use "\f" to start a note 
+and "\r" to end a note.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

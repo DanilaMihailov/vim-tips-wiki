@@ -1,0 +1,32 @@
+*vim-tips-wiki-510.txt*   Set VIMRUNTIME within vimrc                   *vtw-510*
+
+Tip 510 [https://vim.fandom.com/wiki/Set_VIMRUNTIME_within_vimrc]   Previous |vtw-509| Next |vtw-514|
+
+created July 18, 2003 · complexity basic · author maxiangjiang · version 6.0
+
+==============================================================================
+
+In general, $VIMRUNTIME cannot be set within vimrc.
+
+This tip is for those who want to avoid setting $VIMRUNTIME as an 
+enviromental variable (either rc file on Unix or enviroment on Windows).
+
+I found the following steps worked on my PC and Unix:
+    - Find out your $VIM (on Windows, it is the directory where gvim.exe lives). 
+    - Create a directory called doc under $VIM (now, we have $VIM/doc). 
+    - Copy help.txt from official $VIMRUNTIME/doc (now, we have $VIM/doc/help.txt). 
+
+
+Now, we can set $VIMRUNTIME within vimrc, for example
+
+>
+    let $VIMRUNTIME='C:/usr/share/vim/vim63'
+<
+
+I find it is useful on PC especially when I have cygwin installed, thus a 
+single copy of VIMRUNTIME can be shared for both vi (cygwin version) and 
+gvim.exe (win32 version).
+
+COMMENTS                                                    *vtw-510-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,37 @@
+*vim-tips-wiki-238.txt*   Very basic session persistence                *vtw-238*
+
+Tip 238 [https://vim.fandom.com/wiki/Very_basic_session_persistence]   Previous |vtw-237| Next |vtw-239|
+
+created 2002 · complexity basic · author Michel de Bree · version 6.0
+
+==============================================================================
+
+I use the following code in my plugins directory to ease session persistence. 
+If I want my session to persist I use `:mks!` and then whenever I open the 
+`session.vim` file, my session is restored. If I am working from a restored 
+session and I close Vim, the session is saved automatically. Drawback is that 
+it makes editing `session.vim` a bit cumbersome.
+
+>
+    au BufRead session.vim so %
+    au VimLeave * call SaveCurrentSession()
+    function! SaveCurrentSession()
+      if v:this_session != ""
+        exe "mksession! " . v:this_session
+      endif
+    endfunction
+<
+
+SEE ALSO                                                    *vtw-238-see-also*
+
+TO DO Probably need to merge some of these.
+    - 238 Very basic session persistence (this tip) 
+    - 450 Working with multiple sessions |vtw-450| 
+    - 863 Save settings between Vim sessions |vtw-863| 
+    - 954 Restore state of edited files when reopened |vtw-954| 
+    - 1202 Go away and come back |vtw-1202| 
+
+
+COMMENTS                                                    *vtw-238-comments*
+
+ vim:tw=78:et:ft=help:norl:

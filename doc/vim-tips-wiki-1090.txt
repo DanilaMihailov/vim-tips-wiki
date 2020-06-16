@@ -1,0 +1,34 @@
+*vim-tips-wiki-1090.txt*   Get inline help for PHP functions           *vtw-1090*
+
+Tip 1090 [https://vim.fandom.com/wiki/Get_inline_help_for_PHP_functions]   Previous |vtw-1088| Next |vtw-1092|
+
+created December 28, 2005 · complexity basic · author Max S. Ivanov · version 
+6.0
+
+==============================================================================
+
+Do you want to get inline help for PHP functions? Use this extremely simple 
+command:
+
+>
+    map <C-F1> "vyiw:new<CR>:execute "r!lynx -dump http://localhost/phpman/function.".@v.".html"<CR>:1<CR>
+<
+
+Place the cursor on a PHP function name and press <C-F1>. You will see a new 
+window open with a textual help page.
+
+Of course you have to install httpd, the php documentation, and the lynx text 
+web browser.
+
+COMMENTS                                                   *vtw-1090-comments*
+
+See also VimTip598 |vtw-598|.
+
+==============================================================================
+
+ManPageView script#489 [https://www.vim.org/scripts/script.php?script_id=489] 
+also supports PHP help.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

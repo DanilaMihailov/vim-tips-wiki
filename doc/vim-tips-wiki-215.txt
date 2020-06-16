@@ -1,0 +1,66 @@
+*vim-tips-wiki-215.txt*   Edit configuration files for a filetype       *vtw-215*
+
+Tip 215 [https://vim.fandom.com/wiki/Edit_configuration_files_for_a_filetype]   Previous |vtw-214| Next |vtw-216|
+
+created February 14, 2002 · complexity intermediate · author Mark A. 
+Hillebrand · version 6.0
+
+==============================================================================
+
+When you open a file, Vim may load several scripts to customize itself for 
+editing the file type the file is associated with (for example a file "test.c" 
+is associated with the filetype "c").
+
+Such configurations include the setting of syntax highlighting colors (:help 
+|syntax|) and support for indentation (:help |filetype-indent-on|).
+
+When you start to override these files for yourself, it can sometimes be 
+confusing, which file sets a specific option.
+
+The following function can be used, to edit the configuration files which are 
+associated with a specific filename. It opens a buffer for all files which get 
+loaded.If I invoke it with ':call Edit_ft_conf("test.c")', for example, I end 
+up with the following buffers / windows:
+
+Here is the function:
+
+>
+    " Edit filetype configuration files
+    " Usage: ':call Edit_ft_conf("file")'
+    " Purpose: open all scripts which get loaded implicitly by opening "file"
+    " (syntax highlighting, indentation, filetype plugins, ..)
+    " The order of windows reflects the order of script loading (but "file" is
+    " the topmost window)
+    fun! Edit_ft_conf(name)
+      " we may not do this with a loaded file, since this won't trigger the
+      " configuration file loading as desired.
+      " try calling with 'call Edit_ft_conf("nonexistingfile.<EXT>")' if this
+      " gives you troubles
+      if bufexists(a:name) && bufloaded(a:name)
+        echo "!Attention: buffer for " . a:name . " is loaded, unload first."
+        return
+      endif
+      " split-open the file with verbose set, grab the output into a register
+      " (without clobbering)
+      let safereg = @u
+      redir @u " redirect command output to register @u
+      exec "silent 2verbose split " . a:name
+      " verbose level 2 suffices to catch all scripts which get opened
+      redir END
+      " Parse register @u, looking for smth like: 'sourcing"/usr/local/share/vim/vim60/syntax/c.vim"'
+      let pos = 0
+      let regexp = 'sourcing "[^"]\+"'
+      while match(@u,regexp,pos) >= 0
+        let file = matchstr(@u,regexp,pos)
+        let pos = matchend (@u,regexp,pos)
+        let file = strpart(file,10,strlen(file)-11)
+        exec "silent below split " . file
+      endwhile
+      " restore the register
+      let @u = safereg
+    endfun
+<
+
+COMMENTS                                                    *vtw-215-comments*
+
+ vim:tw=78:et:ft=help:norl:

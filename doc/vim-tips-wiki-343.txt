@@ -1,0 +1,120 @@
+*vim-tips-wiki-343.txt*   Faster loading of large files                 *vtw-343*
+
+Tip 343 [https://vim.fandom.com/wiki/Faster_loading_of_large_files]   Previous |vtw-341| Next |vtw-344|
+
+created 2002 · complexity intermediate · author Erik Remmelzwaal · version 
+6.0
+
+==============================================================================
+
+A user can sometimes experience long load times on very large files. While 
+the definition of a very large file depends on the user, their machine 
+specifications, and their patience, at one point or another any user can 
+experience a load time delay. A method to load these files faster is to remove 
+some of the options available like undo histories, syntax parsing, and swap 
+file creation.
+
+By adding the following to the .vimrc file, the user can automatically remove 
+certain options for files over a certain size (in this example, 10mb).
+
+>
+    :let g:LargeFile=10
+    :e
+<
+
+>
+    " Protect large files from sourcing and other overhead.
+    " Files become read only
+    if !exists("my_auto_commands_loaded")
+      let my_auto_commands_loaded = 1
+      " Large files are > 10M
+      " Set options:
+      " eventignore+=FileType (no syntax highlighting etc
+      " assumes FileType always on)
+      " noswapfile (save copy of file)
+      " bufhidden=unload (save memory when other file is viewed)
+      " buftype=nowrite (file is read-only)
+      " undolevels=-1 (no undo possible)
+      let g:LargeFile = 1024 * 1024 * 10
+      augroup LargeFile
+        autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+        augroup END
+      endif
+<
+
+SEE ALSO                                                    *vtw-343-see-also*
+    - Edit large files quickly 
+      [https://www.vim.org/scripts/script.php?script_id=1506] plugin to handle many 
+      of the above changes and more 
+
+
+COMMENTS                                                    *vtw-343-comments*
+
+IMPROVEMENT PROPOSAL                            *vtw-343-improvement-proposal*
+
+I changed the code a bit here and the final result is the following. 
+Differences are:
+    - Files with filesize too large are recognized too (getfsize = -2) 
+    - Readability 
+    - Message that options are changed at startup 
+    - Got rid of things like my_autocommands_loaded (I didn't get the use...) 
+    - And what about the first <pre.. block? (didn't get the use too...) 
+
+
+>
+    " file is large from 10mb
+    let g:LargeFile = 1024 * 1024 * 10
+    augroup LargeFile 
+     autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+    augroup END
+    
+    function LargeFile()
+     " no syntax highlighting etc
+     set eventignore+=FileType
+     " save memory when other file is viewed
+     setlocal bufhidden=unload
+     " is read-only (write with :w new_filename)
+     setlocal buftype=nowrite
+     " no undo possible
+     setlocal undolevels=-1
+     " display message
+     autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+    endfunction
+<
+
+--DartThis [https://vim.fandom.com/wiki/User:DartThis] (talk 
+[https://vim.fandom.com/wiki/User_talk:DartThis]) 13:34, March 7, 2015 (UTC)
+
+The point of the "my_autocommands_loaded" part is to prevent errors if the 
+script happens to be run more than once. Like the #ifndef BLAH_H in C++.
+
+--ilovethemonkeyhead
+
+adding an au! to the beginning of the augroup would clear the existing group 
+if it already exists to prevent errors on reloading your vimrc
+
+>
+    " file is large from 10mb
+    let g:LargeFile = 1024 * 1024 * 10
+    augroup LargeFile 
+      au!
+      autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+    augroup END
+    
+    function! LargeFile()
+     " no syntax highlighting etc
+     set eventignore+=FileType
+     " save memory when other file is viewed
+     setlocal bufhidden=unload
+     " is read-only (write with :w new_filename)
+     setlocal buftype=nowrite
+     " no undo possible
+     setlocal undolevels=-1
+     " display message
+     autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+    endfunction
+<
+
+--pfeiferj 15:42, February 15, 2019 ETC
+
+ vim:tw=78:et:ft=help:norl:

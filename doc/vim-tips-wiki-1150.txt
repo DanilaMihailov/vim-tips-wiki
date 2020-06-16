@@ -1,0 +1,372 @@
+*vim-tips-wiki-1150.txt*   Syntax folding for Java                     *vtw-1150*
+
+Tip 143 [https://vim.fandom.com/wiki/Syntax_folding_for_Java]   Previous |vtw-141| Next |vtw-144|
+
+created 2001 · complexity basic · version 6.0
+
+==============================================================================
+
+TODO Outline what is needed in vimrc to enable syntax folding with standard 
+filetype plugin, and what this tip does.
+
+USING MARKERS TO SPECIFY FOLDS       *vtw-1150-using-markers-to-specify-folds*
+
+The fold-method marker can be used to set folds in Java source. Define a 
+marker and place it inside HTML comments <!-- xx -->. This way, it does not 
+affect the Javadocs generated without the necessity of a seprate comment line.
+
+For example:
+
+>
+    /**
+     * <!-- zz.FOLDSTART class AbcClass -->
+     * The class description.
+     * ...
+     */
+    public class AbcClass {
+     /**
+     * <!-- method zz.FOLDSTART someMethod() -->
+     * Method description.
+     */
+     public void someMethod();
+     ...
+    } /* zz.END: AbcClass */
+    
+    /* Put this at the end of your file */
+    /* vim:fdm=marker fmr=zz.FOLDSTART,zz.END fdl=2 fdc=2: */
+<
+
+Now the file will be opened with the methods neatly folded, and typing `zR` 
+will open all folds.
+
+==============================================================================
+
+TODO: Are following comments useful?
+
+Another thing you might try, if you don't feel like changing the source by 
+adding markers is to set your foldmarker to the javadoc comment blocks:
+
+>
+    fdm=/**,*/
+<
+
+Try the following to fold on `/* */` if editing source that is overcommented:
+
+>
+    autocmd FileType java :set fmr=/**,*/ fdm=marker fdc=1
+<
+
+FROM 201110 SYNTAX FOLD FOR JAVA [HTTPS://VIM.FANDOM.COM/WIKI/SYNTAX_FOLD_FOR_JAVA] *vtw-1150-from-201110-syntax-fold-for-java-[https://vim.fandom.com/wiki/syntax_fold_for_java]*
+
+TODO: Make this the main tip.
+
+By default, the officially distributed Java syntax file (as of Vim 7.3.462) 
+provides folding for all `{...}` blocks. However, this may not be sufficient 
+for some users, who may wish to fold comments and javadoc, or who may wish to 
+see the function name or enumeration folded with the block. This tip provides 
+a syntax file for Java to fold methods, constructors, enums, and comments in 
+Java code in a more appealing way. Note, however, that it depends on good 
+indentation style to work. If your file is poorly indented, the folding will 
+not be correct.
+
+SYNTAX FILE                                             *vtw-1150-syntax-file*
+
+The following will fold all methods in a Java program. The enum syn region is 
+not perfect, but it's workable. Annotations are included in the fold, which 
+cleans up the fold display. It also folds C-style comment blocks, including 
+javadoc. Single line functions, like `public int getFoo() { return 4; }` are 
+not folded.
+
+Place the following script in file `~/.vim/after/syntax/java.vim` on 
+Unix-based systems, or in file `$HOME/vimfiles/after/syntax/java.vim` on 
+Windows systems.
+
+>
+    " Include annotations inside folds
+    syn region javaFuncDef start="^\z(\s*\)\%(@[A-Z]\k*\%((\_.\{-})\)\?\_s*\)*\%(\%(public\|protected\|private\|static\|abstract\|final\|native\|synchronized\)[ \n]\+\)*\%(void\|boolean\|char\|byte\|short\|int\|long\|float\|double\|\%([A-Z][$A-Za-z0-9_]*\%(\_s*<\_s*[$A-Za-z0-9,_ <]\+\_s*>\%(\_s*>\)*\_s*\)\?\)\)\_s\+\%([a-zA-Z$0-9_][$A-Za-z0-9_]*\)\_s*(\_[^)]*)\_s*\%(throws\_s\+[A-Z]\k\+\%(\_s*,\_s*[A-Z]\k\+\)*\_s\{-}\)\?\_s*{" end="^\z1}\s*$" keepend transparent fold
+    
+    " Prevent one line functions from messing up the folds
+    " This must appear after javaFuncDef due to vim's syntax rule priorities
+    syn region javaFuncDef start="^\z(\s*\)\%(@[A-Z]\k*\%((\_.\{-})\)\?\_s*\)*\%(\%(public\|protected\|private\|static\|abstract\|final\|native\|synchronized\)[ \n]\+\)*\%(void\|boolean\|char\|byte\|short\|int\|long\|float\|double\|\%([A-Z][$A-Za-z0-9_]*\%(\_s*<\_s*[$A-Za-z0-9,_ <]\+\_s*>\%(\_s*>\)*\_s*\)\?\)\)\_s\+\%([a-z][$A-Za-z0-9_]*\)\_s*(\_[^)]*)\_s*\%(throws\_s\+[A-Z]\k\+\%(\_s*,\_s*[A-Z]\k\+\)*\_s\{-}\)\?\_s*{" end="}\s*$" oneline keepend transparent
+    
+    syn region javaConstructorDef start="^\z(\s*\)\(public\|protected\|private\)\?[ \n]\+[A-Z][A-Za-z0-9_$]*[ \n]*(\_[^)]*)" end="^\z1}$" keepend transparent fold
+    
+    syn region java5EnumDef start="^\z(\s*\)\%(@[A-Z]\k*\%((\_.\{-})\)\?\_s*\)*\%(\%(public\|protected\|private\|static\|final\)\_s\+\)*enum\_s\+\%([$A-Za-z0-9_]*\)\_s*{" end="^\z1}\s*$" keepend transparent fold
+    
+    " Fold one line comments if there are multiple
+    "syn region javaMultipleOneLineCommentFold start="^\z(\s*\(//\)\)" skip="^\z1" end="^\z1\@!" transparent fold
+    syn region javaMultiLineComment start="/[*]\{1,}" end="[*]/" keepend transparent fold
+<
+
+==============================================================================
+
+I've had more luck with this:
+
+>
+    syn region javaMethod start="^\z(\s*\)\(public\|private\|protected\)\_.*{\s*$" end="^\z1}\s*$" transparent fold keepend
+    syn region javaLoop start="^\z(\s*\)\(for\|if\|while\|switch\).*{\s*$" end="^\z1}\s*$" transparent fold keepend
+    syn region javaCase start="^\z(\s*\)\(case\|default\).*:\s*$" end="^\s*break;\s*$" transparent fold keepend
+    syn region javaTryCatch start="^\z(\s*\)\(try\|catch\).*{\s*$" end="^\z1}\s*$" transparent fold keepend
+    syn region javadoc start="^\s*/\*\*" end="^.*\*/" transparent fold keepend
+    syn region javaBlockComment start="^\s*/\*" end="^.*\*/" transparent fold keepend
+<
+
+--August 3, 2015
+
+FROM 304 FOLD BRACES AND JAVADOC [HTTPS://VIM.FANDOM.COM/WIKI/FOLD_BRACES_AND_JAVADOC] *vtw-1150-from-304-fold-braces-and-javadoc-[https://vim.fandom.com/wiki/fold_braces_and_javadoc]*
+
+If you would like to have javadoc folded together with areas in braces try:
+
+>
+    set foldmethod=syntax
+    set foldenable
+    syn region foldBraces start=/{/ end=/}/ transparent fold
+    syn region foldJavadoc start=,/\*\*, end=,\*/, transparent fold keepend
+<
+
+and play a bit with parameters:
+
+>
+    set foldlevel=0
+    set foldnestmax=10
+<
+
+Comments
+
+This is great, but I had a lot of problems with it (brace-folds kept folding 
+to the end of the class etc). It seems that my settings for java highlighting 
+(e.g. `let java_highlight_functions="style"`) have a lot to do with it. So I 
+did some changes.
+
+I cannot really explain exactly why the following works, but it does for me:
+
+>
+    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+    syn region foldJavadoc start=+/\*+ end=+\*/+ transparent fold keepend extend
+<
+
+This works (for braces) because the "keepend" makes sure that any contained items end whenever the braces region ends, whether or not the contained item already ended. The "extend" allows THIS GROUP to override the keepend setting for a container group, so that you can nest this group. For this reason, I doubt very much that you really want to add "extend" to the foldJavadoc group. If you do, javadoc comments become nestable for folding!
+
+I also added folding for import statements. This could probably be a lot 
+cleaner; still, here goes:
+
+>
+    syn keyword javaExternal native package
+    syn region foldImports start=/\(^\s*\n^import\)\@<= .\+;/ end=+^\s*$+ transparent fold keepend
+<
+
+Notably the `\n` in the start of `foldImports` and the redefinition of 
+`javaExternal` (so that `import` will match) seem quite nasty. If you have a 
+better solution for this, please share them here.
+
+COPY FROM 1150 JAVA/C/C++ FOLDING [HTTPS://VIM.FANDOM.COM/WIKI/JAVA/C/C%2B%2B_FOLDING] *vtw-1150-copy-from-1150-java/c/c++-folding-[https://vim.fandom.com/wiki/java/c/c%2b%2b_folding]*
+
+Here are some functions I use to fold Java code. They are probably easily 
+applicable to C/C++ code also:
+
+>
+    " Javadoc comments (/** and */ pairs) and code sections (marked by {} pairs)
+    " mark the start and end of folds.
+    " All other lines simply take the fold level that is going so far.
+    function! MyFoldLevel( lineNumber )
+      let thisLine = getline( a:lineNumber )
+      " Don't create fold if entire Javadoc comment or {} pair is on one line.
+      if ( thisLine =~ '\%(\%(/\*\*\).*\%(\*/\)\)\|\%({.*}\)' )
+        return '='
+      elseif ( thisLine =~ '\%(^\s*/\*\*\s*$\)\|{' )
+        return "a1"
+      elseif ( thisLine =~ '\%(^\s*\*/\s*$\)\|}' )
+        return "s1"
+      endif
+      return '='
+    endfunction
+    setlocal foldexpr=MyFoldLevel(v:lnum)
+    setlocal foldmethod=expr
+<
+
+The 'foldexpr' basically folds away multi-line JavaDoc and `{}` blocks. This 
+is different from setting:
+
+>
+    set foldmethod=marker
+    set foldmarker={,}
+<
+
+in that it also fold away JavaDocs—the `{}` pair folding is the same effect 
+as these two settings, however.
+
+Comments
+
+TO DO
+    - Merge in some of the following info 
+    - prune what is incorrect (for example, the java.vim syntax file last update 
+      2010 March 23 still lacks folding of javadoc) 
+    - bring this to the attention of the java.vim syntax maintainer 
+
+
+In Vim 7.0, this can be accomplished by using the syntax file. It has been 
+implemented in the syntax\c.vim in cvs. But the Java one is missing this 
+folding info.
+
+==============================================================================
+
+I use Vim 7 alpha exclusively, actually. This line from syntax/java.vim:
+
+>
+    syn match javaBraces "[{}]"
+<
+
+is what causes the problem, I think. The problem is that this line from 
+syntax/c.vim:
+
+>
+    syntax region cBlock start="{" end="}" transparent fold
+<
+
+When applied to java.vim, causes folds to START fine, but never end -- so the 
+entire file becomes one large fold with subsequent opening braces that extend 
+the fold till the bottom of the file.
+
+==============================================================================
+
+I emailed this to both the maintainer of the Java syntax file as well as the 
+Vim developers' list:
+
+>
+    syntax clear javaBraces
+    syntax clear javaDocComment
+    
+    syn region javaBraces start="{" end="}" transparent fold
+    syn region javaDocComment start="/\*\*" end="\*/" keepend contains=javaCommentTitle,@javaHtml,javaDocTags,javaDocSeeTag,javaTodo,@Spell fold
+<
+
+Basically, until they update the syntax/java.vim, putting the above in your 
+after/syntax/java.vim should fix things. (You'll have to set fdm=syntax in 
+your ftplugin, of course.)
+    - Using 7.2.79 here, and this doesn't appear to be necessary anymore 
+
+
+However, if you're not using Vim 7 yet, my original solution with expression 
+should yield the same results.
+
+==============================================================================
+
+Works like a charm!
+
+==============================================================================
+
+This is a nice tip for cleaning up Java source. Thanks for posting it! I 
+haven't checked the 7.0 behavior, and I'm betting it's handled cleanly, but I 
+had to make one change for 6.x. We'll all encounter code like this at some 
+point:
+
+>
+    try {
+      //stuff
+    } catch (Exception e) {
+      //stuff
+    }
+<
+
+To fix it, I tweaked the fold-excluding regular expression to check for 
+close-stuff-open braces on the same line. The behavior actually makes sense, 
+too, since you should only see that brace style in compound control 
+structures. The fold applies to the outside pair (the if, try, etc.) and it 
+turns out pretty clean. Here's the new line I'm using:
+
+>
+    if ( thisLine =~ '\%(\%(/\*\*\).*\%(\*/\)\)\|\%({.*}\)\|\%(}.*{\)' )
+<
+
+==============================================================================
+
+I'm using Ubuntu 9.04 here with Vim 7.2.079. This folding problem still 
+exists, but the solution of editing the syntax file works fine. Just put the 
+below code in at the end of your syntax/java.vim. (You'll have to set 
+fdm=syntax in your ftplugin, of course.)
+
+>
+    syntax clear javaBraces
+    syntax clear javaDocComment
+    
+    syn region javaBraces start="{" end="}" transparent fold
+    syn region javaDocComment start="/\*\*" end="\*/" keepend contains=javaCommentTitle,@javaHtml,javaDocTags,javaDocSeeTag,javaTodo,@Spell fold
+<
+
+==============================================================================
+
+This is another fold function which enables folding in any 
+C/java/actionscript/php file or XML/HTML.Also when its mixed (for example an 
+php file containing javascript and php).I made it because the syntax & marker 
+foldingmethods did not fit my needs.For example, if I have a big function with 
+a big function comment, I want to fold both with one action.This script makes 
+it possible, because its a bit more bruteforce.
+
+>
+    set viewoptions=folds
+    au BufWinLeave * mkview
+    au BufWinEnter * silent loadview
+    vmap <space> zf
+    
+    " CROSSFOLD FUNCTION
+    " ==================
+    " Made by the Coder of Salvation (http://leon.vankammen.eu) @ 2010
+    "
+    " inspired by Max Ischenko's http://www.vim.org/tips/tip.php?tip_id=108
+    " this is great when :
+    "   - you have big functions with big comments
+    "   - you have files containing multiple syntaxes (like html and javascript in 1 php file)
+    "
+    " USAGE: 1) press space on the beginning of a functioncomment and it will fold comment + function
+    "        2) press space on the beginning of an xml/html tag and it will fold the tag
+    "
+    function ToggleFold()
+      set foldmethod=manual
+      if foldlevel('.') == 0
+        " No fold exists at the current line,
+        " so create a fold based on braces or brackets
+        let x    = line('.')    " the current line number (start fold)
+        let y    = x + 1        " the end line number (end fold)
+        let i    = indent('.')  " the indentation of the current line
+        let last = line('$')    " the last line number
+        normal 0
+    
+        " determine endtoken
+        if ( &ft == "xml" || &ft == "html" )
+          let endtoken = "<"
+          normal j
+        else
+          let endtoken = "}"
+        endif
+        " goto endtoken on same indent
+        while ( indent( search( endtoken ) ) != i )
+        endwhile
+        let y = line('.')
+        " if we have extra blank space to fold, increment lastline for fold
+        if( y != last && strlen( getline(y+1) ) == 0 )
+          let y = y + 1
+        endif
+        " if last line, something went wrong and we are dealing with a comment?
+        if y == last
+         echo "?? hmm..got last line of file as fold-end, maybe try 'zf' on a visual selection?"
+         return
+        endif
+        " Create the fold from x to y
+        execute x . "," . y . " fold"
+        normal j
+      else
+         " Delete the fold on the current line
+         normal zd
+      endif
+    endfunction
+    nmap <space> :call ToggleFold()<CR>"
+<
+
+SEE ALSO                                                   *vtw-1150-see-also*
+    - Customize text for closed folds 
+      [https://vim.fandom.com/wiki/Customize_text_for_closed_folds] 
+
+
+COMMENTS                                                   *vtw-1150-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,245 @@
+*vim-tips-wiki-1517.txt*   Swap file "..."already exists! - so diff it *vtw-1517*
+
+Tip 1517 [https://vim.fandom.com/wiki/Swap_file_%22...%22already_exists!_-_so_diff_it]   Previous |vtw-1516| Next |vtw-1518|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200712#Swap_file_.22....22already_exists.21_-_so_diff_it] 
+2007 · complexity intermediate · author Richard Bronosky 
+[https://vim.fandom.com/wiki/User:RichardBronosky] · version 7.0
+
+==============================================================================
+
+When opening a file (in this example geocode.py) in Vim, I regularly 
+encounter messages like:
+
+>
+    E325: ATTENTION
+    Found a swap file by the name ".geocode.py.swp"
+              owned by: rbronosky   dated: Fri Sep  7 17:17:37 2007
+             file name: geocode.py
+              modified: YES
+             user name: rbronosky
+            process ID: 6490
+    While opening file "geocode.py"
+                 dated: Fri Sep  7 17:17:04 2007
+    (1) Another program may be editing the same file.
+        If this is the case, be careful not to end up with two
+        different instances of the same file when making changes.
+        Quit, or continue with caution.
+    (2) An edit session for this file crashed.
+        If this is the case, use ":recover" or "vim -r geocode.py"
+        to recover the changes (see ":help recovery").
+        If you did this already, delete the swap file ".geocode.py.swp"
+        to avoid this message.
+    Swap file ".geocode.py.swp" already exists!
+    [O]pen Read-Only, (E)dit anyway, (R)ecover, (D)elete it, (Q)uit, (A)bort:
+<
+
+This is the result of not properly closing an open buffer, usually because of 
+a lost ssh connection. If there were unsaved changes, they can be recovered 
+from this swap file. In order to know if this swap file is of value to me, I 
+need to do some investigating. I have developed a system for resolving this 
+quickly with as few keystrokes as possible.
+
+The result will be a vertically split screen with the swap file on the left 
+and the regular file on the right. You will be in diff mode and if the files 
+are identical they will both be folded into one line.
+
+Sure, this would make a good script, but I am a big fan of "learn to do it by 
+hand". That way you can do it on any system, and you can use each of the 
+little steps to aid your daily vimming.
+
+If you want to know more about the commands used, use `:help`, for example:
+    - :help |CTRL-W_l| 
+    - :help |:diffthis| 
+
+
+SEE ALSO                                                   *vtw-1517-see-also*
+    - :help |:DiffOrig|, 
+    - Christian Brabandt's recovery 
+      [https://www.vim.org/scripts/script.php?script_id=3068] plugin has a very good 
+      solution for recovering and diffing swapfile. 
+
+
+COMMENTS                                                   *vtw-1517-comments*
+
+LOSING SWAPFILES                                   *vtw-1517-losing-swapfiles*
+
+After recovering a file from a swapfile and deleting the swapfile you will 
+usually use swapname .swo (or similar). If something goes wrong again, vim 
+will not detect the .swo swapfile on startup. It is useful to restart vim, or 
+do the following trick:
+
+>
+    :set swf!|set swf!
+<
+
+In this way vim will delete the .swo swapfile and make a new one ending 
+with.swp (you can check this with :swapname command). Now you are completely 
+safe.
+
+
+
+AUTOMATICALLY DELETING REDUNDANT SWAPFILES WITH A SHELLSCRIPT *vtw-1517-automatically-deleting-redundant-swapfiles-with-a-shellscript*
+
+This is a useful trick, but it would be better if it was automated. Also in 
+the situation where the recovered swapfile turns out to be identical to the 
+real file, there is no need for the diffing. I use a shellscript to help deal 
+with swapfiles, before starting Vim:
+
+>
+    # Expects variables realfile, swapfile, recoveryfile.
+    vim -r "$swapfile" -c ":wq! $recoveryfile" && rm "$swapfile"
+    if cmp "$recoveryfile" "$realfile"
+    then rm "$recoveryfile"
+    else vimdiff "$recoveryfile" "$realfile"
+    fi
+<
+
+
+
+QUICK COMPARISON WITH A LITTLE PLUGIN *vtw-1517-quick-comparison-with-a-little-plugin*
+
+Instead of steps 2-8 above, I do a quick comparison with:
+
+2. `:DiffAgainstFileOnDisk`
+
+And after that I do :e<Enter>d to delete the swapfile, or `:w!` to overwrite 
+the file.
+
+For this shortcut you will need a system with `diff`, and this script in 
+`~/.vim/plugin/diff_against_file_on_disk.vim`
+
+>
+    command! DiffAgainstFileOnDisk call DiffAgainstFileOnDisk()
+    
+    function! DiffAgainstFileOnDisk()
+      :w! /tmp/working_copy
+      exec "!diff /tmp/working_copy %"
+    endfunction
+<
+
+I have created a modified version of this function using vimdiff and 
+shortened the command to DiffSwap to be handier:
+
+>
+    command! DiffSwap call DiffAgainstFileOnDisk()
+    function! DiffAgainstFileOnDisk()
+      :diffthis
+      :vsp %
+      :diffthis
+    endfunction
+<
+
+When the swap prompt comes and you're not sure what to do, simply hit `r` and 
+then run `:DiffSwap`, which will initiate a vim diff of the file on disk and 
+swapfile.
+
+FEATURE REQUEST                                     *vtw-1517-feature-request*
+
+For goodness sake, if the swapfile is identical to the file on disk, then Vim 
+should just automatically drop it for us, and not give us a prompt at all...
+
+
+
+BASH FUNCTION TO HELP HANDLE SWAP FILES *vtw-1517-bash-function-to-help-handle-swap-files*
+
+I sometimes get lots of swap files when my laptop loses power whlie vim is 
+open. Using the above tips I created a bash function to help. It checks to see 
+if the swap file is being used by an active vim process and if it isn't, it 
+recovers the swap file into a recovery file (leaving the original file in 
+place). It then compares the original file against recovered file; if they are 
+identical it automatically removes the recovered file and swap file. If the 
+recovered file and original file aren't the same, but the original file is 
+newer than the swap file it asks if the user if they want to just delete the 
+recovered file, or if they want to view a diff. If the swap file is newer than 
+the original file and the recovered file is different than the original file, 
+then vimdiff is opened so you can move any differences into the original file. 
+When vimdiff is exited the function cleans up the old swap file and recovered 
+file.
+
+>
+    function vim-process-swap {
+        local swapfile_first=0
+        while true; do
+            case "$1" in
+                ""|-h|--help)
+                    echo "usage: vim-process-swap file [swapfile [recoverfile]]" >&2
+                    return 1;;
+                -s)
+                    shift
+                    swapfile_first=1;;
+                *)
+                    break;;
+            esac
+        done
+        local realfile=`readlink -f "$1"`
+        local path=`dirname "$realfile"`
+        local realname=`basename "$realfile"`
+        if [ $swapfile_first -eq 1 ]; then
+            local swapfile=$realfile
+            realname=${realname:1:-4}
+            realfile="${path}/${realname}"
+        else
+            local swapfile=${2:-"${path}/.${realname}.swp"}
+        fi
+        local recoverfile=${3:-"${path}/${realname}-recovered"}
+        local lastresort=0
+        for f in "$realfile" "$swapfile"; do
+            if [ ! -f "$f" ]; then
+                echo "File $f does not exist." >&2
+                return 1
+            elif fuser "$f"; then
+                echo "File $f in use by process." >&2
+                return 1
+            fi
+        done
+        if [ -f "$recoverfile" ]; then
+            echo "Recover file $recoverfile already exists. Delete existing recover file first." >&2
+            return 1
+        fi
+        vim -u /dev/null --noplugin -r "$swapfile" -c ":wq $recoverfile"
+        if cmp -s "$realfile" "$recoverfile"; then
+            rm "$swapfile" "$recoverfile"
+        elif [ "$realfile" -nt "$swapfile" ] && [ `stat -c%s "$realfile"` -gt `stat -c%s "$recoverfile"` ]; then
+            echo "Swapfile is older than realfile, and recovered file is smaller than realfile"
+            if _prompt_yn "Delete recovered file and swapfile without doing diff?"; then
+                rm "$swapfile" "$recoverfile"
+            else
+                lastresort=1
+            fi
+        else
+            lastresort=1
+        fi
+     
+        if [[ "$lastresort" -ne 0 ]]; then
+            rm "$swapfile"
+            vimdiff "$recoverfile" "$realfile"
+            if _prompt_yn "Delete recovered file?"; then
+                rm "$recoverfile"
+            fi
+        fi
+     
+    }
+     
+    function _prompt_yn {
+        while true; do
+            read -p "$1 [y|n] " yn
+            case $yn in
+                [Yy]* ) return 0;;
+                [Nn]* ) return 1;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    }
+<
+
+Usage is simple: `vim-process-swap file [swapfile [recoverfile]]` swapfile 
+and recoverfile are optional.
+
+If you are using the function in a loop over swap files, you can use the 
+script like so: `vim-process-swap -s $swapfile` and you won't need to pass the 
+real filename. Note that when using the -s flag that it isn't possible to 
+specify a recoveryfile name or location.
+
+ vim:tw=78:et:ft=help:norl:

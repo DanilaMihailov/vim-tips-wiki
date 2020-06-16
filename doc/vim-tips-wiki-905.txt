@@ -1,0 +1,46 @@
+*vim-tips-wiki-905.txt*   Remember my buffers                           *vtw-905*
+
+Tip 905 [https://vim.fandom.com/wiki/Remember_my_buffers]   Previous |vtw-904| Next |vtw-906|
+
+created 2005 · complexity basic · version 5.7
+
+==============================================================================
+
+Vim can remember the list of your opened buffers even after you close Vim.
+
+In Vim, or vimrc do:
+
+>
+    :exec 'set viminfo=%,' . &viminfo
+<
+
+The '%' flag tells vim to remember your list of opened buffers in your 
+viminfo file.
+
+Try, for example, opening Vim and editing your vimrc file. Then without using 
+`:bd` to delete the buffer, quit Vim (`:wq`). If you open Vim again, check 
+your buffer list (`:ls`) and you will notice that the vimrc buffer is still 
+there.
+
+COMMENTS                                                    *vtw-905-comments*
+
+Instead of
+
+>
+    :exec 'set viminfo=%,' . &viminfo
+<
+
+to put a string at the start of an option you can also use the shorter
+
+>
+    :set viminfo^=%
+<
+
+==============================================================================
+
+What happens if I open more than one Vim at a time? I would think it would 
+make more sense to save a session instead.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

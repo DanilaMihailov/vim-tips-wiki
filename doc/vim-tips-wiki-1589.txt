@@ -1,0 +1,50 @@
+*vim-tips-wiki-1589.txt*   Environment variables                       *vtw-1589*
+
+Tip 1589 [https://vim.fandom.com/wiki/Environment_variables]   Previous |vtw-1588| Next |vtw-1590|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/200802#Environment_variables] 
+2008 · complexity basic · author Metacosm · version 7.0
+
+==============================================================================
+
+Vim can read and write environment variables within your current shell 
+session. Use a `$` prefix to identify an environment variable, as in the 
+following examples.
+
+Display the contents of the PATH environment variable:
+
+>
+    :echo $PATH
+<
+
+Assign the PATH environment variable to a Vim variable:
+
+>
+    :let myvar = $PATH
+<
+
+Change the PATH environment variable for the current session:
+
+>
+    :let $PATH = '/foo:/bar'
+<
+
+Insert the contents of the PATH environment variable into the buffer:Press 
+`i` to enter insert mode, press Ctrl-r then `=$PATH` and press Enter.
+
+Append to the Existing Path.
+
+>
+    :let $PATH .= ':/foo:/bar'
+<
+
+REFERENCES                                               *vtw-1589-references*
+    - :help |expr-env| 
+    - :help |expression-syntax| 
+    - :help |{{{id}}}| 
+
+
+COMMENTS                                                   *vtw-1589-comments*
+
+ vim:tw=78:et:ft=help:norl:

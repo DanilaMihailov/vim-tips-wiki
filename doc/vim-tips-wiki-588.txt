@@ -1,0 +1,133 @@
+*vim-tips-wiki-588.txt*   How to sort using visual blocks               *vtw-588*
+
+Tip 588 [https://vim.fandom.com/wiki/How_to_sort_using_visual_blocks]   Previous |vtw-586| Next |vtw-589|
+
+created 2003 · complexity basic · author Charles E. Campbell · version 6.0
+
+==============================================================================
+
+To sort lines based on a visually-selected column, use Visual Block Sorting 
+[http://www.drchip.org/astronaut/vim/index.html#VISSORT]. It uses Piet 
+Delport's Vim-based binary insertion sort and some Vim glue to provide 
+visual-block sorts!
+
+To enable it, put vissort.vim into your .vim/plugin directory.
+
+To perform sorting with Vissort, based on a visual-block selection (Ctrl-v):
+
+>
+    :'<,'>Vissort
+<
+
+If you're using Vim 7.0 or later, vissort.vim will use Vim's internal sort 
+command rather than the binary insertion sort script.
+
+To sort a visually-selected block (without changing text outside the block), 
+use Visual Block Commands 
+[http://www.drchip.org/astronaut/vim/index.html#VIS].
+
+Look under "Visual Block Commands". The vis.vim plugin provides a command 
+which allows other commands to be applied only to the visually selected block.
+
+vis.vim can also be downloaded at script#1195 
+[https://www.vim.org/scripts/script.php?script_id=1195].
+
+To then perform sorting of just a visual-block (Ctrl-v):
+
+>
+    :'<,'>B !sort
+<
+
+Or, using Piet Delport's binary insertion sort:
+
+>
+    :'<,'>B Bisort
+<
+
+Of course, you can use Vim's internal sort if you're using Vim 7.0 or later, 
+too:
+
+>
+    :'<,'>B sort
+<
+
+Examples: Original, visual-block select the central column
+
+>
+    one two three
+    four five six
+    seven eight nine
+    ten eleven twelve
+<
+
+>
+    :'<,'>Vissort
+    seven eight nine
+    ten eleven twelve
+    four five six
+    one two three
+<
+
+>
+    :'<,'>B !sort
+    one eight three
+    four eleven six
+    seven five nine
+    ten two twelve
+<
+
+>
+    :'<,'>B Bisort
+    one eight three
+    four eleven six
+    seven five nine
+    ten two twelve
+<
+
+COMMENTS                                                    *vtw-588-comments*
+
+vissort has been updated to version 3: it now has BlockSort() which permits 
+one to sort blocks of text based on tags contained within them.
+
+==============================================================================
+
+For Windows users only: Visual blocking is done with Ctrl-q. Do not use the 
+arrow key to make the block, use only h-j-k-l.
+
+==============================================================================
+
+The simple sample in the tip can be solved by native :sort command, no plugin 
+required.
+
+>
+    :sort /\s\+/
+<
+
+and for the visual blocking condition, you need no plugin. If your Visuall 
+Block start at visual column 7, without selecting it, just execute
+
+>
+    :sort /\%7v/
+<
+
+I have few plugins in my computer, for Vim is good enough!
+
+Generally, visual block sorting can be done as following.
+
+After selecting visual block, execute following command to sort on the 
+selected text in the selected range:
+
+>
+    :'<,'>sort /\ze\%V/
+<
+
+If you want to keep the text outside of visual block unchanged, you need 
+select or go Go to the last Visual selection and Yank it to a register. Then 
+Undo the the sort made. Then just paste the unsorted data over the sorted 
+data. Or just type:
+
+>
+    gvyugvp
+<
+
+ vim:tw=78:et:ft=help:norl:

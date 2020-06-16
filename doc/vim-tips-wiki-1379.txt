@@ -1,0 +1,135 @@
+*vim-tips-wiki-1379.txt*   Make echo seen when it would otherwise disappear and go unseen *vtw-1379*
+
+Tip 1379 [https://vim.fandom.com/wiki/Make_echo_seen_when_it_would_otherwise_disappear_and_go_unseen]   Previous |vtw-1377| Next |vtw-1380|
+
+created 2006 · complexity advanced · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+Sometimes echo from a mapping disappears and is not seen (every script writer 
+knows this problem).
+
+This weird trick, `PersistentEcho()`, echoes messages that will not easily 
+disappear.
+
+This is a really intrusive and weird trick. Please do not use for external 
+scripts (since it modifies &updatetime). For your internal consumption only.
+
+>
+    " PersistentEcho() - super-sticky echo message.
+    " PersistentEcho() echoes message that refuses
+    " to disappear that simply. This is really weird intrusive trick, but sometimes
+    " echo from a script disappears unexplainably no matter what other solution I tried.
+    " Don't use this in external scripts please; this is for your internal uses only.
+    func! PersistentEcho(msg)
+      echo a:msg
+      let g:PersistentEcho=a:msg
+    endfun
+    let g:PersistentEcho=''
+    if &ut>200|let &ut=200|endif
+    au CursorHold * if PersistentEcho!=''|echo PersistentEcho|let PersistentEcho=''|endif
+<
+
+COMMENTS                                                   *vtw-1379-comments*
+
+Would `:echom` by definition be a persistent echo?
+
+==============================================================================
+
+No. `echom` results in a longer-term message that can be recalled on demand; 
+however, the user would need to know to type `:messages` to see it.
+
+==============================================================================
+
+>
+    " The following is a self destructive version of the
+    " CursorHold autocmd. It also restores 'updatetime'.
+    let s:Pecho=''
+    fu! s:Pecho(msg)
+      if &ut!=11|let s:hold_ut=&ut|let &ut=11|en
+      let s:Pecho=a:msg
+      aug Pecho
+        au CursorHold * if s:Pecho!=''|echo s:Pecho
+              \|let s:Pecho=''|let &ut=s:hold_ut|en
+            \|aug Pecho|exe 'au!'|aug END|aug! Pecho
+      aug END
+    endf
+    
+    " Test of above
+    au! BufEnter foo call s:Pecho("Entered foo")
+    
+    " Now even changing to "foo" in a different tab page
+    " will print the message.
+<
+
+==============================================================================
+
+>
+    " further improvement in restoration of the &updatetime. To make this
+    " usable in the plugins, we want it to be safe for the case when
+    " two plugins use same this same technique. Two independent
+    " restorations of &ut can run in unpredictable sequence. In order to
+    " make it safe, we add additional check in &ut restoration.
+    let s:Pecho=''
+    fu! s:Pecho(msg)
+      let s:hold_ut=&ut | if &ut>1|let &ut=1|en
+      let s:Pecho=a:msg
+      aug Pecho
+        au CursorHold * if s:Pecho!=''|echo s:Pecho
+              \|let s:Pecho=''|if s:hold_ut > &ut |let &ut=s:hold_ut|en|en
+              \|aug Pecho|exe 'au!'|aug END|aug! Pecho
+      aug END
+    endf
+<
+
+In this form, I think it's safe for use in plugins.
+
+==============================================================================
+
+I have noticed this too and used a similar approach to create a list of 
+messages that should be put out at the end of command execution, but didn't 
+think of using CursorHold. An alternative simpler solution is to put an extra 
+newline at the end of the message such that the second empty line gets 
+overwritten instead of the actual message, however this causes a Press Enter 
+prompt (if the 'cmdheight' is 1).
+
+==============================================================================
+
+>
+    " This update eliminates all "if" statements and introduces
+    " a locked variable to prevent collisions. Should a call to
+    " Pecho occur before the CursorHold is triggered, that call
+    " will wait for the triggering to unlock.
+    let PechoLock = 0
+    fu! s:Pecho(msg)
+      wh islocked("g:PechoLock")|sl|endw
+      lockv g:PechoLock|let s:hold_ut=&ut|let &ut=1
+      let s:Pecho=a:msg
+      aug Pecho
+        au CursorHold * ec s:Pecho
+              \|let &ut=s:hold_ut|unlo g:PechoLock
+              \|aug Pecho|exe 'au!'|aug END|aug! Pecho
+      aug END
+    endf
+<
+
+==============================================================================
+
+I had this problem too... and there's a solution at :he echo-redraw:
+
+>
+    *:echo-redraw*
+    	A later redraw may make the message disappear again.
+    	And since Vim mostly postpones redrawing until it's
+    	finished with a sequence of commands this happens
+    	quite often.  To avoid that a command from before the
+    	":echo" causes a redraw afterwards (redraws are often
+    	postponed until you type something), force a redraw
+    	with the |:redraw| command.  Example: >
+    :new | redraw | echo "there is a new window"
+<
+
+This seems to be solving my problem so far without having to kill any kittens 
+with your script.
+
+ vim:tw=78:et:ft=help:norl:

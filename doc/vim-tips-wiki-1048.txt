@@ -1,0 +1,46 @@
+*vim-tips-wiki-1048.txt*   Add classname based on filename while in input mode *vtw-1048*
+
+Tip 1048 [https://vim.fandom.com/wiki/Add_classname_based_on_filename_while_in_input_mode]   Previous |vtw-1046| Next |vtw-1050|
+
+created 2005 · complexity basic · author Don Mitchell · version 6.0
+
+==============================================================================
+
+In program development, it is common to use the name of the current file as a 
+classname, after omitting the path and extension of the file. One way to do 
+this quickly is to use an insert-mode abbreviation. In the following example 
+`,f` is mapped as an abbreviation for the filename without the path and 
+extension. Add the following lines to your vimrc 
+[https://vim.fandom.com/wiki/Vimrc] file to define the abbreviation:
+
+>
+    " Insert classname (filename minus path and extension).
+    iab <buffer> <unique> ,f <C-r>=expand('%:t:r')<CR>
+<
+
+In insert mode, typing <C-r>= (Ctrl-R then `=`) inserts the value of the 
+following expression. The expression is expand('%:t:r') (terminated by <CR> 
+which represents Enter).
+
+The `expand()` function expands '%' (representing the name of the current 
+file), while modifying that name according to the given codes: `:t` is the 
+tail of the full path name (file name and extension, after omitting any path), 
+and `:r` is the root part of the name after omitting any extension.
+
+To use this, while in insert mode, type `,f` followed by a space or the 
+escape key to insert the name of the current file.
+
+SEE ALSO                                                   *vtw-1048-see-also*
+    - :help |filename-modifiers| information on filename modifiers 
+
+
+COMMENTS                                                   *vtw-1048-comments*
+
+Rather than vimrc, the mapping should be in a file in a filetype plugin 
+directory. Then, using <buffer> would be useful (the abbreviation would only 
+apply for files of that type). The tip needs some rewording for that. 
+JohnBeckett [https://vim.fandom.com/wiki/User:JohnBeckett] (talk 
+[https://vim.fandom.com/wiki/User_talk:JohnBeckett]) 10:31, December 20, 2012 
+(UTC)
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,399 @@
+*vim-tips-wiki-1673.txt*   Build Vim in Windows with Visual Studio     *vtw-1673*
+
+Tip 1673 [https://vim.fandom.com/wiki/Build_Vim_in_Windows_with_Visual_Studio]   Previous |vtw-1672| Next |vtw-1674|
+
+created 
+[https://vim.fandom.com/wiki/Vim_Tips_Wiki:New_tips/201107#Build_Vim_in_Windows_with_Visual_Studio] 
+July 28, 2011 · complexity basic · author JohnBeckett · version 7.0
+
+==============================================================================
+
+This tip explains how to download the source for Vim, then build a Vim 
+executable, and install it on a Windows system. Optionally, Vim can be 
+compiled with a Python 2.x or 3.x interface. The build is performed using the 
+Microsoft Visual Studio 2010 Express (free). See Building Vim 
+[https://vim.fandom.com/wiki/Building_Vim] for related information, including 
+how to download Vim if you do not want to build it yourself.
+
+Administrative privileges are not required for the steps in this tip, except 
+when installing:
+    - Python (if Python is wanted). 
+    - Mercurial (if using the "needs admin rights" installer to make Mercurial 
+      available for all users). 
+    - Microsoft Visual Studio. 
+
+
+PYTHON INTERFACE                                   *vtw-1673-python-interface*
+
+This tip shows how to build Vim with or without a Python interface. Python is 
+optional, and not needed for normal Vim.
+
+Vim can be compiled to provide an interface so that Vim scripts can be 
+written in Python, and so that Vim commands like `:py print 2**1024` work. If 
+an interface between Vim and Python is wanted, Python needs to be installed 
+separately, and Vim needs to be compiled with support for the version of 
+Python used. Vim can be configured to work with Python 2.x or 3.x or both 
+(although the 3.x configuration is newer and less tested).
+
+To determine whether a particular installation of Vim supports Python, enter 
+the command `:version` in Vim. If the output includes `+python/dyn` (with 
+"`+`") then Python 2.x is supported, and the DLL file specified in the link 
+command shown in the output will be dynamically loaded if needed. If the 
+output includes `+python3/dyn` then Python 3.x is supported, and the Python 3 
+DLL file shown in the output will be dynamically loaded if needed. On Windows, 
+dynamic loading is standard with the result that although Python needs to be 
+installed to build Vim, the resulting Vim executable can be run on a system 
+with no Python (Vim would work, but attempting to use the Python interface 
+would fail).
+
+REQUIRED TOOLS                                       *vtw-1673-required-tools*
+
+The following tools may be installed to download and build the Vim source.
+
+Python programming language (optional)
+For example, install using "Python 2.7.2 Windows Installer (Windows binary -- does not include source)" from here.
+This is not needed by Mercurial or Vim. Mercurial uses file python26.dll that is included in the standard Mercurial installer for Windows.
+Vim can be built to provide an interface so that Vim scripts can be written in Python, and so that Vim commands like :py print 2**1024 work. If that is wanted, Python needs to be installed before building Vim.
+
+Mercurial version control system (hg command)
+For example, install using "Mercurial-2.0 (32-bit msi) needs admin rights to install" from here.
+Mercurial recommends that the Windows indexing service and virus scanners be configured to exclude directories containing a repository or a working copy. This advice can probably be ignored, but a virus scanner may lock a file after it is written so any program (such as Mercurial) which writes many files then attempts to operate on them, could fail.
+
+Microsoft Visual C++ 2010 Express (part of Visual Studio)
+Free download here.
+The product can be downloaded, installed, and the Visual Studio GUI run for thirty days (or indefinitely if registered online with Microsoft). Registration is not required to build Vim because only the command line tools are used. Administrative privileges are required to install and to register.
+
+To install Python or Mercurial, download the wanted setup program and run it.
+
+It is not needed for Vim, but if you want to run Python in a command prompt 
+window, you need to first adjust the PATH, for example:
+
+>
+    set PATH=%PATH%;C:\Python27
+    python
+<
+
+To install Visual Studio, download the setup program (see link above). Setup 
+is a small program which downloads components as required. As an 
+administrator, run setup and perform these steps:
+    - Accept or clear "send information about my setup experiences to Microsoft". 
+    - Agree to license. 
+    - Accept or clear option to install Microsoft Silverlight. 
+    - Accept default install location. 
+    - Restart computer when prompted. 
+    - After restarting, log on as an administrator; setup will automatically 
+      continue running. 
+    - When finished, setup prompts that Windows Update should be used. 
+    - Use Windows Update to install security updates; restart when prompted. 
+    - Later, you can run the "Microsoft Visual C++ 2010 Express" GUI and use the 
+      Help menu, "Register Product" to register within 30 days. 
+
+
+REQUIRED DIRECTORIES AND FILES       *vtw-1673-required-directories-and-files*
+
+The following directories will be used as examples:
+
+Directory \current\build\vim
+Will hold Vim source and runtime files as downloaded using Mercurial.
+Also used to build Vim.
+Replace "current" with whatever you like, however if the path contains spaces, more care will be needed.
+
+Directory \myname\bin
+Will hold some files used when building, as well as the Vim executable and runtime files used to run Vim. The intention is that myname holds programs or other files that are wanted on several different computers. Make a master copy on one computer, then copy the master to other computers. No installation will be required on the other computers, apart from adjusting the PATH. The bin directory can contain any simple tools that do not need installation, although for this tip it will only contain two batch files. The Vim files will be installed in a subdirectory.
+Replace "myname" with whatever you like, however if the path contains spaces, more care will be needed.
+
+In a command prompt window, enter the following to make the `current` and 
+`build` directories (the `vim` subdirectory will be created later).
+
+>
+    md \current\build
+<
+
+Enter the following to make the `myname` and `bin` directories.
+
+>
+    md \myname\bin
+<
+
+Create file `\myname\bin\vimconfig.cmd` with contents as follows, if a Python 
+interface is not wanted:
+
+>
+    :: Set environment for wanted options before building Vim.
+    set GUI=yes
+<
+
+Alternatively, use the following contents if a Python interface is wanted 
+(this text assumes a default install of Python 2.7):
+
+>
+    :: Set environment for wanted options before building Vim.
+    set GUI=yes
+    set DYNAMIC_PYTHON=yes
+    set PYTHON=C:/Python27
+    set PYTHON_VER=27
+<
+
+If installing with Python 3 and above, replace `PYTHON` with `PYTHON3`:
+
+>
+    :: Set environment for wanted options before building Vim.
+    set GUI=yes
+    set DYNAMIC_PYTHON3=yes
+    set PYTHON3=C:/Python32
+    set PYTHON3_VER=32
+<
+
+Additional options could be:
+
+>
+    set NETBEANS=no
+    set FEATURES=HUGE
+    set CPUNR=i686
+    set WINVER=0x500
+    set OLE=yes
+<
+
+More information on the build options is available here 
+|http://vimdoc.sourceforge.net/howto/win32-compile/Vim-Compile-Win32-HOWTO/compiling.html|.
+
+Create file `\myname\bin\vimcopy.cmd` with contents as follows:
+
+>
+    :: Copy any new Vim exe + runtime files to current install.
+    @set SRC=C:\current\build\vim
+    @set DST=C:\myname\bin\vim\vim73
+    xcopy %SRC%\runtime %DST% /D /E /H /I /Y %*
+    xcopy %SRC%\src\xxd\xxd.exe %DST%\* /D /Y %*
+    xcopy %SRC%\src\GvimExt\gvimext.dll %DST%\* /D /Y %*
+    xcopy %SRC%\src\*.exe %DST%\* /D /Y %*
+<
+
+VIM SOURCE AND RUNTIME FILES           *vtw-1673-vim-source-and-runtime-files*
+
+The following sets `build` as the current directory, then downloads the 
+entire Vim source and runtime files to a tree under the `vim` subdirectory 
+(created by the `hg` command). This is required once only, to get started, and 
+will take a few minutes.
+
+>
+    cd \current\build
+    hg clone https://vim.googlecode.com/hg/ vim
+<
+
+In the future, changes to the Vim source and runtime files can be downloaded 
+with the following.
+
+>
+    cd \current\build\vim
+    hg pull -u
+<
+
+If you accidentally change some Vim source files, you can clean the source to 
+discard your changes.
+
+>
+    cd \current\build\vim
+    hg update -C
+<
+
+BUILDING VIM                                           *vtw-1673-building-vim*
+
+After the initial clone (`hg clone`) or update (`hg pull -u`), the executable 
+Vim programs can be built with the following.
+
+>
+    cd \current\build\vim\src
+    msvc2010.bat
+    \myname\bin\vimconfig.cmd
+    nmake -f Make_mvc.mak
+<
+
+These commands use:
+    - File `\current\build\vim\src\msvc2010.bat` supplied with Vim. This calls file 
+      `vsvars32.bat` (installed with Visual Studio) to configure environment 
+      variables to allow building at the command prompt. 
+    - File `\myname\bin\vimconfig.cmd` (created in an earlier step) to configure 
+      environment variables for the options wanted while building Vim. 
+    - File `nmake.exe` (installed with Visual Studio) to compile and link Vim. 
+
+
+The above builds programs `gvim.exe` (GUI Vim), `vimrun.exe` (to run external 
+commands from Vim), and `xxd.exe` (to display binary files in hex 
+[https://vim.fandom.com/wiki/Hex_dump]). If wanted, you can also build 
+`vim.exe` (console Vim, to run in a command prompt window) with:
+
+>
+    cd \current\build\vim\src
+    nmake -f Make_mvc.mak gui=no
+<
+
+If wanted, you can change the options used to build Vim (see `Make_mvc.mak`). 
+However, the old build files must be "cleaned" (deleted, so the new build will 
+not use a mixture of files from the old and new configurations). Clean with 
+the following.
+
+>
+    cd \current\build\vim\src
+    msvc2010.bat
+    \myname\bin\vimconfig.cmd
+    nmake -f Make_mvc.mak clean
+<
+
+CONFIGURING VIM                                     *vtw-1673-configuring-vim*
+
+Vim is usually configured with a vimrc [https://vim.fandom.com/wiki/Vimrc] 
+file and with runtime files set by the user (in addition to the runtime files 
+provided with Vim). Generally the user config files are under the $HOME 
+directory. Vim sets its $HOME variable from the environment variable `HOME`, 
+if defined, or, more commonly on Windows systems, by joining variables 
+`HOMEDRIVE` and `HOMEPATH`.
+
+By default, a user logged on as Myname on a Windows XP system will have 
+`C:\Documents and Settings\Myname` as their $HOME directory. On some systems, 
+that location can be changed by running `lusrmgr.msc`: display the Properties 
+of the user; on the Profile tab, set "Home folder, Local path" to be any 
+wanted directory (for example `C:\myname`).
+
+In Vim, you can display the value of $HOME by entering:
+
+>
+    :echo $HOME
+<
+
+Create file `$HOME/_vimrc` with your preferred settings, for example:
+
+>
+    set nocompatible
+    filetype indent plugin on
+    syntax on
+    set wildmenu wildmode=full
+    set showcmd
+    set ignorecase hlsearch incsearch
+    set backspace=indent,eol,start
+    set nostartofline
+    set ruler
+    set laststatus=2
+    set mouse=a
+    set cmdheight=2
+    set shiftwidth=4 softtabstop=4  " tab column size
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+        \ | wincmd p | diffthis
+    " Press Space to turn off search highlighting and clear any message.
+    :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+    " Silent.
+    set visualbell t_vb=
+    " Allow switching from an unsaved buffer without saving it first.
+    set hidden
+    if has('gui_running')
+      set guioptions-=T  " no toolbar
+      colorscheme elflord  " choose your own
+    endif
+<
+
+See disable beeping [https://vim.fandom.com/wiki/Disable_beeping] for 
+information on the 'visualbell' option, and see example vimrc 
+[https://vim.fandom.com/wiki/Example_vimrc] for further ideas.
+
+As an example of a configuration file, create file `python.vim` in the 
+directory `$HOME\vimfiles\after\ftplugin` (you will need to create the 
+`vimfiles` and `after` and `ftplugin` directories). The file should contain:
+
+>
+    setlocal expandtab
+<
+
+After creating the directories, you can enter this command in Vim to create 
+the file (`~` is the same as `$HOME`):
+
+>
+    :e ~\vimfiles\after\ftplugin\python.vim
+<
+
+The effect of this example is that, when editing `*.py` files, the 
+'expandtab' option will be set, so spaces will be inserted when the Tab key is 
+pressed.
+
+INSTALLING VIM                                       *vtw-1673-installing-vim*
+
+After building, copy the executables and runtime files to overwrite the 
+current Vim installation (or to create it). This can be run from any 
+directory. Any previous runtime files are overwritten. Make sure Vim is not 
+running.
+
+>
+    \myname\bin\vimcopy.cmd
+<
+
+This uses file `vimcopy.cmd` (created in an earlier step) to copy the Vim 
+files from the build directory to directory `C:\myname\bin\vim\vim73` (and 
+subdirectories).
+
+Vim can now be run in a command prompt window, although it is necessary to 
+adjust the PATH:
+
+>
+    set PATH=%PATH%;C:\myname\bin\vim\vim73
+    gvim
+<
+
+To permanently update the PATH, run System Properties: on the Advanced tab, 
+click Environment Variables. An administrator can edit "Path" under System 
+variables (which will apply to all users). Append `;C:\myname\bin\vim\vim73` 
+to the existing PATH.
+
+If other tools are placed in the `bin` directory, also append 
+`;C:\myname\bin` to the PATH. If that is done, the "build" step can use 
+`vimconfig` rather than `\myname\bin\vimconfig.cmd`, and the "installing" step 
+can use `vimcopy` rather than `\myname\bin\vimcopy.cmd`
+
+It is possible to add an "Edit with Vim" entry to the Windows Explorer 
+context menu. If that is not wanted, installation is finished, and gvim can be 
+run from a command prompt window. It is also possible to drag and drop one or 
+more files from Windows Explorer to gvim and then to display each file in its 
+own tab by entering `:tab sball`.
+
+To add an "Edit with Vim" entry to the context menu, as an administrator open 
+a command prompt window and enter:
+
+>
+    cd \myname\bin\vim\vim73
+    install
+<
+
+The `install.exe` program runs in a command prompt window and presents a 
+series of options regarding the actions that it will take. Actions can be 
+configured or disabled by responding to the prompts. One of the possible 
+actions is to generate a sample vimrc file which is not recommended. The 
+option to add an entry to the popup (context) menu only works when performed 
+by an administrator.
+
+DIFF PROGRAM                                           *vtw-1673-diff-program*
+
+Vim can display the differences between files, providing a diff program is 
+available. Windows users should download the setup program for "Complete 
+package, except sources" from GnuWin32 diff 
+[http://gnuwin32.sourceforge.net/packages/diffutils.htm]. Run setup and either 
+accept the defaults, or install in a temporary directory that you will later 
+delete (perhaps by running the uninstall program). If wanted, you can install 
+without administrative privileges: select "Don't create a Start Menu folder" 
+and click Ignore several times when setup fails to write to the registry. Copy 
+files `diff.exe` and `*.dll` from the resulting `GnuWin32\bin` subdirectory to 
+a directory that is in your PATH (you could use `C:\myname\bin\vim\vim73` 
+although it would be better to use another directory for programs not 
+distributed with Vim).
+
+If you have run the Vim `install.exe` program and used it to generate a 
+sample vimrc file, it will include `set diffexpr=MyDiff()` which is not 
+wanted: remove that line (and the `MyDiff` function) from vimrc.
+
+COMMENTS                                                   *vtw-1673-comments*
+
+TO DO
+    - Show a HUGE or BIG build example to show how it's done. 
+    - Check claims made about MyDiff and if valid, explain why it isn't wanted. 
+      Fritzophrenic has to use MyDiff to make diffs. Check when used with paths with 
+      embedded spaces. 
+
+
+ vim:tw=78:et:ft=help:norl:

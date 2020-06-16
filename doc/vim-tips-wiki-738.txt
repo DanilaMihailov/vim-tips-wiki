@@ -1,0 +1,97 @@
+*vim-tips-wiki-738.txt*   Fix meta-keys that break out of Insert mode   *vtw-738*
+
+Tip 738 [https://vim.fandom.com/wiki/Fix_meta-keys_that_break_out_of_Insert_mode]   Previous |vtw-737| Next |vtw-739|
+
+created 2004 · complexity basic · author Yakov Lerner · version 6.0
+
+==============================================================================
+
+On Unix-based systems, the Meta (Alt) key may not work in Vim. For example, 
+in insert mode, pressing Meta-A (Alt-A) may exit to normal mode, then execute 
+normal-mode commands. This can occur with non-GUI Vim under some terminal 
+emulators – those which generate escape sequences for Meta-characters. The 
+actually generated escape-sequences are <Esc>a .. <Esc>z.
+
+SOLUTION                                                    *vtw-738-solution*
+
+You must manually configure Vim to recognize these escape-sequences as 
+Meta-characters, see below. Terminal emulators which are known to generate 
+these sequences for Meta-keys are: rxvt (unix), putty (PC), teraterm (PC). Vim 
+expects characters 225-250 for Meta-keys.
+
+Here's how to fix Meta-keys on the Vim side:
+
+Check what your Meta-keys generate:
+
+>
+    i<press Ctrl-V><press Meta-A>
+<
+
+If you see `^[a` (that is, escape character followed by something), then add 
+this snippet to your vimrc:
+
+>
+    " fix meta-keys which generate <Esc>a .. <Esc>z
+    let c='a'
+    while c <= 'z'
+      exec "set <M-".toupper(c).">=\e".c
+      exec "imap \e".c." <M-".toupper(c).">"
+      let c = nr2char(1+char2nr(c))
+    endw
+<
+
+To fix Meta-keys definitions manually key-by-key:
+
+>
+    :set <M-A>=<press Ctrl-V><press Meta-A>
+    :imap <press ctrl-v><press Esc>a <M-A>
+    ; repeat each Meta-key.
+<
+
+Don't attempt to map <M-[> or <M-Leader> in this situation. The former will 
+break mouse support (and possibly other things), and the latter doesn't play 
+nicely when exiting insert mode and attempting to perform a leader-bound 
+command.
+
+SEE ALSO                                                    *vtw-738-see-also*
+    - Get Alt key to work in terminal |vtw-1129| 
+
+
+COMMENTS                                                    *vtw-738-comments*
+
+Suggested fix does not work in PuTTY on Windows XP, using Vim 6.1.5.
+
+The Vim help files suggest, for example:
+
+>
+    :set <M-b>=^[b
+<
+
+This works, but remember to set ttimeoutlen to something small!
+
+Also note, Meta-key mappings are case-sensitive (e.g. <m-b> and <m-B> are 
+different).
+
+--Fritzophrenic [https://vim.fandom.com/wiki/User:Fritzophrenic] 18:02, 30 
+June 2008 (UTC)
+
+==============================================================================
+
+In rxvt I found that the :set <M-a>=^]a commands don't work, instead only the 
+map commands are needed. So I used:
+
+>
+    for i in range(65,90) + range(97,122)
+      let c = nr2char(i)
+      exec "map \e".c." <M-".c.">"
+      exec "map! \e".c." <M-".c.">"
+    endfor
+<
+
+instead of the snippet given above, and everything works fine now.
+
+12:20, 13 March 2009 (UTC)
+
+^] is not ^[, chłopcze
+
+ vim:tw=78:et:ft=help:norl:

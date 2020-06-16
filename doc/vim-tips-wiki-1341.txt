@@ -1,0 +1,24 @@
+*vim-tips-wiki-1341.txt*   Power K                                     *vtw-1341*
+
+Tip 1341 [https://vim.fandom.com/wiki/Power_K]   Previous |vtw-1338| Next |vtw-1343|
+
+created 2006 · complexity basic · author gosman · version n/a
+
+==============================================================================
+
+Press the `K` key in normal mode to see the man page for the word under the 
+cursor.
+
+COMMENTS                                                   *vtw-1341-comments*
+
+You can view other chapters by typing the chapter number before you press 
+`K`.
+
+==============================================================================
+
+You can add "set keywordprg=man\ -a" to your vimrc to see all the manpages 
+for a particular word when you press "K".
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

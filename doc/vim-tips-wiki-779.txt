@@ -1,0 +1,46 @@
+*vim-tips-wiki-779.txt*   OEM to ANSI conversion                        *vtw-779*
+
+Tip 779 [https://vim.fandom.com/wiki/OEM_to_ANSI_conversion]   Previous |vtw-778| Next |vtw-781|
+
+created 2004 · complexity basic · version 6.0
+
+==============================================================================
+
+I am using Windows 2000, US system. I have a bunch of text files coming from 
+a DOS machine (OEM charset), with characters above code 127. I would like to 
+convert those files into ANSI charset, so that I can see those characters 
+appropriately everywhere under Windows.
+
+Open the file in Vim and enter these commands:
+
+>
+    :set encoding=cp437
+    :set fileencoding=latin1
+    :wq
+<
+
+You can now reopen the file and the characters should have been converted. I 
+prefer to quit after the conversion so that encoding and fileencoding are 
+reset, but I supopse you can simply set encoding back to latin1.
+
+cp437 is the code page for the OEM charset.
+
+REFERENCES                                                *vtw-779-references*
+    - :help 'encoding' 
+    - :help 'fileencoding' 
+
+
+COMMENTS                                                    *vtw-779-comments*
+
+Did the same to transform UNICODE (UTF-8) to Latim-1 (ISO-8859-1) and it 
+worked.
+
+I recommend to anyone having trouble understanding these encodings to read 
+the following article:
+
+http://www.joelonsoftware.com/articles/Unicode.html 
+[http://www.joelonsoftware.com/articles/Unicode.html]
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

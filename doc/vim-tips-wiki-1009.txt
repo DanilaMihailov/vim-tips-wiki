@@ -1,0 +1,32 @@
+*vim-tips-wiki-1009.txt*   Quickly change word or line                 *vtw-1009*
+
+Tip 1009 [https://vim.fandom.com/wiki/Quickly_change_word_or_line]   Previous |vtw-1008| Next |vtw-1010|
+
+created 2005 · complexity basic · author Anupam · version 5.7
+
+==============================================================================
+
+To quickly change a word you can use `cw`,`caw` or `ciw`. Use `c$` or just 
+`C` to quickly change from the cursor to the end of a line, `cc` to change an 
+entire line, or `cis` for a sentence.
+
+The standard change word command requires you to type `cw`, then a new word, 
+then press Escape. Using the version below, you would type `pw`, then a new 
+word, then press Space to exit back to normal mode. Or, you would type `p$`, 
+then a new line, then press Enter.
+
+>
+    nmap pw :inoremap <lt>Space> <lt>Space><lt>Esc>:iunmap <lt>lt>Space><lt>CR><CR> cw
+    
+    nmap p$ :inoremap <lt>CR> <lt>CR><lt>Esc>:iunmap <lt>lt>CR><lt>CR><CR> c$
+<
+
+SEE ALSO                                                   *vtw-1009-see-also*
+    - :help |c| 
+    - :help |movement| 
+    - :help |text-objects| 
+
+
+COMMENTS                                                   *vtw-1009-comments*
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,0 +1,39 @@
+*vim-tips-wiki-218.txt*   Check for comments independent of filetype    *vtw-218*
+
+Tip 218 [https://vim.fandom.com/wiki/Check_for_comments_independent_of_filetype]   Previous |vtw-217| Next |vtw-219|
+
+created 2002 · complexity advanced · author Mark A. Hillebrand · version 6.0
+
+==============================================================================
+
+For some scripts it might be useful to detect, whether a specific position in 
+a buffer is inside of a comment or not. Syntax highlighting can save us the 
+work for parsing the comments ourselves.The command
+
+>
+    :echo synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
+<
+
+echoes the group used for highlighting the character at the current cursor 
+position, see :help |synIDtrans()|. It will usually be `Comment` if the cursor 
+is inside of a comment, so
+
+>
+    synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name") == "Comment"
+<
+
+detects, independent of the filetype (which have their own group `names` for 
+comments), if the cursor is inside a comment or not.
+
+The expression
+
+>
+    synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name") =~ 'Comment\|Constant\|PreProc'
+<
+
+will detect additionally, if the cursor is inside of a string or some 
+preprocessor statement.
+
+COMMENTS                                                    *vtw-218-comments*
+
+ vim:tw=78:et:ft=help:norl:

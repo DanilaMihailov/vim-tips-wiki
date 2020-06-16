@@ -1,0 +1,77 @@
+*vim-tips-wiki-1004.txt*   Optionally open matching or selected tag in full height vertical window *vtw-1004*
+
+Tip 1004 [https://vim.fandom.com/wiki/Optionally_open_matching_or_selected_tag_in_full_height_vertical_window]   Previous |vtw-1003| Next |vtw-1005|
+
+created September 26, 2005 · complexity intermediate · author Michael Watkins 
+· version 6.0
+
+==============================================================================
+
+I prefer the tags to have a full height window off to the right, most of the 
+time. This script and mappings give both.
+
+>
+    " preview window... to get it to open vert right, or horiz as desired
+    function PreviewTag(top)
+      "by MW
+      set previewheight=25
+      exe "silent! pclose"
+      if &previewwindow " don't do this in the preview window
+        return
+      endif
+      let w = expand("<cword>") " get the word under cursor
+      exe "ptjump " . w
+      " if any non False arg, open in simple horiz window so simply return
+      if a:top
+        return
+      endif
+      " otherwise, make it vertical
+      exe "silent! wincmd P"
+      if &previewwindow " if we really get there...
+        if has("folding")
+          silent! .foldopen " don't want a closed fold
+        endif
+        wincmd L " move preview window to the left
+        wincmd p " back to caller
+        if !&previewwindow " got back
+          wincmd _
+          " make caller full size (I use minibufexplorer and for some reason
+          " the window is altered by the preview window split and manipulation
+          " so wincmd _ sets it back... your mileage may vary
+        endif
+      endif
+    endfunction
+    
+    " right hand window full height preview window
+    inoremap <C-]> <Esc>:call PreviewTag(0)<CR>
+    nnoremap <C-]> :call PreviewTag(0)<CR>
+    " simple "above the caller" preview window,
+    nnoremap <M-]> :call PreviewTag(1)<CR>
+    inoremap <M-]> <Esc>:call PreviewTag(1)<CR>
+    " close preview
+    noremap <M-[> <Esc>:pc<CR>
+<
+
+Here's what I use for Python and Quixote (python web framework) exctags 
+generation (FreeBSD user here) - ptl files are Quixote Python Template 
+Language files, essentially Python, and this exctags cmd line builds an 
+appropriate tags file:
+
+>
+    function WritePythonTags()
+      let foo = system("/usr/bin/ctags --langmap=python:.py.ptl *.py *.ptl")
+    endfunction
+    
+    " attempt to write / update tags file on every save...
+    " better way? not sure I care, its fast enuf.
+    au BufWritePost *.py,*.ptl call WritePythonTags()
+<
+
+COMMENTS                                                   *vtw-1004-comments*
+
+See script#1343 [https://www.vim.org/scripts/script.php?script_id=1343] to 
+automatically update tags files upon saving.
+
+==============================================================================
+
+ vim:tw=78:et:ft=help:norl:

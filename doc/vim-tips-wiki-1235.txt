@@ -1,0 +1,89 @@
+*vim-tips-wiki-1235.txt*   Scientific calculator                       *vtw-1235*
+
+Tip 1235 [https://vim.fandom.com/wiki/Scientific_calculator]   Previous |vtw-1234| Next |vtw-1237|
+
+created 2006 · complexity basic · version 6.0
+
+==============================================================================
+
+Here is how to define and use a calculator, using embedded Python.
+
+These two lines go in your vimrc [https://vim.fandom.com/wiki/Vimrc]:
+
+>
+    :command! -nargs=+ Calc :py print <args>
+    :py from math import *
+<
+
+Now use it inside Vim:
+
+>
+    :Calc 2**10+5,2**16,2**128
+    1029 65536 340282366920938463463374607431768211456
+    :Calc sin(pi/2), log(10)
+    1.0 2.302585
+<
+
+You have to have Vim compiled with Python support, and have Python on your 
+machine† |vtw-1235-dll|. Use `:version` to see which features are included in 
+your Vim.
+
+If you don't have Python support in your Vim, but do have a python command, 
+use this instead
+
+>
+    command! -nargs=+ Calc :!python -c "from math import *; print <args>"
+<
+
+You also get complex numbers and other goodies. Google for Python and math. 
+Here is an example from complex math:
+
+>
+    :py from cmath import *
+    :Calc exp(pi*1j) , " Euler famous identify e^i.pi = -1"
+    (-1+1.22460635382e-016j)
+    
+    :Calc sum(range(1,100+1)), "Gauss' famous identity sum(1,100)"
+    5050
+<
+
+REFERENCES                                               *vtw-1235-references*
+    - http://docs.python.org/lib/module-cmath.html 
+      [http://docs.python.org/lib/module-cmath.html] 
+    - http://mathworld.wolfram.com/EulerFormula.html 
+      [http://mathworld.wolfram.com/EulerFormula.html] 
+
+
+DLL                                                             *vtw-1235-dll*
+
+These days, Vim Python support in Windows is usually via a dll, installed 
+separately from Vim: `:version` shows `+python/dyn`. Go to http://python.org/ 
+[http://python.org/] to get the Python installer.
+
+To check whether you have Python software that Vim can use (either statically 
+linked or dynamically findable), do :echo has('python') — 0 (zero) means "no", 
+anything else (normally 1) means "yes".
+
+COMMENTS                                                   *vtw-1235-comments*
+
+If your Vim (7.2 or later) is compiled with |+float|, you can do scientific 
+calculations in Vim even without Python.
+    - Use the numeric operators (except %) and floating point functions defined by 
+      Vim, see - :help |expr5| - :help |expr6| - :help |expr7| - :help 
+      |function-list| and scroll down to `Floating point computation` 
+    - Exponentiation is pow( |pow()|base,exponent), not `**` 
+    - |:echo| gives you 6-digit precision by default, use |printf()| for 
+      user-specified precision, up to about 15 significant digits on an Intel PC (I 
+      don't know how many on a Mac PPC or an an IBM System-z). 
+    - If you can lay hands on (or compile) a Vim patched with Bill McCarthy's 
+      additional floating-point functions 
+      [http://groups.google.com/group/vim_dev/web/vim-patches] (#7 in the list), you 
+      won't need to know trigonometric formulas for "missing" functions such as 
+      tan(), asin(), atan2() etc., and you'll be able to use `acos(-1)` rather than 
+      `4*atan(1)` for π, `exp(1)` rather than a literal value for e. 
+
+
+— Tonymec 03:27, May 5, 2010 (UTC)
+These extra floating point functions will be part of Vim 7.3. They were included in the pre-release on May 21, 2010. JamesVega 18:53, May 21, 2010 (UTC)
+
+ vim:tw=78:et:ft=help:norl:
