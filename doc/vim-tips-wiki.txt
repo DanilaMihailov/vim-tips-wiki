@@ -14,18 +14,19 @@ Try
 >
     :help vtw-1
 <
-
-WHY THOUGH						   *vim-tips-wiki-why*
-
-Sometimes I find myself using |:helpgrep| and not finding what I am looking
-for, often because I did not use correct word or phrase. I hope that having
-1500+ tips written by users will help solve this problem.
+You can get random tip by executing *:RandomVimTip* command.
 
 LISTS OF TIPS						 *vim-wiki-tips-lists*
 
 In order |vtw-index|
 Alphabetically |vtw-alphabetically|
 By category |vtw-by-category|
+
+WHY THOUGH						   *vim-tips-wiki-why*
+
+Sometimes I find myself using |:helpgrep| and not finding what I am looking
+for, often because I did not use correct word or phrase. I hope that having
+1500+ tips written by users will help solve this problem.
 
 ==============================================================================
 vim:tw=78:ft=help:norl:
