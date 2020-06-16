@@ -353,11 +353,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             len = 77;
         };
         by_category.push_str(&format!(
-            "\n{}{}*vtw-by-category-{}*\n{}\n\n",
+            "\n{}{}*vtw-by-category-{}*\n\n",
             cat.to_uppercase(),
             " ".repeat(78 - len),
-            cat.replace(" ", "-").to_lowercase(),
-            "=".repeat(78)
+            cat.replace(" ", "-").to_lowercase()
         ));
         for en in ens {
             by_category.push_str(en.as_str())
@@ -383,21 +382,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         if prev_letter.is_none() {
             prev_letter = first;
             alpha.push_str(&format!(
-                "\n{}{}*vtw-alphabetically-{}*\n{}\n",
+                "\n{}{}*vtw-alphabetically-{}*\n\n",
                 prev_letter.unwrap(),
                 " ".repeat(52),
                 prev_letter.unwrap(),
-                "=".repeat(78),
             ));
         } else if prev_letter != first {
             prev_letter = first;
 
             alpha.push_str(&format!(
-                "\n{}{}*vtw-alphabetically-{}*\n{}\n",
+                "\n{}{}*vtw-alphabetically-{}*\n\n",
                 prev_letter.unwrap(),
                 " ".repeat(52),
-                prev_letter.unwrap(),
-                "=".repeat(78),
+                prev_letter.unwrap()
             ));
         }
         alpha.push_str(format!("{} *vtw-{}*\n", en.title, en.n).as_str());
