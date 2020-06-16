@@ -54,4 +54,10 @@ The directory change is easy, just use the "cd" command just like on Unix (but w
 But, how to pass the current working directory information to "cd", and then how to run cscope from that directory ?
 Just like for any other external command. Actually from within Vim, you can just use Vim's built-in :cd command to get to the directory you want. Or use :lcd. Then use :!path\to\cscope.exe to run cscope from that directory. If you must, you can use the cmd.exe cd command instead, like :!cd some\path & path\to\cscope.exe. If you need Vim's current directory, you can use getcwd(). --Fritzophrenic (talk) 19:54, July 3, 2013 (UTC)
 
+CATEGORIES                                                     *vtw-1509-cats*
+
+C *vtw-by-category-c*
+Integration *vtw-by-category-integration*
+
+
  vim:tw=78:et:ft=help:norl:

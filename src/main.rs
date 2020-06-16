@@ -218,6 +218,23 @@ impl<'a> WikiEntry<'a> {
             result.push_str(&self.parse_node(*node));
         }
 
+        let cat_prefix = self.short_prefix("-cats");
+
+        result.push_str(&format!(
+            "\n\n{}{}*{}*\n\n",
+            "CATEGORIES",
+            " ".repeat(78 - 12 - cat_prefix.chars().count()),
+            cat_prefix
+        ));
+
+        for cat in &self.categories {
+            result.push_str(&format!(
+                "{} *vtw-by-category-{}*\n",
+                cat,
+                cat.replace(" ", "-").to_lowercase()
+            ));
+        }
+
         result.push_str(&format!("\n\n{}", " vim:tw=78:et:ft=help:norl:"));
 
         return result;
@@ -238,6 +255,7 @@ impl<'a> WikiEntry<'a> {
             .iter()
             .filter(|node| node.name() == Some("a"))
             .map(|node| node.text())
+            .filter(|c| c != "VimTip")
             .collect::<Vec<String>>();
 
         let mut entry = WikiEntry {

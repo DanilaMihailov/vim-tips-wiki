@@ -48,4 +48,8 @@ And another option is to add this to ~/.vimrc:
     autocmd FileType crontab setlocal nobackup nowritebackup
 <
 
+CATEGORIES                                                     *vtw-1621-cats*
+
+
+
  vim:tw=78:et:ft=help:norl:

@@ -84,4 +84,10 @@ non-Vim applications) is actually the + register. — Tonymec
 
 True, under X11, + is the clipboard register, while * is selection register. Newer vim versions (7.3.74 and higher) finally have a variation of clipboard=unnamed option which allows you to alias unnamed register to the + register: set clipboard=unnamedplus. Enjoy! -- 213.85.69.114 21:23, January 17, 2011 (UTC)
 
+CATEGORIES                                                       *vtw-21-cats*
+
+Review *vtw-by-category-review*
+Duplicate *vtw-by-category-duplicate*
+
+
  vim:tw=78:et:ft=help:norl:

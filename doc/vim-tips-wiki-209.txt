@@ -121,4 +121,8 @@ One thing that may not be immediately evident is that this works only
 line-wise. You can't have more than one jump per-line. If you use any of the 
 jump generator commands inside the line, only one jump is saved.
 
+CATEGORIES                                                      *vtw-209-cats*
+
+
+
  vim:tw=78:et:ft=help:norl:

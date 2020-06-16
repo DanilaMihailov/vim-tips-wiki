@@ -192,4 +192,8 @@ installed which can make opening buffers somewhat expensive (and therefore
 unnecessary time delay). Using the Vim 7 readfile() and writefile() functions 
 avoid this overhead.
 
+CATEGORIES                                                     *vtw-1569-cats*
+
+
+
  vim:tw=78:et:ft=help:norl:

@@ -35,4 +35,9 @@ closed, will just call the `:q` command.
     map <C-x> :call CloseSomething()<CR>
 <
 
+CATEGORIES                                                     *vtw-1333-cats*
+
+Tabs *vtw-by-category-tabs*
+
+
  vim:tw=78:et:ft=help:norl:

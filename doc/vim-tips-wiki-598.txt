@@ -292,4 +292,10 @@ the same location as below.
     vnoremap <C-p> :call OpenPhpFunction('<c-r><c-w>')<CR>:wincmd p<CR>
 <
 
+CATEGORIES                                                      *vtw-598-cats*
+
+Review *vtw-by-category-review*
+PHP *vtw-by-category-php*
+
+
  vim:tw=78:et:ft=help:norl:

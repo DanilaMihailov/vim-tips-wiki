@@ -76,4 +76,10 @@ PAR is a useful tool, but is not specific to format=flowed, and so can be
 over-zealous in some cases. For example, it doesn't recognized the -- 
 separator between email body and signature, and wraps it into the signature.
 
+CATEGORIES                                                      *vtw-948-cats*
+
+Review *vtw-by-category-review*
+Email *vtw-by-category-email*
+
+
  vim:tw=78:et:ft=help:norl:

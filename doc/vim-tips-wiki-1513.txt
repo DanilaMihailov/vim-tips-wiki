@@ -39,4 +39,10 @@ The first search pattern does not recognize tags that have digits in it,like
 <H1>.It can be corrected replacing the `\a` (=any alphabetic character) by a 
 `\w` (=any word character) which includes digits.
 
+CATEGORIES                                                     *vtw-1513-cats*
+
+Advanced Regex *vtw-by-category-advanced-regex*
+HTML *vtw-by-category-html*
+
+
  vim:tw=78:et:ft=help:norl:

@@ -109,4 +109,10 @@ Another variant of function ReloadFile:
 It does not move cursor position, adds only one change that could be undone 
 and does not modify any registers.
 
+CATEGORIES                                                     *vtw-1627-cats*
+
+Undo *vtw-by-category-undo*
+Deprecated *vtw-by-category-deprecated*
+
+
  vim:tw=78:et:ft=help:norl:

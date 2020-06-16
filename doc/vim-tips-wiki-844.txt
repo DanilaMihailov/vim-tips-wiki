@@ -83,4 +83,9 @@ Surround current word or visually selected text with double quotes:
     vnoremap <Leader>" c"<C-r>""<Esc>
 <
 
+CATEGORIES                                                      *vtw-844-cats*
+
+Review *vtw-by-category-review*
+
+
  vim:tw=78:et:ft=help:norl:

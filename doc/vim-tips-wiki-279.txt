@@ -157,4 +157,11 @@ automatically added file://192.168.1.10 to my list.
 
 Windows Script Host can be very useful. I certainly would never recommend something as drastic as renaming the system file wscript.exe to disable scripting in Windows. If you're worried about viruses, just don't run .js or .vbs files from unknown sources without examining them in an editor first. Even hijacking the "Open" function is questionable, it makes it more difficult to run a script from the Windows command-line.
 
+CATEGORIES                                                      *vtw-279-cats*
+
+Duplicate *vtw-by-category-duplicate*
+Review *vtw-by-category-review*
+Windows *vtw-by-category-windows*
+
+
  vim:tw=78:et:ft=help:norl:

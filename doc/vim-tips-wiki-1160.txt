@@ -108,4 +108,9 @@ write writes always, and that might lead to unwelcome side-effects — most
 notably, encrypted files will get corrupted if focuslost happens while 
 password input is active.
 
+CATEGORIES                                                     *vtw-1160-cats*
+
+Todo *vtw-by-category-todo*
+
+
  vim:tw=78:et:ft=help:norl:

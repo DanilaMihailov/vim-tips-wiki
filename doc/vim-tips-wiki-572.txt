@@ -89,4 +89,9 @@ How can I load this at startup without a mapping?
 
 Either put a call AutoHighlightToggle() into your .vimrc after defining the function, or just grab the "guts" of the function which turn the highlight on, and add them directly to your .vimrc. The latter would be especially useful if you just want the behavior always on. --Fritzophrenic 16:57, June 20, 2011 (UTC)
 
+CATEGORIES                                                      *vtw-572-cats*
+
+Searching *vtw-by-category-searching*
+
+
  vim:tw=78:et:ft=help:norl:

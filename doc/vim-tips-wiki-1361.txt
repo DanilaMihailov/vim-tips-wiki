@@ -139,4 +139,11 @@ Your FileType autocmd should work fine, assuming you have automatic filetype det
 Something to check to point you in the right direction, if the option is not getting set as you expect, is to see where it was last set. Use ":verbose set comments?" for this.
 Fritzophrenic 16:50, January 18, 2012 (UTC)
 
+CATEGORIES                                                     *vtw-1361-cats*
+
+C *vtw-by-category-c*
+C++ *vtw-by-category-c++*
+Options *vtw-by-category-options*
+
+
  vim:tw=78:et:ft=help:norl:

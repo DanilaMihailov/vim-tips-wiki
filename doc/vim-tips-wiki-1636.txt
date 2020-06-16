@@ -61,4 +61,9 @@ or just:
     au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 <
 
+CATEGORIES                                                     *vtw-1636-cats*
+
+VersionControl *vtw-by-category-versioncontrol*
+
+
  vim:tw=78:et:ft=help:norl:

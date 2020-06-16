@@ -197,4 +197,8 @@ plugin because. Massimo.b [https://vim.fandom.com/wiki/User:Massimo.b] 2015-03-0
 
 Without Smart Tabs, Vim can insert tabs for indentation for you, but you will need to manually add spaces to do alignment past the indentation. The copyindent/preserveindent settings let Vim automatically copy that manual alignment for the next line, but the space-based alignment is still a manual step. And pressing Tab will always insert a tab with this setup, it will never insert any spaces, so it will take more keypresses to insert large amounts of alignment whitespace. With Smart Tabs, if I understand correctly what the plugin does, the plugin will automatically figure out whether you are adding indentation or alignment whitespace, and insert a space or tab accordingly. --Fritzophrenic (talk) 16:18, March 4, 2015 (UTC)
 
+CATEGORIES                                                     *vtw-1626-cats*
+
+
+
  vim:tw=78:et:ft=help:norl:

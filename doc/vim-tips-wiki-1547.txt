@@ -201,4 +201,9 @@ folded is displayed, so it cleans up the fold display significantly.
       return printf("%-20s%s", preamble, substitute(charline, '^\s*', '', ''))
 <
 
+CATEGORIES                                                     *vtw-1547-cats*
+
+Folding *vtw-by-category-folding*
+
+
  vim:tw=78:et:ft=help:norl:

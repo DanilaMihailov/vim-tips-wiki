@@ -98,4 +98,9 @@ This mapping also will not overwrite any registers or marks
     inoremap <expr> <c-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
 <
 
+CATEGORIES                                                      *vtw-428-cats*
+
+Review *vtw-by-category-review*
+
+
  vim:tw=78:et:ft=help:norl:

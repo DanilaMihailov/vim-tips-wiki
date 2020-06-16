@@ -46,4 +46,10 @@ folds:
     setl foldenable foldmethod=expr foldexpr=VBFold(v:lnum) foldtext=VBFoldText()
 <
 
+CATEGORIES                                                      *vtw-519-cats*
+
+Folding *vtw-by-category-folding*
+LanguageSpecific *vtw-by-category-languagespecific*
+
+
  vim:tw=78:et:ft=help:norl:

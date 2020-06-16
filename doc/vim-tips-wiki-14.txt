@@ -188,4 +188,9 @@ nnoremap <F8> :let curwd='\\\<<C-R>=expand("<cword>")<CR>\\\>'<CR> :let @/=cur
 
 Thank you so much for the hint.
 
+CATEGORIES                                                       *vtw-14-cats*
+
+Searching *vtw-by-category-searching*
+
+
  vim:tw=78:et:ft=help:norl:

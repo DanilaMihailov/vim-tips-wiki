@@ -242,4 +242,9 @@ script like so: `vim-process-swap -s $swapfile` and you won't need to pass the
 real filename. Note that when using the -s flag that it isn't possible to 
 specify a recoveryfile name or location.
 
+CATEGORIES                                                     *vtw-1517-cats*
+
+Swapfiles *vtw-by-category-swapfiles*
+
+
  vim:tw=78:et:ft=help:norl:

@@ -223,4 +223,10 @@ your .vimrc file:
     au FileType xml exe ":silent 1,$!XMLLINT_INDENT='    ' xmllint --format --recover - 2>/dev/null"
 <
 
+CATEGORIES                                                      *vtw-349-cats*
+
+Syntax *vtw-by-category-syntax*
+XML *vtw-by-category-xml*
+
+
  vim:tw=78:et:ft=help:norl:

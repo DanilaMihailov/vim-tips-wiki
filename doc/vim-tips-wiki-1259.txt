@@ -33,4 +33,9 @@ vimrc [https://vim.fandom.com/wiki/Vimrc].
     au BufReadCmd *.jar call zip#Browse(expand("<amatch>"))
 <
 
+CATEGORIES                                                     *vtw-1259-cats*
+
+Review *vtw-by-category-review*
+
+
  vim:tw=78:et:ft=help:norl:

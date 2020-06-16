@@ -143,4 +143,11 @@ Try the following (untested) after opening the quickfix window (and with it bein
 'winfixheight' is a boolean option. You want something like :resize 12 | setlocal winfixheight. --Fritzophrenic 14:38, September 27, 2010 (UTC)
 But help says that winfixheight is set in a quickfix window, and that it will be ignored when running out of room. So something more would be needed. JohnBeckett 11:15, September 28, 2010 (UTC)
 
+CATEGORIES                                                      *vtw-132-cats*
+
+Split windows *vtw-by-category-split-windows*
+Tabs *vtw-by-category-tabs*
+Todo *vtw-by-category-todo*
+
+
  vim:tw=78:et:ft=help:norl:

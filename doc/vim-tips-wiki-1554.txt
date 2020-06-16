@@ -91,4 +91,9 @@ MoveToNextTab()<CR><C-w>Hmap <C-n> :call MoveToPrevTab()<CR><C-w>H
 
 Alternately, replace the `sp` lines with`vert topleft split`
 
+CATEGORIES                                                     *vtw-1554-cats*
+
+Tabs *vtw-by-category-tabs*
+
+
  vim:tw=78:et:ft=help:norl:

@@ -151,4 +151,10 @@ It works for me with putty. But I need to explicitly set :syntax on after setti
 Try to set Terminal-type string in putty (Connection->Data) to 
 'putty-256color'. That worked for me.
 
+CATEGORIES                                                     *vtw-1576-cats*
+
+Syntax *vtw-by-category-syntax*
+Terminals *vtw-by-category-terminals*
+
+
  vim:tw=78:et:ft=help:norl:

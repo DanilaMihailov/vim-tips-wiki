@@ -75,4 +75,8 @@ How is this better than `gq` with a line width of 80?
 This IS better than gq with a line width of 80 because it prevents short lines without empty line between them from being concatenated! --February 3, 2016
 See :help 'formatprg'. You could probably get the best of both worlds. --Fritzophrenic (talk)
 
+CATEGORIES                                                     *vtw-1131-cats*
+
+
+
  vim:tw=78:et:ft=help:norl:

@@ -364,4 +364,8 @@ The command with an exclamation mark `:B!` executes `:ls!` which includes
 unlisted buffers in the list. Entering a zero as answer creates a new buffer 
 with `:enew` command.Also a desired buffer number or part of buffer's name can be specified directly as argument to `:B` . (Gmikeus [https://vim.fandom.com/wiki/User:Gmikeus] 19:43, December 19, 2010 (UTC))
 
+CATEGORIES                                                     *vtw-1537-cats*
+
+
+
  vim:tw=78:et:ft=help:norl:

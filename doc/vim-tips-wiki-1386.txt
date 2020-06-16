@@ -160,4 +160,10 @@ do this? I am still not very good at vim-script.
 
 You might be able to make a mapping that does <C-X><C-O> then checks if the popup is visible using the pumvisible() function, if you have "menuone" in your 'completeoptions' setting. Then if the popup isn't visible end the current completion and use <C-N>. I'm not sure how well it would work, though; and it's pretty complicated. --Fritzophrenic 14:47, June 8, 2012 (UTC)
 
+CATEGORIES                                                     *vtw-1386-cats*
+
+Completion *vtw-by-category-completion*
+Todo *vtw-by-category-todo*
+
+
  vim:tw=78:et:ft=help:norl:

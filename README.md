@@ -26,6 +26,6 @@ Sometimes I find myself using `:helpgrep` and not finding what I am looking for,
 ## TODO
 While this plugin is complete and ready to be used, I still want to add some features
 
-- [ ] Use categories
-- [ ] Add index of all tips
+- [x] Use categories
+- [x] Add index of all tips
 - [ ] Add :RandomVimTip command

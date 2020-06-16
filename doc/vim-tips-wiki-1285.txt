@@ -124,4 +124,9 @@ lieu of filename 42 lines, 42 characters written.
     cabbrev w <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Write' : 'w')<CR>
 <
 
+CATEGORIES                                                     *vtw-1285-cats*
+
+Usage *vtw-by-category-usage*
+
+
  vim:tw=78:et:ft=help:norl:

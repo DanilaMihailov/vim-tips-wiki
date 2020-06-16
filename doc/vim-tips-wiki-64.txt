@@ -206,4 +206,9 @@ However, if anyone thinks it might be unnecessary, please remove it. JohnBeckett
 
 I like the text about testing for autochdir in a script. I think the netrw is in there only because there aren't really any specific problems with plugins that anyone knows about, except for the historic problems with netrw. :help 'autochdir' states that "some plugins may not work" when using the option. Honestly, I'm not convinced the autocmd is any better, I expect most plugins that fail for autochdir will also fail for the autocmd. I would be OK with removing the note about netrw, but I know for some reason a lot of people loudly complain when anyone recommends using autochdir, often giving the autocmd as an alternative, with no real reasons why it's better. --Fritzophrenic 16:31, August 9, 2011 (UTC)
 
+CATEGORIES                                                       *vtw-64-cats*
+
+File Handling *vtw-by-category-file-handling*
+
+
  vim:tw=78:et:ft=help:norl:
