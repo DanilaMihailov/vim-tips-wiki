@@ -28,6 +28,23 @@ fn wrap_text(text: &str, max_col: usize, new_line: &str) -> String {
 }
 
 #[derive(Debug)]
+struct MetaEntry {
+    n: u32,
+    title: String,
+    categories: Vec<String>,
+}
+
+impl<'a> From<WikiEntry<'a>> for MetaEntry {
+    fn from(entry: WikiEntry) -> Self {
+        MetaEntry {
+            n: entry.n,
+            title: entry.title,
+            categories: entry.categories,
+        }
+    }
+}
+
+#[derive(Debug)]
 struct WikiEntry<'a> {
     n: u32,
     title: String,
@@ -245,7 +262,7 @@ impl<'a> WikiEntry<'a> {
     /// Given N downloads, if needed, Vim tip from wiki
     /// saves it to ./originals folder
     /// parse it and save to ./doc folder
-    async fn make_tip(n: u32) -> Result<(), Box<dyn std::error::Error>> {
+    async fn make_tip(n: u32) -> Result<MetaEntry, Box<dyn std::error::Error>> {
         let mut original =
             tokio::fs::read_to_string(format!("originals/vim-tips-wiki-{}.html", n)).await;
 
@@ -267,22 +284,48 @@ impl<'a> WikiEntry<'a> {
 
         tokio::fs::write(format!("doc/{}", entry.file_name()), &result.into_bytes()).await?;
 
-        Ok(())
+        Ok(entry.into())
     }
 }
 
+use crossbeam::queue::ArrayQueue;
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let q = ArrayQueue::new(1678);
+    // let (sender, receiver) = channel();
     let done = std::sync::atomic::AtomicU16::new(0);
     (1..=1678).into_par_iter().for_each(|n| {
         let mut rt = Runtime::new().unwrap();
         let res = rt.block_on(WikiEntry::make_tip(n as u32));
         match res {
             Err(e) => eprintln!("{:#?}", e),
-            _ => {
+            Ok(entry) => {
+                q.push(entry);
                 let old = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
                 print!("\r{}/{}", old + 1, 1678);
             }
         }
     });
+
+    let mut entries = vec![];
+    while let Ok(entry) = q.pop() {
+        entries.push(entry);
+    }
+    let mut index = String::new();
+    index.push_str(&format!(
+        "{}\n\n",
+        "*vim-tips-wiki-index.txt* List of all tips in order *vim-tips-wiki-index*"
+    ));
+    index.push_str(&format!("{}\n\n", "=".repeat(78)));
+
+    entries.sort_by(|e1, e2| e1.n.partial_cmp(&e2.n).unwrap());
+
+    for en in &entries {
+        index.push_str(format!("{:>4}. {} *vtw-{}*\n", en.n, en.title, en.n).as_str());
+    }
+
+    index.push_str(&format!("\n\n{}", " vim:tw=78:et:ft=help:norl:"));
+    std::fs::write("doc/vim-tips-wiki-index.txt", index.as_bytes()).unwrap();
+
     Ok(())
 }

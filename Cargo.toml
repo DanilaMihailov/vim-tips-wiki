@@ -13,3 +13,4 @@ tokio = { version = "0.2", features = ["full"] }
 regex = "1"
 urlencoding = "1.0.0"
 rayon = "1.1"
+crossbeam = "0.7.3"
