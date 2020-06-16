@@ -6,6 +6,9 @@ use select::predicate::{Attr, Class};
 use tokio::runtime::Runtime;
 use urlencoding::decode;
 
+/// Wrap text by words
+///
+/// Given text, adds &str to it if line is longer than max column
 fn wrap_text(text: &str, max_col: usize, new_line: &str) -> String {
     let mut col = 0;
     let mut new_text = String::with_capacity(text.len());
@@ -45,6 +48,7 @@ impl<'a> WikiEntry<'a> {
         format!("vim-tips-wiki-{}{}", &self.n, txt)
     }
 
+    /// Recursivly walks node's children and formats them to look like Vim help
     fn parse_node(&self, node: Node) -> String {
         match node.name() {
             Some("a") => self.parse_link(node),
@@ -117,6 +121,8 @@ impl<'a> WikiEntry<'a> {
         }
     }
 
+    /// Parse a tag to use Vim tags where possible, or just makes it look like
+    /// link text [url]
     fn parse_link(&self, a_node: Node) -> String {
         let href = a_node.attr("href");
 
@@ -171,6 +177,7 @@ impl<'a> WikiEntry<'a> {
         }
     }
 
+    /// Convert WikiEntry to Vim help style string
     fn to_vim_help(&self) -> String {
         let mut result = String::new();
         let fname = self.file_name();
@@ -199,6 +206,7 @@ impl<'a> WikiEntry<'a> {
         return result;
     }
 
+    /// Parse Document creating WikiEntry
     fn parse(document: &'a Document, n: u32) -> Self {
         let title = document
             .find(Class("page-header__title"))
@@ -234,6 +242,9 @@ impl<'a> WikiEntry<'a> {
         return entry;
     }
 
+    /// Given N downloads, if needed, Vim tip from wiki
+    /// saves it to ./originals folder
+    /// parse it and save to ./doc folder
     async fn make_tip(n: u32) -> Result<(), Box<dyn std::error::Error>> {
         let mut original =
             tokio::fs::read_to_string(format!("originals/vim-tips-wiki-{}.html", n)).await;
