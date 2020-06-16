@@ -3,4 +3,4 @@ function OpenRandomWikiTip()
     execute "help vtw-".n
 endfunction
 
-command RandomVimTip call OpenRandomWikiTip()
+command! RandomVimTip call OpenRandomWikiTip()
