@@ -313,8 +313,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     let mut index = String::new();
     index.push_str(&format!(
-        "{}\n\n",
-        "*vim-tips-wiki-index.txt* List of all tips in order *vim-tips-wiki-index*"
+        "*{}* {}\n\n",
+        "vim-tips-wiki-index.txt", "List of all tips in order *vim-tips-wiki-index*"
     ));
     index.push_str(&format!("{}\n\n", "=".repeat(78)));
 
@@ -324,8 +324,46 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         index.push_str(format!("{:>4}. {} *vtw-{}*\n", en.n, en.title, en.n).as_str());
     }
 
-    index.push_str(&format!("\n\n{}", " vim:tw=78:et:ft=help:norl:"));
+    index.push_str(&format!("\n\n vim:{}", "tw=78:et:ft=help:norl:"));
     std::fs::write("doc/vim-tips-wiki-index.txt", index.as_bytes()).unwrap();
 
+    let mut alpha = String::new();
+    alpha.push_str(&format!(
+        "*{}* {}\n\n",
+        "vim-tips-wiki-alphabetically.txt",
+        "List of all tips in alphabetical order *vim-tips-wiki-alphabetically*"
+    ));
+    // alpha.push_str(&format!("{}\n\n", "=".repeat(78)));
+
+    entries.sort_by(|e1, e2| e1.title.partial_cmp(&e2.title).unwrap());
+
+    let mut prev_letter = None;
+    for en in entries.iter() {
+        let first = en.title.chars().next();
+        if prev_letter.is_none() {
+            prev_letter = first;
+            alpha.push_str(&format!(
+                "\n{}{}*vim-tips-alphabetically-{}*\n{}\n",
+                prev_letter.unwrap(),
+                " ".repeat(52),
+                prev_letter.unwrap(),
+                "=".repeat(78),
+            ));
+        } else if prev_letter != first {
+            prev_letter = first;
+
+            alpha.push_str(&format!(
+                "\n{}{}*vim-tips-alphabetically-{}*\n{}\n",
+                prev_letter.unwrap(),
+                " ".repeat(52),
+                prev_letter.unwrap(),
+                "=".repeat(78),
+            ));
+        }
+        alpha.push_str(format!("{} *vtw-{}*\n", en.title, en.n).as_str());
+    }
+
+    alpha.push_str(&format!("\n\n vim:{}", "tw=78:et:ft=help:norl:"));
+    std::fs::write("doc/vim-tips-wiki-alphabetically.txt", alpha.as_bytes()).unwrap();
     Ok(())
 }
