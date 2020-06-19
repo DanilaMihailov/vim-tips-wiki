@@ -1,3 +1,4 @@
+use crossbeam::queue::ArrayQueue;
 use rayon::prelude::*;
 use regex::Regex;
 use select::document::Document;
@@ -322,11 +323,8 @@ impl<'a> WikiEntry<'a> {
     }
 }
 
-use crossbeam::queue::ArrayQueue;
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let q = ArrayQueue::new(1678);
-    // let (sender, receiver) = channel();
     let done = std::sync::atomic::AtomicU16::new(0);
     (1..=1678).into_par_iter().for_each(|n| {
         let mut rt = Runtime::new().unwrap();
@@ -406,7 +404,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         "vim-tips-wiki-alphabetically.txt",
         "List of all tips in alphabetical order *vtw-alphabetically*"
     ));
-    // alpha.push_str(&format!("{}\n\n", "=".repeat(78)));
 
     entries.sort_by(|e1, e2| e1.title.partial_cmp(&e2.title).unwrap());
 
