@@ -311,7 +311,7 @@ impl<'a> WikiEntry<'a> {
             })
             .is_some()
         {
-            tokio::fs::remove_file(format!("doc/{}", entry.file_name())).await?;
+            let _ = tokio::fs::remove_file(format!("doc/{}", entry.file_name())).await;
             return Err("Tip is skipped".into());
         }
 
@@ -331,11 +331,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let res = rt.block_on(WikiEntry::make_tip(n as u32));
         match res {
             Err(e) => eprintln!("{:#?}", e),
-            Ok(entry) => {
-                q.push(entry);
-                let old = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-                print!("\r{}/{}", old + 1, 1678);
-            }
+            Ok(entry) => match q.push(entry) {
+                Ok(_) => {
+                    let old = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                    print!("\r{}/{}", old + 1, 1678);
+                }
+                Err(e) => eprintln!("{:#?}", e),
+            },
         }
     });
 
