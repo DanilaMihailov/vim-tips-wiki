@@ -7,6 +7,13 @@ use select::predicate::{Attr, Class};
 use tokio::runtime::Runtime;
 use urlencoding::decode;
 
+const IGNORED_CATS: [&str; 4] = [
+    "Deprecated",
+    "OriginalDuplicate",
+    "OriginalMissing",
+    "Removed",
+];
+
 /// Wrap text by words
 ///
 /// Given text, adds &str to it if line is longer than max column
@@ -303,12 +310,7 @@ impl<'a> WikiEntry<'a> {
         if entry
             .categories
             .iter()
-            .position(|cat| {
-                *cat == "Deprecated".to_owned()
-                    || *cat == "OriginalDuplicate".to_owned()
-                    || *cat == "OriginalMissing".to_owned()
-                    || *cat == "Removed".to_owned()
-            })
+            .position(|cat| IGNORED_CATS.contains(&cat.as_str()))
             .is_some()
         {
             let _ = tokio::fs::remove_file(format!("doc/{}", entry.file_name())).await;
