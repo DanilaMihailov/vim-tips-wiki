@@ -7,7 +7,7 @@ Try `:help vtw-1`. Checkout plugin help `:h vim-wiki-tips`, theres lists of tips
 
 **Note**: this plugin is *not* related to [vimwiki](https://github.com/vimwiki/vimwiki) (amazing plugin btw).
 
-![Screenshot](https://github.com/DanilaMihailov/vim-wiki-tips/blob/master/screenshots/preview.png?raw=true) (*theme gruvbox, light variant*)
+![Screenshot](https://github.com/DanilaMihailov/vim-wiki-tips/blob/master/screenshots/preview.png?raw=true) (*color scheme gruvbox, light variant*)
 
 ## Installation
 
