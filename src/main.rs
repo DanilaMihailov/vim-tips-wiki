@@ -1,3 +1,4 @@
+use crossbeam::queue::ArrayQueue;
 use rayon::prelude::*;
 use regex::Regex;
 use select::document::Document;
@@ -5,6 +6,13 @@ use select::node::Node;
 use select::predicate::{Attr, Class};
 use tokio::runtime::Runtime;
 use urlencoding::decode;
+
+const IGNORED_CATS: [&str; 4] = [
+    "Deprecated",
+    "OriginalDuplicate",
+    "OriginalMissing",
+    "Removed",
+];
 
 /// Wrap text by words
 ///
@@ -298,6 +306,17 @@ impl<'a> WikiEntry<'a> {
 
         let document = Document::from(original.unwrap().as_str());
         let entry = WikiEntry::parse(&document, n);
+
+        if entry
+            .categories
+            .iter()
+            .position(|cat| IGNORED_CATS.contains(&cat.as_str()))
+            .is_some()
+        {
+            let _ = tokio::fs::remove_file(format!("doc/{}", entry.file_name())).await;
+            return Err("Tip is skipped".into());
+        }
+
         let result = entry.to_vim_help();
 
         tokio::fs::write(format!("doc/{}", entry.file_name()), &result.into_bytes()).await?;
@@ -306,22 +325,21 @@ impl<'a> WikiEntry<'a> {
     }
 }
 
-use crossbeam::queue::ArrayQueue;
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let q = ArrayQueue::new(1678);
-    // let (sender, receiver) = channel();
     let done = std::sync::atomic::AtomicU16::new(0);
     (1..=1678).into_par_iter().for_each(|n| {
         let mut rt = Runtime::new().unwrap();
         let res = rt.block_on(WikiEntry::make_tip(n as u32));
         match res {
             Err(e) => eprintln!("{:#?}", e),
-            Ok(entry) => {
-                q.push(entry);
-                let old = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
-                print!("\r{}/{}", old + 1, 1678);
-            }
+            Ok(entry) => match q.push(entry) {
+                Ok(_) => {
+                    let old = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                    print!("\r{}/{}", old + 1, 1678);
+                }
+                Err(e) => eprintln!("{:#?}", e),
+            },
         }
     });
 
@@ -390,7 +408,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         "vim-tips-wiki-alphabetically.txt",
         "List of all tips in alphabetical order *vtw-alphabetically*"
     ));
-    // alpha.push_str(&format!("{}\n\n", "=".repeat(78)));
 
     entries.sort_by(|e1, e2| e1.title.partial_cmp(&e2.title).unwrap());
 
