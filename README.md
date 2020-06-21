@@ -5,9 +5,9 @@ You can use `:helpgrep` to search tips, `Ctrl-]` to jump tags and `gO` (thats ca
 
 Try `:help vtw-1`. Checkout plugin help `:h vim-wiki-tips`, theres lists of tips sorted by order, alphabet and category. And there is command `:RandomVimTip` that opens random tip.
 
-**NOTE**: this plugin is *NOT* related to [vimwiki](https://github.com/vimwiki/vimwiki) (amazing plugin btw).
+**Note**: this plugin is *not* related to [vimwiki](https://github.com/vimwiki/vimwiki) (amazing plugin btw).
 
-![Screenshot](https://github.com/DanilaMihailov/vim-wiki-tips/blob/master/screenshots/preview.png?raw=true)
+![Screenshot](https://github.com/DanilaMihailov/vim-wiki-tips/blob/master/screenshots/preview.png?raw=true) (*theme gruvbox, light variant*)
 
 ## Installation
 
