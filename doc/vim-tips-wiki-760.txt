@@ -130,6 +130,40 @@ you can add 'g' to the last argument of the substitute command above to
      \ 'g')<CR>
 <
 
+If you want to be able to use <C-+> and <C-->, this is currently not possible 
+inside (g)vim as they don't map to a (unique) ascii-code (read more about it 
+here https://groups.google.com/forum/#!topic/vim_dev/EZT_Q0YRmAM 
+[https://groups.google.com/forum/#!topic/vim_dev/EZT_Q0YRmAM]). If you're on 
+windows, you can use AutoHotkey to circumvent this issue.
+
+Create an autohotkey script (https://www.autohotkey.com/ 
+[https://www.autohotkey.com/]), and put the following inside it:
+
+>
+    #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+    ; #Warn  ; Enable warnings to assist with detecting common errors.
+    SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+    SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+    
+    ^+::
+    if WinActive("ahk_exe gvim.exe")
+    {
+        Send, ^{Up}
+    }
+    return
+    
+    ^-::
+    if WinActive("ahk_exe gvim.exe")
+    {
+        Send, ^{Down}
+    }
+    return
+<
+
+Name it something like vim.ahk, and put it inside this folder to have it be 
+executed automatically on startup C:\Users\[User 
+Name]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup.
+
 REFERENCES                                                *vtw-760-references*
     - :help |sub-replace-expression| 
     - :help |eval()| 
