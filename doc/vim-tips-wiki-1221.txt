@@ -22,6 +22,33 @@ example:
 Some mappings might not work in terminal versions of Vim (especially 
 mappings, that use the Alt key or a combination of Ctrl and Shift).
 
+TAB NAVIGATION USING THE THE LEADER KEY AND NUMBER ROW *vtw-1221-tab-navigation-using-the-the-leader-key-and-number-row*
+
+>
+    nnoremap <leader>1 1gtnnoremap <leader>2 2gt
+    nnoremap <leader>3 3gt
+    nnoremap <leader>4 4gt
+    nnoremap <leader>5 5gt
+    ...
+<
+
+VIM NAVIGATION                                       *vtw-1221-vim-navigation*
+
+>
+    nnoremap th  :tabfirst<CR>
+    nnoremap tk  :tabnext<CR>
+    nnoremap tj  :tabprev<CR>
+    nnoremap tl  :tablast<CR>
+    nnoremap tt  :tabedit<Space>
+    nnoremap tn  :tabnext<Space>
+    nnoremap tm  :tabm<Space>
+    nnoremap td  :tabclose<CR>
+    " Alternatively use
+    "nnoremap th :tabnext<CR>
+    "nnoremap tl :tabprev<CR>
+    "nnoremap tn :tabnew<CR>
+<
+
 FIREFOX LIKE NAVIGATION                     *vtw-1221-firefox-like-navigation*
 
 >
